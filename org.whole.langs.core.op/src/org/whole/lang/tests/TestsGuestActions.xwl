@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <actions:LanguageActionFactory xmlns:actions="http://lang.whole.org/Actions">
-    <actions:URI value="whole:org.whole.lang.tests:GenericTestsActions"/>
+    <actions:URI value="whole:org.whole.lang.tests:TestsGuestActions"/>
     <actions:Namespace value="org.whole.lang.tests"/>
-    <actions:Name value="Generic Tests Actions"/>
+    <actions:Name value="TestsGuestActions"/>
     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
     <actions:ToolbarActions>
@@ -24,12 +24,13 @@
                             <queries:And initialCapacity="3">
                                 <queries:AtTypeTest value="http://lang.whole.org/Tests#Expression"/>
                                 <queries:TypeTest value="http://lang.whole.org/Commons#StageUpFragment"/>
-                                <queries:ExpressionTest>
+                                <queries:Some>
                                     <queries:Filter>
                                         <queries:AncestorStep/>
                                         <queries:TypeTest value="http://lang.whole.org/Tests#UsingFilter"/>
                                     </queries:Filter>
-                                </queries:ExpressionTest>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </queries:Some>
                             </queries:And>
                         </queries:Filter>
                         <queries:Filter>
@@ -88,26 +89,29 @@
                     </queries:Path>
                     <queries:VariableRefStep value="fragment"/>
                 </queries:Block>
-                <queries:ExpressionTest xmlns:queries="http://lang.whole.org/Queries">
+                <queries:Some xmlns:queries="http://lang.whole.org/Queries">
                     <queries:Filter>
                         <queries:VariableRefStep value="primarySelectedEntity"/>
-                        <queries:ExpressionTest>
+                        <queries:Some>
                             <queries:Filter>
                                 <queries:AncestorOrSelfStep/>
                                 <queries:And initialCapacity="3">
                                     <queries:AtTypeTest value="http://lang.whole.org/Tests#Expression"/>
                                     <queries:TypeTest value="http://lang.whole.org/Commons#StageUpFragment"/>
-                                    <queries:ExpressionTest>
+                                    <queries:Some>
                                         <queries:Filter>
                                         <queries:AncestorStep/>
                                         <queries:TypeTest value="http://lang.whole.org/Tests#UsingFilter"/>
                                         </queries:Filter>
-                                    </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </queries:Some>
                                 </queries:And>
                             </queries:Filter>
-                        </queries:ExpressionTest>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </queries:Some>
                     </queries:Filter>
-                </queries:ExpressionTest>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </queries:Some>
             </actions:GuardedAction>
         </actions:MenuActions>
         <actions:MenuActions initialCapacity="0"/>
@@ -119,26 +123,29 @@
                     <actions:Label value="whole:org.whole.lang.tests:GenericTestsActions#Apply filter"/>
                     <queries:VariableRefStep xmlns:queries="http://lang.whole.org/Queries" value="primarySelectedEntity"/>
                 </actions:ActionCall>
-                <queries:ExpressionTest xmlns:queries="http://lang.whole.org/Queries">
+                <queries:Some xmlns:queries="http://lang.whole.org/Queries">
                     <queries:Filter>
                         <queries:VariableRefStep value="primarySelectedEntity"/>
-                        <queries:ExpressionTest>
+                        <queries:Some>
                             <queries:Filter>
                                 <queries:AncestorOrSelfStep/>
                                 <queries:And initialCapacity="3">
                                     <queries:AtTypeTest value="http://lang.whole.org/Tests#Expression"/>
                                     <queries:TypeTest value="http://lang.whole.org/Commons#StageUpFragment"/>
-                                    <queries:ExpressionTest>
+                                    <queries:Some>
                                         <queries:Filter>
                                         <queries:AncestorStep/>
                                         <queries:TypeTest value="http://lang.whole.org/Tests#UsingFilter"/>
                                         </queries:Filter>
-                                    </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </queries:Some>
                                 </queries:And>
                             </queries:Filter>
-                        </queries:ExpressionTest>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </queries:Some>
                     </queries:Filter>
-                </queries:ExpressionTest>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </queries:Some>
             </actions:GuardedAction>
         </actions:MenuActions>
         <actions:MenuActions initialCapacity="0"/>

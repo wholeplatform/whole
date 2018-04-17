@@ -25,16 +25,15 @@
                         <queries:Filter>
                             <queries:FeatureStep value="http://lang.whole.org/Actions#name"/>
                             <queries:Not>
-                                <queries:ExpressionTest>
-                                    <queries:Path initialCapacity="1">
-                                        <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                <queries:Some>
+                                    <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
                                         <semantics:Name value="whole:org.whole.lang:ReflectLibrary#uriResourcePart"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        </semantics:FunctionApplication>
-                                    </queries:Path>
-                                </queries:ExpressionTest>
+                                    </semantics:FunctionApplication>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </queries:Some>
                             </queries:Not>
                         </queries:Filter>
                     </queries:Path>
@@ -42,9 +41,7 @@
                         <queries:VariableRefStep value="uri"/>
                         <queries:Addition>
                             <queries:StringLiteral value="#"/>
-                            <queries:Singleton>
-                                <queries:SelfStep/>
-                            </queries:Singleton>
+                            <queries:SelfStep/>
                         </queries:Addition>
                     </queries:Addition>
                 </queries:CartesianUpdate>
@@ -106,12 +103,13 @@
                             <queries:SelfStep/>
                             <queries:And initialCapacity="3">
                                 <queries:TypeTest value="http://lang.whole.org/Actions#Label"/>
-                                <queries:ExpressionTest>
+                                <queries:Some>
                                     <queries:Filter>
                                         <queries:ParentStep/>
                                         <queries:TypeTest value="http://lang.whole.org/Actions#ActionCall"/>
                                     </queries:Filter>
-                                </queries:ExpressionTest>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </queries:Some>
                                 <queries:VariableTest value="actualNameUri"/>
                             </queries:And>
                         </queries:Filter>
@@ -175,7 +173,7 @@
                                     </workflows:InvokeJavaClassMethod>
                                     <queries:And initialCapacity="4">
                                         <queries:VariableTest value="moduleResource"/>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
                                         <workflows:Text value="getUri"/>
@@ -188,16 +186,15 @@
                                         </workflows:InvokeJavaInstanceMethod>
                                         <queries:And initialCapacity="2">
                                         <queries:VariableTest value="moduleUri"/>
-                                        <queries:ExpressionTest>
                                         <queries:NotEquals>
                                         <queries:VariableRefStep value="moduleUri"/>
                                         <queries:VariableRefStep value="actualModuleUri"/>
                                         </queries:NotEquals>
-                                        </queries:ExpressionTest>
                                         </queries:And>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
-                                        <queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
                                         <workflows:Text value="getEntity"/>
@@ -210,17 +207,19 @@
                                         </workflows:InvokeJavaInstanceMethod>
                                         <queries:VariableTest value="actionsModule"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
-                                        <queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
+                                        <queries:Some>
                                         <queries:Path initialCapacity="3">
                                         <queries:Filter>
                                         <queries:VariableRefStep value="actionsModule"/>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:FeatureStep value="http://lang.whole.org/Actions#name"/>
                                         <queries:VariableTest value="moduleName"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         </queries:Filter>
                                         <queries:Filter>
                                         <queries:Filter>
@@ -239,7 +238,8 @@
                                         <queries:VariableTest value="actionName"/>
                                         </queries:Filter>
                                         </queries:Path>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                     </queries:And>
                                 </queries:Filter>
                                 <queries:Filter>
@@ -314,12 +314,10 @@
                                         <queries:FeatureStep value="http://lang.whole.org/Actions#name"/>
                                         <queries:And initialCapacity="2">
                                         <queries:VariableTest value="actionName"/>
-                                        <queries:ExpressionTest>
                                         <queries:NotEquals>
                                         <queries:VariableRefStep value="actionName"/>
                                         <queries:VariableRefStep value="actualActionName"/>
                                         </queries:NotEquals>
-                                        </queries:ExpressionTest>
                                         </queries:And>
                                     </queries:Filter>
                                 </queries:Path>

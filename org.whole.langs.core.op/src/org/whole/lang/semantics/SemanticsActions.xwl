@@ -1058,7 +1058,7 @@
                                     <queries:If>
                                         <queries:And initialCapacity="1">
                                         <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Queries#ExpressionTest"/>
+                                        <commons:VarType value="http://lang.whole.org/Queries#Expression"/>
                                         <commons:VarName value="isVariableImpl"/>
                                         <commons:Quantifier value="+"/>
                                         </commons:Variable>

@@ -11,13 +11,108 @@
                 <semantics:AnyType/>
                 <semantics:AnyType/>
             </semantics:FunctionType>
-            <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
-                <queries:FeatureStep value="whole:org.whole.lang.boards:BoardsModel#objects"/>
-                <queries:Filter>
-                    <queries:ChildStep/>
-                    <queries:SubtypeTest value="whole:org.whole.lang.boards:BoardsModel#Palette"/>
-                </queries:Filter>
-            </queries:Path>
+            <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
+                <queries:FreshNames initialCapacity="3">
+                    <queries:Name value="prototypeItem"/>
+                    <queries:Name value="prototype"/>
+                    <queries:Name value="name"/>
+                </queries:FreshNames>
+                <queries:Select>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <languages:Palette xmlns:languages="whole:org.whole.lang.languages:LanguagesModel">
+                            <languages:Pixels value="0"/>
+                            <languages:Pixels value="0"/>
+                            <languages:Pixels value="0"/>
+                            <languages:Pixels value="0"/>
+                            <commons:Resolver/>
+                            <languages:Items initialCapacity="1">
+                                <commons:Variable>
+                                    <commons:VarType value="whole:org.whole.lang.languages:LanguagesModel#Item"/>
+                                    <commons:VarName value="prototypeItem"/>
+                                    <commons:Quantifier value="*"/>
+                                </commons:Variable>
+                            </languages:Items>
+                        </languages:Palette>
+                    </commons:StageUpFragment>
+                    <queries:VariableRefStep value="primarySelectedEntity"/>
+                    <queries:Select>
+                        <queries:Filter>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <languages:PrototypeItem xmlns:languages="whole:org.whole.lang.languages:LanguagesModel">
+                                    <commons:Variable>
+                                        <commons:VarType value="whole:org.whole.lang.languages:LanguagesModel#Name"/>
+                                        <commons:VarName value="name"/>
+                                        <commons:Quantifier value="!"/>
+                                    </commons:Variable>
+                                    <languages:Boolean value="false"/>
+                                    <languages:Boolean value="false"/>
+                                    <commons:Variable>
+                                        <commons:VarType value="whole:org.whole.lang.languages:LanguagesModel#Prototype"/>
+                                        <commons:VarName value="prototype"/>
+                                        <commons:Quantifier value="!"/>
+                                    </commons:Variable>
+                                </languages:PrototypeItem>
+                            </commons:StageUpFragment>
+                            <queries:VariableTest value="prototypeItem"/>
+                        </queries:Filter>
+                        <queries:Path initialCapacity="2">
+                            <semantics:FunctionApplication>
+                                <semantics:Name value="whole:org.whole.lang:ReflectLibrary#instanceAtType"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            </semantics:FunctionApplication>
+                            <queries:Filter>
+                                <semantics:FunctionApplication>
+                                    <semantics:Name value="whole:org.whole.lang:ReflectLibrary#entitySubtypes"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </semantics:FunctionApplication>
+                                <queries:Not>
+                                    <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#entityIsAbstract"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </semantics:FunctionApplication>
+                                </queries:Not>
+                            </queries:Filter>
+                        </queries:Path>
+                        <queries:Sequence initialCapacity="2">
+                            <queries:Filter>
+                                <semantics:FunctionApplication>
+                                    <semantics:Name value="whole:org.whole.lang:ReflectLibrary#entityName"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </semantics:FunctionApplication>
+                                <queries:VariableTest value="name"/>
+                            </queries:Filter>
+                            <queries:Path initialCapacity="2">
+                                <semantics:FunctionApplication>
+                                    <semantics:Name value="whole:org.whole.lang:ReflectLibrary#entityURI"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </semantics:FunctionApplication>
+                                <queries:Filter>
+                                    <workflows:CreateEntity xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="create"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:Registry value="DEFAULT"/>
+                                        <workflows:Variable value="self"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </workflows:CreateEntity>
+                                    <queries:VariableTest value="prototype"/>
+                                </queries:Filter>
+                            </queries:Path>
+                        </queries:Sequence>
+                        <queries:TemplateNames/>
+                    </queries:Select>
+                    <queries:TemplateNames/>
+                </queries:Select>
+            </queries:Scope>
         </semantics:SemanticFunction>
         <semantics:SemanticFunction>
             <semantics:Name value="deriveIndexViewContents"/>

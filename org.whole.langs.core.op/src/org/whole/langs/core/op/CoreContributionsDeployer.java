@@ -49,7 +49,7 @@ public class CoreContributionsDeployer extends AbstractContributionDeployer {
 					new ClasspathPersistenceProvider("org/whole/lang/tests/TestsActions.xwl")));
 
 			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
-					new ClasspathPersistenceProvider("org/whole/lang/tests/GenericTestsActions.xwl")));
+					new ClasspathPersistenceProvider("org/whole/lang/tests/TestsGuestActions.xwl")));
 
 			//Require SemanticsActions
 			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(

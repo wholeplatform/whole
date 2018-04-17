@@ -21,7 +21,7 @@
         <actions:SimpleAction>
             <actions:Label value="Value Assist"/>
             <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                <queries:Names initialCapacity="7">
+                <queries:FreshNames initialCapacity="7">
                     <queries:Name value="group"/>
                     <queries:Name value="action"/>
                     <queries:Name value="name"/>
@@ -29,7 +29,7 @@
                     <queries:Name value="persistenceKits"/>
                     <queries:Name value="persistenceKit"/>
                     <queries:Name value="persistenceKitId"/>
-                </queries:Names>
+                </queries:FreshNames>
                 <queries:Select>
                     <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                         <actions:Actions initialCapacity="1">
@@ -68,12 +68,13 @@
                                         <queries:Select>
                                         <queries:Choose initialCapacity="3">
                                         <queries:If>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:VariableRefStep value="primarySelectedEntity"/>
                                         <queries:KindTest value="COMPOSITE"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                                         <actions:PerformAction>
                                         <commons:Resolver/>
@@ -96,12 +97,13 @@
                                         </commons:StageUpFragment>
                                         </queries:If>
                                         <queries:If>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:VariableRefStep value="primarySelectedEntity"/>
                                         <queries:AtFeatureTest value="http://lang.whole.org/Artifacts#projects"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                                         <actions:PerformAction>
                                         <commons:Resolver/>
@@ -158,7 +160,6 @@
                                         <queries:AtFeatureTest value="http://lang.whole.org/Artifacts#projects"/>
                                         <queries:AtFeatureTest value="http://lang.whole.org/Artifacts#artifacts"/>
                                         </queries:Or>
-                                        <queries:ExpressionTest>
                                         <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
                                         <workflows:Text value="existsPath(parent)"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -169,7 +170,6 @@
                                         <queries:ParentStep/>
                                         </workflows:Expressions>
                                         </workflows:InvokeJavaClassMethod>
-                                        </queries:ExpressionTest>
                                         </queries:And>
                                         </queries:Filter>
                                         <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
@@ -191,14 +191,10 @@
                                         <queries:If>
                                         <queries:TypeTest value="http://lang.whole.org/Artifacts#NameWithExtension"/>
                                         <queries:Addition>
-                                        <queries:Singleton>
                                         <queries:FeatureStep value="http://lang.whole.org/Artifacts#name"/>
-                                        </queries:Singleton>
                                         <queries:Addition>
                                         <queries:StringLiteral value="."/>
-                                        <queries:Singleton>
                                         <queries:FeatureStep value="http://lang.whole.org/Artifacts#extension"/>
-                                        </queries:Singleton>
                                         </queries:Addition>
                                         </queries:Addition>
                                         </queries:If>
@@ -241,7 +237,6 @@
                                         <queries:ExtendedSubtypeTest value="http://lang.whole.org/Artifacts#Artifact"/>
                                         <queries:TypeTest value="http://lang.whole.org/Artifacts#Project"/>
                                         </queries:Or>
-                                        <queries:ExpressionTest>
                                         <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
                                         <workflows:Text value="existsPath(parent/parent)"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -255,7 +250,6 @@
                                         </queries:Path>
                                         </workflows:Expressions>
                                         </workflows:InvokeJavaClassMethod>
-                                        </queries:ExpressionTest>
                                         </queries:And>
                                         </queries:Filter>
                                         <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
@@ -280,14 +274,10 @@
                                         <queries:If>
                                         <queries:TypeTest value="http://lang.whole.org/Artifacts#NameWithExtension"/>
                                         <queries:Addition>
-                                        <queries:Singleton>
                                         <queries:FeatureStep value="http://lang.whole.org/Artifacts#name"/>
-                                        </queries:Singleton>
                                         <queries:Addition>
                                         <queries:StringLiteral value="."/>
-                                        <queries:Singleton>
                                         <queries:FeatureStep value="http://lang.whole.org/Artifacts#extension"/>
-                                        </queries:Singleton>
                                         </queries:Addition>
                                         </queries:Addition>
                                         </queries:If>
@@ -381,7 +371,6 @@
                                         <queries:SelfStep/>
                                         <queries:And initialCapacity="2">
                                         <queries:AtFeatureTest value="http://lang.whole.org/Artifacts#content"/>
-                                        <queries:ExpressionTest>
                                         <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
                                         <workflows:Text value="existsPath(parent)"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -392,7 +381,6 @@
                                         <queries:ParentStep/>
                                         </workflows:Expressions>
                                         </workflows:InvokeJavaClassMethod>
-                                        </queries:ExpressionTest>
                                         </queries:And>
                                         </queries:Filter>
                                         <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
@@ -458,18 +446,18 @@
                                         <queries:Prune>
                                         <queries:And initialCapacity="2">
                                         <queries:TypeTest value="http://lang.whole.org/Artifacts#FileArtifact"/>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:FeatureStep value="http://lang.whole.org/Artifacts#content"/>
                                         <queries:KindTest value="RESOLVER"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver/>
+                                        </queries:Some>
                                         </queries:And>
                                         </queries:Prune>
                                         </queries:Filter>
                                         <queries:Filter>
                                         <queries:SelfStep/>
-                                        <queries:ExpressionTest>
                                         <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
                                         <workflows:Text value="existsPath(self)"/>
                                         <commons:Resolver/>
@@ -480,7 +468,6 @@
                                         <queries:SelfStep/>
                                         </workflows:Expressions>
                                         </workflows:InvokeJavaClassMethod>
-                                        </queries:ExpressionTest>
                                         </queries:Filter>
                                         <queries:Block initialCapacity="2">
                                         <queries:Filter>
@@ -579,11 +566,10 @@
                                 </commons:StageUpFragment>
                                 <queries:Filter>
                                     <queries:SelfStep/>
-                                    <queries:ExpressionTest>
-                                        <queries:Path initialCapacity="1">
+                                    <queries:Some>
                                         <queries:FeatureStep value="http://lang.whole.org/Artifacts#metadata"/>
-                                        </queries:Path>
-                                    </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </queries:Some>
                                 </queries:Filter>
                                 <queries:Select>
                                     <queries:Filter>
@@ -712,7 +698,6 @@
                                         <queries:AtFeatureTest value="http://lang.whole.org/Artifacts#projects"/>
                                         <queries:AtFeatureTest value="http://lang.whole.org/Artifacts#artifacts"/>
                                         </queries:Or>
-                                        <queries:ExpressionTest>
                                         <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
                                         <workflows:Text value="existsPath(parent)"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -723,7 +708,6 @@
                                         <queries:ParentStep/>
                                         </workflows:Expressions>
                                         </workflows:InvokeJavaClassMethod>
-                                        </queries:ExpressionTest>
                                         </queries:And>
                                         </queries:Filter>
                                         <queries:ParentStep/>

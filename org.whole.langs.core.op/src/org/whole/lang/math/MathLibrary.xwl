@@ -74,56 +74,46 @@
                             </patterns:Declarations>
                             <patterns:SelectionPoint initialCapacity="5">
                                 <patterns:ConditionPoint>
-                                    <queries:ExpressionTest>
-                                        <queries:Equals>
+                                    <queries:Equals>
                                         <queries:VariableRefStep value="kind"/>
                                         <queries:StringLiteral value="pi"/>
-                                        </queries:Equals>
-                                    </queries:ExpressionTest>
+                                    </queries:Equals>
                                     <patterns:TemplatePoint>
                                         <javascript:NumberLiteral xmlns:javascript="whole:org.whole.lang.javascript:JavaScript" value="3.141592653589793"/>
                                     </patterns:TemplatePoint>
                                 </patterns:ConditionPoint>
                                 <patterns:ConditionPoint>
-                                    <queries:ExpressionTest>
-                                        <queries:Equals>
+                                    <queries:Equals>
                                         <queries:VariableRefStep value="kind"/>
                                         <queries:StringLiteral value="e"/>
-                                        </queries:Equals>
-                                    </queries:ExpressionTest>
+                                    </queries:Equals>
                                     <patterns:TemplatePoint>
                                         <javascript:NumberLiteral xmlns:javascript="whole:org.whole.lang.javascript:JavaScript" value="2.718281828459045"/>
                                     </patterns:TemplatePoint>
                                 </patterns:ConditionPoint>
                                 <patterns:ConditionPoint>
-                                    <queries:ExpressionTest>
-                                        <queries:Equals>
+                                    <queries:Equals>
                                         <queries:VariableRefStep value="kind"/>
                                         <queries:StringLiteral value="gamma"/>
-                                        </queries:Equals>
-                                    </queries:ExpressionTest>
+                                    </queries:Equals>
                                     <patterns:TemplatePoint>
                                         <javascript:NumberLiteral xmlns:javascript="whole:org.whole.lang.javascript:JavaScript" value="0.5772156649015329"/>
                                     </patterns:TemplatePoint>
                                 </patterns:ConditionPoint>
                                 <patterns:ConditionPoint>
-                                    <queries:ExpressionTest>
-                                        <queries:Equals>
+                                    <queries:Equals>
                                         <queries:VariableRefStep value="kind"/>
                                         <queries:StringLiteral value="i"/>
-                                        </queries:Equals>
-                                    </queries:ExpressionTest>
+                                    </queries:Equals>
                                     <patterns:TemplatePoint>
                                         <javascript:Identifier xmlns:javascript="whole:org.whole.lang.javascript:JavaScript" value="NaN"/>
                                     </patterns:TemplatePoint>
                                 </patterns:ConditionPoint>
                                 <patterns:ConditionPoint>
-                                    <queries:ExpressionTest>
-                                        <queries:Equals>
+                                    <queries:Equals>
                                         <queries:VariableRefStep value="kind"/>
                                         <queries:StringLiteral value="infinity"/>
-                                        </queries:Equals>
-                                    </queries:ExpressionTest>
+                                    </queries:Equals>
                                     <patterns:TemplatePoint>
                                         <javascript:Identifier xmlns:javascript="whole:org.whole.lang.javascript:JavaScript" value="Infinity"/>
                                     </patterns:TemplatePoint>
@@ -275,7 +265,7 @@
                         <queries:TypeTest value="http://lang.whole.org/Math#Remainder"/>
                         <queries:TypeTest value="http://lang.whole.org/Math#Or"/>
                         <queries:TypeTest value="http://lang.whole.org/Math#And"/>
-                        <queries:TypeTest value="http://lang.whole.org/Math#Equal"/>
+                        <queries:TypeTest value="http://lang.whole.org/Math#Equals"/>
                         <queries:TypeTest value="http://lang.whole.org/Math#NotEquals"/>
                         <queries:TypeTest value="http://lang.whole.org/Math#LessThan"/>
                         <queries:TypeTest value="http://lang.whole.org/Math#LessOrEqual"/>
@@ -332,7 +322,7 @@
                                         <javascript:InfixOperator value="&amp;&amp;"/>
                                         </patterns:ConditionPoint>
                                         <patterns:ConditionPoint>
-                                        <queries:TypeTest value="http://lang.whole.org/Math#Equal"/>
+                                        <queries:TypeTest value="http://lang.whole.org/Math#Equals"/>
                                         <javascript:InfixOperator value="==="/>
                                         </patterns:ConditionPoint>
                                         <patterns:ConditionPoint>
@@ -376,7 +366,7 @@
                                         <queries:If>
                                         <queries:And initialCapacity="2">
                                         <queries:KindTest value="COMPOSITE"/>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Path initialCapacity="1">
                                         <queries:Filter>
                                         <queries:ChildStep/>
@@ -385,7 +375,8 @@
                                         </queries:IndexTest>
                                         </queries:Filter>
                                         </queries:Path>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         </queries:And>
                                         <patterns:ScopePoint>
                                         <patterns:Declarations initialCapacity="1">
@@ -412,11 +403,12 @@
                                         <queries:Filter>
                                         <queries:ChildStep/>
                                         <queries:Not>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Path initialCapacity="1">
                                         <queries:FollowingSiblingStep/>
                                         </queries:Path>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         </queries:Not>
                                         </queries:Filter>
                                         </queries:Path>
@@ -457,11 +449,12 @@
                                         <queries:Filter>
                                         <queries:ChildStep/>
                                         <queries:Not>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Path initialCapacity="1">
                                         <queries:FollowingSiblingStep/>
                                         </queries:Path>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         </queries:Not>
                                         </queries:Filter>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>

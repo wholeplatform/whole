@@ -35,7 +35,7 @@
                     </workflows:InvokeJavaClassMethod>
                 </queries:Block>
                 <queries:Or xmlns:queries="http://lang.whole.org/Queries" initialCapacity="5">
-                    <queries:ExpressionTest>
+                    <queries:Some>
                         <queries:Path initialCapacity="2">
                             <queries:Filter>
                                 <queries:SelfStep/>
@@ -46,7 +46,8 @@
                                 <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#SideBySideCompare"/>
                             </queries:Filter>
                         </queries:Path>
-                    </queries:ExpressionTest>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </queries:Some>
                     <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#RevisionFrame"/>
                     <queries:TypeTest value="whole:org.whole.lang.reusables:ReusablesModel#Adapt"/>
                     <queries:TypeTest value="whole:org.whole.lang.reusables:ReusablesModel#Reuse"/>
@@ -111,12 +112,13 @@
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </semantics:FunctionApplication>
-                <queries:ExpressionTest xmlns:queries="http://lang.whole.org/Queries">
+                <queries:Some xmlns:queries="http://lang.whole.org/Queries">
                     <queries:Filter>
                         <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#compare"/>
                         <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#UnifiedCompare"/>
                     </queries:Filter>
-                </queries:ExpressionTest>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </queries:Some>
             </actions:GuardedAction>
             <actions:GuardedAction>
                 <actions:Label value="Review To Unified Compare"/>
@@ -126,12 +128,13 @@
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </semantics:FunctionApplication>
-                <queries:ExpressionTest xmlns:queries="http://lang.whole.org/Queries">
+                <queries:Some xmlns:queries="http://lang.whole.org/Queries">
                     <queries:Filter>
                         <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#compare"/>
                         <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#SideBySideCompare"/>
                     </queries:Filter>
-                </queries:ExpressionTest>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </queries:Some>
             </actions:GuardedAction>
             <actions:GuardedAction>
                 <actions:Label value="Review Accept All Changes"/>
@@ -152,12 +155,13 @@
                         <queries:ChildStep/>
                         <queries:Choose initialCapacity="2">
                             <queries:If>
-                                <queries:ExpressionTest>
+                                <queries:Some>
                                     <queries:Filter>
                                         <queries:ParentStep/>
                                         <queries:SubtypeTest value="whole:org.whole.lang.changes:ChangesModel#Change"/>
                                     </queries:Filter>
-                                </queries:ExpressionTest>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </queries:Some>
                                 <queries:ParentStep/>
                             </queries:If>
                             <queries:Do>
@@ -189,12 +193,13 @@
                         <queries:ChildStep/>
                         <queries:Choose initialCapacity="2">
                             <queries:If>
-                                <queries:ExpressionTest>
+                                <queries:Some>
                                     <queries:Filter>
                                         <queries:ParentStep/>
                                         <queries:SubtypeTest value="whole:org.whole.lang.changes:ChangesModel#Change"/>
                                     </queries:Filter>
-                                </queries:ExpressionTest>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </queries:Some>
                                 <queries:ParentStep/>
                             </queries:If>
                             <queries:Do>
@@ -274,7 +279,7 @@
                         <queries:VariableRefStep value="compareModel"/>
                     </queries:Block>
                 </queries:Scope>
-                <queries:ExpressionTest xmlns:queries="http://lang.whole.org/Queries">
+                <queries:Some xmlns:queries="http://lang.whole.org/Queries">
                     <queries:Path initialCapacity="2">
                         <queries:VariableRefStep value="selectedEntities"/>
                         <queries:Filter>
@@ -284,7 +289,8 @@
                             </queries:IndexTest>
                         </queries:Filter>
                     </queries:Path>
-                </queries:ExpressionTest>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </queries:Some>
             </actions:GuardedAction>
         </actions:MenuActions>
         <actions:MenuActions initialCapacity="0"/>

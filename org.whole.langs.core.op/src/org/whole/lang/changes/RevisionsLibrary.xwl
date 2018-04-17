@@ -12,23 +12,25 @@
                 <queries:If>
                     <queries:And initialCapacity="2">
                         <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#RevisionTrack"/>
-                        <queries:ExpressionTest>
+                        <queries:Some>
                             <queries:Filter>
                                 <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#compare"/>
                                 <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#SideBySideCompare"/>
                             </queries:Filter>
-                        </queries:ExpressionTest>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </queries:Some>
                     </queries:And>
                     <queries:Path initialCapacity="2">
                         <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#compare"/>
                         <queries:Choose initialCapacity="2">
                             <queries:If>
-                                <queries:ExpressionTest>
+                                <queries:Some>
                                     <queries:Filter>
                                         <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#baseContent"/>
                                         <queries:TypeTest value="http://lang.whole.org/Commons#Resolver"/>
                                     </queries:Filter>
-                                </queries:ExpressionTest>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </queries:Some>
                                 <queries:Scope>
                                     <queries:FreshNames initialCapacity="2">
                                         <queries:Name value="revision"/>
@@ -134,12 +136,13 @@
                     <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#RevisionFrame"/>
                     <queries:Sequence initialCapacity="2">
                         <queries:If>
-                            <queries:ExpressionTest>
+                            <queries:Some>
                                 <queries:Filter>
                                     <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#leftContent"/>
                                     <queries:KindTest value="IMPL"/>
                                 </queries:Filter>
-                            </queries:ExpressionTest>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            </queries:Some>
                             <queries:Scope>
                                 <queries:FreshNames initialCapacity="2">
                                     <queries:Name value="revision"/>
@@ -172,12 +175,13 @@
                             </queries:Scope>
                         </queries:If>
                         <queries:If>
-                            <queries:ExpressionTest>
+                            <queries:Some>
                                 <queries:Filter>
                                     <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#rightContent"/>
                                     <queries:KindTest value="IMPL"/>
                                 </queries:Filter>
-                            </queries:ExpressionTest>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            </queries:Some>
                             <queries:Scope>
                                 <queries:FreshNames initialCapacity="2">
                                     <queries:Name value="revision"/>
@@ -215,18 +219,20 @@
                     <queries:And initialCapacity="2">
                         <queries:TypeTest value="whole:org.whole.lang.reusables:ReusablesModel#Adapt"/>
                         <queries:And initialCapacity="2">
-                            <queries:ExpressionTest>
+                            <queries:Some>
                                 <queries:Filter>
                                     <queries:FeatureStep value="whole:org.whole.lang.reusables:ReusablesModel#adaptedRevision"/>
                                     <queries:KindTest value="IMPL"/>
                                 </queries:Filter>
-                            </queries:ExpressionTest>
-                            <queries:ExpressionTest>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            </queries:Some>
+                            <queries:Some>
                                 <queries:Filter>
                                     <queries:FeatureStep value="whole:org.whole.lang.reusables:ReusablesModel#adapted"/>
                                     <queries:KindTest value="IMPL"/>
                                 </queries:Filter>
-                            </queries:ExpressionTest>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            </queries:Some>
                         </queries:And>
                     </queries:And>
                     <queries:Scope>
@@ -256,24 +262,27 @@
                     <queries:And initialCapacity="2">
                         <queries:TypeTest value="whole:org.whole.lang.reusables:ReusablesModel#Reuse"/>
                         <queries:And initialCapacity="3">
-                            <queries:ExpressionTest>
+                            <queries:Some>
                                 <queries:Filter>
                                     <queries:FeatureStep value="whole:org.whole.lang.reusables:ReusablesModel#adaptedRevision"/>
                                     <queries:KindTest value="IMPL"/>
                                 </queries:Filter>
-                            </queries:ExpressionTest>
-                            <queries:ExpressionTest>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            </queries:Some>
+                            <queries:Some>
                                 <queries:Filter>
                                     <queries:FeatureStep value="whole:org.whole.lang.reusables:ReusablesModel#adapted"/>
                                     <queries:KindTest value="IMPL"/>
                                 </queries:Filter>
-                            </queries:ExpressionTest>
-                            <queries:ExpressionTest>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            </queries:Some>
+                            <queries:Some>
                                 <queries:Filter>
                                     <queries:FeatureStep value="whole:org.whole.lang.reusables:ReusablesModel#original"/>
                                     <queries:KindTest value="IMPL"/>
                                 </queries:Filter>
-                            </queries:ExpressionTest>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            </queries:Some>
                         </queries:And>
                     </queries:And>
                     <queries:Scope>
@@ -305,50 +314,56 @@
                         <queries:And initialCapacity="2">
                             <queries:Or initialCapacity="2">
                                 <queries:And initialCapacity="2">
-                                    <queries:ExpressionTest>
+                                    <queries:Some>
                                         <queries:Filter>
                                         <queries:FeatureStep value="whole:org.whole.lang.reusables:ReusablesModel#adaptedRevision"/>
                                         <queries:KindTest value="IMPL"/>
                                         </queries:Filter>
-                                    </queries:ExpressionTest>
-                                    <queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </queries:Some>
+                                    <queries:Some>
                                         <queries:Filter>
                                         <queries:FeatureStep value="whole:org.whole.lang.reusables:ReusablesModel#adapted"/>
                                         <queries:KindTest value="IMPL"/>
                                         </queries:Filter>
-                                    </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </queries:Some>
                                 </queries:And>
                                 <queries:And initialCapacity="2">
-                                    <queries:ExpressionTest>
+                                    <queries:Some>
                                         <queries:Filter>
                                         <queries:FeatureStep value="whole:org.whole.lang.reusables:ReusablesModel#variantRevision"/>
                                         <queries:KindTest value="IMPL"/>
                                         </queries:Filter>
-                                    </queries:ExpressionTest>
-                                    <queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </queries:Some>
+                                    <queries:Some>
                                         <queries:Filter>
                                         <queries:FeatureStep value="whole:org.whole.lang.reusables:ReusablesModel#variant"/>
                                         <queries:KindTest value="IMPL"/>
                                         </queries:Filter>
-                                    </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </queries:Some>
                                 </queries:And>
                             </queries:Or>
-                            <queries:ExpressionTest>
+                            <queries:Some>
                                 <queries:Filter>
                                     <queries:FeatureStep value="whole:org.whole.lang.reusables:ReusablesModel#original"/>
                                     <queries:KindTest value="IMPL"/>
                                 </queries:Filter>
-                            </queries:ExpressionTest>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            </queries:Some>
                         </queries:And>
                     </queries:And>
                     <queries:Sequence initialCapacity="2">
                         <queries:If>
-                            <queries:ExpressionTest>
+                            <queries:Some>
                                 <queries:Filter>
                                     <queries:FeatureStep value="whole:org.whole.lang.reusables:ReusablesModel#adapted"/>
                                     <queries:KindTest value="IMPL"/>
                                 </queries:Filter>
-                            </queries:ExpressionTest>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            </queries:Some>
                             <queries:Scope>
                                 <queries:FreshNames initialCapacity="2">
                                     <queries:Name value="revision"/>
@@ -373,12 +388,13 @@
                             </queries:Scope>
                         </queries:If>
                         <queries:If>
-                            <queries:ExpressionTest>
+                            <queries:Some>
                                 <queries:Filter>
                                     <queries:FeatureStep value="whole:org.whole.lang.reusables:ReusablesModel#variant"/>
                                     <queries:KindTest value="IMPL"/>
                                 </queries:Filter>
-                            </queries:ExpressionTest>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            </queries:Some>
                             <queries:Scope>
                                 <queries:FreshNames initialCapacity="2">
                                     <queries:Name value="revision"/>
@@ -400,12 +416,13 @@
                                     <queries:Filter>
                                         <queries:Choose initialCapacity="2">
                                         <queries:If>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:FeatureStep value="whole:org.whole.lang.reusables:ReusablesModel#adapted"/>
                                         <queries:KindTest value="IMPL"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         <queries:FeatureStep value="whole:org.whole.lang.reusables:ReusablesModel#adapted"/>
                                         </queries:If>
                                         <queries:Do>
@@ -783,12 +800,13 @@
                     <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#Delete"/>
                     <queries:Choose initialCapacity="2">
                         <queries:If>
-                            <queries:ExpressionTest>
+                            <queries:Some>
                                 <queries:Filter>
                                     <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#relation"/>
                                     <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#Delete"/>
                                 </queries:Filter>
-                            </queries:ExpressionTest>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            </queries:Some>
                             <patterns:TemplatePoint>
                                 <changes:Delete xmlns:changes="whole:org.whole.lang.changes:ChangesModel">
                                     <patterns:DerivationPoint>
@@ -1241,14 +1259,15 @@
                             <queries:If>
                                 <queries:And initialCapacity="2">
                                     <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#Insert"/>
-                                    <queries:ExpressionTest>
+                                    <queries:Some>
                                         <queries:Filter>
                                         <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#content"/>
                                         <queries:Not>
                                         <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#Nothing"/>
                                         </queries:Not>
                                         </queries:Filter>
-                                    </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </queries:Some>
                                 </queries:And>
                                 <queries:PointwiseUpdate>
                                     <queries:VariableRefStep value="additions"/>
@@ -1261,14 +1280,15 @@
                             <queries:If>
                                 <queries:And initialCapacity="2">
                                     <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#Delete"/>
-                                    <queries:ExpressionTest>
+                                    <queries:Some>
                                         <queries:Filter>
                                         <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#content"/>
                                         <queries:Not>
                                         <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#Nothing"/>
                                         </queries:Not>
                                         </queries:Filter>
-                                    </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </queries:Some>
                                 </queries:And>
                                 <queries:PointwiseUpdate>
                                     <queries:VariableRefStep value="deletions"/>

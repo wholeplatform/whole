@@ -26,12 +26,13 @@
                     <queries:If>
                         <queries:And initialCapacity="2">
                             <queries:TypeTest value="whole:org.whole.lang.reusables:ReusablesModel#PathName"/>
-                            <queries:ExpressionTest>
+                            <queries:Some>
                                 <queries:Filter>
                                     <queries:ParentStep/>
                                     <queries:TypeTest value="whole:org.whole.lang.reusables:ReusablesModel#Workspace"/>
                                 </queries:Filter>
-                            </queries:ExpressionTest>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            </queries:Some>
                         </queries:And>
                         <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                             <actions:Actions initialCapacity="1">
