@@ -49,10 +49,13 @@
                                 <text:Text value=")"/>
                                 <semantics:IfTemplate>
                                     <text:Text value=" {"/>
-                                    <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:Some xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:Filter>
                                         <queries:VariableRefStep value="body"/>
                                         <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
-                                    </queries:Filter>
+                                        </queries:Filter>
+                                        <commons:Resolver/>
+                                    </queries:Some>
                                 </semantics:IfTemplate>
                             </text:Row>
                             <text:Indent value="1"/>
@@ -67,10 +70,13 @@
                                 <text:Row initialCapacity="1">
                                     <text:Text value="}"/>
                                 </text:Row>
-                                <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
-                                    <queries:VariableRefStep value="body"/>
-                                    <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
-                                </queries:Filter>
+                                <queries:Some xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:Filter>
+                                        <queries:VariableRefStep value="body"/>
+                                        <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
+                                    </queries:Filter>
+                                    <commons:Resolver/>
+                                </queries:Some>
                             </semantics:IfTemplate>
                         </text:Document>
                     </commons:StageUpFragment>
@@ -91,10 +97,13 @@
                                 <text:Text value=")"/>
                                 <semantics:IfTemplate>
                                     <text:Text value=" {"/>
-                                    <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:Some xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:Filter>
                                         <queries:VariableRefStep value="consequent"/>
                                         <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
-                                    </queries:Filter>
+                                        </queries:Filter>
+                                        <commons:Resolver/>
+                                    </queries:Some>
                                 </semantics:IfTemplate>
                             </text:Row>
                             <text:Indent value="1"/>
@@ -111,18 +120,20 @@
                                         <text:Text value="} else {"/>
                                     </text:Row>
                                     <queries:And xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:VariableRefStep value="consequent"/>
                                         <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
-                                        <queries:ExpressionTest>
+                                        <commons:Resolver/>
+                                        </queries:Some>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:VariableRefStep value="alternate"/>
                                         <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver/>
+                                        </queries:Some>
                                     </queries:And>
                                 </semantics:IfTemplate>
                                 <semantics:IfTemplate>
@@ -130,20 +141,22 @@
                                         <text:Text value="} else"/>
                                     </text:Row>
                                     <queries:And xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:VariableRefStep value="consequent"/>
                                         <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
-                                        <queries:ExpressionTest>
+                                        <commons:Resolver/>
+                                        </queries:Some>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:VariableRefStep value="alternate"/>
                                         <queries:Not>
                                         <queries:KindTest value="RESOLVER"/>
                                         </queries:Not>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver/>
+                                        </queries:Some>
                                     </queries:And>
                                 </semantics:IfTemplate>
                                 <semantics:IfTemplate>
@@ -151,20 +164,22 @@
                                         <text:Text value="else {"/>
                                     </text:Row>
                                     <queries:And xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:VariableRefStep value="consequent"/>
                                         <queries:Not>
                                         <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
                                         </queries:Not>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
-                                        <queries:ExpressionTest>
+                                        <commons:Resolver/>
+                                        </queries:Some>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:VariableRefStep value="alternate"/>
                                         <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver/>
+                                        </queries:Some>
                                     </queries:And>
                                 </semantics:IfTemplate>
                                 <semantics:IfTemplate>
@@ -172,22 +187,24 @@
                                         <text:Text value="else"/>
                                     </text:Row>
                                     <queries:And xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:VariableRefStep value="consequent"/>
                                         <queries:Not>
                                         <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
                                         </queries:Not>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
-                                        <queries:ExpressionTest>
+                                        <commons:Resolver/>
+                                        </queries:Some>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:VariableRefStep value="alternate"/>
                                         <queries:Not>
                                         <queries:KindTest value="RESOLVER"/>
                                         </queries:Not>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver/>
+                                        </queries:Some>
                                     </queries:And>
                                 </semantics:IfTemplate>
                                 <semantics:IfTemplate>
@@ -195,18 +212,20 @@
                                         <text:Text value="}"/>
                                     </text:Row>
                                     <queries:And xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:VariableRefStep value="consequent"/>
                                         <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
-                                        <queries:ExpressionTest>
+                                        <commons:Resolver/>
+                                        </queries:Some>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:VariableRefStep value="alternate"/>
                                         <queries:KindTest value="RESOLVER"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver/>
+                                        </queries:Some>
                                     </queries:And>
                                 </semantics:IfTemplate>
                             </semantics:ChooseTemplate>
@@ -222,10 +241,13 @@
                                 <text:Row initialCapacity="1">
                                     <text:Text value="}"/>
                                 </text:Row>
-                                <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
-                                    <queries:VariableRefStep value="alternate"/>
-                                    <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
-                                </queries:Filter>
+                                <queries:Some xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:Filter>
+                                        <queries:VariableRefStep value="alternate"/>
+                                        <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
+                                    </queries:Filter>
+                                    <commons:Resolver/>
+                                </queries:Some>
                             </semantics:IfTemplate>
                         </text:Document>
                     </commons:StageUpFragment>
@@ -246,10 +268,13 @@
                                 <text:Text value=")"/>
                                 <semantics:IfTemplate>
                                     <text:Text value=" {"/>
-                                    <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:Some xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:Filter>
                                         <queries:VariableRefStep value="body"/>
                                         <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
-                                    </queries:Filter>
+                                        </queries:Filter>
+                                        <commons:Resolver/>
+                                    </queries:Some>
                                 </semantics:IfTemplate>
                             </text:Row>
                             <text:Indent value="1"/>
@@ -264,10 +289,13 @@
                                 <text:Row initialCapacity="1">
                                     <text:Text value="}"/>
                                 </text:Row>
-                                <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
-                                    <queries:VariableRefStep value="body"/>
-                                    <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
-                                </queries:Filter>
+                                <queries:Some xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:Filter>
+                                        <queries:VariableRefStep value="body"/>
+                                        <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
+                                    </queries:Filter>
+                                    <commons:Resolver/>
+                                </queries:Some>
                             </semantics:IfTemplate>
                         </text:Document>
                     </commons:StageUpFragment>
@@ -401,12 +429,15 @@
                                         </semantics:FunctionApplication>
                                         <text:Text value=":"/>
                                     </text:Row>
-                                    <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:Some xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:Filter>
                                         <queries:VariableRefStep value="test"/>
                                         <queries:Not>
                                         <queries:KindTest value="RESOLVER"/>
                                         </queries:Not>
-                                    </queries:Filter>
+                                        </queries:Filter>
+                                        <commons:Resolver/>
+                                    </queries:Some>
                                 </semantics:IfTemplate>
                                 <semantics:ElseTemplate>
                                     <text:Row initialCapacity="2">
@@ -458,10 +489,13 @@
                                 <text:Text value=")"/>
                                 <semantics:IfTemplate>
                                     <text:Text value=" {"/>
-                                    <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:Some xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:Filter>
                                         <queries:VariableRefStep value="body"/>
                                         <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
-                                    </queries:Filter>
+                                        </queries:Filter>
+                                        <commons:Resolver/>
+                                    </queries:Some>
                                 </semantics:IfTemplate>
                             </text:Row>
                             <text:Indent value="1"/>
@@ -476,10 +510,13 @@
                                 <text:Row initialCapacity="1">
                                     <text:Text value="}"/>
                                 </text:Row>
-                                <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
-                                    <queries:VariableRefStep value="body"/>
-                                    <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
-                                </queries:Filter>
+                                <queries:Some xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:Filter>
+                                        <queries:VariableRefStep value="body"/>
+                                        <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
+                                    </queries:Filter>
+                                    <commons:Resolver/>
+                                </queries:Some>
                             </semantics:IfTemplate>
                         </text:Document>
                     </commons:StageUpFragment>
@@ -507,10 +544,13 @@
                                 <text:Text value=")"/>
                                 <semantics:IfTemplate>
                                     <text:Text value=" {"/>
-                                    <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:Some xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:Filter>
                                         <queries:VariableRefStep value="body"/>
                                         <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
-                                    </queries:Filter>
+                                        </queries:Filter>
+                                        <commons:Resolver/>
+                                    </queries:Some>
                                 </semantics:IfTemplate>
                             </text:Row>
                             <text:Indent value="1"/>
@@ -525,10 +565,13 @@
                                 <text:Row initialCapacity="1">
                                     <text:Text value="}"/>
                                 </text:Row>
-                                <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
-                                    <queries:VariableRefStep value="body"/>
-                                    <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
-                                </queries:Filter>
+                                <queries:Some xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:Filter>
+                                        <queries:VariableRefStep value="body"/>
+                                        <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
+                                    </queries:Filter>
+                                    <commons:Resolver/>
+                                </queries:Some>
                             </semantics:IfTemplate>
                         </text:Document>
                     </commons:StageUpFragment>
@@ -556,10 +599,13 @@
                                 <text:Text value=")"/>
                                 <semantics:IfTemplate>
                                     <text:Text value=" {"/>
-                                    <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:Some xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:Filter>
                                         <queries:VariableRefStep value="body"/>
                                         <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
-                                    </queries:Filter>
+                                        </queries:Filter>
+                                        <commons:Resolver/>
+                                    </queries:Some>
                                 </semantics:IfTemplate>
                             </text:Row>
                             <text:Indent value="1"/>
@@ -574,10 +620,13 @@
                                 <text:Row initialCapacity="1">
                                     <text:Text value="}"/>
                                 </text:Row>
-                                <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
-                                    <queries:VariableRefStep value="body"/>
-                                    <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
-                                </queries:Filter>
+                                <queries:Some xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:Filter>
+                                        <queries:VariableRefStep value="body"/>
+                                        <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
+                                    </queries:Filter>
+                                    <commons:Resolver/>
+                                </queries:Some>
                             </semantics:IfTemplate>
                         </text:Document>
                     </commons:StageUpFragment>
@@ -598,10 +647,13 @@
                                 <text:Text value=")"/>
                                 <semantics:IfTemplate>
                                     <text:Text value=" {"/>
-                                    <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:Some xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:Filter>
                                         <queries:VariableRefStep value="body"/>
                                         <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
-                                    </queries:Filter>
+                                        </queries:Filter>
+                                        <commons:Resolver/>
+                                    </queries:Some>
                                 </semantics:IfTemplate>
                             </text:Row>
                             <text:Indent value="1"/>
@@ -616,10 +668,13 @@
                                 <text:Row initialCapacity="1">
                                     <text:Text value="}"/>
                                 </text:Row>
-                                <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
-                                    <queries:VariableRefStep value="body"/>
-                                    <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
-                                </queries:Filter>
+                                <queries:Some xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:Filter>
+                                        <queries:VariableRefStep value="body"/>
+                                        <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
+                                    </queries:Filter>
+                                    <commons:Resolver/>
+                                </queries:Some>
                             </semantics:IfTemplate>
                         </text:Document>
                     </commons:StageUpFragment>
@@ -711,10 +766,13 @@
                                         <text:Text value=";"/>
                                     </text:Row>
                                 </text:Document>
-                                <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
-                                    <queries:ParentStep/>
-                                    <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
-                                </queries:Filter>
+                                <queries:Some xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:Filter>
+                                        <queries:ParentStep/>
+                                        <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
+                                    </queries:Filter>
+                                    <commons:Resolver/>
+                                </queries:Some>
                             </semantics:IfTemplate>
                             <semantics:ElseTemplate>
                                 <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="3">
@@ -995,10 +1053,13 @@
                                         <text:Text value=")"/>
                                         <semantics:IfTemplate>
                                         <text:Text value=" {"/>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:VariableRefStep value="body"/>
                                         <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
                                         </queries:Filter>
+                                        <commons:Resolver/>
+                                        </queries:Some>
                                         </semantics:IfTemplate>
                                         </text:Row>
                                         <text:Indent value="1"/>
@@ -1013,10 +1074,13 @@
                                         <text:Row initialCapacity="1">
                                         <text:Text value="}"/>
                                         </text:Row>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:VariableRefStep value="body"/>
                                         <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
                                         </queries:Filter>
+                                        <commons:Resolver/>
+                                        </queries:Some>
                                         </semantics:IfTemplate>
                                     </text:Document>
                                 </commons:StageUpFragment>
@@ -1809,10 +1873,13 @@
                                     </text:Row>
                                     <text:Indent value="1"/>
                                 </text:Document>
-                                <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
-                                    <queries:ParentStep/>
-                                    <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
-                                </queries:Filter>
+                                <queries:Some xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:Filter>
+                                        <queries:ParentStep/>
+                                        <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
+                                    </queries:Filter>
+                                    <commons:Resolver/>
+                                </queries:Some>
                             </semantics:IfTemplate>
                             <semantics:FunctionApplication>
                                 <commons:Resolver/>
@@ -1827,10 +1894,13 @@
                                         <text:Text value="}"/>
                                     </text:Row>
                                 </text:Document>
-                                <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
-                                    <queries:ParentStep/>
-                                    <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
-                                </queries:Filter>
+                                <queries:Some xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:Filter>
+                                        <queries:ParentStep/>
+                                        <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
+                                    </queries:Filter>
+                                    <commons:Resolver/>
+                                </queries:Some>
                             </semantics:IfTemplate>
                         </text:Document>
                     </commons:StageUpFragment>

@@ -6,7 +6,8 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Export-Package: org.whole.lang.actions,
+Export-Package: org.whole.lang,
+ org.whole.lang.actions,
  org.whole.lang.editors.visitors,
  org.whole.lang.changes,
  org.whole.lang.comparisons,
