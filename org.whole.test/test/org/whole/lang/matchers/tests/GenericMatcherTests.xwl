@@ -184,6 +184,16 @@
                             </tests:Matches>
                         </tests:AssertThat>
                     </tests:TestStatements>
+                    <tests:Result>
+                        <tests:Outcome value="SUCCESS"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </tests:Result>
+                    <tests:Result>
+                        <tests:Outcome value="SUCCESS"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </tests:Result>
                 </tests:Test>
                 <tests:Test>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -448,8 +458,38 @@
                             </tests:Matches>
                         </tests:AssertThat>
                     </tests:TestStatements>
+                    <tests:Result>
+                        <tests:Outcome value="SUCCESS"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </tests:Result>
+                    <tests:Result>
+                        <tests:Outcome value="SUCCESS"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </tests:Result>
                 </tests:Test>
             </tests:Tests>
+            <tests:Results>
+                <tests:IntLiteral value="2"/>
+                <tests:IntLiteral value="0"/>
+                <tests:IntLiteral value="0"/>
+            </tests:Results>
+            <tests:Results>
+                <tests:IntLiteral value="2"/>
+                <tests:IntLiteral value="0"/>
+                <tests:IntLiteral value="0"/>
+            </tests:Results>
         </tests:TestCase>
     </tests:TestCases>
+    <tests:Results>
+        <tests:IntLiteral value="2"/>
+        <tests:IntLiteral value="0"/>
+        <tests:IntLiteral value="0"/>
+    </tests:Results>
+    <tests:Results>
+        <tests:IntLiteral value="2"/>
+        <tests:IntLiteral value="0"/>
+        <tests:IntLiteral value="0"/>
+    </tests:Results>
 </tests:TestSuite>

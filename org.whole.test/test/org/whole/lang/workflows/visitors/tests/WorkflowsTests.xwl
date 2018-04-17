@@ -27,7 +27,7 @@
         <tests:TestCase>
             <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
             <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-            <tests:Name value="WorkflowsStagingTest"/>
+            <tests:Name value="WorkflowsTest"/>
             <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
             <tests:Aspects initialCapacity="0"/>
             <tests:Tests initialCapacity="4">
@@ -160,8 +160,16 @@
                             </tests:AllOf>
                         </tests:AssertThat>
                     </tests:TestStatements>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <tests:Result>
+                        <tests:Outcome value="SUCCESS"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </tests:Result>
+                    <tests:Result>
+                        <tests:Outcome value="SUCCESS"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </tests:Result>
                 </tests:Test>
                 <tests:Test>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -280,8 +288,16 @@
                             </tests:AllOf>
                         </tests:AssertThat>
                     </tests:TestStatements>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <tests:Result>
+                        <tests:Outcome value="SUCCESS"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </tests:Result>
+                    <tests:Result>
+                        <tests:Outcome value="SUCCESS"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </tests:Result>
                 </tests:Test>
                 <tests:Test>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -361,8 +377,16 @@
                             </tests:AllOf>
                         </tests:AssertThat>
                     </tests:TestStatements>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <tests:Result>
+                        <tests:Outcome value="SUCCESS"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </tests:Result>
+                    <tests:Result>
+                        <tests:Outcome value="SUCCESS"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </tests:Result>
                 </tests:Test>
                 <tests:Test>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -431,14 +455,38 @@
                             </tests:AllOf>
                         </tests:AssertThat>
                     </tests:TestStatements>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <tests:Result>
+                        <tests:Outcome value="SUCCESS"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </tests:Result>
+                    <tests:Result>
+                        <tests:Outcome value="SUCCESS"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </tests:Result>
                 </tests:Test>
             </tests:Tests>
-            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <tests:Results>
+                <tests:IntLiteral value="4"/>
+                <tests:IntLiteral value="0"/>
+                <tests:IntLiteral value="0"/>
+            </tests:Results>
+            <tests:Results>
+                <tests:IntLiteral value="4"/>
+                <tests:IntLiteral value="0"/>
+                <tests:IntLiteral value="0"/>
+            </tests:Results>
         </tests:TestCase>
     </tests:TestCases>
-    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    <tests:Results>
+        <tests:IntLiteral value="4"/>
+        <tests:IntLiteral value="0"/>
+        <tests:IntLiteral value="0"/>
+    </tests:Results>
+    <tests:Results>
+        <tests:IntLiteral value="4"/>
+        <tests:IntLiteral value="0"/>
+        <tests:IntLiteral value="0"/>
+    </tests:Results>
 </tests:TestSuite>
