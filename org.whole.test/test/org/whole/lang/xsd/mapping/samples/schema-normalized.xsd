@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:whl="http://whole.sourceforge.net/testnamespace" targetNamespace="http://whole.sourceforge.net/testnamespace" attributeFormDefault="unqualified" elementFormDefault="unqualified">
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:whl="https://whole.sourceforge.io/testnamespace" targetNamespace="https://whole.sourceforge.io/testnamespace" attributeFormDefault="unqualified" elementFormDefault="unqualified">
     <element name="judgments" type="whl:judgment"/>
     <simpleType name="options">
         <restriction base="string">

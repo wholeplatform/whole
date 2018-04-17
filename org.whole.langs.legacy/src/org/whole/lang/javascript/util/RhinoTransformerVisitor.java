@@ -63,7 +63,7 @@ public class RhinoTransformerVisitor implements NodeVisitor {
 		compilerEnvirons.setLanguageVersion(Context.VERSION_1_8);
 		Parser parser = new Parser(compilerEnvirons);
 		
-		AstRoot astRoot = parser.parse(new InputStreamReader(pp.getInputStream(), pp.getEncoding()), "http://whole.sourceforge.net/test.js", 0);
+		AstRoot astRoot = parser.parse(new InputStreamReader(pp.getInputStream(), pp.getEncoding()), "https://whole.sourceforge.io/test.js", 0);
 		ModelBuilderOperation mop = new ModelBuilderOperation();
 		RhinoTransformerVisitor visitor = new RhinoTransformerVisitor(mop);
 		astRoot.visit(visitor);

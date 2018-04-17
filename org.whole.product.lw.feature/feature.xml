@@ -6,7 +6,7 @@
       provider-name="%providerName"
       plugin="org.whole.product.lw">
 
-   <description url="http://whole.sourceforge.net">
+   <description url="https://whole.sourceforge.io">
       %description
    </description>
 
@@ -19,8 +19,8 @@
    </license>
 
    <url>
-      <update label="%updateSiteName" url="http://whole.sourceforge.net/updates"/>
-      <discovery label="%updateSiteName" url="http://whole.sourceforge.net/updates"/>
+      <update label="%updateSiteName" url="https://whole.sourceforge.io/updates"/>
+      <discovery label="%updateSiteName" url="https://whole.sourceforge.io/updates"/>
    </url>
 
    <includes

@@ -245,7 +245,7 @@ Library.
    </configurations>
 
    <repositories>
-      <repository location="http://whole.sourceforge.net/updates" enabled="true" />
+      <repository location="https://whole.sourceforge.io/updates" enabled="true" />
    </repositories>
 
 </product>

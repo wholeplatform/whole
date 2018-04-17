@@ -18,7 +18,7 @@ public class Maven400Instance extends AbstractTemplateFactory<org.whole.lang.mod
         b0.wEntity(e1.valueOf("XSString"), "Whole Platform");
         b0.wEntity(e1.valueOf("XSString"), "1.0.0-v20070424-1857");
         b0.Resolver();
-        b0.wEntity(e1.valueOf("XSString"), "http://whole.sourceforge.net");
+        b0.wEntity(e1.valueOf("XSString"), "https://whole.sourceforge.io");
         b0.Resolver();
         b0.Resolver();
         b0.Resolver();
@@ -114,7 +114,7 @@ public class Maven400Instance extends AbstractTemplateFactory<org.whole.lang.mod
         b0.Resolver();
         b0.wEntity(e1.valueOf("XSString"), "WholeRepository");
         b0.wEntity(e1.valueOf("XSString"), "Whole Repository");
-        b0.wEntity(e1.valueOf("XSString"), "http://whole.sourceforge.net/maven");
+        b0.wEntity(e1.valueOf("XSString"), "https://whole.sourceforge.io/maven");
         b0.Resolver();
         b0._wEntity(e1.valueOf("RepositorySet"));
         b0._wEntity(e1.valueOf("Repository"));

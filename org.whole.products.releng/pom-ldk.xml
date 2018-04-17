@@ -172,7 +172,7 @@
 		<repository>
 			<id>WholeRepository</id>
 			<name>Whole Repository</name>
-			<url>http://whole.sourceforge.net/maven</url>
+			<url>https://whole.sourceforge.io/maven</url>
 		</repository>
 	</repositories>
 
