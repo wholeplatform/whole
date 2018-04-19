@@ -17,22 +17,19 @@
  */
 package org.whole.lang.patterns.ui.figures;
 
-import org.eclipse.draw2d.ColorConstants;
-import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.MarginBorder;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.EntityFigure;
-import org.whole.lang.ui.figures.PipeBracketsBorder;
 import org.whole.lang.ui.layout.Alignment;
-import org.whole.lang.ui.layout.OverLayout;
 import org.whole.lang.ui.layout.RowLayout;
+import org.whole.lang.ui.layout.UnderColumnLayout;
 
 /**
  * @author Riccardo Solmi
  */
 public class CutFigure extends ContentPaneFigure {
 	public CutFigure() {
-		super(new OverLayout().withMinorAlignment(Alignment.LEADING)
+		super(new UnderColumnLayout().withMinorAlignment(Alignment.LEADING)
 				.withSpacing(4));
 		initContentPanes(1);
 //		setBorder(new PipeBracketsBorder(0, 1, 0, 1) {
@@ -49,7 +46,7 @@ public class CutFigure extends ContentPaneFigure {
 		
 		headerFigure.addKeyword("cut");
 
-		add(createContentPane(0, new MarginBorder(0,1,0,1)));
 		add(headerFigure);
+		add(createContentPane(0, new MarginBorder(0,1,0,1)));
 	}
 }

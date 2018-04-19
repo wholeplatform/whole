@@ -17,17 +17,15 @@
  */
 package org.whole.lang.patterns.ui.figures;
 
-import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.EntityFigure;
-import org.whole.lang.ui.figures.PipeBracketsBorder;
 import org.whole.lang.ui.layout.Alignment;
-import org.whole.lang.ui.layout.OverLayout;
 import org.whole.lang.ui.layout.RowLayout;
+import org.whole.lang.ui.layout.UnderColumnLayout;
 
 /**
  * @author Riccardo Solmi
@@ -37,7 +35,7 @@ public class InsertFigure extends ContentPaneFigure {
 	IFigure keywordFigure;
 
 	public InsertFigure() {
-		super(new OverLayout().withMinorAlignment(Alignment.LEADING)
+		super(new UnderColumnLayout().withMinorAlignment(Alignment.LEADING)
 				.withSpacing(4));
 		initContentPanes(2);
 //		setBorder(new PipeBracketsBorder(0, 1, 0, 1) {
@@ -55,8 +53,8 @@ public class InsertFigure extends ContentPaneFigure {
 		keywordFigure = headerFigure.addKeyword("insert");
 		headerFigure.add(createContentPane(0));
 
-		add(createContentPane(1, new MarginBorder(0,1,0,1)));
 		add(headerFigure);
+		add(createContentPane(1, new MarginBorder(0,1,0,1)));
 	}
 
 	@Override
