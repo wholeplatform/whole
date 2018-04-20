@@ -14,12 +14,13 @@
                     <queries:FeatureStep value="whole:org.whole.lang.mediawiki:MediaWiki#wikiPages"/>
                     <queries:Filter>
                         <queries:ChildStep/>
-                        <queries:ExpressionTest>
+                        <queries:Some>
                             <queries:Filter>
                                 <queries:FeatureStep value="whole:org.whole.lang.mediawiki:MediaWiki#title"/>
                                 <queries:VariableTest value="title"/>
                             </queries:Filter>
-                        </queries:ExpressionTest>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </queries:Some>
                     </queries:Filter>
                     <queries:Filter>
                         <queries:FeatureStep value="whole:org.whole.lang.mediawiki:MediaWiki#article"/>
@@ -40,16 +41,14 @@
                         </queries:Addition>
                         <queries:VariableTest value="articleFileName"/>
                     </queries:Filter>
-                    <commons:SameStageFragment xmlns:commons="http://lang.whole.org/Commons">
-                        <workflows:LoadModel xmlns:workflows="http://lang.whole.org/Workflows">
-                            <workflows:Text value="load article"/>
-                            <commons:Resolver/>
-                            <workflows:StringLiteral value="org.whole.lang.grammars.codebase.MediaWikiPersistenceKit"/>
-                            <workflows:ResourceKind value="WORKSPACE"/>
-                            <workflows:Variable value="articleFileName"/>
-                            <commons:Resolver/>
-                        </workflows:LoadModel>
-                    </commons:SameStageFragment>
+                    <workflows:LoadModel xmlns:workflows="http://lang.whole.org/Workflows">
+                        <workflows:Text value="load article"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <workflows:StringLiteral value="org.whole.lang.grammars.codebase.MediaWikiPersistenceKit"/>
+                        <workflows:ResourceKind value="WORKSPACE"/>
+                        <workflows:Variable value="articleFileName"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </workflows:LoadModel>
                 </queries:Block>
             </queries:CartesianUpdate>
         </actions:SimpleAction>
@@ -250,12 +249,13 @@
                                     </commons:StageUpFragment>
                                     <queries:Filter>
                                         <queries:SelfStep/>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:AncestorStep/>
                                         <queries:TypeTest value="Table"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                     </queries:Filter>
                                     <queries:Sequence initialCapacity="2">
                                         <queries:Filter>
@@ -360,7 +360,6 @@
                                         <queries:Filter>
                                         <queries:Choose initialCapacity="2">
                                         <queries:If>
-                                        <queries:ExpressionTest>
                                         <queries:LessOrEquals>
                                         <queries:Multiplication>
                                         <queries:VariableRefStep value="width"/>
@@ -368,7 +367,6 @@
                                         </queries:Multiplication>
                                         <queries:DoubleLiteral value="325.0"/>
                                         </queries:LessOrEquals>
-                                        </queries:ExpressionTest>
                                         <queries:DoubleLiteral value="0.5"/>
                                         </queries:If>
                                         <queries:Do>
@@ -460,12 +458,13 @@
                                     <queries:Path initialCapacity="2">
                                         <queries:Choose initialCapacity="2">
                                         <queries:If>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:VariableRefStep value="section"/>
                                         <queries:KindTest value="IMPL"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         <queries:Addition>
                                         <queries:StringLiteral value="sec:"/>
                                         <queries:Addition>
@@ -477,10 +476,12 @@
                                         </queries:Addition>
                                         </queries:Addition>
                                         </queries:If>
+                                        <queries:Do>
                                         <queries:Addition>
                                         <queries:StringLiteral value="chap:"/>
                                         <queries:VariableRefStep value="title"/>
                                         </queries:Addition>
+                                        </queries:Do>
                                         </queries:Choose>
                                         <queries:Filter>
                                         <queries:Call>
@@ -616,27 +617,27 @@
                                     <queries:Filter>
                                         <queries:Choose initialCapacity="3">
                                         <queries:If>
-                                        <queries:ExpressionTest>
+                                        <queries:MatchTest>
                                         <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                                         <mediawiki:ArticleTitle xmlns:mediawiki="whole:org.whole.lang.mediawiki:MediaWiki" value="Tip"/>
                                         </commons:StageUpFragment>
-                                        </queries:ExpressionTest>
+                                        </queries:MatchTest>
                                         <queries:StringLiteral value="Tip.png"/>
                                         </queries:If>
                                         <queries:If>
-                                        <queries:ExpressionTest>
+                                        <queries:MatchTest>
                                         <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                                         <mediawiki:ArticleTitle xmlns:mediawiki="whole:org.whole.lang.mediawiki:MediaWiki" value="Note"/>
                                         </commons:StageUpFragment>
-                                        </queries:ExpressionTest>
+                                        </queries:MatchTest>
                                         <queries:StringLiteral value="Note.png"/>
                                         </queries:If>
                                         <queries:If>
-                                        <queries:ExpressionTest>
+                                        <queries:MatchTest>
                                         <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                                         <mediawiki:ArticleTitle xmlns:mediawiki="whole:org.whole.lang.mediawiki:MediaWiki" value="Warning"/>
                                         </commons:StageUpFragment>
-                                        </queries:ExpressionTest>
+                                        </queries:MatchTest>
                                         <queries:StringLiteral value="Warning.png"/>
                                         </queries:If>
                                         </queries:Choose>
@@ -791,9 +792,10 @@
                                         <queries:Filter>
                                         <queries:Choose initialCapacity="2">
                                         <queries:If>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:FollowingSiblingStep/>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         <queries:StringLiteral value="&amp;"/>
                                         </queries:If>
                                         <queries:Do>
@@ -1133,7 +1135,7 @@
                                 <queries:SelfStep/>
                                 <queries:And initialCapacity="2">
                                     <queries:VariableTest value="title"/>
-                                    <queries:ExpressionTest>
+                                    <queries:Some>
                                         <queries:Path initialCapacity="2">
                                         <queries:Filter>
                                         <queries:AncestorStep/>
@@ -1144,7 +1146,8 @@
                                         <queries:VariableTest value="articleTitle"/>
                                         </queries:Filter>
                                         </queries:Path>
-                                    </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </queries:Some>
                                 </queries:And>
                             </queries:Filter>
                             <queries:Sequence initialCapacity="2">

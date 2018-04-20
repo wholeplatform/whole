@@ -90,27 +90,21 @@
                             <queries:VariableTest value="newEntity"/>
                         </queries:Filter>
                         <queries:If>
-                            <queries:And initialCapacity="2">
-                                <queries:ExpressionTest>
-                                    <queries:Filter>
-                                        <queries:VariableRefStep value="newEntity"/>
+                            <queries:Some>
+                                <queries:Filter>
+                                    <queries:VariableRefStep value="newEntity"/>
+                                    <queries:And initialCapacity="2">
                                         <queries:KindTest value="COMPOSITE"/>
-                                    </queries:Filter>
-                                </queries:ExpressionTest>
-                                <queries:Not>
-                                    <queries:ExpressionTest>
-                                        <queries:Path initialCapacity="2">
-                                        <queries:VariableRefStep value="newEntity"/>
-                                        <queries:Filter>
+                                        <queries:Not>
+                                        <queries:Some>
                                         <queries:ChildStep/>
-                                        <queries:IndexTest>
-                                        <queries:IntLiteral value="0"/>
-                                        </queries:IndexTest>
-                                        </queries:Filter>
-                                        </queries:Path>
-                                    </queries:ExpressionTest>
-                                </queries:Not>
-                            </queries:And>
+                                        <commons:Resolver/>
+                                        </queries:Some>
+                                        </queries:Not>
+                                    </queries:And>
+                                </queries:Filter>
+                                <commons:Resolver/>
+                            </queries:Some>
                             <queries:PointwiseInsert>
                                 <queries:Placement value="INTO"/>
                                 <queries:VariableRefStep value="newEntity"/>

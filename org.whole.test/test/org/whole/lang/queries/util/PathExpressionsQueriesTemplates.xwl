@@ -179,12 +179,13 @@
                         <queries:ChildStep/>
                         <queries:And initialCapacity="2">
                             <queries:SubtypeTest value="Production"/>
-                            <queries:ExpressionTest>
+                            <queries:Some>
                                 <queries:Filter>
                                     <queries:FeatureStep value="rule"/>
                                     <queries:TypeTest value="Choose"/>
                                 </queries:Filter>
-                            </queries:ExpressionTest>
+                                <commons:Resolver/>
+                            </queries:Some>
                         </queries:And>
                     </queries:Filter>
                 </queries:Path>
@@ -222,14 +223,14 @@
                     <queries:FeatureStep value="rule"/>
                     <queries:Filter>
                         <queries:DescendantStep/>
-                        <queries:ExpressionTest>
+                        <queries:MatchTest>
                             <commons:StageUpFragment>
                                 <grammars:As xmlns:grammars="http://lang.whole.org/Grammars">
                                     <grammars:NonTerminal value="IName"/>
                                     <grammars:Name value="tag"/>
                                 </grammars:As>
                             </commons:StageUpFragment>
-                        </queries:ExpressionTest>
+                        </queries:MatchTest>
                     </queries:Filter>
                 </queries:Path>
             </commons:StageUpFragment>
@@ -247,7 +248,7 @@
                     <queries:FeatureStep value="rule"/>
                     <queries:Filter>
                         <queries:DescendantStep/>
-                        <queries:ExpressionTest>
+                        <queries:MatchTest>
                             <commons:StageUpFragment>
                                 <grammars:Production xmlns:grammars="http://lang.whole.org/Grammars">
                                     <commons:Variable>
@@ -259,7 +260,7 @@
                                     <commons:Resolver/>
                                 </grammars:Production>
                             </commons:StageUpFragment>
-                        </queries:ExpressionTest>
+                        </queries:MatchTest>
                     </queries:Filter>
                 </queries:Path>
             </commons:StageUpFragment>
@@ -395,12 +396,13 @@
                         <queries:ChildStep/>
                         <queries:And initialCapacity="2">
                             <queries:TypeTest value="Production"/>
-                            <queries:ExpressionTest>
+                            <queries:Some>
                                 <queries:Filter>
                                     <queries:FeatureStep value="name"/>
                                     <queries:VariableTest value="pname"/>
                                 </queries:Filter>
-                            </queries:ExpressionTest>
+                                <commons:Resolver/>
+                            </queries:Some>
                         </queries:And>
                     </queries:Filter>
                 </queries:Path>
@@ -468,12 +470,13 @@
                         <queries:ChildStep/>
                         <queries:And initialCapacity="2">
                             <queries:TypeTest value="Production"/>
-                            <queries:ExpressionTest>
+                            <queries:Some>
                                 <queries:Filter>
                                     <queries:FeatureStep value="name"/>
                                     <queries:VariableTest value="pname"/>
                                 </queries:Filter>
-                            </queries:ExpressionTest>
+                                <commons:Resolver/>
+                            </queries:Some>
                         </queries:And>
                     </queries:Filter>
                     <queries:FeatureStep value="rule"/>
@@ -497,7 +500,7 @@
                     <queries:FeatureStep value="phraseStructure"/>
                     <queries:Filter>
                         <queries:ChildStep/>
-                        <queries:ExpressionTest>
+                        <queries:MatchTest>
                             <commons:StageUpFragment>
                                 <grammars:Production xmlns:grammars="http://lang.whole.org/Grammars">
                                     <commons:Variable>
@@ -519,7 +522,7 @@
                                     <commons:Resolver/>
                                 </grammars:Production>
                             </commons:StageUpFragment>
-                        </queries:ExpressionTest>
+                        </queries:MatchTest>
                     </queries:Filter>
                 </queries:Path>
             </commons:StageUpFragment>
@@ -535,13 +538,14 @@
                         <queries:And initialCapacity="2">
                             <queries:TypeTest value="Production"/>
                             <queries:And initialCapacity="2">
-                                <queries:ExpressionTest>
+                                <queries:Some>
                                     <queries:Filter>
                                         <queries:FeatureStep value="name"/>
                                         <queries:VariableTest value="pname"/>
                                     </queries:Filter>
-                                </queries:ExpressionTest>
-                                <queries:ExpressionTest>
+                                    <commons:Resolver/>
+                                </queries:Some>
+                                <queries:Some>
                                     <queries:Path initialCapacity="2">
                                         <queries:FeatureStep value="rule"/>
                                         <queries:Filter>
@@ -552,7 +556,8 @@
                                         </queries:And>
                                         </queries:Filter>
                                     </queries:Path>
-                                </queries:ExpressionTest>
+                                    <commons:Resolver/>
+                                </queries:Some>
                             </queries:And>
                         </queries:And>
                     </queries:Filter>
@@ -569,7 +574,7 @@
                         <queries:ChildStep/>
                         <queries:And initialCapacity="2">
                             <queries:TypeTest value="Production"/>
-                            <queries:ExpressionTest>
+                            <queries:Some>
                                 <queries:CartesianProduct initialCapacity="2">
                                     <queries:Filter>
                                         <queries:FeatureStep value="name"/>
@@ -586,7 +591,8 @@
                                         </queries:Filter>
                                     </queries:Path>
                                 </queries:CartesianProduct>
-                            </queries:ExpressionTest>
+                                <commons:Resolver/>
+                            </queries:Some>
                         </queries:And>
                     </queries:Filter>
                 </queries:Path>
@@ -760,12 +766,13 @@
                                         <queries:DescendantOrSelfStep/>
                                         <queries:And initialCapacity="2">
                                         <queries:TypeTest value="Production"/>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:FeatureStep value="name"/>
                                         <queries:VariableTest value="pname"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver/>
+                                        </queries:Some>
                                         </queries:And>
                                         </queries:Filter>
                                         <queries:Path initialCapacity="1">
@@ -776,14 +783,15 @@
                                         <queries:TypeTest value="NonTerminal"/>
                                         <queries:VariableTest value="nt"/>
                                         </queries:And>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:ParentStep/>
                                         <queries:Not>
                                         <queries:TypeTest value="Production"/>
                                         </queries:Not>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver/>
+                                        </queries:Some>
                                         </queries:And>
                                         </queries:Filter>
                                         </queries:Path>

@@ -33,7 +33,7 @@ public class QueriesJoinPointsTest extends TestCase {
             bindings().wEnterScope(ts);
             IEntity subject;
             subject = evaluate("fragment");
-            assertThat("at /testCases/3/tests/0/body/0", subject, matches(evaluate("fragment1")));
+            assertThat("at /testCases/10/tests/0/body/0", subject, matches(evaluate("fragment1")));
         } finally {
             ts.rollback();
             bindings().wExitScope();

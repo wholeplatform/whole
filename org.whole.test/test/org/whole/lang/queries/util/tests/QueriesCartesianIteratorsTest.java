@@ -34,9 +34,9 @@ public class QueriesCartesianIteratorsTest extends TestCase {
             IEntity subject;
             evaluateInScope("fragment");
             subject = evaluate("fragment1");
-            assertThat("at /testCases/1/tests/0/body/1", subject, matches(evaluate("fragment2")));
+            assertThat("at /testCases/8/tests/0/body/1", subject, matches(evaluate("fragment2")));
             subject = evaluate("fragment3");
-            assertThat("at /testCases/1/tests/0/body/2", subject, matches(evaluate("fragment4")));
+            assertThat("at /testCases/8/tests/0/body/2", subject, matches(evaluate("fragment4")));
         } finally {
             ts.rollback();
             bindings().wExitScope();
@@ -54,9 +54,9 @@ public class QueriesCartesianIteratorsTest extends TestCase {
             IEntity subject;
             evaluateInScope("fragment5");
             subject = evaluate("fragment6");
-            assertThat("at /testCases/1/tests/1/body/1", subject, matches(evaluate("fragment7")));
+            assertThat("at /testCases/8/tests/1/body/1", subject, matches(evaluate("fragment7")));
             subject = evaluate("fragment8");
-            assertThat("at /testCases/1/tests/1/body/2", subject, matches(evaluate("fragment9")));
+            assertThat("at /testCases/8/tests/1/body/2", subject, matches(evaluate("fragment9")));
         } finally {
             ts.rollback();
             bindings().wExitScope();

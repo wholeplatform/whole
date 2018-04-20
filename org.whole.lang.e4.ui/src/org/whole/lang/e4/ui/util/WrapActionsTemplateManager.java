@@ -27,9 +27,9 @@ public class WrapActionsTemplateManager extends AbstractTemplateManager {
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
                 org.whole.lang.queries.builders.IQueriesBuilder b0 = (org.whole.lang.queries.builders.IQueriesBuilder) op.wGetBuilder(org.whole.lang.queries.reflect.QueriesLanguageKit.URI);
                 b0.Scope_();
-                b0.Names_(1);
+                b0.FreshNames_(1);
                 b0.Name("newEntity");
-                b0._Names();
+                b0._FreshNames();
                 b0.Block_(2);
                 b0.PointwiseUpdate_();
                 b0.Path_(2);
@@ -96,9 +96,9 @@ public class WrapActionsTemplateManager extends AbstractTemplateManager {
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
                 org.whole.lang.queries.builders.IQueriesBuilder b0 = (org.whole.lang.queries.builders.IQueriesBuilder) op.wGetBuilder(org.whole.lang.queries.reflect.QueriesLanguageKit.URI);
                 b0.Scope_();
-                b0.Names_(1);
+                b0.FreshNames_(1);
                 b0.Name("newEntity");
-                b0._Names();
+                b0._FreshNames();
                 b0.Block_(4);
                 b0.Filter_();
                 org.whole.lang.workflows.builders.IWorkflowsBuilder b1 = (org.whole.lang.workflows.builders.IWorkflowsBuilder) op.wGetBuilder(org.whole.lang.workflows.reflect.WorkflowsLanguageKit.URI);
@@ -117,27 +117,21 @@ public class WrapActionsTemplateManager extends AbstractTemplateManager {
                 b0.VariableTest("newEntity");
                 b0._Filter();
                 b0.If_();
+                b0.Some_();
+                b0.Filter_();
+                b0.VariableRefStep("newEntity");
                 b0.And_(2);
-                b0.ExpressionTest_();
-                b0.Filter_();
-                b0.VariableRefStep("newEntity");
                 b0.KindTest("COMPOSITE");
-                b0._Filter();
-                b0._ExpressionTest();
                 b0.Not_();
-                b0.ExpressionTest_();
-                b0.Path_(2);
-                b0.VariableRefStep("newEntity");
-                b0.Filter_();
+                b0.Some_();
                 b0.ChildStep();
-                b0.IndexTest_();
-                b0.IntLiteral(0);
-                b0._IndexTest();
-                b0._Filter();
-                b0._Path();
-                b0._ExpressionTest();
+                b2.Resolver();
+                b0._Some();
                 b0._Not();
                 b0._And();
+                b0._Filter();
+                b2.Resolver();
+                b0._Some();
                 b0.PointwiseInsert_();
                 b0.Placement("INTO");
                 b0.VariableRefStep("newEntity");
@@ -205,9 +199,9 @@ public class WrapActionsTemplateManager extends AbstractTemplateManager {
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
                 org.whole.lang.queries.builders.IQueriesBuilder b0 = (org.whole.lang.queries.builders.IQueriesBuilder) op.wGetBuilder(org.whole.lang.queries.reflect.QueriesLanguageKit.URI);
                 b0.Scope_();
-                b0.Names_(1);
+                b0.FreshNames_(1);
                 b0.Name("newEntity");
-                b0._Names();
+                b0._FreshNames();
                 b0.Block_(2);
                 b0.PointwiseUpdate_();
                 b0.Path_(3);

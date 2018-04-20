@@ -129,22 +129,16 @@
                             <commons:SameStageFragment>
                                 <queries:Or xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
                                     <queries:And initialCapacity="2">
-                                        <queries:ExpressionTest>
                                         <queries:LessThan>
                                         <queries:VariableRefStep value="count"/>
                                         <queries:VariableRefStep value="len"/>
                                         </queries:LessThan>
-                                        </queries:ExpressionTest>
-                                        <queries:ExpressionTest>
                                         <queries:GreaterOrEquals>
                                         <queries:VariableRefStep value="len"/>
                                         <queries:IntLiteral value="0"/>
                                         </queries:GreaterOrEquals>
-                                        </queries:ExpressionTest>
                                     </queries:And>
-                                    <queries:ExpressionTest>
-                                        <queries:BooleanLiteral value="false"/>
-                                    </queries:ExpressionTest>
+                                    <queries:BooleanLiteral value="false"/>
                                 </queries:Or>
                             </commons:SameStageFragment>
                             <workflows:AssignActivity>

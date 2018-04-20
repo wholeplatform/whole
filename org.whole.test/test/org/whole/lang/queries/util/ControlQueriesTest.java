@@ -23,6 +23,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
 import org.whole.lang.grammars.model.Grammar;
 import org.whole.lang.grammars.model.Production;
 import org.whole.lang.grammars.reflect.GrammarsEntityDescriptorEnum;
@@ -31,6 +32,7 @@ import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.java.factories.JavaEntityFactory;
 import org.whole.lang.java.model.ClassDeclaration;
 import org.whole.lang.java.model.InfixOperatorEnum;
+import org.whole.lang.java.reflect.JavaEntityDescriptorEnum;
 import org.whole.lang.java.reflect.JavaFeatureDescriptorEnum;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
@@ -640,16 +642,16 @@ public class ControlQueriesTest {
 						jef.createIntLiteral(10),
 						jef.createInfixOperator(InfixOperatorEnum.times),
 						jef.createIntLiteral(8),
-						jef.createExpressions(0)
+						CommonsEntityAdapterFactory.createResolver(JavaEntityDescriptorEnum.Expressions)
 				),
 				jef.createInfixOperator(InfixOperatorEnum.divide),
 				jef.createInfixExpression(
 						jef.createIntLiteral(2),
 						jef.createInfixOperator(InfixOperatorEnum.plus),
 						jef.createIntLiteral(1),
-						jef.createExpressions(0)
+						CommonsEntityAdapterFactory.createResolver(JavaEntityDescriptorEnum.Expressions)
 				),
-				jef.createExpressions(0)
+				CommonsEntityAdapterFactory.createResolver(JavaEntityDescriptorEnum.Expressions)
 		);
 
 		IEntity javaExp2 = EntityUtils.clone(javaExp1);

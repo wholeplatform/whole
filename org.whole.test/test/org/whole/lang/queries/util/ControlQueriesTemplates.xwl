@@ -1694,7 +1694,7 @@
                                 <queries:TemplateNames/>
                             </queries:Select>
                             <queries:If>
-                                <queries:ExpressionTest>
+                                <queries:MatchTest>
                                     <queries:EntityTemplate>
                                         <queries:EntityType value="http://lang.whole.org/Queries#Addition"/>
                                         <queries:Bindings initialCapacity="2">
@@ -1723,7 +1723,7 @@
                                         </queries:Bind>
                                         </queries:Bindings>
                                     </queries:EntityTemplate>
-                                </queries:ExpressionTest>
+                                </queries:MatchTest>
                                 <queries:EntityTemplate>
                                     <queries:EntityType value="http://lang.whole.org/Java#InfixExpression"/>
                                     <queries:Bindings initialCapacity="4">
@@ -1770,7 +1770,7 @@
                                 </queries:EntityTemplate>
                             </queries:If>
                             <queries:If>
-                                <queries:ExpressionTest>
+                                <queries:MatchTest>
                                     <queries:EntityTemplate>
                                         <queries:EntityType value="http://lang.whole.org/Queries#Addition"/>
                                         <queries:Bindings initialCapacity="2">
@@ -1784,7 +1784,7 @@
                                         </queries:Bind>
                                         </queries:Bindings>
                                     </queries:EntityTemplate>
-                                </queries:ExpressionTest>
+                                </queries:MatchTest>
                                 <queries:EntityTemplate>
                                     <queries:EntityType value="http://lang.whole.org/Java#InfixExpression"/>
                                     <queries:Bindings initialCapacity="3">
@@ -1821,7 +1821,7 @@
                                 </queries:EntityTemplate>
                             </queries:If>
                             <queries:If>
-                                <queries:ExpressionTest>
+                                <queries:MatchTest>
                                     <queries:EntityTemplate>
                                         <queries:EntityType value="http://lang.whole.org/Queries#Subtraction"/>
                                         <queries:Bindings initialCapacity="2">
@@ -1835,7 +1835,7 @@
                                         </queries:Bind>
                                         </queries:Bindings>
                                     </queries:EntityTemplate>
-                                </queries:ExpressionTest>
+                                </queries:MatchTest>
                                 <queries:Block initialCapacity="3">
                                     <queries:Path initialCapacity="2">
                                         <queries:VariableRefStep value="exp1"/>

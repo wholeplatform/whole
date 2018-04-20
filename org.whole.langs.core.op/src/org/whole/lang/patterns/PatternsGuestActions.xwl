@@ -214,9 +214,10 @@
                                     <queries:Filter>
                                         <queries:FeatureStep value="http://lang.whole.org/Artifacts#artifacts"/>
                                         <queries:Not>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:ChildStep/>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         </queries:Not>
                                     </queries:Filter>
                                     <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
@@ -537,9 +538,10 @@
                                     <queries:Filter>
                                         <queries:FeatureStep value="http://lang.whole.org/Artifacts#artifacts"/>
                                         <queries:Not>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:ChildStep/>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         </queries:Not>
                                     </queries:Filter>
                                     <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
@@ -749,12 +751,13 @@
                                         <queries:Filter>
                                         <queries:Choose initialCapacity="2">
                                         <queries:If>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:ParentStep/>
                                         <queries:KindTest value="COMPOSITE"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         <queries:Block initialCapacity="2">
                                         <queries:Delete>
                                         <queries:Path initialCapacity="2">
@@ -762,11 +765,10 @@
                                         <queries:Filter>
                                         <queries:ChildStep/>
                                         <queries:Not>
-                                        <queries:ExpressionTest>
-                                        <queries:Path initialCapacity="1">
+                                        <queries:Some>
                                         <queries:FollowingSiblingStep/>
-                                        </queries:Path>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         </queries:Not>
                                         </queries:Filter>
                                         </queries:Path>

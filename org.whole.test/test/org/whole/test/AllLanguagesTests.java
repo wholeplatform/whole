@@ -46,7 +46,7 @@ import org.whole.lang.xsd.util.XsdLanguageTest;
 import org.whole.lang.xsd.util.XsiDateTimeUtilsTest;
 
 /**
- * Runs: 245
+ * Runs: 252
  * Errors: 2
  * Failures: 11
 

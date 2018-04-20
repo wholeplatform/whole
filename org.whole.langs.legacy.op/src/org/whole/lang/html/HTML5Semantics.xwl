@@ -777,7 +777,7 @@
             <semantics:Rules initialCapacity="12">
                 <semantics:ExecutionRule>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    <queries:ExpressionTest xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:MatchTest xmlns:queries="http://lang.whole.org/Queries">
                         <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                             <wxml:Document xmlns:wxml="http://lang.whole.org/Xml">
                                 <wxml:Prolog>
@@ -798,7 +798,7 @@
                                 </wxml:Element>
                             </wxml:Document>
                         </commons:StageUpFragment>
-                    </queries:ExpressionTest>
+                    </queries:MatchTest>
                     <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                         <html5:Html xmlns:html5="whole:org.whole.lang.html:HTML5Model">
                             <commons:Resolver/>
@@ -821,7 +821,7 @@
                 </semantics:ExecutionRule>
                 <semantics:ExecutionRule>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    <queries:ExpressionTest xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:MatchTest xmlns:queries="http://lang.whole.org/Queries">
                         <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                             <wxml:Element xmlns:wxml="http://lang.whole.org/Xml">
                                 <wxml:Name value="head"/>
@@ -833,7 +833,7 @@
                                 </semantics:StructuredVariable>
                             </wxml:Element>
                         </commons:StageUpFragment>
-                    </queries:ExpressionTest>
+                    </queries:MatchTest>
                     <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                         <html5:Head xmlns:html5="whole:org.whole.lang.html:HTML5Model">
                             <commons:Resolver/>
@@ -851,7 +851,7 @@
                 </semantics:ExecutionRule>
                 <semantics:ExecutionRule>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    <queries:ExpressionTest xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:MatchTest xmlns:queries="http://lang.whole.org/Queries">
                         <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                             <wxml:Element xmlns:wxml="http://lang.whole.org/Xml">
                                 <wxml:Name value="body"/>
@@ -863,7 +863,7 @@
                                 </semantics:StructuredVariable>
                             </wxml:Element>
                         </commons:StageUpFragment>
-                    </queries:ExpressionTest>
+                    </queries:MatchTest>
                     <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                         <html5:Body xmlns:html5="whole:org.whole.lang.html:HTML5Model">
                             <commons:Resolver/>
@@ -881,7 +881,7 @@
                 </semantics:ExecutionRule>
                 <semantics:ExecutionRule>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    <queries:ExpressionTest xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:MatchTest xmlns:queries="http://lang.whole.org/Queries">
                         <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                             <wxml:Element xmlns:wxml="http://lang.whole.org/Xml">
                                 <wxml:Name value="meta"/>
@@ -902,7 +902,7 @@
                                 <wxml:Content initialCapacity="0"/>
                             </wxml:Element>
                         </commons:StageUpFragment>
-                    </queries:ExpressionTest>
+                    </queries:MatchTest>
                     <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                         <html5:Meta xmlns:html5="whole:org.whole.lang.html:HTML5Model">
                             <commons:Resolver/>
@@ -925,7 +925,7 @@
                 </semantics:ExecutionRule>
                 <semantics:ExecutionRule>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    <queries:ExpressionTest xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:MatchTest xmlns:queries="http://lang.whole.org/Queries">
                         <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                             <wxml:Element xmlns:wxml="http://lang.whole.org/Xml">
                                 <wxml:Name value="meta"/>
@@ -946,7 +946,7 @@
                                 <wxml:Content initialCapacity="0"/>
                             </wxml:Element>
                         </commons:StageUpFragment>
-                    </queries:ExpressionTest>
+                    </queries:MatchTest>
                     <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                         <html5:Meta xmlns:html5="whole:org.whole.lang.html:HTML5Model">
                             <commons:Resolver/>
@@ -969,7 +969,7 @@
                 </semantics:ExecutionRule>
                 <semantics:ExecutionRule>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    <queries:ExpressionTest xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:MatchTest xmlns:queries="http://lang.whole.org/Queries">
                         <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                             <wxml:Element xmlns:wxml="http://lang.whole.org/Xml">
                                 <wxml:Name value="meta"/>
@@ -982,7 +982,7 @@
                                 <wxml:Content initialCapacity="0"/>
                             </wxml:Element>
                         </commons:StageUpFragment>
-                    </queries:ExpressionTest>
+                    </queries:MatchTest>
                     <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                         <commons:StageUpFragment>
                             <text:Text xmlns:text="http://lang.whole.org/Text" value="TODO meta with charset"/>
@@ -991,7 +991,7 @@
                 </semantics:ExecutionRule>
                 <semantics:ExecutionRule>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    <queries:ExpressionTest xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:MatchTest xmlns:queries="http://lang.whole.org/Queries">
                         <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                             <wxml:Element xmlns:wxml="http://lang.whole.org/Xml">
                                 <wxml:Name value="title"/>
@@ -1005,7 +1005,7 @@
                                 </wxml:Content>
                             </wxml:Element>
                         </commons:StageUpFragment>
-                    </queries:ExpressionTest>
+                    </queries:MatchTest>
                     <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                         <html5:Title xmlns:html5="whole:org.whole.lang.html:HTML5Model">
                             <commons:Resolver/>
@@ -1021,7 +1021,7 @@
                 </semantics:ExecutionRule>
                 <semantics:ExecutionRule>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    <queries:ExpressionTest xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:MatchTest xmlns:queries="http://lang.whole.org/Queries">
                         <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                             <wxml:Element xmlns:wxml="http://lang.whole.org/Xml">
                                 <wxml:Name value="link"/>
@@ -1046,7 +1046,7 @@
                                 <wxml:Content initialCapacity="0"/>
                             </wxml:Element>
                         </commons:StageUpFragment>
-                    </queries:ExpressionTest>
+                    </queries:MatchTest>
                     <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                         <html5:Link xmlns:html5="whole:org.whole.lang.html:HTML5Model">
                             <commons:Resolver/>
@@ -1084,7 +1084,7 @@
                 </semantics:ExecutionRule>
                 <semantics:ExecutionRule>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    <queries:ExpressionTest xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:MatchTest xmlns:queries="http://lang.whole.org/Queries">
                         <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                             <wxml:Element xmlns:wxml="http://lang.whole.org/Xml">
                                 <wxml:Name value="script"/>
@@ -1101,7 +1101,7 @@
                                 <wxml:Content initialCapacity="0"/>
                             </wxml:Element>
                         </commons:StageUpFragment>
-                    </queries:ExpressionTest>
+                    </queries:MatchTest>
                     <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                         <html5:Script xmlns:html5="whole:org.whole.lang.html:HTML5Model">
                             <commons:Resolver/>

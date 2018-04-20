@@ -447,12 +447,13 @@
                                         <queries:Filter>
                                         <queries:Choose initialCapacity="2">
                                         <queries:If>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:ParentStep/>
                                         <queries:KindTest value="COMPOSITE"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         <queries:Block initialCapacity="2">
                                         <queries:Delete>
                                         <queries:Path initialCapacity="2">
@@ -460,11 +461,10 @@
                                         <queries:Filter>
                                         <queries:ChildStep/>
                                         <queries:Not>
-                                        <queries:ExpressionTest>
-                                        <queries:Path initialCapacity="1">
+                                        <queries:Some>
                                         <queries:FollowingSiblingStep/>
-                                        </queries:Path>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         </queries:Not>
                                         </queries:Filter>
                                         </queries:Path>
@@ -622,18 +622,20 @@
                                         <queries:IntLiteral value="0"/>
                                     </queries:IndexTest>
                                     <queries:VariableTest value="mergeSlot"/>
-                                    <queries:ExpressionTest>
+                                    <queries:Some>
                                         <queries:Filter>
                                         <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#name"/>
                                         <queries:VariableTest value="mergeName"/>
                                         </queries:Filter>
-                                    </queries:ExpressionTest>
-                                    <queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </queries:Some>
+                                    <queries:Some>
                                         <queries:Filter>
                                         <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#type"/>
                                         <queries:VariableTest value="mergeType"/>
                                         </queries:Filter>
-                                    </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </queries:Some>
                                 </queries:And>
                             </queries:Filter>
                         </queries:Path>
@@ -927,7 +929,7 @@
                             <queries:SelfStep/>
                             <queries:And initialCapacity="3">
                                 <queries:KindTest value="RESOLVER"/>
-                                <queries:ExpressionTest>
+                                <queries:Some>
                                     <queries:Filter>
                                         <queries:ParentStep/>
                                         <queries:Or initialCapacity="4">
@@ -937,7 +939,8 @@
                                         <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#DerivationPoint"/>
                                         </queries:Or>
                                     </queries:Filter>
-                                </queries:ExpressionTest>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </queries:Some>
                                 <queries:Or initialCapacity="2">
                                     <queries:AtFeatureTest value="whole:org.whole.lang.patterns:PatternsModel#type"/>
                                     <queries:AtFeatureTest value="whole:org.whole.lang.patterns:PatternsModel#resultType"/>

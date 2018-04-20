@@ -558,12 +558,8 @@
                                 <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                             </queries:Some>
                             <queries:Addition>
-                                <queries:Singleton>
-                                    <queries:FeatureStep value="http://lang.whole.org/Semantics#variable"/>
-                                </queries:Singleton>
-                                <queries:Singleton>
-                                    <queries:FeatureStep value="http://lang.whole.org/Semantics#index"/>
-                                </queries:Singleton>
+                                <queries:FeatureStep value="http://lang.whole.org/Semantics#variable"/>
+                                <queries:FeatureStep value="http://lang.whole.org/Semantics#index"/>
                             </queries:Addition>
                         </queries:If>
                         <queries:Do>
@@ -599,12 +595,8 @@
                                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                 </queries:Some>
                                 <queries:Addition>
-                                    <queries:Singleton>
-                                        <queries:FeatureStep value="http://lang.whole.org/Semantics#variable"/>
-                                    </queries:Singleton>
-                                    <queries:Singleton>
-                                        <queries:FeatureStep value="http://lang.whole.org/Semantics#index"/>
-                                    </queries:Singleton>
+                                    <queries:FeatureStep value="http://lang.whole.org/Semantics#variable"/>
+                                    <queries:FeatureStep value="http://lang.whole.org/Semantics#index"/>
                                 </queries:Addition>
                             </queries:If>
                             <queries:Do>
@@ -1841,7 +1833,6 @@
                                         </queries:Path>
                                         <queries:Choose initialCapacity="2">
                                         <queries:If>
-                                        <queries:ExpressionTest>
                                         <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
                                         <workflows:Text value="isReplaceable"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -1853,7 +1844,6 @@
                                         <workflows:Variable value="fragment"/>
                                         </workflows:Expressions>
                                         </workflows:InvokeJavaClassMethod>
-                                        </queries:ExpressionTest>
                                         <queries:VariableRefStep value="fragment"/>
                                         </queries:If>
                                         <queries:Do>
@@ -1877,7 +1867,7 @@
                                     <queries:VariableRefStep value="functionQuery"/>
                                     <queries:Filter>
                                         <queries:DescendantStep/>
-                                        <queries:TypeTest value="http://lang.whole.org/Queries#ExpressionTest"/>
+                                        <queries:TypeTest value="http://lang.whole.org/Queries#MatchTest"/>
                                     </queries:Filter>
                                     <queries:Filter>
                                         <queries:DescendantStep/>

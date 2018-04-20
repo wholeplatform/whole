@@ -11,12 +11,12 @@
                         <queries:DescendantStep/>
                         <queries:And initialCapacity="2">
                             <queries:TypeTest value="Content"/>
-                            <queries:ExpressionTest>
+                            <queries:Some>
                                 <queries:Filter>
                                     <queries:ParentStep/>
                                     <queries:TypeTest value="Content"/>
                                 </queries:Filter>
-                            </queries:ExpressionTest>
+                            </queries:Some>
                         </queries:And>
                     </queries:Filter>
                 </queries:Path>
@@ -42,14 +42,14 @@
                                     <queries:TypeTest value="Content"/>
                                 </queries:Not>
                             </queries:And>
-                            <queries:ExpressionTest>
+                            <queries:Some>
                                 <queries:Filter>
                                     <queries:ParentStep/>
                                     <queries:Not>
                                         <queries:TypeTest value="Content"/>
                                     </queries:Not>
                                 </queries:Filter>
-                            </queries:ExpressionTest>
+                            </queries:Some>
                         </queries:And>
                     </queries:Filter>
                 </queries:Path>
@@ -65,7 +65,7 @@
                         <queries:Or initialCapacity="2">
                             <queries:And initialCapacity="2">
                                 <queries:TypeTest value="CharData"/>
-                                <queries:ExpressionTest>
+                                <queries:Some>
                                     <queries:Filter>
                                         <queries:FollowingSiblingStep/>
                                         <queries:And initialCapacity="2">
@@ -75,11 +75,11 @@
                                         <queries:TypeTest value="CharData"/>
                                         </queries:And>
                                     </queries:Filter>
-                                </queries:ExpressionTest>
+                                </queries:Some>
                             </queries:And>
                             <queries:And initialCapacity="2">
                                 <queries:TypeTest value="CDataSect"/>
-                                <queries:ExpressionTest>
+                                <queries:Some>
                                     <queries:Filter>
                                         <queries:FollowingSiblingStep/>
                                         <queries:And initialCapacity="2">
@@ -89,7 +89,7 @@
                                         <queries:TypeTest value="CDataSect"/>
                                         </queries:And>
                                     </queries:Filter>
-                                </queries:ExpressionTest>
+                                </queries:Some>
                             </queries:And>
                         </queries:Or>
                     </queries:Filter>

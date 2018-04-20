@@ -5,7 +5,2458 @@
     <tests:Name value="QueriesTestSuite"/>
     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
     <tests:FilterFamilies initialCapacity="0"/>
-    <tests:TestCases initialCapacity="4">
+    <tests:TestCases initialCapacity="11">
+        <tests:TestCase>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <tests:Name value="QueriesQuantifiedPredicateBindingTest"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <tests:Aspects initialCapacity="1">
+                <tests:BeforeTestCase>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <tests:Name value="bindTestArtifact"/>
+                    <workflows:AssignActivity xmlns:workflows="http://lang.whole.org/Workflows">
+                        <workflows:Text value="assignActivity"/>
+                        <workflows:Assignments initialCapacity="1">
+                            <workflows:Assign>
+                                <workflows:Variable value="instance"/>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <math:Multiplication xmlns:math="http://lang.whole.org/Math" initialCapacity="7">
+                                        <math:Integer value="0"/>
+                                        <math:Division>
+                                        <math:Integer value="1"/>
+                                        <math:Integer value="2"/>
+                                        </math:Division>
+                                        <math:Integer value="3"/>
+                                        <math:Integer value="4"/>
+                                        <math:Subtraction>
+                                        <math:Integer value="5"/>
+                                        <math:Integer value="6"/>
+                                        </math:Subtraction>
+                                        <math:Integer value="7"/>
+                                        <math:Subtraction>
+                                        <math:Integer value="8"/>
+                                        <math:Integer value="9"/>
+                                        </math:Subtraction>
+                                    </math:Multiplication>
+                                </commons:StageUpFragment>
+                            </workflows:Assign>
+                        </workflows:Assignments>
+                    </workflows:AssignActivity>
+                </tests:BeforeTestCase>
+            </tests:Aspects>
+            <tests:Tests initialCapacity="1">
+                <tests:Test>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <tests:Name value="testQuantifiedPredicateBindings"/>
+                    <tests:TestStatements initialCapacity="6">
+                        <tests:AssertThat>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="1">
+                                    <commons:StageDownFragment>
+                                        <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:FreshNames initialCapacity="1">
+                                        <queries:Name value="exp"/>
+                                        </queries:FreshNames>
+                                        <queries:Select>
+                                        <commons:StageUpFragment>
+                                        <math:Addition xmlns:math="http://lang.whole.org/Math" initialCapacity="2">
+                                        <math:Integer value="5"/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Math#Expression"/>
+                                        <commons:VarName value="exp"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        </math:Addition>
+                                        </commons:StageUpFragment>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="instance"/>
+                                        <queries:One>
+                                        <queries:DescendantOrSelfStep/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:TypeTest value="Subtraction"/>
+                                        <queries:VariableTest value="exp"/>
+                                        </queries:And>
+                                        </queries:One>
+                                        </queries:Filter>
+                                        <commons:Resolver/>
+                                        <queries:TemplateNames/>
+                                        </queries:Select>
+                                        </queries:Scope>
+                                    </commons:StageDownFragment>
+                                </misc:Misc>
+                            </commons:StageUpFragment>
+                            <tests:Matches>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="0"/>
+                                </commons:StageUpFragment>
+                            </tests:Matches>
+                        </tests:AssertThat>
+                        <tests:AssertThat>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="1">
+                                    <commons:StageDownFragment>
+                                        <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:FreshNames initialCapacity="1">
+                                        <queries:Name value="exp"/>
+                                        </queries:FreshNames>
+                                        <queries:Select>
+                                        <commons:StageUpFragment>
+                                        <math:Addition xmlns:math="http://lang.whole.org/Math" initialCapacity="2">
+                                        <math:Integer value="5"/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Math#Expression"/>
+                                        <commons:VarName value="exp"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        </math:Addition>
+                                        </commons:StageUpFragment>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="instance"/>
+                                        <queries:One>
+                                        <queries:DescendantOrSelfStep/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:TypeTest value="Division"/>
+                                        <queries:VariableTest value="exp"/>
+                                        </queries:And>
+                                        </queries:One>
+                                        </queries:Filter>
+                                        <commons:Resolver/>
+                                        <queries:TemplateNames/>
+                                        </queries:Select>
+                                        </queries:Scope>
+                                    </commons:StageDownFragment>
+                                </misc:Misc>
+                            </commons:StageUpFragment>
+                            <tests:Matches>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="1">
+                                        <math:Addition xmlns:math="http://lang.whole.org/Math" initialCapacity="2">
+                                        <math:Integer value="5"/>
+                                        <math:Division>
+                                        <math:Integer value="1"/>
+                                        <math:Integer value="2"/>
+                                        </math:Division>
+                                        </math:Addition>
+                                    </misc:Misc>
+                                </commons:StageUpFragment>
+                            </tests:Matches>
+                        </tests:AssertThat>
+                        <tests:AssertThat>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="1">
+                                    <commons:StageDownFragment>
+                                        <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:FreshNames initialCapacity="1">
+                                        <queries:Name value="exp"/>
+                                        </queries:FreshNames>
+                                        <queries:Select>
+                                        <commons:StageUpFragment>
+                                        <math:Addition xmlns:math="http://lang.whole.org/Math" initialCapacity="2">
+                                        <math:Integer value="5"/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Math#Expression"/>
+                                        <commons:VarName value="exp"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        </math:Addition>
+                                        </commons:StageUpFragment>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="instance"/>
+                                        <queries:Some>
+                                        <queries:DescendantOrSelfStep/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:TypeTest value="Remainder"/>
+                                        <queries:VariableTest value="exp"/>
+                                        </queries:And>
+                                        </queries:Some>
+                                        </queries:Filter>
+                                        <commons:Resolver/>
+                                        <queries:TemplateNames/>
+                                        </queries:Select>
+                                        </queries:Scope>
+                                    </commons:StageDownFragment>
+                                </misc:Misc>
+                            </commons:StageUpFragment>
+                            <tests:Matches>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="0"/>
+                                </commons:StageUpFragment>
+                            </tests:Matches>
+                        </tests:AssertThat>
+                        <tests:AssertThat>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="1">
+                                    <commons:StageDownFragment>
+                                        <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:FreshNames initialCapacity="1">
+                                        <queries:Name value="exp"/>
+                                        </queries:FreshNames>
+                                        <queries:Select>
+                                        <commons:StageUpFragment>
+                                        <math:Addition xmlns:math="http://lang.whole.org/Math" initialCapacity="2">
+                                        <math:Integer value="5"/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Math#Expression"/>
+                                        <commons:VarName value="exp"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        </math:Addition>
+                                        </commons:StageUpFragment>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="instance"/>
+                                        <queries:Some>
+                                        <queries:DescendantOrSelfStep/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:TypeTest value="Subtraction"/>
+                                        <queries:VariableTest value="exp"/>
+                                        </queries:And>
+                                        </queries:Some>
+                                        </queries:Filter>
+                                        <commons:Resolver/>
+                                        <queries:TemplateNames/>
+                                        </queries:Select>
+                                        </queries:Scope>
+                                    </commons:StageDownFragment>
+                                </misc:Misc>
+                            </commons:StageUpFragment>
+                            <tests:Matches>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="1">
+                                        <math:Addition xmlns:math="http://lang.whole.org/Math" initialCapacity="2">
+                                        <math:Integer value="5"/>
+                                        <math:Subtraction>
+                                        <math:Integer value="5"/>
+                                        <math:Integer value="6"/>
+                                        </math:Subtraction>
+                                        </math:Addition>
+                                    </misc:Misc>
+                                </commons:StageUpFragment>
+                            </tests:Matches>
+                        </tests:AssertThat>
+                        <tests:AssertThat>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="1">
+                                    <commons:StageDownFragment>
+                                        <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:FreshNames initialCapacity="1">
+                                        <queries:Name value="exp"/>
+                                        </queries:FreshNames>
+                                        <queries:Select>
+                                        <commons:StageUpFragment>
+                                        <math:Addition xmlns:math="http://lang.whole.org/Math" initialCapacity="2">
+                                        <math:Integer value="5"/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Math#Expression"/>
+                                        <commons:VarName value="exp"/>
+                                        <commons:Quantifier value="+"/>
+                                        </commons:Variable>
+                                        </math:Addition>
+                                        </commons:StageUpFragment>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="instance"/>
+                                        <queries:Every>
+                                        <queries:DescendantOrSelfStep/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:TypeTest value="Remainder"/>
+                                        <queries:VariableTest value="exp"/>
+                                        </queries:And>
+                                        </queries:Every>
+                                        </queries:Filter>
+                                        <commons:Resolver/>
+                                        <queries:TemplateNames/>
+                                        </queries:Select>
+                                        </queries:Scope>
+                                    </commons:StageDownFragment>
+                                </misc:Misc>
+                            </commons:StageUpFragment>
+                            <tests:Matches>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="0"/>
+                                </commons:StageUpFragment>
+                            </tests:Matches>
+                        </tests:AssertThat>
+                        <tests:AssertThat>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="1">
+                                    <commons:StageDownFragment>
+                                        <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:FreshNames initialCapacity="1">
+                                        <queries:Name value="exp"/>
+                                        </queries:FreshNames>
+                                        <queries:Select>
+                                        <commons:StageUpFragment>
+                                        <math:Addition xmlns:math="http://lang.whole.org/Math" initialCapacity="2">
+                                        <math:Integer value="5"/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Math#Expression"/>
+                                        <commons:VarName value="exp"/>
+                                        <commons:Quantifier value="+"/>
+                                        </commons:Variable>
+                                        </math:Addition>
+                                        </commons:StageUpFragment>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="instance"/>
+                                        <queries:Every>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:KindTest value="DATA"/>
+                                        </queries:Filter>
+                                        <queries:And initialCapacity="2">
+                                        <queries:TypeTest value="Integer"/>
+                                        <queries:VariableTest value="exp"/>
+                                        </queries:And>
+                                        </queries:Every>
+                                        </queries:Filter>
+                                        <commons:Resolver/>
+                                        <queries:TemplateNames/>
+                                        </queries:Select>
+                                        </queries:Scope>
+                                    </commons:StageDownFragment>
+                                </misc:Misc>
+                            </commons:StageUpFragment>
+                            <tests:Matches>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="1">
+                                        <math:Addition xmlns:math="http://lang.whole.org/Math" initialCapacity="2">
+                                        <math:Integer value="5"/>
+                                        <math:Integer value="7"/>
+                                        </math:Addition>
+                                    </misc:Misc>
+                                </commons:StageUpFragment>
+                            </tests:Matches>
+                        </tests:AssertThat>
+                    </tests:TestStatements>
+                    <tests:Result>
+                        <tests:Outcome value="SUCCESS"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </tests:Result>
+                    <tests:Result>
+                        <tests:Outcome value="SUCCESS"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </tests:Result>
+                </tests:Test>
+            </tests:Tests>
+            <tests:Results>
+                <tests:IntLiteral value="1"/>
+                <tests:IntLiteral value="0"/>
+                <tests:IntLiteral value="0"/>
+            </tests:Results>
+            <tests:Results>
+                <tests:IntLiteral value="1"/>
+                <tests:IntLiteral value="0"/>
+                <tests:IntLiteral value="0"/>
+            </tests:Results>
+        </tests:TestCase>
+        <tests:TestCase>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <tests:Name value="QueriesScopeTest"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <tests:Aspects initialCapacity="1">
+                <tests:BeforeTestCase>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <tests:Name value="bindNames"/>
+                    <workflows:AssignActivity xmlns:workflows="http://lang.whole.org/Workflows">
+                        <workflows:Text value="assignActivity"/>
+                        <workflows:Assignments initialCapacity="2">
+                            <workflows:Assign>
+                                <workflows:Variable value="fileName"/>
+                                <workflows:StringLiteral value="QueriesTests"/>
+                            </workflows:Assign>
+                            <workflows:Assign>
+                                <workflows:Variable value="fileNameWithExtension"/>
+                                <workflows:StringLiteral value="QueriesTests.xwl"/>
+                            </workflows:Assign>
+                        </workflows:Assignments>
+                    </workflows:AssignActivity>
+                </tests:BeforeTestCase>
+            </tests:Aspects>
+            <tests:Tests initialCapacity="1">
+                <tests:Test>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <tests:Name value="testConditionScope"/>
+                    <tests:TestStatements initialCapacity="5">
+                        <tests:AssertThat>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="1">
+                                    <commons:StageDownFragment>
+                                        <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:ScopeNames initialCapacity="0"/>
+                                        <queries:VariableRefStep value="fileName"/>
+                                        </queries:Scope>
+                                    </commons:StageDownFragment>
+                                </misc:Misc>
+                            </commons:StageUpFragment>
+                            <tests:Matches>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="0"/>
+                                </commons:StageUpFragment>
+                            </tests:Matches>
+                        </tests:AssertThat>
+                        <tests:AssertThat>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="1">
+                                    <commons:StageDownFragment>
+                                        <queries:Sequence xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                                        <queries:VariableRefStep value="fileName"/>
+                                        <queries:Scope>
+                                        <queries:ScopeNames initialCapacity="1">
+                                        <queries:Name value="self"/>
+                                        </queries:ScopeNames>
+                                        <queries:VariableRefStep value="fileName"/>
+                                        </queries:Scope>
+                                        </queries:Sequence>
+                                    </commons:StageDownFragment>
+                                </misc:Misc>
+                            </commons:StageUpFragment>
+                            <tests:Matches>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="1">
+                                        <environment:StringData xmlns:environment="http://lang.whole.org/Environment" value="QueriesTests"/>
+                                    </misc:Misc>
+                                </commons:StageUpFragment>
+                            </tests:Matches>
+                        </tests:AssertThat>
+                        <tests:AssertThat>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="1">
+                                    <commons:StageDownFragment>
+                                        <queries:Sequence xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                                        <queries:VariableRefStep value="fileName"/>
+                                        <queries:Scope>
+                                        <queries:ScopeNames initialCapacity="0"/>
+                                        <queries:VariableRefStep value="fileName"/>
+                                        </queries:Scope>
+                                        </queries:Sequence>
+                                    </commons:StageDownFragment>
+                                </misc:Misc>
+                            </commons:StageUpFragment>
+                            <tests:Matches>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="1">
+                                        <environment:StringData xmlns:environment="http://lang.whole.org/Environment" value="QueriesTests"/>
+                                    </misc:Misc>
+                                </commons:StageUpFragment>
+                            </tests:Matches>
+                        </tests:AssertThat>
+                        <tests:AssertThat>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="1">
+                                    <commons:StageDownFragment>
+                                        <queries:Sequence xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                                        <queries:VariableRefStep value="fileName"/>
+                                        <queries:Scope>
+                                        <queries:ScopeNames initialCapacity="1">
+                                        <queries:Name value="fileName"/>
+                                        </queries:ScopeNames>
+                                        <queries:Block initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:StringLiteral value="testFileName"/>
+                                        <queries:VariableTest value="fileName"/>
+                                        </queries:Filter>
+                                        <queries:VariableRefStep value="fileName"/>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        </queries:Sequence>
+                                    </commons:StageDownFragment>
+                                </misc:Misc>
+                            </commons:StageUpFragment>
+                            <tests:Matches>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="2">
+                                        <environment:StringData xmlns:environment="http://lang.whole.org/Environment" value="QueriesTests"/>
+                                        <environment:StringData xmlns:environment="http://lang.whole.org/Environment" value="QueriesTests"/>
+                                    </misc:Misc>
+                                </commons:StageUpFragment>
+                            </tests:Matches>
+                        </tests:AssertThat>
+                        <tests:AssertThat>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="1">
+                                    <commons:StageDownFragment>
+                                        <queries:Sequence xmlns:queries="http://lang.whole.org/Queries" initialCapacity="3">
+                                        <queries:VariableRefStep value="fileName"/>
+                                        <queries:VariableRefStep value="fileNameWithExtension"/>
+                                        <queries:Scope>
+                                        <queries:FreshNames initialCapacity="1">
+                                        <queries:Name value="fileName"/>
+                                        </queries:FreshNames>
+                                        <queries:Block initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:StringLiteral value="testFileName"/>
+                                        <queries:VariableTest value="fileName"/>
+                                        </queries:Filter>
+                                        <queries:Scope>
+                                        <queries:ScopeNames initialCapacity="1">
+                                        <queries:Name value="fileName"/>
+                                        </queries:ScopeNames>
+                                        <queries:Block initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:StringLiteral value="testFileName.extension"/>
+                                        <queries:VariableTest value="fileNameWithExtension"/>
+                                        </queries:Filter>
+                                        <queries:Sequence initialCapacity="2">
+                                        <queries:VariableRefStep value="fileName"/>
+                                        <queries:VariableRefStep value="fileNameWithExtension"/>
+                                        </queries:Sequence>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        </queries:Sequence>
+                                    </commons:StageDownFragment>
+                                </misc:Misc>
+                            </commons:StageUpFragment>
+                            <tests:Matches>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="4">
+                                        <environment:StringData xmlns:environment="http://lang.whole.org/Environment" value="QueriesTests"/>
+                                        <environment:StringData xmlns:environment="http://lang.whole.org/Environment" value="QueriesTests.xwl"/>
+                                        <environment:StringData xmlns:environment="http://lang.whole.org/Environment" value="testFileName"/>
+                                        <environment:StringData xmlns:environment="http://lang.whole.org/Environment" value="testFileName.extension"/>
+                                    </misc:Misc>
+                                </commons:StageUpFragment>
+                            </tests:Matches>
+                        </tests:AssertThat>
+                    </tests:TestStatements>
+                    <tests:Result>
+                        <tests:Outcome value="SUCCESS"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </tests:Result>
+                    <tests:Result>
+                        <tests:Outcome value="SUCCESS"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </tests:Result>
+                </tests:Test>
+            </tests:Tests>
+            <tests:Results>
+                <tests:IntLiteral value="1"/>
+                <tests:IntLiteral value="0"/>
+                <tests:IntLiteral value="0"/>
+            </tests:Results>
+            <tests:Results>
+                <tests:IntLiteral value="1"/>
+                <tests:IntLiteral value="0"/>
+                <tests:IntLiteral value="0"/>
+            </tests:Results>
+        </tests:TestCase>
+        <tests:TestCase>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <tests:Name value="QueriesIfTest"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <tests:Aspects initialCapacity="1">
+                <tests:BeforeTestCase>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <tests:Name value="bindTestArtifact"/>
+                    <workflows:AssignActivity xmlns:workflows="http://lang.whole.org/Workflows">
+                        <workflows:Text value="assignActivity"/>
+                        <workflows:Assignments initialCapacity="2">
+                            <workflows:Assign>
+                                <workflows:Variable value="mathInstance"/>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <math:Multiplication xmlns:math="http://lang.whole.org/Math" initialCapacity="6">
+                                        <math:Integer value="0"/>
+                                        <math:Addition initialCapacity="3">
+                                        <math:Integer value="1"/>
+                                        <math:Integer value="2"/>
+                                        <math:Integer value="3"/>
+                                        </math:Addition>
+                                        <math:Integer value="4"/>
+                                        <math:Addition initialCapacity="2">
+                                        <math:Integer value="5"/>
+                                        <math:Integer value="6"/>
+                                        </math:Addition>
+                                        <math:Integer value="7"/>
+                                        <math:Addition initialCapacity="4">
+                                        <math:Integer value="8"/>
+                                        <math:Integer value="9"/>
+                                        <math:Integer value="10"/>
+                                        <math:Integer value="11"/>
+                                        </math:Addition>
+                                    </math:Multiplication>
+                                </commons:StageUpFragment>
+                            </workflows:Assign>
+                            <workflows:Assign>
+                                <workflows:Variable value="javaInstance"/>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <java:InterfaceDeclaration xmlns:java="http://lang.whole.org/Java">
+                                        <commons:Resolver/>
+                                        <java:ExtendedModifiers initialCapacity="1">
+                                        <java:Modifier value="public"/>
+                                        </java:ExtendedModifiers>
+                                        <java:SimpleName value="MyVisitor"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <java:BodyDeclarations initialCapacity="2">
+                                        <java:MethodDeclaration>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <java:PrimitiveType value="byte"/>
+                                        <java:SimpleName value="m1"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </java:MethodDeclaration>
+                                        <java:MethodDeclaration>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <java:PrimitiveType value="int"/>
+                                        <java:SimpleName value="m2"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </java:MethodDeclaration>
+                                        </java:BodyDeclarations>
+                                    </java:InterfaceDeclaration>
+                                </commons:StageUpFragment>
+                            </workflows:Assign>
+                        </workflows:Assignments>
+                    </workflows:AssignActivity>
+                </tests:BeforeTestCase>
+            </tests:Aspects>
+            <tests:Tests initialCapacity="1">
+                <tests:Test>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <tests:Name value="testConditionScope"/>
+                    <tests:TestStatements initialCapacity="3">
+                        <tests:AssertThat>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="1">
+                                    <commons:StageDownFragment>
+                                        <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:Names initialCapacity="1">
+                                        <queries:Name value="add3"/>
+                                        </queries:Names>
+                                        <queries:Sequence initialCapacity="2">
+                                        <queries:If>
+                                        <queries:Equals>
+                                        <queries:Singleton>
+                                        <queries:Path initialCapacity="3">
+                                        <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="EntityUtils.clone(instance)"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="org.whole.lang.util.EntityUtils"/>
+                                        <workflows:StringLiteral value="clone(org.whole.lang.model.IEntity)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <workflows:Variable value="mathInstance"/>
+                                        </workflows:Expressions>
+                                        </workflows:InvokeJavaClassMethod>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:IndexTest>
+                                        <queries:IntLiteral value="1"/>
+                                        </queries:IndexTest>
+                                        <queries:VariableTest value="add3"/>
+                                        </queries:And>
+                                        </queries:Filter>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:IndexTest>
+                                        <queries:IntLiteral value="1"/>
+                                        </queries:IndexTest>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        </queries:Singleton>
+                                        <queries:IntLiteral value="2"/>
+                                        </queries:Equals>
+                                        <queries:VariableRefStep value="add3"/>
+                                        </queries:If>
+                                        <queries:VariableRefStep value="add3"/>
+                                        </queries:Sequence>
+                                        </queries:Scope>
+                                    </commons:StageDownFragment>
+                                </misc:Misc>
+                            </commons:StageUpFragment>
+                            <tests:Matches>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="2">
+                                        <math:Addition xmlns:math="http://lang.whole.org/Math" initialCapacity="3">
+                                        <math:Integer value="1"/>
+                                        <math:Integer value="2"/>
+                                        <math:Integer value="3"/>
+                                        </math:Addition>
+                                        <math:Addition xmlns:math="http://lang.whole.org/Math" initialCapacity="3">
+                                        <math:Integer value="1"/>
+                                        <math:Integer value="2"/>
+                                        <math:Integer value="3"/>
+                                        </math:Addition>
+                                    </misc:Misc>
+                                </commons:StageUpFragment>
+                            </tests:Matches>
+                        </tests:AssertThat>
+                        <tests:AssertThat>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="1">
+                                    <commons:StageDownFragment>
+                                        <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:Names initialCapacity="2">
+                                        <queries:Name value="visitorName"/>
+                                        <queries:Name value="bodyDeclarations"/>
+                                        </queries:Names>
+                                        <queries:Path initialCapacity="2">
+                                        <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="EntityUtils.clone(instance)"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="org.whole.lang.util.EntityUtils"/>
+                                        <workflows:StringLiteral value="clone(org.whole.lang.model.IEntity)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <workflows:Variable value="javaInstance"/>
+                                        </workflows:Expressions>
+                                        </workflows:InvokeJavaClassMethod>
+                                        <queries:Sequence initialCapacity="1">
+                                        <queries:If>
+                                        <queries:MatchTest>
+                                        <commons:StageUpFragment>
+                                        <java:InterfaceDeclaration xmlns:java="http://lang.whole.org/Java">
+                                        <commons:Resolver/>
+                                        <java:ExtendedModifiers initialCapacity="1">
+                                        <java:Modifier value="public"/>
+                                        </java:ExtendedModifiers>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Java#SimpleName"/>
+                                        <commons:VarName value="visitorName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Java#BodyDeclarations"/>
+                                        <commons:VarName value="bodyDeclarations"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        </java:InterfaceDeclaration>
+                                        </commons:StageUpFragment>
+                                        </queries:MatchTest>
+                                        <queries:Sequence initialCapacity="2">
+                                        <queries:VariableRefStep value="visitorName"/>
+                                        <queries:VariableRefStep value="bodyDeclarations"/>
+                                        </queries:Sequence>
+                                        </queries:If>
+                                        </queries:Sequence>
+                                        </queries:Path>
+                                        </queries:Scope>
+                                    </commons:StageDownFragment>
+                                </misc:Misc>
+                            </commons:StageUpFragment>
+                            <tests:Matches>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="2">
+                                        <java:SimpleName xmlns:java="http://lang.whole.org/Java" value="MyVisitor"/>
+                                        <java:BodyDeclarations xmlns:java="http://lang.whole.org/Java" initialCapacity="2">
+                                        <java:MethodDeclaration>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <java:PrimitiveType value="byte"/>
+                                        <java:SimpleName value="m1"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </java:MethodDeclaration>
+                                        <java:MethodDeclaration>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <java:PrimitiveType value="int"/>
+                                        <java:SimpleName value="m2"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </java:MethodDeclaration>
+                                        </java:BodyDeclarations>
+                                    </misc:Misc>
+                                </commons:StageUpFragment>
+                            </tests:Matches>
+                        </tests:AssertThat>
+                        <tests:AssertThat>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="1">
+                                    <commons:StageDownFragment>
+                                        <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:Names initialCapacity="2">
+                                        <queries:Name value="visitorName"/>
+                                        <queries:Name value="bodyDeclarations"/>
+                                        </queries:Names>
+                                        <queries:Path initialCapacity="2">
+                                        <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="EntityUtils.clone(instance)"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="org.whole.lang.util.EntityUtils"/>
+                                        <workflows:StringLiteral value="clone(org.whole.lang.model.IEntity)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <workflows:Variable value="javaInstance"/>
+                                        </workflows:Expressions>
+                                        </workflows:InvokeJavaClassMethod>
+                                        <queries:Sequence initialCapacity="1">
+                                        <queries:If>
+                                        <queries:And initialCapacity="3">
+                                        <queries:MatchTest>
+                                        <commons:StageUpFragment>
+                                        <java:InterfaceDeclaration xmlns:java="http://lang.whole.org/Java">
+                                        <commons:Resolver/>
+                                        <java:ExtendedModifiers initialCapacity="1">
+                                        <java:Modifier value="public"/>
+                                        </java:ExtendedModifiers>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Java#SimpleName"/>
+                                        <commons:VarName value="visitorName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Java#BodyDeclarations"/>
+                                        <commons:VarName value="bodyDeclarations"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        </java:InterfaceDeclaration>
+                                        </commons:StageUpFragment>
+                                        </queries:MatchTest>
+                                        <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="isVisitorName"/>
+                                        <commons:Resolver/>
+                                        <workflows:Variable value="visitorName"/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="java.lang.String"/>
+                                        <workflows:StringLiteral value="endsWith(java.lang.String)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <queries:StringLiteral value="Visitor"/>
+                                        </workflows:Expressions>
+                                        </workflows:InvokeJavaInstanceMethod>
+                                        <queries:Every>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="bodyDeclarations"/>
+                                        <queries:ChildStep/>
+                                        </queries:Path>
+                                        <queries:TypeTest value="http://lang.whole.org/Java#MethodDeclaration"/>
+                                        </queries:Every>
+                                        </queries:And>
+                                        <queries:Sequence initialCapacity="3">
+                                        <queries:SelfStep/>
+                                        <queries:VariableRefStep value="visitorName"/>
+                                        <queries:VariableRefStep value="bodyDeclarations"/>
+                                        </queries:Sequence>
+                                        </queries:If>
+                                        </queries:Sequence>
+                                        </queries:Path>
+                                        </queries:Scope>
+                                    </commons:StageDownFragment>
+                                </misc:Misc>
+                            </commons:StageUpFragment>
+                            <tests:Matches>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="3">
+                                        <java:InterfaceDeclaration xmlns:java="http://lang.whole.org/Java">
+                                        <commons:Resolver/>
+                                        <java:ExtendedModifiers initialCapacity="1">
+                                        <java:Modifier value="public"/>
+                                        </java:ExtendedModifiers>
+                                        <java:SimpleName value="MyVisitor"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <java:BodyDeclarations initialCapacity="2">
+                                        <java:MethodDeclaration>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <java:PrimitiveType value="byte"/>
+                                        <java:SimpleName value="m1"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </java:MethodDeclaration>
+                                        <java:MethodDeclaration>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <java:PrimitiveType value="int"/>
+                                        <java:SimpleName value="m2"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </java:MethodDeclaration>
+                                        </java:BodyDeclarations>
+                                        </java:InterfaceDeclaration>
+                                        <java:SimpleName xmlns:java="http://lang.whole.org/Java" value="MyVisitor"/>
+                                        <java:BodyDeclarations xmlns:java="http://lang.whole.org/Java" initialCapacity="2">
+                                        <java:MethodDeclaration>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <java:PrimitiveType value="byte"/>
+                                        <java:SimpleName value="m1"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </java:MethodDeclaration>
+                                        <java:MethodDeclaration>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <java:PrimitiveType value="int"/>
+                                        <java:SimpleName value="m2"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </java:MethodDeclaration>
+                                        </java:BodyDeclarations>
+                                    </misc:Misc>
+                                </commons:StageUpFragment>
+                            </tests:Matches>
+                        </tests:AssertThat>
+                    </tests:TestStatements>
+                    <tests:Result>
+                        <tests:Outcome value="SUCCESS"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </tests:Result>
+                    <tests:Result>
+                        <tests:Outcome value="SUCCESS"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </tests:Result>
+                </tests:Test>
+            </tests:Tests>
+            <tests:Results>
+                <tests:IntLiteral value="1"/>
+                <tests:IntLiteral value="0"/>
+                <tests:IntLiteral value="0"/>
+            </tests:Results>
+            <tests:Results>
+                <tests:IntLiteral value="1"/>
+                <tests:IntLiteral value="0"/>
+                <tests:IntLiteral value="0"/>
+            </tests:Results>
+        </tests:TestCase>
+        <tests:TestCase>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <tests:Name value="QueriesIncludeSelfTest"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <tests:Aspects initialCapacity="1">
+                <tests:BeforeTestCase>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <tests:Name value="bindTestArtifact"/>
+                    <workflows:AssignActivity xmlns:workflows="http://lang.whole.org/Workflows">
+                        <workflows:Text value="assignActivity"/>
+                        <workflows:Assignments initialCapacity="1">
+                            <workflows:Assign>
+                                <workflows:Variable value="instance"/>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <math:Multiplication xmlns:math="http://lang.whole.org/Math" initialCapacity="6">
+                                        <math:Integer value="0"/>
+                                        <math:Addition initialCapacity="3">
+                                        <math:Integer value="1"/>
+                                        <math:Integer value="2"/>
+                                        <math:Integer value="3"/>
+                                        </math:Addition>
+                                        <math:Integer value="4"/>
+                                        <math:Addition initialCapacity="2">
+                                        <math:Integer value="5"/>
+                                        <math:Integer value="6"/>
+                                        </math:Addition>
+                                        <math:Integer value="7"/>
+                                        <math:Addition initialCapacity="4">
+                                        <math:Integer value="8"/>
+                                        <math:Integer value="9"/>
+                                        <math:Integer value="10"/>
+                                        <math:Integer value="11"/>
+                                        </math:Addition>
+                                    </math:Multiplication>
+                                </commons:StageUpFragment>
+                            </workflows:Assign>
+                        </workflows:Assignments>
+                    </workflows:AssignActivity>
+                </tests:BeforeTestCase>
+            </tests:Aspects>
+            <tests:Tests initialCapacity="1">
+                <tests:Test>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <tests:Name value="testIncludeSelf"/>
+                    <tests:TestStatements initialCapacity="5">
+                        <tests:AssertThat>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="1">
+                                    <commons:StageDownFragment>
+                                        <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="4">
+                                        <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="EntityUtils.clone(instance)"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="org.whole.lang.util.EntityUtils"/>
+                                        <workflows:StringLiteral value="clone(org.whole.lang.model.IEntity)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <workflows:Variable value="instance"/>
+                                        </workflows:Expressions>
+                                        </workflows:InvokeJavaClassMethod>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:IndexTest>
+                                        <queries:IntLiteral value="1"/>
+                                        </queries:IndexTest>
+                                        </queries:Filter>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:IndexTest>
+                                        <queries:IntLiteral value="1"/>
+                                        </queries:IndexTest>
+                                        </queries:Filter>
+                                        <queries:AncestorOrSelfStep/>
+                                        </queries:Path>
+                                    </commons:StageDownFragment>
+                                </misc:Misc>
+                            </commons:StageUpFragment>
+                            <tests:Matches>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="3">
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="2"/>
+                                        <math:Addition xmlns:math="http://lang.whole.org/Math" initialCapacity="3">
+                                        <math:Integer value="1"/>
+                                        <math:Integer value="2"/>
+                                        <math:Integer value="3"/>
+                                        </math:Addition>
+                                        <math:Multiplication xmlns:math="http://lang.whole.org/Math" initialCapacity="6">
+                                        <math:Integer value="0"/>
+                                        <math:Addition initialCapacity="3">
+                                        <math:Integer value="1"/>
+                                        <math:Integer value="2"/>
+                                        <math:Integer value="3"/>
+                                        </math:Addition>
+                                        <math:Integer value="4"/>
+                                        <math:Addition initialCapacity="2">
+                                        <math:Integer value="5"/>
+                                        <math:Integer value="6"/>
+                                        </math:Addition>
+                                        <math:Integer value="7"/>
+                                        <math:Addition initialCapacity="4">
+                                        <math:Integer value="8"/>
+                                        <math:Integer value="9"/>
+                                        <math:Integer value="10"/>
+                                        <math:Integer value="11"/>
+                                        </math:Addition>
+                                        </math:Multiplication>
+                                    </misc:Misc>
+                                </commons:StageUpFragment>
+                            </tests:Matches>
+                        </tests:AssertThat>
+                        <tests:AssertThat>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="1">
+                                    <commons:StageDownFragment>
+                                        <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="3">
+                                        <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="EntityUtils.clone(instance)"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="org.whole.lang.util.EntityUtils"/>
+                                        <workflows:StringLiteral value="clone(org.whole.lang.model.IEntity)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <workflows:Variable value="instance"/>
+                                        </workflows:Expressions>
+                                        </workflows:InvokeJavaClassMethod>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:IndexTest>
+                                        <queries:IntLiteral value="2"/>
+                                        </queries:IndexTest>
+                                        </queries:Filter>
+                                        <queries:FollowingSiblingOrSelfStep/>
+                                        </queries:Path>
+                                    </commons:StageDownFragment>
+                                </misc:Misc>
+                            </commons:StageUpFragment>
+                            <tests:Matches>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="4">
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="4"/>
+                                        <math:Addition xmlns:math="http://lang.whole.org/Math" initialCapacity="2">
+                                        <math:Integer value="5"/>
+                                        <math:Integer value="6"/>
+                                        </math:Addition>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="7"/>
+                                        <math:Addition xmlns:math="http://lang.whole.org/Math" initialCapacity="4">
+                                        <math:Integer value="8"/>
+                                        <math:Integer value="9"/>
+                                        <math:Integer value="10"/>
+                                        <math:Integer value="11"/>
+                                        </math:Addition>
+                                    </misc:Misc>
+                                </commons:StageUpFragment>
+                            </tests:Matches>
+                        </tests:AssertThat>
+                        <tests:AssertThat>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="1">
+                                    <commons:StageDownFragment>
+                                        <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="3">
+                                        <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="EntityUtils.clone(instance)"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="org.whole.lang.util.EntityUtils"/>
+                                        <workflows:StringLiteral value="clone(org.whole.lang.model.IEntity)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <workflows:Variable value="instance"/>
+                                        </workflows:Expressions>
+                                        </workflows:InvokeJavaClassMethod>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:IndexTest>
+                                        <queries:IntLiteral value="2"/>
+                                        </queries:IndexTest>
+                                        </queries:Filter>
+                                        <queries:PrecedingSiblingOrSelfStep/>
+                                        </queries:Path>
+                                    </commons:StageDownFragment>
+                                </misc:Misc>
+                            </commons:StageUpFragment>
+                            <tests:Matches>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="3">
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="4"/>
+                                        <math:Addition xmlns:math="http://lang.whole.org/Math" initialCapacity="3">
+                                        <math:Integer value="1"/>
+                                        <math:Integer value="2"/>
+                                        <math:Integer value="3"/>
+                                        </math:Addition>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="0"/>
+                                    </misc:Misc>
+                                </commons:StageUpFragment>
+                            </tests:Matches>
+                        </tests:AssertThat>
+                        <tests:AssertThat>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="1">
+                                    <commons:StageDownFragment>
+                                        <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="3">
+                                        <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="EntityUtils.clone(instance)"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="org.whole.lang.util.EntityUtils"/>
+                                        <workflows:StringLiteral value="clone(org.whole.lang.model.IEntity)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <workflows:Variable value="instance"/>
+                                        </workflows:Expressions>
+                                        </workflows:InvokeJavaClassMethod>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:IndexTest>
+                                        <queries:IntLiteral value="2"/>
+                                        </queries:IndexTest>
+                                        </queries:Filter>
+                                        <queries:FollowingOrSelfStep/>
+                                        </queries:Path>
+                                    </commons:StageDownFragment>
+                                </misc:Misc>
+                            </commons:StageUpFragment>
+                            <tests:Matches>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="10">
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="4"/>
+                                        <math:Addition xmlns:math="http://lang.whole.org/Math" initialCapacity="2">
+                                        <math:Integer value="5"/>
+                                        <math:Integer value="6"/>
+                                        </math:Addition>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="5"/>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="6"/>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="7"/>
+                                        <math:Addition xmlns:math="http://lang.whole.org/Math" initialCapacity="4">
+                                        <math:Integer value="8"/>
+                                        <math:Integer value="9"/>
+                                        <math:Integer value="10"/>
+                                        <math:Integer value="11"/>
+                                        </math:Addition>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="8"/>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="9"/>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="10"/>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="11"/>
+                                    </misc:Misc>
+                                </commons:StageUpFragment>
+                            </tests:Matches>
+                        </tests:AssertThat>
+                        <tests:AssertThat>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="1">
+                                    <commons:StageDownFragment>
+                                        <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="3">
+                                        <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="EntityUtils.clone(instance)"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="org.whole.lang.util.EntityUtils"/>
+                                        <workflows:StringLiteral value="clone(org.whole.lang.model.IEntity)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <workflows:Variable value="instance"/>
+                                        </workflows:Expressions>
+                                        </workflows:InvokeJavaClassMethod>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:IndexTest>
+                                        <queries:IntLiteral value="2"/>
+                                        </queries:IndexTest>
+                                        </queries:Filter>
+                                        <queries:PrecedingOrSelfStep/>
+                                        </queries:Path>
+                                    </commons:StageDownFragment>
+                                </misc:Misc>
+                            </commons:StageUpFragment>
+                            <tests:Matches>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="6">
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="4"/>
+                                        <math:Addition xmlns:math="http://lang.whole.org/Math" initialCapacity="3">
+                                        <math:Integer value="1"/>
+                                        <math:Integer value="2"/>
+                                        <math:Integer value="3"/>
+                                        </math:Addition>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="3"/>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="2"/>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="1"/>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="0"/>
+                                    </misc:Misc>
+                                </commons:StageUpFragment>
+                            </tests:Matches>
+                        </tests:AssertThat>
+                    </tests:TestStatements>
+                    <tests:Result>
+                        <tests:Outcome value="SUCCESS"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </tests:Result>
+                    <tests:Result>
+                        <tests:Outcome value="SUCCESS"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </tests:Result>
+                </tests:Test>
+            </tests:Tests>
+            <tests:Results>
+                <tests:IntLiteral value="1"/>
+                <tests:IntLiteral value="0"/>
+                <tests:IntLiteral value="0"/>
+            </tests:Results>
+            <tests:Results>
+                <tests:IntLiteral value="1"/>
+                <tests:IntLiteral value="0"/>
+                <tests:IntLiteral value="0"/>
+            </tests:Results>
+        </tests:TestCase>
+        <tests:TestCase>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <tests:Name value="QueriesReverseTest"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <tests:Aspects initialCapacity="1">
+                <tests:BeforeTestCase>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <tests:Name value="bindTestArtifact"/>
+                    <workflows:AssignActivity xmlns:workflows="http://lang.whole.org/Workflows">
+                        <workflows:Text value="assignActivity"/>
+                        <workflows:Assignments initialCapacity="1">
+                            <workflows:Assign>
+                                <workflows:Variable value="instance"/>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <math:Multiplication xmlns:math="http://lang.whole.org/Math" initialCapacity="6">
+                                        <math:Integer value="0"/>
+                                        <math:Addition initialCapacity="3">
+                                        <math:Integer value="1"/>
+                                        <math:Integer value="2"/>
+                                        <math:Integer value="3"/>
+                                        </math:Addition>
+                                        <math:Integer value="4"/>
+                                        <math:Addition initialCapacity="2">
+                                        <math:Integer value="5"/>
+                                        <math:Integer value="6"/>
+                                        </math:Addition>
+                                        <math:Integer value="7"/>
+                                        <math:Addition initialCapacity="4">
+                                        <math:Integer value="8"/>
+                                        <math:Integer value="9"/>
+                                        <math:Integer value="10"/>
+                                        <math:Integer value="11"/>
+                                        </math:Addition>
+                                    </math:Multiplication>
+                                </commons:StageUpFragment>
+                            </workflows:Assign>
+                        </workflows:Assignments>
+                    </workflows:AssignActivity>
+                </tests:BeforeTestCase>
+            </tests:Aspects>
+            <tests:Tests initialCapacity="1">
+                <tests:Test>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <tests:Name value="testReverse"/>
+                    <tests:TestStatements initialCapacity="11">
+                        <tests:AssertThat>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="1">
+                                    <commons:StageDownFragment>
+                                        <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                                        <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="EntityUtils.clone(instance)"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="org.whole.lang.util.EntityUtils"/>
+                                        <workflows:StringLiteral value="clone(org.whole.lang.model.IEntity)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <workflows:Variable value="instance"/>
+                                        </workflows:Expressions>
+                                        </workflows:InvokeJavaClassMethod>
+                                        <queries:Reverse>
+                                        <queries:ChildStep/>
+                                        </queries:Reverse>
+                                        </queries:Path>
+                                    </commons:StageDownFragment>
+                                </misc:Misc>
+                            </commons:StageUpFragment>
+                            <tests:Matches>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="6">
+                                        <math:Addition xmlns:math="http://lang.whole.org/Math" initialCapacity="4">
+                                        <math:Integer value="8"/>
+                                        <math:Integer value="9"/>
+                                        <math:Integer value="10"/>
+                                        <math:Integer value="11"/>
+                                        </math:Addition>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="7"/>
+                                        <math:Addition xmlns:math="http://lang.whole.org/Math" initialCapacity="2">
+                                        <math:Integer value="5"/>
+                                        <math:Integer value="6"/>
+                                        </math:Addition>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="4"/>
+                                        <math:Addition xmlns:math="http://lang.whole.org/Math" initialCapacity="3">
+                                        <math:Integer value="1"/>
+                                        <math:Integer value="2"/>
+                                        <math:Integer value="3"/>
+                                        </math:Addition>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="0"/>
+                                    </misc:Misc>
+                                </commons:StageUpFragment>
+                            </tests:Matches>
+                        </tests:AssertThat>
+                        <tests:AssertThat>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="1">
+                                    <commons:StageDownFragment>
+                                        <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                                        <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="EntityUtils.clone(instance)"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="org.whole.lang.util.EntityUtils"/>
+                                        <workflows:StringLiteral value="clone(org.whole.lang.model.IEntity)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <workflows:Variable value="instance"/>
+                                        </workflows:Expressions>
+                                        </workflows:InvokeJavaClassMethod>
+                                        <queries:Reverse>
+                                        <queries:DescendantStep/>
+                                        </queries:Reverse>
+                                        </queries:Path>
+                                    </commons:StageDownFragment>
+                                </misc:Misc>
+                            </commons:StageUpFragment>
+                            <tests:Matches>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="15">
+                                        <math:Addition xmlns:math="http://lang.whole.org/Math" initialCapacity="4">
+                                        <math:Integer value="8"/>
+                                        <math:Integer value="9"/>
+                                        <math:Integer value="10"/>
+                                        <math:Integer value="11"/>
+                                        </math:Addition>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="11"/>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="10"/>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="9"/>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="8"/>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="7"/>
+                                        <math:Addition xmlns:math="http://lang.whole.org/Math" initialCapacity="2">
+                                        <math:Integer value="5"/>
+                                        <math:Integer value="6"/>
+                                        </math:Addition>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="6"/>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="5"/>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="4"/>
+                                        <math:Addition xmlns:math="http://lang.whole.org/Math" initialCapacity="3">
+                                        <math:Integer value="1"/>
+                                        <math:Integer value="2"/>
+                                        <math:Integer value="3"/>
+                                        </math:Addition>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="3"/>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="2"/>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="1"/>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="0"/>
+                                    </misc:Misc>
+                                </commons:StageUpFragment>
+                            </tests:Matches>
+                        </tests:AssertThat>
+                        <tests:AssertThat>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="1">
+                                    <commons:StageDownFragment>
+                                        <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                                        <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="EntityUtils.clone(instance)"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="org.whole.lang.util.EntityUtils"/>
+                                        <workflows:StringLiteral value="clone(org.whole.lang.model.IEntity)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <workflows:Variable value="instance"/>
+                                        </workflows:Expressions>
+                                        </workflows:InvokeJavaClassMethod>
+                                        <queries:Reverse>
+                                        <queries:DescendantOrSelfStep/>
+                                        </queries:Reverse>
+                                        </queries:Path>
+                                    </commons:StageDownFragment>
+                                </misc:Misc>
+                            </commons:StageUpFragment>
+                            <tests:Matches>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="16">
+                                        <math:Multiplication xmlns:math="http://lang.whole.org/Math" initialCapacity="6">
+                                        <math:Integer value="0"/>
+                                        <math:Addition initialCapacity="3">
+                                        <math:Integer value="1"/>
+                                        <math:Integer value="2"/>
+                                        <math:Integer value="3"/>
+                                        </math:Addition>
+                                        <math:Integer value="4"/>
+                                        <math:Addition initialCapacity="2">
+                                        <math:Integer value="5"/>
+                                        <math:Integer value="6"/>
+                                        </math:Addition>
+                                        <math:Integer value="7"/>
+                                        <math:Addition initialCapacity="4">
+                                        <math:Integer value="8"/>
+                                        <math:Integer value="9"/>
+                                        <math:Integer value="10"/>
+                                        <math:Integer value="11"/>
+                                        </math:Addition>
+                                        </math:Multiplication>
+                                        <math:Addition xmlns:math="http://lang.whole.org/Math" initialCapacity="4">
+                                        <math:Integer value="8"/>
+                                        <math:Integer value="9"/>
+                                        <math:Integer value="10"/>
+                                        <math:Integer value="11"/>
+                                        </math:Addition>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="11"/>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="10"/>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="9"/>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="8"/>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="7"/>
+                                        <math:Addition xmlns:math="http://lang.whole.org/Math" initialCapacity="2">
+                                        <math:Integer value="5"/>
+                                        <math:Integer value="6"/>
+                                        </math:Addition>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="6"/>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="5"/>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="4"/>
+                                        <math:Addition xmlns:math="http://lang.whole.org/Math" initialCapacity="3">
+                                        <math:Integer value="1"/>
+                                        <math:Integer value="2"/>
+                                        <math:Integer value="3"/>
+                                        </math:Addition>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="3"/>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="2"/>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="1"/>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="0"/>
+                                    </misc:Misc>
+                                </commons:StageUpFragment>
+                            </tests:Matches>
+                        </tests:AssertThat>
+                        <tests:AssertThat>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="1">
+                                    <commons:StageDownFragment>
+                                        <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="3">
+                                        <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="EntityUtils.clone(instance)"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="org.whole.lang.util.EntityUtils"/>
+                                        <workflows:StringLiteral value="clone(org.whole.lang.model.IEntity)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <workflows:Variable value="instance"/>
+                                        </workflows:Expressions>
+                                        </workflows:InvokeJavaClassMethod>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:IndexTest>
+                                        <queries:IntLiteral value="2"/>
+                                        </queries:IndexTest>
+                                        </queries:Filter>
+                                        <queries:Reverse>
+                                        <queries:FollowingSiblingStep/>
+                                        </queries:Reverse>
+                                        </queries:Path>
+                                    </commons:StageDownFragment>
+                                </misc:Misc>
+                            </commons:StageUpFragment>
+                            <tests:Matches>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="3">
+                                        <math:Addition xmlns:math="http://lang.whole.org/Math" initialCapacity="4">
+                                        <math:Integer value="8"/>
+                                        <math:Integer value="9"/>
+                                        <math:Integer value="10"/>
+                                        <math:Integer value="11"/>
+                                        </math:Addition>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="7"/>
+                                        <math:Addition xmlns:math="http://lang.whole.org/Math" initialCapacity="2">
+                                        <math:Integer value="5"/>
+                                        <math:Integer value="6"/>
+                                        </math:Addition>
+                                    </misc:Misc>
+                                </commons:StageUpFragment>
+                            </tests:Matches>
+                        </tests:AssertThat>
+                        <tests:AssertThat>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="1">
+                                    <commons:StageDownFragment>
+                                        <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="3">
+                                        <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="EntityUtils.clone(instance)"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="org.whole.lang.util.EntityUtils"/>
+                                        <workflows:StringLiteral value="clone(org.whole.lang.model.IEntity)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <workflows:Variable value="instance"/>
+                                        </workflows:Expressions>
+                                        </workflows:InvokeJavaClassMethod>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:IndexTest>
+                                        <queries:IntLiteral value="2"/>
+                                        </queries:IndexTest>
+                                        </queries:Filter>
+                                        <queries:Reverse>
+                                        <queries:FollowingSiblingOrSelfStep/>
+                                        </queries:Reverse>
+                                        </queries:Path>
+                                    </commons:StageDownFragment>
+                                </misc:Misc>
+                            </commons:StageUpFragment>
+                            <tests:Matches>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="4">
+                                        <math:Addition xmlns:math="http://lang.whole.org/Math" initialCapacity="4">
+                                        <math:Integer value="8"/>
+                                        <math:Integer value="9"/>
+                                        <math:Integer value="10"/>
+                                        <math:Integer value="11"/>
+                                        </math:Addition>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="7"/>
+                                        <math:Addition xmlns:math="http://lang.whole.org/Math" initialCapacity="2">
+                                        <math:Integer value="5"/>
+                                        <math:Integer value="6"/>
+                                        </math:Addition>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="4"/>
+                                    </misc:Misc>
+                                </commons:StageUpFragment>
+                            </tests:Matches>
+                        </tests:AssertThat>
+                        <tests:AssertThat>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="1">
+                                    <commons:StageDownFragment>
+                                        <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="3">
+                                        <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="EntityUtils.clone(instance)"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="org.whole.lang.util.EntityUtils"/>
+                                        <workflows:StringLiteral value="clone(org.whole.lang.model.IEntity)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <workflows:Variable value="instance"/>
+                                        </workflows:Expressions>
+                                        </workflows:InvokeJavaClassMethod>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:IndexTest>
+                                        <queries:IntLiteral value="2"/>
+                                        </queries:IndexTest>
+                                        </queries:Filter>
+                                        <queries:Reverse>
+                                        <queries:PrecedingSiblingStep/>
+                                        </queries:Reverse>
+                                        </queries:Path>
+                                    </commons:StageDownFragment>
+                                </misc:Misc>
+                            </commons:StageUpFragment>
+                            <tests:Matches>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="2">
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="0"/>
+                                        <math:Addition xmlns:math="http://lang.whole.org/Math" initialCapacity="3">
+                                        <math:Integer value="1"/>
+                                        <math:Integer value="2"/>
+                                        <math:Integer value="3"/>
+                                        </math:Addition>
+                                    </misc:Misc>
+                                </commons:StageUpFragment>
+                            </tests:Matches>
+                        </tests:AssertThat>
+                        <tests:AssertThat>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="1">
+                                    <commons:StageDownFragment>
+                                        <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="3">
+                                        <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="EntityUtils.clone(instance)"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="org.whole.lang.util.EntityUtils"/>
+                                        <workflows:StringLiteral value="clone(org.whole.lang.model.IEntity)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <workflows:Variable value="instance"/>
+                                        </workflows:Expressions>
+                                        </workflows:InvokeJavaClassMethod>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:IndexTest>
+                                        <queries:IntLiteral value="2"/>
+                                        </queries:IndexTest>
+                                        </queries:Filter>
+                                        <queries:Reverse>
+                                        <queries:PrecedingSiblingOrSelfStep/>
+                                        </queries:Reverse>
+                                        </queries:Path>
+                                    </commons:StageDownFragment>
+                                </misc:Misc>
+                            </commons:StageUpFragment>
+                            <tests:Matches>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="3">
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="0"/>
+                                        <math:Addition xmlns:math="http://lang.whole.org/Math" initialCapacity="3">
+                                        <math:Integer value="1"/>
+                                        <math:Integer value="2"/>
+                                        <math:Integer value="3"/>
+                                        </math:Addition>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="4"/>
+                                    </misc:Misc>
+                                </commons:StageUpFragment>
+                            </tests:Matches>
+                        </tests:AssertThat>
+                        <tests:AssertThat>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="1">
+                                    <commons:StageDownFragment>
+                                        <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="3">
+                                        <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="EntityUtils.clone(instance)"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="org.whole.lang.util.EntityUtils"/>
+                                        <workflows:StringLiteral value="clone(org.whole.lang.model.IEntity)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <workflows:Variable value="instance"/>
+                                        </workflows:Expressions>
+                                        </workflows:InvokeJavaClassMethod>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:IndexTest>
+                                        <queries:IntLiteral value="2"/>
+                                        </queries:IndexTest>
+                                        </queries:Filter>
+                                        <queries:Reverse>
+                                        <queries:AncestorOrSelfStep/>
+                                        </queries:Reverse>
+                                        </queries:Path>
+                                    </commons:StageDownFragment>
+                                </misc:Misc>
+                            </commons:StageUpFragment>
+                            <tests:Matches>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="2">
+                                        <math:Multiplication xmlns:math="http://lang.whole.org/Math" initialCapacity="6">
+                                        <math:Integer value="0"/>
+                                        <math:Addition initialCapacity="3">
+                                        <math:Integer value="1"/>
+                                        <math:Integer value="2"/>
+                                        <math:Integer value="3"/>
+                                        </math:Addition>
+                                        <math:Integer value="4"/>
+                                        <math:Addition initialCapacity="2">
+                                        <math:Integer value="5"/>
+                                        <math:Integer value="6"/>
+                                        </math:Addition>
+                                        <math:Integer value="7"/>
+                                        <math:Addition initialCapacity="4">
+                                        <math:Integer value="8"/>
+                                        <math:Integer value="9"/>
+                                        <math:Integer value="10"/>
+                                        <math:Integer value="11"/>
+                                        </math:Addition>
+                                        </math:Multiplication>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="4"/>
+                                    </misc:Misc>
+                                </commons:StageUpFragment>
+                            </tests:Matches>
+                        </tests:AssertThat>
+                        <tests:AssertThat>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="1">
+                                    <commons:StageDownFragment>
+                                        <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="3">
+                                        <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="EntityUtils.clone(instance)"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="org.whole.lang.util.EntityUtils"/>
+                                        <workflows:StringLiteral value="clone(org.whole.lang.model.IEntity)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <workflows:Variable value="instance"/>
+                                        </workflows:Expressions>
+                                        </workflows:InvokeJavaClassMethod>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:IndexTest>
+                                        <queries:IntLiteral value="2"/>
+                                        </queries:IndexTest>
+                                        </queries:Filter>
+                                        <queries:Reverse>
+                                        <queries:AncestorStep/>
+                                        </queries:Reverse>
+                                        </queries:Path>
+                                    </commons:StageDownFragment>
+                                </misc:Misc>
+                            </commons:StageUpFragment>
+                            <tests:Matches>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="1">
+                                        <math:Multiplication xmlns:math="http://lang.whole.org/Math" initialCapacity="6">
+                                        <math:Integer value="0"/>
+                                        <math:Addition initialCapacity="3">
+                                        <math:Integer value="1"/>
+                                        <math:Integer value="2"/>
+                                        <math:Integer value="3"/>
+                                        </math:Addition>
+                                        <math:Integer value="4"/>
+                                        <math:Addition initialCapacity="2">
+                                        <math:Integer value="5"/>
+                                        <math:Integer value="6"/>
+                                        </math:Addition>
+                                        <math:Integer value="7"/>
+                                        <math:Addition initialCapacity="4">
+                                        <math:Integer value="8"/>
+                                        <math:Integer value="9"/>
+                                        <math:Integer value="10"/>
+                                        <math:Integer value="11"/>
+                                        </math:Addition>
+                                        </math:Multiplication>
+                                    </misc:Misc>
+                                </commons:StageUpFragment>
+                            </tests:Matches>
+                        </tests:AssertThat>
+                        <tests:AssertThat>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="1">
+                                    <commons:StageDownFragment>
+                                        <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="4">
+                                        <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="EntityUtils.clone(instance)"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="org.whole.lang.util.EntityUtils"/>
+                                        <workflows:StringLiteral value="clone(org.whole.lang.model.IEntity)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <workflows:Variable value="instance"/>
+                                        </workflows:Expressions>
+                                        </workflows:InvokeJavaClassMethod>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:IndexTest>
+                                        <queries:IntLiteral value="1"/>
+                                        </queries:IndexTest>
+                                        </queries:Filter>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:IndexTest>
+                                        <queries:IntLiteral value="1"/>
+                                        </queries:IndexTest>
+                                        </queries:Filter>
+                                        <queries:Reverse>
+                                        <queries:AncestorStep/>
+                                        </queries:Reverse>
+                                        </queries:Path>
+                                    </commons:StageDownFragment>
+                                </misc:Misc>
+                            </commons:StageUpFragment>
+                            <tests:Matches>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="2">
+                                        <math:Multiplication xmlns:math="http://lang.whole.org/Math" initialCapacity="6">
+                                        <math:Integer value="0"/>
+                                        <math:Addition initialCapacity="3">
+                                        <math:Integer value="1"/>
+                                        <math:Integer value="2"/>
+                                        <math:Integer value="3"/>
+                                        </math:Addition>
+                                        <math:Integer value="4"/>
+                                        <math:Addition initialCapacity="2">
+                                        <math:Integer value="5"/>
+                                        <math:Integer value="6"/>
+                                        </math:Addition>
+                                        <math:Integer value="7"/>
+                                        <math:Addition initialCapacity="4">
+                                        <math:Integer value="8"/>
+                                        <math:Integer value="9"/>
+                                        <math:Integer value="10"/>
+                                        <math:Integer value="11"/>
+                                        </math:Addition>
+                                        </math:Multiplication>
+                                        <math:Addition xmlns:math="http://lang.whole.org/Math" initialCapacity="3">
+                                        <math:Integer value="1"/>
+                                        <math:Integer value="2"/>
+                                        <math:Integer value="3"/>
+                                        </math:Addition>
+                                    </misc:Misc>
+                                </commons:StageUpFragment>
+                            </tests:Matches>
+                        </tests:AssertThat>
+                        <tests:AssertThat>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="1">
+                                    <commons:StageDownFragment>
+                                        <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="4">
+                                        <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="EntityUtils.clone(instance)"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="org.whole.lang.util.EntityUtils"/>
+                                        <workflows:StringLiteral value="clone(org.whole.lang.model.IEntity)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <workflows:Variable value="instance"/>
+                                        </workflows:Expressions>
+                                        </workflows:InvokeJavaClassMethod>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:IndexTest>
+                                        <queries:IntLiteral value="1"/>
+                                        </queries:IndexTest>
+                                        </queries:Filter>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:IndexTest>
+                                        <queries:IntLiteral value="1"/>
+                                        </queries:IndexTest>
+                                        </queries:Filter>
+                                        <queries:Reverse>
+                                        <queries:AncestorOrSelfStep/>
+                                        </queries:Reverse>
+                                        </queries:Path>
+                                    </commons:StageDownFragment>
+                                </misc:Misc>
+                            </commons:StageUpFragment>
+                            <tests:Matches>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="3">
+                                        <math:Multiplication xmlns:math="http://lang.whole.org/Math" initialCapacity="6">
+                                        <math:Integer value="0"/>
+                                        <math:Addition initialCapacity="3">
+                                        <math:Integer value="1"/>
+                                        <math:Integer value="2"/>
+                                        <math:Integer value="3"/>
+                                        </math:Addition>
+                                        <math:Integer value="4"/>
+                                        <math:Addition initialCapacity="2">
+                                        <math:Integer value="5"/>
+                                        <math:Integer value="6"/>
+                                        </math:Addition>
+                                        <math:Integer value="7"/>
+                                        <math:Addition initialCapacity="4">
+                                        <math:Integer value="8"/>
+                                        <math:Integer value="9"/>
+                                        <math:Integer value="10"/>
+                                        <math:Integer value="11"/>
+                                        </math:Addition>
+                                        </math:Multiplication>
+                                        <math:Addition xmlns:math="http://lang.whole.org/Math" initialCapacity="3">
+                                        <math:Integer value="1"/>
+                                        <math:Integer value="2"/>
+                                        <math:Integer value="3"/>
+                                        </math:Addition>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="2"/>
+                                    </misc:Misc>
+                                </commons:StageUpFragment>
+                            </tests:Matches>
+                        </tests:AssertThat>
+                    </tests:TestStatements>
+                    <tests:Result>
+                        <tests:Outcome value="SUCCESS"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </tests:Result>
+                    <tests:Result>
+                        <tests:Outcome value="SUCCESS"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </tests:Result>
+                </tests:Test>
+            </tests:Tests>
+            <tests:Results>
+                <tests:IntLiteral value="1"/>
+                <tests:IntLiteral value="0"/>
+                <tests:IntLiteral value="0"/>
+            </tests:Results>
+            <tests:Results>
+                <tests:IntLiteral value="1"/>
+                <tests:IntLiteral value="0"/>
+                <tests:IntLiteral value="0"/>
+            </tests:Results>
+        </tests:TestCase>
+        <tests:TestCase>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <tests:Name value="QueriesRelativeIndexesTest"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <tests:Aspects initialCapacity="0"/>
+            <tests:Tests initialCapacity="1">
+                <tests:Test>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <tests:Name value="testRelativeIndexes"/>
+                    <tests:TestStatements initialCapacity="5">
+                        <tests:AssertThat>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="1">
+                                    <commons:StageDownFragment>
+                                        <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                                        <commons:StageUpFragment>
+                                        <math:Addition xmlns:math="http://lang.whole.org/Math" initialCapacity="5">
+                                        <math:Integer value="0"/>
+                                        <math:Integer value="1"/>
+                                        <math:Integer value="2"/>
+                                        <math:Integer value="3"/>
+                                        <math:Integer value="4"/>
+                                        </math:Addition>
+                                        </commons:StageUpFragment>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:IndexTest>
+                                        <queries:IntLiteral value="-1"/>
+                                        </queries:IndexTest>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                    </commons:StageDownFragment>
+                                </misc:Misc>
+                            </commons:StageUpFragment>
+                            <tests:Matches>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="1">
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="4"/>
+                                    </misc:Misc>
+                                </commons:StageUpFragment>
+                            </tests:Matches>
+                        </tests:AssertThat>
+                        <tests:AssertThat>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="1">
+                                    <commons:StageDownFragment>
+                                        <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                                        <commons:StageUpFragment>
+                                        <math:Addition xmlns:math="http://lang.whole.org/Math" initialCapacity="5">
+                                        <math:Integer value="0"/>
+                                        <math:Integer value="1"/>
+                                        <math:Integer value="2"/>
+                                        <math:Integer value="3"/>
+                                        <math:Integer value="4"/>
+                                        </math:Addition>
+                                        </commons:StageUpFragment>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:IndexTest>
+                                        <queries:IntLiteral value="-2"/>
+                                        </queries:IndexTest>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                    </commons:StageDownFragment>
+                                </misc:Misc>
+                            </commons:StageUpFragment>
+                            <tests:Matches>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="1">
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="3"/>
+                                    </misc:Misc>
+                                </commons:StageUpFragment>
+                            </tests:Matches>
+                        </tests:AssertThat>
+                        <tests:AssertThat>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="1">
+                                    <commons:StageDownFragment>
+                                        <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                                        <commons:StageUpFragment>
+                                        <math:Addition xmlns:math="http://lang.whole.org/Math" initialCapacity="5">
+                                        <math:Integer value="0"/>
+                                        <math:Integer value="1"/>
+                                        <math:Integer value="2"/>
+                                        <math:Integer value="3"/>
+                                        <math:Integer value="4"/>
+                                        </math:Addition>
+                                        </commons:StageUpFragment>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:IndexRangeTest>
+                                        <queries:IntLiteral value="0"/>
+                                        <commons:Resolver/>
+                                        </queries:IndexRangeTest>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                    </commons:StageDownFragment>
+                                </misc:Misc>
+                            </commons:StageUpFragment>
+                            <tests:Matches>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="5">
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="0"/>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="1"/>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="2"/>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="3"/>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="4"/>
+                                    </misc:Misc>
+                                </commons:StageUpFragment>
+                            </tests:Matches>
+                        </tests:AssertThat>
+                        <tests:AssertThat>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="1">
+                                    <commons:StageDownFragment>
+                                        <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                                        <commons:StageUpFragment>
+                                        <math:Addition xmlns:math="http://lang.whole.org/Math" initialCapacity="5">
+                                        <math:Integer value="0"/>
+                                        <math:Integer value="1"/>
+                                        <math:Integer value="2"/>
+                                        <math:Integer value="3"/>
+                                        <math:Integer value="4"/>
+                                        </math:Addition>
+                                        </commons:StageUpFragment>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:IndexRangeTest>
+                                        <queries:IntLiteral value="0"/>
+                                        <queries:IntLiteral value="-1"/>
+                                        </queries:IndexRangeTest>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                    </commons:StageDownFragment>
+                                </misc:Misc>
+                            </commons:StageUpFragment>
+                            <tests:Matches>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="5">
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="0"/>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="1"/>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="2"/>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="3"/>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="4"/>
+                                    </misc:Misc>
+                                </commons:StageUpFragment>
+                            </tests:Matches>
+                        </tests:AssertThat>
+                        <tests:AssertThat>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="1">
+                                    <commons:StageDownFragment>
+                                        <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                                        <commons:StageUpFragment>
+                                        <math:Addition xmlns:math="http://lang.whole.org/Math" initialCapacity="5">
+                                        <math:Integer value="0"/>
+                                        <math:Integer value="1"/>
+                                        <math:Integer value="2"/>
+                                        <math:Integer value="3"/>
+                                        <math:Integer value="4"/>
+                                        </math:Addition>
+                                        </commons:StageUpFragment>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:IndexRangeTest>
+                                        <queries:IntLiteral value="0"/>
+                                        <queries:IntLiteral value="-2"/>
+                                        </queries:IndexRangeTest>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                    </commons:StageDownFragment>
+                                </misc:Misc>
+                            </commons:StageUpFragment>
+                            <tests:Matches>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="4">
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="0"/>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="1"/>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="2"/>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="3"/>
+                                    </misc:Misc>
+                                </commons:StageUpFragment>
+                            </tests:Matches>
+                        </tests:AssertThat>
+                    </tests:TestStatements>
+                    <tests:Result>
+                        <tests:Outcome value="SUCCESS"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </tests:Result>
+                    <tests:Result>
+                        <tests:Outcome value="SUCCESS"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </tests:Result>
+                </tests:Test>
+            </tests:Tests>
+            <tests:Results>
+                <tests:IntLiteral value="1"/>
+                <tests:IntLiteral value="0"/>
+                <tests:IntLiteral value="0"/>
+            </tests:Results>
+            <tests:Results>
+                <tests:IntLiteral value="1"/>
+                <tests:IntLiteral value="0"/>
+                <tests:IntLiteral value="0"/>
+            </tests:Results>
+        </tests:TestCase>
+        <tests:TestCase>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <tests:Name value="QueriesPatternMatchingTest"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <tests:Aspects initialCapacity="1">
+                <tests:BeforeTestCase>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <tests:Name value="bindTestArtifact"/>
+                    <workflows:AssignActivity xmlns:workflows="http://lang.whole.org/Workflows">
+                        <workflows:Text value="assignActivity"/>
+                        <workflows:Assignments initialCapacity="1">
+                            <workflows:Assign>
+                                <workflows:Variable value="instance"/>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <java:CompilationUnit xmlns:java="http://lang.whole.org/Java">
+                                        <java:PackageDeclaration>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <java:QualifiedName value="org.whole.examples.javabeans.example"/>
+                                        </java:PackageDeclaration>
+                                        <java:ImportDeclarations initialCapacity="0"/>
+                                        <java:TypeDeclarations initialCapacity="1">
+                                        <java:ClassDeclaration>
+                                        <commons:Resolver/>
+                                        <java:ExtendedModifiers initialCapacity="1">
+                                        <java:Modifier value="public"/>
+                                        </java:ExtendedModifiers>
+                                        <java:SimpleName value="Addition"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <java:Types initialCapacity="1">
+                                        <java:SimpleType value="Expression"/>
+                                        </java:Types>
+                                        <java:BodyDeclarations initialCapacity="6">
+                                        <java:FieldDeclaration>
+                                        <commons:Resolver/>
+                                        <java:ExtendedModifiers initialCapacity="1">
+                                        <java:Modifier value="private"/>
+                                        </java:ExtendedModifiers>
+                                        <java:SimpleType value="Expression"/>
+                                        <java:VariableDeclarationFragments initialCapacity="1">
+                                        <java:VariableDeclarationFragment>
+                                        <java:SimpleName value="exp1"/>
+                                        <java:ExtraDimensions value="0"/>
+                                        <commons:Resolver/>
+                                        </java:VariableDeclarationFragment>
+                                        </java:VariableDeclarationFragments>
+                                        </java:FieldDeclaration>
+                                        <java:MethodDeclaration>
+                                        <commons:Resolver/>
+                                        <java:ExtendedModifiers initialCapacity="1">
+                                        <java:Modifier value="public"/>
+                                        </java:ExtendedModifiers>
+                                        <commons:Resolver/>
+                                        <java:SimpleType value="Expression"/>
+                                        <java:SimpleName value="getExp1"/>
+                                        <java:Parameters initialCapacity="0"/>
+                                        <java:ExtraDimensions value="0"/>
+                                        <commons:Resolver/>
+                                        <java:Block initialCapacity="1">
+                                        <java:ReturnStatement>
+                                        <java:SimpleName value="exp1"/>
+                                        </java:ReturnStatement>
+                                        </java:Block>
+                                        </java:MethodDeclaration>
+                                        <java:MethodDeclaration>
+                                        <commons:Resolver/>
+                                        <java:ExtendedModifiers initialCapacity="1">
+                                        <java:Modifier value="public"/>
+                                        </java:ExtendedModifiers>
+                                        <commons:Resolver/>
+                                        <java:PrimitiveType value="void"/>
+                                        <java:SimpleName value="setExp1"/>
+                                        <java:Parameters initialCapacity="1">
+                                        <java:SingleVariableDeclaration>
+                                        <commons:Resolver/>
+                                        <java:SimpleType value="Expression"/>
+                                        <java:Varargs value="false"/>
+                                        <java:SimpleName value="exp1"/>
+                                        <java:ExtraDimensions value="0"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </java:SingleVariableDeclaration>
+                                        </java:Parameters>
+                                        <java:ExtraDimensions value="0"/>
+                                        <commons:Resolver/>
+                                        <java:Block initialCapacity="1">
+                                        <java:ExpressionStatement>
+                                        <java:Assignment>
+                                        <java:FieldAccess>
+                                        <java:ThisExpression>
+                                        <commons:Resolver/>
+                                        </java:ThisExpression>
+                                        <java:SimpleName value="exp1"/>
+                                        </java:FieldAccess>
+                                        <java:AssignmentOperator value="="/>
+                                        <java:SimpleName value="exp1"/>
+                                        </java:Assignment>
+                                        </java:ExpressionStatement>
+                                        </java:Block>
+                                        </java:MethodDeclaration>
+                                        <java:FieldDeclaration>
+                                        <commons:Resolver/>
+                                        <java:ExtendedModifiers initialCapacity="1">
+                                        <java:Modifier value="private"/>
+                                        </java:ExtendedModifiers>
+                                        <java:SimpleType value="Expression"/>
+                                        <java:VariableDeclarationFragments initialCapacity="1">
+                                        <java:VariableDeclarationFragment>
+                                        <java:SimpleName value="exp2"/>
+                                        <java:ExtraDimensions value="0"/>
+                                        <commons:Resolver/>
+                                        </java:VariableDeclarationFragment>
+                                        </java:VariableDeclarationFragments>
+                                        </java:FieldDeclaration>
+                                        <java:MethodDeclaration>
+                                        <commons:Resolver/>
+                                        <java:ExtendedModifiers initialCapacity="1">
+                                        <java:Modifier value="public"/>
+                                        </java:ExtendedModifiers>
+                                        <commons:Resolver/>
+                                        <java:SimpleType value="Expression"/>
+                                        <java:SimpleName value="getExp2"/>
+                                        <java:Parameters initialCapacity="0"/>
+                                        <java:ExtraDimensions value="0"/>
+                                        <commons:Resolver/>
+                                        <java:Block initialCapacity="1">
+                                        <java:ReturnStatement>
+                                        <java:SimpleName value="exp2"/>
+                                        </java:ReturnStatement>
+                                        </java:Block>
+                                        </java:MethodDeclaration>
+                                        <java:MethodDeclaration>
+                                        <commons:Resolver/>
+                                        <java:ExtendedModifiers initialCapacity="1">
+                                        <java:Modifier value="public"/>
+                                        </java:ExtendedModifiers>
+                                        <commons:Resolver/>
+                                        <java:PrimitiveType value="void"/>
+                                        <java:SimpleName value="setExp2"/>
+                                        <java:Parameters initialCapacity="1">
+                                        <java:SingleVariableDeclaration>
+                                        <commons:Resolver/>
+                                        <java:SimpleType value="Expression"/>
+                                        <java:Varargs value="false"/>
+                                        <java:SimpleName value="exp2"/>
+                                        <java:ExtraDimensions value="0"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </java:SingleVariableDeclaration>
+                                        </java:Parameters>
+                                        <java:ExtraDimensions value="0"/>
+                                        <commons:Resolver/>
+                                        <java:Block initialCapacity="1">
+                                        <java:ExpressionStatement>
+                                        <java:Assignment>
+                                        <java:FieldAccess>
+                                        <java:ThisExpression>
+                                        <commons:Resolver/>
+                                        </java:ThisExpression>
+                                        <java:SimpleName value="exp2"/>
+                                        </java:FieldAccess>
+                                        <java:AssignmentOperator value="="/>
+                                        <java:SimpleName value="exp2"/>
+                                        </java:Assignment>
+                                        </java:ExpressionStatement>
+                                        </java:Block>
+                                        </java:MethodDeclaration>
+                                        </java:BodyDeclarations>
+                                        </java:ClassDeclaration>
+                                        </java:TypeDeclarations>
+                                    </java:CompilationUnit>
+                                </commons:StageUpFragment>
+                            </workflows:Assign>
+                        </workflows:Assignments>
+                    </workflows:AssignActivity>
+                </tests:BeforeTestCase>
+            </tests:Aspects>
+            <tests:Tests initialCapacity="1">
+                <tests:Test>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <tests:Name value="testMatchTest"/>
+                    <tests:TestStatements initialCapacity="2">
+                        <tests:AssertThat>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="1">
+                                    <commons:StageDownFragment>
+                                        <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="3">
+                                        <commons:StageUpFragment>
+                                        <math:Addition xmlns:math="http://lang.whole.org/Math" initialCapacity="5">
+                                        <math:Integer value="0"/>
+                                        <math:Integer value="1"/>
+                                        <math:Integer value="2"/>
+                                        <math:Integer value="3"/>
+                                        <math:Integer value="4"/>
+                                        </math:Addition>
+                                        </commons:StageUpFragment>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:IndexTest>
+                                        <queries:IntLiteral value="2"/>
+                                        </queries:IndexTest>
+                                        </queries:Filter>
+                                        <queries:Filter>
+                                        <queries:SelfStep/>
+                                        <queries:MatchTest>
+                                        <commons:StageUpFragment>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="2"/>
+                                        </commons:StageUpFragment>
+                                        </queries:MatchTest>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                    </commons:StageDownFragment>
+                                </misc:Misc>
+                            </commons:StageUpFragment>
+                            <tests:Matches>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="1">
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="2"/>
+                                    </misc:Misc>
+                                </commons:StageUpFragment>
+                            </tests:Matches>
+                        </tests:AssertThat>
+                        <tests:AssertThat>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="1">
+                                    <commons:StageDownFragment>
+                                        <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:FreshNames initialCapacity="1">
+                                        <queries:Name value="name"/>
+                                        </queries:FreshNames>
+                                        <queries:Path initialCapacity="2">
+                                        <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="EntityUtils.clone(instance)"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="org.whole.lang.util.EntityUtils"/>
+                                        <workflows:StringLiteral value="clone(org.whole.lang.model.IEntity)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <workflows:Variable value="instance"/>
+                                        </workflows:Expressions>
+                                        </workflows:InvokeJavaClassMethod>
+                                        <queries:Filter>
+                                        <queries:DescendantOrSelfStep/>
+                                        <queries:MatchTest>
+                                        <commons:StageUpFragment>
+                                        <java:SingleVariableDeclaration xmlns:java="http://lang.whole.org/Java">
+                                        <commons:Resolver/>
+                                        <java:SimpleType value="Expression"/>
+                                        <java:Varargs value="false"/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Java#SimpleName"/>
+                                        <commons:VarName value="name"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <java:ExtraDimensions value="0"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </java:SingleVariableDeclaration>
+                                        </commons:StageUpFragment>
+                                        </queries:MatchTest>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        </queries:Scope>
+                                    </commons:StageDownFragment>
+                                </misc:Misc>
+                            </commons:StageUpFragment>
+                            <tests:Matches>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="2">
+                                        <java:SingleVariableDeclaration xmlns:java="http://lang.whole.org/Java">
+                                        <commons:Resolver/>
+                                        <java:SimpleType value="Expression"/>
+                                        <java:Varargs value="false"/>
+                                        <java:SimpleName value="exp1"/>
+                                        <java:ExtraDimensions value="0"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </java:SingleVariableDeclaration>
+                                        <java:SingleVariableDeclaration xmlns:java="http://lang.whole.org/Java">
+                                        <commons:Resolver/>
+                                        <java:SimpleType value="Expression"/>
+                                        <java:Varargs value="false"/>
+                                        <java:SimpleName value="exp2"/>
+                                        <java:ExtraDimensions value="0"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </java:SingleVariableDeclaration>
+                                    </misc:Misc>
+                                </commons:StageUpFragment>
+                            </tests:Matches>
+                        </tests:AssertThat>
+                    </tests:TestStatements>
+                    <tests:Result>
+                        <tests:Outcome value="SUCCESS"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </tests:Result>
+                    <tests:Result>
+                        <tests:Outcome value="SUCCESS"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </tests:Result>
+                </tests:Test>
+            </tests:Tests>
+            <tests:Results>
+                <tests:IntLiteral value="1"/>
+                <tests:IntLiteral value="0"/>
+                <tests:IntLiteral value="0"/>
+            </tests:Results>
+            <tests:Results>
+                <tests:IntLiteral value="1"/>
+                <tests:IntLiteral value="0"/>
+                <tests:IntLiteral value="0"/>
+            </tests:Results>
+        </tests:TestCase>
         <tests:TestCase>
             <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
             <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -60,8 +2511,16 @@
                             </tests:AllOf>
                         </tests:AssertThat>
                     </tests:TestStatements>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <tests:Result>
+                        <tests:Outcome value="SUCCESS"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </tests:Result>
+                    <tests:Result>
+                        <tests:Outcome value="SUCCESS"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </tests:Result>
                 </tests:Test>
                 <tests:Test>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -112,8 +2571,16 @@
                             </tests:AllOf>
                         </tests:AssertThat>
                     </tests:TestStatements>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <tests:Result>
+                        <tests:Outcome value="SUCCESS"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </tests:Result>
+                    <tests:Result>
+                        <tests:Outcome value="SUCCESS"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </tests:Result>
                 </tests:Test>
                 <tests:Test>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -166,12 +2633,28 @@
                             </tests:Matches>
                         </tests:AssertThat>
                     </tests:TestStatements>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <tests:Result>
+                        <tests:Outcome value="SUCCESS"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </tests:Result>
+                    <tests:Result>
+                        <tests:Outcome value="SUCCESS"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </tests:Result>
                 </tests:Test>
             </tests:Tests>
-            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <tests:Results>
+                <tests:IntLiteral value="3"/>
+                <tests:IntLiteral value="0"/>
+                <tests:IntLiteral value="0"/>
+            </tests:Results>
+            <tests:Results>
+                <tests:IntLiteral value="3"/>
+                <tests:IntLiteral value="0"/>
+                <tests:IntLiteral value="0"/>
+            </tests:Results>
         </tests:TestCase>
         <tests:TestCase>
             <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -299,12 +2782,13 @@
                                         <queries:VariableRefStep value="rightValues"/>
                                         <queries:Filter>
                                         <queries:ChildStep/>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:FeatureStep value="name"/>
                                         <queries:VariableTest value="featureName"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         </queries:Filter>
                                         </queries:Path>
                                     </queries:Block>
@@ -387,24 +2871,26 @@
                                         <queries:FeatureStep value="features"/>
                                         <queries:Filter>
                                         <queries:ChildStep/>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:FeatureStep value="name"/>
                                         <queries:VariableTest value="featureName"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         </queries:Filter>
                                     </queries:Path>
                                     <queries:Path initialCapacity="2">
                                         <queries:VariableRefStep value="rightValues"/>
                                         <queries:Filter>
                                         <queries:ChildStep/>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:FeatureStep value="name"/>
                                         <queries:VariableTest value="featureName"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         </queries:Filter>
                                     </queries:Path>
                                 </queries:CartesianUpdate>
@@ -468,8 +2954,16 @@
                             </tests:Matches>
                         </tests:AssertThat>
                     </tests:TestStatements>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <tests:Result>
+                        <tests:Outcome value="SUCCESS"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </tests:Result>
+                    <tests:Result>
+                        <tests:Outcome value="SUCCESS"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </tests:Result>
                 </tests:Test>
                 <tests:Test>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -582,24 +3076,26 @@
                                         <queries:FeatureStep value="features"/>
                                         <queries:Filter>
                                         <queries:ChildStep/>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:FeatureStep value="name"/>
                                         <queries:VariableTest value="featureName"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         </queries:Filter>
                                     </queries:Path>
                                     <queries:Path initialCapacity="2">
                                         <queries:VariableRefStep value="rightValues"/>
                                         <queries:Filter>
                                         <queries:ChildStep/>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:FeatureStep value="name"/>
                                         <queries:VariableTest value="featureName"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         </queries:Filter>
                                     </queries:Path>
                                 </queries:CartesianInsert>
@@ -846,12 +3342,28 @@
                             </tests:Matches>
                         </tests:AssertThat>
                     </tests:TestStatements>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <tests:Result>
+                        <tests:Outcome value="SUCCESS"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </tests:Result>
+                    <tests:Result>
+                        <tests:Outcome value="SUCCESS"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </tests:Result>
                 </tests:Test>
             </tests:Tests>
-            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <tests:Results>
+                <tests:IntLiteral value="2"/>
+                <tests:IntLiteral value="0"/>
+                <tests:IntLiteral value="0"/>
+            </tests:Results>
+            <tests:Results>
+                <tests:IntLiteral value="2"/>
+                <tests:IntLiteral value="0"/>
+                <tests:IntLiteral value="0"/>
+            </tests:Results>
         </tests:TestCase>
         <tests:TestCase>
             <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -867,7 +3379,8 @@
                         <tests:AssertThat>
                             <queries:For xmlns:queries="http://lang.whole.org/Queries">
                                 <queries:Path initialCapacity="2">
-                                    <queries:Do>
+                                    <queries:Sequence initialCapacity="1">
+                                        <queries:Do>
                                         <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                                         <models:Features xmlns:models="http://lang.whole.org/Models" initialCapacity="2">
                                         <models:Feature>
@@ -884,7 +3397,8 @@
                                         </models:Feature>
                                         </models:Features>
                                         </commons:StageUpFragment>
-                                    </queries:Do>
+                                        </queries:Do>
+                                    </queries:Sequence>
                                     <queries:ChildStep/>
                                 </queries:Path>
                                 <queries:Block initialCapacity="2">
@@ -896,9 +3410,7 @@
                                         <queries:VariableRefStep value="name"/>
                                         <queries:Singleton>
                                         <queries:If>
-                                        <queries:ExpressionTest>
                                         <queries:BooleanLiteral value="true"/>
-                                        </queries:ExpressionTest>
                                         <queries:StringLiteral value=""/>
                                         </queries:If>
                                         </queries:Singleton>
@@ -919,7 +3431,8 @@
                         <tests:AssertThat>
                             <queries:For xmlns:queries="http://lang.whole.org/Queries">
                                 <queries:Path initialCapacity="2">
-                                    <queries:Do>
+                                    <queries:Sequence initialCapacity="1">
+                                        <queries:Do>
                                         <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                                         <models:Features xmlns:models="http://lang.whole.org/Models" initialCapacity="2">
                                         <models:Feature>
@@ -936,7 +3449,8 @@
                                         </models:Feature>
                                         </models:Features>
                                         </commons:StageUpFragment>
-                                    </queries:Do>
+                                        </queries:Do>
+                                    </queries:Sequence>
                                     <queries:ChildStep/>
                                 </queries:Path>
                                 <queries:Block initialCapacity="3">
@@ -945,9 +3459,7 @@
                                         <queries:VariableTest value="name"/>
                                     </queries:Filter>
                                     <queries:If>
-                                        <queries:ExpressionTest>
                                         <queries:BooleanLiteral value="true"/>
-                                        </queries:ExpressionTest>
                                         <queries:Filter>
                                         <queries:StringLiteral value=""/>
                                         <queries:VariableTest value="newType"/>
@@ -994,16 +3506,12 @@
                                         <actions:GuardedAction>
                                         <actions:Label value="Action 1"/>
                                         <queries:SelfStep/>
-                                        <queries:ExpressionTest>
                                         <queries:BooleanLiteral value="true"/>
-                                        </queries:ExpressionTest>
                                         </actions:GuardedAction>
                                         <actions:GuardedAction>
                                         <actions:Label value="Action 2"/>
                                         <queries:SelfStep/>
-                                        <queries:ExpressionTest>
                                         <queries:BooleanLiteral value="true"/>
-                                        </queries:ExpressionTest>
                                         </actions:GuardedAction>
                                         </actions:MenuActions>
                                         <actions:MenuActions initialCapacity="0"/>
@@ -1038,20 +3546,34 @@
                                     <actions:GuardedAction xmlns:actions="http://lang.whole.org/Actions">
                                         <actions:Label value="Action 2"/>
                                         <queries:SelfStep xmlns:queries="http://lang.whole.org/Queries"/>
-                                        <queries:ExpressionTest xmlns:queries="http://lang.whole.org/Queries">
-                                        <queries:BooleanLiteral value="true"/>
-                                        </queries:ExpressionTest>
+                                        <queries:BooleanLiteral xmlns:queries="http://lang.whole.org/Queries" value="true"/>
                                     </actions:GuardedAction>
                                 </commons:StageUpFragment>
                             </tests:Matches>
                         </tests:AssertThat>
                     </tests:TestStatements>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <tests:Result>
+                        <tests:Outcome value="SUCCESS"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </tests:Result>
+                    <tests:Result>
+                        <tests:Outcome value="SUCCESS"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </tests:Result>
                 </tests:Test>
             </tests:Tests>
-            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <tests:Results>
+                <tests:IntLiteral value="1"/>
+                <tests:IntLiteral value="0"/>
+                <tests:IntLiteral value="0"/>
+            </tests:Results>
+            <tests:Results>
+                <tests:IntLiteral value="1"/>
+                <tests:IntLiteral value="0"/>
+                <tests:IntLiteral value="0"/>
+            </tests:Results>
         </tests:TestCase>
         <tests:TestCase>
             <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -1099,6 +3621,7 @@
                                         <java:Types initialCapacity="0"/>
                                         <commons:StageDownFragment>
                                         <queries:Path initialCapacity="2">
+                                        <queries:Sequence initialCapacity="1">
                                         <queries:QueryDeclaration>
                                         <queries:Name value="fnameQuery"/>
                                         <queries:Names initialCapacity="0"/>
@@ -1107,6 +3630,8 @@
                                         <queries:SelfStep/>
                                         </queries:PointwiseUpdate>
                                         </queries:QueryDeclaration>
+                                        </queries:Sequence>
+                                        <queries:Sequence initialCapacity="1">
                                         <queries:Do>
                                         <queries:Filter>
                                         <commons:StageUpFragment>
@@ -1115,6 +3640,7 @@
                                         <queries:VariableTest value="fnameJP"/>
                                         </queries:Filter>
                                         </queries:Do>
+                                        </queries:Sequence>
                                         </queries:Path>
                                         </commons:StageDownFragment>
                                         <commons:StageDownFragment>
@@ -1209,6 +3735,7 @@
                                         </queries:Call>
                                         </queries:Path>
                                         <queries:Path initialCapacity="2">
+                                        <queries:Sequence initialCapacity="1">
                                         <queries:Do>
                                         <queries:Sequence initialCapacity="2">
                                         <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
@@ -1219,6 +3746,7 @@
                                         </commons:StageUpFragment>
                                         </queries:Sequence>
                                         </queries:Do>
+                                        </queries:Sequence>
                                         <queries:Call>
                                         <queries:Name value="into"/>
                                         <queries:Expressions initialCapacity="1">
@@ -1410,14 +3938,38 @@
                             </tests:Matches>
                         </tests:AssertThat>
                     </tests:TestStatements>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <tests:Result>
+                        <tests:Outcome value="SUCCESS"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </tests:Result>
+                    <tests:Result>
+                        <tests:Outcome value="SUCCESS"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </tests:Result>
                 </tests:Test>
             </tests:Tests>
-            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <tests:Results>
+                <tests:IntLiteral value="1"/>
+                <tests:IntLiteral value="0"/>
+                <tests:IntLiteral value="0"/>
+            </tests:Results>
+            <tests:Results>
+                <tests:IntLiteral value="1"/>
+                <tests:IntLiteral value="0"/>
+                <tests:IntLiteral value="0"/>
+            </tests:Results>
         </tests:TestCase>
     </tests:TestCases>
-    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    <tests:Results>
+        <tests:IntLiteral value="14"/>
+        <tests:IntLiteral value="0"/>
+        <tests:IntLiteral value="0"/>
+    </tests:Results>
+    <tests:Results>
+        <tests:IntLiteral value="10"/>
+        <tests:IntLiteral value="0"/>
+        <tests:IntLiteral value="0"/>
+    </tests:Results>
 </tests:TestSuite>

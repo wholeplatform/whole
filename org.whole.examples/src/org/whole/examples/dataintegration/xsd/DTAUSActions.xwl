@@ -36,25 +36,17 @@
                                 <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                 <queries:Sequence initialCapacity="3">
                                     <queries:If>
-                                        <queries:ExpressionTest>
                                         <queries:Equals>
-                                        <queries:Singleton>
                                         <queries:FeatureStep value="expansionType1"/>
-                                        </queries:Singleton>
                                         <queries:VariableRefStep value="expansionType"/>
                                         </queries:Equals>
-                                        </queries:ExpressionTest>
                                         <queries:FeatureStep value="expansion1"/>
                                     </queries:If>
                                     <queries:If>
-                                        <queries:ExpressionTest>
                                         <queries:Equals>
-                                        <queries:Singleton>
                                         <queries:FeatureStep value="expansionType2"/>
-                                        </queries:Singleton>
                                         <queries:VariableRefStep value="expansionType"/>
                                         </queries:Equals>
-                                        </queries:ExpressionTest>
                                         <queries:FeatureStep value="expansion2"/>
                                     </queries:If>
                                     <queries:Path initialCapacity="4">
@@ -62,14 +54,10 @@
                                         <queries:ChildStep/>
                                         <queries:Filter>
                                         <queries:ChildStep/>
-                                        <queries:ExpressionTest>
                                         <queries:Equals>
-                                        <queries:Singleton>
                                         <queries:FeatureStep value="expansionType"/>
-                                        </queries:Singleton>
                                         <queries:VariableRefStep value="expansionType"/>
                                         </queries:Equals>
-                                        </queries:ExpressionTest>
                                         </queries:Filter>
                                         <queries:FeatureStep value="expansion"/>
                                     </queries:Path>
@@ -99,8 +87,8 @@
                         <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                             <pain.001.001.02:Document xmlns:pain.001.001.02="urn:iso:std:iso:20022:tech:xsd:pain.001.001.02">
                                 <pain.001.001.02:DocumentSeq>
-                                    <pain.001.001.02:Pain.001.001.02>
-                                        <pain.001.001.02:Pain.001.001.02Seq>
+                                    <pain.001.001.02:Pain_001_001_02>
+                                        <pain.001.001.02:Pain_001_001_02Seq>
                                         <pain.001.001.02:GroupHeader1>
                                         <pain.001.001.02:GroupHeader1Seq>
                                         <commons:Variable>
@@ -141,7 +129,7 @@
                                         <commons:Resolver/>
                                         </pain.001.001.02:GroupHeader1Seq>
                                         </pain.001.001.02:GroupHeader1>
-                                        <pain.001.001.02:Pain.001.001.02List initialCapacity="1">
+                                        <pain.001.001.02:Pain_001_001_02List initialCapacity="1">
                                         <pain.001.001.02:PaymentInstructionInformation1>
                                         <pain.001.001.02:PaymentInstructionInformation1Seq>
                                         <commons:Resolver/>
@@ -209,9 +197,9 @@
                                         </pain.001.001.02:PaymentInstructionInformation1List>
                                         </pain.001.001.02:PaymentInstructionInformation1Seq>
                                         </pain.001.001.02:PaymentInstructionInformation1>
-                                        </pain.001.001.02:Pain.001.001.02List>
-                                        </pain.001.001.02:Pain.001.001.02Seq>
-                                    </pain.001.001.02:Pain.001.001.02>
+                                        </pain.001.001.02:Pain_001_001_02List>
+                                        </pain.001.001.02:Pain_001_001_02Seq>
+                                    </pain.001.001.02:Pain_001_001_02>
                                 </pain.001.001.02:DocumentSeq>
                             </pain.001.001.02:Document>
                         </commons:StageUpFragment>
@@ -597,9 +585,7 @@
                         <queries:TemplateNames/>
                     </queries:Select>
                 </queries:Block>
-                <queries:ExpressionTest xmlns:queries="http://lang.whole.org/Queries">
-                    <queries:BooleanLiteral value="true"/>
-                </queries:ExpressionTest>
+                <queries:BooleanLiteral xmlns:queries="http://lang.whole.org/Queries" value="true"/>
             </actions:GuardedAction>
         </actions:MenuActions>
         <actions:MenuActions initialCapacity="0"/>

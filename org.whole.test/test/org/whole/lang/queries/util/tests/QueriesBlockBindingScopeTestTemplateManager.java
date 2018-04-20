@@ -66,9 +66,7 @@ public class QueriesBlockBindingScopeTestTemplateManager extends AbstractTemplat
                 b0.VariableRefStep("name");
                 b0.Singleton_();
                 b0.If_();
-                b0.ExpressionTest_();
                 b0.BooleanLiteral(true);
-                b0._ExpressionTest();
                 b0.StringLiteral("");
                 b0._If();
                 b0._Singleton();
@@ -137,9 +135,7 @@ public class QueriesBlockBindingScopeTestTemplateManager extends AbstractTemplat
                 b0.VariableTest("name");
                 b0._Filter();
                 b0.If_();
-                b0.ExpressionTest_();
                 b0.BooleanLiteral(true);
-                b0._ExpressionTest();
                 b0.Filter_();
                 b0.StringLiteral("");
                 b0.VariableTest("newType");
@@ -207,16 +203,12 @@ public class QueriesBlockBindingScopeTestTemplateManager extends AbstractTemplat
                 b2.GuardedAction_();
                 b2.Label("Action 1");
                 b0.SelfStep();
-                b0.ExpressionTest_();
                 b0.BooleanLiteral(true);
-                b0._ExpressionTest();
                 b2._GuardedAction();
                 b2.GuardedAction_();
                 b2.Label("Action 2");
                 b0.SelfStep();
-                b0.ExpressionTest_();
                 b0.BooleanLiteral(true);
-                b0._ExpressionTest();
                 b2._GuardedAction();
                 b2._MenuActions();
                 b2.MenuActions_(0);
@@ -262,9 +254,7 @@ public class QueriesBlockBindingScopeTestTemplateManager extends AbstractTemplat
                 b1.Label("Action 2");
                 org.whole.lang.queries.builders.IQueriesBuilder b2 = (org.whole.lang.queries.builders.IQueriesBuilder) op.wGetBuilder(org.whole.lang.queries.reflect.QueriesLanguageKit.URI);
                 b2.SelfStep();
-                b2.ExpressionTest_();
                 b2.BooleanLiteral(true);
-                b2._ExpressionTest();
                 b1._GuardedAction();
                 b0._StageUpFragment();
             }

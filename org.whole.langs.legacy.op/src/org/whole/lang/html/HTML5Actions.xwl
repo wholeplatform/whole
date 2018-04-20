@@ -17,14 +17,12 @@
                 </queries:Filter>
                 <workflows:InvokeOperation xmlns:workflows="http://lang.whole.org/Workflows">
                     <workflows:Text value="prettyPrint"/>
-                    <commons:SameStageFragment xmlns:commons="http://lang.whole.org/Commons">
-                        <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
-                            <semantics:Name value="whole:org.whole.lang.html:HTML5Semantics#toXHtml"/>
-                            <commons:Resolver/>
-                            <commons:Resolver/>
-                            <commons:Resolver/>
-                        </semantics:FunctionApplication>
-                    </commons:SameStageFragment>
+                    <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                        <semantics:Name value="whole:org.whole.lang.html:HTML5Semantics#toXHtml"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </semantics:FunctionApplication>
                     <workflows:Operation value="PRETTY_PRINTER"/>
                     <workflows:Assignments initialCapacity="1">
                         <workflows:Assign>

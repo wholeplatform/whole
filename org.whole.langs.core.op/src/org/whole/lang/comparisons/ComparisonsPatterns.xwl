@@ -123,7 +123,7 @@
                                         </semantics:FunctionType>
                                         <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
                                         <queries:If>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:Filter>
                                         <queries:Sequence initialCapacity="2">
@@ -138,7 +138,8 @@
                                         <queries:IntLiteral value="1"/>
                                         </queries:IndexTest>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         <queries:BooleanLiteral value="true"/>
                                         </queries:If>
                                         <queries:Do>
@@ -156,28 +157,27 @@
                                         <queries:If>
                                         <queries:And initialCapacity="3">
                                         <queries:KindTest value="DATA"/>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:VariableRefStep value="other"/>
                                         <queries:KindTest value="DATA"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
-                                        <queries:ExpressionTest>
-                                        <queries:Equals>
-                                        <queries:VariableRefStep value="self"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
+                                        <queries:EqualsStep>
                                         <queries:VariableRefStep value="other"/>
-                                        </queries:Equals>
-                                        </queries:ExpressionTest>
+                                        </queries:EqualsStep>
                                         </queries:And>
                                         <queries:BooleanLiteral value="true"/>
                                         </queries:If>
                                         <queries:If>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
-                                        <queries:VariableRefStep value="self"/>
+                                        <queries:SelfStep/>
                                         <queries:VariableTest value="other"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         <queries:BooleanLiteral value="true"/>
                                         </queries:If>
                                         <queries:Do>
@@ -195,30 +195,29 @@
                                         <queries:If>
                                         <queries:And initialCapacity="3">
                                         <queries:KindTest value="DATA"/>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:VariableRefStep value="other"/>
                                         <queries:KindTest value="DATA"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
-                                        <queries:ExpressionTest>
-                                        <queries:Equals>
-                                        <queries:VariableRefStep value="self"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
+                                        <queries:EqualsStep>
                                         <queries:VariableRefStep value="other"/>
-                                        </queries:Equals>
-                                        </queries:ExpressionTest>
+                                        </queries:EqualsStep>
                                         </queries:And>
                                         <queries:BooleanLiteral value="true"/>
                                         </queries:If>
                                         <queries:If>
                                         <queries:And initialCapacity="2">
                                         <queries:SubtypeTest value="http://lang.whole.org/Models#ModelDeclaration"/>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:VariableRefStep value="other"/>
                                         <queries:SubtypeTest value="http://lang.whole.org/Models#ModelDeclaration"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         </queries:And>
                                         <queries:Scope>
                                         <queries:FreshNames initialCapacity="1">
@@ -262,19 +261,19 @@
                                         </queries:Scope>
                                         </queries:If>
                                         <queries:If>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:VariableRefStep value="self"/>
                                         <queries:VariableTest value="other"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         <queries:BooleanLiteral value="true"/>
                                         </queries:If>
                                         <queries:Do>
                                         <queries:BooleanLiteral value="false"/>
                                         </queries:Do>
                                         <queries:Equals>
-                                        <queries:Singleton>
                                         <queries:Scope>
                                         <queries:FreshNames initialCapacity="1">
                                         <queries:Name value="other"/>
@@ -301,7 +300,6 @@
                                         </semantics:FunctionApplication>
                                         </queries:Block>
                                         </queries:Scope>
-                                        </queries:Singleton>
                                         <queries:BooleanLiteral value="true"/>
                                         </queries:Equals>
                                         </queries:Choose>
@@ -319,32 +317,36 @@
                                         <queries:If>
                                         <queries:Or initialCapacity="2">
                                         <queries:And initialCapacity="2">
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:VariableRefStep value="selfChild"/>
                                         <queries:SubtypeTest value="http://lang.whole.org/Models#ModelDeclaration"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
-                                        <queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:VariableRefStep value="otherChild"/>
                                         <queries:SubtypeTest value="http://lang.whole.org/Models#ModelDeclaration"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         </queries:And>
                                         <queries:And initialCapacity="2">
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:VariableRefStep value="selfChild"/>
                                         <queries:TypeTest value="http://lang.whole.org/Models#Feature"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
-                                        <queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:VariableRefStep value="otherChild"/>
                                         <queries:TypeTest value="http://lang.whole.org/Models#Feature"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         </queries:And>
                                         </queries:Or>
                                         <queries:Scope>
@@ -404,32 +406,36 @@
                                         <queries:If>
                                         <queries:Or initialCapacity="2">
                                         <queries:And initialCapacity="2">
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:VariableRefStep value="selfChild"/>
                                         <queries:SubtypeTest value="whole:org.whole.lang.patterns:PatternsModel#Declaration"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
-                                        <queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:VariableRefStep value="otherChild"/>
                                         <queries:SubtypeTest value="whole:org.whole.lang.patterns:PatternsModel#Declaration"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         </queries:And>
                                         <queries:And initialCapacity="2">
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:VariableRefStep value="selfChild"/>
                                         <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Pattern"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
-                                        <queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:VariableRefStep value="otherChild"/>
                                         <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Pattern"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         </queries:And>
                                         </queries:Or>
                                         <queries:Scope>
@@ -488,18 +494,20 @@
                                         </queries:If>
                                         <queries:If>
                                         <queries:And initialCapacity="2">
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:VariableRefStep value="selfChild"/>
                                         <queries:TypeTest value="http://lang.whole.org/Semantics#SemanticFunction"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
-                                        <queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:VariableRefStep value="otherChild"/>
                                         <queries:TypeTest value="http://lang.whole.org/Semantics#SemanticFunction"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         </queries:And>
                                         <queries:Scope>
                                         <queries:FreshNames initialCapacity="2">
@@ -557,18 +565,20 @@
                                         </queries:If>
                                         <queries:If>
                                         <queries:And initialCapacity="2">
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:VariableRefStep value="selfChild"/>
                                         <queries:SubtypeTest value="http://lang.whole.org/Actions#SimpleAction"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
-                                        <queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:VariableRefStep value="otherChild"/>
                                         <queries:SubtypeTest value="http://lang.whole.org/Actions#SimpleAction"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         </queries:And>
                                         <queries:Scope>
                                         <queries:FreshNames initialCapacity="2">
@@ -627,32 +637,36 @@
                                         <queries:If>
                                         <queries:Or initialCapacity="2">
                                         <queries:And initialCapacity="2">
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:VariableRefStep value="selfChild"/>
                                         <queries:SubtypeTest value="http://lang.whole.org/Artifacts#Artifact"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
-                                        <queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:VariableRefStep value="otherChild"/>
                                         <queries:SubtypeTest value="http://lang.whole.org/Artifacts#Artifact"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         </queries:And>
                                         <queries:And initialCapacity="2">
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:VariableRefStep value="selfChild"/>
                                         <queries:TypeTest value="http://lang.whole.org/Artifacts#Project"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
-                                        <queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:VariableRefStep value="otherChild"/>
                                         <queries:TypeTest value="http://lang.whole.org/Artifacts#Project"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         </queries:And>
                                         </queries:Or>
                                         <queries:Scope>
@@ -711,18 +725,20 @@
                                         </queries:If>
                                         <queries:If>
                                         <queries:And initialCapacity="2">
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:VariableRefStep value="selfChild"/>
                                         <queries:TypeTest value="http://lang.whole.org/Grammars#Production"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
-                                        <queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:VariableRefStep value="otherChild"/>
                                         <queries:TypeTest value="http://lang.whole.org/Grammars#Production"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         </queries:And>
                                         <queries:Scope>
                                         <queries:FreshNames initialCapacity="2">
@@ -780,34 +796,35 @@
                                         </queries:If>
                                         <queries:If>
                                         <queries:And initialCapacity="3">
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:VariableRefStep value="selfChild"/>
                                         <queries:KindTest value="DATA"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
-                                        <queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:VariableRefStep value="otherChild"/>
                                         <queries:KindTest value="DATA"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
-                                        <queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         <queries:Equals>
                                         <queries:VariableRefStep value="selfChild"/>
                                         <queries:VariableRefStep value="otherChild"/>
                                         </queries:Equals>
-                                        </queries:ExpressionTest>
                                         </queries:And>
                                         <queries:BooleanLiteral value="true"/>
                                         </queries:If>
                                         <queries:If>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:VariableRefStep value="selfChild"/>
                                         <queries:VariableTest value="otherChild"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         <queries:BooleanLiteral value="true"/>
                                         </queries:If>
                                         <queries:Do>
@@ -855,7 +872,7 @@
                                         <queries:Choose initialCapacity="2">
                                         <queries:If>
                                         <queries:And initialCapacity="2">
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:Scope>
                                         <queries:FreshNames initialCapacity="1">
@@ -876,8 +893,9 @@
                                         </queries:Scope>
                                         <queries:VariableTest value="selfChild"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
-                                        <queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:Scope>
                                         <queries:FreshNames initialCapacity="1">
@@ -898,7 +916,8 @@
                                         </queries:Scope>
                                         <queries:VariableTest value="otherChild"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         </queries:And>
                                         <queries:Scope>
                                         <queries:FreshNames initialCapacity="2">
@@ -936,7 +955,6 @@
                                         </queries:Filter>
                                         <queries:If>
                                         <queries:Not>
-                                        <queries:ExpressionTest>
                                         <semantics:FunctionApplication>
                                         <patterns:DerivationPoint>
                                         <queries:Addition>
@@ -952,16 +970,13 @@
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         </semantics:FunctionApplication>
-                                        </queries:ExpressionTest>
                                         </queries:Not>
                                         <queries:Choose initialCapacity="2">
                                         <queries:If>
-                                        <queries:ExpressionTest>
                                         <queries:LessThan>
                                         <queries:VariableRefStep value="selfSize"/>
                                         <queries:VariableRefStep value="otherSize"/>
                                         </queries:LessThan>
-                                        </queries:ExpressionTest>
                                         <queries:PointwiseInsert>
                                         <queries:Placement value="BEFORE"/>
                                         <queries:VariableRefStep value="selfChild"/>
@@ -1004,12 +1019,10 @@
                                         <queries:Do>
                                         <queries:Choose initialCapacity="2">
                                         <queries:If>
-                                        <queries:ExpressionTest>
                                         <queries:LessThan>
                                         <queries:VariableRefStep value="selfSize"/>
                                         <queries:VariableRefStep value="otherSize"/>
                                         </queries:LessThan>
-                                        </queries:ExpressionTest>
                                         <queries:PointwiseInsert>
                                         <queries:Placement value="INTO"/>
                                         <queries:SelfStep/>
@@ -1019,12 +1032,10 @@
                                         </queries:PointwiseInsert>
                                         </queries:If>
                                         <queries:If>
-                                        <queries:ExpressionTest>
                                         <queries:GreaterThan>
                                         <queries:VariableRefStep value="selfSize"/>
                                         <queries:VariableRefStep value="otherSize"/>
                                         </queries:GreaterThan>
-                                        </queries:ExpressionTest>
                                         <queries:PointwiseInsert>
                                         <queries:Placement value="INTO"/>
                                         <queries:VariableRefStep value="other"/>
@@ -1054,25 +1065,22 @@
                                         <queries:If>
                                         <queries:And initialCapacity="3">
                                         <queries:KindTest value="DATA"/>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:VariableRefStep value="other"/>
                                         <queries:KindTest value="DATA"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
-                                        <queries:ExpressionTest>
-                                        <queries:Equals>
-                                        <queries:VariableRefStep value="self"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
+                                        <queries:EqualsStep>
                                         <queries:VariableRefStep value="other"/>
-                                        </queries:Equals>
-                                        </queries:ExpressionTest>
+                                        </queries:EqualsStep>
                                         </queries:And>
                                         <queries:VoidLiteral/>
                                         </queries:If>
                                         <queries:If>
                                         <queries:And initialCapacity="2">
                                         <queries:KindTest value="SIMPLE"/>
-                                        <queries:ExpressionTest>
                                         <queries:Equals>
                                         <semantics:FunctionApplication>
                                         <semantics:Name value="whole:org.whole.lang:ReflectLibrary#instanceType"/>
@@ -1087,7 +1095,6 @@
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         </semantics:FunctionApplication>
                                         </queries:Equals>
-                                        </queries:ExpressionTest>
                                         </queries:And>
                                         <queries:Scope>
                                         <queries:FreshNames initialCapacity="2">
@@ -1140,7 +1147,6 @@
                                         <queries:If>
                                         <queries:And initialCapacity="2">
                                         <queries:KindTest value="COMPOSITE"/>
-                                        <queries:ExpressionTest>
                                         <queries:Equals>
                                         <semantics:FunctionApplication>
                                         <semantics:Name value="whole:org.whole.lang:ReflectLibrary#instanceType"/>
@@ -1155,7 +1161,6 @@
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         </semantics:FunctionApplication>
                                         </queries:Equals>
-                                        </queries:ExpressionTest>
                                         </queries:And>
                                         <queries:Block initialCapacity="2">
                                         <queries:Scope>
@@ -1262,7 +1267,7 @@
                                         </semantics:FunctionApplication>
                                         </queries:If>
                                         <queries:If>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:VariableRefStep value="other"/>
                                         <queries:Or initialCapacity="2">
@@ -1270,7 +1275,8 @@
                                         <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#Insert"/>
                                         </queries:Or>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         <queries:Scope>
                                         <queries:FreshNames initialCapacity="1">
                                         <queries:Name value="_other"/>
@@ -1314,26 +1320,29 @@
                                         </queries:If>
                                         <queries:If>
                                         <queries:Or initialCapacity="2">
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:ParentStep/>
                                         <queries:And initialCapacity="2">
                                         <queries:SubtypeTest value="whole:org.whole.lang.changes:ChangesModel#Change"/>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:ParentStep/>
                                         <queries:KindTest value="SIMPLE"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         </queries:And>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
-                                        <queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:ParentStep/>
                                         <queries:KindTest value="SIMPLE"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         </queries:Or>
                                         <queries:Scope>
                                         <queries:FreshNames initialCapacity="3">
@@ -1350,12 +1359,13 @@
                                         <queries:Filter>
                                         <queries:Choose initialCapacity="3">
                                         <queries:If>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:ParentStep/>
                                         <queries:SubtypeTest value="whole:org.whole.lang.changes:ChangesModel#Change"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         <queries:ParentStep/>
                                         </queries:If>
                                         <queries:If>
@@ -1387,7 +1397,7 @@
                                         <queries:Filter>
                                         <queries:Choose initialCapacity="3">
                                         <queries:If>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Path initialCapacity="2">
                                         <queries:VariableRefStep value="other"/>
                                         <queries:Filter>
@@ -1395,14 +1405,15 @@
                                         <queries:SubtypeTest value="whole:org.whole.lang.changes:ChangesModel#Change"/>
                                         </queries:Filter>
                                         </queries:Path>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         <queries:Path initialCapacity="2">
                                         <queries:VariableRefStep value="other"/>
                                         <queries:ParentStep/>
                                         </queries:Path>
                                         </queries:If>
                                         <queries:If>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:VariableRefStep value="other"/>
                                         <queries:Or initialCapacity="2">
@@ -1410,7 +1421,8 @@
                                         <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#Nothing"/>
                                         </queries:Or>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         <patterns:TemplatePoint>
                                         <changes:Delete xmlns:changes="whole:org.whole.lang.changes:ChangesModel">
                                         <changes:Nothing/>
@@ -1433,12 +1445,13 @@
                                         </queries:Do>
                                         <queries:If>
                                         <queries:Not>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:ParentStep/>
                                         <queries:SubtypeTest value="whole:org.whole.lang.changes:ChangesModel#Change"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         </queries:Not>
                                         <queries:CartesianUpdate>
                                         <queries:Path initialCapacity="2">
@@ -1450,7 +1463,7 @@
                                         </queries:If>
                                         <queries:If>
                                         <queries:Not>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Path initialCapacity="2">
                                         <queries:VariableRefStep value="other"/>
                                         <queries:Filter>
@@ -1458,7 +1471,8 @@
                                         <queries:SubtypeTest value="whole:org.whole.lang.changes:ChangesModel#Change"/>
                                         </queries:Filter>
                                         </queries:Path>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         </queries:Not>
                                         <queries:CartesianUpdate>
                                         <queries:Path initialCapacity="2">
@@ -1499,12 +1513,13 @@
                                         <queries:Filter>
                                         <queries:Choose initialCapacity="3">
                                         <queries:If>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:ParentStep/>
                                         <queries:SubtypeTest value="whole:org.whole.lang.changes:ChangesModel#Change"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         <queries:ParentStep/>
                                         </queries:If>
                                         <queries:If>
@@ -1533,7 +1548,7 @@
                                         <queries:Filter>
                                         <queries:Choose initialCapacity="3">
                                         <queries:If>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Path initialCapacity="2">
                                         <queries:VariableRefStep value="other"/>
                                         <queries:Filter>
@@ -1541,19 +1556,21 @@
                                         <queries:SubtypeTest value="whole:org.whole.lang.changes:ChangesModel#Change"/>
                                         </queries:Filter>
                                         </queries:Path>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         <queries:Path initialCapacity="2">
                                         <queries:VariableRefStep value="other"/>
                                         <queries:ParentStep/>
                                         </queries:Path>
                                         </queries:If>
                                         <queries:If>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:VariableRefStep value="other"/>
                                         <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#Nothing"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         <patterns:TemplatePoint>
                                         <changes:Delete xmlns:changes="whole:org.whole.lang.changes:ChangesModel">
                                         <changes:Nothing/>
@@ -1576,12 +1593,13 @@
                                         </queries:Do>
                                         <queries:If>
                                         <queries:Not>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:ParentStep/>
                                         <queries:SubtypeTest value="whole:org.whole.lang.changes:ChangesModel#Change"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         </queries:Not>
                                         <queries:CartesianUpdate>
                                         <queries:Path initialCapacity="2">
@@ -1593,7 +1611,7 @@
                                         </queries:If>
                                         <queries:If>
                                         <queries:Not>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Path initialCapacity="2">
                                         <queries:VariableRefStep value="other"/>
                                         <queries:Filter>
@@ -1601,7 +1619,8 @@
                                         <queries:SubtypeTest value="whole:org.whole.lang.changes:ChangesModel#Change"/>
                                         </queries:Filter>
                                         </queries:Path>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         </queries:Not>
                                         <queries:CartesianUpdate>
                                         <queries:Path initialCapacity="2">
@@ -1641,25 +1660,22 @@
                                         <queries:If>
                                         <queries:And initialCapacity="3">
                                         <queries:KindTest value="DATA"/>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:VariableRefStep value="other"/>
                                         <queries:KindTest value="DATA"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
-                                        <queries:ExpressionTest>
-                                        <queries:Equals>
-                                        <queries:VariableRefStep value="self"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
+                                        <queries:EqualsStep>
                                         <queries:VariableRefStep value="other"/>
-                                        </queries:Equals>
-                                        </queries:ExpressionTest>
+                                        </queries:EqualsStep>
                                         </queries:And>
                                         <queries:VoidLiteral/>
                                         </queries:If>
                                         <queries:If>
                                         <queries:And initialCapacity="2">
                                         <queries:KindTest value="SIMPLE"/>
-                                        <queries:ExpressionTest>
                                         <queries:Equals>
                                         <semantics:FunctionApplication>
                                         <semantics:Name value="whole:org.whole.lang:ReflectLibrary#instanceType"/>
@@ -1674,7 +1690,6 @@
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         </semantics:FunctionApplication>
                                         </queries:Equals>
-                                        </queries:ExpressionTest>
                                         </queries:And>
                                         <queries:Scope>
                                         <queries:FreshNames initialCapacity="2">
@@ -1727,7 +1742,6 @@
                                         <queries:If>
                                         <queries:And initialCapacity="2">
                                         <queries:KindTest value="COMPOSITE"/>
-                                        <queries:ExpressionTest>
                                         <queries:Equals>
                                         <semantics:FunctionApplication>
                                         <semantics:Name value="whole:org.whole.lang:ReflectLibrary#instanceType"/>
@@ -1742,7 +1756,6 @@
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         </semantics:FunctionApplication>
                                         </queries:Equals>
-                                        </queries:ExpressionTest>
                                         </queries:And>
                                         <queries:Scope>
                                         <queries:FreshNames initialCapacity="4">
@@ -1797,12 +1810,13 @@
                                         </queries:Scope>
                                         </queries:If>
                                         <queries:If>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:ParentStep/>
                                         <queries:KindTest value="SIMPLE"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         <queries:Scope>
                                         <queries:FreshNames initialCapacity="1">
                                         <queries:Name value="_self"/>
@@ -1821,7 +1835,6 @@
                                         <queries:If>
                                         <queries:And initialCapacity="2">
                                         <queries:TypeTest value="http://lang.whole.org/Commons#Resolver"/>
-                                        <queries:ExpressionTest>
                                         <semantics:FunctionApplication>
                                         <semantics:Name value="whole:org.whole.lang:ReflectLibrary#featureIsOptional"/>
                                         <semantics:FunctionApplication>
@@ -1833,7 +1846,6 @@
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         </semantics:FunctionApplication>
-                                        </queries:ExpressionTest>
                                         </queries:And>
                                         <patterns:TemplatePoint>
                                         <changes:Replace xmlns:changes="whole:org.whole.lang.changes:ChangesModel">
@@ -1948,7 +1960,7 @@
                                 <patterns:Choice>
                                     <patterns:Name value="CompareRule"/>
                                     <patterns:Types initialCapacity="2">
-                                        <models:EntityType xmlns:models="http://lang.whole.org/Models" value="http://lang.whole.org/Queries#Expression"/>
+                                        <models:EntityType xmlns:models="http://lang.whole.org/Models" value="http://lang.whole.org/Queries#PathExpression"/>
                                         <patterns:Name value="CompareEntity"/>
                                     </patterns:Types>
                                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>

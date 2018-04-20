@@ -7,25 +7,27 @@
             <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
             <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                 <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
-                    <queries:FeatureStep value="declarations"/>
+                    <queries:FeatureStep value="http://lang.whole.org/Pojo#declarations"/>
                     <queries:Filter>
                         <queries:ChildStep/>
                         <queries:And initialCapacity="2">
-                            <queries:ExpressionTest>
+                            <queries:Some>
                                 <queries:Filter>
-                                    <queries:FeatureStep value="template"/>
+                                    <queries:FeatureStep value="http://lang.whole.org/Pojo#template"/>
                                     <queries:And initialCapacity="2">
-                                        <queries:TypeTest value="Name"/>
+                                        <queries:TypeTest value="http://lang.whole.org/Pojo#Name"/>
                                         <queries:KindTest value="IMPL"/>
                                     </queries:And>
                                 </queries:Filter>
-                            </queries:ExpressionTest>
-                            <queries:ExpressionTest>
+                                <commons:Resolver/>
+                            </queries:Some>
+                            <queries:Some>
                                 <queries:Filter>
-                                    <queries:FeatureStep value="name"/>
+                                    <queries:FeatureStep value="http://lang.whole.org/Pojo#name"/>
                                     <queries:VariableTest value="name"/>
                                 </queries:Filter>
-                            </queries:ExpressionTest>
+                                <commons:Resolver/>
+                            </queries:Some>
                         </queries:And>
                     </queries:Filter>
                 </queries:Path>
@@ -36,22 +38,24 @@
             <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
             <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                 <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
-                    <queries:FeatureStep value="declarations"/>
+                    <queries:FeatureStep value="http://lang.whole.org/Pojo#declarations"/>
                     <queries:Filter>
                         <queries:ChildStep/>
                         <queries:And initialCapacity="2">
-                            <queries:ExpressionTest>
+                            <queries:Some>
                                 <queries:Filter>
-                                    <queries:FeatureStep value="template"/>
+                                    <queries:FeatureStep value="http://lang.whole.org/Pojo#template"/>
                                     <queries:KindTest value="RESOLVER"/>
                                 </queries:Filter>
-                            </queries:ExpressionTest>
-                            <queries:ExpressionTest>
+                                <commons:Resolver/>
+                            </queries:Some>
+                            <queries:Some>
                                 <queries:Filter>
-                                    <queries:FeatureStep value="name"/>
+                                    <queries:FeatureStep value="http://lang.whole.org/Pojo#name"/>
                                     <queries:VariableTest value="name"/>
                                 </queries:Filter>
-                            </queries:ExpressionTest>
+                                <commons:Resolver/>
+                            </queries:Some>
                         </queries:And>
                     </queries:Filter>
                 </queries:Path>
@@ -62,30 +66,32 @@
             <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
             <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                 <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="4">
-                    <queries:FeatureStep value="declarations"/>
+                    <queries:FeatureStep value="http://lang.whole.org/Pojo#declarations"/>
                     <queries:Filter>
                         <queries:ChildStep/>
                         <queries:And initialCapacity="2">
-                            <queries:TypeTest value="PojoDeclaration"/>
+                            <queries:TypeTest value="http://lang.whole.org/Pojo#PojoDeclaration"/>
                             <queries:VariableTest value="pojo"/>
                         </queries:And>
                     </queries:Filter>
-                    <queries:FeatureStep value="properties"/>
+                    <queries:FeatureStep value="http://lang.whole.org/Pojo#properties"/>
                     <queries:Filter>
                         <queries:ChildStep/>
                         <queries:And initialCapacity="2">
-                            <queries:ExpressionTest>
+                            <queries:Some>
                                 <queries:Filter>
-                                    <queries:FeatureStep value="template"/>
+                                    <queries:FeatureStep value="http://lang.whole.org/Pojo#template"/>
                                     <queries:KindTest value="RESOLVER"/>
                                 </queries:Filter>
-                            </queries:ExpressionTest>
-                            <queries:ExpressionTest>
+                                <commons:Resolver/>
+                            </queries:Some>
+                            <queries:Some>
                                 <queries:Filter>
-                                    <queries:FeatureStep value="name"/>
+                                    <queries:FeatureStep value="http://lang.whole.org/Pojo#name"/>
                                     <queries:VariableTest value="name"/>
                                 </queries:Filter>
-                            </queries:ExpressionTest>
+                                <commons:Resolver/>
+                            </queries:Some>
                         </queries:And>
                     </queries:Filter>
                 </queries:Path>
@@ -96,32 +102,34 @@
             <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
             <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                 <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="6">
-                    <queries:FeatureStep value="declarations"/>
+                    <queries:FeatureStep value="http://lang.whole.org/Pojo#declarations"/>
                     <queries:Filter>
                         <queries:ChildStep/>
                         <queries:And initialCapacity="2">
-                            <queries:TypeTest value="PojoDeclaration"/>
+                            <queries:TypeTest value="http://lang.whole.org/Pojo#PojoDeclaration"/>
                             <queries:VariableTest value="pojo"/>
                         </queries:And>
                     </queries:Filter>
-                    <queries:FeatureStep value="constructors"/>
+                    <queries:FeatureStep value="http://lang.whole.org/Pojo#constructors"/>
                     <queries:ChildStep/>
-                    <queries:FeatureStep value="parameters"/>
+                    <queries:FeatureStep value="http://lang.whole.org/Pojo#parameters"/>
                     <queries:Filter>
                         <queries:ChildStep/>
                         <queries:And initialCapacity="2">
-                            <queries:ExpressionTest>
+                            <queries:Some>
                                 <queries:Filter>
-                                    <queries:FeatureStep value="type"/>
+                                    <queries:FeatureStep value="http://lang.whole.org/Pojo#type"/>
                                     <queries:KindTest value="RESOLVER"/>
                                 </queries:Filter>
-                            </queries:ExpressionTest>
-                            <queries:ExpressionTest>
+                                <commons:Resolver/>
+                            </queries:Some>
+                            <queries:Some>
                                 <queries:Filter>
-                                    <queries:FeatureStep value="name"/>
+                                    <queries:FeatureStep value="http://lang.whole.org/Pojo#name"/>
                                     <queries:VariableTest value="name"/>
                                 </queries:Filter>
-                            </queries:ExpressionTest>
+                                <commons:Resolver/>
+                            </queries:Some>
                         </queries:And>
                     </queries:Filter>
                 </queries:Path>
@@ -132,32 +140,34 @@
             <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
             <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                 <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="6">
-                    <queries:FeatureStep value="declarations"/>
+                    <queries:FeatureStep value="http://lang.whole.org/Pojo#declarations"/>
                     <queries:Filter>
                         <queries:ChildStep/>
                         <queries:And initialCapacity="2">
-                            <queries:TypeTest value="PojoDeclaration"/>
+                            <queries:TypeTest value="http://lang.whole.org/Pojo#PojoDeclaration"/>
                             <queries:VariableTest value="pojo"/>
                         </queries:And>
                     </queries:Filter>
-                    <queries:FeatureStep value="constructors"/>
+                    <queries:FeatureStep value="http://lang.whole.org/Pojo#constructors"/>
                     <queries:ChildStep/>
-                    <queries:FeatureStep value="parameters"/>
+                    <queries:FeatureStep value="http://lang.whole.org/Pojo#parameters"/>
                     <queries:Filter>
                         <queries:ChildStep/>
                         <queries:And initialCapacity="2">
-                            <queries:ExpressionTest>
+                            <queries:Some>
                                 <queries:Filter>
-                                    <queries:FeatureStep value="template"/>
+                                    <queries:FeatureStep value="http://lang.whole.org/Pojo#template"/>
                                     <queries:KindTest value="RESOLVER"/>
                                 </queries:Filter>
-                            </queries:ExpressionTest>
-                            <queries:ExpressionTest>
+                                <commons:Resolver/>
+                            </queries:Some>
+                            <queries:Some>
                                 <queries:Filter>
-                                    <queries:FeatureStep value="name"/>
+                                    <queries:FeatureStep value="http://lang.whole.org/Pojo#name"/>
                                     <queries:VariableTest value="name"/>
                                 </queries:Filter>
-                            </queries:ExpressionTest>
+                                <commons:Resolver/>
+                            </queries:Some>
                         </queries:And>
                     </queries:Filter>
                 </queries:Path>
@@ -168,17 +178,18 @@
             <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
             <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                 <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="3">
-                    <queries:FeatureStep value="properties"/>
+                    <queries:FeatureStep value="http://lang.whole.org/Pojo#properties"/>
                     <queries:Filter>
                         <queries:ChildStep/>
-                        <queries:ExpressionTest>
+                        <queries:Some>
                             <queries:Filter>
-                                <queries:FeatureStep value="name"/>
+                                <queries:FeatureStep value="http://lang.whole.org/Pojo#name"/>
                                 <queries:VariableTest value="name"/>
                             </queries:Filter>
-                        </queries:ExpressionTest>
+                            <commons:Resolver/>
+                        </queries:Some>
                     </queries:Filter>
-                    <queries:FeatureStep value="type"/>
+                    <queries:FeatureStep value="http://lang.whole.org/Pojo#type"/>
                 </queries:Path>
             </commons:StageUpFragment>
         </templates:TemplateFactory>
@@ -187,17 +198,18 @@
             <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
             <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                 <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="3">
-                    <queries:FeatureStep value="properties"/>
+                    <queries:FeatureStep value="http://lang.whole.org/Pojo#properties"/>
                     <queries:Filter>
                         <queries:ChildStep/>
-                        <queries:ExpressionTest>
+                        <queries:Some>
                             <queries:Filter>
-                                <queries:FeatureStep value="name"/>
+                                <queries:FeatureStep value="http://lang.whole.org/Pojo#name"/>
                                 <queries:VariableTest value="name"/>
                             </queries:Filter>
-                        </queries:ExpressionTest>
+                            <commons:Resolver/>
+                        </queries:Some>
                     </queries:Filter>
-                    <queries:FeatureStep value="template"/>
+                    <queries:FeatureStep value="http://lang.whole.org/Pojo#template"/>
                 </queries:Path>
             </commons:StageUpFragment>
         </templates:TemplateFactory>
@@ -206,15 +218,16 @@
             <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
             <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                 <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
-                    <queries:FeatureStep value="declarations"/>
+                    <queries:FeatureStep value="http://lang.whole.org/Pojo#declarations"/>
                     <queries:Filter>
                         <queries:ChildStep/>
-                        <queries:ExpressionTest>
+                        <queries:Some>
                             <queries:Filter>
-                                <queries:FeatureStep value="name"/>
+                                <queries:FeatureStep value="http://lang.whole.org/Pojo#name"/>
                                 <queries:VariableTest value="name"/>
                             </queries:Filter>
-                        </queries:ExpressionTest>
+                            <commons:Resolver/>
+                        </queries:Some>
                     </queries:Filter>
                 </queries:Path>
             </commons:StageUpFragment>
@@ -224,15 +237,16 @@
             <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
             <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                 <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
-                    <queries:FeatureStep value="declarations"/>
+                    <queries:FeatureStep value="http://lang.whole.org/Pojo#declarations"/>
                     <queries:Filter>
                         <queries:ChildStep/>
-                        <queries:ExpressionTest>
+                        <queries:Some>
                             <queries:Filter>
-                                <queries:FeatureStep value="template"/>
+                                <queries:FeatureStep value="http://lang.whole.org/Pojo#template"/>
                                 <queries:VariableTest value="templateName"/>
                             </queries:Filter>
-                        </queries:ExpressionTest>
+                            <commons:Resolver/>
+                        </queries:Some>
                     </queries:Filter>
                 </queries:Path>
             </commons:StageUpFragment>
@@ -242,14 +256,14 @@
             <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
             <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                 <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="5">
-                    <queries:FeatureStep value="declarations"/>
+                    <queries:FeatureStep value="http://lang.whole.org/Pojo#declarations"/>
                     <queries:ChildStep/>
-                    <queries:FeatureStep value="properties"/>
+                    <queries:FeatureStep value="http://lang.whole.org/Pojo#properties"/>
                     <queries:Filter>
                         <queries:ChildStep/>
                         <queries:VariableTest value="property"/>
                     </queries:Filter>
-                    <queries:FeatureStep value="type"/>
+                    <queries:FeatureStep value="http://lang.whole.org/Pojo#type"/>
                 </queries:Path>
             </commons:StageUpFragment>
         </templates:TemplateFactory>
@@ -258,15 +272,16 @@
             <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
             <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                 <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
-                    <queries:FeatureStep value="properties"/>
+                    <queries:FeatureStep value="http://lang.whole.org/Pojo#properties"/>
                     <queries:Filter>
                         <queries:ChildStep/>
-                        <queries:ExpressionTest>
+                        <queries:Some>
                             <queries:Filter>
-                                <queries:FeatureStep value="template"/>
+                                <queries:FeatureStep value="http://lang.whole.org/Pojo#template"/>
                                 <queries:VariableTest value="template"/>
                             </queries:Filter>
-                        </queries:ExpressionTest>
+                            <commons:Resolver/>
+                        </queries:Some>
                     </queries:Filter>
                 </queries:Path>
             </commons:StageUpFragment>
@@ -276,25 +291,26 @@
             <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
             <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                 <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="3">
-                    <queries:FeatureStep value="properties"/>
+                    <queries:FeatureStep value="http://lang.whole.org/Pojo#properties"/>
                     <queries:Filter>
                         <queries:ChildStep/>
-                        <queries:ExpressionTest>
+                        <queries:Some>
                             <queries:Path initialCapacity="2">
-                                <queries:FeatureStep value="annotations"/>
+                                <queries:FeatureStep value="http://lang.whole.org/Pojo#annotations"/>
                                 <queries:Filter>
                                     <queries:ChildStep/>
-                                    <queries:ExpressionTest>
+                                    <queries:MatchTest>
                                         <commons:StageUpFragment>
                                         <pojo:Modifier xmlns:pojo="http://lang.whole.org/Pojo" value="READ_ONLY"/>
                                         </commons:StageUpFragment>
-                                    </queries:ExpressionTest>
+                                    </queries:MatchTest>
                                 </queries:Filter>
                             </queries:Path>
-                        </queries:ExpressionTest>
+                            <commons:Resolver/>
+                        </queries:Some>
                     </queries:Filter>
                     <queries:Filter>
-                        <queries:FeatureStep value="template"/>
+                        <queries:FeatureStep value="http://lang.whole.org/Pojo#template"/>
                         <queries:VariableTest value="template"/>
                     </queries:Filter>
                 </queries:Path>
@@ -305,15 +321,16 @@
             <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
             <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                 <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
-                    <queries:FeatureStep value="parameters"/>
+                    <queries:FeatureStep value="http://lang.whole.org/Pojo#parameters"/>
                     <queries:Filter>
                         <queries:ChildStep/>
-                        <queries:ExpressionTest>
+                        <queries:Some>
                             <queries:Filter>
-                                <queries:FeatureStep value="template"/>
+                                <queries:FeatureStep value="http://lang.whole.org/Pojo#template"/>
                                 <queries:VariableTest value="template"/>
                             </queries:Filter>
-                        </queries:ExpressionTest>
+                            <commons:Resolver/>
+                        </queries:Some>
                     </queries:Filter>
                 </queries:Path>
             </commons:StageUpFragment>

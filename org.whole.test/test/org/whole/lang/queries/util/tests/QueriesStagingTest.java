@@ -34,7 +34,7 @@ public class QueriesStagingTest extends TestCase {
             IEntity subject;
             evaluateInScope("fragment");
             subject = evaluate("fragment1");
-            assertThat("at /testCases/0/tests/0/body/1", subject, allOf(not(sameAsEntity(evaluate("fragment2"))), matches(evaluate("fragment3"))));
+            assertThat("at /testCases/7/tests/0/body/1", subject, allOf(not(sameAsEntity(evaluate("fragment2"))), matches(evaluate("fragment3"))));
         } finally {
             ts.rollback();
             bindings().wExitScope();
@@ -52,7 +52,7 @@ public class QueriesStagingTest extends TestCase {
             IEntity subject;
             evaluateInScope("fragment4");
             subject = evaluate("fragment5");
-            assertThat("at /testCases/0/tests/1/body/1", subject, allOf(not(sameAsEntity(evaluate("fragment6"))), matches(evaluate("fragment7"))));
+            assertThat("at /testCases/7/tests/1/body/1", subject, allOf(not(sameAsEntity(evaluate("fragment6"))), matches(evaluate("fragment7"))));
         } finally {
             ts.rollback();
             bindings().wExitScope();
@@ -70,7 +70,7 @@ public class QueriesStagingTest extends TestCase {
             IEntity subject;
             evaluateInScope("fragment8");
             subject = evaluate("fragment9");
-            assertThat("at /testCases/0/tests/2/body/1", subject, matches(evaluate("fragment10")));
+            assertThat("at /testCases/7/tests/2/body/1", subject, matches(evaluate("fragment10")));
         } finally {
             ts.rollback();
             bindings().wExitScope();
