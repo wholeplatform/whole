@@ -201,10 +201,13 @@
                                 <java:Modifier value="public"/>
                                 <semantics:IfTemplate>
                                     <java:Modifier value="static"/>
-                                    <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:Some xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:Filter>
                                         <queries:ParentStep/>
                                         <queries:TypeTest value="http://lang.examples.whole.org/Imp#BlockStatement"/>
-                                    </queries:Filter>
+                                        </queries:Filter>
+                                        <commons:Resolver/>
+                                    </queries:Some>
                                 </semantics:IfTemplate>
                             </java:ExtendedModifiers>
                             <commons:StageDownFragment>
@@ -271,12 +274,15 @@
                                         </java:ExpressionStatement>
                                         </java:Block>
                                     </java:MethodDeclaration>
-                                    <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:Some xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:Filter>
                                         <queries:ParentStep/>
                                         <queries:Not>
                                         <queries:TypeTest value="http://lang.examples.whole.org/Imp#BlockStatement"/>
                                         </queries:Not>
-                                    </queries:Filter>
+                                        </queries:Filter>
+                                        <commons:Resolver/>
+                                    </queries:Some>
                                 </semantics:IfTemplate>
                                 <java:MethodDeclaration>
                                     <commons:Resolver/>
@@ -331,10 +337,13 @@
                                         <commons:Resolver/>
                                         <commons:Resolver/>
                                         </semantics:FunctionApplication>
-                                        <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:Some xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:Filter>
                                         <queries:VariableRefStep value="body"/>
                                         <queries:TypeTest value="http://lang.examples.whole.org/Imp#BlockStatement"/>
                                         </queries:Filter>
+                                        <commons:Resolver/>
+                                        </queries:Some>
                                         </semantics:IfTemplate>
                                         <semantics:ElseTemplate>
                                         <java:Block initialCapacity="1">
@@ -461,10 +470,13 @@
                                         </java:VariableDeclarationFragment>
                                     </java:VariableDeclarationFragments>
                                 </java:VariableDeclarationExpression>
-                                <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
-                                    <queries:ParentStep/>
-                                    <queries:TypeTest value="http://lang.examples.whole.org/Imp#ForStatement"/>
-                                </queries:Filter>
+                                <queries:Some xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:Filter>
+                                        <queries:ParentStep/>
+                                        <queries:TypeTest value="http://lang.examples.whole.org/Imp#ForStatement"/>
+                                    </queries:Filter>
+                                    <commons:Resolver/>
+                                </queries:Some>
                             </semantics:IfTemplate>
                             <semantics:ElseTemplate>
                                 <java:VariableDeclarationStatement xmlns:java="http://lang.whole.org/Java">
@@ -1316,31 +1328,27 @@
                         <semantics:ChooseTemplate initialCapacity="4">
                             <semantics:IfTemplate>
                                 <java:PrimitiveType xmlns:java="http://lang.whole.org/Java" value="boolean"/>
-                                <queries:Equals xmlns:queries="http://lang.whole.org/Queries">
-                                    <queries:VariableRefStep value="self"/>
+                                <queries:EqualsStep xmlns:queries="http://lang.whole.org/Queries">
                                     <queries:StringLiteral value="boolean"/>
-                                </queries:Equals>
+                                </queries:EqualsStep>
                             </semantics:IfTemplate>
                             <semantics:IfTemplate>
                                 <java:PrimitiveType xmlns:java="http://lang.whole.org/Java" value="int"/>
-                                <queries:Equals xmlns:queries="http://lang.whole.org/Queries">
-                                    <queries:VariableRefStep value="self"/>
+                                <queries:EqualsStep xmlns:queries="http://lang.whole.org/Queries">
                                     <queries:StringLiteral value="int"/>
-                                </queries:Equals>
+                                </queries:EqualsStep>
                             </semantics:IfTemplate>
                             <semantics:IfTemplate>
                                 <java:SimpleType xmlns:java="http://lang.whole.org/Java" value="String"/>
-                                <queries:Equals xmlns:queries="http://lang.whole.org/Queries">
-                                    <queries:VariableRefStep value="self"/>
+                                <queries:EqualsStep xmlns:queries="http://lang.whole.org/Queries">
                                     <queries:StringLiteral value="string"/>
-                                </queries:Equals>
+                                </queries:EqualsStep>
                             </semantics:IfTemplate>
                             <semantics:IfTemplate>
                                 <java:PrimitiveType xmlns:java="http://lang.whole.org/Java" value="void"/>
-                                <queries:Equals xmlns:queries="http://lang.whole.org/Queries">
-                                    <queries:VariableRefStep value="self"/>
+                                <queries:EqualsStep xmlns:queries="http://lang.whole.org/Queries">
                                     <queries:StringLiteral value="void"/>
-                                </queries:Equals>
+                                </queries:EqualsStep>
                             </semantics:IfTemplate>
                         </semantics:ChooseTemplate>
                     </commons:StageUpFragment>
@@ -1544,12 +1552,15 @@
                                 </semantics:IfDefTemplate>
                                 <semantics:IfTemplate>
                                     <text:Text value=";"/>
-                                    <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:Some xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:Filter>
                                         <queries:ParentStep/>
                                         <queries:Not>
                                         <queries:TypeTest value="http://lang.examples.whole.org/Imp#ForStatement"/>
                                         </queries:Not>
-                                    </queries:Filter>
+                                        </queries:Filter>
+                                        <commons:Resolver/>
+                                    </queries:Some>
                                 </semantics:IfTemplate>
                             </text:Row>
                         </text:Document>
@@ -1652,10 +1663,13 @@
                                 <text:Text value=")"/>
                                 <semantics:IfTemplate>
                                     <text:Text value=" {"/>
-                                    <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:Some xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:Filter>
                                         <queries:VariableRefStep value="trueBody"/>
                                         <queries:TypeTest value="http://lang.examples.whole.org/Imp#BlockStatement"/>
-                                    </queries:Filter>
+                                        </queries:Filter>
+                                        <commons:Resolver/>
+                                    </queries:Some>
                                 </semantics:IfTemplate>
                             </text:Row>
                             <text:Indent value="1"/>
@@ -1674,10 +1688,13 @@
                                 <text:Row initialCapacity="1">
                                     <text:Text value="}"/>
                                 </text:Row>
-                                <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
-                                    <queries:VariableRefStep value="trueBody"/>
-                                    <queries:TypeTest value="http://lang.examples.whole.org/Imp#BlockStatement"/>
-                                </queries:Filter>
+                                <queries:Some xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:Filter>
+                                        <queries:VariableRefStep value="trueBody"/>
+                                        <queries:TypeTest value="http://lang.examples.whole.org/Imp#BlockStatement"/>
+                                    </queries:Filter>
+                                    <commons:Resolver/>
+                                </queries:Some>
                             </semantics:IfTemplate>
                         </text:Document>
                     </commons:StageUpFragment>
@@ -1702,10 +1719,13 @@
                                 <text:Text value=")"/>
                                 <semantics:IfTemplate>
                                     <text:Text value=" {"/>
-                                    <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:Some xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:Filter>
                                         <queries:VariableRefStep value="trueBody"/>
                                         <queries:TypeTest value="http://lang.examples.whole.org/Imp#BlockStatement"/>
-                                    </queries:Filter>
+                                        </queries:Filter>
+                                        <commons:Resolver/>
+                                    </queries:Some>
                                 </semantics:IfTemplate>
                             </text:Row>
                             <text:Indent value="1"/>
@@ -1723,18 +1743,24 @@
                             <text:Row initialCapacity="3">
                                 <semantics:IfTemplate>
                                     <text:Text value="}"/>
-                                    <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:Some xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:Filter>
                                         <queries:VariableRefStep value="trueBody"/>
                                         <queries:TypeTest value="http://lang.examples.whole.org/Imp#BlockStatement"/>
-                                    </queries:Filter>
+                                        </queries:Filter>
+                                        <commons:Resolver/>
+                                    </queries:Some>
                                 </semantics:IfTemplate>
                                 <text:Text value="else"/>
                                 <semantics:IfTemplate>
                                     <text:Text value=" {"/>
-                                    <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:Some xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:Filter>
                                         <queries:VariableRefStep value="falseBody"/>
                                         <queries:TypeTest value="http://lang.examples.whole.org/Imp#BlockStatement"/>
-                                    </queries:Filter>
+                                        </queries:Filter>
+                                        <commons:Resolver/>
+                                    </queries:Some>
                                 </semantics:IfTemplate>
                             </text:Row>
                             <text:Indent value="1"/>
@@ -1753,10 +1779,13 @@
                                 <text:Row initialCapacity="1">
                                     <text:Text value="}"/>
                                 </text:Row>
-                                <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
-                                    <queries:VariableRefStep value="falseBody"/>
-                                    <queries:TypeTest value="http://lang.examples.whole.org/Imp#BlockStatement"/>
-                                </queries:Filter>
+                                <queries:Some xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:Filter>
+                                        <queries:VariableRefStep value="falseBody"/>
+                                        <queries:TypeTest value="http://lang.examples.whole.org/Imp#BlockStatement"/>
+                                    </queries:Filter>
+                                    <commons:Resolver/>
+                                </queries:Some>
                             </semantics:IfTemplate>
                         </text:Document>
                     </commons:StageUpFragment>
@@ -1781,10 +1810,13 @@
                                 <text:Text value=")"/>
                                 <semantics:IfTemplate>
                                     <text:Text value=" {"/>
-                                    <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:Some xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:Filter>
                                         <queries:VariableRefStep value="trueBody"/>
                                         <queries:TypeTest value="http://lang.examples.whole.org/Imp#BlockStatement"/>
-                                    </queries:Filter>
+                                        </queries:Filter>
+                                        <commons:Resolver/>
+                                    </queries:Some>
                                 </semantics:IfTemplate>
                             </text:Row>
                             <text:Indent value="1"/>
@@ -1803,10 +1835,13 @@
                                 <text:Row initialCapacity="1">
                                     <text:Text value="}"/>
                                 </text:Row>
-                                <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
-                                    <queries:VariableRefStep value="trueBody"/>
-                                    <queries:TypeTest value="http://lang.examples.whole.org/Imp#BlockStatement"/>
-                                </queries:Filter>
+                                <queries:Some xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:Filter>
+                                        <queries:VariableRefStep value="trueBody"/>
+                                        <queries:TypeTest value="http://lang.examples.whole.org/Imp#BlockStatement"/>
+                                    </queries:Filter>
+                                    <commons:Resolver/>
+                                </queries:Some>
                             </semantics:IfTemplate>
                         </text:Document>
                     </commons:StageUpFragment>
@@ -1890,10 +1925,13 @@
                                 <text:Text value=")"/>
                                 <semantics:IfTemplate>
                                     <text:Text value=" {"/>
-                                    <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:Some xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:Filter>
                                         <queries:VariableRefStep value="trueBody"/>
                                         <queries:TypeTest value="http://lang.examples.whole.org/Imp#BlockStatement"/>
-                                    </queries:Filter>
+                                        </queries:Filter>
+                                        <commons:Resolver/>
+                                    </queries:Some>
                                 </semantics:IfTemplate>
                             </text:Row>
                             <text:Indent value="1"/>
@@ -1912,10 +1950,13 @@
                                 <text:Row initialCapacity="1">
                                     <text:Text value="}"/>
                                 </text:Row>
-                                <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
-                                    <queries:VariableRefStep value="trueBody"/>
-                                    <queries:TypeTest value="http://lang.examples.whole.org/Imp#BlockStatement"/>
-                                </queries:Filter>
+                                <queries:Some xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:Filter>
+                                        <queries:VariableRefStep value="trueBody"/>
+                                        <queries:TypeTest value="http://lang.examples.whole.org/Imp#BlockStatement"/>
+                                    </queries:Filter>
+                                    <commons:Resolver/>
+                                </queries:Some>
                             </semantics:IfTemplate>
                         </text:Document>
                     </commons:StageUpFragment>
@@ -2448,31 +2489,27 @@
                         <semantics:ChooseTemplate initialCapacity="4">
                             <semantics:IfTemplate>
                                 <text:Text xmlns:text="http://lang.whole.org/Text" value="boolean"/>
-                                <queries:Equals xmlns:queries="http://lang.whole.org/Queries">
-                                    <queries:VariableRefStep value="self"/>
+                                <queries:EqualsStep xmlns:queries="http://lang.whole.org/Queries">
                                     <queries:StringLiteral value="boolean"/>
-                                </queries:Equals>
+                                </queries:EqualsStep>
                             </semantics:IfTemplate>
                             <semantics:IfTemplate>
                                 <text:Text xmlns:text="http://lang.whole.org/Text" value="int"/>
-                                <queries:Equals xmlns:queries="http://lang.whole.org/Queries">
-                                    <queries:VariableRefStep value="self"/>
+                                <queries:EqualsStep xmlns:queries="http://lang.whole.org/Queries">
                                     <queries:StringLiteral value="int"/>
-                                </queries:Equals>
+                                </queries:EqualsStep>
                             </semantics:IfTemplate>
                             <semantics:IfTemplate>
                                 <text:Text xmlns:text="http://lang.whole.org/Text" value="string"/>
-                                <queries:Equals xmlns:queries="http://lang.whole.org/Queries">
-                                    <queries:VariableRefStep value="self"/>
+                                <queries:EqualsStep xmlns:queries="http://lang.whole.org/Queries">
                                     <queries:StringLiteral value="string"/>
-                                </queries:Equals>
+                                </queries:EqualsStep>
                             </semantics:IfTemplate>
                             <semantics:IfTemplate>
                                 <text:Text xmlns:text="http://lang.whole.org/Text" value="void"/>
-                                <queries:Equals xmlns:queries="http://lang.whole.org/Queries">
-                                    <queries:VariableRefStep value="self"/>
+                                <queries:EqualsStep xmlns:queries="http://lang.whole.org/Queries">
                                     <queries:StringLiteral value="void"/>
-                                </queries:Equals>
+                                </queries:EqualsStep>
                             </semantics:IfTemplate>
                         </semantics:ChooseTemplate>
                     </commons:StageUpFragment>
