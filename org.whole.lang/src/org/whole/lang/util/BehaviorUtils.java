@@ -57,11 +57,11 @@ public class BehaviorUtils {
 	}
 
 	public static IEntityIterator<?> lazyEvaluate(IEntity behavior, int relativeStage, IBindingManager bm) {
-		InterpreterOperation.interpret(behavior, bm, relativeStage);
+		InterpreterOperation.lazyInterpret(behavior, bm, relativeStage);
 		return bm.getResultIterator();
 	}
 	public static IEntity evaluate(IEntity behavior, int relativeStage, IBindingManager bm) {
-		InterpreterOperation.interpret(behavior, bm, relativeStage);
+		InterpreterOperation.lazyInterpret(behavior, bm, relativeStage);
 		return evaluateResult(bm);
 	}
 	public static final IEntity evaluate(IEntity behavior, int relativeStage, IOperation op) {

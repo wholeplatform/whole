@@ -50,14 +50,17 @@ public class InterpreterOperation extends AbstractOperation {
 		return interpret(program, BindingManagerFactory.instance.createArguments());
 	}
 	public static IBindingScope interpret(IEntity program, IBindingManager args) {
-		return interpret(program, args, false);
+		IBindingScope resultScope = lazyInterpret(program, args, false);
+		resultScope.getResult();
+		return resultScope;
 	}
-	public static IBindingScope interpret(IEntity program, IBindingManager args, boolean resultsInArgs) {
+
+	public static IBindingScope lazyInterpret(IEntity program, IBindingManager args, boolean resultsInArgs) {
 		InterpreterOperation op = new InterpreterOperation(args, resultsInArgs);
 	    op.stagedVisit(program, 0);
 	    return op.getResultsScope();
 	}
-	public static IBindingScope interpret(IEntity program, IBindingManager args, int relativeStage) {
+	public static IBindingScope lazyInterpret(IEntity program, IBindingManager args, int relativeStage) {
 		InterpreterOperation op = new InterpreterOperation(args, null);
 	    op.stagedVisit(program, relativeStage);
 	    return op.getResultsScope();
@@ -123,7 +126,9 @@ public class InterpreterOperation extends AbstractOperation {
 	    	args.wUnset(name);
 
 	    op.flushPrintWriter();
-	    return op.getResultsScope();
+	    IBindingScope resultScope = op.getResultsScope();
+		resultScope.getResult();
+		return resultScope;
 	}
 
 	protected InterpreterOperation(IBindingManager args, boolean resultsInArgs) {

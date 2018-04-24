@@ -80,7 +80,7 @@ public class TemplateInterpreterIterator<E extends IEntity> extends AbstractClon
 		if (selfEntity != resetEntity)
 			getBindings().wDef("self", resetEntity);
 
-		IBindingScope results = InterpreterOperation.interpret(pattern, getBindings(), true);
+		IBindingScope results = InterpreterOperation.lazyInterpret(pattern, getBindings(), true);
 
 		getBindings().wExitScope();
 
