@@ -22,6 +22,7 @@ import java.io.Reader;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.java.model.IJavaEntity;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.InterpreterOperation;
@@ -34,6 +35,7 @@ import org.whole.lang.visitors.VisitException;
 import bsh.ConsoleInterface;
 import bsh.EvalError;
 import bsh.Interpreter;
+import bsh.InterpreterError;
 
 /**
  * @author Riccardo Solmi
@@ -97,9 +99,9 @@ public class JavaInterpreterVisitor extends JavaIdentityDefaultVisitor implement
 						bm.wDef(name, BindingManagerFactory.instance.createSpecificValue(value));
 				}
 				return;
-			} catch (EvalError e) {
+			} catch (EvalError|InterpreterError e) {
 				if (!useAutoboxing)
-					throw new VisitException("Java Interpreter failure.", e);
+					throw new WholeIllegalArgumentException("Java Interpreter failure.", e).withBindings(bm).withSourceEntity(entity);
 				useAutoboxing = false;
 			}
 		} while (true);
