@@ -42,6 +42,11 @@ public class ChildRangeIterator<E extends IEntity> extends AbstractByIndexIterat
     }
 
     @Override
+	public boolean hasNext() {
+		return super.hasNext() && entity.wContains(startIndex() + nextIndex);
+	}
+
+    @Override
 	public void toString(StringBuilder sb) {
     	sb.append("child");
 		sb.append(forward ? "()" : "-reverse()");

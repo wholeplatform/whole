@@ -58,8 +58,7 @@ public abstract class AbstractByIndexIterator<E extends IEntity> extends Abstrac
 	}
 
 	public boolean hasNext() {
-		return entity != null && (forward ?
-				startIndex() + nextIndex <= endIndex() : nextIndex >= 0);
+		return entity != null && (forward ? startIndex() + nextIndex <= endIndex() : nextIndex >= 0);
 	}
 
 	@SuppressWarnings("unchecked")
