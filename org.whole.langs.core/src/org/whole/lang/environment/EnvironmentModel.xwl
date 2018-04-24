@@ -1,7 +1,13 @@
 <?xml version="1.0"?>
 <models:Model xmlns:models="http://lang.whole.org/Models">
     <models:SimpleName value="Environment"/>
-    <models:TypeRelations initialCapacity="2">
+    <models:TypeRelations initialCapacity="3">
+        <models:SupertypesOf>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Value"/>
+            </models:Types>
+            <models:AnyType/>
+        </models:SupertypesOf>
         <models:SupertypesOf>
             <models:Types initialCapacity="1">
                 <models:SimpleName value="Data"/>

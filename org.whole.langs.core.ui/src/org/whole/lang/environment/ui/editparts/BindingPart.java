@@ -55,6 +55,9 @@ public class BindingPart extends AbstractContentPanePart {
 	}
 
 	public boolean isShowValue(IEntity value) {
+		if (value == null)
+			return true;
+
 		boolean showValue = false;
 		switch (value.wGetEntityKind()) {
 		case DATA:
@@ -84,10 +87,17 @@ public class BindingPart extends AbstractContentPanePart {
 		Value valueEntity = binding.getValue();
 		IEntity value = Matcher.matchImpl(EnvironmentEntityDescriptorEnum.Value, valueEntity) ? valueEntity.getValue() : valueEntity.wGetAdaptee(true);
 		List<IEntity> children = new ArrayList<IEntity>(4);
-		children.add(EnvironmentEntityFactory.instance.createId(Integer.toHexString(System.identityHashCode(value))));
-		children.add(ModelsEntityFactory.instance.createEntityType(value.wGetEntityDescriptor().getURI()));
-		children.add(binding.getName());
-		children.add(value);
+		if (value != null) {
+			children.add(EnvironmentEntityFactory.instance.createId(Integer.toHexString(System.identityHashCode(value))));
+			children.add(ModelsEntityFactory.instance.createEntityType(value.wGetEntityDescriptor().getURI()));
+			children.add(binding.getName());
+			children.add(value);
+		} else {
+			children.add(EnvironmentEntityFactory.instance.createId("-"));
+			children.add(EnvironmentEntityFactory.instance.createId("-"));
+			children.add(binding.getName());
+			children.add(valueEntity);			
+		}
 		return children;
 	}
 }

@@ -161,6 +161,7 @@ public class EnvironmentEntityDescriptorEnum extends EntityDescriptorEnum {
     }
 
     protected void initForeignTypeRelations() {
+        setAssignableFromAll(true, Value_ord);
         setAssignableFromAll(true, Data_ord);
         setAssignableToAll(true, Void_ord);
     }
