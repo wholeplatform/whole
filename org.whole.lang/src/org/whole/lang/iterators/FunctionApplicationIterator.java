@@ -19,6 +19,7 @@ package org.whole.lang.iterators;
 
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.bindings.NullScope;
+import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.resources.FunctionLibraryRegistry;
@@ -45,7 +46,11 @@ public class FunctionApplicationIterator extends AbstractCloneableIterator<IEnti
 
 	protected IEntityIterator<IEntity> functionIterator() {
 		if (functionIterator == null) {
-			functionIterator = FunctionLibraryRegistry.instance().getFunctionCode(functionUri, true, getBindings());
+			try {
+				functionIterator = FunctionLibraryRegistry.instance().getFunctionCode(functionUri, true, getBindings());
+			} catch (Exception e) {
+				throw new WholeIllegalArgumentException("Unknown function application: "+functionUri, e).withSourceEntity(resetEntity).withBindings(getBindings());
+			}
 	    	functionIterator.setBindings(getBindings());
 		}
 		if (resetEntity != null) {

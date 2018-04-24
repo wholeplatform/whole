@@ -46,6 +46,8 @@ public class CompoundResourceRegistry<T extends IResource> extends ResourceRegis
 		final boolean needInterpretation = functionLibrary == null;
 		if (needInterpretation && loadOnDemand) {
 			functionLibrary = getResourceModel(libraryUri, loadOnDemand, bm);
+			if (functionLibrary == null)
+				throw new IllegalArgumentException("Resource not loadable: "+libraryUri);
 			IBindingManager args = BindingManagerFactory.instance.createArguments();
 			args.wDefValue("LazyInterpretation", true);
 			InterpreterOperation.interpret(functionLibrary, args);
