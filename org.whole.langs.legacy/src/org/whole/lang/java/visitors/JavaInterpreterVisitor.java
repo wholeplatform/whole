@@ -99,7 +99,7 @@ public class JavaInterpreterVisitor extends JavaIdentityDefaultVisitor implement
 						bm.wDef(name, BindingManagerFactory.instance.createSpecificValue(value));
 				}
 				return;
-			} catch (EvalError|InterpreterError e) {
+			} catch (EvalError|InterpreterError|java.lang.Error e) { //Error = Parser$LookaheadSuccess
 				if (!useAutoboxing)
 					throw new WholeIllegalArgumentException("Java Interpreter failure.", e).withBindings(bm).withSourceEntity(entity);
 				useAutoboxing = false;
