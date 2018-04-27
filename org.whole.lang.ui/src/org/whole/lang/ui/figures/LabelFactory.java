@@ -178,7 +178,10 @@ public class LabelFactory {
 	public static EntityLabel createModule() {
 		return new EntityLabel() {
 			public Color getLocalForegroundColor() {
-				return FigureConstants.modulesColor;
+				if ("any".equals(getText()))
+					return FigureConstants.contentLightColor;
+				else
+					return FigureConstants.modulesColor;
 			}
 			public Font getLocalFont() {
 				return FigureConstants.sanserifFontRegular;

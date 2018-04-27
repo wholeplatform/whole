@@ -26,11 +26,14 @@ import org.whole.lang.util.ResourceUtils;
 public class EntityTypePart extends AbstractOverQualifiedDataEntityPart {
 	protected String getQualifierPart(String qname) {		
 		String uri = ResourceUtils.getResourcePart(qname);
-		if (uri != null) {
+		if (uri == null)
+			return "any";
+		else { 
 			getViewer().getReferencedResources().add(uri);
 			if (ReflectionFactory.hasLanguageKit(uri, true, null))
 				return ResourceUtils.getSimpleName(ReflectionFactory.getLanguageKit(uri, false, null));
+			else
+				return "???";
 		}
-		return "???";
 	}
 }
