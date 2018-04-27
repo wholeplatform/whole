@@ -576,9 +576,34 @@ public class StringUtils {
 		if (javaLangTypes == null) {
 			javaLangTypes = new HashSet<String>();
 			javaLangTypes.addAll(Arrays.<String>asList(new String[] {
-					"Package","Class","Object","Runtime","Process","System","Thread","Exception","Error",
-					"Boolean","Byte","Character","Double","Float","Integer","Long","Short","String",
-					"StringBuffer","StringBuilder","Void","Number","Math","Enum"}));
+					"AbstractMethodError","AbstractStringBuilder","Appendable","ApplicationShutdownHooks",
+					"ArithmeticException","ArrayIndexOutOfBoundsException","ArrayStoreException","AssertionError",
+					"AssertionStatusDirectives","AutoCloseable","Boolean","BootstrapMethodError","Byte","Character",
+					"CharacterData","CharacterData00","CharacterData01","CharacterData02","CharacterData0E",
+					"CharacterDataLatin1","CharacterDataPrivateUse","CharacterDataUndefined","CharacterName",
+					"CharSequence","Class","ClassCastException","ClassCircularityError","ClassFormatError",
+					"ClassLoader","ClassLoaderHelper","ClassNotFoundException","ClassValue","Cloneable",
+					"CloneNotSupportedException","Comparable","Compiler","CompoundEnumeration","ConditionalSpecialCasing",
+					"Deprecated","Double","Enum","EnumConstantNotPresentException","Error","Exception",
+					"ExceptionInInitializerError","FdLibm","Float","FunctionalInterface","IllegalAccessError",
+					"IllegalAccessException","IllegalArgumentException","IllegalCallerException","IllegalMonitorStateException",
+					"IllegalStateException","IllegalThreadStateException","IncompatibleClassChangeError",
+					"IndexOutOfBoundsException","InheritableThreadLocal","InstantiationError","InstantiationException",
+					"Integer","InternalError","InterruptedException","Iterable","LayerInstantiationException",
+					"LinkageError","LiveStackFrame","LiveStackFrameInfo","Long","Math","Module","ModuleLayer",
+					"NamedPackage","NegativeArraySizeException","NoClassDefFoundError","NoSuchFieldError",
+					"NoSuchFieldException","NoSuchMethodError","NoSuchMethodException","NullPointerException",
+					"Number","NumberFormatException","Object","OutOfMemoryError","Override","Package","Process",
+					"ProcessBuilder","ProcessEnvironment","ProcessHandle","ProcessHandleImpl","ProcessImpl",
+					"PublicMethods","Readable","ReflectiveOperationException","Runnable","Runtime","RuntimeException",
+					"RuntimePermission","SafeVarargs","SecurityException","SecurityManager","Short","Shutdown",
+					"StackFrameInfo","StackOverflowError","StackStreamFactory","StackTraceElement","StackWalker",
+					"StrictMath","String","StringBuffer","StringBuilder","StringCoding","StringConcatHelper",
+					"StringIndexOutOfBoundsException","StringLatin1","StringUTF16","SuppressWarnings","System",
+					"Terminator","Thread","ThreadDeath","ThreadGroup","ThreadLocal","Throwable","TypeNotPresentException",
+					"UnknownError","UnsatisfiedLinkError","UnsupportedClassVersionError","UnsupportedOperationException",
+					"VerifyError","VersionProps","VirtualMachineError","Void","WeakPairMap"
+			}));		
 		}
 		return javaLangTypes;
 	}
