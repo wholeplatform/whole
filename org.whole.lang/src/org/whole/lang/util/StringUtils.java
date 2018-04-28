@@ -683,14 +683,14 @@ public class StringUtils {
 	        return toLowerCap(accessorName.substring(3));
         return accessorName;
 	}
-	public static String getterName(String type, String field) {
-		return (type.equals("boolean") ? "is" : "get")+toUpperCap(field);
+	public static String getterName(String type, String name) {
+		return (type.equals("boolean") ? "is" : "get")+toUpperCap(isValidJavaNameSuffix(name) ? name : toJavaNameSuffix(name));
 	}
-	public static String getterName(String field) {
-		return "get"+toUpperCap(field);
+	public static String getterName(String name) {
+		return "get"+toUpperCap(isValidJavaNameSuffix(name) ? name : toJavaNameSuffix(name));
 	}
-	public static String setterName(String field) {
-		return "set"+toUpperCap(field);
+	public static String setterName(String name) {
+		return "set"+toUpperCap(isValidJavaNameSuffix(name) ? name : toJavaNameSuffix(name));
 	}
 	
 	public static int commonPrefix(String str1, String str2) {
@@ -956,23 +956,23 @@ public class StringUtils {
 	}
 
 	public static boolean isValidEntityName(String name) {
-		if (!isValidJavaIdentifier(name))
+		if (!isValidJavaName(name))
 			return false;
 
 		char first = name.charAt(0);
 		return (Character.isUpperCase(first) || first == '_');	
 	}
 	public static boolean isValidFeatureName(String name) {
-		if (!isValidJavaIdentifier(name))
+		if (!isValidJavaName(name))
 			return false;
 
 		char first = name.charAt(0);
 		return (Character.isLowerCase(first) || first == '_');
 	}
 	public static boolean isValidEnumLiteralName(String baseName) {
-		return isValidJavaIdentifier(baseName);
+		return isValidJavaName(baseName);
 	}
-	public static boolean isValidJavaIdentifier(String name) {
+	public static boolean isValidJavaName(String name) {
 		if (name.length() == 0 || isJavaKeyword(name))
 			return false;
 		
@@ -987,35 +987,50 @@ public class StringUtils {
 
 		return true;
 	}
-	public static String toEntityName(String baseName) {
-		String entityName;
-		if (isJavaKeyword(toLowerCap(baseName)))
-			entityName = baseName;
-		else
-			entityName = toFeatureName(baseName);
+	public static boolean isValidJavaNameSuffix(String name) {
+		char[] chars = name.toCharArray();
 
-		int length = entityName.length();
+		for (int i=0; i<chars.length; i++)
+			if (!Character.isJavaIdentifierPart(chars[i]))
+				return false;
 
-		if (!isUpperCap(entityName)) {
-			if (length > 0 && Character.isLetter(entityName.charAt(0)))
-				entityName = toUpperCap(entityName);
-			else if (length == 0 || entityName.charAt(0) != '_')
-				entityName = "_"+entityName;
-		}
-
-		return entityName;
+		return true;
 	}
-	public static String toFeatureName(String baseName) {
-		if (baseName.length() == 0)
-			return "_";
+	public static String toEntityName(String name) {
+		return toJavaName(toUpperCap(name));
 
-		if (isJavaKeyword(toLowerCap(baseName)))
-			return "_"+toLowerCap(baseName);
+//		String entityName;
+//		if (isJavaKeyword(toLowerCap(baseName)))
+//			entityName = baseName;
+//		else
+//			entityName = toFeatureName(baseName);
+//
+//		int length = entityName.length();
+//
+//		if (!isUpperCap(entityName)) {
+//			if (length > 0 && Character.isLetter(entityName.charAt(0)))
+//				entityName = toUpperCap(entityName);
+//			else if (length == 0 || entityName.charAt(0) != '_')
+//				entityName = "_"+entityName;
+//		}
+//
+//		return entityName;
+	}
+	public static String toFeatureName(String name) {
+		return toJavaName(toLowerPrefix(name));
+	}
+	public static String toEnumLiteralName(String name) {
+		String javaName = toJavaName(toLowerCap(name));
+		return javaName.equals("instance") ? "_instance" : javaName;
+	}
+	public static String toJavaName(String name) {
+		if (name.length() == 0)
+			return "_";
 
 		int index = 0;
 		StringBuilder builder = new StringBuilder();
 
-		char current = baseName.charAt(index++);
+		char current = name.charAt(index++);
 		if (!Character.isJavaIdentifierStart(current)) {
 			builder.append('_');
 			if (Character.isJavaIdentifierPart(current))
@@ -1023,41 +1038,29 @@ public class StringUtils {
 		} else
 			builder.append(current);
 
-		while (index < baseName.length()) {
-			current = baseName.charAt(index++);
+		while (index < name.length()) {
+			current = name.charAt(index++);
 			if (Character.isJavaIdentifierPart(current) && current != '$')
 				builder.append(current);
 			else
 				builder.append('_');
 		}
-		return toLowerCap(builder.toString());
-	}
-	public static String toEnumLiteralName(String baseName) {
-		if (baseName.length() == 0)
-			return "_";
-		if (isJavaKeyword(toLowerCap(baseName)))
-			return "_"+baseName;
-		if (baseName.equals("instance"))
-			return "_instance";
 
+		String javaName = builder.toString();
+		return isJavaKeyword(javaName) ? "_"+javaName : javaName;
+	}
+	public static String toJavaNameSuffix(String name) {
 		int index = 0;
 		StringBuilder builder = new StringBuilder();
 
-		char current = baseName.charAt(index++);
-		if (!Character.isJavaIdentifierStart(current)) {
-			builder.append('_');
-			if (Character.isJavaIdentifierPart(current))
-				builder.append(current);
-		} else
-			builder.append(current);
-
-		while (index < baseName.length()) {
-			current = baseName.charAt(index++);
-			if (Character.isJavaIdentifierPart(current))
+		while (index < name.length()) {
+			char current = name.charAt(index++);
+			if (Character.isJavaIdentifierPart(current) && current != '$')
 				builder.append(current);
 			else
 				builder.append('_');
 		}
+
 		return builder.toString();
 	}
 

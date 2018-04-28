@@ -51,10 +51,10 @@ public class JavaModelGenerator extends AbstractEntity {
 	public String version = "";
 
 	public JavaModelGenerator() {
-		this(AST.newAST(AST.JLS8), null);
+		this(AST.newAST(AST.JLS10), null);
 	}
 	public JavaModelGenerator(String packagePrefix) {
-		this(AST.newAST(AST.JLS8), packagePrefix);
+		this(AST.newAST(AST.JLS10), packagePrefix);
 	}
 	public JavaModelGenerator(AST ast, String packagePrefix) {
 		this.ast = ast;

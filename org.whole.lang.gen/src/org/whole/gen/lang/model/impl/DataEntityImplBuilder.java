@@ -31,7 +31,7 @@ import org.whole.lang.util.StringUtils;
  * @author Riccardo Solmi
  */
 public class DataEntityImplBuilder extends CompilationUnitBuilder {
-	public DataEntityImplBuilder(LanguageGenerator generator, String packageSuffix, String entityName, String primitiveType, String fName) {
+	public DataEntityImplBuilder(LanguageGenerator generator, String packageSuffix, String entityName, String primitiveType, String fName, String name) {
 		super(generator, packageSuffix);
 
 		addClassDeclaration(generator.entityImplName(entityName), AbstractDataEntity.class.getName());
@@ -75,37 +75,37 @@ null,//				((LanguageGenerator)generator).specificFeatureDescriptorEnumName(),
 
 		// add generic Object getter
 		MethodDeclaration method = newMethodDeclaration("java.lang.Object", "wGetValue");
-		method.getBody().statements().add(newReturnStatement(newWrapperInstanceCreation(primitiveType, newMethodInvocation(StringUtils.getterName(primitiveType, fName)))));
+		method.getBody().statements().add(newReturnStatement(newWrapperInstanceCreation(primitiveType, newMethodInvocation(StringUtils.getterName(primitiveType, name)))));
 		addBodyDeclaration(method);
 
 		// add generic Object setter
 		method = newMethodDeclaration("void", "wSetValue");
 		method.parameters().add(newSingleVariableDeclaration("java.lang.Object", "value"));
-		MethodInvocation callExp = newMethodInvocation(StringUtils.setterName(fName));
+		MethodInvocation callExp = newMethodInvocation(StringUtils.setterName(name));
 		callExp.arguments().add(newUnwrapperExpression(primitiveType, "value", useQualifiedType));
 		method.getBody().statements().add(newExpressionStatement(callExp));
 		addBodyDeclaration(method);
 
 		if (StringUtils.isPrimitiveOrString(primitiveType)) {
 			if (!StringUtils.isString(primitiveType))
-				addStringAccessors(primitiveType, fName);
+				addStringAccessors(primitiveType, fName, name);
 			else
 				primitiveType = "String";
 
 			// add specific getter
 			method = newMethodDeclaration(primitiveType, "w"+StringUtils.toUpperCap(primitiveType)+"Value");
-			method.getBody().statements().add(newReturnStatement(newMethodInvocation(StringUtils.getterName(primitiveType, fName))));
+			method.getBody().statements().add(newReturnStatement(newMethodInvocation(StringUtils.getterName(primitiveType, name))));
 			addBodyDeclaration(method);
 			
 			// add specific setter
 			method = newMethodDeclaration("void", "wSetValue");
 			method.parameters().add(newSingleVariableDeclaration(primitiveType, fName));
-			callExp = newMethodInvocation(StringUtils.setterName(fName));
+			callExp = newMethodInvocation(StringUtils.setterName(name));
 			callExp.arguments().add(newSimpleName(fName));
 			method.getBody().statements().add(newExpressionStatement(callExp));
 			addBodyDeclaration(method);
 		} else if (primitiveType.endsWith("Enum.Value") || primitiveType.equals(EntityDescriptor.class.getName())) {
-			addStringAccessors(primitiveType, fName);
+			addStringAccessors(primitiveType, fName, name);
 
 			String primitiveType1 = EnumValue.class.getName();
 			// add specific getter
@@ -116,7 +116,7 @@ null,//				((LanguageGenerator)generator).specificFeatureDescriptorEnumName(),
 			// add specific setter
 			method = newMethodDeclaration("void", "wSetValue");
 			method.parameters().add(newSingleVariableDeclaration(primitiveType1, fName));
-			callExp = newMethodInvocation(StringUtils.setterName(fName));
+			callExp = newMethodInvocation(StringUtils.setterName(name));
 			callExp.arguments().add(newCastExpression(primitiveType, newSimpleName(fName), true));
 			method.getBody().statements().add(newExpressionStatement(callExp));
 			addBodyDeclaration(method);			
@@ -131,7 +131,7 @@ null,//				((LanguageGenerator)generator).specificFeatureDescriptorEnumName(),
 			method = newMethodDeclaration("void", "wSetValue");
 			method.parameters().add(newSingleVariableDeclaration("String", "value"));
 			TryStatement tryStm = newTryStatement();
-			callExp = newMethodInvocation(StringUtils.setterName(fName));
+			callExp = newMethodInvocation(StringUtils.setterName(name));
 			callExp.arguments().add(
 					newMethodInvocation(StringUtils.class.getName(), "fromExtendedISO8601DateTime", ast.newSimpleName("value")));
 			tryStm.getBody().statements().add(newExpressionStatement(callExp));
@@ -147,7 +147,7 @@ null,//				((LanguageGenerator)generator).specificFeatureDescriptorEnumName(),
 			// add specific setter
 			method = newMethodDeclaration("void", "wSetValue");
 			method.parameters().add(newSingleVariableDeclaration(primitiveType, fName));
-			callExp = newMethodInvocation(StringUtils.setterName(fName));
+			callExp = newMethodInvocation(StringUtils.setterName(name));
 			callExp.arguments().add(newCastExpression(primitiveType, newSimpleName(fName)));
 			method.getBody().statements().add(newExpressionStatement(callExp));
 			addBodyDeclaration(method);
@@ -155,7 +155,7 @@ null,//				((LanguageGenerator)generator).specificFeatureDescriptorEnumName(),
 			// add specific setter
 			method = newMethodDeclaration("void", "wSetValue");
 			method.parameters().add(newSingleVariableDeclaration("java.util.Date", fName));
-			callExp = newMethodInvocation(StringUtils.setterName(fName));
+			callExp = newMethodInvocation(StringUtils.setterName(name));
 			callExp.arguments().add(newCastExpression(primitiveType, newSimpleName(fName)));
 			method.getBody().statements().add(newExpressionStatement(callExp));
 			addBodyDeclaration(method);			
@@ -163,7 +163,7 @@ null,//				((LanguageGenerator)generator).specificFeatureDescriptorEnumName(),
 			
 	}
 
-	private void addStringAccessors(String primitiveType, String fName) {
+	private void addStringAccessors(String primitiveType, String fName, String name) {
 		// add generic String getter
 		MethodDeclaration method = newMethodDeclaration("String", "wStringValue");
 		method.getBody().statements().add(newReturnStatement(newMethodInvocation("toString")));
@@ -173,7 +173,7 @@ null,//				((LanguageGenerator)generator).specificFeatureDescriptorEnumName(),
 		method = newMethodDeclaration("void", "wSetValue");
 		method.parameters().add(newSingleVariableDeclaration("String", "value"));
 		TryStatement tryStm = newTryStatement();
-		MethodInvocation callExp = newMethodInvocation(StringUtils.setterName(fName));
+		MethodInvocation callExp = newMethodInvocation(StringUtils.setterName(name));
 		callExp.arguments().add(newValueOfMethodInvocation(ast.newSimpleName("value"), primitiveType));
 		tryStm.getBody().statements().add(newExpressionStatement(callExp));
 		tryStm.catchClauses().add(newCatchClause(newSingleVariableDeclaration("NumberFormatException", "e")));

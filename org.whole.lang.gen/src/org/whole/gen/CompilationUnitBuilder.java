@@ -666,11 +666,11 @@ public class CompilationUnitBuilder extends AbstractEntity {
 		return varDecExp;
 	}
 
-	public void addConstructorCase(MethodDeclaration constructor, String fType, String fName) {
+	public void addConstructorCase(MethodDeclaration constructor, String fType, String fName, String name) {
 		constructor.parameters().add(newSingleVariableDeclaration(fType, fName));
 
 		constructor.getBody().statements().add(ast.newExpressionStatement(
-				newMethodInvocation(StringUtils.setterName(fName), ast.newSimpleName(fName))
+				newMethodInvocation(StringUtils.setterName(name), ast.newSimpleName(fName))
 		));
 /*		
 		FieldAccess fieldAcc = ast.newFieldAccess();
@@ -681,7 +681,7 @@ public class CompilationUnitBuilder extends AbstractEntity {
 		eq.setRightHandSide(ast.newSimpleName(fName));
 		constructor.getBody().statements().add(ast.newExpressionStatement(eq));*/
 	}
-	public void addConstructorCase(MethodDeclaration constructor, String setterName, String fType, String fName) {
+	public void addConstructorCaseWithSetterName(MethodDeclaration constructor, String fType, String fName, String setterName) {
 		constructor.parameters().add(newSingleVariableDeclaration(fType, fName));
 
 		MethodInvocation callExp = newMethodInvocation(setterName);
@@ -777,12 +777,12 @@ public class CompilationUnitBuilder extends AbstractEntity {
 		return fieldExp;
 	}
 
-	public MethodDeclaration newGetterMethod(String fType, String fName) {
+	public MethodDeclaration newGetterMethod(String fType, String fName, String name) {
 		MethodDeclaration method = ast.newMethodDeclaration();
 		method.setConstructor(false);
 		method.modifiers().add(ast.newModifier(ModifierKeyword.PUBLIC_KEYWORD));
 		method.setReturnType2(newType(fType));
-		method.setName(ast.newSimpleName(StringUtils.getterName(fType, fName)));
+		method.setName(ast.newSimpleName(StringUtils.getterName(fType, name)));
 
 		if (!isInterface) {
 			Block body = newBlock();
@@ -803,7 +803,7 @@ public class CompilationUnitBuilder extends AbstractEntity {
 		method.setConstructor(false);
 		method.modifiers().add(ast.newModifier(ModifierKeyword.PUBLIC_KEYWORD));
 		method.setReturnType2(useQualifiedType ? newQualifiedType(fType) : newType(fType));
-		method.setName(ast.newSimpleName(StringUtils.getterName(fType, StringUtils.isJavaKeyword(name) ? name : fName)));
+		method.setName(ast.newSimpleName(StringUtils.getterName(fType, name)));
 
 		if (!isInterface) {
 			Block body = newBlock();
@@ -821,7 +821,7 @@ public class CompilationUnitBuilder extends AbstractEntity {
 		method.setConstructor(false);
 		method.modifiers().add(ast.newModifier(ModifierKeyword.PUBLIC_KEYWORD));
 		method.setReturnType2(newType(fType));
-		method.setName(ast.newSimpleName(StringUtils.getterName(fType, StringUtils.isJavaKeyword(name) ? name : fName)));
+		method.setName(ast.newSimpleName(StringUtils.getterName(fType, name)));
 
 		if (!isInterface) {
 			Block body = newBlock();
@@ -835,12 +835,12 @@ public class CompilationUnitBuilder extends AbstractEntity {
 
 		return method;
 	}
-	public MethodDeclaration newDataGetterMethodWithGenericForward(String fType, String fName) {
+	public MethodDeclaration newDataGetterMethodWithGenericForward(String fType, String fName, String name) {
 		MethodDeclaration method = ast.newMethodDeclaration();
 		method.setConstructor(false);
 		method.modifiers().add(ast.newModifier(ModifierKeyword.PUBLIC_KEYWORD));
 		method.setReturnType2(newType(fType));
-		method.setName(ast.newSimpleName(StringUtils.getterName(fType, fName)));
+		method.setName(ast.newSimpleName(StringUtils.getterName(fType, name)));
 
 		if (!isInterface) {
 			Block body = newBlock();
@@ -876,7 +876,7 @@ public class CompilationUnitBuilder extends AbstractEntity {
 		method.setConstructor(false);
 		method.modifiers().add(ast.newModifier(ModifierKeyword.PUBLIC_KEYWORD));
 		method.setReturnType2(ast.newPrimitiveType(PrimitiveType.VOID));
-		method.setName(ast.newSimpleName(StringUtils.setterName(StringUtils.isJavaKeyword(name) ? name : fName)));
+		method.setName(ast.newSimpleName(StringUtils.setterName(name)));
 		method.parameters().add(newSingleVariableDeclaration(fType, fName));
 
 		if (!isInterface) {
@@ -892,12 +892,12 @@ public class CompilationUnitBuilder extends AbstractEntity {
 
 		return method;
 	}
-	public MethodDeclaration newDataSetterMethodWithGenericForward(String fType, String fName) {
+	public MethodDeclaration newDataSetterMethodWithGenericForward(String fType, String fName, String name) {
 		MethodDeclaration method = ast.newMethodDeclaration();
 		method.setConstructor(false);
 		method.modifiers().add(ast.newModifier(ModifierKeyword.PUBLIC_KEYWORD));
 		method.setReturnType2(ast.newPrimitiveType(PrimitiveType.VOID));
-		method.setName(ast.newSimpleName(StringUtils.setterName(fName)));
+		method.setName(ast.newSimpleName(StringUtils.setterName(name)));
 		method.parameters().add(newSingleVariableDeclaration(fType, fName));
 
 		if (!isInterface) {
@@ -916,12 +916,12 @@ public class CompilationUnitBuilder extends AbstractEntity {
 		return method;
 	}
 	
-	public MethodDeclaration newSetterMethod(String fType, String fName) {
+	public MethodDeclaration newSetterMethod(String fType, String fName, String name) {
 		MethodDeclaration method = ast.newMethodDeclaration();
 		method.setConstructor(false);
 		method.modifiers().add(ast.newModifier(ModifierKeyword.PUBLIC_KEYWORD));
 		method.setReturnType2(ast.newPrimitiveType(PrimitiveType.VOID));
-		method.setName(ast.newSimpleName(StringUtils.setterName(fName)));
+		method.setName(ast.newSimpleName(StringUtils.setterName(name)));
 		method.parameters().add(newSingleVariableDeclaration(fType, fName));
 
 		if (!isInterface) {
@@ -939,7 +939,7 @@ public class CompilationUnitBuilder extends AbstractEntity {
 
 		return method;
 	}
-	public MethodDeclaration newSetterMethod(String setterName, String pType, String fType, String fName) {
+	public MethodDeclaration newSetterMethod(String pType, String fType, String fName, String setterName) {
 		MethodDeclaration method = ast.newMethodDeclaration();
 		method.setConstructor(false);
 		method.modifiers().add(ast.newModifier(ModifierKeyword.PUBLIC_KEYWORD));
@@ -994,7 +994,7 @@ public class CompilationUnitBuilder extends AbstractEntity {
 		method.setConstructor(false);
 		method.modifiers().add(ast.newModifier(ModifierKeyword.PUBLIC_KEYWORD));
 		method.setReturnType2(ast.newPrimitiveType(PrimitiveType.VOID));
-		method.setName(ast.newSimpleName(StringUtils.setterName(StringUtils.isJavaKeyword(name) ? name : fName)));
+		method.setName(ast.newSimpleName(StringUtils.setterName(name)));
 		method.parameters().add(newSingleVariableDeclaration(useQualifiedType ? newQualifiedType(fType) : newType(fType), fName));
 
 		if (!isInterface) {

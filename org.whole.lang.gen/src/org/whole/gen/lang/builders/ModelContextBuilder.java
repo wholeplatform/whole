@@ -48,17 +48,17 @@ public class ModelContextBuilder extends CompilationUnitBuilder {
 		constructor.getBody().statements().add(superCall);
 	}
 
-    public void addFeature(String fType, String fName) {
+    public void addFeature(String fType, String fName, String name) {
     	if (features.add(fName)) {
     		// add getter
-    		MethodDeclaration method = newMethodDeclaration(generator.specificModelContextName(), StringUtils.getterName(fType, fName));
+    		MethodDeclaration method = newMethodDeclaration(generator.specificModelContextName(), StringUtils.getterName(fType, name));
 			MethodInvocation callExp = newMethodInvocation("wGet");
 			callExp.arguments().add(newFieldAccess(((LanguageGenerator) generator).specificFeatureDescriptorEnumName(), fName));
     		method.getBody().statements().add(newReturnStatement(newCastExpression(generator.specificModelContextName(), callExp)));
 			addBodyDeclaration(method);
 
     		// add setter
-    		method = newMethodDeclaration("void", StringUtils.setterName(fName));
+    		method = newMethodDeclaration("void", StringUtils.setterName(name));
     		method.parameters().add(newSingleVariableDeclaration(generator.specificModelContextName(), fName));
     		callExp = newMethodInvocation("wSet");
 			callExp.arguments().add(newFieldAccess(((LanguageGenerator) generator).specificFeatureDescriptorEnumName(), fName));

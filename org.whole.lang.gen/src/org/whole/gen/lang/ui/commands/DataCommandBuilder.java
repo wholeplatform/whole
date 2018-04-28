@@ -28,7 +28,7 @@ import org.whole.lang.util.StringUtils;
  * @author Riccardo Solmi
  */
 public class DataCommandBuilder extends CompilationUnitBuilder {
-	public DataCommandBuilder(LanguageGenerator generator, String packageSuffix, String fType, String primitiveType, String fName) {
+	public DataCommandBuilder(LanguageGenerator generator, String packageSuffix, String fType, String primitiveType, String fName, String name) {
 		super(generator, packageSuffix);
 
 		addClassDeclaration(fType+"Command", "org.eclipse.gef.commands.Command");
@@ -40,19 +40,19 @@ public class DataCommandBuilder extends CompilationUnitBuilder {
 		addBodyDeclaration(newFieldDeclaration(primitiveType, "newValue"));
 
 		methodDec = newMethodDeclaration(ast.newPrimitiveType(PrimitiveType.VOID), "execute");
-		MethodInvocation callExp = newMethodInvocation("source", StringUtils.setterName(fName));
+		MethodInvocation callExp = newMethodInvocation("source", StringUtils.setterName(name));
 		callExp.arguments().add(ast.newSimpleName("newValue"));
 		methodDec.getBody().statements().add(ast.newExpressionStatement(callExp));
 		addBodyDeclaration(methodDec);
 
 		methodDec = newMethodDeclaration(ast.newPrimitiveType(PrimitiveType.VOID), "undo");
-		callExp = newMethodInvocation("source", StringUtils.setterName(fName));
+		callExp = newMethodInvocation("source", StringUtils.setterName(name));
 		callExp.arguments().add(ast.newSimpleName("oldValue"));
 		methodDec.getBody().statements().add(ast.newExpressionStatement(callExp));
 		addBodyDeclaration(methodDec);
 
-		addBodyDeclaration(newSetterMethod(fType, "source"));
-		addBodyDeclaration(newSetterMethod(primitiveType, "oldValue"));
-		addBodyDeclaration(newSetterMethod(primitiveType, "newValue"));
+		addBodyDeclaration(newSetterMethod(fType, "source", "source"));
+		addBodyDeclaration(newSetterMethod(primitiveType, "oldValue", "oldValue"));
+		addBodyDeclaration(newSetterMethod(primitiveType, "newValue", "newValue"));
 	}
 }

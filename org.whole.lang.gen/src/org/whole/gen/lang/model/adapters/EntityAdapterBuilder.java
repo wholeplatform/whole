@@ -79,9 +79,9 @@ public class EntityAdapterBuilder extends CompilationUnitBuilder {
 		addBodyDeclaration(newGetterMethodWithGenericForward(featuresEnum, fType, fName, name));
 		addBodyDeclaration(newSetterMethodWithGenericForward(featuresEnum, fType, fName, name));
     }
-    public void addDataFeature(String fType, String fName) {
-		addBodyDeclaration(newDataGetterMethodWithGenericForward(fType, fName));
-		addBodyDeclaration(newDataSetterMethodWithGenericForward(fType, fName));
+    public void addDataFeature(String fType, String fName, String name) {
+		addBodyDeclaration(newDataGetterMethodWithGenericForward(fType, fName, name));
+		addBodyDeclaration(newDataSetterMethodWithGenericForward(fType, fName, name));
     }
 
 	public MethodDeclaration newAcceptMethod(String visitorInterfaceName) {

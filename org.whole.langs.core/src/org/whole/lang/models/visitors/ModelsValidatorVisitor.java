@@ -245,7 +245,7 @@ public class ModelsValidatorVisitor extends ModelsTraverseAllVisitor {
 		else
 			if (Character.isUpperCase(name.charAt(0)))
 				getDecorationManager().addWarning(
-						entity, "The feature name will be replaced by: "+StringUtils.toLowerCap(name), location(entity));	
+						entity, "The feature name will be replaced by: "+StringUtils.toLowerPrefix(name), location(entity));	
 	}
 
 	protected boolean validateNoResolver(IEntity entity) {

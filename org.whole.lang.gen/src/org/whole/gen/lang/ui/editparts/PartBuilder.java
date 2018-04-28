@@ -71,11 +71,11 @@ public class PartBuilder extends CompilationUnitBuilder {
 		getModelChildrenStatements = methodDec.getBody().statements();
 	}
 
-	public void addChildrenFeature(String fType, String fName) {
+	public void addChildrenFeature(String fType, String fName, String name) {
 		MethodInvocation callExp = newMethodInvocation("list", "add");
 		callExp.arguments().add(newMethodInvocation(
 				newMethodInvocation(entityGetterName),
-				StringUtils.getterName(fType, fName)
+				StringUtils.getterName(fType, name)
 		));
 		getModelChildrenStatements.add(ast.newExpressionStatement(callExp));
 	}

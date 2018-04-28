@@ -33,7 +33,7 @@ import static org.whole.gen.lang.ClassNames.*;
  * @author Riccardo Solmi
  */
 public class DataDirectEditPolicyBuilder extends CompilationUnitBuilder {
-	public DataDirectEditPolicyBuilder(LanguageGenerator generator, String packageSuffix, String fType, String primitiveType, String fName) {
+	public DataDirectEditPolicyBuilder(LanguageGenerator generator, String packageSuffix, String fType, String primitiveType, String fName, String name) {
 		super(generator, packageSuffix);
 
 		addClassDeclaration(fType+"DirectEditPolicy", "org.eclipse.gef.editpolicies.DirectEditPolicy");
@@ -59,7 +59,7 @@ public class DataDirectEditPolicyBuilder extends CompilationUnitBuilder {
 		statements.add(ast.newExpressionStatement(callExp));
 
 		callExp = newMethodInvocation("cmd", "setOldValue");
-		callExp.arguments().add(newMethodInvocation(newParenthesizedExpression(newCastExpression(fType, newMethodInvocation(newMethodInvocation("getHost"), "getModel"))), StringUtils.getterName(primitiveType, fName)));
+		callExp.arguments().add(newMethodInvocation(newParenthesizedExpression(newCastExpression(fType, newMethodInvocation(newMethodInvocation("getHost"), "getModel"))), StringUtils.getterName(primitiveType, name)));
 		statements.add(ast.newExpressionStatement(callExp));
 
 		callExp = newMethodInvocation("cmd", "setNewValue");

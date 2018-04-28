@@ -356,10 +356,10 @@ public class LanguageGenerator extends JavaModelGenerator {
 	    }
 	    return builder;
 	}
-	public DataEntityImplBuilder primitiveEntityBuilder(String entityName, String primitiveType, String fName) {
+	public DataEntityImplBuilder primitiveEntityBuilder(String entityName, String primitiveType, String fName, String name) {
 		DataEntityImplBuilder builder = (DataEntityImplBuilder) entityBuilders.get(entityName);
 	    if (builder == null) {
-	        entityBuilders.put(entityName, builder = newDataEntityBuilder(entityName, primitiveType, fName));
+	        entityBuilders.put(entityName, builder = newDataEntityBuilder(entityName, primitiveType, fName, name));
 	        //notifyAdded("entityBuilder", builder);
 	    }
 	    return builder;
@@ -391,17 +391,17 @@ public class LanguageGenerator extends JavaModelGenerator {
 	    return new DataEntityInterfaceBuilder(this, modelSuffix(), fType, dataType, fName);
 	}
 
-	public DataCommandBuilder newDataCommandBuilder(String fType, String dataType, String fName) {
-	    return new DataCommandBuilder(this, "ui.commands", fType, dataType, fName);
+	public DataCommandBuilder newDataCommandBuilder(String fType, String dataType, String fName, String name) {
+	    return new DataCommandBuilder(this, "ui.commands", fType, dataType, fName, name);
 	}
-	public DataDirectEditPolicyBuilder newDataDirectEditPolicyBuilder(String fType, String dataType, String fName) {
-	    return new DataDirectEditPolicyBuilder(this, "ui.editpolicies", fType, dataType, fName);
+	public DataDirectEditPolicyBuilder newDataDirectEditPolicyBuilder(String fType, String dataType, String fName, String name) {
+	    return new DataDirectEditPolicyBuilder(this, "ui.editpolicies", fType, dataType, fName, name);
 	}
-	public DataPartBuilder newDataPartBuilder(String fType, String dataType, String fName) {
-	    return new DataPartBuilder(this, "ui.editparts", fType, dataType, fName);
+	public DataPartBuilder newDataPartBuilder(String fType, String dataType, String fName, String name) {
+	    return new DataPartBuilder(this, "ui.editparts", fType, dataType, fName, name);
 	}
-	public DataEntityImplBuilder newDataEntityBuilder(String fType, String dataType, String fName) {
-	    return new DataEntityImplBuilder(this, modelImplSuffix(), fType, dataType, fName);
+	public DataEntityImplBuilder newDataEntityBuilder(String fType, String dataType, String fName, String name) {
+	    return new DataEntityImplBuilder(this, modelImplSuffix(), fType, dataType, fName, name);
 	}
 	public EnumTypeBuilder newEnumTypeBuilder(String enumType, String valueType) {
 	    return new EnumTypeBuilder(this, enumType, valueType);

@@ -300,7 +300,7 @@ public class ModelsJavaModelGeneratorVisitor extends ModelsIdentityVisitor {
 
 	public void visit(Feature feature) {
 		String name = feature.getName().wStringValue();
-		String fName = modelInfo.featureImplName(name);//was StringUtils.javaKeywordFilter(name);
+		String fName = modelInfo.featureImplName(name);
 		String type = feature.getType().wStringValue();
 		String fType = modelInfo.entityImplName(type);
 		String fQType = modelsGen.entityInterfaceQName(fType);
@@ -310,7 +310,7 @@ public class ModelsJavaModelGeneratorVisitor extends ModelsIdentityVisitor {
 		SimpleName oppositeName = feature.getOppositeName();
 		if (DataTypeUtils.getDataKind(oppositeName).isString()) {
 			oName = oppositeName.getValue();
-			ofName = modelInfo.featureImplName(oName);//was StringUtils.javaKeywordFilter(oName);
+			ofName = modelInfo.featureImplName(oName);
 		}
 
 		FeatureModifiers mods = feature.getModifiers();
@@ -327,7 +327,7 @@ public class ModelsJavaModelGeneratorVisitor extends ModelsIdentityVisitor {
 	    if (modelInfo.isNotInherited(metaName, name))
 	    	simpleEntityInterfaceBuilder.addField(fType, fName, name);
 
-	    modelsGen.modelContextBuilder().addFeature(fType, fName);
+	    modelsGen.modelContextBuilder().addFeature(fType, fName, name);
 		modelsGen.visitorsBuilder().addFeature(entityName, fType, fName, name, isByReference);
 		modelsGen.entityDescriptorEnumBuilder().addFeature(qEntityName, fType, fName, ofName, featureModifiers);
 		modelsGen.featureDescriptorEnumBuilder().addFeature(fType, fName, name);
@@ -462,7 +462,7 @@ public class ModelsJavaModelGeneratorVisitor extends ModelsIdentityVisitor {
 		String valueName = "value";
 
 		simpleEntityBuilder = null;
-		modelsGen.primitiveEntityBuilder(entityName, valueType, valueName);
+		modelsGen.primitiveEntityBuilder(entityName, valueType, valueName, valueName);
 		anyEntityBuilder = modelsGen.primitiveEntityInterfaceBuilder(entityName, valueType, valueName);
 		
 		modelsGen.entityDescriptorEnumBuilder().addDataEntity(
@@ -473,7 +473,7 @@ public class ModelsJavaModelGeneratorVisitor extends ModelsIdentityVisitor {
 //		modelsGen.featureDescriptorEnumBuilder().addFeature(entityName, valueType, valueName);
 
     	entityAdapterBuilder = modelsGen.entityAdapterBuilder(entityName);
-    	entityAdapterBuilder.addDataFeature(valueType, "value");
+    	entityAdapterBuilder.addDataFeature(valueType, "value", "value");
     	modelsGen.adapterRegistryBuilder().addFactoryProduct(entityName);
     	modelsGen.implRegistryBuilder().addFactoryProduct(entityName);
 
@@ -486,12 +486,12 @@ public class ModelsJavaModelGeneratorVisitor extends ModelsIdentityVisitor {
 				entityName, valueType, valueName, true);
 
 		if (hasUI) {
-			modelsGen.newDataCommandBuilder(entityName, valueType, valueName);
+			modelsGen.newDataCommandBuilder(entityName, valueType, valueName, valueName);
 
 			if (StringUtils.isPrimitiveOrString(valueType)) {
 				modelsGen.partFactoryVisitorBuilder().addPartFactoryVisitMethod(entityName);
-				modelsGen.newDataDirectEditPolicyBuilder(entityName, valueType, valueName);
-				modelsGen.newDataPartBuilder(entityName, valueType, valueName);
+				modelsGen.newDataDirectEditPolicyBuilder(entityName, valueType, valueName, valueName);
+				modelsGen.newDataPartBuilder(entityName, valueType, valueName, valueName);
 			} else {
 				modelsGen.partFactoryVisitorBuilder().addPartFactoryVisitMethod(entityName, PlaceHolderPartName);			
 			}
@@ -529,7 +529,7 @@ public class ModelsJavaModelGeneratorVisitor extends ModelsIdentityVisitor {
 		}
 
     	entityAdapterBuilder = modelsGen.entityAdapterBuilder(entityName);
-    	entityAdapterBuilder.addDataFeature(valueQDataType, "value");
+    	entityAdapterBuilder.addDataFeature(valueQDataType, "value", "value");
     	modelsGen.adapterRegistryBuilder().addFactoryProduct(entityName);
     	modelsGen.implRegistryBuilder().addFactoryProduct(entityName);
 
@@ -543,7 +543,7 @@ public class ModelsJavaModelGeneratorVisitor extends ModelsIdentityVisitor {
 		simpleEntityBuilder = null;
 		String valueName = "value";
 
-		modelsGen.primitiveEntityBuilder(entityName, valueQDataType, valueName);
+		modelsGen.primitiveEntityBuilder(entityName, valueQDataType, valueName, valueName);
 		anyEntityBuilder = modelsGen.primitiveEntityInterfaceBuilder(entityName, valueQDataType, valueName);
 
 		modelsGen.entityDescriptorEnumBuilder().addDataEntity(entityName, metaName, qEntityName, entityModifiers, valueDataType, valueName);
@@ -557,10 +557,10 @@ public class ModelsJavaModelGeneratorVisitor extends ModelsIdentityVisitor {
 				entityName, valueQDataType, valueName);
 
 		if (hasUI) {
-			modelsGen.newDataCommandBuilder(entityName, valueQDataType, valueName);
+			modelsGen.newDataCommandBuilder(entityName, valueQDataType, valueName, valueName);
 	
 			modelsGen.partFactoryVisitorBuilder().addPartFactoryVisitMethod(entityName);
-			modelsGen.newDataPartBuilder(entityName, valueQDataType, valueName);
+			modelsGen.newDataPartBuilder(entityName, valueQDataType, valueName, valueName);
 	
 			modelsGen.newEnumDirectEditPolicyBuilder(entityName, valueQDataType, valueName);
 		}

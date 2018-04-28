@@ -39,7 +39,7 @@ import static org.whole.gen.lang.ClassNames.*;
  * @author Riccardo Solmi
  */
 public class DataPartBuilder extends CompilationUnitBuilder {
-	public DataPartBuilder(LanguageGenerator generator, String packageSuffix, String fType, String primitiveType, String fName) {
+	public DataPartBuilder(LanguageGenerator generator, String packageSuffix, String fType, String primitiveType, String fName, String name) {
 		super(generator, packageSuffix);
 
 		addClassDeclaration(fType+"Part", AbstractPartName);
@@ -58,7 +58,7 @@ public class DataPartBuilder extends CompilationUnitBuilder {
 		methodDec.modifiers().remove(0);//assume ModifierKeyword.PUBLIC_KEYWORD
 		methodDec.modifiers().add(ast.newModifier(ModifierKeyword.PROTECTED_KEYWORD));
 		MethodInvocation callExp = newMethodInvocation(newParenthesizedExpression(newCastExpression(StyledLabelName, newMethodInvocation("getFigure"))), "setText");
-		callExp.arguments().add(newToStringMethodInvocation(newMethodInvocation(newParenthesizedExpression(newCastExpression(fType, newMethodInvocation("getModel"))), StringUtils.getterName(primitiveType, fName))));
+		callExp.arguments().add(newToStringMethodInvocation(newMethodInvocation(newParenthesizedExpression(newCastExpression(fType, newMethodInvocation("getModel"))), StringUtils.getterName(primitiveType, name))));
 		methodDec.getBody().statements().add(ast.newExpressionStatement(callExp));
 		addBodyDeclaration(methodDec);
 

@@ -197,7 +197,7 @@ public class EditorsJavaModelGeneratorVisitor extends EditorsIdentityVisitor {
 	public void visit(EntityFeatures entity) {
 		for (int i = 0; i < entity.wSize(); i++) {
 			String featureName = entity.wGet(i).wStringValue();
-			partBuilder.addChildrenFeature("reference", featureName);
+			partBuilder.addChildrenFeature("reference", featureName, featureName);
 		}
 		
 		partBuilder.endChildrenFeatures();

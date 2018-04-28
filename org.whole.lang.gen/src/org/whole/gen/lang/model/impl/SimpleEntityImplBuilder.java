@@ -119,10 +119,10 @@ public class SimpleEntityImplBuilder extends CompilationUnitBuilder {
 	    }
         return hashCodeMethod;
 	}
-	private void hashCodeMethodAddId(String fType, String fName) {
+	private void hashCodeMethodAddId(String fType, String name) {
 		hashCodeMethod(
 				newMethodInvocation(
-						newMethodInvocation(StringUtils.getterName(fName)),
+						newMethodInvocation(StringUtils.getterName(name)),
 						"wHashCode"));
 	}
 
@@ -152,10 +152,10 @@ public class SimpleEntityImplBuilder extends CompilationUnitBuilder {
 	    }
         return equalsMethod;
 	}
-	private void equalsMethodAddId(String fType, String fName) {
+	private void equalsMethodAddId(String fType, String fName, String name) {
 		equalsMethod(
 				newMethodInvocation(
-						newMethodInvocation(StringUtils.getterName(fType, fName)),
+						newMethodInvocation(StringUtils.getterName(fType, name)),
 						"wEquals", 
 						newMethodInvocation("entity", "wGet",
 								newFieldAccess(((LanguageGenerator) generator).specificFeatureDescriptorEnumName(), fName))));
@@ -210,8 +210,8 @@ public class SimpleEntityImplBuilder extends CompilationUnitBuilder {
 			addImportDeclaration(generator.modelPackage()+"."+fType);
 		
 		if (isId) {
-			hashCodeMethodAddId(fType, fName);
-			equalsMethodAddId(fType, fName);
+			hashCodeMethodAddId(fType, name);
+			equalsMethodAddId(fType, fName, name);
 			toStringMethodAddField(fType, fName);
 		}
 
@@ -235,7 +235,7 @@ public class SimpleEntityImplBuilder extends CompilationUnitBuilder {
 		}
 		getByIndexSwitchStatements.add(newCaseStatement(newLiteral(featureIndex)));
 		getByIndexSwitchStatements.add(newReturnStatement(newMethodInvocation(
-				newMethodInvocation(StringUtils.getterName(StringUtils.isJavaKeyword(name) ? name : fName)), "wGetAdaptee", newLiteral(false))));
+				newMethodInvocation(StringUtils.getterName(name)), "wGetAdaptee", newLiteral(false))));
 
 		// add set(int index, IEntity value) case
 		if (setByIndexMethod().getBody().statements().size() == 0) {
@@ -244,7 +244,7 @@ public class SimpleEntityImplBuilder extends CompilationUnitBuilder {
 			setByIndexSwitchStatements = switchStm.statements();
 		}
 		setByIndexSwitchStatements.add(newCaseStatement(newLiteral(featureIndex)));
-		MethodInvocation callExp = newMethodInvocation(StringUtils.setterName(StringUtils.isJavaKeyword(name) ? name : fName),
+		MethodInvocation callExp = newMethodInvocation(StringUtils.setterName(name),
 				newMethodInvocation(ast.newSimpleName("value"), "wGetAdapter",
 						newFieldAccess(((LanguageGenerator) generator).specificEntityDescriptorEnumName(), fType)));
 		setByIndexSwitchStatements.add(newExpressionStatement(callExp));

@@ -62,8 +62,8 @@ public abstract class AbstractVisitorCompilationUnitBuilder extends CompilationU
 		    fieldDecl.modifiers().add(ast.newModifier(ModifierKeyword.PROTECTED_KEYWORD));
 		    addBodyDeclaration(2*i, fieldDecl);
 //			addBodyDeclaration(3*i+1, newGetterMethod(pType, pName));
-			addBodyDeclaration(2*i+1, newSetterMethod(setterName, generator.visitorInterfaceName(), pType, pName));
-		    addConstructorCase(constructor, setterName, generator.visitorInterfaceName(), pName);
+			addBodyDeclaration(2*i+1, newSetterMethod(generator.visitorInterfaceName(), pType, pName, setterName));
+		    addConstructorCaseWithSetterName(constructor, generator.visitorInterfaceName(), pName, setterName);
 		}
     }
 
@@ -119,7 +119,7 @@ public abstract class AbstractVisitorCompilationUnitBuilder extends CompilationU
 //        return newAcceptInvocation(fType, fName, name, "visitor");
 //    }
     public MethodInvocation newAcceptInvocation(String fType, String fName, String name, String visitor) {
-        return newAcceptInvocation(newMethodInvocation("entity", StringUtils.getterName(fType, StringUtils.isJavaKeyword(name) ? name : fName)), visitor);
+        return newAcceptInvocation(newMethodInvocation("entity", StringUtils.getterName(fType, name)), visitor);
     }
     public MethodInvocation newAcceptInvocation(Expression fieldExp, String visitor) {
     	MethodInvocation getVisitor = newMethodInvocation("wGet"+StringUtils.toUpperCap(visitor));
@@ -136,7 +136,7 @@ public abstract class AbstractVisitorCompilationUnitBuilder extends CompilationU
         return newVisitInvocation(visitorExp, "entity");
     }
     public MethodInvocation newVisitInvocation(String visitor, String fType, String fName, String name) {
-        return newVisitInvocation(visitor, newMethodInvocation("entity", StringUtils.getterName(fType, StringUtils.isJavaKeyword(name) ? name : fName)));
+        return newVisitInvocation(visitor, newMethodInvocation("entity", StringUtils.getterName(fType, name)));
     }
     public MethodInvocation newVisitInvocation(String visitor, Expression fieldExp) {
     	MethodInvocation getVisitor = newMethodInvocation("wGet"+StringUtils.toUpperCap(visitor));
