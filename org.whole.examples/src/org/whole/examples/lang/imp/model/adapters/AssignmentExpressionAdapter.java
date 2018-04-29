@@ -11,8 +11,7 @@ import org.whole.examples.lang.imp.reflect.ImpFeatureDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class AssignmentExpressionAdapter extends AbstractEntityAdapter
-		implements AssignmentExpression {
+public class AssignmentExpressionAdapter extends AbstractEntityAdapter implements AssignmentExpression {
 	private static final long serialVersionUID = 1;
 
 	public AssignmentExpressionAdapter(IEntity implementor) {
@@ -32,8 +31,7 @@ public class AssignmentExpressionAdapter extends AbstractEntityAdapter
 	}
 
 	public Name getName() {
-		return wGet(ImpFeatureDescriptorEnum.name).wGetAdapter(
-				ImpEntityDescriptorEnum.Name);
+		return wGet(ImpFeatureDescriptorEnum.name).wGetAdapter(ImpEntityDescriptorEnum.Name);
 	}
 
 	public void setName(Name name) {
@@ -41,8 +39,7 @@ public class AssignmentExpressionAdapter extends AbstractEntityAdapter
 	}
 
 	public Expression getExp() {
-		return wGet(ImpFeatureDescriptorEnum.exp).wGetAdapter(
-				ImpEntityDescriptorEnum.Expression);
+		return wGet(ImpFeatureDescriptorEnum.exp).wGetAdapter(ImpEntityDescriptorEnum.Expression);
 	}
 
 	public void setExp(Expression exp) {

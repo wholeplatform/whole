@@ -1,18 +1,20 @@
 package org.whole.examples.lang.imp.model.impl;
 
 import org.whole.lang.model.AbstractSimpleEntity;
-import org.whole.examples.lang.imp.model.*;
+import org.whole.examples.lang.imp.model.FunctionInvocationExpression;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.examples.lang.imp.reflect.ImpEntityDescriptorEnum;
 import org.whole.examples.lang.imp.visitors.IImpVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
+import org.whole.examples.lang.imp.model.NameExpression;
 import org.whole.examples.lang.imp.reflect.ImpFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
+import org.whole.examples.lang.imp.model.Arguments;
 
 /** 
  * @generator Whole
  */
-public class FunctionInvocationExpressionImpl extends AbstractSimpleEntity
-		implements FunctionInvocationExpression {
+public class FunctionInvocationExpressionImpl extends AbstractSimpleEntity implements FunctionInvocationExpression {
 	private static final long serialVersionUID = 1;
 
 	public EntityDescriptor<FunctionInvocationExpression> wGetEntityDescriptor() {
@@ -27,7 +29,7 @@ public class FunctionInvocationExpressionImpl extends AbstractSimpleEntity
 		try {
 			visitor.visit(this);
 		} catch (Exception e) {
-			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+			throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
 		}
 	}
 
@@ -38,8 +40,7 @@ public class FunctionInvocationExpressionImpl extends AbstractSimpleEntity
 	}
 
 	public void setName(NameExpression name) {
-		notifyChanged(ImpFeatureDescriptorEnum.name, this.name,
-				this.name = name);
+		notifyChanged(ImpFeatureDescriptorEnum.name, this.name, this.name = name);
 	}
 
 	private Arguments arguments;
@@ -49,8 +50,7 @@ public class FunctionInvocationExpressionImpl extends AbstractSimpleEntity
 	}
 
 	public void setArguments(Arguments arguments) {
-		notifyChanged(ImpFeatureDescriptorEnum.arguments, this.arguments,
-				this.arguments = arguments);
+		notifyChanged(ImpFeatureDescriptorEnum.arguments, this.arguments, this.arguments = arguments);
 	}
 
 	public IEntity wGet(int index) {

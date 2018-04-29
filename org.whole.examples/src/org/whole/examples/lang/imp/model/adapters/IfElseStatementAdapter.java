@@ -11,8 +11,7 @@ import org.whole.examples.lang.imp.reflect.ImpFeatureDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class IfElseStatementAdapter extends AbstractEntityAdapter implements
-		IfElseStatement {
+public class IfElseStatementAdapter extends AbstractEntityAdapter implements IfElseStatement {
 	private static final long serialVersionUID = 1;
 
 	public IfElseStatementAdapter(IEntity implementor) {
@@ -32,8 +31,7 @@ public class IfElseStatementAdapter extends AbstractEntityAdapter implements
 	}
 
 	public Expression getCondition() {
-		return wGet(ImpFeatureDescriptorEnum.condition).wGetAdapter(
-				ImpEntityDescriptorEnum.Expression);
+		return wGet(ImpFeatureDescriptorEnum.condition).wGetAdapter(ImpEntityDescriptorEnum.Expression);
 	}
 
 	public void setCondition(Expression condition) {
@@ -41,8 +39,7 @@ public class IfElseStatementAdapter extends AbstractEntityAdapter implements
 	}
 
 	public Statement getTrueBody() {
-		return wGet(ImpFeatureDescriptorEnum.trueBody).wGetAdapter(
-				ImpEntityDescriptorEnum.Statement);
+		return wGet(ImpFeatureDescriptorEnum.trueBody).wGetAdapter(ImpEntityDescriptorEnum.Statement);
 	}
 
 	public void setTrueBody(Statement trueBody) {
@@ -50,8 +47,7 @@ public class IfElseStatementAdapter extends AbstractEntityAdapter implements
 	}
 
 	public Statement getFalseBody() {
-		return wGet(ImpFeatureDescriptorEnum.falseBody).wGetAdapter(
-				ImpEntityDescriptorEnum.Statement);
+		return wGet(ImpFeatureDescriptorEnum.falseBody).wGetAdapter(ImpEntityDescriptorEnum.Statement);
 	}
 
 	public void setFalseBody(Statement falseBody) {

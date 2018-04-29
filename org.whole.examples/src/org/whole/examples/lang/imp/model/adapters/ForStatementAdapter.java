@@ -11,8 +11,7 @@ import org.whole.examples.lang.imp.reflect.ImpFeatureDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class ForStatementAdapter extends AbstractEntityAdapter implements
-		ForStatement {
+public class ForStatementAdapter extends AbstractEntityAdapter implements ForStatement {
 	private static final long serialVersionUID = 1;
 
 	public ForStatementAdapter(IEntity implementor) {
@@ -32,8 +31,7 @@ public class ForStatementAdapter extends AbstractEntityAdapter implements
 	}
 
 	public VariableDeclaration getInitializer() {
-		return wGet(ImpFeatureDescriptorEnum.initializer).wGetAdapter(
-				ImpEntityDescriptorEnum.VariableDeclaration);
+		return wGet(ImpFeatureDescriptorEnum.initializer).wGetAdapter(ImpEntityDescriptorEnum.VariableDeclaration);
 	}
 
 	public void setInitializer(VariableDeclaration initializer) {
@@ -41,8 +39,7 @@ public class ForStatementAdapter extends AbstractEntityAdapter implements
 	}
 
 	public Expression getCondition() {
-		return wGet(ImpFeatureDescriptorEnum.condition).wGetAdapter(
-				ImpEntityDescriptorEnum.Expression);
+		return wGet(ImpFeatureDescriptorEnum.condition).wGetAdapter(ImpEntityDescriptorEnum.Expression);
 	}
 
 	public void setCondition(Expression condition) {
@@ -50,8 +47,7 @@ public class ForStatementAdapter extends AbstractEntityAdapter implements
 	}
 
 	public Expression getUpdater() {
-		return wGet(ImpFeatureDescriptorEnum.updater).wGetAdapter(
-				ImpEntityDescriptorEnum.Expression);
+		return wGet(ImpFeatureDescriptorEnum.updater).wGetAdapter(ImpEntityDescriptorEnum.Expression);
 	}
 
 	public void setUpdater(Expression updater) {
@@ -59,8 +55,7 @@ public class ForStatementAdapter extends AbstractEntityAdapter implements
 	}
 
 	public Statement getTrueBody() {
-		return wGet(ImpFeatureDescriptorEnum.trueBody).wGetAdapter(
-				ImpEntityDescriptorEnum.Statement);
+		return wGet(ImpFeatureDescriptorEnum.trueBody).wGetAdapter(ImpEntityDescriptorEnum.Statement);
 	}
 
 	public void setTrueBody(Statement trueBody) {

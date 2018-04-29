@@ -11,8 +11,7 @@ import org.whole.examples.lang.imp.reflect.ImpFeatureDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class FunctionDeclarationAdapter extends AbstractEntityAdapter implements
-		FunctionDeclaration {
+public class FunctionDeclarationAdapter extends AbstractEntityAdapter implements FunctionDeclaration {
 	private static final long serialVersionUID = 1;
 
 	public FunctionDeclarationAdapter(IEntity implementor) {
@@ -32,8 +31,7 @@ public class FunctionDeclarationAdapter extends AbstractEntityAdapter implements
 	}
 
 	public Type getType() {
-		return wGet(ImpFeatureDescriptorEnum.type).wGetAdapter(
-				ImpEntityDescriptorEnum.Type);
+		return wGet(ImpFeatureDescriptorEnum.type).wGetAdapter(ImpEntityDescriptorEnum.Type);
 	}
 
 	public void setType(Type type) {
@@ -41,8 +39,7 @@ public class FunctionDeclarationAdapter extends AbstractEntityAdapter implements
 	}
 
 	public Name getName() {
-		return wGet(ImpFeatureDescriptorEnum.name).wGetAdapter(
-				ImpEntityDescriptorEnum.Name);
+		return wGet(ImpFeatureDescriptorEnum.name).wGetAdapter(ImpEntityDescriptorEnum.Name);
 	}
 
 	public void setName(Name name) {
@@ -50,8 +47,7 @@ public class FunctionDeclarationAdapter extends AbstractEntityAdapter implements
 	}
 
 	public Parameters getParameters() {
-		return wGet(ImpFeatureDescriptorEnum.parameters).wGetAdapter(
-				ImpEntityDescriptorEnum.Parameters);
+		return wGet(ImpFeatureDescriptorEnum.parameters).wGetAdapter(ImpEntityDescriptorEnum.Parameters);
 	}
 
 	public void setParameters(Parameters parameters) {
@@ -59,8 +55,7 @@ public class FunctionDeclarationAdapter extends AbstractEntityAdapter implements
 	}
 
 	public Statement getBody() {
-		return wGet(ImpFeatureDescriptorEnum.body).wGetAdapter(
-				ImpEntityDescriptorEnum.Statement);
+		return wGet(ImpFeatureDescriptorEnum.body).wGetAdapter(ImpEntityDescriptorEnum.Statement);
 	}
 
 	public void setBody(Statement body) {

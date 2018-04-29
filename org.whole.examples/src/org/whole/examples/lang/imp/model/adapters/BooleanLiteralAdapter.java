@@ -10,8 +10,7 @@ import org.whole.examples.lang.imp.reflect.ImpEntityDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class BooleanLiteralAdapter extends AbstractEntityAdapter implements
-		BooleanLiteral {
+public class BooleanLiteralAdapter extends AbstractEntityAdapter implements BooleanLiteral {
 	private static final long serialVersionUID = 1;
 
 	public BooleanLiteralAdapter(IEntity implementor) {

@@ -8,8 +8,7 @@ import org.whole.lang.visitors.IVisitor;
 /** 
  * @generator Whole
  */
-public class ImpTraverseAllChildrenVisitor extends
-		ImpIdentityUnaryVisitor<IImpVisitor> {
+public class ImpTraverseAllChildrenVisitor extends ImpIdentityUnaryVisitor<IImpVisitor> {
 	public ImpTraverseAllChildrenVisitor() {
 		wSetVisitor1(this);
 	}

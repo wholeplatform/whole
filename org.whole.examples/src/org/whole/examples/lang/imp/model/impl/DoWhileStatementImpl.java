@@ -1,18 +1,20 @@
 package org.whole.examples.lang.imp.model.impl;
 
 import org.whole.lang.model.AbstractSimpleEntity;
-import org.whole.examples.lang.imp.model.*;
+import org.whole.examples.lang.imp.model.DoWhileStatement;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.examples.lang.imp.reflect.ImpEntityDescriptorEnum;
 import org.whole.examples.lang.imp.visitors.IImpVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
+import org.whole.examples.lang.imp.model.Statement;
 import org.whole.examples.lang.imp.reflect.ImpFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
+import org.whole.examples.lang.imp.model.Expression;
 
 /** 
  * @generator Whole
  */
-public class DoWhileStatementImpl extends AbstractSimpleEntity implements
-		DoWhileStatement {
+public class DoWhileStatementImpl extends AbstractSimpleEntity implements DoWhileStatement {
 	private static final long serialVersionUID = 1;
 
 	public EntityDescriptor<DoWhileStatement> wGetEntityDescriptor() {
@@ -27,7 +29,7 @@ public class DoWhileStatementImpl extends AbstractSimpleEntity implements
 		try {
 			visitor.visit(this);
 		} catch (Exception e) {
-			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+			throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
 		}
 	}
 
@@ -38,8 +40,7 @@ public class DoWhileStatementImpl extends AbstractSimpleEntity implements
 	}
 
 	public void setTrueBody(Statement trueBody) {
-		notifyChanged(ImpFeatureDescriptorEnum.trueBody, this.trueBody,
-				this.trueBody = trueBody);
+		notifyChanged(ImpFeatureDescriptorEnum.trueBody, this.trueBody, this.trueBody = trueBody);
 	}
 
 	private Expression condition;
@@ -49,8 +50,7 @@ public class DoWhileStatementImpl extends AbstractSimpleEntity implements
 	}
 
 	public void setCondition(Expression condition) {
-		notifyChanged(ImpFeatureDescriptorEnum.condition, this.condition,
-				this.condition = condition);
+		notifyChanged(ImpFeatureDescriptorEnum.condition, this.condition, this.condition = condition);
 	}
 
 	public IEntity wGet(int index) {

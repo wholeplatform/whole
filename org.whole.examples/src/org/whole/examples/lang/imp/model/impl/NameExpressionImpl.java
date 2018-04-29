@@ -1,16 +1,16 @@
 package org.whole.examples.lang.imp.model.impl;
 
 import org.whole.lang.model.AbstractDataEntity;
-import org.whole.examples.lang.imp.model.*;
+import org.whole.examples.lang.imp.model.NameExpression;
 import org.whole.examples.lang.imp.visitors.IImpVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.examples.lang.imp.reflect.ImpEntityDescriptorEnum;
 import org.whole.lang.reflect.EntityDescriptor;
 
 /** 
  * @generator Whole
  */
-public class NameExpressionImpl extends AbstractDataEntity implements
-		NameExpression {
+public class NameExpressionImpl extends AbstractDataEntity implements NameExpression {
 	private static final long serialVersionUID = 1;
 	private String value;
 
@@ -26,7 +26,7 @@ public class NameExpressionImpl extends AbstractDataEntity implements
 		try {
 			visitor.visit(this);
 		} catch (Exception e) {
-			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+			throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
 		}
 	}
 

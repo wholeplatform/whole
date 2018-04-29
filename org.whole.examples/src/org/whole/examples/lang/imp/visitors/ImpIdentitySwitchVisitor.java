@@ -8,8 +8,7 @@ import org.whole.examples.lang.imp.reflect.ImpEntityDescriptorEnum;
 /** 
  * @generator Whole
  */
-public abstract class ImpIdentitySwitchVisitor extends AbstractVisitor
-		implements IImpVisitor {
+public abstract class ImpIdentitySwitchVisitor extends AbstractVisitor implements IImpVisitor {
 	public void visit(IEntity entity) {
 		switch (entity.wGetEntityOrd()) {
 		case ImpEntityDescriptorEnum.FunctionDeclaration_ord:

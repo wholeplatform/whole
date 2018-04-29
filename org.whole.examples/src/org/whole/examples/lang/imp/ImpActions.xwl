@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<actions:LanguageActionFactory xmlns:actions="http://lang.whole.org/Actions">
+    <actions:URI value="whole:org.whole.examples.lang.imp:ImpActions"/>
+    <actions:Namespace value="org.whole.examples.lang.imp"/>
+    <actions:Name value="ImpActions"/>
+    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    <actions:URI value="http://lang.examples.whole.org/Imp"/>
+    <actions:ToolbarActions>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        <actions:SimpleAction>
+            <actions:Label value="Pretty Print"/>
+            <queries:Block xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                <queries:Filter>
+                    <queries:VariableRefStep value="printWriter"/>
+                    <queries:VariableTest value="ppw"/>
+                </queries:Filter>
+                <workflows:InvokeOperation xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="prettyPrint"/>
+                    <commons:SameStageFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                            <semantics:Name value="whole:org.whole.examples.lang.imp:ImpSemantics#translateToText"/>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                        </semantics:FunctionApplication>
+                    </commons:SameStageFragment>
+                    <workflows:Operation value="PRETTY_PRINTER"/>
+                    <workflows:Assignments initialCapacity="1">
+                        <workflows:Assign>
+                            <workflows:Variable value="printWriter"/>
+                            <workflows:Variable value="ppw"/>
+                        </workflows:Assign>
+                    </workflows:Assignments>
+                </workflows:InvokeOperation>
+            </queries:Block>
+        </actions:SimpleAction>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    </actions:ToolbarActions>
+    <actions:ContextMenuActions>
+        <actions:MenuActions initialCapacity="0"/>
+        <actions:MenuActions initialCapacity="0"/>
+        <actions:MenuActions initialCapacity="0"/>
+        <actions:MenuActions initialCapacity="2">
+            <actions:GuardedAction>
+                <actions:Label value="translate to Java"/>
+                <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                    <semantics:Name value="whole:org.whole.examples.lang.imp:ImpSemantics#translateToJava"/>
+                    <queries:VariableRefStep xmlns:queries="http://lang.whole.org/Queries" value="focusEntity"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </semantics:FunctionApplication>
+                <queries:BooleanLiteral xmlns:queries="http://lang.whole.org/Queries" value="true"/>
+            </actions:GuardedAction>
+            <actions:GuardedAction>
+                <actions:Label value="translate to Text"/>
+                <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                    <semantics:Name value="whole:org.whole.examples.lang.imp:ImpSemantics#translateToText"/>
+                    <queries:VariableRefStep xmlns:queries="http://lang.whole.org/Queries" value="focusEntity"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </semantics:FunctionApplication>
+                <queries:BooleanLiteral xmlns:queries="http://lang.whole.org/Queries" value="true"/>
+            </actions:GuardedAction>
+        </actions:MenuActions>
+        <actions:MenuActions initialCapacity="0"/>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    </actions:ContextMenuActions>
+</actions:LanguageActionFactory>

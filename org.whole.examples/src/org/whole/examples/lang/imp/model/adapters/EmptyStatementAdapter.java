@@ -10,8 +10,7 @@ import org.whole.examples.lang.imp.reflect.ImpEntityDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class EmptyStatementAdapter extends AbstractEntityAdapter implements
-		EmptyStatement {
+public class EmptyStatementAdapter extends AbstractEntityAdapter implements EmptyStatement {
 	private static final long serialVersionUID = 1;
 
 	public EmptyStatementAdapter(IEntity implementor) {

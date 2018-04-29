@@ -61,8 +61,8 @@ public class ImpAdaptersEntityRegistry extends AbstractEntityRegistry {
 		put(new LessOrEqualsAdapter());
 		put(new GreaterThanAdapter());
 		put(new GreaterOrEqualsAdapter());
-		put(new TypeAdapter());
 		put(new StatementAdapter());
+		put(new TypeAdapter());
 		put(new ExpressionAdapter());
 	}
 }

@@ -11,8 +11,7 @@ import org.whole.examples.lang.imp.reflect.ImpFeatureDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class GreaterOrEqualsAdapter extends AbstractEntityAdapter implements
-		GreaterOrEquals {
+public class GreaterOrEqualsAdapter extends AbstractEntityAdapter implements GreaterOrEquals {
 	private static final long serialVersionUID = 1;
 
 	public GreaterOrEqualsAdapter(IEntity implementor) {
@@ -32,8 +31,7 @@ public class GreaterOrEqualsAdapter extends AbstractEntityAdapter implements
 	}
 
 	public Expression getExp1() {
-		return wGet(ImpFeatureDescriptorEnum.exp1).wGetAdapter(
-				ImpEntityDescriptorEnum.Expression);
+		return wGet(ImpFeatureDescriptorEnum.exp1).wGetAdapter(ImpEntityDescriptorEnum.Expression);
 	}
 
 	public void setExp1(Expression exp1) {
@@ -41,8 +39,7 @@ public class GreaterOrEqualsAdapter extends AbstractEntityAdapter implements
 	}
 
 	public Expression getExp2() {
-		return wGet(ImpFeatureDescriptorEnum.exp2).wGetAdapter(
-				ImpEntityDescriptorEnum.Expression);
+		return wGet(ImpFeatureDescriptorEnum.exp2).wGetAdapter(ImpEntityDescriptorEnum.Expression);
 	}
 
 	public void setExp2(Expression exp2) {

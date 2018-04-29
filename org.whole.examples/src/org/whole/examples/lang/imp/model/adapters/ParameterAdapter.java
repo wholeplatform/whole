@@ -11,8 +11,7 @@ import org.whole.examples.lang.imp.reflect.ImpFeatureDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class ParameterAdapter extends AbstractEntityAdapter implements
-		Parameter {
+public class ParameterAdapter extends AbstractEntityAdapter implements Parameter {
 	private static final long serialVersionUID = 1;
 
 	public ParameterAdapter(IEntity implementor) {
@@ -32,8 +31,7 @@ public class ParameterAdapter extends AbstractEntityAdapter implements
 	}
 
 	public Type getType() {
-		return wGet(ImpFeatureDescriptorEnum.type).wGetAdapter(
-				ImpEntityDescriptorEnum.Type);
+		return wGet(ImpFeatureDescriptorEnum.type).wGetAdapter(ImpEntityDescriptorEnum.Type);
 	}
 
 	public void setType(Type type) {
@@ -41,8 +39,7 @@ public class ParameterAdapter extends AbstractEntityAdapter implements
 	}
 
 	public Name getName() {
-		return wGet(ImpFeatureDescriptorEnum.name).wGetAdapter(
-				ImpEntityDescriptorEnum.Name);
+		return wGet(ImpFeatureDescriptorEnum.name).wGetAdapter(ImpEntityDescriptorEnum.Name);
 	}
 
 	public void setName(Name name) {

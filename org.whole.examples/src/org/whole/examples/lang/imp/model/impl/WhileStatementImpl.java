@@ -1,18 +1,20 @@
 package org.whole.examples.lang.imp.model.impl;
 
 import org.whole.lang.model.AbstractSimpleEntity;
-import org.whole.examples.lang.imp.model.*;
+import org.whole.examples.lang.imp.model.WhileStatement;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.examples.lang.imp.reflect.ImpEntityDescriptorEnum;
 import org.whole.examples.lang.imp.visitors.IImpVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
+import org.whole.examples.lang.imp.model.Expression;
 import org.whole.examples.lang.imp.reflect.ImpFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
+import org.whole.examples.lang.imp.model.Statement;
 
 /** 
  * @generator Whole
  */
-public class WhileStatementImpl extends AbstractSimpleEntity implements
-		WhileStatement {
+public class WhileStatementImpl extends AbstractSimpleEntity implements WhileStatement {
 	private static final long serialVersionUID = 1;
 
 	public EntityDescriptor<WhileStatement> wGetEntityDescriptor() {
@@ -27,7 +29,7 @@ public class WhileStatementImpl extends AbstractSimpleEntity implements
 		try {
 			visitor.visit(this);
 		} catch (Exception e) {
-			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+			throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
 		}
 	}
 
@@ -38,8 +40,7 @@ public class WhileStatementImpl extends AbstractSimpleEntity implements
 	}
 
 	public void setCondition(Expression condition) {
-		notifyChanged(ImpFeatureDescriptorEnum.condition, this.condition,
-				this.condition = condition);
+		notifyChanged(ImpFeatureDescriptorEnum.condition, this.condition, this.condition = condition);
 	}
 
 	private Statement trueBody;
@@ -49,8 +50,7 @@ public class WhileStatementImpl extends AbstractSimpleEntity implements
 	}
 
 	public void setTrueBody(Statement trueBody) {
-		notifyChanged(ImpFeatureDescriptorEnum.trueBody, this.trueBody,
-				this.trueBody = trueBody);
+		notifyChanged(ImpFeatureDescriptorEnum.trueBody, this.trueBody, this.trueBody = trueBody);
 	}
 
 	public IEntity wGet(int index) {

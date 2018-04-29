@@ -1,8 +1,9 @@
 package org.whole.examples.lang.imp.model.impl;
 
 import org.whole.lang.model.AbstractDataEntity;
-import org.whole.examples.lang.imp.model.*;
+import org.whole.examples.lang.imp.model.Name;
 import org.whole.examples.lang.imp.visitors.IImpVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.examples.lang.imp.reflect.ImpEntityDescriptorEnum;
 import org.whole.lang.reflect.EntityDescriptor;
 
@@ -25,7 +26,7 @@ public class NameImpl extends AbstractDataEntity implements Name {
 		try {
 			visitor.visit(this);
 		} catch (Exception e) {
-			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+			throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
 		}
 	}
 

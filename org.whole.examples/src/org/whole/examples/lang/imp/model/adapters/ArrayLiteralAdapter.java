@@ -10,8 +10,7 @@ import org.whole.examples.lang.imp.reflect.ImpEntityDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class ArrayLiteralAdapter extends AbstractListEntityAdapter<Literal>
-		implements ArrayLiteral {
+public class ArrayLiteralAdapter extends AbstractListEntityAdapter<Literal> implements ArrayLiteral {
 	private static final long serialVersionUID = 1;
 
 	public ArrayLiteralAdapter(IEntity implementor) {

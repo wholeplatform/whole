@@ -11,8 +11,7 @@ import org.whole.examples.lang.imp.reflect.ImpFeatureDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class ReturnStatementAdapter extends AbstractEntityAdapter implements
-		ReturnStatement {
+public class ReturnStatementAdapter extends AbstractEntityAdapter implements ReturnStatement {
 	private static final long serialVersionUID = 1;
 
 	public ReturnStatementAdapter(IEntity implementor) {
@@ -32,8 +31,7 @@ public class ReturnStatementAdapter extends AbstractEntityAdapter implements
 	}
 
 	public Expression getExp() {
-		return wGet(ImpFeatureDescriptorEnum.exp).wGetAdapter(
-				ImpEntityDescriptorEnum.Expression);
+		return wGet(ImpFeatureDescriptorEnum.exp).wGetAdapter(ImpEntityDescriptorEnum.Expression);
 	}
 
 	public void setExp(Expression exp) {

@@ -1,18 +1,19 @@
 package org.whole.examples.lang.imp.model.impl;
 
 import org.whole.lang.model.AbstractSimpleEntity;
-import org.whole.examples.lang.imp.model.*;
+import org.whole.examples.lang.imp.model.ArrayAccess;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.examples.lang.imp.reflect.ImpEntityDescriptorEnum;
 import org.whole.examples.lang.imp.visitors.IImpVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
+import org.whole.examples.lang.imp.model.Expression;
 import org.whole.examples.lang.imp.reflect.ImpFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
 
 /** 
  * @generator Whole
  */
-public class ArrayAccessImpl extends AbstractSimpleEntity implements
-		ArrayAccess {
+public class ArrayAccessImpl extends AbstractSimpleEntity implements ArrayAccess {
 	private static final long serialVersionUID = 1;
 
 	public EntityDescriptor<ArrayAccess> wGetEntityDescriptor() {
@@ -27,7 +28,7 @@ public class ArrayAccessImpl extends AbstractSimpleEntity implements
 		try {
 			visitor.visit(this);
 		} catch (Exception e) {
-			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+			throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
 		}
 	}
 
@@ -38,8 +39,7 @@ public class ArrayAccessImpl extends AbstractSimpleEntity implements
 	}
 
 	public void setArray(Expression array) {
-		notifyChanged(ImpFeatureDescriptorEnum.array, this.array,
-				this.array = array);
+		notifyChanged(ImpFeatureDescriptorEnum.array, this.array, this.array = array);
 	}
 
 	private Expression index;
@@ -49,8 +49,7 @@ public class ArrayAccessImpl extends AbstractSimpleEntity implements
 	}
 
 	public void setIndex(Expression index) {
-		notifyChanged(ImpFeatureDescriptorEnum.index, this.index,
-				this.index = index);
+		notifyChanged(ImpFeatureDescriptorEnum.index, this.index, this.index = index);
 	}
 
 	public IEntity wGet(int index) {

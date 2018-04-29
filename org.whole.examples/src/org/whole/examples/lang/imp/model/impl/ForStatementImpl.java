@@ -1,18 +1,21 @@
 package org.whole.examples.lang.imp.model.impl;
 
 import org.whole.lang.model.AbstractSimpleEntity;
-import org.whole.examples.lang.imp.model.*;
+import org.whole.examples.lang.imp.model.ForStatement;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.examples.lang.imp.reflect.ImpEntityDescriptorEnum;
 import org.whole.examples.lang.imp.visitors.IImpVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
+import org.whole.examples.lang.imp.model.VariableDeclaration;
 import org.whole.examples.lang.imp.reflect.ImpFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
+import org.whole.examples.lang.imp.model.Expression;
+import org.whole.examples.lang.imp.model.Statement;
 
 /** 
  * @generator Whole
  */
-public class ForStatementImpl extends AbstractSimpleEntity implements
-		ForStatement {
+public class ForStatementImpl extends AbstractSimpleEntity implements ForStatement {
 	private static final long serialVersionUID = 1;
 
 	public EntityDescriptor<ForStatement> wGetEntityDescriptor() {
@@ -27,20 +30,18 @@ public class ForStatementImpl extends AbstractSimpleEntity implements
 		try {
 			visitor.visit(this);
 		} catch (Exception e) {
-			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+			throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
 		}
 	}
 
 	private VariableDeclaration initializer;
 
 	public VariableDeclaration getInitializer() {
-		return notifyRequested(ImpFeatureDescriptorEnum.initializer,
-				initializer);
+		return notifyRequested(ImpFeatureDescriptorEnum.initializer, initializer);
 	}
 
 	public void setInitializer(VariableDeclaration initializer) {
-		notifyChanged(ImpFeatureDescriptorEnum.initializer, this.initializer,
-				this.initializer = initializer);
+		notifyChanged(ImpFeatureDescriptorEnum.initializer, this.initializer, this.initializer = initializer);
 	}
 
 	private Expression condition;
@@ -50,8 +51,7 @@ public class ForStatementImpl extends AbstractSimpleEntity implements
 	}
 
 	public void setCondition(Expression condition) {
-		notifyChanged(ImpFeatureDescriptorEnum.condition, this.condition,
-				this.condition = condition);
+		notifyChanged(ImpFeatureDescriptorEnum.condition, this.condition, this.condition = condition);
 	}
 
 	private Expression updater;
@@ -61,8 +61,7 @@ public class ForStatementImpl extends AbstractSimpleEntity implements
 	}
 
 	public void setUpdater(Expression updater) {
-		notifyChanged(ImpFeatureDescriptorEnum.updater, this.updater,
-				this.updater = updater);
+		notifyChanged(ImpFeatureDescriptorEnum.updater, this.updater, this.updater = updater);
 	}
 
 	private Statement trueBody;
@@ -72,8 +71,7 @@ public class ForStatementImpl extends AbstractSimpleEntity implements
 	}
 
 	public void setTrueBody(Statement trueBody) {
-		notifyChanged(ImpFeatureDescriptorEnum.trueBody, this.trueBody,
-				this.trueBody = trueBody);
+		notifyChanged(ImpFeatureDescriptorEnum.trueBody, this.trueBody, this.trueBody = trueBody);
 	}
 
 	public IEntity wGet(int index) {
@@ -94,8 +92,7 @@ public class ForStatementImpl extends AbstractSimpleEntity implements
 	public void wSet(int index, IEntity value) {
 		switch (index) {
 		case 0:
-			setInitializer(value
-					.wGetAdapter(ImpEntityDescriptorEnum.VariableDeclaration));
+			setInitializer(value.wGetAdapter(ImpEntityDescriptorEnum.VariableDeclaration));
 			break;
 		case 1:
 			setCondition(value.wGetAdapter(ImpEntityDescriptorEnum.Expression));

@@ -8,8 +8,7 @@ import org.whole.lang.model.IEntity;
 /** 
  * @generator Whole
  */
-public class ImpIdentityUnaryVisitor<V extends IVisitor> extends
-		AbstractUnaryVisitor<V> implements IImpVisitor {
+public class ImpIdentityUnaryVisitor<V extends IVisitor> extends AbstractUnaryVisitor<V> implements IImpVisitor {
 	public ImpIdentityUnaryVisitor() {
 		super(null);
 	}

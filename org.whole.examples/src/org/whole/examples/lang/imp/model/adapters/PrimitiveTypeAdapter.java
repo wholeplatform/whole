@@ -11,8 +11,7 @@ import org.whole.examples.lang.imp.model.PrimitiveTypeEnum.Value;
 /** 
  * @generator Whole
  */
-public class PrimitiveTypeAdapter extends AbstractEntityAdapter implements
-		PrimitiveType {
+public class PrimitiveTypeAdapter extends AbstractEntityAdapter implements PrimitiveType {
 	private static final long serialVersionUID = 1;
 
 	public PrimitiveTypeAdapter(IEntity implementor) {

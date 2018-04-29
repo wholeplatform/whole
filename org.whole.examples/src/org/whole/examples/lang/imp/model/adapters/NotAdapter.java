@@ -31,8 +31,7 @@ public class NotAdapter extends AbstractEntityAdapter implements Not {
 	}
 
 	public Expression getExp() {
-		return wGet(ImpFeatureDescriptorEnum.exp).wGetAdapter(
-				ImpEntityDescriptorEnum.Expression);
+		return wGet(ImpFeatureDescriptorEnum.exp).wGetAdapter(ImpEntityDescriptorEnum.Expression);
 	}
 
 	public void setExp(Expression exp) {

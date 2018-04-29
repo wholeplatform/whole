@@ -27,15 +27,12 @@ public class ImpEntityFactory extends GenericEntityFactory {
 		return create(ImpEntityDescriptorEnum.FunctionDeclaration);
 	}
 
-	public FunctionDeclaration createFunctionDeclaration(Type type, Name name,
-			Parameters parameters, Statement body) {
-		return create(ImpEntityDescriptorEnum.FunctionDeclaration, type, name,
-				parameters, body);
+	public FunctionDeclaration createFunctionDeclaration(Type type, Name name, Parameters parameters, Statement body) {
+		return create(ImpEntityDescriptorEnum.FunctionDeclaration, type, name, parameters, body);
 	}
 
 	public IEntityBuilder<FunctionDeclaration> buildFunctionDeclaration() {
-		return new EntityBuilder<FunctionDeclaration>(
-				create(ImpEntityDescriptorEnum.FunctionDeclaration));
+		return new EntityBuilder<FunctionDeclaration>(create(ImpEntityDescriptorEnum.FunctionDeclaration));
 	}
 
 	public Parameters createParameters() {
@@ -59,23 +56,19 @@ public class ImpEntityFactory extends GenericEntityFactory {
 	}
 
 	public IEntityBuilder<Parameter> buildParameter() {
-		return new EntityBuilder<Parameter>(
-				create(ImpEntityDescriptorEnum.Parameter));
+		return new EntityBuilder<Parameter>(create(ImpEntityDescriptorEnum.Parameter));
 	}
 
 	public VariableDeclaration createVariableDeclaration() {
 		return create(ImpEntityDescriptorEnum.VariableDeclaration);
 	}
 
-	public VariableDeclaration createVariableDeclaration(Type type, Name name,
-			Expression initializer) {
-		return create(ImpEntityDescriptorEnum.VariableDeclaration, type, name,
-				initializer);
+	public VariableDeclaration createVariableDeclaration(Type type, Name name, Expression initializer) {
+		return create(ImpEntityDescriptorEnum.VariableDeclaration, type, name, initializer);
 	}
 
 	public IEntityBuilder<VariableDeclaration> buildVariableDeclaration() {
-		return new EntityBuilder<VariableDeclaration>(
-				create(ImpEntityDescriptorEnum.VariableDeclaration));
+		return new EntityBuilder<VariableDeclaration>(create(ImpEntityDescriptorEnum.VariableDeclaration));
 	}
 
 	public EmptyStatement createEmptyStatement() {
@@ -94,89 +87,73 @@ public class ImpEntityFactory extends GenericEntityFactory {
 		return create(ImpEntityDescriptorEnum.IfStatement);
 	}
 
-	public IfStatement createIfStatement(Expression condition,
-			Statement trueBody) {
+	public IfStatement createIfStatement(Expression condition, Statement trueBody) {
 		return create(ImpEntityDescriptorEnum.IfStatement, condition, trueBody);
 	}
 
 	public IEntityBuilder<IfStatement> buildIfStatement() {
-		return new EntityBuilder<IfStatement>(
-				create(ImpEntityDescriptorEnum.IfStatement));
+		return new EntityBuilder<IfStatement>(create(ImpEntityDescriptorEnum.IfStatement));
 	}
 
 	public IfElseStatement createIfElseStatement() {
 		return create(ImpEntityDescriptorEnum.IfElseStatement);
 	}
 
-	public IfElseStatement createIfElseStatement(Expression condition,
-			Statement trueBody, Statement falseBody) {
-		return create(ImpEntityDescriptorEnum.IfElseStatement, condition,
-				trueBody, falseBody);
+	public IfElseStatement createIfElseStatement(Expression condition, Statement trueBody, Statement falseBody) {
+		return create(ImpEntityDescriptorEnum.IfElseStatement, condition, trueBody, falseBody);
 	}
 
 	public IEntityBuilder<IfElseStatement> buildIfElseStatement() {
-		return new EntityBuilder<IfElseStatement>(
-				create(ImpEntityDescriptorEnum.IfElseStatement));
+		return new EntityBuilder<IfElseStatement>(create(ImpEntityDescriptorEnum.IfElseStatement));
 	}
 
 	public WhileStatement createWhileStatement() {
 		return create(ImpEntityDescriptorEnum.WhileStatement);
 	}
 
-	public WhileStatement createWhileStatement(Expression condition,
-			Statement trueBody) {
-		return create(ImpEntityDescriptorEnum.WhileStatement, condition,
-				trueBody);
+	public WhileStatement createWhileStatement(Expression condition, Statement trueBody) {
+		return create(ImpEntityDescriptorEnum.WhileStatement, condition, trueBody);
 	}
 
 	public IEntityBuilder<WhileStatement> buildWhileStatement() {
-		return new EntityBuilder<WhileStatement>(
-				create(ImpEntityDescriptorEnum.WhileStatement));
+		return new EntityBuilder<WhileStatement>(create(ImpEntityDescriptorEnum.WhileStatement));
 	}
 
 	public DoWhileStatement createDoWhileStatement() {
 		return create(ImpEntityDescriptorEnum.DoWhileStatement);
 	}
 
-	public DoWhileStatement createDoWhileStatement(Statement trueBody,
-			Expression condition) {
-		return create(ImpEntityDescriptorEnum.DoWhileStatement, trueBody,
-				condition);
+	public DoWhileStatement createDoWhileStatement(Statement trueBody, Expression condition) {
+		return create(ImpEntityDescriptorEnum.DoWhileStatement, trueBody, condition);
 	}
 
 	public IEntityBuilder<DoWhileStatement> buildDoWhileStatement() {
-		return new EntityBuilder<DoWhileStatement>(
-				create(ImpEntityDescriptorEnum.DoWhileStatement));
+		return new EntityBuilder<DoWhileStatement>(create(ImpEntityDescriptorEnum.DoWhileStatement));
 	}
 
 	public ForStatement createForStatement() {
 		return create(ImpEntityDescriptorEnum.ForStatement);
 	}
 
-	public ForStatement createForStatement(VariableDeclaration initializer,
-			Expression condition, Expression updater, Statement trueBody) {
-		return create(ImpEntityDescriptorEnum.ForStatement, initializer,
-				condition, updater, trueBody);
+	public ForStatement createForStatement(VariableDeclaration initializer, Expression condition, Expression updater,
+			Statement trueBody) {
+		return create(ImpEntityDescriptorEnum.ForStatement, initializer, condition, updater, trueBody);
 	}
 
 	public IEntityBuilder<ForStatement> buildForStatement() {
-		return new EntityBuilder<ForStatement>(
-				create(ImpEntityDescriptorEnum.ForStatement));
+		return new EntityBuilder<ForStatement>(create(ImpEntityDescriptorEnum.ForStatement));
 	}
 
 	public ForeachStatement createForeachStatement() {
 		return create(ImpEntityDescriptorEnum.ForeachStatement);
 	}
 
-	public ForeachStatement createForeachStatement(Name name,
-			Expression arrayExp, Statement trueBody) {
-		return create(ImpEntityDescriptorEnum.ForeachStatement, name, arrayExp,
-				trueBody);
+	public ForeachStatement createForeachStatement(Name name, Expression arrayExp, Statement trueBody) {
+		return create(ImpEntityDescriptorEnum.ForeachStatement, name, arrayExp, trueBody);
 	}
 
 	public IEntityBuilder<ForeachStatement> buildForeachStatement() {
-		return new EntityBuilder<ForeachStatement>(
-				create(ImpEntityDescriptorEnum.ForeachStatement));
+		return new EntityBuilder<ForeachStatement>(create(ImpEntityDescriptorEnum.ForeachStatement));
 	}
 
 	public BlockStatement createBlockStatement() {
@@ -184,8 +161,7 @@ public class ImpEntityFactory extends GenericEntityFactory {
 	}
 
 	public BlockStatement createBlockStatement(Statement... entities) {
-		return create(ImpEntityDescriptorEnum.BlockStatement,
-				(IEntity[]) entities);
+		return create(ImpEntityDescriptorEnum.BlockStatement, (IEntity[]) entities);
 	}
 
 	public BlockStatement createBlockStatement(int initialSize) {
@@ -217,8 +193,7 @@ public class ImpEntityFactory extends GenericEntityFactory {
 	}
 
 	public IEntityBuilder<SaveStatement> buildSaveStatement() {
-		return new EntityBuilder<SaveStatement>(
-				create(ImpEntityDescriptorEnum.SaveStatement));
+		return new EntityBuilder<SaveStatement>(create(ImpEntityDescriptorEnum.SaveStatement));
 	}
 
 	public ExpressionStatement createExpressionStatement() {
@@ -233,25 +208,20 @@ public class ImpEntityFactory extends GenericEntityFactory {
 		return create(ImpEntityDescriptorEnum.LoadExpression);
 	}
 
-	public LoadExpression createLoadExpression(Expression fileName,
-			Expression language) {
-		return create(ImpEntityDescriptorEnum.LoadExpression, fileName,
-				language);
+	public LoadExpression createLoadExpression(Expression fileName, Expression language) {
+		return create(ImpEntityDescriptorEnum.LoadExpression, fileName, language);
 	}
 
 	public IEntityBuilder<LoadExpression> buildLoadExpression() {
-		return new EntityBuilder<LoadExpression>(
-				create(ImpEntityDescriptorEnum.LoadExpression));
+		return new EntityBuilder<LoadExpression>(create(ImpEntityDescriptorEnum.LoadExpression));
 	}
 
 	public FunctionInvocationExpression createFunctionInvocationExpression() {
 		return create(ImpEntityDescriptorEnum.FunctionInvocationExpression);
 	}
 
-	public FunctionInvocationExpression createFunctionInvocationExpression(
-			NameExpression name, Arguments arguments) {
-		return create(ImpEntityDescriptorEnum.FunctionInvocationExpression,
-				name, arguments);
+	public FunctionInvocationExpression createFunctionInvocationExpression(NameExpression name, Arguments arguments) {
+		return create(ImpEntityDescriptorEnum.FunctionInvocationExpression, name, arguments);
 	}
 
 	public IEntityBuilder<FunctionInvocationExpression> buildFunctionInvocationExpression() {
@@ -275,14 +245,12 @@ public class ImpEntityFactory extends GenericEntityFactory {
 		return create(ImpEntityDescriptorEnum.AssignmentExpression);
 	}
 
-	public AssignmentExpression createAssignmentExpression(Name name,
-			Expression exp) {
+	public AssignmentExpression createAssignmentExpression(Name name, Expression exp) {
 		return create(ImpEntityDescriptorEnum.AssignmentExpression, name, exp);
 	}
 
 	public IEntityBuilder<AssignmentExpression> buildAssignmentExpression() {
-		return new EntityBuilder<AssignmentExpression>(
-				create(ImpEntityDescriptorEnum.AssignmentExpression));
+		return new EntityBuilder<AssignmentExpression>(create(ImpEntityDescriptorEnum.AssignmentExpression));
 	}
 
 	public RunExpression createRunExpression() {
@@ -329,15 +297,12 @@ public class ImpEntityFactory extends GenericEntityFactory {
 		return create(ImpEntityDescriptorEnum.RangeLiteral);
 	}
 
-	public RangeLiteral createRangeLiteral(IntLiteral lowerBound,
-			IntLiteral upperBound) {
-		return create(ImpEntityDescriptorEnum.RangeLiteral, lowerBound,
-				upperBound);
+	public RangeLiteral createRangeLiteral(IntLiteral lowerBound, IntLiteral upperBound) {
+		return create(ImpEntityDescriptorEnum.RangeLiteral, lowerBound, upperBound);
 	}
 
 	public IEntityBuilder<RangeLiteral> buildRangeLiteral() {
-		return new EntityBuilder<RangeLiteral>(
-				create(ImpEntityDescriptorEnum.RangeLiteral));
+		return new EntityBuilder<RangeLiteral>(create(ImpEntityDescriptorEnum.RangeLiteral));
 	}
 
 	public ArrayLiteral createArrayLiteral() {
@@ -345,8 +310,7 @@ public class ImpEntityFactory extends GenericEntityFactory {
 	}
 
 	public ArrayLiteral createArrayLiteral(Literal... entities) {
-		return create(ImpEntityDescriptorEnum.ArrayLiteral,
-				(IEntity[]) entities);
+		return create(ImpEntityDescriptorEnum.ArrayLiteral, (IEntity[]) entities);
 	}
 
 	public ArrayLiteral createArrayLiteral(int initialSize) {
@@ -386,8 +350,7 @@ public class ImpEntityFactory extends GenericEntityFactory {
 	}
 
 	public IEntityBuilder<ArrayType> buildArrayType() {
-		return new EntityBuilder<ArrayType>(
-				create(ImpEntityDescriptorEnum.ArrayType));
+		return new EntityBuilder<ArrayType>(create(ImpEntityDescriptorEnum.ArrayType));
 	}
 
 	public ArrayAccess createArrayAccess() {
@@ -399,8 +362,7 @@ public class ImpEntityFactory extends GenericEntityFactory {
 	}
 
 	public IEntityBuilder<ArrayAccess> buildArrayAccess() {
-		return new EntityBuilder<ArrayAccess>(
-				create(ImpEntityDescriptorEnum.ArrayAccess));
+		return new EntityBuilder<ArrayAccess>(create(ImpEntityDescriptorEnum.ArrayAccess));
 	}
 
 	public Addition createAddition() {
@@ -412,8 +374,7 @@ public class ImpEntityFactory extends GenericEntityFactory {
 	}
 
 	public IEntityBuilder<Addition> buildAddition() {
-		return new EntityBuilder<Addition>(
-				create(ImpEntityDescriptorEnum.Addition));
+		return new EntityBuilder<Addition>(create(ImpEntityDescriptorEnum.Addition));
 	}
 
 	public Subtraction createSubtraction() {
@@ -425,8 +386,7 @@ public class ImpEntityFactory extends GenericEntityFactory {
 	}
 
 	public IEntityBuilder<Subtraction> buildSubtraction() {
-		return new EntityBuilder<Subtraction>(
-				create(ImpEntityDescriptorEnum.Subtraction));
+		return new EntityBuilder<Subtraction>(create(ImpEntityDescriptorEnum.Subtraction));
 	}
 
 	public Multiplication createMultiplication() {
@@ -438,8 +398,7 @@ public class ImpEntityFactory extends GenericEntityFactory {
 	}
 
 	public IEntityBuilder<Multiplication> buildMultiplication() {
-		return new EntityBuilder<Multiplication>(
-				create(ImpEntityDescriptorEnum.Multiplication));
+		return new EntityBuilder<Multiplication>(create(ImpEntityDescriptorEnum.Multiplication));
 	}
 
 	public Division createDivision() {
@@ -451,8 +410,7 @@ public class ImpEntityFactory extends GenericEntityFactory {
 	}
 
 	public IEntityBuilder<Division> buildDivision() {
-		return new EntityBuilder<Division>(
-				create(ImpEntityDescriptorEnum.Division));
+		return new EntityBuilder<Division>(create(ImpEntityDescriptorEnum.Division));
 	}
 
 	public Remainder createRemainder() {
@@ -464,8 +422,7 @@ public class ImpEntityFactory extends GenericEntityFactory {
 	}
 
 	public IEntityBuilder<Remainder> buildRemainder() {
-		return new EntityBuilder<Remainder>(
-				create(ImpEntityDescriptorEnum.Remainder));
+		return new EntityBuilder<Remainder>(create(ImpEntityDescriptorEnum.Remainder));
 	}
 
 	public And createAnd() {
@@ -521,8 +478,7 @@ public class ImpEntityFactory extends GenericEntityFactory {
 	}
 
 	public IEntityBuilder<NotEquals> buildNotEquals() {
-		return new EntityBuilder<NotEquals>(
-				create(ImpEntityDescriptorEnum.NotEquals));
+		return new EntityBuilder<NotEquals>(create(ImpEntityDescriptorEnum.NotEquals));
 	}
 
 	public LessThan createLessThan() {
@@ -534,8 +490,7 @@ public class ImpEntityFactory extends GenericEntityFactory {
 	}
 
 	public IEntityBuilder<LessThan> buildLessThan() {
-		return new EntityBuilder<LessThan>(
-				create(ImpEntityDescriptorEnum.LessThan));
+		return new EntityBuilder<LessThan>(create(ImpEntityDescriptorEnum.LessThan));
 	}
 
 	public LessOrEquals createLessOrEquals() {
@@ -547,8 +502,7 @@ public class ImpEntityFactory extends GenericEntityFactory {
 	}
 
 	public IEntityBuilder<LessOrEquals> buildLessOrEquals() {
-		return new EntityBuilder<LessOrEquals>(
-				create(ImpEntityDescriptorEnum.LessOrEquals));
+		return new EntityBuilder<LessOrEquals>(create(ImpEntityDescriptorEnum.LessOrEquals));
 	}
 
 	public GreaterThan createGreaterThan() {
@@ -560,21 +514,18 @@ public class ImpEntityFactory extends GenericEntityFactory {
 	}
 
 	public IEntityBuilder<GreaterThan> buildGreaterThan() {
-		return new EntityBuilder<GreaterThan>(
-				create(ImpEntityDescriptorEnum.GreaterThan));
+		return new EntityBuilder<GreaterThan>(create(ImpEntityDescriptorEnum.GreaterThan));
 	}
 
 	public GreaterOrEquals createGreaterOrEquals() {
 		return create(ImpEntityDescriptorEnum.GreaterOrEquals);
 	}
 
-	public GreaterOrEquals createGreaterOrEquals(Expression exp1,
-			Expression exp2) {
+	public GreaterOrEquals createGreaterOrEquals(Expression exp1, Expression exp2) {
 		return create(ImpEntityDescriptorEnum.GreaterOrEquals, exp1, exp2);
 	}
 
 	public IEntityBuilder<GreaterOrEquals> buildGreaterOrEquals() {
-		return new EntityBuilder<GreaterOrEquals>(
-				create(ImpEntityDescriptorEnum.GreaterOrEquals));
+		return new EntityBuilder<GreaterOrEquals>(create(ImpEntityDescriptorEnum.GreaterOrEquals));
 	}
 }

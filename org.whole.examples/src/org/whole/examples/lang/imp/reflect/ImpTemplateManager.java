@@ -23,8 +23,7 @@ public class ImpTemplateManager extends AbstractTemplateManager {
 	private ImpTemplateManager() {
 		put("empty", new AbstractTemplateFactory<FunctionDeclaration>() {
 			public FunctionDeclaration create() {
-				return GenericEntityFactory.instance
-						.create(ImpEntityDescriptorEnum.FunctionDeclaration);
+				return GenericEntityFactory.instance.create(ImpEntityDescriptorEnum.FunctionDeclaration);
 			}
 		});
 		

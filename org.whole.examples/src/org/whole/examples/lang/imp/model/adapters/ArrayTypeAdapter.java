@@ -11,8 +11,7 @@ import org.whole.examples.lang.imp.reflect.ImpFeatureDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class ArrayTypeAdapter extends AbstractEntityAdapter implements
-		ArrayType {
+public class ArrayTypeAdapter extends AbstractEntityAdapter implements ArrayType {
 	private static final long serialVersionUID = 1;
 
 	public ArrayTypeAdapter(IEntity implementor) {
@@ -32,8 +31,7 @@ public class ArrayTypeAdapter extends AbstractEntityAdapter implements
 	}
 
 	public Type getContentType() {
-		return wGet(ImpFeatureDescriptorEnum.contentType).wGetAdapter(
-				ImpEntityDescriptorEnum.Type);
+		return wGet(ImpFeatureDescriptorEnum.contentType).wGetAdapter(ImpEntityDescriptorEnum.Type);
 	}
 
 	public void setContentType(Type contentType) {
@@ -41,8 +39,7 @@ public class ArrayTypeAdapter extends AbstractEntityAdapter implements
 	}
 
 	public PrimitiveType getIndexType() {
-		return wGet(ImpFeatureDescriptorEnum.indexType).wGetAdapter(
-				ImpEntityDescriptorEnum.PrimitiveType);
+		return wGet(ImpFeatureDescriptorEnum.indexType).wGetAdapter(ImpEntityDescriptorEnum.PrimitiveType);
 	}
 
 	public void setIndexType(PrimitiveType indexType) {

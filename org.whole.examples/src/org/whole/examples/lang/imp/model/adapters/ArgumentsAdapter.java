@@ -10,8 +10,7 @@ import org.whole.examples.lang.imp.reflect.ImpEntityDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class ArgumentsAdapter extends AbstractListEntityAdapter<Expression>
-		implements Arguments {
+public class ArgumentsAdapter extends AbstractListEntityAdapter<Expression> implements Arguments {
 	private static final long serialVersionUID = 1;
 
 	public ArgumentsAdapter(IEntity implementor) {

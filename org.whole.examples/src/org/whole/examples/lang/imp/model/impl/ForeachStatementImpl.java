@@ -1,18 +1,21 @@
 package org.whole.examples.lang.imp.model.impl;
 
 import org.whole.lang.model.AbstractSimpleEntity;
-import org.whole.examples.lang.imp.model.*;
+import org.whole.examples.lang.imp.model.ForeachStatement;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.examples.lang.imp.reflect.ImpEntityDescriptorEnum;
 import org.whole.examples.lang.imp.visitors.IImpVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
+import org.whole.examples.lang.imp.model.Name;
 import org.whole.examples.lang.imp.reflect.ImpFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
+import org.whole.examples.lang.imp.model.Expression;
+import org.whole.examples.lang.imp.model.Statement;
 
 /** 
  * @generator Whole
  */
-public class ForeachStatementImpl extends AbstractSimpleEntity implements
-		ForeachStatement {
+public class ForeachStatementImpl extends AbstractSimpleEntity implements ForeachStatement {
 	private static final long serialVersionUID = 1;
 
 	public EntityDescriptor<ForeachStatement> wGetEntityDescriptor() {
@@ -27,7 +30,7 @@ public class ForeachStatementImpl extends AbstractSimpleEntity implements
 		try {
 			visitor.visit(this);
 		} catch (Exception e) {
-			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+			throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
 		}
 	}
 
@@ -38,8 +41,7 @@ public class ForeachStatementImpl extends AbstractSimpleEntity implements
 	}
 
 	public void setName(Name name) {
-		notifyChanged(ImpFeatureDescriptorEnum.name, this.name,
-				this.name = name);
+		notifyChanged(ImpFeatureDescriptorEnum.name, this.name, this.name = name);
 	}
 
 	private Expression arrayExp;
@@ -49,8 +51,7 @@ public class ForeachStatementImpl extends AbstractSimpleEntity implements
 	}
 
 	public void setArrayExp(Expression arrayExp) {
-		notifyChanged(ImpFeatureDescriptorEnum.arrayExp, this.arrayExp,
-				this.arrayExp = arrayExp);
+		notifyChanged(ImpFeatureDescriptorEnum.arrayExp, this.arrayExp, this.arrayExp = arrayExp);
 	}
 
 	private Statement trueBody;
@@ -60,8 +61,7 @@ public class ForeachStatementImpl extends AbstractSimpleEntity implements
 	}
 
 	public void setTrueBody(Statement trueBody) {
-		notifyChanged(ImpFeatureDescriptorEnum.trueBody, this.trueBody,
-				this.trueBody = trueBody);
+		notifyChanged(ImpFeatureDescriptorEnum.trueBody, this.trueBody, this.trueBody = trueBody);
 	}
 
 	public IEntity wGet(int index) {

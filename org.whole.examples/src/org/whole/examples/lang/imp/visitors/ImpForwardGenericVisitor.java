@@ -8,8 +8,7 @@ import org.whole.lang.model.IEntity;
 /** 
  * @generator Whole
  */
-public class ImpForwardGenericVisitor extends AbstractUnaryVisitor<IVisitor>
-		implements IImpVisitor {
+public class ImpForwardGenericVisitor extends AbstractUnaryVisitor<IVisitor> implements IImpVisitor {
 	public ImpForwardGenericVisitor(IVisitor visitor1) {
 		super(visitor1);
 	}

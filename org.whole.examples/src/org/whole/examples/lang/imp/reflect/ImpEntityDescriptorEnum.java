@@ -58,8 +58,8 @@ public class ImpEntityDescriptorEnum extends EntityDescriptorEnum {
 	public static final int LessOrEquals_ord = 46;
 	public static final int GreaterThan_ord = 47;
 	public static final int GreaterOrEquals_ord = 48;
-	public static final int Type_ord = 49;
-	public static final int Statement_ord = 50;
+	public static final int Statement_ord = 49;
+	public static final int Type_ord = 50;
 	public static final int Expression_ord = 51;
 	public static final ImpEntityDescriptorEnum instance = new ImpEntityDescriptorEnum();
 	public static final EntityDescriptor<FunctionDeclaration> FunctionDeclaration = (EntityDescriptor<FunctionDeclaration>) instance
@@ -110,8 +110,7 @@ public class ImpEntityDescriptorEnum extends EntityDescriptorEnum {
 			.valueOf(RunExpression_ord);
 	public static final EntityDescriptor<SizeExpression> SizeExpression = (EntityDescriptor<SizeExpression>) instance
 			.valueOf(SizeExpression_ord);
-	public static final EntityDescriptor<Literal> Literal = (EntityDescriptor<Literal>) instance
-			.valueOf(Literal_ord);
+	public static final EntityDescriptor<Literal> Literal = (EntityDescriptor<Literal>) instance.valueOf(Literal_ord);
 	public static final EntityDescriptor<BooleanLiteral> BooleanLiteral = (EntityDescriptor<BooleanLiteral>) instance
 			.valueOf(BooleanLiteral_ord);
 	public static final EntityDescriptor<IntLiteral> IntLiteral = (EntityDescriptor<IntLiteral>) instance
@@ -122,8 +121,7 @@ public class ImpEntityDescriptorEnum extends EntityDescriptorEnum {
 			.valueOf(RangeLiteral_ord);
 	public static final EntityDescriptor<ArrayLiteral> ArrayLiteral = (EntityDescriptor<ArrayLiteral>) instance
 			.valueOf(ArrayLiteral_ord);
-	public static final EntityDescriptor<Name> Name = (EntityDescriptor<Name>) instance
-			.valueOf(Name_ord);
+	public static final EntityDescriptor<Name> Name = (EntityDescriptor<Name>) instance.valueOf(Name_ord);
 	public static final EntityDescriptor<NameExpression> NameExpression = (EntityDescriptor<NameExpression>) instance
 			.valueOf(NameExpression_ord);
 	public static final EntityDescriptor<PrimitiveType> PrimitiveType = (EntityDescriptor<PrimitiveType>) instance
@@ -142,14 +140,10 @@ public class ImpEntityDescriptorEnum extends EntityDescriptorEnum {
 			.valueOf(Division_ord);
 	public static final EntityDescriptor<Remainder> Remainder = (EntityDescriptor<Remainder>) instance
 			.valueOf(Remainder_ord);
-	public static final EntityDescriptor<And> And = (EntityDescriptor<And>) instance
-			.valueOf(And_ord);
-	public static final EntityDescriptor<Or> Or = (EntityDescriptor<Or>) instance
-			.valueOf(Or_ord);
-	public static final EntityDescriptor<Not> Not = (EntityDescriptor<Not>) instance
-			.valueOf(Not_ord);
-	public static final EntityDescriptor<Equals> Equals = (EntityDescriptor<Equals>) instance
-			.valueOf(Equals_ord);
+	public static final EntityDescriptor<And> And = (EntityDescriptor<And>) instance.valueOf(And_ord);
+	public static final EntityDescriptor<Or> Or = (EntityDescriptor<Or>) instance.valueOf(Or_ord);
+	public static final EntityDescriptor<Not> Not = (EntityDescriptor<Not>) instance.valueOf(Not_ord);
+	public static final EntityDescriptor<Equals> Equals = (EntityDescriptor<Equals>) instance.valueOf(Equals_ord);
 	public static final EntityDescriptor<NotEquals> NotEquals = (EntityDescriptor<NotEquals>) instance
 			.valueOf(NotEquals_ord);
 	public static final EntityDescriptor<LessThan> LessThan = (EntityDescriptor<LessThan>) instance
@@ -160,10 +154,9 @@ public class ImpEntityDescriptorEnum extends EntityDescriptorEnum {
 			.valueOf(GreaterThan_ord);
 	public static final EntityDescriptor<GreaterOrEquals> GreaterOrEquals = (EntityDescriptor<GreaterOrEquals>) instance
 			.valueOf(GreaterOrEquals_ord);
-	public static final EntityDescriptor<Type> Type = (EntityDescriptor<Type>) instance
-			.valueOf(Type_ord);
 	public static final EntityDescriptor<Statement> Statement = (EntityDescriptor<Statement>) instance
 			.valueOf(Statement_ord);
+	public static final EntityDescriptor<Type> Type = (EntityDescriptor<Type>) instance.valueOf(Type_ord);
 	public static final EntityDescriptor<Expression> Expression = (EntityDescriptor<Expression>) instance
 			.valueOf(Expression_ord);
 
@@ -173,195 +166,139 @@ public class ImpEntityDescriptorEnum extends EntityDescriptorEnum {
 	private static final long serialVersionUID = 1;
 
 	protected void initEntityDescriptors() {
-		putSimpleEntity(FunctionDeclaration_ord, "FunctionDeclaration",
-				FunctionDeclaration.class, false)
+		putSimpleEntity(FunctionDeclaration_ord, "FunctionDeclaration", FunctionDeclaration.class, false)
 				.withFeature(ImpFeatureDescriptorEnum.type, Type_ord)
 				.withFeature(ImpFeatureDescriptorEnum.name, Name_ord)
-				.withFeature(ImpFeatureDescriptorEnum.parameters,
-						Parameters_ord, true, false, false, false, false)
+				.withFeature(ImpFeatureDescriptorEnum.parameters, Parameters_ord, true, false, false, false, false)
 				.withFeature(ImpFeatureDescriptorEnum.body, Statement_ord);
-		putCompositeEntity(
-		Parameters_ord, "Parameters", Parameters.class, false, Parameter_ord, true, false);
+		putCompositeEntity(Parameters_ord, "Parameters", Parameters.class, false, Parameter_ord, true, false);
 		putSimpleEntity(Parameter_ord, "Parameter", Parameter.class, false)
 				.withFeature(ImpFeatureDescriptorEnum.type, Type_ord)
 				.withFeature(ImpFeatureDescriptorEnum.name, Name_ord);
-		putSimpleEntity(VariableDeclaration_ord, "VariableDeclaration",
-				VariableDeclaration.class, false)
+		putSimpleEntity(VariableDeclaration_ord, "VariableDeclaration", VariableDeclaration.class, false)
 				.withFeature(ImpFeatureDescriptorEnum.type, Type_ord)
 				.withFeature(ImpFeatureDescriptorEnum.name, Name_ord)
-				.withFeature(ImpFeatureDescriptorEnum.initializer,
-						Expression_ord, true, false, false, false, false);
-		putSimpleEntity(Declaration_ord, "Declaration", Declaration.class,
-				true, VariableDeclaration_ord, FunctionDeclaration_ord)
-				.withFeature(ImpFeatureDescriptorEnum.type, Type_ord)
-				.withFeature(ImpFeatureDescriptorEnum.name, Name_ord);
-		putSimpleEntity(EmptyStatement_ord, "EmptyStatement",
-				EmptyStatement.class, false);
-		putSimpleEntity(ReturnStatement_ord, "ReturnStatement",
-				ReturnStatement.class, false).withFeature(
-				ImpFeatureDescriptorEnum.exp, Expression_ord, true, false,
-				false, false, false);
-		putSimpleEntity(IfStatement_ord, "IfStatement", IfStatement.class,
-				false).withFeature(ImpFeatureDescriptorEnum.condition,
-				Expression_ord).withFeature(ImpFeatureDescriptorEnum.trueBody,
-				Statement_ord);
-		putSimpleEntity(IfElseStatement_ord, "IfElseStatement",
-				IfElseStatement.class, false)
+				.withFeature(ImpFeatureDescriptorEnum.initializer, Expression_ord, true, false, false, false, false);
+		putSimpleEntity(Declaration_ord, "Declaration", Declaration.class, true, FunctionDeclaration_ord,
+				VariableDeclaration_ord).withFeature(ImpFeatureDescriptorEnum.type, Type_ord)
+						.withFeature(ImpFeatureDescriptorEnum.name, Name_ord);
+		putSimpleEntity(EmptyStatement_ord, "EmptyStatement", EmptyStatement.class, false);
+		putSimpleEntity(ReturnStatement_ord, "ReturnStatement", ReturnStatement.class, false)
+				.withFeature(ImpFeatureDescriptorEnum.exp, Expression_ord, true, false, false, false, false);
+		putSimpleEntity(IfStatement_ord, "IfStatement", IfStatement.class, false)
+				.withFeature(ImpFeatureDescriptorEnum.condition, Expression_ord)
+				.withFeature(ImpFeatureDescriptorEnum.trueBody, Statement_ord);
+		putSimpleEntity(IfElseStatement_ord, "IfElseStatement", IfElseStatement.class, false)
 				.withFeature(ImpFeatureDescriptorEnum.condition, Expression_ord)
 				.withFeature(ImpFeatureDescriptorEnum.trueBody, Statement_ord)
 				.withFeature(ImpFeatureDescriptorEnum.falseBody, Statement_ord);
-		putSimpleEntity(WhileStatement_ord, "WhileStatement",
-				WhileStatement.class, false).withFeature(
-				ImpFeatureDescriptorEnum.condition, Expression_ord)
+		putSimpleEntity(WhileStatement_ord, "WhileStatement", WhileStatement.class, false)
+				.withFeature(ImpFeatureDescriptorEnum.condition, Expression_ord)
 				.withFeature(ImpFeatureDescriptorEnum.trueBody, Statement_ord);
-		putSimpleEntity(DoWhileStatement_ord, "DoWhileStatement",
-				DoWhileStatement.class, false).withFeature(
-				ImpFeatureDescriptorEnum.trueBody, Statement_ord).withFeature(
-				ImpFeatureDescriptorEnum.condition, Expression_ord);
-		putSimpleEntity(ForStatement_ord, "ForStatement", ForStatement.class,
-				false)
-				.withFeature(ImpFeatureDescriptorEnum.initializer,
-						VariableDeclaration_ord)
+		putSimpleEntity(DoWhileStatement_ord, "DoWhileStatement", DoWhileStatement.class, false)
+				.withFeature(ImpFeatureDescriptorEnum.trueBody, Statement_ord)
+				.withFeature(ImpFeatureDescriptorEnum.condition, Expression_ord);
+		putSimpleEntity(ForStatement_ord, "ForStatement", ForStatement.class, false)
+				.withFeature(ImpFeatureDescriptorEnum.initializer, VariableDeclaration_ord)
 				.withFeature(ImpFeatureDescriptorEnum.condition, Expression_ord)
 				.withFeature(ImpFeatureDescriptorEnum.updater, Expression_ord)
 				.withFeature(ImpFeatureDescriptorEnum.trueBody, Statement_ord);
-		putSimpleEntity(ForeachStatement_ord, "ForeachStatement",
-				ForeachStatement.class, false)
+		putSimpleEntity(ForeachStatement_ord, "ForeachStatement", ForeachStatement.class, false)
 				.withFeature(ImpFeatureDescriptorEnum.name, Name_ord)
 				.withFeature(ImpFeatureDescriptorEnum.arrayExp, Expression_ord)
 				.withFeature(ImpFeatureDescriptorEnum.trueBody, Statement_ord);
-		putCompositeEntity(
-		BlockStatement_ord, "BlockStatement", BlockStatement.class, false, Statement_ord, true, false);
-		putSimpleEntity(PrintStatement_ord, "PrintStatement",
-				PrintStatement.class, false).withFeature(
-				ImpFeatureDescriptorEnum.exp, Expression_ord);
-		putSimpleEntity(PrintlnStatement_ord, "PrintlnStatement",
-				PrintlnStatement.class, false).withFeature(
-				ImpFeatureDescriptorEnum.exp, Expression_ord, true, false,
-				false, false, false);
-		putSimpleEntity(SaveStatement_ord, "SaveStatement",
-				SaveStatement.class, false).withFeature(
-				ImpFeatureDescriptorEnum.exp, Expression_ord).withFeature(
-				ImpFeatureDescriptorEnum.fileName, Expression_ord, true, false,
-				false, false, false);
-		putSimpleEntity(ExpressionStatement_ord, "ExpressionStatement",
-				ExpressionStatement.class, false).withFeature(
-				ImpFeatureDescriptorEnum.exp, Expression_ord);
-		putSimpleEntity(LoadExpression_ord, "LoadExpression",
-				LoadExpression.class, false).withFeature(
-				ImpFeatureDescriptorEnum.fileName, Expression_ord).withFeature(
-				ImpFeatureDescriptorEnum.language, Expression_ord, true, false,
-				false, false, false);
-		putSimpleEntity(FunctionInvocationExpression_ord,
-				"FunctionInvocationExpression",
-				FunctionInvocationExpression.class, false).withFeature(
-				ImpFeatureDescriptorEnum.name, NameExpression_ord).withFeature(
-				ImpFeatureDescriptorEnum.arguments, Arguments_ord, true, false,
-				false, false, false);
-		putCompositeEntity(
-		Arguments_ord, "Arguments", Arguments.class, false, Expression_ord, true, false);
-		putSimpleEntity(AssignmentExpression_ord, "AssignmentExpression",
-				AssignmentExpression.class, false).withFeature(
-				ImpFeatureDescriptorEnum.name, Name_ord).withFeature(
-				ImpFeatureDescriptorEnum.exp, Expression_ord);
-		putSimpleEntity(RunExpression_ord, "RunExpression",
-				RunExpression.class, false).withFeature(
-				ImpFeatureDescriptorEnum.exp, Expression_ord);
-		putSimpleEntity(SizeExpression_ord, "SizeExpression",
-				SizeExpression.class, false).withFeature(
-				ImpFeatureDescriptorEnum.exp, Expression_ord);
-		putSimpleEntity(Literal_ord, "Literal", Literal.class, true,
-				StringLiteral_ord, RangeLiteral_ord, IntLiteral_ord,
-				ArrayLiteral_ord, BooleanLiteral_ord);
-		putDataEntity(BooleanLiteral_ord, "BooleanLiteral",
-				BooleanLiteral.class, false, boolean.class);
-		putDataEntity(IntLiteral_ord, "IntLiteral", IntLiteral.class, false,
-				int.class);
-		putDataEntity(StringLiteral_ord, "StringLiteral", StringLiteral.class,
-				false, String.class);
-		putSimpleEntity(RangeLiteral_ord, "RangeLiteral", RangeLiteral.class,
-				false).withFeature(ImpFeatureDescriptorEnum.lowerBound,
-				IntLiteral_ord).withFeature(
-				ImpFeatureDescriptorEnum.upperBound, IntLiteral_ord);
-		putCompositeEntity(
-		ArrayLiteral_ord, "ArrayLiteral", ArrayLiteral.class, false, Literal_ord, true, false);
+		putCompositeEntity(BlockStatement_ord, "BlockStatement", BlockStatement.class, false, Statement_ord, true,
+				false);
+		putSimpleEntity(PrintStatement_ord, "PrintStatement", PrintStatement.class, false)
+				.withFeature(ImpFeatureDescriptorEnum.exp, Expression_ord);
+		putSimpleEntity(PrintlnStatement_ord, "PrintlnStatement", PrintlnStatement.class, false)
+				.withFeature(ImpFeatureDescriptorEnum.exp, Expression_ord, true, false, false, false, false);
+		putSimpleEntity(SaveStatement_ord, "SaveStatement", SaveStatement.class, false)
+				.withFeature(ImpFeatureDescriptorEnum.exp, Expression_ord)
+				.withFeature(ImpFeatureDescriptorEnum.fileName, Expression_ord, true, false, false, false, false);
+		putSimpleEntity(ExpressionStatement_ord, "ExpressionStatement", ExpressionStatement.class, false)
+				.withFeature(ImpFeatureDescriptorEnum.exp, Expression_ord);
+		putSimpleEntity(LoadExpression_ord, "LoadExpression", LoadExpression.class, false)
+				.withFeature(ImpFeatureDescriptorEnum.fileName, Expression_ord)
+				.withFeature(ImpFeatureDescriptorEnum.language, Expression_ord, true, false, false, false, false);
+		putSimpleEntity(FunctionInvocationExpression_ord, "FunctionInvocationExpression",
+				FunctionInvocationExpression.class, false)
+						.withFeature(ImpFeatureDescriptorEnum.name, NameExpression_ord).withFeature(
+								ImpFeatureDescriptorEnum.arguments, Arguments_ord, true, false, false, false, false);
+		putCompositeEntity(Arguments_ord, "Arguments", Arguments.class, false, Expression_ord, true, false);
+		putSimpleEntity(AssignmentExpression_ord, "AssignmentExpression", AssignmentExpression.class, false)
+				.withFeature(ImpFeatureDescriptorEnum.name, Name_ord)
+				.withFeature(ImpFeatureDescriptorEnum.exp, Expression_ord);
+		putSimpleEntity(RunExpression_ord, "RunExpression", RunExpression.class, false)
+				.withFeature(ImpFeatureDescriptorEnum.exp, Expression_ord);
+		putSimpleEntity(SizeExpression_ord, "SizeExpression", SizeExpression.class, false)
+				.withFeature(ImpFeatureDescriptorEnum.exp, Expression_ord);
+		putSimpleEntity(Literal_ord, "Literal", Literal.class, true, IntLiteral_ord, StringLiteral_ord,
+				ArrayLiteral_ord, BooleanLiteral_ord, RangeLiteral_ord);
+		putDataEntity(BooleanLiteral_ord, "BooleanLiteral", BooleanLiteral.class, false, boolean.class);
+		putDataEntity(IntLiteral_ord, "IntLiteral", IntLiteral.class, false, int.class);
+		putDataEntity(StringLiteral_ord, "StringLiteral", StringLiteral.class, false, String.class);
+		putSimpleEntity(RangeLiteral_ord, "RangeLiteral", RangeLiteral.class, false)
+				.withFeature(ImpFeatureDescriptorEnum.lowerBound, IntLiteral_ord)
+				.withFeature(ImpFeatureDescriptorEnum.upperBound, IntLiteral_ord);
+		putCompositeEntity(ArrayLiteral_ord, "ArrayLiteral", ArrayLiteral.class, false, Literal_ord, true, false);
 		putDataEntity(Name_ord, "Name", Name.class, false, String.class);
-		putDataEntity(NameExpression_ord, "NameExpression",
-				NameExpression.class, false, String.class);
-		putDataEntity(PrimitiveType_ord, "PrimitiveType", PrimitiveType.class,
-				false, PrimitiveTypeEnum.Value.class);
+		putDataEntity(NameExpression_ord, "NameExpression", NameExpression.class, false, String.class);
+		putDataEntity(PrimitiveType_ord, "PrimitiveType", PrimitiveType.class, false, PrimitiveTypeEnum.Value.class);
 		putSimpleEntity(ArrayType_ord, "ArrayType", ArrayType.class, false)
 				.withFeature(ImpFeatureDescriptorEnum.contentType, Type_ord)
-				.withFeature(ImpFeatureDescriptorEnum.indexType,
-						PrimitiveType_ord);
-		putSimpleEntity(ArrayAccess_ord, "ArrayAccess", ArrayAccess.class,
-				false).withFeature(ImpFeatureDescriptorEnum.array,
-				Expression_ord).withFeature(ImpFeatureDescriptorEnum.index,
-				Expression_ord);
+				.withFeature(ImpFeatureDescriptorEnum.indexType, PrimitiveType_ord);
+		putSimpleEntity(ArrayAccess_ord, "ArrayAccess", ArrayAccess.class, false)
+				.withFeature(ImpFeatureDescriptorEnum.array, Expression_ord)
+				.withFeature(ImpFeatureDescriptorEnum.index, Expression_ord);
 		putSimpleEntity(Addition_ord, "Addition", Addition.class, false)
 				.withFeature(ImpFeatureDescriptorEnum.exp1, Expression_ord)
 				.withFeature(ImpFeatureDescriptorEnum.exp2, Expression_ord);
-		putSimpleEntity(Subtraction_ord, "Subtraction", Subtraction.class,
-				false).withFeature(ImpFeatureDescriptorEnum.exp1,
-				Expression_ord).withFeature(ImpFeatureDescriptorEnum.exp2,
-				Expression_ord);
-		putSimpleEntity(Multiplication_ord, "Multiplication",
-				Multiplication.class, false).withFeature(
-				ImpFeatureDescriptorEnum.exp1, Expression_ord).withFeature(
-				ImpFeatureDescriptorEnum.exp2, Expression_ord);
+		putSimpleEntity(Subtraction_ord, "Subtraction", Subtraction.class, false)
+				.withFeature(ImpFeatureDescriptorEnum.exp1, Expression_ord)
+				.withFeature(ImpFeatureDescriptorEnum.exp2, Expression_ord);
+		putSimpleEntity(Multiplication_ord, "Multiplication", Multiplication.class, false)
+				.withFeature(ImpFeatureDescriptorEnum.exp1, Expression_ord)
+				.withFeature(ImpFeatureDescriptorEnum.exp2, Expression_ord);
 		putSimpleEntity(Division_ord, "Division", Division.class, false)
 				.withFeature(ImpFeatureDescriptorEnum.exp1, Expression_ord)
 				.withFeature(ImpFeatureDescriptorEnum.exp2, Expression_ord);
 		putSimpleEntity(Remainder_ord, "Remainder", Remainder.class, false)
 				.withFeature(ImpFeatureDescriptorEnum.exp1, Expression_ord)
 				.withFeature(ImpFeatureDescriptorEnum.exp2, Expression_ord);
-		putSimpleEntity(And_ord, "And", And.class, false).withFeature(
-				ImpFeatureDescriptorEnum.exp1, Expression_ord).withFeature(
-				ImpFeatureDescriptorEnum.exp2, Expression_ord);
-		putSimpleEntity(Or_ord, "Or", Or.class, false).withFeature(
-				ImpFeatureDescriptorEnum.exp1, Expression_ord).withFeature(
-				ImpFeatureDescriptorEnum.exp2, Expression_ord);
-		putSimpleEntity(Not_ord, "Not", Not.class, false).withFeature(
-				ImpFeatureDescriptorEnum.exp, Expression_ord);
-		putSimpleEntity(Equals_ord, "Equals", Equals.class, false).withFeature(
-				ImpFeatureDescriptorEnum.exp1, Expression_ord).withFeature(
-				ImpFeatureDescriptorEnum.exp2, Expression_ord);
+		putSimpleEntity(And_ord, "And", And.class, false).withFeature(ImpFeatureDescriptorEnum.exp1, Expression_ord)
+				.withFeature(ImpFeatureDescriptorEnum.exp2, Expression_ord);
+		putSimpleEntity(Or_ord, "Or", Or.class, false).withFeature(ImpFeatureDescriptorEnum.exp1, Expression_ord)
+				.withFeature(ImpFeatureDescriptorEnum.exp2, Expression_ord);
+		putSimpleEntity(Not_ord, "Not", Not.class, false).withFeature(ImpFeatureDescriptorEnum.exp, Expression_ord);
+		putSimpleEntity(Equals_ord, "Equals", Equals.class, false)
+				.withFeature(ImpFeatureDescriptorEnum.exp1, Expression_ord)
+				.withFeature(ImpFeatureDescriptorEnum.exp2, Expression_ord);
 		putSimpleEntity(NotEquals_ord, "NotEquals", NotEquals.class, false)
 				.withFeature(ImpFeatureDescriptorEnum.exp1, Expression_ord)
 				.withFeature(ImpFeatureDescriptorEnum.exp2, Expression_ord);
 		putSimpleEntity(LessThan_ord, "LessThan", LessThan.class, false)
 				.withFeature(ImpFeatureDescriptorEnum.exp1, Expression_ord)
 				.withFeature(ImpFeatureDescriptorEnum.exp2, Expression_ord);
-		putSimpleEntity(LessOrEquals_ord, "LessOrEquals", LessOrEquals.class,
-				false).withFeature(ImpFeatureDescriptorEnum.exp1,
-				Expression_ord).withFeature(ImpFeatureDescriptorEnum.exp2,
-				Expression_ord);
-		putSimpleEntity(GreaterThan_ord, "GreaterThan", GreaterThan.class,
-				false).withFeature(ImpFeatureDescriptorEnum.exp1,
-				Expression_ord).withFeature(ImpFeatureDescriptorEnum.exp2,
-				Expression_ord);
-		putSimpleEntity(GreaterOrEquals_ord, "GreaterOrEquals",
-				GreaterOrEquals.class, false).withFeature(
-				ImpFeatureDescriptorEnum.exp1, Expression_ord).withFeature(
-				ImpFeatureDescriptorEnum.exp2, Expression_ord);
-		putSimpleEntity(Type_ord, "Type", Type.class, true, ArrayType_ord,
-				PrimitiveType_ord);
-		putSimpleEntity(Statement_ord, "Statement", Statement.class, true,
-				ExpressionStatement_ord, PrintlnStatement_ord,
-				IfElseStatement_ord, FunctionDeclaration_ord,
-				PrintStatement_ord, WhileStatement_ord, Declaration_ord,
-				EmptyStatement_ord, SaveStatement_ord, VariableDeclaration_ord,
-				DoWhileStatement_ord, ReturnStatement_ord, IfStatement_ord,
-				BlockStatement_ord, ForStatement_ord, ForeachStatement_ord);
-		putSimpleEntity(Expression_ord, "Expression", Expression.class, true,
-				AssignmentExpression_ord, NotEquals_ord, LessThan_ord,
-				IntLiteral_ord, GreaterOrEquals_ord, LessOrEquals_ord,
-				Remainder_ord, NameExpression_ord, RangeLiteral_ord,
-				ArrayAccess_ord, GreaterThan_ord, Addition_ord,
-				StringLiteral_ord, Multiplication_ord, ArrayLiteral_ord,
-				Literal_ord, RunExpression_ord, SizeExpression_ord, Not_ord,
-				Subtraction_ord, FunctionInvocationExpression_ord,
-				Division_ord, LoadExpression_ord, Or_ord, Equals_ord,
-				BooleanLiteral_ord, And_ord);
+		putSimpleEntity(LessOrEquals_ord, "LessOrEquals", LessOrEquals.class, false)
+				.withFeature(ImpFeatureDescriptorEnum.exp1, Expression_ord)
+				.withFeature(ImpFeatureDescriptorEnum.exp2, Expression_ord);
+		putSimpleEntity(GreaterThan_ord, "GreaterThan", GreaterThan.class, false)
+				.withFeature(ImpFeatureDescriptorEnum.exp1, Expression_ord)
+				.withFeature(ImpFeatureDescriptorEnum.exp2, Expression_ord);
+		putSimpleEntity(GreaterOrEquals_ord, "GreaterOrEquals", GreaterOrEquals.class, false)
+				.withFeature(ImpFeatureDescriptorEnum.exp1, Expression_ord)
+				.withFeature(ImpFeatureDescriptorEnum.exp2, Expression_ord);
+		putSimpleEntity(Statement_ord, "Statement", Statement.class, true, PrintlnStatement_ord, EmptyStatement_ord,
+				IfElseStatement_ord, BlockStatement_ord, SaveStatement_ord, WhileStatement_ord, IfStatement_ord,
+				FunctionDeclaration_ord, ExpressionStatement_ord, ReturnStatement_ord, PrintStatement_ord,
+				VariableDeclaration_ord, Declaration_ord, ForStatement_ord, DoWhileStatement_ord, ForeachStatement_ord);
+		putSimpleEntity(Type_ord, "Type", Type.class, true, ArrayType_ord, PrimitiveType_ord);
+		putSimpleEntity(Expression_ord, "Expression", Expression.class, true, Multiplication_ord, Or_ord,
+				BooleanLiteral_ord, NameExpression_ord, RangeLiteral_ord, FunctionInvocationExpression_ord,
+				SizeExpression_ord, Remainder_ord, ArrayAccess_ord, LessThan_ord, AssignmentExpression_ord,
+				GreaterThan_ord, Literal_ord, GreaterOrEquals_ord, RunExpression_ord, Division_ord, IntLiteral_ord,
+				Addition_ord, LoadExpression_ord, ArrayLiteral_ord, NotEquals_ord, Not_ord, Equals_ord, Subtraction_ord,
+				StringLiteral_ord, And_ord, LessOrEquals_ord);
 	}
 }

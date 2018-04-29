@@ -1,18 +1,19 @@
 package org.whole.examples.lang.imp.model.impl;
 
 import org.whole.lang.model.AbstractSimpleEntity;
-import org.whole.examples.lang.imp.model.*;
+import org.whole.examples.lang.imp.model.RangeLiteral;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.examples.lang.imp.reflect.ImpEntityDescriptorEnum;
 import org.whole.examples.lang.imp.visitors.IImpVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
+import org.whole.examples.lang.imp.model.IntLiteral;
 import org.whole.examples.lang.imp.reflect.ImpFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
 
 /** 
  * @generator Whole
  */
-public class RangeLiteralImpl extends AbstractSimpleEntity implements
-		RangeLiteral {
+public class RangeLiteralImpl extends AbstractSimpleEntity implements RangeLiteral {
 	private static final long serialVersionUID = 1;
 
 	public EntityDescriptor<RangeLiteral> wGetEntityDescriptor() {
@@ -27,7 +28,7 @@ public class RangeLiteralImpl extends AbstractSimpleEntity implements
 		try {
 			visitor.visit(this);
 		} catch (Exception e) {
-			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+			throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
 		}
 	}
 
@@ -38,8 +39,7 @@ public class RangeLiteralImpl extends AbstractSimpleEntity implements
 	}
 
 	public void setLowerBound(IntLiteral lowerBound) {
-		notifyChanged(ImpFeatureDescriptorEnum.lowerBound, this.lowerBound,
-				this.lowerBound = lowerBound);
+		notifyChanged(ImpFeatureDescriptorEnum.lowerBound, this.lowerBound, this.lowerBound = lowerBound);
 	}
 
 	private IntLiteral upperBound;
@@ -49,8 +49,7 @@ public class RangeLiteralImpl extends AbstractSimpleEntity implements
 	}
 
 	public void setUpperBound(IntLiteral upperBound) {
-		notifyChanged(ImpFeatureDescriptorEnum.upperBound, this.upperBound,
-				this.upperBound = upperBound);
+		notifyChanged(ImpFeatureDescriptorEnum.upperBound, this.upperBound, this.upperBound = upperBound);
 	}
 
 	public IEntity wGet(int index) {

@@ -10,8 +10,7 @@ import org.whole.examples.lang.imp.reflect.ImpEntityDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class BlockStatementAdapter extends AbstractListEntityAdapter<Statement>
-		implements BlockStatement {
+public class BlockStatementAdapter extends AbstractListEntityAdapter<Statement> implements BlockStatement {
 	private static final long serialVersionUID = 1;
 
 	public BlockStatementAdapter(IEntity implementor) {

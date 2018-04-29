@@ -6,6 +6,5 @@ package org.whole.examples.lang.imp.model;
 public interface PrimitiveType extends IImpEntity, Type {
 	public org.whole.examples.lang.imp.model.PrimitiveTypeEnum.Value getValue();
 
-	public void setValue(
-			org.whole.examples.lang.imp.model.PrimitiveTypeEnum.Value value);
+	public void setValue(org.whole.examples.lang.imp.model.PrimitiveTypeEnum.Value value);
 }

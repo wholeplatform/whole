@@ -1,18 +1,19 @@
 package org.whole.examples.lang.imp.model.impl;
 
 import org.whole.lang.model.AbstractSimpleEntity;
-import org.whole.examples.lang.imp.model.*;
+import org.whole.examples.lang.imp.model.ReturnStatement;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.examples.lang.imp.reflect.ImpEntityDescriptorEnum;
 import org.whole.examples.lang.imp.visitors.IImpVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
+import org.whole.examples.lang.imp.model.Expression;
 import org.whole.examples.lang.imp.reflect.ImpFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
 
 /** 
  * @generator Whole
  */
-public class ReturnStatementImpl extends AbstractSimpleEntity implements
-		ReturnStatement {
+public class ReturnStatementImpl extends AbstractSimpleEntity implements ReturnStatement {
 	private static final long serialVersionUID = 1;
 
 	public EntityDescriptor<ReturnStatement> wGetEntityDescriptor() {
@@ -27,7 +28,7 @@ public class ReturnStatementImpl extends AbstractSimpleEntity implements
 		try {
 			visitor.visit(this);
 		} catch (Exception e) {
-			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+			throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
 		}
 	}
 

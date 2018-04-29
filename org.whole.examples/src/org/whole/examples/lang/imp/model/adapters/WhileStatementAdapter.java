@@ -11,8 +11,7 @@ import org.whole.examples.lang.imp.reflect.ImpFeatureDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class WhileStatementAdapter extends AbstractEntityAdapter implements
-		WhileStatement {
+public class WhileStatementAdapter extends AbstractEntityAdapter implements WhileStatement {
 	private static final long serialVersionUID = 1;
 
 	public WhileStatementAdapter(IEntity implementor) {
@@ -32,8 +31,7 @@ public class WhileStatementAdapter extends AbstractEntityAdapter implements
 	}
 
 	public Expression getCondition() {
-		return wGet(ImpFeatureDescriptorEnum.condition).wGetAdapter(
-				ImpEntityDescriptorEnum.Expression);
+		return wGet(ImpFeatureDescriptorEnum.condition).wGetAdapter(ImpEntityDescriptorEnum.Expression);
 	}
 
 	public void setCondition(Expression condition) {
@@ -41,8 +39,7 @@ public class WhileStatementAdapter extends AbstractEntityAdapter implements
 	}
 
 	public Statement getTrueBody() {
-		return wGet(ImpFeatureDescriptorEnum.trueBody).wGetAdapter(
-				ImpEntityDescriptorEnum.Statement);
+		return wGet(ImpFeatureDescriptorEnum.trueBody).wGetAdapter(ImpEntityDescriptorEnum.Statement);
 	}
 
 	public void setTrueBody(Statement trueBody) {

@@ -31,8 +31,7 @@ public class OrAdapter extends AbstractEntityAdapter implements Or {
 	}
 
 	public Expression getExp1() {
-		return wGet(ImpFeatureDescriptorEnum.exp1).wGetAdapter(
-				ImpEntityDescriptorEnum.Expression);
+		return wGet(ImpFeatureDescriptorEnum.exp1).wGetAdapter(ImpEntityDescriptorEnum.Expression);
 	}
 
 	public void setExp1(Expression exp1) {
@@ -40,8 +39,7 @@ public class OrAdapter extends AbstractEntityAdapter implements Or {
 	}
 
 	public Expression getExp2() {
-		return wGet(ImpFeatureDescriptorEnum.exp2).wGetAdapter(
-				ImpEntityDescriptorEnum.Expression);
+		return wGet(ImpFeatureDescriptorEnum.exp2).wGetAdapter(ImpEntityDescriptorEnum.Expression);
 	}
 
 	public void setExp2(Expression exp2) {

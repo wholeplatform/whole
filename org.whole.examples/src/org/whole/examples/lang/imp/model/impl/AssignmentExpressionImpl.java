@@ -1,18 +1,20 @@
 package org.whole.examples.lang.imp.model.impl;
 
 import org.whole.lang.model.AbstractSimpleEntity;
-import org.whole.examples.lang.imp.model.*;
+import org.whole.examples.lang.imp.model.AssignmentExpression;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.examples.lang.imp.reflect.ImpEntityDescriptorEnum;
 import org.whole.examples.lang.imp.visitors.IImpVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
+import org.whole.examples.lang.imp.model.Name;
 import org.whole.examples.lang.imp.reflect.ImpFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
+import org.whole.examples.lang.imp.model.Expression;
 
 /** 
  * @generator Whole
  */
-public class AssignmentExpressionImpl extends AbstractSimpleEntity implements
-		AssignmentExpression {
+public class AssignmentExpressionImpl extends AbstractSimpleEntity implements AssignmentExpression {
 	private static final long serialVersionUID = 1;
 
 	public EntityDescriptor<AssignmentExpression> wGetEntityDescriptor() {
@@ -27,7 +29,7 @@ public class AssignmentExpressionImpl extends AbstractSimpleEntity implements
 		try {
 			visitor.visit(this);
 		} catch (Exception e) {
-			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+			throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
 		}
 	}
 
@@ -38,8 +40,7 @@ public class AssignmentExpressionImpl extends AbstractSimpleEntity implements
 	}
 
 	public void setName(Name name) {
-		notifyChanged(ImpFeatureDescriptorEnum.name, this.name,
-				this.name = name);
+		notifyChanged(ImpFeatureDescriptorEnum.name, this.name, this.name = name);
 	}
 
 	private Expression exp;

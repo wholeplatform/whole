@@ -10,14 +10,12 @@ import org.whole.examples.lang.imp.model.PrimitiveTypeEnum;
 /** 
  * @generator Whole
  */
-public class ImpSpecificBuilderAdapter extends GenericBuilderContext implements
-		IImpBuilder {
+public class ImpSpecificBuilderAdapter extends GenericBuilderContext implements IImpBuilder {
 	public ImpSpecificBuilderAdapter(IBuilder strategy) {
 		super(strategy);
 	}
 
-	public ImpSpecificBuilderAdapter(IBuilder strategy,
-			IEntityContext entityContext) {
+	public ImpSpecificBuilderAdapter(IBuilder strategy, IEntityContext entityContext) {
 		super(strategy, entityContext);
 	}
 

@@ -1,18 +1,19 @@
 package org.whole.examples.lang.imp.model.impl;
 
 import org.whole.lang.model.AbstractSimpleEntity;
-import org.whole.examples.lang.imp.model.*;
+import org.whole.examples.lang.imp.model.GreaterOrEquals;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.examples.lang.imp.reflect.ImpEntityDescriptorEnum;
 import org.whole.examples.lang.imp.visitors.IImpVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
+import org.whole.examples.lang.imp.model.Expression;
 import org.whole.examples.lang.imp.reflect.ImpFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
 
 /** 
  * @generator Whole
  */
-public class GreaterOrEqualsImpl extends AbstractSimpleEntity implements
-		GreaterOrEquals {
+public class GreaterOrEqualsImpl extends AbstractSimpleEntity implements GreaterOrEquals {
 	private static final long serialVersionUID = 1;
 
 	public EntityDescriptor<GreaterOrEquals> wGetEntityDescriptor() {
@@ -27,7 +28,7 @@ public class GreaterOrEqualsImpl extends AbstractSimpleEntity implements
 		try {
 			visitor.visit(this);
 		} catch (Exception e) {
-			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+			throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
 		}
 	}
 
@@ -38,8 +39,7 @@ public class GreaterOrEqualsImpl extends AbstractSimpleEntity implements
 	}
 
 	public void setExp1(Expression exp1) {
-		notifyChanged(ImpFeatureDescriptorEnum.exp1, this.exp1,
-				this.exp1 = exp1);
+		notifyChanged(ImpFeatureDescriptorEnum.exp1, this.exp1, this.exp1 = exp1);
 	}
 
 	private Expression exp2;
@@ -49,8 +49,7 @@ public class GreaterOrEqualsImpl extends AbstractSimpleEntity implements
 	}
 
 	public void setExp2(Expression exp2) {
-		notifyChanged(ImpFeatureDescriptorEnum.exp2, this.exp2,
-				this.exp2 = exp2);
+		notifyChanged(ImpFeatureDescriptorEnum.exp2, this.exp2, this.exp2 = exp2);
 	}
 
 	public IEntity wGet(int index) {

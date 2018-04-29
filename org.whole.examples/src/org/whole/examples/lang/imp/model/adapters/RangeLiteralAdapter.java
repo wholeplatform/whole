@@ -11,8 +11,7 @@ import org.whole.examples.lang.imp.reflect.ImpFeatureDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class RangeLiteralAdapter extends AbstractEntityAdapter implements
-		RangeLiteral {
+public class RangeLiteralAdapter extends AbstractEntityAdapter implements RangeLiteral {
 	private static final long serialVersionUID = 1;
 
 	public RangeLiteralAdapter(IEntity implementor) {
@@ -32,8 +31,7 @@ public class RangeLiteralAdapter extends AbstractEntityAdapter implements
 	}
 
 	public IntLiteral getLowerBound() {
-		return wGet(ImpFeatureDescriptorEnum.lowerBound).wGetAdapter(
-				ImpEntityDescriptorEnum.IntLiteral);
+		return wGet(ImpFeatureDescriptorEnum.lowerBound).wGetAdapter(ImpEntityDescriptorEnum.IntLiteral);
 	}
 
 	public void setLowerBound(IntLiteral lowerBound) {
@@ -41,8 +39,7 @@ public class RangeLiteralAdapter extends AbstractEntityAdapter implements
 	}
 
 	public IntLiteral getUpperBound() {
-		return wGet(ImpFeatureDescriptorEnum.upperBound).wGetAdapter(
-				ImpEntityDescriptorEnum.IntLiteral);
+		return wGet(ImpFeatureDescriptorEnum.upperBound).wGetAdapter(ImpEntityDescriptorEnum.IntLiteral);
 	}
 
 	public void setUpperBound(IntLiteral upperBound) {

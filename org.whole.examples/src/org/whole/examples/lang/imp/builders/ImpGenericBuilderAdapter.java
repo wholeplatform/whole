@@ -19,8 +19,7 @@ public class ImpGenericBuilderAdapter extends GenericIdentityBuilder {
 		this.specificBuilder = specificBuilder;
 	}
 
-	public ImpGenericBuilderAdapter(IImpBuilder specificBuilder,
-			IEntityContext entityContext) {
+	public ImpGenericBuilderAdapter(IImpBuilder specificBuilder, IEntityContext entityContext) {
 		this(specificBuilder);
 		wSetEntityContext(entityContext);
 	}

@@ -11,8 +11,7 @@ import org.whole.examples.lang.imp.reflect.ImpFeatureDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class LoadExpressionAdapter extends AbstractEntityAdapter implements
-		LoadExpression {
+public class LoadExpressionAdapter extends AbstractEntityAdapter implements LoadExpression {
 	private static final long serialVersionUID = 1;
 
 	public LoadExpressionAdapter(IEntity implementor) {
@@ -32,8 +31,7 @@ public class LoadExpressionAdapter extends AbstractEntityAdapter implements
 	}
 
 	public Expression getFileName() {
-		return wGet(ImpFeatureDescriptorEnum.fileName).wGetAdapter(
-				ImpEntityDescriptorEnum.Expression);
+		return wGet(ImpFeatureDescriptorEnum.fileName).wGetAdapter(ImpEntityDescriptorEnum.Expression);
 	}
 
 	public void setFileName(Expression fileName) {
@@ -41,8 +39,7 @@ public class LoadExpressionAdapter extends AbstractEntityAdapter implements
 	}
 
 	public Expression getLanguage() {
-		return wGet(ImpFeatureDescriptorEnum.language).wGetAdapter(
-				ImpEntityDescriptorEnum.Expression);
+		return wGet(ImpFeatureDescriptorEnum.language).wGetAdapter(ImpEntityDescriptorEnum.Expression);
 	}
 
 	public void setLanguage(Expression language) {

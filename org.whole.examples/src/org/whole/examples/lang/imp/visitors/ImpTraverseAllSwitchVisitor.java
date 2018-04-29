@@ -7,8 +7,7 @@ import org.whole.examples.lang.imp.model.*;
 /** 
  * @generator Whole
  */
-public class ImpTraverseAllSwitchVisitor extends
-		ImpIdentityUnaryVisitor<IVisitor> {
+public class ImpTraverseAllSwitchVisitor extends ImpIdentityUnaryVisitor<IVisitor> {
 	public ImpTraverseAllSwitchVisitor(IVisitor visitor1) {
 		super(visitor1);
 	}

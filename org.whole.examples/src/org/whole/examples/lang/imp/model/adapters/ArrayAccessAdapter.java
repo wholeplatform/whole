@@ -11,8 +11,7 @@ import org.whole.examples.lang.imp.reflect.ImpFeatureDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class ArrayAccessAdapter extends AbstractEntityAdapter implements
-		ArrayAccess {
+public class ArrayAccessAdapter extends AbstractEntityAdapter implements ArrayAccess {
 	private static final long serialVersionUID = 1;
 
 	public ArrayAccessAdapter(IEntity implementor) {
@@ -32,8 +31,7 @@ public class ArrayAccessAdapter extends AbstractEntityAdapter implements
 	}
 
 	public Expression getArray() {
-		return wGet(ImpFeatureDescriptorEnum.array).wGetAdapter(
-				ImpEntityDescriptorEnum.Expression);
+		return wGet(ImpFeatureDescriptorEnum.array).wGetAdapter(ImpEntityDescriptorEnum.Expression);
 	}
 
 	public void setArray(Expression array) {
@@ -41,8 +39,7 @@ public class ArrayAccessAdapter extends AbstractEntityAdapter implements
 	}
 
 	public Expression getIndex() {
-		return wGet(ImpFeatureDescriptorEnum.index).wGetAdapter(
-				ImpEntityDescriptorEnum.Expression);
+		return wGet(ImpFeatureDescriptorEnum.index).wGetAdapter(ImpEntityDescriptorEnum.Expression);
 	}
 
 	public void setIndex(Expression index) {

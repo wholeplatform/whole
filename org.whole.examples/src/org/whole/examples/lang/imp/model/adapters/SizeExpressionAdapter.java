@@ -11,8 +11,7 @@ import org.whole.examples.lang.imp.reflect.ImpFeatureDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class SizeExpressionAdapter extends AbstractEntityAdapter implements
-		SizeExpression {
+public class SizeExpressionAdapter extends AbstractEntityAdapter implements SizeExpression {
 	private static final long serialVersionUID = 1;
 
 	public SizeExpressionAdapter(IEntity implementor) {
@@ -32,8 +31,7 @@ public class SizeExpressionAdapter extends AbstractEntityAdapter implements
 	}
 
 	public Expression getExp() {
-		return wGet(ImpFeatureDescriptorEnum.exp).wGetAdapter(
-				ImpEntityDescriptorEnum.Expression);
+		return wGet(ImpFeatureDescriptorEnum.exp).wGetAdapter(ImpEntityDescriptorEnum.Expression);
 	}
 
 	public void setExp(Expression exp) {

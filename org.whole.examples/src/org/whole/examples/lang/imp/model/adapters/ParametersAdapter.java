@@ -10,8 +10,7 @@ import org.whole.examples.lang.imp.reflect.ImpEntityDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class ParametersAdapter extends AbstractListEntityAdapter<Parameter>
-		implements Parameters {
+public class ParametersAdapter extends AbstractListEntityAdapter<Parameter> implements Parameters {
 	private static final long serialVersionUID = 1;
 
 	public ParametersAdapter(IEntity implementor) {

@@ -1,12 +1,15 @@
 package org.whole.examples.lang.imp.model.impl;
 
 import org.whole.lang.model.AbstractSimpleEntity;
-import org.whole.examples.lang.imp.model.*;
+import org.whole.examples.lang.imp.model.ArrayType;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.examples.lang.imp.reflect.ImpEntityDescriptorEnum;
 import org.whole.examples.lang.imp.visitors.IImpVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
+import org.whole.examples.lang.imp.model.Type;
 import org.whole.examples.lang.imp.reflect.ImpFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
+import org.whole.examples.lang.imp.model.PrimitiveType;
 
 /** 
  * @generator Whole
@@ -26,20 +29,18 @@ public class ArrayTypeImpl extends AbstractSimpleEntity implements ArrayType {
 		try {
 			visitor.visit(this);
 		} catch (Exception e) {
-			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+			throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
 		}
 	}
 
 	private Type contentType;
 
 	public Type getContentType() {
-		return notifyRequested(ImpFeatureDescriptorEnum.contentType,
-				contentType);
+		return notifyRequested(ImpFeatureDescriptorEnum.contentType, contentType);
 	}
 
 	public void setContentType(Type contentType) {
-		notifyChanged(ImpFeatureDescriptorEnum.contentType, this.contentType,
-				this.contentType = contentType);
+		notifyChanged(ImpFeatureDescriptorEnum.contentType, this.contentType, this.contentType = contentType);
 	}
 
 	private PrimitiveType indexType;
@@ -49,8 +50,7 @@ public class ArrayTypeImpl extends AbstractSimpleEntity implements ArrayType {
 	}
 
 	public void setIndexType(PrimitiveType indexType) {
-		notifyChanged(ImpFeatureDescriptorEnum.indexType, this.indexType,
-				this.indexType = indexType);
+		notifyChanged(ImpFeatureDescriptorEnum.indexType, this.indexType, this.indexType = indexType);
 	}
 
 	public IEntity wGet(int index) {
@@ -70,8 +70,7 @@ public class ArrayTypeImpl extends AbstractSimpleEntity implements ArrayType {
 			setContentType(value.wGetAdapter(ImpEntityDescriptorEnum.Type));
 			break;
 		case 1:
-			setIndexType(value
-					.wGetAdapter(ImpEntityDescriptorEnum.PrimitiveType));
+			setIndexType(value.wGetAdapter(ImpEntityDescriptorEnum.PrimitiveType));
 			break;
 		default:
 			throw new IllegalArgumentException();

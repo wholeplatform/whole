@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<workflows:Sequence xmlns:workflows="http://lang.whole.org/Workflows">
+    <workflows:Text value="sequence"/>
+    <workflows:FlowObjects initialCapacity="6">
+        <workflows:InvokeJavaClassMethod>
+            <workflows:Text value="setUserClassLoader"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <workflows:StringLiteral value="org.whole.lang.reflect.ReflectionFactory"/>
+            <workflows:StringLiteral value="setUserClassLoader(java.lang.ClassLoader)"/>
+            <workflows:Expressions initialCapacity="1">
+                <workflows:Variable value="classLoader"/>
+            </workflows:Expressions>
+        </workflows:InvokeJavaClassMethod>
+        <workflows:InvokeJavaClassMethod>
+            <workflows:Text value="deploy ImpDeployer"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <workflows:StringLiteral value="org.whole.lang.reflect.ReflectionFactory"/>
+            <workflows:StringLiteral value="deploy(java.lang.String)"/>
+            <workflows:Expressions initialCapacity="1">
+                <workflows:StringLiteral value="org.whole.examples.lang.imp.ImpDeployer"/>
+            </workflows:Expressions>
+        </workflows:InvokeJavaClassMethod>
+        <workflows:LoadModel>
+            <workflows:Text value="load ImpActions"/>
+            <workflows:Variable value="impActions"/>
+            <workflows:StringLiteral value="org.whole.lang.xml.codebase.XmlBuilderPersistenceKit"/>
+            <workflows:ResourceKind value="CLASSPATH"/>
+            <workflows:StringLiteral value="org/whole/examples/lang/imp/ImpActions.xwl"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        </workflows:LoadModel>
+        <workflows:InvokeOperation>
+            <workflows:Text value="deploy ImpActions"/>
+            <workflows:Variable value="impActions"/>
+            <workflows:Operation value="INTERPRETER"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        </workflows:InvokeOperation>
+        <workflows:LoadModel>
+            <workflows:Text value="load ImpSemantics"/>
+            <workflows:Variable value="impSemantics"/>
+            <workflows:StringLiteral value="org.whole.lang.xml.codebase.XmlBuilderPersistenceKit"/>
+            <workflows:ResourceKind value="CLASSPATH"/>
+            <workflows:StringLiteral value="org/whole/examples/lang/imp/ImpSemantics.xwl"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        </workflows:LoadModel>
+        <workflows:InvokeOperation>
+            <workflows:Text value="deploy ImpSemantics"/>
+            <workflows:Variable value="impSemantics"/>
+            <workflows:Operation value="INTERPRETER"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        </workflows:InvokeOperation>
+    </workflows:FlowObjects>
+</workflows:Sequence>

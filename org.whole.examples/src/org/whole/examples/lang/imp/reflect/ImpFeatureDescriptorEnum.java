@@ -32,36 +32,22 @@ public class ImpFeatureDescriptorEnum extends FeatureDescriptorEnum {
 	public static final ImpFeatureDescriptorEnum instance = new ImpFeatureDescriptorEnum();
 	public static final FeatureDescriptor type = instance.valueOf(type_ord);
 	public static final FeatureDescriptor name = instance.valueOf(name_ord);
-	public static final FeatureDescriptor parameters = instance
-			.valueOf(parameters_ord);
+	public static final FeatureDescriptor parameters = instance.valueOf(parameters_ord);
 	public static final FeatureDescriptor body = instance.valueOf(body_ord);
-	public static final FeatureDescriptor initializer = instance
-			.valueOf(initializer_ord);
+	public static final FeatureDescriptor initializer = instance.valueOf(initializer_ord);
 	public static final FeatureDescriptor exp = instance.valueOf(exp_ord);
-	public static final FeatureDescriptor condition = instance
-			.valueOf(condition_ord);
-	public static final FeatureDescriptor trueBody = instance
-			.valueOf(trueBody_ord);
-	public static final FeatureDescriptor falseBody = instance
-			.valueOf(falseBody_ord);
-	public static final FeatureDescriptor updater = instance
-			.valueOf(updater_ord);
-	public static final FeatureDescriptor arrayExp = instance
-			.valueOf(arrayExp_ord);
-	public static final FeatureDescriptor fileName = instance
-			.valueOf(fileName_ord);
-	public static final FeatureDescriptor language = instance
-			.valueOf(language_ord);
-	public static final FeatureDescriptor arguments = instance
-			.valueOf(arguments_ord);
-	public static final FeatureDescriptor lowerBound = instance
-			.valueOf(lowerBound_ord);
-	public static final FeatureDescriptor upperBound = instance
-			.valueOf(upperBound_ord);
-	public static final FeatureDescriptor contentType = instance
-			.valueOf(contentType_ord);
-	public static final FeatureDescriptor indexType = instance
-			.valueOf(indexType_ord);
+	public static final FeatureDescriptor condition = instance.valueOf(condition_ord);
+	public static final FeatureDescriptor trueBody = instance.valueOf(trueBody_ord);
+	public static final FeatureDescriptor falseBody = instance.valueOf(falseBody_ord);
+	public static final FeatureDescriptor updater = instance.valueOf(updater_ord);
+	public static final FeatureDescriptor arrayExp = instance.valueOf(arrayExp_ord);
+	public static final FeatureDescriptor fileName = instance.valueOf(fileName_ord);
+	public static final FeatureDescriptor language = instance.valueOf(language_ord);
+	public static final FeatureDescriptor arguments = instance.valueOf(arguments_ord);
+	public static final FeatureDescriptor lowerBound = instance.valueOf(lowerBound_ord);
+	public static final FeatureDescriptor upperBound = instance.valueOf(upperBound_ord);
+	public static final FeatureDescriptor contentType = instance.valueOf(contentType_ord);
+	public static final FeatureDescriptor indexType = instance.valueOf(indexType_ord);
 	public static final FeatureDescriptor array = instance.valueOf(array_ord);
 	public static final FeatureDescriptor index = instance.valueOf(index_ord);
 	public static final FeatureDescriptor exp1 = instance.valueOf(exp1_ord);

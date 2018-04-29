@@ -11,8 +11,7 @@ import org.whole.examples.lang.imp.reflect.ImpFeatureDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class ForeachStatementAdapter extends AbstractEntityAdapter implements
-		ForeachStatement {
+public class ForeachStatementAdapter extends AbstractEntityAdapter implements ForeachStatement {
 	private static final long serialVersionUID = 1;
 
 	public ForeachStatementAdapter(IEntity implementor) {
@@ -32,8 +31,7 @@ public class ForeachStatementAdapter extends AbstractEntityAdapter implements
 	}
 
 	public Name getName() {
-		return wGet(ImpFeatureDescriptorEnum.name).wGetAdapter(
-				ImpEntityDescriptorEnum.Name);
+		return wGet(ImpFeatureDescriptorEnum.name).wGetAdapter(ImpEntityDescriptorEnum.Name);
 	}
 
 	public void setName(Name name) {
@@ -41,8 +39,7 @@ public class ForeachStatementAdapter extends AbstractEntityAdapter implements
 	}
 
 	public Expression getArrayExp() {
-		return wGet(ImpFeatureDescriptorEnum.arrayExp).wGetAdapter(
-				ImpEntityDescriptorEnum.Expression);
+		return wGet(ImpFeatureDescriptorEnum.arrayExp).wGetAdapter(ImpEntityDescriptorEnum.Expression);
 	}
 
 	public void setArrayExp(Expression arrayExp) {
@@ -50,8 +47,7 @@ public class ForeachStatementAdapter extends AbstractEntityAdapter implements
 	}
 
 	public Statement getTrueBody() {
-		return wGet(ImpFeatureDescriptorEnum.trueBody).wGetAdapter(
-				ImpEntityDescriptorEnum.Statement);
+		return wGet(ImpFeatureDescriptorEnum.trueBody).wGetAdapter(ImpEntityDescriptorEnum.Statement);
 	}
 
 	public void setTrueBody(Statement trueBody) {

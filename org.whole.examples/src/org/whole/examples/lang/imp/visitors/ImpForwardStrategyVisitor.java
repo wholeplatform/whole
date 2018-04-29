@@ -7,8 +7,7 @@ import org.whole.lang.model.IEntity;
 /** 
  * @generator Whole
  */
-public class ImpForwardStrategyVisitor extends
-		GenericForwardStrategyVisitor<IImpVisitor> implements IImpVisitor {
+public class ImpForwardStrategyVisitor extends GenericForwardStrategyVisitor<IImpVisitor> implements IImpVisitor {
 	public ImpForwardStrategyVisitor() {
 		this(new ImpIdentityVisitor());
 	}

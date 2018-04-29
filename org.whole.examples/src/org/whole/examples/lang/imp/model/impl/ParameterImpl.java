@@ -1,12 +1,15 @@
 package org.whole.examples.lang.imp.model.impl;
 
 import org.whole.lang.model.AbstractSimpleEntity;
-import org.whole.examples.lang.imp.model.*;
+import org.whole.examples.lang.imp.model.Parameter;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.examples.lang.imp.reflect.ImpEntityDescriptorEnum;
 import org.whole.examples.lang.imp.visitors.IImpVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
+import org.whole.examples.lang.imp.model.Type;
 import org.whole.examples.lang.imp.reflect.ImpFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
+import org.whole.examples.lang.imp.model.Name;
 
 /** 
  * @generator Whole
@@ -26,7 +29,7 @@ public class ParameterImpl extends AbstractSimpleEntity implements Parameter {
 		try {
 			visitor.visit(this);
 		} catch (Exception e) {
-			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+			throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
 		}
 	}
 
@@ -37,8 +40,7 @@ public class ParameterImpl extends AbstractSimpleEntity implements Parameter {
 	}
 
 	public void setType(Type type) {
-		notifyChanged(ImpFeatureDescriptorEnum.type, this.type,
-				this.type = type);
+		notifyChanged(ImpFeatureDescriptorEnum.type, this.type, this.type = type);
 	}
 
 	private Name name;
@@ -48,8 +50,7 @@ public class ParameterImpl extends AbstractSimpleEntity implements Parameter {
 	}
 
 	public void setName(Name name) {
-		notifyChanged(ImpFeatureDescriptorEnum.name, this.name,
-				this.name = name);
+		notifyChanged(ImpFeatureDescriptorEnum.name, this.name, this.name = name);
 	}
 
 	public IEntity wGet(int index) {

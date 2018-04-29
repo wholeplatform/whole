@@ -1,18 +1,22 @@
 package org.whole.examples.lang.imp.model.impl;
 
 import org.whole.lang.model.AbstractSimpleEntity;
-import org.whole.examples.lang.imp.model.*;
+import org.whole.examples.lang.imp.model.FunctionDeclaration;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.examples.lang.imp.reflect.ImpEntityDescriptorEnum;
 import org.whole.examples.lang.imp.visitors.IImpVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
+import org.whole.examples.lang.imp.model.Type;
 import org.whole.examples.lang.imp.reflect.ImpFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
+import org.whole.examples.lang.imp.model.Name;
+import org.whole.examples.lang.imp.model.Parameters;
+import org.whole.examples.lang.imp.model.Statement;
 
 /** 
  * @generator Whole
  */
-public class FunctionDeclarationImpl extends AbstractSimpleEntity implements
-		FunctionDeclaration {
+public class FunctionDeclarationImpl extends AbstractSimpleEntity implements FunctionDeclaration {
 	private static final long serialVersionUID = 1;
 
 	public EntityDescriptor<FunctionDeclaration> wGetEntityDescriptor() {
@@ -27,7 +31,7 @@ public class FunctionDeclarationImpl extends AbstractSimpleEntity implements
 		try {
 			visitor.visit(this);
 		} catch (Exception e) {
-			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+			throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
 		}
 	}
 
@@ -38,8 +42,7 @@ public class FunctionDeclarationImpl extends AbstractSimpleEntity implements
 	}
 
 	public void setType(Type type) {
-		notifyChanged(ImpFeatureDescriptorEnum.type, this.type,
-				this.type = type);
+		notifyChanged(ImpFeatureDescriptorEnum.type, this.type, this.type = type);
 	}
 
 	private Name name;
@@ -49,8 +52,7 @@ public class FunctionDeclarationImpl extends AbstractSimpleEntity implements
 	}
 
 	public void setName(Name name) {
-		notifyChanged(ImpFeatureDescriptorEnum.name, this.name,
-				this.name = name);
+		notifyChanged(ImpFeatureDescriptorEnum.name, this.name, this.name = name);
 	}
 
 	private Parameters parameters;
@@ -60,8 +62,7 @@ public class FunctionDeclarationImpl extends AbstractSimpleEntity implements
 	}
 
 	public void setParameters(Parameters parameters) {
-		notifyChanged(ImpFeatureDescriptorEnum.parameters, this.parameters,
-				this.parameters = parameters);
+		notifyChanged(ImpFeatureDescriptorEnum.parameters, this.parameters, this.parameters = parameters);
 	}
 
 	private Statement body;
@@ -71,8 +72,7 @@ public class FunctionDeclarationImpl extends AbstractSimpleEntity implements
 	}
 
 	public void setBody(Statement body) {
-		notifyChanged(ImpFeatureDescriptorEnum.body, this.body,
-				this.body = body);
+		notifyChanged(ImpFeatureDescriptorEnum.body, this.body, this.body = body);
 	}
 
 	public IEntity wGet(int index) {

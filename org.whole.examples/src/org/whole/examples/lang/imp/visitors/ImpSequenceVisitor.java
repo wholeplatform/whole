@@ -9,8 +9,7 @@ import org.whole.lang.model.IEntity;
 /** 
  * @generator Whole
  */
-public class ImpSequenceVisitor extends AbstractBinaryVisitor<IImpVisitor>
-		implements IImpVisitor {
+public class ImpSequenceVisitor extends AbstractBinaryVisitor<IImpVisitor> implements IImpVisitor {
 	public ImpSequenceVisitor(IVisitor visitor1, IVisitor visitor2) {
 		super(visitor1, visitor2);
 	}

@@ -30,22 +30,17 @@ import org.whole.lang.visitors.IVisitorFactory;
 public class ImpLanguageDeployer extends AbstractLanguageDeployer {
 	public void deploy(ReflectionFactory platform) {
 		platform.addLanguageKit(new ImpLanguageKit());
-		platform.addOperationFactory(ImpLanguageKit.URI,
-				GenericBuilderAdapterOperation.ID, new IBuilderFactory() {
-					public IBuilder create(IBuilder strategy,
-							IEntityContext entityContext) {
-						return new ImpGenericBuilderAdapter(
-								(IImpBuilder) strategy, entityContext);
+		platform.addOperationFactory(ImpLanguageKit.URI, GenericBuilderAdapterOperation.ID, new IBuilderFactory() {
+					public IBuilder create(IBuilder strategy, IEntityContext entityContext) {
+						return new ImpGenericBuilderAdapter((IImpBuilder) strategy, entityContext);
 					}
 				});
-		platform.addOperationFactory(ImpLanguageKit.URI,
-				SpecificBuilderAdapterOperation.ID, new IBuilderFactory() {
-					public IBuilder create(IBuilder strategy,
-							IEntityContext entityContext) {
-						return new ImpSpecificBuilderAdapter(strategy,
-								entityContext);
+		platform.addOperationFactory(ImpLanguageKit.URI, SpecificBuilderAdapterOperation.ID, new IBuilderFactory() {
+					public IBuilder create(IBuilder strategy, IEntityContext entityContext) {
+						return new ImpSpecificBuilderAdapter(strategy, entityContext);
 					}
 				});
+
 		platform.addOperationFactory(ImpLanguageKit.URI, PrettyPrinterOperation.ID,
 				new IVisitorFactory() {
 			public IVisitor create(IOperation operation, int stage) {
