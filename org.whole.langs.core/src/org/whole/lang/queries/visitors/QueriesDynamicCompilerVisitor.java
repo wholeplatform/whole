@@ -27,6 +27,7 @@ import java.util.Set;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.ITransactionScope;
+import org.whole.lang.commons.model.Resolver;
 import org.whole.lang.commons.model.Variable;
 import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
@@ -793,12 +794,14 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		declaredNames = oldDeclaredNames;
 
 		entity.getExpression().accept(this);
-		IEntityIterator<? extends IEntity> selectIterator = getResultIterator();
-
-		declaredNames = namesToBound;
-
-		setResultIterator(IteratorFactory.ifIterator(conditionIterator, selectIterator).withSourceEntity(entity));
-
+		
+		if (!(conditionIterator instanceof EmptyIterator)) {
+			IEntityIterator<? extends IEntity> selectIterator = getResultIterator();
+	
+			declaredNames = namesToBound;
+	
+			setResultIterator(IteratorFactory.ifIterator(conditionIterator, selectIterator).withSourceEntity(entity));
+		}
 		declaredNames = oldDeclaredNames;
 	}
 

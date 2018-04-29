@@ -245,7 +245,9 @@
             </models:Types>
             <models:Features initialCapacity="2">
                 <models:Feature>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
                     <models:SimpleName value="Expression"/>
                     <models:SimpleName value="predicate"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
