@@ -44,13 +44,7 @@
     <feature id="org.whole.langs.misc.feature">
         <category name="whole-extras" />
     </feature>
-    <feature id="org.whole.examples.feature">
-        <category name="whole-extras" />
-    </feature>
     <feature id="org.whole.test.feature">
-        <category name="whole-extras" />
-    </feature>
-    <feature id="org.whole.examples.db.feature">
         <category name="whole-extras" />
     </feature>
     <feature id="org.whole.extras.feature">

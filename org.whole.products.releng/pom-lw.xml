@@ -60,11 +60,6 @@
 		<module>../org.whole.ide/pom-lw.xml</module>
 		<module>../org.whole.ide.feature/pom-lw.xml</module>
 
-		<module>../org.whole.examples/pom-lw.xml</module>
-		<module>../org.whole.examples.feature/pom-lw.xml</module>
-		<module>../org.whole.examples.db/pom-lw.xml</module>
-		<module>../org.whole.examples.db.feature/pom-lw.xml</module>
-
 		<module>../org.whole.extras/pom-lw.xml</module>
 		<module>../org.whole.extras.feature/pom-lw.xml</module>
 

@@ -31,14 +31,6 @@
          id="org.whole.test.feature"
          version="0.0.0"/>
 
-   <includes
-         id="org.whole.examples.feature"
-         version="0.0.0"/>
-
-   <includes
-         id="org.whole.examples.db.feature"
-         version="0.0.0"/>
-
    <plugin
          id="org.whole.extras"
          download-size="0"
