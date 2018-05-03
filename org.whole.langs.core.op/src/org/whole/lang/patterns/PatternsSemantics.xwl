@@ -5051,7 +5051,9 @@
                                         <queries:VariableRefStep value="modelDeclarartionsPoint"/>
                                         <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                                         <models:SimpleEntity xmlns:models="http://lang.whole.org/Models">
-                                        <models:EntityModifiers initialCapacity="0"/>
+                                        <models:EntityModifiers initialCapacity="1">
+                                        <models:EntityModifier value="abstract"/>
+                                        </models:EntityModifiers>
                                         <commons:Variable>
                                         <commons:VarType value="http://lang.whole.org/Models#SimpleName"/>
                                         <commons:VarName value="entityName"/>
