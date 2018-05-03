@@ -27,7 +27,6 @@ import java.util.Set;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.ITransactionScope;
-import org.whole.lang.commons.model.Resolver;
 import org.whole.lang.commons.model.Variable;
 import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
@@ -566,8 +565,9 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 
 	@Override
 	public void visit(VariableRefStep entity) {
-		setResultIterator(
-				IteratorFactory.variableIterator(entity.getValue()).withSourceEntity(entity).withSourceEntity(entity));
+		String varName = entity.getValue();
+    	setResultIterator((varName.equals("self") ?
+    			IteratorFactory.selfIterator() : IteratorFactory.variableIterator(varName)).withSourceEntity(entity));
 	}
 
 	@Override
