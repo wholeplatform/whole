@@ -645,7 +645,7 @@ public class WorkflowsEntityFactory extends GenericEntityFactory {
 	}
 
 	public InvokeJavaInstanceMethod createInvokeJavaInstanceMethod(Label label,
-			Variable result, Variable object, Expressions typeArguments,
+			Variable result, Expression object, Expressions typeArguments,
 			Expression className, Expression method, Expressions arguments) {
 		return create(WorkflowsEntityDescriptorEnum.InvokeJavaInstanceMethod,
 				label, result, object, typeArguments, className, method,

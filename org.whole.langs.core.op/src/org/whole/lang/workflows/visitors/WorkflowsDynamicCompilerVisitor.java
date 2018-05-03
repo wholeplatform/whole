@@ -32,6 +32,7 @@ import org.whole.lang.util.DataTypeUtils;
 import org.whole.lang.visitors.MissingVariableException;
 import org.whole.lang.workflows.model.BooleanLiteral;
 import org.whole.lang.workflows.model.CreateJavaClassInstance;
+import org.whole.lang.workflows.model.Expression;
 import org.whole.lang.workflows.model.Expressions;
 import org.whole.lang.workflows.model.IWorkflowsEntity;
 import org.whole.lang.workflows.model.IntLiteral;
@@ -144,7 +145,7 @@ public class WorkflowsDynamicCompilerVisitor extends WorkflowsIdentityDefaultVis
 
 		Expressions arguments = entity.getArguments();
 		int size= arguments.wSize();
-    	IEntityIterator<?>[] runnableIterators = new IEntityIterator<?>[2+size];
+    	IEntityIterator<?>[] runnableIterators = new IEntityIterator<?>[3+size];
 
     	entity.getClassName().accept(this);
 		runnableIterators[0] = getResultIterator();
@@ -152,9 +153,11 @@ public class WorkflowsDynamicCompilerVisitor extends WorkflowsIdentityDefaultVis
 		entity.getConstructor().accept(this);
 		runnableIterators[1] = getResultIterator();
 
+		runnableIterators[2] = IteratorFactory.constantIterator(BindingManagerFactory.instance.createVoid(), false);
+
     	for (int i=0; i<size; i++) {
 			arguments.get(i).accept(this);
-			runnableIterators[2+i] = getResultIterator();
+			runnableIterators[3+i] = getResultIterator();
 		}
 
     	setResultIterator(IteratorFactory.singleValuedRunnableIterator(new AbstractWorkflowsRunnable() {
@@ -183,17 +186,19 @@ public class WorkflowsDynamicCompilerVisitor extends WorkflowsIdentityDefaultVis
 
 		Expressions arguments = entity.getArguments();
 		int size= arguments.wSize();
-    	IEntityIterator<?>[] runnableIterators = new IEntityIterator<?>[2+size];
+    	IEntityIterator<?>[] runnableIterators = new IEntityIterator<?>[3+size];
 
     	entity.getClassName().accept(this);
 		runnableIterators[0] = getResultIterator();
 
 		entity.getMethod().accept(this);
 		runnableIterators[1] = getResultIterator();
+		
+		runnableIterators[2] = IteratorFactory.constantIterator(BindingManagerFactory.instance.createVoid(), false);
 
     	for (int i=0; i<size; i++) {
 			arguments.get(i).accept(this);
-			runnableIterators[2+i] = getResultIterator();
+			runnableIterators[3+i] = getResultIterator();
 		}
 
     	setResultIterator(IteratorFactory.multiValuedRunnableIterator(new AbstractWorkflowsRunnable() {
@@ -219,11 +224,10 @@ public class WorkflowsDynamicCompilerVisitor extends WorkflowsIdentityDefaultVis
 	@Override
 	public void visit(InvokeJavaInstanceMethod entity) {
     	final Variable resultVariable = entity.getResult();
-    	final Variable instanceVariable = entity.getObject();
 
 		Expressions arguments = entity.getArguments();
 		int size= arguments.wSize();
-    	IEntityIterator<?>[] runnableIterators = new IEntityIterator<?>[2+size];
+    	IEntityIterator<?>[] runnableIterators = new IEntityIterator<?>[3+size];
 
     	entity.getClassName().accept(this);
 		runnableIterators[0] = getResultIterator();
@@ -231,16 +235,20 @@ public class WorkflowsDynamicCompilerVisitor extends WorkflowsIdentityDefaultVis
 		entity.getMethod().accept(this);
 		runnableIterators[1] = getResultIterator();
 
-    	for (int i=0; i<size; i++) {
+		entity.getObject().accept(this);
+		runnableIterators[2] = getResultIterator();
+
+		for (int i=0; i<size; i++) {
 			arguments.get(i).accept(this);
-			runnableIterators[2+i] = getResultIterator();
+			runnableIterators[3+i] = getResultIterator();
 		}
 
     	setResultIterator(IteratorFactory.multiValuedRunnableIterator(new AbstractWorkflowsRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
 				String className = argsEntities[0].wStringValue();
 				IEntity methodData = argsEntities[1];
-				
+				IEntity instanceEntity = argsEntities[2];
+
 				Method method;
 				if (DataTypeUtils.getDataKind(methodData).isString())
 					method = JavaReflectUtils.getMethod(
@@ -248,14 +256,6 @@ public class WorkflowsDynamicCompilerVisitor extends WorkflowsIdentityDefaultVis
 				else
 					method = (Method) methodData.wGetValue();
 
-				IEntity instanceEntity = bm.wGet(instanceVariable.getValue());
-
-				//FIXME workaround
-				if (instanceEntity == null && instanceVariable.getValue().equals("self"))
-					instanceEntity = selfEntity;
-
-				if (instanceEntity == null)
-					throw new MissingVariableException(instanceVariable.getValue()).withSourceEntity(getSourceEntity()).withBindings(getBindings());
 				Object instance = DataTypeUtils.unbox(instanceEntity, method.getDeclaringClass(), false);
 				Object[] arguments = toArguments(method.getParameterTypes(), method.isVarArgs(), argsEntities);
 				Object resultValue = JavaReflectUtils.invokeMethod(instance, method, arguments);

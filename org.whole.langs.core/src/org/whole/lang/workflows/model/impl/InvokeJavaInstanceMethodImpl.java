@@ -53,13 +53,13 @@ public class InvokeJavaInstanceMethodImpl extends AbstractSimpleEntity
 				this.result = result);
 	}
 
-	private Variable object;
+	private Expression object;
 
-	public Variable getObject() {
+	public Expression getObject() {
 		return notifyRequested(WorkflowsFeatureDescriptorEnum.object, object);
 	}
 
-	public void setObject(Variable object) {
+	public void setObject(Expression object) {
 		notifyChanged(WorkflowsFeatureDescriptorEnum.object, this.object,
 				this.object = object);
 	}
@@ -141,7 +141,7 @@ public class InvokeJavaInstanceMethodImpl extends AbstractSimpleEntity
 			setResult(value.wGetAdapter(WorkflowsEntityDescriptorEnum.Variable));
 			break;
 		case 2:
-			setObject(value.wGetAdapter(WorkflowsEntityDescriptorEnum.Variable));
+			setObject(value.wGetAdapter(WorkflowsEntityDescriptorEnum.Expression));
 			break;
 		case 3:
 			setTypeArguments(value

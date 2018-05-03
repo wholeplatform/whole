@@ -53,7 +53,6 @@ import org.whole.lang.models.codebase.UnifiedLambdaDeltaModel;
 import org.whole.lang.models.codebase.VariantsModel;
 import org.whole.lang.models.codebase.VersionsModel;
 import org.whole.lang.models.codebase.VisitorsModel;
-import org.whole.lang.models.codebase.WorkflowsModel;
 import org.whole.lang.models.codebase.XmlModel;
 import org.whole.lang.models.codebase.XsdMappingModel;
 import org.whole.lang.models.codebase.XsdModel;
@@ -122,9 +121,6 @@ public class ModelsTemplateManager extends AbstractTemplateManager {
 		put("BPEL model", new BPELModel());
 		put("Business Process Model model", new BPMModel());
 		put("Flowchart model", new FlowchartModel());
-		put("Workflows model", new WorkflowsModel());
-//		put("Workflow model", new WorkflowModel());
-//		put("Workflow model old", new WorkflowModelOld());
 		put("IL model", new ILModel());
 
 		put("First Order Logic model", new FirstOrderLogicModel());

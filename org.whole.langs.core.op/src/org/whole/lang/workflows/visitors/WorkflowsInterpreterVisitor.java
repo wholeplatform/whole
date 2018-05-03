@@ -968,7 +968,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 	
 			Object[] arguments = toArguments(method.getParameterTypes(),
 					method.isVarArgs(), entity.getArguments());
-			Variable object = entity.getObject();
+			Expression object = entity.getObject();
 			Object instance = unbox(method.getDeclaringClass(), object, false);
 			Object resultValue = JavaReflectUtils.invokeMethod(instance, method, arguments);
 	
@@ -998,7 +998,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 	}
 
 	private Object[] toArguments(Class<?>[] parameterTypes, boolean varArgs, Expressions expressions) {
-		if (!EntityUtils.isNotResolver(expressions)) {
+		if (EntityUtils.isResolver(expressions)) {
 			setResultValue(new Object[0]);
 			expressions.accept(this);
 			return (Object[]) getResultValue();

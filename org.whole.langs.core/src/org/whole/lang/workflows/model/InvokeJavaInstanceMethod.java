@@ -8,9 +8,9 @@ public interface InvokeJavaInstanceMethod extends IWorkflowsEntity, Activity {
 
 	public void setResult(Variable result);
 
-	public Variable getObject();
+	public Expression getObject();
 
-	public void setObject(Variable object);
+	public void setObject(Expression object);
 
 	public Expressions getTypeArguments();
 

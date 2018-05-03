@@ -703,7 +703,7 @@ public class WorkflowsEntityDescriptorEnum extends EntityDescriptorEnum {
 				.withFeature(WorkflowsFeatureDescriptorEnum.result,
 						Variable_ord, true, false, false, false, false)
 				.withFeature(WorkflowsFeatureDescriptorEnum.object,
-						Variable_ord)
+						Expression_ord)
 				.withFeature(WorkflowsFeatureDescriptorEnum.typeArguments,
 						Expressions_ord, true, false, false, false, false)
 				.withFeature(WorkflowsFeatureDescriptorEnum.className,

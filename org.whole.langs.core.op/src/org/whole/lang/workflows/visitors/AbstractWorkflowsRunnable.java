@@ -58,7 +58,7 @@ public abstract class AbstractWorkflowsRunnable implements IRunnable {
 
 	protected Object[] toArguments(Class<?>[] parameterTypes, boolean varArgs, IEntity... argsEntities) {
 		int length = parameterTypes.length - (varArgs ? 1 : 0);
-		int expressionsSize = argsEntities.length-2;
+		int expressionsSize = argsEntities.length-3;
 		if (expressionsSize < length)
 			throw new IllegalArgumentException("wrong parameter number");
 		
@@ -66,14 +66,14 @@ public abstract class AbstractWorkflowsRunnable implements IRunnable {
 		
 		// map simple parameters
 		for (int i = 0; i < length; i++)
-			parameters[i] = DataTypeUtils.unbox(argsEntities[2+i], parameterTypes[i], true);
+			parameters[i] = DataTypeUtils.unbox(argsEntities[3+i], parameterTypes[i], true);
 
 		// map varArgs parameters
 		if (varArgs) {
 			Class<?> parameterType = parameterTypes[length].getComponentType();
 			Object varArgsArray = Array.newInstance(parameterType, expressionsSize - length);
 			for (int j = 0, i = length; i < expressionsSize; i++, j++)
-				Array.set(varArgsArray, j,  DataTypeUtils.unbox(argsEntities[2+i], parameterType, true));
+				Array.set(varArgsArray, j,  DataTypeUtils.unbox(argsEntities[3+i], parameterType, true));
 			
 			parameters[length] = varArgsArray;
 		}

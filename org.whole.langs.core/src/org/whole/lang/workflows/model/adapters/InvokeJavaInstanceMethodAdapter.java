@@ -49,12 +49,12 @@ public class InvokeJavaInstanceMethodAdapter extends AbstractEntityAdapter
 		wSet(WorkflowsFeatureDescriptorEnum.result, result);
 	}
 
-	public Variable getObject() {
+	public Expression getObject() {
 		return wGet(WorkflowsFeatureDescriptorEnum.object).wGetAdapter(
-				WorkflowsEntityDescriptorEnum.Variable);
+				WorkflowsEntityDescriptorEnum.Expression);
 	}
 
-	public void setObject(Variable object) {
+	public void setObject(Expression object) {
 		wSet(WorkflowsFeatureDescriptorEnum.object, object);
 	}
 
