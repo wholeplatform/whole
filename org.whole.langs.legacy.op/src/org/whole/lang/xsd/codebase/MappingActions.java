@@ -67,26 +67,20 @@ public class MappingActions extends AbstractTemplateFactory<org.whole.lang.actio
         b2._QueryDeclaration();
         b2.Choose_(2);
         b2.If_();
-        b2.ExpressionTest_();
         b2.Equals_();
-        b2.Singleton_();
         b2.Call_();
         b2.Name("getLanguage");
         b2.Expressions_(1);
         b2.VariableRefStep("contextURI");
         b2._Expressions();
         b2._Call();
-        b2._Singleton();
-        b2.Singleton_();
         b2.Call_();
         b2.Name("getLanguage");
         b2.Expressions_(1);
         b2.VariableRefStep("entityURI");
         b2._Expressions();
         b2._Call();
-        b2._Singleton();
         b2._Equals();
-        b2._ExpressionTest();
         b2.BooleanLiteral(false);
         b2._If();
         b2.Do_();
@@ -115,7 +109,7 @@ public class MappingActions extends AbstractTemplateFactory<org.whole.lang.actio
         b2.And_(1);
         b2.And_(2);
         b2.AtFeatureTest("featureType");
-        b2.KindTest("RESOLVER");
+        b2.TypeTest("http://lang.whole.org/Commons#Resolver");
         b2._And();
         b2._And();
         b2._Filter();
@@ -155,9 +149,7 @@ public class MappingActions extends AbstractTemplateFactory<org.whole.lang.actio
         b2._Filter();
         b2._Path();
         b2._Sequence();
-        b2.ExpressionTest_();
         b2.LessThan_();
-        b1.SameStageFragment_();
         b3.InvokeJavaInstanceMethod_();
         b3.Text("index of '#'");
         b1.Resolver();
@@ -169,18 +161,14 @@ public class MappingActions extends AbstractTemplateFactory<org.whole.lang.actio
         b3.StringLiteral("#");
         b3._Expressions();
         b3._InvokeJavaInstanceMethod();
-        b1._SameStageFragment();
         b2.IntLiteral(0);
         b2._LessThan();
-        b2._ExpressionTest();
         b2._Filter();
         b2.Addition_();
         b2.VariableRefStep("languageURI");
         b2.Addition_();
         b2.StringLiteral("#");
-        b2.Singleton_();
         b2.SelfStep();
-        b2._Singleton();
         b2._Addition();
         b2._Addition();
         b2._CartesianUpdate();
@@ -834,6 +822,7 @@ public class MappingActions extends AbstractTemplateFactory<org.whole.lang.actio
         b5.SimpleName("uri");
         b5.ExtraDimensions(0);
         b1.Resolver();
+        b1.Resolver();
         b5._SingleVariableDeclaration();
         b5._Parameters();
         b1.Resolver();
@@ -885,6 +874,7 @@ public class MappingActions extends AbstractTemplateFactory<org.whole.lang.actio
         b5.SimpleName("ed");
         b5.ExtraDimensions(0);
         b1.Resolver();
+        b1.Resolver();
         b5._SingleVariableDeclaration();
         b5._Parameters();
         b1.Resolver();
@@ -918,6 +908,7 @@ public class MappingActions extends AbstractTemplateFactory<org.whole.lang.actio
         b5.Varargs(true);
         b5.SimpleName("uris");
         b5.ExtraDimensions(0);
+        b1.Resolver();
         b1.Resolver();
         b5._SingleVariableDeclaration();
         b5._Parameters();
@@ -959,6 +950,7 @@ public class MappingActions extends AbstractTemplateFactory<org.whole.lang.actio
         b5.Varargs(false);
         b5.SimpleName("uri");
         b5.ExtraDimensions(0);
+        b1.Resolver();
         b1.Resolver();
         b5._SingleVariableDeclaration();
         b5.SimpleName("uris");
@@ -1008,6 +1000,7 @@ public class MappingActions extends AbstractTemplateFactory<org.whole.lang.actio
         b5.SimpleName("context");
         b5.ExtraDimensions(0);
         b1.Resolver();
+        b1.Resolver();
         b5._SingleVariableDeclaration();
         b5.SingleVariableDeclaration_();
         b1.Resolver();
@@ -1015,6 +1008,7 @@ public class MappingActions extends AbstractTemplateFactory<org.whole.lang.actio
         b5.Varargs(false);
         b5.SimpleName("enumValue");
         b5.ExtraDimensions(0);
+        b1.Resolver();
         b1.Resolver();
         b5._SingleVariableDeclaration();
         b5._Parameters();
@@ -1066,6 +1060,7 @@ public class MappingActions extends AbstractTemplateFactory<org.whole.lang.actio
         b5.SimpleName("context");
         b5.ExtraDimensions(0);
         b1.Resolver();
+        b1.Resolver();
         b5._SingleVariableDeclaration();
         b5.SingleVariableDeclaration_();
         b1.Resolver();
@@ -1073,6 +1068,7 @@ public class MappingActions extends AbstractTemplateFactory<org.whole.lang.actio
         b5.Varargs(false);
         b5.SimpleName("value");
         b5.ExtraDimensions(0);
+        b1.Resolver();
         b1.Resolver();
         b5._SingleVariableDeclaration();
         b5._Parameters();
@@ -1129,6 +1125,7 @@ public class MappingActions extends AbstractTemplateFactory<org.whole.lang.actio
         b5.Varargs(false);
         b5.SimpleName("context");
         b5.ExtraDimensions(0);
+        b1.Resolver();
         b1.Resolver();
         b5._SingleVariableDeclaration();
         b5._Parameters();
@@ -1232,6 +1229,7 @@ public class MappingActions extends AbstractTemplateFactory<org.whole.lang.actio
         b5.Varargs(false);
         b5.SimpleName("context");
         b5.ExtraDimensions(0);
+        b1.Resolver();
         b1.Resolver();
         b5._SingleVariableDeclaration();
         b5._Parameters();
@@ -1322,6 +1320,7 @@ public class MappingActions extends AbstractTemplateFactory<org.whole.lang.actio
         b5.SimpleName("uri");
         b5.ExtraDimensions(0);
         b1.Resolver();
+        b1.Resolver();
         b5._SingleVariableDeclaration();
         b5.SingleVariableDeclaration_();
         b1.Resolver();
@@ -1330,6 +1329,7 @@ public class MappingActions extends AbstractTemplateFactory<org.whole.lang.actio
         b5.SimpleName("value");
         b5.ExtraDimensions(0);
         b1.Resolver();
+        b1.Resolver();
         b5._SingleVariableDeclaration();
         b5.SingleVariableDeclaration_();
         b1.Resolver();
@@ -1337,6 +1337,7 @@ public class MappingActions extends AbstractTemplateFactory<org.whole.lang.actio
         b5.Varargs(false);
         b5.SimpleName("enumValue");
         b5.ExtraDimensions(0);
+        b1.Resolver();
         b1.Resolver();
         b5._SingleVariableDeclaration();
         b5._Parameters();
@@ -1491,9 +1492,10 @@ public class MappingActions extends AbstractTemplateFactory<org.whole.lang.actio
         b2._Filter();
         b2.Filter_();
         b2.FeatureStep("http://xsd.lang.whole.org/Mapping#mixedTypes");
-        b2.ExpressionTest_();
+        b2.Some_();
         b2.ChildStep();
-        b2._ExpressionTest();
+        b1.Resolver();
+        b2._Some();
         b2._Filter();
         b2.Filter_();
         b2.ChildStep();
@@ -1538,12 +1540,13 @@ public class MappingActions extends AbstractTemplateFactory<org.whole.lang.actio
         b2.ChildStep();
         b2.And_(2);
         b2.TypeTest("http://xsd.lang.whole.org/Mapping#EnumDataType");
-        b2.ExpressionTest_();
+        b2.Some_();
         b2.Filter_();
         b2.FeatureStep("http://xsd.lang.whole.org/Mapping#entityType");
         b2.VariableTest("enumTypeUri");
         b2._Filter();
-        b2._ExpressionTest();
+        b1.Resolver();
+        b2._Some();
         b2._And();
         b2._Filter();
         b2.FeatureStep("http://xsd.lang.whole.org/Mapping#enumValues");

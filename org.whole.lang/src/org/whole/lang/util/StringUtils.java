@@ -998,23 +998,6 @@ public class StringUtils {
 	}
 	public static String toEntityName(String name) {
 		return toJavaName(toUpperCap(name));
-
-//		String entityName;
-//		if (isJavaKeyword(toLowerCap(baseName)))
-//			entityName = baseName;
-//		else
-//			entityName = toFeatureName(baseName);
-//
-//		int length = entityName.length();
-//
-//		if (!isUpperCap(entityName)) {
-//			if (length > 0 && Character.isLetter(entityName.charAt(0)))
-//				entityName = toUpperCap(entityName);
-//			else if (length == 0 || entityName.charAt(0) != '_')
-//				entityName = "_"+entityName;
-//		}
-//
-//		return entityName;
 	}
 	public static String toFeatureName(String name) {
 		return toJavaName(toLowerPrefix(name));

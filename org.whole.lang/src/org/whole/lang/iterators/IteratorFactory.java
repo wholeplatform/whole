@@ -669,7 +669,7 @@ public class IteratorFactory {
 			}
 
 			public void toString(StringBuilder sb) {
-				sb.append("some(");
+				sb.append("exists(");
 				argsIterators[0].toString(sb);//TODO startOf
 				sb.append(")");
 			}

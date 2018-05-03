@@ -194,14 +194,12 @@ public class SchemaModelsActions extends AbstractTemplateFactory<org.whole.lang.
         b2._Sequence();
         b2.TemplateNames();
         b2._Select();
-        b1.SameStageFragment_();
         b4.InvokeOperation_();
         b4.Text("generate workspace");
         b4.Variable("workspace");
         b4.Operation("ARTIFACTS_GENERATOR");
         b1.Resolver();
         b4._InvokeOperation();
-        b1._SameStageFragment();
         b2.SelfStep();
         b2._Block();
         b2.TypeTest("http://lang.whole.org/Models#Model");
