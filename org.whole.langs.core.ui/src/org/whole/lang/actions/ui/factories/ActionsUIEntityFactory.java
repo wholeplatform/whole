@@ -182,7 +182,7 @@ public class ActionsUIEntityFactory extends ActionsEntityFactory {
 	}
 	protected IEntity createNotEqualsPredicate(IEntity prototype) {
 		QueriesEntityFactory qef = QueriesEntityFactory.instance;
-		return qef.createNot(qef.createExpressionTest(qef.createPointwiseEquals(qef.createSelfStep(),
-				createStageUpFragment(Expression, EntityUtils.clone(prototype)))));
+		return qef.createNot(qef.createPointwiseEquals(qef.createSelfStep(),
+				createStageUpFragment(Expression, EntityUtils.clone(prototype))));
 	}
 }

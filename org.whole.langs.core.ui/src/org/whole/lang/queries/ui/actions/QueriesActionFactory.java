@@ -48,7 +48,6 @@ public class QueriesActionFactory extends ActionFactory {
 				{ pf.assignableTo(QueriesEntityDescriptorEnum.Expression), QueriesEntityDescriptorEnum.Scope, "Scope", wrapIn(1)},
 				{ pf.assignableTo(QueriesEntityDescriptorEnum.Expression), QueriesEntityDescriptorEnum.Block, "Block", wrapIn(1)},
 				{ pf.assignableTo(QueriesEntityDescriptorEnum.Expression), QueriesEntityDescriptorEnum.Filter, "Filter", wrapIn0},
-				{ pf.assignableTo(QueriesEntityDescriptorEnum.Expression), QueriesEntityDescriptorEnum.ExpressionTest, "ExpressionTest", wrapIn0},
 				{ pf.assignableTo(QueriesEntityDescriptorEnum.Expression), QueriesEntityDescriptorEnum.Singleton, "Singleton", wrapIn0},
 				{ pf.assignableTo(QueriesEntityDescriptorEnum.Expression), QueriesEntityDescriptorEnum.Prune, "Prune", wrapIn0},
 				{ pf.assignableTo(QueriesEntityDescriptorEnum.Expression), QueriesEntityDescriptorEnum.Not, "Not", wrapIn0},

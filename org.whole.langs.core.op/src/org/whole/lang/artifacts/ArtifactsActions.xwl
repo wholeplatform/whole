@@ -484,13 +484,13 @@
                                         <queries:VariableTest value="persistenceKits"/>
                                         </queries:Filter>
                                         <queries:If>
-                                        <queries:One>
+                                        <queries:Some>
                                         <queries:Path initialCapacity="2">
                                         <queries:VariableRefStep value="persistenceKits"/>
                                         <queries:ChildStep/>
                                         </queries:Path>
                                         <commons:Resolver/>
-                                        </queries:One>
+                                        </queries:Some>
                                         <queries:Block initialCapacity="3">
                                         <queries:Path initialCapacity="2">
                                         <queries:VariableRefStep value="persistenceKits"/>

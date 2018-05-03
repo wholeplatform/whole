@@ -24,6 +24,7 @@ import org.whole.lang.operations.PrettyPrinterOperation;
 import org.whole.lang.queries.model.*;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.util.DataTypeUtils;
+import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Riccardo Solmi
@@ -675,11 +676,17 @@ public class QueriesPrettyPrinterVisitor extends QueriesTraverseAllVisitor {
     }
     @Override
     public void visit(Some entity) {
-    	out.printRaw("[some ");
-    	entity.getFromClause().accept(this);
-    	out.printRaw(" satisfies ");
-    	entity.getWhereClause().accept(this);
-    	out.printRaw("]");
+    	if (EntityUtils.isResolver(entity.getWhereClause())) {
+        	out.printRaw("[exists ");
+        	entity.getFromClause().accept(this);
+        	out.printRaw("]");
+    	} else {
+        	out.printRaw("[some ");
+        	entity.getFromClause().accept(this);
+        	out.printRaw(" satisfies ");
+        	entity.getWhereClause().accept(this);
+        	out.printRaw("]");
+    	}
     }
     @Override
     public void visit(One entity) {

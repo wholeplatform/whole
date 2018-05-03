@@ -79,8 +79,7 @@ public class ActionsUIContentAssistVisitor extends ActionsIdentityVisitor {
 		Expression expression = createStageUpFragment(
 				Expression, EntityUtils.clone(prototype));
 		QueriesEntityFactory qef = QueriesEntityFactory.instance;
-		return qef.createNot(qef.createExpressionTest(
-				qef.createPointwiseEquals(qef.createSelfStep(), expression)));
+		return qef.createNot(qef.createPointwiseEquals(qef.createSelfStep(), expression));
 	}
 	protected TemplateAction createReplaceTemplateAction(IEntity prototype, String label) {
 		return createReplaceTemplateAction(prototype, label, null);

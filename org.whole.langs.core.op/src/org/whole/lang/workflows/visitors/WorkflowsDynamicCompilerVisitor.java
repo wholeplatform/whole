@@ -249,6 +249,11 @@ public class WorkflowsDynamicCompilerVisitor extends WorkflowsIdentityDefaultVis
 					method = (Method) methodData.wGetValue();
 
 				IEntity instanceEntity = bm.wGet(instanceVariable.getValue());
+
+				//FIXME workaround
+				if (instanceEntity == null && instanceVariable.getValue().equals("self"))
+					instanceEntity = selfEntity;
+
 				if (instanceEntity == null)
 					throw new MissingVariableException(instanceVariable.getValue()).withSourceEntity(getSourceEntity()).withBindings(getBindings());
 				Object instance = DataTypeUtils.unbox(instanceEntity, method.getDeclaringClass(), false);

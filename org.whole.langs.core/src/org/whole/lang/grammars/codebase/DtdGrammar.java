@@ -25,8 +25,6 @@ public class DtdGrammar extends AbstractTemplateFactory<org.whole.lang.grammars.
         org.whole.lang.queries.builders.IQueriesBuilder b2 = (org.whole.lang.queries.builders.IQueriesBuilder) op.wGetBuilder(org.whole.lang.queries.reflect.QueriesLanguageKit.URI);
         b2.Choose_(2);
         b2.If_();
-        b2.ExpressionTest_();
-        b1.SameStageFragment_();
         org.whole.lang.workflows.builders.IWorkflowsBuilder b3 = (org.whole.lang.workflows.builders.IWorkflowsBuilder) op.wGetBuilder(org.whole.lang.workflows.reflect.WorkflowsLanguageKit.URI);
         b3.InvokeJavaInstanceMethod_();
         b3.Text("contains double quotes?");
@@ -39,8 +37,6 @@ public class DtdGrammar extends AbstractTemplateFactory<org.whole.lang.grammars.
         b3.StringLiteral("\"");
         b3._Expressions();
         b3._InvokeJavaInstanceMethod();
-        b1._SameStageFragment();
-        b2._ExpressionTest();
         b2.StringLiteral("'");
         b2._If();
         b2.Do_();

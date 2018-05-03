@@ -82,7 +82,6 @@ public class FilterPart extends AbstractContentPanePart {
 		boolean hideBorder = Matcher.matchAny(entity.getPredicate(),
 				QueriesEntityDescriptorEnum.MatchTest,
 				QueriesEntityDescriptorEnum.VariableTest,
-				QueriesEntityDescriptorEnum.ExpressionTest,
 				QueriesEntityDescriptorEnum.IndexTest,
 				QueriesEntityDescriptorEnum.IndexRangeTest);
 		getFigure().showPredicateBorder(!hideBorder);
