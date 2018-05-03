@@ -17,6 +17,7 @@
  */
 package org.whole.lang.environment.ui.figures;
 
+import org.eclipse.draw2d.ActionListener;
 import org.eclipse.draw2d.ChangeEvent;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.EntityFigure;
@@ -32,7 +33,7 @@ import org.whole.lang.ui.layout.ViewportTracking;
  */
 public class BidingFigure extends ContentPaneFigure {
 
-	public BidingFigure() {
+	public BidingFigure(ActionListener valueListener) {
 		setLayoutManager(new TableRowLayout().withMargin(4,4,4,4));
 		initContentPanes(4);
 
@@ -43,7 +44,7 @@ public class BidingFigure extends ContentPaneFigure {
 		IEntityFigure toggleFigure = new EntityFigure(new MonoLayout().withAutoresizeWeight(1.0f))
 				.withViewportTracking(ViewportTracking.BOTH);
 		EyeFigure eye = new EyeFigure();
-		EntityToggle entityToggle = new EntityToggle(eye, null);
+		EntityToggle entityToggle = new EntityToggle(eye, valueListener);
 		entityToggle.addChangeListener((ChangeEvent event) -> eye.setClosed(entityToggle.isSelected()));
 		toggleFigure.add(createFoldingToggle(entityToggle, 3));
 		add(toggleFigure);

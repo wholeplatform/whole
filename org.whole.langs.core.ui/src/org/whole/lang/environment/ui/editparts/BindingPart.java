@@ -20,6 +20,8 @@ package org.whole.lang.environment.ui.editparts;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.draw2d.ActionEvent;
+import org.eclipse.draw2d.ActionListener;
 import org.eclipse.draw2d.IFigure;
 import org.whole.lang.environment.factories.EnvironmentEntityFactory;
 import org.whole.lang.environment.model.Binding;
@@ -42,7 +44,17 @@ public class BindingPart extends AbstractContentPanePart {
 	private static final int DESCENDANTS_COUNT_LIMIT = 16;
 
 	protected IFigure createFigure() {
-		return new BidingFigure();
+		return new BidingFigure(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+//FIXME
+//				Display.getDefault().asyncExec(() -> {					
+//					IGraphicalEntityPart valuePart = (IGraphicalEntityPart) getChildren().get(3);
+//					rebuildChild(valuePart);
+//					getFigure().invalidateTree();
+//					getFigure().validate();
+//				});
+			}
+		});
 	}
 
 	protected void refreshChildren() {
@@ -89,15 +101,18 @@ public class BindingPart extends AbstractContentPanePart {
 		Value valueEntity = binding.getValue();
 		IEntity value = Matcher.matchImpl(EnvironmentEntityDescriptorEnum.Value, valueEntity) ? valueEntity.getValue() : valueEntity.wGetAdaptee(true);
 		List<IEntity> children = new ArrayList<IEntity>(4);
-		if (value != null && isShowValue(value)) {
+		if (value != null) {
 			children.add(EnvironmentEntityFactory.instance.createId(Integer.toHexString(System.identityHashCode(value))));
-			children.add(ModelsEntityFactory.instance.createEntityType(value.wGetEntityDescriptor().getURI()));
-			children.add(binding.getName());
-			children.add(value);
+			children.add(ModelsEntityFactory.instance.createEntityType(value.wGetEntityDescriptor().getURI()));			
 		} else {
 			children.add(EnvironmentEntityFactory.instance.createId("-"));
 			children.add(EnvironmentEntityFactory.instance.createId("-"));
-			children.add(binding.getName());
+		}
+		children.add(binding.getName());
+//		BidingFigure fig = (BidingFigure) getFigure();
+		if (value != null) {//FIXME && !fig.getFoldingToggle(0).getModel().isSelected()) {
+			children.add(value);
+		} else {
 			children.add(valueEntity);			
 		}
 		return children;
