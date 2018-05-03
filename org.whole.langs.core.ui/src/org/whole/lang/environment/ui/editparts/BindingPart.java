@@ -45,13 +45,15 @@ public class BindingPart extends AbstractContentPanePart {
 		return new BidingFigure();
 	}
 
-	protected void refreshVisuals() {
+	protected void refreshChildren() {
 		Binding binding = getModelEntity();
 		Value valueEntity = binding.getValue();
 		IEntity value = Matcher.matchImpl(EnvironmentEntityDescriptorEnum.Value, valueEntity) ? valueEntity.getValue() : valueEntity.wGetAdaptee(true);
 		BidingFigure fig = (BidingFigure) getFigure();
 		if (fig.getFoldingToggle(0).getModel().isSelected() == isShowValue(value))
 			fig.clickFoldingToggle(0);
+		
+		super.refreshChildren();
 	}
 
 	public boolean isShowValue(IEntity value) {
@@ -87,7 +89,7 @@ public class BindingPart extends AbstractContentPanePart {
 		Value valueEntity = binding.getValue();
 		IEntity value = Matcher.matchImpl(EnvironmentEntityDescriptorEnum.Value, valueEntity) ? valueEntity.getValue() : valueEntity.wGetAdaptee(true);
 		List<IEntity> children = new ArrayList<IEntity>(4);
-		if (value != null) {
+		if (value != null && isShowValue(value)) {
 			children.add(EnvironmentEntityFactory.instance.createId(Integer.toHexString(System.identityHashCode(value))));
 			children.add(ModelsEntityFactory.instance.createEntityType(value.wGetEntityDescriptor().getURI()));
 			children.add(binding.getName());
