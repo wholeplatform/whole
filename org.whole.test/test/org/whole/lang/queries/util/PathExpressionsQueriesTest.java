@@ -77,20 +77,19 @@ public class PathExpressionsQueriesTest {
 						ef.createChildStep(),
 						ef.createAnd(
 								ef.createTypeTest("Production"),
-								ef.createExpressionTest(
-										ef.createFilter(
-												ef.createFeatureStep("name"),
-												ef.createVisitorTest(new GenericIdentityVisitor() {
-													public void visit(IEntity entity) {
-														if (Matcher.matchImpl(GrammarsEntityDescriptorEnum.NonTerminal, entity) && entity.wStringValue().startsWith("I"))
-															return;
-														throw new VisitException();
-													}
-													public String toString() {
-														return "startsWith(\"I\")";
-													}
-												})
-										)))));
+								ef.createSome(
+										ef.createFeatureStep("name"),
+										ef.createVisitorTest(new GenericIdentityVisitor() {
+											public void visit(IEntity entity) {
+												if (Matcher.matchImpl(GrammarsEntityDescriptorEnum.NonTerminal, entity) && entity.wStringValue().startsWith("I"))
+													return;
+												throw new VisitException();
+											}
+											public String toString() {
+												return "startsWith(\"I\")";
+											}
+										})
+								))));
 	}
 
 	private Path buildPath10(QueriesEntityFactory ef) {
@@ -124,9 +123,9 @@ public class PathExpressionsQueriesTest {
 				(PathExpression) tm.create("path3")));		
 		Assert.assertEquals("phraseStructure/child()[type() <: Production]/rule/descendant()[type() <: Production]", toPrettyPrintString(
 				(PathExpression) tm.create("path4")));		
-		Assert.assertEquals("(phraseStructure, lexicalStructure)/child()[type() <: Production][some rule[type() = Choose] satisfies ]", toPrettyPrintString(
+		Assert.assertEquals("(phraseStructure, lexicalStructure)/child()[type() <: Production][exists rule[type() = Choose]]", toPrettyPrintString(
 				(PathExpression) tm.create("path5")));		
-		Assert.assertEquals("phraseStructure/child()[type() = Production][name[visitor: startsWith(\"I\")]]", toPrettyPrintString(buildPath9(ef)));		
+		Assert.assertEquals("phraseStructure/child()[type() = Production][some name satisfies [visitor: startsWith(\"I\")]]", toPrettyPrintString(buildPath9(ef)));		
 	}
 
 	@Test

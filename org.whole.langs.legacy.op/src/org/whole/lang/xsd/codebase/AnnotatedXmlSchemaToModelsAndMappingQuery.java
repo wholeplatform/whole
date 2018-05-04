@@ -299,8 +299,9 @@ public class AnnotatedXmlSchemaToModelsAndMappingQuery extends AbstractTemplateF
         b2._InvokeJavaClassMethod();
         b0.Not_();
         b0.Some_();
-        b0.Path_(3);
+        b0.Path_(2);
         b0.VariableRefStep("mappedBuiltInTypes");
+        b0.Filter_();
         b0.ChildStep();
         b0.Some_();
         b0.Filter_();
@@ -309,6 +310,7 @@ public class AnnotatedXmlSchemaToModelsAndMappingQuery extends AbstractTemplateF
         b0._Filter();
         b1.Resolver();
         b0._Some();
+        b0._Filter();
         b0._Path();
         b1.Resolver();
         b0._Some();

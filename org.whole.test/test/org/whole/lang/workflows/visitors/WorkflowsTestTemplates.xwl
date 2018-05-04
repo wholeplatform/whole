@@ -32,17 +32,13 @@
                             <workflows:Assignments initialCapacity="1">
                                 <workflows:Assign>
                                     <workflows:Variable value="equals"/>
-                                    <commons:SameStageFragment>
-                                        <queries:Singleton xmlns:queries="http://lang.whole.org/Queries">
-                                        <queries:Equals>
+                                    <queries:Equals xmlns:queries="http://lang.whole.org/Queries">
                                         <queries:Addition>
                                         <queries:VariableRefStep value="x"/>
                                         <queries:VariableRefStep value="y"/>
                                         </queries:Addition>
                                         <queries:IntLiteral value="10000"/>
-                                        </queries:Equals>
-                                        </queries:Singleton>
-                                    </commons:SameStageFragment>
+                                    </queries:Equals>
                                 </workflows:Assign>
                             </workflows:Assignments>
                         </workflows:AssignActivity>
@@ -85,17 +81,13 @@
                             <workflows:Assignments initialCapacity="1">
                                 <workflows:Assign>
                                     <workflows:Variable value="equals"/>
-                                    <commons:SameStageFragment>
-                                        <queries:Singleton xmlns:queries="http://lang.whole.org/Queries">
-                                        <queries:Equals>
+                                    <queries:Equals xmlns:queries="http://lang.whole.org/Queries">
                                         <queries:Addition>
                                         <queries:VariableRefStep value="x"/>
                                         <queries:VariableRefStep value="y"/>
                                         </queries:Addition>
                                         <queries:IntLiteral value="10000"/>
-                                        </queries:Equals>
-                                        </queries:Singleton>
-                                    </commons:SameStageFragment>
+                                    </queries:Equals>
                                 </workflows:Assign>
                             </workflows:Assignments>
                         </workflows:AssignActivity>
@@ -126,32 +118,28 @@
                         <workflows:WhileLoop>
                             <workflows:Text value="whileloop"/>
                             <workflows:TestTime value="before"/>
-                            <commons:SameStageFragment>
-                                <queries:Or xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
-                                    <queries:And initialCapacity="2">
-                                        <queries:LessThan>
+                            <queries:Or xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                                <queries:And initialCapacity="2">
+                                    <queries:LessThan>
                                         <queries:VariableRefStep value="count"/>
                                         <queries:VariableRefStep value="len"/>
-                                        </queries:LessThan>
-                                        <queries:GreaterOrEquals>
+                                    </queries:LessThan>
+                                    <queries:GreaterOrEquals>
                                         <queries:VariableRefStep value="len"/>
                                         <queries:IntLiteral value="0"/>
-                                        </queries:GreaterOrEquals>
-                                    </queries:And>
-                                    <queries:BooleanLiteral value="false"/>
-                                </queries:Or>
-                            </commons:SameStageFragment>
+                                    </queries:GreaterOrEquals>
+                                </queries:And>
+                                <queries:BooleanLiteral value="false"/>
+                            </queries:Or>
                             <workflows:AssignActivity>
                                 <workflows:Text value="update counter"/>
                                 <workflows:Assignments initialCapacity="1">
                                     <workflows:Assign>
                                         <workflows:Variable value="count"/>
-                                        <commons:SameStageFragment>
                                         <queries:Addition xmlns:queries="http://lang.whole.org/Queries">
                                         <queries:VariableRefStep value="count"/>
                                         <queries:IntLiteral value="1"/>
                                         </queries:Addition>
-                                        </commons:SameStageFragment>
                                     </workflows:Assign>
                                 </workflows:Assignments>
                             </workflows:AssignActivity>
@@ -200,12 +188,10 @@
                                 <workflows:Assignments initialCapacity="1">
                                     <workflows:Assign>
                                         <workflows:Variable value="count"/>
-                                        <commons:SameStageFragment>
                                         <queries:Addition xmlns:queries="http://lang.whole.org/Queries">
                                         <queries:VariableRefStep value="count"/>
                                         <queries:IntLiteral value="1"/>
                                         </queries:Addition>
-                                        </commons:SameStageFragment>
                                     </workflows:Assign>
                                 </workflows:Assignments>
                             </workflows:AssignActivity>
@@ -240,14 +226,10 @@
                             <workflows:ConditionalCases initialCapacity="3">
                                 <workflows:ConditionalCase>
                                     <workflows:Text value="conditionalcase"/>
-                                    <commons:SameStageFragment>
-                                        <queries:Singleton xmlns:queries="http://lang.whole.org/Queries">
-                                        <queries:Equals>
+                                    <queries:Equals xmlns:queries="http://lang.whole.org/Queries">
                                         <queries:VariableRefStep value="value"/>
                                         <queries:IntLiteral value="11"/>
-                                        </queries:Equals>
-                                        </queries:Singleton>
-                                    </commons:SameStageFragment>
+                                    </queries:Equals>
                                     <workflows:AssignActivity>
                                         <workflows:Text value="update"/>
                                         <workflows:Assignments initialCapacity="1">
@@ -260,14 +242,10 @@
                                 </workflows:ConditionalCase>
                                 <workflows:ConditionalCase>
                                     <workflows:Text value="conditionalcase"/>
-                                    <commons:SameStageFragment>
-                                        <queries:Singleton xmlns:queries="http://lang.whole.org/Queries">
-                                        <queries:Equals>
+                                    <queries:Equals xmlns:queries="http://lang.whole.org/Queries">
                                         <queries:VariableRefStep value="value"/>
                                         <queries:IntLiteral value="12"/>
-                                        </queries:Equals>
-                                        </queries:Singleton>
-                                    </commons:SameStageFragment>
+                                    </queries:Equals>
                                     <workflows:AssignActivity>
                                         <workflows:Text value="update"/>
                                         <workflows:Assignments initialCapacity="1">
@@ -280,14 +258,10 @@
                                 </workflows:ConditionalCase>
                                 <workflows:ConditionalCase>
                                     <workflows:Text value="conditionalcase"/>
-                                    <commons:SameStageFragment>
-                                        <queries:Singleton xmlns:queries="http://lang.whole.org/Queries">
-                                        <queries:LessThan>
+                                    <queries:LessThan xmlns:queries="http://lang.whole.org/Queries">
                                         <queries:VariableRefStep value="value"/>
                                         <queries:IntLiteral value="13"/>
-                                        </queries:LessThan>
-                                        </queries:Singleton>
-                                    </commons:SameStageFragment>
+                                    </queries:LessThan>
                                     <workflows:AssignActivity>
                                         <workflows:Text value="update"/>
                                         <workflows:Assignments initialCapacity="1">
@@ -307,50 +281,38 @@
                             <workflows:ConditionalCases initialCapacity="2">
                                 <workflows:ConditionalCase>
                                     <workflows:Text value="conditionalcase"/>
-                                    <commons:SameStageFragment>
-                                        <queries:Singleton xmlns:queries="http://lang.whole.org/Queries">
-                                        <queries:Equals>
+                                    <queries:Equals xmlns:queries="http://lang.whole.org/Queries">
                                         <queries:VariableRefStep value="result"/>
                                         <queries:IntLiteral value="1234"/>
-                                        </queries:Equals>
-                                        </queries:Singleton>
-                                    </commons:SameStageFragment>
+                                    </queries:Equals>
                                     <workflows:AssignActivity>
                                         <workflows:Text value="increment"/>
                                         <workflows:Assignments initialCapacity="1">
                                         <workflows:Assign>
                                         <workflows:Variable value="result"/>
-                                        <commons:SameStageFragment>
                                         <queries:Addition xmlns:queries="http://lang.whole.org/Queries">
                                         <queries:VariableRefStep value="result"/>
                                         <queries:IntLiteral value="1"/>
                                         </queries:Addition>
-                                        </commons:SameStageFragment>
                                         </workflows:Assign>
                                         </workflows:Assignments>
                                     </workflows:AssignActivity>
                                 </workflows:ConditionalCase>
                                 <workflows:ConditionalCase>
                                     <workflows:Text value="conditionalcase"/>
-                                    <commons:SameStageFragment>
-                                        <queries:Singleton xmlns:queries="http://lang.whole.org/Queries">
-                                        <queries:GreaterThan>
+                                    <queries:GreaterThan xmlns:queries="http://lang.whole.org/Queries">
                                         <queries:VariableRefStep value="value"/>
                                         <queries:IntLiteral value="4"/>
-                                        </queries:GreaterThan>
-                                        </queries:Singleton>
-                                    </commons:SameStageFragment>
+                                    </queries:GreaterThan>
                                     <workflows:AssignActivity>
                                         <workflows:Text value="increment"/>
                                         <workflows:Assignments initialCapacity="1">
                                         <workflows:Assign>
                                         <workflows:Variable value="value"/>
-                                        <commons:SameStageFragment>
                                         <queries:Addition xmlns:queries="http://lang.whole.org/Queries">
                                         <queries:VariableRefStep value="value"/>
                                         <queries:IntLiteral value="1"/>
                                         </queries:Addition>
-                                        </commons:SameStageFragment>
                                         </workflows:Assign>
                                         </workflows:Assignments>
                                     </workflows:AssignActivity>

@@ -1,41 +1,44 @@
 package org.whole.lang.xml.builders;
 
+import org.whole.lang.model.IEntity;
 import org.whole.lang.templates.AbstractTemplateFactory;
 import org.whole.lang.templates.AbstractTemplateManager;
 import org.whole.lang.templates.ITemplateFactory;
 
 public class XmlNormalizerBuilderTemplateManager extends AbstractTemplateManager {
 
-    private static XmlNormalizerBuilderTemplateManager instance;
+    private static class SingletonHolder {
+        private static final XmlNormalizerBuilderTemplateManager instance = new XmlNormalizerBuilderTemplateManager();
+    }
 
     public static XmlNormalizerBuilderTemplateManager instance() {
-        if (instance == null)
-            instance = new XmlNormalizerBuilderTemplateManager();
-                return instance;
+        return SingletonHolder.instance;
     }
 
     private XmlNormalizerBuilderTemplateManager() {
-        put("findNestedContent", newFindNestedContent());
-        put("findMissingContentEntities", newFindMissingContentEntities());
-        put("findConsecutiveCharDataOrCDataSect", newFindConsecutiveCharDataOrCDataSect());
+        put("findNestedContent", newfindNestedContent());
+        put("findMissingContentEntities", newfindMissingContentEntities());
+        put("findConsecutiveCharDataOrCDataSect", newfindConsecutiveCharDataOrCDataSect());
     }
 
-    public ITemplateFactory newFindNestedContent() {
-        return new AbstractTemplateFactory() {
+    public ITemplateFactory<IEntity> newfindNestedContent() {
+        return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
                 org.whole.lang.queries.builders.IQueriesBuilder b0 = (org.whole.lang.queries.builders.IQueriesBuilder) op.wGetBuilder(org.whole.lang.queries.reflect.QueriesLanguageKit.URI);
                 b0.Path_(1);
                 b0.Filter_();
                 b0.DescendantStep();
-                b0.And_();
+                b0.And_(2);
                 b0.TypeTest("Content");
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Filter_();
                 b0.ParentStep();
                 b0.TypeTest("Content");
                 b0._Filter();
-                b0._ExpressionTest();
+                org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
+                b1.Resolver();
+                b0._Some();
                 b0._And();
                 b0._Filter();
                 b0._Path();
@@ -43,8 +46,8 @@ public class XmlNormalizerBuilderTemplateManager extends AbstractTemplateManager
         };
     }
 
-    public ITemplateFactory newFindMissingContentEntities() {
-        return new AbstractTemplateFactory() {
+    public ITemplateFactory<IEntity> newfindMissingContentEntities() {
+        return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
                 org.whole.lang.queries.builders.IQueriesBuilder b0 = (org.whole.lang.queries.builders.IQueriesBuilder) op.wGetBuilder(org.whole.lang.queries.reflect.QueriesLanguageKit.URI);
@@ -52,9 +55,9 @@ public class XmlNormalizerBuilderTemplateManager extends AbstractTemplateManager
                 b0.FeatureStep("element");
                 b0.Filter_();
                 b0.DescendantStep();
-                b0.And_();
-                b0.And_();
-                b0.And_();
+                b0.And_(2);
+                b0.And_(2);
+                b0.And_(2);
                 b0.Not_();
                 b0.KindTest("RESOLVER");
                 b0._Not();
@@ -64,14 +67,16 @@ public class XmlNormalizerBuilderTemplateManager extends AbstractTemplateManager
                 b0.TypeTest("Content");
                 b0._Not();
                 b0._And();
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Filter_();
                 b0.ParentStep();
                 b0.Not_();
                 b0.TypeTest("Content");
                 b0._Not();
                 b0._Filter();
-                b0._ExpressionTest();
+                org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
+                b1.Resolver();
+                b0._Some();
                 b0._And();
                 b0._Filter();
                 b0._Path();
@@ -79,42 +84,45 @@ public class XmlNormalizerBuilderTemplateManager extends AbstractTemplateManager
         };
     }
 
-    public ITemplateFactory newFindConsecutiveCharDataOrCDataSect() {
-        return new AbstractTemplateFactory() {
+    public ITemplateFactory<IEntity> newfindConsecutiveCharDataOrCDataSect() {
+        return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
                 org.whole.lang.queries.builders.IQueriesBuilder b0 = (org.whole.lang.queries.builders.IQueriesBuilder) op.wGetBuilder(org.whole.lang.queries.reflect.QueriesLanguageKit.URI);
                 b0.Path_(1);
                 b0.Filter_();
                 b0.DescendantStep();
-                b0.Or_();
-                b0.And_();
+                b0.Or_(2);
+                b0.And_(2);
                 b0.TypeTest("CharData");
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Filter_();
                 b0.FollowingSiblingStep();
-                b0.And_();
+                b0.And_(2);
                 b0.IndexTest_();
                 b0.IntLiteral(0);
                 b0._IndexTest();
                 b0.TypeTest("CharData");
                 b0._And();
                 b0._Filter();
-                b0._ExpressionTest();
+                org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
+                b1.Resolver();
+                b0._Some();
                 b0._And();
-                b0.And_();
+                b0.And_(2);
                 b0.TypeTest("CDataSect");
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Filter_();
                 b0.FollowingSiblingStep();
-                b0.And_();
+                b0.And_(2);
                 b0.IndexTest_();
                 b0.IntLiteral(0);
                 b0._IndexTest();
                 b0.TypeTest("CDataSect");
                 b0._And();
                 b0._Filter();
-                b0._ExpressionTest();
+                b1.Resolver();
+                b0._Some();
                 b0._And();
                 b0._Or();
                 b0._Filter();

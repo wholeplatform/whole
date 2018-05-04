@@ -16,31 +16,31 @@ public class WorkflowsTestTemplateManager extends AbstractTemplateManager {
     }
 
     private WorkflowsTestTemplateManager() {
-        put("sequenceTest", newSequenceTest());
-        put("parallelTest", newParallelTest());
-        put("whileLoopTest", newWhileLoopTest());
-        put("foreachLoopTest", newForeachLoopTest());
-        put("switchControlTest", newSwitchControlTest());
-        put("loadModelTest", newLoadModelTest());
-        put("saveModelTest", newSaveModelTest());
-        put("loadAndSaveModelToStringTest", newLoadAndSaveModelToStringTest());
-        put("loadJavaModelTest", newLoadJavaModelTest());
-        put("shallowSaveArtifactsTest", newShallowSaveArtifactsTest());
-        put("deepSaveArtifactsTest", newDeepSaveArtifactsTest());
-        put("loadArtifactsTest", newLoadArtifactsTest());
-        put("invokeOperationTest", newInvokeOperationTest());
-        put("invokeQueryTest", newInvokeQueryTest());
-        put("createEntityTest", newCreateEntityTest());
-        put("createModelTest", newCreateModelTest());
-        put("createJavaClassInstanceTest", newCreateJavaClassInstanceTest());
-        put("invokeJavaClassMethodTest", newInvokeJavaClassMethodTest());
-        put("invokeJavaInstanceMethodTest", newInvokeJavaInstanceMethodTest());
-        put("parseTest", newParseTest());
-        put("unparseTest", newUnparseTest());
-        put("taskTest", newTaskTest());
+        put("sequenceTest", newsequenceTest());
+        put("parallelTest", newparallelTest());
+        put("whileLoopTest", newwhileLoopTest());
+        put("foreachLoopTest", newforeachLoopTest());
+        put("switchControlTest", newswitchControlTest());
+        put("loadModelTest", newloadModelTest());
+        put("saveModelTest", newsaveModelTest());
+        put("loadAndSaveModelToStringTest", newloadAndSaveModelToStringTest());
+        put("loadJavaModelTest", newloadJavaModelTest());
+        put("shallowSaveArtifactsTest", newshallowSaveArtifactsTest());
+        put("deepSaveArtifactsTest", newdeepSaveArtifactsTest());
+        put("loadArtifactsTest", newloadArtifactsTest());
+        put("invokeOperationTest", newinvokeOperationTest());
+        put("invokeQueryTest", newinvokeQueryTest());
+        put("createEntityTest", newcreateEntityTest());
+        put("createModelTest", newcreateModelTest());
+        put("createJavaClassInstanceTest", newcreateJavaClassInstanceTest());
+        put("invokeJavaClassMethodTest", newinvokeJavaClassMethodTest());
+        put("invokeJavaInstanceMethodTest", newinvokeJavaInstanceMethodTest());
+        put("parseTest", newparseTest());
+        put("unparseTest", newunparseTest());
+        put("taskTest", newtaskTest());
     }
 
-    public ITemplateFactory<IEntity> newSequenceTest() {
+    public ITemplateFactory<IEntity> newsequenceTest() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -71,19 +71,14 @@ public class WorkflowsTestTemplateManager extends AbstractTemplateManager {
                 b0.Assignments_(1);
                 b0.Assign_();
                 b0.Variable("equals");
-                org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
-                b1.SameStageFragment_();
-                org.whole.lang.queries.builders.IQueriesBuilder b2 = (org.whole.lang.queries.builders.IQueriesBuilder) op.wGetBuilder(org.whole.lang.queries.reflect.QueriesLanguageKit.URI);
-                b2.Singleton_();
-                b2.Equals_();
-                b2.Addition_();
-                b2.VariableRefStep("x");
-                b2.VariableRefStep("y");
-                b2._Addition();
-                b2.IntLiteral(10000);
-                b2._Equals();
-                b2._Singleton();
-                b1._SameStageFragment();
+                org.whole.lang.queries.builders.IQueriesBuilder b1 = (org.whole.lang.queries.builders.IQueriesBuilder) op.wGetBuilder(org.whole.lang.queries.reflect.QueriesLanguageKit.URI);
+                b1.Equals_();
+                b1.Addition_();
+                b1.VariableRefStep("x");
+                b1.VariableRefStep("y");
+                b1._Addition();
+                b1.IntLiteral(10000);
+                b1._Equals();
                 b0._Assign();
                 b0._Assignments();
                 b0._AssignActivity();
@@ -93,7 +88,7 @@ public class WorkflowsTestTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newParallelTest() {
+    public ITemplateFactory<IEntity> newparallelTest() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -129,19 +124,14 @@ public class WorkflowsTestTemplateManager extends AbstractTemplateManager {
                 b0.Assignments_(1);
                 b0.Assign_();
                 b0.Variable("equals");
-                org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
-                b1.SameStageFragment_();
-                org.whole.lang.queries.builders.IQueriesBuilder b2 = (org.whole.lang.queries.builders.IQueriesBuilder) op.wGetBuilder(org.whole.lang.queries.reflect.QueriesLanguageKit.URI);
-                b2.Singleton_();
-                b2.Equals_();
-                b2.Addition_();
-                b2.VariableRefStep("x");
-                b2.VariableRefStep("y");
-                b2._Addition();
-                b2.IntLiteral(10000);
-                b2._Equals();
-                b2._Singleton();
-                b1._SameStageFragment();
+                org.whole.lang.queries.builders.IQueriesBuilder b1 = (org.whole.lang.queries.builders.IQueriesBuilder) op.wGetBuilder(org.whole.lang.queries.reflect.QueriesLanguageKit.URI);
+                b1.Equals_();
+                b1.Addition_();
+                b1.VariableRefStep("x");
+                b1.VariableRefStep("y");
+                b1._Addition();
+                b1.IntLiteral(10000);
+                b1._Equals();
                 b0._Assign();
                 b0._Assignments();
                 b0._AssignActivity();
@@ -151,7 +141,7 @@ public class WorkflowsTestTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newWhileLoopTest() {
+    public ITemplateFactory<IEntity> newwhileLoopTest() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -175,40 +165,29 @@ public class WorkflowsTestTemplateManager extends AbstractTemplateManager {
                 b0.WhileLoop_();
                 b0.Text("whileloop");
                 b0.TestTime("before");
-                org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
-                b1.SameStageFragment_();
-                org.whole.lang.queries.builders.IQueriesBuilder b2 = (org.whole.lang.queries.builders.IQueriesBuilder) op.wGetBuilder(org.whole.lang.queries.reflect.QueriesLanguageKit.URI);
-                b2.Or_(2);
-                b2.And_(2);
-                b2.ExpressionTest_();
-                b2.LessThan_();
-                b2.VariableRefStep("count");
-                b2.VariableRefStep("len");
-                b2._LessThan();
-                b2._ExpressionTest();
-                b2.ExpressionTest_();
-                b2.GreaterOrEquals_();
-                b2.VariableRefStep("len");
-                b2.IntLiteral(0);
-                b2._GreaterOrEquals();
-                b2._ExpressionTest();
-                b2._And();
-                b2.ExpressionTest_();
-                b2.BooleanLiteral(false);
-                b2._ExpressionTest();
-                b2._Or();
-                b1._SameStageFragment();
+                org.whole.lang.queries.builders.IQueriesBuilder b1 = (org.whole.lang.queries.builders.IQueriesBuilder) op.wGetBuilder(org.whole.lang.queries.reflect.QueriesLanguageKit.URI);
+                b1.Or_(2);
+                b1.And_(2);
+                b1.LessThan_();
+                b1.VariableRefStep("count");
+                b1.VariableRefStep("len");
+                b1._LessThan();
+                b1.GreaterOrEquals_();
+                b1.VariableRefStep("len");
+                b1.IntLiteral(0);
+                b1._GreaterOrEquals();
+                b1._And();
+                b1.BooleanLiteral(false);
+                b1._Or();
                 b0.AssignActivity_();
                 b0.Text("update counter");
                 b0.Assignments_(1);
                 b0.Assign_();
                 b0.Variable("count");
-                b1.SameStageFragment_();
-                b2.Addition_();
-                b2.VariableRefStep("count");
-                b2.IntLiteral(1);
-                b2._Addition();
-                b1._SameStageFragment();
+                b1.Addition_();
+                b1.VariableRefStep("count");
+                b1.IntLiteral(1);
+                b1._Addition();
                 b0._Assign();
                 b0._Assignments();
                 b0._AssignActivity();
@@ -219,7 +198,7 @@ public class WorkflowsTestTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newForeachLoopTest() {
+    public ITemplateFactory<IEntity> newforeachLoopTest() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -262,12 +241,10 @@ public class WorkflowsTestTemplateManager extends AbstractTemplateManager {
                 b0.Assignments_(1);
                 b0.Assign_();
                 b0.Variable("count");
-                b1.SameStageFragment_();
                 b2.Addition_();
                 b2.VariableRefStep("count");
                 b2.IntLiteral(1);
                 b2._Addition();
-                b1._SameStageFragment();
                 b0._Assign();
                 b0._Assignments();
                 b0._AssignActivity();
@@ -278,7 +255,7 @@ public class WorkflowsTestTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newSwitchControlTest() {
+    public ITemplateFactory<IEntity> newswitchControlTest() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -305,16 +282,11 @@ public class WorkflowsTestTemplateManager extends AbstractTemplateManager {
                 b0.ConditionalCases_(3);
                 b0.ConditionalCase_();
                 b0.Text("conditionalcase");
-                org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
-                b1.SameStageFragment_();
-                org.whole.lang.queries.builders.IQueriesBuilder b2 = (org.whole.lang.queries.builders.IQueriesBuilder) op.wGetBuilder(org.whole.lang.queries.reflect.QueriesLanguageKit.URI);
-                b2.Singleton_();
-                b2.Equals_();
-                b2.VariableRefStep("value");
-                b2.IntLiteral(11);
-                b2._Equals();
-                b2._Singleton();
-                b1._SameStageFragment();
+                org.whole.lang.queries.builders.IQueriesBuilder b1 = (org.whole.lang.queries.builders.IQueriesBuilder) op.wGetBuilder(org.whole.lang.queries.reflect.QueriesLanguageKit.URI);
+                b1.Equals_();
+                b1.VariableRefStep("value");
+                b1.IntLiteral(11);
+                b1._Equals();
                 b0.AssignActivity_();
                 b0.Text("update");
                 b0.Assignments_(1);
@@ -327,14 +299,10 @@ public class WorkflowsTestTemplateManager extends AbstractTemplateManager {
                 b0._ConditionalCase();
                 b0.ConditionalCase_();
                 b0.Text("conditionalcase");
-                b1.SameStageFragment_();
-                b2.Singleton_();
-                b2.Equals_();
-                b2.VariableRefStep("value");
-                b2.IntLiteral(12);
-                b2._Equals();
-                b2._Singleton();
-                b1._SameStageFragment();
+                b1.Equals_();
+                b1.VariableRefStep("value");
+                b1.IntLiteral(12);
+                b1._Equals();
                 b0.AssignActivity_();
                 b0.Text("update");
                 b0.Assignments_(1);
@@ -347,14 +315,10 @@ public class WorkflowsTestTemplateManager extends AbstractTemplateManager {
                 b0._ConditionalCase();
                 b0.ConditionalCase_();
                 b0.Text("conditionalcase");
-                b1.SameStageFragment_();
-                b2.Singleton_();
-                b2.LessThan_();
-                b2.VariableRefStep("value");
-                b2.IntLiteral(13);
-                b2._LessThan();
-                b2._Singleton();
-                b1._SameStageFragment();
+                b1.LessThan_();
+                b1.VariableRefStep("value");
+                b1.IntLiteral(13);
+                b1._LessThan();
                 b0.AssignActivity_();
                 b0.Text("update");
                 b0.Assignments_(1);
@@ -366,7 +330,8 @@ public class WorkflowsTestTemplateManager extends AbstractTemplateManager {
                 b0._AssignActivity();
                 b0._ConditionalCase();
                 b0._ConditionalCases();
-                b1.Resolver();
+                org.whole.lang.commons.builders.ICommonsBuilder b2 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
+                b2.Resolver();
                 b0._SwitchControl();
                 b0.SwitchControl_();
                 b0.Text("switchcontrol");
@@ -374,56 +339,44 @@ public class WorkflowsTestTemplateManager extends AbstractTemplateManager {
                 b0.ConditionalCases_(2);
                 b0.ConditionalCase_();
                 b0.Text("conditionalcase");
-                b1.SameStageFragment_();
-                b2.Singleton_();
-                b2.Equals_();
-                b2.VariableRefStep("result");
-                b2.IntLiteral(1234);
-                b2._Equals();
-                b2._Singleton();
-                b1._SameStageFragment();
+                b1.Equals_();
+                b1.VariableRefStep("result");
+                b1.IntLiteral(1234);
+                b1._Equals();
                 b0.AssignActivity_();
                 b0.Text("increment");
                 b0.Assignments_(1);
                 b0.Assign_();
                 b0.Variable("result");
-                b1.SameStageFragment_();
-                b2.Addition_();
-                b2.VariableRefStep("result");
-                b2.IntLiteral(1);
-                b2._Addition();
-                b1._SameStageFragment();
+                b1.Addition_();
+                b1.VariableRefStep("result");
+                b1.IntLiteral(1);
+                b1._Addition();
                 b0._Assign();
                 b0._Assignments();
                 b0._AssignActivity();
                 b0._ConditionalCase();
                 b0.ConditionalCase_();
                 b0.Text("conditionalcase");
-                b1.SameStageFragment_();
-                b2.Singleton_();
-                b2.GreaterThan_();
-                b2.VariableRefStep("value");
-                b2.IntLiteral(4);
-                b2._GreaterThan();
-                b2._Singleton();
-                b1._SameStageFragment();
+                b1.GreaterThan_();
+                b1.VariableRefStep("value");
+                b1.IntLiteral(4);
+                b1._GreaterThan();
                 b0.AssignActivity_();
                 b0.Text("increment");
                 b0.Assignments_(1);
                 b0.Assign_();
                 b0.Variable("value");
-                b1.SameStageFragment_();
-                b2.Addition_();
-                b2.VariableRefStep("value");
-                b2.IntLiteral(1);
-                b2._Addition();
-                b1._SameStageFragment();
+                b1.Addition_();
+                b1.VariableRefStep("value");
+                b1.IntLiteral(1);
+                b1._Addition();
                 b0._Assign();
                 b0._Assignments();
                 b0._AssignActivity();
                 b0._ConditionalCase();
                 b0._ConditionalCases();
-                b1.Resolver();
+                b2.Resolver();
                 b0._SwitchControl();
                 b0._FlowObjects();
                 b0._Sequence();
@@ -431,7 +384,7 @@ public class WorkflowsTestTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newLoadModelTest() {
+    public ITemplateFactory<IEntity> newloadModelTest() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -453,7 +406,7 @@ public class WorkflowsTestTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newSaveModelTest() {
+    public ITemplateFactory<IEntity> newsaveModelTest() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -484,7 +437,7 @@ public class WorkflowsTestTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newLoadAndSaveModelToStringTest() {
+    public ITemplateFactory<IEntity> newloadAndSaveModelToStringTest() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -515,7 +468,7 @@ public class WorkflowsTestTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newLoadJavaModelTest() {
+    public ITemplateFactory<IEntity> newloadJavaModelTest() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -530,7 +483,7 @@ public class WorkflowsTestTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newShallowSaveArtifactsTest() {
+    public ITemplateFactory<IEntity> newshallowSaveArtifactsTest() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -723,7 +676,7 @@ public class WorkflowsTestTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newDeepSaveArtifactsTest() {
+    public ITemplateFactory<IEntity> newdeepSaveArtifactsTest() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -916,7 +869,7 @@ public class WorkflowsTestTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newLoadArtifactsTest() {
+    public ITemplateFactory<IEntity> newloadArtifactsTest() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -945,7 +898,7 @@ public class WorkflowsTestTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newInvokeOperationTest() {
+    public ITemplateFactory<IEntity> newinvokeOperationTest() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -1080,7 +1033,7 @@ public class WorkflowsTestTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newInvokeQueryTest() {
+    public ITemplateFactory<IEntity> newinvokeQueryTest() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -1135,7 +1088,7 @@ public class WorkflowsTestTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newCreateEntityTest() {
+    public ITemplateFactory<IEntity> newcreateEntityTest() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -1194,7 +1147,7 @@ public class WorkflowsTestTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newCreateModelTest() {
+    public ITemplateFactory<IEntity> newcreateModelTest() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -1254,7 +1207,7 @@ public class WorkflowsTestTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newCreateJavaClassInstanceTest() {
+    public ITemplateFactory<IEntity> newcreateJavaClassInstanceTest() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -1274,7 +1227,7 @@ public class WorkflowsTestTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newInvokeJavaClassMethodTest() {
+    public ITemplateFactory<IEntity> newinvokeJavaClassMethodTest() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -1294,7 +1247,7 @@ public class WorkflowsTestTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newInvokeJavaInstanceMethodTest() {
+    public ITemplateFactory<IEntity> newinvokeJavaInstanceMethodTest() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -1334,7 +1287,7 @@ public class WorkflowsTestTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newParseTest() {
+    public ITemplateFactory<IEntity> newparseTest() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -1415,7 +1368,7 @@ public class WorkflowsTestTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newUnparseTest() {
+    public ITemplateFactory<IEntity> newunparseTest() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -1484,7 +1437,7 @@ public class WorkflowsTestTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newTaskTest() {
+    public ITemplateFactory<IEntity> newtaskTest() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
