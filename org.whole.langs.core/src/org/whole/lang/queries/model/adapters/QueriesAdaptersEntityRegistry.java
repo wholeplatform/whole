@@ -119,7 +119,6 @@ public class QueriesAdaptersEntityRegistry extends AbstractEntityRegistry {
         put(new IndexRangeTestAdapter());
         put(new VisitorTestAdapter());
         put(new MatchTestAdapter());
-        put(new ExpressionTestAdapter());
         put(new DistinctTestAdapter());
         put(new AndAdapter());
         put(new OrAdapter());

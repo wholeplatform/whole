@@ -466,11 +466,6 @@ public class QueriesIdentityDefaultVisitor extends QueriesIdentityVisitor {
         visit((Predicate) entity);
     }
 
-    public void visit(ExpressionTest entity) {
-        visit((IQueriesEntity) entity);
-        visit((Predicate) entity);
-    }
-
     public void visit(DistinctTest entity) {
         visit((IQueriesEntity) entity);
         visit((Predicate) entity);

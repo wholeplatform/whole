@@ -180,8 +180,6 @@ public interface IQueriesVisitor extends IVisitor {
 
     public void visit(MatchTest entity);
 
-    public void visit(ExpressionTest entity);
-
     public void visit(DistinctTest entity);
 
     public void visit(And entity);

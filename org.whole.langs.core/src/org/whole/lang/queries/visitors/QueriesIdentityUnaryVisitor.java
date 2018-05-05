@@ -270,9 +270,6 @@ public class QueriesIdentityUnaryVisitor<V extends IVisitor>  extends AbstractUn
     public void visit(MatchTest entity) {
     }
 
-    public void visit(ExpressionTest entity) {
-    }
-
     public void visit(DistinctTest entity) {
     }
 

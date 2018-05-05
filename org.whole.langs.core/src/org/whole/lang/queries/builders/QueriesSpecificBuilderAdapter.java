@@ -1034,18 +1034,6 @@ public class QueriesSpecificBuilderAdapter extends GenericBuilderContext impleme
         _wEntity(QueriesEntityDescriptorEnum.MatchTest);
     }
 
-    public void ExpressionTest() {
-        wEntity(QueriesEntityDescriptorEnum.ExpressionTest);
-    }
-
-    public void ExpressionTest_() {
-        wEntity_(QueriesEntityDescriptorEnum.ExpressionTest);
-    }
-
-    public void _ExpressionTest() {
-        _wEntity(QueriesEntityDescriptorEnum.ExpressionTest);
-    }
-
     public void DistinctTest() {
         wEntity(QueriesEntityDescriptorEnum.DistinctTest);
     }

@@ -183,10 +183,6 @@ public class QueriesTraverseAllVisitor extends QueriesIdentityUnaryVisitor<IQuer
         entity.getExpression().accept(wGetVisitor1());
     }
 
-    public void visit(ExpressionTest entity) {
-        entity.getExpression().accept(wGetVisitor1());
-    }
-
     public void visit(DistinctTest entity) {
         entity.getComparator().accept(wGetVisitor1());
     }

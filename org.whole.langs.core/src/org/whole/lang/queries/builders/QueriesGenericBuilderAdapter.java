@@ -293,9 +293,6 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
             case QueriesEntityDescriptorEnum.MatchTest_ord :
             specificBuilder.MatchTest();
             break;
-            case QueriesEntityDescriptorEnum.ExpressionTest_ord :
-            specificBuilder.ExpressionTest();
-            break;
             case QueriesEntityDescriptorEnum.DistinctTest_ord :
             specificBuilder.DistinctTest();
             break;
@@ -601,9 +598,6 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
             case QueriesEntityDescriptorEnum.MatchTest_ord :
             specificBuilder.MatchTest_();
             break;
-            case QueriesEntityDescriptorEnum.ExpressionTest_ord :
-            specificBuilder.ExpressionTest_();
-            break;
             case QueriesEntityDescriptorEnum.DistinctTest_ord :
             specificBuilder.DistinctTest_();
             break;
@@ -908,9 +902,6 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
             break;
             case QueriesEntityDescriptorEnum.MatchTest_ord :
             specificBuilder._MatchTest();
-            break;
-            case QueriesEntityDescriptorEnum.ExpressionTest_ord :
-            specificBuilder._ExpressionTest();
             break;
             case QueriesEntityDescriptorEnum.DistinctTest_ord :
             specificBuilder._DistinctTest();

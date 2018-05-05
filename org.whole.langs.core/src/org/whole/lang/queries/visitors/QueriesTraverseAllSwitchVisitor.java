@@ -178,10 +178,6 @@ public class QueriesTraverseAllSwitchVisitor extends QueriesIdentityUnaryVisitor
         wGetVisitor1().visit(entity.getExpression());
     }
 
-    public void visit(ExpressionTest entity) {
-        wGetVisitor1().visit(entity.getExpression());
-    }
-
     public void visit(DistinctTest entity) {
         wGetVisitor1().visit(entity.getComparator());
     }

@@ -338,10 +338,6 @@ public class QueriesFailureVisitor extends QueriesIdentityVisitor {
         throw new VisitException();
     }
 
-    public void visit(ExpressionTest entity) {
-        throw new VisitException();
-    }
-
     public void visit(DistinctTest entity) {
         throw new VisitException();
     }

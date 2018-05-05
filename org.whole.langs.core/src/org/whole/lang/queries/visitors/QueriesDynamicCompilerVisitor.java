@@ -31,7 +31,6 @@ import org.whole.lang.commons.model.Variable;
 import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.commons.reflect.CommonsLanguageKit;
-import org.whole.lang.commons.visitors.CommonsInterpreterVisitor;
 import org.whole.lang.comparators.BusinessIdentityComparator;
 import org.whole.lang.comparators.IEntityComparator;
 import org.whole.lang.comparators.IdentityIteratorComparator;
@@ -991,40 +990,30 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		setResultIterator(IteratorFactory.matchInScopeIterator(getResultIterator()).withSourceEntity(entity));
 	}
 
-	@Override
-	public void visit(ExpressionTest entity) {
-		Expression e = entity.getExpression();
-
-		if (EntityUtils.isStageUpFragment(e)) {
-			CommonsInterpreterVisitor.evaluateAdapter((IEntityAdapter) e, getOperation());
-
-			setResultIterator(IteratorFactory.matchInScopeIterator(getResultIterator()).withSourceEntity(entity));
-//WAS		IEntity pe = getResult();
-//			setResultPredicate(GenericMatcherFactory.instance.matchInScope(pe).withSourceEntity(entity));
+//	@Override
+//	public void visit(ExpressionTest entity) {
+//		Expression e = entity.getExpression();
 //
-//			IEntityIterator<IEntity> variableIterator = IteratorFactory.descendantOrSelfMatcherIterator()
-//					.withPattern(GenericMatcherFactory.instance.isVariableMatcher()).withSourceEntity(entity);
-//			variableIterator.reset(pe);
-//			for (IEntity variableAdapter : variableIterator) {
-//				Variable variable = (Variable) variableAdapter.wGetAdaptee(false);
-//				declaredNames.add(variable.getVarName().getValue());
-//			}
-		} else if (EntityUtils.isSameStageFragment(e)) {
-			e.accept(this);
-		} else if (!e.wGetLanguageKit().getURI().equals(QueriesLanguageKit.URI)) {
-			e.accept(this);
-		} else if (Matcher.matchImpl(QueriesEntityDescriptorEnum.PointwiseEquals, e))
-			e.accept(this);
-		else if ((QueriesEntityDescriptorEnum.Expression.isLanguageSupertypeOf(e.wGetEntityDescriptor()) &&
-				! QueriesEntityDescriptorEnum.PathExpression.isLanguageSupertypeOf(e.wGetEntityDescriptor()))
-				|| QueriesEntityDescriptorEnum.MathStep.isLanguageSupertypeOf(e.wGetEntityDescriptor()))
-			e.accept(this);
-		else {
-			// TODO replace ExpressionTest with Some and remove
-			e.accept(this);
-			setResultIterator(IteratorFactory.someIterator(getResultIterator()).withSourceEntity(entity));
-		}
-	}
+//		if (EntityUtils.isStageUpFragment(e)) {
+//			CommonsInterpreterVisitor.evaluateAdapter((IEntityAdapter) e, getOperation());
+//
+//			setResultIterator(IteratorFactory.matchInScopeIterator(getResultIterator()).withSourceEntity(entity));
+//		} else if (EntityUtils.isSameStageFragment(e)) {
+//			e.accept(this);
+//		} else if (!e.wGetLanguageKit().getURI().equals(QueriesLanguageKit.URI)) {
+//			e.accept(this);
+//		} else if (Matcher.matchImpl(QueriesEntityDescriptorEnum.PointwiseEquals, e))
+//			e.accept(this);
+//		else if ((QueriesEntityDescriptorEnum.Expression.isLanguageSupertypeOf(e.wGetEntityDescriptor()) &&
+//				! QueriesEntityDescriptorEnum.PathExpression.isLanguageSupertypeOf(e.wGetEntityDescriptor()))
+//				|| QueriesEntityDescriptorEnum.MathStep.isLanguageSupertypeOf(e.wGetEntityDescriptor()))
+//			e.accept(this);
+//		else {
+//			// TODO replace ExpressionTest with Some and remove
+//			e.accept(this);
+//			setResultIterator(IteratorFactory.someIterator(getResultIterator()).withSourceEntity(entity));
+//		}
+//	}
 
 	@Override
 	public void visit(PointwiseEquals entity) {

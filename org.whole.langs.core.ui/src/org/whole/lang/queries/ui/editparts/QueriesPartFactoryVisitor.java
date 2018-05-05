@@ -564,11 +564,6 @@ public class QueriesPartFactoryVisitor extends QueriesIdentityDefaultVisitor imp
 	}
 
 	@Override
-	public void visit(ExpressionTest entity) {
-		part = new ExpressionTestPart();
-	}
-
-	@Override
 	public void visit(VariableRefStep entity) {
 		part = new VariableDataEntityPart();
 	}

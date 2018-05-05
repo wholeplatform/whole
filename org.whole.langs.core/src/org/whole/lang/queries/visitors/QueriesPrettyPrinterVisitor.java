@@ -502,12 +502,6 @@ public class QueriesPrettyPrinterVisitor extends QueriesTraverseAllVisitor {
     	out.printRaw(entity.getValue().toString());
     	out.printRaw("]");
     }
-    @Override
-    public void visit(ExpressionTest entity) {
-    	out.printRaw("[");
-    	entity.getExpression().accept(this);
-    	out.printRaw("]");
-    }
     
     @Override
     public void visit(PointwiseEquals entity) {

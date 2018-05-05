@@ -652,14 +652,6 @@ public class QueriesEntityFactory extends GenericEntityFactory {
         return create(QueriesEntityDescriptorEnum.MatchTest, expression);
     }
 
-    public ExpressionTest createExpressionTest() {
-        return create(QueriesEntityDescriptorEnum.ExpressionTest);
-    }
-
-    public ExpressionTest createExpressionTest(Expression expression) {
-        return create(QueriesEntityDescriptorEnum.ExpressionTest, expression);
-    }
-
     public DistinctTest createDistinctTest() {
         return create(QueriesEntityDescriptorEnum.DistinctTest);
     }

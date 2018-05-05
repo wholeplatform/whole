@@ -332,10 +332,6 @@ public class QueriesForwardStagedVisitor extends QueriesIdentityVisitor {
         stagedVisit(entity);
     }
 
-    public void visit(ExpressionTest entity) {
-        stagedVisit(entity);
-    }
-
     public void visit(DistinctTest entity) {
         stagedVisit(entity);
     }

@@ -528,12 +528,6 @@ public interface IQueriesBuilder extends IBuilder {
 
     public void _MatchTest();
 
-    public void ExpressionTest();
-
-    public void ExpressionTest_();
-
-    public void _ExpressionTest();
-
     public void DistinctTest();
 
     public void DistinctTest_();

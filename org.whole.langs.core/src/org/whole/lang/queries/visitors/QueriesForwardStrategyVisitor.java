@@ -346,10 +346,6 @@ public class QueriesForwardStrategyVisitor extends GenericForwardStrategyVisitor
         wGetStrategy().visit(entity);
     }
 
-    public void visit(ExpressionTest entity) {
-        wGetStrategy().visit(entity);
-    }
-
     public void visit(DistinctTest entity) {
         wGetStrategy().visit(entity);
     }
