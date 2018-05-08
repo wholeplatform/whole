@@ -58,7 +58,7 @@ public class AnnotateXmlSchemaQuery extends AbstractTemplateFactory<org.whole.la
         b1.InvokeJavaInstanceMethod_();
         b1.Text("index of \":\" in reference");
         b2.Resolver();
-        b1.Variable("self");
+        b0.SelfStep();
         b2.Resolver();
         b1.StringLiteral("java.lang.String");
         b1.StringLiteral("indexOf(java.lang.String)");
@@ -73,7 +73,7 @@ public class AnnotateXmlSchemaQuery extends AbstractTemplateFactory<org.whole.la
         b1.InvokeJavaInstanceMethod_();
         b1.Text("get target prefix");
         b2.Resolver();
-        b1.Variable("self");
+        b0.SelfStep();
         b2.Resolver();
         b1.StringLiteral("java.lang.String");
         b1.StringLiteral("replaceFirst(java.lang.String, java.lang.String)");
@@ -129,7 +129,7 @@ public class AnnotateXmlSchemaQuery extends AbstractTemplateFactory<org.whole.la
         b1.InvokeJavaInstanceMethod_();
         b1.Text("get base name");
         b2.Resolver();
-        b1.Variable("self");
+        b0.SelfStep();
         b2.Resolver();
         b1.StringLiteral("java.lang.String");
         b1.StringLiteral("replaceFirst(java.lang.String, java.lang.String)");
@@ -153,7 +153,7 @@ public class AnnotateXmlSchemaQuery extends AbstractTemplateFactory<org.whole.la
         b1.InvokeJavaInstanceMethod_();
         b1.Text("get uri part");
         b2.Resolver();
-        b1.Variable("self");
+        b0.SelfStep();
         b2.Resolver();
         b1.StringLiteral("java.lang.String");
         b1.StringLiteral("replaceFirst(java.lang.String, java.lang.String)");
@@ -258,7 +258,7 @@ public class AnnotateXmlSchemaQuery extends AbstractTemplateFactory<org.whole.la
         b1.InvokeJavaInstanceMethod_();
         b1.Text("get base name");
         b2.Resolver();
-        b1.Variable("self");
+        b0.SelfStep();
         b2.Resolver();
         b1.StringLiteral("java.lang.String");
         b1.StringLiteral("replaceFirst(java.lang.String, java.lang.String)");
@@ -605,7 +605,7 @@ public class AnnotateXmlSchemaQuery extends AbstractTemplateFactory<org.whole.la
         b1.InvokeJavaInstanceMethod_();
         b1.Text("get schema builtIn base name");
         b2.Resolver();
-        b1.Variable("self");
+        b0.SelfStep();
         b2.Resolver();
         b1.StringLiteral("java.lang.String");
         b1.StringLiteral("replaceFirst(java.lang.String, java.lang.String)");
@@ -1411,7 +1411,7 @@ public class AnnotateXmlSchemaQuery extends AbstractTemplateFactory<org.whole.la
         b1.InvokeJavaInstanceMethod_();
         b1.Text("get schema builtIn base name");
         b1.Variable("baseName");
-        b1.Variable("self");
+        b0.SelfStep();
         b2.Resolver();
         b1.StringLiteral("java.lang.String");
         b1.StringLiteral("replaceFirst(java.lang.String, java.lang.String)");
@@ -2786,7 +2786,7 @@ public class AnnotateXmlSchemaQuery extends AbstractTemplateFactory<org.whole.la
         b1.InvokeJavaInstanceMethod_();
         b1.Text("get base name from reference");
         b1.Variable("attributeName");
-        b1.Variable("self");
+        b0.SelfStep();
         b2.Resolver();
         b1.StringLiteral("java.lang.String");
         b1.StringLiteral("replaceFirst(java.lang.String, java.lang.String)");
