@@ -436,6 +436,7 @@ public class WorkspaceArtifactsGeneratorVisitor extends AbstractArtifactsGenerat
 			file = project.getFile(fileNameWithExtension);
 		}
 
+		env().setResult(null);
 		env().wDefValue("persistenceProvider", new IFilePersistenceProvider(file, env()));
 		IEntity result = InterpreterOperation.interpret(entity.getContent(), env()).getResult();
 		try {

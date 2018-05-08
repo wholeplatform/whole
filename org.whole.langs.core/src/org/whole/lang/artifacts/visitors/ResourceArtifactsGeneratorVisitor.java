@@ -203,6 +203,7 @@ public class ResourceArtifactsGeneratorVisitor extends AbstractArtifactsGenerato
 
 			env().wDefValue("persistenceProvider", new FilePersistenceProvider(file, env()));
 
+			env().setResult(null);
 			IEntity result = InterpreterOperation.interpret(entity.getContent(), env()).getResult();
 			if (result != null)
 				writeContents(result);
