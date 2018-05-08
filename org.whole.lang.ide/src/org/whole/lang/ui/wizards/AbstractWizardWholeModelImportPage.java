@@ -236,6 +236,8 @@ public abstract class AbstractWizardWholeModelImportPage extends WizardResourceI
 
 	private boolean existsFilename() {
 		IContainer container = getSpecifiedContainer();
+		if (container == null)
+			return false;
 		switch (container.getType()) {
 		case IContainer.FOLDER:
 			IFolder folder = (IFolder) container;
