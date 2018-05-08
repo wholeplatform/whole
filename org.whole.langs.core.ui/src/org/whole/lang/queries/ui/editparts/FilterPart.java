@@ -31,6 +31,7 @@ import org.whole.lang.ui.editparts.AbstractContentPanePart;
 import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.layout.IEntityLayout;
 import org.whole.lang.ui.util.AnimableRunnable;
+import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Riccardo Solmi
@@ -79,11 +80,14 @@ public class FilterPart extends AbstractContentPanePart {
 	@Override
 	protected void refreshVisuals() {
 		Filter entity = getModelEntity();
-		boolean hideBorder = Matcher.matchAny(entity.getPredicate(),
+		boolean showExpressionBorder = Matcher.matchAny(entity.getExpression(),
+				QueriesEntityDescriptorEnum.Path);
+		boolean hidePredicateBorder = Matcher.matchAny(entity.getPredicate(),
 				QueriesEntityDescriptorEnum.MatchTest,
 				QueriesEntityDescriptorEnum.VariableTest,
 				QueriesEntityDescriptorEnum.IndexTest,
 				QueriesEntityDescriptorEnum.IndexRangeTest);
-		getFigure().showPredicateBorder(!hideBorder);
+		getFigure().showExpressionClause(!EntityUtils.isResolver(entity.getExpression()), showExpressionBorder);
+		getFigure().showPredicateBorder(!hidePredicateBorder);
 	}
 }

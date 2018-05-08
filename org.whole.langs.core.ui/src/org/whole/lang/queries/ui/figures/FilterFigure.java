@@ -18,7 +18,10 @@
 package org.whole.lang.queries.ui.figures;
 
 import org.eclipse.draw2d.Border;
+import org.eclipse.draw2d.Graphics;
 import org.whole.lang.ui.figures.ContentPaneFigure;
+import org.whole.lang.ui.figures.FigureConstants;
+import org.whole.lang.ui.figures.RoundBracketsBorder;
 import org.whole.lang.ui.figures.SquareBracketsBorder;
 import org.whole.lang.ui.layout.RowLayout;
 
@@ -26,17 +29,28 @@ import org.whole.lang.ui.layout.RowLayout;
  * @author Riccardo Solmi
  */
 public class FilterFigure extends ContentPaneFigure {
-	private Border border;
+	private Border expressionBorder;
+	private Border predicateBorder;
 
 	public FilterFigure() {
 		super(new RowLayout().withSpacing(1));
 		initContentPanes(2);
 		
-		add(createContentPane(0));
-		add(createContentPane(1, border = new SquareBracketsBorder(4, 4)));
+		add(createContentPane(0, expressionBorder = new RoundBracketsBorder() {
+			@Override
+			protected void setBracketsStyle(Graphics g) {
+				g.setForegroundColor(FigureConstants.contentLightColor);
+			}
+		}));
+		add(createContentPane(1, predicateBorder = new SquareBracketsBorder(4, 4)));
 	}
 
+	public void showExpressionClause(boolean showExpression, boolean showBorder) {
+		getContentPane(0).setVisible(showExpression);
+		if (showExpression)
+			getContentPane(0).setBorder(showBorder ? expressionBorder : null);
+	}
 	public void showPredicateBorder(boolean value) {
-		getContentPane(1).setBorder(value ? border : null);
+		getContentPane(1).setBorder(value ? predicateBorder : null);
 	}
 }
