@@ -363,6 +363,8 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 			IEntityIterator<IEntity> queryPredicateIterator = getResultIterator();
 
 			expression.accept(this);
+			if (getResultIterator() instanceof EmptyIterator)
+				setResultIterator(IteratorFactory.selfIterator().withSourceEntity(entity));
 
 			if (filterByIndexIterator != null) {
 				filterByIndexIterator.withIterator(getResultIterator());
@@ -668,23 +670,8 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		Set<String> namesToBound = declaredNames = new HashSet<String>();
 
 		setResult(null);
-		Expression fromClause = entity.getFromClause();
-		fromClause.accept(this);
-		//TODO workaround migrate code and delete
-		IEntityIterator<? extends IEntity> fromIterator = null;
-//				!Matcher.isAssignableFrom(QueriesEntityDescriptorEnum.Predicate, fromClause)
-//				|| Matcher.isAssignableFrom(QueriesEntityDescriptorEnum.Expression, fromClause)  
-//				? getResultIterator()
-//				: IteratorFactory.filterIterator(getResultIterator()).withSourceEntity(entity);
-
-		if (Matcher.isAssignableFrom(QueriesEntityDescriptorEnum.Predicate, fromClause))
-			fromIterator = IteratorFactory.filterIterator(getResultIterator()).withSourceEntity(entity);
-		else if (Matcher.isAssignableFrom(QueriesEntityDescriptorEnum.PathExpression, fromClause))
-			fromIterator = getResultIterator();
-		else
-			fromIterator = getResultIterator();
-//				else
-//					fromIterator = IteratorFactory.filterIterator(getResultIterator()).withSourceEntity(entity);
+		entity.getFromClause().accept(this);
+		IEntityIterator<? extends IEntity> fromIterator = getResultIterator();
 
 		setResultIterator(IteratorFactory.emptyIterator().withSourceEntity(entity));
 		entity.getWhereClause().accept(this);
