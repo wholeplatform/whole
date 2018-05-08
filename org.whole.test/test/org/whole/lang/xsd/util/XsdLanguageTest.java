@@ -38,13 +38,11 @@ import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.InterpreterOperation;
 import org.whole.lang.operations.NormalizerOperation;
-import org.whole.lang.queries.model.PathExpression;
 import org.whole.lang.rdb.codebase.OrderedMatcher;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.util.BehaviorUtils;
 import org.whole.lang.xml.codebase.XmlBuilderPersistenceKit;
-import org.whole.lang.xsd.codebase.ModelToXmlSchemaQuery;
 import org.whole.lang.xsd.codebase.XsdPersistenceKit;
 import org.whole.lang.xsd.codebase.XsiPersistenceKit;
 import org.whole.lang.xsd.model.Schema;
@@ -150,11 +148,10 @@ public class XsdLanguageTest {
 	public void testModelToXsdMapping() {
 		try {
 			IBindingManager bm = BindingManagerFactory.instance.createBindingManager();
-			PathExpression path = new ModelToXmlSchemaQuery().create();
 			IEntity model = XmlBuilderPersistenceKit.instance().readModel(
 					new ClasspathPersistenceProvider("org/whole/lang/artifacts/ArtifactsModel.xwl"));
 
-			Assert.assertNotNull(BehaviorUtils.evaluateFirstResult(path, model, bm));
+			Assert.assertNotNull(BehaviorUtils.applyFirstResult("whole:org.whole.lang.xsd:XsdMapppingLibrarySemantics#modelToXmlSchema", model, bm));
 			IEntity mappedXsd = bm.wGet("schema");
 
 			IEntity xsd = loadXsd("artifacts.xsd");
@@ -169,11 +166,10 @@ public class XsdLanguageTest {
 	public void testArtifactsMappedModel() {
 		try {
 			IBindingManager bm = BindingManagerFactory.instance.createBindingManager();
-			PathExpression path = new ModelToXmlSchemaQuery().create();
 			IEntity model = XmlBuilderPersistenceKit.instance().readModel(
 					new ClasspathPersistenceProvider("org/whole/lang/artifacts/ArtifactsModel.xwl"));
 
-			Assert.assertNotNull(BehaviorUtils.evaluateFirstResult(path, model, bm));
+			Assert.assertNotNull(BehaviorUtils.applyFirstResult("whole:org.whole.lang.xsd:XsdMapppingLibrarySemantics#modelToXmlSchema", model, bm));
 			InterpreterOperation.interpret(bm.wGet("mapping"));
 
 			bm.wDefValue("folderLocation", new File("test/org/whole/lang/xsd/util").getAbsolutePath());

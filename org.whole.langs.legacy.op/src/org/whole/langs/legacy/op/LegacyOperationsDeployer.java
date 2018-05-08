@@ -17,6 +17,7 @@
  */
 package org.whole.langs.legacy.op;
 
+import org.whole.lang.codebase.ClasspathPersistenceProvider;
 import org.whole.lang.operations.IOperation;
 import org.whole.lang.operations.InterpreterOperation;
 import org.whole.lang.operations.PrettyPrinterOperation;
@@ -24,11 +25,9 @@ import org.whole.lang.reflect.AbstractLanguageExtensionDeployer;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.visitors.IVisitor;
 import org.whole.lang.visitors.IVisitorFactory;
+import org.whole.lang.xml.codebase.XmlBuilderPersistenceKit;
 import org.whole.lang.xsd.codebase.CommonsMappingStrategy;
-import org.whole.lang.xsd.codebase.MappingActions;
 import org.whole.lang.xsd.codebase.MappingStrategyRegistry;
-import org.whole.lang.xsd.codebase.SchemaActions;
-import org.whole.lang.xsd.codebase.SchemaModelsActions;
 import org.whole.lang.xsd.codebase.XsdPersistenceKit;
 import org.whole.lang.xsd.codebase.XsiPersistenceKit;
 import org.whole.lang.xsd.reflect.XsdLanguageKit;
@@ -41,33 +40,37 @@ import org.whole.langs.legacy.LegacyMetaModelsDeployer;
  */
 public class LegacyOperationsDeployer extends AbstractLanguageExtensionDeployer {
 	public void deploy(ReflectionFactory platform) {
-		//TODO move to MappingStrategyRegistry?
-		MappingStrategyRegistry.instance().putMappingStrategy(new CommonsMappingStrategy());
+		try {
+            InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
+            		new ClasspathPersistenceProvider("org/whole/lang/xsd/XsdMappingSemantics.xwl")));
 
-		InterpreterOperation.interpret(new SchemaActions().create());
-		platform.addOperationFactory(XsdLanguageKit.URI, PrettyPrinterOperation.ID,
-				new IVisitorFactory() {
-			public IVisitor create(IOperation operation, int stage) {
-				return new XsdPrettyPrinterVisitor();
-			}
-		});
+			//TODO move to MappingStrategyRegistry?
+			MappingStrategyRegistry.instance().putMappingStrategy(new CommonsMappingStrategy());
 
-		//TODO rewrite using queries/actions in SchemaActions
-//		platform.addOperationFactory(XsdLanguageKit.ID, ArtifactsGeneratorOperation.ID,
-//				new IVisitorFactory() {
-//			public IVisitor create(IOperation operation, int stage) {
-//				return new Xsd2ModelsArtifactsGeneratorVisitor((ArtifactsGeneratorOperation) operation);
-//			}
-//		});
-		InterpreterOperation.interpret(new MappingActions().create());
+			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
+					new ClasspathPersistenceProvider("org/whole/lang/xsd/SchemaActions.xwl")));			
 
-//FIXME requires WorkflowsInterpreter see WorkflowsInterpreterDeployer
-		XsdRegistry.initialize(); 
+			platform.addOperationFactory(XsdLanguageKit.URI, PrettyPrinterOperation.ID,
+					new IVisitorFactory() {
+				public IVisitor create(IOperation operation, int stage) {
+					return new XsdPrettyPrinterVisitor();
+				}
+			});
 
-		platform.addPersistenceKit("org.whole.lang.xsd.XsdSourceEditor", XsdPersistenceKit.instance());
-		platform.addPersistenceKit("org.whole.lang.xsd.XsiSourceEditor", XsiPersistenceKit.instance());
+			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
+					new ClasspathPersistenceProvider("org/whole/lang/xsd/MappingActions.xwl")));			
 
-		InterpreterOperation.interpret(new SchemaModelsActions().create());
+			//FIXME requires WorkflowsInterpreter see WorkflowsInterpreterDeployer
+			XsdRegistry.initialize(); 
+
+			platform.addPersistenceKit("org.whole.lang.xsd.XsdSourceEditor", XsdPersistenceKit.instance());
+			platform.addPersistenceKit("org.whole.lang.xsd.XsiSourceEditor", XsiPersistenceKit.instance());
+	
+			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
+					new ClasspathPersistenceProvider("org/whole/lang/xsd/SchemaModelsActions.xwl")));			
+		} catch (Exception e) {
+			throw new IllegalStateException(e);
+		}
 	}
 
 	public void undeploy(ReflectionFactory platform) {

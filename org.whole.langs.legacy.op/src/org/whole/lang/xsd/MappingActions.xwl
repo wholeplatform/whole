@@ -1,0 +1,1556 @@
+<?xml version="1.0"?>
+<actions:LanguageActionFactory xmlns:actions="http://lang.whole.org/Actions">
+    <actions:URI value="whole:org.whole.lang.xsd.codebase:MappingActions"/>
+    <actions:Namespace value="org.whole.lang.xsd.codebase"/>
+    <actions:Name value="Xsd Mapping Actions"/>
+    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    <actions:URI value="http://xsd.lang.whole.org/Mapping"/>
+    <actions:ToolbarActions>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        <actions:SimpleAction>
+            <actions:Label value="Normalize"/>
+            <queries:Block xmlns:queries="http://lang.whole.org/Queries" initialCapacity="7">
+                <queries:QueryDeclaration>
+                    <queries:Name value="languageDiffers"/>
+                    <queries:Names initialCapacity="2">
+                        <queries:Name value="contextURI"/>
+                        <queries:Name value="entityURI"/>
+                    </queries:Names>
+                    <queries:Block initialCapacity="2">
+                        <queries:QueryDeclaration>
+                            <queries:Name value="getLanguage"/>
+                            <queries:Names initialCapacity="2">
+                                <queries:Name value="URI"/>
+                                <queries:Name value="index"/>
+                            </queries:Names>
+                            <commons:SameStageFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <workflows:Sequence xmlns:workflows="http://lang.whole.org/Workflows">
+                                    <workflows:Text value="sequence"/>
+                                    <workflows:FlowObjects initialCapacity="2">
+                                        <workflows:InvokeJavaInstanceMethod>
+                                        <workflows:Text value="index of &apos;#&apos;"/>
+                                        <workflows:Variable value="index"/>
+                                        <workflows:Variable value="URI"/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="java.lang.String"/>
+                                        <workflows:StringLiteral value="indexOf(java.lang.String)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <workflows:StringLiteral value="#"/>
+                                        </workflows:Expressions>
+                                        </workflows:InvokeJavaInstanceMethod>
+                                        <workflows:InvokeJavaInstanceMethod>
+                                        <workflows:Text value="subString up to index"/>
+                                        <commons:Resolver/>
+                                        <workflows:Variable value="URI"/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="java.lang.String"/>
+                                        <workflows:StringLiteral value="substring(int, int)"/>
+                                        <workflows:Expressions initialCapacity="2">
+                                        <workflows:IntLiteral value="0"/>
+                                        <workflows:Variable value="index"/>
+                                        </workflows:Expressions>
+                                        </workflows:InvokeJavaInstanceMethod>
+                                    </workflows:FlowObjects>
+                                </workflows:Sequence>
+                            </commons:SameStageFragment>
+                        </queries:QueryDeclaration>
+                        <queries:Choose initialCapacity="2">
+                            <queries:If>
+                                <queries:Equals>
+                                    <queries:Call>
+                                        <queries:Name value="getLanguage"/>
+                                        <queries:Expressions initialCapacity="1">
+                                        <queries:VariableRefStep value="contextURI"/>
+                                        </queries:Expressions>
+                                    </queries:Call>
+                                    <queries:Call>
+                                        <queries:Name value="getLanguage"/>
+                                        <queries:Expressions initialCapacity="1">
+                                        <queries:VariableRefStep value="entityURI"/>
+                                        </queries:Expressions>
+                                    </queries:Call>
+                                </queries:Equals>
+                                <queries:BooleanLiteral value="false"/>
+                            </queries:If>
+                            <queries:Do>
+                                <queries:BooleanLiteral value="true"/>
+                            </queries:Do>
+                        </queries:Choose>
+                    </queries:Block>
+                </queries:QueryDeclaration>
+                <queries:Filter>
+                    <queries:Union>
+                        <queries:Expressions initialCapacity="0"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </queries:Union>
+                    <queries:VariableTest value="mappings"/>
+                </queries:Filter>
+                <queries:Filter>
+                    <queries:FeatureStep value="http://xsd.lang.whole.org/Mapping#namespace"/>
+                    <queries:VariableTest value="languageURI"/>
+                </queries:Filter>
+                <queries:CartesianUpdate>
+                    <queries:Path initialCapacity="2">
+                        <queries:FeatureStep value="http://xsd.lang.whole.org/Mapping#mappings"/>
+                        <queries:Filter>
+                            <queries:DescendantStep/>
+                            <queries:And initialCapacity="1">
+                                <queries:And initialCapacity="2">
+                                    <queries:AtFeatureTest value="featureType"/>
+                                    <queries:TypeTest value="http://lang.whole.org/Commons#Resolver"/>
+                                </queries:And>
+                            </queries:And>
+                        </queries:Filter>
+                    </queries:Path>
+                    <queries:StringLiteral value="http://lang.whole.org/Commons#composite_element"/>
+                </queries:CartesianUpdate>
+                <queries:CartesianUpdate>
+                    <queries:Filter>
+                        <queries:Sequence initialCapacity="4">
+                            <queries:Filter>
+                                <queries:FeatureStep value="http://xsd.lang.whole.org/Mapping#mixedDataType"/>
+                                <queries:KindTest value="IMPL"/>
+                            </queries:Filter>
+                            <queries:Path initialCapacity="2">
+                                <queries:FeatureStep value="http://xsd.lang.whole.org/Mapping#mixedTypes"/>
+                                <queries:Filter>
+                                    <queries:ChildStep/>
+                                    <queries:KindTest value="IMPL"/>
+                                </queries:Filter>
+                            </queries:Path>
+                            <queries:Path initialCapacity="2">
+                                <queries:FeatureStep value="http://xsd.lang.whole.org/Mapping#mappings"/>
+                                <queries:Filter>
+                                    <queries:DescendantStep/>
+                                    <queries:And initialCapacity="1">
+                                        <queries:TypeTest value="http://xsd.lang.whole.org/Mapping#URI"/>
+                                    </queries:And>
+                                </queries:Filter>
+                            </queries:Path>
+                            <queries:Path initialCapacity="2">
+                                <queries:FeatureStep value="http://xsd.lang.whole.org/Mapping#dataTypes"/>
+                                <queries:Filter>
+                                    <queries:DescendantStep/>
+                                    <queries:And initialCapacity="1">
+                                        <queries:TypeTest value="http://xsd.lang.whole.org/Mapping#URI"/>
+                                    </queries:And>
+                                </queries:Filter>
+                            </queries:Path>
+                        </queries:Sequence>
+                        <queries:LessThan>
+                            <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                <workflows:Text value="index of &apos;#&apos;"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <workflows:Variable value="self"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <workflows:StringLiteral value="java.lang.String"/>
+                                <workflows:StringLiteral value="indexOf(java.lang.String)"/>
+                                <workflows:Expressions initialCapacity="1">
+                                    <workflows:StringLiteral value="#"/>
+                                </workflows:Expressions>
+                            </workflows:InvokeJavaInstanceMethod>
+                            <queries:IntLiteral value="0"/>
+                        </queries:LessThan>
+                    </queries:Filter>
+                    <queries:Addition>
+                        <queries:VariableRefStep value="languageURI"/>
+                        <queries:Addition>
+                            <queries:StringLiteral value="#"/>
+                            <queries:SelfStep/>
+                        </queries:Addition>
+                    </queries:Addition>
+                </queries:CartesianUpdate>
+                <queries:CartesianInsert>
+                    <queries:Placement value="INTO"/>
+                    <queries:FeatureStep value="http://xsd.lang.whole.org/Mapping#mappings"/>
+                    <queries:Path initialCapacity="2">
+                        <queries:VariableRefStep value="mappings"/>
+                        <queries:ChildStep/>
+                    </queries:Path>
+                </queries:CartesianInsert>
+                <queries:SelfStep/>
+            </queries:Block>
+        </actions:SimpleAction>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        <actions:SimpleAction>
+            <actions:Label value="Interpret"/>
+            <queries:Block xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                <queries:Filter>
+                    <queries:FeatureStep value="namespace"/>
+                    <queries:VariableTest value="languageURI"/>
+                </queries:Filter>
+                <commons:SameStageFragment xmlns:commons="http://lang.whole.org/Commons">
+                    <workflows:Sequence xmlns:workflows="http://lang.whole.org/Workflows">
+                        <workflows:Text value="deploy the mapping strategy and update persistence and editor"/>
+                        <workflows:FlowObjects initialCapacity="5">
+                            <workflows:InvokeJavaClassMethod>
+                                <workflows:Text value="get a MappingStrategyRegistry instance"/>
+                                <workflows:Variable value="strategyRegistry"/>
+                                <commons:Resolver/>
+                                <workflows:StringLiteral value="org.whole.lang.xsd.codebase.MappingStrategyRegistry"/>
+                                <workflows:StringLiteral value="instance()"/>
+                                <commons:Resolver/>
+                            </workflows:InvokeJavaClassMethod>
+                            <workflows:InvokeJavaInstanceMethod>
+                                <workflows:Text value="add strategy to the MappingStrategyRegistry"/>
+                                <commons:Resolver/>
+                                <workflows:Variable value="strategyRegistry"/>
+                                <commons:Resolver/>
+                                <workflows:StringLiteral value="org.whole.lang.xsd.codebase.MappingStrategyRegistry"/>
+                                <workflows:StringLiteral value="putMappingModel(org.whole.lang.xsd.mapping.model.MappingStrategy)"/>
+                                <workflows:Expressions initialCapacity="1">
+                                    <workflows:Variable value="self"/>
+                                </workflows:Expressions>
+                            </workflows:InvokeJavaInstanceMethod>
+                            <workflows:InvokeJavaClassMethod>
+                                <workflows:Text value="get language kit from languageURI"/>
+                                <workflows:Variable value="lk"/>
+                                <commons:Resolver/>
+                                <workflows:StringLiteral value="org.whole.lang.reflect.ReflectionFactory"/>
+                                <workflows:StringLiteral value="getLanguageKit(java.lang.String)"/>
+                                <workflows:Expressions initialCapacity="1">
+                                    <workflows:Variable value="languageURI"/>
+                                </workflows:Expressions>
+                            </workflows:InvokeJavaClassMethod>
+                            <workflows:InvokeJavaClassMethod>
+                                <workflows:Text value="update persistence and edito"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                                <workflows:StringLiteral value="org.whole.lang.reflect.ReflectionFactory"/>
+                                <workflows:StringLiteral value="updatePersistenceAndEditorKits(org.whole.lang.reflect.ILanguageKit)"/>
+                                <workflows:Expressions initialCapacity="1">
+                                    <workflows:Variable value="lk"/>
+                                </workflows:Expressions>
+                            </workflows:InvokeJavaClassMethod>
+                            <workflows:InvokeJavaClassMethod>
+                                <workflows:Text value="deploy schema operations"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                                <workflows:StringLiteral value="org.whole.lang.xsd.util.SchemaHelpers"/>
+                                <workflows:StringLiteral value="deploySchemaOperations(java.lang.String)"/>
+                                <workflows:Expressions initialCapacity="1">
+                                    <workflows:Variable value="languageURI"/>
+                                </workflows:Expressions>
+                            </workflows:InvokeJavaClassMethod>
+                        </workflows:FlowObjects>
+                    </workflows:Sequence>
+                </commons:SameStageFragment>
+            </queries:Block>
+        </actions:SimpleAction>
+        <actions:SimpleAction>
+            <actions:Label value="Generate Artifacts"/>
+            <queries:Block xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                <queries:Filter>
+                    <commons:SameStageFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <workflows:Sequence xmlns:workflows="http://lang.whole.org/Workflows">
+                            <workflows:Text value="sequence"/>
+                            <workflows:FlowObjects initialCapacity="2">
+                                <workflows:InvokeJavaClassMethod>
+                                    <workflows:Text value="clone mapping"/>
+                                    <workflows:Variable value="clonedMapping"/>
+                                    <commons:Resolver/>
+                                    <workflows:StringLiteral value="org.whole.lang.util.EntityUtils"/>
+                                    <workflows:StringLiteral value="clone(org.whole.lang.model.IEntity)"/>
+                                    <workflows:Expressions initialCapacity="1">
+                                        <workflows:Variable value="self"/>
+                                    </workflows:Expressions>
+                                </workflows:InvokeJavaClassMethod>
+                                <workflows:InvokeOperation>
+                                    <workflows:Text value="normalize mapping"/>
+                                    <workflows:Variable value="clonedMapping"/>
+                                    <workflows:Operation value="NORMALIZER"/>
+                                    <commons:Resolver/>
+                                </workflows:InvokeOperation>
+                            </workflows:FlowObjects>
+                        </workflows:Sequence>
+                    </commons:SameStageFragment>
+                    <queries:VariableTest value="normalizedMapping"/>
+                </queries:Filter>
+                <queries:Select>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <artifacts:Workspace xmlns:artifacts="http://lang.whole.org/Artifacts">
+                            <commons:Resolver/>
+                            <artifacts:Projects initialCapacity="1">
+                                <artifacts:Project>
+                                    <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Artifacts#Name"/>
+                                        <commons:VarName value="projectName"/>
+                                        <commons:Quantifier value="!"/>
+                                    </commons:Variable>
+                                    <artifacts:Natures initialCapacity="0"/>
+                                    <commons:Resolver/>
+                                    <artifacts:Artifacts initialCapacity="1">
+                                        <artifacts:FolderArtifact>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Artifacts#Name"/>
+                                        <commons:VarName value="sourceFolderName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <commons:Resolver/>
+                                        <artifacts:Artifacts initialCapacity="1">
+                                        <artifacts:PackageArtifact>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Artifacts#Name"/>
+                                        <commons:VarName value="packageName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <commons:Resolver/>
+                                        <artifacts:Artifacts initialCapacity="1">
+                                        <artifacts:FileArtifact>
+                                        <artifacts:NameWithExtension>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Artifacts#Name"/>
+                                        <commons:VarName value="mappingStrategyClassName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <artifacts:Extension value="java"/>
+                                        </artifacts:NameWithExtension>
+                                        <artifacts:Metadata>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <artifacts:PersistenceKitId value="org.whole.lang.java.codebase.JavaSourcePersistenceKit"/>
+                                        </artifacts:Metadata>
+                                        <commons:StageUpFragment>
+                                        <java:CompilationUnit xmlns:java="http://lang.whole.org/Java">
+                                        <java:PackageDeclaration>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Java#QualifiedName"/>
+                                        <commons:VarName value="packageName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        </java:PackageDeclaration>
+                                        <java:ImportDeclarations initialCapacity="8">
+                                        <java:ImportDeclaration>
+                                        <java:QualifiedName value="org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser.parseEntityDescriptor"/>
+                                        <java:ImportModifier value="false"/>
+                                        <java:ImportModifier value="true"/>
+                                        </java:ImportDeclaration>
+                                        <java:ImportDeclaration>
+                                        <java:QualifiedName value="java.util.Collections"/>
+                                        <java:ImportModifier value="false"/>
+                                        <java:ImportModifier value="false"/>
+                                        </java:ImportDeclaration>
+                                        <java:ImportDeclaration>
+                                        <java:QualifiedName value="java.util.HashMap"/>
+                                        <java:ImportModifier value="false"/>
+                                        <java:ImportModifier value="false"/>
+                                        </java:ImportDeclaration>
+                                        <java:ImportDeclaration>
+                                        <java:QualifiedName value="java.util.HashSet"/>
+                                        <java:ImportModifier value="false"/>
+                                        <java:ImportModifier value="false"/>
+                                        </java:ImportDeclaration>
+                                        <java:ImportDeclaration>
+                                        <java:QualifiedName value="java.util.Map"/>
+                                        <java:ImportModifier value="false"/>
+                                        <java:ImportModifier value="false"/>
+                                        </java:ImportDeclaration>
+                                        <java:ImportDeclaration>
+                                        <java:QualifiedName value="java.util.Set"/>
+                                        <java:ImportModifier value="false"/>
+                                        <java:ImportModifier value="false"/>
+                                        </java:ImportDeclaration>
+                                        <java:ImportDeclaration>
+                                        <java:QualifiedName value="org.whole.lang.reflect.EntityDescriptor"/>
+                                        <java:ImportModifier value="false"/>
+                                        <java:ImportModifier value="false"/>
+                                        </java:ImportDeclaration>
+                                        <java:ImportDeclaration>
+                                        <java:QualifiedName value="org.whole.lang.xsd.codebase.AbstractMappingStrategy"/>
+                                        <java:ImportModifier value="false"/>
+                                        <java:ImportModifier value="false"/>
+                                        </java:ImportDeclaration>
+                                        </java:ImportDeclarations>
+                                        <java:TypeDeclarations initialCapacity="1">
+                                        <java:ClassDeclaration>
+                                        <java:Javadoc>
+                                        <java:Tags initialCapacity="1">
+                                        <java:TagElement>
+                                        <java:TagName value="generator"/>
+                                        <java:DocElements initialCapacity="1">
+                                        <java:TextElement value=" Whole"/>
+                                        </java:DocElements>
+                                        </java:TagElement>
+                                        </java:Tags>
+                                        </java:Javadoc>
+                                        <java:ExtendedModifiers initialCapacity="1">
+                                        <java:Modifier value="public"/>
+                                        </java:ExtendedModifiers>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Java#SimpleName"/>
+                                        <commons:VarName value="mappingStrategyClassName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <commons:Resolver/>
+                                        <java:SimpleType value="AbstractMappingStrategy"/>
+                                        <commons:Resolver/>
+                                        <java:BodyDeclarations initialCapacity="19">
+                                        <java:FieldDeclaration>
+                                        <commons:Resolver/>
+                                        <java:ExtendedModifiers initialCapacity="1">
+                                        <java:Modifier value="private"/>
+                                        </java:ExtendedModifiers>
+                                        <java:ParameterizedType>
+                                        <java:SimpleType value="EntityDescriptor"/>
+                                        <java:Types initialCapacity="1">
+                                        <java:WildcardType>
+                                        <commons:Resolver/>
+                                        <java:UpperBound value="false"/>
+                                        </java:WildcardType>
+                                        </java:Types>
+                                        </java:ParameterizedType>
+                                        <java:VariableDeclarationFragments initialCapacity="1">
+                                        <java:VariableDeclarationFragment>
+                                        <java:SimpleName value="mixedDataType"/>
+                                        <java:ExtraDimensions value="0"/>
+                                        <commons:Resolver/>
+                                        </java:VariableDeclarationFragment>
+                                        </java:VariableDeclarationFragments>
+                                        </java:FieldDeclaration>
+                                        <java:FieldDeclaration>
+                                        <commons:Resolver/>
+                                        <java:ExtendedModifiers initialCapacity="1">
+                                        <java:Modifier value="private"/>
+                                        </java:ExtendedModifiers>
+                                        <java:ParameterizedType>
+                                        <java:SimpleType value="Set"/>
+                                        <java:Types initialCapacity="1">
+                                        <java:ParameterizedType>
+                                        <java:SimpleType value="EntityDescriptor"/>
+                                        <java:Types initialCapacity="1">
+                                        <java:WildcardType>
+                                        <commons:Resolver/>
+                                        <java:UpperBound value="false"/>
+                                        </java:WildcardType>
+                                        </java:Types>
+                                        </java:ParameterizedType>
+                                        </java:Types>
+                                        </java:ParameterizedType>
+                                        <java:VariableDeclarationFragments initialCapacity="1">
+                                        <java:VariableDeclarationFragment>
+                                        <java:SimpleName value="mixedTypes"/>
+                                        <java:ExtraDimensions value="0"/>
+                                        <commons:Resolver/>
+                                        </java:VariableDeclarationFragment>
+                                        </java:VariableDeclarationFragments>
+                                        </java:FieldDeclaration>
+                                        <java:FieldDeclaration>
+                                        <commons:Resolver/>
+                                        <java:ExtendedModifiers initialCapacity="1">
+                                        <java:Modifier value="private"/>
+                                        </java:ExtendedModifiers>
+                                        <java:ParameterizedType>
+                                        <java:SimpleType value="Map"/>
+                                        <java:Types initialCapacity="2">
+                                        <java:ParameterizedType>
+                                        <java:SimpleType value="EntityDescriptor"/>
+                                        <java:Types initialCapacity="1">
+                                        <java:WildcardType>
+                                        <commons:Resolver/>
+                                        <java:UpperBound value="false"/>
+                                        </java:WildcardType>
+                                        </java:Types>
+                                        </java:ParameterizedType>
+                                        <java:ParameterizedType>
+                                        <java:SimpleType value="Map"/>
+                                        <java:Types initialCapacity="2">
+                                        <java:SimpleType value="String"/>
+                                        <java:SimpleType value="String"/>
+                                        </java:Types>
+                                        </java:ParameterizedType>
+                                        </java:Types>
+                                        </java:ParameterizedType>
+                                        <java:VariableDeclarationFragments initialCapacity="1">
+                                        <java:VariableDeclarationFragment>
+                                        <java:SimpleName value="fromEnumValues"/>
+                                        <java:ExtraDimensions value="0"/>
+                                        <commons:Resolver/>
+                                        </java:VariableDeclarationFragment>
+                                        </java:VariableDeclarationFragments>
+                                        </java:FieldDeclaration>
+                                        <java:FieldDeclaration>
+                                        <commons:Resolver/>
+                                        <java:ExtendedModifiers initialCapacity="1">
+                                        <java:Modifier value="private"/>
+                                        </java:ExtendedModifiers>
+                                        <java:ParameterizedType>
+                                        <java:SimpleType value="Map"/>
+                                        <java:Types initialCapacity="2">
+                                        <java:ParameterizedType>
+                                        <java:SimpleType value="EntityDescriptor"/>
+                                        <java:Types initialCapacity="1">
+                                        <java:WildcardType>
+                                        <commons:Resolver/>
+                                        <java:UpperBound value="false"/>
+                                        </java:WildcardType>
+                                        </java:Types>
+                                        </java:ParameterizedType>
+                                        <java:ParameterizedType>
+                                        <java:SimpleType value="Map"/>
+                                        <java:Types initialCapacity="2">
+                                        <java:SimpleType value="String"/>
+                                        <java:SimpleType value="String"/>
+                                        </java:Types>
+                                        </java:ParameterizedType>
+                                        </java:Types>
+                                        </java:ParameterizedType>
+                                        <java:VariableDeclarationFragments initialCapacity="1">
+                                        <java:VariableDeclarationFragment>
+                                        <java:SimpleName value="toEnumValues"/>
+                                        <java:ExtraDimensions value="0"/>
+                                        <commons:Resolver/>
+                                        </java:VariableDeclarationFragment>
+                                        </java:VariableDeclarationFragments>
+                                        </java:FieldDeclaration>
+                                        <java:ConstructorDeclaration>
+                                        <commons:Resolver/>
+                                        <java:ExtendedModifiers initialCapacity="1">
+                                        <java:Modifier value="public"/>
+                                        </java:ExtendedModifiers>
+                                        <commons:Resolver/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Java#SimpleName"/>
+                                        <commons:VarName value="mappingStrategyClassName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <java:Parameters initialCapacity="0"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <java:Block initialCapacity="7">
+                                        <java:ExpressionStatement>
+                                        <java:Assignment>
+                                        <java:FieldAccess>
+                                        <java:ThisExpression>
+                                        <commons:Resolver/>
+                                        </java:ThisExpression>
+                                        <java:SimpleName value="mixedDataType"/>
+                                        </java:FieldAccess>
+                                        <java:AssignmentOperator value="="/>
+                                        <java:NullLiteral/>
+                                        </java:Assignment>
+                                        </java:ExpressionStatement>
+                                        <java:ExpressionStatement>
+                                        <java:Assignment>
+                                        <java:FieldAccess>
+                                        <java:ThisExpression>
+                                        <commons:Resolver/>
+                                        </java:ThisExpression>
+                                        <java:SimpleName value="mixedTypes"/>
+                                        </java:FieldAccess>
+                                        <java:AssignmentOperator value="="/>
+                                        <java:MethodInvocation>
+                                        <java:SimpleName value="Collections"/>
+                                        <java:Types initialCapacity="1">
+                                        <java:ParameterizedType>
+                                        <java:SimpleType value="EntityDescriptor"/>
+                                        <java:Types initialCapacity="1">
+                                        <java:WildcardType>
+                                        <commons:Resolver/>
+                                        <java:UpperBound value="false"/>
+                                        </java:WildcardType>
+                                        </java:Types>
+                                        </java:ParameterizedType>
+                                        </java:Types>
+                                        <java:SimpleName value="emptySet"/>
+                                        <java:Arguments initialCapacity="0"/>
+                                        </java:MethodInvocation>
+                                        </java:Assignment>
+                                        </java:ExpressionStatement>
+                                        <java:ExpressionStatement>
+                                        <java:Assignment>
+                                        <java:FieldAccess>
+                                        <java:ThisExpression>
+                                        <commons:Resolver/>
+                                        </java:ThisExpression>
+                                        <java:SimpleName value="fromEnumValues"/>
+                                        </java:FieldAccess>
+                                        <java:AssignmentOperator value="="/>
+                                        <java:ClassInstanceCreation>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <java:ParameterizedType>
+                                        <java:SimpleType value="HashMap"/>
+                                        <java:Types initialCapacity="2">
+                                        <java:ParameterizedType>
+                                        <java:SimpleType value="EntityDescriptor"/>
+                                        <java:Types initialCapacity="1">
+                                        <java:WildcardType>
+                                        <commons:Resolver/>
+                                        <java:UpperBound value="false"/>
+                                        </java:WildcardType>
+                                        </java:Types>
+                                        </java:ParameterizedType>
+                                        <java:ParameterizedType>
+                                        <java:SimpleType value="Map"/>
+                                        <java:Types initialCapacity="2">
+                                        <java:SimpleType value="String"/>
+                                        <java:SimpleType value="String"/>
+                                        </java:Types>
+                                        </java:ParameterizedType>
+                                        </java:Types>
+                                        </java:ParameterizedType>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </java:ClassInstanceCreation>
+                                        </java:Assignment>
+                                        </java:ExpressionStatement>
+                                        <java:ExpressionStatement>
+                                        <java:Assignment>
+                                        <java:FieldAccess>
+                                        <java:ThisExpression>
+                                        <commons:Resolver/>
+                                        </java:ThisExpression>
+                                        <java:SimpleName value="toEnumValues"/>
+                                        </java:FieldAccess>
+                                        <java:AssignmentOperator value="="/>
+                                        <java:ClassInstanceCreation>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <java:ParameterizedType>
+                                        <java:SimpleType value="HashMap"/>
+                                        <java:Types initialCapacity="2">
+                                        <java:ParameterizedType>
+                                        <java:SimpleType value="EntityDescriptor"/>
+                                        <java:Types initialCapacity="1">
+                                        <java:WildcardType>
+                                        <commons:Resolver/>
+                                        <java:UpperBound value="false"/>
+                                        </java:WildcardType>
+                                        </java:Types>
+                                        </java:ParameterizedType>
+                                        <java:ParameterizedType>
+                                        <java:SimpleType value="Map"/>
+                                        <java:Types initialCapacity="2">
+                                        <java:SimpleType value="String"/>
+                                        <java:SimpleType value="String"/>
+                                        </java:Types>
+                                        </java:ParameterizedType>
+                                        </java:Types>
+                                        </java:ParameterizedType>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </java:ClassInstanceCreation>
+                                        </java:Assignment>
+                                        </java:ExpressionStatement>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Java#Statement"/>
+                                        <commons:VarName value="mixedDataTypeStatement"/>
+                                        <commons:Quantifier value="?"/>
+                                        </commons:Variable>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Java#Statement"/>
+                                        <commons:VarName value="mixedTypesStatement"/>
+                                        <commons:Quantifier value="?"/>
+                                        </commons:Variable>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Java#Statement"/>
+                                        <commons:VarName value="enumValueMappingStatements"/>
+                                        <commons:Quantifier value="*"/>
+                                        </commons:Variable>
+                                        </java:Block>
+                                        </java:ConstructorDeclaration>
+                                        <java:MethodDeclaration>
+                                        <commons:Resolver/>
+                                        <java:ExtendedModifiers initialCapacity="1">
+                                        <java:Modifier value="public"/>
+                                        </java:ExtendedModifiers>
+                                        <commons:Resolver/>
+                                        <java:SimpleType value="String"/>
+                                        <java:SimpleName value="getNamespace"/>
+                                        <java:Parameters initialCapacity="0"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <java:Block initialCapacity="1">
+                                        <java:ReturnStatement>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Java#StringLiteral"/>
+                                        <commons:VarName value="namespace"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        </java:ReturnStatement>
+                                        </java:Block>
+                                        </java:MethodDeclaration>
+                                        <java:MethodDeclaration>
+                                        <commons:Resolver/>
+                                        <java:ExtendedModifiers initialCapacity="1">
+                                        <java:Modifier value="public"/>
+                                        </java:ExtendedModifiers>
+                                        <commons:Resolver/>
+                                        <java:SimpleType value="String"/>
+                                        <java:SimpleName value="getSchemaLocation"/>
+                                        <java:Parameters initialCapacity="0"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <java:Block initialCapacity="1">
+                                        <java:ReturnStatement>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Java#StringLiteral"/>
+                                        <commons:VarName value="schemaLocation"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        </java:ReturnStatement>
+                                        </java:Block>
+                                        </java:MethodDeclaration>
+                                        <java:MethodDeclaration>
+                                        <commons:Resolver/>
+                                        <java:ExtendedModifiers initialCapacity="1">
+                                        <java:Modifier value="public"/>
+                                        </java:ExtendedModifiers>
+                                        <commons:Resolver/>
+                                        <java:PrimitiveType value="boolean"/>
+                                        <java:SimpleName value="isSynthesized"/>
+                                        <java:Parameters initialCapacity="0"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <java:Block initialCapacity="1">
+                                        <java:ReturnStatement>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Java#BooleanLiteral"/>
+                                        <commons:VarName value="isSynthesized"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        </java:ReturnStatement>
+                                        </java:Block>
+                                        </java:MethodDeclaration>
+                                        <java:MethodDeclaration>
+                                        <commons:Resolver/>
+                                        <java:ExtendedModifiers initialCapacity="1">
+                                        <java:Modifier value="public"/>
+                                        </java:ExtendedModifiers>
+                                        <commons:Resolver/>
+                                        <java:PrimitiveType value="boolean"/>
+                                        <java:SimpleName value="isElementsFormQualified"/>
+                                        <java:Parameters initialCapacity="0"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <java:Block initialCapacity="1">
+                                        <java:ReturnStatement>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Java#BooleanLiteral"/>
+                                        <commons:VarName value="isElementsFormQualified"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        </java:ReturnStatement>
+                                        </java:Block>
+                                        </java:MethodDeclaration>
+                                        <java:MethodDeclaration>
+                                        <commons:Resolver/>
+                                        <java:ExtendedModifiers initialCapacity="1">
+                                        <java:Modifier value="public"/>
+                                        </java:ExtendedModifiers>
+                                        <commons:Resolver/>
+                                        <java:PrimitiveType value="boolean"/>
+                                        <java:SimpleName value="isAttributesFormQualified"/>
+                                        <java:Parameters initialCapacity="0"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <java:Block initialCapacity="1">
+                                        <java:ReturnStatement>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Java#BooleanLiteral"/>
+                                        <commons:VarName value="isAttributesFormQualified"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        </java:ReturnStatement>
+                                        </java:Block>
+                                        </java:MethodDeclaration>
+                                        <java:MethodDeclaration>
+                                        <commons:Resolver/>
+                                        <java:ExtendedModifiers initialCapacity="1">
+                                        <java:Modifier value="public"/>
+                                        </java:ExtendedModifiers>
+                                        <commons:Resolver/>
+                                        <java:ParameterizedType>
+                                        <java:SimpleType value="EntityDescriptor"/>
+                                        <java:Types initialCapacity="1">
+                                        <java:WildcardType>
+                                        <commons:Resolver/>
+                                        <java:UpperBound value="false"/>
+                                        </java:WildcardType>
+                                        </java:Types>
+                                        </java:ParameterizedType>
+                                        <java:SimpleName value="getMixedDataType"/>
+                                        <java:Parameters initialCapacity="0"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <java:Block initialCapacity="1">
+                                        <java:ReturnStatement>
+                                        <java:SimpleName value="mixedDataType"/>
+                                        </java:ReturnStatement>
+                                        </java:Block>
+                                        </java:MethodDeclaration>
+                                        <java:MethodDeclaration>
+                                        <commons:Resolver/>
+                                        <java:ExtendedModifiers initialCapacity="1">
+                                        <java:Modifier value="protected"/>
+                                        </java:ExtendedModifiers>
+                                        <commons:Resolver/>
+                                        <java:PrimitiveType value="void"/>
+                                        <java:SimpleName value="setMixedDataType"/>
+                                        <java:Parameters initialCapacity="1">
+                                        <java:SingleVariableDeclaration>
+                                        <commons:Resolver/>
+                                        <java:SimpleType value="String"/>
+                                        <java:Varargs value="false"/>
+                                        <java:SimpleName value="uri"/>
+                                        <java:ExtraDimensions value="0"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </java:SingleVariableDeclaration>
+                                        </java:Parameters>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <java:Block initialCapacity="1">
+                                        <java:ExpressionStatement>
+                                        <java:Assignment>
+                                        <java:FieldAccess>
+                                        <java:ThisExpression>
+                                        <commons:Resolver/>
+                                        </java:ThisExpression>
+                                        <java:SimpleName value="mixedDataType"/>
+                                        </java:FieldAccess>
+                                        <java:AssignmentOperator value="="/>
+                                        <java:MethodInvocation>
+                                        <commons:Resolver/>
+                                        <java:Types initialCapacity="0"/>
+                                        <java:SimpleName value="parseEntityDescriptor"/>
+                                        <java:Arguments initialCapacity="1">
+                                        <java:SimpleName value="uri"/>
+                                        </java:Arguments>
+                                        </java:MethodInvocation>
+                                        </java:Assignment>
+                                        </java:ExpressionStatement>
+                                        </java:Block>
+                                        </java:MethodDeclaration>
+                                        <java:MethodDeclaration>
+                                        <commons:Resolver/>
+                                        <java:ExtendedModifiers initialCapacity="1">
+                                        <java:Modifier value="public"/>
+                                        </java:ExtendedModifiers>
+                                        <commons:Resolver/>
+                                        <java:PrimitiveType value="boolean"/>
+                                        <java:SimpleName value="isMixedType"/>
+                                        <java:Parameters initialCapacity="1">
+                                        <java:SingleVariableDeclaration>
+                                        <commons:Resolver/>
+                                        <java:ParameterizedType>
+                                        <java:SimpleType value="EntityDescriptor"/>
+                                        <java:Types initialCapacity="1">
+                                        <java:WildcardType>
+                                        <commons:Resolver/>
+                                        <java:UpperBound value="false"/>
+                                        </java:WildcardType>
+                                        </java:Types>
+                                        </java:ParameterizedType>
+                                        <java:Varargs value="false"/>
+                                        <java:SimpleName value="ed"/>
+                                        <java:ExtraDimensions value="0"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </java:SingleVariableDeclaration>
+                                        </java:Parameters>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <java:Block initialCapacity="1">
+                                        <java:ReturnStatement>
+                                        <java:MethodInvocation>
+                                        <java:SimpleName value="mixedTypes"/>
+                                        <java:Types initialCapacity="0"/>
+                                        <java:SimpleName value="contains"/>
+                                        <java:Arguments initialCapacity="1">
+                                        <java:SimpleName value="ed"/>
+                                        </java:Arguments>
+                                        </java:MethodInvocation>
+                                        </java:ReturnStatement>
+                                        </java:Block>
+                                        </java:MethodDeclaration>
+                                        <java:MethodDeclaration>
+                                        <commons:Resolver/>
+                                        <java:ExtendedModifiers initialCapacity="1">
+                                        <java:Modifier value="protected"/>
+                                        </java:ExtendedModifiers>
+                                        <commons:Resolver/>
+                                        <java:PrimitiveType value="void"/>
+                                        <java:SimpleName value="setMixedTypes"/>
+                                        <java:Parameters initialCapacity="1">
+                                        <java:SingleVariableDeclaration>
+                                        <commons:Resolver/>
+                                        <java:SimpleType value="String"/>
+                                        <java:Varargs value="true"/>
+                                        <java:SimpleName value="uris"/>
+                                        <java:ExtraDimensions value="0"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </java:SingleVariableDeclaration>
+                                        </java:Parameters>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <java:Block initialCapacity="2">
+                                        <java:ExpressionStatement>
+                                        <java:Assignment>
+                                        <java:SimpleName value="mixedTypes"/>
+                                        <java:AssignmentOperator value="="/>
+                                        <java:ClassInstanceCreation>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <java:ParameterizedType>
+                                        <java:SimpleType value="HashSet"/>
+                                        <java:Types initialCapacity="1">
+                                        <java:ParameterizedType>
+                                        <java:SimpleType value="EntityDescriptor"/>
+                                        <java:Types initialCapacity="1">
+                                        <java:WildcardType>
+                                        <commons:Resolver/>
+                                        <java:UpperBound value="false"/>
+                                        </java:WildcardType>
+                                        </java:Types>
+                                        </java:ParameterizedType>
+                                        </java:Types>
+                                        </java:ParameterizedType>
+                                        <java:Arguments initialCapacity="1">
+                                        <java:QualifiedName value="uris.length"/>
+                                        </java:Arguments>
+                                        <commons:Resolver/>
+                                        </java:ClassInstanceCreation>
+                                        </java:Assignment>
+                                        </java:ExpressionStatement>
+                                        <java:EnhancedForStatement>
+                                        <java:SingleVariableDeclaration>
+                                        <commons:Resolver/>
+                                        <java:SimpleType value="String"/>
+                                        <java:Varargs value="false"/>
+                                        <java:SimpleName value="uri"/>
+                                        <java:ExtraDimensions value="0"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </java:SingleVariableDeclaration>
+                                        <java:SimpleName value="uris"/>
+                                        <java:ExpressionStatement>
+                                        <java:MethodInvocation>
+                                        <java:SimpleName value="mixedTypes"/>
+                                        <java:Types initialCapacity="0"/>
+                                        <java:SimpleName value="add"/>
+                                        <java:Arguments initialCapacity="1">
+                                        <java:MethodInvocation>
+                                        <commons:Resolver/>
+                                        <java:Types initialCapacity="0"/>
+                                        <java:SimpleName value="parseEntityDescriptor"/>
+                                        <java:Arguments initialCapacity="1">
+                                        <java:SimpleName value="uri"/>
+                                        </java:Arguments>
+                                        </java:MethodInvocation>
+                                        </java:Arguments>
+                                        </java:MethodInvocation>
+                                        </java:ExpressionStatement>
+                                        </java:EnhancedForStatement>
+                                        </java:Block>
+                                        </java:MethodDeclaration>
+                                        <java:MethodDeclaration>
+                                        <commons:Resolver/>
+                                        <java:ExtendedModifiers initialCapacity="1">
+                                        <java:Modifier value="public"/>
+                                        </java:ExtendedModifiers>
+                                        <commons:Resolver/>
+                                        <java:SimpleType value="String"/>
+                                        <java:SimpleName value="fromEnumValue"/>
+                                        <java:Parameters initialCapacity="2">
+                                        <java:SingleVariableDeclaration>
+                                        <commons:Resolver/>
+                                        <java:ParameterizedType>
+                                        <java:SimpleType value="EntityDescriptor"/>
+                                        <java:Types initialCapacity="1">
+                                        <java:WildcardType>
+                                        <commons:Resolver/>
+                                        <java:UpperBound value="false"/>
+                                        </java:WildcardType>
+                                        </java:Types>
+                                        </java:ParameterizedType>
+                                        <java:Varargs value="false"/>
+                                        <java:SimpleName value="context"/>
+                                        <java:ExtraDimensions value="0"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </java:SingleVariableDeclaration>
+                                        <java:SingleVariableDeclaration>
+                                        <commons:Resolver/>
+                                        <java:SimpleType value="String"/>
+                                        <java:Varargs value="false"/>
+                                        <java:SimpleName value="enumValue"/>
+                                        <java:ExtraDimensions value="0"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </java:SingleVariableDeclaration>
+                                        </java:Parameters>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <java:Block initialCapacity="1">
+                                        <java:ReturnStatement>
+                                        <java:MethodInvocation>
+                                        <java:MethodInvocation>
+                                        <commons:Resolver/>
+                                        <java:Types initialCapacity="0"/>
+                                        <java:SimpleName value="fromEnumValueMap"/>
+                                        <java:Arguments initialCapacity="1">
+                                        <java:SimpleName value="context"/>
+                                        </java:Arguments>
+                                        </java:MethodInvocation>
+                                        <java:Types initialCapacity="0"/>
+                                        <java:SimpleName value="get"/>
+                                        <java:Arguments initialCapacity="1">
+                                        <java:SimpleName value="enumValue"/>
+                                        </java:Arguments>
+                                        </java:MethodInvocation>
+                                        </java:ReturnStatement>
+                                        </java:Block>
+                                        </java:MethodDeclaration>
+                                        <java:MethodDeclaration>
+                                        <commons:Resolver/>
+                                        <java:ExtendedModifiers initialCapacity="1">
+                                        <java:Modifier value="public"/>
+                                        </java:ExtendedModifiers>
+                                        <commons:Resolver/>
+                                        <java:SimpleType value="String"/>
+                                        <java:SimpleName value="toEnumValue"/>
+                                        <java:Parameters initialCapacity="2">
+                                        <java:SingleVariableDeclaration>
+                                        <commons:Resolver/>
+                                        <java:ParameterizedType>
+                                        <java:SimpleType value="EntityDescriptor"/>
+                                        <java:Types initialCapacity="1">
+                                        <java:WildcardType>
+                                        <commons:Resolver/>
+                                        <java:UpperBound value="false"/>
+                                        </java:WildcardType>
+                                        </java:Types>
+                                        </java:ParameterizedType>
+                                        <java:Varargs value="false"/>
+                                        <java:SimpleName value="context"/>
+                                        <java:ExtraDimensions value="0"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </java:SingleVariableDeclaration>
+                                        <java:SingleVariableDeclaration>
+                                        <commons:Resolver/>
+                                        <java:SimpleType value="String"/>
+                                        <java:Varargs value="false"/>
+                                        <java:SimpleName value="value"/>
+                                        <java:ExtraDimensions value="0"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </java:SingleVariableDeclaration>
+                                        </java:Parameters>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <java:Block initialCapacity="1">
+                                        <java:ReturnStatement>
+                                        <java:MethodInvocation>
+                                        <java:MethodInvocation>
+                                        <commons:Resolver/>
+                                        <java:Types initialCapacity="0"/>
+                                        <java:SimpleName value="toEnumValueMap"/>
+                                        <java:Arguments initialCapacity="1">
+                                        <java:SimpleName value="context"/>
+                                        </java:Arguments>
+                                        </java:MethodInvocation>
+                                        <java:Types initialCapacity="0"/>
+                                        <java:SimpleName value="get"/>
+                                        <java:Arguments initialCapacity="1">
+                                        <java:SimpleName value="value"/>
+                                        </java:Arguments>
+                                        </java:MethodInvocation>
+                                        </java:ReturnStatement>
+                                        </java:Block>
+                                        </java:MethodDeclaration>
+                                        <java:MethodDeclaration>
+                                        <commons:Resolver/>
+                                        <java:ExtendedModifiers initialCapacity="1">
+                                        <java:Modifier value="protected"/>
+                                        </java:ExtendedModifiers>
+                                        <commons:Resolver/>
+                                        <java:ParameterizedType>
+                                        <java:SimpleType value="Map"/>
+                                        <java:Types initialCapacity="2">
+                                        <java:SimpleType value="String"/>
+                                        <java:SimpleType value="String"/>
+                                        </java:Types>
+                                        </java:ParameterizedType>
+                                        <java:SimpleName value="fromEnumValueMap"/>
+                                        <java:Parameters initialCapacity="1">
+                                        <java:SingleVariableDeclaration>
+                                        <commons:Resolver/>
+                                        <java:ParameterizedType>
+                                        <java:SimpleType value="EntityDescriptor"/>
+                                        <java:Types initialCapacity="1">
+                                        <java:WildcardType>
+                                        <commons:Resolver/>
+                                        <java:UpperBound value="false"/>
+                                        </java:WildcardType>
+                                        </java:Types>
+                                        </java:ParameterizedType>
+                                        <java:Varargs value="false"/>
+                                        <java:SimpleName value="context"/>
+                                        <java:ExtraDimensions value="0"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </java:SingleVariableDeclaration>
+                                        </java:Parameters>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <java:Block initialCapacity="3">
+                                        <java:VariableDeclarationStatement>
+                                        <commons:Resolver/>
+                                        <java:ParameterizedType>
+                                        <java:SimpleType value="Map"/>
+                                        <java:Types initialCapacity="2">
+                                        <java:SimpleType value="String"/>
+                                        <java:SimpleType value="String"/>
+                                        </java:Types>
+                                        </java:ParameterizedType>
+                                        <java:VariableDeclarationFragments initialCapacity="1">
+                                        <java:VariableDeclarationFragment>
+                                        <java:SimpleName value="map"/>
+                                        <java:ExtraDimensions value="0"/>
+                                        <java:MethodInvocation>
+                                        <java:SimpleName value="fromEnumValues"/>
+                                        <java:Types initialCapacity="0"/>
+                                        <java:SimpleName value="get"/>
+                                        <java:Arguments initialCapacity="1">
+                                        <java:SimpleName value="context"/>
+                                        </java:Arguments>
+                                        </java:MethodInvocation>
+                                        </java:VariableDeclarationFragment>
+                                        </java:VariableDeclarationFragments>
+                                        </java:VariableDeclarationStatement>
+                                        <java:IfStatement>
+                                        <java:InfixExpression>
+                                        <java:SimpleName value="map"/>
+                                        <java:InfixOperator value="=="/>
+                                        <java:NullLiteral/>
+                                        <java:Expressions initialCapacity="0"/>
+                                        </java:InfixExpression>
+                                        <java:ExpressionStatement>
+                                        <java:MethodInvocation>
+                                        <java:SimpleName value="fromEnumValues"/>
+                                        <java:Types initialCapacity="0"/>
+                                        <java:SimpleName value="put"/>
+                                        <java:Arguments initialCapacity="2">
+                                        <java:SimpleName value="context"/>
+                                        <java:Assignment>
+                                        <java:SimpleName value="map"/>
+                                        <java:AssignmentOperator value="="/>
+                                        <java:ClassInstanceCreation>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <java:ParameterizedType>
+                                        <java:SimpleType value="HashMap"/>
+                                        <java:Types initialCapacity="2">
+                                        <java:SimpleType value="String"/>
+                                        <java:SimpleType value="String"/>
+                                        </java:Types>
+                                        </java:ParameterizedType>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </java:ClassInstanceCreation>
+                                        </java:Assignment>
+                                        </java:Arguments>
+                                        </java:MethodInvocation>
+                                        </java:ExpressionStatement>
+                                        <commons:Resolver/>
+                                        </java:IfStatement>
+                                        <java:ReturnStatement>
+                                        <java:SimpleName value="map"/>
+                                        </java:ReturnStatement>
+                                        </java:Block>
+                                        </java:MethodDeclaration>
+                                        <java:MethodDeclaration>
+                                        <commons:Resolver/>
+                                        <java:ExtendedModifiers initialCapacity="1">
+                                        <java:Modifier value="protected"/>
+                                        </java:ExtendedModifiers>
+                                        <commons:Resolver/>
+                                        <java:ParameterizedType>
+                                        <java:SimpleType value="Map"/>
+                                        <java:Types initialCapacity="2">
+                                        <java:SimpleType value="String"/>
+                                        <java:SimpleType value="String"/>
+                                        </java:Types>
+                                        </java:ParameterizedType>
+                                        <java:SimpleName value="toEnumValueMap"/>
+                                        <java:Parameters initialCapacity="1">
+                                        <java:SingleVariableDeclaration>
+                                        <commons:Resolver/>
+                                        <java:ParameterizedType>
+                                        <java:SimpleType value="EntityDescriptor"/>
+                                        <java:Types initialCapacity="1">
+                                        <java:WildcardType>
+                                        <commons:Resolver/>
+                                        <java:UpperBound value="false"/>
+                                        </java:WildcardType>
+                                        </java:Types>
+                                        </java:ParameterizedType>
+                                        <java:Varargs value="false"/>
+                                        <java:SimpleName value="context"/>
+                                        <java:ExtraDimensions value="0"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </java:SingleVariableDeclaration>
+                                        </java:Parameters>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <java:Block initialCapacity="3">
+                                        <java:VariableDeclarationStatement>
+                                        <commons:Resolver/>
+                                        <java:ParameterizedType>
+                                        <java:SimpleType value="Map"/>
+                                        <java:Types initialCapacity="2">
+                                        <java:SimpleType value="String"/>
+                                        <java:SimpleType value="String"/>
+                                        </java:Types>
+                                        </java:ParameterizedType>
+                                        <java:VariableDeclarationFragments initialCapacity="1">
+                                        <java:VariableDeclarationFragment>
+                                        <java:SimpleName value="map"/>
+                                        <java:ExtraDimensions value="0"/>
+                                        <java:MethodInvocation>
+                                        <java:SimpleName value="toEnumValues"/>
+                                        <java:Types initialCapacity="0"/>
+                                        <java:SimpleName value="get"/>
+                                        <java:Arguments initialCapacity="1">
+                                        <java:SimpleName value="context"/>
+                                        </java:Arguments>
+                                        </java:MethodInvocation>
+                                        </java:VariableDeclarationFragment>
+                                        </java:VariableDeclarationFragments>
+                                        </java:VariableDeclarationStatement>
+                                        <java:IfStatement>
+                                        <java:InfixExpression>
+                                        <java:SimpleName value="map"/>
+                                        <java:InfixOperator value="=="/>
+                                        <java:NullLiteral/>
+                                        <java:Expressions initialCapacity="0"/>
+                                        </java:InfixExpression>
+                                        <java:ExpressionStatement>
+                                        <java:MethodInvocation>
+                                        <java:SimpleName value="toEnumValues"/>
+                                        <java:Types initialCapacity="0"/>
+                                        <java:SimpleName value="put"/>
+                                        <java:Arguments initialCapacity="2">
+                                        <java:SimpleName value="context"/>
+                                        <java:Assignment>
+                                        <java:SimpleName value="map"/>
+                                        <java:AssignmentOperator value="="/>
+                                        <java:ClassInstanceCreation>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <java:ParameterizedType>
+                                        <java:SimpleType value="HashMap"/>
+                                        <java:Types initialCapacity="2">
+                                        <java:SimpleType value="String"/>
+                                        <java:SimpleType value="String"/>
+                                        </java:Types>
+                                        </java:ParameterizedType>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </java:ClassInstanceCreation>
+                                        </java:Assignment>
+                                        </java:Arguments>
+                                        </java:MethodInvocation>
+                                        </java:ExpressionStatement>
+                                        <commons:Resolver/>
+                                        </java:IfStatement>
+                                        <java:ReturnStatement>
+                                        <java:SimpleName value="map"/>
+                                        </java:ReturnStatement>
+                                        </java:Block>
+                                        </java:MethodDeclaration>
+                                        <java:MethodDeclaration>
+                                        <commons:Resolver/>
+                                        <java:ExtendedModifiers initialCapacity="1">
+                                        <java:Modifier value="protected"/>
+                                        </java:ExtendedModifiers>
+                                        <commons:Resolver/>
+                                        <java:PrimitiveType value="void"/>
+                                        <java:SimpleName value="addEnumValueMapping"/>
+                                        <java:Parameters initialCapacity="3">
+                                        <java:SingleVariableDeclaration>
+                                        <commons:Resolver/>
+                                        <java:SimpleType value="String"/>
+                                        <java:Varargs value="false"/>
+                                        <java:SimpleName value="uri"/>
+                                        <java:ExtraDimensions value="0"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </java:SingleVariableDeclaration>
+                                        <java:SingleVariableDeclaration>
+                                        <commons:Resolver/>
+                                        <java:SimpleType value="String"/>
+                                        <java:Varargs value="false"/>
+                                        <java:SimpleName value="value"/>
+                                        <java:ExtraDimensions value="0"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </java:SingleVariableDeclaration>
+                                        <java:SingleVariableDeclaration>
+                                        <commons:Resolver/>
+                                        <java:SimpleType value="String"/>
+                                        <java:Varargs value="false"/>
+                                        <java:SimpleName value="enumValue"/>
+                                        <java:ExtraDimensions value="0"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </java:SingleVariableDeclaration>
+                                        </java:Parameters>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <java:Block initialCapacity="3">
+                                        <java:VariableDeclarationStatement>
+                                        <commons:Resolver/>
+                                        <java:ParameterizedType>
+                                        <java:SimpleType value="EntityDescriptor"/>
+                                        <java:Types initialCapacity="1">
+                                        <java:WildcardType>
+                                        <commons:Resolver/>
+                                        <java:UpperBound value="false"/>
+                                        </java:WildcardType>
+                                        </java:Types>
+                                        </java:ParameterizedType>
+                                        <java:VariableDeclarationFragments initialCapacity="1">
+                                        <java:VariableDeclarationFragment>
+                                        <java:SimpleName value="context"/>
+                                        <java:ExtraDimensions value="0"/>
+                                        <java:MethodInvocation>
+                                        <commons:Resolver/>
+                                        <java:Types initialCapacity="0"/>
+                                        <java:SimpleName value="parseEntityDescriptor"/>
+                                        <java:Arguments initialCapacity="1">
+                                        <java:SimpleName value="uri"/>
+                                        </java:Arguments>
+                                        </java:MethodInvocation>
+                                        </java:VariableDeclarationFragment>
+                                        </java:VariableDeclarationFragments>
+                                        </java:VariableDeclarationStatement>
+                                        <java:ExpressionStatement>
+                                        <java:MethodInvocation>
+                                        <java:MethodInvocation>
+                                        <commons:Resolver/>
+                                        <java:Types initialCapacity="0"/>
+                                        <java:SimpleName value="fromEnumValueMap"/>
+                                        <java:Arguments initialCapacity="1">
+                                        <java:SimpleName value="context"/>
+                                        </java:Arguments>
+                                        </java:MethodInvocation>
+                                        <java:Types initialCapacity="0"/>
+                                        <java:SimpleName value="put"/>
+                                        <java:Arguments initialCapacity="2">
+                                        <java:SimpleName value="enumValue"/>
+                                        <java:SimpleName value="value"/>
+                                        </java:Arguments>
+                                        </java:MethodInvocation>
+                                        </java:ExpressionStatement>
+                                        <java:ExpressionStatement>
+                                        <java:MethodInvocation>
+                                        <java:MethodInvocation>
+                                        <commons:Resolver/>
+                                        <java:Types initialCapacity="0"/>
+                                        <java:SimpleName value="toEnumValueMap"/>
+                                        <java:Arguments initialCapacity="1">
+                                        <java:SimpleName value="context"/>
+                                        </java:Arguments>
+                                        </java:MethodInvocation>
+                                        <java:Types initialCapacity="0"/>
+                                        <java:SimpleName value="put"/>
+                                        <java:Arguments initialCapacity="2">
+                                        <java:SimpleName value="value"/>
+                                        <java:SimpleName value="enumValue"/>
+                                        </java:Arguments>
+                                        </java:MethodInvocation>
+                                        </java:ExpressionStatement>
+                                        </java:Block>
+                                        </java:MethodDeclaration>
+                                        </java:BodyDeclarations>
+                                        </java:ClassDeclaration>
+                                        </java:TypeDeclarations>
+                                        </java:CompilationUnit>
+                                        </commons:StageUpFragment>
+                                        </artifacts:FileArtifact>
+                                        </artifacts:Artifacts>
+                                        </artifacts:PackageArtifact>
+                                        </artifacts:Artifacts>
+                                        </artifacts:FolderArtifact>
+                                    </artifacts:Artifacts>
+                                    <commons:Resolver/>
+                                </artifacts:Project>
+                            </artifacts:Projects>
+                        </artifacts:Workspace>
+                    </commons:StageUpFragment>
+                    <queries:VariableRefStep value="normalizedMapping"/>
+                    <queries:Sequence initialCapacity="9">
+                        <queries:Filter>
+                            <queries:Addition>
+                                <queries:VariableRefStep value="fileName"/>
+                                <queries:StringLiteral value="Strategy"/>
+                            </queries:Addition>
+                            <queries:VariableTest value="mappingStrategyClassName"/>
+                        </queries:Filter>
+                        <queries:Select>
+                            <queries:Filter>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <java:ExpressionStatement xmlns:java="http://lang.whole.org/Java">
+                                        <java:MethodInvocation>
+                                        <commons:Resolver/>
+                                        <java:Types initialCapacity="0"/>
+                                        <java:SimpleName value="setMixedDataType"/>
+                                        <java:Arguments initialCapacity="1">
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Java#StringLiteral"/>
+                                        <commons:VarName value="mixedDataTypeUri"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        </java:Arguments>
+                                        </java:MethodInvocation>
+                                    </java:ExpressionStatement>
+                                </commons:StageUpFragment>
+                                <queries:VariableTest value="mixedDataTypeStatement"/>
+                            </queries:Filter>
+                            <queries:Filter>
+                                <queries:FeatureStep value="http://xsd.lang.whole.org/Mapping#mixedDataType"/>
+                                <queries:KindTest value="IMPL"/>
+                            </queries:Filter>
+                            <queries:Filter>
+                                <queries:SelfStep/>
+                                <queries:VariableTest value="mixedDataTypeUri"/>
+                            </queries:Filter>
+                            <queries:TemplateNames/>
+                        </queries:Select>
+                        <queries:Select>
+                            <queries:Filter>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <java:ExpressionStatement xmlns:java="http://lang.whole.org/Java">
+                                        <java:MethodInvocation>
+                                        <commons:Resolver/>
+                                        <java:Types initialCapacity="0"/>
+                                        <java:SimpleName value="setMixedTypes"/>
+                                        <java:Arguments initialCapacity="1">
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Java#StringLiteral"/>
+                                        <commons:VarName value="mixedTypeUri"/>
+                                        <commons:Quantifier value="+"/>
+                                        </commons:Variable>
+                                        </java:Arguments>
+                                        </java:MethodInvocation>
+                                    </java:ExpressionStatement>
+                                </commons:StageUpFragment>
+                                <queries:VariableTest value="mixedTypesStatement"/>
+                            </queries:Filter>
+                            <queries:Filter>
+                                <queries:FeatureStep value="http://xsd.lang.whole.org/Mapping#mixedTypes"/>
+                                <queries:Some>
+                                    <queries:ChildStep/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </queries:Some>
+                            </queries:Filter>
+                            <queries:Filter>
+                                <queries:ChildStep/>
+                                <queries:VariableTest value="mixedTypeUri"/>
+                            </queries:Filter>
+                            <queries:TemplateNames/>
+                        </queries:Select>
+                        <queries:Select>
+                            <queries:Filter>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <java:ExpressionStatement xmlns:java="http://lang.whole.org/Java">
+                                        <java:MethodInvocation>
+                                        <commons:Resolver/>
+                                        <java:Types initialCapacity="0"/>
+                                        <java:SimpleName value="addEnumValueMapping"/>
+                                        <java:Arguments initialCapacity="3">
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Java#StringLiteral"/>
+                                        <commons:VarName value="enumTypeUri"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Java#StringLiteral"/>
+                                        <commons:VarName value="value"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Java#StringLiteral"/>
+                                        <commons:VarName value="enumValue"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        </java:Arguments>
+                                        </java:MethodInvocation>
+                                    </java:ExpressionStatement>
+                                </commons:StageUpFragment>
+                                <queries:VariableTest value="enumValueMappingStatements"/>
+                            </queries:Filter>
+                            <queries:Path initialCapacity="4">
+                                <queries:FeatureStep value="http://xsd.lang.whole.org/Mapping#dataTypes"/>
+                                <queries:Filter>
+                                    <queries:ChildStep/>
+                                    <queries:And initialCapacity="2">
+                                        <queries:TypeTest value="http://xsd.lang.whole.org/Mapping#EnumDataType"/>
+                                        <queries:Some>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="http://xsd.lang.whole.org/Mapping#entityType"/>
+                                        <queries:VariableTest value="enumTypeUri"/>
+                                        </queries:Filter>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
+                                    </queries:And>
+                                </queries:Filter>
+                                <queries:FeatureStep value="http://xsd.lang.whole.org/Mapping#enumValues"/>
+                                <queries:ChildStep/>
+                            </queries:Path>
+                            <queries:Sequence initialCapacity="2">
+                                <queries:Filter>
+                                    <queries:FeatureStep value="http://xsd.lang.whole.org/Mapping#value"/>
+                                    <queries:VariableTest value="value"/>
+                                </queries:Filter>
+                                <queries:Filter>
+                                    <queries:FeatureStep value="http://xsd.lang.whole.org/Mapping#enumValue"/>
+                                    <queries:VariableTest value="enumValue"/>
+                                </queries:Filter>
+                            </queries:Sequence>
+                            <queries:TemplateNames/>
+                        </queries:Select>
+                        <queries:Filter>
+                            <queries:FeatureStep value="http://xsd.lang.whole.org/Mapping#namespace"/>
+                            <queries:VariableTest value="namespace"/>
+                        </queries:Filter>
+                        <queries:Filter>
+                            <queries:FeatureStep value="http://xsd.lang.whole.org/Mapping#schemaLocation"/>
+                            <queries:VariableTest value="schemaLocation"/>
+                        </queries:Filter>
+                        <queries:Filter>
+                            <queries:FeatureStep value="http://xsd.lang.whole.org/Mapping#synthesized"/>
+                            <queries:VariableTest value="isSynthesized"/>
+                        </queries:Filter>
+                        <queries:Filter>
+                            <queries:FeatureStep value="http://xsd.lang.whole.org/Mapping#elementsFormQualified"/>
+                            <queries:VariableTest value="isElementsFormQualified"/>
+                        </queries:Filter>
+                        <queries:Filter>
+                            <queries:FeatureStep value="http://xsd.lang.whole.org/Mapping#attributesFormQualified"/>
+                            <queries:VariableTest value="isAttributesFormQualified"/>
+                        </queries:Filter>
+                    </queries:Sequence>
+                    <queries:TemplateNames/>
+                </queries:Select>
+            </queries:Block>
+        </actions:SimpleAction>
+    </actions:ToolbarActions>
+    <actions:ContextMenuActions>
+        <actions:MenuActions initialCapacity="0"/>
+        <actions:MenuActions initialCapacity="0"/>
+        <actions:MenuActions initialCapacity="0"/>
+        <actions:MenuActions initialCapacity="0"/>
+        <actions:MenuActions initialCapacity="0"/>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    </actions:ContextMenuActions>
+</actions:LanguageActionFactory>

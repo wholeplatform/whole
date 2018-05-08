@@ -24,13 +24,11 @@ import org.whole.lang.models.model.Model;
 import org.whole.lang.models.reflect.ModelsTemplateManager;
 import org.whole.lang.operations.InterpreterOperation;
 import org.whole.lang.operations.NormalizerOperation;
-import org.whole.lang.queries.model.PathExpression;
 import org.whole.lang.reflect.ILanguageKit;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.templates.ITemplateManager;
 import org.whole.lang.util.BehaviorUtils;
 import org.whole.lang.util.ResourceLoader;
-import org.whole.lang.xsd.codebase.ModelToXmlSchemaQuery;
 import org.whole.lang.xsd.codebase.XsiPersistenceKit;
 import org.whole.lang.xsd.mapping.model.MappingStrategy;
 import org.whole.lang.xsd.mapping.samples.AppEngineWebInstance;
@@ -419,11 +417,10 @@ public class XsdMappingTest {
 	@Test
 	public void testModelsToXmlSchemaXXX() throws Exception {
 		IBindingManager bm = BindingManagerFactory.instance.createArguments();
-		PathExpression path = new ModelToXmlSchemaQuery().create();
 		Model model = (Model) ModelsTemplateManager.instance().create("Models model");
 		String uri = model.getUri().getValue();
-		ILanguageKit lk = ReflectionFactory.getLanguageKit(uri);
-		IEntity tuple = BehaviorUtils.evaluateFirstResult(path, model, bm);
+		ILanguageKit lk = ReflectionFactory.getLanguageKit(uri, true, null);
+		IEntity tuple = BehaviorUtils.applyFirstResult("whole:org.whole.lang.xsd:XsdMapppingLibrarySemantics#modelToXmlSchema", model, bm);
 		Assert.assertNotNull(tuple);
 
 		InterpreterOperation.interpret(tuple.wGet(1));
