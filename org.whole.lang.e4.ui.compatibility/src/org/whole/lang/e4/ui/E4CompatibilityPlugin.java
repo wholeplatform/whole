@@ -105,7 +105,7 @@ public class E4CompatibilityPlugin extends AbstractUIPlugin {
 			E4CompatibilityPlugin.log(t);
 		Display display = activeShell != null && !activeShell.isDisposed() ?
 				activeShell.getDisplay() : Display.getDefault();
-		display.syncExec(new Runnable() {
+		display.asyncExec(new Runnable() {
 			public void run() {
 				MessageDialog.openError(activeShell, title, message + (t != null ? "\n\nSee the error log for more details." : ""));
 			}

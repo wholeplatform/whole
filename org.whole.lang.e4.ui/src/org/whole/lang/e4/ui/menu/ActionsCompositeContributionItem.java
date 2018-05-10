@@ -62,11 +62,11 @@ public class ActionsCompositeContributionItem extends AbstractCompositeContribut
 	protected IContributionItem[] getItems() {
 
 		Object selection = contextProvider.getContext().get(ESelectionService.class).getSelection();
-		if (!(selection instanceof IBindingManager) || !((IBindingManager) selection).wIsSet("self"))
+		if (!(selection instanceof IBindingManager) || !((IBindingManager) selection).wIsSet("compoundRoot"))
 			return new IContributionItem[0];
 
 		IBindingManager bm = (IBindingManager) selection;
-		String languageURI = bm.wGet("self").wGetLanguageKit().getURI();
+		String languageURI = bm.wGet("compoundRoot").wGetLanguageKit().getURI();
 
 		Map<GuardedAction, String> actionsMap = new HashMap<GuardedAction, String>();
 		IResourceRegistry<Resource> registry = ActionsRegistry.instance();

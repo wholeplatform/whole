@@ -204,7 +204,7 @@ public class E4Utils {
 			selectedEntities.wAdd(selectedEntityPart.getModelEntity());
 
 		if (viewer != null) {
-			bm.wDef("self", EntityUtils.getCompoundRoot(viewer.getEntityContents()));
+			bm.wDef("compoundRoot", EntityUtils.getCompoundRoot(viewer.getEntityContents()));
 			bm.wDefValue("viewer", viewer);
 			IEntityPart focusEntityPart = viewer.getFocusEntityPart();
 			bm.wDef("focusEntity", focusEntityPart.getModelEntity());
@@ -369,7 +369,7 @@ public class E4Utils {
 			is = NullInputStream.instance();
 			os = NullOutputStream.instance();
 		}
-		return InterpreterOperation.interpret(bm.wGet("self"), bm, is, os);
+		return InterpreterOperation.interpret(bm.wGet("compoundRoot"), bm, is, os);
 	}
 	public static void invokePrettyPrinter(IBindingManager bm) {
 		OutputStream os;
@@ -386,7 +386,7 @@ public class E4Utils {
 		try {
 			bm.wEnterScope();
 			bm.wDefValue("printWriter", new PrintWriter(os));
-			PrettyPrinterOperation.prettyPrint(bm.wGet("self"), bm);
+			PrettyPrinterOperation.prettyPrint(bm.wGet("compoundRoot"), bm);
 		} finally {
 			bm.wExitScope();
 		}
@@ -441,8 +441,8 @@ public class E4Utils {
 
 				E4Utils.revealPart(context, IE4UIConstants.DEBUG_PART_ID);
 				E4Utils.revealPart(context, IE4UIConstants.VARIABLES_PART_ID);
-				if (bindings.wIsSet("self") && bindings.wIsSet("viewer")) {
-					IEntity selfEntity = bindings.wGet("self");
+				if (bindings.wIsSet("compoundRoot") && bindings.wIsSet("viewer")) {
+					IEntity selfEntity = bindings.wGet("compoundRoot");
 					((IEntityPartViewer) bindings.wGetValue("viewer")).selectAndReveal(selfEntity);
 				}
 

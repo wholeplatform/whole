@@ -56,7 +56,7 @@ public class DeriveModelRunnable extends AbstractRunnableWithProgress {
 		try {
 			bm.wEnterScope();
 			bm.wDefValue("debug#reportModeEnabled", false);
-			final IEntity result = BehaviorUtils.apply(functionUri, bm.wGet("self"), bm);
+			final IEntity result = BehaviorUtils.apply(functionUri, bm.wGet("compoundRoot"), bm);
 			UISynchronize synchronize = context.get(UISynchronize.class);
 			if (synchronize == null)
 				return;

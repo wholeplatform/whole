@@ -72,7 +72,7 @@ public class DerivedLinkableSelectionListener extends AbstractLinkableSelectionL
 			fireViewerLinked(toViewer);
 		}
 		
-		if (!changeTracker.testChangedAndUpdate(lastSelection, lastSelection.wGet("self")))
+		if (!changeTracker.testChangedAndUpdate(lastSelection, lastSelection.wGet("compoundRoot")))
 			return;
 
 		if (functionUri != null) {
@@ -86,7 +86,7 @@ public class DerivedLinkableSelectionListener extends AbstractLinkableSelectionL
 			};
 			runnable.asyncExec("Executing "+LABEL+" operation...");
 		} else {
-			IEntity newContents = lastSelection.wGet("self");
+			IEntity newContents = lastSelection.wGet("compoundRoot");
 			if (viewer.getEntityContents() != newContents)
 				viewer.setContents(newContents);
 		}

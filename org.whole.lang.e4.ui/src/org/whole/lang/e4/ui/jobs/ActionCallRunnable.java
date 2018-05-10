@@ -55,7 +55,7 @@ public class ActionCallRunnable extends AbstractRunnableWithProgress {
 
 	@Override
 	public void run(IOperationProgressMonitor pm) throws InvocationTargetException {
-		IEntity model = bm.wGet("self");
+		IEntity model = bm.wGet("compoundRoot");
 		boolean analyzing = bm.wBooleanValue("analyzing");
 		if (analyzing) {
 			// clone model if is analyzing

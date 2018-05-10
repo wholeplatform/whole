@@ -38,7 +38,7 @@ public class TextualFunctionRunnable extends FunctionRunnable {
 			try {
 				bm.wEnterScope();
 
-				IEntity newText = BehaviorUtils.apply(functionUri, bm.wGet("self"), bm);
+				IEntity newText = BehaviorUtils.apply(functionUri, bm.wGet("compoundRoot"), bm);
 
 				mtc.setNewSelectedEntity(newText);
 				mtc.setNewPosition(bm.wIntValue("caretPosition"));

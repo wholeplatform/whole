@@ -43,7 +43,7 @@ public class ContentAssistRunnable extends AbstractRunnableWithProgress {
 	public void run(IOperationProgressMonitor pm) throws InvocationTargetException, InterruptedException {
 		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
 		CommandStack commandStack = viewer.getEditDomain().getCommandStack();
-		ModelTransactionCommand mtc = new ModelTransactionCommand(bm.wGet("self"), label);
+		ModelTransactionCommand mtc = new ModelTransactionCommand(bm.wGet("compoundRoot"), label);
 
 		IEntity[] contentAssist = null;
 		pm.beginTask("Content assit generation...", IOperationProgressMonitor.TOTAL_WORK);

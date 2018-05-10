@@ -56,7 +56,7 @@ public class E4ContextGraphicalPart extends AbstractE4DerivedGraphicalPart {
 					IEntity sampleContext = BindingManagerFactory.instance.createTuple(result, selfModel, selfBindings);
 					//TODO test
 //					if (Matcher.matchImpl(EnvironmentEntityDescriptorEnum.Bindings, result))
-//						result.wAdd(BindingManagerFactory.instance.createBinding("self", selfModel));
+//						result.wAdd(BindingManagerFactory.instance.createBinding("compoundRoot", selfModel));
 					
 					eventBroker.post(IE4UIConstants.TOPIC_UPDATE_SAMPLE_CONTEXT, sampleContext);
 				} else

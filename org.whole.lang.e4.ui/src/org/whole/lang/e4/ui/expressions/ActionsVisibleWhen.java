@@ -47,7 +47,11 @@ public class ActionsVisibleWhen extends AbstractSelectionConstrainedVisibleWhen 
 		if (!HandlersBehavior.isValidEntityPartSelection(bm, false))
 			return false;
 
-		String languageURI = bm.wGet("self").wGetLanguageKit().getURI();
+		IEntity compoundRoot = bm.wGet("compoundRoot");
+		if (compoundRoot == null)
+			return false;
+
+		String languageURI = compoundRoot.wGetLanguageKit().getURI();
 	
 		IResourceRegistry<Resource> registry = ActionsRegistry.instance();
 		for (IResource resource : registry.getResources(false)) {

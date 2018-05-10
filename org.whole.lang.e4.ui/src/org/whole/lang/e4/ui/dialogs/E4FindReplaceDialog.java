@@ -311,7 +311,7 @@ public class E4FindReplaceDialog extends E4Dialog {
 		}
 	}
 	protected void doReplaceAll() {
-		IEntity self = selection.wGet("self");
+		IEntity self = selection.wGet("compoundRoot");
 		iterator.reset(self);
 
 		if (!findNext(true))
@@ -366,7 +366,7 @@ public class E4FindReplaceDialog extends E4Dialog {
 			return;
 		
 		this.selection = selection.clone();
-		IEntity self = this.selection.wGet("self");
+		IEntity self = this.selection.wGet("compoundRoot");
 		iterator.reset(self);
 		if (this.selection.wIsSet("primarySelectedEntity")) {
 			IEntity primarySelectedEntity = this.selection.wGet("primarySelectedEntity");

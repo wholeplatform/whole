@@ -49,13 +49,13 @@ public class FunctionRunnable extends AbstractRunnableWithProgress {
 		
 		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
 		CommandStack commandStack = viewer.getEditDomain().getCommandStack();
-		ModelTransactionCommand mtc = new ModelTransactionCommand(bm.wGet("self"), label);
+		ModelTransactionCommand mtc = new ModelTransactionCommand(bm.wGet("compoundRoot"), label);
 
 		IEntity result = null;
 		pm.beginTask("Executing function "+functionUri+"...", IOperationProgressMonitor.TOTAL_WORK);
 		try {
 			mtc.begin();
-			result = BehaviorUtils.apply(functionUri, bm.wGet("self"), bm);
+			result = BehaviorUtils.apply(functionUri, bm.wGet("compoundRoot"), bm);
 			mtc.commit();
 			if (mtc.canUndo())
 				commandStack.execute(mtc);

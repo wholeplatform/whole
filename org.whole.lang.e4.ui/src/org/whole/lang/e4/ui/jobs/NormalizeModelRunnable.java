@@ -41,7 +41,7 @@ public class NormalizeModelRunnable extends AbstractRunnableWithProgress {
 	public void run(IOperationProgressMonitor pm) throws InvocationTargetException, InterruptedException {
 		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
 		CommandStack commandStack = viewer.getEditDomain().getCommandStack();
-		ModelTransactionCommand mtc = new ModelTransactionCommand(bm.wGet("self"), label);
+		ModelTransactionCommand mtc = new ModelTransactionCommand(bm.wGet("compoundRoot"), label);
 
 		pm.beginTask("Normalizing...", IOperationProgressMonitor.TOTAL_WORK);
 		try {

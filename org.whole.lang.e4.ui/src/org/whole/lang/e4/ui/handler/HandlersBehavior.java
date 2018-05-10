@@ -494,7 +494,7 @@ public class HandlersBehavior {
 		ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();
 		bm.wEnterScope(ts);
 		//FIXME workaround for domain content assist that assume self initialized with primarySelectedEntity
-		bm.wDefValue("self", focusEntity);
+		bm.wDefValue("compoundRoot", focusEntity);
 		boolean predicateResult = BehaviorUtils.evaluatePredicate(predicateEntity, 0, bm);
 		ts.rollback();
 		bm.wExitScope();
@@ -521,7 +521,7 @@ public class HandlersBehavior {
 		ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();
 		bm.wEnterScope(ts);
 		//FIXME workaround for domain content assist that assume self initialized with primarySelectedEntity
-		bm.wDefValue("self", focusEntity);
+		bm.wDefValue("compoundRoot", focusEntity);
 		boolean predicateResult = BehaviorUtils.evaluatePredicate(predicateEntity, 0, bm);
 		ts.rollback();
 		bm.wExitScope();
@@ -564,7 +564,7 @@ public class HandlersBehavior {
 		return BehaviorUtils.evaluatePredicate(bm.wGet("predicateEntity"), 0, bm);
 	}
 	public static void actionCall(IBindingManager bm) {
-		IEntity model = bm.wGet("self");
+		IEntity model = bm.wGet("compoundRoot");
 		boolean analyzing = bm.wBooleanValue("analyzing");
 		if (analyzing) {
 			// clone model if is analyzing
@@ -611,27 +611,27 @@ public class HandlersBehavior {
 	}
 
 	public static boolean canValidateModel(IBindingManager bm) {
-		return bm.wIsSet("file") && bm.wIsSet("self") &&
-				bm.wGet("self").wGetLanguageKit().hasVisitor(ValidatorOperation.ID) &&
+		return bm.wIsSet("file") && bm.wIsSet("compoundRoot") &&
+				bm.wGet("compoundRoot").wGetLanguageKit().hasVisitor(ValidatorOperation.ID) &&
 				bm.wIsSet("viewer") && ((IEntityPartViewer) bm.wGetValue("viewer")).isOperationExecutable();
 	}
 
 	public static void validateModel(IBindingManager bm) {
-		ValidatorOperation.validate(bm.wGet("self"), bm);
+		ValidatorOperation.validate(bm.wGet("compoundRoot"), bm);
 	}
 
 	public static boolean canNormalizeModel(IBindingManager bm) {
-		return bm.wIsSet("self") &&
-				bm.wGet("self").wGetLanguageKit().hasVisitor(NormalizerOperation.ID) &&
+		return bm.wIsSet("compoundRoot") &&
+				bm.wGet("compoundRoot").wGetLanguageKit().hasVisitor(NormalizerOperation.ID) &&
 				bm.wIsSet("viewer") && ((IEntityPartViewer) bm.wGetValue("viewer")).isOperationExecutable();
 	}
 
 	public static void normalizeModel(IBindingManager bm) {
-		NormalizerOperation.normalize(bm.wGet("self"), bm);
+		NormalizerOperation.normalize(bm.wGet("compoundRoot"), bm);
 	}
 
 	public static boolean canPrettyPrintModel(IBindingManager bm) {
-		return bm.wIsSet("self") &&
+		return bm.wIsSet("compoundRoot") &&
 				bm.wIsSet("viewer") && ((IEntityPartViewer) bm.wGetValue("viewer")).isOperationExecutable();
 	}
 
@@ -639,8 +639,8 @@ public class HandlersBehavior {
 		E4Utils.invokePrettyPrinter(bm);
 	}
 	public static boolean canInterpretModel(IBindingManager bm) {
-		return bm.wIsSet("self") &&
-				bm.wGet("self").wGetLanguageKit().hasVisitor(InterpreterOperation.ID) &&
+		return bm.wIsSet("compoundRoot") &&
+				bm.wGet("compoundRoot").wGetLanguageKit().hasVisitor(InterpreterOperation.ID) &&
 				bm.wIsSet("viewer") && ((IEntityPartViewer) bm.wGetValue("viewer")).isOperationExecutable();
 	}
 
@@ -649,17 +649,17 @@ public class HandlersBehavior {
 	}
 
 	public static boolean canGenerateArtifacts(IBindingManager bm) {
-		return bm.wIsSet("self") &&
-				bm.wGet("self").wGetLanguageKit().hasVisitor(ArtifactsGeneratorOperation.ID) &&
+		return bm.wIsSet("compoundRoot") &&
+				bm.wGet("compoundRoot").wGetLanguageKit().hasVisitor(ArtifactsGeneratorOperation.ID) &&
 				bm.wIsSet("viewer") && ((IEntityPartViewer) bm.wGetValue("viewer")).isOperationExecutable();
 	}
 
 	public static void generateArtifacts(IBindingManager bm) {
-		ArtifactsGeneratorOperation.generate(bm.wGet("self"), bm);
+		ArtifactsGeneratorOperation.generate(bm.wGet("compoundRoot"), bm);
 	}
 	public static boolean canGenerateJava(IBindingManager bm) {
-		return bm.wIsSet("self") &&
-				bm.wGet("self").wGetLanguageKit().hasVisitor(IE4UIConstants.JAVA_COMPILER_OPERATION_ID) &&
+		return bm.wIsSet("compoundRoot") &&
+				bm.wGet("compoundRoot").wGetLanguageKit().hasVisitor(IE4UIConstants.JAVA_COMPILER_OPERATION_ID) &&
 				bm.wIsSet("viewer") && ((IEntityPartViewer) bm.wGetValue("viewer")).isOperationExecutable();
 	}
 
@@ -671,7 +671,7 @@ public class HandlersBehavior {
 			Class<?> generatorClass = Class.forName("org.whole.lang.ui.actions.JavaModelGeneratorAction", true, cl);
 			Method generateMethod = generatorClass.getMethod("generate", IProgressMonitor.class, IEntity.class, IBindingManager.class);
 			final IOperationProgressMonitor operationProgressMonitor = (IOperationProgressMonitor) bm.wGetValue("progressMonitor");
-			generateMethod.invoke(null, operationProgressMonitor.getAdapter(IProgressMonitor.class), bm.wGet("self"), bm);
+			generateMethod.invoke(null, operationProgressMonitor.getAdapter(IProgressMonitor.class), bm.wGet("compoundRoot"), bm);
 		} catch (OperationCanceledException e) {
 			throw e;
 		} catch (Exception e) {
