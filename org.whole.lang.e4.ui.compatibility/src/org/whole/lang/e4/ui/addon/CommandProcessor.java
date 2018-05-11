@@ -22,6 +22,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.commands.MCommand;
@@ -35,6 +36,8 @@ import org.whole.lang.e4.ui.command.ICommandFactory;
 public class CommandProcessor {
 	@Inject
 	protected MApplication application;
+	@Inject
+	IEclipseContext context;
 
 	@Execute
 	public void execute() {
