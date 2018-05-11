@@ -492,7 +492,7 @@ public class HandlersBehavior {
 		ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();
 		bm.wEnterScope(ts);
 		//FIXME workaround for domain content assist that assume self initialized with primarySelectedEntity
-		bm.wDefValue("compoundRoot", focusEntity);
+		bm.wDefValue("self", focusEntity);
 		boolean predicateResult = BehaviorUtils.evaluatePredicate(predicateEntity, 0, bm);
 		ts.rollback();
 		bm.wExitScope();
