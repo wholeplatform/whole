@@ -46,8 +46,11 @@ public class ChangeTracker {
 		boolean changed = isChanged(objects);
 		if (changed) {
 			Object[] updated = new Object[objects.length];
-			for (int i=0; i<objects.length; i++)
-				updated[i] = (objects[i] == SKIP && i<tracked.length)  ? tracked[i] : objects[i];
+			for (int i=0; i<objects.length; i++) {
+				if (objects[i] == SKIP && i>=tracked.length)
+					throw new IllegalArgumentException("missing skipped element");
+				updated[i] = objects[i] == SKIP  ? tracked[i] : objects[i];
+			}
 			tracked = updated;
 		}
 		return changed;

@@ -59,7 +59,7 @@ public abstract class AbstractLinkableSelectionListener implements ILinkableSele
 
 	protected IEntityPartViewer linkedViewer;
 	protected IBindingManager lastSelection;
-	protected ListenerList linkViewerListenerList = new ListenerList();
+	protected ListenerList<ILinkViewerListener> linkViewerListenerList = new ListenerList<ILinkViewerListener>();
 
 	@Override
 	public void selectionChanged(MPart part, Object selection) {
