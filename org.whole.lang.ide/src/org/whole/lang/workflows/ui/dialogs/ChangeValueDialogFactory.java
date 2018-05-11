@@ -56,7 +56,7 @@ public class ChangeValueDialogFactory implements ITaskDialogFactory {
 		params.set("dialogMessage", message);
 		params.set("dialogEntity", entity);
 		IEclipseContext context = (IEclipseContext) bindings.wGetValue("eclipse#eclipseContext");
-		IImportAsModelDialogFactory factory = ContextInjectionFactory.make(DisabledImportAsModelDialogFactory.class, context);
+		IImportAsModelDialogFactory factory = context.get(DisabledImportAsModelDialogFactory.class);
 		params.set(IImportAsModelDialogFactory.class, factory);
 		return ContextInjectionFactory.make(ChangeValueDialog.class, context, params);
 	}

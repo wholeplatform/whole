@@ -30,7 +30,6 @@ import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.tools.compat.parts.DIEditorPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.gef.GraphicalViewer;
@@ -59,8 +58,6 @@ import org.whole.lang.e4.ui.parts.E4GraphicalPart;
 import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.ReflectionFactory;
-import org.whole.lang.ui.dialogs.IImportAsModelDialogFactory;
-import org.whole.lang.ui.dialogs.ImportAsModelDialogFactory;
 import org.whole.lang.ui.input.IModelInput;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
 import org.whole.lang.util.EntityUtils;
@@ -83,9 +80,6 @@ public class EditorPart extends DIEditorPart<E4GraphicalPart> implements IPersis
 
 	@Override
 	public void createPartControl(Composite parent) {
-		IImportAsModelDialogFactory factory = ContextInjectionFactory.make(ImportAsModelDialogFactory.class, getContext());
-		getContext().set(IImportAsModelDialogFactory.class, factory);
-
 		super.createPartControl(parent);
 
 		getContext().get(MPart.class).setElementId("org.eclipse.e4.ui.compatibility.editor");

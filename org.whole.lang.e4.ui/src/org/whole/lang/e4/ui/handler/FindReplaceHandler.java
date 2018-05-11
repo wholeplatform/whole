@@ -23,6 +23,7 @@ import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.core.di.annotations.Optional;
+import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.whole.lang.bindings.IBindingManager;
@@ -40,7 +41,9 @@ public class FindReplaceHandler {
 	private static MWindow contextWindow = null;
 	
 	@Execute
-	public void execute(IEclipseContext context, @Optional @Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
+	public void execute(MApplication application, @Optional @Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
+		IEclipseContext context = application.getContext();
+
 		if (instance == null || instance.getShell() == null || instance.getShell().isDisposed())
 			// initially create ad new find replace dialog
 			instance = ContextInjectionFactory.make(E4FindReplaceDialog.class, context);

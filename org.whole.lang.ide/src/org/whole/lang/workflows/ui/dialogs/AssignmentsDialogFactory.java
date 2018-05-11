@@ -47,7 +47,7 @@ public class AssignmentsDialogFactory implements ITaskDialogFactory {
 		params.set("dialogAssignments", assignments);
 
 		IEclipseContext context = (IEclipseContext) bindings.wGetValue("eclipse#eclipseContext");
-		IImportAsModelDialogFactory factory = ContextInjectionFactory.make(DisabledImportAsModelDialogFactory.class, context);
+		IImportAsModelDialogFactory factory = context.get(DisabledImportAsModelDialogFactory.class);
 		params.set(IImportAsModelDialogFactory.class, factory);
 		return ContextInjectionFactory.make(AssignmentsDialog.class, context, params);
 	}

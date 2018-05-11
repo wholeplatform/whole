@@ -96,6 +96,7 @@ import org.whole.lang.util.BehaviorUtils;
 /**
  * @author Enrico Persiani
  */
+@SuppressWarnings("restriction")
 public class ModelMergeViewer extends ContentViewer implements IPropertyChangeNotifier, IFlushable, IFlushable2 {
 	protected CompareConfiguration compareConfiguration;
 	protected ListenerList<IPropertyChangeListener> listenerList;
@@ -194,7 +195,7 @@ public class ModelMergeViewer extends ContentViewer implements IPropertyChangeNo
 	}
 
 	protected Control createMergeArea(Composite parent) {
-		IImportAsModelDialogFactory factory = ContextInjectionFactory.make(ImportAsModelDialogFactory.class, getContext());
+		IImportAsModelDialogFactory factory = getContext().get(ImportAsModelDialogFactory.class);
 		IEclipseContext params = EclipseContextFactory.create();
 		params.set("parent", parent);
 		params.set(IImportAsModelDialogFactory.class, factory);

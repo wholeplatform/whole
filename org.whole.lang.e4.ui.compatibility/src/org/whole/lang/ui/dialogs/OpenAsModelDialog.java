@@ -150,7 +150,7 @@ public class OpenAsModelDialog extends ElementTreeSelectionDialog {
 		try {
 			return (ITreeContentProvider) Class.forName(
 					"org.eclipse.ui.model.WorkbenchContentProvider",
-					true, ReflectionFactory.getPlatformClassLoader()).newInstance();
+					true, ReflectionFactory.getPlatformClassLoader()).getDeclaredConstructor().newInstance();
 		} catch (Exception e) {
 			return new ResourceTreeContentProvider();
 		}
@@ -159,7 +159,7 @@ public class OpenAsModelDialog extends ElementTreeSelectionDialog {
 		try {
 			return (ILabelProvider) Class.forName(
 					"org.eclipse.ui.model.WorkbenchLabelProvider",
-					true, ReflectionFactory.getPlatformClassLoader()).newInstance();
+					true, ReflectionFactory.getPlatformClassLoader()).getDeclaredConstructor().newInstance();
 		} catch (Exception e) {
 			return new ResourceTreeLabelProvider();
 		}

@@ -20,12 +20,10 @@ package org.whole.lang.e4.ui.dialogs;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.eclipse.e4.core.contexts.Active;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
-import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.gef.ContextMenuProvider;
 import org.eclipse.jface.action.IMenuManager;
@@ -358,7 +356,7 @@ public class E4FindReplaceDialog extends E4Dialog {
 	}
 
 	@Inject
-	protected void setSelection(@Optional @Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager selection,@Named(IServiceConstants.ACTIVE_PART) Object aPart, @Active MPart activePart, MPart part) {
+	protected void setSelection(@Optional @Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager selection) {//,@Named(IServiceConstants.ACTIVE_PART) Object aPart, @Active MPart activePart, MPart part) {
 		if (getShell() == null || getShell().isDisposed())
 			return;
 
@@ -370,7 +368,7 @@ public class E4FindReplaceDialog extends E4Dialog {
 		iterator.reset(self);
 		if (this.selection.wIsSet("primarySelectedEntity")) {
 			IEntity primarySelectedEntity = this.selection.wGet("primarySelectedEntity");
-			if (primarySelectedEntity != self) {
+			if (primarySelectedEntity != self && EntityUtils.isAncestorOrSelf(self, primarySelectedEntity)) {
 				iterator.skipToSame(primarySelectedEntity);
 				if (isFreshTemplate())
 					findNext(false);
