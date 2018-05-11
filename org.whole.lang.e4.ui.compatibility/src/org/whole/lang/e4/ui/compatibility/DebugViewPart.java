@@ -28,6 +28,7 @@ import org.whole.lang.e4.ui.parts.E4DebugGraphicalPart;
 /**
  * @author Enrico Persiani
  */
+@SuppressWarnings("restriction")
 public class DebugViewPart extends ViewPart<E4DebugGraphicalPart> {
 	public DebugViewPart() {
 		super(DEBUG_PART_ID, E4DebugGraphicalPart.class);

@@ -17,9 +17,9 @@
  */
 package org.whole.lang.e4.ui.compatibility;
 
-import static org.whole.lang.e4.ui.actions.IE4UIConstants.*;
+import static org.whole.lang.e4.ui.actions.IE4UIConstants.REDO_LABEL;
+import static org.whole.lang.e4.ui.actions.IE4UIConstants.UNDO_LABEL;
 
-import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.tools.compat.parts.DIViewPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.gef.GraphicalViewer;
@@ -32,13 +32,12 @@ import org.eclipse.ui.actions.ActionFactory;
 import org.whole.lang.e4.ui.actions.RedoAction;
 import org.whole.lang.e4.ui.actions.UndoAction;
 import org.whole.lang.e4.ui.parts.AbstractE4Part;
-import org.whole.lang.ui.dialogs.IImportAsModelDialogFactory;
-import org.whole.lang.ui.dialogs.ImportAsModelDialogFactory;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
 
 /**
  * @author Enrico Persiani
  */
+@SuppressWarnings("restriction")
 public class ViewPart<C extends AbstractE4Part> extends DIViewPart<C> {
 	protected String partId;
 	protected UndoAction undoAction;
@@ -51,10 +50,6 @@ public class ViewPart<C extends AbstractE4Part> extends DIViewPart<C> {
 
 	@Override
 	public void createPartControl(Composite parent) {
-		IImportAsModelDialogFactory factory = ContextInjectionFactory.make(ImportAsModelDialogFactory.class, getContext());
-
-		getContext().set(IImportAsModelDialogFactory.class, factory);
-
 		super.createPartControl(parent);
 
 		getContext().get(MPart.class).setElementId(partId);
@@ -74,18 +69,18 @@ public class ViewPart<C extends AbstractE4Part> extends DIViewPart<C> {
 		super.setFocus();
 	}
 
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({ "unchecked" })
 	@Override
-	public Object getAdapter(Class adapter) {
+	public <A> A getAdapter(Class<A> adapter) {
 		IEntityPartViewer viewer = getComponent().getViewer();
 		if (adapter == GraphicalViewer.class) {
-			return viewer instanceof GraphicalViewer ? viewer : null;
+			return viewer instanceof GraphicalViewer ? (A) viewer : null;
 		} else if (adapter == ZoomManager.class)
-			return viewer.getProperty(ZoomManager.class.toString());
+			return (A) viewer.getProperty(ZoomManager.class.toString());
 		else if (adapter == CommandStack.class)
-			return viewer.getCommandStack();
+			return (A) viewer.getCommandStack();
 		else
-			return super.getAdapter(adapter);
+			return (A) super.getAdapter(adapter);
 	}
 
 	@Override

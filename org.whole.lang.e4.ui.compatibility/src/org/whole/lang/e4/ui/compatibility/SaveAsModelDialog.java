@@ -30,8 +30,8 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.jface.viewers.ViewerFilter;
-import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -114,7 +114,7 @@ public class SaveAsModelDialog extends SaveAsDialog {
 				return ((IPersistenceKit) element).getDescription();
 			}
 		});
-		saveAsCombo.setSorter(new ViewerSorter());
+		saveAsCombo.setComparator(new ViewerComparator());
 		saveAsCombo.setFilters(new ViewerFilter[] { new ViewerFilter() {
 			@Override
 			public boolean select(Viewer viewer, Object parentElement, Object element) {

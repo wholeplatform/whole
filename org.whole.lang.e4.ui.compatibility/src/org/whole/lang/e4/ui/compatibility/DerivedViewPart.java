@@ -32,6 +32,7 @@ import org.whole.lang.ui.viewers.IEntityPartViewer;
 /**
  * @author Enrico Persiani
  */
+@SuppressWarnings("restriction")
 public class DerivedViewPart<C extends AbstractE4DerivedGraphicalPart> extends ViewPart<C> {
 	protected LinkToEditorAction linkToEditorAction;
 	protected boolean disableEditing;

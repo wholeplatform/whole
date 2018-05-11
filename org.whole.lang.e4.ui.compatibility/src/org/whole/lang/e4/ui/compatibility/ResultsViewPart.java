@@ -28,6 +28,7 @@ import org.whole.lang.e4.ui.parts.E4ResultsGraphicalPart;
 /**
  * @author Enrico Persiani
  */
+@SuppressWarnings("restriction")
 public class ResultsViewPart extends ViewPart<E4ResultsGraphicalPart> {
 	public ResultsViewPart() {
 		super(RESULTS_PART_ID, E4ResultsGraphicalPart.class);

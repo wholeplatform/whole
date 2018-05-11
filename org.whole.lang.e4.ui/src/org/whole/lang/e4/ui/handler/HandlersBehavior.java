@@ -28,12 +28,10 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.e4.core.commands.EHandlerService;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.whole.lang.actions.iterators.ActionCallIterator;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.bindings.ITransactionScope;
 import org.whole.lang.codebase.IFilePersistenceProvider;
 import org.whole.lang.codebase.IPersistenceKit;
@@ -59,7 +57,6 @@ import org.whole.lang.operations.ValidatorOperation;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.reflect.ReflectionFactory;
-import org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum;
 import org.whole.lang.ui.actions.Clipboard;
 import org.whole.lang.ui.dialogs.IImportAsModelDialog;
 import org.whole.lang.ui.dialogs.IImportAsModelDialogFactory;
@@ -77,6 +74,7 @@ import org.whole.lang.util.IEntityTransformer;
 /**
  * @author Enrico Persiani
  */
+@SuppressWarnings("restriction")
 public class HandlersBehavior {
 
 	public static void registerHandlers(EHandlerService handlerService) {

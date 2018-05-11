@@ -63,6 +63,7 @@ import org.whole.lang.ui.viewers.IEntityPartViewer;
 /**
  * @author Enrico Persiani
  */
+@SuppressWarnings("restriction")
 public class E4Dialog extends Dialog {
 	protected IEntityPartViewer viewer;
 	protected ActionRegistry actionRegistry;

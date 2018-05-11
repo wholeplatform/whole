@@ -29,6 +29,7 @@ import org.whole.lang.ui.viewers.IEntityPartViewer;
 /**
  * @author Enrico Persiani
  */
+@SuppressWarnings("restriction")
 public class OutlineTreeViewPart extends ViewPart<E4OutlineTreePart> {
 	public OutlineTreeViewPart() {
 		super(OUTLINE_PART_ID, E4OutlineTreePart.class);
