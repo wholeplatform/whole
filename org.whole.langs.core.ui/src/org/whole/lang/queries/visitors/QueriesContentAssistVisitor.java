@@ -267,14 +267,16 @@ public class QueriesContentAssistVisitor extends QueriesIdentityVisitor {
 		String actualEntityName = "";
 		EntityDescriptor<?> actualED = null;
 		EntityDescriptor<?> targetED = type;
-		try {
-			actualED = CommonsDataTypePersistenceParser.parseEntityDescriptor(
-					entity.wStringValue());
-			actualLanguageURI = actualED.getLanguageKit().getURI();
-			actualEntityName = actualED.getName();
-		} catch (Exception e) {
-			if (DataTypeUtils.getDataKind(entity).isString())
-				actualEntityName = entity.wStringValue();
+
+		if (DataTypeUtils.getDataKind(entity).isString()) {
+			actualEntityName = entity.wStringValue();
+			if (ResourceUtils.hasFragmentPart(actualEntityName))
+				try {
+					actualED = CommonsDataTypePersistenceParser.parseEntityDescriptor(actualEntityName);
+					actualLanguageURI = actualED.getLanguageKit().getURI();
+					actualEntityName = actualED.getName();
+				} catch (Exception e) {
+				}
 		}
 
 		IResourceRegistry<ILanguageKit> registry = ReflectionFactory.getLanguageKitRegistry();

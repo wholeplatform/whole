@@ -791,23 +791,11 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		declaredNames = oldDeclaredNames;
 	}
 
+	@Deprecated
 	@Override
 	public void visit(Do entity) {
 		Set<String> oldDeclaredNames = declaredNames;
-		// Set<String> namesToBound =
-		declaredNames = new HashSet<String>();
-
-		declaredNames = oldDeclaredNames;
-
 		entity.getExpression().accept(this);
-		// IEntityIterator<? extends IEntity> selectIterator =
-		// getQueryIterator();
-		//
-		// declaredNames = namesToBound;
-		//
-		// setQueryIterator(QueriesIteratorFactory.doIterator(selectIterator)
-		// .useNamesToBound(namesToBound).withDomainEntity(entity));
-
 		declaredNames = oldDeclaredNames;
 	}
 
@@ -976,31 +964,6 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		e.accept(this);
 		setResultIterator(IteratorFactory.matchInScopeIterator(getResultIterator()).withSourceEntity(entity));
 	}
-
-//	@Override
-//	public void visit(ExpressionTest entity) {
-//		Expression e = entity.getExpression();
-//
-//		if (EntityUtils.isStageUpFragment(e)) {
-//			CommonsInterpreterVisitor.evaluateAdapter((IEntityAdapter) e, getOperation());
-//
-//			setResultIterator(IteratorFactory.matchInScopeIterator(getResultIterator()).withSourceEntity(entity));
-//		} else if (EntityUtils.isSameStageFragment(e)) {
-//			e.accept(this);
-//		} else if (!e.wGetLanguageKit().getURI().equals(QueriesLanguageKit.URI)) {
-//			e.accept(this);
-//		} else if (Matcher.matchImpl(QueriesEntityDescriptorEnum.PointwiseEquals, e))
-//			e.accept(this);
-//		else if ((QueriesEntityDescriptorEnum.Expression.isLanguageSupertypeOf(e.wGetEntityDescriptor()) &&
-//				! QueriesEntityDescriptorEnum.PathExpression.isLanguageSupertypeOf(e.wGetEntityDescriptor()))
-//				|| QueriesEntityDescriptorEnum.MathStep.isLanguageSupertypeOf(e.wGetEntityDescriptor()))
-//			e.accept(this);
-//		else {
-//			// TODO replace ExpressionTest with Some and remove
-//			e.accept(this);
-//			setResultIterator(IteratorFactory.someIterator(getResultIterator()).withSourceEntity(entity));
-//		}
-//	}
 
 	@Override
 	public void visit(PointwiseEquals entity) {

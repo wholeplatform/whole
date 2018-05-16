@@ -42,6 +42,7 @@ public abstract class AbstractRunnableWithProgress implements ISynchronizableRun
 	public AbstractRunnableWithProgress(IEclipseContext context, IBindingManager bm, String label) {
 		this.context = context;
 		this.bm = bm.clone();
+		this.bm.wDef("self", this.bm.wGet("compoundRoot"));
 		this.label = label;
 	}
 
