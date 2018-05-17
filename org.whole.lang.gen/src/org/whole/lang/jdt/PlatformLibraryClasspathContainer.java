@@ -53,18 +53,24 @@ public class PlatformLibraryClasspathContainer implements IClasspathContainer {
 		bundles.add("org.whole.langs.db.op");
 
 		// enabling features
+		bundles.add("ca.weblite.java-objc-bridge");
 		bundles.add("com.fasterxml.jackson.core.jackson-core");
+		bundles.add("com.github.jai.imageio.core");
+		bundles.add("com.sun.jna");
+		bundles.add("javax.servlet");
+		bundles.add("javax.websocket");
+		bundles.add("javax.ws.rs");
 		bundles.add("net.sourceforge.jodatime");
 		bundles.add("nu.validator.htmlparser");
+		bundles.add("org.antlr.runtime");
+		bundles.add("org.apache.httpcomponents.httpclient");
+		bundles.add("org.apache.httpcomponents.httpcore");
 		bundles.add("org.beanshell.bsh");
-		bundles.add("org.gradle");
+		bundles.add("org.eclipse.jgit");
+		bundles.add("org.gradle.toolingapi");
 		bundles.add("org.h2");
 		bundles.add("org.mozilla.rhino");
 		bundles.add("org.objectweb.asm");
-		bundles.add("org.antlr.runtime");
-		bundles.add("com.sun.jna");
-		bundles.add("ca.weblite.java-objc-bridge");
-		bundles.add("com.github.jai.imageio.core");
 
 		BUNDLE_IDS = Collections.unmodifiableSet(bundles);
 	};

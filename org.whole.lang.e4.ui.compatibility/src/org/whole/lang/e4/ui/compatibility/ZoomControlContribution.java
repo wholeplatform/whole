@@ -64,7 +64,9 @@ public class ZoomControlContribution extends WorkbenchWindowControlContribution 
 			activePage = getWorkbenchWindow().getActivePage();
 			activePage.addPartListener(this);
 			
-			setZoomManager((ZoomManager) activePage.getActivePart().getAdapter(ZoomManager.class));
+			IWorkbenchPart activePart = activePage.getActivePart();
+			if (activePart != null)
+				setZoomManager((ZoomManager) activePart.getAdapter(ZoomManager.class));
 		} catch (Exception e) {
 		}
 
