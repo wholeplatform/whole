@@ -95,7 +95,13 @@ public class IFilePersistenceProvider extends AbstractPersistenceProvider {
 	}
 
 	public boolean delete() throws Exception {
-		file.delete(true, ResourceUtils.getProgressMonitor(getBindings()));
-		return true;
+		if (file.exists()) {
+			try {
+				file.delete(true, ResourceUtils.getProgressMonitor(getBindings()));
+				return true;
+			} catch (Exception e) {
+			}
+		}
+		return false;
 	}
 }

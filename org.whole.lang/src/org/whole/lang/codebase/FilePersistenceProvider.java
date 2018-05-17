@@ -67,6 +67,10 @@ public class FilePersistenceProvider extends AbstractPersistenceProvider {
 	}
 
 	public boolean delete() {
-		return file.delete();
+		try {
+			return file.delete();
+		} catch (Exception e) {
+			return false;
+		}
 	}
 }
