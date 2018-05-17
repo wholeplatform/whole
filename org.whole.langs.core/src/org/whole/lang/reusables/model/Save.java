@@ -21,7 +21,7 @@ package org.whole.lang.reusables.model;
 /**
  *  @generator Whole
  */
-public interface Save extends IReusablesEntity, StepExpression {
+public interface Save extends IReusablesEntity, Expression {
 
 
     public Resource getResource();

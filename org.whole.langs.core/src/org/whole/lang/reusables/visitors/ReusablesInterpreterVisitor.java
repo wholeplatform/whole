@@ -115,6 +115,8 @@ public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisit
     @Override
     public void visit(IReusablesEntity entity) {
     	switch (entity.wGetEntityDescriptor().getOrdinal()) {
+    	case ReusablesEntityDescriptorEnum.Exists_ord:
+    	case ReusablesEntityDescriptorEnum.Delete_ord:
     	case ReusablesEntityDescriptorEnum.Load_ord:
     	case ReusablesEntityDescriptorEnum.Save_ord:
     	case ReusablesEntityDescriptorEnum.Classpath_ord:

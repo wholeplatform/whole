@@ -35,6 +35,8 @@ import org.whole.lang.model.adapters.IEntityAdapter;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.reusables.model.Classpath;
 import org.whole.lang.reusables.model.Contents;
+import org.whole.lang.reusables.model.Delete;
+import org.whole.lang.reusables.model.Exists;
 import org.whole.lang.reusables.model.FileSystem;
 import org.whole.lang.reusables.model.Folder;
 import org.whole.lang.reusables.model.IReusablesEntity;
@@ -69,6 +71,16 @@ public class ReusablesDynamicCompilerVisitor extends AbstractReusablesSemanticsV
 	@Override
 	public void visit(IReusablesEntity entity) {
 		stagedDefaultVisit(entity, 0);
+	}
+
+	@Override
+	public void visit(Exists entity) {
+		setResultIterator(existsResource(entity.getResource()));
+	}
+
+	@Override
+	public void visit(Delete entity) {
+		setResultIterator(deleteResource(entity.getResource()));
 	}
 
 	@Override

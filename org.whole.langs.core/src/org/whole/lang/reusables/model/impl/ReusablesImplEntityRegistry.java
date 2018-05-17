@@ -44,6 +44,8 @@ public class ReusablesImplEntityRegistry extends AbstractEntityRegistry {
         put(new ContentsImpl());
         put(new FolderImpl());
         put(new FileImpl());
+        put(new ExistsImpl());
+        put(new DeleteImpl());
         put(new LoadImpl());
         put(new SaveImpl());
         put(new PathNameImpl());

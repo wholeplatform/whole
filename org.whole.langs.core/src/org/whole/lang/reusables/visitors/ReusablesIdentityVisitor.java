@@ -72,6 +72,12 @@ public class ReusablesIdentityVisitor extends AbstractVisitor implements IReusab
     public void visit(File entity) {
     }
 
+    public void visit(Exists entity) {
+    }
+
+    public void visit(Delete entity) {
+    }
+
     public void visit(Load entity) {
     }
 

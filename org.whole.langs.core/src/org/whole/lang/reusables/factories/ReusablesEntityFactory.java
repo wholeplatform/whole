@@ -204,6 +204,22 @@ public class ReusablesEntityFactory extends GenericEntityFactory {
         return new EntityBuilder<File>(create(ReusablesEntityDescriptorEnum.File));
     }
 
+    public Exists createExists() {
+        return create(ReusablesEntityDescriptorEnum.Exists);
+    }
+
+    public Exists createExists(Resource resource) {
+        return create(ReusablesEntityDescriptorEnum.Exists, resource);
+    }
+
+    public Delete createDelete() {
+        return create(ReusablesEntityDescriptorEnum.Delete);
+    }
+
+    public Delete createDelete(Resource resource) {
+        return create(ReusablesEntityDescriptorEnum.Delete, resource);
+    }
+
     public Load createLoad() {
         return create(ReusablesEntityDescriptorEnum.Load);
     }

@@ -107,6 +107,16 @@ public class ReusablesSequenceVisitor extends AbstractBinaryVisitor<IReusablesVi
         wGetVisitor2().visit(entity);
     }
 
+    public void visit(Exists entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
+    public void visit(Delete entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
     public void visit(Load entity) {
         wGetVisitor1().visit(entity);
         wGetVisitor2().visit(entity);

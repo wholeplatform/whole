@@ -23,18 +23,19 @@ import org.whole.lang.model.IEntity;
 import org.whole.lang.reusables.visitors.IReusablesVisitor;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum;
+import org.whole.lang.reusables.reflect.ReusablesFeatureDescriptorEnum;
 
 /**
  *  @generator Whole
  */
-public class StepExpressionAdapter extends AbstractEntityAdapter implements StepExpression {
+public class ExistsAdapter extends AbstractEntityAdapter implements Exists {
     private static final long serialVersionUID = 1;
 
-    public StepExpressionAdapter(IEntity implementor) {
+    public ExistsAdapter(IEntity implementor) {
         super(implementor);
     }
 
-    public StepExpressionAdapter() {
+    public ExistsAdapter() {
     }
 
     public void accept(IReusablesVisitor visitor) {
@@ -42,7 +43,15 @@ public class StepExpressionAdapter extends AbstractEntityAdapter implements Step
             visitor.visit(this);
     }
 
-    public EntityDescriptor<StepExpression> wGetEntityDescriptor() {
-        return ReusablesEntityDescriptorEnum.StepExpression;
+    public EntityDescriptor<Exists> wGetEntityDescriptor() {
+        return ReusablesEntityDescriptorEnum.Exists;
+    }
+
+    public Resource getResource() {
+        return wGet(ReusablesFeatureDescriptorEnum.resource).wGetAdapter(ReusablesEntityDescriptorEnum.Resource);
+    }
+
+    public void setResource(Resource resource) {
+        wSet(ReusablesFeatureDescriptorEnum.resource, resource);
     }
 }

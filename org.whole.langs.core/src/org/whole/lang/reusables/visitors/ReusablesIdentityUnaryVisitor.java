@@ -81,6 +81,12 @@ public class ReusablesIdentityUnaryVisitor<V extends IVisitor>  extends Abstract
     public void visit(File entity) {
     }
 
+    public void visit(Exists entity) {
+    }
+
+    public void visit(Delete entity) {
+    }
+
     public void visit(Load entity) {
     }
 

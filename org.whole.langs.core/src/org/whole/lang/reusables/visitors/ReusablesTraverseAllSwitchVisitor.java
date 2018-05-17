@@ -111,6 +111,14 @@ public class ReusablesTraverseAllSwitchVisitor extends ReusablesIdentityUnaryVis
         wGetVisitor1().visit(entity.getPersistence());
     }
 
+    public void visit(Exists entity) {
+        wGetVisitor1().visit(entity.getResource());
+    }
+
+    public void visit(Delete entity) {
+        wGetVisitor1().visit(entity.getResource());
+    }
+
     public void visit(Load entity) {
         wGetVisitor1().visit(entity.getResource());
     }

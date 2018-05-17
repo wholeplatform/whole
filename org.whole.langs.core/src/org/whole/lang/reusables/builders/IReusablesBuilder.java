@@ -141,6 +141,18 @@ public interface IReusablesBuilder extends IBuilder {
 
     public void _File();
 
+    public void Exists();
+
+    public void Exists_();
+
+    public void _Exists();
+
+    public void Delete();
+
+    public void Delete_();
+
+    public void _Delete();
+
     public void Load();
 
     public void Load_();

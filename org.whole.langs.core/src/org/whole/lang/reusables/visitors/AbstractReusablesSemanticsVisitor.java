@@ -27,6 +27,7 @@ import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.queries.iterators.QueriesIteratorFactory;
 import org.whole.lang.reusables.model.Resource;
 import org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum;
 
@@ -34,6 +35,46 @@ import org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum;
  * @author Riccardo Solmi
  */
 public abstract class AbstractReusablesSemanticsVisitor extends ReusablesIdentityDefaultVisitor {
+	protected IEntityIterator<?> existsResource(Resource resource) {
+		resource.accept(this);
+		return Matcher.match(ReusablesEntityDescriptorEnum.Model, resource) ?
+				IteratorFactory.someIterator(IteratorFactory.constantComposeIterator(resource.wGetParent(), getResultIterator())) :
+					IteratorFactory.composeIterator(
+									IteratorFactory.singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
+										if (!BindingManagerFactory.instance.isVoid(selfEntity))
+											bm.setResult(existsResourceOnProvider(selfEntity));
+									}).withSourceEntity(resource), getResultIterator());
+	}
+
+	public static IEntity existsResourceOnProvider(IEntity resource) {
+		Object[] pkpp = (Object[]) resource.wGetValue();
+		IPersistenceProvider pp = (IPersistenceProvider) pkpp[1];
+
+		return BindingManagerFactory.instance.createValue(pp.exists());
+	}
+
+	protected IEntityIterator<?> deleteResource(Resource resource) {
+		resource.accept(this);
+		return Matcher.match(ReusablesEntityDescriptorEnum.Model, resource) ?
+				IteratorFactory.constantComposeIterator(resource.wGetParent(), QueriesIteratorFactory.deleteIterator(getResultIterator())) :
+					IteratorFactory.composeIterator(
+									IteratorFactory.singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
+										if (!BindingManagerFactory.instance.isVoid(selfEntity))
+											bm.setResult(deleteResourceFromProvider(selfEntity));
+									}).withSourceEntity(resource), getResultIterator());
+	}
+
+	public static IEntity deleteResourceFromProvider(IEntity resource) {
+		Object[] pkpp = (Object[]) resource.wGetValue();
+		IPersistenceProvider pp = (IPersistenceProvider) pkpp[1];
+
+		try {
+			return BindingManagerFactory.instance.createValue(pp.delete());
+		} catch (Exception e) {
+			return BindingManagerFactory.instance.createValue(false);
+		}
+	}
+
 	protected IEntityIterator<?> readResource(Resource resource) {
 		resource.accept(this);
 		return Matcher.match(ReusablesEntityDescriptorEnum.Model, resource) ?

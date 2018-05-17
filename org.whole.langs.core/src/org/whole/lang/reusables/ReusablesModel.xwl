@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <models:Model xmlns:models="http://lang.whole.org/Models">
     <models:SimpleName value="Reusables"/>
-    <models:TypeRelations initialCapacity="5">
+    <models:TypeRelations initialCapacity="4">
         <models:SubtypesOf>
             <models:Types initialCapacity="3">
                 <models:SimpleName value="Adapt"/>
@@ -21,15 +21,11 @@
             <models:EntityType value="http://lang.whole.org/Queries#Expression"/>
         </models:TypeAliasOf>
         <models:TypeAliasOf>
-            <models:SimpleName value="StepExpression"/>
-            <models:EntityType value="http://lang.whole.org/Queries#StepExpression"/>
-        </models:TypeAliasOf>
-        <models:TypeAliasOf>
             <models:SimpleName value="Revision"/>
             <models:EntityType value="whole:org.whole.lang.changes:ChangesModel#Revision"/>
         </models:TypeAliasOf>
     </models:TypeRelations>
-    <models:ModelDeclarations initialCapacity="29">
+    <models:ModelDeclarations initialCapacity="30">
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="1">
                 <models:EntityModifier value="abstract"/>
@@ -410,20 +406,40 @@
             <models:Features initialCapacity="0"/>
         </models:SimpleEntity>
         <models:SimpleEntity>
-            <models:EntityModifiers initialCapacity="1">
-                <models:EntityModifier value="abstract"/>
-            </models:EntityModifiers>
-            <models:SimpleName value="StepExpression"/>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="Exists"/>
             <models:Types initialCapacity="1">
                 <models:SimpleName value="Expression"/>
             </models:Types>
-            <models:Features initialCapacity="0"/>
+            <models:Features initialCapacity="1">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="0"/>
+                    <models:SimpleName value="Resource"/>
+                    <models:SimpleName value="resource"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="Delete"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Expression"/>
+            </models:Types>
+            <models:Features initialCapacity="1">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="0"/>
+                    <models:SimpleName value="Resource"/>
+                    <models:SimpleName value="resource"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
         </models:SimpleEntity>
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="0"/>
             <models:SimpleName value="Load"/>
             <models:Types initialCapacity="1">
-                <models:SimpleName value="StepExpression"/>
+                <models:SimpleName value="Expression"/>
             </models:Types>
             <models:Features initialCapacity="1">
                 <models:Feature>
@@ -438,7 +454,7 @@
             <models:EntityModifiers initialCapacity="0"/>
             <models:SimpleName value="Save"/>
             <models:Types initialCapacity="1">
-                <models:SimpleName value="StepExpression"/>
+                <models:SimpleName value="Expression"/>
             </models:Types>
             <models:Features initialCapacity="1">
                 <models:Feature>

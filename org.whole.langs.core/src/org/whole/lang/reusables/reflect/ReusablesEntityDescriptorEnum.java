@@ -44,18 +44,19 @@ public class ReusablesEntityDescriptorEnum extends EntityDescriptorEnum {
     public static final int Folder_ord = 15;
     public static final int File_ord = 16;
     public static final int Expression_ord = 17;
-    public static final int StepExpression_ord = 18;
-    public static final int Load_ord = 19;
-    public static final int Save_ord = 20;
-    public static final int Path_ord = 21;
-    public static final int PathName_ord = 22;
-    public static final int PathWithExtension_ord = 23;
-    public static final int PathSegments_ord = 24;
-    public static final int URI_ord = 25;
-    public static final int Persistence_ord = 26;
-    public static final int PersistenceId_ord = 27;
-    public static final int Revision_ord = 28;
-    public static final int Any_ord = 29;
+    public static final int Exists_ord = 18;
+    public static final int Delete_ord = 19;
+    public static final int Load_ord = 20;
+    public static final int Save_ord = 21;
+    public static final int Path_ord = 22;
+    public static final int PathName_ord = 23;
+    public static final int PathWithExtension_ord = 24;
+    public static final int PathSegments_ord = 25;
+    public static final int URI_ord = 26;
+    public static final int Persistence_ord = 27;
+    public static final int PersistenceId_ord = 28;
+    public static final int Revision_ord = 29;
+    public static final int Any_ord = 30;
     public static final ReusablesEntityDescriptorEnum instance = new ReusablesEntityDescriptorEnum();
     public static final EntityDescriptor<Reusable> Reusable = (EntityDescriptor<Reusable>) instance.valueOf(Reusable_ord);
     public static final EntityDescriptor<Adapt> Adapt = (EntityDescriptor<Adapt>) instance.valueOf(Adapt_ord);
@@ -75,7 +76,8 @@ public class ReusablesEntityDescriptorEnum extends EntityDescriptorEnum {
     public static final EntityDescriptor<Folder> Folder = (EntityDescriptor<Folder>) instance.valueOf(Folder_ord);
     public static final EntityDescriptor<File> File = (EntityDescriptor<File>) instance.valueOf(File_ord);
     public static final EntityDescriptor<Expression> Expression = (EntityDescriptor<Expression>) instance.valueOf(Expression_ord);
-    public static final EntityDescriptor<StepExpression> StepExpression = (EntityDescriptor<StepExpression>) instance.valueOf(StepExpression_ord);
+    public static final EntityDescriptor<Exists> Exists = (EntityDescriptor<Exists>) instance.valueOf(Exists_ord);
+    public static final EntityDescriptor<Delete> Delete = (EntityDescriptor<Delete>) instance.valueOf(Delete_ord);
     public static final EntityDescriptor<Load> Load = (EntityDescriptor<Load>) instance.valueOf(Load_ord);
     public static final EntityDescriptor<Save> Save = (EntityDescriptor<Save>) instance.valueOf(Save_ord);
     public static final EntityDescriptor<Path> Path = (EntityDescriptor<Path>) instance.valueOf(Path_ord);
@@ -106,12 +108,13 @@ public class ReusablesEntityDescriptorEnum extends EntityDescriptorEnum {
         putSimpleEntity(URL_ord, "URL", URL.class, false).withFeature(ReusablesFeatureDescriptorEnum.content, Content_ord).withFeature(ReusablesFeatureDescriptorEnum.persistence, Persistence_ord, true, false, false, false, false);
         putSimpleEntity(Model_ord, "Model", Model.class, false).withFeature(ReusablesFeatureDescriptorEnum.content, Expression_ord).withFeature(ReusablesFeatureDescriptorEnum.persistence, Persistence_ord, true, false, false, false, false);
         putSimpleEntity(Registry_ord, "Registry", Registry.class, false).withFeature(ReusablesFeatureDescriptorEnum.registryUri, URI_ord).withFeature(ReusablesFeatureDescriptorEnum.uri, URI_ord);
-        putSimpleEntity(Content_ord, "Content", Content.class, true, Path_ord, Load_ord, Contents_ord, Expression_ord, Save_ord, PathName_ord, Folder_ord, PathSegments_ord, File_ord, StepExpression_ord, PathWithExtension_ord);
+        putSimpleEntity(Content_ord, "Content", Content.class, true, Delete_ord, Path_ord, Load_ord, Contents_ord, Expression_ord, Exists_ord, Save_ord, PathName_ord, Folder_ord, PathSegments_ord, File_ord, PathWithExtension_ord);
         putCompositeEntity(Contents_ord, "Contents", Contents.class, false, Content_ord, true, false);
         putSimpleEntity(Folder_ord, "Folder", Folder.class, false).withFeature(ReusablesFeatureDescriptorEnum.path, Expression_ord).withFeature(ReusablesFeatureDescriptorEnum.content, Content_ord).withFeature(ReusablesFeatureDescriptorEnum.persistence, Persistence_ord, true, false, false, false, false);
         putSimpleEntity(File_ord, "File", File.class, false).withFeature(ReusablesFeatureDescriptorEnum.path, Expression_ord).withFeature(ReusablesFeatureDescriptorEnum.content, Any_ord, true, false, false, false, false).withFeature(ReusablesFeatureDescriptorEnum.persistence, Persistence_ord, true, false, false, false, false);
-        putSimpleEntity(Expression_ord, "Expression", Expression.class, true, Path_ord, Load_ord, Save_ord, PathName_ord, PathSegments_ord, StepExpression_ord, PathWithExtension_ord);
-        putSimpleEntity(StepExpression_ord, "StepExpression", StepExpression.class, true, Load_ord, Save_ord);
+        putSimpleEntity(Expression_ord, "Expression", Expression.class, true, Delete_ord, Path_ord, Load_ord, Exists_ord, Save_ord, PathName_ord, PathSegments_ord, PathWithExtension_ord);
+        putSimpleEntity(Exists_ord, "Exists", Exists.class, false).withFeature(ReusablesFeatureDescriptorEnum.resource, Resource_ord);
+        putSimpleEntity(Delete_ord, "Delete", Delete.class, false).withFeature(ReusablesFeatureDescriptorEnum.resource, Resource_ord);
         putSimpleEntity(Load_ord, "Load", Load.class, false).withFeature(ReusablesFeatureDescriptorEnum.resource, Resource_ord);
         putSimpleEntity(Save_ord, "Save", Save.class, false).withFeature(ReusablesFeatureDescriptorEnum.resource, Resource_ord);
         putSimpleEntity(Path_ord, "Path", Path.class, true, PathSegments_ord, PathWithExtension_ord, PathName_ord);
@@ -129,7 +132,6 @@ public class ReusablesEntityDescriptorEnum extends EntityDescriptorEnum {
         setAssignableToAll(true, Adapt_ord, Reuse_ord, Include_ord);
         setAssignableFromAll(true, Reusable_ord);
         setAliasOf(true, "http://lang.whole.org/Queries#Expression", Expression_ord);
-        setAliasOf(true, "http://lang.whole.org/Queries#StepExpression", StepExpression_ord);
         setAliasOf(true, "whole:org.whole.lang.changes:ChangesModel#Revision", Revision_ord);
     }
 }

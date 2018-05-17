@@ -109,18 +109,24 @@ public class ReusablesIdentityDefaultVisitor extends ReusablesIdentityVisitor {
         visit((Content) entity);
     }
 
-    public void visit(StepExpression entity) {
+    public void visit(Exists entity) {
+        visit((IReusablesEntity) entity);
+        visit((Expression) entity);
+    }
+
+    public void visit(Delete entity) {
+        visit((IReusablesEntity) entity);
         visit((Expression) entity);
     }
 
     public void visit(Load entity) {
         visit((IReusablesEntity) entity);
-        visit((StepExpression) entity);
+        visit((Expression) entity);
     }
 
     public void visit(Save entity) {
         visit((IReusablesEntity) entity);
-        visit((StepExpression) entity);
+        visit((Expression) entity);
     }
 
     public void visit(Path entity) {

@@ -21,7 +21,7 @@ package org.whole.lang.reusables.model;
 /**
  *  @generator Whole
  */
-public interface Load extends IReusablesEntity, Expression {
+public interface Exists extends IReusablesEntity, Expression {
 
 
     public Resource getResource();

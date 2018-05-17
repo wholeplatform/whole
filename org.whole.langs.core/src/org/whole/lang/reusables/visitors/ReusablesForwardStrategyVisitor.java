@@ -94,6 +94,14 @@ public class ReusablesForwardStrategyVisitor extends GenericForwardStrategyVisit
         wGetStrategy().visit(entity);
     }
 
+    public void visit(Exists entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(Delete entity) {
+        wGetStrategy().visit(entity);
+    }
+
     public void visit(Load entity) {
         wGetStrategy().visit(entity);
     }

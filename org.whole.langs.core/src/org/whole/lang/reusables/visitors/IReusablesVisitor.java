@@ -54,6 +54,10 @@ public interface IReusablesVisitor extends IVisitor {
 
     public void visit(File entity);
 
+    public void visit(Exists entity);
+
+    public void visit(Delete entity);
+
     public void visit(Load entity);
 
     public void visit(Save entity);

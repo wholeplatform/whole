@@ -21,6 +21,10 @@ package org.whole.lang.reusables.model;
 /**
  *  @generator Whole
  */
-public interface StepExpression extends IReusablesEntity, Expression {
+public interface Delete extends IReusablesEntity, Expression {
 
+
+    public Resource getResource();
+
+    public void setResource(Resource resource);
 }

@@ -267,6 +267,30 @@ public class ReusablesSpecificBuilderAdapter extends GenericBuilderContext imple
         _wEntity(ReusablesEntityDescriptorEnum.File);
     }
 
+    public void Exists() {
+        wEntity(ReusablesEntityDescriptorEnum.Exists);
+    }
+
+    public void Exists_() {
+        wEntity_(ReusablesEntityDescriptorEnum.Exists);
+    }
+
+    public void _Exists() {
+        _wEntity(ReusablesEntityDescriptorEnum.Exists);
+    }
+
+    public void Delete() {
+        wEntity(ReusablesEntityDescriptorEnum.Delete);
+    }
+
+    public void Delete_() {
+        wEntity_(ReusablesEntityDescriptorEnum.Delete);
+    }
+
+    public void _Delete() {
+        _wEntity(ReusablesEntityDescriptorEnum.Delete);
+    }
+
     public void Load() {
         wEntity(ReusablesEntityDescriptorEnum.Load);
     }
