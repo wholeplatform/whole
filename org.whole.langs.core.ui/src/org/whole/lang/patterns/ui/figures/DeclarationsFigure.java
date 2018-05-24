@@ -31,25 +31,31 @@ import org.whole.lang.ui.layout.TableLayout;
  *  @author  Riccardo Solmi
  */
 public class DeclarationsFigure extends TableFigure {
+	boolean withHeaders;
 
-    public DeclarationsFigure() {
+    public DeclarationsFigure(boolean withHeaders) {
         super(new TableLayout(4)
         		.withColumnSpacing(10).withRowSpacing(10).withColumnAlignment(3, Alignment.FILL)
         		.withMarginTop(5).withMarginBottom(5).withMarginLeft(3).withMarginRight(3));
         setBorder(CompositePlaceHolderBorder.OPTIONAL_VERTICAL);
-        TableRowFigure headers = new TableRowFigure();
-        Color color = ColorConstants.gray;
-        EntityLabel label = new EntityLabel("Types");
-        label.setForegroundColor(color);
-        headers.add(label);
-        label = new EntityLabel("Name");
-        label.setForegroundColor(color);
-        headers.add(label);
-        headers.add(new EyeFigure());
-        label = new EntityLabel("Definition");
-        label.setForegroundColor(color);
-        headers.add(label);
-        add(headers, TableLayout.Placement.HEADER);
+        
+        this.withHeaders = withHeaders;
+        
+        if (withHeaders) {
+	        TableRowFigure headers = new TableRowFigure();
+	        Color color = ColorConstants.gray;
+	        EntityLabel label = new EntityLabel("Types");
+	        label.setForegroundColor(color);
+	        headers.add(label);
+	        label = new EntityLabel("Name");
+	        label.setForegroundColor(color);
+	        headers.add(label);
+	        headers.add(new EyeFigure());
+	        label = new EntityLabel("Definition");
+	        label.setForegroundColor(color);
+	        headers.add(label);
+	        add(headers, TableLayout.Placement.HEADER);
+        }
     }
 
     @Override
@@ -74,7 +80,8 @@ public class DeclarationsFigure extends TableFigure {
         graphics.setAlpha(oldAlpha);
         graphics.setForegroundColor(ColorConstants.lightGray);
         drawRowSeparators(graphics);
-        drawHeadersRowSeparator(graphics);
+        if (withHeaders)
+        	drawHeadersRowSeparator(graphics);
         drawTableBottomBorder(graphics);
     }
 }

@@ -86,10 +86,10 @@ public class FunctionApplicationFigure extends ContentPaneFigure {
 		
 		g.setForegroundColor(ColorConstants.black);
 		int hsize = 5;
-		if (rfb.height > 100) {
-			g.setLineWidth(3);
-			hsize += 3;
-		}
+//		if (rfb.height > 100) {
+//			g.setLineWidth(3);
+//			hsize += 3;
+//		}
 
 		g.drawLine(rfb.x, yTop, rfb.x+hsize, yTop);
 		g.drawLine(rfb.x, yTop, rfb.x, yBottom);
@@ -101,11 +101,11 @@ public class FunctionApplicationFigure extends ContentPaneFigure {
 
 		int lgap = 2;
 		int rgap = 2;
-		if (rfb.height > 100) {
-			g.setLineWidth(2);
-			lgap += 2;
-			rgap += 1;
-		}
+//		if (rfb.height > 100) {
+//			g.setLineWidth(2);
+//			lgap += 2;
+//			rgap += 1;
+//		}
 
 		g.drawLine(rfb.x+lgap, yTop, rfb.x+lgap, yBottom);
 

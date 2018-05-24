@@ -14,6 +14,7 @@
  */
 package org.whole.lang.patterns.ui.editparts;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.EditPart;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
@@ -79,7 +80,9 @@ import org.whole.lang.patterns.model.VariantSelector;
 import org.whole.lang.patterns.model.Variants;
 import org.whole.lang.patterns.model.Version;
 import org.whole.lang.patterns.reflect.PatternsEntityDescriptorEnum;
+import org.whole.lang.patterns.ui.figures.DeclarationsFigure;
 import org.whole.lang.patterns.visitors.PatternsIdentityDefaultVisitor;
+import org.whole.lang.ui.editparts.AbstractCompositePart;
 import org.whole.lang.ui.editparts.CommaSeparatedCompositeFlowPart;
 import org.whole.lang.ui.editparts.ContentLightDataEntityPart;
 import org.whole.lang.ui.editparts.ContentTextualEntityPart;
@@ -259,7 +262,15 @@ public class PatternsPartFactoryVisitor extends PatternsIdentityDefaultVisitor i
 
     @Override
     public void visit(Declarations entity) {
-        part = new DeclarationsPart();
+		boolean withHeaders = !(EntityUtils.hasParent(entity) && 
+			Matcher.match(PatternsEntityDescriptorEnum.ScopePoint, entity.wGetParent()));
+
+        part = new AbstractCompositePart() {
+			@Override
+            protected IFigure createFigure() {
+                return new DeclarationsFigure(withHeaders);
+            }
+        };
     }
 
     @Override
