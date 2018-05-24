@@ -17,6 +17,7 @@
  */
 package org.whole.lang.reusables.ui.editparts;
 
+import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +26,7 @@ import org.whole.lang.model.IEntity;
 import org.whole.lang.reusables.model.Folder;
 import org.whole.lang.reusables.ui.figures.FolderFigure;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
+import org.whole.lang.util.EntityUtils;
 
 
 /**
@@ -34,6 +36,10 @@ public class FolderPart extends AbstractContentPanePart {
     protected IFigure createFigure() {
     	return new FolderFigure();
     }
+	@Override
+	public FolderFigure getFigure() {
+		return (FolderFigure) super.getFigure();
+	}
 
     protected List<IEntity> getModelSpecificChildren() {
     	Folder entity = getModelEntity();
@@ -43,4 +49,16 @@ public class FolderPart extends AbstractContentPanePart {
         children.add(entity.getContent());
         return children;
     }
+
+	@Override
+	protected void propertyChangeUI(PropertyChangeEvent evt) {
+		refreshVisuals();
+		super.propertyChangeUI(evt);
+	}
+
+	@Override
+	protected void refreshVisuals() {
+		Folder entity = getModelEntity();
+		getFigure().showPersistence(!EntityUtils.isResolver(entity.getPersistence()));
+	}
 }

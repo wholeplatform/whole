@@ -17,6 +17,7 @@
  */
 package org.whole.lang.reusables.ui.editparts;
 
+import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +26,7 @@ import org.whole.lang.model.IEntity;
 import org.whole.lang.reusables.model.Model;
 import org.whole.lang.reusables.ui.figures.ResourceFigure;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
+import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Riccardo Solmi
@@ -33,6 +35,10 @@ public class ModelPart extends AbstractContentPanePart {
     protected IFigure createFigure() {
     	return new ResourceFigure("Model");
     }
+	@Override
+	public ResourceFigure getFigure() {
+		return (ResourceFigure) super.getFigure();
+	}
 
     protected List<IEntity> getModelSpecificChildren() {
     	Model entity = getModelEntity();
@@ -41,4 +47,16 @@ public class ModelPart extends AbstractContentPanePart {
         children.add(entity.getContent());
         return children;
     }
+
+	@Override
+	protected void propertyChangeUI(PropertyChangeEvent evt) {
+		refreshVisuals();
+		super.propertyChangeUI(evt);
+	}
+
+	@Override
+	protected void refreshVisuals() {
+		Model entity = getModelEntity();
+		getFigure().showPersistence(!EntityUtils.isResolver(entity.getPersistence()));
+	}
 }

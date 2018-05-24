@@ -17,26 +17,16 @@
  */
 package org.whole.lang.reusables.ui.editparts;
 
+import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IWorkspace;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.draw2d.IFigure;
-import org.whole.lang.e4.ui.util.E4Utils;
-import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.reflect.ReflectionFactory;
-import org.whole.lang.reusables.model.Content;
 import org.whole.lang.reusables.model.File;
-import org.whole.lang.reusables.model.Resource;
-import org.whole.lang.reusables.model.Reuse;
-import org.whole.lang.reusables.model.Workspace;
-import org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum;
 import org.whole.lang.reusables.ui.figures.FileFigure;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
+import org.whole.lang.util.EntityUtils;
 
 
 /**
@@ -46,20 +36,26 @@ public class FilePart extends AbstractContentPanePart {
     protected IFigure createFigure() {
     	return new FileFigure(event -> {
         	try {
-	        	Reuse entity = getModelEntity();
-	        	Resource resource = entity.getResource();
-	        	if (Matcher.matchImpl(ReusablesEntityDescriptorEnum.Workspace, resource)) {
-	    			Content content = ((Workspace) resource).getContent();
-	    			if (Matcher.matchImpl(ReusablesEntityDescriptorEnum.PathName, resource)) {
-	    	        	IWorkspace workspace = ResourcesPlugin.getWorkspace();
-						IFile file = workspace.getRoot().getFile(Path.fromPortableString(content.wStringValue()));
-		            	E4Utils.openEditor(getViewer().getContext(), file, ReflectionFactory.getDefaultPersistenceKit());
-	    			}
-	        	}
+	        	File entity = getModelEntity();
+	        	//FIXME call toResource
+//	        	BehaviorUtils.apply();
+//	        	Resource resource = entity.getResource();
+//	        	if (Matcher.matchImpl(ReusablesEntityDescriptorEnum.Workspace, resource)) {
+//	    			Content content = ((Workspace) resource).getContent();
+//	    			if (Matcher.matchImpl(ReusablesEntityDescriptorEnum.PathName, resource)) {
+//	    	        	IWorkspace workspace = ResourcesPlugin.getWorkspace();
+//						IFile file = workspace.getRoot().getFile(Path.fromPortableString(content.wStringValue()));
+//		            	E4Utils.openEditor(getViewer().getContext(), file, ReflectionFactory.getDefaultPersistenceKit());
+//	    			}
+//	        	}
         	} catch (Exception e) {
         	}
         });
     }
+	@Override
+	public FileFigure getFigure() {
+		return (FileFigure) super.getFigure();
+	}
 
     protected List<IEntity> getModelSpecificChildren() {
     	File entity = getModelEntity();
@@ -69,4 +65,16 @@ public class FilePart extends AbstractContentPanePart {
         children.add(entity.getContent());
         return children;
     }
+
+	@Override
+	protected void propertyChangeUI(PropertyChangeEvent evt) {
+		refreshVisuals();
+		super.propertyChangeUI(evt);
+	}
+
+	@Override
+	protected void refreshVisuals() {
+		File entity = getModelEntity();
+		getFigure().showPersistence(!EntityUtils.isResolver(entity.getPersistence()));
+	}
 }

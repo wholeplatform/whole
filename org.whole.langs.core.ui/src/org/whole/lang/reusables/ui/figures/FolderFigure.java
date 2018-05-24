@@ -36,4 +36,8 @@ public class FolderFigure extends ContentPaneFigure {
         addLiteral("/");
         add(createContentPane(2));
     }
+
+	public void showPersistence(boolean value) {
+		getContentPane(1).setVisible(value);
+	}
 }

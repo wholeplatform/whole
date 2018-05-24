@@ -17,6 +17,7 @@
  */
 package org.whole.lang.reusables.ui.editparts;
 
+import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +26,7 @@ import org.whole.lang.model.IEntity;
 import org.whole.lang.reusables.model.FileSystem;
 import org.whole.lang.reusables.ui.figures.ResourceFigure;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
+import org.whole.lang.util.EntityUtils;
 
 
 /**
@@ -34,6 +36,10 @@ public class FileSystemPart extends AbstractContentPanePart {
     protected IFigure createFigure() {
     	return new ResourceFigure("FileSystem");
     }
+	@Override
+	public ResourceFigure getFigure() {
+		return (ResourceFigure) super.getFigure();
+	}
 
     protected List<IEntity> getModelSpecificChildren() {
     	FileSystem entity = getModelEntity();
@@ -42,4 +48,16 @@ public class FileSystemPart extends AbstractContentPanePart {
         children.add(entity.getContent());
         return children;
     }
+
+	@Override
+	protected void propertyChangeUI(PropertyChangeEvent evt) {
+		refreshVisuals();
+		super.propertyChangeUI(evt);
+	}
+
+	@Override
+	protected void refreshVisuals() {
+		FileSystem entity = getModelEntity();
+		getFigure().showPersistence(!EntityUtils.isResolver(entity.getPersistence()));
+	}
 }

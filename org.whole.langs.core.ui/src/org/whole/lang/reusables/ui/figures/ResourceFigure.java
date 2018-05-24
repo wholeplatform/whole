@@ -35,4 +35,8 @@ public class ResourceFigure extends ContentPaneFigure {
         add(f);
         add(createContentPane(1));
     }
+
+	public void showPersistence(boolean value) {
+		getContentPane(0).setVisible(value);
+	}
 }

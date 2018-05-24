@@ -38,4 +38,8 @@ public class FileFigure extends ContentPaneFigure {
         add(new EntityButton(linkListener));
         add(createContentPane(2));
     }
+
+	public void showPersistence(boolean value) {
+		getContentPane(1).setVisible(value);
+	}
 }
