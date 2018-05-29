@@ -241,4 +241,38 @@ public class CompositeFigure extends EntityFigure {
 		x = bounds.right()-lw;
 		g.drawLine(x, y0, x, y1);
 	}
+	public void fillChildrenBorder(Graphics g) {
+		if (isHorizontal())
+			fillColumnsBorder(g);
+		else
+			fillRowsBorder(g);
+	}
+	@SuppressWarnings("unchecked")
+	public void fillRowsBorder(Graphics g) {
+		List<IFigure> children = getChildren();
+		if (children.isEmpty())
+			return;
+
+		int x = bounds.x;
+		int w = bounds.right();
+		int hTop = getLayoutManager().getMarginTop();
+		int hBottom = getLayoutManager().getMarginBottom();
+
+		g.fillRectangle(x, bounds.y, w, hTop);
+		g.fillRectangle(x, bounds.bottom()-hBottom, w, hBottom);
+	}
+	@SuppressWarnings("unchecked")
+	public void fillColumnsBorder(Graphics g) {
+		List<IFigure> children = getChildren();
+		if (children.isEmpty())
+			return;
+
+		int y = bounds.y;
+		int h = bounds.bottom();
+		int wLeft = getLayoutManager().getMarginLeft();
+		int wRight = getLayoutManager().getMarginRight();
+
+		g.fillRectangle(bounds.x, y, wLeft, h);
+		g.fillRectangle(bounds.right()-wRight, y, wRight, h);
+	}
 }

@@ -44,7 +44,6 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IWorkbench;
 import org.whole.gen.util.JDTUtils;
-import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.java.codebase.JavaSourceTemplateFactory;
@@ -53,9 +52,7 @@ import org.whole.lang.java.model.CompilationUnit;
 import org.whole.lang.java.model.TypeDeclaration;
 import org.whole.lang.java.reflect.JavaEntityDescriptorEnum;
 import org.whole.lang.misc.factories.MiscEntityFactory;
-import org.whole.lang.misc.model.Any;
 import org.whole.lang.misc.model.Misc;
-import org.whole.lang.misc.reflect.MiscEntityDescriptorEnum;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.pojo.util.PojoMappingUtils;
 import org.whole.lang.ui.controls.JavaClassFileFilter;
@@ -188,8 +185,7 @@ public class WizardPojoModelImportPage1 extends AbstractWizardWholeModelImportPa
 					if (!memberNames.contains(entityIterator.next().getName().getValue()))
 						entityIterator.remove();
 			}
-			Any stageUpFragment = CommonsEntityAdapterFactory.createStageUpFragment(MiscEntityDescriptorEnum.Any, compilationUnit);
-			misc.wAdd(stageUpFragment);
+			misc.wAdd(compilationUnit);
 		}
 		return misc;
 	}

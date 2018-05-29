@@ -17,9 +17,14 @@
  */
 package org.whole.lang.misc.ui.editparts;
 
+import java.util.List;
+
+import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.swt.SWT;
 import org.whole.lang.ui.editparts.CompositeColumnWithPlaceholderPart;
 import org.whole.lang.ui.figures.CompositeFigure;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.layout.ColumnLayout;
 
 /**
@@ -27,6 +32,21 @@ import org.whole.lang.ui.layout.ColumnLayout;
  */
 public class MiscPart extends CompositeColumnWithPlaceholderPart {
     protected IFigure createFigure() {
-        return new CompositeFigure(new ColumnLayout().withSpacing(6).withMargin(5, 4, 5, 4));
+        return new CompositeFigure(new ColumnLayout().withSpacing(7).withMargin(5)) {
+            @Override
+            protected void paintFigure(Graphics graphics) {
+                super.paintFigure(graphics);
+
+                graphics.setForegroundColor(FigureConstants.lightGray);
+                graphics.setLineWidthFloat(1.2f);
+                graphics.setLineStyle(SWT.LINE_CUSTOM);
+                graphics.setLineDash(new int[] {5,3});
+
+    			List<IFigure> children = getChildren();
+    			for (int i=0; i<children.size(); i++) {
+    				graphics.drawRectangle(children.get(i).getBounds().getExpanded(1, 1));
+    			}
+            }
+        };
     }
 }

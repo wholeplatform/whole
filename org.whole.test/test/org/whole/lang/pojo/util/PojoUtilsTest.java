@@ -9,14 +9,11 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
 import org.whole.lang.java.codebase.JavaClassTemplateFactory;
 import org.whole.lang.java.codebase.JavaSourceTemplateFactory;
 import org.whole.lang.java.model.CompilationUnit;
 import org.whole.lang.misc.factories.MiscEntityFactory;
-import org.whole.lang.misc.model.Any;
 import org.whole.lang.misc.model.Misc;
-import org.whole.lang.misc.reflect.MiscEntityDescriptorEnum;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.InterpreterOperation;
 import org.whole.lang.operations.NormalizerOperation;
@@ -64,8 +61,7 @@ public class PojoUtilsTest {
 		for (int i=0; i<classes.length; i++) {
 			JavaClassTemplateFactory javaSourceTemplateFactory = new JavaClassTemplateFactory(classes[i]);
 			CompilationUnit compilationUnit = javaSourceTemplateFactory.create();
-			Any stageUpFragment = CommonsEntityAdapterFactory.createStageUpFragment(MiscEntityDescriptorEnum.Any, compilationUnit);
-			misc.wAdd(stageUpFragment);
+			misc.wAdd(compilationUnit);
 		}
 		return misc;
 	}
@@ -77,8 +73,7 @@ public class PojoUtilsTest {
 		for (int i=0; i<typeRoots.length; i++) {
 			JavaSourceTemplateFactory javaSourceTemplateFactory = new JavaSourceTemplateFactory(typeRoots[i]);
 			CompilationUnit compilationUnit = javaSourceTemplateFactory.create();
-			Any stageUpFragment = CommonsEntityAdapterFactory.createStageUpFragment(MiscEntityDescriptorEnum.Any, compilationUnit);
-			misc.wAdd(stageUpFragment);
+			misc.wAdd(compilationUnit);
 		}
 		return misc;
 	}

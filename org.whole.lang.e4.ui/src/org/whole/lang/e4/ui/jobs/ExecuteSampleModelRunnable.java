@@ -28,12 +28,10 @@ import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.ITransactionScope;
 import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
-import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.e4.ui.actions.IE4UIConstants;
 import org.whole.lang.environment.factories.EnvironmentEntityFactory;
 import org.whole.lang.environment.model.Name;
 import org.whole.lang.environment.reflect.EnvironmentEntityDescriptorEnum;
-import org.whole.lang.factories.GenericEntityFactory;
 import org.whole.lang.iterators.ConstantIterator;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.matchers.Matcher;
@@ -107,10 +105,7 @@ public class ExecuteSampleModelRunnable extends AbstractRunnableWithProgress {
 				try {
 					for (IEntity result : iterator) {
 						transactionScope.commit();
-						derivedModel.wAdd(GenericEntityFactory.instance.create(
-								CommonsEntityDescriptorEnum.SameStageFragment,
-								//CommonsEntityFactory.instance.createSameStageFragment(
-								EntityUtils.clone(result)));//TODO substitute with a no containment fragment
+						derivedModel.wAdd(EntityUtils.clone(result));//TODO substitute with a no containment fragment
 					}
 				} finally {
 					transactionScope.rollback();
