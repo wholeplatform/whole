@@ -17,11 +17,11 @@
  */
 package org.whole.lang.e4.ui.parts;
 
-import java.util.Deque;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.concurrent.ConcurrentLinkedDeque;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -34,11 +34,12 @@ import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.swt.widgets.Composite;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.e4.ui.actions.BreakpointsDisableAction;
 import org.whole.lang.e4.ui.actions.IE4UIConstants;
 import org.whole.lang.e4.ui.actions.ResumeAction;
-import org.whole.lang.e4.ui.actions.BreakpointsDisableAction;
 import org.whole.lang.e4.ui.actions.TerminateAction;
 import org.whole.lang.e4.ui.jobs.ExecutionState;
+import org.whole.lang.e4.ui.jobs.IExecutionListener;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.actions.IUpdatableAction;
 import org.whole.lang.ui.editparts.IEntityPart;
@@ -51,11 +52,29 @@ import org.whole.lang.util.EntityUtils;
  * @author Enrico Persiani
  */
 public class E4DebugGraphicalPart extends E4GraphicalPart {
-	protected Deque<ExecutionState> executions = new ConcurrentLinkedDeque<>();
+	protected IExecutionListener executionListener = new IExecutionListener() {
+		public void executionPushed(ExecutionState execution) {
+			updateUI();
+		}
+		public void executionPopped(ExecutionState execution) {
+			updateUI();
+		}
+	};
+
+	@PostConstruct
+	public void createPartControl(Composite parent) {
+		super.createPartControl(parent);
+		debugService.addExecutionListener(executionListener);
+	}
+	
+	@PreDestroy
+	public void dispose() {
+		debugService.removeExecutionListener(executionListener);
+		super.dispose();
+	}
 
 	public SuspensionKind getSuspensionKind() {
-		ExecutionState execution = executions.peek();
-		return execution != null ? execution.getSuspensionKind() : SuspensionKind.NONE;
+		return debugService.peekSuspensionKind();
 	}
 
 	protected void updateUI() {
@@ -63,9 +82,8 @@ public class E4DebugGraphicalPart extends E4GraphicalPart {
 
 		IEventBroker eventBroker = context.get(IEventBroker.class);
 
-		ExecutionState execution = executions.peek();
-		if (execution != null) {
-			final IEntity sourceEntity = execution.getSourceEntity();
+		if (debugService.isSuspended()) {
+			final IEntity sourceEntity = debugService.peekSourceEntity();
 			IEntity contents = EntityUtils.getCompoundRoot(sourceEntity);
 
 			getViewer().setContents(contents);
@@ -76,12 +94,12 @@ public class E4DebugGraphicalPart extends E4GraphicalPart {
 					IEntity adaptee = sourceEntity.wGetAdaptee(false);
 					IEntityPart sourceEntityPart = getViewer().getEditPartRegistry().get(adaptee);
 					sourceEntityPart.installEditPolicy(SuspensionFeedbackEditPolicy.SUSPENSION_FEEDBACK_ROLE,
-							new SuspensionFeedbackEditPolicy(getSuspensionKind(), execution.getThrowable()));
+							new SuspensionFeedbackEditPolicy(getSuspensionKind(), debugService.peekThrowable()));
 					getViewer().reveal(sourceEntity);
 				}
 			});
 
-			eventBroker.post(IE4UIConstants.TOPIC_UPDATE_VARIABLES, execution.getVariablesModel());
+			eventBroker.post(IE4UIConstants.TOPIC_UPDATE_VARIABLES, debugService.peekVariablesModel());
 		} else {
 			getViewer().setEntityContents(createDefaultContents());
 			eventBroker.post(IE4UIConstants.TOPIC_UPDATE_VARIABLES, null);
@@ -89,13 +107,10 @@ public class E4DebugGraphicalPart extends E4GraphicalPart {
 	}
 
 	protected void pushExecution(ExecutionState execution) {
-		executions.push(execution);
-		updateUI();
+		debugService.pushExecution(execution);
 	}
 	protected ExecutionState popExecution() {
-		ExecutionState execution = executions.removeFirst();
-		updateUI();
-		return execution;
+		return debugService.popExecution();
 	}
 
 	@Override
@@ -119,23 +134,6 @@ public class E4DebugGraphicalPart extends E4GraphicalPart {
 		pushExecution(execution);
 	}
 
-	@Override
-	protected void restoreState() {
-		super.restoreState();
-		if (!part.getPersistedState().containsKey("debug#breakpointsEnabled"))
-			part.getPersistedState().put("debug#breakpointsEnabled", Boolean.toString(true));
-	}
-
-	public void doBreakpointsDisable(boolean disable) {
-		part.getPersistedState().put("debug#breakpointsEnabled", Boolean.toString(!disable));
-	}
-	public void doResume() {
-		popExecution().resume();
-	}
-	public void doTerminate() {
-		popExecution().terminate();
-	}
-
 	protected Set<IUpdatableAction> actions = new HashSet<IUpdatableAction>();
 	protected void updateActions() {
 		for (IUpdatableAction action : actions)
@@ -145,21 +143,21 @@ public class E4DebugGraphicalPart extends E4GraphicalPart {
 	protected BreakpointsDisableAction breakpointsDisableAction;
 	public IAction getBreakpoiontsDisableAction(IEclipseContext context) {
 		if (breakpointsDisableAction == null)
-			actions.add(breakpointsDisableAction = new BreakpointsDisableAction(context, this));
+			actions.add(breakpointsDisableAction = new BreakpointsDisableAction(context));
 		return breakpointsDisableAction;
 	}
 
 	protected ResumeAction resumeAction;
 	public IAction getResumeAction(IEclipseContext context) {
 		if (resumeAction == null)
-			actions.add(resumeAction = new ResumeAction(context, this));
+			actions.add(resumeAction = new ResumeAction(context));
 		return resumeAction;
 	}
 
 	protected TerminateAction terminateAction;
 	public IAction getTerminateAction(IEclipseContext context) {
 		if (terminateAction == null)
-			actions.add(terminateAction = new TerminateAction(context, this));
+			actions.add(terminateAction = new TerminateAction(context));
 		return terminateAction;
 	}
 }

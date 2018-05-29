@@ -17,14 +17,10 @@
  */
 package org.whole.lang.e4.ui.util;
 
-import java.util.Map;
-
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.e4.ui.model.application.ui.basic.MPart;
-import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.e4.ui.actions.IE4UIConstants;
+import org.whole.lang.e4.ui.debug.IDebugService;
 import org.whole.lang.events.IdentityRequestEventHandler;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.FeatureDescriptor;
@@ -37,16 +33,12 @@ public class E4ResourceBindingsContributor implements IResourceBindingsContribut
 	public void addResourceBindings(final IBindingManager bm) {
 		if (bm.wIsSet("debug#breakpointsEnabled") && bm.wIsSet("eclipse#eclipseContext")) {
 			try {
-				EPartService partService = ((IEclipseContext) bm.wGetValue("eclipse#eclipseContext")).get(EPartService.class);
-				final MPart debugPart = partService.findPart(IE4UIConstants.DEBUG_PART_ID);
-				if (debugPart == null)
-					return;
+				IDebugService debugService = ((IEclipseContext) bm.wGetValue("eclipse#eclipseContext")).get(IDebugService.class);
 
 				IEntity breakpointsEnabled = BindingManagerFactory.instance.createValue(true);
 				breakpointsEnabled.wAddRequestEventHandler(new IdentityRequestEventHandler() {
 					public boolean notifyRequested(IEntity source, FeatureDescriptor feature, boolean value) {
-						Map<String, String> persistedState = debugPart.getPersistedState();
-						return Boolean.valueOf(persistedState.get("debug#breakpointsEnabled"));
+						return debugService.isBreakpointsEnable();
 					}
 				});
 				bm.wSet("debug#breakpointsEnabled", breakpointsEnabled);

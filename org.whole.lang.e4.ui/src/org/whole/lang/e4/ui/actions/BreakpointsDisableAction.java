@@ -23,16 +23,15 @@ import java.net.URL;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.whole.lang.e4.ui.parts.E4DebugGraphicalPart;
 
 /**
  * @author Enrico Persiani
  */
 public class BreakpointsDisableAction extends AbstractDebugAction {
 
-	public BreakpointsDisableAction(IEclipseContext context, E4DebugGraphicalPart debugPart) {
-		super(context, debugPart, DEBUG_RUN_LABEL);
-		setChecked(false);
+	public BreakpointsDisableAction(IEclipseContext context) {
+		super(context, DEBUG_RUN_LABEL);
+		setChecked(!debugService.isBreakpointsEnable());
 		try {
 			setImageDescriptor(ImageDescriptor.createFromURL(new URL(DEBUG_BREAKPOINTS_DISABLED_URI)));
 		} catch (Exception e) {
@@ -46,6 +45,6 @@ public class BreakpointsDisableAction extends AbstractDebugAction {
 	
 	@Override
 	public void run() {
-		debugPart.doBreakpointsDisable(isChecked());
+		debugService.setBreakpointsEnable(!isChecked());
 	}
 }

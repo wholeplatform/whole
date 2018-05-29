@@ -70,6 +70,7 @@ import org.whole.lang.e4.ui.actions.E4KeyHandler;
 import org.whole.lang.e4.ui.actions.E4NavigationKeyHandler;
 import org.whole.lang.e4.ui.actions.ILinkViewerListener;
 import org.whole.lang.e4.ui.actions.ILinkableSelectionListener;
+import org.whole.lang.e4.ui.debug.IDebugService;
 import org.whole.lang.e4.ui.actions.IE4UIConstants;
 import org.whole.lang.e4.ui.handler.HandlersBehavior;
 import org.whole.lang.e4.ui.input.ModelInput;
@@ -87,6 +88,7 @@ import org.whole.lang.ui.viewers.IEntityPartViewer;
 /**
  * @author Enrico Persiani
  */
+@SuppressWarnings("restriction")
 public abstract class AbstractE4Part {
 	protected IEntityPartViewer viewer;
 	protected ActionRegistry actionRegistry;
@@ -105,6 +107,7 @@ public abstract class AbstractE4Part {
 	@Inject MPart part;
 	@Optional @Inject IModelInput modelInput;
 	@Inject IWorkspace workspace;
+	@Inject IDebugService debugService;
 
 	@PostConstruct
 	public void createPartControl(Composite parent) {
@@ -210,6 +213,10 @@ public abstract class AbstractE4Part {
 	}
 
 	@PreDestroy
+	public void dispose() {
+		clearListeners();
+	}
+
 	public void clearListeners() {
 		if (resourceListener != null && this.workspace != null)
 			this.workspace.removeResourceChangeListener(resourceListener);

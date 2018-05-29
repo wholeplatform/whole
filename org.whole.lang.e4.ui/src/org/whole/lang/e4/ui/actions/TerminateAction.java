@@ -23,14 +23,13 @@ import java.net.URL;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.whole.lang.e4.ui.parts.E4DebugGraphicalPart;
 
 /**
  * @author Enrico Persiani
  */
 public class TerminateAction extends AbstractDebugAction {
-	public TerminateAction(IEclipseContext context, E4DebugGraphicalPart debugPart) {
-		super(context, debugPart, DEBUG_TERMINATE_LABEL);
+	public TerminateAction(IEclipseContext context) {
+		super(context, DEBUG_TERMINATE_LABEL);
 		try {
 			setImageDescriptor(ImageDescriptor.createFromURL(new URL(DEBUG_TERMINATE_URI)));
 		} catch (Exception e) {
@@ -39,11 +38,11 @@ public class TerminateAction extends AbstractDebugAction {
 	
 	@Override
 	public void update() {
-		setEnabled(debugPart.getSuspensionKind().isSuspended());
+		setEnabled(debugService.peekSuspensionKind().isSuspended());
 	}
 
 	@Override
 	public void run() {
-		debugPart.doTerminate();
+		debugService.doTerminate();
 	}
 }

@@ -18,17 +18,17 @@
 package org.whole.lang.e4.ui.actions;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.whole.lang.e4.ui.parts.E4DebugGraphicalPart;
+import org.whole.lang.e4.ui.debug.IDebugService;
 
 /**
  * @author Enrico Persiani
  */
 public abstract class AbstractDebugAction extends AbstractE4Action {
-	protected E4DebugGraphicalPart debugPart;
+	protected IDebugService debugService;
 
-	public AbstractDebugAction(IEclipseContext context, E4DebugGraphicalPart debugPart, String label) {
+	public AbstractDebugAction(IEclipseContext context, String label) {
 		super(context, label);
-		this.debugPart = debugPart;
+		this.debugService = context.get(IDebugService.class);
 		update();
 	}
 }

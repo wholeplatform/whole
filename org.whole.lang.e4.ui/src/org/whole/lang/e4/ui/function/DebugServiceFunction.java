@@ -15,35 +15,19 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.e4.ui.actions;
+package org.whole.lang.e4.ui.function;
 
-import static org.whole.lang.e4.ui.actions.IE4UIConstants.*;
-
-import java.net.URL;
-
+import org.eclipse.e4.core.contexts.ContextFunction;
+import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.jface.resource.ImageDescriptor;
+import org.whole.lang.e4.ui.debug.DebugService;
 
 /**
  * @author Enrico Persiani
  */
-public class ResumeAction extends AbstractDebugAction {
-
-	public ResumeAction(IEclipseContext context) {
-		super(context, DEBUG_RESUME_LABEL);
-		try {
-			setImageDescriptor(ImageDescriptor.createFromURL(new URL(DEBUG_RESUME_URI)));
-		} catch (Exception e) {
-		}
-	}
-
+public class DebugServiceFunction extends ContextFunction {
 	@Override
-	public void update() {
-		setEnabled(debugService.peekSuspensionKind().isRecoverable());
-	}
-
-	@Override
-	public void run() {
-		debugService.doResume();
+	public Object compute(IEclipseContext context) {
+		return ContextInjectionFactory.make(DebugService.class, context);
 	}
 }

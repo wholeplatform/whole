@@ -15,35 +15,14 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.e4.ui.actions;
-
-import static org.whole.lang.e4.ui.actions.IE4UIConstants.*;
-
-import java.net.URL;
-
-import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.jface.resource.ImageDescriptor;
+package org.whole.lang.e4.ui.jobs;
 
 /**
  * @author Enrico Persiani
  */
-public class ResumeAction extends AbstractDebugAction {
-
-	public ResumeAction(IEclipseContext context) {
-		super(context, DEBUG_RESUME_LABEL);
-		try {
-			setImageDescriptor(ImageDescriptor.createFromURL(new URL(DEBUG_RESUME_URI)));
-		} catch (Exception e) {
-		}
-	}
-
-	@Override
-	public void update() {
-		setEnabled(debugService.peekSuspensionKind().isRecoverable());
-	}
-
-	@Override
-	public void run() {
-		debugService.doResume();
-	}
+public interface IExecutionListener {
+	public default void executionAboutToPush(ExecutionState execution) {}
+	public default void executionPushed(ExecutionState execution) {}
+	public default void executionAboutToPop(ExecutionState execution) {}
+	public default void executionPopped(ExecutionState execution) {}
 }
