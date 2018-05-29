@@ -81,7 +81,6 @@ import org.whole.lang.e4.ui.actions.E4NavigationKeyHandler;
 import org.whole.lang.e4.ui.menu.JFaceMenuBuilder;
 import org.whole.lang.e4.ui.menu.PopupMenuProvider;
 import org.whole.lang.e4.ui.util.E4Utils;
-import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.ui.IUIProvider;
@@ -199,7 +198,7 @@ public class ModelMergeViewer extends ContentViewer implements IPropertyChangeNo
 		IEclipseContext params = EclipseContextFactory.create();
 		params.set("parent", parent);
 		params.set(IImportAsModelDialogFactory.class, factory);
-		viewer = ContextInjectionFactory.make(E4GraphicalViewer.class, getContext(), params);
+		viewer = E4Utils.makeGraphicalViewer(getContext(), params);
 		viewer.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		viewer.addSelectionChangedListener(new ISelectionChangedListener() {
 			@Override

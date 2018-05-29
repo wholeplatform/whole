@@ -31,6 +31,8 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.e4.core.contexts.ContextFunction;
+import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.di.UISynchronize;
@@ -72,6 +74,7 @@ import org.whole.lang.e4.ui.actions.IE4UIConstants;
 import org.whole.lang.e4.ui.actions.NewlineAction;
 import org.whole.lang.e4.ui.actions.SplitOnCaretAction;
 import org.whole.lang.e4.ui.jobs.ExecutionState;
+import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
 import org.whole.lang.events.IdentityRequestEventHandler;
 import org.whole.lang.exceptions.IWholeFrameworkException;
 import org.whole.lang.exceptions.IWholeRuntimeException;
@@ -111,6 +114,20 @@ import org.whole.langs.core.CoreMetaModelsDeployer;
  * @author Enrico Persiani
  */
 public class E4Utils {
+	public static IEntityPartViewer makeGraphicalViewer(IEclipseContext context, IEclipseContext params) {
+		context.set(IEntityPartViewer.class.getName(), new ContextFunction() {
+			@Override
+			public Object compute(IEclipseContext context, String contextKey) {
+				return ContextInjectionFactory.make(E4GraphicalViewer.class, context, params);
+			}
+		});
+		IEntityPartViewer instance1 = context.get(IEntityPartViewer.class);
+		IEntityPartViewer instance2 = context.get(IEntityPartViewer.class);
+		if (instance1 != instance2)
+			throw new IllegalStateException("double instance");
+		return instance1;
+	}
+
 	public static boolean isStatusEntity(IEntity entity) {
 		return "whole:org.whole.lang.status:Status".equals(entity.wGetLanguageKit().getURI());
 	}

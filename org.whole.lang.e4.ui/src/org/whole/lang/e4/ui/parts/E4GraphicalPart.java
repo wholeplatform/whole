@@ -17,11 +17,10 @@
  */
 package org.whole.lang.e4.ui.parts;
 
-import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.swt.widgets.Composite;
-import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
+import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
 
 public class E4GraphicalPart extends AbstractE4Part {
@@ -29,6 +28,6 @@ public class E4GraphicalPart extends AbstractE4Part {
 	protected IEntityPartViewer createEntityViewer(Composite parent) {
 		IEclipseContext params = EclipseContextFactory.create();
 		params.set("parent", parent);
-		return ContextInjectionFactory.make(E4GraphicalViewer.class, context, params);
+		return E4Utils.makeGraphicalViewer(context, params);
 	}
 }

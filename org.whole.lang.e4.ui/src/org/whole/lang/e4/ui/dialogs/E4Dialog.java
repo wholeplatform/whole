@@ -53,7 +53,6 @@ import org.whole.lang.e4.ui.handler.HandlersBehavior;
 import org.whole.lang.e4.ui.menu.JFaceMenuBuilder;
 import org.whole.lang.e4.ui.menu.PopupMenuProvider;
 import org.whole.lang.e4.ui.util.E4Utils;
-import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.IUIProvider;
 import org.whole.lang.ui.editparts.IEntityPart;
@@ -116,7 +115,7 @@ public class E4Dialog extends Dialog {
 
 		IEclipseContext params = EclipseContextFactory.create();
 		params.set("parent", parent);
-		viewer = ContextInjectionFactory.make(E4GraphicalViewer.class, context, params);
+		viewer = E4Utils.makeGraphicalViewer(context, params);
 		viewer.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		viewer.addSelectionChangedListener(new ISelectionChangedListener() {
 			@Override

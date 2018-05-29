@@ -54,7 +54,6 @@ import org.whole.lang.e4.ui.actions.E4KeyHandler;
 import org.whole.lang.e4.ui.actions.E4NavigationKeyHandler;
 import org.whole.lang.e4.ui.actions.IE4UIConstants;
 import org.whole.lang.e4.ui.util.E4Utils;
-import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.iterators.MatcherIterator;
 import org.whole.lang.matchers.Matcher;
@@ -81,7 +80,7 @@ public class E4FindReplaceDialog extends E4Dialog {
 	protected IBindingManager selection;
 	protected boolean selectionTracking;
 	protected Control replaceArea;
-	protected E4GraphicalViewer replaceViewer;
+	protected IEntityPartViewer replaceViewer;
 	protected ActionRegistry replaceActionRegistry;
 	protected Control buttonPanel;
 	protected Control statusPanel;
@@ -127,7 +126,7 @@ public class E4FindReplaceDialog extends E4Dialog {
 	protected Control createReplaceArea(Composite parent) {
 		IEclipseContext params = EclipseContextFactory.create();
 		params.set("parent", parent);
-		replaceViewer = ContextInjectionFactory.make(E4GraphicalViewer.class, context, params);
+		replaceViewer = E4Utils.makeGraphicalViewer(context, params);
 		replaceViewer.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		replaceViewer.addSelectionChangedListener(new ISelectionChangedListener() {
 			@Override
