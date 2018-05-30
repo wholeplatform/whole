@@ -17,7 +17,6 @@
  */
 package org.whole.lang.e4.ui.dialogs;
 
-import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -164,12 +163,6 @@ public class E4Dialog extends Dialog {
 			}
 		});
 		return parent;
-	}
-
-	@PostConstruct
-	@Override
-	public int open() {
-		return super.open();
 	}
 
 	protected void updateSelection(IBindingManager bm) {

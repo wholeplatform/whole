@@ -17,31 +17,7 @@
  */
 package org.whole.lang.e4.ui.handler;
 
-import static org.whole.lang.e4.ui.actions.IE4UIConstants.ACTION_CALL_COMMAND_ID;
-import static org.whole.lang.e4.ui.actions.IE4UIConstants.ADD_COMMAND_ID;
-import static org.whole.lang.e4.ui.actions.IE4UIConstants.ADD_FRAGMENT_COMMAND_ID;
-import static org.whole.lang.e4.ui.actions.IE4UIConstants.COPY_AS_IMAGE_COMMAND_ID;
-import static org.whole.lang.e4.ui.actions.IE4UIConstants.COPY_ENTITY_PATH_COMMAND_ID;
-import static org.whole.lang.e4.ui.actions.IE4UIConstants.EDIT_COPY;
-import static org.whole.lang.e4.ui.actions.IE4UIConstants.EDIT_CUT;
-import static org.whole.lang.e4.ui.actions.IE4UIConstants.EDIT_DELETE;
-import static org.whole.lang.e4.ui.actions.IE4UIConstants.EDIT_FIND_AND_REPLACE;
-import static org.whole.lang.e4.ui.actions.IE4UIConstants.EDIT_PASTE;
-import static org.whole.lang.e4.ui.actions.IE4UIConstants.EDIT_SELECT_ALL;
-import static org.whole.lang.e4.ui.actions.IE4UIConstants.FILE_REVERT;
-import static org.whole.lang.e4.ui.actions.IE4UIConstants.GENERATEARTIFACTS_COMMAND_ID;
-import static org.whole.lang.e4.ui.actions.IE4UIConstants.GENERATEJAVA_COMMAND_ID;
-import static org.whole.lang.e4.ui.actions.IE4UIConstants.IMPORT_COMMAND_ID;
-import static org.whole.lang.e4.ui.actions.IE4UIConstants.INTERPRET_MODEL_COMMAND_ID;
-import static org.whole.lang.e4.ui.actions.IE4UIConstants.NORMALIZE_MODEL_COMMAND_ID;
-import static org.whole.lang.e4.ui.actions.IE4UIConstants.PASTE_AS_COMMAND_ID;
-import static org.whole.lang.e4.ui.actions.IE4UIConstants.PERFORM_COMMAND_ID;
-import static org.whole.lang.e4.ui.actions.IE4UIConstants.PRETTYPRINT_MODEL_COMMAND_ID;
-import static org.whole.lang.e4.ui.actions.IE4UIConstants.REPLACE_COMMAND_ID;
-import static org.whole.lang.e4.ui.actions.IE4UIConstants.REPLACE_FRAGMENT_COMMAND_ID;
-import static org.whole.lang.e4.ui.actions.IE4UIConstants.REPLACE_WITH_DEFAULT_COMMAND_ID;
-import static org.whole.lang.e4.ui.actions.IE4UIConstants.SELECT_NOTATION_COMMAND_ID;
-import static org.whole.lang.e4.ui.actions.IE4UIConstants.VALIDATE_MODEL_COMMAND_ID;
+import static org.whole.lang.e4.ui.actions.IE4UIConstants.*;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;

@@ -26,7 +26,6 @@ import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.dialogs.DisabledImportAsModelDialogFactory;
 import org.whole.lang.ui.dialogs.IImportAsModelDialogFactory;
-import org.whole.lang.ui.dialogs.ImportAsModelDialogFactory;
 import org.whole.lang.util.BehaviorUtils;
 import org.whole.lang.workflows.model.Assign;
 import org.whole.lang.workflows.model.Assignments;

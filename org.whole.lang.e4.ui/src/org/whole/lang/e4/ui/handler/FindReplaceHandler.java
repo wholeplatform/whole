@@ -57,6 +57,7 @@ public class FindReplaceHandler {
 		contextWindow = context.get(MWindow.class);
 
 		// display the dialog with updated contents
+		instance.open();
 		instance.getShell().setActive();
 		instance.setTemplate(bm.wIsSet("primarySelectedEntity") && 
 				!Matcher.matchImpl(CommonsEntityDescriptorEnum.RootFragment, bm.wGet("primarySelectedEntity")) ?

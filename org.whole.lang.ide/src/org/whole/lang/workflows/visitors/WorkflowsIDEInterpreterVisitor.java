@@ -48,6 +48,7 @@ import org.whole.lang.ui.util.SuspensionKind;
 import org.whole.lang.util.BehaviorUtils;
 import org.whole.lang.util.EntityUtils;
 import org.whole.lang.visitors.VisitException;
+import org.whole.lang.workflows.factories.WorkflowsEntityFactory;
 import org.whole.lang.workflows.model.Assignments;
 import org.whole.lang.workflows.model.Breakpoint;
 import org.whole.lang.workflows.model.ClassProvider;
@@ -60,6 +61,7 @@ import org.whole.lang.workflows.model.Variable;
 import org.whole.lang.workflows.model.Variables;
 import org.whole.lang.workflows.reflect.WorkflowsEntityDescriptorEnum;
 import org.whole.lang.workflows.ui.dialogs.AssignmentsDialogFactory;
+import org.whole.lang.workflows.ui.dialogs.ChangeValueDialogFactory;
 import org.whole.lang.workflows.ui.dialogs.ConfirmationDialogFactory;
 import org.whole.lang.workflows.ui.dialogs.ITaskDialogFactory;
 import org.whole.lang.workflows.ui.dialogs.TaskDialogHelper;
@@ -83,14 +85,18 @@ public class WorkflowsIDEInterpreterVisitor extends WorkflowsInterpreterVisitor 
 			factoryVariable.accept(this);
 			factory = (ITaskDialogFactory) getResultValue();
 		} else if (EntityUtils.isNotResolver(assignments)) {
-			factory = AssignmentsDialogFactory.instance();
+			if (assignments.wSize() == 1)
+				factory = ChangeValueDialogFactory.instance();
+			else
+				factory = AssignmentsDialogFactory.instance();
 		} else
 			factory = ConfirmationDialogFactory.instance();
 
 		if (EntityUtils.isNotResolver(assignments)) {
 			stagedVisit(assignments, 1);
 			assignments = (Assignments) getResult();
-		}
+		} else
+			assignments = WorkflowsEntityFactory.instance.createAssignments(0);
 
 		if (!TaskDialogHelper.showTaskDialog(factory, title, description, assignments, getBindings()))
 			throw new OperationCanceledException(new VisitException("task not completed: "+description));

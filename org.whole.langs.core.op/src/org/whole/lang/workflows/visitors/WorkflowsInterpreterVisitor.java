@@ -405,6 +405,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 	
 			entity.getBindings().accept(this);
 	
+			setResult(null);
 			entity.getModel().accept(this);
 			IEntity model = getResult();
 	
