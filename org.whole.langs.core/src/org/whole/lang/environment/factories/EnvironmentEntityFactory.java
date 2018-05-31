@@ -157,6 +157,10 @@ public class EnvironmentEntityFactory extends GenericEntityFactory {
         return create(EnvironmentEntityDescriptorEnum.Void);
     }
 
+    public Null createNull() {
+        return create(EnvironmentEntityDescriptorEnum.Null);
+    }
+
     public ContextViewModel createContextViewModel() {
         return create(EnvironmentEntityDescriptorEnum.ContextViewModel);
     }

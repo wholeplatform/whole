@@ -82,6 +82,9 @@ public class EnvironmentIdentityUnaryVisitor<V extends IVisitor>  extends Abstra
     public void visit(Void entity) {
     }
 
+    public void visit(Null entity) {
+    }
+
     public void visit(ContextViewModel entity) {
     }
 

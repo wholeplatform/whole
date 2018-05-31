@@ -87,6 +87,10 @@ public class EnvironmentFailureVisitor extends EnvironmentIdentityVisitor {
         throw new VisitException();
     }
 
+    public void visit(Null entity) {
+        throw new VisitException();
+    }
+
     public void visit(ContextViewModel entity) {
         throw new VisitException();
     }

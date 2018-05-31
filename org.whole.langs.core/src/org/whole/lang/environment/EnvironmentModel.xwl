@@ -21,7 +21,7 @@
             <models:AnyType/>
         </models:SubtypesOf>
     </models:TypeRelations>
-    <models:ModelDeclarations initialCapacity="38">
+    <models:ModelDeclarations initialCapacity="39">
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="1">
                 <models:EntityModifier value="abstract"/>
@@ -144,6 +144,14 @@
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="0"/>
             <models:SimpleName value="Void"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Data"/>
+            </models:Types>
+            <models:Features initialCapacity="0"/>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="Null"/>
             <models:Types initialCapacity="1">
                 <models:SimpleName value="Data"/>
             </models:Types>

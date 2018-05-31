@@ -45,6 +45,7 @@ public class EnvironmentAdaptersEntityRegistry extends AbstractEntityRegistry {
         put(new TupleAdapter());
         put(new ContainmentTupleAdapter());
         put(new VoidAdapter());
+        put(new NullAdapter());
         put(new ContextViewModelAdapter());
         put(new SampleViewModelAdapter());
         put(new DebugViewModelAdapter());

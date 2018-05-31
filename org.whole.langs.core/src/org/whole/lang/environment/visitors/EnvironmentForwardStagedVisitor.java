@@ -81,6 +81,10 @@ public class EnvironmentForwardStagedVisitor extends EnvironmentIdentityVisitor 
         stagedVisit(entity);
     }
 
+    public void visit(Null entity) {
+        stagedVisit(entity);
+    }
+
     public void visit(ContextViewModel entity) {
         stagedVisit(entity);
     }

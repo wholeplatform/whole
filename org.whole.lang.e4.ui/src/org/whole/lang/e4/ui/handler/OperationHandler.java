@@ -37,6 +37,8 @@ public abstract class OperationHandler {
 
 	@CanExecute
 	public boolean canExecute(@Optional @Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) throws Exception {
+		if (bm == null)
+			return false;
 		ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();
 		try {
 			bm.wEnterScope(ts);

@@ -95,6 +95,10 @@ public class EnvironmentForwardStrategyVisitor extends GenericForwardStrategyVis
         wGetStrategy().visit(entity);
     }
 
+    public void visit(Null entity) {
+        wGetStrategy().visit(entity);
+    }
+
     public void visit(ContextViewModel entity) {
         wGetStrategy().visit(entity);
     }

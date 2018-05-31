@@ -155,6 +155,9 @@ public class EnvironmentGenericBuilderAdapter extends GenericIdentityBuilder {
             case EnvironmentEntityDescriptorEnum.Void_ord :
             specificBuilder.Void();
             break;
+            case EnvironmentEntityDescriptorEnum.Null_ord :
+            specificBuilder.Null();
+            break;
             case EnvironmentEntityDescriptorEnum.ContextViewModel_ord :
             specificBuilder.ContextViewModel();
             break;
@@ -213,6 +216,9 @@ public class EnvironmentGenericBuilderAdapter extends GenericIdentityBuilder {
             break;
             case EnvironmentEntityDescriptorEnum.Void_ord :
             specificBuilder.Void_();
+            break;
+            case EnvironmentEntityDescriptorEnum.Null_ord :
+            specificBuilder.Null_();
             break;
             case EnvironmentEntityDescriptorEnum.ContextViewModel_ord :
             specificBuilder.ContextViewModel_();
@@ -301,6 +307,9 @@ public class EnvironmentGenericBuilderAdapter extends GenericIdentityBuilder {
             break;
             case EnvironmentEntityDescriptorEnum.Void_ord :
             specificBuilder._Void();
+            break;
+            case EnvironmentEntityDescriptorEnum.Null_ord :
+            specificBuilder._Null();
             break;
             case EnvironmentEntityDescriptorEnum.ContextViewModel_ord :
             specificBuilder._ContextViewModel();

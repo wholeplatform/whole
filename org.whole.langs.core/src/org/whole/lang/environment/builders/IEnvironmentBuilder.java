@@ -134,6 +134,12 @@ public interface IEnvironmentBuilder extends IBuilder {
 
     public void _Void();
 
+    public void Null();
+
+    public void Null_();
+
+    public void _Null();
+
     public void ContextViewModel();
 
     public void ContextViewModel_();

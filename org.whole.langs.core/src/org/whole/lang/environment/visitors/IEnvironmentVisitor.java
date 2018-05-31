@@ -55,6 +55,8 @@ public interface IEnvironmentVisitor extends IVisitor {
 
     public void visit(Void entity);
 
+    public void visit(Null entity);
+
     public void visit(ContextViewModel entity);
 
     public void visit(SampleViewModel entity);

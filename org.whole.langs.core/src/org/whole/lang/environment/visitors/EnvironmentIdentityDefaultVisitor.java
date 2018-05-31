@@ -101,6 +101,11 @@ public class EnvironmentIdentityDefaultVisitor extends EnvironmentIdentityVisito
         visit((Data) entity);
     }
 
+    public void visit(Null entity) {
+        visit((IEnvironmentEntity) entity);
+        visit((Data) entity);
+    }
+
     public void visit(ContextViewModel entity) {
         visit((IEnvironmentEntity) entity);
     }

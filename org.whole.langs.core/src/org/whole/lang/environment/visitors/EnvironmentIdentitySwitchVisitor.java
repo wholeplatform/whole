@@ -72,6 +72,9 @@ public abstract class EnvironmentIdentitySwitchVisitor extends AbstractVisitor i
             case EnvironmentEntityDescriptorEnum.Void_ord :
             visit((Void) entity);
             break;
+            case EnvironmentEntityDescriptorEnum.Null_ord :
+            visit((Null) entity);
+            break;
             case EnvironmentEntityDescriptorEnum.ContextViewModel_ord :
             visit((ContextViewModel) entity);
             break;

@@ -44,6 +44,7 @@ public class EnvironmentImplEntityRegistry extends AbstractEntityRegistry {
         put(new TupleImpl());
         put(new ContainmentTupleImpl());
         put(new VoidImpl());
+        put(new NullImpl());
         put(new ContextViewModelImpl());
         put(new SampleViewModelImpl());
         put(new DebugViewModelImpl());

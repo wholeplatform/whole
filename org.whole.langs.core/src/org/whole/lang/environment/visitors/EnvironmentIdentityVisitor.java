@@ -73,6 +73,9 @@ public class EnvironmentIdentityVisitor extends AbstractVisitor implements IEnvi
     public void visit(Void entity) {
     }
 
+    public void visit(Null entity) {
+    }
+
     public void visit(ContextViewModel entity) {
     }
 

@@ -31,6 +31,7 @@ import org.whole.lang.environment.model.IEnvironmentEntity;
 import org.whole.lang.environment.model.Id;
 import org.whole.lang.environment.model.Name;
 import org.whole.lang.environment.model.Names;
+import org.whole.lang.environment.model.Null;
 import org.whole.lang.environment.model.ObjectData;
 import org.whole.lang.environment.model.SampleViewModel;
 import org.whole.lang.environment.model.Scope;
@@ -40,6 +41,7 @@ import org.whole.lang.environment.model.Tuple;
 import org.whole.lang.environment.model.VariablesViewModel;
 import org.whole.lang.environment.model.Void;
 import org.whole.lang.environment.visitors.EnvironmentIdentityDefaultVisitor;
+import org.whole.lang.queries.ui.editparts.NullLiteralPart;
 import org.whole.lang.queries.ui.editparts.TuplePart;
 import org.whole.lang.queries.ui.editparts.VoidLiteralPart;
 import org.whole.lang.ui.editparts.CommaSeparatedCompositeFlowPart;
@@ -81,6 +83,11 @@ public class EnvironmentPartFactoryVisitor extends EnvironmentIdentityDefaultVis
 	@Override
 	public void visit(Void entity) {
 		part = new VoidLiteralPart();
+	}
+
+	@Override
+	public void visit(Null entity) {
+		part = new NullLiteralPart();
 	}
 
 	@Override

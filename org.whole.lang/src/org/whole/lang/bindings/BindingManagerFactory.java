@@ -38,7 +38,6 @@ import org.whole.lang.operations.IOperation;
 import org.whole.lang.reflect.DataKinds;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.EntityDescriptorEnum;
-import org.whole.lang.reflect.FeatureDescriptorEnum;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.util.BehaviorUtils;
 import org.whole.lang.util.DataTypeUtils;
@@ -60,17 +59,17 @@ public class BindingManagerFactory {
 			edEnum = EntityUtils.getEnvironmentLanguageKit().getEntityDescriptorEnum();
 		return edEnum;
 	}
-	private FeatureDescriptorEnum fdEnum;
-	private FeatureDescriptorEnum getFdEnum() {
-		if (fdEnum == null)
-			fdEnum = EntityUtils.getEnvironmentLanguageKit().getFeatureDescriptorEnum();
-		return fdEnum;
-	}
 	private EntityDescriptor<?> voidEd;
 	private EntityDescriptor<?> getVoidEd() {
 		if (voidEd == null)
 			voidEd = getEdEnum().valueOf("Void");
 		return voidEd;
+	}
+	private EntityDescriptor<?> nullEd;
+	private EntityDescriptor<?> getNullEd() {
+		if (nullEd == null)
+			nullEd = getEdEnum().valueOf("Null");
+		return nullEd;
 	}
 
 	public IEnvironmentManager createEnvironmentManager() {
@@ -305,6 +304,14 @@ public class BindingManagerFactory {
 	}
 	public boolean isVoid(IEntity entity) {
 		return Matcher.match(getVoidEd(), entity);
+	}
+
+	public IEntity createNull() {
+		return GenericEntityFactory.instance.create(
+				getNullEd());
+	}
+	public boolean isNull(IEntity entity) {
+		return Matcher.match(getNullEd(), entity);
 	}
 
 	public <E extends IEntity> IEntityIterator<E> resultIteratorOf(E result) {

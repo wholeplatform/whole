@@ -248,6 +248,18 @@ public class EnvironmentSpecificBuilderAdapter extends GenericBuilderContext imp
         _wEntity(EnvironmentEntityDescriptorEnum.Void);
     }
 
+    public void Null() {
+        wEntity(EnvironmentEntityDescriptorEnum.Null);
+    }
+
+    public void Null_() {
+        wEntity_(EnvironmentEntityDescriptorEnum.Null);
+    }
+
+    public void _Null() {
+        _wEntity(EnvironmentEntityDescriptorEnum.Null);
+    }
+
     public void ContextViewModel() {
         wEntity(EnvironmentEntityDescriptorEnum.ContextViewModel);
     }

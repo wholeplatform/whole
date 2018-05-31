@@ -108,6 +108,11 @@ public class EnvironmentSequenceVisitor extends AbstractBinaryVisitor<IEnvironme
         wGetVisitor2().visit(entity);
     }
 
+    public void visit(Null entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
     public void visit(ContextViewModel entity) {
         wGetVisitor1().visit(entity);
         wGetVisitor2().visit(entity);
