@@ -189,7 +189,7 @@
             <actions:GuardedAction>
                 <actions:Label value="Map Models To Xml Schema"/>
                 <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
-                    <semantics:Name value="whole:org.whole.lang.xsd:XsdMapppingLibrarySemantics#modelToXmlSchema"/>
+                    <semantics:Name value="whole:org.whole.lang.xsd:XsdMappingLibrarySemantics#modelToXmlSchema"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>

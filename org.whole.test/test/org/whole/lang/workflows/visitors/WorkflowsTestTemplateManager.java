@@ -1106,7 +1106,8 @@ public class WorkflowsTestTemplateManager extends AbstractTemplateManager {
                 org.whole.lang.models.builders.IModelsBuilder b2 = (org.whole.lang.models.builders.IModelsBuilder) op.wGetBuilder(org.whole.lang.models.reflect.ModelsLanguageKit.URI);
                 b2.Features_(1);
                 b2.Feature_();
-                b1.Resolver();
+                b2.FeatureModifiers_(0);
+                b2._FeatureModifiers();
                 b2.SimpleName("FType");
                 b2.SimpleName("fname");
                 b1.Resolver();
@@ -1185,7 +1186,8 @@ public class WorkflowsTestTemplateManager extends AbstractTemplateManager {
                 b1.StageUpFragment_();
                 b2.Features_(1);
                 b2.Feature_();
-                b1.Resolver();
+                b2.FeatureModifiers_(0);
+                b2._FeatureModifiers();
                 b2.SimpleName("FType");
                 b2.SimpleName("fname");
                 b1.Resolver();

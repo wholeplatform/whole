@@ -37,7 +37,6 @@ import org.whole.lang.util.EntityUtils;
 import org.whole.lang.util.IDataTypeWrapper;
 import org.whole.lang.util.IRunnable;
 import org.whole.lang.util.ResourceUtils;
-import org.whole.lang.visitors.IVisitor;
 
 /**
  * 
@@ -269,20 +268,8 @@ public class IteratorFactory {
 		return new MatcherIterator<E>(iterator);
 	}
 
-	public static <E extends IEntity> FilterIterator<E> filterIterator(IEntityIterator<? extends IEntity> filterIterator) {
-		return filterIterator(selfIterator(), filterIterator);
-	}
 	public static <E extends IEntity> FilterIterator<E> filterIterator(IEntityIterator<E> iterator, IEntityIterator<? extends IEntity> filterIterator) {
 		return new FilterIterator<E>(iterator, filterIterator);
-	}
-	public static <E extends IEntity> AbstractPatternFilterIterator<E> filterIterator(IEntityIterator<E> iterator, IVisitor filterPredicate) {
-		return matcherIterator(iterator).withPattern(filterPredicate);
-	}
-	public static <E extends IEntity> AbstractPatternFilterIterator<E> filterIterator(IEntityIterator<E> iterator, IEntity filterPattern) {
-		return matcherIterator(iterator).withPattern(filterPattern);
-	}
-	public static AbstractPatternFilterIterator<IEntity> patternMatcherIterator(IEntity pattern) {
-		return filterIterator(selfIterator(), pattern);
 	}
 
 	public static class FilterIterator<E extends IEntity> extends MatcherIterator<E> {

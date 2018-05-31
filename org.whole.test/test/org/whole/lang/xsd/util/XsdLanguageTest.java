@@ -151,7 +151,7 @@ public class XsdLanguageTest {
 			IEntity model = XmlBuilderPersistenceKit.instance().readModel(
 					new ClasspathPersistenceProvider("org/whole/lang/artifacts/ArtifactsModel.xwl"));
 
-			IEntity result = BehaviorUtils.applyFirstResult("whole:org.whole.lang.xsd:XsdMapppingLibrarySemantics#modelToXmlSchema", model, bm);
+			IEntity result = BehaviorUtils.applyFirstResult("whole:org.whole.lang.xsd:XsdMappingLibrarySemantics#modelToXmlSchema", model, bm);
 			Assert.assertNotNull(result);
 			IEntity mappedXsd = result.wGet(0).wGetAdaptee(false);
 
@@ -170,7 +170,7 @@ public class XsdLanguageTest {
 			IEntity model = XmlBuilderPersistenceKit.instance().readModel(
 					new ClasspathPersistenceProvider("org/whole/lang/artifacts/ArtifactsModel.xwl"));
 
-			Assert.assertNotNull(BehaviorUtils.applyFirstResult("whole:org.whole.lang.xsd:XsdMapppingLibrarySemantics#modelToXmlSchema", model, bm));
+			Assert.assertNotNull(BehaviorUtils.applyFirstResult("whole:org.whole.lang.xsd:XsdMappingLibrarySemantics#modelToXmlSchema", model, bm));
 			InterpreterOperation.interpret(bm.wGet("mapping"));
 
 			bm.wDefValue("folderLocation", new File("test/org/whole/lang/xsd/util").getAbsolutePath());

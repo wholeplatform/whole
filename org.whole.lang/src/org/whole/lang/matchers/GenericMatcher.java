@@ -114,7 +114,8 @@ public class GenericMatcher {
 	}
 
 	public void matchSimpleEntity(IEntity pattern, IEntity model) {
-		if (!pattern.wGetEntityDescriptor().equals(model.wGetEntityDescriptor()) || model.wSize() < pattern.wSize()) {
+		if (!pattern.wGetEntityDescriptor().equals(model.wGetEntityDescriptor()) ||
+				model.wSize() < pattern.wSize()) {
 			mismatch(pattern, model);
 			return;
 		}
@@ -125,9 +126,8 @@ public class GenericMatcher {
 	}
 
 	public void matchCompositeEntity(IEntity pattern, IEntity model) {
-		if ((!pattern.wGetEntityDescriptor().equals(model.wGetEntityDescriptor())
-				&& !EntityUtils.isResolver(model) //TODO workaround for resolvers
-				) || (pattern.wSize() != model.wSize() && !(pattern.wIsEmpty() && model.wIsEmpty())) ) {
+		if (!pattern.wGetEntityDescriptor().equals(model.wGetEntityDescriptor()) ||
+				(pattern.wSize() != model.wSize() && !(pattern.wIsEmpty() && model.wIsEmpty()))) {
 			mismatch(pattern, model);
 			return;
 		}

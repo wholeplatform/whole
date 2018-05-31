@@ -43,7 +43,6 @@ import org.whole.lang.iterators.EmptyIterator;
 import org.whole.lang.iterators.FilterByIndexRangeIterator;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
-import org.whole.lang.matchers.GenericMatcherFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.model.adapters.IEntityAdapter;
@@ -132,7 +131,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		setResultIterator(
 				IteratorFactory
 						.filterIterator(QueriesIteratorFactory.constantIterator(entity, true).withSourceEntity(entity),
-								GenericMatcherFactory.instance.defineVariableMatcher(queryName))
+								IteratorFactory.asVariableIterator(queryName))
 						.withSourceEntity(entity));
 	}
 

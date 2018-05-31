@@ -33,7 +33,6 @@ import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.EntityKinds;
 import org.whole.lang.reflect.FeatureDescriptor;
-import org.whole.lang.util.BindingUtils;
 import org.whole.lang.util.EntityUtils;
 import org.whole.lang.util.ResourceUtils;
 import org.whole.lang.visitors.AbstractVisitor;
@@ -325,34 +324,6 @@ public class GenericMatcherFactory {
 				}
 			};
 		return matchFragmentVisitor;
-	}
-
-	public IVisitor defineVariableMatcher(final String name) {
-		if (BindingUtils.hasEnvironmentPart(name))
-			return new AbstractVisitor() {
-				public void visit(IEntity entity) {
-					BindingUtils.wDef(getBindings(), name, entity);
-				}
-				
-				public void toString(StringBuilder sb) {
-					sb.append("defineVariable(");
-					sb.append(name);
-					sb.append(")");
-				}
-			};
-		else
-			return new AbstractVisitor() {
-				public void visit(IEntity entity) {
-					getBindings().wDef(name, entity);
-				}
-	
-				public void toString(StringBuilder sb) {
-					sb.append("defineVariable(");
-					sb.append(name);
-					sb.append(")");
-				}
-			};
-
 	}
 
 	public IVisitor match(final IEntity pattern) {

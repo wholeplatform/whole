@@ -286,17 +286,21 @@ public class Matcher {
 		}
 	}
 	public static boolean match(IEntity pattern, IEntity model, IBindingManager bindings) {
+		return match(pattern, model, new GenericMatcher().withBindings(bindings));
+	}
+	public static boolean match(IEntity pattern, IEntity model, GenericMatcher matcher) {
 		boolean mergeScope = true;
 		try {
-			bindings.wEnterScope();
-			new GenericMatcher().withBindings(bindings).match(pattern, model);
+			matcher.getBindings().wEnterScope();
+			matcher.match(pattern, model);
 		} catch (MatchException|VisitException e) {
 			mergeScope = false;
 		} finally {
-			bindings.wExitScope(mergeScope);
+			matcher.getBindings().wExitScope(mergeScope);
 		}
 		return mergeScope;
 	}
+
 	public static boolean match(IVisitor matcherVisitor, IEntity model) {
 		try {
 			matcherVisitor.visit(model);

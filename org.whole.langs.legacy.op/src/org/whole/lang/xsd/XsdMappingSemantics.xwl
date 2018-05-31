@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <semantics:SemanticTheory xmlns:semantics="http://lang.whole.org/Semantics">
-    <semantics:URI value="whole:org.whole.lang.xsd:XsdMapppingLibrarySemantics"/>
+    <semantics:URI value="whole:org.whole.lang.xsd:XsdMappingLibrarySemantics"/>
     <semantics:Namespace value="org.whole.lang.xsd"/>
     <semantics:Name value="XsdMapping"/>
     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -7066,7 +7066,7 @@
                                 <xsd:ElementRef xmlns:xsd="http://www.w3.org/2001/XMLSchema">
                                     <xsd:NamespaceDecls initialCapacity="0"/>
                                     <commons:Resolver/>
-                                    <commons:Resolver/>
+                                    <xsd:Attributes initialCapacity="0"/>
                                     <commons:StageDownFragment>
                                         <queries:If>
                                         <queries:VariableRefStep value="isOptional"/>
@@ -7104,7 +7104,7 @@
                                 <xsd:ModelGroupRef xmlns:xsd="http://www.w3.org/2001/XMLSchema">
                                     <xsd:NamespaceDecls initialCapacity="0"/>
                                     <commons:Resolver/>
-                                    <commons:Resolver/>
+                                    <xsd:Attributes initialCapacity="0"/>
                                     <commons:StageDownFragment>
                                         <queries:If>
                                         <queries:VariableRefStep value="isOptional"/>
@@ -7243,7 +7243,7 @@
                                         </xsd:NamespaceDecl>
                                     </xsd:NamespaceDecls>
                                     <commons:Resolver/>
-                                    <commons:Resolver/>
+                                    <xsd:Attributes initialCapacity="0"/>
                                     <commons:Variable>
                                         <commons:VarType value="http://www.w3.org/2001/XMLSchema#AnyURI"/>
                                         <commons:VarName value="languageURI"/>
@@ -7476,7 +7476,7 @@
                                         <xsd:ElementDecl>
                                         <xsd:NamespaceDecls initialCapacity="0"/>
                                         <commons:Resolver/>
-                                        <commons:Resolver/>
+                                        <xsd:Attributes initialCapacity="0"/>
                                         <commons:Variable>
                                         <commons:VarType value="http://www.w3.org/2001/XMLSchema#Name"/>
                                         <commons:VarName value="elementName"/>
@@ -7548,7 +7548,7 @@
                                         <xsd:ComplexTypeDef xmlns:xsd="http://www.w3.org/2001/XMLSchema">
                                         <xsd:NamespaceDecls initialCapacity="0"/>
                                         <commons:Resolver/>
-                                        <commons:Resolver/>
+                                        <xsd:Attributes initialCapacity="0"/>
                                         <commons:Variable>
                                         <commons:VarType value="http://www.w3.org/2001/XMLSchema#Name"/>
                                         <commons:VarName value="name"/>
@@ -7563,7 +7563,7 @@
                                         <xsd:Sequence>
                                         <xsd:NamespaceDecls initialCapacity="0"/>
                                         <commons:Resolver/>
-                                        <commons:Resolver/>
+                                        <xsd:Attributes initialCapacity="0"/>
                                         <xsd:Bounded value="0"/>
                                         <xsd:Unbounded/>
                                         <commons:Resolver/>
@@ -7621,7 +7621,7 @@
                                         <xsd:ComplexTypeDef xmlns:xsd="http://www.w3.org/2001/XMLSchema">
                                         <xsd:NamespaceDecls initialCapacity="0"/>
                                         <commons:Resolver/>
-                                        <commons:Resolver/>
+                                        <xsd:Attributes initialCapacity="0"/>
                                         <commons:Variable>
                                         <commons:VarType value="http://www.w3.org/2001/XMLSchema#Name"/>
                                         <commons:VarName value="name"/>
@@ -7636,7 +7636,7 @@
                                         <xsd:Sequence>
                                         <xsd:NamespaceDecls initialCapacity="0"/>
                                         <commons:Resolver/>
-                                        <commons:Resolver/>
+                                        <xsd:Attributes initialCapacity="0"/>
                                         <commons:Resolver/>
                                         <commons:Resolver/>
                                         <commons:Resolver/>
@@ -7728,7 +7728,7 @@
                                         <xsd:ElementDecl xmlns:xsd="http://www.w3.org/2001/XMLSchema">
                                         <xsd:NamespaceDecls initialCapacity="0"/>
                                         <commons:Resolver/>
-                                        <commons:Resolver/>
+                                        <xsd:Attributes initialCapacity="0"/>
                                         <commons:Variable>
                                         <commons:VarType value="http://www.w3.org/2001/XMLSchema#Name"/>
                                         <commons:VarName value="featureName"/>
@@ -7777,7 +7777,7 @@
                                         <xsd:SimpleTypeDef xmlns:xsd="http://www.w3.org/2001/XMLSchema">
                                         <xsd:NamespaceDecls initialCapacity="0"/>
                                         <commons:Resolver/>
-                                        <commons:Resolver/>
+                                        <xsd:Attributes initialCapacity="0"/>
                                         <commons:Variable>
                                         <commons:VarType value="http://www.w3.org/2001/XMLSchema#Name"/>
                                         <commons:VarName value="name"/>
@@ -7788,7 +7788,7 @@
                                         <xsd:SimpleTypeRestriction>
                                         <xsd:NamespaceDecls initialCapacity="0"/>
                                         <commons:Resolver/>
-                                        <commons:Resolver/>
+                                        <xsd:Attributes initialCapacity="0"/>
                                         <commons:Variable>
                                         <commons:VarType value="http://www.w3.org/2001/XMLSchema#QName"/>
                                         <commons:VarName value="builtInType"/>
@@ -7854,7 +7854,7 @@
                                         <xsd:SimpleTypeDef xmlns:xsd="http://www.w3.org/2001/XMLSchema">
                                         <xsd:NamespaceDecls initialCapacity="0"/>
                                         <commons:Resolver/>
-                                        <commons:Resolver/>
+                                        <xsd:Attributes initialCapacity="0"/>
                                         <commons:Variable>
                                         <commons:VarType value="http://www.w3.org/2001/XMLSchema#Name"/>
                                         <commons:VarName value="name"/>
@@ -7865,7 +7865,7 @@
                                         <xsd:SimpleTypeRestriction>
                                         <xsd:NamespaceDecls initialCapacity="0"/>
                                         <commons:Resolver/>
-                                        <commons:Resolver/>
+                                        <xsd:Attributes initialCapacity="0"/>
                                         <commons:StageDownFragment>
                                         <queries:Addition>
                                         <queries:VariableRefStep value="XML_SCHEMA_NS_PREFIX"/>
@@ -7903,7 +7903,7 @@
                                         <xsd:Enumeration xmlns:xsd="http://www.w3.org/2001/XMLSchema">
                                         <xsd:NamespaceDecls initialCapacity="0"/>
                                         <commons:Resolver/>
-                                        <commons:Resolver/>
+                                        <xsd:Attributes initialCapacity="0"/>
                                         <commons:Variable>
                                         <commons:VarType value="http://www.w3.org/2001/XMLSchema#StringData"/>
                                         <commons:VarName value="value"/>
@@ -7927,7 +7927,7 @@
                                         <xsd:ModelGroupDef xmlns:xsd="http://www.w3.org/2001/XMLSchema">
                                         <xsd:NamespaceDecls initialCapacity="0"/>
                                         <commons:Resolver/>
-                                        <commons:Resolver/>
+                                        <xsd:Attributes initialCapacity="0"/>
                                         <commons:Variable>
                                         <commons:VarType value="http://www.w3.org/2001/XMLSchema#Name"/>
                                         <commons:VarName value="name"/>
@@ -7937,7 +7937,7 @@
                                         <xsd:Choice>
                                         <xsd:NamespaceDecls initialCapacity="0"/>
                                         <commons:Resolver/>
-                                        <commons:Resolver/>
+                                        <xsd:Attributes initialCapacity="0"/>
                                         <commons:Resolver/>
                                         <commons:Resolver/>
                                         <commons:Resolver/>

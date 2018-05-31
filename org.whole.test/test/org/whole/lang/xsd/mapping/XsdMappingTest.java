@@ -420,7 +420,7 @@ public class XsdMappingTest {
 		Model model = (Model) ModelsTemplateManager.instance().create("Models model");
 		String uri = model.getUri().getValue();
 		ILanguageKit lk = ReflectionFactory.getLanguageKit(uri, true, null);
-		IEntity tuple = BehaviorUtils.applyFirstResult("whole:org.whole.lang.xsd:XsdMapppingLibrarySemantics#modelToXmlSchema", model, bm);
+		IEntity tuple = BehaviorUtils.applyFirstResult("whole:org.whole.lang.xsd:XsdMappingLibrarySemantics#modelToXmlSchema", model, bm);
 		Assert.assertNotNull(tuple);
 
 		InterpreterOperation.interpret(tuple.wGet(1));
