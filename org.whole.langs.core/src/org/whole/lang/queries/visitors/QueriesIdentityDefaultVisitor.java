@@ -53,12 +53,22 @@ public class QueriesIdentityDefaultVisitor extends QueriesIdentityVisitor {
         visit((PathExpression) entity);
     }
 
+    public void visit(Insert entity) {
+        visit((IQueriesEntity) entity);
+        visit((PathExpression) entity);
+    }
+
     public void visit(CartesianInsert entity) {
         visit((IQueriesEntity) entity);
         visit((PathExpression) entity);
     }
 
     public void visit(PointwiseInsert entity) {
+        visit((IQueriesEntity) entity);
+        visit((PathExpression) entity);
+    }
+
+    public void visit(Update entity) {
         visit((IQueriesEntity) entity);
         visit((PathExpression) entity);
     }

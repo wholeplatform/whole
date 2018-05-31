@@ -47,11 +47,19 @@ public class QueriesForwardGenericVisitor extends AbstractUnaryVisitor<IVisitor>
         wGetVisitor1().visit(entity);
     }
 
+    public void visit(Insert entity) {
+        wGetVisitor1().visit(entity);
+    }
+
     public void visit(CartesianInsert entity) {
         wGetVisitor1().visit(entity);
     }
 
     public void visit(PointwiseInsert entity) {
+        wGetVisitor1().visit(entity);
+    }
+
+    public void visit(Update entity) {
         wGetVisitor1().visit(entity);
     }
 

@@ -140,11 +140,17 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
             case QueriesEntityDescriptorEnum.Delete_ord :
             specificBuilder.Delete();
             break;
+            case QueriesEntityDescriptorEnum.Insert_ord :
+            specificBuilder.Insert();
+            break;
             case QueriesEntityDescriptorEnum.CartesianInsert_ord :
             specificBuilder.CartesianInsert();
             break;
             case QueriesEntityDescriptorEnum.PointwiseInsert_ord :
             specificBuilder.PointwiseInsert();
+            break;
+            case QueriesEntityDescriptorEnum.Update_ord :
+            specificBuilder.Update();
             break;
             case QueriesEntityDescriptorEnum.CartesianUpdate_ord :
             specificBuilder.CartesianUpdate();
@@ -445,11 +451,17 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
             case QueriesEntityDescriptorEnum.Delete_ord :
             specificBuilder.Delete_();
             break;
+            case QueriesEntityDescriptorEnum.Insert_ord :
+            specificBuilder.Insert_();
+            break;
             case QueriesEntityDescriptorEnum.CartesianInsert_ord :
             specificBuilder.CartesianInsert_();
             break;
             case QueriesEntityDescriptorEnum.PointwiseInsert_ord :
             specificBuilder.PointwiseInsert_();
+            break;
+            case QueriesEntityDescriptorEnum.Update_ord :
+            specificBuilder.Update_();
             break;
             case QueriesEntityDescriptorEnum.CartesianUpdate_ord :
             specificBuilder.CartesianUpdate_();
@@ -750,11 +762,17 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
             case QueriesEntityDescriptorEnum.Delete_ord :
             specificBuilder._Delete();
             break;
+            case QueriesEntityDescriptorEnum.Insert_ord :
+            specificBuilder._Insert();
+            break;
             case QueriesEntityDescriptorEnum.CartesianInsert_ord :
             specificBuilder._CartesianInsert();
             break;
             case QueriesEntityDescriptorEnum.PointwiseInsert_ord :
             specificBuilder._PointwiseInsert();
+            break;
+            case QueriesEntityDescriptorEnum.Update_ord :
+            specificBuilder._Update();
             break;
             case QueriesEntityDescriptorEnum.CartesianUpdate_ord :
             specificBuilder._CartesianUpdate();

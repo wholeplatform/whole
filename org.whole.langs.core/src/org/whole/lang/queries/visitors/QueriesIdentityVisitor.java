@@ -39,10 +39,16 @@ public class QueriesIdentityVisitor extends AbstractVisitor implements IQueriesV
     public void visit(Delete entity) {
     }
 
+    public void visit(Insert entity) {
+    }
+
     public void visit(CartesianInsert entity) {
     }
 
     public void visit(PointwiseInsert entity) {
+    }
+
+    public void visit(Update entity) {
     }
 
     public void visit(CartesianUpdate entity) {

@@ -190,6 +190,18 @@ public class QueriesSpecificBuilderAdapter extends GenericBuilderContext impleme
         _wEntity(QueriesEntityDescriptorEnum.Delete);
     }
 
+    public void Insert() {
+        wEntity(QueriesEntityDescriptorEnum.Insert);
+    }
+
+    public void Insert_() {
+        wEntity_(QueriesEntityDescriptorEnum.Insert);
+    }
+
+    public void _Insert() {
+        _wEntity(QueriesEntityDescriptorEnum.Insert);
+    }
+
     public void CartesianInsert() {
         wEntity(QueriesEntityDescriptorEnum.CartesianInsert);
     }
@@ -212,6 +224,18 @@ public class QueriesSpecificBuilderAdapter extends GenericBuilderContext impleme
 
     public void _PointwiseInsert() {
         _wEntity(QueriesEntityDescriptorEnum.PointwiseInsert);
+    }
+
+    public void Update() {
+        wEntity(QueriesEntityDescriptorEnum.Update);
+    }
+
+    public void Update_() {
+        wEntity_(QueriesEntityDescriptorEnum.Update);
+    }
+
+    public void _Update() {
+        _wEntity(QueriesEntityDescriptorEnum.Update);
     }
 
     public void CartesianUpdate() {

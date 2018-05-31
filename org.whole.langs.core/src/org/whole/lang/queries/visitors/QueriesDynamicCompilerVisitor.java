@@ -611,6 +611,16 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 	}
 
 	@Override
+	public void visit(Update entity) {
+		entity.getFromClause().accept(this);
+		IEntityIterator<IEntity> fromIterator = getResultIterator();
+
+		setResultIterator(QueriesIteratorFactory.pointwiseUpdateIterator(
+				IteratorFactory.repeatedSelfIterator().withSourceEntity(entity), fromIterator)
+				.withSourceEntity(entity));
+	}
+
+	@Override
 	public void visit(CartesianUpdate entity) {
 		entity.getFromClause().accept(this);
 		IEntityIterator<IEntity> fromIterator = getResultIterator();
@@ -619,8 +629,8 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		entity.getValuesClause().accept(this);
 		IEntityIterator<? extends IEntity> valuesIterator = getResultIterator();
 
-		setResultIterator(
-				QueriesIteratorFactory.cartesianUpdateIterator(valuesIterator, fromIterator).withSourceEntity(entity));
+		setResultIterator(QueriesIteratorFactory.cartesianUpdateIterator(
+				valuesIterator, fromIterator).withSourceEntity(entity));
 	}
 
 	@Override
@@ -632,8 +642,20 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		entity.getValuesClause().accept(this);
 		IEntityIterator<? extends IEntity> valuesIterator = getResultIterator();
 
-		setResultIterator(
-				QueriesIteratorFactory.pointwiseUpdateIterator(valuesIterator, fromIterator).withSourceEntity(entity));
+		setResultIterator(QueriesIteratorFactory.pointwiseUpdateIterator(
+				valuesIterator, fromIterator).withSourceEntity(entity));
+	}
+
+	@Override
+	public void visit(Insert entity) {
+		entity.getFromClause().accept(this);
+		IEntityIterator<IEntity> fromIterator = getResultIterator();
+
+		Placement placement = Placement.valueOf(entity.getPlacement().getValue().getName());
+		setResultIterator(QueriesIteratorFactory.pointwiseInsertIterator(
+				IteratorFactory.repeatedSelfIterator().withSourceEntity(entity),
+				fromIterator, placement)
+				.withSourceEntity(entity));
 	}
 
 	@Override
@@ -646,7 +668,8 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		IEntityIterator<? extends IEntity> valuesIterator = getResultIterator();
 
 		Placement placement = Placement.valueOf(entity.getPlacement().getValue().getName());
-		setResultIterator(QueriesIteratorFactory.cartesianInsertIterator(valuesIterator, fromIterator, placement)
+		setResultIterator(QueriesIteratorFactory.cartesianInsertIterator(
+				valuesIterator, fromIterator, placement)
 				.withSourceEntity(entity));
 	}
 
@@ -660,7 +683,8 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		IEntityIterator<? extends IEntity> valuesIterator = getResultIterator();
 
 		Placement placement = Placement.valueOf(entity.getPlacement().getValue().getName());
-		setResultIterator(QueriesIteratorFactory.pointwiseInsertIterator(valuesIterator, fromIterator, placement)
+		setResultIterator(QueriesIteratorFactory.pointwiseInsertIterator(
+				valuesIterator, fromIterator, placement)
 				.withSourceEntity(entity));
 	}
 

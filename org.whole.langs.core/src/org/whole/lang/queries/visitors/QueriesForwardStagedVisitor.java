@@ -36,11 +36,19 @@ public class QueriesForwardStagedVisitor extends QueriesIdentityVisitor {
         stagedVisit(entity);
     }
 
+    public void visit(Insert entity) {
+        stagedVisit(entity);
+    }
+
     public void visit(CartesianInsert entity) {
         stagedVisit(entity);
     }
 
     public void visit(PointwiseInsert entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(Update entity) {
         stagedVisit(entity);
     }
 

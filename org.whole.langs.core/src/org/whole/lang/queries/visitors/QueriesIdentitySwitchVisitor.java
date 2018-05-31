@@ -38,11 +38,17 @@ public abstract class QueriesIdentitySwitchVisitor extends AbstractVisitor imple
             case QueriesEntityDescriptorEnum.Delete_ord :
             visit((Delete) entity);
             break;
+            case QueriesEntityDescriptorEnum.Insert_ord :
+            visit((Insert) entity);
+            break;
             case QueriesEntityDescriptorEnum.CartesianInsert_ord :
             visit((CartesianInsert) entity);
             break;
             case QueriesEntityDescriptorEnum.PointwiseInsert_ord :
             visit((PointwiseInsert) entity);
+            break;
+            case QueriesEntityDescriptorEnum.Update_ord :
+            visit((Update) entity);
             break;
             case QueriesEntityDescriptorEnum.CartesianUpdate_ord :
             visit((CartesianUpdate) entity);

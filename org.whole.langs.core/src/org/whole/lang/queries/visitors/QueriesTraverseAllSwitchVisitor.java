@@ -45,6 +45,11 @@ public class QueriesTraverseAllSwitchVisitor extends QueriesIdentityUnaryVisitor
         wGetVisitor1().visit(entity.getFromClause());
     }
 
+    public void visit(Insert entity) {
+        wGetVisitor1().visit(entity.getPlacement());
+        wGetVisitor1().visit(entity.getFromClause());
+    }
+
     public void visit(CartesianInsert entity) {
         wGetVisitor1().visit(entity.getPlacement());
         wGetVisitor1().visit(entity.getFromClause());
@@ -55,6 +60,10 @@ public class QueriesTraverseAllSwitchVisitor extends QueriesIdentityUnaryVisitor
         wGetVisitor1().visit(entity.getPlacement());
         wGetVisitor1().visit(entity.getFromClause());
         wGetVisitor1().visit(entity.getValuesClause());
+    }
+
+    public void visit(Update entity) {
+        wGetVisitor1().visit(entity.getFromClause());
     }
 
     public void visit(CartesianUpdate entity) {

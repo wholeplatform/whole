@@ -42,11 +42,19 @@ public class QueriesFailureVisitor extends QueriesIdentityVisitor {
         throw new VisitException();
     }
 
+    public void visit(Insert entity) {
+        throw new VisitException();
+    }
+
     public void visit(CartesianInsert entity) {
         throw new VisitException();
     }
 
     public void visit(PointwiseInsert entity) {
+        throw new VisitException();
+    }
+
+    public void visit(Update entity) {
         throw new VisitException();
     }
 

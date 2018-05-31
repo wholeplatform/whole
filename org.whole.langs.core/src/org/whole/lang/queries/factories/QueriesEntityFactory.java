@@ -72,6 +72,18 @@ public class QueriesEntityFactory extends GenericEntityFactory {
         return create(QueriesEntityDescriptorEnum.Delete, fromClause);
     }
 
+    public Insert createInsert() {
+        return create(QueriesEntityDescriptorEnum.Insert);
+    }
+
+    public Insert createInsert(Placement placement, Expression fromClause) {
+        return create(QueriesEntityDescriptorEnum.Insert, placement, fromClause);
+    }
+
+    public IEntityBuilder<Insert> buildInsert() {
+        return new EntityBuilder<Insert>(create(QueriesEntityDescriptorEnum.Insert));
+    }
+
     public CartesianInsert createCartesianInsert() {
         return create(QueriesEntityDescriptorEnum.CartesianInsert);
     }
@@ -94,6 +106,14 @@ public class QueriesEntityFactory extends GenericEntityFactory {
 
     public IEntityBuilder<PointwiseInsert> buildPointwiseInsert() {
         return new EntityBuilder<PointwiseInsert>(create(QueriesEntityDescriptorEnum.PointwiseInsert));
+    }
+
+    public Update createUpdate() {
+        return create(QueriesEntityDescriptorEnum.Update);
+    }
+
+    public Update createUpdate(Expression fromClause) {
+        return create(QueriesEntityDescriptorEnum.Update, fromClause);
     }
 
     public CartesianUpdate createCartesianUpdate() {

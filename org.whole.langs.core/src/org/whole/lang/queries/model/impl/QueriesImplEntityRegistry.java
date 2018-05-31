@@ -33,8 +33,10 @@ public class QueriesImplEntityRegistry extends AbstractEntityRegistry {
         put(new QueryDeclarationImpl());
         put(new PathImpl());
         put(new DeleteImpl());
+        put(new InsertImpl());
         put(new CartesianInsertImpl());
         put(new PointwiseInsertImpl());
+        put(new UpdateImpl());
         put(new CartesianUpdateImpl());
         put(new PointwiseUpdateImpl());
         put(new SelectImpl());

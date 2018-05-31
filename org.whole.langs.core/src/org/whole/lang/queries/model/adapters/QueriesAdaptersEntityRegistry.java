@@ -35,8 +35,10 @@ public class QueriesAdaptersEntityRegistry extends AbstractEntityRegistry {
         put(new QueryDeclarationAdapter());
         put(new PathAdapter());
         put(new DeleteAdapter());
+        put(new InsertAdapter());
         put(new CartesianInsertAdapter());
         put(new PointwiseInsertAdapter());
+        put(new UpdateAdapter());
         put(new CartesianUpdateAdapter());
         put(new PointwiseUpdateAdapter());
         put(new SelectAdapter());

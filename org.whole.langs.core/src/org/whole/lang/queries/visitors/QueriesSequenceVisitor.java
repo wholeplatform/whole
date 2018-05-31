@@ -52,12 +52,22 @@ public class QueriesSequenceVisitor extends AbstractBinaryVisitor<IQueriesVisito
         wGetVisitor2().visit(entity);
     }
 
+    public void visit(Insert entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
     public void visit(CartesianInsert entity) {
         wGetVisitor1().visit(entity);
         wGetVisitor2().visit(entity);
     }
 
     public void visit(PointwiseInsert entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
+    public void visit(Update entity) {
         wGetVisitor1().visit(entity);
         wGetVisitor2().visit(entity);
     }

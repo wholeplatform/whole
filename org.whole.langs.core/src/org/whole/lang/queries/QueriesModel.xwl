@@ -7,7 +7,7 @@
             <models:EntityType value="http://lang.whole.org/Math#Expression"/>
         </models:TypeAliasOf>
     </models:TypeRelations>
-    <models:ModelDeclarations initialCapacity="156">
+    <models:ModelDeclarations initialCapacity="158">
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="1">
                 <models:EntityModifier value="abstract"/>
@@ -85,6 +85,27 @@
         </models:SimpleEntity>
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="Insert"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="PathExpression"/>
+            </models:Types>
+            <models:Features initialCapacity="2">
+                <models:Feature>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <models:SimpleName value="Placement"/>
+                    <models:SimpleName value="placement"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <models:SimpleName value="Expression"/>
+                    <models:SimpleName value="fromClause"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
             <models:SimpleName value="CartesianInsert"/>
             <models:Types initialCapacity="1">
                 <models:SimpleName value="PathExpression"/>
@@ -133,6 +154,21 @@
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                     <models:SimpleName value="Expression"/>
                     <models:SimpleName value="valuesClause"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="Update"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="PathExpression"/>
+            </models:Types>
+            <models:Features initialCapacity="1">
+                <models:Feature>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <models:SimpleName value="Expression"/>
+                    <models:SimpleName value="fromClause"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
             </models:Features>

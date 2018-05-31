@@ -103,6 +103,15 @@ public class IteratorFactory {
 		return new SelfIterator<E>();
 	}
 
+	public static <E extends IEntity> IEntityIterator<E> repeatedSelfIterator() {
+		return new SelfIterator<E>() {
+			@Override
+			public E next() {
+				return entity = super.next();
+			}
+		};
+	}
+
 	public static IEntityIterator<IEntity> rootIterator() {
 		return new RootIterator();
 	}

@@ -40,7 +40,6 @@ import org.whole.lang.ui.editparts.ContentTextualEntityPart;
 import org.whole.lang.ui.editparts.EntityTypePart;
 import org.whole.lang.ui.editparts.FeatureTypePart;
 import org.whole.lang.ui.editparts.IEditPartFactory;
-import org.whole.lang.ui.editparts.KeywordDataEntityPart;
 import org.whole.lang.ui.editparts.PlaceHolderPart;
 import org.whole.lang.ui.editparts.VariableDataEntityPart;
 import org.whole.lang.ui.notations.editparts.QuotedStringTextualEntityPart;
@@ -132,6 +131,11 @@ public class QueriesPartFactoryVisitor extends QueriesIdentityDefaultVisitor imp
 	}
 
 	@Override
+	public void visit(Insert entity) {
+		part = new InsertPart();
+	}
+
+	@Override
 	public void visit(CartesianInsert entity) {
 		part = new CartesianInsertPart();
 	}
@@ -143,7 +147,12 @@ public class QueriesPartFactoryVisitor extends QueriesIdentityDefaultVisitor imp
 
 	@Override
 	public void visit(Placement entity) {
-		part = new KeywordDataEntityPart();
+		part = new ContentLightDataEntityPart();
+	}
+
+	@Override
+	public void visit(Update entity) {
+		part = new UpdatePart();
 	}
 
 	@Override

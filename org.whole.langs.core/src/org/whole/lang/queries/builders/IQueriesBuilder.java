@@ -106,6 +106,12 @@ public interface IQueriesBuilder extends IBuilder {
 
     public void _Delete();
 
+    public void Insert();
+
+    public void Insert_();
+
+    public void _Insert();
+
     public void CartesianInsert();
 
     public void CartesianInsert_();
@@ -117,6 +123,12 @@ public interface IQueriesBuilder extends IBuilder {
     public void PointwiseInsert_();
 
     public void _PointwiseInsert();
+
+    public void Update();
+
+    public void Update_();
+
+    public void _Update();
 
     public void CartesianUpdate();
 

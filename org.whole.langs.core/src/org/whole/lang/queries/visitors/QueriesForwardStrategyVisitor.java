@@ -50,11 +50,19 @@ public class QueriesForwardStrategyVisitor extends GenericForwardStrategyVisitor
         wGetStrategy().visit(entity);
     }
 
+    public void visit(Insert entity) {
+        wGetStrategy().visit(entity);
+    }
+
     public void visit(CartesianInsert entity) {
         wGetStrategy().visit(entity);
     }
 
     public void visit(PointwiseInsert entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(Update entity) {
         wGetStrategy().visit(entity);
     }
 
