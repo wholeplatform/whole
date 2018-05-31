@@ -151,8 +151,9 @@ public class XsdLanguageTest {
 			IEntity model = XmlBuilderPersistenceKit.instance().readModel(
 					new ClasspathPersistenceProvider("org/whole/lang/artifacts/ArtifactsModel.xwl"));
 
-			Assert.assertNotNull(BehaviorUtils.applyFirstResult("whole:org.whole.lang.xsd:XsdMapppingLibrarySemantics#modelToXmlSchema", model, bm));
-			IEntity mappedXsd = bm.wGet("schema");
+			IEntity result = BehaviorUtils.applyFirstResult("whole:org.whole.lang.xsd:XsdMapppingLibrarySemantics#modelToXmlSchema", model, bm);
+			Assert.assertNotNull(result);
+			IEntity mappedXsd = result.wGet(0).wGetAdaptee(false);
 
 			IEntity xsd = loadXsd("artifacts.xsd");
 			Assert.assertTrue(OrderedMatcher.match(xsd, mappedXsd, comparatorsMap));
