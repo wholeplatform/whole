@@ -100,6 +100,8 @@ public interface IPatternsVisitor extends IVisitor {
 
     public void visit(VariableDeclaration entity);
 
+    public void visit(ParameterDeclaration entity);
+
     public void visit(SlotDeclaration entity);
 
     public void visit(VariantSelector entity);
@@ -109,6 +111,8 @@ public interface IPatternsVisitor extends IVisitor {
     public void visit(ResultTypes entity);
 
     public void visit(Name entity);
+
+    public void visit(ResultWeaver entity);
 
     public void visit(PatternJoinPointStep entity);
 

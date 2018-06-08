@@ -137,6 +137,9 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
             case QueriesEntityDescriptorEnum.Path_ord :
             specificBuilder.Path();
             break;
+            case QueriesEntityDescriptorEnum.Clone_ord :
+            specificBuilder.Clone();
+            break;
             case QueriesEntityDescriptorEnum.Delete_ord :
             specificBuilder.Delete();
             break;
@@ -320,9 +323,6 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
             case QueriesEntityDescriptorEnum.Every_ord :
             specificBuilder.Every();
             break;
-            case QueriesEntityDescriptorEnum.ParenthesizedPredicate_ord :
-            specificBuilder.ParenthesizedPredicate();
-            break;
             case QueriesEntityDescriptorEnum.TemplateNames_ord :
             specificBuilder.TemplateNames();
             break;
@@ -447,6 +447,9 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
             break;
             case QueriesEntityDescriptorEnum.Path_ord :
             specificBuilder.Path_();
+            break;
+            case QueriesEntityDescriptorEnum.Clone_ord :
+            specificBuilder.Clone_();
             break;
             case QueriesEntityDescriptorEnum.Delete_ord :
             specificBuilder.Delete_();
@@ -631,9 +634,6 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
             case QueriesEntityDescriptorEnum.Every_ord :
             specificBuilder.Every_();
             break;
-            case QueriesEntityDescriptorEnum.ParenthesizedPredicate_ord :
-            specificBuilder.ParenthesizedPredicate_();
-            break;
             case QueriesEntityDescriptorEnum.TemplateNames_ord :
             specificBuilder.TemplateNames_();
             break;
@@ -758,6 +758,9 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
             break;
             case QueriesEntityDescriptorEnum.Path_ord :
             specificBuilder._Path();
+            break;
+            case QueriesEntityDescriptorEnum.Clone_ord :
+            specificBuilder._Clone();
             break;
             case QueriesEntityDescriptorEnum.Delete_ord :
             specificBuilder._Delete();
@@ -941,9 +944,6 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
             break;
             case QueriesEntityDescriptorEnum.Every_ord :
             specificBuilder._Every();
-            break;
-            case QueriesEntityDescriptorEnum.ParenthesizedPredicate_ord :
-            specificBuilder._ParenthesizedPredicate();
             break;
             case QueriesEntityDescriptorEnum.TemplateNames_ord :
             specificBuilder._TemplateNames();

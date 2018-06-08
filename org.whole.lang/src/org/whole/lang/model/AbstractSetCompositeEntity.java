@@ -41,6 +41,12 @@ public abstract class AbstractSetCompositeEntity<E extends IEntity> extends Abst
     	return entity;
 	}
 
+    @Override
+    public void wShallowClean() {
+    	super.wShallowClean();
+    	childrenSet.clear();
+    }
+
 	@Override
 	protected boolean elementsContains(IEntity entity) {
 		if (childrenSet.contains(entity))

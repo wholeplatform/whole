@@ -100,6 +100,12 @@ public interface IQueriesBuilder extends IBuilder {
 
     public void _Path();
 
+    public void Clone();
+
+    public void Clone_();
+
+    public void _Clone();
+
     public void Delete();
 
     public void Delete_();
@@ -585,12 +591,6 @@ public interface IQueriesBuilder extends IBuilder {
     public void Every_();
 
     public void _Every();
-
-    public void ParenthesizedPredicate();
-
-    public void ParenthesizedPredicate_();
-
-    public void _ParenthesizedPredicate();
 
     public void EntityType();
 

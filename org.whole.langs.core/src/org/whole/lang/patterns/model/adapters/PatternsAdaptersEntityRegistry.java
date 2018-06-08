@@ -70,6 +70,7 @@ public class PatternsAdaptersEntityRegistry extends AbstractEntityRegistry {
         put(new PointcutDeclarationAdapter());
         put(new JoinPointDeclarationAdapter());
         put(new VariableDeclarationAdapter());
+        put(new ParameterDeclarationAdapter());
         put(new SlotDeclarationAdapter());
         put(new VariantSelectorAdapter());
         put(new TypesAdapter());
@@ -78,6 +79,7 @@ public class PatternsAdaptersEntityRegistry extends AbstractEntityRegistry {
         put(new ResultTypeAdapter());
         put(new ExpressionAdapter());
         put(new NameAdapter());
+        put(new ResultWeaverAdapter());
         put(new StepExpressionAdapter());
         put(new PatternJoinPointStepAdapter());
         put(new JoinPointStepAdapter());

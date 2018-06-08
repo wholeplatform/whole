@@ -664,16 +664,9 @@
                                 </queries:Or>
                                 <queries:Block initialCapacity="3">
                                     <queries:Filter>
-                                        <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                                        <workflows:Text value="cloneSelf"/>
+                                        <queries:Clone>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <workflows:StringLiteral value="org.whole.lang.util.EntityUtils"/>
-                                        <workflows:StringLiteral value="clone(org.whole.lang.model.IEntity)"/>
-                                        <workflows:Expressions initialCapacity="1">
-                                        <workflows:Variable value="self"/>
-                                        </workflows:Expressions>
-                                        </workflows:InvokeJavaClassMethod>
+                                        </queries:Clone>
                                         <queries:VariableTest value="bodyTemplate"/>
                                     </queries:Filter>
                                     <queries:Path initialCapacity="2">
@@ -1382,16 +1375,9 @@
                             <queries:Do>
                                 <queries:Block initialCapacity="3">
                                     <queries:Filter>
-                                        <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                                        <workflows:Text value="cloneSelf"/>
+                                        <queries:Clone>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <workflows:StringLiteral value="org.whole.lang.util.EntityUtils"/>
-                                        <workflows:StringLiteral value="clone(org.whole.lang.model.IEntity)"/>
-                                        <workflows:Expressions initialCapacity="1">
-                                        <workflows:Variable value="self"/>
-                                        </workflows:Expressions>
-                                        </workflows:InvokeJavaClassMethod>
+                                        </queries:Clone>
                                         <queries:VariableTest value="bodyTemplate"/>
                                     </queries:Filter>
                                     <queries:Path initialCapacity="2">
@@ -2062,16 +2048,9 @@
                 <actions:Label value="Translate Function to Query"/>
                 <queries:Block xmlns:queries="http://lang.whole.org/Queries" initialCapacity="4">
                     <queries:Filter>
-                        <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                            <workflows:Text value="cloneSelf"/>
+                        <queries:Clone>
                             <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                            <workflows:StringLiteral value="org.whole.lang.util.EntityUtils"/>
-                            <workflows:StringLiteral value="clone(org.whole.lang.model.IEntity)"/>
-                            <workflows:Expressions initialCapacity="1">
-                                <workflows:Variable value="self"/>
-                            </workflows:Expressions>
-                        </workflows:InvokeJavaClassMethod>
+                        </queries:Clone>
                         <queries:VariableTest value="clonedSelf"/>
                     </queries:Filter>
                     <workflows:InvokeOperation xmlns:workflows="http://lang.whole.org/Workflows">

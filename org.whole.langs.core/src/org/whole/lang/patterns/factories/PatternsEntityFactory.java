@@ -468,6 +468,18 @@ public class PatternsEntityFactory extends GenericEntityFactory {
         return new EntityBuilder<VariableDeclaration>(create(PatternsEntityDescriptorEnum.VariableDeclaration));
     }
 
+    public ParameterDeclaration createParameterDeclaration() {
+        return create(PatternsEntityDescriptorEnum.ParameterDeclaration);
+    }
+
+    public ParameterDeclaration createParameterDeclaration(Name name, Expression expression, Type resultType) {
+        return create(PatternsEntityDescriptorEnum.ParameterDeclaration, name, expression, resultType);
+    }
+
+    public IEntityBuilder<ParameterDeclaration> buildParameterDeclaration() {
+        return new EntityBuilder<ParameterDeclaration>(create(PatternsEntityDescriptorEnum.ParameterDeclaration));
+    }
+
     public SlotDeclaration createSlotDeclaration() {
         return create(PatternsEntityDescriptorEnum.SlotDeclaration);
     }
@@ -522,6 +534,10 @@ public class PatternsEntityFactory extends GenericEntityFactory {
 
     public Name createName(String value) {
         return create(PatternsEntityDescriptorEnum.Name, value);
+    }
+
+    public ResultWeaver createResultWeaver() {
+        return create(PatternsEntityDescriptorEnum.ResultWeaver);
     }
 
     public PatternJoinPointStep createPatternJoinPointStep() {

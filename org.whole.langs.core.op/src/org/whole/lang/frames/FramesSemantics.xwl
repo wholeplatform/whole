@@ -22,16 +22,9 @@
                             </queries:FreshNames>
                             <queries:Block initialCapacity="3">
                                 <queries:Filter>
-                                    <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                                        <workflows:Text value="cloneFrame"/>
+                                    <queries:Clone>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <workflows:StringLiteral value="org.whole.lang.util.EntityUtils"/>
-                                        <workflows:StringLiteral value="clone(org.whole.lang.model.IEntity)"/>
-                                        <workflows:Expressions initialCapacity="1">
-                                        <workflows:Variable value="self"/>
-                                        </workflows:Expressions>
-                                    </workflows:InvokeJavaClassMethod>
+                                    </queries:Clone>
                                     <queries:VariableTest value="frame"/>
                                 </queries:Filter>
                                 <semantics:FunctionApplication>
@@ -291,19 +284,13 @@
                                         <commons:Resolver/>
                                         </queries:Some>
                                         <queries:Block initialCapacity="2">
-                                        <queries:Filter>
-                                        <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                                        <workflows:Text value="clone"/>
+                                        <queries:Path initialCapacity="3">
+                                        <queries:VariableRefStep value="resourceModel"/>
+                                        <queries:Clone>
                                         <commons:Resolver/>
-                                        <commons:Resolver/>
-                                        <workflows:StringLiteral value="org.whole.lang.util.EntityUtils"/>
-                                        <workflows:StringLiteral value="clone(org.whole.lang.model.IEntity)"/>
-                                        <workflows:Expressions initialCapacity="1">
-                                        <workflows:Variable value="resourceModel"/>
-                                        </workflows:Expressions>
-                                        </workflows:InvokeJavaClassMethod>
+                                        </queries:Clone>
                                         <queries:VariableTest value="resourceTemplate"/>
-                                        </queries:Filter>
+                                        </queries:Path>
                                         <semantics:FunctionApplication>
                                         <semantics:Name value="whole:org.whole.lang.frames:FramesSemantics#evaluateContentAsTemplate"/>
                                         <queries:VariableRefStep value="resourceTemplate"/>

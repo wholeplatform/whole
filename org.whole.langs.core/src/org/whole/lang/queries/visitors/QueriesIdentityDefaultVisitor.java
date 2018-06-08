@@ -48,6 +48,11 @@ public class QueriesIdentityDefaultVisitor extends QueriesIdentityVisitor {
         visit((PathExpression) entity);
     }
 
+    public void visit(Clone entity) {
+        visit((IQueriesEntity) entity);
+        visit((PathExpression) entity);
+    }
+
     public void visit(Delete entity) {
         visit((IQueriesEntity) entity);
         visit((PathExpression) entity);
@@ -513,11 +518,6 @@ public class QueriesIdentityDefaultVisitor extends QueriesIdentityVisitor {
     public void visit(Every entity) {
         visit((IQueriesEntity) entity);
         visit((QuantifiedPredicate) entity);
-    }
-
-    public void visit(ParenthesizedPredicate entity) {
-        visit((IQueriesEntity) entity);
-        visit((Predicate) entity);
     }
 
     public void visit(EntityType entity) {

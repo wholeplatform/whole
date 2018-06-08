@@ -480,6 +480,7 @@ public class E4Utils {
 
 	public static void suspendOrReportException(IEclipseContext context, SuspensionKind kind, String title, String description, Exception e, IBindingManager bindings) {
 		IWholeRuntimeException we = e instanceof IWholeRuntimeException ? (IWholeRuntimeException) e : new WholeRuntimeException(e).withBindings(bindings);
+		we.getBindings().wDefValue("eclipse#eclipseContext", context);
 		if (we.getSourceEntity() != null) {
 			E4Utils.suspendOperation(kind, we);
 		} else {

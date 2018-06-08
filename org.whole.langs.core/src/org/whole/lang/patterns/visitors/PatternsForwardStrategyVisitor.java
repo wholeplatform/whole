@@ -186,6 +186,10 @@ public class PatternsForwardStrategyVisitor extends GenericForwardStrategyVisito
         wGetStrategy().visit(entity);
     }
 
+    public void visit(ParameterDeclaration entity) {
+        wGetStrategy().visit(entity);
+    }
+
     public void visit(SlotDeclaration entity) {
         wGetStrategy().visit(entity);
     }
@@ -203,6 +207,10 @@ public class PatternsForwardStrategyVisitor extends GenericForwardStrategyVisito
     }
 
     public void visit(Name entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(ResultWeaver entity) {
         wGetStrategy().visit(entity);
     }
 

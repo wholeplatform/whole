@@ -239,31 +239,20 @@
         </actions:SimpleAction>
         <actions:SimpleAction>
             <actions:Label value="Generate Artifacts"/>
-            <queries:Block xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+            <queries:Block xmlns:queries="http://lang.whole.org/Queries" initialCapacity="3">
                 <queries:Filter>
-                    <commons:SameStageFragment xmlns:commons="http://lang.whole.org/Commons">
-                        <workflows:Sequence xmlns:workflows="http://lang.whole.org/Workflows">
-                            <workflows:Text value="sequence"/>
-                            <workflows:FlowObjects initialCapacity="2">
-                                <workflows:InvokeJavaClassMethod>
-                                    <workflows:Text value="clone mapping"/>
-                                    <workflows:Variable value="clonedMapping"/>
-                                    <commons:Resolver/>
-                                    <workflows:StringLiteral value="org.whole.lang.util.EntityUtils"/>
-                                    <workflows:StringLiteral value="clone(org.whole.lang.model.IEntity)"/>
-                                    <workflows:Expressions initialCapacity="1">
-                                        <workflows:Variable value="self"/>
-                                    </workflows:Expressions>
-                                </workflows:InvokeJavaClassMethod>
-                                <workflows:InvokeOperation>
-                                    <workflows:Text value="normalize mapping"/>
-                                    <workflows:Variable value="clonedMapping"/>
-                                    <workflows:Operation value="NORMALIZER"/>
-                                    <commons:Resolver/>
-                                </workflows:InvokeOperation>
-                            </workflows:FlowObjects>
-                        </workflows:Sequence>
-                    </commons:SameStageFragment>
+                    <queries:Clone>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </queries:Clone>
+                    <queries:VariableTest value="clonedMapping"/>
+                </queries:Filter>
+                <queries:Filter>
+                    <workflows:InvokeOperation xmlns:workflows="http://lang.whole.org/Workflows">
+                        <workflows:Text value="normalize mapping"/>
+                        <workflows:Variable value="clonedMapping"/>
+                        <workflows:Operation value="NORMALIZER"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </workflows:InvokeOperation>
                     <queries:VariableTest value="normalizedMapping"/>
                 </queries:Filter>
                 <queries:Select>

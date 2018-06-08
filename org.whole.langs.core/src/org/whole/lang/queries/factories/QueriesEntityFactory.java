@@ -64,6 +64,14 @@ public class QueriesEntityFactory extends GenericEntityFactory {
         return clone(QueriesEntityDescriptorEnum.Path, initialSize);
     }
 
+    public Clone createClone() {
+        return create(QueriesEntityDescriptorEnum.Clone);
+    }
+
+    public Clone createClone(Expression fromClause) {
+        return create(QueriesEntityDescriptorEnum.Clone, fromClause);
+    }
+
     public Delete createDelete() {
         return create(QueriesEntityDescriptorEnum.Delete);
     }
@@ -746,14 +754,6 @@ public class QueriesEntityFactory extends GenericEntityFactory {
 
     public IEntityBuilder<Every> buildEvery() {
         return new EntityBuilder<Every>(create(QueriesEntityDescriptorEnum.Every));
-    }
-
-    public ParenthesizedPredicate createParenthesizedPredicate() {
-        return create(QueriesEntityDescriptorEnum.ParenthesizedPredicate);
-    }
-
-    public ParenthesizedPredicate createParenthesizedPredicate(Expression predicate) {
-        return create(QueriesEntityDescriptorEnum.ParenthesizedPredicate, predicate);
     }
 
     public EntityType createEntityType() {

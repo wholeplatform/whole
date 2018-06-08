@@ -15,35 +15,20 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.model;
+package org.whole.lang.queries.ui.figures;
 
-import java.io.Serializable;
-
-import org.whole.lang.commands.ICommand;
+import org.whole.lang.ui.figures.ContentPaneFigure;
+import org.whole.lang.ui.layout.RowLayout;
 
 /**
  * @author Riccardo Solmi
  */
-public interface InternalIEntity extends IEntity {
-    public IEntity wShallowClone();
-    public default void wShallowClean() {}
-
-	public void wSetPid(Serializable pid);
-
-
-//  ** inverse management methods **
-
-	public void wSetModel(IFragmentModel model);
-	public void wSetParent(IEntity parent);
-	public void wRemoveParent(IEntity parent);
-	public void wAddInverseAdjacent(IEntity inverseAdjacent);
-	public void wRemoveInverseAdjacent(IEntity inverseAdjacent);
-
-
-//  ** intensional support methods **
-
-    public ICommand wGetBindingCommand();
-    public void wSetBindingCommand(ICommand command);
-	public ICommand wGetLastCommand();
-	public ICommand wSetLastCommand(ICommand command);
+public class CloneFigure extends ContentPaneFigure {
+	public CloneFigure() {
+		super(new RowLayout().withSpacing(0));
+		initContentPanes(1);
+		
+		addKeyword("clone");
+		add(createContentPane(0));
+	}
 }

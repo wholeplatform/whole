@@ -148,25 +148,19 @@
                                 <queries:SelfStep/>
                                 <queries:IndexVariableTest value="semanticFunctionIndex"/>
                             </queries:Filter>
-                            <queries:Filter>
-                                <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                                    <workflows:Text value="cloneSelf"/>
-                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                    <workflows:StringLiteral value="org.whole.lang.util.EntityUtils"/>
-                                    <workflows:StringLiteral value="clone(org.whole.lang.model.IEntity)"/>
-                                    <workflows:Expressions initialCapacity="1">
-                                        <queries:Choose initialCapacity="2">
-                                        <queries:Filter>
+                            <queries:Path initialCapacity="3">
+                                <queries:Choose initialCapacity="2">
+                                    <queries:Filter>
                                         <queries:AncestorStep/>
                                         <queries:TypeTest value="http://lang.whole.org/Semantics#SemanticTheory"/>
-                                        </queries:Filter>
-                                        <queries:SelfStep/>
-                                        </queries:Choose>
-                                    </workflows:Expressions>
-                                </workflows:InvokeJavaClassMethod>
+                                    </queries:Filter>
+                                    <queries:SelfStep/>
+                                </queries:Choose>
+                                <queries:Clone>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </queries:Clone>
                                 <queries:VariableTest value="clonedModel"/>
-                            </queries:Filter>
+                            </queries:Path>
                             <workflows:InvokeOperation xmlns:workflows="http://lang.whole.org/Workflows">
                                 <workflows:Text value="invoke Normalizer"/>
                                 <workflows:Variable value="clonedModel"/>

@@ -54,6 +54,10 @@ public abstract class AbstractOrderedCompositeEntity<E extends IEntity> extends 
     	return entity;
     }
 
+    public void wShallowClean() {
+    	elements.clear();
+    }
+
 	public /*final*/ ICommand wGetLastCommand() {
 		return lastCommand;
 	}

@@ -30,6 +30,8 @@ public interface IQueriesVisitor extends IVisitor {
 
     public void visit(Path entity);
 
+    public void visit(Clone entity);
+
     public void visit(Delete entity);
 
     public void visit(Insert entity);
@@ -197,8 +199,6 @@ public interface IQueriesVisitor extends IVisitor {
     public void visit(Some entity);
 
     public void visit(Every entity);
-
-    public void visit(ParenthesizedPredicate entity);
 
     public void visit(EntityType entity);
 

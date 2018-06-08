@@ -233,6 +233,12 @@ public class PatternsTraverseAllChildrenVisitor extends PatternsIdentityUnaryVis
         entity.getResultType().accept(wGetVisitor1());
     }
 
+    public void visit(ParameterDeclaration entity) {
+        entity.getName().accept(wGetVisitor1());
+        entity.getExpression().accept(wGetVisitor1());
+        entity.getResultType().accept(wGetVisitor1());
+    }
+
     public void visit(SlotDeclaration entity) {
         entity.getName().accept(wGetVisitor1());
         entity.getType().accept(wGetVisitor1());

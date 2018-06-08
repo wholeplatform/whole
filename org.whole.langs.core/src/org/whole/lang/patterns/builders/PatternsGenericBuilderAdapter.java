@@ -255,6 +255,9 @@ public class PatternsGenericBuilderAdapter extends GenericIdentityBuilder {
             case PatternsEntityDescriptorEnum.VariableDeclaration_ord :
             specificBuilder.VariableDeclaration();
             break;
+            case PatternsEntityDescriptorEnum.ParameterDeclaration_ord :
+            specificBuilder.ParameterDeclaration();
+            break;
             case PatternsEntityDescriptorEnum.SlotDeclaration_ord :
             specificBuilder.SlotDeclaration();
             break;
@@ -266,6 +269,9 @@ public class PatternsGenericBuilderAdapter extends GenericIdentityBuilder {
             break;
             case PatternsEntityDescriptorEnum.ResultTypes_ord :
             specificBuilder.ResultTypes();
+            break;
+            case PatternsEntityDescriptorEnum.ResultWeaver_ord :
+            specificBuilder.ResultWeaver();
             break;
             case PatternsEntityDescriptorEnum.PatternJoinPointStep_ord :
             specificBuilder.PatternJoinPointStep();
@@ -395,6 +401,9 @@ public class PatternsGenericBuilderAdapter extends GenericIdentityBuilder {
             case PatternsEntityDescriptorEnum.VariableDeclaration_ord :
             specificBuilder.VariableDeclaration_();
             break;
+            case PatternsEntityDescriptorEnum.ParameterDeclaration_ord :
+            specificBuilder.ParameterDeclaration_();
+            break;
             case PatternsEntityDescriptorEnum.SlotDeclaration_ord :
             specificBuilder.SlotDeclaration_();
             break;
@@ -406,6 +415,9 @@ public class PatternsGenericBuilderAdapter extends GenericIdentityBuilder {
             break;
             case PatternsEntityDescriptorEnum.ResultTypes_ord :
             specificBuilder.ResultTypes_();
+            break;
+            case PatternsEntityDescriptorEnum.ResultWeaver_ord :
+            specificBuilder.ResultWeaver_();
             break;
             case PatternsEntityDescriptorEnum.PatternJoinPointStep_ord :
             specificBuilder.PatternJoinPointStep_();
@@ -535,6 +547,9 @@ public class PatternsGenericBuilderAdapter extends GenericIdentityBuilder {
             case PatternsEntityDescriptorEnum.VariableDeclaration_ord :
             specificBuilder._VariableDeclaration();
             break;
+            case PatternsEntityDescriptorEnum.ParameterDeclaration_ord :
+            specificBuilder._ParameterDeclaration();
+            break;
             case PatternsEntityDescriptorEnum.SlotDeclaration_ord :
             specificBuilder._SlotDeclaration();
             break;
@@ -546,6 +561,9 @@ public class PatternsGenericBuilderAdapter extends GenericIdentityBuilder {
             break;
             case PatternsEntityDescriptorEnum.ResultTypes_ord :
             specificBuilder._ResultTypes();
+            break;
+            case PatternsEntityDescriptorEnum.ResultWeaver_ord :
+            specificBuilder._ResultWeaver();
             break;
             case PatternsEntityDescriptorEnum.PatternJoinPointStep_ord :
             specificBuilder._PatternJoinPointStep();

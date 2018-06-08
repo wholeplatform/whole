@@ -47,6 +47,11 @@ public class QueriesSequenceVisitor extends AbstractBinaryVisitor<IQueriesVisito
         wGetVisitor2().visit(entity);
     }
 
+    public void visit(Clone entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
     public void visit(Delete entity) {
         wGetVisitor1().visit(entity);
         wGetVisitor2().visit(entity);
@@ -463,11 +468,6 @@ public class QueriesSequenceVisitor extends AbstractBinaryVisitor<IQueriesVisito
     }
 
     public void visit(Every entity) {
-        wGetVisitor1().visit(entity);
-        wGetVisitor2().visit(entity);
-    }
-
-    public void visit(ParenthesizedPredicate entity) {
         wGetVisitor1().visit(entity);
         wGetVisitor2().visit(entity);
     }

@@ -33,23 +33,17 @@
                                     <commons:Quantifier value="!"/>
                                 </commons:Variable>
                             </queries:Path>
-                            <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                                <workflows:Text value="clone entity"/>
-                                <commons:Resolver/>
-                                <commons:Resolver/>
-                                <workflows:StringLiteral value="org.whole.lang.util.EntityUtils"/>
-                                <workflows:StringLiteral value="clone(org.whole.lang.model.IEntity)"/>
-                                <workflows:Expressions initialCapacity="1">
-                                    <queries:Path initialCapacity="2">
-                                        <queries:VariableRefStep value="focusEntity"/>
-                                        <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Queries#FeatureStep"/>
-                                        <commons:VarName value="intoFDUri"/>
-                                        <commons:Quantifier value="?"/>
-                                        </commons:Variable>
-                                    </queries:Path>
-                                </workflows:Expressions>
-                            </workflows:InvokeJavaClassMethod>
+                            <queries:Path initialCapacity="3">
+                                <queries:VariableRefStep value="focusEntity"/>
+                                <commons:Variable>
+                                    <commons:VarType value="http://lang.whole.org/Queries#FeatureStep"/>
+                                    <commons:VarName value="intoFDUri"/>
+                                    <commons:Quantifier value="?"/>
+                                </commons:Variable>
+                                <queries:Clone>
+                                    <commons:Resolver/>
+                                </queries:Clone>
+                            </queries:Path>
                         </queries:PointwiseUpdate>
                         <queries:PointwiseUpdate>
                             <queries:Path initialCapacity="2">
@@ -131,23 +125,17 @@
                                     </queries:IndexTest>
                                 </queries:Filter>
                             </queries:Path>
-                            <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                                <workflows:Text value="clone entity"/>
-                                <commons:Resolver/>
-                                <commons:Resolver/>
-                                <workflows:StringLiteral value="org.whole.lang.util.EntityUtils"/>
-                                <workflows:StringLiteral value="clone(org.whole.lang.model.IEntity)"/>
-                                <workflows:Expressions initialCapacity="1">
-                                    <queries:Path initialCapacity="2">
-                                        <queries:VariableRefStep value="focusEntity"/>
-                                        <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Queries#FeatureStep"/>
-                                        <commons:VarName value="intoFDUri"/>
-                                        <commons:Quantifier value="?"/>
-                                        </commons:Variable>
-                                    </queries:Path>
-                                </workflows:Expressions>
-                            </workflows:InvokeJavaClassMethod>
+                            <queries:Path initialCapacity="3">
+                                <queries:VariableRefStep value="focusEntity"/>
+                                <commons:Variable>
+                                    <commons:VarType value="http://lang.whole.org/Queries#FeatureStep"/>
+                                    <commons:VarName value="intoFDUri"/>
+                                    <commons:Quantifier value="?"/>
+                                </commons:Variable>
+                                <queries:Clone>
+                                    <commons:Resolver/>
+                                </queries:Clone>
+                            </queries:Path>
                         </queries:PointwiseUpdate>
                         <queries:PointwiseUpdate>
                             <queries:Path initialCapacity="2">
@@ -201,23 +189,17 @@
                                     </queries:IndexTest>
                                 </queries:Filter>
                             </queries:Path>
-                            <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                                <workflows:Text value="clone entity"/>
-                                <commons:Resolver/>
-                                <commons:Resolver/>
-                                <workflows:StringLiteral value="org.whole.lang.util.EntityUtils"/>
-                                <workflows:StringLiteral value="clone(org.whole.lang.model.IEntity)"/>
-                                <workflows:Expressions initialCapacity="1">
-                                    <queries:Path initialCapacity="2">
-                                        <queries:VariableRefStep value="focusEntity"/>
-                                        <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Queries#FeatureStep"/>
-                                        <commons:VarName value="intoFDUri"/>
-                                        <commons:Quantifier value="?"/>
-                                        </commons:Variable>
-                                    </queries:Path>
-                                </workflows:Expressions>
-                            </workflows:InvokeJavaClassMethod>
+                            <queries:Path initialCapacity="3">
+                                <queries:VariableRefStep value="focusEntity"/>
+                                <commons:Variable>
+                                    <commons:VarType value="http://lang.whole.org/Queries#FeatureStep"/>
+                                    <commons:VarName value="intoFDUri"/>
+                                    <commons:Quantifier value="?"/>
+                                </commons:Variable>
+                                <queries:Clone>
+                                    <commons:Resolver/>
+                                </queries:Clone>
+                            </queries:Path>
                         </queries:PointwiseUpdate>
                         <queries:PointwiseUpdate>
                             <queries:Path initialCapacity="2">

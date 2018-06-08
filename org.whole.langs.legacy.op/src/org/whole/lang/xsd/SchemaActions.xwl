@@ -1456,16 +1456,9 @@
                             <queries:VariableTest value="fileName"/>
                         </queries:Filter>
                         <queries:Path initialCapacity="2">
-                            <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                                <workflows:Text value="clone self"/>
+                            <queries:Clone>
                                 <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                <workflows:StringLiteral value="org.whole.lang.util.EntityUtils"/>
-                                <workflows:StringLiteral value="clone(org.whole.lang.model.IEntity)"/>
-                                <workflows:Expressions initialCapacity="1">
-                                    <queries:SelfStep/>
-                                </workflows:Expressions>
-                            </workflows:InvokeJavaClassMethod>
+                            </queries:Clone>
                             <queries:Filter>
                                 <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
                                     <semantics:Name value="whole:org.whole.lang.xsd:XsdMappingLibrarySemantics#annotateXmlSchema"/>

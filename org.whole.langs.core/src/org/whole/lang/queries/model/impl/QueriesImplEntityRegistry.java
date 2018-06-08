@@ -32,6 +32,7 @@ public class QueriesImplEntityRegistry extends AbstractEntityRegistry {
     protected void createPrototypes() {
         put(new QueryDeclarationImpl());
         put(new PathImpl());
+        put(new CloneImpl());
         put(new DeleteImpl());
         put(new InsertImpl());
         put(new CartesianInsertImpl());
@@ -116,7 +117,6 @@ public class QueriesImplEntityRegistry extends AbstractEntityRegistry {
         put(new OneImpl());
         put(new SomeImpl());
         put(new EveryImpl());
-        put(new ParenthesizedPredicateImpl());
         put(new EntityTypeImpl());
         put(new TemplateNamesImpl());
         put(new AllNamesImpl());

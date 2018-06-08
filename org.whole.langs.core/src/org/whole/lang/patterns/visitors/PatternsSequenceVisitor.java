@@ -222,6 +222,11 @@ public class PatternsSequenceVisitor extends AbstractBinaryVisitor<IPatternsVisi
         wGetVisitor2().visit(entity);
     }
 
+    public void visit(ParameterDeclaration entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
     public void visit(SlotDeclaration entity) {
         wGetVisitor1().visit(entity);
         wGetVisitor2().visit(entity);
@@ -243,6 +248,11 @@ public class PatternsSequenceVisitor extends AbstractBinaryVisitor<IPatternsVisi
     }
 
     public void visit(Name entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
+    public void visit(ResultWeaver entity) {
         wGetVisitor1().visit(entity);
         wGetVisitor2().visit(entity);
     }

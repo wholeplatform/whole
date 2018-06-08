@@ -225,6 +225,11 @@ public class PatternsIdentityDefaultVisitor extends PatternsIdentityVisitor {
         visit((Declaration) entity);
     }
 
+    public void visit(ParameterDeclaration entity) {
+        visit((IPatternsEntity) entity);
+        visit((Declaration) entity);
+    }
+
     public void visit(SlotDeclaration entity) {
         visit((IPatternsEntity) entity);
         visit((Declaration) entity);
@@ -258,6 +263,11 @@ public class PatternsIdentityDefaultVisitor extends PatternsIdentityVisitor {
         visit((IPatternsEntity) entity);
         visit((Expression) entity);
         visit((ResultType) entity);
+    }
+
+    public void visit(ResultWeaver entity) {
+        visit((IPatternsEntity) entity);
+        visit((Expression) entity);
     }
 
     public void visit(PatternJoinPointStep entity) {

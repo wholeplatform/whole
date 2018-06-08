@@ -178,6 +178,18 @@ public class QueriesSpecificBuilderAdapter extends GenericBuilderContext impleme
         _wEntity(QueriesEntityDescriptorEnum.Path);
     }
 
+    public void Clone() {
+        wEntity(QueriesEntityDescriptorEnum.Clone);
+    }
+
+    public void Clone_() {
+        wEntity_(QueriesEntityDescriptorEnum.Clone);
+    }
+
+    public void _Clone() {
+        _wEntity(QueriesEntityDescriptorEnum.Clone);
+    }
+
     public void Delete() {
         wEntity(QueriesEntityDescriptorEnum.Delete);
     }
@@ -1148,18 +1160,6 @@ public class QueriesSpecificBuilderAdapter extends GenericBuilderContext impleme
 
     public void _Every() {
         _wEntity(QueriesEntityDescriptorEnum.Every);
-    }
-
-    public void ParenthesizedPredicate() {
-        wEntity(QueriesEntityDescriptorEnum.ParenthesizedPredicate);
-    }
-
-    public void ParenthesizedPredicate_() {
-        wEntity_(QueriesEntityDescriptorEnum.ParenthesizedPredicate);
-    }
-
-    public void _ParenthesizedPredicate() {
-        _wEntity(QueriesEntityDescriptorEnum.ParenthesizedPredicate);
     }
 
     public void EntityType() {

@@ -130,19 +130,19 @@
                     <queries:TypeTest value="http://lang.whole.org/Math#Rational"/>
                     <patterns:ResultPoint>
                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                        <patterns:TemplatePoint>
-                            <patterns:ScopePoint>
-                                <patterns:Declarations initialCapacity="2">
-                                    <patterns:JoinPointDeclaration>
-                                        <patterns:Name value="numeratorPoint"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                    </patterns:JoinPointDeclaration>
-                                    <patterns:JoinPointDeclaration>
-                                        <patterns:Name value="denominatorPoint"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                    </patterns:JoinPointDeclaration>
-                                </patterns:Declarations>
-                                <patterns:SequencePoint initialCapacity="3">
+                        <patterns:ScopePoint>
+                            <patterns:Declarations initialCapacity="2">
+                                <patterns:JoinPointDeclaration>
+                                    <patterns:Name value="numeratorPoint"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </patterns:JoinPointDeclaration>
+                                <patterns:JoinPointDeclaration>
+                                    <patterns:Name value="denominatorPoint"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </patterns:JoinPointDeclaration>
+                            </patterns:Declarations>
+                            <patterns:SequencePoint initialCapacity="3">
+                                <patterns:TemplatePoint>
                                     <javascript:InfixExpression xmlns:javascript="whole:org.whole.lang.javascript:JavaScript">
                                         <patterns:JoinPoint>
                                         <patterns:Name value="numeratorPoint"/>
@@ -154,47 +154,41 @@
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         </patterns:JoinPoint>
                                     </javascript:InfixExpression>
-                                    <patterns:ScopePoint>
-                                        <patterns:Declarations initialCapacity="1">
+                                </patterns:TemplatePoint>
+                                <patterns:ScopePoint>
+                                    <patterns:Declarations initialCapacity="1">
                                         <patterns:JoinPointDeclaration>
                                         <patterns:Name value="expressionPoint"/>
                                         <patterns:JoinPointStep value="numeratorPoint"/>
                                         </patterns:JoinPointDeclaration>
-                                        </patterns:Declarations>
-                                        <patterns:SequencePoint initialCapacity="1">
-                                        <patterns:DerivationPoint>
+                                    </patterns:Declarations>
+                                    <patterns:SequencePoint initialCapacity="1">
                                         <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <queries:FeatureStep value="http://lang.whole.org/Math#numerator"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         </semantics:FunctionApplication>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        </patterns:DerivationPoint>
-                                        </patterns:SequencePoint>
-                                    </patterns:ScopePoint>
-                                    <patterns:ScopePoint>
-                                        <patterns:Declarations initialCapacity="1">
+                                    </patterns:SequencePoint>
+                                </patterns:ScopePoint>
+                                <patterns:ScopePoint>
+                                    <patterns:Declarations initialCapacity="1">
                                         <patterns:JoinPointDeclaration>
                                         <patterns:Name value="expressionPoint"/>
                                         <patterns:JoinPointStep value="denominatorPoint"/>
                                         </patterns:JoinPointDeclaration>
-                                        </patterns:Declarations>
-                                        <patterns:SequencePoint initialCapacity="1">
-                                        <patterns:DerivationPoint>
+                                    </patterns:Declarations>
+                                    <patterns:SequencePoint initialCapacity="1">
                                         <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <queries:FeatureStep value="http://lang.whole.org/Math#denominator"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         </semantics:FunctionApplication>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        </patterns:DerivationPoint>
-                                        </patterns:SequencePoint>
-                                    </patterns:ScopePoint>
-                                </patterns:SequencePoint>
-                            </patterns:ScopePoint>
-                        </patterns:TemplatePoint>
+                                    </patterns:SequencePoint>
+                                </patterns:ScopePoint>
+                            </patterns:SequencePoint>
+                        </patterns:ScopePoint>
                         <patterns:Insert>
                             <patterns:Placement value="AROUND"/>
                             <patterns:JoinPointStep value="expressionPoint"/>
@@ -382,16 +376,9 @@
                                         <patterns:Declarations initialCapacity="1">
                                         <patterns:VariableDeclaration>
                                         <patterns:Name value="clone"/>
-                                        <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                                        <workflows:Text value="clone(self)"/>
+                                        <queries:Clone>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <workflows:StringLiteral value="org.whole.lang.util.EntityUtils"/>
-                                        <workflows:StringLiteral value="clone(org.whole.lang.model.IEntity)"/>
-                                        <workflows:Expressions initialCapacity="1">
-                                        <workflows:Variable value="self"/>
-                                        </workflows:Expressions>
-                                        </workflows:InvokeJavaClassMethod>
+                                        </queries:Clone>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         </patterns:VariableDeclaration>
                                         </patterns:Declarations>

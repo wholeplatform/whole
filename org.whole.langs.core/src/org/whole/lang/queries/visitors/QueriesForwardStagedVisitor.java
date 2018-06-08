@@ -32,6 +32,10 @@ public class QueriesForwardStagedVisitor extends QueriesIdentityVisitor {
         stagedVisit(entity);
     }
 
+    public void visit(Clone entity) {
+        stagedVisit(entity);
+    }
+
     public void visit(Delete entity) {
         stagedVisit(entity);
     }
@@ -365,10 +369,6 @@ public class QueriesForwardStagedVisitor extends QueriesIdentityVisitor {
     }
 
     public void visit(Every entity) {
-        stagedVisit(entity);
-    }
-
-    public void visit(ParenthesizedPredicate entity) {
         stagedVisit(entity);
     }
 

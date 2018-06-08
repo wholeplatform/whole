@@ -602,6 +602,14 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 	}
 
 	@Override
+	public void visit(Clone entity) {
+		entity.getFromClause().accept(this);
+		IEntityIterator<? extends IEntity> fromIterator = getResultIterator();
+
+		setResultIterator(QueriesIteratorFactory.cloneIterator(fromIterator).withSourceEntity(entity));
+	}
+
+	@Override
 	public void visit(Delete entity) {
 		entity.getFromClause().accept(this);
 		IEntityIterator<? extends IEntity> fromIterator = getResultIterator();
@@ -1158,11 +1166,6 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 	public void visit(Not entity) {
 		entity.getPredicate().accept(this);
 		setResultIterator(IteratorFactory.notIterator(getResultIterator()).withSourceEntity(entity));
-	}
-
-	@Override
-	public void visit(ParenthesizedPredicate entity) {
-		entity.getPredicate().accept(this);
 	}
 
 	@Override

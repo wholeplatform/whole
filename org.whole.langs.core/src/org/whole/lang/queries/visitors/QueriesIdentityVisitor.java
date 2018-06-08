@@ -36,6 +36,9 @@ public class QueriesIdentityVisitor extends AbstractVisitor implements IQueriesV
     public void visit(Path entity) {
     }
 
+    public void visit(Clone entity) {
+    }
+
     public void visit(Delete entity) {
     }
 
@@ -286,9 +289,6 @@ public class QueriesIdentityVisitor extends AbstractVisitor implements IQueriesV
     }
 
     public void visit(Every entity) {
-    }
-
-    public void visit(ParenthesizedPredicate entity) {
     }
 
     public void visit(EntityType entity) {

@@ -326,6 +326,12 @@ public interface IPatternsBuilder extends IBuilder {
 
     public void _VariableDeclaration();
 
+    public void ParameterDeclaration();
+
+    public void ParameterDeclaration_();
+
+    public void _ParameterDeclaration();
+
     public void SlotDeclaration();
 
     public void SlotDeclaration_();
@@ -357,6 +363,12 @@ public interface IPatternsBuilder extends IBuilder {
     public void Name();
 
     public void Name(String value);
+
+    public void ResultWeaver();
+
+    public void ResultWeaver_();
+
+    public void _ResultWeaver();
 
     public void PatternJoinPointStep();
 

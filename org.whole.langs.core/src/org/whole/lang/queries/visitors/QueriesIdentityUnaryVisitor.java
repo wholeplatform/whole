@@ -45,6 +45,9 @@ public class QueriesIdentityUnaryVisitor<V extends IVisitor>  extends AbstractUn
     public void visit(Path entity) {
     }
 
+    public void visit(Clone entity) {
+    }
+
     public void visit(Delete entity) {
     }
 
@@ -295,9 +298,6 @@ public class QueriesIdentityUnaryVisitor<V extends IVisitor>  extends AbstractUn
     }
 
     public void visit(Every entity) {
-    }
-
-    public void visit(ParenthesizedPredicate entity) {
     }
 
     public void visit(EntityType entity) {

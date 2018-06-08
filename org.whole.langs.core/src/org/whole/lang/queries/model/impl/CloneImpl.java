@@ -18,7 +18,7 @@
 package org.whole.lang.queries.model.impl;
 
 import org.whole.lang.model.AbstractSimpleEntity;
-import org.whole.lang.queries.model.ParenthesizedPredicate;
+import org.whole.lang.queries.model.Clone;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.queries.visitors.IQueriesVisitor;
@@ -30,15 +30,15 @@ import org.whole.lang.model.IEntity;
 /**
  *  @generator Whole
  */
-public class ParenthesizedPredicateImpl extends AbstractSimpleEntity implements ParenthesizedPredicate {
+public class CloneImpl extends AbstractSimpleEntity implements Clone {
     private static final long serialVersionUID = 1;
 
-    public EntityDescriptor<ParenthesizedPredicate> wGetEntityDescriptor() {
-        return QueriesEntityDescriptorEnum.ParenthesizedPredicate;
+    public EntityDescriptor<Clone> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.Clone;
     }
 
     public int wGetEntityOrd() {
-        return QueriesEntityDescriptorEnum.ParenthesizedPredicate_ord;
+        return QueriesEntityDescriptorEnum.Clone_ord;
     }
 
     public void accept(IQueriesVisitor visitor) {
@@ -48,20 +48,20 @@ public class ParenthesizedPredicateImpl extends AbstractSimpleEntity implements 
             throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
         }
     }
-    private Expression predicate;
+    private Expression fromClause;
 
-    public Expression getPredicate() {
-        return notifyRequested(QueriesFeatureDescriptorEnum.predicate, predicate);
+    public Expression getFromClause() {
+        return notifyRequested(QueriesFeatureDescriptorEnum.fromClause, fromClause);
     }
 
-    public void setPredicate(Expression predicate) {
-        notifyChanged(QueriesFeatureDescriptorEnum.predicate, this.predicate, this.predicate = predicate);
+    public void setFromClause(Expression fromClause) {
+        notifyChanged(QueriesFeatureDescriptorEnum.fromClause, this.fromClause, this.fromClause = fromClause);
     }
 
     public IEntity wGet(int index) {
         switch (index) {
             case 0 :
-            return getPredicate().wGetAdaptee(false);
+            return getFromClause().wGetAdaptee(false);
             default :
             throw new IllegalArgumentException();
         }
@@ -70,7 +70,7 @@ public class ParenthesizedPredicateImpl extends AbstractSimpleEntity implements 
     public void wSet(int index, IEntity value) {
         switch (index) {
             case 0 :
-            setPredicate(value.wGetAdapter(QueriesEntityDescriptorEnum.Expression));
+            setFromClause(value.wGetAdapter(QueriesEntityDescriptorEnum.Expression));
             break;
             default :
             throw new IllegalArgumentException();

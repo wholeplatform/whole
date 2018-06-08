@@ -46,6 +46,10 @@ public class QueriesForwardStrategyVisitor extends GenericForwardStrategyVisitor
         wGetStrategy().visit(entity);
     }
 
+    public void visit(Clone entity) {
+        wGetStrategy().visit(entity);
+    }
+
     public void visit(Delete entity) {
         wGetStrategy().visit(entity);
     }
@@ -379,10 +383,6 @@ public class QueriesForwardStrategyVisitor extends GenericForwardStrategyVisitor
     }
 
     public void visit(Every entity) {
-        wGetStrategy().visit(entity);
-    }
-
-    public void visit(ParenthesizedPredicate entity) {
         wGetStrategy().visit(entity);
     }
 

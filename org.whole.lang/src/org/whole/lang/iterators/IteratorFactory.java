@@ -20,11 +20,13 @@ package org.whole.lang.iterators;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
+import org.whole.lang.commons.factories.CommonsEntityFactory;
 import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
 import org.whole.lang.comparators.IEntityComparator;
 import org.whole.lang.comparators.ObjectIdentityComparator;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.model.InternalIEntity;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.reflect.CompositeKinds;
 import org.whole.lang.reflect.DataKinds;
@@ -1181,5 +1183,56 @@ public class IteratorFactory {
 				sb.append(")");
 			}
 		};
+	}
+
+	public static IEntityIterator<?> cloneIterator(IEntityIterator<?> childCloneIterator) {
+		if (childCloneIterator instanceof EmptyIterator) {
+			return new AbstractSingleValuedRunnableIterator<IEntity>(childCloneIterator) {
+				protected void run(IEntity selfEntity, IBindingManager bm) {
+					bm.setResult(EntityUtils.clone(selfEntity));
+				}
+			};
+		} else
+			return new AbstractSingleValuedRunnableIterator<IEntity>(childCloneIterator) {
+				protected void run(IEntity selfEntity, IBindingManager bm) {
+					//TODO add scope with entityCloneMap
+	
+					EntityDescriptor<?> ed = selfEntity.wGetEntityDescriptor();
+					boolean isComposite = ed.getEntityKind().isComposite();
+
+					IEntity entityClone = ((InternalIEntity) selfEntity).wShallowClone();
+					((InternalIEntity) entityClone).wShallowClean();
+
+					for (int index=0, size=selfEntity.wSize(); index<size; index++) {
+						IEntity childPrototype = selfEntity.wGet(index);
+						
+						bm.wDef("self", childPrototype);
+						argsIterators[0].reset(childPrototype);
+	
+						if (isComposite) {
+							while (argsIterators[0].hasNext()) {
+								IEntity childClone = argsIterators[0].next();
+								entityClone.wAdd(childClone);
+							}
+						} else {
+							IEntity childClone = null;
+							while (argsIterators[0].hasNext()) {
+								childClone = argsIterators[0].next();
+							}
+							entityClone.wSet(index, childClone != null ? childClone :
+								CommonsEntityFactory.instance.createResolver());
+						}
+					}
+					//TODO clone references
+					//TODO clone aspects
+	
+					bm.setResult(entityClone);
+				}
+	
+				public void toString(StringBuilder sb) {
+					sb.append("clone");
+					super.toString(sb);
+				}
+			};
 	}
 }

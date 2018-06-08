@@ -15,16 +15,24 @@
  *  You should have received a copy of the GNU Lesser General Public License
  *  along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.queries.model;
+package org.whole.lang.patterns.model;
 
 
 /**
  *  @generator Whole
  */
-public interface ParenthesizedPredicate extends IQueriesEntity, Predicate {
+public interface ParameterDeclaration extends IPatternsEntity, Declaration {
 
 
-    public Expression getPredicate();
+    public Name getName();
 
-    public void setPredicate(Expression predicate);
+    public void setName(Name name);
+
+    public Expression getExpression();
+
+    public void setExpression(Expression expression);
+
+    public Type getResultType();
+
+    public void setResultType(Type resultType);
 }

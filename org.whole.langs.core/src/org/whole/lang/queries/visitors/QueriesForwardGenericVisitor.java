@@ -43,6 +43,10 @@ public class QueriesForwardGenericVisitor extends AbstractUnaryVisitor<IVisitor>
         wGetVisitor1().visit(entity);
     }
 
+    public void visit(Clone entity) {
+        wGetVisitor1().visit(entity);
+    }
+
     public void visit(Delete entity) {
         wGetVisitor1().visit(entity);
     }
@@ -376,10 +380,6 @@ public class QueriesForwardGenericVisitor extends AbstractUnaryVisitor<IVisitor>
     }
 
     public void visit(Every entity) {
-        wGetVisitor1().visit(entity);
-    }
-
-    public void visit(ParenthesizedPredicate entity) {
         wGetVisitor1().visit(entity);
     }
 

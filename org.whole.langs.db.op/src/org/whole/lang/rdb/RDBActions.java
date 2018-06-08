@@ -110,7 +110,7 @@ public class RDBActions extends AbstractTemplateFactory<org.whole.lang.actions.m
         b0._SimpleAction();
         b0.SimpleAction_();
         b0.Label("Artifacts Generator");
-        b2.Block_(7);
+        b2.Block_(9);
         b2.QueryDeclaration_();
         b2.Name("toSpecificUri");
         b2.Names_(3);
@@ -145,7 +145,6 @@ public class RDBActions extends AbstractTemplateFactory<org.whole.lang.actions.m
         b2.VariableRefStep("baseUri");
         b2.Addition_();
         b2.VariableRefStep("separator");
-        b1.SameStageFragment_();
         b3.InvokeJavaInstanceMethod_();
         b3.Text("modelName to lower case");
         b1.Resolver();
@@ -155,7 +154,6 @@ public class RDBActions extends AbstractTemplateFactory<org.whole.lang.actions.m
         b3.StringLiteral("toLowerCase()");
         b1.Resolver();
         b3._InvokeJavaInstanceMethod();
-        b1._SameStageFragment();
         b2._Addition();
         b2._Addition();
         b2._Block();
@@ -170,7 +168,6 @@ public class RDBActions extends AbstractTemplateFactory<org.whole.lang.actions.m
         b2.VariableRefStep("baseNamespace");
         b2.Addition_();
         b2.StringLiteral(".");
-        b1.SameStageFragment_();
         b3.InvokeJavaInstanceMethod_();
         b3.Text("modelName to lower case");
         b1.Resolver();
@@ -180,7 +177,6 @@ public class RDBActions extends AbstractTemplateFactory<org.whole.lang.actions.m
         b3.StringLiteral("toLowerCase()");
         b1.Resolver();
         b3._InvokeJavaInstanceMethod();
-        b1._SameStageFragment();
         b2._Addition();
         b2._Addition();
         b2._QueryDeclaration();
@@ -196,7 +192,6 @@ public class RDBActions extends AbstractTemplateFactory<org.whole.lang.actions.m
         b2.Name("name");
         b2.Name("value");
         b2._Names();
-        b1.SameStageFragment_();
         b3.InvokeJavaInstanceMethod_();
         b3.Text("put mapping");
         b1.Resolver();
@@ -209,10 +204,8 @@ public class RDBActions extends AbstractTemplateFactory<org.whole.lang.actions.m
         b3.Variable("value");
         b3._Expressions();
         b3._InvokeJavaInstanceMethod();
-        b1._SameStageFragment();
         b2._QueryDeclaration();
         b2.Path_(2);
-        b1.SameStageFragment_();
         b3.CreateJavaClassInstance_();
         b3.Text("create a new hash map");
         b1.Resolver();
@@ -221,7 +214,6 @@ public class RDBActions extends AbstractTemplateFactory<org.whole.lang.actions.m
         b3.StringLiteral("HashMap()");
         b1.Resolver();
         b3._CreateJavaClassInstance();
-        b1._SameStageFragment();
         b2.Block_(27);
         b2.Call_();
         b2.Name("mapPut");
@@ -451,11 +443,6 @@ public class RDBActions extends AbstractTemplateFactory<org.whole.lang.actions.m
         b2._Call();
         b2.VariableTest("datatypesMap");
         b2._Filter();
-        b2.Path_(2);
-        b1.SameStageFragment_();
-        b3.Sequence_();
-        b3.Text("sequence");
-        b3.FlowObjects_(3);
         b3.CreateJavaClassInstance_();
         b3.Text("create a CompleteRDBEntityMappingQuery factory");
         b3.Variable("completeRDBEntityMappingQueryFactory");
@@ -473,19 +460,10 @@ public class RDBActions extends AbstractTemplateFactory<org.whole.lang.actions.m
         b3.StringLiteral("create()");
         b1.Resolver();
         b3._InvokeJavaInstanceMethod();
-        b3.InvokeJavaClassMethod_();
-        b3.Text("clone self model");
+        b2.Path_(2);
+        b2.Clone_();
         b1.Resolver();
-        b1.Resolver();
-        b3.StringLiteral("org.whole.lang.util.EntityUtils");
-        b3.StringLiteral("clone(org.whole.lang.model.IEntity)");
-        b3.Expressions_(1);
-        b3.Variable("self");
-        b3._Expressions();
-        b3._InvokeJavaClassMethod();
-        b3._FlowObjects();
-        b3._Sequence();
-        b1._SameStageFragment();
+        b2._Clone();
         b2.Filter_();
         b2.Call_();
         b2.Name("completeRDBEntityMapping");
@@ -761,9 +739,7 @@ public class RDBActions extends AbstractTemplateFactory<org.whole.lang.actions.m
         b2._Filter();
         b2._If();
         b2.If_();
-        b2.Singleton_();
         b2.FeatureStep("nullable");
-        b2._Singleton();
         b2.Filter_();
         b1.StageUpFragment_();
         b5.FeatureModifier("optional");

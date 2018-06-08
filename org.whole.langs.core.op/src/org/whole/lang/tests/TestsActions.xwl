@@ -115,9 +115,7 @@
                                         <queries:Filter>
                                         <queries:ChildStep/>
                                         <queries:Equals>
-                                        <queries:Singleton>
                                         <queries:FeatureStep value="http://lang.whole.org/Tests#name"/>
-                                        </queries:Singleton>
                                         <queries:VariableRefStep value="familyName"/>
                                         </queries:Equals>
                                         </queries:Filter>
@@ -1154,16 +1152,12 @@
                         </queries:Choose>
                     </queries:Block>
                 </queries:QueryDeclaration>
-                <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                    <workflows:Text value="clone model"/>
-                    <workflows:Variable value="clone"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    <workflows:StringLiteral value="org.whole.lang.util.EntityUtils"/>
-                    <workflows:StringLiteral value="clone(org.whole.lang.model.IEntity)"/>
-                    <workflows:Expressions initialCapacity="1">
-                        <workflows:Variable value="self"/>
-                    </workflows:Expressions>
-                </workflows:InvokeJavaClassMethod>
+                <queries:Filter>
+                    <queries:Clone>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </queries:Clone>
+                    <queries:VariableTest value="clone"/>
+                </queries:Filter>
                 <queries:Filter>
                     <workflows:InvokeOperation xmlns:workflows="http://lang.whole.org/Workflows">
                         <workflows:Text value="normalize clone"/>
@@ -1745,13 +1739,11 @@
                                         </commons:StageUpFragment>
                                         </artifacts:FileArtifact>
                                         </commons:StageUpFragment>
-                                        <queries:Sequence initialCapacity="1">
                                         <queries:PointwiseInsert>
                                         <queries:Placement value="INTO"/>
                                         <queries:VariableRefStep value="suiteArtifactsPoint"/>
                                         <queries:SelfStep/>
                                         </queries:PointwiseInsert>
-                                        </queries:Sequence>
                                     </queries:Path>
                                     <queries:SelfStep/>
                                     <queries:Sequence initialCapacity="5">
@@ -1964,14 +1956,10 @@
                                         </queries:Path>
                                         <queries:Filter>
                                         <queries:Addition>
-                                        <queries:Singleton>
                                         <queries:FeatureStep value="http://lang.whole.org/Tests#packageName"/>
-                                        </queries:Singleton>
                                         <queries:Addition>
                                         <queries:StringLiteral value="."/>
-                                        <queries:Singleton>
                                         <queries:FeatureStep value="http://lang.whole.org/Tests#name"/>
-                                        </queries:Singleton>
                                         </queries:Addition>
                                         </queries:Addition>
                                         <queries:VariableTest value="familyName"/>
@@ -1985,7 +1973,10 @@
                                         <queries:ChildStep/>
                                         <queries:TypeTest value="http://lang.whole.org/Tests#BeforeTestCase"/>
                                         </queries:Filter>
+                                        <queries:Filter>
                                         <queries:FeatureStep value="http://lang.whole.org/Tests#name"/>
+                                        <queries:VariableTest value="testCaseName"/>
+                                        </queries:Filter>
                                         </queries:Path>
                                         <queries:Filter>
                                         <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
@@ -1995,7 +1986,7 @@
                                         <java:Types initialCapacity="0"/>
                                         <commons:Variable>
                                         <commons:VarType value="http://lang.whole.org/Java#SimpleName"/>
-                                        <commons:VarName value="self"/>
+                                        <commons:VarName value="testCaseName"/>
                                         <commons:Quantifier value="!"/>
                                         </commons:Variable>
                                         <commons:Resolver/>
@@ -2012,7 +2003,10 @@
                                         <queries:ChildStep/>
                                         <queries:TypeTest value="http://lang.whole.org/Tests#AfterTestCase"/>
                                         </queries:Filter>
+                                        <queries:Filter>
                                         <queries:FeatureStep value="http://lang.whole.org/Tests#name"/>
+                                        <queries:VariableTest value="testCaseName"/>
+                                        </queries:Filter>
                                         </queries:Path>
                                         <queries:Filter>
                                         <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
@@ -2022,7 +2016,7 @@
                                         <java:Types initialCapacity="0"/>
                                         <commons:Variable>
                                         <commons:VarType value="http://lang.whole.org/Java#SimpleName"/>
-                                        <commons:VarName value="self"/>
+                                        <commons:VarName value="testCaseName"/>
                                         <commons:Quantifier value="!"/>
                                         </commons:Variable>
                                         <commons:Resolver/>

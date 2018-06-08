@@ -140,6 +140,9 @@ public abstract class PatternsIdentitySwitchVisitor extends AbstractVisitor impl
             case PatternsEntityDescriptorEnum.VariableDeclaration_ord :
             visit((VariableDeclaration) entity);
             break;
+            case PatternsEntityDescriptorEnum.ParameterDeclaration_ord :
+            visit((ParameterDeclaration) entity);
+            break;
             case PatternsEntityDescriptorEnum.SlotDeclaration_ord :
             visit((SlotDeclaration) entity);
             break;
@@ -154,6 +157,9 @@ public abstract class PatternsIdentitySwitchVisitor extends AbstractVisitor impl
             break;
             case PatternsEntityDescriptorEnum.Name_ord :
             visit((Name) entity);
+            break;
+            case PatternsEntityDescriptorEnum.ResultWeaver_ord :
+            visit((ResultWeaver) entity);
             break;
             case PatternsEntityDescriptorEnum.PatternJoinPointStep_ord :
             visit((PatternJoinPointStep) entity);

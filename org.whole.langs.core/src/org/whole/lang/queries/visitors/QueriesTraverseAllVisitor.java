@@ -46,6 +46,10 @@ public class QueriesTraverseAllVisitor extends QueriesIdentityUnaryVisitor<IQuer
             entity.get(i).accept(wGetVisitor1());
     }
 
+    public void visit(Clone entity) {
+        entity.getFromClause().accept(wGetVisitor1());
+    }
+
     public void visit(Delete entity) {
         entity.getFromClause().accept(wGetVisitor1());
     }
@@ -228,10 +232,6 @@ public class QueriesTraverseAllVisitor extends QueriesIdentityUnaryVisitor<IQuer
     public void visit(Every entity) {
         entity.getFromClause().accept(wGetVisitor1());
         entity.getWhereClause().accept(wGetVisitor1());
-    }
-
-    public void visit(ParenthesizedPredicate entity) {
-        entity.getPredicate().accept(wGetVisitor1());
     }
 
     public void visit(AddNames entity) {

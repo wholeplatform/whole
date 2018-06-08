@@ -38,6 +38,10 @@ public class QueriesFailureVisitor extends QueriesIdentityVisitor {
         throw new VisitException();
     }
 
+    public void visit(Clone entity) {
+        throw new VisitException();
+    }
+
     public void visit(Delete entity) {
         throw new VisitException();
     }
@@ -371,10 +375,6 @@ public class QueriesFailureVisitor extends QueriesIdentityVisitor {
     }
 
     public void visit(Every entity) {
-        throw new VisitException();
-    }
-
-    public void visit(ParenthesizedPredicate entity) {
         throw new VisitException();
     }
 

@@ -15,43 +15,34 @@
  *  You should have received a copy of the GNU Lesser General Public License
  *  along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.queries.model.adapters;
+package org.whole.lang.patterns.model.adapters;
 
 import org.whole.lang.model.adapters.AbstractEntityAdapter;
-import org.whole.lang.queries.model.*;
+import org.whole.lang.patterns.model.*;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.queries.visitors.IQueriesVisitor;
+import org.whole.lang.patterns.visitors.IPatternsVisitor;
 import org.whole.lang.reflect.EntityDescriptor;
-import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
-import org.whole.lang.queries.reflect.QueriesFeatureDescriptorEnum;
+import org.whole.lang.patterns.reflect.PatternsEntityDescriptorEnum;
 
 /**
  *  @generator Whole
  */
-public class ParenthesizedPredicateAdapter extends AbstractEntityAdapter implements ParenthesizedPredicate {
+public class ResultWeaverAdapter extends AbstractEntityAdapter implements ResultWeaver {
     private static final long serialVersionUID = 1;
 
-    public ParenthesizedPredicateAdapter(IEntity implementor) {
+    public ResultWeaverAdapter(IEntity implementor) {
         super(implementor);
     }
 
-    public ParenthesizedPredicateAdapter() {
+    public ResultWeaverAdapter() {
     }
 
-    public void accept(IQueriesVisitor visitor) {
+    public void accept(IPatternsVisitor visitor) {
         if (visitor.visitAdapter(this))
             visitor.visit(this);
     }
 
-    public EntityDescriptor<ParenthesizedPredicate> wGetEntityDescriptor() {
-        return QueriesEntityDescriptorEnum.ParenthesizedPredicate;
-    }
-
-    public Expression getPredicate() {
-        return wGet(QueriesFeatureDescriptorEnum.predicate).wGetAdapter(QueriesEntityDescriptorEnum.Expression);
-    }
-
-    public void setPredicate(Expression predicate) {
-        wSet(QueriesFeatureDescriptorEnum.predicate, predicate);
+    public EntityDescriptor<ResultWeaver> wGetEntityDescriptor() {
+        return PatternsEntityDescriptorEnum.ResultWeaver;
     }
 }

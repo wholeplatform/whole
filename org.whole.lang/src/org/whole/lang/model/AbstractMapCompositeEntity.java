@@ -43,6 +43,12 @@ public abstract class AbstractMapCompositeEntity<K extends IEntity, V extends IE
     	return entity;
 	}
 
+	@Override
+	public void wShallowClean() {
+		super.wShallowClean();
+		childrenMap.clear();
+	}
+
     public String toDebugString() {
     	return childrenMap.toString();
     }

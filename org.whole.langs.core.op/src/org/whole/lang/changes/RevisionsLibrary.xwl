@@ -835,92 +835,20 @@
                         </queries:Do>
                     </queries:Choose>
                 </queries:If>
-                <queries:Do>
-                    <queries:Scope>
-                        <queries:FreshNames initialCapacity="3">
-                            <queries:Name value="_prototype"/>
-                            <queries:Name value="_prototypeChild"/>
-                            <queries:Name value="_cloneChild"/>
-                        </queries:FreshNames>
-                        <queries:Path initialCapacity="3">
-                            <queries:Filter>
-                                <queries:SelfStep/>
-                                <queries:VariableTest value="_prototype"/>
-                            </queries:Filter>
-                            <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                                <workflows:Text value="shallowClone"/>
+                <queries:If>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <queries:Clone>
+                        <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                            <patterns:DerivationPoint>
                                 <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                 <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                <workflows:StringLiteral value="org.whole.lang.semantics.util.SemanticsUtils"/>
-                                <workflows:StringLiteral value="createShallowCloneEntity(org.whole.lang.model.IEntity)"/>
-                                <workflows:Expressions initialCapacity="1">
-                                    <queries:SelfStep/>
-                                </workflows:Expressions>
-                            </workflows:InvokeJavaClassMethod>
-                            <queries:Block initialCapacity="2">
-                                <queries:Choose initialCapacity="2">
-                                    <queries:If>
-                                        <queries:KindTest value="SIMPLE"/>
-                                        <queries:Path initialCapacity="2">
-                                        <queries:PointwiseProduct initialCapacity="2">
-                                        <queries:Filter>
-                                        <queries:ChildStep/>
-                                        <queries:VariableTest value="_cloneChild"/>
-                                        </queries:Filter>
-                                        <queries:Path initialCapacity="2">
-                                        <queries:VariableRefStep value="_prototype"/>
-                                        <queries:Filter>
-                                        <queries:ChildStep/>
-                                        <queries:VariableTest value="_prototypeChild"/>
-                                        </queries:Filter>
-                                        </queries:Path>
-                                        </queries:PointwiseProduct>
-                                        <queries:CartesianUpdate>
-                                        <queries:Path initialCapacity="2">
-                                        <queries:VariableRefStep value="_cloneChild"/>
-                                        <queries:SelfStep/>
-                                        </queries:Path>
-                                        <queries:Path initialCapacity="2">
-                                        <queries:VariableRefStep value="_prototypeChild"/>
-                                        <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
-                                        <patterns:DerivationPoint>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        </patterns:DerivationPoint>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        </semantics:FunctionApplication>
-                                        </queries:Path>
-                                        </queries:CartesianUpdate>
-                                        </queries:Path>
-                                    </queries:If>
-                                    <queries:If>
-                                        <queries:KindTest value="COMPOSITE"/>
-                                        <queries:CartesianInsert>
-                                        <queries:Placement value="INTO"/>
-                                        <queries:SelfStep/>
-                                        <queries:Path initialCapacity="3">
-                                        <queries:VariableRefStep value="_prototype"/>
-                                        <queries:ChildStep/>
-                                        <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
-                                        <patterns:DerivationPoint>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        </patterns:DerivationPoint>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        </semantics:FunctionApplication>
-                                        </queries:Path>
-                                        </queries:CartesianInsert>
-                                    </queries:If>
-                                </queries:Choose>
-                                <queries:SelfStep/>
-                            </queries:Block>
-                        </queries:Path>
-                    </queries:Scope>
-                </queries:Do>
+                            </patterns:DerivationPoint>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </semantics:FunctionApplication>
+                    </queries:Clone>
+                </queries:If>
             </queries:Choose>
         </patterns:FunctionDeclaration>
         <patterns:FunctionDeclaration>
@@ -977,92 +905,20 @@
                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                     </semantics:FunctionApplication>
                 </queries:If>
-                <queries:Do>
-                    <queries:Scope>
-                        <queries:FreshNames initialCapacity="3">
-                            <queries:Name value="_prototype"/>
-                            <queries:Name value="_prototypeChild"/>
-                            <queries:Name value="_cloneChild"/>
-                        </queries:FreshNames>
-                        <queries:Path initialCapacity="3">
-                            <queries:Filter>
-                                <queries:SelfStep/>
-                                <queries:VariableTest value="_prototype"/>
-                            </queries:Filter>
-                            <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                                <workflows:Text value="shallowClone"/>
+                <queries:If>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <queries:Clone>
+                        <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                            <patterns:DerivationPoint>
                                 <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                 <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                <workflows:StringLiteral value="org.whole.lang.semantics.util.SemanticsUtils"/>
-                                <workflows:StringLiteral value="createShallowCloneEntity(org.whole.lang.model.IEntity)"/>
-                                <workflows:Expressions initialCapacity="1">
-                                    <queries:SelfStep/>
-                                </workflows:Expressions>
-                            </workflows:InvokeJavaClassMethod>
-                            <queries:Block initialCapacity="2">
-                                <queries:Choose initialCapacity="2">
-                                    <queries:If>
-                                        <queries:KindTest value="SIMPLE"/>
-                                        <queries:Path initialCapacity="2">
-                                        <queries:PointwiseProduct initialCapacity="2">
-                                        <queries:Filter>
-                                        <queries:ChildStep/>
-                                        <queries:VariableTest value="_cloneChild"/>
-                                        </queries:Filter>
-                                        <queries:Path initialCapacity="2">
-                                        <queries:VariableRefStep value="_prototype"/>
-                                        <queries:Filter>
-                                        <queries:ChildStep/>
-                                        <queries:VariableTest value="_prototypeChild"/>
-                                        </queries:Filter>
-                                        </queries:Path>
-                                        </queries:PointwiseProduct>
-                                        <queries:CartesianUpdate>
-                                        <queries:Path initialCapacity="2">
-                                        <queries:VariableRefStep value="_cloneChild"/>
-                                        <queries:SelfStep/>
-                                        </queries:Path>
-                                        <queries:Path initialCapacity="2">
-                                        <queries:VariableRefStep value="_prototypeChild"/>
-                                        <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
-                                        <patterns:DerivationPoint>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        </patterns:DerivationPoint>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        </semantics:FunctionApplication>
-                                        </queries:Path>
-                                        </queries:CartesianUpdate>
-                                        </queries:Path>
-                                    </queries:If>
-                                    <queries:If>
-                                        <queries:KindTest value="COMPOSITE"/>
-                                        <queries:CartesianInsert>
-                                        <queries:Placement value="INTO"/>
-                                        <queries:SelfStep/>
-                                        <queries:Path initialCapacity="3">
-                                        <queries:VariableRefStep value="_prototype"/>
-                                        <queries:ChildStep/>
-                                        <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
-                                        <patterns:DerivationPoint>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        </patterns:DerivationPoint>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        </semantics:FunctionApplication>
-                                        </queries:Path>
-                                        </queries:CartesianInsert>
-                                    </queries:If>
-                                </queries:Choose>
-                                <queries:SelfStep/>
-                            </queries:Block>
-                        </queries:Path>
-                    </queries:Scope>
-                </queries:Do>
+                            </patterns:DerivationPoint>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </semantics:FunctionApplication>
+                    </queries:Clone>
+                </queries:If>
             </queries:Choose>
         </patterns:FunctionDeclaration>
         <patterns:FunctionDeclaration>
@@ -1119,92 +975,20 @@
                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                     </semantics:FunctionApplication>
                 </queries:If>
-                <queries:Do>
-                    <queries:Scope>
-                        <queries:FreshNames initialCapacity="3">
-                            <queries:Name value="_prototype"/>
-                            <queries:Name value="_prototypeChild"/>
-                            <queries:Name value="_cloneChild"/>
-                        </queries:FreshNames>
-                        <queries:Path initialCapacity="3">
-                            <queries:Filter>
-                                <queries:SelfStep/>
-                                <queries:VariableTest value="_prototype"/>
-                            </queries:Filter>
-                            <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                                <workflows:Text value="shallowClone"/>
+                <queries:If>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <queries:Clone>
+                        <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                            <patterns:DerivationPoint>
                                 <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                 <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                <workflows:StringLiteral value="org.whole.lang.semantics.util.SemanticsUtils"/>
-                                <workflows:StringLiteral value="createShallowCloneEntity(org.whole.lang.model.IEntity)"/>
-                                <workflows:Expressions initialCapacity="1">
-                                    <queries:SelfStep/>
-                                </workflows:Expressions>
-                            </workflows:InvokeJavaClassMethod>
-                            <queries:Block initialCapacity="2">
-                                <queries:Choose initialCapacity="2">
-                                    <queries:If>
-                                        <queries:KindTest value="SIMPLE"/>
-                                        <queries:Path initialCapacity="2">
-                                        <queries:PointwiseProduct initialCapacity="2">
-                                        <queries:Filter>
-                                        <queries:ChildStep/>
-                                        <queries:VariableTest value="_cloneChild"/>
-                                        </queries:Filter>
-                                        <queries:Path initialCapacity="2">
-                                        <queries:VariableRefStep value="_prototype"/>
-                                        <queries:Filter>
-                                        <queries:ChildStep/>
-                                        <queries:VariableTest value="_prototypeChild"/>
-                                        </queries:Filter>
-                                        </queries:Path>
-                                        </queries:PointwiseProduct>
-                                        <queries:CartesianUpdate>
-                                        <queries:Path initialCapacity="2">
-                                        <queries:VariableRefStep value="_cloneChild"/>
-                                        <queries:SelfStep/>
-                                        </queries:Path>
-                                        <queries:Path initialCapacity="2">
-                                        <queries:VariableRefStep value="_prototypeChild"/>
-                                        <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
-                                        <patterns:DerivationPoint>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        </patterns:DerivationPoint>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        </semantics:FunctionApplication>
-                                        </queries:Path>
-                                        </queries:CartesianUpdate>
-                                        </queries:Path>
-                                    </queries:If>
-                                    <queries:If>
-                                        <queries:KindTest value="COMPOSITE"/>
-                                        <queries:CartesianInsert>
-                                        <queries:Placement value="INTO"/>
-                                        <queries:SelfStep/>
-                                        <queries:Path initialCapacity="3">
-                                        <queries:VariableRefStep value="_prototype"/>
-                                        <queries:ChildStep/>
-                                        <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
-                                        <patterns:DerivationPoint>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        </patterns:DerivationPoint>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        </semantics:FunctionApplication>
-                                        </queries:Path>
-                                        </queries:CartesianInsert>
-                                    </queries:If>
-                                </queries:Choose>
-                                <queries:SelfStep/>
-                            </queries:Block>
-                        </queries:Path>
-                    </queries:Scope>
-                </queries:Do>
+                            </patterns:DerivationPoint>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </semantics:FunctionApplication>
+                    </queries:Clone>
+                </queries:If>
             </queries:Choose>
         </patterns:FunctionDeclaration>
         <patterns:FunctionDeclaration>

@@ -636,6 +636,18 @@ public class PatternsSpecificBuilderAdapter extends GenericBuilderContext implem
         _wEntity(PatternsEntityDescriptorEnum.VariableDeclaration);
     }
 
+    public void ParameterDeclaration() {
+        wEntity(PatternsEntityDescriptorEnum.ParameterDeclaration);
+    }
+
+    public void ParameterDeclaration_() {
+        wEntity_(PatternsEntityDescriptorEnum.ParameterDeclaration);
+    }
+
+    public void _ParameterDeclaration() {
+        _wEntity(PatternsEntityDescriptorEnum.ParameterDeclaration);
+    }
+
     public void SlotDeclaration() {
         wEntity(PatternsEntityDescriptorEnum.SlotDeclaration);
     }
@@ -698,6 +710,18 @@ public class PatternsSpecificBuilderAdapter extends GenericBuilderContext implem
 
     public void Name(String value) {
         wEntity(PatternsEntityDescriptorEnum.Name, value);
+    }
+
+    public void ResultWeaver() {
+        wEntity(PatternsEntityDescriptorEnum.ResultWeaver);
+    }
+
+    public void ResultWeaver_() {
+        wEntity_(PatternsEntityDescriptorEnum.ResultWeaver);
+    }
+
+    public void _ResultWeaver() {
+        _wEntity(PatternsEntityDescriptorEnum.ResultWeaver);
     }
 
     public void PatternJoinPointStep() {

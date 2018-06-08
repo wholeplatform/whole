@@ -35,6 +35,9 @@ public abstract class QueriesIdentitySwitchVisitor extends AbstractVisitor imple
             case QueriesEntityDescriptorEnum.Path_ord :
             visit((Path) entity);
             break;
+            case QueriesEntityDescriptorEnum.Clone_ord :
+            visit((Clone) entity);
+            break;
             case QueriesEntityDescriptorEnum.Delete_ord :
             visit((Delete) entity);
             break;
@@ -286,9 +289,6 @@ public abstract class QueriesIdentitySwitchVisitor extends AbstractVisitor imple
             break;
             case QueriesEntityDescriptorEnum.Every_ord :
             visit((Every) entity);
-            break;
-            case QueriesEntityDescriptorEnum.ParenthesizedPredicate_ord :
-            visit((ParenthesizedPredicate) entity);
             break;
             case QueriesEntityDescriptorEnum.EntityType_ord :
             visit((EntityType) entity);

@@ -67,11 +67,13 @@ public class PatternsImplEntityRegistry extends AbstractEntityRegistry {
         put(new PointcutDeclarationImpl());
         put(new JoinPointDeclarationImpl());
         put(new VariableDeclarationImpl());
+        put(new ParameterDeclarationImpl());
         put(new SlotDeclarationImpl());
         put(new VariantSelectorImpl());
         put(new TypesImpl());
         put(new ResultTypesImpl());
         put(new NameImpl());
+        put(new ResultWeaverImpl());
         put(new PatternJoinPointStepImpl());
         put(new JoinPointStepImpl());
         put(new PointcutStepImpl());

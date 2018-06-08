@@ -22,22 +22,22 @@ import java.util.List;
 
 import org.eclipse.draw2d.IFigure;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.queries.model.ParenthesizedPredicate;
-import org.whole.lang.queries.ui.figures.ParenthesizedPredicateFigure;
+import org.whole.lang.queries.model.Clone;
+import org.whole.lang.queries.ui.figures.CloneFigure;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
 
 /**
  * @author Riccardo Solmi
  */
-public class ParenthesizedPredicatePart extends AbstractContentPanePart {
+public class ClonePart extends AbstractContentPanePart {
 	protected IFigure createFigure() {
-		return new ParenthesizedPredicateFigure();
+		return new CloneFigure();
 	}
 
 	protected List<IEntity> getModelSpecificChildren() {
-		ParenthesizedPredicate entity = getModelEntity();
+		Clone entity = getModelEntity();
 		List<IEntity> list = new ArrayList<IEntity>(1);
-		list.add(entity.getPredicate());
+		list.add(entity.getFromClause());
 		return list;
 	}
 }

@@ -120,6 +120,12 @@ public class QueriesPrettyPrinterVisitor extends QueriesTraverseAllVisitor {
     }
 
     @Override
+    public void visit(Clone entity) {
+    	out.printRaw("clone ");
+    	entity.getFromClause().accept(this);
+    }
+
+    @Override
     public void visit(Select entity) {
     	out.printRaw("select ");
     	entity.getSelectClause().accept(this);
@@ -605,12 +611,6 @@ public class QueriesPrettyPrinterVisitor extends QueriesTraverseAllVisitor {
     	out.printRaw("!");
 		entity.getPredicate().accept(this);
 	}
-    @Override
-    public void visit(ParenthesizedPredicate entity) {
-    	out.printRaw("[");
-    	super.visit(entity);
-    	out.printRaw("]");
-    }
 
     @Override
     public void visit(DistinctTest entity) {

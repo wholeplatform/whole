@@ -41,6 +41,10 @@ public class QueriesTraverseAllSwitchVisitor extends QueriesIdentityUnaryVisitor
             wGetVisitor1().visit(entity.get(i));
     }
 
+    public void visit(Clone entity) {
+        wGetVisitor1().visit(entity.getFromClause());
+    }
+
     public void visit(Delete entity) {
         wGetVisitor1().visit(entity.getFromClause());
     }
@@ -223,10 +227,6 @@ public class QueriesTraverseAllSwitchVisitor extends QueriesIdentityUnaryVisitor
     public void visit(Every entity) {
         wGetVisitor1().visit(entity.getFromClause());
         wGetVisitor1().visit(entity.getWhereClause());
-    }
-
-    public void visit(ParenthesizedPredicate entity) {
-        wGetVisitor1().visit(entity.getPredicate());
     }
 
     public void visit(AddNames entity) {

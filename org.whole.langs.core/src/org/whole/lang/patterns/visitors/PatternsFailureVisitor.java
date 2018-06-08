@@ -178,6 +178,10 @@ public class PatternsFailureVisitor extends PatternsIdentityVisitor {
         throw new VisitException();
     }
 
+    public void visit(ParameterDeclaration entity) {
+        throw new VisitException();
+    }
+
     public void visit(SlotDeclaration entity) {
         throw new VisitException();
     }
@@ -195,6 +199,10 @@ public class PatternsFailureVisitor extends PatternsIdentityVisitor {
     }
 
     public void visit(Name entity) {
+        throw new VisitException();
+    }
+
+    public void visit(ResultWeaver entity) {
         throw new VisitException();
     }
 

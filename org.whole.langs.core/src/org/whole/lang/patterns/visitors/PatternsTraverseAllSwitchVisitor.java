@@ -228,6 +228,12 @@ public class PatternsTraverseAllSwitchVisitor extends PatternsIdentityUnaryVisit
         wGetVisitor1().visit(entity.getResultType());
     }
 
+    public void visit(ParameterDeclaration entity) {
+        wGetVisitor1().visit(entity.getName());
+        wGetVisitor1().visit(entity.getExpression());
+        wGetVisitor1().visit(entity.getResultType());
+    }
+
     public void visit(SlotDeclaration entity) {
         wGetVisitor1().visit(entity.getName());
         wGetVisitor1().visit(entity.getType());

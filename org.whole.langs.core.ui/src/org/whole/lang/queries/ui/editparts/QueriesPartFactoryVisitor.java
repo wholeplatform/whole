@@ -126,6 +126,11 @@ public class QueriesPartFactoryVisitor extends QueriesIdentityDefaultVisitor imp
 	}
 
 	@Override
+	public void visit(Clone entity) {
+		part = new ClonePart();
+	}
+
+	@Override
 	public void visit(Delete entity) {
 		part = new DeletePart();
 	}
@@ -641,11 +646,6 @@ public class QueriesPartFactoryVisitor extends QueriesIdentityDefaultVisitor imp
 	@Override
 	public void visit(Every entity) {
 		part = new EveryPart();
-	}
-
-	@Override
-	public void visit(ParenthesizedPredicate entity) {
-		part = new ParenthesizedPredicatePart();
 	}
 
 	@Override

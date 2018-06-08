@@ -48,6 +48,7 @@ import org.whole.lang.patterns.model.Library;
 import org.whole.lang.patterns.model.Name;
 import org.whole.lang.patterns.model.Namespace;
 import org.whole.lang.patterns.model.OuterDefinitionStep;
+import org.whole.lang.patterns.model.ParameterDeclaration;
 import org.whole.lang.patterns.model.Pattern;
 import org.whole.lang.patterns.model.PatternApplication;
 import org.whole.lang.patterns.model.PatternInstance;
@@ -62,6 +63,7 @@ import org.whole.lang.patterns.model.PointcutStep;
 import org.whole.lang.patterns.model.Repetition;
 import org.whole.lang.patterns.model.ResultPoint;
 import org.whole.lang.patterns.model.ResultTypes;
+import org.whole.lang.patterns.model.ResultWeaver;
 import org.whole.lang.patterns.model.ScopePoint;
 import org.whole.lang.patterns.model.SelectionPoint;
 import org.whole.lang.patterns.model.SequencePoint;
@@ -174,6 +176,11 @@ public class PatternsPartFactoryVisitor extends PatternsIdentityDefaultVisitor i
     @Override
     public void visit(ResultPoint entity) {
         part = new ResultPointPart();
+    }
+
+    @Override
+    public void visit(ResultWeaver entity) {
+        super.visit(entity);
     }
 
     @Override
@@ -299,6 +306,11 @@ public class PatternsPartFactoryVisitor extends PatternsIdentityDefaultVisitor i
     }
 
     @Override
+    public void visit(ParameterDeclaration entity) {
+        part = new ParameterDeclarationPart();
+    }
+
+    @Override
     public void visit(SlotDeclaration entity) {
         part = new SlotDeclarationPart();
     }
@@ -373,8 +385,9 @@ public class PatternsPartFactoryVisitor extends PatternsIdentityDefaultVisitor i
 			case PatternsEntityDescriptorEnum.GoalDeclaration_ord:
 				part = new GoalStepPart();
 				return;
-			case PatternsEntityDescriptorEnum.VariablePoint_ord:
+			case PatternsEntityDescriptorEnum.ParameterDeclaration_ord:
 			case PatternsEntityDescriptorEnum.VariableDeclaration_ord:
+			case PatternsEntityDescriptorEnum.VariablePoint_ord:
 			case PatternsEntityDescriptorEnum.VariantSelectionPoint_ord:
 			case PatternsEntityDescriptorEnum.Variant_ord:
 				part = new IdentifierTextualEntityPart();

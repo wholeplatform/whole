@@ -1467,34 +1467,22 @@
                             </artifacts:Projects>
                         </artifacts:Workspace>
                     </commons:StageUpFragment>
-                    <queries:Path initialCapacity="2">
+                    <queries:Path initialCapacity="3">
                         <queries:Filter>
                             <queries:SelfStep/>
                             <queries:TypeTest value="whole:org.whole.lang.mediawiki:MediaWiki#Wiki"/>
                         </queries:Filter>
-                        <commons:SameStageFragment xmlns:commons="http://lang.whole.org/Commons">
-                            <workflows:Sequence xmlns:workflows="http://lang.whole.org/Workflows">
-                                <workflows:Text value="sequence"/>
-                                <workflows:FlowObjects initialCapacity="2">
-                                    <workflows:InvokeJavaClassMethod>
-                                        <workflows:Text value="cloneSelf"/>
-                                        <workflows:Variable value="clonedSelf"/>
-                                        <commons:Resolver/>
-                                        <workflows:StringLiteral value="org.whole.lang.util.EntityUtils"/>
-                                        <workflows:StringLiteral value="clone(org.whole.lang.model.IEntity)"/>
-                                        <workflows:Expressions initialCapacity="1">
-                                        <workflows:Variable value="self"/>
-                                        </workflows:Expressions>
-                                    </workflows:InvokeJavaClassMethod>
-                                    <workflows:InvokeOperation>
-                                        <workflows:Text value="invoke Normalizer"/>
-                                        <workflows:Variable value="clonedSelf"/>
-                                        <workflows:Operation value="NORMALIZER"/>
-                                        <commons:Resolver/>
-                                    </workflows:InvokeOperation>
-                                </workflows:FlowObjects>
-                            </workflows:Sequence>
-                        </commons:SameStageFragment>
+                        <queries:Clone>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </queries:Clone>
+                        <workflows:InvokeOperation xmlns:workflows="http://lang.whole.org/Workflows">
+                            <workflows:Text value="invoke Normalizer"/>
+                            <commons:SameStageFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <queries:SelfStep/>
+                            </commons:SameStageFragment>
+                            <workflows:Operation value="NORMALIZER"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </workflows:InvokeOperation>
                     </queries:Path>
                     <queries:Sequence initialCapacity="4">
                         <queries:Path initialCapacity="2">
