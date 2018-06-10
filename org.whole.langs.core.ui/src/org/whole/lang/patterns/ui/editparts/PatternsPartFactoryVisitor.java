@@ -180,7 +180,7 @@ public class PatternsPartFactoryVisitor extends PatternsIdentityDefaultVisitor i
 
     @Override
     public void visit(ResultWeaver entity) {
-        super.visit(entity);
+        part = new ResultWeaverPart();
     }
 
     @Override
