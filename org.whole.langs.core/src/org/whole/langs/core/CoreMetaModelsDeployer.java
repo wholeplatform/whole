@@ -38,7 +38,6 @@ import org.whole.lang.models.codebase.ModelsModel;
 import org.whole.lang.models.codebase.PojoModel;
 import org.whole.lang.models.codebase.StatusModel;
 import org.whole.lang.models.codebase.TemplatesModel;
-import org.whole.lang.models.codebase.TypesModel;
 import org.whole.lang.models.reflect.ModelsLanguageKit;
 import org.whole.lang.patterns.reflect.PatternsLanguageKit;
 import org.whole.lang.pojo.reflect.PojoLanguageKit;
@@ -87,7 +86,7 @@ public class CoreMetaModelsDeployer extends AbstractLanguageExtensionDeployer {
 		platform.setMetaModelTemplate(SyntaxTreesLanguageKit.URI, "Syntax Trees Model", "org/whole/lang/syntaxtrees/SyntaxTreesModel.xwl");
 		platform.setMetaModelTemplate(TestsLanguageKit.URI, "Tests model", "org/whole/lang/tests/TestsModel.xwl");
 		platform.setMetaModelTemplate(TemplatesLanguageKit.URI, new TemplatesModel());
-		platform.setMetaModelTemplate(TypesLanguageKit.URI, new TypesModel());
+		platform.setMetaModelTemplate(TypesLanguageKit.URI, "Types model", "org/whole/lang/types/TypesModel.xwl");
 		platform.setMetaModelTemplate(WorkflowsLanguageKit.URI, "Workflows model", "org/whole/lang/workflows/WorkflowsModel.xwl");
 
 	}

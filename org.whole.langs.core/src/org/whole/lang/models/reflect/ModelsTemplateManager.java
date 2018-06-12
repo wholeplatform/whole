@@ -48,7 +48,6 @@ import org.whole.lang.models.codebase.TestORM;
 import org.whole.lang.models.codebase.TopicMapsModel;
 import org.whole.lang.models.codebase.TopicsModel;
 import org.whole.lang.models.codebase.TransformersModel;
-import org.whole.lang.models.codebase.TypesModel;
 import org.whole.lang.models.codebase.UnifiedLambdaDeltaModel;
 import org.whole.lang.models.codebase.VariantsModel;
 import org.whole.lang.models.codebase.VersionsModel;
@@ -106,7 +105,6 @@ public class ModelsTemplateManager extends AbstractTemplateManager {
 		put("Editors model", new EditorsModel());
 		put("Presentation model", new PresentationModel());
 		put("Mbed model", new MbedModel());
-		put("Types model", new TypesModel());
 		put("Libraries model", new LibrariesModel());
 
 		put("Maps model", new MapsModel());
