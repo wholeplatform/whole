@@ -8,111 +8,110 @@
         <patterns:Pattern>
             <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
             <patterns:Name value="ComparisonFunction"/>
-            <patterns:TemplatePoint>
-                <patterns:ScopePoint>
-                    <patterns:Declarations initialCapacity="9">
-                        <patterns:VariableDeclaration>
-                            <patterns:Name value="comparisonToolUri"/>
-                            <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
-                                <queries:Filter>
-                                    <patterns:Slot>
-                                        <patterns:Name value="uri"/>
-                                        <patterns:BooleanValue value="true"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <models:EntityType xmlns:models="http://lang.whole.org/Models" value="http://lang.whole.org/Semantics#URI"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                    </patterns:Slot>
-                                    <queries:KindTest value="IMPL"/>
-                                </queries:Filter>
+            <patterns:ScopePoint>
+                <patterns:Declarations initialCapacity="9">
+                    <patterns:VariableDeclaration>
+                        <patterns:Name value="comparisonToolUri"/>
+                        <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                            <queries:Filter>
+                                <patterns:Slot>
+                                    <patterns:Name value="uri"/>
+                                    <patterns:BooleanValue value="true"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <models:EntityType xmlns:models="http://lang.whole.org/Models" value="http://lang.whole.org/Semantics#URI"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </patterns:Slot>
+                                <queries:KindTest value="IMPL"/>
+                            </queries:Filter>
+                            <queries:Addition>
                                 <queries:Addition>
+                                    <queries:StringLiteral value="whole:"/>
+                                    <queries:VariableRefStep value="packageName"/>
+                                </queries:Addition>
+                                <queries:Addition>
+                                    <queries:StringLiteral value=":"/>
                                     <queries:Addition>
-                                        <queries:StringLiteral value="whole:"/>
-                                        <queries:VariableRefStep value="packageName"/>
-                                    </queries:Addition>
-                                    <queries:Addition>
-                                        <queries:StringLiteral value=":"/>
-                                        <queries:Addition>
                                         <queries:VariableRefStep value="fileName"/>
                                         <queries:StringLiteral value="ComparisonTool"/>
-                                        </queries:Addition>
                                     </queries:Addition>
                                 </queries:Addition>
-                            </queries:Choose>
-                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                        </patterns:VariableDeclaration>
-                        <patterns:VariableDeclaration>
-                            <patterns:Name value="comparisonToolNamespace"/>
-                            <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
-                                <queries:Filter>
-                                    <patterns:Slot>
-                                        <patterns:Name value="namespace"/>
-                                        <patterns:BooleanValue value="true"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <models:EntityType xmlns:models="http://lang.whole.org/Models" value="http://lang.whole.org/Semantics#Namespace"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                    </patterns:Slot>
-                                    <queries:KindTest value="IMPL"/>
-                                </queries:Filter>
-                                <queries:VariableRefStep value="packageName"/>
-                            </queries:Choose>
-                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                        </patterns:VariableDeclaration>
-                        <patterns:VariableDeclaration>
-                            <patterns:Name value="comparisonToolName"/>
-                            <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
-                                <queries:Filter>
-                                    <patterns:Slot>
-                                        <patterns:Name value="name"/>
-                                        <patterns:BooleanValue value="true"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <models:EntityType xmlns:models="http://lang.whole.org/Models" value="http://lang.whole.org/Semantics#Name"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                    </patterns:Slot>
-                                    <queries:KindTest value="IMPL"/>
-                                </queries:Filter>
-                                <queries:VariableRefStep value="fileName"/>
-                            </queries:Choose>
-                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                        </patterns:VariableDeclaration>
-                        <patterns:JoinPointDeclaration>
-                            <patterns:Name value="functionDefinitionsPoint"/>
-                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                        </patterns:JoinPointDeclaration>
-                        <patterns:JoinPointDeclaration>
-                            <patterns:Name value="functionActionsPoint"/>
-                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                        </patterns:JoinPointDeclaration>
-                        <patterns:JoinPointDeclaration>
-                            <patterns:Name value="matchRulePoint"/>
-                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                        </patterns:JoinPointDeclaration>
-                        <patterns:JoinPointDeclaration>
-                            <patterns:Name value="compareCompositeRulePoint"/>
-                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                        </patterns:JoinPointDeclaration>
-                        <patterns:JoinPointDeclaration>
-                            <patterns:Name value="compareRulePoint"/>
-                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                        </patterns:JoinPointDeclaration>
-                        <patterns:JoinPointDeclaration>
-                            <patterns:Name value="library"/>
-                            <patterns:TemplatePoint>
-                                <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="2">
-                                    <semantics:SemanticTheory xmlns:semantics="http://lang.whole.org/Semantics">
-                                        <patterns:VariablePoint>
+                            </queries:Addition>
+                        </queries:Choose>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </patterns:VariableDeclaration>
+                    <patterns:VariableDeclaration>
+                        <patterns:Name value="comparisonToolNamespace"/>
+                        <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                            <queries:Filter>
+                                <patterns:Slot>
+                                    <patterns:Name value="namespace"/>
+                                    <patterns:BooleanValue value="true"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <models:EntityType xmlns:models="http://lang.whole.org/Models" value="http://lang.whole.org/Semantics#Namespace"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </patterns:Slot>
+                                <queries:KindTest value="IMPL"/>
+                            </queries:Filter>
+                            <queries:VariableRefStep value="packageName"/>
+                        </queries:Choose>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </patterns:VariableDeclaration>
+                    <patterns:VariableDeclaration>
+                        <patterns:Name value="comparisonToolName"/>
+                        <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                            <queries:Filter>
+                                <patterns:Slot>
+                                    <patterns:Name value="name"/>
+                                    <patterns:BooleanValue value="true"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <models:EntityType xmlns:models="http://lang.whole.org/Models" value="http://lang.whole.org/Semantics#Name"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </patterns:Slot>
+                                <queries:KindTest value="IMPL"/>
+                            </queries:Filter>
+                            <queries:VariableRefStep value="fileName"/>
+                        </queries:Choose>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </patterns:VariableDeclaration>
+                    <patterns:JoinPointDeclaration>
+                        <patterns:Name value="functionDefinitionsPoint"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </patterns:JoinPointDeclaration>
+                    <patterns:JoinPointDeclaration>
+                        <patterns:Name value="functionActionsPoint"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </patterns:JoinPointDeclaration>
+                    <patterns:JoinPointDeclaration>
+                        <patterns:Name value="matchRulePoint"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </patterns:JoinPointDeclaration>
+                    <patterns:JoinPointDeclaration>
+                        <patterns:Name value="compareCompositeRulePoint"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </patterns:JoinPointDeclaration>
+                    <patterns:JoinPointDeclaration>
+                        <patterns:Name value="compareRulePoint"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </patterns:JoinPointDeclaration>
+                    <patterns:JoinPointDeclaration>
+                        <patterns:Name value="library"/>
+                        <patterns:TemplatePoint>
+                            <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="2">
+                                <semantics:SemanticTheory xmlns:semantics="http://lang.whole.org/Semantics">
+                                    <patterns:VariablePoint>
                                         <patterns:Name value="comparisonToolUri"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        </patterns:VariablePoint>
-                                        <patterns:VariablePoint>
+                                    </patterns:VariablePoint>
+                                    <patterns:VariablePoint>
                                         <patterns:Name value="comparisonToolNamespace"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        </patterns:VariablePoint>
-                                        <patterns:VariablePoint>
+                                    </patterns:VariablePoint>
+                                    <patterns:VariablePoint>
                                         <patterns:Name value="comparisonToolName"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        </patterns:VariablePoint>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <patterns:JoinPoint>
+                                    </patterns:VariablePoint>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <patterns:JoinPoint>
                                         <patterns:Name value="functionDefinitionsPoint"/>
                                         <semantics:SemanticFunctions initialCapacity="7">
                                         <semantics:SemanticFunction>
@@ -1910,31 +1909,31 @@
                                         </queries:Choose>
                                         </semantics:SemanticFunction>
                                         </semantics:SemanticFunctions>
-                                        </patterns:JoinPoint>
-                                    </semantics:SemanticTheory>
-                                    <actions:LanguageActionFactory xmlns:actions="http://lang.whole.org/Actions">
-                                        <patterns:VariablePoint>
+                                    </patterns:JoinPoint>
+                                </semantics:SemanticTheory>
+                                <actions:LanguageActionFactory xmlns:actions="http://lang.whole.org/Actions">
+                                    <patterns:VariablePoint>
                                         <patterns:Name value="comparisonToolUri"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        </patterns:VariablePoint>
-                                        <patterns:VariablePoint>
+                                    </patterns:VariablePoint>
+                                    <patterns:VariablePoint>
                                         <patterns:Name value="comparisonToolNamespace"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        </patterns:VariablePoint>
-                                        <patterns:VariablePoint>
+                                    </patterns:VariablePoint>
+                                    <patterns:VariablePoint>
                                         <patterns:Name value="comparisonToolName"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        </patterns:VariablePoint>
+                                    </patterns:VariablePoint>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <actions:ToolbarActions>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <actions:ToolbarActions>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        </actions:ToolbarActions>
-                                        <actions:ContextMenuActions>
+                                    </actions:ToolbarActions>
+                                    <actions:ContextMenuActions>
                                         <actions:MenuActions initialCapacity="0"/>
                                         <actions:MenuActions initialCapacity="0"/>
                                         <actions:MenuActions initialCapacity="0"/>
@@ -1944,38 +1943,41 @@
                                         </patterns:JoinPoint>
                                         <actions:MenuActions initialCapacity="0"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        </actions:ContextMenuActions>
-                                    </actions:LanguageActionFactory>
-                                </misc:Misc>
-                            </patterns:TemplatePoint>
-                        </patterns:JoinPointDeclaration>
-                    </patterns:Declarations>
-                    <patterns:SequencePoint initialCapacity="2">
-                        <patterns:Slot>
-                            <patterns:Name value="rules"/>
-                            <patterns:BooleanValue value="false"/>
-                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                            <patterns:Repetition>
-                                <patterns:Name value="CompareRules"/>
-                                <patterns:Choice>
-                                    <patterns:Name value="CompareRule"/>
-                                    <patterns:Types initialCapacity="2">
-                                        <models:EntityType xmlns:models="http://lang.whole.org/Models" value="http://lang.whole.org/Queries#PathExpression"/>
-                                        <patterns:Name value="CompareEntity"/>
-                                    </patterns:Types>
-                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                </patterns:Choice>
+                                    </actions:ContextMenuActions>
+                                </actions:LanguageActionFactory>
+                            </misc:Misc>
+                        </patterns:TemplatePoint>
+                    </patterns:JoinPointDeclaration>
+                </patterns:Declarations>
+                <patterns:SequencePoint initialCapacity="2">
+                    <patterns:Slot>
+                        <patterns:Name value="rules"/>
+                        <patterns:BooleanValue value="false"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <patterns:Repetition>
+                            <patterns:Name value="CompareRules"/>
+                            <patterns:Choice>
+                                <patterns:Name value="CompareRule"/>
+                                <patterns:Types initialCapacity="2">
+                                    <models:EntityType xmlns:models="http://lang.whole.org/Models" value="http://lang.whole.org/Queries#PathExpression"/>
+                                    <patterns:Name value="CompareEntity"/>
+                                </patterns:Types>
                                 <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                            </patterns:Repetition>
+                            </patterns:Choice>
                             <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                        </patterns:Slot>
+                        </patterns:Repetition>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </patterns:Slot>
+                    <patterns:ResultPoint>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                         <patterns:DerivationPoint>
                             <patterns:JoinPointStep value="library"/>
                             <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                         </patterns:DerivationPoint>
-                    </patterns:SequencePoint>
-                </patterns:ScopePoint>
-            </patterns:TemplatePoint>
+                        <patterns:ResultWeaver/>
+                    </patterns:ResultPoint>
+                </patterns:SequencePoint>
+            </patterns:ScopePoint>
         </patterns:Pattern>
     </patterns:Patterns>
     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
