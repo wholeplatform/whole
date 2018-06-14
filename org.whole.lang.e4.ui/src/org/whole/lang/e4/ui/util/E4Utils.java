@@ -327,6 +327,14 @@ public class E4Utils {
 			throw new IllegalArgumentException("unsupported entity transformer");
 	}
 
+	public static void rebuildNotation(final IEntityPartViewer viewer) {
+		viewer.getContext().get(UISynchronize.class).syncExec(new Runnable() {
+			@Override
+			public void run() {
+				viewer.rebuildNotation();
+			}
+		});
+	}
 	public static void refreshNotation(final IEntityPartViewer viewer) {
 		viewer.getContext().get(UISynchronize.class).syncExec(new Runnable() {
 			@Override
