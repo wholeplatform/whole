@@ -114,7 +114,7 @@ public abstract class AbstractComparePart extends AbstractContentPanePart {
             		int y0Center = leBounds.y + leBounds.height / 2;
             		int y1Center = reBounds.y + reBounds.height / 2;
 
-            		g.setBackgroundColor(le.wGetEntityDescriptor().equals(ChangesEntityDescriptorEnum.Insert) ?
+            		g.setBackgroundColor(Matcher.matchAny(le, ChangesEntityDescriptorEnum.Insert, ChangesEntityDescriptorEnum.Paste) ?
             				FigureConstants.addBackgroundColor : FigureConstants.deleteBackgroundColor);
             		g.setForegroundColor(FigureConstants.collapseColor);
 
@@ -128,7 +128,7 @@ public abstract class AbstractComparePart extends AbstractContentPanePart {
 	            		});
             		}
 
-            		g.setBackgroundColor(re.wGetEntityDescriptor().equals(ChangesEntityDescriptorEnum.Insert) ?
+            		g.setBackgroundColor(Matcher.matchAny(re, ChangesEntityDescriptorEnum.Insert, ChangesEntityDescriptorEnum.Paste) ?
             				FigureConstants.addBackgroundColor : FigureConstants.deleteBackgroundColor);
             		g.setForegroundColor(FigureConstants.collapseColor);
 
