@@ -303,7 +303,7 @@ public class IteratorFactory {
 		}
 
 		protected boolean filter(IEntity selfEntity) {
-			return filterIterator.evaluate(selfEntity, getBindings()).wBooleanValue();
+			return filterIterator.tryEvaluateAsBoolean(selfEntity, getBindings());
 		}
 
 	    @Override
@@ -573,7 +573,7 @@ public class IteratorFactory {
 		return new AbstractSingleValuedRunnableIterator<IEntity>(argsIterators) {
 			protected void run(IEntity selfEntity, IBindingManager bm) {
 				for (int i=0; i<argsIterators.length; i++)
-					if (!argsIterators[i].evaluate(selfEntity, bm).wBooleanValue()) {
+					if (!argsIterators[i].tryEvaluateAsBoolean(selfEntity, bm)) {
 						bm.setResult(BindingManagerFactory.instance.createValue(false));
 						return;
 					}
@@ -591,7 +591,7 @@ public class IteratorFactory {
 		return new AbstractSingleValuedRunnableIterator<IEntity>(argsIterators) {
 			protected void run(IEntity selfEntity, IBindingManager bm) {
 				for (int i=0; i<argsIterators.length; i++)
-					if (argsIterators[i].evaluate(selfEntity, bm).wBooleanValue()) {
+					if (argsIterators[i].tryEvaluateAsBoolean(selfEntity, bm)) {
 						bm.setResult(BindingManagerFactory.instance.createValue(true));
 						return;
 					}
@@ -608,7 +608,7 @@ public class IteratorFactory {
 	public static IEntityIterator<?> notIterator(IEntityIterator<?> argIterator) {
 		return new AbstractSingleValuedRunnableIterator<IEntity>(argIterator) {
 			protected void run(IEntity selfEntity, IBindingManager bm) {
-				bm.setResult(BindingManagerFactory.instance.createValue(!argsIterators[0].evaluate(selfEntity, bm).wBooleanValue()));
+				bm.setResult(BindingManagerFactory.instance.createValue(!argsIterators[0].tryEvaluateAsBoolean(selfEntity, bm)));
 			}
 
 			public void toString(StringBuilder sb) {
@@ -623,7 +623,7 @@ public class IteratorFactory {
 			protected void run(IEntity selfEntity, IBindingManager bm) {
 				IBindingScope laScope = null;
 				for (IEntity e : argsIterators[0]) {
-					if (!argsIterators[1].evaluate(e, bm).wBooleanValue())
+					if (!argsIterators[1].tryEvaluateAsBoolean(e, bm))
 						continue;
 
 					if (laScope != null) {
@@ -701,7 +701,7 @@ public class IteratorFactory {
 		return new AbstractSingleValuedRunnableIterator<IEntity>(fromClause, satisfiesClause) {
 			protected void run(IEntity selfEntity, IBindingManager bm) {
 				for (IEntity e : argsIterators[0])
-					if (!argsIterators[1].evaluate(e, bm).wBooleanValue()) {
+					if (!argsIterators[1].tryEvaluateAsBoolean(e, bm)) {
 						bm.setResult(BindingManagerFactory.instance.createValue(false));
 						return;
 					}

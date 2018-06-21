@@ -19,6 +19,7 @@ package org.whole.lang.iterators;
 
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
+import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 
@@ -57,7 +58,11 @@ public abstract class AbstractMultiValuedRunnableIterator<E extends IEntity> ext
 				IBindingManager bm = getBindings();
 				bm.setResult(null);
 
-				run(selfEntity, bm);
+				try {
+					run(selfEntity, bm);
+		        } catch (Throwable e) {
+		            throw IWholeRuntimeException.asWholeException(e, getSourceEntity(), bm);
+		        }
 
 				resultIterator = bm.getResultIterator();
 				if (bm.hasResultIterator()) {

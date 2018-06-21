@@ -25,6 +25,7 @@ public interface WholeMessages {
 	public String null_implementor = "Null Adapter implementor";
 	public String no_composite = "This entity is not a composite";
 	public String no_data = "This entity is not a data";
+	public String no_data_expected = "This entity is not a data (expected %s)";
 	public String no_data_type = "The data entity type is incompatible";
 	public String no_optional = "This entity is not optional";
 	public String command_illegal_method = "The method is illegal for this command";

@@ -23,6 +23,7 @@ import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.bindings.ITransactionScope;
+import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.operations.ICloneable;
@@ -50,6 +51,14 @@ public interface IEntityIterator<E extends IEntity> extends Iterator<E>, Iterabl
 	public void add(E entity);
 
 	public void toString(StringBuilder sb);
+
+	public default boolean tryEvaluateAsBoolean(IEntity selfEntity, IBindingManager bm) {
+		try {
+			return evaluate(selfEntity, bm).wBooleanValue();
+        } catch (Throwable e) {
+            throw IWholeRuntimeException.asWholeException(e, getSourceEntity(), bm);
+        }
+	}
 
 	public default E evaluate(IEntity self, IBindingManager bm) {
 		IEntity oldSelfEntity = bm.wGet("self");

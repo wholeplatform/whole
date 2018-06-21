@@ -510,76 +510,76 @@ public abstract class AbstractEntity implements InternalIEntity, Serializable, C
 	}
 
     public boolean wBooleanValue() {
-		throw new WholeIllegalArgumentException(WholeMessages.no_data);
+		throw new WholeIllegalArgumentException(String.format(WholeMessages.no_data_expected, boolean.class.getSimpleName()));
 	}
 	public byte wByteValue() {
-		throw new WholeIllegalArgumentException(WholeMessages.no_data);
+		throw new WholeIllegalArgumentException(String.format(WholeMessages.no_data_expected, byte.class.getSimpleName()));
 	}
 	public char wCharValue() {
-		throw new WholeIllegalArgumentException(WholeMessages.no_data);
+		throw new WholeIllegalArgumentException(String.format(WholeMessages.no_data_expected, char.class.getSimpleName()));
 	}
 	public double wDoubleValue() {
-		throw new WholeIllegalArgumentException(WholeMessages.no_data);
+		throw new WholeIllegalArgumentException(String.format(WholeMessages.no_data_expected, double.class.getSimpleName()));
 	}
 	public float wFloatValue() {
-		throw new WholeIllegalArgumentException(WholeMessages.no_data);
+		throw new WholeIllegalArgumentException(String.format(WholeMessages.no_data_expected, float.class.getSimpleName()));
 	}
 	public int wIntValue() {
-		throw new WholeIllegalArgumentException(WholeMessages.no_data);
+		throw new WholeIllegalArgumentException(String.format(WholeMessages.no_data_expected, int.class.getSimpleName()));
 	}
 	public long wLongValue() {
-		throw new WholeIllegalArgumentException(WholeMessages.no_data);
+		throw new WholeIllegalArgumentException(String.format(WholeMessages.no_data_expected, long.class.getSimpleName()));
 	}
 	public short wShortValue() {
-		throw new WholeIllegalArgumentException(WholeMessages.no_data);
+		throw new WholeIllegalArgumentException(String.format(WholeMessages.no_data_expected, short.class.getSimpleName()));
 	}
 	public String wStringValue() {
-		throw new WholeIllegalArgumentException(WholeMessages.no_data);
+		throw new WholeIllegalArgumentException(String.format(WholeMessages.no_data_expected, String.class.getSimpleName()));
 	}
 	public Date wDateValue() {
-		throw new WholeIllegalArgumentException(WholeMessages.no_data);
+		throw new WholeIllegalArgumentException(String.format(WholeMessages.no_data_expected, Date.class.getSimpleName()));
 	}
 	public EnumValue wEnumValue() {
-		throw new WholeIllegalArgumentException(WholeMessages.no_data);
+		throw new WholeIllegalArgumentException(String.format(WholeMessages.no_data_expected, EnumValue.class.getSimpleName()));
 	}
 	public Object wGetValue() {
-		throw new WholeIllegalArgumentException(WholeMessages.no_data);
+		throw new WholeIllegalArgumentException(String.format(WholeMessages.no_data_expected, Object.class.getSimpleName()));
 	}
 	public void wSetValue(boolean value) {
-		throw new WholeIllegalArgumentException(WholeMessages.no_data);
+		throw new WholeIllegalArgumentException(String.format(WholeMessages.no_data_expected, boolean.class.getSimpleName()));
 	}
 	public void wSetValue(byte value) {
-		throw new WholeIllegalArgumentException(WholeMessages.no_data);
+		throw new WholeIllegalArgumentException(String.format(WholeMessages.no_data_expected, byte.class.getSimpleName()));
 	}
 	public void wSetValue(char value) {
-		throw new WholeIllegalArgumentException(WholeMessages.no_data);
+		throw new WholeIllegalArgumentException(String.format(WholeMessages.no_data_expected, char.class.getSimpleName()));
 	}
 	public void wSetValue(double value) {
-		throw new WholeIllegalArgumentException(WholeMessages.no_data);
+		throw new WholeIllegalArgumentException(String.format(WholeMessages.no_data_expected, double.class.getSimpleName()));
 	}
 	public void wSetValue(float value) {
-		throw new WholeIllegalArgumentException(WholeMessages.no_data);
+		throw new WholeIllegalArgumentException(String.format(WholeMessages.no_data_expected, float.class.getSimpleName()));
 	}
 	public void wSetValue(int value) {
-		throw new WholeIllegalArgumentException(WholeMessages.no_data);
+		throw new WholeIllegalArgumentException(String.format(WholeMessages.no_data_expected, int.class.getSimpleName()));
 	}
 	public void wSetValue(long value) {
-		throw new WholeIllegalArgumentException(WholeMessages.no_data);
+		throw new WholeIllegalArgumentException(String.format(WholeMessages.no_data_expected, long.class.getSimpleName()));
 	}
 	public void wSetValue(short value) {
-		throw new WholeIllegalArgumentException(WholeMessages.no_data);
+		throw new WholeIllegalArgumentException(String.format(WholeMessages.no_data_expected, short.class.getSimpleName()));
 	}
 	public void wSetValue(String value) {
-		throw new WholeIllegalArgumentException(WholeMessages.no_data);
+		throw new WholeIllegalArgumentException(String.format(WholeMessages.no_data_expected, String.class.getSimpleName()));
 	}
 	public void wSetValue(Date value) {
-		throw new WholeIllegalArgumentException(WholeMessages.no_data);
+		throw new WholeIllegalArgumentException(String.format(WholeMessages.no_data_expected, Date.class.getSimpleName()));
 	}
 	public void wSetValue(EnumValue value) {
-		throw new WholeIllegalArgumentException(WholeMessages.no_data);
+		throw new WholeIllegalArgumentException(String.format(WholeMessages.no_data_expected, EnumValue.class.getSimpleName()));
 	}
 	public void wSetValue(Object value) {
-		throw new WholeIllegalArgumentException(WholeMessages.no_data);
+		throw new WholeIllegalArgumentException(String.format(WholeMessages.no_data_expected, Object.class.getSimpleName()));
 	}
     public boolean wIsSet() {
 		throw new WholeIllegalArgumentException(WholeMessages.no_data);

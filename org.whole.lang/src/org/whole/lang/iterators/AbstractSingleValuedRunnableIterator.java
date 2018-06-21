@@ -22,6 +22,7 @@ import java.util.NoSuchElementException;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
+import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.util.EntityUtils;
 
@@ -71,7 +72,11 @@ public abstract class AbstractSingleValuedRunnableIterator<E extends IEntity> ex
 
 			getBindings().wEnterScope(lookaheadScope(), true);
 
-			run(selfEntity, bm);
+			try {
+				run(selfEntity, bm);
+	        } catch (Throwable e) {
+	            throw IWholeRuntimeException.asWholeException(e, getSourceEntity(), bm);
+	        }
 			result = (E) bm.getResult();
 
 			getBindings().wExitScope();
