@@ -18,7 +18,6 @@
 package org.whole.lang.iterators;
 
 import java.util.NoSuchElementException;
-import java.util.function.IntSupplier;
 
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.bindings.NullScope;
@@ -35,17 +34,22 @@ public abstract class AbstractByIndexIterator<E extends IEntity> extends Abstrac
 	protected int nextIndex;
 	protected int lastIndex = -1;
 	protected boolean forward;
-	protected IntSupplier firstIndexSupplier;
+	protected FirstIndexSupplier firstIndexSupplier;
+
+	@FunctionalInterface
+	public interface FirstIndexSupplier {
+	    int firstIndex(AbstractByIndexIterator<?> iterator);
+	}
 
 	protected AbstractByIndexIterator(boolean forward) {
 		this.forward = forward;
-		this.firstIndexSupplier = () -> forward ? 0 : endIndex()-startIndex();
+		this.firstIndexSupplier = (i) -> i.forward ? 0 : i.endIndex()-i.startIndex();
 	}
 	protected AbstractByIndexIterator(boolean forward, int relativeFirstIndex) {
 		this.forward = forward;
-		this.firstIndexSupplier = () -> relativeFirstIndex >= 0 ? relativeFirstIndex : endIndex()-startIndex() + relativeFirstIndex+1;
+		this.firstIndexSupplier = (i) -> relativeFirstIndex >= 0 ? relativeFirstIndex : i.endIndex()-i.startIndex() + relativeFirstIndex+1;
 	}
-	protected AbstractByIndexIterator(boolean forward, IntSupplier firstIndexSupplier) {
+	protected AbstractByIndexIterator(boolean forward, FirstIndexSupplier firstIndexSupplier) {
 		this.forward = forward;
 		this.firstIndexSupplier = firstIndexSupplier;
 	}
@@ -79,7 +83,7 @@ public abstract class AbstractByIndexIterator<E extends IEntity> extends Abstrac
 
 	public void reset(IEntity entity) {
 		this.entity = entity;
-		nextIndex = entity != null ? firstIndexSupplier.getAsInt() : -1;
+		nextIndex = entity != null ? firstIndexSupplier.firstIndex(this) : -1;
 		lastIndex = -1;
 	}
 
