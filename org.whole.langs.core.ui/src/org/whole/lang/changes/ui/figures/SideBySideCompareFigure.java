@@ -32,7 +32,7 @@ import org.whole.lang.ui.layout.RowLayout;
  */
 public class SideBySideCompareFigure extends ContentPaneFigure {
 	public static final int CONTENT_MARGIN = 2;
-	public static final int MAPPING_SIZE = 32;
+	public static final int MAPPING_SIZE = 64;
 	protected EntityFigure baseFigure;
 	protected AbstractComparePart.CompareMapper leftMapper;
 	protected AbstractComparePart.CompareMapper rightMapper;

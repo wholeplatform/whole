@@ -18,6 +18,7 @@
 package org.whole.lang.models.ui.editparts;
 
 import org.eclipse.gef.EditPart;
+import org.whole.lang.changes.reflect.ChangesLanguageKit;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.model.adapters.IEntityAdapter;
@@ -54,6 +55,7 @@ import org.whole.lang.models.model.Version;
 import org.whole.lang.models.reflect.ModelsEntityDescriptorEnum;
 import org.whole.lang.models.reflect.ModelsFeatureDescriptorEnum;
 import org.whole.lang.models.visitors.ModelsIdentityDefaultVisitor;
+import org.whole.lang.reflect.ILanguageKit;
 import org.whole.lang.ui.editparts.AnyTypePart;
 import org.whole.lang.ui.editparts.BarSeparatedCompositeFlowPart;
 import org.whole.lang.ui.editparts.CommaSeparatedCompositeFlowPart;
@@ -93,7 +95,13 @@ public class ModelsTabularPartFactoryVisitor extends ModelsIdentityDefaultVisito
 	}
 
 	protected boolean parentHasDifferentLanguage(IEntity entity) {
-		return !EntityUtils.hasParent(entity) || !entity.wGetLanguageKit().equals(entity.wGetParent().wGetLanguageKit());
+		IEntity parentEntity = entity.wGetParent();
+		if (EntityUtils.isNull(parentEntity))
+			return true;
+
+		ILanguageKit parentLaguage = parentEntity.wGetLanguageKit();
+		
+		return !entity.wGetLanguageKit().equals(parentLaguage) && !parentLaguage.getURI().equals(ChangesLanguageKit.URI);
 	}
 
 	public void visit(DataType entity) {

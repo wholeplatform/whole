@@ -15,16 +15,19 @@
 package org.whole.lang.changes.ui.figures;
 
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.whole.lang.ui.figures.ContentPaneFigure;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.layout.OverColumnLayout;
 
 /**
  *  @author  Riccardo Solmi
  */
 public class CopyFigure extends ContentPaneFigure {
+	public static final int CONTENT_MARGIN = 2;
 
     public CopyFigure() {
-		super(new OverColumnLayout());
+		super(new OverColumnLayout().withMargin(CONTENT_MARGIN));
 		initContentPanes(2);
 
 		add(createContentPane(0));
@@ -33,5 +36,10 @@ public class CopyFigure extends ContentPaneFigure {
 
 	protected void paintFigure(Graphics g) {
 		super.paintFigure(g);
+		
+		Rectangle bounds = getBounds();
+
+		g.setForegroundColor(FigureConstants.add2Color);
+		g.drawRectangle(bounds.x, bounds.y, bounds.width-1, bounds.height-1);
 	}
 }
