@@ -1187,7 +1187,7 @@ public class IteratorFactory {
 
 	public static IEntityIterator<?> cloneIterator(IEntityIterator<?> childCloneIterator) {
 		if (childCloneIterator instanceof EmptyIterator) {
-			return new AbstractSingleValuedRunnableIterator<IEntity>(childCloneIterator) {
+			return new AbstractSingleValuedRunnableIterator<IEntity>() {
 				protected void run(IEntity selfEntity, IBindingManager bm) {
 					bm.setResult(EntityUtils.clone(selfEntity));
 				}

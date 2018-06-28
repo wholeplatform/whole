@@ -17,14 +17,25 @@
  */
 package org.whole.lang.commons.visitors;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import org.whole.lang.commons.CommonsLibraryDeployer;
 import org.whole.lang.commons.model.ICommonsEntity;
 import org.whole.lang.commons.model.Resolver;
 import org.whole.lang.commons.model.StageDownFragment;
+import org.whole.lang.commons.model.StageUpFragment;
+import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
+import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.util.BehaviorUtils;
 import org.whole.lang.util.EntityUtils;
 import org.whole.lang.util.WholeMessages;
+import org.whole.lang.visitors.AbstractVisitor;
+import org.whole.lang.visitors.VisitException;
 
 /**
  * @author Riccardo Solmi
@@ -33,6 +44,13 @@ public class CommonsDynamicCompilerVisitor extends CommonsIdentityDefaultVisitor
 	@Override
 	public void visit(ICommonsEntity entity) {
 		setResultIterator(IteratorFactory.templateInterpreterIterator(entity).withSourceEntity(entity));
+	}
+
+	@Override
+	public void visit(Resolver entity) {
+		IEntity parent = entity.wGetParent();
+		if (!EntityUtils.isNull(parent) && !parent.wGetFeatureDescriptor(entity).isOptional())
+			throw new IllegalArgumentException(WholeMessages.no_optional);
 	}
 
 	@Override
@@ -46,9 +64,59 @@ public class CommonsDynamicCompilerVisitor extends CommonsIdentityDefaultVisitor
 	}
 
 	@Override
-	public void visit(Resolver entity) {
-		IEntity parent = entity.wGetParent();
-		if (!EntityUtils.isNull(parent) && !parent.wGetFeatureDescriptor(entity).isOptional())
-			throw new IllegalArgumentException(WholeMessages.no_optional);
+	public void visit(StageUpFragment entity) {
+		IEntity rootEntity = entity.getRootEntity().wGetAdaptee(false);
+
+		Set<IEntity> variables = new HashSet<>();
+		List<IEntity> fragments = new ArrayList<>();
+		Matcher.findAll(new AbstractVisitor() {
+			public void visit(IEntity entity) {
+				if (EntityUtils.isVariable(entity))
+					variables.add(entity);
+				if (!EntityUtils.isFragment(entity))
+					throw new VisitException();
+			}
+
+			public void toString(StringBuilder sb) {
+				sb.append("isFragment()");
+			}
+		}, rootEntity, fragments, false);
+
+		if (fragments.isEmpty() && variables.isEmpty()) {
+			IEntity compiled = BehaviorUtils.apply(CommonsLibraryDeployer.URI+"#constantStageUpFragmentCompiler", entity);
+			IEntityIterator<?> compiledIterator = (IEntityIterator<?>) compiled.wGetValue();
+			setResultIterator(compiledIterator);
+			
+//			setResultIterator(
+//					IteratorFactory.chooseIterator(
+//							IteratorFactory.ifIterator(
+//									IteratorFactory.atStageIterator(0),
+//									IteratorFactory.constantIterator(rootEntity, true)),
+//							IteratorFactory.templateInterpreterIterator(entity)
+//					).withSourceEntity(entity)
+//			);
+			return;
+//		} else if (variables.isEmpty()) {
+//			ChooseByOrderIterator<IEntity> chooseIterator = IteratorFactory.chooseIterator(
+//					IteratorFactory.ifIterator(
+//							IteratorFactory.constantIterator(BindingManagerFactory.instance.createValue(false), true),
+//							IteratorFactory.constantIterator(rootEntity, true)),
+//					IteratorFactory.emptyIterator() //placeholder for the recursive cloneIterator below
+//			);
+//			chooseIterator.setChildIterator(chooseIterator.childIteratorSize()-1, IteratorFactory.composeIterator(
+//					IteratorFactory.cloneIterator(chooseIterator), IteratorFactory.selfIterator()));
+//			chooseIterator.withSourceEntity(entity);
+//
+//			setResultIterator(
+//					IteratorFactory.chooseIterator(
+//							IteratorFactory.ifIterator(IteratorFactory.atStageIterator(0), chooseIterator),
+//							IteratorFactory.templateInterpreterIterator(entity)
+//					).withSourceEntity(entity)
+//			);
+//			return;
+		} else
+			fragments.isEmpty();
+
+		super.visit(entity);
 	}
 }
