@@ -22,6 +22,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.whole.lang.operations.AnonymousOperation;
 import org.whole.lang.operations.CloneContext;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.operations.IOperation;
@@ -37,8 +38,6 @@ public class EnvironmentManager implements IEnvironmentManager {
 	protected FreshNameGenerator freshNameGenerator = new FreshNameGenerator();
 
 	protected EnvironmentManager() {
-		//FIXME test only
-//		currentOperation = new AnonymousOperation(this);
 	}
 
 	public IEnvironmentManager clone() {
@@ -47,9 +46,12 @@ public class EnvironmentManager implements IEnvironmentManager {
 	public IEnvironmentManager clone(ICloneContext cc) {
 		EnvironmentManager em = new EnvironmentManager();
 		cc.putClone(this, em);
+		
+		IBindingManager operationEnvironment = getCurrentOperation().getOperationEnvironment();
 		for (String envName : getEnvironmentNames())
 			em.environments.put(em.freshNameGenerator.nextFreshName(envName),
 					cc.clone(getEnvironment(envName)));
+		em.currentOperation = new AnonymousOperation(cc.clone(operationEnvironment));
 		return em;
 	}
 
@@ -89,6 +91,10 @@ public class EnvironmentManager implements IEnvironmentManager {
 		IBindingManager env;
 		environments.put(freshNameGenerator.nextFreshName(namePrefix),
 				env = BindingManagerFactory.instance.createBindingManager(scope, this));
+
+		if (currentOperation == null)
+			currentOperation = new AnonymousOperation(env);
+
 		return env;
 	}
 

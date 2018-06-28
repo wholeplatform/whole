@@ -18,7 +18,7 @@
 package org.whole.lang.operations;
 
 import org.whole.lang.bindings.BindingManagerFactory;
-import org.whole.lang.bindings.IEnvironmentManager;
+import org.whole.lang.bindings.IBindingManager;
 
 /**
  * @author Riccardo Solmi
@@ -30,9 +30,9 @@ public class AnonymousOperation extends AbstractOperation {
 		super(ID, BindingManagerFactory.instance.createBindingManager(), true);
 		getEnvironmentManager().enterOperation(this);
 	}
-	//FIXME test only
-	public AnonymousOperation(IEnvironmentManager env) {
-		super(ID, env.createEnvironment("bm"), true);
+
+	public AnonymousOperation(IBindingManager bm) {
+		super(ID, bm, null);
 		getEnvironmentManager().enterOperation(this);
 	}
 }
