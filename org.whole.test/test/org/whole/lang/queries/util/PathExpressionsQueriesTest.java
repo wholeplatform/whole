@@ -615,7 +615,6 @@ public class PathExpressionsQueriesTest {
 		Assert.assertEquals("VersionEncodingValueNameNameSpaceCharDataCDataSectDataCommentText", names.toString());
 	}
 
-	@Category(KnownFailingTests.class)
 	@Test
 	public void testBindingOfSelfIndex() {
 		ITemplateManager tm = PathExpressionsQueriesTemplateManager.instance();

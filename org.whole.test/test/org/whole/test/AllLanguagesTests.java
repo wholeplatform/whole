@@ -47,7 +47,7 @@ import org.whole.lang.xsd.util.XsiDateTimeUtilsTest;
 
 /**
  * Runs: 252
- * Errors: 2
+ * Errors: 1
  * Failures: 11
 
  * @author Riccardo Solmi

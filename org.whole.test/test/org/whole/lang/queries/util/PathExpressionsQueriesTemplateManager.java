@@ -277,6 +277,7 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
                 b0.ChildStep();
                 b0.And_(2);
                 b0.TypeTest("Production");
+                b0.IndexVariableTest("index");
                 b0.GreaterOrEquals_();
                 b0.VariableRefStep("index");
                 b0.IntLiteral(2);

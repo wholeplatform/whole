@@ -18,17 +18,21 @@
 package org.whole.lang.commons.visitors;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
-import org.whole.lang.commons.CommonsLibraryDeployer;
+import org.whole.lang.commons.model.Fragment;
 import org.whole.lang.commons.model.ICommonsEntity;
 import org.whole.lang.commons.model.Resolver;
 import org.whole.lang.commons.model.StageDownFragment;
 import org.whole.lang.commons.model.StageUpFragment;
+import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
+import org.whole.lang.matchers.GenericMatcherFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.util.BehaviorUtils;
@@ -81,42 +85,69 @@ public class CommonsDynamicCompilerVisitor extends CommonsIdentityDefaultVisitor
 				sb.append("isFragment()");
 			}
 		}, rootEntity, fragments, false);
-
+		
 		if (fragments.isEmpty() && variables.isEmpty()) {
-			IEntity compiled = BehaviorUtils.apply(CommonsLibraryDeployer.URI+"#constantStageUpFragmentCompiler", entity);
-			IEntityIterator<?> compiledIterator = (IEntityIterator<?>) compiled.wGetValue();
-			setResultIterator(compiledIterator);
-			
-//			setResultIterator(
-//					IteratorFactory.chooseIterator(
-//							IteratorFactory.ifIterator(
-//									IteratorFactory.atStageIterator(0),
-//									IteratorFactory.constantIterator(rootEntity, true)),
-//							IteratorFactory.templateInterpreterIterator(entity)
-//					).withSourceEntity(entity)
-//			);
+			visitFragment(entity, false);
 			return;
-//		} else if (variables.isEmpty()) {
-//			ChooseByOrderIterator<IEntity> chooseIterator = IteratorFactory.chooseIterator(
-//					IteratorFactory.ifIterator(
-//							IteratorFactory.constantIterator(BindingManagerFactory.instance.createValue(false), true),
-//							IteratorFactory.constantIterator(rootEntity, true)),
-//					IteratorFactory.emptyIterator() //placeholder for the recursive cloneIterator below
-//			);
-//			chooseIterator.setChildIterator(chooseIterator.childIteratorSize()-1, IteratorFactory.composeIterator(
-//					IteratorFactory.cloneIterator(chooseIterator), IteratorFactory.selfIterator()));
-//			chooseIterator.withSourceEntity(entity);
-//
-//			setResultIterator(
-//					IteratorFactory.chooseIterator(
-//							IteratorFactory.ifIterator(IteratorFactory.atStageIterator(0), chooseIterator),
-//							IteratorFactory.templateInterpreterIterator(entity)
-//					).withSourceEntity(entity)
-//			);
-//			return;
+		} else if (fragments.isEmpty()) {
+			visitFragment(entity, false);
+			return;
 		} else
 			fragments.isEmpty();
 
 		super.visit(entity);
+	}
+
+	public void visitFragment(Fragment fragment, boolean nested) {
+		IEntity sourceEntity = fragment;
+		fragment = EntityUtils.clone(fragment);
+		IEntity rootEntity = fragment.getRootEntity().wGetAdaptee(false);
+
+		List<Fragment> fragments = new ArrayList<>();
+		Matcher.findAll(GenericMatcherFactory.instance.isFragmentMatcher(), rootEntity, fragments, false);
+
+		Map<IEntity, IEntityIterator<?>> fragmentIteratorMap = new HashMap<>();
+//FIXME
+//		fragments.forEach((e) -> {
+//			setResult(null);
+//			visitFragment(e, true);//FIXME
+//			fragmentIteratorMap.put(e, getResultIterator());
+//		});
+
+		IEntityIterator<?> compiledIterator = IteratorFactory.chooseIterator(
+			IteratorFactory.ifIterator(
+					IteratorFactory.atStageIterator(0),
+					IteratorFactory.composeIterator(
+							IteratorFactory.chooseIterator(
+									IteratorFactory.ifIterator(
+											IteratorFactory.isFragmentIterator(), IteratorFactory.nestedFragmentIterator(fragmentIteratorMap)),
+									IteratorFactory.ifIterator(
+											IteratorFactory.isVariableIterator(), IteratorFactory.nestedVariableIterator()),
+									IteratorFactory.cloneReplacingIterator(
+											IteratorFactory.chooseIterator(
+													IteratorFactory.ifIterator(
+															IteratorFactory.isFragmentIterator(), IteratorFactory.nestedFragmentIterator(fragmentIteratorMap)),
+													IteratorFactory.ifIterator(
+															IteratorFactory.isVariableIterator(), IteratorFactory.nestedVariableIterator())
+											), Set.of(
+											CommonsEntityDescriptorEnum.StageUpFragment.getURI(),
+											CommonsEntityDescriptorEnum.StageDownFragment.getURI(),
+											CommonsEntityDescriptorEnum.SameStageFragment.getURI(),
+											CommonsEntityDescriptorEnum.Variable.getURI(),
+											CommonsEntityDescriptorEnum.InlineVariable.getURI()))),
+							IteratorFactory.constantIterator(rootEntity, false))),
+			IteratorFactory.templateInterpreterIterator(fragment)//TODO IteratorFactory.constantIterator(fragment, true)
+		).withSourceEntity(sourceEntity);
+
+		if (!nested) {
+			String outerSelfName = "outerSelf";
+			compiledIterator = IteratorFactory.scopeIterator(
+				IteratorFactory.blockIterator(
+						IteratorFactory.filterIterator(IteratorFactory.selfIterator(), IteratorFactory.asVariableIterator(outerSelfName)),
+						compiledIterator
+				), null, Set.of(outerSelfName), true).withSourceEntity(sourceEntity);
+		}
+
+		setResultIterator(compiledIterator);
 	}
 }

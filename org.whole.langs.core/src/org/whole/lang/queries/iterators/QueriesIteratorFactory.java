@@ -17,10 +17,6 @@
  */
 package org.whole.lang.queries.iterators;
 
-import java.util.Set;
-
-import org.whole.lang.bindings.AbstractFilterScope;
-import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.model.IEntity;
@@ -29,14 +25,6 @@ import org.whole.lang.model.IEntity;
  * @author Riccardo Solmi
  */
 public class QueriesIteratorFactory extends IteratorFactory {
-	public static CartesianProductIterator cartesianProductIterator(IEntityIterator<? extends IEntity>... iterators) {
-		return new CartesianProductIterator(iterators);
-	}
-
-	public static PointwiseProductIterator pointwiseProductIterator(IEntityIterator<? extends IEntity>... iterators) {
-		return new PointwiseProductIterator(iterators);
-	}
-
 	public static IEntityIterator<?> tupleFactoryIterator(IEntityIterator<?>... tupleIterators) {
 		return new TupleFactoryIterator(tupleIterators);
 	}
@@ -45,25 +33,12 @@ public class QueriesIteratorFactory extends IteratorFactory {
 		return new SelectIterator<E>(selectIterator, fromIterator, whereIterator);
 	}
 
-//	public static <E extends IEntity> SelectIterator<E> doIterator(IEntityIterator<E> doIterator) {
-//		return selectIterator(doIterator, selfIterator(), emptyIterator());
-//	}
+	public static CartesianProductIterator cartesianProductIterator(IEntityIterator<? extends IEntity>... iterators) {
+		return new CartesianProductIterator(iterators);
+	}
 
-	public static <E extends IEntity> IEntityIterator<E> callIterator(String name, IEntityIterator<? extends E>... argsIterators) {
-    	return new CallIterator<E>(name, argsIterators);
-    }
-	public static <E extends IEntity> IEntityIterator<E> scopeIterator(IEntityIterator<E> scopeIterator, String environmentName, Set<String> localNames, boolean withFreshNames) {
-    	return withFreshNames ? new LocalScopeIterator<E>(scopeIterator, localNames) :
-    		new LocalScopeIterator<E>(scopeIterator, localNames) {
-    			@Override
-    			protected AbstractFilterScope createScopeFilter(Set<String> localNames) {
-    				return BindingManagerFactory.instance.createIncludeFilterScope(localNames);
-    			}
-    		};
-    }
-
-	public static <E extends IEntity> IEntityIterator<E> deleteIterator(IEntityIterator<E> valuesIterator) {
-		return new DeleteIterator<E>(valuesIterator);
+	public static PointwiseProductIterator pointwiseProductIterator(IEntityIterator<? extends IEntity>... iterators) {
+		return new PointwiseProductIterator(iterators);
 	}
 
 	public static <E extends IEntity> CartesianUpdateIterator<E> cartesianUpdateIterator(IEntityIterator<? extends E> valuesIterator, IEntityIterator<E> toIterator) {
@@ -81,4 +56,12 @@ public class QueriesIteratorFactory extends IteratorFactory {
 	public static <E extends IEntity> IEntityIterator<E> pointwiseInsertIterator(IEntityIterator<E> valuesIterator, IEntityIterator<? super E> toIterator, Placement placement) {
 		return new PointwiseInsertIterator<E>(valuesIterator, toIterator, placement);
 	}
+
+	public static <E extends IEntity> IEntityIterator<E> deleteIterator(IEntityIterator<E> valuesIterator) {
+		return new DeleteIterator<E>(valuesIterator);
+	}
+
+	public static <E extends IEntity> IEntityIterator<E> callIterator(String name, IEntityIterator<? extends E>... argsIterators) {
+    	return new CallIterator<E>(name, argsIterators);
+    }
 }

@@ -21,6 +21,7 @@ import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.commons.model.BaseFragment;
 import org.whole.lang.commons.model.InlineVariable;
+import org.whole.lang.commons.model.QuantifierEnum;
 import org.whole.lang.commons.model.Resolver;
 import org.whole.lang.commons.model.RootFragment;
 import org.whole.lang.commons.model.SameStageFragment;
@@ -28,11 +29,9 @@ import org.whole.lang.commons.model.StageDownFragment;
 import org.whole.lang.commons.model.StageUpFragment;
 import org.whole.lang.commons.model.TemplateFragment;
 import org.whole.lang.commons.model.Variable;
-import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.commons.reflect.CommonsFeatureDescriptorEnum;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
-import org.whole.lang.matchers.Matcher;
 import org.whole.lang.matchers.SubstituteException;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.model.adapters.IEntityAdapter;
@@ -108,20 +107,60 @@ public class CommonsInterpreterVisitor extends CommonsIdentityVisitor {
     	String varName = variable.getVarName().getValue();
     	IEntity value = BindingUtils.wGet(bm, varName);
 		if (value != null) {
-			if (Matcher.match(CommonsEntityDescriptorEnum.InlineVariable, variable)) {
-				bm.setResultIterator(IteratorFactory.constantChildIterator(value));
-				value = null;
-			} else {
-				EntityDescriptor<?> varType = variable.getVarType().getValue();
-				try {
-					bm.setResult(value = EntityUtils.convertCloneIfParented(value, varType));
-				} catch (IllegalArgumentException e) {
-					throw new SubstituteException(variable, value.wGetEntityDescriptor());					
-				}
-			}
+			setVariableValueResult(bm, variable, value);
 			return value;
 		} else
 			throw new VisitException(new MissingVariableException(varName).withSourceEntity(variable).withBindings(bm));
+	}
+
+
+	public static void setVariableValueResult(IBindingManager bm, Variable variable, IEntity value) {
+		if (BindingManagerFactory.instance.isVoid(value))
+			bm.setResult(value);
+		else {
+			EntityDescriptor<?> varType = variable.getVarType().getValue();
+			QuantifierEnum.Value quantifierValue = variable.getQuantifier().getValue();
+			
+			if (quantifierValue.isComposite()) {
+				Variable newVariable = EntityUtils.clone(variable);
+				newVariable.getQuantifier().setValue(quantifierValue.toOptional());
+
+				if (EntityUtils.isInlineVariable(variable)) {
+					bm.setResultIterator(
+							IteratorFactory.sequenceIterator(
+								IteratorFactory.constantChildIterator(inlineValues(value, varType)),
+								IteratorFactory.constantIterator(newVariable, true)));
+				} else {
+					try {
+						bm.setResultIterator(
+								IteratorFactory.sequenceIterator(
+									IteratorFactory.constantIterator(EntityUtils.convertCloneIfParented(value, varType), true),
+									IteratorFactory.constantIterator(newVariable, true)));
+					} catch (IllegalArgumentException e) {
+						throw new SubstituteException(variable, value.wGetEntityDescriptor());					
+					}
+				}
+			} else {
+				if (EntityUtils.isInlineVariable(variable)) {
+					bm.setResultIterator(
+							IteratorFactory.constantChildIterator(inlineValues(value, varType)));
+				} else {
+					try {
+						bm.setResult(EntityUtils.convertCloneIfParented(value, varType));
+					} catch (IllegalArgumentException e) {
+						throw new SubstituteException(variable, value.wGetEntityDescriptor());					
+					}
+				}
+			}
+		}
+	}
+	public static IEntity inlineValues(IEntity container, EntityDescriptor<?> varType) {
+		IEntity result = BindingManagerFactory.instance.createTuple();
+
+		for (int i=0, size=container.wSize(); i<size; i++)
+			result.wAdd(EntityUtils.convertCloneIfParented(container.wGet(i), varType));
+		
+		return result;
 	}
 
 	@Override

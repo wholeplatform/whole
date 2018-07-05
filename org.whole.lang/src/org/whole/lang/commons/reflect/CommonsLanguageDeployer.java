@@ -21,7 +21,6 @@ import org.whole.lang.builders.GenericBuilderAdapterOperation;
 import org.whole.lang.builders.IBuilder;
 import org.whole.lang.builders.IBuilderFactory;
 import org.whole.lang.builders.SpecificBuilderAdapterOperation;
-import org.whole.lang.commons.CommonsLibraryDeployer;
 import org.whole.lang.commons.builders.CommonsGenericBuilderAdapter;
 import org.whole.lang.commons.builders.CommonsSpecificBuilderAdapter;
 import org.whole.lang.commons.builders.ICommonsBuilder;
@@ -110,8 +109,6 @@ public class CommonsLanguageDeployer extends AbstractLanguageDeployer {
 					return null;
 			}
 		});
-
-		new CommonsLibraryDeployer().deploy(platform);
 	}
 
 	public void undeploy(ReflectionFactory platform) {

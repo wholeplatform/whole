@@ -27,7 +27,6 @@ import java.util.Set;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.ITransactionScope;
-import org.whole.lang.commons.model.Variable;
 import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.commons.reflect.CommonsLanguageKit;
@@ -64,7 +63,6 @@ import org.whole.lang.reflect.ILanguageKit;
 import org.whole.lang.util.EntityUtils;
 import org.whole.lang.util.WholeMessages;
 import org.whole.lang.visitors.IVisitor;
-import org.whole.lang.visitors.MissingVariableException;
 
 /**
  * @author Riccardo Solmi
@@ -100,11 +98,6 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 			case CommonsEntityDescriptorEnum.Resolver_ord:
 				setResultIterator(IteratorFactory.emptyIterator().withSourceEntity(adaptee));
 				return false;
-			case CommonsEntityDescriptorEnum.Variable_ord:
-			case CommonsEntityDescriptorEnum.InlineVariable_ord:
-				throw new MissingVariableException(((Variable) adaptee).getVarName().toString())
-						.withSourceEntity(adaptee).withBindings(getBindings());
-			case CommonsEntityDescriptorEnum.RootFragment_ord:
 			case CommonsEntityDescriptorEnum.StageDownFragment_ord:
 				setResultIterator(IteratorFactory
 						.templateInterpreterIterator(GenericEntityFactory.instance
@@ -159,7 +152,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 
 		boolean withFreshNames = !(entity.getLocalNames() instanceof ScopeNames);
 		if (!withFreshNames || !localNames.isEmpty())
-			setResultIterator(QueriesIteratorFactory.scopeIterator(getResultIterator(), null, localNames, withFreshNames).withSourceEntity(entity));
+			setResultIterator(IteratorFactory.scopeIterator(getResultIterator(), null, localNames, withFreshNames).withSourceEntity(entity));
 	}
 
 	@Override
@@ -606,7 +599,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		entity.getFromClause().accept(this);
 		IEntityIterator<? extends IEntity> fromIterator = getResultIterator();
 
-		setResultIterator(QueriesIteratorFactory.cloneIterator(fromIterator).withSourceEntity(entity));
+		setResultIterator(QueriesIteratorFactory.cloneReplacingIterator(fromIterator).withSourceEntity(entity));
 	}
 
 	@Override

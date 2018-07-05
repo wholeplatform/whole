@@ -17,11 +17,17 @@
  */
 package org.whole.lang.iterators;
 
+import java.util.Map;
+import java.util.Set;
+
+import org.whole.lang.bindings.AbstractFilterScope;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.commons.factories.CommonsEntityFactory;
+import org.whole.lang.commons.model.Variable;
 import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
+import org.whole.lang.commons.visitors.CommonsInterpreterVisitor;
 import org.whole.lang.comparators.IEntityComparator;
 import org.whole.lang.comparators.ObjectIdentityComparator;
 import org.whole.lang.matchers.Matcher;
@@ -68,6 +74,16 @@ public class IteratorFactory {
 	}
 	public static <E extends IEntity> ConstantComposeIterator<E> constantComposeIterator(IEntity constant, IEntityIterator<E> iterator) {
 		return new ConstantComposeIterator<E>(constant, iterator);
+	}
+	public static <E extends IEntity> IEntityIterator<E> constantSubstituteIterator(E constant, boolean useClone) {
+		return new ConstantIterator<E>(constant, useClone) {
+			@Override
+			public E next() {
+				E pattern = super.next();
+				Matcher.substitute(pattern, getBindings(), true);
+				return pattern;
+			}
+		};
 	}
 
 	public static <E extends IEntity> IEntityIterator<E> entityCollectionIterator(Iterable<E> entityCollectionIterable) {
@@ -1185,54 +1201,141 @@ public class IteratorFactory {
 		};
 	}
 
-	public static IEntityIterator<?> cloneIterator(IEntityIterator<?> childCloneIterator) {
-		if (childCloneIterator instanceof EmptyIterator) {
+	public static <E extends IEntity> IEntityIterator<E> scopeIterator(IEntityIterator<E> scopeIterator, String environmentName, Set<String> localNames, boolean withFreshNames) {
+    	return withFreshNames ? new LocalScopeIterator<E>(scopeIterator, localNames) :
+    		new LocalScopeIterator<E>(scopeIterator, localNames) {
+    			@Override
+    			protected AbstractFilterScope createScopeFilter(Set<String> localNames) {
+    				return BindingManagerFactory.instance.createIncludeFilterScope(localNames);
+    			}
+    		};
+    }
+
+	public static final String outerSelfName = "outerSelf";
+	public static IEntityIterator<?> nestedVariableIterator() {
+		return new AbstractMultiValuedRunnableIterator<IEntity>() {
+			@Override
+			protected void run(IEntity selfEntity, IBindingManager bm) {
+					IEntity outerSelfEntity = bm.wGet("outerSelf");
+					bm.wDef("self", outerSelfEntity);//TODO preserve outer self
+					Variable variable = (Variable) selfEntity;
+					String varName = variable.getVarName().getValue();
+		        	IEntity value = BindingUtils.wGet(bm, varName);
+					if (value != null) {
+						CommonsInterpreterVisitor.setVariableValueResult(bm, variable, value);
+					} else
+						bm.setResult(EntityUtils.cloneIfParented(selfEntity));					
+			}
+
+			public void toString(StringBuilder sb) {
+				sb.append("nestedVariable");
+				super.toString(sb);
+			}
+		};
+	}
+
+	public static IEntityIterator<?> nestedFragmentIterator(Map<IEntity, IEntityIterator<?>> fragmentIteratorMap) {
+		return new AbstractMultiValuedRunnableIterator<IEntity>() {
+			@Override
+			protected void run(IEntity selfEntity, IBindingManager bm) {
+				IEntityIterator<?> fragmentIterator = fragmentIteratorMap.getOrDefault(selfEntity, IteratorFactory.emptyIterator());
+				
+				IEntity outerSelfEntity = bm.wGet("outerSelf");
+				bm.wDef("self", outerSelfEntity);//TODO preserve outer self
+				fragmentIterator.reset(outerSelfEntity);
+				bm.setResultIterator(fragmentIterator);
+			}
+
+			public void toString(StringBuilder sb) {
+				sb.append("nestedFragment");
+				super.toString(sb);
+			}
+		};
+	}
+
+	public static IEntityIterator<?> cloneReplacingIterator(IEntityIterator<?> childMappingIterator) {
+		return cloneReplacingIterator(childMappingIterator, null);
+	}
+	public static IEntityIterator<?> cloneReplacingIterator(IEntityIterator<?> childMappingIterator, Set<String> shallowUriSet) {
+		if (childMappingIterator instanceof EmptyIterator) {
 			return new AbstractSingleValuedRunnableIterator<IEntity>() {
 				protected void run(IEntity selfEntity, IBindingManager bm) {
 					bm.setResult(EntityUtils.clone(selfEntity));
 				}
 			};
 		} else
-			return new AbstractSingleValuedRunnableIterator<IEntity>(childCloneIterator) {
-				protected void run(IEntity selfEntity, IBindingManager bm) {
-					//TODO add scope with entityCloneMap
-	
-					EntityDescriptor<?> ed = selfEntity.wGetEntityDescriptor();
-					boolean isComposite = ed.getEntityKind().isComposite();
+			return new CloneReplacingIterator(shallowUriSet, childMappingIterator);
+	}
 
-					IEntity entityClone = ((InternalIEntity) selfEntity).wShallowClone();
-					((InternalIEntity) entityClone).wShallowClean();
+	public static final class CloneReplacingIterator extends AbstractSingleValuedRunnableIterator<IEntity> {
+		private final Set<String> shallowUriSet;
 
-					for (int index=0, size=selfEntity.wSize(); index<size; index++) {
-						IEntity childPrototype = selfEntity.wGet(index);
-						
-						bm.wDef("self", childPrototype);
-						argsIterators[0].reset(childPrototype);
-	
-						if (isComposite) {
-							while (argsIterators[0].hasNext()) {
-								IEntity childClone = argsIterators[0].next();
+		private CloneReplacingIterator(Set<String> shallowUriSet, IEntityIterator<?>... argsIterators) {
+			super(argsIterators);
+			this.shallowUriSet = shallowUriSet;
+		}
+
+		protected void run(IEntity selfEntity, IBindingManager bm) {
+			IEntity oldSelfEntity = bm.wGet("self");
+			bm.setResult(deepClone(selfEntity, bm));
+			if (bm.wGet("self") != oldSelfEntity)
+				bm.wDef("self", oldSelfEntity);
+		}
+
+		protected IEntity deepClone(IEntity selfEntity, IBindingManager bm) {
+			//TODO add scope with entityCloneMap
+
+			EntityDescriptor<?> ed = selfEntity.wGetEntityDescriptor();
+			boolean isComposite = ed.getEntityKind().isComposite();
+
+			IEntity entityClone = ((InternalIEntity) selfEntity).wShallowClone();
+			((InternalIEntity) entityClone).wShallowClean();
+
+			for (int index=0, size=selfEntity.wSize(); index<size; index++) {
+				IEntity childPrototype = selfEntity.wGet(index);
+
+				if (keepCloning(childPrototype)) {
+					IEntity childClone = deepClone(childPrototype, bm);
+					if (isComposite)
+						entityClone.wAdd(childClone);
+					else
+						entityClone.wSet(index, childClone);							
+				} else {
+					bm.wDef("self", childPrototype);
+					argsIterators[0].reset(childPrototype);
+
+					if (isComposite) {
+						for (IEntity childClone : argsIterators[0])
+							if (!BindingManagerFactory.instance.isVoid(childClone))
 								entityClone.wAdd(childClone);
-							}
-						} else {
-							IEntity childClone = null;
-							while (argsIterators[0].hasNext()) {
-								childClone = argsIterators[0].next();
-							}
-							entityClone.wSet(index, childClone != null ? childClone :
-								CommonsEntityFactory.instance.createResolver());
-						}
-					}
-					//TODO clone references
-					//TODO clone aspects
-	
-					bm.setResult(entityClone);
+					} else {
+						IEntity lastChildClone = null;
+						for (IEntity childClone : argsIterators[0])
+							if (!BindingManagerFactory.instance.isVoid(childClone))
+								lastChildClone = childClone;
+						entityClone.wSet(index, lastChildClone != null ? lastChildClone :
+							CommonsEntityFactory.instance.createResolver());
+					}							
 				}
-	
-				public void toString(StringBuilder sb) {
-					sb.append("clone");
-					super.toString(sb);
-				}
-			};
+			}
+			//TODO clone references
+			//TODO clone aspects
+
+			return entityClone;
+		}
+
+		protected boolean keepCloning(IEntity childPrototype) {
+			if (shallowUriSet == null)
+				return false;
+			else {
+				String childUri = childPrototype.wGetEntityDescriptor().getURI();
+				return !shallowUriSet.contains(childUri);
+			}
+		}
+
+		public void toString(StringBuilder sb) {
+			sb.append("clone");
+			super.toString(sb);
+		}
 	}
 }
