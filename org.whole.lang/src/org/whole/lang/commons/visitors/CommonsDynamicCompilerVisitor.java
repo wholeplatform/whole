@@ -19,7 +19,6 @@ package org.whole.lang.commons.visitors;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -70,30 +69,30 @@ public class CommonsDynamicCompilerVisitor extends CommonsIdentityDefaultVisitor
 	@Override
 	public void visit(StageUpFragment entity) {
 		IEntity rootEntity = entity.getRootEntity().wGetAdaptee(false);
-
-		Set<IEntity> variables = new HashSet<>();
 		List<IEntity> fragments = new ArrayList<>();
+		List<IEntity> stageUpFragments = new ArrayList<>();
 		Matcher.findAll(new AbstractVisitor() {
 			public void visit(IEntity entity) {
-				if (EntityUtils.isVariable(entity))
-					variables.add(entity);
-				if (!EntityUtils.isFragment(entity))
+				if (Matcher.matchAnyImpl(entity,
+						CommonsEntityDescriptorEnum.StageUpFragment))
+					stageUpFragments.add(entity);
+
+				if (!Matcher.matchAnyImpl(entity,
+						CommonsEntityDescriptorEnum.StageDownFragment,
+						CommonsEntityDescriptorEnum.StageUpFragment))
 					throw new VisitException();
 			}
 
 			public void toString(StringBuilder sb) {
-				sb.append("isFragment()");
+				sb.append("isStageShiftingFragment()");
 			}
 		}, rootEntity, fragments, false);
 		
-		if (fragments.isEmpty() && variables.isEmpty()) {
+//FIXME		if (stageUpFragments.isEmpty()) {
+		if (fragments.isEmpty()) {
 			visitFragment(entity, false);
 			return;
-		} else if (fragments.isEmpty()) {
-			visitFragment(entity, false);
-			return;
-		} else
-			fragments.isEmpty();
+		}
 
 		super.visit(entity);
 	}
@@ -104,15 +103,37 @@ public class CommonsDynamicCompilerVisitor extends CommonsIdentityDefaultVisitor
 		IEntity rootEntity = fragment.getRootEntity().wGetAdaptee(false);
 
 		List<Fragment> fragments = new ArrayList<>();
-		Matcher.findAll(GenericMatcherFactory.instance.isFragmentMatcher(), rootEntity, fragments, false);
+		Matcher.findAll(new AbstractVisitor() {
+			public void visit(IEntity entity) {
+				if (!Matcher.matchAnyImpl(entity,
+						CommonsEntityDescriptorEnum.StageDownFragment,
+						CommonsEntityDescriptorEnum.StageUpFragment))
+					throw new VisitException();
+			}
+
+			public void toString(StringBuilder sb) {
+				sb.append("isStageShiftingFragment()");
+			}
+		}, rootEntity, fragments, false);
 
 		Map<IEntity, IEntityIterator<?>> fragmentIteratorMap = new HashMap<>();
-//FIXME
-//		fragments.forEach((e) -> {
-//			setResult(null);
-//			visitFragment(e, true);//FIXME
-//			fragmentIteratorMap.put(e, getResultIterator());
-//		});
+		IEntity oldSelfEntity = getBindings().wGet("self");
+		int stage = getStage();
+
+		fragments.forEach((f) -> {
+        	if (getBindings().wGet("self") != oldSelfEntity)
+        		getBindings().wDef("self", oldSelfEntity);
+
+			setResult(null);
+			IEntityIterator<?> fragmentIterator = null;
+			if (Matcher.matchAnyImpl(f, CommonsEntityDescriptorEnum.StageDownFragment)) {
+				stagedVisit(f.wGetRoot(), -stage);
+				fragmentIterator = getResultIterator();
+			} else
+				setResultIterator(fragmentIterator = IteratorFactory.templateInterpreterIterator(f));
+
+			fragmentIteratorMap.put(f, getResultIterator());
+		});
 
 		IEntityIterator<?> compiledIterator = IteratorFactory.chooseIterator(
 			IteratorFactory.ifIterator(
@@ -132,7 +153,6 @@ public class CommonsDynamicCompilerVisitor extends CommonsIdentityDefaultVisitor
 											), Set.of(
 											CommonsEntityDescriptorEnum.StageUpFragment.getURI(),
 											CommonsEntityDescriptorEnum.StageDownFragment.getURI(),
-											CommonsEntityDescriptorEnum.SameStageFragment.getURI(),
 											CommonsEntityDescriptorEnum.Variable.getURI(),
 											CommonsEntityDescriptorEnum.InlineVariable.getURI()))),
 							IteratorFactory.constantIterator(rootEntity, false))),

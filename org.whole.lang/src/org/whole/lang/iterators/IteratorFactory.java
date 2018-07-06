@@ -1217,7 +1217,7 @@ public class IteratorFactory {
 			@Override
 			protected void run(IEntity selfEntity, IBindingManager bm) {
 					IEntity outerSelfEntity = bm.wGet("outerSelf");
-					bm.wDef("self", outerSelfEntity);//TODO preserve outer self
+					bm.wDef("self", outerSelfEntity);
 					Variable variable = (Variable) selfEntity;
 					String varName = variable.getVarName().getValue();
 		        	IEntity value = BindingUtils.wGet(bm, varName);
@@ -1240,10 +1240,20 @@ public class IteratorFactory {
 			protected void run(IEntity selfEntity, IBindingManager bm) {
 				IEntityIterator<?> fragmentIterator = fragmentIteratorMap.getOrDefault(selfEntity, IteratorFactory.emptyIterator());
 				
-				IEntity outerSelfEntity = bm.wGet("outerSelf");
-				bm.wDef("self", outerSelfEntity);//TODO preserve outer self
-				fragmentIterator.reset(outerSelfEntity);
+				//TODO clone iterator
+
+//				IEntity outerSelfEntity = bm.wGet("outerSelf");
+//				bm.wDef("self", outerSelfEntity);
+//				fragmentIterator.setBindings(bm);
+//				fragmentIterator.reset(outerSelfEntity);
 				bm.setResultIterator(fragmentIterator);
+			}
+			@Override
+			protected void resetResultIterator(IEntityIterator<IEntity> resultIterator, IEntity selfEntity, IBindingManager bm) {
+				IEntity outerSelfEntity = bm.wGet("outerSelf");
+				bm.wDef("self", outerSelfEntity);
+				resultIterator.setBindings(bm);
+				resultIterator.reset(outerSelfEntity);
 			}
 
 			public void toString(StringBuilder sb) {
@@ -1301,20 +1311,22 @@ public class IteratorFactory {
 					else
 						entityClone.wSet(index, childClone);							
 				} else {
+					FeatureDescriptor childFeatureDescriptor = entityClone.wGetFeatureDescriptor(index);
 					bm.wDef("self", childPrototype);
 					argsIterators[0].reset(childPrototype);
 
 					if (isComposite) {
 						for (IEntity childClone : argsIterators[0])
 							if (!BindingManagerFactory.instance.isVoid(childClone))
-								entityClone.wAdd(childClone);
+								entityClone.wAdd(EntityUtils.convertCloneIfReparenting(childClone, childFeatureDescriptor));
 					} else {
 						IEntity lastChildClone = null;
 						for (IEntity childClone : argsIterators[0])
 							if (!BindingManagerFactory.instance.isVoid(childClone))
 								lastChildClone = childClone;
-						entityClone.wSet(index, lastChildClone != null ? lastChildClone :
-							CommonsEntityFactory.instance.createResolver());
+						entityClone.wSet(index, lastChildClone != null ?
+								EntityUtils.convertCloneIfReparenting(lastChildClone, childFeatureDescriptor) :
+								CommonsEntityFactory.instance.createResolver());
 					}							
 				}
 			}

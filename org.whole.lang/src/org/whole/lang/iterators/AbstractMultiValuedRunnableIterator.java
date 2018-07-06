@@ -67,14 +67,19 @@ public abstract class AbstractMultiValuedRunnableIterator<E extends IEntity> ext
 				resultIterator = bm.getResultIterator();
 				if (bm.hasResultIterator()) {
 					bm.setResultIterator(null);
-					resultIterator.setBindings(bm);
-					resultIterator.reset(selfEntity);
+//					resultIterator.setBindings(bm);
+//					resultIterator.reset(selfEntity);
+					resetResultIterator(resultIterator, selfEntity, bm);
 				}
 			} catch (Throwable e) {
 				resultIterator = IteratorFactory.failureIterator(e);
 			}
 		}
 		return resultIterator;
+	}
+	protected void resetResultIterator(IEntityIterator<E> resultIterator, IEntity selfEntity, IBindingManager bm) {
+		resultIterator.setBindings(bm);
+		resultIterator.reset(selfEntity);
 	}
 
 

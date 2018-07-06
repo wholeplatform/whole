@@ -118,7 +118,7 @@ public class GenericTemplateInterpreterVisitor extends AbstractVisitor {
 	        	if (selfEntity != oldSelfEntity2)
 	        		getBindings().wDef("self", selfEntity = oldSelfEntity2);
 				iterator.reset(selfEntity);
-				FeatureDescriptor resultChildDescriptor = entityClone.wGetFeatureDescriptor(index);
+				FeatureDescriptor childFeatureDescriptor = entityClone.wGetFeatureDescriptor(index);
 				if (EntityUtils.isComposite(entityClone)) {
     				entityClone.wRemove(index--);
     				if (iterator.hasNext()) {
@@ -131,7 +131,7 @@ public class GenericTemplateInterpreterVisitor extends AbstractVisitor {
 	    					if (BindingManagerFactory.instance.isVoid(e))
 	    						resultSize = nextResultSize;
 	    					else {
-		    					entityClone.wAdd(++index, EntityUtils.convertCloneIfReparenting(e, resultChildDescriptor));
+		    					entityClone.wAdd(++index, EntityUtils.convertCloneIfReparenting(e, childFeatureDescriptor));
 		    					resultSize = entityClone.wSize();
 	    					}
 	    					resettableScope.commit();
@@ -153,7 +153,7 @@ public class GenericTemplateInterpreterVisitor extends AbstractVisitor {
 	    				getBindings().wExitScope();
     				}
 					if (e != null)
-						entityClone.wSet(index, EntityUtils.convertCloneIfReparenting(e, resultChildDescriptor));
+						entityClone.wSet(index, EntityUtils.convertCloneIfReparenting(e, childFeatureDescriptor));
 					else
 						entityClone.wRemove(index);
 				}
