@@ -69,10 +69,10 @@ public class IteratorFactory {
 	public static <E extends IEntity> IEntityIterator<E> constantIterator(E constant, boolean useClone) {
 		return new ConstantIterator<E>(constant, useClone);
 	}
-	public static <E extends IEntity> ConstantChildIterator<E> constantChildIterator(IEntity constant) {
+	public static <E extends IEntity> IEntityIterator<E> constantChildIterator(IEntity constant) {
 		return new ConstantChildIterator<E>(true, constant);
 	}
-	public static <E extends IEntity> ConstantComposeIterator<E> constantComposeIterator(IEntity constant, IEntityIterator<E> iterator) {
+	public static <E extends IEntity> IEntityIterator<E> constantComposeIterator(IEntity constant, IEntityIterator<E> iterator) {
 		return new ConstantComposeIterator<E>(constant, iterator);
 	}
 	public static <E extends IEntity> IEntityIterator<E> constantSubstituteIterator(E constant, boolean useClone) {
@@ -347,10 +347,10 @@ public class IteratorFactory {
 	}
 
 
-	public static <E extends IEntity> IfIterator<E> ifIterator(IEntityIterator<? extends IEntity> conditionIterator, IEntityIterator<E> doIterator) {
+	public static <E extends IEntity> IEntityIterator<E> ifIterator(IEntityIterator<? extends IEntity> conditionIterator, IEntityIterator<E> doIterator) {
 		return new IfIterator<E>(conditionIterator, doIterator);
 	}
-	public static <E extends IEntity> ForIterator<E> forIterator(IEntityIterator<? extends IEntity> forIterator, IEntityIterator<E> doIterator) {
+	public static <E extends IEntity> IEntityIterator<E> forIterator(IEntityIterator<? extends IEntity> forIterator, IEntityIterator<E> doIterator) {
 		return new ForIterator<E>(forIterator, doIterator);
 	}
 
@@ -365,7 +365,7 @@ public class IteratorFactory {
 	}
 
 	@SafeVarargs
-	public static <E extends IEntity> ChooseByOrderIterator<E> chooseIterator(IEntityIterator<? extends E>... iteratorChain) {
+	public static <E extends IEntity> IEntityIterator<E> chooseIterator(IEntityIterator<? extends E>... iteratorChain) {
 		return new ChooseByOrderIterator<E>(iteratorChain);
 	}
 
@@ -374,17 +374,17 @@ public class IteratorFactory {
 	}
 
 	@SafeVarargs
-	public static <E extends IEntity> SequenceIterator<E> blockIterator(IEntityIterator<? extends E>... iteratorChain) {
+	public static <E extends IEntity> IEntityIterator<E> blockIterator(IEntityIterator<? extends E>... iteratorChain) {
 		return new BlockIterator<E>(iteratorChain);
 	}
 
 	@SafeVarargs
-	public static <E extends IEntity> SequenceIterator<E> sequenceIterator(IEntityIterator<? extends E>... iteratorChain) {
+	public static <E extends IEntity> IEntityIterator<E> sequenceIterator(IEntityIterator<? extends E>... iteratorChain) {
 		return new SequenceIterator<E>(iteratorChain);
 	}
 
 	@SafeVarargs
-	public static <E extends IEntity> ComposeIterator<E> composeIterator(IEntityIterator<E> iterator, IEntityIterator<? extends IEntity>... nestedIterators) {
+	public static <E extends IEntity> IEntityIterator<E> composeIterator(IEntityIterator<E> iterator, IEntityIterator<? extends IEntity>... nestedIterators) {
 		return new ComposeIterator<E>(iterator, nestedIterators);
 	}
 

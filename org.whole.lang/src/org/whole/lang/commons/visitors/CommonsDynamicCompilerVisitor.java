@@ -30,8 +30,8 @@ import org.whole.lang.commons.model.StageDownFragment;
 import org.whole.lang.commons.model.StageUpFragment;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.iterators.InstrumentingIterator;
 import org.whole.lang.iterators.IteratorFactory;
-import org.whole.lang.matchers.GenericMatcherFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.util.BehaviorUtils;
@@ -94,7 +94,8 @@ public class CommonsDynamicCompilerVisitor extends CommonsIdentityDefaultVisitor
 			return;
 		}
 
-		super.visit(entity);
+//		setResultIterator(new InstrumentingIterator<IEntity>(IteratorFactory.templateInterpreterIterator(entity)).withSourceEntity(entity));
+		setResultIterator(IteratorFactory.templateInterpreterIterator(entity).withSourceEntity(entity));
 	}
 
 	public void visitFragment(Fragment fragment, boolean nested) {
@@ -130,7 +131,9 @@ public class CommonsDynamicCompilerVisitor extends CommonsIdentityDefaultVisitor
 				stagedVisit(f.wGetRoot(), -stage);
 				fragmentIterator = getResultIterator();
 			} else
-				setResultIterator(fragmentIterator = IteratorFactory.templateInterpreterIterator(f));
+				setResultIterator(fragmentIterator = 
+//						new InstrumentingIterator<IEntity>(IteratorFactory.templateInterpreterIterator(f)).withSourceEntity(sourceEntity));
+						IteratorFactory.templateInterpreterIterator(f).withSourceEntity(sourceEntity));
 
 			fragmentIteratorMap.put(f, getResultIterator());
 		});
@@ -156,7 +159,8 @@ public class CommonsDynamicCompilerVisitor extends CommonsIdentityDefaultVisitor
 											CommonsEntityDescriptorEnum.Variable.getURI(),
 											CommonsEntityDescriptorEnum.InlineVariable.getURI()))),
 							IteratorFactory.constantIterator(rootEntity, false))),
-			IteratorFactory.templateInterpreterIterator(fragment)//TODO IteratorFactory.constantIterator(fragment, true)
+//			new InstrumentingIterator<IEntity>(IteratorFactory.templateInterpreterIterator(fragment)).withSourceEntity(sourceEntity)//TODO IteratorFactory.constantIterator(fragment, true)
+			IteratorFactory.templateInterpreterIterator(fragment).withSourceEntity(sourceEntity)//TODO IteratorFactory.constantIterator(fragment, true)
 		).withSourceEntity(sourceEntity);
 
 		if (!nested) {

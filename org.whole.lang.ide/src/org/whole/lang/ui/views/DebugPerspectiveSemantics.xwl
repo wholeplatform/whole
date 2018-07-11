@@ -4,7 +4,7 @@
     <semantics:Namespace value="org.whole.lang.ui.views"/>
     <semantics:Name value="DebugPerspective"/>
     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-    <semantics:SemanticFunctions initialCapacity="2">
+    <semantics:SemanticFunctions initialCapacity="3">
         <semantics:SemanticFunction>
             <semantics:Name value="DebugViewModel"/>
             <semantics:FunctionType>
@@ -18,7 +18,7 @@
                         <environment:Job>
                             <environment:Index value="0"/>
                             <environment:ExecutionStack initialCapacity="1">
-                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver/>
                             </environment:ExecutionStack>
                         </environment:Job>
                     </environment:Jobs>
@@ -33,12 +33,20 @@
             </semantics:FunctionType>
             <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                 <environment:VariablesViewModel xmlns:environment="http://lang.whole.org/Environment">
-                    <commons:Resolver/>
+                    <environment:EnvironmentManager value=""/>
                     <environment:Environments initialCapacity="1">
                         <commons:Resolver/>
                     </environment:Environments>
                 </environment:VariablesViewModel>
             </commons:StageUpFragment>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="breakpointEnabler"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:AnyType/>
+            </semantics:FunctionType>
+            <queries:BooleanLiteral xmlns:queries="http://lang.whole.org/Queries" value="false"/>
         </semantics:SemanticFunction>
     </semantics:SemanticFunctions>
 </semantics:SemanticTheory>

@@ -16,6 +16,7 @@ Export-Package: org.whole.lang.java,
  org.whole.lang.ui.views,
  org.whole.lang.ui.wizards,
  org.whole.lang.workflows.ui.dialogs,
+ org.whole.lang.workflows.util,
  org.whole.lang.workflows.visitors
 Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.console,

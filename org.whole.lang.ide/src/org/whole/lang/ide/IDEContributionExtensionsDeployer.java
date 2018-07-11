@@ -18,9 +18,11 @@
 package org.whole.lang.ide;
 
 import org.whole.lang.codebase.ClasspathPersistenceProvider;
+import org.whole.lang.iterators.instrumentation.DebuggerInstrumentation;
 import org.whole.lang.operations.InterpreterOperation;
 import org.whole.lang.reflect.AbstractContributionExtensionDeployer;
 import org.whole.lang.reflect.ReflectionFactory;
+import org.whole.lang.workflows.util.BreakpointUtils;
 import org.whole.lang.xml.codebase.XmlBuilderPersistenceKit;
 
 /**
@@ -34,6 +36,9 @@ public class IDEContributionExtensionsDeployer extends AbstractContributionExten
 
 			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
 					new ClasspathPersistenceProvider("org/whole/lang/ui/views/SamplePerspectiveSemantics.xwl")));
+
+			DebuggerInstrumentation.breakpointPredicate = BreakpointUtils.breakpointPredicate;
+			DebuggerInstrumentation.breakpointConsumer = BreakpointUtils.breakpointConsumer;
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		}
