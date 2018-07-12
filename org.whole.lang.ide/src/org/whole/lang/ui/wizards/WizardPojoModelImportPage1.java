@@ -178,7 +178,7 @@ public class WizardPojoModelImportPage1 extends AbstractWizardWholeModelImportPa
 			if (map.containsKey(compilationUnitName)) {
 				List<String> memberNames = map.get(compilationUnitName);
 				BodyDeclarations bodyDeclarations = compilationUnit.getTypes().get(0).getBodyDeclarations();
-				IEntityIterator<TypeDeclaration> entityIterator = IteratorFactory.<TypeDeclaration>childMatcherIterator()
+				IEntityIterator<TypeDeclaration> entityIterator = IteratorFactory.instance.<TypeDeclaration>childMatcherIterator()
 						.withPattern(JavaEntityDescriptorEnum.TypeDeclaration);
 				entityIterator.reset(bodyDeclarations);
 				while (entityIterator.hasNext()) 

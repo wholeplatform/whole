@@ -43,7 +43,7 @@ public class QueriesUtils {
 		QueriesEntityFactory qef = QueriesEntityFactory.instance;
 		Path path = qef.createPath(0);
 		IEntity parent = null;
-		IEntityIterator<IEntity> iterator = IteratorFactory.ancestorOrSelfReverseIterator();
+		IEntityIterator<IEntity> iterator = IteratorFactory.instance.ancestorOrSelfReverseIterator();
 		iterator.reset(entity);
 		
 		if (CommonsEntityDescriptorEnum.RootFragment.equals(iterator.lookahead().wGetEntityDescriptor()))

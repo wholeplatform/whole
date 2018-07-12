@@ -276,7 +276,7 @@ public abstract class AbstractOrderedCompositeEntity<E extends IEntity> extends 
 
 	//FIXME
 	public Iterator<E> iterator() {
-		return IteratorFactory.entityCollectionIterator(elements);
+		return IteratorFactory.instance.entityCollectionIterator(elements);
 	}
 	//FIXME
 	public ListIterator<E> listIterator() {

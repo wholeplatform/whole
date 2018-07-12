@@ -31,7 +31,7 @@ public class FollowingIterator<E extends IEntity> extends AbstractTransitiveClos
 	@Override
 	protected void pushInitialIterators(IEntity entity) {
 		if (entity == null || !EntityUtils.hasParent(entity))
-			pushIterator(IteratorFactory.<E>emptyIterator(), entity);
+			pushIterator(IteratorFactory.instance.<E>emptyIterator(), entity);
 		else {
 			IEntity parent = entity.wGetParent();
 			pushInitialIterators(parent);
@@ -40,8 +40,8 @@ public class FollowingIterator<E extends IEntity> extends AbstractTransitiveClos
 	}
 
 	protected IEntityIterator<E> createChildIterator() {
-		return includeSelf ? IteratorFactory.<E>followingSiblingOrSelfIterator() :
-			IteratorFactory.<E>followingSiblingIterator();
+		return includeSelf ? IteratorFactory.instance.<E>followingSiblingOrSelfIterator() :
+			IteratorFactory.instance.<E>followingSiblingIterator();
 	}
 
 	@Override

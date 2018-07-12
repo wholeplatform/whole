@@ -92,7 +92,7 @@ public class GenericPredictiveParser extends AbstractPredictiveParser {
 
 		cb = (ICommonsBuilder) op.wGetBuilder(CommonsLanguageKit.URI);
 
-		AbstractPatternFilterIterator<Production> i = IteratorFactory.<Production>descendantOrSelfMatcherIterator().withPattern(GrammarsEntityDescriptorEnum.Production);
+		AbstractPatternFilterIterator<Production> i = IteratorFactory.instance.<Production>descendantOrSelfMatcherIterator().withPattern(GrammarsEntityDescriptorEnum.Production);
 		i.reset(this.grammar);
 		for (Production production : i)
 			productionsMap.put(production.getName().getValue(), production);
@@ -388,7 +388,7 @@ public class GenericPredictiveParser extends AbstractPredictiveParser {
 
 			switch (predicate.wGetEntityOrd()) {
 			case GrammarsEntityDescriptorEnum.And_ord:
-				iterator = IteratorFactory.<Predicate>childIterator();
+				iterator = IteratorFactory.instance.<Predicate>childIterator();
 				iterator.reset(predicate);
 				while (iterator.hasNext()) {
 					Lexer.Memento memento = mark();
@@ -398,7 +398,7 @@ public class GenericPredictiveParser extends AbstractPredictiveParser {
 				break;
 
 			case GrammarsEntityDescriptorEnum.Or_ord:
-				iterator = IteratorFactory.<Predicate>childIterator();
+				iterator = IteratorFactory.instance.<Predicate>childIterator();
 				iterator.reset(predicate);
 				while (iterator.hasNext()) {
 					Lexer.Memento memento = mark();

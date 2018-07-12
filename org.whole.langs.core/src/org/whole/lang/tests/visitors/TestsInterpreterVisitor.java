@@ -157,7 +157,7 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 		Results results = TestsEntityFactory.instance.createResults();
 		printWriter().printf("* %s test case running:\n\n", name);
 		try {
-			IEntityIterator<BeforeTestCase> beforeIterator = IteratorFactory.<BeforeTestCase>childMatcherIterator().withPattern(BeforeTestCase);
+			IEntityIterator<BeforeTestCase> beforeIterator = IteratorFactory.instance.<BeforeTestCase>childMatcherIterator().withPattern(BeforeTestCase);
 			beforeIterator.reset(entity.getAspects());
 			for (BeforeTestCase beforeTestCase : beforeIterator) {
 				beforeTestCase.accept(this);
@@ -188,7 +188,7 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 				result.setValue(result.getValue() + 1);
 			}
 
-			IEntityIterator<AfterTestCase> afterIterator = IteratorFactory.<AfterTestCase>childMatcherIterator().withPattern(AfterTestCase);
+			IEntityIterator<AfterTestCase> afterIterator = IteratorFactory.instance.<AfterTestCase>childMatcherIterator().withPattern(AfterTestCase);
 			afterIterator.reset(entity.getAspects());
 			for (AfterTestCase afterTestCase : afterIterator) {
 				afterTestCase.accept(this);

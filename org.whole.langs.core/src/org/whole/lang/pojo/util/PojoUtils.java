@@ -226,7 +226,7 @@ public class PojoUtils {
 
 	public static void translate(Object fromObject, IEntity toIEntity, PojoDeclaration pojoDeclaration, Library library) {
 		// translate inherited properties
-		IEntityIterator<ReferenceType> superPojosIterator = IteratorFactory.<ReferenceType>childIterator();
+		IEntityIterator<ReferenceType> superPojosIterator = IteratorFactory.instance.<ReferenceType>childIterator();
 		superPojosIterator.reset(pojoDeclaration.getTypes());
 		for (ReferenceType superType : superPojosIterator) {
 			PojoDeclaration superDeclaration = (PojoDeclaration) findProductDeclaration(superType, library);
@@ -234,7 +234,7 @@ public class PojoUtils {
 		}
 
 		// translate declared properties
-		IEntityIterator<Property> iterator = IteratorFactory.<Property>childIterator();
+		IEntityIterator<Property> iterator = IteratorFactory.instance.<Property>childIterator();
 		iterator.reset(pojoDeclaration.getProperties());
 		EntityDescriptor<?> ed = toIEntity.wGetEntityDescriptor();
 		Property property = null;
@@ -262,7 +262,7 @@ public class PojoUtils {
 
 	public static void translate(IEntity fromEntity, Object toObject, PojoDeclaration pojoDeclaration, Library library) {
 		// translate inherited properties
-		IEntityIterator<ReferenceType> superPojosIterator = IteratorFactory.<ReferenceType>childIterator();
+		IEntityIterator<ReferenceType> superPojosIterator = IteratorFactory.instance.<ReferenceType>childIterator();
 		superPojosIterator.reset(pojoDeclaration.getTypes());
 		for (ReferenceType superType : superPojosIterator) {
 			PojoDeclaration superDeclaration = (PojoDeclaration) findProductDeclaration(superType, library);
@@ -270,7 +270,7 @@ public class PojoUtils {
 		}
 
 		// translate declared properties
-		IEntityIterator<Property> iterator = IteratorFactory.<Property>childIterator();
+		IEntityIterator<Property> iterator = IteratorFactory.instance.<Property>childIterator();
 		iterator.reset(pojoDeclaration.getProperties());
 		EntityDescriptor<?> ed = fromEntity.wGetEntityDescriptor();
 		Property property = null;
@@ -424,7 +424,7 @@ public class PojoUtils {
 			case CollectionType_ord:
 				Collection<Object> toCollection = ((CollectionType) type).getCollectionInterface().getValue().equals(CollectionInterfaceEnum.Set) ?
 						new HashSet<Object>() : new ArrayList<Object>();
-				IEntityIterator<IEntity> ci = IteratorFactory.childIterator();
+				IEntityIterator<IEntity> ci = IteratorFactory.instance.childIterator();
 				ci.reset(fromEntity);
 				for (IEntity feature : ci)
 					toCollection.add(create(feature, library));
@@ -490,7 +490,7 @@ public class PojoUtils {
 	public static List<Constructor> getConstructors(PojoDeclaration pojoDeclaration) {
 		Constructors constructors = pojoDeclaration.getConstructors();
 		List<Constructor> constructorsList = new ArrayList<Constructor>(constructors.wSize());
-		IEntityIterator<Constructor> i = IteratorFactory.<Constructor>childIterator();
+		IEntityIterator<Constructor> i = IteratorFactory.instance.<Constructor>childIterator();
 		i.reset(constructors);
 		for (Constructor constructor : i)
 			constructorsList.add(constructor);

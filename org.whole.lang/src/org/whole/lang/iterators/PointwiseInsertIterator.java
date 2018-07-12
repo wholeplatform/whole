@@ -15,36 +15,63 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.queries.iterators;
+package org.whole.lang.iterators;
 
 import org.whole.lang.bindings.BindingManagerFactory;
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Riccardo Solmi
  */
-public class PointwiseUpdateIterator<E extends IEntity> extends AbstractPointwiseIterator<E> {
-	protected PointwiseUpdateIterator(IEntityIterator<E> valuesIterator, IEntityIterator<? super E> toIterator) {
+public class PointwiseInsertIterator<E extends IEntity> extends AbstractPointwiseIterator<E> {
+	protected Placement placement;
+
+	protected PointwiseInsertIterator(IEntityIterator<E> valuesIterator, IEntityIterator<? super E> toIterator, Placement placement) {
 		super(valuesIterator, toIterator);
+		this.placement = placement;
 	}
 
 	@SuppressWarnings("unchecked")
 	protected E doLookahead(IEntity toLookahead, E nextEntity) {
-		return (E) EntityUtils.convertCloneIfParented(nextEntity, EntityUtils.getFormalType(toLookahead));
+		EntityDescriptor<?> toEd;
+		switch (placement) {
+		case BEFORE:
+			toEd = toLookahead.wGetParent().wGetEntityDescriptor(toLookahead);
+			break;
+		case INTO:
+			//TODO workaround for Resolver ED
+			if (EntityUtils.isResolver(toLookahead))
+				toEd = toLookahead.wGetParent().wGetEntityDescriptor(toLookahead).getEntityDescriptor(0);
+			else
+				toEd = toLookahead.wGetEntityDescriptor(0);
+			break;
+		default:
+			throw new IllegalArgumentException("unsupported placement");
+		}
+		return (E) EntityUtils.convertCloneIfParented(nextEntity, toEd);
 	}
 
 	protected void doNext(IEntity toEntity, E nextEntity) {
 		if (BindingManagerFactory.instance.isVoid(nextEntity))
 			return;
 
-		toIterator.set(EntityUtils.cloneIfParented(nextEntity));
+		switch (placement) {
+		case BEFORE:
+			toIterator.add(nextEntity);
+			break;
+		case INTO:
+			toEntity.wAdd(nextEntity);
+			break;
+		}
 	}
 
     @Override
 	public void toString(StringBuilder sb) {
-    	sb.append("update(");
+    	sb.append("insert");
+    	sb.append(placement);
+    	sb.append("(");
     	sb.append(toIterator.toString());
     	sb.append(" .= ");
     	super.toString(sb);

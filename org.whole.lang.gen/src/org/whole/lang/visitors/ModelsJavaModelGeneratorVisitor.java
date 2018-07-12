@@ -111,7 +111,7 @@ public class ModelsJavaModelGeneratorVisitor extends ModelsIdentityVisitor {
 	}
 
 	private String findFirstConcreteEntity(ModelDeclarations declarations) {
-		IEntityIterator<ModelDeclaration> i = IteratorFactory.<ModelDeclaration>childIterator();
+		IEntityIterator<ModelDeclaration> i = IteratorFactory.instance.<ModelDeclaration>childIterator();
 		i.reset(declarations);
 		for (ModelDeclaration declaration : i) {
 			String name = declaration.getName().wStringValue();
@@ -242,7 +242,7 @@ public class ModelsJavaModelGeneratorVisitor extends ModelsIdentityVisitor {
 	}
 
 	public void visit(Types types) {
-		AbstractPatternFilterIterator<SimpleName> i = IteratorFactory.<SimpleName>childMatcherIterator()
+		AbstractPatternFilterIterator<SimpleName> i = IteratorFactory.instance.<SimpleName>childMatcherIterator()
 				.withPattern(ModelsEntityDescriptorEnum.SimpleName);
 		i.reset(types);
 		for (SimpleName name : i) {
@@ -573,7 +573,7 @@ public class ModelsJavaModelGeneratorVisitor extends ModelsIdentityVisitor {
 
     public void visit(SupertypesOf entity) {
     	List<String> types = new ArrayList<String>();
-		AbstractPatternFilterIterator<SimpleName> i = IteratorFactory.<SimpleName>childMatcherIterator()
+		AbstractPatternFilterIterator<SimpleName> i = IteratorFactory.instance.<SimpleName>childMatcherIterator()
 				.withPattern(ModelsEntityDescriptorEnum.SimpleName);
 		i.reset(entity.getTypes());
 		for (SimpleName name : i)
@@ -588,7 +588,7 @@ public class ModelsJavaModelGeneratorVisitor extends ModelsIdentityVisitor {
 
     public void visit(SubtypesOf entity) {
     	List<String> types = new ArrayList<String>();
-		AbstractPatternFilterIterator<SimpleName> i = IteratorFactory.<SimpleName>childMatcherIterator()
+		AbstractPatternFilterIterator<SimpleName> i = IteratorFactory.instance.<SimpleName>childMatcherIterator()
 				.withPattern(ModelsEntityDescriptorEnum.SimpleName);
 		i.reset(entity.getTypes());
 		for (SimpleName name : i)

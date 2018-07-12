@@ -60,7 +60,7 @@ public class CompiledMappingStrategy extends AbstractMappingStrategy {
 		this.strategy = NormalizerOperation.normalize(EntityUtils.clone(strategy));
 		this.indexes.addAll(this.strategy.getMappings());
 
-		IEntityIterator<CustomDataType> customIterator = IteratorFactory.<CustomDataType>childMatcherIterator()
+		IEntityIterator<CustomDataType> customIterator = IteratorFactory.instance.<CustomDataType>childMatcherIterator()
 				.withPattern(MappingEntityDescriptorEnum.CustomDataType);
 		customIterator.reset(this.strategy.getDataTypes());
 		for (CustomDataType customDataType : customIterator) {
@@ -69,7 +69,7 @@ public class CompiledMappingStrategy extends AbstractMappingStrategy {
 			this.parsers.put(parseEntityDescriptor(edUri), SchemaDataTypes.getDataTypeParser(builtInType));
 		}
 
-		IEntityIterator<EnumDataType> enumIterator = IteratorFactory.<EnumDataType>childMatcherIterator()
+		IEntityIterator<EnumDataType> enumIterator = IteratorFactory.instance.<EnumDataType>childMatcherIterator()
 				.withPattern(MappingEntityDescriptorEnum.EnumDataType);
 		enumIterator.reset(this.strategy.getDataTypes());
 		for (EnumDataType enumDataType : enumIterator) {
@@ -124,7 +124,7 @@ public class CompiledMappingStrategy extends AbstractMappingStrategy {
 	public Collection<EntityDescriptor<?>> getUnionEntityMappings(EntityDescriptor<?> context) {
 		//TODO optimize
 		String contextURI = unparseEntityDescriptor(context);
-		AbstractPatternFilterIterator<UnionMapping> i2 = IteratorFactory.<UnionMapping>childMatcherIterator()
+		AbstractPatternFilterIterator<UnionMapping> i2 = IteratorFactory.instance.<UnionMapping>childMatcherIterator()
 				.withPattern(UnionMapping);
 		i2.reset(strategy.getMappings());
 		for (UnionMapping mapping : i2)

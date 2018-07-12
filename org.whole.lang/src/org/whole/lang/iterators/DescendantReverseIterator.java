@@ -29,7 +29,7 @@ public class DescendantReverseIterator<E extends IEntity> extends AbstractTransi
 
     @Override
     protected IEntityIterator<E> createRelationIterator() {
-    	return IteratorFactory.<E>childReverseIterator();
+    	return IteratorFactory.instance.<E>childReverseIterator();
     }
 
     @Override

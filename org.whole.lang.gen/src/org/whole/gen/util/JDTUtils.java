@@ -174,7 +174,7 @@ public class JDTUtils {
 	}
 
 	public static IEntityIterator<IEntity> generateJavaSystemSoftware() {
-		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
+		return IteratorFactory.instance.singleValuedRunnableIterator(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				final List<CompilationUnit> cuList = JavaCompilerOperation.compile(selfEntity, bm);
 				final JavaSystemSoftware javaSystemSoftware = JavaEntityFactory.instance.createJavaSystemSoftware(0);

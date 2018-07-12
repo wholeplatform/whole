@@ -107,7 +107,7 @@ public class PropertiesUtils {
 				translate(props.getDefaults()));
 
 		props.getEntries();
-		ScannerIterator<Property> i = IteratorFactory.<Property>childScannerIterator();
+		ScannerIterator<Property> i = IteratorFactory.instance.<Property>childScannerIterator();
 		i.reset(props.getEntries());
 		for (Property p : i)
 			try {

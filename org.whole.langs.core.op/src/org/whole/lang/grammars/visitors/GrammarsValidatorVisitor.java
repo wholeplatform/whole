@@ -66,7 +66,7 @@ public class GrammarsValidatorVisitor extends GrammarsIdentityDefaultVisitor {
 	}
 
 	public void checkPatterns(Grammar entity) {
-		AbstractPatternFilterIterator<RegExp> i = IteratorFactory.<RegExp>descendantOrSelfMatcherIterator().withPattern(GrammarsEntityDescriptorEnum.RegExp);
+		AbstractPatternFilterIterator<RegExp> i = IteratorFactory.instance.<RegExp>descendantOrSelfMatcherIterator().withPattern(GrammarsEntityDescriptorEnum.RegExp);
 		i.reset(entity);
 		for (RegExp regex : i) {
 			try {
@@ -79,7 +79,7 @@ public class GrammarsValidatorVisitor extends GrammarsIdentityDefaultVisitor {
 
 	public static void checkFormats(Grammar entity) {
 		//TODO
-//		for (Format format : IteratorFactory.<Format>topDownMatcherIterator(entity).usePattern(GrammarsEntityDescriptorEnum.Format)) {
+//		for (Format format : IteratorFactory.instance.<Format>topDownMatcherIterator(entity).usePattern(GrammarsEntityDescriptorEnum.Format)) {
 //			new Formatter().format(format, args)
 //		}
 	}
@@ -89,7 +89,7 @@ public class GrammarsValidatorVisitor extends GrammarsIdentityDefaultVisitor {
 		Set<String> ntUses = new HashSet<String>();
 		Set<NonTerminal> nts = new HashSet<NonTerminal>();
 		
-		AbstractPatternFilterIterator<NonTerminal> i = IteratorFactory.<NonTerminal>descendantOrSelfMatcherIterator().withPattern(GrammarsEntityDescriptorEnum.NonTerminal);
+		AbstractPatternFilterIterator<NonTerminal> i = IteratorFactory.instance.<NonTerminal>descendantOrSelfMatcherIterator().withPattern(GrammarsEntityDescriptorEnum.NonTerminal);
 		i.reset(entity);
 		for (NonTerminal nt : i) {
 			IEntity parent = nt.wGetParent();
@@ -110,7 +110,7 @@ public class GrammarsValidatorVisitor extends GrammarsIdentityDefaultVisitor {
 			if (!ntDefs.contains(nt.getValue()))
 				getDecorationManager().addError(nt, "Production not defined", nt.getValue());//TODO location with production
 
-		AbstractPatternFilterIterator<Production> i2 = IteratorFactory.<Production>childMatcherIterator()
+		AbstractPatternFilterIterator<Production> i2 = IteratorFactory.instance.<Production>childMatcherIterator()
 				.withPattern(GrammarsEntityDescriptorEnum.Production);
 		i2.reset(entity.getPhraseStructure());
 		for (Production p : i2)

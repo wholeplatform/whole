@@ -85,7 +85,7 @@ public class GrammarsContentAssistVisitor extends GrammarsIdentityVisitor {
 						names.add(nt.getValue());
 				}
 			} else {
-				AbstractPatternFilterIterator<NonTerminal> i = IteratorFactory.<NonTerminal>descendantOrSelfMatcherIterator().withPattern(NonTerminal);
+				AbstractPatternFilterIterator<NonTerminal> i = IteratorFactory.instance.<NonTerminal>descendantOrSelfMatcherIterator().withPattern(NonTerminal);
 				i.reset(grammar);
 				for (NonTerminal nt : i)
 					if (EntityUtils.isNotResolver(nt))

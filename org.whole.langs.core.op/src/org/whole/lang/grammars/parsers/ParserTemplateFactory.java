@@ -183,12 +183,12 @@ public class ParserTemplateFactory<E extends IEntity> extends AbstractTemplateFa
 	}
 	protected Production getProduction(NonTerminal nt) {
 		//TODO cache in a map
-		IEntityIterator<Production> pi = IteratorFactory.<Production>childIterator();
+		IEntityIterator<Production> pi = IteratorFactory.instance.<Production>childIterator();
 		pi.reset(grammar.getPhraseStructure());
 		for (Production p : pi)
 			if (p.getName().wEquals(nt))
 				return p;
-		IEntityIterator<Production> li = IteratorFactory.<Production>childIterator();
+		IEntityIterator<Production> li = IteratorFactory.instance.<Production>childIterator();
 		li.reset(grammar.getLexicalStructure());
 		for (Production p : li)
 			if (p.getName().wEquals(nt))

@@ -176,7 +176,7 @@ public class XsiSimpleElementPart extends AbstractContentPanePart {
 
 		IEntity entity = getModelEntity();
 
-		IEntityIterator<IEntity> i = IteratorFactory.childIterator();
+		IEntityIterator<IEntity> i = IteratorFactory.instance.childIterator();
 		i.reset(entity);
 		for (IEntity child : i) {
 			IMappingStrategy strategy = MappingStrategyUtils.getMappingStrategy(child);

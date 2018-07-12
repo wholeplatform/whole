@@ -83,7 +83,7 @@ public class ModelInfo {
 		FreshNameGenerator entityNameGen = new FreshNameGenerator();
 		FreshNameGenerator featureNameGen = new FreshNameGenerator();
 
-		ScannerIterator<ModelDeclaration> i = IteratorFactory.<ModelDeclaration>childScannerIterator();
+		ScannerIterator<ModelDeclaration> i = IteratorFactory.instance.<ModelDeclaration>childScannerIterator();
 		i.reset(model.getDeclarations());
 		for (ModelDeclaration md : i) {
 			SimpleName simpleName;
@@ -100,7 +100,7 @@ public class ModelInfo {
 			if (md.getModifiers().wContainsValue(EntityModifierEnum._abstract))
 				abstractTypes.add(entityName);
 
-			AbstractPatternFilterIterator<Type> i3 = IteratorFactory.<Type>childMatcherIterator()
+			AbstractPatternFilterIterator<Type> i3 = IteratorFactory.instance.<Type>childMatcherIterator()
 					.withPattern(ModelsEntityDescriptorEnum.SimpleName);
 			i3.reset(md.getTypes());
 			for (Type type : i3) {
@@ -118,7 +118,7 @@ public class ModelInfo {
 					markerTypes.add(entityName);
 
 				Set<String> featureNameSet = new HashSet<String>();
-				ScannerIterator<Feature> i2 = IteratorFactory.<Feature>childScannerIterator();
+				ScannerIterator<Feature> i2 = IteratorFactory.instance.<Feature>childScannerIterator();
 				i2.reset(se.getFeatures());
 				for (Feature feature : i2) {
 					SimpleName featureName = feature.getName();
@@ -280,14 +280,14 @@ public class ModelInfo {
 		}
 	}
 	protected void addInheritedFeatures(SimpleEntity entity, Types types, Set<String> entityTypes, Map<String, Set<String>> entityFeatures) {
-		ScannerIterator<IEntity> i = IteratorFactory.childReverseScannerIterator();
+		ScannerIterator<IEntity> i = IteratorFactory.instance.childReverseScannerIterator();
 		i.reset(types);
 		for (IEntity type : i) {
 			String typeName = type.wStringValue();
 			entityTypes.remove(typeName);
 			SimpleEntity declaration = (SimpleEntity) nameEntityMap.get(typeName);
 			if (declaration != null) {
-				ScannerIterator<Feature> i2 = IteratorFactory.<Feature>childReverseScannerIterator();
+				ScannerIterator<Feature> i2 = IteratorFactory.instance.<Feature>childReverseScannerIterator();
 				i2.reset(declaration.getFeatures());
 				for (Feature feature : i2) {
 					if (entityFeatures.get(entity.getName().wStringValue()).add(feature.getName().wStringValue()))

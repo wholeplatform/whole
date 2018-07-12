@@ -40,7 +40,7 @@ public class JavaReflectLibraryDeployer extends AbstractFunctionLibraryDeployer 
 	}
 
 	public static IEntityIterator<IEntity> compilationUnitIterator() {
-		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
+		return IteratorFactory.instance.singleValuedRunnableIterator(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				try {
 					String className = selfEntity.wStringValue();

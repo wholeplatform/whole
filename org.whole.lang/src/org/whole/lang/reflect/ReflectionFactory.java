@@ -256,13 +256,13 @@ public class ReflectionFactory {
     	return languageKitRegistry.getResources(includeHidden, comparator);
     }
 	public static IEntityIterator<IEntity> languageKitsIterator() {
-		return IteratorFactory.javaCollectionIterator(getLanguageKits(false, ResourceUtils.SIMPLE_COMPARATOR));
+		return IteratorFactory.instance.javaCollectionIterator(getLanguageKits(false, ResourceUtils.SIMPLE_COMPARATOR));
 	}
 	public static IEntityIterator<IEntity> entityDescriptorIterator(ILanguageKit languageKit) {
 		if (languageKit == null)
-			return IteratorFactory.emptyIterator();
+			return IteratorFactory.instance.emptyIterator();
 		else
-			return IteratorFactory.javaCollectionIterator(languageKit.getEntityDescriptorEnum());
+			return IteratorFactory.instance.javaCollectionIterator(languageKit.getEntityDescriptorEnum());
 	}
 	public static EntityDescriptor<?> firstEntityDescriptor(ILanguageKit languageKit, String optName, boolean excludeAbstract) {
 		EntityDescriptorEnum edEnum = languageKit.getEntityDescriptorEnum();

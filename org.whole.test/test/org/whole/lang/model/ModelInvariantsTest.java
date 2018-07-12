@@ -56,7 +56,7 @@ public class ModelInvariantsTest {
     @Category(SlowTests.class)
     @Test
 	public void testLanguageKitOrd() {
-		IEntityIterator<IEntity> i = IteratorFactory.descendantOrSelfIterator();
+		IEntityIterator<IEntity> i = IteratorFactory.instance.descendantOrSelfIterator();
 		i.reset(model);
 		for (IEntity e : i)
 			Assert.assertEquals(e.wGetLanguageKit(), e.wGetEntityDescriptor().getLanguageKit());
@@ -66,7 +66,7 @@ public class ModelInvariantsTest {
 	public void testUniqueCompoundModel() {
 		ICompoundModel compoundModel = model.wGetModel().getCompoundModel();
 
-		IEntityIterator<IEntity> i = IteratorFactory.descendantOrSelfIterator();
+		IEntityIterator<IEntity> i = IteratorFactory.instance.descendantOrSelfIterator();
 		i.reset(model);
 		for (IEntity e : i)
 			Assert.assertEquals(compoundModel, e.wGetModel().getCompoundModel());
@@ -74,7 +74,7 @@ public class ModelInvariantsTest {
 
     @Test
 	public void testUniqueFragmentModel() throws Exception {
-		IEntityIterator<IEntity> i = IteratorFactory.descendantOrSelfIterator();
+		IEntityIterator<IEntity> i = IteratorFactory.instance.descendantOrSelfIterator();
 		i.reset(XmlBuilderPersistenceKit.instance().readModel(
 				new ClasspathPersistenceProvider("org/whole/lang/grammars/GrammarsActions.xwl")));
 		for (IEntity e : i) {

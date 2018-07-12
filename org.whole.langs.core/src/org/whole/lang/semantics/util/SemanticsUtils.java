@@ -65,14 +65,14 @@ public class SemanticsUtils {
 	public static final String USE_IDENTIFIER_SEMANTICS = "USE_IDENTIFIER_SEMANTICS";
 
 	public static IEntityIterator<IEntity> typeCastIterator() {
-		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
+		return IteratorFactory.instance.singleValuedRunnableIterator(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				bm.setResult(BindingManagerFactory.instance.createSpecificValue(selfEntity));
 			}
 		});
 	}
 	public static IEntityIterator<IEntity> typeCastIterator(final String entityTypeUri) {
-		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
+		return IteratorFactory.instance.singleValuedRunnableIterator(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				EntityDescriptor<?> toEd = CommonsDataTypePersistenceParser.parseEntityDescriptor(entityTypeUri);
 				bm.setResult(DataTypeUtils.convertCloneIfParented(selfEntity, toEd));
@@ -81,7 +81,7 @@ public class SemanticsUtils {
 	}
 
 	public static IEntityIterator<IEntity> semanticsTheoriesIterator() {
-		return IteratorFactory.javaCollectionIterator(
+		return IteratorFactory.instance.javaCollectionIterator(
 				FunctionLibraryRegistry.instance().getResources(false, ResourceUtils.SIMPLE_COMPARATOR));
 	}
 	public static IEntity getSemanticTheory(IBindingManager bm, String theoryURI, boolean loadOnDemand) {

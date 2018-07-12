@@ -163,7 +163,7 @@ public class ModelsValidatorVisitor extends ModelsTraverseAllVisitor {
 
 	@Override
 	public void visit(Types entity) {
-		AbstractPatternFilterIterator<SimpleName> i = IteratorFactory.<SimpleName>childMatcherIterator()
+		AbstractPatternFilterIterator<SimpleName> i = IteratorFactory.instance.<SimpleName>childMatcherIterator()
 				.withPattern(ModelsEntityDescriptorEnum.SimpleName);
 		i.reset(entity);
 		for (SimpleName t : i) {
@@ -275,7 +275,7 @@ public class ModelsValidatorVisitor extends ModelsTraverseAllVisitor {
 	protected String location(IEntity entity) {
 		String result = "";
 		
-		IEntityIterator<IEntity> i = IteratorFactory.ancestorReverseIterator();
+		IEntityIterator<IEntity> i = IteratorFactory.instance.ancestorReverseIterator();
 		i.reset(entity);
 		for (IEntity e : i) {
 			if (e.wContains(ModelsFeatureDescriptorEnum.name)

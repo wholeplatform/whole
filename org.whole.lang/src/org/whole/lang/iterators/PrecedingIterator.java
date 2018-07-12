@@ -29,13 +29,13 @@ public class PrecedingIterator<E extends IEntity> extends FollowingIterator<E> {
 
 	@Override
 	protected IEntityIterator<E> createRelationIterator() {
-		return IteratorFactory.<E>childReverseIterator();
+		return IteratorFactory.instance.<E>childReverseIterator();
 	}
 
 	@Override
 	protected IEntityIterator<E> createChildIterator() {
-		return includeSelf ? IteratorFactory.<E>precedingSiblingOrSelfIterator() :
-			IteratorFactory.<E>precedingSiblingIterator();
+		return includeSelf ? IteratorFactory.instance.<E>precedingSiblingOrSelfIterator() :
+			IteratorFactory.instance.<E>precedingSiblingIterator();
 	}
 
 	@Override

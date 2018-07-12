@@ -27,7 +27,6 @@ import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.queries.iterators.QueriesIteratorFactory;
 import org.whole.lang.reusables.model.Resource;
 import org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum;
 
@@ -38,9 +37,9 @@ public abstract class AbstractReusablesSemanticsVisitor extends ReusablesIdentit
 	protected IEntityIterator<?> existsResource(Resource resource) {
 		resource.accept(this);
 		return Matcher.match(ReusablesEntityDescriptorEnum.Model, resource) ?
-				IteratorFactory.someIterator(IteratorFactory.constantComposeIterator(resource.wGetParent(), getResultIterator())) :
-					IteratorFactory.composeIterator(
-									IteratorFactory.singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
+				IteratorFactory.instance.someIterator(IteratorFactory.instance.constantComposeIterator(resource.wGetParent(), getResultIterator())) :
+					IteratorFactory.instance.composeIterator(
+									IteratorFactory.instance.singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
 										if (!BindingManagerFactory.instance.isVoid(selfEntity))
 											bm.setResult(existsResourceOnProvider(selfEntity));
 									}).withSourceEntity(resource), getResultIterator());
@@ -56,9 +55,9 @@ public abstract class AbstractReusablesSemanticsVisitor extends ReusablesIdentit
 	protected IEntityIterator<?> deleteResource(Resource resource) {
 		resource.accept(this);
 		return Matcher.match(ReusablesEntityDescriptorEnum.Model, resource) ?
-				IteratorFactory.constantComposeIterator(resource.wGetParent(), QueriesIteratorFactory.deleteIterator(getResultIterator())) :
-					IteratorFactory.composeIterator(
-									IteratorFactory.singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
+				IteratorFactory.instance.constantComposeIterator(resource.wGetParent(), IteratorFactory.instance.deleteIterator(getResultIterator())) :
+					IteratorFactory.instance.composeIterator(
+									IteratorFactory.instance.singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
 										if (!BindingManagerFactory.instance.isVoid(selfEntity))
 											bm.setResult(deleteResourceFromProvider(selfEntity));
 									}).withSourceEntity(resource), getResultIterator());
@@ -78,9 +77,9 @@ public abstract class AbstractReusablesSemanticsVisitor extends ReusablesIdentit
 	protected IEntityIterator<?> readResource(Resource resource) {
 		resource.accept(this);
 		return Matcher.match(ReusablesEntityDescriptorEnum.Model, resource) ?
-						IteratorFactory.constantComposeIterator(resource.wGetParent(), getResultIterator()) :
-							IteratorFactory.composeIterator(
-									IteratorFactory.singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
+						IteratorFactory.instance.constantComposeIterator(resource.wGetParent(), getResultIterator()) :
+							IteratorFactory.instance.composeIterator(
+									IteratorFactory.instance.singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
 										if (!BindingManagerFactory.instance.isVoid(selfEntity))
 											bm.setResult(readModel(selfEntity));
 									}).withSourceEntity(resource), getResultIterator());
@@ -110,9 +109,9 @@ public abstract class AbstractReusablesSemanticsVisitor extends ReusablesIdentit
 		return
 //		return Matcher.isAssignableAsIsFrom(
 //				QueriesEntityDescriptorEnum.Expression, resource.wGetAdaptee(false)) ?
-//						IteratorFactory.constantComposeIterator(resource.wGetParent(), getResultIterator()) :
-//							IteratorFactory.composeIterator(
-									IteratorFactory.singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
+//						IteratorFactory.instance.constantComposeIterator(resource.wGetParent(), getResultIterator()) :
+//							IteratorFactory.instance.composeIterator(
+									IteratorFactory.instance.singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
 										if (!BindingManagerFactory.instance.isVoid(selfEntity)) {
 											writeModel(selfEntity, arguments[0]);
 											bm.setResult(selfEntity);

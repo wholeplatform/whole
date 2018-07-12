@@ -52,6 +52,10 @@ public interface IEntityIterator<E extends IEntity> extends Iterator<E>, Iterabl
 
 	public void toString(StringBuilder sb);
 
+	public default IEntityIterator<E> specificIterator() {
+		return this instanceof InstrumentingIterator ? ((InstrumentingIterator<E>) this).getIterator() : this;
+	}
+
 	public default boolean tryEvaluateAsBoolean(IEntity selfEntity, IBindingManager bm) {
 		try {
 			return evaluate(selfEntity, bm).wBooleanValue();

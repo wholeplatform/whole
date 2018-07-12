@@ -75,13 +75,13 @@ public class GrammarBasedDataTypeParser extends ForwardStrategyDataTypeParser {
 		this.enumRules = new HashMap<EnumValue, Rule>();
 
 		Map<String, Rule> productions = new HashMap<String, Rule>();
-		IEntityIterator<Production> pi = IteratorFactory.<Production>childIterator();
+		IEntityIterator<Production> pi = IteratorFactory.instance.<Production>childIterator();
 		pi.reset(grammar.getPhraseStructure());
 		for (Production p : pi)
 			productions.put(p.getName().getValue(), p.getRule());
 
 		Map<String, Rule> lexicon = new HashMap<String, Rule>();
-		IEntityIterator<Production> li = IteratorFactory.<Production>childIterator();
+		IEntityIterator<Production> li = IteratorFactory.instance.<Production>childIterator();
 		li.reset(grammar.getLexicalStructure());
 		for (Production p : li)
 			lexicon.put(p.getName().getValue(), p.getRule());
@@ -94,7 +94,7 @@ public class GrammarBasedDataTypeParser extends ForwardStrategyDataTypeParser {
 				if(ed.getDataKind().isEnumValue()) {
 					for (int i=0, size=production.wSize(); i<size; i++) {
 						As as = EntityUtils.clone((As) production.wGet(i));
-						IEntityIterator<Rule> iterator = IteratorFactory.<Rule>descendantOrSelfMatcherIterator().withPattern(GrammarsEntityDescriptorEnum.NonTerminal);
+						IEntityIterator<Rule> iterator = IteratorFactory.instance.<Rule>descendantOrSelfMatcherIterator().withPattern(GrammarsEntityDescriptorEnum.NonTerminal);
 						iterator.reset(as);
 						while (iterator.hasNext()) {
 							NonTerminal nt = (NonTerminal) iterator.next();

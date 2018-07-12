@@ -36,8 +36,8 @@ public class ReusablesUIDynamicCompilerVisitor extends ReusablesDynamicCompilerV
 		entity.getContent().accept(this);
 		IEntityIterator<?> contentIterator = getResultIterator();
 
-		setResultIterator(IteratorFactory.composeIterator(
-				IteratorFactory.singleValuedRunnableIterator(new ResourcePersistenceRunnable() {
+		setResultIterator(IteratorFactory.instance.composeIterator(
+				IteratorFactory.instance.singleValuedRunnableIterator(new ResourcePersistenceRunnable() {
 					protected IPersistenceProvider getPersistenceProvider(String path, IBindingManager bm) {
 						return E4Utils.createWorkspaceProvider(bm, path);
 					}

@@ -126,7 +126,7 @@ public class RDBHelpers {
 //	public static SQLExpression createKeyExpression(Table table, IEntity entity) {
 //		SQLEntityFactory sef = SQLEntityFactory.instance;
 //
-//		IEntityIterator<KeyColumn> iterator = IteratorFactory.<KeyColumn>childMatcherIterator(table.getColumns()).usePattern(RDBEntityDescriptorEnum.KeyColumn);
+//		IEntityIterator<KeyColumn> iterator = IteratorFactory.instance.<KeyColumn>childMatcherIterator(table.getColumns()).usePattern(RDBEntityDescriptorEnum.KeyColumn);
 //		List<SQLExpression> equalsList = new ArrayList<SQLExpression>();
 //		
 //		while (iterator.hasNext()) {

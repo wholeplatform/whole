@@ -72,14 +72,14 @@ public class TestsInterpreterVisitorTest {
 		Assert.assertEquals(0, result.wGet(2).wIntValue());
 
 		// remove timestamps from both the models
-		IEntityIterator<IEntity> iterator = IteratorFactory.descendantOrSelfMatcherIterator()
+		IEntityIterator<IEntity> iterator = IteratorFactory.instance.descendantOrSelfMatcherIterator()
 				.withPattern(JavaEntityDescriptorEnum.LongLiteral);
 		iterator.reset(testSuiteToComplete);
 		while (iterator.hasNext()) {
 			iterator.next();
 			iterator.remove();
 		}
-		iterator = IteratorFactory.descendantOrSelfMatcherIterator()
+		iterator = IteratorFactory.instance.descendantOrSelfMatcherIterator()
 				.withPattern(JavaEntityDescriptorEnum.LongLiteral);
 		iterator.reset(testSuiteCompleted);
 		while (iterator.hasNext()) {

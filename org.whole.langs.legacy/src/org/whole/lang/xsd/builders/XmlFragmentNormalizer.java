@@ -63,7 +63,7 @@ final class XmlFragmentNormalizer extends XmlTraverseAllVisitor {
 	public void visit(org.whole.lang.xml.model.Element entity) {
 		if (calculateNeededNamespaces) {
 			ns.wEnterScope();
-			IEntityIterator<IEntity> iterator = IteratorFactory.childMatcherIterator()
+			IEntityIterator<IEntity> iterator = IteratorFactory.instance.childMatcherIterator()
 					.withPattern(AttributesMatcherFactory.matchNamespaceDeclaration(ns));
 			iterator.reset(entity.getAttributes());
 			while (iterator.hasNext()) {

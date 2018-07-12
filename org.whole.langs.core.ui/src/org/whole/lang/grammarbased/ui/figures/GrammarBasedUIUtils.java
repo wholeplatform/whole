@@ -145,7 +145,7 @@ public class GrammarBasedUIUtils {
 		EntityDescriptorEnum edEnum = entity.wGetLanguageKit().getEntityDescriptorEnum();
 
 		StringBuilder sb = new StringBuilder();
-		IEntityIterator<IEntity> iterator = IteratorFactory.descendantOrSelfMatcherIterator().withPattern(edEnum.valueOf("Literal"));
+		IEntityIterator<IEntity> iterator = IteratorFactory.instance.descendantOrSelfMatcherIterator().withPattern(edEnum.valueOf("Literal"));
 		iterator.reset(entity);
 		while (iterator.hasNext())
 			sb.append(EntityUtils.safeStringValue(iterator.next(), ""));

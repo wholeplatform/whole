@@ -88,7 +88,7 @@ public class ResourceTemplateTest {
 		IEntity testSubFolder = op.wGetResult();
 
 		FolderArtifact compareTo = null;
-		IEntityIterator<FolderArtifact> iterator = IteratorFactory.<FolderArtifact>childMatcherIterator()
+		IEntityIterator<FolderArtifact> iterator = IteratorFactory.instance.<FolderArtifact>childMatcherIterator()
 				.withPattern(ArtifactsEntityDescriptorEnum.FolderArtifact);
 		iterator.reset(testFolder.wGet(ArtifactsFeatureDescriptorEnum.artifacts));
 		while (iterator.hasNext()) {

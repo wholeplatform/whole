@@ -54,7 +54,7 @@ public class ScannerTest {
 	public void testNext() {
 		IEntity fact = new Factorial().create();
 
-		ScannerIterator<IEntity> s = IteratorFactory.descendantOrSelfScannerIterator();
+		ScannerIterator<IEntity> s = IteratorFactory.instance.descendantOrSelfScannerIterator();
 		s.reset(fact);
 		try {
 			IEntity e1 = s.next(JavaEntityDescriptorEnum.CompilationUnit);
@@ -76,7 +76,7 @@ public class ScannerTest {
 	public void testSkip() {
 		IEntity fact = new Factorial().create();
 
-		ScannerIterator<IEntity> s = IteratorFactory.descendantOrSelfScannerIterator();
+		ScannerIterator<IEntity> s = IteratorFactory.instance.descendantOrSelfScannerIterator();
 		s.reset(fact);
 		try {
 			s.skipTo(JavaEntityDescriptorEnum.SingleVariableDeclaration);
@@ -112,7 +112,7 @@ public class ScannerTest {
 	public void testPatternIterator() {
 		IEntity fact = new Factorial().create();
 		
-		IEntityIterator<IEntity> i = IteratorFactory.childMatcherIterator()
+		IEntityIterator<IEntity> i = IteratorFactory.instance.childMatcherIterator()
 			.withPattern(JavaEntityDescriptorEnum.MethodDeclaration);
 		i.reset(fact);
 		
@@ -143,7 +143,7 @@ public class ScannerTest {
 //				ef.createNodes(entry, block, exit),
 //				ef.createTransitions(t1, t2));
 //				
-//		IEntityIterator<?> i = IteratorFactory.topDownScannerIterator(flowchart)
+//		IEntityIterator<?> i = IteratorFactory.instance.topDownScannerIterator(flowchart)
 //			.usePattern(new AbstractVisitor() {
 //				public void visit(IEntity entity) {
 //					//FIXME return when entity is in a reference iterator path

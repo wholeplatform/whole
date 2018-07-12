@@ -60,7 +60,7 @@ public class ActionsVisibleWhen extends AbstractSelectionConstrainedVisibleWhen 
 			if (DataTypeUtils.getDataKind(targetLanguage).isString() && !languageURI.equals(targetLanguage.getValue()))
 				continue;
 
-			IEntityIterator<GuardedAction> iterator = IteratorFactory.<GuardedAction>childMatcherIterator()
+			IEntityIterator<GuardedAction> iterator = IteratorFactory.instance.<GuardedAction>childMatcherIterator()
 					.withPattern(ActionsEntityDescriptorEnum.GuardedAction);
 			iterator.reset(getActions(actionsModule));
 			if (iterator.hasNext())

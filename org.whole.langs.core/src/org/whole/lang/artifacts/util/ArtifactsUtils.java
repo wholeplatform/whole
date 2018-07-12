@@ -116,7 +116,7 @@ public class ArtifactsUtils {
 		return getChild(entity, child) != null;
 	}
 	public static IEntity getChild(IEntity entity, IEntity child) {
-		IEntityIterator<IEntity> iterator = IteratorFactory.childMatcherIterator().withPattern(createPattern(child));
+		IEntityIterator<IEntity> iterator = IteratorFactory.instance.childMatcherIterator().withPattern(createPattern(child));
 		iterator.reset(entity);
 		return iterator.hasNext() ? iterator.next() : null;
 	}
@@ -153,8 +153,8 @@ public class ArtifactsUtils {
 	}
 
 	public static IPersistenceKit calculateInheritedPersistence(IEntity model, IPersistenceKit defaultPersistenceKit) {
-		IEntityIterator<IEntity> iterator = IteratorFactory.scannerIterator(
-					IteratorFactory.ancestorOrSelfIterator())
+		IEntityIterator<IEntity> iterator = IteratorFactory.instance.scannerIterator(
+					IteratorFactory.instance.ancestorOrSelfIterator())
 							.withPattern(GenericTraversalFactory.instance.one(
 									GenericMatcherFactory.instance.isFragmentMatcher(),
 									GenericMatcherFactory.instance.hasKindMatcher(EntityKinds.COMPOSITE)));
@@ -176,7 +176,7 @@ public class ArtifactsUtils {
 			if (projectsPoint == null)
 				throw new IllegalArgumentException("projectsPoint is undefined");
 
-			IEntityIterator<Project> projectIterator = IteratorFactory.childIterator();
+			IEntityIterator<Project> projectIterator = IteratorFactory.instance.childIterator();
 			projectIterator.reset(((Workspace) artifacts).getProjects());
 			for (Project project : projectIterator) {
 				projectIterator.remove();
@@ -188,7 +188,7 @@ public class ArtifactsUtils {
 			if (packagesPoint == null)
 				throw new IllegalArgumentException("packagesPoint is undefined");
 
-			IEntityIterator<Artifact> artifactIterator = IteratorFactory.childIterator();
+			IEntityIterator<Artifact> artifactIterator = IteratorFactory.instance.childIterator();
 			artifactIterator.reset(artifacts);
 			for (Artifact artifact : artifactIterator) {
 				artifactIterator.remove();

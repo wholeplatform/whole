@@ -31,7 +31,7 @@ public class AncestorOrSelfReverseIterator extends CollectionIterator<IEntity> {
 	protected Iterable<?> getCollectionIterable(IEntity entity) {
         List<IEntity> ancestors = new ArrayList<IEntity>();
         ancestors.add(entity);
-        IEntityIterator<IEntity> i = IteratorFactory.ancestorIterator();
+        IEntityIterator<IEntity> i = IteratorFactory.instance.ancestorIterator();
         i.reset(entity);
 		for (IEntity parent : i)
         	ancestors.add(parent);

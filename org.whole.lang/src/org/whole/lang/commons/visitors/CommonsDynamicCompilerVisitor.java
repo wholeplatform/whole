@@ -30,7 +30,6 @@ import org.whole.lang.commons.model.StageDownFragment;
 import org.whole.lang.commons.model.StageUpFragment;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.InstrumentingIterator;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
@@ -46,7 +45,7 @@ import org.whole.lang.visitors.VisitException;
 public class CommonsDynamicCompilerVisitor extends CommonsIdentityDefaultVisitor {
 	@Override
 	public void visit(ICommonsEntity entity) {
-		setResultIterator(IteratorFactory.templateInterpreterIterator(entity).withSourceEntity(entity));
+		setResultIterator(IteratorFactory.instance.templateInterpreterIterator(entity).withSourceEntity(entity));
 	}
 
 	@Override
@@ -94,10 +93,11 @@ public class CommonsDynamicCompilerVisitor extends CommonsIdentityDefaultVisitor
 			return;
 		}
 
-//		setResultIterator(new InstrumentingIterator<IEntity>(IteratorFactory.templateInterpreterIterator(entity)).withSourceEntity(entity));
-		setResultIterator(IteratorFactory.templateInterpreterIterator(entity).withSourceEntity(entity));
+//		setResultIterator(new InstrumentingIterator<IEntity>(IteratorFactory.instance.templateInterpreterIterator(entity)).withSourceEntity(entity));
+		setResultIterator(IteratorFactory.instance.templateInterpreterIterator(entity).withSourceEntity(entity));
 	}
 
+	@SuppressWarnings("unchecked")
 	public void visitFragment(Fragment fragment, boolean nested) {
 		IEntity sourceEntity = fragment;
 		fragment = EntityUtils.clone(fragment);
@@ -132,42 +132,43 @@ public class CommonsDynamicCompilerVisitor extends CommonsIdentityDefaultVisitor
 				fragmentIterator = getResultIterator();
 			} else
 				setResultIterator(fragmentIterator = 
-//						new InstrumentingIterator<IEntity>(IteratorFactory.templateInterpreterIterator(f)).withSourceEntity(sourceEntity));
-						IteratorFactory.templateInterpreterIterator(f).withSourceEntity(sourceEntity));
+//						new InstrumentingIterator<IEntity>(IteratorFactory.instance.templateInterpreterIterator(f)).withSourceEntity(sourceEntity));
+						IteratorFactory.instance.templateInterpreterIterator(f).withSourceEntity(sourceEntity));
 
 			fragmentIteratorMap.put(f, getResultIterator());
 		});
 
-		IEntityIterator<?> compiledIterator = IteratorFactory.chooseIterator(
-			IteratorFactory.ifIterator(
-					IteratorFactory.atStageIterator(0),
-					IteratorFactory.composeIterator(
-							IteratorFactory.chooseIterator(
-									IteratorFactory.ifIterator(
-											IteratorFactory.isFragmentIterator(), IteratorFactory.nestedFragmentIterator(fragmentIteratorMap)),
-									IteratorFactory.ifIterator(
-											IteratorFactory.isVariableIterator(), IteratorFactory.nestedVariableIterator()),
-									IteratorFactory.cloneReplacingIterator(
-											IteratorFactory.chooseIterator(
-													IteratorFactory.ifIterator(
-															IteratorFactory.isFragmentIterator(), IteratorFactory.nestedFragmentIterator(fragmentIteratorMap)),
-													IteratorFactory.ifIterator(
-															IteratorFactory.isVariableIterator(), IteratorFactory.nestedVariableIterator())
+		IteratorFactory f = IteratorFactory.instance;
+		IEntityIterator<?> compiledIterator = f.chooseIterator(
+			f.ifIterator(
+					f.atStageIterator(0),
+					f.composeIterator(
+							f.chooseIterator(
+									f.ifIterator(
+											f.isFragmentIterator(), f.nestedFragmentIterator(fragmentIteratorMap)),
+									f.ifIterator(
+											f.isVariableIterator(), f.nestedVariableIterator()),
+									f.cloneReplacingIterator(
+											f.chooseIterator(
+													f.ifIterator(
+															f.isFragmentIterator(), f.nestedFragmentIterator(fragmentIteratorMap)),
+													f.ifIterator(
+															f.isVariableIterator(), f.nestedVariableIterator())
 											), Set.of(
 											CommonsEntityDescriptorEnum.StageUpFragment.getURI(),
 											CommonsEntityDescriptorEnum.StageDownFragment.getURI(),
 											CommonsEntityDescriptorEnum.Variable.getURI(),
 											CommonsEntityDescriptorEnum.InlineVariable.getURI()))),
-							IteratorFactory.constantIterator(rootEntity, false))),
-//			new InstrumentingIterator<IEntity>(IteratorFactory.templateInterpreterIterator(fragment)).withSourceEntity(sourceEntity)//TODO IteratorFactory.constantIterator(fragment, true)
-			IteratorFactory.templateInterpreterIterator(fragment).withSourceEntity(sourceEntity)//TODO IteratorFactory.constantIterator(fragment, true)
+							f.constantIterator(rootEntity, false))),
+//			new InstrumentingIterator<IEntity>(f.templateInterpreterIterator(fragment)).withSourceEntity(sourceEntity)//TODO f.constantIterator(fragment, true)
+			f.templateInterpreterIterator(fragment).withSourceEntity(sourceEntity)//TODO f.constantIterator(fragment, true)
 		).withSourceEntity(sourceEntity);
 
 		if (!nested) {
 			String outerSelfName = "outerSelf";
-			compiledIterator = IteratorFactory.scopeIterator(
-				IteratorFactory.blockIterator(
-						IteratorFactory.filterIterator(IteratorFactory.selfIterator(), IteratorFactory.asVariableIterator(outerSelfName)),
+			compiledIterator = f.scopeIterator(
+				f.blockIterator(
+						f.filterIterator(f.selfIterator(), f.asVariableIterator(outerSelfName)),
 						compiledIterator
 				), null, Set.of(outerSelfName), true).withSourceEntity(sourceEntity);
 		}

@@ -54,10 +54,10 @@ public class GenericForwardSpecificBuilderTest {
 		IEntity newEntity = mop.wGetResult();
 
 		// to match variables fill variables with defaults
-		IEntityIterator<IEntity> variableIterator = IteratorFactory.<IEntity>descendantOrSelfMatcherIterator()
+		IEntityIterator<IEntity> variableIterator = IteratorFactory.instance.<IEntity>descendantOrSelfMatcherIterator()
 				.withPattern(GenericMatcherFactory.instance.isVariableMatcher());
 		variableIterator.reset(entity);
-		IEntityIterator<IEntity> newVariableIterator = IteratorFactory.<IEntity>descendantOrSelfMatcherIterator()
+		IEntityIterator<IEntity> newVariableIterator = IteratorFactory.instance.<IEntity>descendantOrSelfMatcherIterator()
 				.withPattern(GenericMatcherFactory.instance.isVariableMatcher());
 		newVariableIterator.reset(newEntity);
 		while (variableIterator.hasNext()) {

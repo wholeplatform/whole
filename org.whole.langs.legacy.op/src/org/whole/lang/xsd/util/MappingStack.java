@@ -58,12 +58,12 @@ public class MappingStack {
 		iterator.next();
 
 		if (!iterator.hasNext())
-			return IteratorFactory.emptyIterator();
+			return IteratorFactory.instance.emptyIterator();
 		
 		List<IEntity> contexts = new ArrayList<IEntity>();
 		while (iterator.hasNext())
 			contexts.add(BindingManagerFactory.instance.createValue(iterator.next()));
-		return IteratorFactory.entityCollectionIterator(contexts);
+		return IteratorFactory.instance.entityCollectionIterator(contexts);
 	}
 
 	@SuppressWarnings("unchecked")

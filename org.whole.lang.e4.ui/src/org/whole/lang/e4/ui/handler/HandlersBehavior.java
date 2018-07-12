@@ -115,7 +115,7 @@ public class HandlersBehavior {
 		if (selectionTuple.wSize() == 0 || (single && selectionTuple.wSize() > 1))
 			return false;
 		
-		IEntityIterator<IEntity> iterator = IteratorFactory.childIterator();
+		IEntityIterator<IEntity> iterator = IteratorFactory.instance.childIterator();
 		iterator.reset(selectionTuple);
 		while (iterator.hasNext()) {
 			IEntity entity = iterator.next();
@@ -195,7 +195,7 @@ public class HandlersBehavior {
 			return false;
 
 		IEntity clipboardTuple = Clipboard.instance().getInternalOrNativeEntityContents();
-		IEntityIterator<IEntity> iterator = IteratorFactory.childIterator();
+		IEntityIterator<IEntity> iterator = IteratorFactory.instance.childIterator();
 		iterator.reset(clipboardTuple);
 
 		IEntity focusEntity = bm.wGet("focusEntity");
@@ -218,7 +218,7 @@ public class HandlersBehavior {
 		}));
 
 		if (runnable.get() != null) {
-			IEntityIterator<IEntity> iterator = IteratorFactory.childReverseIterator();
+			IEntityIterator<IEntity> iterator = IteratorFactory.instance.childReverseIterator();
 			iterator.reset(runnable.get());
 	
 			IEntity focusEntity = bm.wGet("focusEntity");
@@ -281,12 +281,12 @@ public class HandlersBehavior {
 			adding |= syntheticRoot.wSize() > 1;
 			if (adding && !EntityUtils.isComposite(focusEntity)) {
 				adding = false;
-				iterator = IteratorFactory.selfIterator();
+				iterator = IteratorFactory.instance.selfIterator();
 			} else
-				iterator = IteratorFactory.childReverseIterator();
+				iterator = IteratorFactory.instance.childReverseIterator();
 			iterator.reset(syntheticRoot);
 		} else {
-			iterator = IteratorFactory.selfIterator();
+			iterator = IteratorFactory.instance.selfIterator();
 			iterator.reset(entity);
 		}
 
@@ -319,7 +319,7 @@ public class HandlersBehavior {
 		IEntity selectedEntities = bm.wGet("selectedEntities");
 		List<IEntity> rootEntities = new ArrayList<IEntity>();
 
-		IEntityIterator<IEntity> iterator = IteratorFactory.childIterator();
+		IEntityIterator<IEntity> iterator = IteratorFactory.instance.childIterator();
 		iterator.reset(selectedEntities);
 		while (iterator.hasNext()) {
 			IEntity entity = iterator.next();

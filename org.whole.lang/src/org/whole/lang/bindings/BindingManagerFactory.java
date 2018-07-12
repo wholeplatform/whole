@@ -316,8 +316,8 @@ public class BindingManagerFactory {
 
 	public <E extends IEntity> IEntityIterator<E> resultIteratorOf(E result) {
 		return result != null ?
-				IteratorFactory.constantIterator(result, false) :
-					IteratorFactory.emptyIterator();
+				IteratorFactory.instance.constantIterator(result, false) :
+					IteratorFactory.instance.emptyIterator();
 	}
 
 	public IEntity resultOf(IEntityIterator<?> resultIterator) {

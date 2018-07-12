@@ -124,7 +124,7 @@ public class XmlNormalizerBuilderTest {
 			assertFalse(iterator.hasNext());
 
 			// no CDataSect at all
-			iterator = IteratorFactory.descendantOrSelfMatcherIterator().withPattern(XmlEntityDescriptorEnum.CDataSect);
+			iterator = IteratorFactory.instance.descendantOrSelfMatcherIterator().withPattern(XmlEntityDescriptorEnum.CDataSect);
 			iterator.reset(normalizedXmlDocument);
 			assertFalse(iterator.hasNext());
 

@@ -504,7 +504,7 @@ public class ArtifactsWorkspaceUtils {
 			List<IEntity> ancestors = new ArrayList<IEntity>();
 			ILanguageKit languageKit = entity.wGetLanguageKit();
 
-	        IEntityIterator<IEntity> iterator = IteratorFactory.ancestorOrSelfIterator();
+	        IEntityIterator<IEntity> iterator = IteratorFactory.instance.ancestorOrSelfIterator();
 	        iterator.reset(entity);
 			for (IEntity parent : iterator) {
 	        	if (languageKit.equals(parent.wGetLanguageKit()))

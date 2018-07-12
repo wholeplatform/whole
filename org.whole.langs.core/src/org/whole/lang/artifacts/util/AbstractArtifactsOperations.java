@@ -33,8 +33,8 @@ public abstract class AbstractArtifactsOperations<T> implements IArtifactsOperat
 		if (descendant == null || !EntityUtils.hasParent(descendant))
 			return resource;
 
-		IEntityIterator<IEntity> iterator = IteratorFactory.scannerIterator(
-				IteratorFactory.ancestorOrSelfReverseIterator())
+		IEntityIterator<IEntity> iterator = IteratorFactory.instance.scannerIterator(
+				IteratorFactory.instance.ancestorOrSelfReverseIterator())
 				.withPattern(GenericTraversalFactory.instance.one(
 						GenericMatcherFactory.instance.isFragmentMatcher(),
 						GenericMatcherFactory.instance.hasKindMatcher(EntityKinds.COMPOSITE)));

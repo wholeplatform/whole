@@ -122,7 +122,7 @@ public class ActionsUIEntityFactory extends ActionsEntityFactory {
 	}
 
 	public GroupAction createAllVariablesGroupAction(ActionKindEnum.Value kind, Set<String> excludeSet, EntityDescriptor<?> resultEd, IEntity model) {
-		MatcherIterator<IEntity> i = IteratorFactory.<IEntity>descendantOrSelfMatcherIterator();
+		MatcherIterator<IEntity> i = IteratorFactory.instance.<IEntity>descendantOrSelfMatcherIterator();
 		i.reset(EntityUtils.safeGetRootEntity(model));
 		return createVariablesGroupAction(kind, excludeSet, resultEd, i
 				.withPattern(new GenericIdentityVisitor() {

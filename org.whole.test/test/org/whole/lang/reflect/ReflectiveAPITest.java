@@ -128,7 +128,7 @@ public class ReflectiveAPITest {
         Model m = model;
 
         List<IEntity> features = new ArrayList<IEntity>();
-        IEntityIterator<IEntity> i = IteratorFactory.childIterator();
+        IEntityIterator<IEntity> i = IteratorFactory.instance.childIterator();
         i.reset(m);
 		for (IEntity e : i)
             features.add(e);

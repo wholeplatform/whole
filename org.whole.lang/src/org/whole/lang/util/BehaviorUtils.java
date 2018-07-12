@@ -37,14 +37,14 @@ public class BehaviorUtils {
 		return apply(functionUri, self, BindingManagerFactory.instance.createArguments());
 	}
 	public static IEntity apply(String functionUri, IEntity self, IBindingManager bm) {
-		return IteratorFactory.functionApplicationIterator(functionUri).evaluate(self, bm);
+		return IteratorFactory.instance.functionApplicationIterator(functionUri).evaluate(self, bm);
 	}
 
 	public static IEntity applyFirstResult(String functionUri, IEntity self) {
 		return applyFirstResult(functionUri, self, BindingManagerFactory.instance.createArguments());
 	}
 	public static IEntity applyFirstResult(String functionUri, IEntity self, IBindingManager bm) {
-		return IteratorFactory.functionApplicationIterator(functionUri).evaluateFirst(self, bm);
+		return IteratorFactory.instance.functionApplicationIterator(functionUri).evaluateFirst(self, bm);
 	}
 
 	public static <E extends IEntity> IEntityIterator<E> compileAndLazyEvaluate(IEntity behavior, IEntity self) {

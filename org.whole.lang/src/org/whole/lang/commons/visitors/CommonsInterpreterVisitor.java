@@ -72,8 +72,8 @@ public class CommonsInterpreterVisitor extends CommonsIdentityVisitor {
 
 		if (isResultIterator()) {
 			IEntityIterator<?> templateIterator = getResultIterator();
-			setResultIterator(IteratorFactory.composeIterator(
-					IteratorFactory.singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
+			setResultIterator(IteratorFactory.instance.composeIterator(
+					IteratorFactory.instance.singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
 						if (!BindingManagerFactory.instance.isVoid(selfEntity))
 							bm.setResult(EntityUtils.cloneIfParented(selfEntity));
 					}).withSourceEntity(entity), templateIterator));
@@ -127,15 +127,15 @@ public class CommonsInterpreterVisitor extends CommonsIdentityVisitor {
 
 				if (EntityUtils.isInlineVariable(variable)) {
 					bm.setResultIterator(
-							IteratorFactory.sequenceIterator(
-								IteratorFactory.constantChildIterator(inlineValues(value, varType)),
-								IteratorFactory.constantIterator(newVariable, true)));
+							IteratorFactory.instance.sequenceIterator(
+								IteratorFactory.instance.constantChildIterator(inlineValues(value, varType)),
+								IteratorFactory.instance.constantIterator(newVariable, true)));
 				} else {
 					try {
 						bm.setResultIterator(
-								IteratorFactory.sequenceIterator(
-									IteratorFactory.constantIterator(EntityUtils.convertCloneIfParented(value, varType), true),
-									IteratorFactory.constantIterator(newVariable, true)));
+								IteratorFactory.instance.sequenceIterator(
+									IteratorFactory.instance.constantIterator(EntityUtils.convertCloneIfParented(value, varType), true),
+									IteratorFactory.instance.constantIterator(newVariable, true)));
 					} catch (IllegalArgumentException e) {
 						throw new SubstituteException(variable, value.wGetEntityDescriptor());					
 					}
@@ -143,7 +143,7 @@ public class CommonsInterpreterVisitor extends CommonsIdentityVisitor {
 			} else {
 				if (EntityUtils.isInlineVariable(variable)) {
 					bm.setResultIterator(
-							IteratorFactory.constantChildIterator(inlineValues(value, varType)));
+							IteratorFactory.instance.constantChildIterator(inlineValues(value, varType)));
 				} else {
 					try {
 						bm.setResult(EntityUtils.convertCloneIfParented(value, varType));

@@ -125,7 +125,7 @@ public class Resource implements IResource {
 		return apply(this.<IEntity>getEntity(uriFragment), query, bindings);//FIXME workaround for Java 8 compiler
 	}
 	protected <E extends IEntity> IEntityIterator<E> apply(IEntity entity, IEntity query, IBindingManager bindings) {
-		IEntityIterator<E> iterator = IteratorFactory.templateInterpreterIterator(query);
+		IEntityIterator<E> iterator = IteratorFactory.instance.templateInterpreterIterator(query);
 		iterator.setBindings(bindings);
 		iterator.reset(entity);
 		return iterator;

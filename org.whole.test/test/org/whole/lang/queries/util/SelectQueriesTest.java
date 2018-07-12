@@ -332,7 +332,7 @@ public class SelectQueriesTest {
 
 		PathExpression pe1 = (PathExpression) tm.create("selectTemplateFromPathWithPattern");
 
-		IEntityIterator<Feature> featureIterator = IteratorFactory.<Feature>descendantOrSelfMatcherIterator().withPattern(ModelsEntityDescriptorEnum.Feature);
+		IEntityIterator<Feature> featureIterator = IteratorFactory.instance.<Feature>descendantOrSelfMatcherIterator().withPattern(ModelsEntityDescriptorEnum.Feature);
 		featureIterator.reset(m);
 
 		for (FieldDeclaration field : BehaviorUtils.<FieldDeclaration>compileAndLazyEvaluate(pe1, m)) {

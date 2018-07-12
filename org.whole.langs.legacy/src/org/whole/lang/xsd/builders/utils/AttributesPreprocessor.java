@@ -70,7 +70,7 @@ public class AttributesPreprocessor {
 	}
 
 	public void preprocess(Attributes attributes) {
-		IEntityIterator<Attribute> iterator = IteratorFactory.<Attribute>childIterator();
+		IEntityIterator<Attribute> iterator = IteratorFactory.instance.<Attribute>childIterator();
 		iterator.reset(attributes);
 		while(iterator.hasNext()) {
 			Attribute attribute = iterator.next();

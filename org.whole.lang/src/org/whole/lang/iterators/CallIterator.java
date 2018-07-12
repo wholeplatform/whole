@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.queries.iterators;
+package org.whole.lang.iterators;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -25,16 +25,10 @@ import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.bindings.INestableScope;
 import org.whole.lang.bindings.NullScope;
-import org.whole.lang.iterators.AbstractCloneableIterator;
-import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.DynamicCompilerOperation;
 import org.whole.lang.operations.ICloneContext;
-import org.whole.lang.queries.model.Names;
-import org.whole.lang.queries.model.QueryDeclaration;
-import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.util.ResourceUtils;
 
 /**
@@ -43,7 +37,7 @@ import org.whole.lang.util.ResourceUtils;
 public class CallIterator<E extends IEntity>  extends AbstractCloneableIterator<E> {
 	private IBindingManager queryBindings;
 	protected String queryName;
-	protected Names parameters;
+	protected IEntity parameters; //Names
 	protected IEntity queryBody;
 	private IEntityIterator<E> queryIterator;
 	protected IEntityIterator<? extends IEntity>[] argsIterators;
@@ -73,18 +67,19 @@ public class CallIterator<E extends IEntity>  extends AbstractCloneableIterator<
 		if (queryIterator == null) {
 			parameters = null;
 			if (!getBindings().wIsSet(queryName))
-				return queryIterator = IteratorFactory.emptyIterator();
+				return queryIterator = IteratorFactory.instance.emptyIterator();
 
 			queryBody = getBindings().wGet(queryName);
-			boolean isQueryDeclaration = Matcher.matchImpl(QueriesEntityDescriptorEnum.QueryDeclaration, queryBody);
-			QueryDeclaration queryDeclaration = null;
+			boolean isQueryDeclaration = queryBody.wGetEntityDescriptor().getURI().equals("http://lang.whole.org/Queries#QueryDeclaration");
+					//Matcher.matchImpl(QueriesEntityDescriptorEnum.QueryDeclaration, queryBody);
+			IEntity queryDeclaration = null; //QueryDeclaration
 			if (isQueryDeclaration) {
-				queryDeclaration = (QueryDeclaration) queryBody;
-				isQueryDeclaration = queryDeclaration.getName().wStringValue().equals(queryName);
+				queryDeclaration = queryBody;
+				isQueryDeclaration = queryDeclaration.wGet(0).wStringValue().equals(queryName); //getName
 			}
 
 			if (isQueryDeclaration) {
-				parameters = queryDeclaration.getParameters();
+				parameters = queryDeclaration.wGet(1); //getParameters
 				int parametersSize = parameters.wSize();
 				Set<String> freshNames = new HashSet<String>(parametersSize);
 				for (int i=0; i<parametersSize; i++)
@@ -99,7 +94,7 @@ public class CallIterator<E extends IEntity>  extends AbstractCloneableIterator<
 						getBindings().wGetEnvironmentManager());
 				queryBindings.wEnterScope();
 
-				queryBody = queryDeclaration.getBody();
+				queryBody = queryDeclaration.wGet(2); //getBody
 			} else
 				queryBindings = getBindings();
 

@@ -24,11 +24,10 @@ import java.util.function.Predicate;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
+import org.whole.lang.iterators.Placement;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.CloneOperationOld;
 import org.whole.lang.operations.IOperation;
-import org.whole.lang.queries.iterators.Placement;
-import org.whole.lang.queries.iterators.QueriesIteratorFactory;
 import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.util.BehaviorUtils;
 import org.whole.lang.util.EntityUtils;
@@ -65,16 +64,16 @@ public class EvaluateCloneOperation extends CloneOperationOld {
 			IEntityIterator<?> iterator = BehaviorUtils.lazyEvaluate(child, 0, getBindings());
 //			IEntityIterator<?> iterator = DynamicCompilerOperation.compile(child, getBindings()).getResultIterator();
 			if (EntityUtils.isSimple(entityClone)) {
-				iterator = IteratorFactory.composeIterator(IteratorFactory.singleValuedRunnableIterator(
+				iterator = IteratorFactory.instance.composeIterator(IteratorFactory.instance.singleValuedRunnableIterator(
 						(self, bm, arguments) -> entityClone.wSet(index, self)
 				),	iterator);
 			} else {
 				if (index == entityClone.wSize()-1)
-					iterator = QueriesIteratorFactory.cartesianInsertIterator(iterator, 
-							IteratorFactory.selfIterator(), Placement.INTO);
+					iterator = IteratorFactory.instance.cartesianInsertIterator(iterator, 
+							IteratorFactory.instance.selfIterator(), Placement.INTO);
 				else
-					iterator = QueriesIteratorFactory.cartesianInsertIterator(iterator, 
-							IteratorFactory.childIterator(index+1), Placement.BEFORE);
+					iterator = IteratorFactory.instance.cartesianInsertIterator(iterator, 
+							IteratorFactory.instance.childIterator(index+1), Placement.BEFORE);
 			}
 			if (EntityUtils.isSimple(entityClone))
 				entityClone.wRemove(index);
@@ -92,7 +91,7 @@ public class EvaluateCloneOperation extends CloneOperationOld {
 			IEntity selfEntity = getBindings().wGet("self");
 			IEntityIterator<?> iterator = BehaviorUtils.lazyEvaluate(child, 0, getBindings());
 //			IEntityIterator<?> iterator = DynamicCompilerOperation.compile(child, getBindings()).getResultIterator();
-			iterator = IteratorFactory.composeIterator(IteratorFactory.singleValuedRunnableIterator(
+			iterator = IteratorFactory.instance.composeIterator(IteratorFactory.instance.singleValuedRunnableIterator(
 					(self, bm, arguments) -> entityClone.wSet(fd, self)
 			),	iterator);
 			entityClone.wRemove(fd);

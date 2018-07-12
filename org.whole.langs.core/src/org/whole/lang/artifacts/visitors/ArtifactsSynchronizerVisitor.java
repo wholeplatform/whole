@@ -98,7 +98,7 @@ public class ArtifactsSynchronizerVisitor<T> extends ArtifactsResourceVisitor<T>
 			IEntity fsModel = getArtifactsOperations().toArtifactsModel(parentContext);
 			if (append && artifact != basePath) {
 				IBindingManager bindings = BindingManagerFactory.instance.createBindingManager();
-				IEntityIterator<IEntity> iterator = IteratorFactory.childIterator();
+				IEntityIterator<IEntity> iterator = IteratorFactory.instance.childIterator();
 				iterator.reset(getChildren(fsModel));
 				for (IEntity child : iterator) {
 					bindings.wDef(SUB_TREE_ROOT, child);
@@ -113,8 +113,8 @@ public class ArtifactsSynchronizerVisitor<T> extends ArtifactsResourceVisitor<T>
 	}
 
 	private IEntity createBasePath(IArtifactsEntity entity) {
-		IEntityIterator<IEntity> iterator = IteratorFactory.scannerIterator(
-					IteratorFactory.ancestorIterator())
+		IEntityIterator<IEntity> iterator = IteratorFactory.instance.scannerIterator(
+					IteratorFactory.instance.ancestorIterator())
 							.withPattern(GenericTraversalFactory.instance.one(
 									GenericMatcherFactory.instance.isFragmentMatcher(),
 									GenericMatcherFactory.instance.hasKindMatcher(EntityKinds.COMPOSITE)));
@@ -151,7 +151,7 @@ public class ArtifactsSynchronizerVisitor<T> extends ArtifactsResourceVisitor<T>
 			if (basePath != null) {
 				IBindingManager bindings = BindingManagerFactory.instance.createBindingManager();
 				model = EntityUtils.clone(basePath);
-				IEntityIterator<IEntity> i = IteratorFactory.childIterator();
+				IEntityIterator<IEntity> i = IteratorFactory.instance.childIterator();
 				i.reset(getChildren(entity));
 				for (IEntity child : i) {
 					bindings.wDef(SUB_TREE_ROOT, EntityUtils.clone(child));
@@ -172,7 +172,7 @@ public class ArtifactsSynchronizerVisitor<T> extends ArtifactsResourceVisitor<T>
 	private void synchronize(IEntity children, IEntity compareToChildren) {
 		// perform delete missing resources
 		if (synchronize.isRemoving()) {
-			IEntityIterator<IEntity> iterator = IteratorFactory.childIterator();
+			IEntityIterator<IEntity> iterator = IteratorFactory.instance.childIterator();
 			iterator.reset(compareToChildren);
 			while (iterator.hasNext()) {
 				IEntity child = iterator.next();
@@ -188,7 +188,7 @@ public class ArtifactsSynchronizerVisitor<T> extends ArtifactsResourceVisitor<T>
 
 		// perform remove additions
 		if (synchronize.isUpdateOnly()) {
-			IEntityIterator<IEntity> iterator = IteratorFactory.childIterator();
+			IEntityIterator<IEntity> iterator = IteratorFactory.instance.childIterator();
 			iterator.reset(children);
 			while (iterator.hasNext()) {
 				IEntity child = iterator.next();
@@ -213,7 +213,7 @@ public class ArtifactsSynchronizerVisitor<T> extends ArtifactsResourceVisitor<T>
 		} else {
 			firstPass = false;
 
-			IEntityIterator<IEntity> i = IteratorFactory.childIterator();
+			IEntityIterator<IEntity> i = IteratorFactory.instance.childIterator();
 			i.reset(children);
 			for (IEntity child : i) {
 				// first pass, remove all descendants

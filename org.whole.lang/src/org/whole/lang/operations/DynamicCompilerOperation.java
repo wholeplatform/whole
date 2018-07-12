@@ -61,7 +61,7 @@ public class DynamicCompilerOperation extends AbstractOperation {
 		else
 			return new AbstractVisitor() {
 				public void visit(IEntity entity) {
-					setResultIterator(IteratorFactory.templateInterpreterIterator(entity).withSourceEntity(entity));
+					setResultIterator(IteratorFactory.instance.templateInterpreterIterator(entity).withSourceEntity(entity));
 				}
 			};
 	}

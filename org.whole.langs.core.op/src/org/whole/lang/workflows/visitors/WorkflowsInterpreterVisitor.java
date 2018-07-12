@@ -71,7 +71,6 @@ import org.whole.lang.operations.NormalizerOperation;
 import org.whole.lang.operations.PrettyPrinterOperation;
 import org.whole.lang.operations.ValidatorOperation;
 import org.whole.lang.parsers.ParseException;
-import org.whole.lang.queries.iterators.QueriesIteratorFactory;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.reflect.ReflectionFactory;
@@ -243,7 +242,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 			if (result == null)
 				return;
 			
-			iterator = IteratorFactory.childIterator();
+			iterator = IteratorFactory.instance.childIterator();
 			iterator.setBindings(getBindings());
 			iterator.reset(result);
 		}
@@ -271,7 +270,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 	public void visit(SwitchControl entity) {
 		boolean isExclusive = entity.getSwitchType().wContainsValue(SwitchTypeEnum.exclusive);
 
-		IEntityIterator<ConditionalCase> i = IteratorFactory.childIterator();
+		IEntityIterator<ConditionalCase> i = IteratorFactory.instance.childIterator();
 		i.reset(entity.getConditionalCases());
 
 		boolean executed = false;
@@ -471,8 +470,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 		} else
 			define(args, (Assignments) arguments);
 
-		IEntityIterator<?> iterator = QueriesIteratorFactory.callIterator(
-				queryName.getValue(), argsIterators);
+		IEntityIterator<?> iterator = IteratorFactory.instance.callIterator(queryName.getValue(), argsIterators);
 		iterator.setBindings(args);
 		resetIterator(iterator);
 		while (iterator.hasNext())
@@ -559,7 +557,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 		IEntity model = getResult();
 		//TODO remove ?
 		if (Matcher.matchImpl(WorkflowsEntityDescriptorEnum.Name, entity.getTemplate())) {
-			IEntityIterator<IEntity> tii = QueriesIteratorFactory.templateInterpreterIterator(getResult());
+			IEntityIterator<IEntity> tii = IteratorFactory.instance.templateInterpreterIterator(getResult());
 			tii.setBindings(getBindings());
 			tii.reset(entity);
 			model = tii.next();

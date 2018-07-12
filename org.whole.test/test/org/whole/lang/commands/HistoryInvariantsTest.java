@@ -121,7 +121,7 @@ public class HistoryInvariantsTest {
 
     @Test
 	public void testModelNullCommands() {
-        IEntityIterator<IEntity> i = IteratorFactory.descendantOrSelfIterator();
+        IEntityIterator<IEntity> i = IteratorFactory.instance.descendantOrSelfIterator();
         i.reset(model);
 		for (IEntity e : i) {
         	Assert.assertEquals(NullCommand.instance, ((InternalIEntity) e).wGetBindingCommand());
@@ -144,7 +144,7 @@ public class HistoryInvariantsTest {
 
     @Test
 	public void testModelCommands() {
-        IEntityIterator<IEntity> i = IteratorFactory.descendantOrSelfIterator();
+        IEntityIterator<IEntity> i = IteratorFactory.instance.descendantOrSelfIterator();
         i.reset(model);
 		for (IEntity e : i) {
         	ICommand cmd = ((InternalIEntity) e).wGetBindingCommand();
@@ -156,7 +156,7 @@ public class HistoryInvariantsTest {
         performChanges(model);
         List<ICommand> changes = history.getUndoCommands();
 
-        i = IteratorFactory.descendantOrSelfIterator();
+        i = IteratorFactory.instance.descendantOrSelfIterator();
         i.reset(model);
 		for (IEntity e : i) {
         	ICommand cmd = ((InternalIEntity) e).wGetBindingCommand();
@@ -175,7 +175,7 @@ public class HistoryInvariantsTest {
         performChanges(model);
         IEntity model2 = EntityUtils.clone(model);
 
-        IEntityIterator<IEntity> i = IteratorFactory.descendantOrSelfIterator();
+        IEntityIterator<IEntity> i = IteratorFactory.instance.descendantOrSelfIterator();
         i.reset(model2);
 		for (IEntity e : i) {
         	ICommand cmd = ((InternalIEntity) e).wGetBindingCommand();
@@ -196,7 +196,7 @@ public class HistoryInvariantsTest {
         history.clearHistory();
         Assert.assertTrue(history.getUndoCommands().isEmpty());
 
-        IEntityIterator<IEntity> i = IteratorFactory.descendantOrSelfIterator();
+        IEntityIterator<IEntity> i = IteratorFactory.instance.descendantOrSelfIterator();
         i.reset(model);
 		for (IEntity e : i) {
         	ICommand cmd = ((InternalIEntity) e).wGetBindingCommand();
@@ -247,7 +247,7 @@ public class HistoryInvariantsTest {
 	public void testPrevCommandExecutionTimeOrder() {
     	performChanges(model);
 
-        IEntityIterator<IEntity> i = IteratorFactory.descendantOrSelfIterator();
+        IEntityIterator<IEntity> i = IteratorFactory.instance.descendantOrSelfIterator();
         i.reset(model);
 		for (IEntity e : i) {
         	ICommand cmd = ((InternalIEntity) e).wGetBindingCommand();

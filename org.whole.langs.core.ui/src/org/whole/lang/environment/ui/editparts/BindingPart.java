@@ -82,7 +82,7 @@ public class BindingPart extends AbstractContentPanePart {
 			if (value.wSize() > COMPOSITE_SIZE_LIMIT)
 				break;
 		default:
-			IEntityIterator<IEntity> iterator = IteratorFactory.descendantIterator();
+			IEntityIterator<IEntity> iterator = IteratorFactory.instance.descendantIterator();
 			iterator.reset(value);
 			for (int i = 0; i < DESCENDANTS_COUNT_LIMIT; i++) {
 				if (!iterator.hasNext()) {

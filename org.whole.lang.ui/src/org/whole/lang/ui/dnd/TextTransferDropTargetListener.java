@@ -111,11 +111,11 @@ public class TextTransferDropTargetListener extends AbstractTransferDropTargetLi
 			boolean needsCompositeTarget = false;
 			if (hasSyntheticRoot) {
 				IEntity syntheticRoot = bm.wGet("syntheticRoot");
-				iterator = IteratorFactory.childIterator();
+				iterator = IteratorFactory.instance.childIterator();
 				iterator.reset(syntheticRoot);
 				needsCompositeTarget = syntheticRoot.wSize() > 1;
 			} else {
-				iterator = IteratorFactory.selfIterator();
+				iterator = IteratorFactory.instance.selfIterator();
 				iterator.reset(entity);
 			}
 

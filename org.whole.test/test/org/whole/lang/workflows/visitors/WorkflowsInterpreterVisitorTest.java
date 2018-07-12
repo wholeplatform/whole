@@ -200,8 +200,8 @@ public class WorkflowsInterpreterVisitorTest {
 		Assert.assertFalse(OrderedMatcher.match(artifacts, deepResult, comparatorsMap));
 
 		// the only difference is the content on the file artifact
-		IEntityIterator<IEntity> iterator = IteratorFactory.matcherIterator(
-				IteratorFactory.descendantOrSelfIterator())
+		IEntityIterator<IEntity> iterator = IteratorFactory.instance.matcherIterator(
+				IteratorFactory.instance.descendantOrSelfIterator())
 						.withPattern(ArtifactsFeatureDescriptorEnum.content);
 
 		iterator.reset(deepFileResult);
@@ -242,8 +242,8 @@ public class WorkflowsInterpreterVisitorTest {
 		Assert.assertFalse(OrderedMatcher.match(artifacts, deepDirectoryResult, comparatorsMap));
 
 		// the only difference is the content on the file artifact
-		IEntityIterator<IEntity> iterator = IteratorFactory.matcherIterator(
-				IteratorFactory.descendantOrSelfIterator())
+		IEntityIterator<IEntity> iterator = IteratorFactory.instance.matcherIterator(
+				IteratorFactory.instance.descendantOrSelfIterator())
 						.withPattern(ArtifactsFeatureDescriptorEnum.content);
 
 		iterator.reset(deepResult);

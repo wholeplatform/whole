@@ -207,7 +207,7 @@ public class ModelsInterpreterVisitor extends ModelsIdentityDefaultVisitor {
 			String name = entity.getName().wStringValue();
 
 			boolean isOrdered = false, isUnique = false;
-			IEntityIterator<ComponentModifier> i = IteratorFactory.<ComponentModifier>childIterator();
+			IEntityIterator<ComponentModifier> i = IteratorFactory.instance.<ComponentModifier>childIterator();
 			i.reset(entity.getComponentModifiers());
 			for (ComponentModifier modifier : i)
 				switch (modifier.getValue().getOrdinal()) {
@@ -250,7 +250,7 @@ public class ModelsInterpreterVisitor extends ModelsIdentityDefaultVisitor {
 			String componentName = entity.getComponentType().wStringValue();
 
 			boolean isReference = false, isDerived = false, isShared = false;
-			IEntityIterator<ComponentModifier> i = IteratorFactory.<ComponentModifier>childIterator();
+			IEntityIterator<ComponentModifier> i = IteratorFactory.instance.<ComponentModifier>childIterator();
 			i.reset(entity.getComponentModifiers());
 			for (ComponentModifier modifier : i)
 				switch (modifier.getValue().getOrdinal()) {
@@ -292,7 +292,7 @@ public class ModelsInterpreterVisitor extends ModelsIdentityDefaultVisitor {
 							oppositeFeatureName, modelInfo.featureImplName(oppositeFeatureName));
 
 				boolean isOptional = false, isId = false, isReference = false, isDerived = false, isShared = false;
-				IEntityIterator<FeatureModifier> i2 = IteratorFactory.<FeatureModifier>childIterator();
+				IEntityIterator<FeatureModifier> i2 = IteratorFactory.instance.<FeatureModifier>childIterator();
 				i2.reset(feature.getModifiers());
 				for (FeatureModifier modifier : i2)
 					switch (modifier.getValue().getOrdinal()) {

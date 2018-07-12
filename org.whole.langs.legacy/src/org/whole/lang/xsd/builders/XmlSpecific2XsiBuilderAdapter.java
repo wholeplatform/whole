@@ -144,7 +144,7 @@ public class XmlSpecific2XsiBuilderAdapter extends XmlSpecificBuilderAdapter {
 		boolean isAttributeFormQualified = MappingStrategyUtils.hasMappingStrategy(uri) &&
 		MappingStrategyUtils.getMappingStrategy(uri).isAttributesFormQualified();
 
-		IEntityIterator<Attribute> iterator = IteratorFactory.<Attribute>childIterator();
+		IEntityIterator<Attribute> iterator = IteratorFactory.instance.<Attribute>childIterator();
 		iterator.reset(attributes);
 		// add attribute features
 		while (iterator.hasNext()) {

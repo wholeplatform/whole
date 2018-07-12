@@ -41,14 +41,14 @@ public class ViewDerivationLibraryDeployer extends AbstractFunctionLibraryDeploy
 	}
 
 	public static IEntityIterator<IEntity> deriveIndexViewContentsIterator() {
-		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
+		return IteratorFactory.instance.singleValuedRunnableIterator(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				bm.setResult(FindDeclarationsOperation.findDeclarations(selfEntity));
 			}
 		});
 	}
 	public static IEntityIterator<IEntity> deriveMapViewContentsIterator() {
-		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
+		return IteratorFactory.instance.singleValuedRunnableIterator(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				IEntity result = null;
 				if (bm.wIsSet("primarySelectedEntity"))

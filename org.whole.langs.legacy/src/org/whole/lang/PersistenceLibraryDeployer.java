@@ -74,7 +74,7 @@ public class PersistenceLibraryDeployer extends AbstractFunctionLibraryDeployer 
 	}
 
 	public static IEntityIterator<IEntity> stringToModelIterator() {
-		return IteratorFactory.singleValuedRunnableIterator(
+		return IteratorFactory.instance.singleValuedRunnableIterator(
 				(IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
 					StringPersistenceProvider pp = new StringPersistenceProvider(selfEntity.wStringValue());
 					
@@ -92,7 +92,7 @@ public class PersistenceLibraryDeployer extends AbstractFunctionLibraryDeployer 
 				});
 	}
 	public static IEntityIterator<IEntity> modelToStringIterator() {
-		return IteratorFactory.singleValuedRunnableIterator(
+		return IteratorFactory.instance.singleValuedRunnableIterator(
 				(IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
 					StringPersistenceProvider pp = new StringPersistenceProvider();
 					pp.getBindings().wDefValue("entityURI", selfEntity.wGetEntityDescriptor().getURI());
@@ -150,7 +150,7 @@ public class PersistenceLibraryDeployer extends AbstractFunctionLibraryDeployer 
 	}
 
 	public static IEntityIterator<IEntity> toJavaBuilderCompilationUnit() {
-		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
+		return IteratorFactory.instance.singleValuedRunnableIterator(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				if (bm.wIsSet("file")) {
 					Object file = bm.wGetValue("file");
@@ -179,7 +179,7 @@ public class PersistenceLibraryDeployer extends AbstractFunctionLibraryDeployer 
 		});
 	}
 	public static IEntityIterator<IEntity> toJavaBuilderBlock() {
-		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
+		return IteratorFactory.instance.singleValuedRunnableIterator(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				ModelBuilderOperation op = new ModelBuilderOperation();
 				JavaStoreProducerBuilderOperation javaOp = new JavaStoreProducerBuilderOperation(op);
@@ -194,7 +194,7 @@ public class PersistenceLibraryDeployer extends AbstractFunctionLibraryDeployer 
 	}
 	//FIXME
 	public static IEntityIterator<IEntity> fromJavaBuilderModel() {
-		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
+		return IteratorFactory.instance.singleValuedRunnableIterator(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				//TODO test selftEntity is a java model
 				
@@ -212,13 +212,13 @@ public class PersistenceLibraryDeployer extends AbstractFunctionLibraryDeployer 
 				} catch (EvalError e) {
 				}
 				
-				bm.setResultIterator(IteratorFactory.emptyIterator());
+				bm.setResultIterator(IteratorFactory.instance.emptyIterator());
 			}
 		});
 	}
 
 	public static IEntityIterator<IEntity> toXmlBuilderDocument() {
-		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
+		return IteratorFactory.instance.singleValuedRunnableIterator(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				ModelBuilderOperation op = new ModelBuilderOperation();
 				XmlStoreProducerBuilderOperation xmlOp = new XmlStoreProducerBuilderOperation(op);
@@ -232,7 +232,7 @@ public class PersistenceLibraryDeployer extends AbstractFunctionLibraryDeployer 
 		});
 	}
 	public static IEntityIterator<IEntity> toXmlBuilderContent() {
-		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
+		return IteratorFactory.instance.singleValuedRunnableIterator(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				ModelBuilderOperation op = new ModelBuilderOperation();
 				XmlStoreProducerBuilderOperation xmlOp = new XmlStoreProducerBuilderOperation(op);
@@ -246,7 +246,7 @@ public class PersistenceLibraryDeployer extends AbstractFunctionLibraryDeployer 
 		});
 	}
 	public static IEntityIterator<IEntity> fromXmlBuilderModel() {
-		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
+		return IteratorFactory.instance.singleValuedRunnableIterator(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				try {
 					ModelBuilderOperation op = new ModelBuilderOperation().withBindings(bm);
@@ -255,7 +255,7 @@ public class PersistenceLibraryDeployer extends AbstractFunctionLibraryDeployer 
 					return;
 				} catch (Exception e) {
 				}
-				bm.setResultIterator(IteratorFactory.emptyIterator());
+				bm.setResultIterator(IteratorFactory.instance.emptyIterator());
 			}
 		});
 	}

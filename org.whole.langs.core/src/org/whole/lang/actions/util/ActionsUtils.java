@@ -30,7 +30,7 @@ import org.whole.lang.util.ResourceUtils;
  */
 public class ActionsUtils {
 	public static IEntityIterator<IEntity> actionsModulesIterator() {
-		return IteratorFactory.javaCollectionIterator(
+		return IteratorFactory.instance.javaCollectionIterator(
 				ActionsRegistry.instance().getResources(false, ResourceUtils.SIMPLE_COMPARATOR));
 	}
 	public static IEntity getActionsModule(IBindingManager bm, String resourceURI, boolean loadOnDemand) {

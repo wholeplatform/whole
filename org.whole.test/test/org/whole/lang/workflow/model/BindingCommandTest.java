@@ -51,14 +51,14 @@ public class BindingCommandTest {
 	public void testBindingCommand() {
 		IEntity program = new ExampleTest().create();
 
-		IEntityIterator<IEntity> i = IteratorFactory.descendantOrSelfIterator();
+		IEntityIterator<IEntity> i = IteratorFactory.instance.descendantOrSelfIterator();
 		i.reset(program);
 		for (IEntity e : i)
 			if (((InternalIEntity) e).wGetBindingCommand() != NullCommand.instance)
 				Assert.fail();
 
 		program = EntityUtils.clone(program);
-		i = IteratorFactory.<IEntity>descendantOrSelfIterator();
+		i = IteratorFactory.instance.<IEntity>descendantOrSelfIterator();
 		i.reset(program);
 		for (IEntity e : i)
 			if (((InternalIEntity) e).wGetBindingCommand() != NullCommand.instance)

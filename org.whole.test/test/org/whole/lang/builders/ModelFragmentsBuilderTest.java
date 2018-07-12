@@ -51,7 +51,7 @@ public class ModelFragmentsBuilderTest {
 
 		int count = 0;
 		Model model = modelsModel.create();
-		AbstractPatternFilterIterator<Feature> i = IteratorFactory.<Feature>descendantOrSelfMatcherIterator().withPattern(ModelsEntityDescriptorEnum.Feature);
+		AbstractPatternFilterIterator<Feature> i = IteratorFactory.instance.<Feature>descendantOrSelfMatcherIterator().withPattern(ModelsEntityDescriptorEnum.Feature);
 		i.reset(model);
 		for (Feature feature : i)
 			if (EntityUtils.isNotResolver(feature))
@@ -70,7 +70,7 @@ public class ModelFragmentsBuilderTest {
 		
 		int count = 0;
 		Model model = modelsModel.create();
-		AbstractPatternFilterIterator<Feature> i = IteratorFactory.<Feature>descendantOrSelfMatcherIterator().withPattern(ModelsEntityDescriptorEnum.Feature);
+		AbstractPatternFilterIterator<Feature> i = IteratorFactory.instance.<Feature>descendantOrSelfMatcherIterator().withPattern(ModelsEntityDescriptorEnum.Feature);
 		i.reset(model);
 		for (Feature feature : i)
 			if (EntityUtils.isNotResolver(feature))

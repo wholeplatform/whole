@@ -57,7 +57,7 @@ public class GrammarsUIInterpreterVisitor extends GrammarsInterpreterVisitor {
 	public static Map<String, IEntity> createConfigurations(IEntity grammarBased) {
 		FeatureDescriptorEnum fdEnum = grammarBased.wGetLanguageKit().getFeatureDescriptorEnum();
 		Map<String, IEntity> configurations = new HashMap<String, IEntity>();
-		ScannerIterator<IEntity> i = IteratorFactory.childScannerIterator();
+		ScannerIterator<IEntity> i = IteratorFactory.instance.childScannerIterator();
 		i.reset(grammarBased);
 		for (IEntity configuration : i) {
 			IEntity name = configuration.wGet(fdEnum.valueOf("name"));

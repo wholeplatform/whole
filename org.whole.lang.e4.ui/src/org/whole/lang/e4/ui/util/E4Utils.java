@@ -227,7 +227,7 @@ public class E4Utils {
 			bm.wDef("focusEntity", focusEntityPart.getModelEntity());
 		}
 		bm.wDef("selectedEntities", selectedEntities);
-		IEntityIterator<IEntity> iterator = IteratorFactory.childIterator();
+		IEntityIterator<IEntity> iterator = IteratorFactory.instance.childIterator();
 		iterator.reset(selectedEntities);
 		if (iterator.hasNext()) {
 			IEntity focusEntity = iterator.next();

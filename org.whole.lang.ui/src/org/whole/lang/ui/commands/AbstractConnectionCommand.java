@@ -66,7 +66,7 @@ public abstract class AbstractConnectionCommand extends Command implements ILega
 
 	protected FeatureDescriptor getConnectionConnectedFeature(IEntity node) {
 		FeatureDescriptor fd = null;
-		IEntityIterator<IEntity> i = IteratorFactory.childIterator();
+		IEntityIterator<IEntity> i = IteratorFactory.instance.childIterator();
 		i.reset(node);
 		for (IEntity child : i)
 			if ((EntityUtils.isComposite(child) && child.wContains(getConnection())) ||
@@ -87,11 +87,11 @@ public abstract class AbstractConnectionCommand extends Command implements ILega
 	protected boolean connectionExists(IEntity sourceTransistion, IEntity targetTransistion) {
 		if (EntityUtils.isNotResolver(sourceTransistion) && EntityUtils.isNotResolver(targetTransistion)) {
 			IEntityIterator<IEntity> sourceChildrenIterator = EntityUtils.isComposite(sourceTransistion) ?
-					IteratorFactory.childIterator() : IteratorFactory.selfIterator();
+					IteratorFactory.instance.childIterator() : IteratorFactory.instance.selfIterator();
 			sourceChildrenIterator.reset(sourceTransistion);
 			
 			IEntityIterator<IEntity> targetChildrenIterator = EntityUtils.isComposite(targetTransistion) ?
-					IteratorFactory.childIterator() : IteratorFactory.selfIterator();
+					IteratorFactory.instance.childIterator() : IteratorFactory.instance.selfIterator();
 			targetChildrenIterator.reset(targetTransistion);
 			
 			for (IEntity sourceEntity : sourceChildrenIterator) {

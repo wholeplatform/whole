@@ -68,7 +68,7 @@ public class SemanticsDynamicCompilerVisitor extends SemanticsIdentityDefaultVis
 	public void visit(SemanticFunction entity) {
     	FunctionBody rules = entity.getRules();
     	if (Matcher.match(SemanticsEntityDescriptorEnum.InferenceRules, rules)) {
-    		setResultIterator(IteratorFactory.emptyIterator().withSourceEntity(entity));//TODO not supported yet
+    		setResultIterator(IteratorFactory.instance.emptyIterator().withSourceEntity(entity));//TODO not supported yet
     		return;
     	}
 
@@ -95,10 +95,10 @@ public class SemanticsDynamicCompilerVisitor extends SemanticsIdentityDefaultVis
 //    	if (functionUri.indexOf("#") == -1)
 //    		functionUri = getLibraryUri(entity)+"#"+functionUri;
 
-		IEntityIterator<IEntity> resultIterator = IteratorFactory.functionApplicationIterator(functionUri).withSourceEntity(entity);
+		IEntityIterator<IEntity> resultIterator = IteratorFactory.instance.functionApplicationIterator(functionUri).withSourceEntity(entity);
 
 		if (functionUri.endsWith("#stagedVisit"))
-			resultIterator = IteratorFactory.recursiveFunctionApplicationIterator().withSourceEntity(entity);
+			resultIterator = IteratorFactory.instance.recursiveFunctionApplicationIterator().withSourceEntity(entity);
 
     	Expression arguments = entity.getArguments();
 		if (!EntityUtils.isResolver(arguments)) {
@@ -106,7 +106,7 @@ public class SemanticsDynamicCompilerVisitor extends SemanticsIdentityDefaultVis
     		IEntityIterator<?> argumentsIterator = getResultIterator();
 
     		if (!argumentsIterator.getClass().equals(SelfIterator.class))
-    			resultIterator = IteratorFactory.composeIterator(resultIterator, argumentsIterator).withSourceEntity(entity);
+    			resultIterator = IteratorFactory.instance.composeIterator(resultIterator, argumentsIterator).withSourceEntity(entity);
     	}
 		setResultIterator(resultIterator);
   	}
@@ -126,7 +126,7 @@ public class SemanticsDynamicCompilerVisitor extends SemanticsIdentityDefaultVis
     		IEntityIterator<?> expressionIterator = getResultIterator();
 
     		if (!expressionIterator.getClass().equals(SelfIterator.class))
-    			resultIterator = IteratorFactory.forIterator(expressionIterator, resultIterator).withSourceEntity(entity);
+    			resultIterator = IteratorFactory.instance.forIterator(expressionIterator, resultIterator).withSourceEntity(entity);
     	}
 		setResultIterator(resultIterator);
 	}
@@ -140,11 +140,11 @@ public class SemanticsDynamicCompilerVisitor extends SemanticsIdentityDefaultVis
 //		}
 //
 //    	if (argumentsIterators.length == 0)
-//    		setResultIterator(QueriesIteratorFactory.selfIterator().withDomainEntity(entity)); 
+//    		setResultIterator(IteratorFactory.instance.selfIterator().withDomainEntity(entity)); 
 //    	else if (argumentsIterators.length == 1) {
 //			setResultIterator(argumentsIterators[0]);
 //		} else {//== if (argumentsIterators.length > 1) {
-//			setResultIterator(QueriesIteratorFactory.pointwiseProductIterator(argumentsIterators).withDomainEntity(entity));
+//			setResultIterator(IteratorFactory.instance.pointwiseProductIterator(argumentsIterators).withDomainEntity(entity));
 //		}
 //	}
 }

@@ -117,10 +117,10 @@ public class TestsHelpers {
 
 	public static Map<String, FilterRule> createFilterRulesMap(TestSuite testSuite) {
 		Map<String, FilterRule> filterRulesMap = new HashMap<String, FilterRule>();
-		IEntityIterator<FilterFamily> filterFamilies = IteratorFactory.childIterator();
+		IEntityIterator<FilterFamily> filterFamilies = IteratorFactory.instance.childIterator();
 		filterFamilies.reset(testSuite.getFilterFamilies());
 		for (FilterFamily filterFamily : filterFamilies) {
-			IEntityIterator<FilterRule> filterRules = IteratorFactory.childIterator();
+			IEntityIterator<FilterRule> filterRules = IteratorFactory.instance.childIterator();
 			filterRules.reset(filterFamily.getFilterRules());
 			for (FilterRule filterRule : filterRules) {
 				String name = filterFamily.getName().getValue()+'.'+filterRule.getName().getValue();

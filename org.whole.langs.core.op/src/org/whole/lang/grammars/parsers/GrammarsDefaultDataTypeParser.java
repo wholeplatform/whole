@@ -217,7 +217,7 @@ public class GrammarsDefaultDataTypeParser extends DefaultDataTypePersistencePar
 			}
 		}, false).visit(grammarBasedDataTypeParser.getEnumRule(value));
 		
-//		IEntityIterator<Literal> iterator = IteratorFactory.<Literal>descendantOrSelfMatcherIterator(
+//		IEntityIterator<Literal> iterator = IteratorFactory.instance.<Literal>descendantOrSelfMatcherIterator(
 //				grammarBasedDataTypeParser.getEnumRule(value)).usePattern(GrammarsEntityDescriptorEnum.Literal);
 //		if (iterator.hasNext())
 //			sb.append(iterator.next().getValue());

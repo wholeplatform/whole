@@ -86,7 +86,7 @@ public class XsiCompositeElementPart extends AbstractCompositePart {
 
 	private List<IEntity> createFeatureList() {
 		contents = new ArrayList<IEntity>();
-		IEntityIterator<IEntity> i = IteratorFactory.childIterator();
+		IEntityIterator<IEntity> i = IteratorFactory.instance.childIterator();
 		i.reset(getModelEntity());
 		for (IEntity feature : i)
 			contents.add(feature);

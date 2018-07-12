@@ -91,13 +91,13 @@ public class GenericGrammarBasedValidatorVisitor extends GenericIdentityVisitor 
 		
 		//TODO ensure grammar normalized
 		Map<String, Rule> productions = new HashMap<String, Rule>();
-		IEntityIterator<Production> pi = IteratorFactory.<Production>childIterator();
+		IEntityIterator<Production> pi = IteratorFactory.instance.<Production>childIterator();
 		pi.reset(grammar.getPhraseStructure());
 		for (Production p : pi)
 			productions.put(p.getName().getValue(), p.getRule());
 		
 		Map<String, Rule> lexicon = new HashMap<String, Rule>();
-		IEntityIterator<Production> li = IteratorFactory.<Production>childIterator();
+		IEntityIterator<Production> li = IteratorFactory.instance.<Production>childIterator();
 		li.reset(grammar.getLexicalStructure());
 		for (Production p : li)
 			lexicon.put(p.getName().getValue(), p.getRule());
@@ -127,7 +127,7 @@ public class GenericGrammarBasedValidatorVisitor extends GenericIdentityVisitor 
 
 		calculateDataTerminals(grammar);
 
-		IEntityIterator<IEntity> iterator = IteratorFactory.descendantOrSelfMatcherIterator().withPattern(EntityKinds.DATA);
+		IEntityIterator<IEntity> iterator = IteratorFactory.instance.descendantOrSelfMatcherIterator().withPattern(EntityKinds.DATA);
 		iterator.reset(entity);
 		while (iterator.hasNext())
 			validateDataTerminal(iterator.next());

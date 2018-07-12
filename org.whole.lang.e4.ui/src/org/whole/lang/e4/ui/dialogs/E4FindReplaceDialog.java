@@ -93,7 +93,7 @@ public class E4FindReplaceDialog extends E4Dialog {
 		super(shell);
 		setShellStyle(getShellStyle() ^ SWT.APPLICATION_MODAL);
 		setBlockOnOpen(false);
-		this.iterator = IteratorFactory.descendantOrSelfMatcherIterator();
+		this.iterator = IteratorFactory.instance.descendantOrSelfMatcherIterator();
 		this.bindings = BindingManagerFactory.instance.createArguments();
 		enableSelectionTracking(true);
 		clearFoundEntity();

@@ -402,7 +402,7 @@ public class EntityUtils {
 				while (j<mergee.wSize())
 					merger.wAdd(cloneIfParented(mergee.wGet(j++).wGetAdaptee(false)));
 			} else {
-				IEntityIterator<IEntity> mergeeIterator = IteratorFactory.childIterator();
+				IEntityIterator<IEntity> mergeeIterator = IteratorFactory.instance.childIterator();
 				mergeeIterator.reset(mergee);
 				while (mergeeIterator.hasNext()) {
 					IEntity mergeeChild = mergeeIterator.next();
@@ -472,7 +472,7 @@ public class EntityUtils {
 		StringBuffer path = new StringBuffer();
 		if (entity != null) {
 			IEntity parent = null;
-			IEntityIterator<IEntity> i = IteratorFactory.ancestorOrSelfReverseIterator();
+			IEntityIterator<IEntity> i = IteratorFactory.instance.ancestorOrSelfReverseIterator();
 			i.reset(entity);
 			if (CommonsEntityDescriptorEnum.RootFragment.equals(i.lookahead().wGetEntityDescriptor()))
 				i.next();

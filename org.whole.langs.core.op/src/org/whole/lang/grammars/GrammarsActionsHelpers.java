@@ -83,7 +83,7 @@ public class GrammarsActionsHelpers {
 		}
 		public TokenSet(IEntity tuple) {
 			this(tuple.wSize()*2);
-			IEntityIterator<NonTerminal> i = IteratorFactory.<NonTerminal>childIterator();
+			IEntityIterator<NonTerminal> i = IteratorFactory.instance.<NonTerminal>childIterator();
 			i.reset(tuple);
 			for (NonTerminal nt : i)
 				add(nt.getValue());

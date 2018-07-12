@@ -127,7 +127,7 @@ public class GrammarsUtils {
 	}
 
 	public static void ensureCompiledPatterns(Grammar grammar) {
-		IEntityIterator<IEntity> i = IteratorFactory.<IEntity>descendantOrSelfMatcherIterator()
+		IEntityIterator<IEntity> i = IteratorFactory.instance.<IEntity>descendantOrSelfMatcherIterator()
 				.withPattern(GrammarsEntityDescriptorEnum.RegExp);
 		i.reset(grammar);
 

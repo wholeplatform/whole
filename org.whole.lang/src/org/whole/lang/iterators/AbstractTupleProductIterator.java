@@ -15,12 +15,10 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.queries.iterators;
+package org.whole.lang.iterators;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.commons.factories.CommonsEntityFactory;
-import org.whole.lang.iterators.AbstractProductIterator;
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
 
 /**

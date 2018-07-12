@@ -50,7 +50,7 @@ public class JDTCommentsMapper {
 		return comments.remove(comment);
 	}
 	public void appendOrphanCommentsToBlock(IEntity block) {
-		IEntityIterator<IEntity> iterator = IteratorFactory.childIterator();
+		IEntityIterator<IEntity> iterator = IteratorFactory.instance.childIterator();
 		iterator.reset(orphanComments);
 		for (IEntity child : iterator) {
 			block.wAdd(child);
