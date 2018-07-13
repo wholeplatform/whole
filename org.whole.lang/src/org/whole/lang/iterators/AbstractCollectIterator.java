@@ -35,6 +35,7 @@ public abstract class AbstractCollectIterator extends AbstractLazyCloneableItera
 	protected IEntityComparator<IEntity> comparator;
 	private IEntityIterator<? extends IEntity>[] iteratorChain;
 	private boolean lazyCloneChain;
+	private boolean lazyReset;
 	protected IEntity nextEntity = null;
 	protected boolean collected = false;
 
@@ -71,8 +72,10 @@ public abstract class AbstractCollectIterator extends AbstractLazyCloneableItera
 			for (int i=0; i<iteratorChain.length; i++) {
 				iteratorChain[i] = getCloneContext().clone(iteratorChain[i]);
 				iteratorChain[i].setBindings(getBindings());
-				if (resetEntity != null)
+				if (lazyReset && resetEntity != null) {
+					lazyReset = false;
 					iteratorChain[i].reset(resetEntity);
+				}
 			}
 			lazyCloneChain = false;
 			updateCloneContext();
@@ -132,6 +135,7 @@ public abstract class AbstractCollectIterator extends AbstractLazyCloneableItera
 		nextEntity = null;
 		collected = false;
 		resetEntity = entity;
+		lazyReset = lazyCloneChain;
 		if (!lazyCloneChain)
 			for (int i=0; i<iteratorChain.length; i++)
 				iteratorChain[i].reset(entity);

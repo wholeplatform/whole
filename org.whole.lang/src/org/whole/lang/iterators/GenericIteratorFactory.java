@@ -1306,7 +1306,7 @@ public class GenericIteratorFactory implements IteratorFactory {
 		return cloneReplacingIterator(childMappingIterator, null);
 	}
 	public IEntityIterator<?> cloneReplacingIterator(IEntityIterator<?> childMappingIterator, Set<String> shallowUriSet) {
-		if (childMappingIterator instanceof EmptyIterator) {
+		if (childMappingIterator.specificIterator() instanceof EmptyIterator) {
 			return new AbstractSingleValuedRunnableIterator<IEntity>() {
 				protected void run(IEntity selfEntity, IBindingManager bm) {
 					bm.setResult(EntityUtils.clone(selfEntity));

@@ -28,6 +28,7 @@ import org.whole.lang.operations.ICloneContext;
 public class AbstractDelegatingIterator<E extends IEntity> extends AbstractLazyCloneableIterator<E> {
 	private IEntityIterator<E> iterator;
 	private boolean lazyClone;
+	private boolean lazyReset;
 
 	public AbstractDelegatingIterator() {
 	}
@@ -50,8 +51,10 @@ public class AbstractDelegatingIterator<E extends IEntity> extends AbstractLazyC
 		if (lazyClone) {
 			withIterator(getCloneContext().clone(iterator));
 			iterator.setBindings(getBindings());
-			if (resetEntity != null)
+			if (lazyReset && resetEntity != null) {
+				lazyReset = false;
 				iterator.reset(resetEntity);
+			}
 		}
 		return iterator;
 	}
@@ -98,6 +101,7 @@ public class AbstractDelegatingIterator<E extends IEntity> extends AbstractLazyC
 
 	public void reset(IEntity entity) {
 		this.resetEntity = entity;
+		this.lazyReset = lazyClone;
 		if (!lazyClone)
 			getIterator().reset(entity);
 	}
