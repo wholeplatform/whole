@@ -20,7 +20,6 @@ package org.whole.lang.iterators.instrumentation;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.InstrumentingIterator;
 import org.whole.lang.model.IEntity;
 
@@ -43,7 +42,7 @@ public class LoggerInstrumentation extends IdentityInstrumentation {
 			loggerConsumer.accept(ii);
 	}
 	@Override
-	public void afterClone(InstrumentingIterator<?> ii, IEntityIterator<?> result) {
+	public void afterClone(InstrumentingIterator<?> ii, InstrumentingIterator<?> result) {
 		if (loggerPredicate.test(ii))
 			loggerConsumer.accept(ii);
 	}

@@ -27,12 +27,21 @@ import org.whole.lang.model.NullEntity;
 import org.whole.lang.operations.DynamicCompilerOperation;
 import org.whole.lang.operations.IOperation;
 import org.whole.lang.operations.InterpreterOperation;
+import org.whole.lang.resources.FunctionLibraryRegistry;
 import org.whole.lang.visitors.IVisitor;
 
 /**
  * @author Riccardo Solmi
  */
 public class BehaviorUtils {
+	public static IEntity getSourceFunction(IEntity sourceEntity) {
+		//TODO call getDeclaration
+		return EntityUtils.getCompoundRoot(sourceEntity);
+	}
+	public static String getSourceFunctionUri(IEntity sourceFunction) {
+		return FunctionLibraryRegistry.instance().getFunctionUri(sourceFunction);
+	}
+
 	public static IEntity apply(String functionUri, IEntity self) {
 		return apply(functionUri, self, BindingManagerFactory.instance.createArguments());
 	}

@@ -20,7 +20,6 @@ package org.whole.lang.iterators.instrumentation;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.InstrumentingIterator;
 
 /**
@@ -39,7 +38,7 @@ public class DebuggerInstrumentation extends IdentityInstrumentation {
 	};
 
 	@Override
-	public void afterClone(InstrumentingIterator<?> ii, IEntityIterator<?> result) {
+	public void afterClone(InstrumentingIterator<?> ii, InstrumentingIterator<?> result) {
 	}
 
 	@Override

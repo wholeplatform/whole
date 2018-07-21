@@ -20,7 +20,6 @@ package org.whole.lang.iterators.instrumentation;
 import java.util.Arrays;
 import java.util.List;
 
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.InstrumentingIterator;
 import org.whole.lang.model.IEntity;
 
@@ -29,6 +28,7 @@ import org.whole.lang.model.IEntity;
  */
 public class CompositeInstrumentation implements IEntityIteratorInstrumentation {
 	public static final IEntityIteratorInstrumentation instance = new CompositeInstrumentation(
+			DiagnosticInstrumentation.instance,
 			ProfilerInstrumentation.instance,
 			LoggerInstrumentation.instance,
 			DebuggerInstrumentation.instance
@@ -45,7 +45,7 @@ public class CompositeInstrumentation implements IEntityIteratorInstrumentation 
 		instrumentations.forEach((i) -> i.beforeClone(ii));
 	}
 	@Override
-	public void afterClone(InstrumentingIterator<?> ii, IEntityIterator<?> result) {
+	public void afterClone(InstrumentingIterator<?> ii, InstrumentingIterator<?> result) {
 		instrumentations.forEach((i) -> i.afterClone(ii, result));
 	}
 

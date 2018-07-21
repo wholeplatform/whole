@@ -1250,12 +1250,12 @@ public class GenericIteratorFactory implements IteratorFactory {
     	return new CallIterator<E>(name, argsIterators);
     }
 
-	public static final String outerSelfName = "outerSelf";
+	public static final String OUTER_SELF_NAME = "staging#outerSelf";
 	public IEntityIterator<?> nestedVariableIterator() {
 		return new AbstractMultiValuedRunnableIterator<IEntity>() {
 			@Override
 			protected void run(IEntity selfEntity, IBindingManager bm) {
-					IEntity outerSelfEntity = bm.wGet("outerSelf");
+					IEntity outerSelfEntity = bm.wGet(OUTER_SELF_NAME);
 					bm.wDef("self", outerSelfEntity);
 					Variable variable = (Variable) selfEntity;
 					String varName = variable.getVarName().getValue();
@@ -1281,7 +1281,7 @@ public class GenericIteratorFactory implements IteratorFactory {
 				
 				//TODO clone iterator
 
-//				IEntity outerSelfEntity = bm.wGet("outerSelf");
+//				IEntity outerSelfEntity = bm.wGet(OUTER_SELF_NAME);
 //				bm.wDef("self", outerSelfEntity);
 //				fragmentIterator.setBindings(bm);
 //				fragmentIterator.reset(outerSelfEntity);
@@ -1289,7 +1289,7 @@ public class GenericIteratorFactory implements IteratorFactory {
 			}
 			@Override
 			protected void resetResultIterator(IEntityIterator<IEntity> resultIterator, IEntity selfEntity, IBindingManager bm) {
-				IEntity outerSelfEntity = bm.wGet("outerSelf");
+				IEntity outerSelfEntity = bm.wGet(OUTER_SELF_NAME);
 				bm.wDef("self", outerSelfEntity);
 				resultIterator.setBindings(bm);
 				resultIterator.reset(outerSelfEntity);

@@ -19,6 +19,7 @@ package org.whole.lang.resources;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.WeakHashMap;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
@@ -55,6 +56,10 @@ public class CompoundResourceRegistry<T extends IResource> extends ResourceRegis
 		return functionLibrary;
 	}
 
+	public String getFunctionUri(IEntity functionModel) {
+		return modelUriMap.get(functionModel);
+	}
+
 	@SuppressWarnings("unchecked")
 	public <E extends IEntity> E getFunctionModel(String functionUri, boolean loadOnDemand, IBindingManager bm) {
 		IEntity functionModel = uriModelMap.get(functionUri);
@@ -66,8 +71,10 @@ public class CompoundResourceRegistry<T extends IResource> extends ResourceRegis
 		return (E) functionModel;
 	}
 
-	protected Map<String, IEntity> uriModelMap = new HashMap<String, IEntity>();
+	protected Map<IEntity, String> modelUriMap = new WeakHashMap<>();
+	protected Map<String, IEntity> uriModelMap = new HashMap<>();
 	public void putFunctionModel(String functionUri, IEntity functionModel) {
+		modelUriMap.put(functionModel, functionUri);
 		IEntity oldModel = uriModelMap.put(functionUri, functionModel);
 		if (oldModel != null && !Matcher.match(oldModel, functionModel))
 			uriCodeMap.remove(functionUri);

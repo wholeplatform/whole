@@ -39,10 +39,6 @@ public class ProfilerInstrumentation implements IEntityIteratorInstrumentation {
 		return iteratorProfilingDataMap.get(ii);
 	}
 
-	public static enum InstrumentedMethod {
-		NONE, create, clone, setBindings, reset, hasNext, lookahead, next 
-	}
-
 	public static class ProfilingData {
 		public int cloneCalls;
 		public int setBindingsCalls;
@@ -51,9 +47,6 @@ public class ProfilerInstrumentation implements IEntityIteratorInstrumentation {
 		public int lookaheadCalls;
 		public int nextCalls;
 
-		public InstrumentedMethod calling = InstrumentedMethod.NONE;
-		public InstrumentedMethod lastCalled = InstrumentedMethod.create;
-
 		public Duration cloneDuration = Duration.ZERO;
 		public Duration setBindingsDuration = Duration.ZERO;
 		public Duration resetDuration = Duration.ZERO;
@@ -61,24 +54,47 @@ public class ProfilerInstrumentation implements IEntityIteratorInstrumentation {
 		public Duration lookaheadDuration = Duration.ZERO;
 		public Duration nextDuration = Duration.ZERO;
 
-		protected Instant outerCallStartInstant;
-		protected int pendingOuterCalls = 0;
-		public boolean startTimer() {
-			if (pendingOuterCalls++ == 0) {
-				outerCallStartInstant = Instant.now();
-				return true;
-			} else {
-				return false;
-			}
-		}
-		public Duration elapsedTime() {
-			return Duration.between(outerCallStartInstant, Instant.now());
+		protected Instant startInstant;
+		public void startTimer() {
+			startInstant = Instant.now();
 		}
 		public Duration endTimer() {
-			return (--pendingOuterCalls == 0) ? elapsedTime() : Duration.ZERO;
+			return Duration.between(startInstant, Instant.now());
 		}
-		public boolean isNestedCall() {
-			return pendingOuterCalls > 1;
+
+		@Override
+		public String toString() {
+			StringBuilder sb = new StringBuilder();
+			sb.append("\nclone      :");
+			sb.append(cloneCalls);
+			sb.append("  ");
+			sb.append(cloneDuration);
+
+			sb.append("\nsetBindings:");
+			sb.append(setBindingsCalls);
+			sb.append("  ");
+			sb.append(setBindingsDuration);
+
+			sb.append("\nreset      :");
+			sb.append(resetCalls);
+			sb.append("  ");
+			sb.append(resetDuration);
+
+			sb.append("\nhasNext    :");
+			sb.append(hasNextCalls);
+			sb.append("  ");
+			sb.append(hasNextDuration);
+
+			sb.append("\nlookahead  :");
+			sb.append(lookaheadCalls);
+			sb.append("  ");
+			sb.append(lookaheadDuration);
+
+			sb.append("\nnext       :");
+			sb.append(nextCalls);
+			sb.append("  ");
+			sb.append(nextDuration);
+			return sb.toString();
 		}
 	}
 
@@ -90,10 +106,9 @@ public class ProfilerInstrumentation implements IEntityIteratorInstrumentation {
 		pd.startTimer();
 	}
 	@Override
-	public void afterClone(InstrumentingIterator<?> ii, IEntityIterator<?> result) {
+	public void afterClone(InstrumentingIterator<?> ii, InstrumentingIterator<?> result) {
 		ProfilingData pd = profilingData(ii);
 		pd.cloneDuration = pd.cloneDuration.plus(pd.endTimer());
-		pd.lastCalled = InstrumentedMethod.clone;
 	}
 
 	@Override
@@ -102,7 +117,6 @@ public class ProfilerInstrumentation implements IEntityIteratorInstrumentation {
 		ProfilingData pd = profilingData(ii);
 		pd.setBindingsCalls++;
 		pd.startTimer();
-		pd.lastCalled = InstrumentedMethod.setBindings;
 	}
 	@Override
 	public void afterSetBindings(InstrumentingIterator<?> ii) {
@@ -121,7 +135,6 @@ public class ProfilerInstrumentation implements IEntityIteratorInstrumentation {
 	public void afterReset(InstrumentingIterator<?> ii) {
 		ProfilingData pd = profilingData(ii);
 		pd.resetDuration = pd.resetDuration.plus(pd.endTimer());
-		pd.lastCalled = InstrumentedMethod.reset;
 	}
 
 	@Override
@@ -135,7 +148,6 @@ public class ProfilerInstrumentation implements IEntityIteratorInstrumentation {
 	public void afterHasNext(InstrumentingIterator<?> ii, boolean result) {
 		ProfilingData pd = profilingData(ii);
 		pd.hasNextDuration = pd.hasNextDuration.plus(pd.endTimer());
-		pd.lastCalled = InstrumentedMethod.hasNext;
 	}
 
 	@Override
@@ -149,7 +161,6 @@ public class ProfilerInstrumentation implements IEntityIteratorInstrumentation {
 	public void afterLookahead(InstrumentingIterator<?> ii, IEntity result) {
 		ProfilingData pd = profilingData(ii);
 		pd.lookaheadDuration = pd.lookaheadDuration.plus(pd.endTimer());
-		pd.lastCalled = InstrumentedMethod.lookahead;
 	}
 
 	@Override
@@ -163,6 +174,5 @@ public class ProfilerInstrumentation implements IEntityIteratorInstrumentation {
 	public void afterNext(InstrumentingIterator<?> ii, IEntity result) {
 		ProfilingData pd = profilingData(ii);
 		pd.nextDuration = pd.nextDuration.plus(pd.endTimer());
-		pd.lastCalled = InstrumentedMethod.next;
 	}
 }

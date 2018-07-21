@@ -17,7 +17,6 @@
  */
 package org.whole.lang.iterators.instrumentation;
 
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.InstrumentingIterator;
 import org.whole.lang.model.IEntity;
 
@@ -31,7 +30,7 @@ public class IdentityInstrumentation implements IEntityIteratorInstrumentation {
 	public void beforeClone(InstrumentingIterator<?> ii) {
 	}
 	@Override
-	public void afterClone(InstrumentingIterator<?> ii, IEntityIterator<?> result) {
+	public void afterClone(InstrumentingIterator<?> ii, InstrumentingIterator<?> result) {
 	}
 
 	@Override

@@ -17,7 +17,6 @@
  */
 package org.whole.lang.iterators.instrumentation;
 
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.InstrumentingIterator;
 import org.whole.lang.model.IEntity;
 
@@ -26,7 +25,7 @@ import org.whole.lang.model.IEntity;
  */
 public interface IEntityIteratorInstrumentation {
 	public void beforeClone(InstrumentingIterator<?> ii);
-	public void afterClone(InstrumentingIterator<?> ii, IEntityIterator<?> result);
+	public void afterClone(InstrumentingIterator<?> ii, InstrumentingIterator<?> result);
 
 	public void beforeSetBindings(InstrumentingIterator<?> ii);
 	public void afterSetBindings(InstrumentingIterator<?> ii);

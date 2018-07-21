@@ -61,7 +61,7 @@ public class NullFragmentModel implements IFragmentModel, Serializable {
 		throw new IllegalStateException(WholeMessages.null_model);	}
 
 	public Fragment getFragment() {
-		throw new IllegalStateException(WholeMessages.null_model);
+		return null;
 	}
 	public void setFragment(Fragment root) {
 	}
