@@ -105,7 +105,7 @@ public class ChooseByOrderIterator<E extends IEntity> extends AbstractLazyClonea
 		for (int i=0; i<iteratorChain.length; i++) {
 			if (i>0)
 				sb.append(",");
-			sb.append(iteratorChain[i].toString());
+			iteratorChain[i].toString(sb);
 		}
 
     	sb.append(")");

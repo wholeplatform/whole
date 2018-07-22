@@ -54,7 +54,7 @@ public abstract class AbstractCloneableIterator<E extends IEntity> implements IE
 	}
 
 	private IBindingManager bindings;
-	protected final boolean hasBindings() {
+	public final boolean hasBindings() {
 		return bindings != null;
 	}
 	public final IBindingManager getBindings() {

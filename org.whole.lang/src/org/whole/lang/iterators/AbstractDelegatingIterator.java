@@ -50,7 +50,8 @@ public class AbstractDelegatingIterator<E extends IEntity> extends AbstractLazyC
 	public IEntityIterator<E> getIterator() {
 		if (lazyClone) {
 			withIterator(getCloneContext().clone(iterator));
-			iterator.setBindings(getBindings());
+			if (hasBindings())
+				iterator.setBindings(getBindings());
 			if (lazyReset && resetEntity != null) {
 				lazyReset = false;
 				iterator.reset(resetEntity);
@@ -112,6 +113,6 @@ public class AbstractDelegatingIterator<E extends IEntity> extends AbstractLazyC
 
 	@Override
 	public void toString(StringBuilder sb) {
-    	sb.append(iterator.toString());
+    	iterator.toString(sb);
 	}
 }

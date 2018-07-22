@@ -15,34 +15,27 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.bindings;
+package org.whole.lang.iterators.instrumentation;
 
-import org.whole.lang.model.IEntity;
+import org.whole.lang.operations.CloneContext;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.operations.ICloneable;
-
-
 
 /**
  * @author Riccardo Solmi
  */
-public interface IBindingManager extends IBindingScope, ICloneable {
-	public IBindingManager withSourceEntity(IEntity entity);
+public abstract class AbstractInstrumentationData implements ICloneable {
+	public AbstractInstrumentationData clone() {
+		return clone(new CloneContext());
+	}
 
-	public IBindingManager clone();
-	public IBindingManager clone(ICloneContext cc);
-
-	public IEnvironmentManager wGetEnvironmentManager();
-
-	public void wEnterScope();
-	public void wEnterScope(INestableScope scope);
-	public void wEnterScope(IBindingScope scope, boolean dynamic);
-	public void wExitScope();
-	public void wExitScope(boolean merge);
-
-	public default void enforceSelfBinding(IEntity selfEntity) {
-		IEntity selfBinding = wGet("self");
-		if (selfBinding != selfEntity)
-			wDef("self", selfEntity);
+	public AbstractInstrumentationData clone(ICloneContext cc) {
+		try {
+			AbstractInstrumentationData data = (AbstractInstrumentationData) super.clone();
+			cc.putClone(this, data);
+			return data;
+		} catch (CloneNotSupportedException e) {
+			throw new InternalError();
+		}
 	}
 }

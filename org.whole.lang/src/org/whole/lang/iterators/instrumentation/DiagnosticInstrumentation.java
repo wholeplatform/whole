@@ -17,17 +17,9 @@
  */
 package org.whole.lang.iterators.instrumentation;
 
-import java.util.ArrayDeque;
 import java.util.Collections;
-import java.util.Deque;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
 import java.util.WeakHashMap;
-import java.util.stream.Collectors;
 
-import org.whole.lang.commons.parsers.CommonsDataTypePresentationParser;
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.InstrumentingIterator;
 import org.whole.lang.model.IEntity;
 
@@ -37,70 +29,19 @@ import org.whole.lang.model.IEntity;
 public class DiagnosticInstrumentation implements IEntityIteratorInstrumentation {
 	public static final IEntityIteratorInstrumentation instance = new DiagnosticInstrumentation();
 
-	//TODO move aspectual state responsibility to InstrumentingIterator
-	public static Map<IEntityIterator<?>, DiagnosticData> iteratorDiagnosticDataMap = new HashMap<>();
+	public static String ID = DiagnosticInstrumentation.class.getName();
 	public static DiagnosticData diagnosticData(InstrumentingIterator<?> ii) {
-		iteratorDiagnosticDataMap.computeIfAbsent(ii, i -> new DiagnosticData());
-		return iteratorDiagnosticDataMap.get(ii);
+		return ii.instrumentationData(ID, i -> new DiagnosticData());
 	}
 
 	public static enum State {
-		NEED_BINDINGS, NEED_SELF, READY, USED
+		NOT_INITIALIZED, WITHOUT_SELF, READY, USED
 	}
 	public static enum InstrumentedMethod {
 		CLONE, SET_BINDINGS, RESET, HAS_NEXT, LOOKAHEAD, NEXT 
 	}
-
-	public static class DiagnosticData {
-		public static int HISTORY_SIZE = 4;
-		public Deque<InstrumentedMethod> callHistory = new ArrayDeque<>(HISTORY_SIZE);
-
-		public IEntity selfEntity = null;
-		public State state = State.NEED_BINDINGS;
-
-		public State stateWhenCloned = null;
-		public InstrumentingIterator<?> firstPrototype = null;
-		public Set<InstrumentingIterator<?>> cloneSet = null;
-		public final int cloneSetSize() {
-			return cloneSet != null ? cloneSet.size() : 0;
-		}
-		public final boolean isFirstPrototype(InstrumentingIterator<?> ii) {
-			return firstPrototype == ii;
-		}
-		public final boolean usedWhenCloned() {
-			return stateWhenCloned == State.USED;
-		}
-		public final Set<InstrumentingIterator<?>> unusedCloneSet() {
-			return cloneSet.stream().filter((i) -> diagnosticData(i).state != State.USED).collect(Collectors.toSet());
-		}
-
-		@Override
-		public String toString() {
-			String selfEntityName = selfEntity != null ?
-					CommonsDataTypePresentationParser.unparseEntityDescriptor(
-							selfEntity.wGetEntityDescriptor()) : "null";
-
-			StringBuilder sb = new StringBuilder();
-			sb.append("state: ");
-			sb.append(state);
-
-			sb.append("   clones: ");
-			int cloneSetSize = cloneSetSize(); 
-			sb.append(cloneSetSize);
-			if (cloneSetSize > 0) {
-				sb.append("   stateWhenCloned: ");
-				sb.append(stateWhenCloned);
-				sb.append("   unusedClones: ");
-				sb.append(unusedCloneSet().size());
-			}
-
-			sb.append("   callHistory: ");
-			sb.append(callHistory);
-
-			sb.append("  self: ");
-			sb.append(selfEntityName);
-			return sb.toString();
-		}
+	public static enum Severity {
+		NONE, WARNING, ERROR
 	}
 
 	public void performDiagnostics(InstrumentingIterator<?> ii, InstrumentedMethod method, boolean before) {
@@ -111,6 +52,16 @@ public class DiagnosticInstrumentation implements IEntityIteratorInstrumentation
 			if (data.callHistory.size() >= DiagnosticData.HISTORY_SIZE)
 				data.callHistory.removeFirst();
 			data.callHistory.addLast(method);
+
+			if (method == InstrumentedMethod.NEXT) {
+				if (data.state == State.READY)
+					data.steps = 0;
+				if (data.state == State.USED)
+					data.steps++;
+			}
+
+			data.message = null;
+			data.severity = Severity.NONE;
 		}
 
 		testLifecycle(ii, method, before, data);
@@ -122,10 +73,10 @@ public class DiagnosticInstrumentation implements IEntityIteratorInstrumentation
 			return;
 
 		switch (data.state) {
-		case NEED_BINDINGS:
+		case NOT_INITIALIZED:
 			switch (method) {
 			case SET_BINDINGS:
-				data.state = State.NEED_SELF;
+				data.state = State.WITHOUT_SELF;
 				break;
 			case RESET:
 				if (ii.getNextResetEntity() != null)
@@ -138,7 +89,7 @@ public class DiagnosticInstrumentation implements IEntityIteratorInstrumentation
 				break;
 			}
 			break;
-		case NEED_SELF:
+		case WITHOUT_SELF:
 			switch (method) {
 			case RESET:
 				if (ii.getNextResetEntity() != null)
@@ -147,6 +98,8 @@ public class DiagnosticInstrumentation implements IEntityIteratorInstrumentation
 			default:
 				illegalState(ii, method, data);
 				break;
+			case SET_BINDINGS:
+				//TODO warning duplicate setBindings or ok after a clone
 			case CLONE:
 				break;
 			}
@@ -174,6 +127,16 @@ public class DiagnosticInstrumentation implements IEntityIteratorInstrumentation
 	}
 
 	public void illegalState(InstrumentingIterator<?> ii, InstrumentedMethod method, DiagnosticData data) {
+		data.message = "Illegal state: <"+data.state+", "+method+">";
+		data.severity = Severity.ERROR;
+		
+		String sourceCodeClassName = ii.getSourceCodeClassName();
+		if (sourceCodeClassName.equals("ConstantIterator") ||
+				sourceCodeClassName.equals("EmptyIterator") ||
+				sourceCodeClassName.equals("CollectionIterator") ||
+				sourceCodeClassName.equals("FailureIterator"))
+			data.severity = Severity.WARNING;
+
 		DebuggerInstrumentation.breakpointConsumer.accept(ii);
 	}
 
@@ -204,15 +167,23 @@ public class DiagnosticInstrumentation implements IEntityIteratorInstrumentation
 	}
 
 	public void nullSelfEntityAndBinding(InstrumentingIterator<?> ii, InstrumentedMethod method, DiagnosticData data) {
+		data.message = "null SelfEntity and self binding";
+		data.severity = Severity.ERROR;
 		DebuggerInstrumentation.breakpointConsumer.accept(ii);
 	}
 	public void nullSelfEntity(InstrumentingIterator<?> ii, InstrumentedMethod method, DiagnosticData data) {
+		data.message = "null SelfEntity";
+		data.severity = Severity.ERROR;
 		DebuggerInstrumentation.breakpointConsumer.accept(ii);
 	}
 	public void nullSelfBinding(InstrumentingIterator<?> ii, InstrumentedMethod method, DiagnosticData data) {
+		data.message = "null self binding";
+		data.severity = Severity.WARNING;
 //		DebuggerInstrumentation.breakpointConsumer.accept(ii);
 	}
 	public void notEqualsSelfEntityAndBinding(InstrumentingIterator<?> ii, InstrumentedMethod method, DiagnosticData data) {
+		data.message = "SelfEntity not equals self binding";
+		data.severity = Severity.WARNING;
 //		DebuggerInstrumentation.breakpointConsumer.accept(ii);
 	}
 

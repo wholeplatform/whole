@@ -165,7 +165,7 @@ public class IfIterator<E extends IEntity> extends AbstractDelegatingIterator<E>
 	@Override
 	public void toString(StringBuilder sb) {
 		sb.append("if ");
-		sb.append(conditionIterator);
+		conditionIterator.toString(sb);
 		sb.append(" do ");
 		super.toString(sb);
 	}

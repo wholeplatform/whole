@@ -25,7 +25,6 @@ import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.bindings.INestableScope;
 import org.whole.lang.bindings.NullScope;
-import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.DynamicCompilerOperation;
 import org.whole.lang.operations.ICloneContext;
@@ -204,7 +203,7 @@ public class CallIterator<E extends IEntity>  extends AbstractCloneableIterator<
 		for (int i=0; i<argsIterators.length; i++) {
 			if (i>0)
 				sb.append(",");
-			sb.append(argsIterators[i].toString());
+			argsIterators[i].toString(sb);
 		}
 
     	sb.append(")");

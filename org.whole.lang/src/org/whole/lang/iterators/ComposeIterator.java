@@ -174,9 +174,9 @@ public class ComposeIterator<E extends IEntity> extends AbstractLazyCloneableCom
     @Override
 	public void toString(StringBuilder sb) {    	
 		for (int i=nestedIterators.length-1; i>=0; i--) {
-			sb.append(nestedIterators[i].toString());
+			nestedIterators[i].toString(sb);
 			sb.append("/");
 		}
-		sb.append(iterator.toString());
+		iterator.toString(sb);
     }
 }

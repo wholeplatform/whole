@@ -50,7 +50,7 @@ public class CartesianUpdateIterator<E extends IEntity> extends AbstractCartesia
     	sb.append("update(");
     	super.toString(sb);
     	sb.append(" x= ");
-    	sb.append(valuesIterator.toString());
+    	valuesIterator.toString(sb);
     	sb.append(")");
     }
 }

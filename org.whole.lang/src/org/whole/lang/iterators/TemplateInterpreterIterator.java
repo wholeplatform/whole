@@ -87,12 +87,10 @@ public class TemplateInterpreterIterator<E extends IEntity> extends AbstractClon
 		nextEntityIterator = results.getResultIterator();
 		if (results.hasResultIterator()) {
 			results.setResultIterator(null);
-			selfEntity = getBindings().wGet("self");
-			if (selfEntity != resetEntity)
-				getBindings().wDef("self", resetEntity);
-			nextEntityIterator.reset(resetEntity);
 			lookaheadScope = null;
 		}
+		getBindings().enforceSelfBinding(resetEntity);
+		nextEntityIterator.reset(resetEntity);
 		return nextEntityIterator.lookahead();
 	}
 

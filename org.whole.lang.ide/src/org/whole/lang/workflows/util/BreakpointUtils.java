@@ -20,9 +20,11 @@ package org.whole.lang.workflows.util;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
+import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.iterators.InstrumentingIterator;
+import org.whole.lang.iterators.instrumentation.DebuggerInstrumentation;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.util.SuspensionKind;
 import org.whole.lang.util.BehaviorUtils;
@@ -33,29 +35,31 @@ import org.whole.lang.util.EntityUtils;
  */
 public class BreakpointUtils {
 	public static Predicate<InstrumentingIterator<?>> breakpointPredicate = (ii) -> {
-		boolean isEnabled = false;
+		IEntity selfEntity = ii.getResetEntity();
+		if (selfEntity == null || !ii.hasBindings())
+			return false;
 		IBindingManager bm = ii.getBindings();
+		boolean isEnabled = false;
 
 		bm.wEnterScope(ii.getDebugScope());
+		DebuggerInstrumentation.evaluatingPredicate = true;
 		try {
-			IEntity selfEntity = ii.getResetEntity();
-
 			IEntity result = BehaviorUtils.apply(
 					"whole:org.whole.lang.ui.views:DebugPerspectiveLibrarySemantics#breakpointEnabler", selfEntity, bm);
 
-			//FIXME workaround
-			if (result == null)
-				isEnabled = false;
-			else
-				isEnabled = EntityUtils.safeBooleanValue(result, false);
+			isEnabled = EntityUtils.safeBooleanValue(result, false);
 		} finally {
+			DebuggerInstrumentation.evaluatingPredicate = false;
 			bm.wExitScope();
 		}
 		return isEnabled;
 	};
 
 	public static Consumer<InstrumentingIterator<?>> breakpointConsumer = (ii) -> {
-		IBindingManager bm = ii.getBindings();
+		if (DebuggerInstrumentation.evaluatingPredicate)
+			return;
+
+		IBindingManager bm = ii.hasBindings() ? ii.getBindings() : BindingManagerFactory.instance.createArguments();
 		bm.wEnterScope(ii.getDebugScope());
 		try {		
 			E4Utils.suspendOperation(SuspensionKind.BREAK, null, ii.getSourceEntity(), bm);

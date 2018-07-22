@@ -68,7 +68,7 @@ public class CartesianInsertIterator<E extends IEntity> extends AbstractCartesia
     	sb.append("insert(");
     	super.toString(sb);
     	sb.append(" x= ");
-    	sb.append(valuesIterator.toString());
+    	valuesIterator.toString(sb);
     	sb.append(")");
     }
 }

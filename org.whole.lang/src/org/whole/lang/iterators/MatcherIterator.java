@@ -96,7 +96,7 @@ public class MatcherIterator<E extends IEntity> extends AbstractPatternFilterIte
 
     @Override
 	public void toString(StringBuilder sb) {
-    	sb.append(iterator.toString());
+    	iterator.toString(sb);
     	sb.append("[");
     	sb.append(pattern().toString());
     	sb.append("]");

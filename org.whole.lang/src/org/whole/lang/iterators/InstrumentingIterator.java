@@ -17,14 +17,21 @@
  */
 package org.whole.lang.iterators;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.INestableScope;
 import org.whole.lang.commons.parsers.CommonsDataTypePresentationParser;
+import org.whole.lang.iterators.instrumentation.AbstractInstrumentationData;
 import org.whole.lang.iterators.instrumentation.CompositeInstrumentation;
+import org.whole.lang.iterators.instrumentation.DiagnosticData;
 import org.whole.lang.iterators.instrumentation.DiagnosticInstrumentation;
-import org.whole.lang.iterators.instrumentation.DiagnosticInstrumentation.DiagnosticData;
 import org.whole.lang.iterators.instrumentation.IEntityIteratorInstrumentation;
+import org.whole.lang.iterators.instrumentation.DiagnosticInstrumentation.Severity;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.util.BehaviorUtils;
@@ -55,7 +62,7 @@ public class InstrumentingIterator<E extends IEntity> extends AbstractDelegating
 		if (sourceEntity == null)
 			sourceEntity = getIterator().getSourceEntity();
 		if (sourceEntity == null)
-			sourceEntity = BindingManagerFactory.instance.createNull();//Value("<No source available>");
+			sourceEntity = BindingManagerFactory.instance.createNull();//Value("<Source not available>");
 		return sourceEntity;
 	}
 
@@ -83,10 +90,20 @@ public class InstrumentingIterator<E extends IEntity> extends AbstractDelegating
 		return scope;
 	}
 
+	public Map<String, AbstractInstrumentationData> instrumentationDataMap = new HashMap<>();
+	@SuppressWarnings("unchecked")
+	public <V extends AbstractInstrumentationData> V instrumentationData(String dataId, Function<? super String, ? extends V> factoryMethod) {
+		instrumentationDataMap.computeIfAbsent(dataId, factoryMethod);
+		return (V) instrumentationDataMap.get(dataId);
+	}
+
+	
 	@Override
 	public IEntityIterator<E> clone(ICloneContext cc) {
 		instrumentation.beforeClone(this);
 		InstrumentingIterator<E> result = (InstrumentingIterator<E>) super.clone(cc);
+		result.instrumentationDataMap = instrumentationDataMap.entrySet().stream()
+				.collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue().clone(cc)));
 		instrumentation.afterClone(this, result);
 		return result;
 	}
@@ -137,7 +154,13 @@ public class InstrumentingIterator<E extends IEntity> extends AbstractDelegating
 	}
 
 	@Override
-	public void toString(StringBuilder sb) {
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		toInstrumentedString(sb);
+		return sb.toString();
+	}
+
+	public void toInstrumentedString(StringBuilder sb) {
 		DiagnosticData dd = DiagnosticInstrumentation.diagnosticData(this);
 		
 		IEntity selfEntity = dd.selfEntity;
@@ -145,12 +168,12 @@ public class InstrumentingIterator<E extends IEntity> extends AbstractDelegating
 				CommonsDataTypePresentationParser.unparseEntityDescriptor(
 						selfEntity.wGetEntityDescriptor()) : "null";
 		
-		IEntity selfBinding = getBindings().wGet("self");		
+		IEntity selfBinding = hasBindings() ? getBindings().wGet("self") : null;		
 		String selfBindingName = selfBinding != null ?
 				CommonsDataTypePresentationParser.unparseEntityDescriptor(
 						selfBinding.wGetEntityDescriptor()) : "null";
 
-		String sourceFunctionUri = "???";
+		String sourceFunctionUri = null;
 		String sourceEntityName = "???";
 
 		IEntity sourceEntity = super.getSourceEntity();
@@ -167,38 +190,57 @@ public class InstrumentingIterator<E extends IEntity> extends AbstractDelegating
 		}
 
 
-		sb.append("[ ");
-		sb.append("state: ");
-		sb.append(dd.state);
+		if (dd.severity != Severity.NONE) {
+			sb.append("// ");
+			sb.append(dd.severity);
+			sb.append(": ");
+			sb.append(dd.message);
+			sb.append("\n");
+		}
 
-		sb.append("   clones: ");
+		sb.append("// ");
+		sb.append("clones: ");
 		int cloneSetSize = dd.cloneSetSize(); 
 		sb.append(cloneSetSize);
 		if (cloneSetSize > 0) {
-			sb.append(" (isFirst: ");
+			sb.append("   isFirstPrototype: ");
 			sb.append(dd.isFirstPrototype(this));
-			sb.append("  atState: ");
+			sb.append("   stateWhenCloned: ");
 			sb.append(dd.stateWhenCloned);
-			sb.append("  unused: ");
+			sb.append("   unusedClones: ");
 			sb.append(dd.unusedCloneSet().size());
 			sb.append(")");
 		}
+		sb.append("\n");
+
+		sb.append("// ");
+		sb.append("state: ");
+		sb.append(dd.state);
+
+		sb.append("   steps: ");
+		sb.append(dd.steps);
 
 		sb.append("   callHistory: ");
 		sb.append(dd.callHistory);
 
 		sb.append("   self: ");
 		sb.append(selfEntityName);
-		sb.append(selfEntity == selfBinding ? " == " : " != ");
-		sb.append(selfBindingName);
-		sb.append(" ]\n");
+		if (selfEntity != selfBinding) {
+			sb.append(" != ");
+			sb.append(selfBindingName);
+		}
+		sb.append("\n");
 
-		sb.append("[ ");
-		sb.append("source: ");
+		sb.append("// ");
+		sb.append("code: ");
+		sb.append(getSourceCodeClassName());
+		sb.append("   source: ");
 		sb.append(sourceEntityName);
-		sb.append("  in: ");
-		sb.append(sourceFunctionUri);
-		sb.append(" ]\n");
+		if (sourceFunctionUri != null) {
+			sb.append("   function: ");
+			sb.append(sourceFunctionUri);
+		}
+		sb.append("\n\n");
 
 		super.toString(sb);
 	}

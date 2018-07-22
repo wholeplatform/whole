@@ -568,7 +568,6 @@ public class IteratorFactoryTest {
 		IBindingManager bindings = BindingManagerFactory.instance.createBindingManager();
 		IEntityIterator<IEntity> i = IteratorFactory.instance.variableIterator("testVar");
 		i.setBindings(bindings);
-		assertFalse(i.hasNext());
 		i.reset(g);
 		assertFalse(i.hasNext());
 		bindings.wDef("testVar", g);
@@ -586,6 +585,7 @@ public class IteratorFactoryTest {
 		bindings.wDef("testVar", g);
 		i = IteratorFactory.instance.variableIterator("testVar");
 		i.setBindings(bindings);
+		i.reset(BindingManagerFactory.instance.createNull());
 		assertTrue(i.hasNext());
 		g1 = i.next();
 		assertSame(g, g1);
@@ -971,43 +971,24 @@ public class IteratorFactoryTest {
 		Productions p1 = g.getPhraseStructure();
 		Productions p2 = g.getLexicalStructure();
 		
+		IteratorFactory f = IteratorFactory.instance;
+		
 		List<Production> p3 = new ArrayList<Production>();
-		IEntityIterator<Production> i11 = IteratorFactory.instance.<Production>childIterator();
+		IEntityIterator<Production> i11 = f.<Production>childIterator();
 		i11.reset(p1);
 		for (Production p : i11)
 			p3.add(p);
-		IEntityIterator<Production> i12 = IteratorFactory.instance.<Production>childIterator();
+		IEntityIterator<Production> i12 = f.<Production>childIterator();
 		i12.reset(p2);
 		for (Production p : i12)
 			p3.add(p);
 		
 		Iterator<Production> i = p3.iterator();
-		IEntityIterator<Production> i21 = IteratorFactory.instance.<Production>childIterator();
-		i21.reset(p1);
-		IEntityIterator<Production> i22 = IteratorFactory.instance.<Production>childIterator();
-		i22.reset(p2);
-		for (Production p : IteratorFactory.instance.sequenceIterator(i21, i22))
-			assertSame(i.next(), p);
 		
-		//FIXME remove <NonTerminal> from topDownIterators
-		IEntityIterator<NonTerminal> i1p1 = IteratorFactory.instance.<NonTerminal>descendantOrSelfIterator();
-		i1p1.reset(p1);
-		IEntityIterator<NonTerminal> i1p2 = IteratorFactory.instance.<NonTerminal>descendantOrSelfIterator();
-		i1p2.reset(p2);
-		IEntityIterator<NonTerminal> i1 = IteratorFactory.instance.<NonTerminal>matcherIterator(
-				IteratorFactory.instance.sequenceIterator(i1p1, i1p2))
-						.withPattern(GrammarsEntityDescriptorEnum.NonTerminal);
-
-		IEntityIterator<NonTerminal> i2p1 = IteratorFactory.instance.<NonTerminal>descendantOrSelfIterator();
-		i2p1.reset(p1);
-		IEntityIterator<NonTerminal> i2p2 = IteratorFactory.instance.<NonTerminal>descendantOrSelfIterator();
-		i2p2.reset(p2);
-		IEntityIterator<NonTerminal> i2 = IteratorFactory.instance.sequenceIterator(
-				IteratorFactory.instance.<NonTerminal>matcherIterator(i2p1).withPattern(GrammarsEntityDescriptorEnum.NonTerminal),
-				IteratorFactory.instance.matcherIterator(i2p2).withPattern(GrammarsEntityDescriptorEnum.NonTerminal));
-
-		for (NonTerminal nt : i1)
-			assertSame(i2.next(), nt);
+		IEntityIterator<Production> pi = f.sequenceIterator(f.constantChildIterator(p1), f.constantChildIterator(p2));
+		pi.reset(BindingManagerFactory.instance.createNull());
+		for (Production p : pi)
+			assertSame(i.next(), p);
 	}
 
 	@Test

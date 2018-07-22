@@ -47,7 +47,7 @@ public class MultiValuedRunnableIterator<E extends IEntity> extends AbstractMult
 
 	@Override
 	public void toString(StringBuilder sb) {
-		sb.append(runnable.toString());
+		sb.append(runnable);
 		super.toString(sb);
 	}
 }

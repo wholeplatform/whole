@@ -271,6 +271,8 @@ public class PathExpressionsQueriesTest {
 		IEntityIterator<IEntity> i = DynamicCompilerOperation.compile(
 				tm.create("pathWithTuple"),
 				BindingManagerFactory.instance.createArguments()).getResultIterator();
+		
+		i.reset(BindingManagerFactory.instance.createNull());
 		Assert.assertTrue(i.hasNext());
 		IEntity e0 = i.next();
 		Assert.assertFalse(i.hasNext());

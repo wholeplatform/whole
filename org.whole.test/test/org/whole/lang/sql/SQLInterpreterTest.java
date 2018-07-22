@@ -77,7 +77,9 @@ public class SQLInterpreterTest {
 		IEntity map = DBMappingTemplateManager.instance().create("mapAuthorsQuery");
 		IEntity results = DBMappingTemplateManager.instance().create("mapAuthorsResults");
 		int index = 0;
-		for (IEntity result : DynamicCompilerOperation.compile(map, bm).getResultIterator()) {
+		IEntityIterator<IEntity> ci = DynamicCompilerOperation.compile(map, bm).getResultIterator();
+		ci.reset(BindingManagerFactory.instance.createNull());
+		for (IEntity result : ci) {
 			IEntity expectedResult = results.wGet(index++).wGet(0);
 			assertTrue(Matcher.match(expectedResult, result));
 		}
@@ -99,7 +101,9 @@ public class SQLInterpreterTest {
 		IEntity map = DBMappingTemplateManager.instance().create("mapAuthorsQuery2");
 		IEntity results = DBMappingTemplateManager.instance().create("mapAuthorsResults");
 		int index = 0;
-		for (IEntity result : DynamicCompilerOperation.compile(map, bm).getResultIterator()) {
+		IEntityIterator<IEntity> ci = DynamicCompilerOperation.compile(map, bm).getResultIterator();
+		ci.reset(BindingManagerFactory.instance.createNull());
+		for (IEntity result : ci) {
 			IEntity expectedResult = results.wGet(index++).wGet(0);
 			assertTrue(Matcher.match(expectedResult, result));
 		}
@@ -121,7 +125,9 @@ public class SQLInterpreterTest {
 		IEntity map = DBMappingTemplateManager.instance().create("mapAuthorsQuery3");
 		IEntity results = DBMappingTemplateManager.instance().create("mapAuthorsResults");
 		int index = 0;
-		for (IEntity result : DynamicCompilerOperation.compile(map, bm).getResultIterator()) {
+		IEntityIterator<IEntity> ci = DynamicCompilerOperation.compile(map, bm).getResultIterator();
+		ci.reset(BindingManagerFactory.instance.createNull());
+		for (IEntity result : ci) {
 			IEntity expectedResult = results.wGet(index++).wGet(0);
 			assertTrue(Matcher.match(expectedResult, result));
 		}
@@ -143,7 +149,9 @@ public class SQLInterpreterTest {
 		IEntity map = DBMappingTemplateManager.instance().create("mapAuthorsQueryWithNestedVar");
 		IEntity results = DBMappingTemplateManager.instance().create("mapAuthorsResults");
 		int index = 0;
-		for (IEntity result : DynamicCompilerOperation.compile(map, bm).getResultIterator()) {
+		IEntityIterator<IEntity> ci = DynamicCompilerOperation.compile(map, bm).getResultIterator();
+		ci.reset(BindingManagerFactory.instance.createNull());
+		for (IEntity result : ci) {
 			IEntity expectedResult = results.wGet(index++).wGet(0);
 			assertTrue(Matcher.match(expectedResult, result));
 		}
@@ -165,7 +173,10 @@ public class SQLInterpreterTest {
 		IEntity map = DBMappingTemplateManager.instance().create("selectDatatypesDB");
 		IEntity results = DBMappingTemplateManager.instance().create("selectDatatypesDBResults");
 		IEntityIterator<IEntity> resultsIterator = DynamicCompilerOperation.compile(results, bm).getResultIterator();
-		for (IEntity result : DynamicCompilerOperation.compile(map, bm).getResultIterator()) {
+		resultsIterator.reset(BindingManagerFactory.instance.createNull());
+		IEntityIterator<IEntity> mapIterator = DynamicCompilerOperation.compile(map, bm).getResultIterator();
+		mapIterator.reset(BindingManagerFactory.instance.createNull());
+		for (IEntity result : mapIterator) {
 			assertTrue(resultsIterator.hasNext());
 			IEntity expectedResult = resultsIterator.next();
 			assertEquals(expectedResult.wSize(), result.wSize());

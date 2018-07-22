@@ -72,7 +72,7 @@ public class PointwiseInsertIterator<E extends IEntity> extends AbstractPointwis
     	sb.append("insert");
     	sb.append(placement);
     	sb.append("(");
-    	sb.append(toIterator.toString());
+    	toIterator.toString(sb);
     	sb.append(" .= ");
     	super.toString(sb);
     	sb.append(")");

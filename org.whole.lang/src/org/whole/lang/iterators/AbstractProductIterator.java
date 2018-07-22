@@ -103,7 +103,7 @@ public abstract class AbstractProductIterator<E extends IEntity> extends Abstrac
 		for (int i=0; i<iterators.length; i++) {
 			if (i>0)
 				sb.append(" x ");
-			sb.append(iterators[i].toString());
+			iterators[i].toString(sb);
 		}
 
     	sb.append(")");

@@ -28,6 +28,7 @@ import org.whole.lang.iterators.InstrumentingIterator;
 public class DebuggerInstrumentation extends IdentityInstrumentation {
 	public static final IEntityIteratorInstrumentation instance = new DebuggerInstrumentation();
 
+	public static boolean evaluatingPredicate = false;
 	public static Predicate<InstrumentingIterator<?>> breakpointPredicate = (ii) -> {
 		//TODO replace with a framework level predicate
 		return false;
@@ -55,7 +56,7 @@ public class DebuggerInstrumentation extends IdentityInstrumentation {
 
 	@Override
 	public void beforeNext(InstrumentingIterator<?> ii) {
-		if (breakpointPredicate.test(ii))
+		if (!evaluatingPredicate && breakpointPredicate.test(ii))
 			breakpointConsumer.accept(ii);
 	}
 }

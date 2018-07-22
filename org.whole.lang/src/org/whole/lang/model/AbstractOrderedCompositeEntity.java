@@ -25,7 +25,6 @@ import java.util.ListIterator;
 
 import org.whole.lang.commands.ICommand;
 import org.whole.lang.commands.NullCommand;
-import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.reflect.EntityKinds;
 import org.whole.lang.util.EntityUtils;
 
@@ -276,7 +275,9 @@ public abstract class AbstractOrderedCompositeEntity<E extends IEntity> extends 
 
 	//FIXME
 	public Iterator<E> iterator() {
-		return IteratorFactory.instance.entityCollectionIterator(elements);
+		return elements.iterator();
+//trigger diagnostics because is not initialized
+//		return IteratorFactory.instance.entityCollectionIterator(elements);
 	}
 	//FIXME
 	public ListIterator<E> listIterator() {

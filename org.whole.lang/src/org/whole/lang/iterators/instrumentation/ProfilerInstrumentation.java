@@ -17,12 +17,6 @@
  */
 package org.whole.lang.iterators.instrumentation;
 
-import java.time.Duration;
-import java.time.Instant;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.InstrumentingIterator;
 import org.whole.lang.model.IEntity;
 
@@ -32,147 +26,88 @@ import org.whole.lang.model.IEntity;
 public class ProfilerInstrumentation implements IEntityIteratorInstrumentation {
 	public static final IEntityIteratorInstrumentation instance = new ProfilerInstrumentation();
 
-	public static ProfilingData globalProfilingData = new ProfilingData();
-	public static Map<IEntityIterator<?>, ProfilingData> iteratorProfilingDataMap = new HashMap<>();
-	public static ProfilingData profilingData(InstrumentingIterator<?> ii) {
-		iteratorProfilingDataMap.computeIfAbsent(ii, i -> new ProfilingData());
-		return iteratorProfilingDataMap.get(ii);
+	public static String ID = ProfilerInstrumentation.class.getName();
+	public static ProfilerData profilerData(InstrumentingIterator<?> ii) {
+		return ii.instrumentationData(ID, i -> new ProfilerData());
 	}
 
-	public static class ProfilingData {
-		public int cloneCalls;
-		public int setBindingsCalls;
-		public int resetCalls;
-		public int hasNextCalls;
-		public int lookaheadCalls;
-		public int nextCalls;
-
-		public Duration cloneDuration = Duration.ZERO;
-		public Duration setBindingsDuration = Duration.ZERO;
-		public Duration resetDuration = Duration.ZERO;
-		public Duration hasNextDuration = Duration.ZERO;
-		public Duration lookaheadDuration = Duration.ZERO;
-		public Duration nextDuration = Duration.ZERO;
-
-		protected Instant startInstant;
-		public void startTimer() {
-			startInstant = Instant.now();
-		}
-		public Duration endTimer() {
-			return Duration.between(startInstant, Instant.now());
-		}
-
-		@Override
-		public String toString() {
-			StringBuilder sb = new StringBuilder();
-			sb.append("\nclone      :");
-			sb.append(cloneCalls);
-			sb.append("  ");
-			sb.append(cloneDuration);
-
-			sb.append("\nsetBindings:");
-			sb.append(setBindingsCalls);
-			sb.append("  ");
-			sb.append(setBindingsDuration);
-
-			sb.append("\nreset      :");
-			sb.append(resetCalls);
-			sb.append("  ");
-			sb.append(resetDuration);
-
-			sb.append("\nhasNext    :");
-			sb.append(hasNextCalls);
-			sb.append("  ");
-			sb.append(hasNextDuration);
-
-			sb.append("\nlookahead  :");
-			sb.append(lookaheadCalls);
-			sb.append("  ");
-			sb.append(lookaheadDuration);
-
-			sb.append("\nnext       :");
-			sb.append(nextCalls);
-			sb.append("  ");
-			sb.append(nextDuration);
-			return sb.toString();
-		}
-	}
+	public static ProfilerData globalProfilerData = new ProfilerData();
 
 	@Override
 	public void beforeClone(InstrumentingIterator<?> ii) {
-		globalProfilingData.cloneCalls++;
-		ProfilingData pd = profilingData(ii);
+		globalProfilerData.cloneCalls++;
+		ProfilerData pd = profilerData(ii);
 		pd.cloneCalls++;
 		pd.startTimer();
 	}
 	@Override
 	public void afterClone(InstrumentingIterator<?> ii, InstrumentingIterator<?> result) {
-		ProfilingData pd = profilingData(ii);
+		ProfilerData pd = profilerData(ii);
 		pd.cloneDuration = pd.cloneDuration.plus(pd.endTimer());
 	}
 
 	@Override
 	public void beforeSetBindings(InstrumentingIterator<?> ii) {
-		globalProfilingData.setBindingsCalls++;
-		ProfilingData pd = profilingData(ii);
+		globalProfilerData.setBindingsCalls++;
+		ProfilerData pd = profilerData(ii);
 		pd.setBindingsCalls++;
 		pd.startTimer();
 	}
 	@Override
 	public void afterSetBindings(InstrumentingIterator<?> ii) {
-		ProfilingData pd = profilingData(ii);
+		ProfilerData pd = profilerData(ii);
 		pd.setBindingsDuration = pd.setBindingsDuration.plus(pd.endTimer());
 	}
 
 	@Override
 	public void beforeReset(InstrumentingIterator<?> ii) {
-		globalProfilingData.resetCalls++;
-		ProfilingData pd = profilingData(ii);
+		globalProfilerData.resetCalls++;
+		ProfilerData pd = profilerData(ii);
 		pd.resetCalls++;
 		pd.startTimer();
 	}
 	@Override
 	public void afterReset(InstrumentingIterator<?> ii) {
-		ProfilingData pd = profilingData(ii);
+		ProfilerData pd = profilerData(ii);
 		pd.resetDuration = pd.resetDuration.plus(pd.endTimer());
 	}
 
 	@Override
 	public void beforeHasNext(InstrumentingIterator<?> ii) {
-		globalProfilingData.hasNextCalls++;
-		ProfilingData pd = profilingData(ii);
+		globalProfilerData.hasNextCalls++;
+		ProfilerData pd = profilerData(ii);
 		pd.hasNextCalls++;
 		pd.startTimer();
 	}
 	@Override
 	public void afterHasNext(InstrumentingIterator<?> ii, boolean result) {
-		ProfilingData pd = profilingData(ii);
+		ProfilerData pd = profilerData(ii);
 		pd.hasNextDuration = pd.hasNextDuration.plus(pd.endTimer());
 	}
 
 	@Override
 	public void beforeLookahead(InstrumentingIterator<?> ii) {
-		globalProfilingData.lookaheadCalls++;
-		ProfilingData pd = profilingData(ii);
+		globalProfilerData.lookaheadCalls++;
+		ProfilerData pd = profilerData(ii);
 		pd.lookaheadCalls++;
 		pd.startTimer();
 	}
 	@Override
 	public void afterLookahead(InstrumentingIterator<?> ii, IEntity result) {
-		ProfilingData pd = profilingData(ii);
+		ProfilerData pd = profilerData(ii);
 		pd.lookaheadDuration = pd.lookaheadDuration.plus(pd.endTimer());
 	}
 
 	@Override
 	public void beforeNext(InstrumentingIterator<?> ii) {
-		globalProfilingData.nextCalls++;
-		ProfilingData pd = profilingData(ii);
+		globalProfilerData.nextCalls++;
+		ProfilerData pd = profilerData(ii);
 		pd.nextCalls++;
 		pd.startTimer();
 	}
 	@Override
 	public void afterNext(InstrumentingIterator<?> ii, IEntity result) {
-		ProfilingData pd = profilingData(ii);
+		ProfilerData pd = profilerData(ii);
 		pd.nextDuration = pd.nextDuration.plus(pd.endTimer());
 	}
 }

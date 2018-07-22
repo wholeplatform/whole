@@ -526,6 +526,8 @@ public class SelectQueriesTest {
 				SelectQueriesTemplateManager.instance().create("selectDeclaredNamesBinding"),
 				BindingManagerFactory.instance.createArguments()).getResultIterator();
 		
+		iterator.reset(BindingManagerFactory.instance.createNull());
+		
 		assertTrue(iterator.hasNext());
 		IEntity entity = iterator.next();
 

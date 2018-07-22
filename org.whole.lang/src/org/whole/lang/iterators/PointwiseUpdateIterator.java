@@ -44,7 +44,7 @@ public class PointwiseUpdateIterator<E extends IEntity> extends AbstractPointwis
     @Override
 	public void toString(StringBuilder sb) {
     	sb.append("update(");
-    	sb.append(toIterator.toString());
+    	toIterator.toString(sb);
     	sb.append(" .= ");
     	super.toString(sb);
     	sb.append(")");

@@ -133,7 +133,7 @@ public class LocalScopeIterator<E extends IEntity> extends AbstractCloneableIter
 
 		sb.append("|");
 		
-		sb.append(scopeIterator);
+		scopeIterator.toString(sb);
 		
     	sb.append(")");
     }

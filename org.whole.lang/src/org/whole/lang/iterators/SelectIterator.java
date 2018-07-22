@@ -236,10 +236,10 @@ public class SelectIterator<E extends IEntity> extends AbstractLazyCloneableIter
 	@Override
 	public void toString(StringBuilder sb) {
 		sb.append("select ");
-		sb.append(selectIterator);
+		selectIterator.toString(sb);
 		sb.append(" from ");
-		sb.append(fromIterator);
+		fromIterator.toString(sb);
 		sb.append(" where ");
-		sb.append(whereIterator);
+		whereIterator.toString(sb);
 	}
 }

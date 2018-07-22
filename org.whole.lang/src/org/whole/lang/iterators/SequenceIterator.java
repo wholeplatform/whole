@@ -186,8 +186,8 @@ public class SequenceIterator<E extends IEntity> extends AbstractLazyCloneableCo
     	
 		for (int i=0; i<iteratorChain.length; i++) {
 			if (i>0)
-				sb.append(",");
-			sb.append(iteratorChain[i].toString());
+				sb.append(", ");
+			iteratorChain[i].toString(sb);
 		}
 
     	sb.append(")");

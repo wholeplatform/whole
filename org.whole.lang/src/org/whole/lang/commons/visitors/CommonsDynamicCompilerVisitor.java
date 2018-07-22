@@ -29,6 +29,7 @@ import org.whole.lang.commons.model.Resolver;
 import org.whole.lang.commons.model.StageDownFragment;
 import org.whole.lang.commons.model.StageUpFragment;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
+import org.whole.lang.iterators.GenericIteratorFactory;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.matchers.Matcher;
@@ -122,8 +123,7 @@ public class CommonsDynamicCompilerVisitor extends CommonsIdentityDefaultVisitor
 		int stage = getStage();
 
 		fragments.forEach((f) -> {
-        	if (getBindings().wGet("self") != oldSelfEntity)
-        		getBindings().wDef("self", oldSelfEntity);
+			getBindings().enforceSelfBinding(oldSelfEntity);
 
 			setResult(null);
 			IEntityIterator<?> fragmentIterator = null;
@@ -165,7 +165,7 @@ public class CommonsDynamicCompilerVisitor extends CommonsIdentityDefaultVisitor
 		).withSourceEntity(sourceEntity);
 
 		if (!nested) {
-			String outerSelfName = "outerSelf";
+			String outerSelfName = GenericIteratorFactory.OUTER_SELF_NAME;
 			compiledIterator = f.scopeIterator(
 				f.blockIterator(
 						f.filterIterator(f.selfIterator(), f.asVariableIterator(outerSelfName)),
