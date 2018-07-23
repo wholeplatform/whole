@@ -29,12 +29,13 @@ import org.whole.lang.operations.ICloneContext;
  * @author Riccardo Solmi
  */
 public class RecursiveFunctionApplicationIterator extends AbstractCloneableIterator<IEntity> {
+	protected boolean lazyReset = true;
 	protected IEntity resetEntity = null;
-	protected IEntityIterator<IEntity> nextEntityIterator;
+	protected IEntityIterator<IEntity> functionIterator;
 
 	public IEntityIterator<IEntity> clone(ICloneContext cc) {
 		RecursiveFunctionApplicationIterator iterator = (RecursiveFunctionApplicationIterator) super.clone(cc);
-		iterator.nextEntityIterator = cc.clone(nextEntityIterator);
+		iterator.functionIterator = cc.clone(functionIterator);
 		return iterator;
 	}
 
@@ -42,32 +43,28 @@ public class RecursiveFunctionApplicationIterator extends AbstractCloneableItera
 		return lookahead() != null;
 	}
 	public IEntity lookahead() {
-		if (nextEntityIterator != null)
-			return nextEntityIterator.lookahead();
+		if (functionIterator != null)
+			return functionIterator.lookahead();
 
 		clearLookaheadScope();
 		getBindings().wEnterScope(lookaheadScope(), true);
-		IEntity selfEntity = getBindings().wGet("self");
-		if (selfEntity != resetEntity)
-			getBindings().wDef("self", resetEntity);
+		getBindings().enforceSelfBinding(resetEntity);
 
-		if (resetEntity != null) {
+		if (lazyReset && resetEntity != null) {
 			getBindings().wGetEnvironmentManager().getCurrentOperation().stagedVisit(resetEntity, 0);
-			resetEntity = null;
+			lazyReset = false;
 		}
 
 		getBindings().wExitScope();
 
-		nextEntityIterator = getBindings().getResultIterator();
-		if (getBindings().hasResultIterator()) {
+		functionIterator = getBindings().getResultIterator();
+		if (getBindings().hasResultIterator())
 			getBindings().setResultIterator(null);
-			selfEntity = getBindings().wGet("self");
-			if (selfEntity != resetEntity)
-				getBindings().wDef("self", resetEntity);
-			nextEntityIterator.reset(resetEntity);
-			lookaheadScope = null;
-		}
-		return nextEntityIterator.lookahead();
+
+		getBindings().enforceSelfBinding(resetEntity);
+		functionIterator.reset(resetEntity);
+		lookaheadScope = null;
+		return functionIterator.lookahead();
 	}
 	public IEntity next() {
 		IEntity result = lookahead();
@@ -77,21 +74,22 @@ public class RecursiveFunctionApplicationIterator extends AbstractCloneableItera
     	if (lookaheadScope != null)
     		getBindings().wAddAll(lookaheadScope());
 
-		nextEntityIterator.next();
+		functionIterator.next();
 		return result;
 	}
 
 	public void reset(IEntity entity) {
 		resetEntity = entity;
-		nextEntityIterator = null;
+		lazyReset = true;
+		functionIterator = null;
 	}
 
 	private IBindingScope lookaheadScope;
 	public IBindingScope lookaheadScope() {
 		if (lookaheadScope != null)
 			return lookaheadScope;
-		if (nextEntityIterator != null)
-			return nextEntityIterator.lookaheadScope();
+		if (functionIterator != null)
+			return functionIterator.lookaheadScope();
 		else
 			return lookaheadScope = BindingManagerFactory.instance.createSimpleScope();
 	}
@@ -104,20 +102,20 @@ public class RecursiveFunctionApplicationIterator extends AbstractCloneableItera
 	}
 
     public void prune() {
-    	if (nextEntityIterator != null)
-    		nextEntityIterator.prune();
+    	if (functionIterator != null)
+    		functionIterator.prune();
     }
 	public void set(IEntity entity) {
-    	if (nextEntityIterator != null)
-    		nextEntityIterator.set(entity);
+    	if (functionIterator != null)
+    		functionIterator.set(entity);
 	}
 	public void add(IEntity entity) {
-    	if (nextEntityIterator != null)
-    		nextEntityIterator.add(entity);
+    	if (functionIterator != null)
+    		functionIterator.add(entity);
 	}
 	public void remove() {
-    	if (nextEntityIterator != null)
-    		nextEntityIterator.remove();
+    	if (functionIterator != null)
+    		functionIterator.remove();
 	}
 
     @Override

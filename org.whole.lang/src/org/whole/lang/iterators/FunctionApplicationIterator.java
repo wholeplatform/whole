@@ -30,11 +30,14 @@ import org.whole.lang.resources.FunctionLibraryRegistry;
 public class FunctionApplicationIterator extends AbstractCloneableIterator<IEntity> {
 	protected String functionUri;
 	private IEntityIterator<IEntity> functionIterator;
+	private boolean lazyReset;
 	private IEntity nextEntity = null;
 	private IEntity resetEntity = null;
 
 	public FunctionApplicationIterator(String functionUri) {
 		this.functionUri = functionUri;
+		functionIterator = null;
+		lazyReset = true;
 	}
 
 	@Override
@@ -53,9 +56,9 @@ public class FunctionApplicationIterator extends AbstractCloneableIterator<IEnti
 			}
 	    	functionIterator.setBindings(getBindings());
 		}
-		if (resetEntity != null) {
+		if (lazyReset && resetEntity != null) {
+			lazyReset = false;
 			functionIterator.reset(resetEntity);
-			resetEntity = null;
 		}
 		return functionIterator;
 	}
@@ -75,7 +78,7 @@ public class FunctionApplicationIterator extends AbstractCloneableIterator<IEnti
 		if (nextEntity != null)
 			return nextEntity;
 
-		if (functionIterator == null && resetEntity == null)
+		if (functionIterator == null && !lazyReset)
 			return null;
 
 		IBindingScope laScope = lookaheadScope();
@@ -99,6 +102,7 @@ public class FunctionApplicationIterator extends AbstractCloneableIterator<IEnti
 	public void reset(IEntity entity) {
 		resetEntity = entity;
 		functionIterator = null;
+		lazyReset = true;
 //		lookaheadScope = null;
 		nextEntity = null;
 	}

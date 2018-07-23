@@ -82,7 +82,10 @@ public class ChooseByTypeIterator<E extends IEntity> extends AbstractLazyCloneab
 			if (childIterator != null)
 				return (IEntityIterator<? extends E>) childIterator;
 		}
-		return IteratorFactory.instance.emptyIterator();
+		IEntityIterator<E> result = IteratorFactory.instance.emptyIterator();
+		result.setBindings(getBindings());
+		result.reset(resetEntity);
+		return result;
 	}
 
 	public IBindingScope lookaheadScope() {
@@ -130,7 +133,7 @@ public class ChooseByTypeIterator<E extends IEntity> extends AbstractLazyCloneab
 		for (int i=0; i<iteratorChain.length; i++) {
 			if (i>0)
 				sb.append(",");
-			sb.append(String.valueOf(iteratorChain[i]));
+			iteratorChain[i].toString(sb);
 		}
 
     	sb.append(")");

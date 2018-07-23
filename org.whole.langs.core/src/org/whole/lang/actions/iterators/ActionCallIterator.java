@@ -91,7 +91,7 @@ public class ActionCallIterator extends AbstractCloneableIterator<IEntity>{
 			if (selectedEntities.wSize() > 0)
 				getBindings().wDef("primarySelectedEntity", selectedEntities.wGet(0));
 		}
-		getBindings().wDef("self", resetEntity);
+		getBindings().enforceSelfBinding(resetEntity);
 	}
 
 	public boolean hasNext() {

@@ -51,6 +51,13 @@ public abstract class AbstractOperation implements IOperation {
 		this(name, args, resultsInArgs ? args.wTargetScope() : args.wEnclosingScope());
 	}
 	public AbstractOperation(String name, IBindingManager args, IBindingScope optResultsScope) {
+		//FIXME workaround
+		if (!args.wIsSet("self"))
+			try {
+				args.wDef("self", BindingManagerFactory.instance.createVoid());
+			} catch (Exception e) {
+			}
+
 		operationId = name;
 	    stagedVisitorsMap = initStagedVisitors();
 
