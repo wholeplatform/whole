@@ -98,7 +98,7 @@ public class DiagnosticData extends AbstractInstrumentationData {
 		sb.append("   self: ");
 		sb.append(selfEntityName);
 
-		if (severity != Severity.NONE) {
+		if (severity != null) {
 			sb.append("   ");
 			sb.append(severity);
 			sb.append(": ");

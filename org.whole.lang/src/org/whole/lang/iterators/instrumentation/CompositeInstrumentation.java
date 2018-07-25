@@ -29,8 +29,8 @@ import org.whole.lang.model.IEntity;
 public class CompositeInstrumentation implements IEntityIteratorInstrumentation {
 	public static final IEntityIteratorInstrumentation instance = new CompositeInstrumentation(
 			DiagnosticInstrumentation.instance,
-			ProfilerInstrumentation.instance,
-			LoggerInstrumentation.instance,
+//			ProfilerInstrumentation.instance,
+//			LoggerInstrumentation.instance,
 			DebuggerInstrumentation.instance
 	);
 

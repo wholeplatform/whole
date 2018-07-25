@@ -1328,7 +1328,10 @@ public class GenericIteratorFactory implements IteratorFactory {
 			IEntity oldSelfEntity = bm.wGet("self");
 			bm.setResult(deepClone(selfEntity, bm));
 			if (bm.wGet("self") != oldSelfEntity)
-				bm.wDef("self", oldSelfEntity);
+				if (oldSelfEntity != null)
+					bm.wDef("self", oldSelfEntity);
+//				else
+//					bm.wUnset("self");
 		}
 
 		protected IEntity deepClone(IEntity selfEntity, IBindingManager bm) {

@@ -41,7 +41,7 @@ public class DiagnosticInstrumentation implements IEntityIteratorInstrumentation
 		CLONE, SET_BINDINGS, RESET, HAS_NEXT, LOOKAHEAD, NEXT 
 	}
 	public static enum Severity {
-		NONE, WARNING, ERROR
+		INFO, WARNING, ERROR
 	}
 
 	public void performDiagnostics(InstrumentingIterator<?> ii, InstrumentedMethod method, boolean before) {
@@ -61,7 +61,7 @@ public class DiagnosticInstrumentation implements IEntityIteratorInstrumentation
 			}
 
 			data.message = null;
-			data.severity = Severity.NONE;
+			data.severity = null;
 		}
 
 		testLifecycle(ii, method, before, data);
@@ -132,12 +132,13 @@ public class DiagnosticInstrumentation implements IEntityIteratorInstrumentation
 		
 		String sourceCodeClassName = ii.getSourceCodeClassName();
 		if (sourceCodeClassName.equals("ConstantIterator") ||
+				sourceCodeClassName.equals("ConstantChildIterator")  ||
 				sourceCodeClassName.equals("EmptyIterator") ||
 				sourceCodeClassName.equals("CollectionIterator") ||
 				sourceCodeClassName.equals("FailureIterator"))
-			data.severity = Severity.WARNING;
-
-		DebuggerInstrumentation.breakpointConsumer.accept(ii);
+			data.severity = Severity.INFO;
+		else
+			DebuggerInstrumentation.breakpointConsumer.accept(ii);
 	}
 
 	public void testSelf(InstrumentingIterator<?> ii, InstrumentedMethod method, boolean before, DiagnosticData data) {
@@ -178,12 +179,12 @@ public class DiagnosticInstrumentation implements IEntityIteratorInstrumentation
 	}
 	public void nullSelfBinding(InstrumentingIterator<?> ii, InstrumentedMethod method, DiagnosticData data) {
 		data.message = "null self binding";
-		data.severity = Severity.WARNING;
+		data.severity = Severity.INFO;
 //		DebuggerInstrumentation.breakpointConsumer.accept(ii);
 	}
 	public void notEqualsSelfEntityAndBinding(InstrumentingIterator<?> ii, InstrumentedMethod method, DiagnosticData data) {
 		data.message = "SelfEntity not equals self binding";
-		data.severity = Severity.WARNING;
+		data.severity = Severity.INFO;
 //		DebuggerInstrumentation.breakpointConsumer.accept(ii);
 	}
 

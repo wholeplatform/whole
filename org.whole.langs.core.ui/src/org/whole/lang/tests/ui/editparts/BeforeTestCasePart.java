@@ -28,7 +28,7 @@ import org.whole.lang.tests.model.BeforeTestCase;
  */
 public class BeforeTestCasePart extends AbstractTestStepPart {
     protected String getTestKind() {
-        return "Before Test case";
+        return "Before Test Case";
     }
 
     protected List<IEntity> getModelSpecificChildren() {

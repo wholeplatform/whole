@@ -54,7 +54,7 @@ public abstract class AbstractOperation implements IOperation {
 		//FIXME workaround
 		if (!args.wIsSet("self"))
 			try {
-				args.wDef("self", BindingManagerFactory.instance.createVoid());
+				args.wDef("self", BindingManagerFactory.instance.createNull());
 			} catch (Exception e) {
 			}
 

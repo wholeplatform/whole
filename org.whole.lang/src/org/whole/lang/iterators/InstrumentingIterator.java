@@ -31,7 +31,6 @@ import org.whole.lang.iterators.instrumentation.CompositeInstrumentation;
 import org.whole.lang.iterators.instrumentation.DiagnosticData;
 import org.whole.lang.iterators.instrumentation.DiagnosticInstrumentation;
 import org.whole.lang.iterators.instrumentation.IEntityIteratorInstrumentation;
-import org.whole.lang.iterators.instrumentation.DiagnosticInstrumentation.Severity;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.util.BehaviorUtils;
@@ -190,7 +189,7 @@ public class InstrumentingIterator<E extends IEntity> extends AbstractDelegating
 		}
 
 
-		if (dd.severity != Severity.NONE) {
+		if (dd.severity != null) {
 			sb.append("// ");
 			sb.append(dd.severity);
 			sb.append(": ");
@@ -209,7 +208,6 @@ public class InstrumentingIterator<E extends IEntity> extends AbstractDelegating
 			sb.append(dd.stateWhenCloned);
 			sb.append("   unusedClones: ");
 			sb.append(dd.unusedCloneSet().size());
-			sb.append(")");
 		}
 		sb.append("\n");
 
