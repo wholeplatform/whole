@@ -55,6 +55,7 @@ import org.eclipse.jface.bindings.keys.KeyStroke;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
@@ -416,12 +417,22 @@ public class E4Utils {
 			bm.wExitScope();
 		}
 	}
-	public static void reportError(final IEclipseContext context, final String title, final String message, Throwable t) {
+	public static void reportError(IEclipseContext context, String title, String message, Throwable t) {
+		Object activeShell;
+		if (context != null)
+			activeShell = context.get(IServiceConstants.ACTIVE_SHELL);
+		else {
+			Display display = Display.getCurrent();
+			if (display == null)
+				display = Display.getDefault();
+			activeShell = display.getActiveShell();
+		}
+
 		try {
 			ClassLoader cl = ReflectionFactory.getPlatformClassLoader();
 			Class<?> uiPluginClass = Class.forName("org.whole.lang.e4.ui.E4CompatibilityPlugin", true, cl);
 			uiPluginClass.getMethod("reportError", Shell.class, String.class, String.class, Throwable.class)
-					.invoke(null, context.get(IServiceConstants.ACTIVE_SHELL), title, message, t);
+					.invoke(null, activeShell, title, message, t);
 		} catch (Exception e) {
 		}
 	}
@@ -488,12 +499,13 @@ public class E4Utils {
 
 	public static void suspendOrReportException(IEclipseContext context, SuspensionKind kind, String title, String description, Exception e, IBindingManager bindings) {
 		IWholeRuntimeException we = e instanceof IWholeRuntimeException ? (IWholeRuntimeException) e : new WholeRuntimeException(e).withBindings(bindings);
-		we.getBindings().wDefValue("eclipse#eclipseContext", context);
-		if (we.getSourceEntity() != null) {
+		if (context != null)
+			we.getBindings().wDefValue("eclipse#eclipseContext", context);
+
+		if (we.getSourceEntity() != null && we.getBindings().wIsSet("eclipse#eclipseContext"))
 			E4Utils.suspendOperation(kind, we);
-		} else {
+		else
 			E4Utils.reportError(context, title, description, (Throwable) we);
-		}
 	}
 
 	public static <R extends Runnable> R syncExec(IBindingManager bindings, R runnable) {

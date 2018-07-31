@@ -158,7 +158,7 @@ public class ArtifactsUtils {
 							.withPattern(GenericTraversalFactory.instance.one(
 									GenericMatcherFactory.instance.isFragmentMatcher(),
 									GenericMatcherFactory.instance.hasKindMatcher(EntityKinds.COMPOSITE)));
-
+		iterator.getBindings().enforceSelfBinding(model);
 		iterator.reset(model);
 		while (iterator.hasNext()) {
 			String persistenceKitId = getPersistenceKitId(iterator.next());

@@ -39,8 +39,8 @@ public abstract class AbstractVisitorOperation extends AbstractOperation impleme
 
 	private IBindingManager bindings;
 
-	public AbstractVisitorOperation(String name, IBindingManager args, IBindingScope optResultsScope) {
-		super(name, args, optResultsScope);
+	public AbstractVisitorOperation(String name, IEntity selfEntity, IBindingManager args, IBindingScope optResultsScope) {
+		super(name, selfEntity, args, optResultsScope);
 	}
 
 	public IVisitor clone() {

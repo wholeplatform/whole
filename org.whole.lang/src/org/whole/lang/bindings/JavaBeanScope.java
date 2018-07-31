@@ -93,15 +93,27 @@ public class JavaBeanScope extends AbstractCloneableScope {
 	}
 
 	public void wDef(String name, IEntity value) {
+		//FIXME workaround
+		if (name.equals("self"))
+			return;
+
 		ReflectiveUtils.setProperty(propertyMap, bean, name, value);
 	}
 	public void wSet(String name, IEntity value) {
+		//FIXME workaround
+		if (name.equals("self"))
+			return;
+
 		if (ReflectiveUtils.hasProperty(propertyMap, name))
 			ReflectiveUtils.setProperty(propertyMap, bean, name, value);
 		else
 			throw BindingManagerFactory.instance.createNoBindingException(name);
 	}
 	public boolean wIsSet(String name) {
+		//FIXME workaround
+		if (name.equals("self"))
+			return false;
+
 		if (ReflectiveUtils.hasProperty(propertyMap, name))
 			return ReflectiveUtils.hasPrimitiveProperty(propertyMap, name) ? 
 					true : ReflectiveUtils.getProperty(propertyMap, bean, name) != null;

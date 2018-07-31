@@ -29,6 +29,7 @@ import org.whole.lang.tests.model.AfterTest;
 import org.whole.lang.tests.model.AfterTestCase;
 import org.whole.lang.tests.model.AllOf;
 import org.whole.lang.tests.model.AnyOf;
+import org.whole.lang.tests.model.Aspects;
 import org.whole.lang.tests.model.AssertThat;
 import org.whole.lang.tests.model.AssumeThat;
 import org.whole.lang.tests.model.BeforeTest;
@@ -157,8 +158,13 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 		Results results = TestsEntityFactory.instance.createResults();
 		printWriter().printf("* %s test case running:\n\n", name);
 		try {
+			getBindings().wDef("self", BindingManagerFactory.instance.createNull());
+
 			IEntityIterator<BeforeTestCase> beforeIterator = IteratorFactory.instance.<BeforeTestCase>childMatcherIterator().withPattern(BeforeTestCase);
-			beforeIterator.reset(entity.getAspects());
+			beforeIterator.setBindings(getBindings());
+			Aspects aspects = entity.getAspects();
+			getBindings().enforceSelfBinding(aspects);
+			beforeIterator.reset(aspects);
 			for (BeforeTestCase beforeTestCase : beforeIterator) {
 				beforeTestCase.accept(this);
 				getResult();
@@ -169,6 +175,9 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 				Test test = tests.get(i);
 				if (getBindings().wIsSet("runSingleTest") && getBindings().wGet("runSingleTest") != test)
 					continue;
+				
+				getBindings().wDef("self", BindingManagerFactory.instance.createNull());
+
 				test.accept(this);
 
 				IntLiteral result = null;
@@ -189,7 +198,9 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 			}
 
 			IEntityIterator<AfterTestCase> afterIterator = IteratorFactory.instance.<AfterTestCase>childMatcherIterator().withPattern(AfterTestCase);
-			afterIterator.reset(entity.getAspects());
+			afterIterator.setBindings(getBindings());
+			getBindings().enforceSelfBinding(aspects);
+			afterIterator.reset(aspects);
 			for (AfterTestCase afterTestCase : afterIterator) {
 				afterTestCase.accept(this);
 				getResult();
@@ -227,6 +238,8 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 				beforeTest.accept(this);
 				getResult();
 			}
+
+			getBindings().wDef("self", BindingManagerFactory.instance.createNull());
 
 			entity.getBody().accept(this);
 			getResult();
@@ -291,6 +304,8 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 	public void visit(TestStatements entity) {
 		for (int i = 0; i < entity.wSize(); i++) {
 			handleCancelRequest();
+
+			getBindings().wDef("self", BindingManagerFactory.instance.createNull());
 
 			TestStatement statement = entity.get(i);
 			statement.accept(this);

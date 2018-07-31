@@ -42,7 +42,13 @@ public interface IBindingManager extends IBindingScope, ICloneable {
 
 	public default void enforceSelfBinding(IEntity selfEntity) {
 		IEntity selfBinding = wGet("self");
-		if (selfBinding != selfEntity)
-			wDef("self", selfEntity);
+		if (selfBinding != selfEntity) {
+			if (selfEntity != null)
+				wDef("self", selfEntity);
+			else if (selfBinding != null)
+				return;
+			else
+				wDef("self", BindingManagerFactory.instance.createNull());
+		}
 	}
 }

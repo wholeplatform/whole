@@ -27,12 +27,12 @@ public class AnonymousOperation extends AbstractOperation {
 	public static final String ID = "AnonymousOperation";
 
 	public AnonymousOperation() {
-		super(ID, BindingManagerFactory.instance.createBindingManager(), true);
+		super(ID, BindingManagerFactory.instance.createNull(), BindingManagerFactory.instance.createBindingManager(), true);
 		getEnvironmentManager().enterOperation(this);
 	}
 
 	public AnonymousOperation(IBindingManager bm) {
-		super(ID, bm, null);
+		super(ID, bm.wIsSet("self") ? bm.wGet("self") : BindingManagerFactory.instance.createNull(), bm, null);
 		getEnvironmentManager().enterOperation(this);
 	}
 }

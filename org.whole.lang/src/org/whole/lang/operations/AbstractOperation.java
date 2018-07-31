@@ -47,16 +47,11 @@ public abstract class AbstractOperation implements IOperation {
 	protected IVisitor[] stagedDefaultVisitors = new IVisitor[2];
 	private IOperationProgressMonitor operationProgressMonitor = null;
 
-	public AbstractOperation(String name, IBindingManager args, boolean resultsInArgs) {
-		this(name, args, resultsInArgs ? args.wTargetScope() : args.wEnclosingScope());
+	public AbstractOperation(String name, IEntity selfEntity, IBindingManager args, boolean resultsInArgs) {
+		this(name, selfEntity, args, resultsInArgs ? args.wTargetScope() : args.wEnclosingScope());
 	}
-	public AbstractOperation(String name, IBindingManager args, IBindingScope optResultsScope) {
-		//FIXME workaround
-		if (!args.wIsSet("self"))
-			try {
-				args.wDef("self", BindingManagerFactory.instance.createNull());
-			} catch (Exception e) {
-			}
+	public AbstractOperation(String name, IEntity selfEntity, IBindingManager args, IBindingScope optResultsScope) {
+		args.enforceSelfBinding(selfEntity);
 
 		operationId = name;
 	    stagedVisitorsMap = initStagedVisitors();

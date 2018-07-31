@@ -36,7 +36,7 @@ public class ExportTexOperation extends AbstractOperation {
 
 	public static String export(IEntity entity, boolean withProlog) {
 		IBindingManager args = BindingManagerFactory.instance.createArguments();
-		ExportTexOperation op = new ExportTexOperation(args);
+		ExportTexOperation op = new ExportTexOperation(entity, args);
 		if (withProlog)
 			op.printProlog();
 
@@ -47,8 +47,8 @@ public class ExportTexOperation extends AbstractOperation {
 		return op.out.toString();
 	}
 
-	protected ExportTexOperation(IBindingManager args) {
-		super(ID, args, false);
+	protected ExportTexOperation(IEntity selfEntity, IBindingManager args) {
+		super(ID, selfEntity, args, false);
 	}
 
 	public final void indent() {

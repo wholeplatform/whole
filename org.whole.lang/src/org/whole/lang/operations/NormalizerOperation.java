@@ -33,12 +33,12 @@ public class NormalizerOperation extends AbstractOperation {
 		return normalize(entity, BindingManagerFactory.instance.createArguments());
 	}
 	public static <E extends IEntity> E normalize(E entity, IBindingManager args) {
-		new NormalizerOperation(args).stagedVisit(entity);
+		new NormalizerOperation(entity, args).stagedVisit(entity);
 		return entity;
 	}
 
-	protected NormalizerOperation(IBindingManager args) {
-		super(ID, args, null);
+	protected NormalizerOperation(IEntity selfEntity, IBindingManager args) {
+		super(ID, selfEntity, args, null);
 	}
 	
 	@Override

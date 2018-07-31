@@ -20,6 +20,7 @@ package org.whole.lang.operations;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
+import org.whole.lang.model.IEntity;
 
 /**
  * @author Riccardo Solmi
@@ -27,14 +28,14 @@ import org.whole.lang.bindings.IBindingScope;
 public class SmartCloneOperation extends AbstractCloneBasedOperation {
 	public static final String ID = "clone";
 
-	public SmartCloneOperation() {
-		super(ID, BindingManagerFactory.instance.createArguments(), null);
+	public SmartCloneOperation(IEntity selfEntity) {
+		super(ID, selfEntity, BindingManagerFactory.instance.createArguments(), null);
 	}
-	public SmartCloneOperation(IBindingManager args, boolean resultsInArgs) {
-		super(ID, args, resultsInArgs);
+	public SmartCloneOperation(IEntity selfEntity, IBindingManager args, boolean resultsInArgs) {
+		super(ID, selfEntity, args, resultsInArgs);
 	}
-	public SmartCloneOperation(IBindingManager args, IBindingScope resultsScope) {
-		super(ID, args, null);
+	public SmartCloneOperation(IEntity selfEntity, IBindingManager args, IBindingScope resultsScope) {
+		super(ID, selfEntity, args, null);
 	}
 
 }

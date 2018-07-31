@@ -31,14 +31,12 @@ public class MetaModelMapperOperation extends AbstractOperation {
 	public static final String ID = "model2MetaModelMapper";
 
 	public static IEntity getMetaEntity(IEntity entity) {
-		return getMetaEntity(entity.wGetEntityDescriptor());
-	}
-	public static IEntity getMetaEntity(EntityDescriptor<?> entityDescriptor) {
+		EntityDescriptor<?> entityDescriptor = entity.wGetEntityDescriptor();
 		String entityName = entityDescriptor.getName();
 		IEntity metaModel = entityDescriptor.getLanguageKit().getMetaModel();
 
 		IBindingManager args = BindingManagerFactory.instance.createArguments();
-		MetaModelMapperOperation op = new MetaModelMapperOperation(args);
+		MetaModelMapperOperation op = new MetaModelMapperOperation(entity, args);
 		op.setMetaEntityName(entityName);
 		op.stagedVisit(metaModel);
 		return op.getResult();
@@ -49,15 +47,15 @@ public class MetaModelMapperOperation extends AbstractOperation {
 		String featureName = featureDescriptor.getName();
 
 		IBindingManager args = BindingManagerFactory.instance.createArguments();
-		MetaModelMapperOperation op = new MetaModelMapperOperation(args);
+		MetaModelMapperOperation op = new MetaModelMapperOperation(entity, args);
 		op.setMetaEntityName(entityName);
 		op.setMetaFeatureName(featureName);
 		op.stagedVisit(metaModel);
 		return op.getResult();
 	}
 
-	protected MetaModelMapperOperation(IBindingManager args) {
-		super(ID, args, false);
+	protected MetaModelMapperOperation(IEntity selfEntity, IBindingManager args) {
+		super(ID, selfEntity, args, false);
 	}
 
 	private String metaEntityName;

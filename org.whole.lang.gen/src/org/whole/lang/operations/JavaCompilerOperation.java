@@ -37,13 +37,13 @@ public class JavaCompilerOperation extends AbstractOperation {
 	private JavaModelGenerator generator;
 
 	public static List<CompilationUnit> compile(IEntity model, IBindingManager args) {
-		JavaCompilerOperation op = new JavaCompilerOperation(args);
-    	op.stagedVisit(model);
+		JavaCompilerOperation op = new JavaCompilerOperation(model, args);
+		op.stagedVisit(model);
     	return op.getCompilationUnits();
 	}
 
-	protected JavaCompilerOperation(IBindingManager args) {
-		super(ID, args, false);
+	protected JavaCompilerOperation(IEntity selfEntity, IBindingManager args) {
+		super(ID, selfEntity, args, false);
 	}
 
 	public JavaModelGenerator getGenerator() {

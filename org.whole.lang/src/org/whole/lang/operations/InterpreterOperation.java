@@ -56,12 +56,19 @@ public class InterpreterOperation extends AbstractOperation {
 	}
 
 	public static IBindingScope lazyInterpret(IEntity program, IBindingManager args, boolean resultsInArgs) {
-		InterpreterOperation op = new InterpreterOperation(args, resultsInArgs);
+		//FIXME workaround
+		IEntity selfEntity = args.wGet("self");
+
+		InterpreterOperation op = new InterpreterOperation(program, args, resultsInArgs);
+
+		//FIXME workaround for call in TemplateInterpreterIterator
+		args.enforceSelfBinding(selfEntity);
+
 	    op.stagedVisit(program, 0);
 	    return op.getResultsScope();
 	}
 	public static IBindingScope lazyInterpret(IEntity program, IBindingManager args, int relativeStage) {
-		InterpreterOperation op = new InterpreterOperation(args, null);
+		InterpreterOperation op = new InterpreterOperation(program, args, null);
 	    op.stagedVisit(program, relativeStage);
 	    return op.getResultsScope();
 	}
@@ -79,7 +86,7 @@ public class InterpreterOperation extends AbstractOperation {
 	    if (!args.wIsSet("printWriter"))
 	    	newIONames.add("printWriter");
 
-		final InterpreterOperation op = new InterpreterOperation(args, null);
+		final InterpreterOperation op = new InterpreterOperation(program, args, null);
 
 		if (in != null)
 			args.wDefValue("reader", op.reader = in);
@@ -131,11 +138,11 @@ public class InterpreterOperation extends AbstractOperation {
 		return resultScope;
 	}
 
-	protected InterpreterOperation(IBindingManager args, boolean resultsInArgs) {
-		super(ID, args, resultsInArgs);
+	protected InterpreterOperation(IEntity selfEntity, IBindingManager args, boolean resultsInArgs) {
+		super(ID, selfEntity, args, resultsInArgs);
 	}
-	protected InterpreterOperation(IBindingManager args, IBindingScope resultsScope) {
-		super(ID, args, null);
+	protected InterpreterOperation(IEntity selfEntity, IBindingManager args, IBindingScope resultsScope) {
+		super(ID, selfEntity, args, null);
 	}
 
 	protected IVisitor createDefaultVisitor(IEntity entity, int normalizedStage) {

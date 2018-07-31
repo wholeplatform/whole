@@ -33,7 +33,7 @@ public class DynamicCompilerOperation extends AbstractOperation {
 
 	public static IBindingScope compile(IEntity model, IBindingManager bm) {
 		bm.wEnterScope();
-		IOperation op = new DynamicCompilerOperation(bm);
+		IOperation op = new DynamicCompilerOperation(model, bm);
 		op.stagedVisit(model, 0);
 		bm.wExitScope();
 
@@ -51,8 +51,8 @@ public class DynamicCompilerOperation extends AbstractOperation {
 		return rs;
 	}
 
-	protected DynamicCompilerOperation(IBindingManager bm) {
-		super(ID, bm, null);
+	protected DynamicCompilerOperation(IEntity selfEntity, IBindingManager bm) {
+		super(ID, selfEntity, bm, null);
 	}
 
 	protected IVisitor createDefaultVisitor(IEntity entity, int normalizedStage) {

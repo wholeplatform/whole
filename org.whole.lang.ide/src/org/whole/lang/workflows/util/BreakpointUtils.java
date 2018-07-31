@@ -20,11 +20,12 @@ package org.whole.lang.workflows.util;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.iterators.InstrumentingIterator;
 import org.whole.lang.iterators.instrumentation.DebuggerInstrumentation;
+import org.whole.lang.iterators.instrumentation.DiagnosticData;
+import org.whole.lang.iterators.instrumentation.DiagnosticInstrumentation;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.util.SuspensionKind;
 import org.whole.lang.util.BehaviorUtils;
@@ -59,12 +60,18 @@ public class BreakpointUtils {
 		if (DebuggerInstrumentation.evaluatingPredicate)
 			return;
 
-		IBindingManager bm = ii.hasBindings() ? ii.getBindings() : BindingManagerFactory.instance.createArguments();
-		bm.wEnterScope(ii.getDebugScope());
-		try {		
-			E4Utils.suspendOperation(SuspensionKind.BREAK, null, ii.getSourceEntity(), bm);
-		} finally {
-			bm.wExitScope();
+		if (ii.hasBindings() && ii.getBindings().wIsSet("eclipse#eclipseContext")) {
+			IBindingManager bm = ii.getBindings();
+			bm.wEnterScope(ii.getDebugScope());
+			try {		
+				E4Utils.suspendOperation(SuspensionKind.BREAK, null, ii.getSourceEntity(), bm);
+			} finally {
+				bm.wExitScope();
+			}
+		} else {
+			DiagnosticData dd = DiagnosticInstrumentation.diagnosticData(ii);
+
+			E4Utils.reportError(null, "Breakpoint without debugging service", "Unable to gather the debugging service from the execution context.\n\n"+dd.severity+": "+dd.message, null);
 		}
 	};
 }

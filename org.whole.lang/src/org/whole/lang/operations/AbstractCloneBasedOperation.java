@@ -53,11 +53,11 @@ public abstract class AbstractCloneBasedOperation extends AbstractOperation {
 		return clonedEntities;
 	}
 
-	protected AbstractCloneBasedOperation(String name, IBindingManager args, boolean resultsInArgs) {
-		super(name, args, resultsInArgs);
+	protected AbstractCloneBasedOperation(String name, IEntity selfEntity, IBindingManager args, boolean resultsInArgs) {
+		super(name, selfEntity, args, resultsInArgs);
 	}
-	protected AbstractCloneBasedOperation(String name, IBindingManager args, IBindingScope resultsScope) {
-		super(name, args, resultsScope);
+	protected AbstractCloneBasedOperation(String name, IEntity selfEntity, IBindingManager args, IBindingScope resultsScope) {
+		super(name, selfEntity, args, resultsScope);
 	}
 
 	@Override

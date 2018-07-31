@@ -43,7 +43,7 @@ public class ContentAssistOperation extends AbstractVisitorOperation {
 	public static final String ID = "contentAssist";
 
 	public static IEntity[] getContentAssist(IEntity entity, IBindingManager args) {
-		ContentAssistOperation op = new ContentAssistOperation(args);
+		ContentAssistOperation op = new ContentAssistOperation(entity, args);
 		op.setSelectedEntity(entity);
 		if (!CommonsEntityDescriptorEnum.RootFragment.equals(entity.wGetEntityDescriptor())) {
 			op.stagedVisit(entity);
@@ -54,8 +54,8 @@ public class ContentAssistOperation extends AbstractVisitorOperation {
 		return op.getResult();
 	}
 
-	protected ContentAssistOperation(IBindingManager args) {
-		super(ID, args, null);
+	protected ContentAssistOperation(IEntity selfEntity, IBindingManager args) {
+		super(ID, selfEntity, args, null);
 	}
 
 	private IEntity selectedEntity;

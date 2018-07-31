@@ -31,16 +31,15 @@ public class ArtifactsGeneratorOperation extends AbstractOperation {
 	public static final String ARTIFACTS_URI = "http://lang.whole.org/Artifacts";
 
 	public static void generate(IEntity program, IBindingManager args) {
-		ArtifactsGeneratorOperation gen = new ArtifactsGeneratorOperation(args,
-				program.wGetLanguageKit().getURI().equals(ARTIFACTS_URI));
+		ArtifactsGeneratorOperation gen = new ArtifactsGeneratorOperation(program, args, program.wGetLanguageKit().getURI().equals(ARTIFACTS_URI));
 		gen.stagedVisit(program);
 		gen.stagedVisit(gen.getResult());
 	}
 
 	protected boolean replaceVars;
 
-	protected ArtifactsGeneratorOperation(IBindingManager args, boolean replaceVars) {
-		super(ID, args, null);
+	protected ArtifactsGeneratorOperation(IEntity selfEntity, IBindingManager args, boolean replaceVars) {
+		super(ID, selfEntity, args, null);
 		this.replaceVars = replaceVars;
 
 		if (!args.wIsSet("workspace")) {

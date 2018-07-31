@@ -64,13 +64,13 @@ public class PrettyPrinterOperation extends AbstractOperation {
 		prettyPrint(program, args);
 	}
 	public static void prettyPrint(IEntity program, IBindingManager args) {
-	    PrettyPrinterOperation op = new PrettyPrinterOperation(args);
-		op.stagedVisit(program);
+	    PrettyPrinterOperation op = new PrettyPrinterOperation(program, args);
+	    op.stagedVisit(program);
 		op.printWriter.flush();
 	}
 
-    protected PrettyPrinterOperation(IBindingManager args) {
-    	super(ID, args, null);
+    protected PrettyPrinterOperation(IEntity selfEntity, IBindingManager args) {
+    	super(ID, selfEntity, args, null);
 
     	if (!args.wIsSet("printWriter"))
     		throw new IllegalArgumentException("printWriter is not defined");

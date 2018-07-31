@@ -33,8 +33,8 @@ import org.whole.lang.visitors.IVisitorFactory;
 public abstract class AbstractByLanguageOperation extends AbstractOperation {
     private Map<String, IVisitorFactory> visitorMap = new TreeMap<String, IVisitorFactory>();
 
-    protected AbstractByLanguageOperation(String name, IBindingManager args, boolean resultsInArgs) {
-		super(name, args, resultsInArgs);
+    protected AbstractByLanguageOperation(String name, IEntity selfEntity, IBindingManager args, boolean resultsInArgs) {
+		super(name, selfEntity, args, resultsInArgs);
 	}
 
     public void addVisitorFactory(String languageUri, IVisitorFactory visitorFactory) {

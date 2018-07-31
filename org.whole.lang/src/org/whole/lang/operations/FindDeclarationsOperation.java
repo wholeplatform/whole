@@ -31,12 +31,12 @@ public class FindDeclarationsOperation extends AbstractVisitorOperation {
 		return findDeclarations(model, BindingManagerFactory.instance.createArguments());
 	}
 	public static IEntity findDeclarations(IEntity model, IBindingManager args) {
-		FindDeclarationsOperation op = new FindDeclarationsOperation(args);
+		FindDeclarationsOperation op = new FindDeclarationsOperation(model, args);
 		op.stagedVisit(model);
 		return op.getResultsScope().getResult();
 	}
 
-	protected FindDeclarationsOperation(IBindingManager args) {
-		super(ID, args, null);
+	protected FindDeclarationsOperation(IEntity selfEntity, IBindingManager args) {
+		super(ID, selfEntity, args, null);
 	}
 }

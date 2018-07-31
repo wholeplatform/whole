@@ -43,6 +43,8 @@ public class InstrumentingIterator<E extends IEntity> extends AbstractDelegating
 			CompositeInstrumentation.instance;
 //			IdentityInstrumentation.instance;
 
+	public static final IEntity MISSING_SOURCE_ENTITY = BindingManagerFactory.instance.createNull();//Value("<Source not available>");
+
 	public InstrumentingIterator(IEntityIterator<E> iterator) {
 		super(iterator);
 	}
@@ -61,7 +63,7 @@ public class InstrumentingIterator<E extends IEntity> extends AbstractDelegating
 		if (sourceEntity == null)
 			sourceEntity = getIterator().getSourceEntity();
 		if (sourceEntity == null)
-			sourceEntity = BindingManagerFactory.instance.createNull();//Value("<Source not available>");
+			sourceEntity = MISSING_SOURCE_ENTITY;
 		return sourceEntity;
 	}
 

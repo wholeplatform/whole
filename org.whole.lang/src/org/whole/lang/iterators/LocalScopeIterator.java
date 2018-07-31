@@ -125,11 +125,13 @@ public class LocalScopeIterator<E extends IEntity> extends AbstractCloneableIter
 		sb.append("(");
     	
     	Iterator<String> nameIterator = localNames.iterator();
-    	sb.append(nameIterator.next());
-    	while (nameIterator.hasNext()) {
-			sb.append(",");
-			sb.append(nameIterator.next());
-		}
+    	if (nameIterator.hasNext()) {
+	    	sb.append(nameIterator.next());
+	    	while (nameIterator.hasNext()) {
+				sb.append(",");
+				sb.append(nameIterator.next());
+			}
+    	}
 
 		sb.append("|");
 		

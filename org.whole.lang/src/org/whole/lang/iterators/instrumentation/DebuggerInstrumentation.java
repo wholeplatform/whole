@@ -21,6 +21,7 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 import org.whole.lang.iterators.InstrumentingIterator;
+import org.whole.lang.model.IEntity;
 
 /**
  * @author Riccardo Solmi
@@ -38,24 +39,16 @@ public class DebuggerInstrumentation extends IdentityInstrumentation {
 		return;
 	};
 
-	@Override
-	public void afterClone(InstrumentingIterator<?> ii, InstrumentingIterator<?> result) {
-	}
-
-	@Override
-	public void beforeHasNext(InstrumentingIterator<?> ii) {
-//		if (breakpointPredicate.test(ii))
-//			breakpointConsumer.accept(ii);
-	}
-
-	@Override
-	public void beforeLookahead(InstrumentingIterator<?> ii) {
-//		if (breakpointPredicate.test(ii))
-//			breakpointConsumer.accept(ii);
-	}
+	protected static IEntity lastSourceEntity;
+	public static boolean sourceEntityChanged;
 
 	@Override
 	public void beforeNext(InstrumentingIterator<?> ii) {
+		IEntity sourceEntity = ii.getSourceEntity();
+		sourceEntityChanged = sourceEntity != lastSourceEntity && lastSourceEntity != InstrumentingIterator.MISSING_SOURCE_ENTITY;
+		lastSourceEntity = sourceEntity;
+
+//		if (!evaluatingPredicate && (sourceEntityChanged || breakpointPredicate.test(ii)))
 		if (!evaluatingPredicate && breakpointPredicate.test(ii))
 			breakpointConsumer.accept(ii);
 	}

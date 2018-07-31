@@ -44,14 +44,14 @@ public class ValidatorOperation extends AbstractOperation {
 		}
 
 		decorationManager.deleteDecorations(entity, true);
-		new ValidatorOperation(args).stagedVisit(entity);
+		new ValidatorOperation(entity, args).stagedVisit(entity);
 		
 		if (needUnset)
 			args.wUnset("decorationManager");
 	}
 
-	protected ValidatorOperation(IBindingManager args) {
-		super(ID, args, null);
+	protected ValidatorOperation(IEntity selfEntity, IBindingManager args) {
+		super(ID, selfEntity, args, null);
 	}
 
 	public IDecorationManager getDecorationManager() {
