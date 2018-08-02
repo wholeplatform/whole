@@ -61,7 +61,7 @@ public class EvaluateCloneOperation extends CloneOperationOld {
 		IEntity child = entityClone.wGet(index);
 		if (shouldEvaluate.test(child)) {
 			IEntity selfEntity = getBindings().wGet("self");
-			IEntityIterator<?> iterator = BehaviorUtils.lazyEvaluate(child, 0, getBindings());
+			IEntityIterator<?> iterator = BehaviorUtils.lazyEvaluateOnSelfBinding(child, 0, getBindings());
 //			IEntityIterator<?> iterator = DynamicCompilerOperation.compile(child, getBindings()).getResultIterator();
 			if (EntityUtils.isSimple(entityClone)) {
 				iterator = IteratorFactory.instance.composeIterator(IteratorFactory.instance.singleValuedRunnableIterator(
@@ -89,7 +89,7 @@ public class EvaluateCloneOperation extends CloneOperationOld {
 		IEntity child = entityClone.wGet(fd);
 		if (shouldEvaluate.test(child)) {
 			IEntity selfEntity = getBindings().wGet("self");
-			IEntityIterator<?> iterator = BehaviorUtils.lazyEvaluate(child, 0, getBindings());
+			IEntityIterator<?> iterator = BehaviorUtils.lazyEvaluateOnSelfBinding(child, 0, getBindings());
 //			IEntityIterator<?> iterator = DynamicCompilerOperation.compile(child, getBindings()).getResultIterator();
 			iterator = IteratorFactory.instance.composeIterator(IteratorFactory.instance.singleValuedRunnableIterator(
 					(self, bm, arguments) -> entityClone.wSet(fd, self)

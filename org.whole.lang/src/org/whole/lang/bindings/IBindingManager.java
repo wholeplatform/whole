@@ -41,14 +41,11 @@ public interface IBindingManager extends IBindingScope, ICloneable {
 	public void wExitScope(boolean merge);
 
 	public default void enforceSelfBinding(IEntity selfEntity) {
-		IEntity selfBinding = wGet("self");
-		if (selfBinding != selfEntity) {
-			if (selfEntity != null)
-				wDef("self", selfEntity);
-			else if (selfBinding != null)
-				return;
-			else
-				wDef("self", BindingManagerFactory.instance.createNull());
-		}
+		//FIXME workaround
+		if (selfEntity == null)
+			return;
+
+		if (wGet("self") != selfEntity)
+			wDef("self", selfEntity);
 	}
 }

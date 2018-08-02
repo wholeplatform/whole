@@ -100,7 +100,7 @@ public class TestsHelpers {
 	}
 	public static IEntity applyFilter(IEntity filter, IEntity subject, IBindingManager bm) {
 		bm.wDef("self", subject);
-		IBindingScope bs = InterpreterOperation.lazyInterpret(EntityUtils.isFragment(filter) ? filter.wGetRoot() : filter, bm, false);
+		IBindingScope bs = InterpreterOperation.lazyInterpretOnSelfBinding(EntityUtils.isFragment(filter) ? filter.wGetRoot() : filter, bm, false);
 
 		if (bs.hasResultIterator()) {
 			IEntityIterator<?> iterator = bs.getResultIterator();

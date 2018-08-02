@@ -56,20 +56,24 @@ public class InterpreterOperation extends AbstractOperation {
 	}
 
 	public static IBindingScope lazyInterpret(IEntity program, IBindingManager args, boolean resultsInArgs) {
-		//FIXME workaround
-		IEntity selfEntity = args.wGet("self");
-
 		InterpreterOperation op = new InterpreterOperation(program, args, resultsInArgs);
-
-		//FIXME workaround for call in TemplateInterpreterIterator
-		args.enforceSelfBinding(selfEntity);
-
 	    op.stagedVisit(program, 0);
 	    return op.getResultsScope();
 	}
+	public static IBindingScope lazyInterpretOnSelfBinding(IEntity program, IBindingManager args, boolean resultsInArgs) {
+		InterpreterOperation op = new InterpreterOperation(args.wGet("self"), args, resultsInArgs);
+	    op.stagedVisit(program, 0);
+	    return op.getResultsScope();
+	}
+
 	public static IBindingScope lazyInterpret(IEntity program, IBindingManager args, int relativeStage) {
 		InterpreterOperation op = new InterpreterOperation(program, args, null);
 	    op.stagedVisit(program, relativeStage);
+	    return op.getResultsScope();
+	}
+	public static IBindingScope lazyInterpretOnSelfBinding(IEntity program, IBindingManager args, int relativeStage) {
+		InterpreterOperation op = new InterpreterOperation(args.wGet("self"), args, null);
+		op.stagedVisit(program, relativeStage);
 	    return op.getResultsScope();
 	}
 

@@ -101,7 +101,7 @@ public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisit
 			try {
 				getBindings().wEnterScope();
 				getBindings().wDef("self", entity.wGetAdaptee(false));
-				setResultIterator(BehaviorUtils.lazyEvaluate(entity.wGetAdaptee(false), 0, getBindings()));
+				setResultIterator(BehaviorUtils.lazyEvaluateOnSelfBinding(entity.wGetAdaptee(false), 0, getBindings()));
 			} finally {
 				getBindings().wExitScope();
 			}

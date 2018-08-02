@@ -68,15 +68,23 @@ public class BehaviorUtils {
 		return iterator;
 	}
 
-	public static IEntityIterator<?> lazyEvaluate(IEntity behavior, int relativeStage, IBindingManager bm) {
-		InterpreterOperation.lazyInterpret(behavior, bm, relativeStage);
+	public static IEntityIterator<?> lazyEvaluateOnSelfBinding(IEntity behavior, int relativeStage, IBindingManager bm) {
+		InterpreterOperation.lazyInterpretOnSelfBinding(behavior, bm, relativeStage);
 		return bm.getResultIterator();
 	}
 	public static IEntity evaluate(IEntity behavior, int relativeStage, IBindingManager bm) {
+		InterpreterOperation.lazyInterpret(behavior, bm, relativeStage);
+		return evaluateResult(bm);
+	}
+	public static IEntity evaluateOnSelfBinding(IEntity behavior, int relativeStage, IBindingManager bm) {
 		IEntity selfEntity = bm.wGet("self");
 		
-		InterpreterOperation.lazyInterpret(behavior, bm, relativeStage);
-		
+		InterpreterOperation.lazyInterpretOnSelfBinding(behavior, bm, relativeStage);
+
+		//TODO test and remove
+		if (selfEntity == null)
+			selfEntity = null;
+		else
 		bm.enforceSelfBinding(selfEntity);
 		return evaluateResult(bm);
 	}
@@ -129,9 +137,9 @@ public class BehaviorUtils {
 	}
 
 	//TODO ? fail on not boolean; != Queries predicate
-	public static boolean evaluatePredicate(IEntity predicate, int relativeStage, IBindingManager bm) {
+	public static boolean evaluatePredicateOnSelfBinding(IEntity predicate, int relativeStage, IBindingManager bm) {
 		IEntity selfEntity = bm.wIsSet("self") ? bm.wGet("self") : NullEntity.instance;
-		IEntity result = evaluate(predicate, relativeStage, bm);
+		IEntity result = evaluateOnSelfBinding(predicate, relativeStage, bm);
 		if (result == null || !EntityUtils.isData(result))
 			return false;
 	

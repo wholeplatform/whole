@@ -564,7 +564,7 @@ public class PathExpressionsQueriesTest {
 		bm = BindingManagerFactory.instance.createArguments();
 		iterator = BehaviorUtils.<Production>compileAndLazyEvaluate(pe1, g, bm);
 		iterator.next();
-		Assert.assertTrue(bm.wNames().isEmpty());
+		Assert.assertTrue(bm.wNames().size() == 1);//self binding
 	}
 
 	@Test

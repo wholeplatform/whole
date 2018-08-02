@@ -335,7 +335,7 @@ public class GrammarBasedUnparserVisitor extends GrammarsTraverseAllVisitor {
 			IBindingManager bindings = getBindings();
 			bindings.wEnterScope();
 			bindings.wDef("self", model);
-			result = BehaviorUtils.evaluate(entity, 0, bindings);
+			result = BehaviorUtils.evaluateOnSelfBinding(entity, 0, bindings);
 			bindings.wExitScope();
 		} else
 			result = entity;

@@ -62,7 +62,7 @@ public class CommonsDynamicCompilerVisitor extends CommonsIdentityDefaultVisitor
 			super.visit(entity);
 		else {
 			setResult(null);
-			BehaviorUtils.lazyEvaluate(entity.wGetRoot(), -1, getBindings());
+			BehaviorUtils.lazyEvaluateOnSelfBinding(entity.wGetRoot(), -1, getBindings());
 		}
 	}
 

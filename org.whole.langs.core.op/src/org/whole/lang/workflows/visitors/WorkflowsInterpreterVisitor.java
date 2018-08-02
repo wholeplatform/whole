@@ -216,7 +216,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 
 	public void visit(WhileLoop entity) {
 		Condition condition = entity.getCondition();
-		while (BehaviorUtils.evaluatePredicate(condition, 0, getBindings())) {
+		while (BehaviorUtils.evaluatePredicateOnSelfBinding(condition, 0, getBindings())) {
 			handleCancelRequest();
 
 			entity.getFlowObject().accept(this);
@@ -292,7 +292,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 
 	public void visit(ConditionalCase entity) {
 		Condition condition = entity.getCondition();
-		boolean isSatisfied = BehaviorUtils.evaluatePredicate(condition, 0, getBindings());
+		boolean isSatisfied = BehaviorUtils.evaluatePredicateOnSelfBinding(condition, 0, getBindings());
 		if (isSatisfied)
 			entity.getFlowObject().accept(this);
 		setResultValue(isSatisfied);

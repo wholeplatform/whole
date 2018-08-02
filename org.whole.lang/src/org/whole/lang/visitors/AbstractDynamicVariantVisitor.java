@@ -146,7 +146,7 @@ public abstract class AbstractDynamicVariantVisitor extends AbstractVisitor impl
 		public void visit(IEntity entity) {
 			getBindings().wDef("self", entity);
 			setResultIterator(
-					BehaviorUtils.lazyEvaluate(behavior, 0, getBindings()));
+					BehaviorUtils.lazyEvaluateOnSelfBinding(behavior, 0, getBindings()));
 		}
 
 		public String toString() {

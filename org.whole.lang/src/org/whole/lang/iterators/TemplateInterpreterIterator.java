@@ -78,7 +78,7 @@ public class TemplateInterpreterIterator<E extends IEntity> extends AbstractClon
 		getBindings().wEnterScope(lookaheadScope(), true);
 		getBindings().enforceSelfBinding(resetEntity);
 
-		IBindingScope results = InterpreterOperation.lazyInterpret(pattern, getBindings(), true);
+		IBindingScope results = InterpreterOperation.lazyInterpretOnSelfBinding(pattern, getBindings(), true);
 
 		getBindings().wExitScope();
 

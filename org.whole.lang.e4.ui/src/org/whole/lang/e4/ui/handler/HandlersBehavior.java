@@ -493,7 +493,7 @@ public class HandlersBehavior {
 		bm.wEnterScope(ts);
 		//FIXME workaround for domain content assist that assume self initialized with primarySelectedEntity
 		bm.wDefValue("self", focusEntity);
-		boolean predicateResult = BehaviorUtils.evaluatePredicate(predicateEntity, 0, bm);
+		boolean predicateResult = BehaviorUtils.evaluatePredicateOnSelfBinding(predicateEntity, 0, bm);
 		ts.rollback();
 		bm.wExitScope();
 
@@ -520,7 +520,7 @@ public class HandlersBehavior {
 		bm.wEnterScope(ts);
 		//FIXME workaround for domain content assist that assume self initialized with primarySelectedEntity
 		bm.wDefValue("compoundRoot", focusEntity);
-		boolean predicateResult = BehaviorUtils.evaluatePredicate(predicateEntity, 0, bm);
+		boolean predicateResult = BehaviorUtils.evaluatePredicateOnSelfBinding(predicateEntity, 0, bm);
 		ts.rollback();
 		bm.wExitScope();
 
@@ -543,7 +543,7 @@ public class HandlersBehavior {
 		if (!isValidFocusEntityPart(bm))
 			return false;
 
-		if (!BehaviorUtils.evaluatePredicate(bm.wGet("predicateEntity"), 0, bm))
+		if (!BehaviorUtils.evaluatePredicateOnSelfBinding(bm.wGet("predicateEntity"), 0, bm))
 			return false;
 
 		IEntity focusEntity = bm.wGet("focusEntity");
@@ -559,7 +559,7 @@ public class HandlersBehavior {
 	}
 
 	public static boolean canCallAction(IBindingManager bm) {
-		return BehaviorUtils.evaluatePredicate(bm.wGet("predicateEntity"), 0, bm);
+		return BehaviorUtils.evaluatePredicateOnSelfBinding(bm.wGet("predicateEntity"), 0, bm);
 	}
 	public static void actionCall(IBindingManager bm) {
 		IEntity model = bm.wGet("compoundRoot");
@@ -598,7 +598,7 @@ public class HandlersBehavior {
 	}
 
 	public static boolean canPerform(IBindingManager bm) {
-		return BehaviorUtils.evaluatePredicate(bm.wGet("predicateEntity"), 0, bm);
+		return BehaviorUtils.evaluatePredicateOnSelfBinding(bm.wGet("predicateEntity"), 0, bm);
 	}
 
 	public static void perform(IBindingManager bm) {

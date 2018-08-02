@@ -84,7 +84,7 @@ public class ExecuteSampleModelRunnable extends AbstractRunnableWithProgress {
 
 		IEntity derivedModel = null;
 		try {
-			IEntityIterator<?> iterator = BehaviorUtils.lazyEvaluate(behaviorModel, 0, bm);
+			IEntityIterator<?> iterator = BehaviorUtils.lazyEvaluateOnSelfBinding(behaviorModel, 0, bm);
 			iterator.setBindings(selfBindings);
 			iterator.reset(selfEntity);
 

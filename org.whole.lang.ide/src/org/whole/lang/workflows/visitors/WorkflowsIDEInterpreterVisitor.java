@@ -117,7 +117,7 @@ public class WorkflowsIDEInterpreterVisitor extends WorkflowsInterpreterVisitor 
 
 		Condition condition = entity.getCondition();
 		if (!EntityUtils.isResolver(condition)) {
-			if (!BehaviorUtils.evaluatePredicate(condition, 0, debugEnv))
+			if (!BehaviorUtils.evaluatePredicateOnSelfBinding(condition, 0, debugEnv))
 				return;
 		}
 
