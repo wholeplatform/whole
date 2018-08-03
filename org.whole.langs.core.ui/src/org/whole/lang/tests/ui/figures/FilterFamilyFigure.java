@@ -24,9 +24,11 @@ import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.EntityFigure;
+import org.whole.lang.ui.figures.TableFigure;
+import org.whole.lang.ui.figures.TableRowFigure;
 import org.whole.lang.ui.layout.ColumnLayout;
-import org.whole.lang.ui.layout.OverLayout;
 import org.whole.lang.ui.layout.RowLayout;
+import org.whole.lang.ui.layout.TableLayout;
 
 /**
  *  @author Riccardo Solmi
@@ -39,17 +41,21 @@ public class FilterFamilyFigure extends ContentPaneFigure {
         super(new ColumnLayout());
         initContentPanes(4);
         
-        add(headerFigure = new EntityFigure(new RowLayout().withSpacing(6).withMargin(6,8,4,8)));
+        add(headerFigure = new EntityFigure(new RowLayout().withSpacing(6).withMargin(2,3,1,5)));
 
-        EntityFigure overFigure;
-        overFigure = new EntityFigure(new OverLayout());
-        overFigure.addContentLighter("family");
-        overFigure.addContentLighter("Filter");
-        headerFigure.add(overFigure);
-        overFigure = new EntityFigure(new OverLayout());
-        overFigure.add(createContentPane(2));
-        overFigure.add(createContentPane(1));
-        headerFigure.add(overFigure);
+		IFigure headersFigure = new TableFigure(new TableLayout(2).withRowSpacing(2).withColumnSpacing(8).withMargin(5));
+
+		TableRowFigure namespaceRowFigure = new TableRowFigure();
+		namespaceRowFigure.addContentLighter("Namespace");
+		namespaceRowFigure.add(createContentPane(1));
+		headersFigure.add(namespaceRowFigure);
+
+		TableRowFigure nameRowFigure = new TableRowFigure();
+		nameRowFigure.addContentLighter("Filter Family");
+		nameRowFigure.add(createContentPane(2));
+		headersFigure.add(nameRowFigure);
+		
+		headerFigure.add(headersFigure);
 
         add(descriptionFigure = createContentPane(0, new MarginBorder(2,4,2,4)));
 		add(createContentPane(3, new MarginBorder(4,8,4,8)));

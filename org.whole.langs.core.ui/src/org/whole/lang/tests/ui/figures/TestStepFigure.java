@@ -37,16 +37,23 @@ public class TestStepFigure extends ContentPaneFigure {
 	protected TestResultsFigure resultsFigure;
 
 	public TestStepFigure(String header) {
-		super(new ColumnLayout());
+		super(new ColumnLayout());//FIXME .withMinorAutoresizeWeight(1f).withAutoresizeWeight(1f));
 		initContentPanes(3);
 
-		add(headerFigure = new EntityFigure(new RowLayout().withSpacing(4).withMargin(2,4,2,4)));
+		add(headerFigure = new EntityFigure(new RowLayout().withSpacing(6).withMargin(3,6,3,4)));//FIXME .withMajorAutoresizeWeight(1f).withAutoresizeWeight(1f)
 		headerFigure.add(createFoldingToggle(2));
 
-		EntityFigure titleFigure = new EntityFigure(new OverLayout());
-		titleFigure.add(createContentPane(1));
-		titleFigure.addContentLighter(header);
-		headerFigure.add(titleFigure);
+		if (this instanceof TestFigure) {
+			EntityFigure titleFigure = new EntityFigure(new RowLayout().withSpacing(4));
+			titleFigure.addContentLighter(header);
+			titleFigure.add(createContentPane(1));
+			headerFigure.add(titleFigure);
+		} else {
+			EntityFigure titleFigure = new EntityFigure(new OverLayout());
+			titleFigure.add(createContentPane(1));
+			titleFigure.addContentLighter(header);
+			headerFigure.add(titleFigure);
+		}
 
 		add(descriptionFigure = createContentPane(0, new MarginBorder(2)));
 		add(createContentPane(2, new MarginBorder(4,8,6,8)));
@@ -74,8 +81,8 @@ public class TestStepFigure extends ContentPaneFigure {
 		g.drawRoundRectangle(headerBounds.getResized(-1,8), 8,8);
 		g.restoreState();
 
-		g.setForegroundColor(ColorConstants.gray);
-		g.setLineWidth(2);
+		g.setForegroundColor(ColorConstants.lightGray);
+		g.setLineWidth(1);
 
 		g.drawLine(headerBounds.x, headerBounds.bottom()-1, bounds.right(), headerBounds.bottom()-1);
 		if (bounds.bottom() > headerBounds.bottom())

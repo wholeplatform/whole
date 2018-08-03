@@ -70,13 +70,17 @@ import org.whole.lang.ui.editparts.AbstractPart;
 import org.whole.lang.ui.editparts.AbstractTextualEntityPart;
 import org.whole.lang.ui.editparts.CompositeColumnWithPlaceholderPart;
 import org.whole.lang.ui.editparts.CompositeRowWithPlaceholderPart;
-import org.whole.lang.ui.editparts.DeclarationTextualEntityPart;
+import org.whole.lang.ui.editparts.ContentTextualEntityPart;
 import org.whole.lang.ui.editparts.IEditPartFactory;
 import org.whole.lang.ui.editparts.IGraphicalEntityPart;
-import org.whole.lang.ui.editparts.ContentTextualEntityPart;
+import org.whole.lang.ui.editparts.ModuleNameTextualEntityPart;
+import org.whole.lang.ui.editparts.ModuleNamespaceTextualEntityPart;
 import org.whole.lang.ui.editparts.PlaceHolderPart;
+import org.whole.lang.ui.figures.CompositeFigure;
 import org.whole.lang.ui.figures.LabelFactory;
 import org.whole.lang.ui.figures.TextualFigure;
+import org.whole.lang.ui.layout.ColumnLayout;
+import org.whole.lang.ui.layout.ICompositeEntityLayout;
 import org.whole.lang.ui.notations.editparts.QuotedStringTextualEntityPart;
 import org.whole.lang.ui.notations.text.editparts.DefaultTextualPartFactory;
 import org.whole.lang.util.EntityUtils;
@@ -155,7 +159,7 @@ public class TestsPartFactoryVisitor extends TestsIdentityDefaultVisitor impleme
 
     @Override
     public void visit(PackageName entity) {
-    	part = new ContentTextualEntityPart();
+    	part = new ModuleNamespaceTextualEntityPart();
     }
     @Override
     public void visit(Name entity) {
@@ -163,7 +167,7 @@ public class TestsPartFactoryVisitor extends TestsIdentityDefaultVisitor impleme
 			IEntity parent = entity.wGetParent();
 			if (Matcher.match(TestsEntityDescriptorEnum.TestSuite, parent) ||
 					Matcher.match(TestsEntityDescriptorEnum.TestCase, parent)) {
-				part = new DeclarationTextualEntityPart();
+				part = new ModuleNameTextualEntityPart();
 				return;
 			}
 		}
@@ -227,11 +231,21 @@ public class TestsPartFactoryVisitor extends TestsIdentityDefaultVisitor impleme
     }
 
     public void visit(TestCases entity) {
-    	part = new CompositeColumnWithPlaceholderPart();//FIXME more spacing
+    	part = new CompositeColumnWithPlaceholderPart() {
+    	    protected IFigure createFigure() {
+    	        return new CompositeFigure((ICompositeEntityLayout)
+    	        		new ColumnLayout().withMarginTop(5).withMarginBottom(5).withSpacing(5));//FIXME.withMinorAutoresizeWeight(1f)
+    	    }
+    	};
     }
 
     public void visit(Tests entity) {
-    	part = new CompositeColumnWithPlaceholderPart();
+    	part = new CompositeColumnWithPlaceholderPart() {
+    	    protected IFigure createFigure() {
+    	        return new CompositeFigure((ICompositeEntityLayout)
+    	        		new ColumnLayout().withMarginTop(5).withMarginBottom(5).withSpacing(5));//FIXME .withAutoresizeWeight(1f).withMinorAutoresizeWeight(1f)
+    	    }
+    	};
     }
 
     public void visit(Aspects entity) {

@@ -25,9 +25,12 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.whole.lang.tests.model.Results;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.EntityFigure;
+import org.whole.lang.ui.figures.TableFigure;
+import org.whole.lang.ui.figures.TableRowFigure;
+import org.whole.lang.ui.layout.Alignment;
 import org.whole.lang.ui.layout.ColumnLayout;
-import org.whole.lang.ui.layout.OverLayout;
 import org.whole.lang.ui.layout.RowLayout;
+import org.whole.lang.ui.layout.TableLayout;
 
 /**
  *  @author Riccardo Solmi
@@ -39,26 +42,31 @@ public class TestCaseFigure extends ContentPaneFigure {
     protected TestGroupResultsFigure resultsFigure;
 
     public TestCaseFigure() {
-        super(new ColumnLayout());
+        super(new ColumnLayout());//FIXME .withAutoresizeWeight(1f));
         initContentPanes(6);
         
-        add(headerFigure = new EntityFigure(new RowLayout().withSpacing(6).withMargin(6,8,4,8)));
+        add(headerFigure = new EntityFigure(new RowLayout().withSpacing(6).withMargin(2,3,1,5).withMinorAlignment(Alignment.CENTER)));//FIXME .withAutoresizeWeight(1f)
 
-        EntityFigure overFigure;
-        overFigure = new EntityFigure(new OverLayout());
-        overFigure.addContentLighter("case");
-        overFigure.addContentLighter("Test");
-        headerFigure.add(overFigure);
-        overFigure = new EntityFigure(new OverLayout());
-        overFigure.add(createContentPane(2));
-        overFigure.add(createContentPane(1));
-        headerFigure.add(overFigure);
+		IFigure headersFigure = new TableFigure(new TableLayout(2).withRowSpacing(2).withColumnSpacing(8).withMargin(5));
+
+		TableRowFigure namespaceRowFigure = new TableRowFigure();
+		namespaceRowFigure.addContentLighter("Namespace");
+		namespaceRowFigure.add(createContentPane(1));
+		headersFigure.add(namespaceRowFigure);
+
+		TableRowFigure nameRowFigure = new TableRowFigure();
+		nameRowFigure.addContentLighter("Test Case");
+		nameRowFigure.add(createContentPane(2));
+		headersFigure.add(nameRowFigure);
+		
+		headerFigure.add(headersFigure);
+
         headerFigure.add(resultsFigure = new TestGroupResultsFigure());
 
         add(descriptionFigure = createContentPane(0, new MarginBorder(2,4,2,4)));
 		add(createContentPane(3, new MarginBorder(6,8,6,8)));
 
-        add(compartmentFigure = new EntityFigure(new RowLayout().withSpacing(16).withMargin(4,8,4,8)));
+        add(compartmentFigure = new EntityFigure(new RowLayout().withSpacing(16).withMargin(4,8,4,8)));//FIXME .withAutoresizeWeight(1f).withMajorAutoresizeWeight(1f)
         compartmentFigure.add(createContentPane(4));
         compartmentFigure.add(createContentPane(5));
     }

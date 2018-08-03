@@ -33,7 +33,7 @@ public class TestResultsFigure extends EntityFigure {
 	protected ResultFigure actualResult;
 
 	public TestResultsFigure(ActionListener linkAction) {
-		super(new ColumnLayout().withMarginLeft(4));
+		super(new ColumnLayout().withMarginLeft(4));//FIXME .withMinorAutoresizeWeight(1f).withAutoresizeWeight(1f));
 
 		add(expectedResult = new ResultFigure(linkAction) {
 			@Override
