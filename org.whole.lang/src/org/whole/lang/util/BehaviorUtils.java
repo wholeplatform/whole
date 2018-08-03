@@ -21,7 +21,6 @@ import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
-import org.whole.lang.iterators.instrumentation.DebuggerInstrumentation;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.model.NullEntity;
@@ -81,10 +80,6 @@ public class BehaviorUtils {
 		
 		InterpreterOperation.lazyInterpretOnSelfBinding(behavior, bm, relativeStage);
 
-		//TODO test and remove
-		if (selfEntity == null)
-			selfEntity = null;
-		else
 		bm.enforceSelfBinding(selfEntity);
 		return evaluateResult(bm);
 	}
@@ -98,11 +93,12 @@ public class BehaviorUtils {
 			bm.setResultIterator(null);
 			resultIterator.setBindings(bm);
 			IEntity selfEntity = bm.wGet("self");
-			//TODO test only
-			if (selfEntity == null)
-				selfEntity = BindingManagerFactory.instance.createNull();
-			if (selfEntity != null)
-				resultIterator.reset(selfEntity);
+
+//			assert selfEntity != null;
+//			if (selfEntity == null)
+//				selfEntity = BindingManagerFactory.instance.createNull();
+
+			resultIterator.reset(selfEntity);
 
 			return resultIterator.evaluateRemaining();
 		} else
@@ -113,11 +109,12 @@ public class BehaviorUtils {
 			IEntityIterator<?> resultIterator = bm.getResultIterator();
 			bm.setResultIterator(null);
 			IEntity selfEntity = bm.wGet("self");
-			//TODO test only
-			if (selfEntity == null)
-				selfEntity = BindingManagerFactory.instance.createNull();
-			if (selfEntity != null)
-				resultIterator.reset(selfEntity);
+
+//			assert selfEntity != null;
+//			if (selfEntity == null)
+//				selfEntity = BindingManagerFactory.instance.createNull();
+
+			resultIterator.reset(selfEntity);
 	
 			return resultIterator.evaluateSingleton();
 		} else {

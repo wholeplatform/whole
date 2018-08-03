@@ -186,6 +186,7 @@ public class XsdLanguageTest {
 	@Category({KnownFailingTests.class, SlowTests.class})
 	@Test
 	public void testBpel20Instance() {
+		Assert.fail(); // force failure since test is unable to download imported schemas
 		try {
 			loadSchemaInstance("wsbpel_2_0.xsd", "wsbpel_2_0.xml", "Div.bpel",
 					"ReceiveMessageFromApplication.bpel", "ReceiveTwoOperandForSum.bpel",

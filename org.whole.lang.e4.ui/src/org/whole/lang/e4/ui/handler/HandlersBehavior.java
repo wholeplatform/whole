@@ -116,6 +116,7 @@ public class HandlersBehavior {
 			return false;
 		
 		IEntityIterator<IEntity> iterator = IteratorFactory.instance.childIterator();
+		iterator.getBindings().enforceSelfBinding(selectionTuple);
 		iterator.reset(selectionTuple);
 		while (iterator.hasNext()) {
 			IEntity entity = iterator.next();
@@ -195,7 +196,11 @@ public class HandlersBehavior {
 			return false;
 
 		IEntity clipboardTuple = Clipboard.instance().getInternalOrNativeEntityContents();
+		if (clipboardTuple == null)
+			return false;
+
 		IEntityIterator<IEntity> iterator = IteratorFactory.instance.childIterator();
+		iterator.getBindings().enforceSelfBinding(clipboardTuple);
 		iterator.reset(clipboardTuple);
 
 		IEntity focusEntity = bm.wGet("focusEntity");
@@ -217,9 +222,11 @@ public class HandlersBehavior {
 			return Clipboard.instance().getInternalOrNativeEntityContents();
 		}));
 
-		if (runnable.get() != null) {
+		IEntity clipboardContent = runnable.get();
+		if (clipboardContent != null) {
 			IEntityIterator<IEntity> iterator = IteratorFactory.instance.childReverseIterator();
-			iterator.reset(runnable.get());
+			iterator.getBindings().enforceSelfBinding(clipboardContent);
+			iterator.reset(clipboardContent);
 	
 			IEntity focusEntity = bm.wGet("focusEntity");
 			while (iterator.hasNext()) {
@@ -284,9 +291,11 @@ public class HandlersBehavior {
 				iterator = IteratorFactory.instance.selfIterator();
 			} else
 				iterator = IteratorFactory.instance.childReverseIterator();
+			iterator.getBindings().enforceSelfBinding(syntheticRoot);
 			iterator.reset(syntheticRoot);
 		} else {
 			iterator = IteratorFactory.instance.selfIterator();
+			iterator.getBindings().enforceSelfBinding(entity);
 			iterator.reset(entity);
 		}
 
@@ -320,6 +329,7 @@ public class HandlersBehavior {
 		List<IEntity> rootEntities = new ArrayList<IEntity>();
 
 		IEntityIterator<IEntity> iterator = IteratorFactory.instance.childIterator();
+		iterator.getBindings().enforceSelfBinding(selectedEntities);
 		iterator.reset(selectedEntities);
 		while (iterator.hasNext()) {
 			IEntity entity = iterator.next();

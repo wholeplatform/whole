@@ -51,7 +51,9 @@ public abstract class AbstractOperation implements IOperation {
 		this(name, selfEntity, args, resultsInArgs ? args.wTargetScope() : args.wEnclosingScope());
 	}
 	public AbstractOperation(String name, IEntity selfEntity, IBindingManager args, IBindingScope optResultsScope) {
-		args.enforceSelfBinding(selfEntity);
+//		assert selfEntity != null || this instanceof AnonymousOperation;
+		if (selfEntity != null)
+			args.enforceSelfBinding(selfEntity);
 
 		operationId = name;
 	    stagedVisitorsMap = initStagedVisitors();

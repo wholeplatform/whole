@@ -17,7 +17,10 @@
  */
 package org.whole.lang.iterators.instrumentation;
 
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.WeakHashMap;
 
 import org.whole.lang.iterators.InstrumentingIterator;
@@ -126,19 +129,30 @@ public class DiagnosticInstrumentation implements IEntityIteratorInstrumentation
 		}
 	}
 
+	private static Set<String> readyIterators;
+	private static Set<String> readyIterators() {
+		if (readyIterators == null) {
+			readyIterators = new HashSet<String>();
+			readyIterators.addAll(Arrays.<String>asList(new String[] {
+					"ConstantIterator", "ConstantChildIterator", "EmptyIterator",
+					"CollectionIterator", "FailureIterator"
+			}));
+		}
+		return readyIterators;
+	}
+	public static boolean isReadyIterator(String iteratorClassName) {
+		return readyIterators().contains(iteratorClassName);
+	}
+
 	public void illegalState(InstrumentingIterator<?> ii, InstrumentedMethod method, DiagnosticData data) {
 		data.message = "Illegal state: <"+data.state+", "+method+">";
-		data.severity = Severity.ERROR;
-		
-		String sourceCodeClassName = ii.getSourceCodeClassName();
-		if (sourceCodeClassName.equals("ConstantIterator") ||
-				sourceCodeClassName.equals("ConstantChildIterator")  ||
-				sourceCodeClassName.equals("EmptyIterator") ||
-				sourceCodeClassName.equals("CollectionIterator") ||
-				sourceCodeClassName.equals("FailureIterator"))
+
+		if (isReadyIterator(ii.getSourceCodeClassName()))
 			data.severity = Severity.INFO;
-		else
+		else {
+			data.severity = Severity.ERROR;
 			DebuggerInstrumentation.breakpointConsumer.accept(ii);
+		}
 	}
 
 	public void testSelf(InstrumentingIterator<?> ii, InstrumentedMethod method, boolean before, DiagnosticData data) {

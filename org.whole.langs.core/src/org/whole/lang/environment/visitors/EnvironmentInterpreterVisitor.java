@@ -56,10 +56,7 @@ public class EnvironmentInterpreterVisitor extends EnvironmentIdentityDefaultVis
 	public void visit(Binding entity) {
 		entity.getName().accept(this);
 		String name = getResult().wStringValue();
-		//TODO test
-		if (name.equals("self"))
-			name = "self";
-		
+
 		entity.getValue().accept(this);
 		
 		IBindingManager bm = getBindings();

@@ -153,19 +153,20 @@ public class ArtifactsUtils {
 	}
 
 	public static IPersistenceKit calculateInheritedPersistence(IEntity model, IPersistenceKit defaultPersistenceKit) {
-		IEntityIterator<IEntity> iterator = IteratorFactory.instance.scannerIterator(
-					IteratorFactory.instance.ancestorOrSelfIterator())
-							.withPattern(GenericTraversalFactory.instance.one(
-									GenericMatcherFactory.instance.isFragmentMatcher(),
-									GenericMatcherFactory.instance.hasKindMatcher(EntityKinds.COMPOSITE)));
-		iterator.getBindings().enforceSelfBinding(model);
-		iterator.reset(model);
-		while (iterator.hasNext()) {
-			String persistenceKitId = getPersistenceKitId(iterator.next());
-			if (persistenceKitId != null)
-				return ReflectionFactory.getPersistenceKit(persistenceKitId);
+		if (model != null) {
+			IEntityIterator<IEntity> iterator = IteratorFactory.instance.scannerIterator(
+						IteratorFactory.instance.ancestorOrSelfIterator())
+								.withPattern(GenericTraversalFactory.instance.one(
+										GenericMatcherFactory.instance.isFragmentMatcher(),
+										GenericMatcherFactory.instance.hasKindMatcher(EntityKinds.COMPOSITE)));
+			iterator.getBindings().enforceSelfBinding(model);
+			iterator.reset(model);
+			while (iterator.hasNext()) {
+				String persistenceKitId = getPersistenceKitId(iterator.next());
+				if (persistenceKitId != null)
+					return ReflectionFactory.getPersistenceKit(persistenceKitId);
+			}
 		}
-
 		return defaultPersistenceKit;
 	}
 
