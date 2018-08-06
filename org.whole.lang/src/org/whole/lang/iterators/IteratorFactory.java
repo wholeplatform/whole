@@ -20,6 +20,7 @@ package org.whole.lang.iterators;
 import java.util.Map;
 import java.util.Set;
 
+import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.comparators.IEntityComparator;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.CompositeKinds;
@@ -34,9 +35,16 @@ import org.whole.lang.util.IRunnable;
  * @author Riccardo Solmi
  */
 public interface IteratorFactory {
-	public static IteratorFactory instance =
-//			new InstrumentedIteratorFactory();
-			new GenericIteratorFactory();
+	public static IteratorFactory regularInstance = new RegularIteratorFactory();
+	public static IteratorFactory instrumentedInstance = new InstrumentedIteratorFactory();
+
+	public static IteratorFactory instance = regularInstance;
+
+	public static IteratorFactory instance(IBindingManager bm) {
+		return bm.wIsSet(IBindingManager.INSTRUMENTATION_ENABLED) && bm.wBooleanValue(IBindingManager.INSTRUMENTATION_ENABLED) ?
+				instrumentedInstance : 
+					regularInstance;
+	}
 
 
 	<E extends IEntity> IEntityIterator<E> emptyIterator();

@@ -38,16 +38,16 @@ public class EnvironmentInterpreterVisitor extends EnvironmentIdentityDefaultVis
 	@Override
 	public void visit(Bindings entity) {
 		IBindingManager bm = getBindings();
-		IEntity selfEntity = bm.wGet("self");
+		IEntity selfEntity = bm.wGet(IBindingManager.SELF);
 		for (int i = 0; i < entity.wSize(); i++) {
 			Binding binding = entity.get(i);
 			binding.accept(this);
-//			if (!binding.getName().getValue().equals("self")) {
-			if (bm.wGet("self") != selfEntity)
-				if (bm.wIsSet("self"))
-					bm.wSet("self", selfEntity);
+//			if (!binding.getName().getValue().equals(IBindingManager.SELF)) {
+			if (bm.wGet(IBindingManager.SELF) != selfEntity)
+				if (bm.wIsSet(IBindingManager.SELF))
+					bm.wSet(IBindingManager.SELF, selfEntity);
 				else
-					bm.wDef("self", selfEntity);	
+					bm.wDef(IBindingManager.SELF, selfEntity);	
 //			}
 			}
 		}

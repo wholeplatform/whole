@@ -257,7 +257,7 @@ public class HandlersBehavior {
 
 		RunnableWithResult<IImportAsModelDialog> dialogRunnable = RunnableWithResult.create(() -> {
 			Shell shell = viewer.getControl().getShell();
-			IEclipseContext eclipseContext = (IEclipseContext) bm.wGetValue("eclipse#eclipseContext");
+			IEclipseContext eclipseContext = (IEclipseContext) bm.wGetValue(IBindingManager.ECLIPSE_CONTEXT);
 			IImportAsModelDialog dialog = eclipseContext.get(IImportAsModelDialogFactory.class)
 					.createImplicitElementImportAsModelDialog(
 							shell, "Paste As", EntityUtils.isComposite(focusEntity));
@@ -274,7 +274,7 @@ public class HandlersBehavior {
 			try {
 				return ClipboardUtils.parseClipboardContents(persistenceKit, bm);
 			} catch (Exception e) {
-				IEclipseContext context = (IEclipseContext) bm.wGetValue("eclipse#eclipseContext");
+				IEclipseContext context = (IEclipseContext) bm.wGetValue(IBindingManager.ECLIPSE_CONTEXT);
 				E4Utils.reportError(context, "Write Model errors", "Parse failed using the selected persistence.", e);
 				return CommonsEntityFactory.instance.createResolver();
 			}
@@ -388,7 +388,7 @@ public class HandlersBehavior {
 		
 		RunnableWithResult<IImportAsModelDialog> runnable = RunnableWithResult.create(() -> {
 			Shell shell = viewer.getControl().getShell();
-			IEclipseContext eclipseContext = (IEclipseContext) bm.wGetValue("eclipse#eclipseContext");
+			IEclipseContext eclipseContext = (IEclipseContext) bm.wGetValue(IBindingManager.ECLIPSE_CONTEXT);
 			IImportAsModelDialog dialog = eclipseContext.get(IImportAsModelDialogFactory.class)
 					.createImportAsModelDialog(shell, "Import model", EntityUtils.isComposite(focusEntity));
 			dialog.show();
@@ -502,7 +502,7 @@ public class HandlersBehavior {
 		ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();
 		bm.wEnterScope(ts);
 		//FIXME workaround for domain content assist that assume self initialized with primarySelectedEntity
-		bm.wDefValue("self", focusEntity);
+		bm.wDefValue(IBindingManager.SELF, focusEntity);
 		boolean predicateResult = BehaviorUtils.evaluatePredicateOnSelfBinding(predicateEntity, 0, bm);
 		ts.rollback();
 		bm.wExitScope();

@@ -63,10 +63,10 @@ public class ReusePart extends AbstractContentPanePart {
 //        if (EntityUtils.isResolver(entity.getAdapted())) {
 //        	InterpretModelRunnable runnable = new InterpretModelRunnable(
 //        			getViewer().getContext(), getViewer().getContextBindings(), "Derive reusable");
-//        	if (runnable.getBindings().wIsSet("self"))
-//        		runnable.getBindings().wSet("self", entity);
+//        	if (runnable.getBindings().wIsSet(IBindingManager.SELF))
+//        		runnable.getBindings().wSet(IBindingManager.SELF, entity);
 //        	else {
-//        		runnable.getBindings().wDef("self", entity);
+//        		runnable.getBindings().wDef(IBindingManager.SELF, entity);
 //        		runnable.getBindings().wDefValue("viewer", getViewer());
 //        	}
 //        	

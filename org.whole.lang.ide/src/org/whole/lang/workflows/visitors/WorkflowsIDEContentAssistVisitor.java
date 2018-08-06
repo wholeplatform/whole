@@ -22,6 +22,7 @@ import static org.whole.lang.workflows.reflect.WorkflowsEntityDescriptorEnum.Str
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.whole.lang.actions.factories.ActionsEntityFactory;
 import org.whole.lang.actions.model.GroupAction;
+import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.codebase.IPersistenceKit;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
@@ -69,7 +70,7 @@ public class WorkflowsIDEContentAssistVisitor extends WorkflowsUIContentAssistVi
 							ReflectionFactory.getDefaultPersistenceKit();
 
 			customAction = new ReplaceWithResourceAndPersistenceAction(
-					(IEclipseContext) getBindings().wGetValue("eclipse#eclipseContext"),
+					(IEclipseContext) getBindings().wGetValue(IBindingManager.ECLIPSE_CONTEXT),
 					WorkflowsEntityDescriptorEnum.StringLiteral,
 					entity.wStringValue(), persistenceKit,
 					"Select resource...") {
@@ -98,7 +99,7 @@ public class WorkflowsIDEContentAssistVisitor extends WorkflowsUIContentAssistVi
 			};
 		} else if (WorkflowsUtils.isResourceInArtifactsActivity(entity)) {
 			customAction = new ReplaceWithResourceAction(
-					(IEclipseContext) getBindings().wGetValue("eclipse#eclipseContext"),
+					(IEclipseContext) getBindings().wGetValue(IBindingManager.ECLIPSE_CONTEXT),
 					WorkflowsEntityDescriptorEnum.StringLiteral,
 					entity.wStringValue(),
 					"Select resource...") {
@@ -138,7 +139,7 @@ public class WorkflowsIDEContentAssistVisitor extends WorkflowsUIContentAssistVi
 			return false;
 
 		ReplaceWithClassNameAction action = new ReplaceWithClassNameAction(
-				(IEclipseContext) getBindings().wGetValue("eclipse#eclipseContext"),
+				(IEclipseContext) getBindings().wGetValue(IBindingManager.ECLIPSE_CONTEXT),
 				WorkflowsEntityDescriptorEnum.StringLiteral, entity.wStringValue(),
 				"Select class...");
 		

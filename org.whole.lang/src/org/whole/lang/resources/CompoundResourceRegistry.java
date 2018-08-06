@@ -102,7 +102,7 @@ public class CompoundResourceRegistry<T extends IResource> extends ResourceRegis
 		}
 		
 		if (functionCode == null)
-			functionCode = IteratorFactory.instance.emptyIterator();//TODO should be configurable
+			functionCode = IteratorFactory.instance(bm).emptyIterator();//TODO should be configurable
 			
 		return (B) functionCode.clone();
 	}

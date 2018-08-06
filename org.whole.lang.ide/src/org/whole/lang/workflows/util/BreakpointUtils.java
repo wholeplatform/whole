@@ -60,7 +60,7 @@ public class BreakpointUtils {
 		if (DebuggerInstrumentation.evaluatingPredicate)
 			return;
 
-		if (ii.hasBindings() && ii.getBindings().wIsSet("eclipse#eclipseContext")) {
+		if (ii.hasBindings() && ii.getBindings().wIsSet(IBindingManager.ECLIPSE_CONTEXT)) {
 			IBindingManager bm = ii.getBindings();
 			bm.wEnterScope(ii.getDebugScope());
 			try {		

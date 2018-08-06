@@ -169,7 +169,7 @@ public class InstrumentingIterator<E extends IEntity> extends AbstractDelegating
 				CommonsDataTypePresentationParser.unparseEntityDescriptor(
 						selfEntity.wGetEntityDescriptor()) : "null";
 		
-		IEntity selfBinding = hasBindings() ? getBindings().wGet("self") : null;		
+		IEntity selfBinding = hasBindings() ? getBindings().wGet(IBindingManager.SELF) : null;		
 		String selfBindingName = selfBinding != null ?
 				CommonsDataTypePresentationParser.unparseEntityDescriptor(
 						selfBinding.wGetEntityDescriptor()) : "null";

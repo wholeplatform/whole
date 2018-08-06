@@ -23,6 +23,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.WeakHashMap;
 
+import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.iterators.InstrumentingIterator;
 import org.whole.lang.model.IEntity;
 
@@ -164,7 +165,7 @@ public class DiagnosticInstrumentation implements IEntityIteratorInstrumentation
 		case LOOKAHEAD:
 		case NEXT:
 			if (data.state == State.READY || data.state == State.USED) {
-				IEntity selfBinding = ii.getBindings().wGet("self");
+				IEntity selfBinding = ii.getBindings().wGet(IBindingManager.SELF);
 				IEntity selfEntity = data.selfEntity;
 
 				if (selfEntity == null && selfBinding == null)

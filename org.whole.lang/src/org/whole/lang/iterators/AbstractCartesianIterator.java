@@ -68,7 +68,7 @@ public abstract class AbstractCartesianIterator<E extends IEntity> extends Abstr
 			getBindings().wEnterScope(lookaheadScope(), true);
 	
 			lookaheadScope().wAddAll(super.lookaheadScope());
-			lookaheadScope().wDef("self", lastToEntity);
+			lookaheadScope().wDef(IBindingManager.SELF, lastToEntity);
 	
 			nextEntity = valuesIterator.lookahead();
 	

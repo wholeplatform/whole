@@ -41,7 +41,8 @@ public class DebugViewPart extends ViewPart<E4DebugGraphicalPart> {
 		IViewSite viewSite = getViewSite();
 		IActionBars actionBars = viewSite.getActionBars();
 		IToolBarManager toolBarManager = actionBars.getToolBarManager();
-		toolBarManager.add(getComponent().getBreakpoiontsDisableAction(getContext()));
+		toolBarManager.add(getComponent().getInstrumentationSkipAction(getContext()));
+		toolBarManager.add(getComponent().getBreakpointsSkipAction(getContext()));
 		toolBarManager.add(getComponent().getResumeAction(getContext()));
 		toolBarManager.add(getComponent().getTerminateAction(getContext()));
 	}

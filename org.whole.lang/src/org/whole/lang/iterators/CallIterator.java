@@ -66,7 +66,7 @@ public class CallIterator<E extends IEntity>  extends AbstractCloneableIterator<
 		if (queryIterator == null) {
 			parameters = null;
 			if (!getBindings().wIsSet(queryName))
-				return queryIterator = IteratorFactory.instance.emptyIterator();
+				return queryIterator = iteratorFactory().emptyIterator();
 
 			queryBody = getBindings().wGet(queryName);
 			boolean isQueryDeclaration = queryBody.wGetEntityDescriptor().getURI().equals("http://lang.whole.org/Queries#QueryDeclaration");

@@ -139,7 +139,8 @@ public interface IE4UIConstants {
 
 	public static final String CLEAR_CONTENTS_URI = E4Utils.createPlatformPuginURI("icons/actions/clear_contents.gif");
 
-	public static final String DEBUG_BREAKPOINTS_DISABLED_URI = E4Utils.createPlatformPuginURI("icons/actions/skip_brkp.gif");
+	public static final String DEBUG_SKIP_INSTRUMENTATION_URI = E4Utils.createPlatformPuginURI("icons/actions/skip_brkp.gif");
+	public static final String DEBUG_SKIP_BREAKPOINTS_URI = E4Utils.createPlatformPuginURI("icons/actions/skip_brkp.gif");
 	public static final String DEBUG_RESUME_URI = E4Utils.createPlatformPuginURI("icons/actions/resume.gif");
 	public static final String DEBUG_TERMINATE_URI = E4Utils.createPlatformPuginURI("icons/actions/terminate.gif");
 
@@ -178,7 +179,8 @@ public interface IE4UIConstants {
 	public static final String CLEAR_CONTENTS_LABEL = "Feature Assist";
 	public static final String SAVE_AS_LABEL = "Save As...";
 
-	public static final String DEBUG_RUN_LABEL = "Run";
+	public static final String DEBUG_INSTRUMENTATION_LABEL = "Skip Instrumentation";
+	public static final String DEBUG_BREAKPOINTS_LABEL = "Skip All Breakpoints";
 	public static final String DEBUG_RESUME_LABEL = "Resume";
 	public static final String DEBUG_TERMINATE_LABEL = "Terminate";
 

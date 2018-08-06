@@ -99,7 +99,7 @@ public class TestsHelpers {
 		return sequence;
 	}
 	public static IEntity applyFilter(IEntity filter, IEntity subject, IBindingManager bm) {
-		bm.wDef("self", subject);
+		bm.wDef(IBindingManager.SELF, subject);
 		IBindingScope bs = InterpreterOperation.lazyInterpretOnSelfBinding(EntityUtils.isFragment(filter) ? filter.wGetRoot() : filter, bm, false);
 
 		if (bs.hasResultIterator()) {

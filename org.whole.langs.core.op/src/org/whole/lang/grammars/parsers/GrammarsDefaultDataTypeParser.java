@@ -65,7 +65,7 @@ public class GrammarsDefaultDataTypeParser extends DefaultDataTypePersistencePar
 		if (EntityUtils.isFragment(format)) {
 			IBindingManager bindings = getBindings();
 			bindings.wEnterScope();
-			bindings.wDefValue("self", value);
+			bindings.wDefValue(IBindingManager.SELF, value);
 			IEntity entity = BehaviorUtils.evaluateOnSelfBinding(format, 0, bindings);
 			bindings.wExitScope();
 			return entity.wStringValue();

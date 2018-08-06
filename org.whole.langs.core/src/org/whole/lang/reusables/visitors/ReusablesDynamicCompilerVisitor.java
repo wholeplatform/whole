@@ -29,7 +29,6 @@ import org.whole.lang.codebase.IPersistenceProvider;
 import org.whole.lang.codebase.URLPersistenceProvider;
 import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.model.adapters.IEntityAdapter;
 import org.whole.lang.reflect.ReflectionFactory;
@@ -58,7 +57,7 @@ import org.whole.lang.util.WholeMessages;
  */
 public class ReusablesDynamicCompilerVisitor extends AbstractReusablesSemanticsVisitor {
 	public void setResult(IEntity result, IEntity sourceEntity) {
-		setResultIterator(IteratorFactory.instance.constantIterator(result, false).withSourceEntity(sourceEntity));
+		setResultIterator(iteratorFactory().constantIterator(result, false).withSourceEntity(sourceEntity));
 	}
 
 	@Override
@@ -120,8 +119,8 @@ public class ReusablesDynamicCompilerVisitor extends AbstractReusablesSemanticsV
 		entity.getContent().accept(this);
 		IEntityIterator<?> contentIterator = getResultIterator();
 
-		setResultIterator(IteratorFactory.instance.composeIterator(
-					IteratorFactory.instance.singleValuedRunnableIterator(new ResourcePersistenceRunnable() {
+		setResultIterator(iteratorFactory().composeIterator(
+					iteratorFactory().singleValuedRunnableIterator(new ResourcePersistenceRunnable() {
 						protected IPersistenceProvider getPersistenceProvider(String path, IBindingManager bm) {
 							return new ClasspathPersistenceProvider(path, bm);
 						}
@@ -136,8 +135,8 @@ public class ReusablesDynamicCompilerVisitor extends AbstractReusablesSemanticsV
 		entity.getContent().accept(this);
 		IEntityIterator<?> contentIterator = getResultIterator();
 
-		setResultIterator(IteratorFactory.instance.composeIterator(
-				IteratorFactory.instance.singleValuedRunnableIterator(new ResourcePersistenceRunnable() {
+		setResultIterator(iteratorFactory().composeIterator(
+				iteratorFactory().singleValuedRunnableIterator(new ResourcePersistenceRunnable() {
 					protected IPersistenceProvider getPersistenceProvider(String path, IBindingManager bm) {
 						return new FilePersistenceProvider(new File(path), bm);
 					}
@@ -157,8 +156,8 @@ public class ReusablesDynamicCompilerVisitor extends AbstractReusablesSemanticsV
 		entity.getContent().accept(this);
 		IEntityIterator<?> contentIterator = getResultIterator();
 
-		setResultIterator(IteratorFactory.instance.composeIterator(
-				IteratorFactory.instance.singleValuedRunnableIterator(new ResourcePersistenceRunnable() {
+		setResultIterator(iteratorFactory().composeIterator(
+				iteratorFactory().singleValuedRunnableIterator(new ResourcePersistenceRunnable() {
 					protected IPersistenceProvider getPersistenceProvider(String path, IBindingManager bm) {
 						try { 
 							return new URLPersistenceProvider(new java.net.URL(path), bm);
@@ -182,7 +181,7 @@ public class ReusablesDynamicCompilerVisitor extends AbstractReusablesSemanticsV
 				contentIterators[i] = getResultIterator();
 			}
 
-	    	setResultIterator(IteratorFactory.instance.sequenceIterator(contentIterators).withSourceEntity(entity));
+	    	setResultIterator(iteratorFactory().sequenceIterator(contentIterators).withSourceEntity(entity));
     	}
 	}
 
@@ -196,8 +195,8 @@ public class ReusablesDynamicCompilerVisitor extends AbstractReusablesSemanticsV
 		entity.getContent().accept(this);
 		IEntityIterator<?> contentIterator = getResultIterator();
 
-		setResultIterator(IteratorFactory.instance.composeIterator(
-				IteratorFactory.instance.singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
+		setResultIterator(iteratorFactory().composeIterator(
+				iteratorFactory().singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
 					if (!BindingManagerFactory.instance.isVoid(selfEntity)) {
 						bm.setResult(BindingManagerFactory.instance.createValue(
 								appendSegment(
@@ -214,7 +213,7 @@ public class ReusablesDynamicCompilerVisitor extends AbstractReusablesSemanticsV
 
 //TODO		entity.getPersistence();
 
-		setResultIterator(IteratorFactory.instance.singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
+		setResultIterator(iteratorFactory().singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
 					if (!BindingManagerFactory.instance.isVoid(selfEntity)) {
 						bm.setResult(BindingManagerFactory.instance.createValue(
 								arguments[0].wStringValue()));
@@ -235,7 +234,7 @@ public class ReusablesDynamicCompilerVisitor extends AbstractReusablesSemanticsV
 				segmentIterators[i] = getResultIterator();
 			}
 
-			setResultIterator(IteratorFactory.instance.singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
+			setResultIterator(iteratorFactory().singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
 				if (!BindingManagerFactory.instance.isVoid(selfEntity)) {
 					StringBuilder sb = new StringBuilder();
 					
@@ -256,7 +255,7 @@ public class ReusablesDynamicCompilerVisitor extends AbstractReusablesSemanticsV
 		entity.getExtension().accept(this);
 		IEntityIterator<?> extensionIterator = getResultIterator();
 
-		setResultIterator(IteratorFactory.instance.singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
+		setResultIterator(iteratorFactory().singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
 			if (!BindingManagerFactory.instance.isVoid(selfEntity)) {
 				bm.setResult(BindingManagerFactory.instance.createValue(
 						arguments[0].wStringValue() + '.' + arguments[1].wStringValue()));
@@ -273,7 +272,7 @@ public class ReusablesDynamicCompilerVisitor extends AbstractReusablesSemanticsV
 	public void visit(PersistenceId entity) {
 		String persistenceKitId = entity.getValue();
 
-		setResultIterator(IteratorFactory.instance.singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
+		setResultIterator(iteratorFactory().singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
 					if (!ReflectionFactory.hasPersistenceKit(persistenceKitId))
 						throw new WholeIllegalArgumentException("The Persistence is not deployed: "+persistenceKitId)
 						.withSourceEntity(entity).withBindings(bm);

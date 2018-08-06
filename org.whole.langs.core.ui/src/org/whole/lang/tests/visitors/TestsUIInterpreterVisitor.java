@@ -30,10 +30,10 @@ public class TestsUIInterpreterVisitor extends TestsLearningInterpreterVisitor {
 	protected void reportError(String name, RuntimeException e) {
 		super.reportError(name, e);
 		IBindingManager debugEnv = getBindings();
-		IEclipseContext context = (IEclipseContext) debugEnv.wGetValue("eclipse#eclipseContext");
-		if ((debugEnv.wIsSet("debug#reportModeEnabled") && !debugEnv.wBooleanValue("debug#reportModeEnabled")) ||
-				(debugEnv.wIsSet("debug#debugModeEnabled") && !debugEnv.wBooleanValue("debug#debugModeEnabled")) ||
-				(debugEnv.wIsSet("debug#breakpointsEnabled") && !debugEnv.wBooleanValue("debug#breakpointsEnabled")))
+		IEclipseContext context = (IEclipseContext) debugEnv.wGetValue(IBindingManager.ECLIPSE_CONTEXT);
+		if ((debugEnv.wIsSet(IBindingManager.REPORT_MODE_ENABLED) && !debugEnv.wBooleanValue(IBindingManager.REPORT_MODE_ENABLED)) ||
+				(debugEnv.wIsSet(IBindingManager.DEBUG_MODE_ENABLED) && !debugEnv.wBooleanValue(IBindingManager.DEBUG_MODE_ENABLED)) ||
+				(debugEnv.wIsSet(IBindingManager.BREAKPOINTS_ENABLED) && !debugEnv.wBooleanValue(IBindingManager.BREAKPOINTS_ENABLED)))
 			return;
 		else
 			E4Utils.suspendOrReportException(context, SuspensionKind.RECOVERABLE_ERROR, "Model test error", "Error while executing "+name+" test", e, debugEnv);
@@ -42,9 +42,9 @@ public class TestsUIInterpreterVisitor extends TestsLearningInterpreterVisitor {
 	protected void reportFailure(String name, TestsException e) {
 		super.reportFailure(name, e);
 		IBindingManager debugEnv = getBindings();
-		if ((debugEnv.wIsSet("debug#reportModeEnabled") && !debugEnv.wBooleanValue("debug#reportModeEnabled")) ||
-				(debugEnv.wIsSet("debug#debugModeEnabled") && !debugEnv.wBooleanValue("debug#debugModeEnabled")) ||
-				(debugEnv.wIsSet("debug#breakpointsEnabled") && !debugEnv.wBooleanValue("debug#breakpointsEnabled")))
+		if ((debugEnv.wIsSet(IBindingManager.REPORT_MODE_ENABLED) && !debugEnv.wBooleanValue(IBindingManager.REPORT_MODE_ENABLED)) ||
+				(debugEnv.wIsSet(IBindingManager.DEBUG_MODE_ENABLED) && !debugEnv.wBooleanValue(IBindingManager.DEBUG_MODE_ENABLED)) ||
+				(debugEnv.wIsSet(IBindingManager.BREAKPOINTS_ENABLED) && !debugEnv.wBooleanValue(IBindingManager.BREAKPOINTS_ENABLED)))
 			return;
 		else
 			E4Utils.suspendOperation(SuspensionKind.RECOVERABLE_ERROR, e, e.getSubjectStatement(), e.getBindings());

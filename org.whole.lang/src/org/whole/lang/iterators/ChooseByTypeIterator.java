@@ -38,7 +38,7 @@ public class ChooseByTypeIterator<E extends IEntity> extends AbstractLazyCloneab
 		this.languageKit = languageKit;
 		this.iteratorChain = new IEntityIterator<?>[languageKit.getEntityDescriptorEnum().size()];
 		for (int i = 0; i < this.iteratorChain.length; i++) {
-			this.iteratorChain[i] = IteratorFactory.instance.constantIterator(
+			this.iteratorChain[i] = iteratorFactory().constantIterator(
 					BindingManagerFactory.instance.createVoid(), true);
 		}
 		initLazyClone(false);
@@ -82,7 +82,7 @@ public class ChooseByTypeIterator<E extends IEntity> extends AbstractLazyCloneab
 			if (childIterator != null)
 				return (IEntityIterator<? extends E>) childIterator;
 		}
-		IEntityIterator<E> result = IteratorFactory.instance.emptyIterator();
+		IEntityIterator<E> result = iteratorFactory().emptyIterator();
 		result.setBindings(getBindings());
 		result.reset(resetEntity);
 		return result;

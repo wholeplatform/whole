@@ -18,6 +18,7 @@
 package org.whole.lang.queries.visitors;
 
 import org.whole.lang.bindings.BindingManagerFactory;
+import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.DynamicCompilerOperation;
@@ -93,9 +94,9 @@ public class QueriesInterpreterVisitor extends QueriesIdentityDefaultVisitor {
 		return evaluate(exp).wStringValue();
 	}
 	protected final IEntity getSelfEntity(IEntity sourceEntity) {
-		IEntity self = getBindings().wGet("self");
+		IEntity self = getBindings().wGet(IBindingManager.SELF);
 		if (self == null)
-			throw new MissingVariableException("self").withSourceEntity(sourceEntity).withBindings(getBindings());
+			throw new MissingVariableException(IBindingManager.SELF).withSourceEntity(sourceEntity).withBindings(getBindings());
 		return self;
 	}
 

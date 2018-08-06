@@ -109,7 +109,7 @@ public class SelectIterator<E extends IEntity> extends AbstractLazyCloneableIter
 		if (nextEntity != null)
 			return nextEntity;
 
-		IEntity selfEntityOld = getBindings().wGet("self");
+		IEntity selfEntityOld = getBindings().wGet(IBindingManager.SELF);
 		lookaheadScope().setFilterEnabled(false);
 		clearLookaheadScope();
 		IEntity selfEntity = getFromIterator().lookahead();
@@ -126,8 +126,8 @@ public class SelectIterator<E extends IEntity> extends AbstractLazyCloneableIter
 		for (String name : getFromIterator().lookaheadScope().wLocalNames())
 			filterNames.add(name);
 
-		lookaheadScope().wDef("self", selfEntity);
-		filterNames.add("self");
+		lookaheadScope().wDef(IBindingManager.SELF, selfEntity);
+		filterNames.add(IBindingManager.SELF);
 
 		try {
 			nextEntity = getSelectIterator().next();
@@ -155,16 +155,16 @@ public class SelectIterator<E extends IEntity> extends AbstractLazyCloneableIter
 		}
 
 		if (selfEntityOld != null)
-			getBindings().wDef("self", selfEntityOld);
+			getBindings().wDef(IBindingManager.SELF, selfEntityOld);
 		return nextEntity;
 	}
 	protected void applyWhereClause(E pattern, IEntity selfEntity, IBindingManager bindings) {
 		getWhereIterator().reset(selfEntity);
-		bindings.wDef("self", selfEntity);
+		bindings.wDef(IBindingManager.SELF, selfEntity);
 		for (IEntity e : getWhereIterator()) {
-			bindings.wDef("self", e);
+			bindings.wDef(IBindingManager.SELF, e);
 			Matcher.substitute(pattern, bindings, true);
-			bindings.wDef("self", selfEntity);
+			bindings.wDef(IBindingManager.SELF, selfEntity);
 		}
 	}
 

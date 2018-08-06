@@ -23,13 +23,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.commons.model.Fragment;
 import org.whole.lang.commons.model.ICommonsEntity;
 import org.whole.lang.commons.model.Resolver;
 import org.whole.lang.commons.model.StageDownFragment;
 import org.whole.lang.commons.model.StageUpFragment;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
-import org.whole.lang.iterators.GenericIteratorFactory;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.matchers.Matcher;
@@ -46,7 +46,7 @@ import org.whole.lang.visitors.VisitException;
 public class CommonsDynamicCompilerVisitor extends CommonsIdentityDefaultVisitor {
 	@Override
 	public void visit(ICommonsEntity entity) {
-		setResultIterator(IteratorFactory.instance.templateInterpreterIterator(entity).withSourceEntity(entity));
+		setResultIterator(iteratorFactory().templateInterpreterIterator(entity).withSourceEntity(entity));
 	}
 
 	@Override
@@ -94,8 +94,8 @@ public class CommonsDynamicCompilerVisitor extends CommonsIdentityDefaultVisitor
 			return;
 		}
 
-//		setResultIterator(new InstrumentingIterator<IEntity>(IteratorFactory.instance.templateInterpreterIterator(entity)).withSourceEntity(entity));
-		setResultIterator(IteratorFactory.instance.templateInterpreterIterator(entity).withSourceEntity(entity));
+//		setResultIterator(new InstrumentingIterator<IEntity>(iteratorFactory().templateInterpreterIterator(entity)).withSourceEntity(entity));
+		setResultIterator(iteratorFactory().templateInterpreterIterator(entity).withSourceEntity(entity));
 	}
 
 	@SuppressWarnings("unchecked")
@@ -119,7 +119,7 @@ public class CommonsDynamicCompilerVisitor extends CommonsIdentityDefaultVisitor
 		}, rootEntity, fragments, false);
 
 		Map<IEntity, IEntityIterator<?>> fragmentIteratorMap = new HashMap<>();
-		IEntity oldSelfEntity = getBindings().wGet("self");
+		IEntity oldSelfEntity = getBindings().wGet(IBindingManager.SELF);
 		int stage = getStage();
 
 		fragments.forEach((f) -> {
@@ -132,13 +132,13 @@ public class CommonsDynamicCompilerVisitor extends CommonsIdentityDefaultVisitor
 				fragmentIterator = getResultIterator();
 			} else
 				setResultIterator(fragmentIterator = 
-//						new InstrumentingIterator<IEntity>(IteratorFactory.instance.templateInterpreterIterator(f)).withSourceEntity(sourceEntity));
-						IteratorFactory.instance.templateInterpreterIterator(f).withSourceEntity(sourceEntity));
+//						new InstrumentingIterator<IEntity>(iteratorFactory().templateInterpreterIterator(f)).withSourceEntity(sourceEntity));
+						iteratorFactory().templateInterpreterIterator(f).withSourceEntity(sourceEntity));
 
 			fragmentIteratorMap.put(f, getResultIterator());
 		});
 
-		IteratorFactory f = IteratorFactory.instance;
+		IteratorFactory f = iteratorFactory();
 		IEntityIterator<?> compiledIterator = f.chooseIterator(
 			f.ifIterator(
 					f.atStageIterator(0),
@@ -165,7 +165,7 @@ public class CommonsDynamicCompilerVisitor extends CommonsIdentityDefaultVisitor
 		).withSourceEntity(sourceEntity);
 
 		if (!nested) {
-			String outerSelfName = GenericIteratorFactory.OUTER_SELF_NAME;
+			String outerSelfName = IBindingManager.OUTER_SELF;
 			compiledIterator = f.scopeIterator(
 				f.blockIterator(
 						f.filterIterator(f.selfIterator(), f.asVariableIterator(outerSelfName)),

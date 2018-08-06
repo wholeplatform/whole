@@ -199,13 +199,13 @@ public class E4Utils {
 
 	public static IBindingManager createSelectionBindings(SelectionChangedEvent event, IEclipseContext context) {
 		IBindingManager bm = BindingManagerFactory.instance.createBindingManager();
-		bm.wDefValue("eclipse#eclipseContext", context);
+		bm.wDefValue(IBindingManager.ECLIPSE_CONTEXT, context);
 		defineSelectionBindings(bm, event);
 		return bm;
 	}
 	public static IBindingManager createSelectionBindings(List<IEntityPart> selectedEntityParts, IEntityPartViewer viewer, IEclipseContext context) {
 		IBindingManager bm = BindingManagerFactory.instance.createBindingManager();
-		bm.wDefValue("eclipse#eclipseContext", context);
+		bm.wDefValue(IBindingManager.ECLIPSE_CONTEXT, context);
 		defineSelectionBindings(bm, selectedEntityParts, viewer);
 		return bm;
 	}
@@ -444,26 +444,26 @@ public class E4Utils {
 		suspendOperation(kind, throwable, sourceEntity, bindings, Collections.emptySet());
 	}
 	public static void suspendOperation(SuspensionKind kind, Throwable throwable, IEntity sourceEntity, final IBindingManager bindings, Set<String> includeNames) {
-		if (bindings.wIsSet("debug#reportModeEnabled") && !bindings.wBooleanValue("debug#reportModeEnabled"))
+		if (bindings.wIsSet(IBindingManager.REPORT_MODE_ENABLED) && !bindings.wBooleanValue(IBindingManager.REPORT_MODE_ENABLED))
 			return;
-		if (bindings.wIsSet("debug#debugModeEnabled") && !bindings.wBooleanValue("debug#debugModeEnabled")) {
+		if (bindings.wIsSet(IBindingManager.DEBUG_MODE_ENABLED) && !bindings.wBooleanValue(IBindingManager.DEBUG_MODE_ENABLED)) {
 			if (kind.isError())
-				E4Utils.reportError((IEclipseContext) bindings.wGetValue("eclipse#eclipseContext"),
+				E4Utils.reportError((IEclipseContext) bindings.wGetValue(IBindingManager.ECLIPSE_CONTEXT),
 						"Domain behavior error", "Error while executing domain behavior", throwable);
 			
 			return;
 		}
-		if (kind.isBreak() && bindings.wIsSet("debug#breakpointsEnabled") && !bindings.wBooleanValue("debug#breakpointsEnabled"))
+		if (kind.isBreak() && bindings.wIsSet(IBindingManager.BREAKPOINTS_ENABLED) && !bindings.wBooleanValue(IBindingManager.BREAKPOINTS_ENABLED))
 			return;
 
 		if (bindings.wIsSet("viewer") && ((IEntityPartViewer) bindings.wGetValue("viewer")).getControl().getDisplay().getThread() == Thread.currentThread()) {
-			E4Utils.reportError((IEclipseContext) bindings.wGetValue("eclipse#eclipseContext"),
+			E4Utils.reportError((IEclipseContext) bindings.wGetValue(IBindingManager.ECLIPSE_CONTEXT),
 						"Domain behavior error", "Attempted suspension in UI thread", throwable);
 
 			return;
 		}
 
-		final IEclipseContext context = (IEclipseContext) bindings.wGetValue("eclipse#eclipseContext");
+		final IEclipseContext context = (IEclipseContext) bindings.wGetValue(IBindingManager.ECLIPSE_CONTEXT);
 		context.get(UISynchronize.class).syncExec(new Runnable() {
 			public void run() {
 				try {
@@ -500,21 +500,21 @@ public class E4Utils {
 	public static void suspendOrReportException(IEclipseContext context, SuspensionKind kind, String title, String description, Exception e, IBindingManager bindings) {
 		IWholeRuntimeException we = e instanceof IWholeRuntimeException ? (IWholeRuntimeException) e : new WholeRuntimeException(e).withBindings(bindings);
 		if (context != null)
-			we.getBindings().wDefValue("eclipse#eclipseContext", context);
+			we.getBindings().wDefValue(IBindingManager.ECLIPSE_CONTEXT, context);
 
-		if (we.getSourceEntity() != null && we.getBindings().wIsSet("eclipse#eclipseContext"))
+		if (we.getSourceEntity() != null && we.getBindings().wIsSet(IBindingManager.ECLIPSE_CONTEXT))
 			E4Utils.suspendOperation(kind, we);
 		else
 			E4Utils.reportError(context, title, description, (Throwable) we);
 	}
 
 	public static <R extends Runnable> R syncExec(IBindingManager bindings, R runnable) {
-		IEclipseContext context = (IEclipseContext) bindings.wGetValue("eclipse#eclipseContext");
+		IEclipseContext context = (IEclipseContext) bindings.wGetValue(IBindingManager.ECLIPSE_CONTEXT);
 		context.get(UISynchronize.class).syncExec(runnable);
 		return runnable;
 	}
 	public static <R extends Runnable> R asyncExec(IBindingManager bindings, R runnable) {
-		IEclipseContext context = (IEclipseContext) bindings.wGetValue("eclipse#eclipseContext");
+		IEclipseContext context = (IEclipseContext) bindings.wGetValue(IBindingManager.ECLIPSE_CONTEXT);
 		context.get(UISynchronize.class).asyncExec(runnable);
 		return runnable;
 	}

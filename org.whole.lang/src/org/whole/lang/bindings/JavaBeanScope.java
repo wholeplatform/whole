@@ -94,14 +94,14 @@ public class JavaBeanScope extends AbstractCloneableScope {
 
 	public void wDef(String name, IEntity value) {
 		//FIXME workaround
-		if (name.equals("self"))
+		if (name.equals(IBindingManager.SELF))
 			return;
 
 		ReflectiveUtils.setProperty(propertyMap, bean, name, value);
 	}
 	public void wSet(String name, IEntity value) {
 		//FIXME workaround
-		if (name.equals("self"))
+		if (name.equals(IBindingManager.SELF))
 			return;
 
 		if (ReflectiveUtils.hasProperty(propertyMap, name))
@@ -111,7 +111,7 @@ public class JavaBeanScope extends AbstractCloneableScope {
 	}
 	public boolean wIsSet(String name) {
 		//FIXME workaround
-		if (name.equals("self"))
+		if (name.equals(IBindingManager.SELF))
 			return false;
 
 		if (ReflectiveUtils.hasProperty(propertyMap, name))

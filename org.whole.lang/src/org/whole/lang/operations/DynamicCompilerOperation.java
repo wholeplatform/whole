@@ -19,7 +19,6 @@ package org.whole.lang.operations;
 
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
-import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.visitors.AbstractVisitor;
 import org.whole.lang.visitors.GenericTemplateInterpreterVisitor;
@@ -61,7 +60,7 @@ public class DynamicCompilerOperation extends AbstractOperation {
 		else
 			return new AbstractVisitor() {
 				public void visit(IEntity entity) {
-					setResultIterator(IteratorFactory.instance.templateInterpreterIterator(entity).withSourceEntity(entity));
+					setResultIterator(iteratorFactory().templateInterpreterIterator(entity).withSourceEntity(entity));
 				}
 			};
 	}

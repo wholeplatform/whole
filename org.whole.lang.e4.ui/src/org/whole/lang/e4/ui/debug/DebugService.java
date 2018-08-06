@@ -40,17 +40,20 @@ import org.whole.lang.ui.util.SuspensionKind;
  */
 @Singleton
 public class DebugService implements IDebugService {
-	protected static final String BREAKPOINTS_ENABLE = "breakpointsEnable";
+	protected static final String BREAKPOINTS_ENABLED = "breakpointsEnabled";
+	protected static final String INSTRUMENTATION_ENABLED = "instrumentationEnabled";
 	protected ListenerList<IExecutionListener> listeners = new ListenerList<>();
 	protected Deque<ExecutionState> executions;
-	protected boolean breakpointsEnable;
+	protected boolean breakpointsEnabled;
+	protected boolean instrumentationEnabled;
 	@Inject
 	protected IEclipseContext context;
 
 	public DebugService() {
 		this.listeners = new ListenerList<>();
 		this.executions = new ConcurrentLinkedDeque<>();
-		this.breakpointsEnable = Boolean.valueOf(getPreferences().get(BREAKPOINTS_ENABLE, Boolean.TRUE.toString()));
+		this.breakpointsEnabled = Boolean.valueOf(getPreferences().get(BREAKPOINTS_ENABLED, Boolean.TRUE.toString()));
+		this.instrumentationEnabled = Boolean.valueOf(getPreferences().get(INSTRUMENTATION_ENABLED, Boolean.TRUE.toString()));
 	}
 
 	protected IEclipsePreferences getPreferences() {
@@ -89,12 +92,24 @@ public class DebugService implements IDebugService {
 	public boolean isSuspended() {
 		return executions.peek() != null;
 	}
-	public boolean isBreakpointsEnable() {
-		return breakpointsEnable;
+	public boolean isBreakpointsEnabled() {
+		return breakpointsEnabled;
 	}
-	public void setBreakpointsEnable(boolean enable) {
-		this.breakpointsEnable = enable;
-		getPreferences().put(BREAKPOINTS_ENABLE, Boolean.toString(enable));
+	public void setBreakpointsEnabled(boolean enabled) {
+		this.breakpointsEnabled = enabled;
+		getPreferences().put(BREAKPOINTS_ENABLED, Boolean.toString(enabled));
+		try {
+			getPreferences().flush();
+		} catch (BackingStoreException e) {
+			E4Utils.reportError(context, "preferences save error", "unable to store preferences", e);
+		}
+	}
+	public boolean isInstrumentationEnabled() {
+		return instrumentationEnabled;
+	}
+	public void setInstrumentationEnabled(boolean enabled) {
+		this.instrumentationEnabled = enabled;
+		getPreferences().put(INSTRUMENTATION_ENABLED, Boolean.toString(enabled));
 		try {
 			getPreferences().flush();
 		} catch (BackingStoreException e) {

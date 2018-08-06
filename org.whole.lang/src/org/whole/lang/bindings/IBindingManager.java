@@ -27,6 +27,17 @@ import org.whole.lang.operations.ICloneable;
  * @author Riccardo Solmi
  */
 public interface IBindingManager extends IBindingScope, ICloneable {
+	public static final String SELF = "self";
+	public static final String OUTER_SELF = "staging#outerSelf";
+
+	public static final String INSTRUMENTATION_ENABLED = "debug#instrumentationEnabled";
+	public static final String BREAKPOINTS_ENABLED = "debug#breakpointsEnabled";
+	public static final String REPORT_MODE_ENABLED = "debug#reportModeEnabled";
+	public static final String DEBUG_MODE_ENABLED = "debug#debugModeEnabled";
+
+	public static final String ECLIPSE_CONTEXT = "eclipse#eclipseContext";
+
+
 	public IBindingManager withSourceEntity(IEntity entity);
 
 	public IBindingManager clone();
@@ -45,7 +56,7 @@ public interface IBindingManager extends IBindingScope, ICloneable {
 //		if (selfEntity == null)
 //			return;
 
-		if (wGet("self") != selfEntity)
-			wDef("self", selfEntity);
+		if (wGet(IBindingManager.SELF) != selfEntity)
+			wDef(IBindingManager.SELF, selfEntity);
 	}
 }

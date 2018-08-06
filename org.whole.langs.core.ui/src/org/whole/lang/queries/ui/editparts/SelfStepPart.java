@@ -18,6 +18,7 @@
 package org.whole.lang.queries.ui.editparts;
 
 import org.eclipse.draw2d.IFigure;
+import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.ui.editparts.AbstractPart;
 import org.whole.lang.ui.figures.LabelFactory;
 
@@ -26,6 +27,6 @@ import org.whole.lang.ui.figures.LabelFactory;
  */
 public class SelfStepPart extends AbstractPart {
 	public IFigure createFigure() {
-		return LabelFactory.createRelation("self");
+		return LabelFactory.createRelation(IBindingManager.SELF);
 	}
 }

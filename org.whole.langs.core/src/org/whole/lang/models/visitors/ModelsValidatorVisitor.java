@@ -23,7 +23,6 @@ import java.util.Set;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.iterators.AbstractPatternFilterIterator;
 import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.models.model.ComponentModifier;
@@ -163,7 +162,7 @@ public class ModelsValidatorVisitor extends ModelsTraverseAllVisitor {
 
 	@Override
 	public void visit(Types entity) {
-		AbstractPatternFilterIterator<SimpleName> i = IteratorFactory.instance.<SimpleName>childMatcherIterator()
+		AbstractPatternFilterIterator<SimpleName> i = iteratorFactory().<SimpleName>childMatcherIterator()
 				.withPattern(ModelsEntityDescriptorEnum.SimpleName);
 		i.reset(entity);
 		for (SimpleName t : i) {
@@ -275,7 +274,7 @@ public class ModelsValidatorVisitor extends ModelsTraverseAllVisitor {
 	protected String location(IEntity entity) {
 		String result = "";
 		
-		IEntityIterator<IEntity> i = IteratorFactory.instance.ancestorReverseIterator();
+		IEntityIterator<IEntity> i = iteratorFactory().ancestorReverseIterator();
 		i.reset(entity);
 		for (IEntity e : i) {
 			if (e.wContains(ModelsFeatureDescriptorEnum.name)

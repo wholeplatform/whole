@@ -135,14 +135,14 @@ public class GrammarBasedUnparserVisitor extends GrammarsTraverseAllVisitor {
 	protected void normalize(Grammar entity) {
 		Grammar g = entity;//FIXME ensure normalized: NormalizerOperation.normalize(entity);
 
-		ScannerIterator<Production> li = IteratorFactory.instance.<Production>childScannerIterator();
+		ScannerIterator<Production> li = iteratorFactory().<Production>childScannerIterator();
 		li.reset(g.getLexicalStructure());
 		for (Production p : li) {
 			String name = p.getName().getValue();
 			nameProductionMap.put(name, p);
 			lexiconSet.add(name);
 		}
-		ScannerIterator<Production> pi = IteratorFactory.instance.<Production>childScannerIterator();
+		ScannerIterator<Production> pi = iteratorFactory().<Production>childScannerIterator();
 		pi.reset(g.getPhraseStructure());
 		for (Production p : pi)
 			nameProductionMap.put(p.getName().getValue(), p);
@@ -334,7 +334,7 @@ public class GrammarBasedUnparserVisitor extends GrammarsTraverseAllVisitor {
 		if (EntityUtils.isFragment(entity)) {
 			IBindingManager bindings = getBindings();
 			bindings.wEnterScope();
-			bindings.wDef("self", model);
+			bindings.wDef(IBindingManager.SELF, model);
 			result = BehaviorUtils.evaluateOnSelfBinding(entity, 0, bindings);
 			bindings.wExitScope();
 		} else

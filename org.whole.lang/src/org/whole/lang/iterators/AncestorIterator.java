@@ -34,7 +34,7 @@ public class AncestorIterator<E extends IEntity> extends AbstractTransitiveClosu
 	}
 	@Override
     protected IEntityIterator<E> createRelationIterator() {
-    	return IteratorFactory.instance.parentIterator();
+    	return iteratorFactory().parentIterator();
     }
 
     @Override

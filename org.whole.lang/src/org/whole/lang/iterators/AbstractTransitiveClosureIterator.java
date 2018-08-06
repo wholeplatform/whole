@@ -74,13 +74,13 @@ public abstract class AbstractTransitiveClosureIterator<E extends IEntity> exten
 
 	protected void pushInitialIterators(IEntity entity) {
     	pushIterator(includeSelf ?
-    			IteratorFactory.instance.<E>selfIterator() : createRelationIterator(), entity);		
+    			iteratorFactory().<E>selfIterator() : createRelationIterator(), entity);		
 	}
 	protected boolean isRelationNotEmpty(IEntity entity) {
 		return entity.wSize() > 0;
 	}
     protected IEntityIterator<E> createRelationIterator() {
-    	return IteratorFactory.instance.<E>childIterator();
+    	return iteratorFactory().<E>childIterator();
     }
 
 

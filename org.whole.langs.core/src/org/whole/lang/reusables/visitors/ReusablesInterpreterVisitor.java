@@ -100,7 +100,7 @@ public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisit
 //			setResultIterator(DynamicCompilerOperation.compile(entity.wGetAdaptee(false), getBindings()).getResultIterator());
 			try {
 				getBindings().wEnterScope();
-				getBindings().wDef("self", entity.wGetAdaptee(false));
+				getBindings().wDef(IBindingManager.SELF, entity.wGetAdaptee(false));
 				setResultIterator(BehaviorUtils.lazyEvaluateOnSelfBinding(entity.wGetAdaptee(false), 0, getBindings()));
 			} finally {
 				getBindings().wExitScope();
@@ -146,7 +146,7 @@ public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisit
 		IEntityIterator<?> contentIterator = null;
 		IEntityIterator<?> adapterIterator = null;
 		if (EntityUtils.isResolver(reusable)) {
-			contentIterator = IteratorFactory.instance.constantIterator(entity.getOriginal(), false);
+			contentIterator = iteratorFactory().constantIterator(entity.getOriginal(), false);
 
 			if (EntityUtils.isNotResolver(entity.getAdapter())) {
 				entity.getAdapter().accept(this);
@@ -155,10 +155,10 @@ public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisit
 		}
 
 		if (contentIterator == null)
-			contentIterator = IteratorFactory.instance.constantIterator(reusable, false);
+			contentIterator = iteratorFactory().constantIterator(reusable, false);
 
 		boolean updateAdapted = EntityUtils.isResolver(entity.getAdapted());
-		IEntityIterator<?> evaluateIterator = IteratorFactory.instance.singleValuedRunnableIterator(
+		IEntityIterator<?> evaluateIterator = iteratorFactory().singleValuedRunnableIterator(
 			(selfEntity, bm, arguments) -> {
 				try {
 					getBindings().wEnterScope();
@@ -181,8 +181,8 @@ public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisit
 		);
 
 		IEntityIterator<? extends IEntity> expandIterator = adapterIterator != null ? 
-				IteratorFactory.instance.composeIterator(evaluateIterator, adapterIterator, contentIterator) :
-					IteratorFactory.instance.composeIterator(evaluateIterator, contentIterator);
+				iteratorFactory().composeIterator(evaluateIterator, adapterIterator, contentIterator) :
+					iteratorFactory().composeIterator(evaluateIterator, contentIterator);
 
 		for (IEntity result : expandIterator) {
 			stagedVisit(result.wGetAdaptee(false));
@@ -194,9 +194,9 @@ public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisit
 	public void visit(Include entity) {
 		IEntityIterator<?> contentIterator = readResource(entity.getResource());
 
-		IEntityIterator<?> evaluateIterator = IteratorFactory.instance.singleValuedRunnableIterator(
+		IEntityIterator<?> evaluateIterator = iteratorFactory().singleValuedRunnableIterator(
 				(selfEntity, bm, arguments) -> evaluateAndClone(selfEntity, bm));
-		setResultIterator(IteratorFactory.instance.composeIterator(evaluateIterator, contentIterator));
+		setResultIterator(iteratorFactory().composeIterator(evaluateIterator, contentIterator));
 	}
 
 	@Override
@@ -238,10 +238,10 @@ public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisit
 		}
 
 		if (contentIterator == null)
-			contentIterator = IteratorFactory.instance.constantIterator(reusable, false);
+			contentIterator = iteratorFactory().constantIterator(reusable, false);
 
 		boolean updateAdapted = EntityUtils.isResolver(entity.getAdapted());
-		IEntityIterator<?> evaluateIterator = IteratorFactory.instance.singleValuedRunnableIterator(
+		IEntityIterator<?> evaluateIterator = iteratorFactory().singleValuedRunnableIterator(
 			(selfEntity, bm, arguments) -> {
 				try {
 					getBindings().wEnterScope();
@@ -264,8 +264,8 @@ public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisit
 		);
 
 		setResultIterator(adapterIterator != null ? 
-				IteratorFactory.instance.composeIterator(evaluateIterator, adapterIterator, contentIterator) :
-					IteratorFactory.instance.composeIterator(evaluateIterator, contentIterator));
+				iteratorFactory().composeIterator(evaluateIterator, adapterIterator, contentIterator) :
+					iteratorFactory().composeIterator(evaluateIterator, contentIterator));
 	}
 
 	@Override
@@ -275,8 +275,8 @@ public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisit
 		if (EntityUtils.isResolver(reusable))
 			visit((Reuse) entity);
 		else {
-			setResultIterator(IteratorFactory.instance.constantComposeIterator(reusable,
-					IteratorFactory.instance.singleValuedRunnableIterator(
+			setResultIterator(iteratorFactory().constantComposeIterator(reusable,
+					iteratorFactory().singleValuedRunnableIterator(
 							(selfEntity, bm, arguments) -> evaluateAndClone(selfEntity, bm)
 			)));
 		}

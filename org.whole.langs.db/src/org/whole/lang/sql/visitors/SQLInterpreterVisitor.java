@@ -126,7 +126,7 @@ public class SQLInterpreterVisitor extends SQLIdentityDefaultVisitor {
 					names = new String[0];
 
 //				PreparedStatement preparedStatement = null;
-//				for (IEntity e : IteratorFactory.instance.topDownIterator(entity)) {
+//				for (IEntity e : iteratorFactory().topDownIterator(entity)) {
 //					if (preparedStatement == null)
 //						preparedStatement = getPreparedStatement(sql);
 //					

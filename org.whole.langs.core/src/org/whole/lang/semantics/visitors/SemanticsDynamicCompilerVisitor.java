@@ -19,7 +19,6 @@ package org.whole.lang.semantics.visitors;
 
 import org.whole.lang.actions.iterators.ActionCallIterator;
 import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.iterators.SelfIterator;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
@@ -37,7 +36,6 @@ import org.whole.lang.semantics.model.Term;
 import org.whole.lang.semantics.model.TypeCast;
 import org.whole.lang.semantics.reflect.SemanticsEntityDescriptorEnum;
 import org.whole.lang.semantics.util.SemanticsUtils;
-import org.whole.lang.util.BehaviorUtils;
 import org.whole.lang.util.EntityUtils;
 
 /**
@@ -68,7 +66,7 @@ public class SemanticsDynamicCompilerVisitor extends SemanticsIdentityDefaultVis
 	public void visit(SemanticFunction entity) {
     	FunctionBody rules = entity.getRules();
     	if (Matcher.match(SemanticsEntityDescriptorEnum.InferenceRules, rules)) {
-    		setResultIterator(IteratorFactory.instance.emptyIterator().withSourceEntity(entity));//TODO not supported yet
+    		setResultIterator(iteratorFactory().emptyIterator().withSourceEntity(entity));//TODO not supported yet
     		return;
     	}
 
@@ -95,10 +93,10 @@ public class SemanticsDynamicCompilerVisitor extends SemanticsIdentityDefaultVis
 //    	if (functionUri.indexOf("#") == -1)
 //    		functionUri = getLibraryUri(entity)+"#"+functionUri;
 
-		IEntityIterator<IEntity> resultIterator = IteratorFactory.instance.functionApplicationIterator(functionUri).withSourceEntity(entity);
+		IEntityIterator<IEntity> resultIterator = iteratorFactory().functionApplicationIterator(functionUri).withSourceEntity(entity);
 
 		if (functionUri.endsWith("#stagedVisit"))
-			resultIterator = IteratorFactory.instance.recursiveFunctionApplicationIterator().withSourceEntity(entity);
+			resultIterator = iteratorFactory().recursiveFunctionApplicationIterator().withSourceEntity(entity);
 
     	Expression arguments = entity.getArguments();
 		if (!EntityUtils.isResolver(arguments)) {
@@ -106,7 +104,7 @@ public class SemanticsDynamicCompilerVisitor extends SemanticsIdentityDefaultVis
     		IEntityIterator<?> argumentsIterator = getResultIterator();
 
     		if (!argumentsIterator.getClass().equals(SelfIterator.class))
-    			resultIterator = IteratorFactory.instance.composeIterator(resultIterator, argumentsIterator).withSourceEntity(entity);
+    			resultIterator = iteratorFactory().composeIterator(resultIterator, argumentsIterator).withSourceEntity(entity);
     	}
 		setResultIterator(resultIterator);
   	}
@@ -126,7 +124,7 @@ public class SemanticsDynamicCompilerVisitor extends SemanticsIdentityDefaultVis
     		IEntityIterator<?> expressionIterator = getResultIterator();
 
     		if (!expressionIterator.getClass().equals(SelfIterator.class))
-    			resultIterator = IteratorFactory.instance.forIterator(expressionIterator, resultIterator).withSourceEntity(entity);
+    			resultIterator = iteratorFactory().forIterator(expressionIterator, resultIterator).withSourceEntity(entity);
     	}
 		setResultIterator(resultIterator);
 	}
@@ -140,11 +138,11 @@ public class SemanticsDynamicCompilerVisitor extends SemanticsIdentityDefaultVis
 //		}
 //
 //    	if (argumentsIterators.length == 0)
-//    		setResultIterator(IteratorFactory.instance.selfIterator().withDomainEntity(entity)); 
+//    		setResultIterator(iteratorFactory().selfIterator().withDomainEntity(entity)); 
 //    	else if (argumentsIterators.length == 1) {
 //			setResultIterator(argumentsIterators[0]);
 //		} else {//== if (argumentsIterators.length > 1) {
-//			setResultIterator(IteratorFactory.instance.pointwiseProductIterator(argumentsIterators).withDomainEntity(entity));
+//			setResultIterator(iteratorFactory().pointwiseProductIterator(argumentsIterators).withDomainEntity(entity));
 //		}
 //	}
 }

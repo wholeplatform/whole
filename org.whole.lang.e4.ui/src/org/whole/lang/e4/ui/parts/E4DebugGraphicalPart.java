@@ -34,8 +34,9 @@ import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.swt.widgets.Composite;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.e4.ui.actions.BreakpointsDisableAction;
+import org.whole.lang.e4.ui.actions.BreakpointsSkipAction;
 import org.whole.lang.e4.ui.actions.IE4UIConstants;
+import org.whole.lang.e4.ui.actions.InstrumentationSkipAction;
 import org.whole.lang.e4.ui.actions.ResumeAction;
 import org.whole.lang.e4.ui.actions.TerminateAction;
 import org.whole.lang.e4.ui.jobs.ExecutionState;
@@ -140,11 +141,18 @@ public class E4DebugGraphicalPart extends E4GraphicalPart {
 			action.update();
 	}
 
-	protected BreakpointsDisableAction breakpointsDisableAction;
-	public IAction getBreakpoiontsDisableAction(IEclipseContext context) {
-		if (breakpointsDisableAction == null)
-			actions.add(breakpointsDisableAction = new BreakpointsDisableAction(context));
-		return breakpointsDisableAction;
+	protected BreakpointsSkipAction breakpointsSkipAction;
+	public IAction getBreakpointsSkipAction(IEclipseContext context) {
+		if (breakpointsSkipAction == null)
+			actions.add(breakpointsSkipAction = new BreakpointsSkipAction(context));
+		return breakpointsSkipAction;
+	}
+
+	protected InstrumentationSkipAction instrumentationSkipAction;
+	public IAction getInstrumentationSkipAction(IEclipseContext context) {
+		if (instrumentationSkipAction == null)
+			actions.add(instrumentationSkipAction = new InstrumentationSkipAction(context));
+		return instrumentationSkipAction;
 	}
 
 	protected ResumeAction resumeAction;

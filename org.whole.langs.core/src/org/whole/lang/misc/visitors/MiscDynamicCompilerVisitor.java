@@ -18,7 +18,6 @@
 package org.whole.lang.misc.visitors;
 
 import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.misc.model.Misc;
 import org.whole.lang.model.IEntity;
 
@@ -39,7 +38,7 @@ public class MiscDynamicCompilerVisitor extends MiscOperationVisitor {
 				iteratorChain[i] = getResultIterator();
 			}
 
-	    	setResultIterator(IteratorFactory.instance.sequenceIterator(iteratorChain).withSourceEntity(entity));
+	    	setResultIterator(iteratorFactory().sequenceIterator(iteratorChain).withSourceEntity(entity));
     	}
 	}
 }

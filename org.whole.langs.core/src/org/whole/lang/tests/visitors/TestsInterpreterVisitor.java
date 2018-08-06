@@ -8,6 +8,7 @@ import java.io.StringWriter;
 import java.util.Map;
 
 import org.whole.lang.bindings.BindingManagerFactory;
+import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.ITransactionScope;
 import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
 import org.whole.lang.exceptions.IWholeRuntimeException;
@@ -102,7 +103,7 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 		return (IVisitor) getResultValue();
 	}
 	protected void resetIterator(IEntityIterator<?> iterator) {
-		IEntity selfEntity = getBindings().wGet("self");
+		IEntity selfEntity = getBindings().wGet(IBindingManager.SELF);
 		iterator.reset(selfEntity != null ? selfEntity : NullEntity.instance);
 	}
 
@@ -119,7 +120,7 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 			return entity;
 
 		IEntity filteredEntity = EntityUtils.clone(entity);
-		getBindings().wDef("self", filteredEntity);
+		getBindings().wDef(IBindingManager.SELF, filteredEntity);
 		
 		stagedVisit(filterRule.getBody());
 		getResult();
@@ -158,9 +159,9 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 		Results results = TestsEntityFactory.instance.createResults();
 		printWriter().printf("* %s test case running:\n\n", name);
 		try {
-			getBindings().wDef("self", BindingManagerFactory.instance.createNull());
+			getBindings().wDef(IBindingManager.SELF, BindingManagerFactory.instance.createNull());
 
-			IEntityIterator<BeforeTestCase> beforeIterator = IteratorFactory.instance.<BeforeTestCase>childMatcherIterator().withPattern(BeforeTestCase);
+			IEntityIterator<BeforeTestCase> beforeIterator = iteratorFactory().<BeforeTestCase>childMatcherIterator().withPattern(BeforeTestCase);
 			beforeIterator.setBindings(getBindings());
 			Aspects aspects = entity.getAspects();
 			getBindings().enforceSelfBinding(aspects);
@@ -176,7 +177,7 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 				if (getBindings().wIsSet("runSingleTest") && getBindings().wGet("runSingleTest") != test)
 					continue;
 				
-				getBindings().wDef("self", BindingManagerFactory.instance.createNull());
+				getBindings().wDef(IBindingManager.SELF, BindingManagerFactory.instance.createNull());
 
 				test.accept(this);
 
@@ -197,7 +198,7 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 				result.setValue(result.getValue() + 1);
 			}
 
-			IEntityIterator<AfterTestCase> afterIterator = IteratorFactory.instance.<AfterTestCase>childMatcherIterator().withPattern(AfterTestCase);
+			IEntityIterator<AfterTestCase> afterIterator = iteratorFactory().<AfterTestCase>childMatcherIterator().withPattern(AfterTestCase);
 			afterIterator.setBindings(getBindings());
 			getBindings().enforceSelfBinding(aspects);
 			afterIterator.reset(aspects);
@@ -239,7 +240,7 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 				getResult();
 			}
 
-			getBindings().wDef("self", BindingManagerFactory.instance.createNull());
+			getBindings().wDef(IBindingManager.SELF, BindingManagerFactory.instance.createNull());
 
 			entity.getBody().accept(this);
 			getResult();
@@ -305,7 +306,7 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 		for (int i = 0; i < entity.wSize(); i++) {
 			handleCancelRequest();
 
-			getBindings().wDef("self", BindingManagerFactory.instance.createNull());
+			getBindings().wDef(IBindingManager.SELF, BindingManagerFactory.instance.createNull());
 
 			TestStatement statement = entity.get(i);
 			statement.accept(this);

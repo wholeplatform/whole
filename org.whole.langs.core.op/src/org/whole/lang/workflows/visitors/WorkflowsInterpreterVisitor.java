@@ -224,7 +224,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 	}
 
 	protected void resetIterator(IEntityIterator<?> iterator) {
-		IEntity selfEntity = getBindings().wGet("self");
+		IEntity selfEntity = getBindings().wGet(IBindingManager.SELF);
 		iterator.reset(selfEntity != null ? selfEntity : NullEntity.instance);
 	}
 
@@ -242,7 +242,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 			if (result == null)
 				return;
 			
-			iterator = IteratorFactory.instance.childIterator();
+			iterator = iteratorFactory().childIterator();
 			iterator.setBindings(getBindings());
 			iterator.reset(result);
 		}
@@ -270,7 +270,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 	public void visit(SwitchControl entity) {
 		boolean isExclusive = entity.getSwitchType().wContainsValue(SwitchTypeEnum.exclusive);
 
-		IEntityIterator<ConditionalCase> i = IteratorFactory.instance.childIterator();
+		IEntityIterator<ConditionalCase> i = iteratorFactory().childIterator();
 		i.reset(entity.getConditionalCases());
 
 		boolean executed = false;
@@ -364,11 +364,11 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 	}
 
 	public void define(IBindingScope bm, Assignments assignments) {
-		IEntity selfEntity = bm.wGet("self");
+		IEntity selfEntity = bm.wGet(IBindingManager.SELF);
 		for (int i = 0; i < assignments.wSize(); i++) {
 			Assign assign = assignments.get(i);
 			define(bm, assign);
-			if (!assign.getName().getValue().equals("self"))
+			if (!assign.getName().getValue().equals(IBindingManager.SELF))
 				resetSelfEntity(selfEntity);
 		}
 	}
@@ -459,7 +459,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 			arguments.accept(this);
 			argsIterators = (IEntityIterator<?>[]) getResultValue();
 		} else if (Matcher.match(WorkflowsEntityDescriptorEnum.Expressions, arguments)) {
-			IEntity selfEntity = getBindings().wGet("self");
+			IEntity selfEntity = getBindings().wGet(IBindingManager.SELF);
 			argsIterators = new IEntityIterator<?>[arguments.wSize()];
 			for (int i = 0; i < argsIterators.length; i++) {
 				((Expressions) arguments).get(i).accept(this);
@@ -470,7 +470,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 		} else
 			define(args, (Assignments) arguments);
 
-		IEntityIterator<?> iterator = IteratorFactory.instance.callIterator(queryName.getValue(), argsIterators);
+		IEntityIterator<?> iterator = iteratorFactory().callIterator(queryName.getValue(), argsIterators);
 		iterator.setBindings(args);
 		resetIterator(iterator);
 		while (iterator.hasNext())
@@ -524,7 +524,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 				resettableScope.rollback();
 				getBindings().wExitScope();
 			} else if (Matcher.matchImpl(WorkflowsEntityDescriptorEnum.Expressions, arguments)) {
-				IEntity selfEntity = getBindings().wGet("self");
+				IEntity selfEntity = getBindings().wGet(IBindingManager.SELF);
 				if (ed.getEntityKind().isData()) {
 					((Expressions) arguments).get(0).accept(this);
 					model = DataTypeUtils.convertCloneIfParented(getResult(), ed);
@@ -557,7 +557,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 		IEntity model = getResult();
 		//TODO remove ?
 		if (Matcher.matchImpl(WorkflowsEntityDescriptorEnum.Name, entity.getTemplate())) {
-			IEntityIterator<IEntity> tii = IteratorFactory.instance.templateInterpreterIterator(getResult());
+			IEntityIterator<IEntity> tii = iteratorFactory().templateInterpreterIterator(getResult());
 			tii.setBindings(getBindings());
 			tii.reset(entity);
 			model = tii.next();
@@ -1009,7 +1009,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 		
 		Object[] parameters = new Object[parameterTypes.length];
 
-		IEntity selfEntity = getBindings().wGet("self");
+		IEntity selfEntity = getBindings().wGet(IBindingManager.SELF);
 
 		// map simple parameters
 		int length = parameterTypes.length - (varArgs ? 1 : 0);
@@ -1034,10 +1034,10 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 	}
 
 	protected void resetSelfEntity(IEntity selfEntity) {
-		if (getBindings().wGet("self") != selfEntity)
-			if (getBindings().wIsSet("self"))
-				getBindings().wSet("self", selfEntity);
+		if (getBindings().wGet(IBindingManager.SELF) != selfEntity)
+			if (getBindings().wIsSet(IBindingManager.SELF))
+				getBindings().wSet(IBindingManager.SELF, selfEntity);
 			else
-				getBindings().wDef("self", selfEntity);	
+				getBindings().wDef(IBindingManager.SELF, selfEntity);	
 	}
 }

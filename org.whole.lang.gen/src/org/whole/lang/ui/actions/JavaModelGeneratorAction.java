@@ -45,7 +45,7 @@ public class JavaModelGeneratorAction {
 		
 		IPackageFragmentRoot packageFragmentRoot = JDTUtils.getPackageFragmentRoot(bm.wStringValue("sourceLocationName"));	
 
-		IEclipseContext context = (IEclipseContext) bm.wGetValue("eclipse#eclipseContext");
+		IEclipseContext context = (IEclipseContext) bm.wGetValue(IBindingManager.ECLIPSE_CONTEXT);
 		IWorkspace workspace = context.get(IWorkspace.class);
 		IWorkspaceRunnable operation = new IWorkspaceRunnable() {
 			@Override

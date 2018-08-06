@@ -95,7 +95,7 @@ public class Grammars2ModelsVisitor extends GrammarsTraverseAllVisitor {
 	public void visit(Grammar entity) {
 		entity = normalize(entity);
 
-		IEntityIterator<Production> lexiconIiterator = IteratorFactory.instance.<Production>childIterator();
+		IEntityIterator<Production> lexiconIiterator = iteratorFactory().<Production>childIterator();
 		lexiconIiterator.reset(entity.getLexicalStructure());
 		for (Production p : lexiconIiterator)
 			lexiconMap.put(p.getName().getValue(), p);
@@ -121,7 +121,7 @@ public class Grammars2ModelsVisitor extends GrammarsTraverseAllVisitor {
 	public void visit(Productions entity) {
 		ModelsEntityFactory mf = ModelsEntityFactory.instance;
 
-		ScannerIterator<Production> i = IteratorFactory.instance.<Production>childScannerIterator();
+		ScannerIterator<Production> i = iteratorFactory().<Production>childScannerIterator();
 		i.reset(entity);
 		for (Production p : i) {
 			String eName = getMappedEntityName(p);
@@ -145,7 +145,7 @@ public class Grammars2ModelsVisitor extends GrammarsTraverseAllVisitor {
 		String eName = getMappedEntityName(entity);
 		Rule rule = entity.getRule();
 		
-		AbstractPatternFilterIterator<Rule> ruleIterator = IteratorFactory.instance.<Rule>descendantOrSelfMatcherIterator().withPattern(GrammarsEntityDescriptorEnum.Rule);
+		AbstractPatternFilterIterator<Rule> ruleIterator = iteratorFactory().<Rule>descendantOrSelfMatcherIterator().withPattern(GrammarsEntityDescriptorEnum.Rule);
 		ruleIterator.reset(rule);
 		while (ruleIterator.hasNext()) {
 			rule = ruleIterator.next();
@@ -169,7 +169,7 @@ public class Grammars2ModelsVisitor extends GrammarsTraverseAllVisitor {
 			case GrammarsEntityDescriptorEnum.Choose_ord:
 
 				boolean isPolymorphic = false;
-				AbstractPatternFilterIterator<NonTerminal> ruleIterator2 = IteratorFactory.instance.<NonTerminal>descendantOrSelfMatcherIterator()
+				AbstractPatternFilterIterator<NonTerminal> ruleIterator2 = iteratorFactory().<NonTerminal>descendantOrSelfMatcherIterator()
 						.withPattern(GrammarsEntityDescriptorEnum.NonTerminal);
 				ruleIterator2.reset(rule);
 				for (NonTerminal nt2 : ruleIterator2)
@@ -185,7 +185,7 @@ public class Grammars2ModelsVisitor extends GrammarsTraverseAllVisitor {
 				} else if (!rule.wIsEmpty() && Matcher.match(GrammarsEntityDescriptorEnum.As, rule.wGet(0))) {
 					EnumEntity ee = getModelDeclaration(eName, ModelsEntityDescriptorEnum.EnumEntity);
 					EnumValues enumValues = ModelsEntityFactory.instance.createEnumValues(0);
-					AbstractPatternFilterIterator<As> ruleIterator3 = IteratorFactory.instance.<As>descendantOrSelfMatcherIterator()
+					AbstractPatternFilterIterator<As> ruleIterator3 = iteratorFactory().<As>descendantOrSelfMatcherIterator()
 							.withPattern(GrammarsEntityDescriptorEnum.As);
 					ruleIterator3.reset(rule);
 					for (As as : ruleIterator3)
@@ -208,7 +208,7 @@ public class Grammars2ModelsVisitor extends GrammarsTraverseAllVisitor {
 					}
 
 					NonTerminal nt = null;
-					AbstractPatternFilterIterator<NonTerminal> ruleIterator4 = IteratorFactory.instance.<NonTerminal>descendantOrSelfMatcherIterator()
+					AbstractPatternFilterIterator<NonTerminal> ruleIterator4 = iteratorFactory().<NonTerminal>descendantOrSelfMatcherIterator()
 							.withPattern(GrammarsEntityDescriptorEnum.NonTerminal);
 					ruleIterator4.reset(rule);
 					for (NonTerminal nt2 : ruleIterator4)
@@ -267,7 +267,7 @@ public class Grammars2ModelsVisitor extends GrammarsTraverseAllVisitor {
 //							
 //							se.getModifiers().wAdd(mf.createEntityModifier(EntityModifierEnum._abstract));
 //
-//							for (NonTerminal nt2 : IteratorFactory.instance.<NonTerminal>topDownMatcherIterator(rule).usePattern(GrammarsEntityDescriptorEnum.NonTerminal))
+//							for (NonTerminal nt2 : iteratorFactory().<NonTerminal>topDownMatcherIterator(rule).usePattern(GrammarsEntityDescriptorEnum.NonTerminal))
 //								ensureType(getModelDeclaration(getMappedEntityName(nt2)).getTypes(), eName);
 						}
 					}
@@ -291,7 +291,7 @@ public class Grammars2ModelsVisitor extends GrammarsTraverseAllVisitor {
 	}
 
 	protected void ensureType(Types types, String typeName) {
-		AbstractPatternFilterIterator<SimpleName> i = IteratorFactory.instance.<SimpleName>childMatcherIterator()
+		AbstractPatternFilterIterator<SimpleName> i = iteratorFactory().<SimpleName>childMatcherIterator()
 				.withPattern(ModelsEntityDescriptorEnum.SimpleName);
 		i.reset(types);
 		for (SimpleName type : i)
@@ -302,7 +302,7 @@ public class Grammars2ModelsVisitor extends GrammarsTraverseAllVisitor {
 
 	protected void ensureFeature(Features features, IEntityIterator<Rule> ruleIterator, As asRule) {
 		String featureName = getMappedName(asRule);
-		AbstractPatternFilterIterator<Feature> i = IteratorFactory.instance.<Feature>childMatcherIterator()
+		AbstractPatternFilterIterator<Feature> i = iteratorFactory().<Feature>childMatcherIterator()
 				.withPattern(ModelsEntityDescriptorEnum.Feature);
 		i.reset(features);
 		for (Feature feature : i)
@@ -338,7 +338,7 @@ public class Grammars2ModelsVisitor extends GrammarsTraverseAllVisitor {
 						mf.createSimpleName(getMappedEntityName((NonTerminal) rule)));
 				
 				IEntity ancestor = null;
-				IEntityIterator<IEntity> iterator = IteratorFactory.instance.ancestorIterator();
+				IEntityIterator<IEntity> iterator = iteratorFactory().ancestorIterator();
 				iterator.reset(Matcher.findAncestor(GrammarsEntityDescriptorEnum.As, rule));
 				while (iterator.hasNext() && !Matcher.match(GrammarsEntityDescriptorEnum.Production, ancestor = iterator.next()))
 					if (Matcher.match(GrammarsEntityDescriptorEnum.Optional, ancestor))

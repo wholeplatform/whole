@@ -73,7 +73,7 @@ public class ActionCallHandler {
 
 	protected void defineBindings(String functionUri, String predicateXwl, String analyzing, IBindingManager bm) throws Exception {
 		IPersistenceKit persistenceKit = ReflectionFactory.getDefaultPersistenceKit();
-		bm.wDef("self", bm.wGet("compoundRoot"));
+		bm.wDef(IBindingManager.SELF, bm.wGet("compoundRoot"));
 		bm.wDefValue("analyzing", Boolean.parseBoolean(analyzing));
 		bm.wDefValue("functionUri", functionUri);
 		bm.wDef("predicateEntity", persistenceKit.readModel(new StringPersistenceProvider(predicateXwl)));

@@ -147,11 +147,13 @@ public class ResourceUtils {
 		if (!bm.wIsSet("contextURI"))
 			bm.wDefValue("contextURI", parentFile != null ? parentFile.toURI().toString() : null);//FIXME
 
-		if (!bm.wIsSet("debug#breakpointsEnabled")) {
-			bm.wDefValue("debug#reportModeEnabled", true);
-			bm.wDefValue("debug#debugModeEnabled", true);
-			bm.wDefValue("debug#breakpointsEnabled", true);			
+		if (!bm.wIsSet(IBindingManager.BREAKPOINTS_ENABLED)) {
+			bm.wDefValue(IBindingManager.REPORT_MODE_ENABLED, true);
+			bm.wDefValue(IBindingManager.DEBUG_MODE_ENABLED, true);
+			bm.wDefValue(IBindingManager.BREAKPOINTS_ENABLED, true);			
 		}
+		if (!bm.wIsSet(IBindingManager.INSTRUMENTATION_ENABLED))
+			bm.wDefValue(IBindingManager.INSTRUMENTATION_ENABLED, false);
 	}
 
 	public static void defineResourceBindings(IBindingManager bm, String resourceClasspath) {
@@ -185,11 +187,13 @@ public class ResourceUtils {
 			} catch (Exception e) {
 			}
 
-		if (!bm.wIsSet("debug#breakpointsEnabled")) {
-			bm.wDefValue("debug#reportModeEnabled", true);
-			bm.wDefValue("debug#debugModeEnabled", true);
-			bm.wDefValue("debug#breakpointsEnabled", true);			
+		if (!bm.wIsSet(IBindingManager.BREAKPOINTS_ENABLED)) {
+			bm.wDefValue(IBindingManager.REPORT_MODE_ENABLED, true);
+			bm.wDefValue(IBindingManager.DEBUG_MODE_ENABLED, true);
+			bm.wDefValue(IBindingManager.BREAKPOINTS_ENABLED, true);			
 		}
+		if (!bm.wIsSet(IBindingManager.INSTRUMENTATION_ENABLED))
+			bm.wDefValue(IBindingManager.INSTRUMENTATION_ENABLED, false);
 	}
 
 	public static boolean hasFragmentPart(String resourceUri) {

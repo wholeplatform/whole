@@ -50,17 +50,17 @@ public class EvaluateCloneOperation extends CloneOperationOld {
 		return operation.getOperationEnvironment();
 	}
 	protected void resetSelfEntity(IEntity selfEntity) {
-		if (getBindings().wGet("self") != selfEntity)
-			if (getBindings().wIsSet("self"))
-				getBindings().wSet("self", selfEntity);
+		if (getBindings().wGet(IBindingManager.SELF) != selfEntity)
+			if (getBindings().wIsSet(IBindingManager.SELF))
+				getBindings().wSet(IBindingManager.SELF, selfEntity);
 			else
-				getBindings().wDef("self", selfEntity);	
+				getBindings().wDef(IBindingManager.SELF, selfEntity);	
 	}
 	@Override
 	protected void cloneAndUpdate(IEntity entityClone, int index) {
 		IEntity child = entityClone.wGet(index);
 		if (shouldEvaluate.test(child)) {
-			IEntity selfEntity = getBindings().wGet("self");
+			IEntity selfEntity = getBindings().wGet(IBindingManager.SELF);
 			IEntityIterator<?> iterator = BehaviorUtils.lazyEvaluateOnSelfBinding(child, 0, getBindings());
 //			IEntityIterator<?> iterator = DynamicCompilerOperation.compile(child, getBindings()).getResultIterator();
 			if (EntityUtils.isSimple(entityClone)) {
@@ -88,7 +88,7 @@ public class EvaluateCloneOperation extends CloneOperationOld {
 	protected void cloneAndUpdate(IEntity entityClone, FeatureDescriptor fd) {
 		IEntity child = entityClone.wGet(fd);
 		if (shouldEvaluate.test(child)) {
-			IEntity selfEntity = getBindings().wGet("self");
+			IEntity selfEntity = getBindings().wGet(IBindingManager.SELF);
 			IEntityIterator<?> iterator = BehaviorUtils.lazyEvaluateOnSelfBinding(child, 0, getBindings());
 //			IEntityIterator<?> iterator = DynamicCompilerOperation.compile(child, getBindings()).getResultIterator();
 			iterator = IteratorFactory.instance.composeIterator(IteratorFactory.instance.singleValuedRunnableIterator(

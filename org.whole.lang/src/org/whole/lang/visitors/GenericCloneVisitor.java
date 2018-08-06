@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.whole.lang.bindings.BindingManagerFactory;
+import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.ITransactionScope;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
@@ -65,7 +66,7 @@ public class GenericCloneVisitor extends AbstractVisitor {
 		setAspects(entity, entityClone);
 	}
 	protected void setChildren(IEntity entity, IEntity entityClone) {
-		IEntity oldSelfEntity2 = getBindings().wGet("self");
+		IEntity oldSelfEntity2 = getBindings().wGet(IBindingManager.SELF);
 
 		for (int index=0; index<entity.wSize(); index++) {
     		int resultSize = entityClone.wSize();
@@ -77,9 +78,9 @@ public class GenericCloneVisitor extends AbstractVisitor {
 			if (isResultIterator()) {
 				IEntityIterator<?> iterator = getResultIterator();
 				setResultIterator(null);
-				IEntity selfEntity = getBindings().wGet("self");
+				IEntity selfEntity = getBindings().wGet(IBindingManager.SELF);
 	        	if (selfEntity != oldSelfEntity2)
-	        		getBindings().wDef("self", selfEntity = oldSelfEntity2);
+	        		getBindings().wDef(IBindingManager.SELF, selfEntity = oldSelfEntity2);
 				iterator.reset(selfEntity);
 				FeatureDescriptor resultChildDescriptor = entityClone.wGetFeatureDescriptor(index);
 				if (EntityUtils.isComposite(entityClone)) {
@@ -132,7 +133,7 @@ public class GenericCloneVisitor extends AbstractVisitor {
 		}
 	}
 	protected void setAspects(IEntity entity, IEntity entityClone) {
-		IEntity oldSelfEntity2 = getBindings().wGet("self");
+		IEntity oldSelfEntity2 = getBindings().wGet(IBindingManager.SELF);
 
 		for (FeatureDescriptor fd : entity.wGetAspectualFeatureDescriptors())
 			if (!fd.isReference()) {
@@ -141,9 +142,9 @@ public class GenericCloneVisitor extends AbstractVisitor {
 				if (isResultIterator()) {
 					IEntityIterator<?> iterator = getResultIterator();
 					setResultIterator(null);
-					IEntity selfEntity = getBindings().wGet("self");
+					IEntity selfEntity = getBindings().wGet(IBindingManager.SELF);
 		        	if (selfEntity != oldSelfEntity2)
-		        		getBindings().wDef("self", selfEntity = oldSelfEntity2);
+		        		getBindings().wDef(IBindingManager.SELF, selfEntity = oldSelfEntity2);
 					iterator.reset(selfEntity);
 					if (iterator.hasNext()) {
 						IEntity value = null;

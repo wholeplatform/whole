@@ -110,9 +110,9 @@ public class WorkflowsIDEInterpreterVisitor extends WorkflowsInterpreterVisitor 
 		IBindingManager debugEnv = getBindings();
 
 		if (entity.getDisabled().wBooleanValue() ||
-				(debugEnv.wIsSet("debug#reportModeEnabled") && !debugEnv.wBooleanValue("debug#reportModeEnabled")) ||
-				(debugEnv.wIsSet("debug#debugModeEnabled") && !debugEnv.wBooleanValue("debug#debugModeEnabled")) ||
-				(debugEnv.wIsSet("debug#breakpointsEnabled") && !debugEnv.wBooleanValue("debug#breakpointsEnabled")))
+				(debugEnv.wIsSet(IBindingManager.REPORT_MODE_ENABLED) && !debugEnv.wBooleanValue(IBindingManager.REPORT_MODE_ENABLED)) ||
+				(debugEnv.wIsSet(IBindingManager.DEBUG_MODE_ENABLED) && !debugEnv.wBooleanValue(IBindingManager.DEBUG_MODE_ENABLED)) ||
+				(debugEnv.wIsSet(IBindingManager.BREAKPOINTS_ENABLED) && !debugEnv.wBooleanValue(IBindingManager.BREAKPOINTS_ENABLED)))
 			return;
 
 		Condition condition = entity.getCondition();

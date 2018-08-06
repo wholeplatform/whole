@@ -34,7 +34,7 @@ import org.whole.lang.util.IRunnable;
  * @author Riccardo Solmi
  */
 public class InstrumentedIteratorFactory implements IteratorFactory {
-	IteratorFactory factory = new GenericIteratorFactory();
+	IteratorFactory factory = IteratorFactory.regularInstance;
 
 	protected <E extends IEntity> IEntityIterator<E> instrument(IEntityIterator<E> iterator) {
 		return new InstrumentingIterator<E>(iterator);

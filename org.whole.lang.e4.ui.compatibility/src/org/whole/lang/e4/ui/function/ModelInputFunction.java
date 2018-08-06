@@ -43,7 +43,7 @@ public class ModelInputFunction extends ContextFunction {
 	@Override
 	public Object compute(IEclipseContext context) {
 		final IBindingManager bm = BindingManagerFactory.instance.createBindingManager();
-		bm.wDefValue("eclipse#eclipseContext", context);
+		bm.wDefValue(IBindingManager.ECLIPSE_CONTEXT, context);
 		final IEditorPart editorPart = context.get(IEditorPart.class);
 		final IEditorInput input = context.get(IEditorInput.class);
 		if (input instanceof IFileEditorInput) {

@@ -27,13 +27,13 @@ import org.eclipse.jface.resource.ImageDescriptor;
 /**
  * @author Enrico Persiani
  */
-public class BreakpointsDisableAction extends AbstractDebugAction {
+public class BreakpointsSkipAction extends AbstractDebugAction {
 
-	public BreakpointsDisableAction(IEclipseContext context) {
-		super(context, DEBUG_RUN_LABEL);
-		setChecked(!debugService.isBreakpointsEnable());
+	public BreakpointsSkipAction(IEclipseContext context) {
+		super(context, DEBUG_BREAKPOINTS_LABEL);
+		setChecked(!debugService.isBreakpointsEnabled());
 		try {
-			setImageDescriptor(ImageDescriptor.createFromURL(new URL(DEBUG_BREAKPOINTS_DISABLED_URI)));
+			setImageDescriptor(ImageDescriptor.createFromURL(new URL(DEBUG_SKIP_BREAKPOINTS_URI)));
 		} catch (Exception e) {
 		}
 	}
@@ -45,6 +45,6 @@ public class BreakpointsDisableAction extends AbstractDebugAction {
 	
 	@Override
 	public void run() {
-		debugService.setBreakpointsEnable(!isChecked());
+		debugService.setBreakpointsEnabled(!isChecked());
 	}
 }

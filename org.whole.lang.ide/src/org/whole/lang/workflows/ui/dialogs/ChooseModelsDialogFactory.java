@@ -45,7 +45,7 @@ public class ChooseModelsDialogFactory implements ITaskDialogFactory {
 		params.set("dialogTitle", title);
 		params.set("dialogMessage", message);
 		params.set("dialogAssignments", assignments);
-		IEclipseContext context = (IEclipseContext) bindings.wGetValue("eclipse#eclipseContext");
+		IEclipseContext context = (IEclipseContext) bindings.wGetValue(IBindingManager.ECLIPSE_CONTEXT);
 		IImportAsModelDialogFactory factory = context.get(DisabledImportAsModelDialogFactory.class);
 		params.set(IImportAsModelDialogFactory.class, factory);
 		return ContextInjectionFactory.make(ChooseModelsDialog.class, context, params);

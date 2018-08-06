@@ -21,6 +21,7 @@ import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.commons.visitors.CommonsInterpreterVisitor;
 import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.model.adapters.IEntityAdapter;
 import org.whole.lang.operations.AnonymousOperation;
@@ -45,6 +46,13 @@ public abstract class AbstractVisitor implements IVisitor {
 
 	private IOperation operation;
 	protected IBindingManager bindings;
+
+	private IteratorFactory iteratorFactory;
+	public IteratorFactory iteratorFactory() {
+		if (iteratorFactory == null)
+			iteratorFactory = bindings != null ? IteratorFactory.instance(bindings) : IteratorFactory.instance;
+		return iteratorFactory;
+	}
 
 	public IVisitor clone() {
 		return clone(new CloneContext());

@@ -18,7 +18,6 @@
 package org.whole.lang.visitors;
 
 import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.IOperation;
 import org.whole.lang.reflect.EntityDescriptor;
@@ -56,7 +55,7 @@ public class DynamicGeneratorVisitor extends AbstractDynamicVisitor {
 				if (projectsPoint == null)
 					throw new IllegalArgumentException("projectsPoint is undefined");
 
-				IEntityIterator<IEntity> projectIterator = IteratorFactory.instance.childIterator();
+				IEntityIterator<IEntity> projectIterator = iteratorFactory().childIterator();
 				projectIterator.reset(result.wGet(resultEd.getFeatureDescriptorEnum().valueOf("projects")));
 				for (IEntity project : projectIterator) {
 					projectIterator.remove();

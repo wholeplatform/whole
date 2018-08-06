@@ -61,7 +61,7 @@ public class InterpreterOperation extends AbstractOperation {
 	    return op.getResultsScope();
 	}
 	public static IBindingScope lazyInterpretOnSelfBinding(IEntity program, IBindingManager args, boolean resultsInArgs) {
-		InterpreterOperation op = new InterpreterOperation(args.wGet("self"), args, resultsInArgs);
+		InterpreterOperation op = new InterpreterOperation(args.wGet(IBindingManager.SELF), args, resultsInArgs);
 	    op.stagedVisit(program, 0);
 	    return op.getResultsScope();
 	}
@@ -72,7 +72,7 @@ public class InterpreterOperation extends AbstractOperation {
 	    return op.getResultsScope();
 	}
 	public static IBindingScope lazyInterpretOnSelfBinding(IEntity program, IBindingManager args, int relativeStage) {
-		InterpreterOperation op = new InterpreterOperation(args.wGet("self"), args, null);
+		InterpreterOperation op = new InterpreterOperation(args.wGet(IBindingManager.SELF), args, null);
 		op.stagedVisit(program, relativeStage);
 	    return op.getResultsScope();
 	}

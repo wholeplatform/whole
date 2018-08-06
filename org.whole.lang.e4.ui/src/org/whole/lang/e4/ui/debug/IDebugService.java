@@ -30,8 +30,10 @@ public interface IDebugService {
 	public void removeExecutionListener(IExecutionListener listener);
 
 	public boolean isSuspended();
-	public boolean isBreakpointsEnable();
-	public void setBreakpointsEnable(boolean enable);
+	public boolean isBreakpointsEnabled();
+	public void setBreakpointsEnabled(boolean enabled);
+	public boolean isInstrumentationEnabled();
+	public void setInstrumentationEnabled(boolean enabled);
 
 	public SuspensionKind peekSuspensionKind();
 	public IEntity peekSourceEntity();

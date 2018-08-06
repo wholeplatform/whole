@@ -15,25 +15,36 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.iterators;
+package org.whole.lang.e4.ui.actions;
 
-import org.whole.lang.model.IEntity;
+import static org.whole.lang.e4.ui.actions.IE4UIConstants.*;
+
+import java.net.URL;
+
+import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 /**
  * @author Riccardo Solmi
  */
-public class DescendantReverseIterator<E extends IEntity> extends AbstractTransitiveClosureIterator<E> {
-	protected DescendantReverseIterator(boolean includeSelf) {
-    	super(includeSelf);
-    }
+public class InstrumentationSkipAction extends AbstractDebugAction {
 
-    @Override
-    protected IEntityIterator<E> createRelationIterator() {
-    	return iteratorFactory().<E>childReverseIterator();
-    }
-
-    @Override
-	public void toString(StringBuilder sb) {
-		sb.append(includeSelf ? "descendantOrSelfReverse()" : "descendantReverse()");
-    }
+	public InstrumentationSkipAction(IEclipseContext context) {
+		super(context, DEBUG_INSTRUMENTATION_LABEL);
+		setChecked(!debugService.isInstrumentationEnabled());
+		try {
+			setImageDescriptor(ImageDescriptor.createFromURL(new URL(DEBUG_SKIP_INSTRUMENTATION_URI)));
+		} catch (Exception e) {
+		}
+	}
+	
+	@Override
+	public void update() {
+		setEnabled(true);
+	}
+	
+	@Override
+	public void run() {
+		debugService.setInstrumentationEnabled(!isChecked());
+	}
 }

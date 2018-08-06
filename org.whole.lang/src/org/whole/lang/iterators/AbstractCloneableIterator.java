@@ -73,7 +73,11 @@ public abstract class AbstractCloneableIterator<E extends IEntity> implements IE
 	}
     protected void setArgumentsBindings(IBindingManager bindings) {
 	}
-	
+
+	public IteratorFactory iteratorFactory() {
+		return hasBindings() ? IteratorFactory.instance(getBindings()) : IteratorFactory.instance;
+	}
+
 	public Iterator<E> iterator() {
 		return this;
 	}

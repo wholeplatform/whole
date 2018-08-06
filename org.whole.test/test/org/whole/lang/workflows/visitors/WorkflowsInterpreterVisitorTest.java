@@ -326,7 +326,7 @@ public class WorkflowsInterpreterVisitorTest {
 		
 		Assert.assertFalse(args.wIsSet("queryName"));
 		Assert.assertFalse(args.wIsSet("methodName"));
-		Assert.assertFalse(args.wIsSet("self"));
+		Assert.assertFalse(args.wIsSet(IBindingManager.SELF));
 		Assert.assertFalse(args.wIsSet("methodCall"));
 	}
 

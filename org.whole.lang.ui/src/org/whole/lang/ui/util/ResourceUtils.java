@@ -67,11 +67,13 @@ public class ResourceUtils {
 		if (!bm.wIsSet("contextURI"))
 			bm.wDefValue("contextURI", "platform:/resource/"+project.getName());
 
-		if (!bm.wIsSet("debug#breakpointsEnabled")) {
-			bm.wDefValue("debug#reportModeEnabled", true);
-			bm.wDefValue("debug#debugModeEnabled", true);
-			bm.wDefValue("debug#breakpointsEnabled", true);			
+		if (!bm.wIsSet(IBindingManager.BREAKPOINTS_ENABLED)) {
+			bm.wDefValue(IBindingManager.REPORT_MODE_ENABLED, true);
+			bm.wDefValue(IBindingManager.DEBUG_MODE_ENABLED, true);
+			bm.wDefValue(IBindingManager.BREAKPOINTS_ENABLED, true);			
 		}
+		if (!bm.wIsSet(IBindingManager.INSTRUMENTATION_ENABLED))
+			bm.wDefValue(IBindingManager.INSTRUMENTATION_ENABLED, false);
 
 		for (IResourceBindingsContributor contributor : ResourceBindingsContributorExtensions.instance().getContributors())
 			try {

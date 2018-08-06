@@ -31,17 +31,29 @@ import org.whole.lang.ui.util.IResourceBindingsContributor;
  */
 public class E4ResourceBindingsContributor implements IResourceBindingsContributor {
 	public void addResourceBindings(final IBindingManager bm) {
-		if (bm.wIsSet("debug#breakpointsEnabled") && bm.wIsSet("eclipse#eclipseContext")) {
+		if (bm.wIsSet(IBindingManager.ECLIPSE_CONTEXT)) {
 			try {
-				IDebugService debugService = ((IEclipseContext) bm.wGetValue("eclipse#eclipseContext")).get(IDebugService.class);
+				IDebugService debugService = ((IEclipseContext) bm.wGetValue(IBindingManager.ECLIPSE_CONTEXT)).get(IDebugService.class);
 
-				IEntity breakpointsEnabled = BindingManagerFactory.instance.createValue(true);
-				breakpointsEnabled.wAddRequestEventHandler(new IdentityRequestEventHandler() {
-					public boolean notifyRequested(IEntity source, FeatureDescriptor feature, boolean value) {
-						return debugService.isBreakpointsEnable();
-					}
-				});
-				bm.wSet("debug#breakpointsEnabled", breakpointsEnabled);
+				if (bm.wIsSet(IBindingManager.BREAKPOINTS_ENABLED)) {
+					IEntity breakpointsEnabled = BindingManagerFactory.instance.createValue(true);
+					breakpointsEnabled.wAddRequestEventHandler(new IdentityRequestEventHandler() {
+						public boolean notifyRequested(IEntity source, FeatureDescriptor feature, boolean value) {
+							return debugService.isBreakpointsEnabled();
+						}
+					});
+					bm.wSet(IBindingManager.BREAKPOINTS_ENABLED, breakpointsEnabled);
+				}
+
+				if (bm.wIsSet(IBindingManager.INSTRUMENTATION_ENABLED)) {
+					IEntity instrumentationEnabled = BindingManagerFactory.instance.createValue(true);
+					instrumentationEnabled.wAddRequestEventHandler(new IdentityRequestEventHandler() {
+						public boolean notifyRequested(IEntity source, FeatureDescriptor feature, boolean value) {
+							return debugService.isInstrumentationEnabled();
+						}
+					});
+					bm.wSet(IBindingManager.INSTRUMENTATION_ENABLED, instrumentationEnabled);
+				}
 	
 			} catch (Exception e) {
 			}

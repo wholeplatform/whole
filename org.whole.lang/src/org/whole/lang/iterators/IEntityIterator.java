@@ -52,6 +52,8 @@ public interface IEntityIterator<E extends IEntity> extends Iterator<E>, Iterabl
 
 	public void toString(StringBuilder sb);
 
+	public IteratorFactory iteratorFactory();
+
 	public default IEntityIterator<E> specificIterator() {
 		return this instanceof InstrumentingIterator ? ((InstrumentingIterator<E>) this).getIterator() : this;
 	}
@@ -65,30 +67,30 @@ public interface IEntityIterator<E extends IEntity> extends Iterator<E>, Iterabl
 	}
 
 	public default E evaluate(IEntity self, IBindingManager bm) {
-		IEntity oldSelfEntity = bm.wGet("self");
+		IEntity oldSelfEntity = bm.wGet(IBindingManager.SELF);
 
-		bm.wDef("self", self);
+		bm.wDef(IBindingManager.SELF, self);
 		setBindings(bm);
 		reset(self);
 
 		E result = evaluateRemaining();
 
-		if (oldSelfEntity == null && bm.wGet("self") == self)
-			bm.wUnset("self");
+		if (oldSelfEntity == null && bm.wGet(IBindingManager.SELF) == self)
+			bm.wUnset(IBindingManager.SELF);
 
 		return result;
 	}
 	public default E evaluateFirst(IEntity self, IBindingManager bm) {
-		IEntity oldSelfEntity = bm.wGet("self");
+		IEntity oldSelfEntity = bm.wGet(IBindingManager.SELF);
     	
-		bm.wDef("self", self);
+		bm.wDef(IBindingManager.SELF, self);
 		setBindings(bm);
 		reset(self);
 
 		E result = evaluateNext();
 
-		if (oldSelfEntity == null && bm.wGet("self") == self)
-			bm.wUnset("self");
+		if (oldSelfEntity == null && bm.wGet(IBindingManager.SELF) == self)
+			bm.wUnset(IBindingManager.SELF);
 
 		return result;
 	}

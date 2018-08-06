@@ -18,6 +18,7 @@
 package org.whole.lang.visitors;
 
 import org.whole.lang.bindings.BindingManagerFactory;
+import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.ITransactionScope;
 import org.whole.lang.commons.model.Variable;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
@@ -63,12 +64,12 @@ public class GenericTemplateInterpreterVisitor extends AbstractVisitor {
 			case CommonsEntityDescriptorEnum.RootFragment_ord:
 			case CommonsEntityDescriptorEnum.StageDownFragment_ord:
 	        	setResult(null);
-	        	IEntity oldSelfEntity = getBindings().wGet("self");
+	        	IEntity oldSelfEntity = getBindings().wGet(IBindingManager.SELF);
 	        	final int stageShift0 = -1;
 	        	stagedVisit(adaptee.wGetRoot(), stageShift0);
 
-	        	if (getBindings().wGet("self") != oldSelfEntity)
-	        		getBindings().wDef("self", oldSelfEntity);
+	        	if (getBindings().wGet(IBindingManager.SELF) != oldSelfEntity)
+	        		getBindings().wDef(IBindingManager.SELF, oldSelfEntity);
 
 	        	if (getStage()+stageShift0>0 && !isResultIterator())
 	        		setResult(GenericEntityFactory.instance.create(
@@ -103,7 +104,7 @@ public class GenericTemplateInterpreterVisitor extends AbstractVisitor {
 		}
 
 		IEntity entityClone = ((InternalIEntity) adaptee).wShallowClone();
-		IEntity oldSelfEntity2 = getBindings().wGet("self");
+		IEntity oldSelfEntity2 = getBindings().wGet(IBindingManager.SELF);
 
     	for (int index=0; index<entityClone.wSize(); index++) {
     		int resultSize = entityClone.wSize();
@@ -114,9 +115,9 @@ public class GenericTemplateInterpreterVisitor extends AbstractVisitor {
 			if (isResultIterator()) {
 				IEntityIterator<?> iterator = getResultIterator();
 				setResultIterator(null);
-				IEntity selfEntity = getBindings().wGet("self");
+				IEntity selfEntity = getBindings().wGet(IBindingManager.SELF);
 	        	if (selfEntity != oldSelfEntity2)
-	        		getBindings().wDef("self", selfEntity = oldSelfEntity2);
+	        		getBindings().wDef(IBindingManager.SELF, selfEntity = oldSelfEntity2);
 				iterator.reset(selfEntity);
 				FeatureDescriptor childFeatureDescriptor = entityClone.wGetFeatureDescriptor(index);
 				if (EntityUtils.isComposite(entityClone)) {
@@ -166,9 +167,9 @@ public class GenericTemplateInterpreterVisitor extends AbstractVisitor {
 					entityClone.wRemove(index);
     		}
 
-			IEntity selfEntity = getBindings().wGet("self");
+			IEntity selfEntity = getBindings().wGet(IBindingManager.SELF);
         	if (selfEntity != oldSelfEntity2)
-        		getBindings().wDef("self", selfEntity = oldSelfEntity2);
+        		getBindings().wDef(IBindingManager.SELF, selfEntity = oldSelfEntity2);
 
     	}
 		setResult(entityClone);

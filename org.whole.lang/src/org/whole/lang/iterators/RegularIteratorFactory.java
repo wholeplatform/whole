@@ -50,7 +50,7 @@ import org.whole.lang.util.ResourceUtils;
  * 
  * @author Riccardo Solmi
  */
-public class GenericIteratorFactory implements IteratorFactory {
+public class RegularIteratorFactory implements IteratorFactory {
 	public <E extends IEntity> IEntityIterator<E> emptyIterator() {
 		return new EmptyIterator<E>();
 	}
@@ -427,38 +427,38 @@ public class GenericIteratorFactory implements IteratorFactory {
 
 
 	public <E extends IEntity> IEntityIterator<E> ancestorScannerIterator() {
-		return scannerIterator(IteratorFactory.instance.<E>ancestorIterator());
+		return scannerIterator(ancestorIterator());
 	}
 	public <E extends IEntity> ScannerIterator<E> childScannerIterator() {
-		return scannerIterator(IteratorFactory.instance.<E>childIterator());
+		return scannerIterator(childIterator());
 	}
 	public <E extends IEntity> ScannerIterator<E> childReverseScannerIterator() {
-		return scannerIterator(IteratorFactory.instance.<E>childReverseIterator());
+		return scannerIterator(childReverseIterator());
 	}
 	public <E extends IEntity> ScannerIterator<E> descendantOrSelfScannerIterator() {
-		return scannerIterator(IteratorFactory.instance.<E>descendantOrSelfIterator());
+		return scannerIterator(descendantOrSelfIterator());
 	}
 	public <E extends IEntity> ScannerIterator<E> descendantOrSelfReverseScannerIterator() {
-		return scannerIterator(IteratorFactory.instance.<E>descendantOrSelfReverseIterator());
+		return scannerIterator(descendantOrSelfReverseIterator());
 	}
 
 	public <E extends IEntity> MatcherIterator<E> ancestorMatcherIterator() {
-		return matcherIterator(IteratorFactory.instance.<E>ancestorIterator());
+		return matcherIterator(ancestorIterator());
 	}
 	public <E extends IEntity> MatcherIterator<E> ancestorOrSelfMatcherIterator() {
-		return matcherIterator(IteratorFactory.instance.<E>ancestorOrSelfIterator());
+		return matcherIterator(ancestorOrSelfIterator());
 	}
 	public <E extends IEntity> MatcherIterator<E> childMatcherIterator() {
-		return matcherIterator(IteratorFactory.instance.<E>childIterator());
+		return matcherIterator(childIterator());
 	}
 	public <E extends IEntity> MatcherIterator<E> childReverseMatcherIterator() {
-		return matcherIterator(IteratorFactory.instance.<E>childReverseIterator());
+		return matcherIterator(childReverseIterator());
 	}
 	public <E extends IEntity> MatcherIterator<E> descendantOrSelfMatcherIterator() {
-		return matcherIterator(IteratorFactory.instance.<E>descendantOrSelfIterator());
+		return matcherIterator(descendantOrSelfIterator());
 	}
 	public <E extends IEntity> MatcherIterator<E> descendantOrSelfReverseMatcherIterator() {
-		return matcherIterator(IteratorFactory.instance.<E>descendantOrSelfReverseIterator());
+		return matcherIterator(descendantOrSelfReverseIterator());
 	}
 
 	public IEntityIterator<IEntity> atStageIterator(int stage) {
@@ -1250,13 +1250,12 @@ public class GenericIteratorFactory implements IteratorFactory {
     	return new CallIterator<E>(name, argsIterators);
     }
 
-	public static final String OUTER_SELF_NAME = "staging#outerSelf";
 	public IEntityIterator<?> nestedVariableIterator() {
 		return new AbstractMultiValuedRunnableIterator<IEntity>() {
 			@Override
 			protected void run(IEntity selfEntity, IBindingManager bm) {
-					IEntity outerSelfEntity = bm.wGet(OUTER_SELF_NAME);
-					bm.wDef("self", outerSelfEntity);
+					IEntity outerSelfEntity = bm.wGet(IBindingManager.OUTER_SELF);
+					bm.wDef(IBindingManager.SELF, outerSelfEntity);
 					Variable variable = (Variable) selfEntity;
 					String varName = variable.getVarName().getValue();
 		        	IEntity value = BindingUtils.wGet(bm, varName);
@@ -1277,20 +1276,20 @@ public class GenericIteratorFactory implements IteratorFactory {
 		return new AbstractMultiValuedRunnableIterator<IEntity>() {
 			@Override
 			protected void run(IEntity selfEntity, IBindingManager bm) {
-				IEntityIterator<?> fragmentIterator = fragmentIteratorMap.getOrDefault(selfEntity, IteratorFactory.instance.emptyIterator());
+				IEntityIterator<?> fragmentIterator = fragmentIteratorMap.getOrDefault(selfEntity, emptyIterator());
 				
 				//TODO clone iterator
 
 //				IEntity outerSelfEntity = bm.wGet(OUTER_SELF_NAME);
-//				bm.wDef("self", outerSelfEntity);
+//				bm.wDef(IBindingManager.SELF, outerSelfEntity);
 //				fragmentIterator.setBindings(bm);
 //				fragmentIterator.reset(outerSelfEntity);
 				bm.setResultIterator(fragmentIterator);
 			}
 			@Override
 			protected void resetResultIterator(IEntityIterator<IEntity> resultIterator, IEntity selfEntity, IBindingManager bm) {
-				IEntity outerSelfEntity = bm.wGet(OUTER_SELF_NAME);
-				bm.wDef("self", outerSelfEntity);
+				IEntity outerSelfEntity = bm.wGet(IBindingManager.OUTER_SELF);
+				bm.wDef(IBindingManager.SELF, outerSelfEntity);
 				resultIterator.setBindings(bm);
 				resultIterator.reset(outerSelfEntity);
 			}
@@ -1325,13 +1324,13 @@ public class GenericIteratorFactory implements IteratorFactory {
 		}
 
 		protected void run(IEntity selfEntity, IBindingManager bm) {
-			IEntity oldSelfEntity = bm.wGet("self");
+			IEntity oldSelfEntity = bm.wGet(IBindingManager.SELF);
 			bm.setResult(deepClone(selfEntity, bm));
-			if (bm.wGet("self") != oldSelfEntity)
+			if (bm.wGet(IBindingManager.SELF) != oldSelfEntity)
 				if (oldSelfEntity != null)
-					bm.wDef("self", oldSelfEntity);
+					bm.wDef(IBindingManager.SELF, oldSelfEntity);
 //				else
-//					bm.wUnset("self");
+//					bm.wUnset(IBindingManager.SELF);
 		}
 
 		protected IEntity deepClone(IEntity selfEntity, IBindingManager bm) {
@@ -1354,7 +1353,7 @@ public class GenericIteratorFactory implements IteratorFactory {
 						entityClone.wSet(index, childClone);							
 				} else {
 					FeatureDescriptor childFeatureDescriptor = entityClone.wGetFeatureDescriptor(index);
-					bm.wDef("self", childPrototype);
+					bm.wDef(IBindingManager.SELF, childPrototype);
 					argsIterators[0].reset(childPrototype);
 
 					if (isComposite) {
