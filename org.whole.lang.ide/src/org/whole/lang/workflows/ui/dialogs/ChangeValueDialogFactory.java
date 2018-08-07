@@ -47,7 +47,7 @@ public class ChangeValueDialogFactory implements ITaskDialogFactory {
 	public Dialog createDialog(Shell shell, String title, String message, Assignments assignments, IBindingManager bindings) {
 		Assign assign = (Assign) assignments.wGet(0);
 		Expression expression = assign.getExpression();
-		IEntity entity = BehaviorUtils.evaluate(expression, 0, bindings);
+		IEntity entity = BehaviorUtils.evaluateOnSelfBinding(expression, 0, bindings);
 		assign.wSet(expression, entity);
 
 		IEclipseContext params = EclipseContextFactory.create();

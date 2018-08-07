@@ -39,11 +39,9 @@ import org.whole.lang.util.BehaviorUtils;
  * @author Riccardo Solmi
  */
 public class InstrumentingIterator<E extends IEntity> extends AbstractDelegatingIterator<E> {
-	public static IEntityIteratorInstrumentation instrumentation =
-			CompositeInstrumentation.instance;
-//			IdentityInstrumentation.instance;
+	public static IEntityIteratorInstrumentation instrumentation = CompositeInstrumentation.instance;
 
-	public static final IEntity MISSING_SOURCE_ENTITY = BindingManagerFactory.instance.createNull();//Value("<Source not available>");
+	public static final IEntity MISSING_SOURCE_ENTITY = BindingManagerFactory.instance.createNull();
 
 	public InstrumentingIterator(IEntityIterator<E> iterator) {
 		super(iterator);

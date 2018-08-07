@@ -57,7 +57,6 @@ import org.whole.lang.factories.RegistryConfigurations;
 import org.whole.lang.grammars.model.Grammar;
 import org.whole.lang.grammars.util.GrammarsUtils;
 import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.java.codebase.JavaClassTemplateFactory;
 import org.whole.lang.java.model.CompilationUnit;
 import org.whole.lang.java.util.JavaReflectUtils;

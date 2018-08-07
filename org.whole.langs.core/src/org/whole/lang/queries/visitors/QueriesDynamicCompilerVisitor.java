@@ -1280,10 +1280,6 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 				.withSourceEntity(entity));
 	}
 
-	public void visitExpression(Expression entity) {
-		setResultIterator(iteratorFactory().templateInterpreterIterator(entity).withSourceEntity(entity));
-	}
-
 	protected IEntityIterator<?> compile(Expression entity) {
 		entity.accept(this);
 		return getResultIterator();
