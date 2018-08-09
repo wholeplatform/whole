@@ -17,47 +17,18 @@
  */
 package org.whole.lang.iterators;
 
+import java.util.Iterator;
+
 import org.whole.lang.bindings.IBindingScope;
-import org.whole.lang.bindings.NullScope;
-import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.model.IEntity;
 
 /**
  * @author Riccardo Solmi
  */
-public class FailureIterator<E extends IEntity> extends AbstractCloneableIteratorWithDelegatingEvaluator<E> {
-	protected final Throwable failure;
-
-	protected FailureIterator(Throwable failure) {
-		this.failure = failure;
-	}
-
-	public void reset(IEntity entity) {
-	}
-
-	public IBindingScope lookaheadScope() {
-		return NullScope.instance;
-	}
-
-	public boolean hasNext() {
-		return true;
-	}
-	public E lookahead() {
-		throw IWholeRuntimeException.asWholeException(failure, getSourceEntity(), null);
-	}
-	public E next() {
-		throw IWholeRuntimeException.asWholeException(failure, getSourceEntity(), null);
-	}
-
-	public void prune() {
-	}
-	public void set(E entity) {
-		throw new IllegalStateException(failure);
-	}
-	public void add(E entity) {
-		throw new IllegalStateException(failure);
-	}
-	public void remove() {
-		throw new IllegalStateException(failure);
-	}
+public interface IJavaIterator<E extends IEntity> extends Iterator<E>, Iterable<E> {
+//	public boolean hasNext();
+//	public E next();
+	public E lookahead();
+	public IBindingScope lookaheadScope();
 }
+

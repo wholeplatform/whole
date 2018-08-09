@@ -27,7 +27,7 @@ import org.whole.lang.util.EntityUtils;
 /**
  * @author Riccardo Solmi
  */
-public class SelfIterator<E extends IEntity> extends AbstractCloneableIterator<E> {
+public class SelfIterator<E extends IEntity> extends AbstractCloneableIteratorWithDelegatingEvaluator<E> {
     protected E entity;
     protected E resetEntity;
     protected E lastEntity;

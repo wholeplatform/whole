@@ -26,7 +26,7 @@ import org.whole.lang.model.IEntity;
 /**
  * @author Riccardo Solmi
  */
-public class EmptyIterator<E extends IEntity> extends AbstractCloneableIterator<E> {
+public class EmptyIterator<E extends IEntity> extends AbstractCloneableIteratorWithDelegatingEvaluator<E> {
 	public IBindingScope lookaheadScope() {
 		return NullScope.instance;
 	}

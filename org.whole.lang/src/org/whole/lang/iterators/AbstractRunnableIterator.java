@@ -33,7 +33,7 @@ import org.whole.lang.util.WholeMessages;
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractRunnableIterator<E extends IEntity> extends AbstractCloneableIterator<E> {
+public abstract class AbstractRunnableIterator<E extends IEntity> extends AbstractCloneableIteratorWithDelegatingEvaluator<E> {
 	protected IEntity selfEntity;
 	protected IEntityIterator<? extends IEntity>[] argsIterators;
 	protected Set<Integer> optionalArgsIndexSet;

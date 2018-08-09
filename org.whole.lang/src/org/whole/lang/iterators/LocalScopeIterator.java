@@ -31,7 +31,7 @@ import org.whole.lang.operations.ICloneContext;
 /**
  * @author Riccardo Solmi
  */
-public class LocalScopeIterator<E extends IEntity> extends AbstractCloneableIterator<E> {
+public class LocalScopeIterator<E extends IEntity> extends AbstractCloneableIteratorWithDelegatingEvaluator<E> {
 	private IBindingManager queryBindings;
 	private Set<String> localNames;
 	private IEntityIterator<E> scopeIterator;

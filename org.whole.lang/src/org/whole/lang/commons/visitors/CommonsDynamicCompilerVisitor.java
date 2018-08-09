@@ -94,7 +94,6 @@ public class CommonsDynamicCompilerVisitor extends CommonsIdentityDefaultVisitor
 			return;
 		}
 
-//		setResultIterator(new InstrumentingIterator<IEntity>(iteratorFactory().templateInterpreterIterator(entity)).withSourceEntity(entity));
 		setResultIterator(iteratorFactory().templateInterpreterIterator(entity).withSourceEntity(entity));
 	}
 
@@ -132,7 +131,6 @@ public class CommonsDynamicCompilerVisitor extends CommonsIdentityDefaultVisitor
 				fragmentIterator = getResultIterator();
 			} else
 				setResultIterator(fragmentIterator = 
-//						new InstrumentingIterator<IEntity>(iteratorFactory().templateInterpreterIterator(f)).withSourceEntity(sourceEntity));
 						iteratorFactory().templateInterpreterIterator(f).withSourceEntity(sourceEntity));
 
 			fragmentIteratorMap.put(f, getResultIterator());
@@ -160,7 +158,6 @@ public class CommonsDynamicCompilerVisitor extends CommonsIdentityDefaultVisitor
 											CommonsEntityDescriptorEnum.Variable.getURI(),
 											CommonsEntityDescriptorEnum.InlineVariable.getURI()))),
 							f.constantIterator(rootEntity, false))),
-//			new InstrumentingIterator<IEntity>(f.templateInterpreterIterator(fragment)).withSourceEntity(sourceEntity)//TODO f.constantIterator(fragment, true)
 			f.templateInterpreterIterator(fragment).withSourceEntity(sourceEntity)//TODO f.constantIterator(fragment, true)
 		).withSourceEntity(sourceEntity);
 

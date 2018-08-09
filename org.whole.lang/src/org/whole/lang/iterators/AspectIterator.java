@@ -29,7 +29,7 @@ import org.whole.lang.reflect.FeatureDescriptor;
 /**
  * @author Riccardo Solmi
  */
-public class AspectIterator extends AbstractCloneableIterator<IEntity> {
+public class AspectIterator extends AbstractCloneableIteratorWithDelegatingEvaluator<IEntity> {
 	protected IEntity entity;
 	protected Iterator<FeatureDescriptor> aspectualFeatureDescriptorIterator;
 	protected FeatureDescriptor nextFeatureDescriptor;

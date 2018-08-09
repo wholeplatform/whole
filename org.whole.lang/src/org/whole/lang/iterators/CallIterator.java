@@ -33,7 +33,7 @@ import org.whole.lang.util.ResourceUtils;
 /**
  * @author Riccardo Solmi
  */
-public class CallIterator<E extends IEntity>  extends AbstractCloneableIterator<E> {
+public class CallIterator<E extends IEntity>  extends AbstractCloneableIteratorWithDelegatingEvaluator<E> {
 	private IBindingManager queryBindings;
 	protected String queryName;
 	protected IEntity parameters; //Names

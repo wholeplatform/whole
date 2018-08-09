@@ -17,13 +17,8 @@
  */
 package org.whole.lang.iterators;
 
-import java.util.Iterator;
-
-import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.bindings.IBindingScope;
-import org.whole.lang.bindings.ITransactionScope;
-import org.whole.lang.exceptions.IWholeRuntimeException;
+import org.whole.lang.evaluators.IEvaluator;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.operations.ICloneable;
@@ -32,7 +27,7 @@ import org.whole.lang.reflect.ISourceable;
 /**
  * @author Riccardo Solmi
  */
-public interface IEntityIterator<E extends IEntity> extends Iterator<E>, Iterable<E>, ICloneable, ISourceable {
+public interface IEntityIterator<E extends IEntity> extends IJavaIterator<E>, IEvaluator<E>, ICloneable, ISourceable {
 	public IEntityIterator<E> withSourceEntity(IEntity entity);
 
 	public IEntityIterator<E> clone();
@@ -42,9 +37,6 @@ public interface IEntityIterator<E extends IEntity> extends Iterator<E>, Iterabl
 	public void setBindings(IBindingManager bindings);
 	public void reset(IEntity entity);
 
-	public E next();
-	public E lookahead();
-	public IBindingScope lookaheadScope();
 	public void prune();
 
 	public void set(E entity);
@@ -56,79 +48,5 @@ public interface IEntityIterator<E extends IEntity> extends Iterator<E>, Iterabl
 
 	public default IEntityIterator<E> specificIterator() {
 		return this instanceof InstrumentingIterator ? ((InstrumentingIterator<E>) this).getIterator() : this;
-	}
-
-	public default boolean tryEvaluateAsBoolean(IEntity selfEntity, IBindingManager bm) {
-		try {
-			return evaluate(selfEntity, bm).wBooleanValue();
-        } catch (Throwable e) {
-            throw IWholeRuntimeException.asWholeException(e, getSourceEntity(), bm);
-        }
-	}
-
-	public default E evaluate(IEntity self, IBindingManager bm) {
-		IEntity oldSelfEntity = bm.wGet(IBindingManager.SELF);
-
-		bm.wDef(IBindingManager.SELF, self);
-		setBindings(bm);
-		reset(self);
-
-		E result = evaluateRemaining();
-
-		if (oldSelfEntity == null && bm.wGet(IBindingManager.SELF) == self)
-			bm.wUnset(IBindingManager.SELF);
-
-		return result;
-	}
-	public default E evaluateFirst(IEntity self, IBindingManager bm) {
-		IEntity oldSelfEntity = bm.wGet(IBindingManager.SELF);
-    	
-		bm.wDef(IBindingManager.SELF, self);
-		setBindings(bm);
-		reset(self);
-
-		E result = evaluateNext();
-
-		if (oldSelfEntity == null && bm.wGet(IBindingManager.SELF) == self)
-			bm.wUnset(IBindingManager.SELF);
-
-		return result;
-	}
-	public default E evaluateNext() {
-		return hasNext() ? next() : null;
-	}
-	public default E evaluateRemaining() {
-		E result = null;
-		IBindingManager bm = getBindings();
-		ITransactionScope resettableScope = BindingManagerFactory.instance.createTransactionScope();
-		bm.wEnterScope(resettableScope);
-		try {
-			while (hasNext()) {
-				bm.setResult(result = next());
-				resettableScope.commit();
-			}
-		} finally {
-			resettableScope.rollback();
-			bm.wExitScope();
-		}
-		return result;
-	}
-	public default E evaluateSingleton() {
-		E result = null;
-		IBindingManager bm = getBindings();
-		ITransactionScope resettableScope = BindingManagerFactory.instance.createTransactionScope();
-		bm.wEnterScope(resettableScope);
-		try {
-			if (hasNext()) {
-				bm.setResult(result = next());
-				resettableScope.commit();
-			}
-			if (result == null || hasNext())
-				throw new IllegalArgumentException("The result is not a singleton");
-		} finally {
-			resettableScope.rollback();
-			bm.wExitScope();
-		}
-		return result;
 	}
 }

@@ -28,7 +28,7 @@ import org.whole.lang.operations.InterpreterOperation;
 /**
  * @author Riccardo Solmi
  */
-public class TemplateInterpreterIterator<E extends IEntity> extends AbstractCloneableIterator<E> {
+public class TemplateInterpreterIterator<E extends IEntity> extends AbstractCloneableIteratorWithDelegatingEvaluator<E> {
 	protected IEntity resetEntity;
 	protected IEntity pattern;
 	protected IEntityIterator<E> nextEntityIterator;

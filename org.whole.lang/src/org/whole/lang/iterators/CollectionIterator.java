@@ -28,7 +28,7 @@ import org.whole.lang.util.IDataTypeWrapper;
 /**
  * @author Riccardo Solmi
  */
-public class CollectionIterator<E extends IEntity> extends AbstractCloneableIterator<E> {
+public class CollectionIterator<E extends IEntity> extends AbstractCloneableIteratorWithDelegatingEvaluator<E> {
 	protected Iterable<?> collectionIterable;
 	protected Iterator<?> collectionIterator;
 	protected IDataTypeWrapper elementWrapper;

@@ -45,7 +45,7 @@ public abstract class AbstractCloneableIterator<E extends IEntity> implements IE
 	@SuppressWarnings("unchecked")
 	public IEntityIterator<E> clone(ICloneContext cc) {
 		try {
-			AbstractCloneableIterator<E> iterator = (AbstractCloneableIterator<E>) super.clone();
+			AbstractCloneableIteratorWithDelegatingEvaluator<E> iterator = (AbstractCloneableIteratorWithDelegatingEvaluator<E>) super.clone();
 			cc.putClone(this, iterator);
 			return iterator;
 		} catch (CloneNotSupportedException e) {

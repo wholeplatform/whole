@@ -28,7 +28,7 @@ import org.whole.lang.operations.ICloneContext;
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractProductIterator<E extends IEntity> extends AbstractCloneableIterator<E> {
+public abstract class AbstractProductIterator<E extends IEntity> extends AbstractCloneableIteratorWithDelegatingEvaluator<E> {
 	private IBindingScope lookaheadScope;
 	protected IEntityIterator<? extends IEntity>[] iterators;
 	protected IEntity initialEntity;

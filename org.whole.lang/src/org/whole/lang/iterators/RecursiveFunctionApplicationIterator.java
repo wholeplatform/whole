@@ -28,7 +28,7 @@ import org.whole.lang.operations.ICloneContext;
 /**
  * @author Riccardo Solmi
  */
-public class RecursiveFunctionApplicationIterator extends AbstractCloneableIterator<IEntity> {
+public class RecursiveFunctionApplicationIterator extends AbstractCloneableIteratorWithDelegatingEvaluator<IEntity> {
 	protected boolean lazyReset = true;
 	protected IEntity resetEntity = null;
 	protected IEntityIterator<IEntity> functionIterator;

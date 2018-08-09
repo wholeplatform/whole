@@ -28,7 +28,7 @@ import org.whole.lang.operations.ICloneContext;
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractTransitiveClosureIterator<E extends IEntity> extends AbstractCloneableIterator<E> {
+public abstract class AbstractTransitiveClosureIterator<E extends IEntity> extends AbstractCloneableIteratorWithDelegatingEvaluator<E> {
 	protected List<IEntityIterator<E>> iteratorStack = new ArrayList<IEntityIterator<E>>(16);
 	protected IEntityIterator<E> lastIterator;
 	protected E lastEntity;

@@ -27,7 +27,7 @@ import org.whole.lang.resources.FunctionLibraryRegistry;
 /**
  * @author Riccardo Solmi
  */
-public class FunctionApplicationIterator extends AbstractCloneableIterator<IEntity> {
+public class FunctionApplicationIterator extends AbstractCloneableIteratorWithDelegatingEvaluator<IEntity> {
 	protected String functionUri;
 	private IEntityIterator<IEntity> functionIterator;
 	private boolean lazyReset;

@@ -26,14 +26,14 @@ import java.util.NoSuchElementException;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.commons.factories.CommonsEntityFactory;
-import org.whole.lang.iterators.AbstractCloneableIterator;
+import org.whole.lang.iterators.AbstractCloneableIteratorWithDelegatingEvaluator;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.sql.factories.SQLEntityFactory;
 
 /**
  * @author Riccardo Solmi
  */
-public class ResultSetIterator extends AbstractCloneableIterator<IEntity> {
+public class ResultSetIterator extends AbstractCloneableIteratorWithDelegatingEvaluator<IEntity> {
 	private ResultSet resultSet;
 	private IEntity nextEntity = null;
 	private String[] labels;

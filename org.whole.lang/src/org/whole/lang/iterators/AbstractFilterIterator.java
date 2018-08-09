@@ -27,7 +27,7 @@ import org.whole.lang.util.EntityUtils;
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractFilterIterator<E extends IEntity> extends AbstractCloneableIterator<E> {
+public abstract class AbstractFilterIterator<E extends IEntity> extends AbstractCloneableIteratorWithDelegatingEvaluator<E> {
 	protected IEntityIterator<E> iterator;
 	private int nextIndex = 0;
 	private E nextEntity = null;

@@ -15,32 +15,21 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.iterators;
+package org.whole.lang.evaluators;
 
+import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.operations.ICloneContext;
 
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractLazyCloneableIterator<E extends IEntity> extends AbstractCloneableIteratorWithDelegatingEvaluator<E> {
-	private ICloneContext cloneContext;
-	protected IEntity resetEntity;
+public interface IEvaluator<E extends IEntity> {
+	public E evaluate(IEntity self, IBindingManager bm);
+	public E evaluateFirst(IEntity self, IBindingManager bm);
+	public E evaluateNext();
+	public E evaluateRemaining();
 
-	@Override
-	public IEntityIterator<E> clone(ICloneContext cc) {
-		AbstractLazyCloneableIterator<E> iterator = (AbstractLazyCloneableIterator<E>) super.clone(cc);
-		iterator.cloneContext = cc;
-		cloneContext = cc.getPrototypeCloneContext();
-		return iterator;
-	}
-
-	protected ICloneContext getCloneContext() {
-		return cloneContext;
-	}
-	protected void updateCloneContext() {
-		if (isLazyCloneEmpty())
-			cloneContext = null;
-	}
-	protected abstract boolean isLazyCloneEmpty();
+	public boolean tryEvaluateAsBoolean(IEntity selfEntity, IBindingManager bm);
+	public E evaluateSingleton();
 }
+

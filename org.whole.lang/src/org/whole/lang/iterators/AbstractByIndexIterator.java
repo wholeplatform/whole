@@ -29,7 +29,7 @@ import org.whole.lang.util.EntityUtils;
  * 
  * @author Riccardo Solmi
  */
-public abstract class AbstractByIndexIterator<E extends IEntity> extends AbstractCloneableIterator<E> {
+public abstract class AbstractByIndexIterator<E extends IEntity> extends AbstractCloneableIteratorWithDelegatingEvaluator<E> {
 	protected IEntity entity; //parent
 	protected int nextIndex;
 	protected int lastIndex = -1;

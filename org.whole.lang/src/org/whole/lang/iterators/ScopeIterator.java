@@ -30,7 +30,7 @@ import org.whole.lang.operations.ICloneContext;
 /**
  * @author Riccardo Solmi
  */
-public class ScopeIterator<E extends IEntity> extends AbstractCloneableIterator<E> {
+public class ScopeIterator<E extends IEntity> extends AbstractCloneableIteratorWithDelegatingEvaluator<E> {
 	private IBindingManager queryBindings;
 	private String environmentName;
 	private Set<String> localNames;
