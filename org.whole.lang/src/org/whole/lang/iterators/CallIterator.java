@@ -25,6 +25,7 @@ import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.bindings.INestableScope;
 import org.whole.lang.bindings.NullScope;
+import org.whole.lang.executables.AbstractExecutableIteratingEvaluatingProducer;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.DynamicCompilerOperation;
 import org.whole.lang.operations.ICloneContext;
@@ -33,7 +34,7 @@ import org.whole.lang.util.ResourceUtils;
 /**
  * @author Riccardo Solmi
  */
-public class CallIterator<E extends IEntity>  extends AbstractCloneableIteratorWithDelegatingEvaluator<E> {
+public class CallIterator<E extends IEntity>  extends AbstractExecutableIteratingEvaluatingProducer<E> {
 	private IBindingManager queryBindings;
 	protected String queryName;
 	protected IEntity parameters; //Names

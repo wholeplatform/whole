@@ -15,33 +15,16 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.iterators;
+package org.whole.lang.producers;
 
-import org.whole.lang.executables.AbstractExecutableIteratingEvaluatingProducer;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.operations.ICloneContext;
 
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractLazyCloneableIterator<E extends IEntity> extends AbstractExecutableIteratingEvaluatingProducer<E> {
-	private ICloneContext cloneContext;
-	protected IEntity resetEntity;
-
-	@Override
-	public IEntityIterator<E> clone(ICloneContext cc) {
-		AbstractLazyCloneableIterator<E> iterator = (AbstractLazyCloneableIterator<E>) super.clone(cc);
-		iterator.cloneContext = cc;
-		cloneContext = cc.getPrototypeCloneContext();
-		return iterator;
-	}
-
-	protected ICloneContext getCloneContext() {
-		return cloneContext;
-	}
-	protected void updateCloneContext() {
-		if (isLazyCloneEmpty())
-			cloneContext = null;
-	}
-	protected abstract boolean isLazyCloneEmpty();
+public interface IControlFlowProducer {
+	public void reset(IEntity entity);
+	public void callNext();
+	public void callRemaining();
 }
+

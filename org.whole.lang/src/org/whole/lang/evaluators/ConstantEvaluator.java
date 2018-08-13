@@ -15,49 +15,45 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.iterators;
+package org.whole.lang.evaluators;
 
-import org.whole.lang.bindings.IBindingScope;
-import org.whole.lang.bindings.NullScope;
-import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Riccardo Solmi
  */
-public class FailureIterator<E extends IEntity> extends AbstractCloneableIteratorWithDelegatingEvaluator<E> {
-	protected final Throwable failure;
+public class ConstantEvaluator<E extends IEntity> extends AbstractPureConditionalSupplierEvaluator<E> {
+	protected E constant;
+    protected E nextConstant;
+    protected boolean useClone;
 
-	protected FailureIterator(Throwable failure) {
-		this.failure = failure;
+	public ConstantEvaluator(E constant, boolean useClone) {
+		this.useClone = useClone;
+		this.constant = useClone ? EntityUtils.cloneIfParented(constant) : constant;
 	}
 
+	@Override
 	public void reset(IEntity entity) {
+		super.reset(entity);
+		nextConstant = null;
 	}
 
-	public IBindingScope lookaheadScope() {
-		return NullScope.instance;
+	public E get() {
+		if (nextConstant == null)
+			nextConstant = useClone ? EntityUtils.clone(constant) : constant;
+		return nextConstant;
 	}
 
+	@Override
 	public boolean hasNext() {
-		return true;
-	}
-	public E lookahead() {
-		throw IWholeRuntimeException.asWholeException(failure, getSourceEntity(), null);
-	}
-	public E next() {
-		throw IWholeRuntimeException.asWholeException(failure, getSourceEntity(), null);
+		return !isEvaluated;
 	}
 
-	public void prune() {
-	}
-	public void set(E entity) {
-		throw new IllegalStateException(failure);
-	}
-	public void add(E entity) {
-		throw new IllegalStateException(failure);
-	}
-	public void remove() {
-		throw new IllegalStateException(failure);
-	}
+    @Override
+	public void toString(StringBuilder sb) {
+		sb.append("constant(");
+		sb.append(constant.toString());
+		sb.append(")");
+    }
 }

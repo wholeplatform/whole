@@ -17,20 +17,44 @@
  */
 package org.whole.lang.evaluators;
 
-import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.visitors.MissingVariableException;
 
 /**
  * @author Riccardo Solmi
  */
-public interface IEvaluator<E extends IEntity> {
-	public E evaluateNext();
-	public E evaluateRemaining();
+public abstract class AbstractVariableEvaluator<E extends IEntity> extends AbstractPureConditionalSupplierEvaluator<E> {
+	protected String varName;
 
-	public E evaluate(IEntity self, IBindingManager bm);
-	public E evaluateFirst(IEntity self, IBindingManager bm);
+	protected AbstractVariableEvaluator(String varName) {
+		this.varName = varName;
+	}
 
-	public boolean tryEvaluateAsBoolean(IEntity self, IBindingManager bm);
-	public E evaluateSingleton();
+	protected abstract boolean isSetVariable();
+	protected abstract E getVariable();
+	protected abstract void setVariable(E entity);
+
+	public E get() {
+		E value = getVariable();
+		if (value == null)
+			throw new MissingVariableException(varName).withSourceEntity(getSourceEntity()).withBindings(getBindings());
+		return value;
+	}
+
+	@Override
+	public boolean hasNext() {
+		return !isEvaluated && isSetVariable();
+	}
+
+	@Override
+	public void set(E entity) {
+		super.set(entity);
+		setVariable(entity);
+	}
+
+	@Override
+	public void toString(StringBuilder sb) {
+		sb.append("$");
+		sb.append(varName);
+	}
 }
-

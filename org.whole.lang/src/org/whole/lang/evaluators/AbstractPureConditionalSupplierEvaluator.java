@@ -15,49 +15,74 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.iterators;
+package org.whole.lang.evaluators;
 
 import java.util.NoSuchElementException;
+import java.util.function.Supplier;
 
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.bindings.NullScope;
-import org.whole.lang.executables.AbstractExecutableIteratingEvaluatingProducer;
+import org.whole.lang.executables.AbstractExecutableEvaluatingProducer;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Riccardo Solmi
  */
-public class SelfIterator<E extends IEntity> extends AbstractExecutableIteratingEvaluatingProducer<E> {
-    protected E entity;
-    protected E resetEntity;
+public abstract class AbstractPureConditionalSupplierEvaluator<E extends IEntity> extends AbstractExecutableEvaluatingProducer<E> implements Supplier<E> {
+    protected boolean isEvaluated;
+	protected IEntity selfEntity;
     protected E lastEntity;
 
+	public void reset(IEntity entity) {
+		isEvaluated = false;
+        selfEntity = entity;
+		lastEntity = null;
+    }
+
+	public abstract E get();
+
+	public boolean hasNext() {
+		return !(isEvaluated || EntityUtils.isNull(selfEntity));
+	}
+
+	public E next() {
+		E nextEntity = evaluateNext();
+		if (nextEntity == null)
+			throw new NoSuchElementException();
+
+		return nextEntity;
+	}
+
+	public E lookahead() {
+		return hasNext() ? get() : null;
+	}
 	public IBindingScope lookaheadScope() {
 		return NullScope.instance;
 	}
 
-	public boolean hasNext() {
-        return entity != null && !EntityUtils.isNull(entity);
-    }
-	public E next() {
-    	E result = lookahead();
-    	if (result == null)
-        	throw new NoSuchElementException();
+	public E evaluateNext() {
+		if (hasNext()) {
+			isEvaluated = true;
 
-    	entity = null;
-    	return lastEntity = result;
+			return lastEntity = get();
+		} else
+			return null;
 	}
 
-    public E lookahead() {
-    	return hasNext() ? entity : null;
-    }
+	@Override
+	public E evaluateRemaining() {
+		return evaluateNext();
+	}
 
-    @SuppressWarnings("unchecked")
-	public void reset(IEntity entity) {
-        this.entity = resetEntity = (E) entity;
-		lastEntity = null;
-    }
+	@Override
+	public E evaluateSingleton() {
+		if (hasNext())
+			return evaluateNext();
+		else
+			throw new IllegalArgumentException("The result is not a singleton");
+	}
+
 
     public void prune() {
     }
@@ -87,9 +112,4 @@ public class SelfIterator<E extends IEntity> extends AbstractExecutableIterating
     		lastEntity.wGetParent().wRemove(lastEntity);
     	lastEntity = null;
 	}
-
-    @Override
-	public void toString(StringBuilder sb) {
-		sb.append("self()");
-    }
 }

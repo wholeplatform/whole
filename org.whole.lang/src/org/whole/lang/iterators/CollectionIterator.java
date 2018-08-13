@@ -21,6 +21,7 @@ import java.util.Iterator;
 
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.bindings.NullScope;
+import org.whole.lang.executables.AbstractExecutableIteratingEvaluatingProducer;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.util.IDataTypeWrapper;
@@ -28,7 +29,7 @@ import org.whole.lang.util.IDataTypeWrapper;
 /**
  * @author Riccardo Solmi
  */
-public class CollectionIterator<E extends IEntity> extends AbstractCloneableIteratorWithDelegatingEvaluator<E> {
+public class CollectionIterator<E extends IEntity> extends AbstractExecutableIteratingEvaluatingProducer<E> {
 	protected Iterable<?> collectionIterable;
 	protected Iterator<?> collectionIterator;
 	protected IDataTypeWrapper elementWrapper;

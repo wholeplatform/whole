@@ -19,6 +19,7 @@ package org.whole.lang.iterators;
 
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
+import org.whole.lang.bindings.NullScope;
 import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
@@ -49,7 +50,7 @@ public abstract class AbstractMultiValuedRunnableIterator<E extends IEntity> ext
 
 	@Override
 	public IBindingScope lookaheadScope() {
-		return resultIterator != null ? resultIterator.lookaheadScope() : super.lookaheadScope();
+		return resultIterator != null ? resultIterator.lookaheadScope() : NullScope.instance;
 	}
 
 	protected IEntityIterator<E> getResultIterator() {

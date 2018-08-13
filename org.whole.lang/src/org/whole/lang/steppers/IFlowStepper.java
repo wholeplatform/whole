@@ -15,22 +15,15 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.evaluators;
+package org.whole.lang.steppers;
 
-import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.model.IEntity;
+import org.whole.lang.operations.ICloneable;
+import org.whole.lang.producers.IControlFlowProducer;
+import org.whole.lang.reflect.ISourceable;
 
 /**
  * @author Riccardo Solmi
  */
-public interface IEvaluator<E extends IEntity> {
-	public E evaluateNext();
-	public E evaluateRemaining();
-
-	public E evaluate(IEntity self, IBindingManager bm);
-	public E evaluateFirst(IEntity self, IBindingManager bm);
-
-	public boolean tryEvaluateAsBoolean(IEntity self, IBindingManager bm);
-	public E evaluateSingleton();
+public interface IFlowStepper extends IControlFlowProducer, IDataFlowConsumer, ICloneable, ISourceable {
 }
 

@@ -22,6 +22,7 @@ import java.util.NoSuchElementException;
 
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.bindings.NullScope;
+import org.whole.lang.executables.AbstractExecutableIteratingEvaluatingProducer;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.reflect.FeatureDescriptor;
@@ -29,7 +30,7 @@ import org.whole.lang.reflect.FeatureDescriptor;
 /**
  * @author Riccardo Solmi
  */
-public class AspectIterator extends AbstractCloneableIteratorWithDelegatingEvaluator<IEntity> {
+public class AspectIterator extends AbstractExecutableIteratingEvaluatingProducer<IEntity> {
 	protected IEntity entity;
 	protected Iterator<FeatureDescriptor> aspectualFeatureDescriptorIterator;
 	protected FeatureDescriptor nextFeatureDescriptor;

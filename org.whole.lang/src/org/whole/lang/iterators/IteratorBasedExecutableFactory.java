@@ -24,15 +24,15 @@ import org.whole.lang.bindings.AbstractFilterScope;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
-import org.whole.lang.commons.factories.CommonsEntityFactory;
 import org.whole.lang.commons.model.Variable;
 import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
 import org.whole.lang.commons.visitors.CommonsInterpreterVisitor;
 import org.whole.lang.comparators.IEntityComparator;
 import org.whole.lang.comparators.ObjectIdentityComparator;
+import org.whole.lang.executables.EmptyExecutable;
+import org.whole.lang.executables.FailureExecutable;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.model.InternalIEntity;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.reflect.CompositeKinds;
 import org.whole.lang.reflect.DataKinds;
@@ -50,13 +50,13 @@ import org.whole.lang.util.ResourceUtils;
  * 
  * @author Riccardo Solmi
  */
-public class RegularIteratorFactory implements IteratorFactory {
+public class IteratorBasedExecutableFactory implements IteratorFactory {
 	public <E extends IEntity> IEntityIterator<E> emptyIterator() {
-		return new EmptyIterator<E>();
+		return new EmptyExecutable<E>();
 	}
 
 	public <E extends IEntity> IEntityIterator<E> failureIterator(Throwable failure) {
-		return new FailureIterator<E>(failure);
+		return new FailureExecutable<E>(failure);
 	}
 
 	public <E extends IEntity> IEntityIterator<E> variableIterator(String varName) {
@@ -69,12 +69,6 @@ public class RegularIteratorFactory implements IteratorFactory {
 	public <E extends IEntity> IEntityIterator<E> constantIterator(E constant, boolean useClone) {
 		return new ConstantIterator<E>(constant, useClone);
 	}
-	public <E extends IEntity> IEntityIterator<E> constantChildIterator(IEntity constant) {
-		return new ConstantChildIterator<E>(true, constant);
-	}
-	public <E extends IEntity> IEntityIterator<E> constantComposeIterator(IEntity constant, IEntityIterator<E> iterator) {
-		return new ConstantComposeIterator<E>(constant, iterator);
-	}
 	public <E extends IEntity> IEntityIterator<E> constantSubstituteIterator(E constant, boolean useClone) {
 		return new ConstantIterator<E>(constant, useClone) {
 			@Override
@@ -84,6 +78,12 @@ public class RegularIteratorFactory implements IteratorFactory {
 				return pattern;
 			}
 		};
+	}
+	public <E extends IEntity> IEntityIterator<E> constantChildIterator(IEntity constant) {
+		return new ConstantChildIterator<E>(true, constant);
+	}
+	public <E extends IEntity> IEntityIterator<E> constantComposeIterator(IEntity constant, IEntityIterator<E> iterator) {
+		return new ConstantComposeIterator<E>(constant, iterator);
 	}
 
 	public <E extends IEntity> IEntityIterator<E> entityCollectionIterator(Iterable<E> entityCollectionIterable) {
@@ -1305,7 +1305,7 @@ public class RegularIteratorFactory implements IteratorFactory {
 		return cloneReplacingIterator(childMappingIterator, null);
 	}
 	public IEntityIterator<?> cloneReplacingIterator(IEntityIterator<?> childMappingIterator, Set<String> shallowUriSet) {
-		if (childMappingIterator.specificIterator() instanceof EmptyIterator) {
+		if (childMappingIterator.specificIterator() instanceof EmptyExecutable) {
 			return new AbstractSingleValuedRunnableIterator<IEntity>() {
 				protected void run(IEntity selfEntity, IBindingManager bm) {
 					bm.setResult(EntityUtils.clone(selfEntity));
@@ -1313,82 +1313,5 @@ public class RegularIteratorFactory implements IteratorFactory {
 			};
 		} else
 			return new CloneReplacingIterator(shallowUriSet, childMappingIterator);
-	}
-
-	public static class CloneReplacingIterator extends AbstractSingleValuedRunnableIterator<IEntity> {
-		private final Set<String> shallowUriSet;
-
-		private CloneReplacingIterator(Set<String> shallowUriSet, IEntityIterator<?>... argsIterators) {
-			super(argsIterators);
-			this.shallowUriSet = shallowUriSet;
-		}
-
-		protected void run(IEntity selfEntity, IBindingManager bm) {
-			IEntity oldSelfEntity = bm.wGet(IBindingManager.SELF);
-			bm.setResult(deepClone(selfEntity, bm));
-			if (bm.wGet(IBindingManager.SELF) != oldSelfEntity)
-				if (oldSelfEntity != null)
-					bm.wDef(IBindingManager.SELF, oldSelfEntity);
-//				else
-//					bm.wUnset(IBindingManager.SELF);
-		}
-
-		protected IEntity deepClone(IEntity selfEntity, IBindingManager bm) {
-			//TODO add scope with entityCloneMap
-
-			EntityDescriptor<?> ed = selfEntity.wGetEntityDescriptor();
-			boolean isComposite = ed.getEntityKind().isComposite();
-
-			IEntity entityClone = ((InternalIEntity) selfEntity).wShallowClone();
-			((InternalIEntity) entityClone).wShallowClean();
-
-			for (int index=0, size=selfEntity.wSize(); index<size; index++) {
-				IEntity childPrototype = selfEntity.wGet(index);
-
-				if (keepCloning(childPrototype)) {
-					IEntity childClone = deepClone(childPrototype, bm);
-					if (isComposite)
-						entityClone.wAdd(childClone);
-					else
-						entityClone.wSet(index, childClone);							
-				} else {
-					FeatureDescriptor childFeatureDescriptor = entityClone.wGetFeatureDescriptor(index);
-					bm.wDef(IBindingManager.SELF, childPrototype);
-					argsIterators[0].reset(childPrototype);
-
-					if (isComposite) {
-						for (IEntity childClone : argsIterators[0])
-							if (!BindingManagerFactory.instance.isVoid(childClone))
-								entityClone.wAdd(EntityUtils.convertCloneIfReparenting(childClone, childFeatureDescriptor));
-					} else {
-						IEntity lastChildClone = null;
-						for (IEntity childClone : argsIterators[0])
-							if (!BindingManagerFactory.instance.isVoid(childClone))
-								lastChildClone = childClone;
-						entityClone.wSet(index, lastChildClone != null ?
-								EntityUtils.convertCloneIfReparenting(lastChildClone, childFeatureDescriptor) :
-								CommonsEntityFactory.instance.createResolver());
-					}							
-				}
-			}
-			//TODO clone references
-			//TODO clone aspects
-
-			return entityClone;
-		}
-
-		protected boolean keepCloning(IEntity childPrototype) {
-			if (shallowUriSet == null)
-				return false;
-			else {
-				String childUri = childPrototype.wGetEntityDescriptor().getURI();
-				return !shallowUriSet.contains(childUri);
-			}
-		}
-
-		public void toString(StringBuilder sb) {
-			sb.append("clone");
-			super.toString(sb);
-		}
 	}
 }

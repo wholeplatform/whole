@@ -15,51 +15,35 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.iterators;
+package org.whole.lang.evaluators;
 
-import java.util.NoSuchElementException;
-
-import org.whole.lang.bindings.IBindingScope;
-import org.whole.lang.bindings.NullScope;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.util.BindingUtils;
 
 /**
  * @author Riccardo Solmi
  */
-public class EmptyIterator<E extends IEntity> extends AbstractCloneableIteratorWithDelegatingEvaluator<E> {
-	public IBindingScope lookaheadScope() {
-		return NullScope.instance;
+public class OuterVariableEvaluator<E extends IEntity> extends AbstractVariableEvaluator<E> {
+	public OuterVariableEvaluator(String varName) {
+		super(varName);
 	}
 
-    public boolean hasNext() {
-        return false;
-    }
-	public E next() {
-       	throw new NoSuchElementException();
+	protected boolean isSetVariable() {
+		return BindingUtils.wOuterScope(BindingUtils.getEnvironment(getBindings(), varName), false).wIsSet(BindingUtils.getVariableName(varName));
 	}
 
-    public E lookahead() {
-       	return null;
-    }
-
-    public void reset(IEntity entity) {
-    }
-
-	public void prune() {
+	@SuppressWarnings("unchecked")
+	protected E getVariable() {
+		return (E) BindingUtils.wOuterScope(BindingUtils.getEnvironment(getBindings(), varName), false).wGet(BindingUtils.getVariableName(varName));
 	}
 
-	public void set(E value) {
-		throw new UnsupportedOperationException();
+	protected void setVariable(E entity) {
+		BindingUtils.wOuterScope(BindingUtils.getEnvironment(getBindings(), varName), false).wSet(BindingUtils.getVariableName(varName), entity);
 	}
-	public void add(E value) {
-		throw new UnsupportedOperationException();
-	}
-	public void remove() {
-		throw new UnsupportedOperationException();
-	}
-
-    @Override
+	
+	@Override
 	public void toString(StringBuilder sb) {
-		sb.append("empty()");
-    }
+		sb.append("^");
+		super.toString(sb);
+	}
 }

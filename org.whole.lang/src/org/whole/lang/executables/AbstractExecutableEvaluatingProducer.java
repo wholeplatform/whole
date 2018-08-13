@@ -15,33 +15,31 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.iterators;
+package org.whole.lang.executables;
 
-import org.whole.lang.executables.AbstractExecutableIteratingEvaluatingProducer;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.operations.ICloneContext;
 
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractLazyCloneableIterator<E extends IEntity> extends AbstractExecutableIteratingEvaluatingProducer<E> {
-	private ICloneContext cloneContext;
-	protected IEntity resetEntity;
-
-	@Override
-	public IEntityIterator<E> clone(ICloneContext cc) {
-		AbstractLazyCloneableIterator<E> iterator = (AbstractLazyCloneableIterator<E>) super.clone(cc);
-		iterator.cloneContext = cc;
-		cloneContext = cc.getPrototypeCloneContext();
-		return iterator;
+public abstract class AbstractExecutableEvaluatingProducer<E extends IEntity> extends AbstractExecutable<E> {
+	public void callNext() {
+		IEntity entity = null;
+		if ((entity = evaluateNext()) != null) {
+			//TODO if first  getConsumer().doBegin();
+			getConsumer().doNext(entity);
+		} else
+			getConsumer().doEnd();
 	}
 
-	protected ICloneContext getCloneContext() {
-		return cloneContext;
+	public void callRemaining() {
+		//TODO if first  getConsumer().doBegin();
+		
+		IEntity entity = null;
+		while ((entity = evaluateNext()) != null) {
+			getConsumer().doNext(entity);
+		}
+		getConsumer().doEnd();
 	}
-	protected void updateCloneContext() {
-		if (isLazyCloneEmpty())
-			cloneContext = null;
-	}
-	protected abstract boolean isLazyCloneEmpty();
 }
+

@@ -15,33 +15,28 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.iterators;
+package org.whole.lang.evaluators;
 
-import org.whole.lang.executables.AbstractExecutableIteratingEvaluatingProducer;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.operations.ICloneContext;
 
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractLazyCloneableIterator<E extends IEntity> extends AbstractExecutableIteratingEvaluatingProducer<E> {
-	private ICloneContext cloneContext;
-	protected IEntity resetEntity;
-
-	@Override
-	public IEntityIterator<E> clone(ICloneContext cc) {
-		AbstractLazyCloneableIterator<E> iterator = (AbstractLazyCloneableIterator<E>) super.clone(cc);
-		iterator.cloneContext = cc;
-		cloneContext = cc.getPrototypeCloneContext();
-		return iterator;
+public class LocalVariableEvaluator<E extends IEntity> extends AbstractVariableEvaluator<E> {
+	public LocalVariableEvaluator(String varName) {
+		super(varName);
 	}
 
-	protected ICloneContext getCloneContext() {
-		return cloneContext;
+	protected boolean isSetVariable() {
+		return getBindings().wIsSet(varName);
 	}
-	protected void updateCloneContext() {
-		if (isLazyCloneEmpty())
-			cloneContext = null;
+
+	@SuppressWarnings("unchecked")
+	protected E getVariable() {
+		return (E) getBindings().wGet(varName);
 	}
-	protected abstract boolean isLazyCloneEmpty();
+	
+	protected void setVariable(E entity) {
+		getBindings().wSet(varName, entity);
+	}
 }

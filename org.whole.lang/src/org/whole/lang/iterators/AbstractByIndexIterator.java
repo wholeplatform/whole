@@ -21,6 +21,7 @@ import java.util.NoSuchElementException;
 
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.bindings.NullScope;
+import org.whole.lang.executables.AbstractExecutableIteratingEvaluatingProducer;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.util.EntityUtils;
 
@@ -29,7 +30,7 @@ import org.whole.lang.util.EntityUtils;
  * 
  * @author Riccardo Solmi
  */
-public abstract class AbstractByIndexIterator<E extends IEntity> extends AbstractCloneableIteratorWithDelegatingEvaluator<E> {
+public abstract class AbstractByIndexIterator<E extends IEntity> extends AbstractExecutableIteratingEvaluatingProducer<E> {
 	protected IEntity entity; //parent
 	protected int nextIndex;
 	protected int lastIndex = -1;

@@ -22,13 +22,14 @@ import java.util.List;
 
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.bindings.NullScope;
+import org.whole.lang.executables.AbstractExecutableIteratingEvaluatingProducer;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractTransitiveClosureIterator<E extends IEntity> extends AbstractCloneableIteratorWithDelegatingEvaluator<E> {
+public abstract class AbstractTransitiveClosureIterator<E extends IEntity> extends AbstractExecutableIteratingEvaluatingProducer<E> {
 	protected List<IEntityIterator<E>> iteratorStack = new ArrayList<IEntityIterator<E>>(16);
 	protected IEntityIterator<E> lastIterator;
 	protected E lastEntity;

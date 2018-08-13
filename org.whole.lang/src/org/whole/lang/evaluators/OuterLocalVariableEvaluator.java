@@ -15,33 +15,35 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.iterators;
+package org.whole.lang.evaluators;
 
-import org.whole.lang.executables.AbstractExecutableIteratingEvaluatingProducer;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.operations.ICloneContext;
+import org.whole.lang.util.BindingUtils;
 
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractLazyCloneableIterator<E extends IEntity> extends AbstractExecutableIteratingEvaluatingProducer<E> {
-	private ICloneContext cloneContext;
-	protected IEntity resetEntity;
+public class OuterLocalVariableEvaluator<E extends IEntity> extends AbstractVariableEvaluator<E> {
+	public OuterLocalVariableEvaluator(String varName) {
+		super(varName);
+	}
 
+	protected boolean isSetVariable() {
+		return BindingUtils.wOuterScope(getBindings(), false).wIsSet(varName);
+	}
+
+	@SuppressWarnings("unchecked")
+	protected E getVariable() {
+		return (E) BindingUtils.wOuterScope(getBindings(), false).wGet(varName);
+	}
+	
+	protected void setVariable(E entity) {
+		BindingUtils.wOuterScope(getBindings(), false).wSet(varName, entity);
+	}
+	
 	@Override
-	public IEntityIterator<E> clone(ICloneContext cc) {
-		AbstractLazyCloneableIterator<E> iterator = (AbstractLazyCloneableIterator<E>) super.clone(cc);
-		iterator.cloneContext = cc;
-		cloneContext = cc.getPrototypeCloneContext();
-		return iterator;
+	public void toString(StringBuilder sb) {
+		sb.append("^");
+		super.toString(sb);
 	}
-
-	protected ICloneContext getCloneContext() {
-		return cloneContext;
-	}
-	protected void updateCloneContext() {
-		if (isLazyCloneEmpty())
-			cloneContext = null;
-	}
-	protected abstract boolean isLazyCloneEmpty();
 }

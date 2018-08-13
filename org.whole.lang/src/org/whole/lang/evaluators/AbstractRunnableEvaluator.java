@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.iterators;
+package org.whole.lang.evaluators;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -24,7 +24,8 @@ import java.util.stream.Collectors;
 
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.exceptions.WholeIllegalArgumentException;
-import org.whole.lang.executables.AbstractExecutableIteratingEvaluatingProducer;
+import org.whole.lang.executables.AbstractExecutableEvaluatingProducerIterator;
+import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.util.WholeMessages;
@@ -32,24 +33,24 @@ import org.whole.lang.util.WholeMessages;
 /**
  * @author Riccardo Solmi
  * 
- * TODO keep same as AbstractRunnableEvaluator
+ *  TODO keep same as AbstractRunnableIterator
  */
-public abstract class AbstractRunnableIterator<E extends IEntity> extends AbstractExecutableIteratingEvaluatingProducer<E> {
+public abstract class AbstractRunnableEvaluator<E extends IEntity> extends AbstractExecutableEvaluatingProducerIterator<E> {
 	protected IEntity selfEntity;
 	protected IEntityIterator<? extends IEntity>[] argsIterators;
 	protected Set<Integer> optionalArgsIndexSet;
 
-	protected AbstractRunnableIterator(IEntityIterator<?>... argsIterators) {
+	protected AbstractRunnableEvaluator(IEntityIterator<?>... argsIterators) {
 		optionalArgsIndexSet = Collections.emptySet();
 		this.argsIterators = argsIterators;
 	}
-	protected AbstractRunnableIterator(int[] optionalArgsIndexes, IEntityIterator<?>... argsIterators) {
+	protected AbstractRunnableEvaluator(int[] optionalArgsIndexes, IEntityIterator<?>... argsIterators) {
 		optionalArgsIndexSet = Arrays.stream(optionalArgsIndexes).boxed().collect(Collectors.toSet());
 		this.argsIterators = argsIterators;
 	}
 
 	public IEntityIterator<E> clone(ICloneContext cc) {
-		AbstractRunnableIterator<E> iterator = (AbstractRunnableIterator<E>) super.clone(cc);
+		AbstractRunnableEvaluator<E> iterator = (AbstractRunnableEvaluator<E>) super.clone(cc);
 		if (argsIterators != null) {
 			iterator.argsIterators = argsIterators.clone();
 			for (int i=0; i<argsIterators.length; i++)
@@ -59,6 +60,7 @@ public abstract class AbstractRunnableIterator<E extends IEntity> extends Abstra
 	}
 
 	public void reset(IEntity entity) {
+		super.reset(entity);
         selfEntity = entity;
         resetArguments(entity);
     }

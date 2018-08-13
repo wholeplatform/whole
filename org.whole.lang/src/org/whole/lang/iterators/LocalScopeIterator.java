@@ -25,13 +25,14 @@ import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.bindings.INestableScope;
+import org.whole.lang.executables.AbstractExecutableIteratingEvaluatingProducer;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 
 /**
  * @author Riccardo Solmi
  */
-public class LocalScopeIterator<E extends IEntity> extends AbstractCloneableIteratorWithDelegatingEvaluator<E> {
+public class LocalScopeIterator<E extends IEntity> extends AbstractExecutableIteratingEvaluatingProducer<E> {
 	private IBindingManager queryBindings;
 	private Set<String> localNames;
 	private IEntityIterator<E> scopeIterator;

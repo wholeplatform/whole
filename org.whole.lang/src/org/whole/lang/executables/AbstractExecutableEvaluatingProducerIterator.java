@@ -15,56 +15,64 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.evaluators;
+package org.whole.lang.executables;
 
 import java.util.NoSuchElementException;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingScope;
-import org.whole.lang.iterators.AbstractCloneableIterator;
 import org.whole.lang.model.IEntity;
 
 /**
  * @author Riccardo Solmi
+ * 
+ * TODO keep same code in the two classes except declaration line
  */
-public abstract class AbstractCloneableEvaluatorWithDelegatingIterator<E extends IEntity> extends AbstractCloneableIterator<E> {
-	private boolean isEvaluated;
+//public abstract class AbstractExecutableProducingEvaluatingIterator<E extends IEntity> extends AbstractExecutableProducingEvaluator<E> {
+public abstract class AbstractExecutableEvaluatingProducerIterator<E extends IEntity> extends AbstractExecutableEvaluatingProducer<E> {
+	private boolean lookaheadIsCached;
 	private IBindingScope lookaheadScope;
 	protected E lookaheadEntity;
     protected E lastEntity;
 
     public void reset(IEntity entity) {
-    	isEvaluated = false;
+    	lookaheadIsCached = false;
 		lastEntity = null;
 		lookaheadEntity = null;
 		clearLookaheadScope();
    }
 
-	public boolean hasNext() {
-		cachedEvaluateNext();
-		return lookaheadEntity != null;
+	public final boolean hasNext() {
+		return cachedEvaluateNext() != null;
 	}
 
-	public E next() {
-		cachedEvaluateNext();
-		if (lookaheadEntity == null)
+	public final E next() {
+		E nextEntity = cachedEvaluateNext();
+		if (nextEntity == null)
 			throw new NoSuchElementException();
 
     	getBindings().wAddAll(lookaheadScope());
-		return lastEntity = lookaheadEntity;
+
+    	lookaheadEntity = null;
+		return lastEntity = nextEntity;
 	}
 
-	public E lookahead() {
-		cachedEvaluateNext();
-		return lookaheadEntity;
+	public final E lookahead() {
+		return cachedEvaluateNext();
 	}
-	protected void cachedEvaluateNext() {
-		if (!isEvaluated) {
-			isEvaluated = true;
+	protected E cachedEvaluateNext() {
+		if (!lookaheadIsCached) {
+			lookaheadIsCached = true;
+			
 			getBindings().wEnterScope(lookaheadScope(), true);
+
+			E cachedLastEntity = lastEntity;
 			lookaheadEntity = evaluateNext();
+			lastEntity = cachedLastEntity;
+
 			getBindings().wExitScope();
 		}
+		return lookaheadEntity;
 	}
 
 	public IBindingScope lookaheadScope() {
@@ -79,6 +87,5 @@ public abstract class AbstractCloneableEvaluatorWithDelegatingIterator<E extends
 			lookaheadScope.wClear();
 		}
 	}
-
 }
 

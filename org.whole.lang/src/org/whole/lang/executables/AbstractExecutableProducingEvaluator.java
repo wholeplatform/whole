@@ -15,33 +15,39 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.iterators;
+package org.whole.lang.executables;
 
-import org.whole.lang.executables.AbstractExecutableIteratingEvaluatingProducer;
+import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.operations.ICloneContext;
+import org.whole.lang.steppers.IDataFlowConsumer;
 
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractLazyCloneableIterator<E extends IEntity> extends AbstractExecutableIteratingEvaluatingProducer<E> {
-	private ICloneContext cloneContext;
-	protected IEntity resetEntity;
+public abstract class AbstractExecutableProducingEvaluator<E extends IEntity> extends AbstractExecutable<E> implements IDataFlowConsumer {
+	protected E nextEntity;
 
-	@Override
-	public IEntityIterator<E> clone(ICloneContext cc) {
-		AbstractLazyCloneableIterator<E> iterator = (AbstractLazyCloneableIterator<E>) super.clone(cc);
-		iterator.cloneContext = cc;
-		cloneContext = cc.getPrototypeCloneContext();
-		return iterator;
+	public AbstractExecutableProducingEvaluator() {
+		consumer = this;
+	}
+	public IEntityIterator<E> withConsumer(IDataFlowConsumer consumer) {
+		//FIXME replace with composite consumer if needed
+		throw new UnsupportedOperationException();
 	}
 
-	protected ICloneContext getCloneContext() {
-		return cloneContext;
+	public final E evaluateNext() {
+		callNext();
+		return nextEntity;
 	}
-	protected void updateCloneContext() {
-		if (isLazyCloneEmpty())
-			cloneContext = null;
+
+	public void doBegin(int size) {
 	}
-	protected abstract boolean isLazyCloneEmpty();
+	@SuppressWarnings("unchecked")
+	public void doNext(IEntity entity) {
+		nextEntity = (E) entity;
+	}
+	public void doEnd() {
+		nextEntity = null;
+	}
 }
+

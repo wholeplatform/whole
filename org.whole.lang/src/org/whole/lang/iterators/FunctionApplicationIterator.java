@@ -20,6 +20,7 @@ package org.whole.lang.iterators;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.bindings.NullScope;
 import org.whole.lang.exceptions.WholeIllegalArgumentException;
+import org.whole.lang.executables.AbstractExecutableIteratingEvaluatingProducer;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.resources.FunctionLibraryRegistry;
@@ -27,7 +28,7 @@ import org.whole.lang.resources.FunctionLibraryRegistry;
 /**
  * @author Riccardo Solmi
  */
-public class FunctionApplicationIterator extends AbstractCloneableIteratorWithDelegatingEvaluator<IEntity> {
+public class FunctionApplicationIterator extends AbstractExecutableIteratingEvaluatingProducer<IEntity> {
 	protected String functionUri;
 	private IEntityIterator<IEntity> functionIterator;
 	private boolean lazyReset;

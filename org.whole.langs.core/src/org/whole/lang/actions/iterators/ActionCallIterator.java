@@ -21,7 +21,7 @@ import org.whole.lang.actions.resources.ActionsRegistry;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.bindings.NullScope;
-import org.whole.lang.iterators.AbstractCloneableIteratorWithDelegatingEvaluator;
+import org.whole.lang.executables.AbstractExecutableIteratingEvaluatingProducer;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
@@ -29,7 +29,7 @@ import org.whole.lang.operations.ICloneContext;
 /**
  * @author Riccardo Solmi
  */
-public class ActionCallIterator extends AbstractCloneableIteratorWithDelegatingEvaluator<IEntity>{
+public class ActionCallIterator extends AbstractExecutableIteratingEvaluatingProducer<IEntity>{
 	protected String functionUri;
 	private IEntityIterator<IEntity> functionIterator;
 	private IEntityIterator<?>[] argsIterators;

@@ -15,48 +15,17 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.iterators;
+package org.whole.lang.executables;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.ITransactionScope;
-import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.model.IEntity;
 
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractCloneableIteratorWithDelegatingEvaluator<E extends IEntity> extends AbstractCloneableIterator<E> {
-	public final E evaluate(IEntity self, IBindingManager bm) {
-		IEntity oldSelfEntity = bm.wGet(IBindingManager.SELF);
-
-		bm.wDef(IBindingManager.SELF, self);
-		setBindings(bm);
-		reset(self);
-
-		E result = evaluateRemaining();
-
-		if (oldSelfEntity == null && bm.wGet(IBindingManager.SELF) == self)
-			bm.wUnset(IBindingManager.SELF);
-
-		return result;
-	}
-
-	public final E evaluateFirst(IEntity self, IBindingManager bm) {
-		IEntity oldSelfEntity = bm.wGet(IBindingManager.SELF);
-    	
-		bm.wDef(IBindingManager.SELF, self);
-		setBindings(bm);
-		reset(self);
-
-		E result = evaluateNext();
-
-		if (oldSelfEntity == null && bm.wGet(IBindingManager.SELF) == self)
-			bm.wUnset(IBindingManager.SELF);
-
-		return result;
-	}
-
+public abstract class AbstractExecutableIteratingEvaluatingProducer<E extends IEntity> extends AbstractExecutableEvaluatingProducer<E> {
 	public final E evaluateNext() {
 		return hasNext() ? next() : null;
 	}
@@ -78,12 +47,16 @@ public abstract class AbstractCloneableIteratorWithDelegatingEvaluator<E extends
 		return result;
 	}
 
-	public final boolean tryEvaluateAsBoolean(IEntity selfEntity, IBindingManager bm) {
-		try {
-			return evaluate(selfEntity, bm).wBooleanValue();
-        } catch (Throwable e) {
-            throw IWholeRuntimeException.asWholeException(e, getSourceEntity(), bm);
-        }
+	public final E evaluate(IEntity self, IBindingManager bm) {
+		return super.evaluate(self, bm);
+	}
+
+	public final E evaluateFirst(IEntity self, IBindingManager bm) {
+		return super.evaluateFirst(self, bm);
+	}
+
+	public final boolean tryEvaluateAsBoolean(IEntity self, IBindingManager bm) {
+		return super.tryEvaluateAsBoolean(self, bm);
 	}
 
 	public final E evaluateSingleton() {

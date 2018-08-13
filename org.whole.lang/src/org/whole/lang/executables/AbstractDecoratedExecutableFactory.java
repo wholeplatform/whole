@@ -15,12 +15,19 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.iterators;
+package org.whole.lang.executables;
 
 import java.util.Map;
 import java.util.Set;
 
 import org.whole.lang.comparators.IEntityComparator;
+import org.whole.lang.iterators.DistinctScope;
+import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.iterators.InstrumentingIterator;
+import org.whole.lang.iterators.IteratorFactory;
+import org.whole.lang.iterators.MatcherIterator;
+import org.whole.lang.iterators.Placement;
+import org.whole.lang.iterators.ScannerIterator;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.CompositeKinds;
 import org.whole.lang.reflect.DataKinds;
@@ -33,267 +40,267 @@ import org.whole.lang.util.IRunnable;
 /**
  * @author Riccardo Solmi
  */
-public class InstrumentedIteratorFactory implements IteratorFactory {
+public class AbstractDecoratedExecutableFactory implements IteratorFactory {
 	IteratorFactory factory = IteratorFactory.regularInstance;
 
-	protected <E extends IEntity> IEntityIterator<E> instrument(IEntityIterator<E> iterator) {
+	protected <E extends IEntity> IEntityIterator<E> decorate(IEntityIterator<E> iterator) {
 		return new InstrumentingIterator<E>(iterator);
 	}
 
 	public <E extends IEntity> IEntityIterator<E> emptyIterator() {
-		return instrument(factory.emptyIterator());
+		return decorate(factory.emptyIterator());
 	}
 
 	public <E extends IEntity> IEntityIterator<E> failureIterator(Throwable failure) {
-		return instrument(factory.failureIterator(failure));
+		return decorate(factory.failureIterator(failure));
 	}
 
 	public <E extends IEntity> IEntityIterator<E> variableIterator(String varName) {
-		return instrument(factory.variableIterator(varName));
+		return decorate(factory.variableIterator(varName));
 	}
 
 	public <E extends IEntity> IEntityIterator<E> outerVariableIterator(String varName) {
-		return instrument(factory.outerVariableIterator(varName));
+		return decorate(factory.outerVariableIterator(varName));
 	}
 
 	public <E extends IEntity> IEntityIterator<E> constantIterator(E constant, boolean useClone) {
-		return instrument(factory.constantIterator(constant, useClone));
+		return decorate(factory.constantIterator(constant, useClone));
 	}
 
 	public <E extends IEntity> IEntityIterator<E> constantChildIterator(IEntity constant) {
-		return instrument(factory.constantChildIterator(constant));
+		return decorate(factory.constantChildIterator(constant));
 	}
 
 	public <E extends IEntity> IEntityIterator<E> constantComposeIterator(IEntity constant, IEntityIterator<E> iterator) {
-		return instrument(factory.constantComposeIterator(constant, iterator));
+		return decorate(factory.constantComposeIterator(constant, iterator));
 	}
 
 	public <E extends IEntity> IEntityIterator<E> constantSubstituteIterator(E constant, boolean useClone) {
-		return instrument(factory.constantSubstituteIterator(constant, useClone));
+		return decorate(factory.constantSubstituteIterator(constant, useClone));
 	}
 
 	public <E extends IEntity> IEntityIterator<E> entityCollectionIterator(Iterable<E> entityCollectionIterable) {
-		return instrument(factory.entityCollectionIterator(entityCollectionIterable));
+		return decorate(factory.entityCollectionIterator(entityCollectionIterable));
 	}
 
 	public <E extends IEntity> IEntityIterator<E> javaCollectionIterator(Iterable<?> collectionIterable) {
-		return instrument(factory.javaCollectionIterator(collectionIterable));
+		return decorate(factory.javaCollectionIterator(collectionIterable));
 	}
 
 	public <E extends IEntity> IEntityIterator<E> collectionIterator(Iterable<?> collectionIterable,
 			IDataTypeWrapper elementWrapper) {
-		return instrument(factory.collectionIterator(collectionIterable, elementWrapper));
+		return decorate(factory.collectionIterator(collectionIterable, elementWrapper));
 	}
 
 	public <E extends IEntity> IEntityIterator<E> singleValuedRunnableIterator(IRunnable runnable) {
-		return instrument(factory.singleValuedRunnableIterator(runnable));
+		return decorate(factory.singleValuedRunnableIterator(runnable));
 	}
 
 	public <E extends IEntity> IEntityIterator<E> singleValuedRunnableIterator(IRunnable runnable,
 			IEntityIterator<?>... argsIterators) {
-		return instrument(factory.singleValuedRunnableIterator(runnable, argsIterators));
+		return decorate(factory.singleValuedRunnableIterator(runnable, argsIterators));
 	}
 
 	public <E extends IEntity> IEntityIterator<E> singleValuedRunnableIterator(IRunnable runnable,
 			int[] optionalArgsIndexes, IEntityIterator<?>... argsIterators) {
-		return instrument(factory.singleValuedRunnableIterator(runnable, optionalArgsIndexes, argsIterators));
+		return decorate(factory.singleValuedRunnableIterator(runnable, optionalArgsIndexes, argsIterators));
 	}
 
 	public <E extends IEntity> IEntityIterator<E> multiValuedRunnableIterator(IRunnable runnable,
 			IEntityIterator<?>... argsIterators) {
-		return instrument(factory.multiValuedRunnableIterator(runnable, argsIterators));
+		return decorate(factory.multiValuedRunnableIterator(runnable, argsIterators));
 	}
 
 	public <E extends IEntity> IEntityIterator<E> multiValuedRunnableIterator(IRunnable runnable,
 			int[] optionalArgsIndexes, IEntityIterator<?>... argsIterators) {
-		return instrument(factory.multiValuedRunnableIterator(runnable, optionalArgsIndexes, argsIterators));
+		return decorate(factory.multiValuedRunnableIterator(runnable, optionalArgsIndexes, argsIterators));
 	}
 
 	public IEntityIterator<IEntity> aspectIterator() {
-		return instrument(factory.aspectIterator());
+		return decorate(factory.aspectIterator());
 	}
 
 	public <E extends IEntity> IEntityIterator<E> selfIterator() {
-		return instrument(factory.selfIterator());
+		return decorate(factory.selfIterator());
 	}
 
 	public <E extends IEntity> IEntityIterator<E> repeatedSelfIterator() {
-		return instrument(factory.repeatedSelfIterator());
+		return decorate(factory.repeatedSelfIterator());
 	}
 
 	public IEntityIterator<IEntity> rootIterator() {
-		return instrument(factory.rootIterator());
+		return decorate(factory.rootIterator());
 	}
 
 	public IEntityIterator<IEntity> fragmentRootIterator() {
-		return instrument(factory.fragmentRootIterator());
+		return decorate(factory.fragmentRootIterator());
 	}
 
 	public <E extends IEntity> IEntityIterator<E> parentIterator() {
-		return instrument(factory.parentIterator());
+		return decorate(factory.parentIterator());
 	}
 
 	public <E extends IEntity> IEntityIterator<E> ancestorIterator() {
-		return instrument(factory.ancestorIterator());
+		return decorate(factory.ancestorIterator());
 	}
 
 	public <E extends IEntity> IEntityIterator<E> ancestorOrSelfIterator() {
-		return instrument(factory.ancestorOrSelfIterator());
+		return decorate(factory.ancestorOrSelfIterator());
 	}
 
 	public IEntityIterator<IEntity> ancestorReverseIterator() {
-		return instrument(factory.ancestorReverseIterator());
+		return decorate(factory.ancestorReverseIterator());
 	}
 
 	public IEntityIterator<IEntity> ancestorOrSelfReverseIterator() {
-		return instrument(factory.ancestorOrSelfReverseIterator());
+		return decorate(factory.ancestorOrSelfReverseIterator());
 	}
 
 	public IEntityIterator<IEntity> inverseAdjacentIterator() {
-		return instrument(factory.inverseAdjacentIterator());
+		return decorate(factory.inverseAdjacentIterator());
 	}
 
 	public IEntityIterator<IEntity> inverseReachableIterator(boolean includeSelf) {
-		return instrument(factory.inverseReachableIterator(includeSelf));
+		return decorate(factory.inverseReachableIterator(includeSelf));
 	}
 
 	public IEntityIterator<IEntity> inverseReachableIterator(boolean includeSelf,
 			DistinctScope<IEntity> distinctScope) {
-		return instrument(factory.inverseReachableIterator(includeSelf, distinctScope));
+		return decorate(factory.inverseReachableIterator(includeSelf, distinctScope));
 	}
 
 	public IEntityIterator<IEntity> featureByNameIterator(String fdUri) {
-		return instrument(factory.featureByNameIterator(fdUri));
+		return decorate(factory.featureByNameIterator(fdUri));
 	}
 
 	public IEntityIterator<IEntity> featureByNameIterator(FeatureDescriptor fd) {
-		return instrument(factory.featureByNameIterator(fd));
+		return decorate(factory.featureByNameIterator(fd));
 	}
 
 	public IEntityIterator<IEntity> featureByIndexIterator(int relativeIndex) {
-		return instrument(factory.featureByIndexIterator(relativeIndex));
+		return decorate(factory.featureByIndexIterator(relativeIndex));
 	}
 
 	public <E extends IEntity> IEntityIterator<E> childIterator() {
-		return instrument(factory.childIterator());
+		return decorate(factory.childIterator());
 	}
 
 	public <E extends IEntity> IEntityIterator<E> childIterator(int relativeFirstIndex) {
-		return instrument(factory.childIterator(relativeFirstIndex));
+		return decorate(factory.childIterator(relativeFirstIndex));
 	}
 
 	public <E extends IEntity> IEntityIterator<E> childReverseIterator() {
-		return instrument(factory.childReverseIterator());
+		return decorate(factory.childReverseIterator());
 	}
 
 	public <E extends IEntity> IEntityIterator<E> childReverseIterator(int relativeFirstIndex) {
-		return instrument(factory.childReverseIterator(relativeFirstIndex));
+		return decorate(factory.childReverseIterator(relativeFirstIndex));
 	}
 
 	public <E extends IEntity> IEntityIterator<E> childRangeIterator(int relativeStartIndex, int relativeEndIndex) {
-		return instrument(factory.childRangeIterator(relativeStartIndex, relativeEndIndex));
+		return decorate(factory.childRangeIterator(relativeStartIndex, relativeEndIndex));
 	}
 
 	public <E extends IEntity> IEntityIterator<E> descendantIterator() {
-		return instrument(factory.descendantIterator());
+		return decorate(factory.descendantIterator());
 	}
 
 	public <E extends IEntity> IEntityIterator<E> descendantReverseIterator() {
-		return instrument(factory.descendantReverseIterator());
+		return decorate(factory.descendantReverseIterator());
 	}
 
 	public <E extends IEntity> IEntityIterator<E> descendantOrSelfIterator() {
-		return instrument(factory.descendantOrSelfIterator());
+		return decorate(factory.descendantOrSelfIterator());
 	}
 
 	public <E extends IEntity> IEntityIterator<E> descendantOrSelfReverseIterator() {
-		return instrument(factory.descendantOrSelfReverseIterator());
+		return decorate(factory.descendantOrSelfReverseIterator());
 	}
 
 	public <E extends IEntity> IEntityIterator<E> followingSiblingIterator() {
-		return instrument(factory.followingSiblingIterator());
+		return decorate(factory.followingSiblingIterator());
 	}
 
 	public <E extends IEntity> IEntityIterator<E> followingSiblingReverseIterator() {
-		return instrument(factory.followingSiblingReverseIterator());
+		return decorate(factory.followingSiblingReverseIterator());
 	}
 
 	public <E extends IEntity> IEntityIterator<E> precedingSiblingIterator() {
-		return instrument(factory.precedingSiblingIterator());
+		return decorate(factory.precedingSiblingIterator());
 	}
 
 	public <E extends IEntity> IEntityIterator<E> precedingSiblingReverseIterator() {
-		return instrument(factory.precedingSiblingReverseIterator());
+		return decorate(factory.precedingSiblingReverseIterator());
 	}
 
 	public <E extends IEntity> IEntityIterator<E> followingSiblingOrSelfIterator() {
-		return instrument(factory.followingSiblingOrSelfIterator());
+		return decorate(factory.followingSiblingOrSelfIterator());
 	}
 
 	public <E extends IEntity> IEntityIterator<E> followingSiblingOrSelfReverseIterator() {
-		return instrument(factory.followingSiblingOrSelfReverseIterator());
+		return decorate(factory.followingSiblingOrSelfReverseIterator());
 	}
 
 	public <E extends IEntity> IEntityIterator<E> precedingSiblingOrSelfIterator() {
-		return instrument(factory.precedingSiblingOrSelfIterator());
+		return decorate(factory.precedingSiblingOrSelfIterator());
 	}
 
 	public <E extends IEntity> IEntityIterator<E> precedingSiblingOrSelfReverseIterator() {
-		return instrument(factory.precedingSiblingOrSelfReverseIterator());
+		return decorate(factory.precedingSiblingOrSelfReverseIterator());
 	}
 
 	public <E extends IEntity> IEntityIterator<E> followingIterator() {
-		return instrument(factory.followingIterator());
+		return decorate(factory.followingIterator());
 	}
 
 	public <E extends IEntity> IEntityIterator<E> precedingIterator() {
-		return instrument(factory.precedingIterator());
+		return decorate(factory.precedingIterator());
 	}
 
 	public <E extends IEntity> IEntityIterator<E> followingOrSelfIterator() {
-		return instrument(factory.followingOrSelfIterator());
+		return decorate(factory.followingOrSelfIterator());
 	}
 
 	public <E extends IEntity> IEntityIterator<E> precedingOrSelfIterator() {
-		return instrument(factory.precedingOrSelfIterator());
+		return decorate(factory.precedingOrSelfIterator());
 	}
 
 	public <E extends IEntity> IEntityIterator<E> adjacentIterator() {
-		return instrument(factory.adjacentIterator());
+		return decorate(factory.adjacentIterator());
 	}
 
 	public <E extends IEntity> IEntityIterator<E> adjacentIterator(int relativeFirstIndex) {
-		return instrument(factory.adjacentIterator(relativeFirstIndex));
+		return decorate(factory.adjacentIterator(relativeFirstIndex));
 	}
 
 	public <E extends IEntity> IEntityIterator<E> adjacentReverseIterator() {
-		return instrument(factory.adjacentReverseIterator());
+		return decorate(factory.adjacentReverseIterator());
 	}
 
 	public <E extends IEntity> IEntityIterator<E> reachableIterator(boolean includeSelf) {
-		return instrument(factory.reachableIterator(includeSelf));
+		return decorate(factory.reachableIterator(includeSelf));
 	}
 
 	public <E extends IEntity> IEntityIterator<E> reachableIterator(boolean includeSelf,
 			DistinctScope<E> distinctScope) {
-		return instrument(factory.reachableIterator(includeSelf, distinctScope));
+		return decorate(factory.reachableIterator(includeSelf, distinctScope));
 	}
 
 	public <E extends IEntity> IEntityIterator<E> childOrAdjacentIterator() {
-		return instrument(factory.childOrAdjacentIterator());
+		return decorate(factory.childOrAdjacentIterator());
 	}
 
 	public <E extends IEntity> IEntityIterator<E> childOrAdjacentIterator(int relativeFirstIndex) {
-		return instrument(factory.childOrAdjacentIterator(relativeFirstIndex));
+		return decorate(factory.childOrAdjacentIterator(relativeFirstIndex));
 	}
 
 	public <E extends IEntity> IEntityIterator<E> descendantOrReachableIterator() {
-		return instrument(factory.descendantOrReachableIterator());
+		return decorate(factory.descendantOrReachableIterator());
 	}
 
 	public <E extends IEntity> IEntityIterator<E> descendantOrReachableIterator(boolean includeSelf,
 			DistinctScope<E> distinctScope) {
-		return instrument(factory.descendantOrReachableIterator(includeSelf, distinctScope));
+		return decorate(factory.descendantOrReachableIterator(includeSelf, distinctScope));
 	}
 
 	public <E extends IEntity> ScannerIterator<E> scannerIterator(IEntityIterator<E> iterator) {
@@ -305,65 +312,65 @@ public class InstrumentedIteratorFactory implements IteratorFactory {
 	}
 
 	public <E extends IEntity> IEntityIterator<E> filterIterator(IEntityIterator<E> iterator, IEntityIterator<? extends IEntity> filterIterator) {
-		return instrument(factory.filterIterator(iterator, filterIterator));
+		return decorate(factory.filterIterator(iterator, filterIterator));
 	}
 
 	public IEntityIterator<IEntity> matchInScopeIterator(IEntityIterator<IEntity> patternIterator) {
-		return instrument(factory.matchInScopeIterator(patternIterator));
+		return decorate(factory.matchInScopeIterator(patternIterator));
 	}
 
 	public <E extends IEntity> IEntityIterator<E> ifIterator(IEntityIterator<? extends IEntity> conditionIterator,
 			IEntityIterator<E> doIterator) {
-		return instrument(factory.ifIterator(conditionIterator, doIterator));
+		return decorate(factory.ifIterator(conditionIterator, doIterator));
 	}
 
 	public <E extends IEntity> IEntityIterator<E> forIterator(IEntityIterator<? extends IEntity> forIterator,
 			IEntityIterator<E> doIterator) {
-		return instrument(factory.forIterator(forIterator, doIterator));
+		return decorate(factory.forIterator(forIterator, doIterator));
 	}
 
 	public IEntityIterator<IEntity> functionApplicationIterator(String functionUri) {
-		return instrument(factory.functionApplicationIterator(functionUri));
+		return decorate(factory.functionApplicationIterator(functionUri));
 	}
 
 	public IEntityIterator<IEntity> recursiveFunctionApplicationIterator() {
-		return instrument(factory.recursiveFunctionApplicationIterator());
+		return decorate(factory.recursiveFunctionApplicationIterator());
 	}
 
 	public <E extends IEntity> IEntityIterator<E> templateInterpreterIterator(IEntity template) {
-		return instrument(factory.templateInterpreterIterator(template));
+		return decorate(factory.templateInterpreterIterator(template));
 	}
 
 	public <E extends IEntity> IEntityIterator<E> chooseIterator(IEntityIterator<? extends E>... iteratorChain) {
-		return instrument(factory.chooseIterator(iteratorChain));
+		return decorate(factory.chooseIterator(iteratorChain));
 	}
 
 	public <E extends IEntity> IEntityIterator<E> chooseIterator(ILanguageKit languageKit) {
-		return instrument(factory.chooseIterator(languageKit));
+		return decorate(factory.chooseIterator(languageKit));
 	}
 
 	public <E extends IEntity> IEntityIterator<E> blockIterator(IEntityIterator<? extends E>... iteratorChain) {
-		return instrument(factory.blockIterator(iteratorChain));
+		return decorate(factory.blockIterator(iteratorChain));
 	}
 
 	public <E extends IEntity> IEntityIterator<E> sequenceIterator(IEntityIterator<? extends E>... iteratorChain) {
-		return instrument(factory.sequenceIterator(iteratorChain));
+		return decorate(factory.sequenceIterator(iteratorChain));
 	}
 
 	public <E extends IEntity> IEntityIterator<E> composeIterator(IEntityIterator<E> iterator, IEntityIterator<? extends IEntity>... nestedIterators) {
-		return instrument(factory.composeIterator(iterator, nestedIterators));
+		return decorate(factory.composeIterator(iterator, nestedIterators));
 	}
 
 	public <E extends IEntity> IEntityIterator<E> filterByIndexIterator(IEntityIterator<E> iterator, int index) {
-		return instrument(factory.filterByIndexIterator(iterator, index));
+		return decorate(factory.filterByIndexIterator(iterator, index));
 	}
 
 	public <E extends IEntity> IEntityIterator<E> filterByIndexRangeIterator(IEntityIterator<E> iterator, int startIndex, int endIndex) {
-		return instrument(factory.filterByIndexRangeIterator(iterator, startIndex, endIndex));
+		return decorate(factory.filterByIndexRangeIterator(iterator, startIndex, endIndex));
 	}
 
 	public <E extends IEntity> IEntityIterator<E> filterByIndexRangeIterator() {
-		return instrument(factory.filterByIndexRangeIterator());
+		return decorate(factory.filterByIndexRangeIterator());
 	}
 
 	public <E extends IEntity> DistinctScope<E> distinctScope() {
@@ -375,35 +382,35 @@ public class InstrumentedIteratorFactory implements IteratorFactory {
 	}
 
 	public <E extends IEntity> IEntityIterator<E> sort(IEntityIterator<E> iterator) {
-		return instrument(factory.sort(iterator));
+		return decorate(factory.sort(iterator));
 	}
 
 	public <E extends IEntity> IEntityIterator<E> sort(IEntityIterator<E> iterator, IEntityComparator<E> comparator) {
-		return instrument(factory.sort(iterator, comparator));
+		return decorate(factory.sort(iterator, comparator));
 	}
 
 	@SuppressWarnings("unchecked")
 	public IEntityIterator<IEntity> unionAllIterator(IEntityIterator<? extends IEntity>... iteratorChain) {
-		return instrument(factory.unionAllIterator(iteratorChain));
+		return decorate(factory.unionAllIterator(iteratorChain));
 	}
 
 	@SuppressWarnings("unchecked")
 	public IEntityIterator<IEntity> unionIterator(IEntityIterator<? extends IEntity>... iteratorChain) {
-		return instrument(factory.unionIterator(iteratorChain));
+		return decorate(factory.unionIterator(iteratorChain));
 	}
 
 	@SuppressWarnings("unchecked")
 	public IEntityIterator<IEntity> intersectIterator(IEntityIterator<? extends IEntity>... iteratorChain) {
-		return instrument(factory.intersectIterator(iteratorChain));
+		return decorate(factory.intersectIterator(iteratorChain));
 	}
 
 	@SuppressWarnings("unchecked")
 	public IEntityIterator<IEntity> exceptIterator(IEntityIterator<? extends IEntity>... iteratorChain) {
-		return instrument(factory.exceptIterator(iteratorChain));
+		return decorate(factory.exceptIterator(iteratorChain));
 	}
 
 	public <E extends IEntity> IEntityIterator<E> ancestorScannerIterator() {
-		return instrument(factory.ancestorScannerIterator());
+		return decorate(factory.ancestorScannerIterator());
 	}
 
 	public <E extends IEntity> ScannerIterator<E> childScannerIterator() {
@@ -447,222 +454,223 @@ public class InstrumentedIteratorFactory implements IteratorFactory {
 	}
 
 	public IEntityIterator<IEntity> atStageIterator(int stage) {
-		return instrument(factory.atStageIterator(stage));
+		return decorate(factory.atStageIterator(stage));
 	}
 
 	public IEntityIterator<IEntity> atHostStageIterator() {
-		return instrument(factory.atHostStageIterator());
+		return decorate(factory.atHostStageIterator());
 	}
 
 	public IEntityIterator<IEntity> atTemplateStageIterator() {
-		return instrument(factory.atTemplateStageIterator());
+		return decorate(factory.atTemplateStageIterator());
 	}
 
 	public IEntityIterator<IEntity> hasKindIterator(EntityKinds kind) {
-		return instrument(factory.hasKindIterator(kind));
+		return decorate(factory.hasKindIterator(kind));
 	}
 
 	public IEntityIterator<IEntity> hasCompositeKindIterator(CompositeKinds kind) {
-		return instrument(factory.hasCompositeKindIterator(kind));
+		return decorate(factory.hasCompositeKindIterator(kind));
 	}
 
 	public IEntityIterator<IEntity> hasDataKindIterator(DataKinds kind) {
-		return instrument(factory.hasDataKindIterator(kind));
+		return decorate(factory.hasDataKindIterator(kind));
 	}
 
 	public IEntityIterator<IEntity> isFragmentIterator() {
-		return instrument(factory.isFragmentIterator());
+		return decorate(factory.isFragmentIterator());
 	}
 
 	public IEntityIterator<IEntity> isVariableIterator() {
-		return instrument(factory.isVariableIterator());
+		return decorate(factory.isVariableIterator());
 	}
 
 	public IEntityIterator<IEntity> isResolverIterator() {
-		return instrument(factory.isResolverIterator());
+		return decorate(factory.isResolverIterator());
 	}
 
 	public IEntityIterator<IEntity> isImplIterator() {
-		return instrument(factory.isImplIterator());
+		return decorate(factory.isImplIterator());
 	}
 
 	public IEntityIterator<?> andIterator(IEntityIterator<?>... argsIterators) {
-		return instrument(factory.andIterator(argsIterators));
+		return decorate(factory.andIterator(argsIterators));
 	}
 
 	public IEntityIterator<?> orIterator(IEntityIterator<?>... argsIterators) {
-		return instrument(factory.orIterator(argsIterators));
+		return decorate(factory.orIterator(argsIterators));
 	}
 
 	public IEntityIterator<?> notIterator(IEntityIterator<?> argIterator) {
-		return instrument(factory.notIterator(argIterator));
+		return decorate(factory.notIterator(argIterator));
 	}
 
 	public IEntityIterator<IEntity> oneIterator(IEntityIterator<IEntity> fromClause,
 			IEntityIterator<IEntity> satisfiesClause) {
-		return instrument(factory.oneIterator(fromClause, satisfiesClause));
+		return decorate(factory.oneIterator(fromClause, satisfiesClause));
 	}
 
 	public IEntityIterator<IEntity> someIterator(IEntityIterator<IEntity> fromClause) {
-		return instrument(factory.someIterator(fromClause));
+		return decorate(factory.someIterator(fromClause));
 	}
 
 	public IEntityIterator<IEntity> someIterator(IEntityIterator<IEntity> fromClause, IEntityIterator<IEntity> satisfiesClause) {
-		return instrument(factory.someIterator(fromClause, satisfiesClause));
+		return decorate(factory.someIterator(fromClause, satisfiesClause));
 	}
 
 	public IEntityIterator<IEntity> everyIterator(IEntityIterator<IEntity> fromClause, IEntityIterator<IEntity> satisfiesClause) {
-		return instrument(factory.everyIterator(fromClause, satisfiesClause));
+		return decorate(factory.everyIterator(fromClause, satisfiesClause));
 	}
 
 	public IEntityIterator<IEntity> isLanguageIterator(String languageURI) {
-		return instrument(factory.isLanguageIterator(languageURI));
+		return decorate(factory.isLanguageIterator(languageURI));
 	}
 
 	public IEntityIterator<IEntity> hasTypeIterator(String typeUri) {
-		return instrument(factory.hasTypeIterator(typeUri));
+		return decorate(factory.hasTypeIterator(typeUri));
 	}
 
 	public IEntityIterator<IEntity> isLanguageSubtypeOfIterator(String typeUri) {
-		return instrument(factory.isLanguageSubtypeOfIterator(typeUri));
+		return decorate(factory.isLanguageSubtypeOfIterator(typeUri));
 	}
 
 	public IEntityIterator<IEntity> isLanguageSupertypeOfIterator(String typeUri) {
-		return instrument(factory.isLanguageSupertypeOfIterator(typeUri));
+		return decorate(factory.isLanguageSupertypeOfIterator(typeUri));
 	}
 
 	public IEntityIterator<IEntity> isExtendedLanguageSubtypeOfIterator(String typeUri) {
-		return instrument(factory.isExtendedLanguageSubtypeOfIterator(typeUri));
+		return decorate(factory.isExtendedLanguageSubtypeOfIterator(typeUri));
 	}
 
 	public IEntityIterator<IEntity> isExtendedLanguageSupertypeOfIterator(String typeUri) {
-		return instrument(factory.isExtendedLanguageSupertypeOfIterator(typeUri));
+		return decorate(factory.isExtendedLanguageSupertypeOfIterator(typeUri));
 	}
 
 	public IEntityIterator<IEntity> atTypeIterator(String edUri) {
-		return instrument(factory.atTypeIterator(edUri));
+		return decorate(factory.atTypeIterator(edUri));
 	}
 
 	public IEntityIterator<IEntity> atFeatureIterator(String fdUri) {
-		return instrument(factory.atFeatureIterator(fdUri));
+		return decorate(factory.atFeatureIterator(fdUri));
 	}
 
 	public IEntityIterator<IEntity> atIndexIterator(int index) {
-		return instrument(factory.atIndexIterator(index));
+		return decorate(factory.atIndexIterator(index));
 	}
 
 	public IEntityIterator<IEntity> asVariableIterator(String name) {
-		return instrument(factory.asVariableIterator(name));
+		return decorate(factory.asVariableIterator(name));
 	}
 
 	public IEntityIterator<IEntity> atStageVariableIterator(String name) {
-		return instrument(factory.atStageVariableIterator(name));
+		return decorate(factory.atStageVariableIterator(name));
 	}
 
 	public IEntityIterator<IEntity> languageVariableIterator(String name) {
-		return instrument(factory.languageVariableIterator(name));
+		return decorate(factory.languageVariableIterator(name));
 	}
 
 	public IEntityIterator<IEntity> typeVariableIterator(String name) {
-		return instrument(factory.typeVariableIterator(name));
+		return decorate(factory.typeVariableIterator(name));
 	}
 
 	public IEntityIterator<IEntity> languageSubtypeOfVariableIterator(String name) {
-		return instrument(factory.languageSubtypeOfVariableIterator(name));
+		return decorate(factory.languageSubtypeOfVariableIterator(name));
 	}
 
 	public IEntityIterator<IEntity> languageSupertypeOfVariableIterator(String name) {
-		return instrument(factory.languageSupertypeOfVariableIterator(name));
+		return decorate(factory.languageSupertypeOfVariableIterator(name));
 	}
 
 	public IEntityIterator<IEntity> extendedLanguageSubtypeOfVariableIterator(String name) {
-		return instrument(factory.extendedLanguageSubtypeOfVariableIterator(name));
+		return decorate(factory.extendedLanguageSubtypeOfVariableIterator(name));
 	}
 
 	public IEntityIterator<IEntity> extendedLanguageSupertypeOfVariableIterator(String name) {
-		return instrument(factory.extendedLanguageSupertypeOfVariableIterator(name));
+		return decorate(factory.extendedLanguageSupertypeOfVariableIterator(name));
 	}
 
 	public IEntityIterator<IEntity> iterationIndexVariableIterator(IEntityIterator<?> indexIterator, String name) {
-		return instrument(factory.iterationIndexVariableIterator(indexIterator, name));
+		return decorate(factory.iterationIndexVariableIterator(indexIterator, name));
 	}
 
 	public IEntityIterator<IEntity> iterationIndexIterator(IEntityIterator<?> indexIterator, int index) {
-		return instrument(factory.iterationIndexIterator(indexIterator, index));
+		return decorate(factory.iterationIndexIterator(indexIterator, index));
 	}
 
 	public IEntityIterator<IEntity> iterationIndexRangeIterator(IEntityIterator<?> indexIterator, int startIndex, int endIndex) {
-		return instrument(factory.iterationIndexRangeIterator(indexIterator, startIndex, endIndex));
+		return decorate(factory.iterationIndexRangeIterator(indexIterator, startIndex, endIndex));
 	}
 
 	public IEntityIterator<IEntity> pointwiseEqualsIterator(IEntityIterator<IEntity> leftOperand,
 			IEntityIterator<IEntity> rightOperand) {
-		return instrument(factory.pointwiseEqualsIterator(leftOperand, rightOperand));
+		return decorate(factory.pointwiseEqualsIterator(leftOperand, rightOperand));
 	}
 
 	public <E extends IEntity> IEntityIterator<E> scopeIterator(IEntityIterator<E> scopeIterator,
 			String environmentName, Set<String> localNames, boolean withFreshNames) {
-		return instrument(factory.scopeIterator(scopeIterator, environmentName, localNames, withFreshNames));
+		return decorate(factory.scopeIterator(scopeIterator, environmentName, localNames, withFreshNames));
 	}
 
 	public IEntityIterator<?> tupleFactoryIterator(IEntityIterator<?>... tupleIterators) {
-		return instrument(factory.tupleFactoryIterator(tupleIterators));
+		return decorate(factory.tupleFactoryIterator(tupleIterators));
 	}
 
 	public <E extends IEntity> IEntityIterator<E> selectIterator(IEntityIterator<E> selectIterator,
 			IEntityIterator<? extends IEntity> fromIterator, IEntityIterator<? extends IEntity> whereIterator) {
-		return instrument(factory.selectIterator(selectIterator, fromIterator, whereIterator));
+		return decorate(factory.selectIterator(selectIterator, fromIterator, whereIterator));
 	}
 
 	@SuppressWarnings("unchecked")
 	public IEntityIterator<IEntity> cartesianProductIterator(IEntityIterator<? extends IEntity>... iterators) {
-		return instrument(factory.cartesianProductIterator(iterators));
+		return decorate(factory.cartesianProductIterator(iterators));
 	}
 
 	@SuppressWarnings("unchecked")
 	public IEntityIterator<IEntity> pointwiseProductIterator(IEntityIterator<? extends IEntity>... iterators) {
-		return instrument(factory.pointwiseProductIterator(iterators));
+		return decorate(factory.pointwiseProductIterator(iterators));
 	}
 
 	public <E extends IEntity> IEntityIterator<E> cartesianUpdateIterator(IEntityIterator<? extends E> valuesIterator, IEntityIterator<E> toIterator) {
-		return instrument(factory.cartesianUpdateIterator(valuesIterator, toIterator));
+		return decorate(factory.cartesianUpdateIterator(valuesIterator, toIterator));
 	}
 
 	public <E extends IEntity> IEntityIterator<E> pointwiseUpdateIterator(IEntityIterator<E> valuesIterator,IEntityIterator<? super E> toIterator) {
-		return instrument(factory.pointwiseUpdateIterator(valuesIterator, toIterator));
+		return decorate(factory.pointwiseUpdateIterator(valuesIterator, toIterator));
 	}
 
 	public <E extends IEntity> IEntityIterator<E> cartesianInsertIterator(IEntityIterator<? extends E> valuesIterator, IEntityIterator<E> toIterator, Placement placement) {
-		return instrument(factory.cartesianInsertIterator(valuesIterator, toIterator, placement));
+		return decorate(factory.cartesianInsertIterator(valuesIterator, toIterator, placement));
 	}
 
 	public <E extends IEntity> IEntityIterator<E> pointwiseInsertIterator(IEntityIterator<E> valuesIterator,IEntityIterator<? super E> toIterator, Placement placement) {
-		return instrument(factory.pointwiseInsertIterator(valuesIterator, toIterator, placement));
+		return decorate(factory.pointwiseInsertIterator(valuesIterator, toIterator, placement));
 	}
 
 	public <E extends IEntity> IEntityIterator<E> deleteIterator(IEntityIterator<E> valuesIterator) {
-		return instrument(factory.deleteIterator(valuesIterator));
+		return decorate(factory.deleteIterator(valuesIterator));
 	}
 
 	@SuppressWarnings("unchecked")
 	public <E extends IEntity> IEntityIterator<E> callIterator(String name, IEntityIterator<? extends E>... argsIterators) {
-		return instrument(factory.callIterator(name, argsIterators));
+		return decorate(factory.callIterator(name, argsIterators));
 	}
 
 	public IEntityIterator<?> nestedVariableIterator() {
-		return instrument(factory.nestedVariableIterator());
+		return decorate(factory.nestedVariableIterator());
 	}
 
 	public IEntityIterator<?> nestedFragmentIterator(Map<IEntity, IEntityIterator<?>> fragmentIteratorMap) {
-		return instrument(factory.nestedFragmentIterator(fragmentIteratorMap));
+		return decorate(factory.nestedFragmentIterator(fragmentIteratorMap));
 	}
 
 	public IEntityIterator<?> cloneReplacingIterator(IEntityIterator<?> childMappingIterator) {
-		return instrument(factory.cloneReplacingIterator(childMappingIterator));
+		return decorate(factory.cloneReplacingIterator(childMappingIterator));
 	}
 
 	public IEntityIterator<?> cloneReplacingIterator(IEntityIterator<?> childMappingIterator,
 			Set<String> shallowUriSet) {
-		return instrument(factory.cloneReplacingIterator(childMappingIterator, shallowUriSet));
+		return decorate(factory.cloneReplacingIterator(childMappingIterator, shallowUriSet));
 	}
 }
+

@@ -22,6 +22,8 @@ import java.util.Set;
 
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.comparators.IEntityComparator;
+import org.whole.lang.executables.InstrumentedExecutableFactory;
+import org.whole.lang.executables.RegularExecutableFactory;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.CompositeKinds;
 import org.whole.lang.reflect.DataKinds;
@@ -35,8 +37,9 @@ import org.whole.lang.util.IRunnable;
  * @author Riccardo Solmi
  */
 public interface IteratorFactory {
-	public static IteratorFactory regularInstance = new RegularIteratorFactory();
-	public static IteratorFactory instrumentedInstance = new InstrumentedIteratorFactory();
+//	public static IteratorFactory regularInstance = new IteratorBasedExecutableFactory();
+	public static IteratorFactory regularInstance = new RegularExecutableFactory();
+	public static IteratorFactory instrumentedInstance = new InstrumentedExecutableFactory();
 
 	public static IteratorFactory instance = regularInstance;
 
