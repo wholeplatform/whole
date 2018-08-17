@@ -115,14 +115,21 @@ public abstract class AbstractNestedStepper<E extends IEntity> extends AbstractE
 
 	@Override
 	public void toString(StringBuilder sb) {
+		sb.append(toStringName());
     	sb.append("(");
     	
 		for (int i=0; i<producersSize(); i++) {
 			if (i>0)
-				sb.append(", ");
+				sb.append(toStringSeparator());
 			producers[i].toString(sb);
 		}
 
     	sb.append(")");
     }
+	protected String toStringName() {
+		return "";
+	}
+	protected String toStringSeparator() {
+		return ", ";
+	}
 }

@@ -23,23 +23,15 @@ import org.whole.lang.model.IEntity;
 /**
  * @author Riccardo Solmi
  */
-public class SequenceStepper<E extends IEntity> extends AbstractNestedStepper<E> {
-	protected int producerIndex = 0;
-
+public class SequenceStepper<E extends IEntity> extends AbstractDelegatingNestedStepper<E> {
 	@SuppressWarnings("unchecked")
-	public SequenceStepper(IEntityIterator<? extends E>... producers) {
-		super(producers);
-	}
-
-	@Override
-	public void reset(IEntity entity) {
-		super.reset(entity);
-		producerIndex = 0;
+	public SequenceStepper(IEntityIterator<? extends E>... steppers) {
+		super(steppers);
 	}
 
 	public void callNext() {
-		while (producerIndex < producersSize()) {
-			getProducer(producerIndex).callNext();
+		while (isValidProducer()) {
+			getProducer().callNext();
 			if (nextEntity != null)
 				return;
 		}
@@ -47,45 +39,23 @@ public class SequenceStepper<E extends IEntity> extends AbstractNestedStepper<E>
 	}
 
 	public void callRemaining() {
-		while (producerIndex < producersSize())
-			getProducer(producerIndex).callRemaining();
+		while (isValidProducer())
+			getProducer().callRemaining();
 		super.doEnd();
 	}
 
 	@Override
 	public void doBegin(int size) {
-		if (producerIndex == 0)
+		if (isFirstProducer())
 			super.doBegin(size);
 	}
 
 	@Override
 	public void doEnd() {
-		if (producerIndex < producersSize()) {
+		if (isValidProducer()) {
 			producerIndex += 1;
 			nextEntity = null;
 		}
-	}
-
-	@SuppressWarnings("unchecked")
-	public void set(E entity) {
-    	if (!(producerIndex < producersSize()))
-    		throw new IllegalStateException();
-
-    	((IEntityIterator<? super E>) getProducer(producerIndex)).set(entity);
-	}
-	@SuppressWarnings("unchecked")
-	public void add(E entity) {
-    	if (!(producerIndex < producersSize()))
-    		throw new IllegalStateException();
-
-		((IEntityIterator<? super E>) getProducer(producerIndex)).add(entity);
-	}
-
-	public void remove() {
-    	if (!(producerIndex < producersSize()))
-    		throw new IllegalStateException();
-
-		getProducer(producerIndex).remove();
 	}
 }
 

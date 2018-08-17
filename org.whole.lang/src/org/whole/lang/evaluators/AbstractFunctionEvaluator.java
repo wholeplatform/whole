@@ -24,7 +24,7 @@ import org.whole.lang.model.IEntity;
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractFunctionEvaluator<E extends IEntity> extends AbstractSupplierEvaluator<E> implements Function<IEntity[], E> {
+public abstract class AbstractFunctionEvaluator<E extends IEntity> extends AbstractNestedSupplierEvaluator<E> implements Function<IEntity[], E> {
 	public final E get() {
 		return apply(evaluateProducers());
 	}

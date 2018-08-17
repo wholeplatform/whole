@@ -243,7 +243,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 
 			if (canOptimize && languageKit != null) {
 				IEntityIterator<?> ri = iteratorFactory().chooseIterator(languageKit);
-				ChooseByTypeIterator<?> chooseIterator = (ChooseByTypeIterator<?>) ri.specificIterator();
+				ChooseByTypeIterator<?> chooseIterator = (ChooseByTypeIterator<?>) ri.undecoratedIterator();
 
 				for (Entry<EntityDescriptor<?>, Expression> entry : typeMap.entrySet()) {
 					Set<String> oldDeclaredNames = declaredNames;
@@ -356,16 +356,16 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 			IEntityIterator<IEntity> queryPredicateIterator = getResultIterator();
 
 			expression.accept(this);
-			if (getResultIterator().specificIterator() instanceof EmptyExecutable)
+			if (getResultIterator().undecoratedIterator() instanceof EmptyExecutable)
 				setResultIterator(iteratorFactory().selfIterator().withSourceEntity(entity));
 
 			if (filterByIndexIterator != null) {
-				((FilterByIndexRangeIterator<?>) filterByIndexIterator.specificIterator()).withIterator(getResultIterator());
+				((FilterByIndexRangeIterator<?>) filterByIndexIterator.undecoratedIterator()).withIterator(getResultIterator());
 				setResultIterator(filterByIndexIterator);
 
 				if (canFilterByIndex) {
 					// ((FilterByIndexRangeIterator<?>) filterByIndexIterator.specificIterator()).withStartIndex(startIndex);
-					((FilterByIndexRangeIterator<?>) filterByIndexIterator.specificIterator()).withEndIndex(endIndex);
+					((FilterByIndexRangeIterator<?>) filterByIndexIterator.undecoratedIterator()).withEndIndex(endIndex);
 				}
 			}
 
@@ -373,9 +373,9 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 					&& Matcher.match(QueriesEntityDescriptorEnum.Path, entity.wGetParent())))
 				setResultIterator(distinctScope.withIterator(getResultIterator()));
 
-			if (!(queryPredicateIterator.specificIterator() instanceof EmptyExecutable)) {
+			if (!(queryPredicateIterator.undecoratedIterator() instanceof EmptyExecutable)) {
 				IEntityIterator<?> ri = iteratorFactory().filterIterator(getResultIterator(), queryPredicateIterator);
-				((FilterIterator<?>) ri.specificIterator()).withAutoPrune(usePruneFilter);
+				((FilterIterator<?>) ri.undecoratedIterator()).withAutoPrune(usePruneFilter);
 				setResultIterator(ri.withSourceEntity(entity));
 			}
 		}
@@ -715,7 +715,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		entity.getClearClause().accept(this);
 
 		IEntityIterator<?> si = iteratorFactory().selectIterator(selectIterator, fromIterator, whereIterator);
-		((SelectIterator<?>) si.specificIterator()).withNamesToBind(namesExp).withNamesComplement(useNamesComplement);
+		((SelectIterator<?>) si.undecoratedIterator()).withNamesToBind(namesExp).withNamesComplement(useNamesComplement);
 		setResultIterator(si.withSourceEntity(entity));
 
 		declaredNames = oldDeclaredNames;
@@ -809,7 +809,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 
 		entity.getExpression().accept(this);
 		
-		if (!(conditionIterator.specificIterator() instanceof EmptyExecutable)) {
+		if (!(conditionIterator.undecoratedIterator() instanceof EmptyExecutable)) {
 			IEntityIterator<? extends IEntity> selectIterator = getResultIterator();
 	
 			declaredNames = namesToBound;
@@ -854,7 +854,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		entity.getWhereClause().accept(this);
 
 		IEntityIterator<IEntity> satisfiesClause = getResultIterator();
-		if (satisfiesClause.specificIterator() instanceof EmptyExecutable)
+		if (satisfiesClause.undecoratedIterator() instanceof EmptyExecutable)
 			setResultIterator(iteratorFactory().someIterator(fromClause).withSourceEntity(entity));			
 		else
 			setResultIterator(iteratorFactory().someIterator(fromClause, satisfiesClause).withSourceEntity(entity));
@@ -1202,7 +1202,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		comparator = BusinessIdentityComparator.instance;
 		visitCollectByExpression(entity);
 		IEntityIterator<?> ri = iteratorFactory().unionIterator(iteratorChain);
-		((AbstractCollectIterator) ri.specificIterator()).withComparator(comparator);
+		((AbstractCollectIterator) ri.undecoratedIterator()).withComparator(comparator);
 		setResultIterator(ri.withSourceEntity(entity));
 		comparator = oldComparator;
 	}
@@ -1213,7 +1213,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		comparator = BusinessIdentityComparator.instance;
 		visitCollectByExpression(entity);
 		IEntityIterator<?> ri = iteratorFactory().intersectIterator(iteratorChain);
-		((AbstractCollectIterator) ri.specificIterator()).withComparator(comparator);
+		((AbstractCollectIterator) ri.undecoratedIterator()).withComparator(comparator);
 		setResultIterator(ri.withSourceEntity(entity));
 		comparator = oldComparator;
 	}
@@ -1224,7 +1224,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		comparator = BusinessIdentityComparator.instance;
 		visitCollectByExpression(entity);
 		IEntityIterator<?> ri = iteratorFactory().exceptIterator(iteratorChain);
-		((AbstractCollectIterator) ri.specificIterator()).withComparator(comparator);
+		((AbstractCollectIterator) ri.undecoratedIterator()).withComparator(comparator);
 		setResultIterator(ri.withSourceEntity(entity));
 		comparator = oldComparator;
 	}

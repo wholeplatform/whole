@@ -23,22 +23,21 @@ import org.whole.lang.model.IEntity;
 /**
  * @author Riccardo Solmi
  */
-public class ChooseByOrderStepper<E extends IEntity> extends AbstractNestedStepper<E> {
-	protected int producerIndex = 0;
+public class ChooseByOrderStepper<E extends IEntity> extends AbstractDelegatingNestedStepper<E> {
 	protected boolean choosen;
 
 	@SuppressWarnings("unchecked")
-	public ChooseByOrderStepper(IEntityIterator<? extends E>... producers) {
-		super(producers);
+	public ChooseByOrderStepper(IEntityIterator<? extends E>... steppers) {
+		super(steppers);
 	}
 
 	public void callNext() {
-		nextEntity = null;
+		nextEntity = null;//FIXME workaround
 
 		if (choosen)
-			getProducer(producerIndex).callNext();
-		else while (!choosen && producerIndex < producersSize()) {
-			getProducer(producerIndex).callNext();
+			getProducer().callNext();
+		else while (!choosen && isValidProducer()) {
+			getProducer().callNext();
 		}
 		if (nextEntity == null)
 			super.doEnd();
@@ -57,32 +56,19 @@ public class ChooseByOrderStepper<E extends IEntity> extends AbstractNestedStepp
 
 	@Override
 	public void doEnd() {
-		if (!choosen && producerIndex < producersSize()) {
+		if (!choosen && isValidProducer()) {
 			producerIndex += 1;
 			nextEntity = null;
 		}
 	}
 
-	@SuppressWarnings("unchecked")
-	public void set(E entity) {
-    	if (!(producerIndex < producersSize()))
-    		throw new IllegalStateException();
-
-    	((IEntityIterator<? super E>) getProducer(producerIndex)).set(entity);
+    @Override
+	protected String toStringName() {
+		return "chooseByOrder";
 	}
-	@SuppressWarnings("unchecked")
-	public void add(E entity) {
-    	if (!(producerIndex < producersSize()))
-    		throw new IllegalStateException();
-
-		((IEntityIterator<? super E>) getProducer(producerIndex)).add(entity);
-	}
-
-	public void remove() {
-    	if (!(producerIndex < producersSize()))
-    		throw new IllegalStateException();
-
-		getProducer(producerIndex).remove();
+    @Override
+	protected String toStringSeparator() {
+		return ",\n";
 	}
 }
 

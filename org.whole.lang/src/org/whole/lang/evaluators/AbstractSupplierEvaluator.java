@@ -17,21 +17,12 @@
  */
 package org.whole.lang.evaluators;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Set;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
-import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.exceptions.IWholeRuntimeException;
-import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.executables.AbstractExecutableEvaluatingStepperIterator;
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.util.EntityUtils;
-import org.whole.lang.util.WholeMessages;
 
 /**
  * @author Riccardo Solmi
@@ -39,67 +30,12 @@ import org.whole.lang.util.WholeMessages;
 public abstract class AbstractSupplierEvaluator<E extends IEntity> extends AbstractExecutableEvaluatingStepperIterator<E> implements Supplier<E> {
     protected boolean isEvaluated;
 	protected IEntity selfEntity;
-	protected IEntityIterator<? extends IEntity>[] producers;
-	protected Set<Integer> optionalProducersIndexSet;
-
-	protected AbstractSupplierEvaluator(IEntityIterator<?>... producers) {
-		optionalProducersIndexSet = Collections.emptySet();
-		this.producers = producers;
-	}
-	protected AbstractSupplierEvaluator(int[] optionalArgsIndexes, IEntityIterator<?>... producers) {
-		optionalProducersIndexSet = Arrays.stream(optionalArgsIndexes).boxed().collect(Collectors.toSet());
-		this.producers = producers;
-	}
-
-	public IEntityIterator<E> clone(ICloneContext cc) {
-		AbstractSupplierEvaluator<E> iterator = (AbstractSupplierEvaluator<E>) super.clone(cc);
-		if (producers != null) {
-			iterator.producers = producers.clone();
-			for (int i=0; i<producers.length; i++)
-				iterator.producers[i] = cc.clone(producers[i]);
-		}
-		return iterator;
-	}
-
-	public int producersSize() {
-		return producers.length;
-	}
-	public IEntityIterator<?> getProducer(int index) {
-		return producers[index];
-	}
 
 	public void reset(IEntity entity) {
 		super.reset(entity);
 		isEvaluated = false;
         selfEntity = entity;
-        resetProducers(entity);
     }
-	protected void resetProducers(IEntity entity) {
-        if (producers != null)
-    		for (IEntityIterator<? extends IEntity> i : producers)
-    			i.reset(entity);		
-	}
-
-    protected void setProducersBindings(IBindingManager bindings) {
-		super.setProducersBindings(bindings);
-		if (producers != null)
-			for (IEntityIterator<? extends IEntity> i : producers)
-				i.setBindings(bindings);
-	}
-
-	protected IEntity[] evaluateProducers() {
-		IEntity[] arguments = null;
-        if (producers != null) {
-        	IBindingManager bm = getBindings();
-        	arguments = new IEntity[producers.length];
-        	for (int i=0; i<producers.length; i++) {
-        		arguments[i] = producers[i].evaluateRemaining();
-        		if (arguments[i] == null && !optionalProducersIndexSet.contains(i))
-        			throw new WholeIllegalArgumentException(WholeMessages.null_value_argument).withSourceEntity(producers[i].getSourceEntity()).withBindings(bm);
-        	}
-        }
-        return arguments;
-	}
 
 	public E evaluateNext() {
 		if (isEvaluated)
@@ -143,8 +79,8 @@ public abstract class AbstractSupplierEvaluator<E extends IEntity> extends Abstr
     		throw new IllegalStateException();
 
     	if (EntityUtils.hasParent(lastEntity)) {
-    		IEntity parent = lastEntity.wGetParent();
-			parent.wAdd(parent.wIndexOf(lastEntity), entity);
+    		IEntity lastEntityParent = lastEntity.wGetParent();
+    		lastEntityParent.wAdd(lastEntityParent.wIndexOf(lastEntity), entity);
     	}
 	}
 	public void remove() {
@@ -155,17 +91,4 @@ public abstract class AbstractSupplierEvaluator<E extends IEntity> extends Abstr
     		lastEntity.wGetParent().wRemove(lastEntity);
     	lastEntity = null;
 	}
-
-	@Override
-	public void toString(StringBuilder sb) {
-    	sb.append("(");
-    	
-		for (int i=0; i<producers.length; i++) {
-			if (i>0)
-				sb.append(", ");
-			producers[i].toString(sb);
-		}
-
-    	sb.append(")");
-    }
 }

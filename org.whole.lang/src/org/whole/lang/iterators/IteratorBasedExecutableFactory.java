@@ -1094,6 +1094,7 @@ public class IteratorBasedExecutableFactory implements IteratorFactory {
 			}
 		};
 	}
+
 	public IEntityIterator<IEntity> iterationIndexVariableIterator(IEntityIterator<?> indexIterator, String name) {
 		final boolean hasEnvironmentPart = BindingUtils.hasEnvironmentPart(name);
 		final int index = name.indexOf('#');
@@ -1112,7 +1113,7 @@ public class IteratorBasedExecutableFactory implements IteratorFactory {
 				run(selfEntity, hasEnvironmentPart ? bm.wGetEnvironmentManager().getEnvironment(envName) : bm, varName);
 			};
 			protected final void run(IEntity selfEntity, IBindingManager bm, String name) {
-				int iterationIndex = ((FilterByIndexRangeIterator<?>) argsIterators[0].specificIterator()).predicateIndex(this);
+				int iterationIndex = ((FilterByIndexRangeIterator<?>) argsIterators[0].undecoratedIterator()).predicateIndex(this);
 				if (bm.wIsSet(name)) {
 					bm.setResult(BindingManagerFactory.instance.createValue(iterationIndex == bm.wIntValue(name)));
 				} else {
@@ -1139,7 +1140,7 @@ public class IteratorBasedExecutableFactory implements IteratorFactory {
 			}
 
 			protected void run(IEntity selfEntity, IBindingManager bm) {
-				int iterationIndex = ((FilterByIndexRangeIterator<?>) argsIterators[0].specificIterator()).predicateIndex(this);
+				int iterationIndex = ((FilterByIndexRangeIterator<?>) argsIterators[0].undecoratedIterator()).predicateIndex(this);
 				bm.setResult(BindingManagerFactory.instance.createValue(iterationIndex == index));
 			}
 
@@ -1160,7 +1161,7 @@ public class IteratorBasedExecutableFactory implements IteratorFactory {
 			}
 
 			protected void run(IEntity selfEntity, IBindingManager bm) {
-				int iterationIndex = ((FilterByIndexRangeIterator<?>) argsIterators[0].specificIterator()).predicateIndex(this);
+				int iterationIndex = ((FilterByIndexRangeIterator<?>) argsIterators[0].undecoratedIterator()).predicateIndex(this);
 				bm.setResult(BindingManagerFactory.instance.createValue(startIndex <= iterationIndex && iterationIndex <= endIndex));
 			}
 
@@ -1304,7 +1305,7 @@ public class IteratorBasedExecutableFactory implements IteratorFactory {
 		return cloneReplacingIterator(childMappingIterator, null);
 	}
 	public IEntityIterator<?> cloneReplacingIterator(IEntityIterator<?> childMappingIterator, Set<String> shallowUriSet) {
-		if (childMappingIterator.specificIterator() instanceof EmptyExecutable) {
+		if (childMappingIterator.undecoratedIterator() instanceof EmptyExecutable) {
 			return new AbstractSingleValuedRunnableIterator<IEntity>() {
 				protected void run(IEntity selfEntity, IBindingManager bm) {
 					bm.setResult(EntityUtils.clone(selfEntity));

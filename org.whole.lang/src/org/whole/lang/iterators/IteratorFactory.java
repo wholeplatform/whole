@@ -37,6 +37,7 @@ import org.whole.lang.util.IRunnable;
  * @author Riccardo Solmi
  */
 public interface IteratorFactory {
+//TODO switch comment to test a specific factory
 //	public static IteratorFactory regularInstance = new IteratorBasedExecutableFactory();
 	public static IteratorFactory regularInstance = new RegularExecutableFactory();
 	public static IteratorFactory instrumentedInstance = new InstrumentedExecutableFactory();

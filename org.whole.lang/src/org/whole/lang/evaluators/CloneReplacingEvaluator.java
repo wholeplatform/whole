@@ -32,7 +32,7 @@ import org.whole.lang.util.EntityUtils;
 /**
  * @author Riccardo Solmi
  */
-public class CloneReplacingEvaluator extends AbstractSupplierEvaluator<IEntity> {
+public class CloneReplacingEvaluator extends AbstractNestedSupplierEvaluator<IEntity> {
 		private final Set<String> shallowUriSet;
 
 		public CloneReplacingEvaluator(Set<String> shallowUriSet, IEntityIterator<?>... argsIterators) {

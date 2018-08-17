@@ -40,10 +40,11 @@ public class ExecutableFactoryTest {
     public static void deployWholePlatform() {
     	ReflectionFactory.deployWholePlatform();
 
-//    	f = IteratorFactory.regularInstance;
+//TODO switch comment to test a specific factory
+//    	f = IteratorFactory.instance;
     	f = new RegularExecutableFactory();
-    	bmf = BindingManagerFactory.instance;
 
+    	bmf = BindingManagerFactory.instance;
     	values = new IEntity[] {
     			bmf.createValue(0), bmf.createValue(1), bmf.createValue(2), bmf.createValue(3), bmf.createValue(4),
     			bmf.createValue(5), bmf.createValue(6), bmf.createValue(7), bmf.createValue(8), bmf.createValue(9)

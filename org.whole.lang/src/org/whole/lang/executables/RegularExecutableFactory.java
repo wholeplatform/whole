@@ -20,9 +20,12 @@ package org.whole.lang.executables;
 import java.util.Set;
 
 import org.whole.lang.bindings.BindingManagerFactory;
+import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
+import org.whole.lang.evaluators.AbstractNestedSupplierEvaluator;
 import org.whole.lang.evaluators.AbstractPureConditionalSupplierEvaluator;
-import org.whole.lang.evaluators.AbstractSupplierEvaluator;
 import org.whole.lang.evaluators.AbstractTypeRelationEvaluator;
+import org.whole.lang.evaluators.AbstractVariableTestOrBindEvaluator;
 import org.whole.lang.evaluators.CloneReplacingEvaluator;
 import org.whole.lang.evaluators.ConstantEvaluator;
 import org.whole.lang.evaluators.FeatureByIndexEvaluator;
@@ -42,13 +45,11 @@ import org.whole.lang.reflect.EntityKinds;
 import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.steppers.AdjacentStepper;
 import org.whole.lang.steppers.ChildOrAdjacentStepper;
-import org.whole.lang.steppers.ChildStepper;
 import org.whole.lang.steppers.ChildRangeStepper;
-import org.whole.lang.steppers.ChooseByOrderStepper;
+import org.whole.lang.steppers.ChildStepper;
 import org.whole.lang.steppers.ConstantChildStepper;
 import org.whole.lang.steppers.FollowingSiblingStepper;
 import org.whole.lang.steppers.PrecedingSiblingStepper;
-import org.whole.lang.steppers.SequenceStepper;
 import org.whole.lang.util.BindingUtils;
 import org.whole.lang.util.EntityUtils;
 
@@ -232,7 +233,7 @@ public class RegularExecutableFactory extends IteratorBasedExecutableFactory {
 	}
 
 	public IEntityIterator<IEntity> matchInScopeIterator(IEntityIterator<IEntity> patternIterator) {
-		return new AbstractSupplierEvaluator<IEntity>(patternIterator) {
+		return new AbstractNestedSupplierEvaluator<IEntity>(patternIterator) {
 			public IEntity get() {
 				IEntity pattern = getProducer(0).evaluateNext();
 				return BindingManagerFactory.instance.createValue(
@@ -410,7 +411,7 @@ public class RegularExecutableFactory extends IteratorBasedExecutableFactory {
 //		};
 	}
 	public IEntityIterator<?> orIterator(IEntityIterator<?>... argsIterators) {
-		return new AbstractSupplierEvaluator<IEntity>(argsIterators) {
+		return new AbstractNestedSupplierEvaluator<IEntity>(argsIterators) {
 			public IEntity get() {
 				for (int i=0; i<producersSize(); i++)
 					if (getProducer(i).evaluateAsBooleanOrFail())
@@ -426,7 +427,7 @@ public class RegularExecutableFactory extends IteratorBasedExecutableFactory {
 		};
 	}
 	public IEntityIterator<?> notIterator(IEntityIterator<?> argIterator) {
-		return new AbstractSupplierEvaluator<IEntity>(argIterator) {
+		return new AbstractNestedSupplierEvaluator<IEntity>(argIterator) {
 			public IEntity get() {
 				return BindingManagerFactory.instance.createValue(
 						!getProducer(0).evaluateAsBooleanOrFail());
@@ -481,7 +482,7 @@ public class RegularExecutableFactory extends IteratorBasedExecutableFactory {
 //		};
 	}
 	public IEntityIterator<IEntity> someIterator(IEntityIterator<IEntity> fromClause) {
-		return new AbstractSupplierEvaluator<IEntity>(fromClause) {
+		return new AbstractNestedSupplierEvaluator<IEntity>(fromClause) {
 			public IEntity get() {
 				return BindingManagerFactory.instance.createValue(
 							getProducer(0).evaluateNext() != null);
@@ -495,7 +496,7 @@ public class RegularExecutableFactory extends IteratorBasedExecutableFactory {
 		};
 	}
 	public IEntityIterator<IEntity> someIterator(IEntityIterator<IEntity> fromClause, IEntityIterator<IEntity> satisfiesClause) {
-		return new AbstractSupplierEvaluator<IEntity>(fromClause, satisfiesClause) {
+		return new AbstractNestedSupplierEvaluator<IEntity>(fromClause, satisfiesClause) {
 			public IEntity get() {
 				IEntity e = null;
 				while ((e = getProducer(0).evaluateNext()) != null) {
@@ -518,7 +519,7 @@ public class RegularExecutableFactory extends IteratorBasedExecutableFactory {
 		};
 	}
 	public IEntityIterator<IEntity> everyIterator(IEntityIterator<IEntity> fromClause, IEntityIterator<IEntity> satisfiesClause) {
-		return new AbstractSupplierEvaluator<IEntity>(fromClause, satisfiesClause) {
+		return new AbstractNestedSupplierEvaluator<IEntity>(fromClause, satisfiesClause) {
 			public IEntity get() {
 				IEntity e = null;
 				while ((e = getProducer(0).evaluateNext()) != null)
@@ -655,11 +656,168 @@ public class RegularExecutableFactory extends IteratorBasedExecutableFactory {
 		};
 	}
 
+	public IEntityIterator<IEntity> asVariableIterator(String name) {
+		return new AbstractVariableTestOrBindEvaluator(name) {
+			public boolean test(IBindingManager bm, String name) {
+				if (bm.wIsSet(name))
+					return Matcher.match(bm.wGet(name), selfEntity);
+				else {
+					bm.wDef(name, selfEntity);
+					return true;
+				}
+			}
+
+			public void toString(StringBuilder sb) {
+				sb.append("as($");
+				sb.append(name);
+				sb.append(")");
+			}
+		};
+	}
+	public IEntityIterator<IEntity> atStageVariableIterator(String name) {
+		return new AbstractVariableTestOrBindEvaluator(name) {
+			public boolean test(IBindingManager bm, String name) {
+				int selfStage = bm.wGetEnvironmentManager().getCurrentOperation().getStage();
+				if (bm.wIsSet(name)) {
+					return bm.wIntValue(name) == selfStage;
+				} else {
+					bm.wDefValue(name, selfStage);
+					return true;
+				}
+			}
+
+			public void toString(StringBuilder sb) {
+				sb.append("atStageAs($");
+				sb.append(name);
+				sb.append(")");
+			}
+		};
+	}
+	public IEntityIterator<IEntity> languageVariableIterator(String name) {
+		return new AbstractVariableTestOrBindEvaluator(name) {
+			public boolean test(IBindingManager bm, String name) {
+				String languageUri = selfEntity.wGetLanguageKit().getURI();
+				if (bm.wIsSet(name)) {
+					return bm.wStringValue(name).equals(languageUri);
+				} else {
+					bm.wDefValue(name, languageUri);
+					return true;
+				}
+			}
+
+			public void toString(StringBuilder sb) {
+				sb.append("languageAs($");
+				sb.append(name);
+				sb.append(")");
+			}
+		};
+	}
+	public IEntityIterator<IEntity> typeVariableIterator(String name) {
+		return new AbstractVariableTestOrBindEvaluator(name) {
+			public boolean test(IBindingManager bm, String name) {
+				String entityUri = selfEntity.wGetEntityDescriptor().getURI();
+				if (bm.wIsSet(name)) {
+					return bm.wStringValue(name).equals(entityUri);
+				} else {
+					bm.wDefValue(name, entityUri);
+					return true;
+				}
+			}
+
+			public void toString(StringBuilder sb) {
+				sb.append("typeAs($");
+				sb.append(name);
+				sb.append(")");
+			}
+		};
+	}
+	public IEntityIterator<IEntity> languageSubtypeOfVariableIterator(String name) {
+		return new AbstractVariableTestOrBindEvaluator(name) {
+			public boolean test(IBindingManager bm, String name) {
+				EntityDescriptor<?> selfEd = selfEntity.wGetEntityDescriptor();
+				if (bm.wIsSet(name)) {
+					EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.getEntityDescriptor(bm.wStringValue(name), true, bm);
+					return ed != null && ed.isLanguageSupertypeOf(selfEd);
+				} else {
+					bm.wDefValue(name, selfEd.getURI());
+					return true;
+				}
+			}
+
+			public void toString(StringBuilder sb) {
+				sb.append("languageSubtypeAs($");
+				sb.append(name);
+				sb.append(")");
+			}
+		};
+	}
+	public IEntityIterator<IEntity> languageSupertypeOfVariableIterator(String name) {
+		return new AbstractVariableTestOrBindEvaluator(name) {
+			public boolean test(IBindingManager bm, String name) {
+				EntityDescriptor<?> selfEd = selfEntity.wGetEntityDescriptor();
+				if (bm.wIsSet(name)) {
+					EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.getEntityDescriptor(bm.wStringValue(name), true, bm);
+					return ed != null && selfEd.isLanguageSupertypeOf(ed);
+				} else {
+					bm.wDefValue(name, selfEd.getURI());
+					return true;
+				}
+			}
+
+			public void toString(StringBuilder sb) {
+				sb.append("languageSupertypeAs($");
+				sb.append(name);
+				sb.append(")");
+			}
+		};
+	}
+	public IEntityIterator<IEntity> extendedLanguageSubtypeOfVariableIterator(String name) {
+		return new AbstractVariableTestOrBindEvaluator(name) {
+			public boolean test(IBindingManager bm, String name) {
+				EntityDescriptor<?> selfEd = selfEntity.wGetEntityDescriptor();
+				if (bm.wIsSet(name)) {
+					EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.getEntityDescriptor(bm.wStringValue(name), true, bm);
+					return ed != null && ed.isExtendedLanguageSupertypeOf(selfEd);
+				} else {
+					bm.wDefValue(name, selfEd.getURI());
+					return true;
+				}
+			}
+
+			public void toString(StringBuilder sb) {
+				sb.append("extendedLanguageSubtypeAs($");
+				sb.append(name);
+				sb.append(")");
+			}
+		};
+	}
+	public IEntityIterator<IEntity> extendedLanguageSupertypeOfVariableIterator(String name) {
+		return new AbstractVariableTestOrBindEvaluator(name) {
+			public boolean test(IBindingManager bm, String name) {
+				EntityDescriptor<?> selfEd = selfEntity.wGetEntityDescriptor();
+				if (bm.wIsSet(name)) {
+					EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.getEntityDescriptor(bm.wStringValue(name), true, bm);
+					return ed != null && selfEd.isExtendedLanguageSupertypeOf(ed);
+				} else {
+					bm.wDefValue(name, selfEd.getURI());
+					return true;
+				}
+			}
+
+			public void toString(StringBuilder sb) {
+				sb.append("extendedLanguageSupertypeAs($");
+				sb.append(name);
+				sb.append(")");
+			}
+		};
+	}
+
+	
 	public IEntityIterator<?> cloneReplacingIterator(IEntityIterator<?> childMappingIterator) {
 		return cloneReplacingIterator(childMappingIterator, null);
 	}
 	public IEntityIterator<?> cloneReplacingIterator(IEntityIterator<?> childMappingIterator, Set<String> shallowUriSet) {
-		if (childMappingIterator.specificIterator() instanceof EmptyExecutable) {
+		if (childMappingIterator.undecoratedIterator() instanceof EmptyExecutable) {
 			return new AbstractPureConditionalSupplierEvaluator<IEntity>() {
 				public IEntity get() {
 					return EntityUtils.clone(selfEntity);

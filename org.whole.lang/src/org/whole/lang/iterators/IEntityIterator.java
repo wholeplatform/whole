@@ -56,7 +56,7 @@ public interface IEntityIterator<E extends IEntity> extends IFlowStepper, IEvalu
 
 	public IteratorFactory iteratorFactory();
 
-	public default IEntityIterator<E> specificIterator() {
+	public default IEntityIterator<E> undecoratedIterator() {
 		return this instanceof InstrumentingIterator ? ((InstrumentingIterator<E>) this).getIterator() : this;
 	}
 
