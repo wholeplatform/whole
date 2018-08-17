@@ -15,35 +15,16 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.iterators;
+package org.whole.lang.steppers;
 
 import org.whole.lang.model.IEntity;
 
 /**
- * Iterator that returns all immediate children and adjacents of a given IEntity in order.
- * 
  * @author Riccardo Solmi
  */
-public class ChildOrAdjacentIterator<E extends IEntity> extends AbstractByIndexIterator<E> {
-    protected ChildOrAdjacentIterator(boolean forward) {
-    	super(forward);
-    }
-    protected ChildOrAdjacentIterator(boolean forward, int relativeFirstIndex) {
-        super(forward, relativeFirstIndex);
-    }
-
-    @Override
-    protected final int startIndex() {
-    	return 0;
-    }
-    @Override
-    protected final int endIndex() {
-    	return selfEntity.wSize()+selfEntity.wAdjacentSize()-1;
-    }
-
-    @Override
-	public void toString(StringBuilder sb) {
-    	sb.append("childOrAdjacent");
-		sb.append(forward ? "()" : "-reverse()");
-    }
+public interface IControlFlowProducer {
+	public void reset(IEntity entity);
+	public void callNext();
+	public void callRemaining();
 }
+

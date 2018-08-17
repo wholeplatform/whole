@@ -15,22 +15,22 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.iterators;
+package org.whole.lang.steppers;
 
 import java.util.NoSuchElementException;
 
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.bindings.NullScope;
-import org.whole.lang.executables.AbstractExecutableIteratingEvaluatingStepper;
+import org.whole.lang.executables.AbstractExecutableSteppingEvaluator;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.util.EntityUtils;
 
 /**
- * Iterator that returns all immediate elements of a given IEntity in order.
+ * Returns the immediate elements of the self entity in selected order and range.
  * 
  * @author Riccardo Solmi
  */
-public abstract class AbstractByIndexIterator<E extends IEntity> extends AbstractExecutableIteratingEvaluatingStepper<E> {
+public abstract class AbstractByIndexStepper<E extends IEntity> extends AbstractExecutableSteppingEvaluator<E> {
 	protected IEntity selfEntity; //parent
 	protected int nextIndex;
 	protected int lastIndex = -1;
@@ -39,53 +39,95 @@ public abstract class AbstractByIndexIterator<E extends IEntity> extends Abstrac
 
 	@FunctionalInterface
 	public interface FirstIndexSupplier {
-	    int firstIndex(AbstractByIndexIterator<?> iterator);
+	    int firstIndex(AbstractByIndexStepper<?> iterator);
 	}
 
-	protected AbstractByIndexIterator(boolean forward) {
+	public AbstractByIndexStepper(boolean forward) {
 		this.forward = forward;
 		this.firstIndexSupplier = (i) -> i.forward ? 0 : i.endIndex()-i.startIndex();
 	}
-	protected AbstractByIndexIterator(boolean forward, int relativeFirstIndex) {
+	public AbstractByIndexStepper(boolean forward, int relativeFirstIndex) {
 		this.forward = forward;
 		this.firstIndexSupplier = (i) -> relativeFirstIndex >= 0 ? relativeFirstIndex : i.endIndex()-i.startIndex() + relativeFirstIndex+1;
 	}
-	protected AbstractByIndexIterator(boolean forward, FirstIndexSupplier firstIndexSupplier) {
+	public AbstractByIndexStepper(boolean forward, FirstIndexSupplier firstIndexSupplier) {
 		this.forward = forward;
 		this.firstIndexSupplier = firstIndexSupplier;
-	}
-
-	protected abstract int startIndex();
-	protected abstract int endIndex();
-
-	public IBindingScope lookaheadScope() {
-		return NullScope.instance;
-	}
-
-	public boolean hasNext() {
-		return selfEntity != null && (forward ? startIndex() + nextIndex <= endIndex() : nextIndex >= 0);
-	}
-
-	@SuppressWarnings("unchecked")
-	public E next() {
-		try {
-			lastIndex = nextIndex;
-			nextIndex += forward ? +1 : -1;
-			return (E) selfEntity.wGet(startIndex() + lastIndex);
-		} catch (Exception e) {
-			throw new NoSuchElementException(e.getMessage());
-		}
-	}
-
-	@SuppressWarnings("unchecked")
-	public E lookahead() {
-		return hasNext() ? (E) selfEntity.wGet(startIndex() + nextIndex) : null;
 	}
 
 	public void reset(IEntity entity) {
 		this.selfEntity = entity;
 		nextIndex = entity != null ? firstIndexSupplier.firstIndex(this) : -1;
 		lastIndex = -1;
+	}
+
+	protected abstract int startIndex();
+	protected abstract int endIndex();
+
+	public boolean hasNext() {
+		return selfEntity != null && (forward ? startIndex() + nextIndex <= endIndex() : nextIndex >= 0);
+	}
+
+	@SuppressWarnings("unchecked")
+	public final E get() {
+		return (E) selfEntity.wGet(startIndex() + nextIndex);
+	}
+
+	public E next() {
+		E nextEntity = evaluateNext();
+		if (nextEntity == null)
+			throw new NoSuchElementException();
+
+		return nextEntity;
+	}
+
+	public E lookahead() {
+		return hasNext() ? get() : null;
+	}
+
+	public IBindingScope lookaheadScope() {
+		return NullScope.instance;
+	}
+
+	@Override
+	public E evaluateRemaining() {
+		E result = null;
+		E next;
+		while ((next = evaluateNext()) != null)
+			result = next;
+		return result;
+	}
+
+	@Override
+	public E evaluateSingleton() {
+		if (hasNext()) {
+			E nextEntity = evaluateNext();
+			if (!hasNext())
+				return nextEntity;
+		}
+
+		throw new IllegalArgumentException("The result is not a singleton");
+	}
+
+	public void callNext() {
+		if (hasNext()) {
+			doNext(get());
+		} else
+			doEnd();
+	}
+
+	public void callRemaining() {
+		while (hasNext()) {
+			doNext(get());
+		}
+		doEnd();
+	}
+
+	@Override
+	public void doNext(IEntity entity) {
+		lastIndex = nextIndex;
+		nextIndex += forward ? +1 : -1;
+		super.doNext(entity);
 	}
 
 	public void prune() {

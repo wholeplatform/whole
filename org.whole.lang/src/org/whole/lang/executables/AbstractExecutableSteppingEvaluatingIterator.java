@@ -28,8 +28,8 @@ import org.whole.lang.model.IEntity;
  * 
  * TODO keep same code in the two classes except declaration line
  */
-//public abstract class AbstractExecutableProducingEvaluatingIterator<E extends IEntity> extends AbstractExecutableProducingEvaluator<E> {
-public abstract class AbstractExecutableEvaluatingProducerIterator<E extends IEntity> extends AbstractExecutableEvaluatingProducer<E> {
+public abstract class AbstractExecutableSteppingEvaluatingIterator<E extends IEntity> extends AbstractExecutableSteppingEvaluator<E> {
+//public abstract class AbstractExecutableEvaluatingStepperIterator<E extends IEntity> extends AbstractExecutableEvaluatingStepper<E> {
 	private boolean lookaheadIsCached;
 	private IBindingScope lookaheadScope;
 	protected E lookaheadEntity;

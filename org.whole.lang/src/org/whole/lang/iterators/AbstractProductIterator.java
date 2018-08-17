@@ -22,14 +22,14 @@ import java.util.NoSuchElementException;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
-import org.whole.lang.executables.AbstractExecutableIteratingEvaluatingProducer;
+import org.whole.lang.executables.AbstractExecutableIteratingEvaluatingStepper;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractProductIterator<E extends IEntity> extends AbstractExecutableIteratingEvaluatingProducer<E> {
+public abstract class AbstractProductIterator<E extends IEntity> extends AbstractExecutableIteratingEvaluatingStepper<E> {
 	private IBindingScope lookaheadScope;
 	protected IEntityIterator<? extends IEntity>[] iterators;
 	protected IEntity initialEntity;
@@ -82,8 +82,8 @@ public abstract class AbstractProductIterator<E extends IEntity> extends Abstrac
 		lookaheadScope = null;
 	}
 
-    protected void setArgumentsBindings(IBindingManager bindings) {
-		super.setArgumentsBindings(bindings);
+    protected void setProducersBindings(IBindingManager bindings) {
+		super.setProducersBindings(bindings);
 		for (IEntityIterator<?> i : iterators)
 			i.setBindings(bindings);
 	}

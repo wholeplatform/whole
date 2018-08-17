@@ -17,37 +17,27 @@
  */
 package org.whole.lang.executables;
 
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.steppers.IDataFlowConsumer;
 
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractExecutableProducingEvaluator<E extends IEntity> extends AbstractExecutable<E> implements IDataFlowConsumer {
+public abstract class AbstractExecutableSteppingEvaluator<E extends IEntity> extends AbstractExecutable<E> {
 	protected E nextEntity;
-
-	public AbstractExecutableProducingEvaluator() {
-		consumer = this;
-	}
-	public IEntityIterator<E> withConsumer(IDataFlowConsumer consumer) {
-		//FIXME replace with composite consumer if needed
-		throw new UnsupportedOperationException();
-	}
 
 	public final E evaluateNext() {
 		callNext();
 		return nextEntity;
 	}
 
-	public void doBegin(int size) {
-	}
 	@SuppressWarnings("unchecked")
 	public void doNext(IEntity entity) {
 		nextEntity = (E) entity;
+		super.doNext(entity);
 	}
 	public void doEnd() {
 		nextEntity = null;
+		super.doEnd();
 	}
 }
 

@@ -34,16 +34,16 @@ public class ChildRangeIterator<E extends IEntity> extends AbstractByIndexIterat
 
     @Override
     protected final int startIndex() {
-    	return relativeStartIndex >= 0 ? relativeStartIndex : entity.wSize()-1 + relativeStartIndex+1;
+    	return relativeStartIndex >= 0 ? relativeStartIndex : selfEntity.wSize()-1 + relativeStartIndex+1;
     }
     @Override
     protected final int endIndex() {
-    	return relativeEndIndex >= 0 ? relativeEndIndex : entity.wSize()-1 + relativeEndIndex+1;
+    	return relativeEndIndex >= 0 ? relativeEndIndex : selfEntity.wSize()-1 + relativeEndIndex+1;
     }
 
     @Override
 	public boolean hasNext() {
-		return super.hasNext() && entity.wContains(startIndex() + nextIndex);
+		return super.hasNext() && selfEntity.wContains(startIndex() + nextIndex);
 	}
 
     @Override

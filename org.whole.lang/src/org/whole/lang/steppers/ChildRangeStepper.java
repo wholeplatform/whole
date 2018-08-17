@@ -15,48 +15,38 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.iterators;
+package org.whole.lang.steppers;
 
 import org.whole.lang.model.IEntity;
-import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Riccardo Solmi
  */
-public class FollowingSiblingIterator<E extends IEntity> extends AbstractByIndexIterator<E> {
-	protected boolean includeSelf;
+public class ChildRangeStepper<E extends IEntity> extends AbstractByIndexStepper<E> {
+    private int relativeStartIndex;
+    private int relativeEndIndex;
 
-	public FollowingSiblingIterator(boolean forward, boolean includeSelf) {
-		super(forward);
-		this.includeSelf = includeSelf;
-	}
+    public ChildRangeStepper(boolean forward, int relativeStartIndex, int relativeEndIndex) {
+        super(forward, 0);
+        this.relativeStartIndex = relativeStartIndex;
+        this.relativeEndIndex = relativeEndIndex;
+    }
 
-	private int startIndex;
-    @Override
     protected final int startIndex() {
-    	return startIndex;
+    	return relativeStartIndex >= 0 ? relativeStartIndex : selfEntity.wSize()-1 + relativeStartIndex+1;
     }
-    @Override
     protected final int endIndex() {
-    	return selfEntity.wSize()-1;
+    	return relativeEndIndex >= 0 ? relativeEndIndex : selfEntity.wSize()-1 + relativeEndIndex+1;
     }
 
-	@Override
-    public void reset(IEntity entity) {
-		//workaround for composeIterator init behavior
-		if (entity == null || !EntityUtils.hasParent(entity)) {
-			super.reset(null);
-			return;
-		}
-
-		IEntity parentEntity = entity.wGetParent();
-		startIndex = parentEntity.wIndexOf(entity) + (includeSelf ? 0 : 1);
-		super.reset(parentEntity);
+    @Override
+	public boolean hasNext() {
+		return super.hasNext() && selfEntity.wContains(startIndex() + nextIndex);
 	}
 
     @Override
 	public void toString(StringBuilder sb) {
-		sb.append(includeSelf ? "following-siblings-or-self" : "following-siblings");
+    	sb.append("child");
 		sb.append(forward ? "()" : "-reverse()");
     }
 }

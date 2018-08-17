@@ -32,7 +32,7 @@ import org.whole.lang.util.EntityUtils;
 /**
  * @author Riccardo Solmi
  */
-public class CloneReplacingEvaluator extends AbstractSingleValuedRunnableEvaluator<IEntity> {
+public class CloneReplacingEvaluator extends AbstractSupplierEvaluator<IEntity> {
 		private final Set<String> shallowUriSet;
 
 		public CloneReplacingEvaluator(Set<String> shallowUriSet, IEntityIterator<?>... argsIterators) {
@@ -40,14 +40,16 @@ public class CloneReplacingEvaluator extends AbstractSingleValuedRunnableEvaluat
 			this.shallowUriSet = shallowUriSet;
 		}
 
-		protected void run(IEntity selfEntity, IBindingManager bm) {
+		public IEntity get() {
+			IBindingManager bm = getBindings();
 			IEntity oldSelfEntity = bm.wGet(IBindingManager.SELF);
-			bm.setResult(deepClone(selfEntity, bm));
+			IEntity result = deepClone(selfEntity, bm);
 			if (bm.wGet(IBindingManager.SELF) != oldSelfEntity)
 				if (oldSelfEntity != null)
 					bm.wDef(IBindingManager.SELF, oldSelfEntity);
 //				else
 //					bm.wUnset(IBindingManager.SELF);
+			return result;
 		}
 
 		protected IEntity deepClone(IEntity selfEntity, IBindingManager bm) {
@@ -71,17 +73,17 @@ public class CloneReplacingEvaluator extends AbstractSingleValuedRunnableEvaluat
 				} else {
 					FeatureDescriptor childFeatureDescriptor = entityClone.wGetFeatureDescriptor(index);
 					bm.wDef(IBindingManager.SELF, childPrototype);
-					argsIterators[0].reset(childPrototype);
+					getProducer(0).reset(childPrototype);
 
 					if (isComposite) {
 						IEntity childClone = null;
-						while ((childClone = argsIterators[0].evaluateNext()) != null)
+						while ((childClone = getProducer(0).evaluateNext()) != null)
 							if (!BindingManagerFactory.instance.isVoid(childClone))
 								entityClone.wAdd(EntityUtils.convertCloneIfReparenting(childClone, childFeatureDescriptor));
 					} else {
 						IEntity lastChildClone = null;
 						IEntity childClone = null;
-						while ((childClone = argsIterators[0].evaluateNext()) != null)
+						while ((childClone = getProducer(0).evaluateNext()) != null)
 							if (!BindingManagerFactory.instance.isVoid(childClone))
 								lastChildClone = childClone;
 						entityClone.wSet(index, lastChildClone != null ?

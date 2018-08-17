@@ -18,7 +18,6 @@
 package org.whole.lang.steppers;
 
 import org.whole.lang.operations.ICloneable;
-import org.whole.lang.producers.IControlFlowProducer;
 import org.whole.lang.reflect.ISourceable;
 
 /**

@@ -17,16 +17,16 @@
  */
 package org.whole.lang.iterators;
 
-import org.whole.lang.executables.AbstractExecutableIteratingEvaluatingProducer;
+import org.whole.lang.executables.AbstractExecutableIteratingEvaluatingStepper;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractLazyCloneableIterator<E extends IEntity> extends AbstractExecutableIteratingEvaluatingProducer<E> {
+public abstract class AbstractLazyCloneableIterator<E extends IEntity> extends AbstractExecutableIteratingEvaluatingStepper<E> {
 	private ICloneContext cloneContext;
-	protected IEntity resetEntity;
+	protected IEntity selfEntity;
 
 	@Override
 	public IEntityIterator<E> clone(ICloneContext cc) {

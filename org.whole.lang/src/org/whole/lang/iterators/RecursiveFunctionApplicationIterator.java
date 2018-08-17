@@ -22,14 +22,14 @@ import java.util.NoSuchElementException;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingScope;
-import org.whole.lang.executables.AbstractExecutableIteratingEvaluatingProducer;
+import org.whole.lang.executables.AbstractExecutableIteratingEvaluatingStepper;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 
 /**
  * @author Riccardo Solmi
  */
-public class RecursiveFunctionApplicationIterator extends AbstractExecutableIteratingEvaluatingProducer<IEntity> {
+public class RecursiveFunctionApplicationIterator extends AbstractExecutableIteratingEvaluatingStepper<IEntity> {
 	protected boolean lazyReset = true;
 	protected IEntity resetEntity = null;
 	protected IEntityIterator<IEntity> functionIterator;

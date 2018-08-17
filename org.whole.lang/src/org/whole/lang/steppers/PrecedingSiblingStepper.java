@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.iterators;
+package org.whole.lang.steppers;
 
 import org.whole.lang.model.IEntity;
 import org.whole.lang.util.EntityUtils;
@@ -23,22 +23,20 @@ import org.whole.lang.util.EntityUtils;
 /**
  * @author Riccardo Solmi
  */
-public class FollowingSiblingIterator<E extends IEntity> extends AbstractByIndexIterator<E> {
+public class PrecedingSiblingStepper<E extends IEntity> extends AbstractByIndexStepper<E> {
 	protected boolean includeSelf;
 
-	public FollowingSiblingIterator(boolean forward, boolean includeSelf) {
+	public PrecedingSiblingStepper(boolean forward, boolean includeSelf) {
 		super(forward);
 		this.includeSelf = includeSelf;
 	}
 
-	private int startIndex;
-    @Override
     protected final int startIndex() {
-    	return startIndex;
+    	return 0;
     }
-    @Override
+	private int endIndex;
     protected final int endIndex() {
-    	return selfEntity.wSize()-1;
+    	return endIndex;
     }
 
 	@Override
@@ -50,13 +48,13 @@ public class FollowingSiblingIterator<E extends IEntity> extends AbstractByIndex
 		}
 
 		IEntity parentEntity = entity.wGetParent();
-		startIndex = parentEntity.wIndexOf(entity) + (includeSelf ? 0 : 1);
+		endIndex = parentEntity.wIndexOf(entity) + (includeSelf ? 0 : -1);
 		super.reset(parentEntity);
 	}
 
     @Override
 	public void toString(StringBuilder sb) {
-		sb.append(includeSelf ? "following-siblings-or-self" : "following-siblings");
+		sb.append(includeSelf ? "preceding-siblings-or-self" : "preceding-siblings");
 		sb.append(forward ? "()" : "-reverse()");
     }
 }

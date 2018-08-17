@@ -51,8 +51,8 @@ public abstract class AbstractPatternFilterIterator<E extends IEntity> extends A
 		clearLookaheadScope();
 	}
 
-    protected void setArgumentsBindings(IBindingManager bindings) {
-		super.setArgumentsBindings(bindings);
+    protected void setProducersBindings(IBindingManager bindings) {
+		super.setProducersBindings(bindings);
 		pattern().setBindings(bindings);
 	}
 

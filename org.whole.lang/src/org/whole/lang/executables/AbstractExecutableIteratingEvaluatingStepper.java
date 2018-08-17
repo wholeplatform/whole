@@ -25,7 +25,7 @@ import org.whole.lang.model.IEntity;
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractExecutableIteratingEvaluatingProducer<E extends IEntity> extends AbstractExecutableEvaluatingProducer<E> {
+public abstract class AbstractExecutableIteratingEvaluatingStepper<E extends IEntity> extends AbstractExecutableEvaluatingStepper<E> {
 	public final E evaluateNext() {
 		return hasNext() ? next() : null;
 	}
@@ -45,18 +45,6 @@ public abstract class AbstractExecutableIteratingEvaluatingProducer<E extends IE
 			bm.wExitScope();
 		}
 		return result;
-	}
-
-	public final E evaluate(IEntity self, IBindingManager bm) {
-		return super.evaluate(self, bm);
-	}
-
-	public final E evaluateFirst(IEntity self, IBindingManager bm) {
-		return super.evaluateFirst(self, bm);
-	}
-
-	public final boolean tryEvaluateAsBoolean(IEntity self, IBindingManager bm) {
-		return super.tryEvaluateAsBoolean(self, bm);
 	}
 
 	public final E evaluateSingleton() {

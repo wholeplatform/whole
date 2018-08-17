@@ -20,9 +20,8 @@ package org.whole.lang.executables;
 import java.util.Set;
 
 import org.whole.lang.bindings.BindingManagerFactory;
-import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.evaluators.AbstractPureConditionalSupplierEvaluator;
-import org.whole.lang.evaluators.AbstractSingleValuedRunnableEvaluator;
+import org.whole.lang.evaluators.AbstractSupplierEvaluator;
 import org.whole.lang.evaluators.AbstractTypeRelationEvaluator;
 import org.whole.lang.evaluators.CloneReplacingEvaluator;
 import org.whole.lang.evaluators.ConstantEvaluator;
@@ -41,6 +40,15 @@ import org.whole.lang.reflect.DataKinds;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.EntityKinds;
 import org.whole.lang.reflect.FeatureDescriptor;
+import org.whole.lang.steppers.AdjacentStepper;
+import org.whole.lang.steppers.ChildOrAdjacentStepper;
+import org.whole.lang.steppers.ChildStepper;
+import org.whole.lang.steppers.ChildRangeStepper;
+import org.whole.lang.steppers.ChooseByOrderStepper;
+import org.whole.lang.steppers.ConstantChildStepper;
+import org.whole.lang.steppers.FollowingSiblingStepper;
+import org.whole.lang.steppers.PrecedingSiblingStepper;
+import org.whole.lang.steppers.SequenceStepper;
 import org.whole.lang.util.BindingUtils;
 import org.whole.lang.util.EntityUtils;
 
@@ -76,6 +84,9 @@ public class RegularExecutableFactory extends IteratorBasedExecutableFactory {
 				return pattern;
 			}
 		};
+	}
+	public <E extends IEntity> IEntityIterator<E> constantChildIterator(IEntity constant) {
+		return new ConstantChildStepper<E>(true, constant);
 	}
 
 	public <E extends IEntity> IEntityIterator<E> selfIterator() {
@@ -161,19 +172,91 @@ public class RegularExecutableFactory extends IteratorBasedExecutableFactory {
 		return new FeatureByIndexEvaluator(relativeIndex);
 	}
 
+	public <E extends IEntity> IEntityIterator<E> childIterator() {
+		return new ChildStepper<E>(true);
+	}
+	public <E extends IEntity> IEntityIterator<E> childIterator(int relativeFirstIndex) {
+		return new ChildStepper<E>(true, relativeFirstIndex);
+	}
+	public <E extends IEntity> IEntityIterator<E> childReverseIterator() {
+		return new ChildStepper<E>(false);
+	}
+	public <E extends IEntity> IEntityIterator<E> childReverseIterator(int relativeFirstIndex) {
+		return new ChildStepper<E>(false, relativeFirstIndex);
+	}
+	public <E extends IEntity> IEntityIterator<E> childRangeIterator(int relativeStartIndex, int relativeEndIndex) {
+		return new ChildRangeStepper<E>(true, relativeStartIndex, relativeEndIndex);
+	}
+
+	public <E extends IEntity> IEntityIterator<E> followingSiblingIterator() {
+		return new FollowingSiblingStepper<E>(true, false);
+	}
+	public <E extends IEntity> IEntityIterator<E> followingSiblingReverseIterator() {
+		return new FollowingSiblingStepper<E>(false, false);
+	}
+	public <E extends IEntity> IEntityIterator<E> precedingSiblingIterator() {
+		return new PrecedingSiblingStepper<E>(false, false);
+	}
+	public <E extends IEntity> IEntityIterator<E> precedingSiblingReverseIterator() {
+		return new PrecedingSiblingStepper<E>(true, false);
+	}
+
+	public <E extends IEntity> IEntityIterator<E> followingSiblingOrSelfIterator() {
+		return new FollowingSiblingStepper<E>(true, true);
+	}
+	public <E extends IEntity> IEntityIterator<E> followingSiblingOrSelfReverseIterator() {
+		return new FollowingSiblingStepper<E>(false, true);
+	}
+	public <E extends IEntity> IEntityIterator<E> precedingSiblingOrSelfIterator() {
+		return new PrecedingSiblingStepper<E>(false, true);
+	}
+	public <E extends IEntity> IEntityIterator<E> precedingSiblingOrSelfReverseIterator() {
+		return new PrecedingSiblingStepper<E>(true, true);
+	}
+
+	public <E extends IEntity> IEntityIterator<E> adjacentIterator() {
+		return new AdjacentStepper<E>(true);
+	}
+	public <E extends IEntity> IEntityIterator<E> adjacentIterator(int relativeFirstIndex) {
+		return new AdjacentStepper<E>(true, relativeFirstIndex);
+	}
+	public <E extends IEntity> IEntityIterator<E> adjacentReverseIterator() {
+		return new AdjacentStepper<E>(false);
+	}
+
+	public <E extends IEntity> IEntityIterator<E> childOrAdjacentIterator() {
+		return new ChildOrAdjacentStepper<E>(true);
+	}
+	public <E extends IEntity> IEntityIterator<E> childOrAdjacentIterator(int relativeFirstIndex) {
+		return new ChildOrAdjacentStepper<E>(true, relativeFirstIndex);
+	}
+
 	public IEntityIterator<IEntity> matchInScopeIterator(IEntityIterator<IEntity> patternIterator) {
-		return new AbstractSingleValuedRunnableEvaluator<IEntity>(patternIterator) {
-			protected void run(IEntity selfEntity, IBindingManager bm) {
-				IEntity pattern = argsIterators[0].evaluateNext();
-				bm.setResult(BindingManagerFactory.instance.createValue(pattern != null && Matcher.match(pattern, selfEntity, bm)));
+		return new AbstractSupplierEvaluator<IEntity>(patternIterator) {
+			public IEntity get() {
+				IEntity pattern = getProducer(0).evaluateNext();
+				return BindingManagerFactory.instance.createValue(
+						pattern != null && Matcher.match(pattern, selfEntity, getBindings()));
 			}
 
 			public void toString(StringBuilder sb) {
 				sb.append("matchInScope(");
-				argsIterators[0].toString(sb);//TODO startOf
+				producers[0].toString(sb);//TODO startOf
 				sb.append(")");
 			}
 		};
+	}
+
+	public <E extends IEntity> IEntityIterator<E> chooseIterator(IEntityIterator<? extends E>... iteratorChain) {
+		return super.chooseIterator(iteratorChain);
+		//FIXME
+//		return new ChooseByOrderStepper<E>(iteratorChain);
+	}
+
+	public <E extends IEntity> IEntityIterator<E> sequenceIterator(IEntityIterator<? extends E>... iteratorChain) {
+		return super.sequenceIterator(iteratorChain);
+		//FIXME
+//		return new SequenceStepper<E>(iteratorChain);
 	}
 
 	public IEntityIterator<IEntity> atStageIterator(int stage) {
@@ -327,15 +410,13 @@ public class RegularExecutableFactory extends IteratorBasedExecutableFactory {
 //		};
 	}
 	public IEntityIterator<?> orIterator(IEntityIterator<?>... argsIterators) {
-		return new AbstractSingleValuedRunnableEvaluator<IEntity>(argsIterators) {
-			protected void run(IEntity selfEntity, IBindingManager bm) {
-				for (int i=0; i<argsIterators.length; i++)
-					if (argsIterators[i].tryEvaluateAsBoolean(selfEntity, bm)) {
-						bm.setResult(BindingManagerFactory.instance.createValue(true));
-						return;
-					}
+		return new AbstractSupplierEvaluator<IEntity>(argsIterators) {
+			public IEntity get() {
+				for (int i=0; i<producersSize(); i++)
+					if (getProducer(i).evaluateAsBooleanOrFail())
+						return BindingManagerFactory.instance.createValue(true);
 
-				bm.setResult(BindingManagerFactory.instance.createValue(false));
+				return BindingManagerFactory.instance.createValue(false);
 			}
 
 			public void toString(StringBuilder sb) {
@@ -345,9 +426,10 @@ public class RegularExecutableFactory extends IteratorBasedExecutableFactory {
 		};
 	}
 	public IEntityIterator<?> notIterator(IEntityIterator<?> argIterator) {
-		return new AbstractSingleValuedRunnableEvaluator<IEntity>(argIterator) {
-			protected void run(IEntity selfEntity, IBindingManager bm) {
-				bm.setResult(BindingManagerFactory.instance.createValue(!argsIterators[0].tryEvaluateAsBoolean(selfEntity, bm)));
+		return new AbstractSupplierEvaluator<IEntity>(argIterator) {
+			public IEntity get() {
+				return BindingManagerFactory.instance.createValue(
+						!getProducer(0).evaluateAsBooleanOrFail());
 			}
 
 			public void toString(StringBuilder sb) {
@@ -399,68 +481,58 @@ public class RegularExecutableFactory extends IteratorBasedExecutableFactory {
 //		};
 	}
 	public IEntityIterator<IEntity> someIterator(IEntityIterator<IEntity> fromClause) {
-		return new AbstractSingleValuedRunnableEvaluator<IEntity>(fromClause) {
-			protected void run(IEntity selfEntity, IBindingManager bm) {
-				if (argsIterators[0].evaluateNext() != null) {
-					bm.setResult(BindingManagerFactory.instance.createValue(true));
-					return;
-				}
-
-				bm.setResult(BindingManagerFactory.instance.createValue(false));
+		return new AbstractSupplierEvaluator<IEntity>(fromClause) {
+			public IEntity get() {
+				return BindingManagerFactory.instance.createValue(
+							getProducer(0).evaluateNext() != null);
 			}
 
 			public void toString(StringBuilder sb) {
 				sb.append("exists(");
-				argsIterators[0].toString(sb);//TODO startOf
+				producers[0].toString(sb);//TODO startOf
 				sb.append(")");
 			}
 		};
 	}
 	public IEntityIterator<IEntity> someIterator(IEntityIterator<IEntity> fromClause, IEntityIterator<IEntity> satisfiesClause) {
-		return new AbstractSingleValuedRunnableEvaluator<IEntity>(fromClause, satisfiesClause) {
-			protected void run(IEntity selfEntity, IBindingManager bm) {
+		return new AbstractSupplierEvaluator<IEntity>(fromClause, satisfiesClause) {
+			public IEntity get() {
 				IEntity e = null;
-				while ((e = argsIterators[0].evaluateNext()) != null) {
-				//for (IEntity e : argsIterators[0]) {
-					argsIterators[1].reset(e);
+				while ((e = getProducer(0).evaluateNext()) != null) {
+					getProducer(1).reset(e);
 
-					if (argsIterators[1].evaluateNext().wBooleanValue()) {
-						bm.setResult(BindingManagerFactory.instance.createValue(true));
-						return;
-					}
+					if (getProducer(1).evaluateNext().wBooleanValue())
+						return BindingManagerFactory.instance.createValue(true);
 				}
 
-				bm.setResult(BindingManagerFactory.instance.createValue(false));
+				return BindingManagerFactory.instance.createValue(false);
 			}
 
 			public void toString(StringBuilder sb) {
 				sb.append("some(");
-				argsIterators[0].toString(sb);//TODO startOf
+				producers[0].toString(sb);//TODO startOf
 				sb.append(" satisfies ");
-				argsIterators[1].toString(sb);//TODO startOf
+				producers[1].toString(sb);//TODO startOf
 				sb.append(")");
 			}
 		};
 	}
 	public IEntityIterator<IEntity> everyIterator(IEntityIterator<IEntity> fromClause, IEntityIterator<IEntity> satisfiesClause) {
-		return new AbstractSingleValuedRunnableEvaluator<IEntity>(fromClause, satisfiesClause) {
-			protected void run(IEntity selfEntity, IBindingManager bm) {
+		return new AbstractSupplierEvaluator<IEntity>(fromClause, satisfiesClause) {
+			public IEntity get() {
 				IEntity e = null;
-				while ((e = argsIterators[0].evaluateNext()) != null)
-				//for (IEntity e : argsIterators[0])
-					if (!argsIterators[1].tryEvaluateAsBoolean(e, bm)) {
-						bm.setResult(BindingManagerFactory.instance.createValue(false));
-						return;
-					}
+				while ((e = getProducer(0).evaluateNext()) != null)
+					if (!getProducer(1).evaluateAsBooleanOrFail(e, getBindings()))
+						return BindingManagerFactory.instance.createValue(false);
 
-				bm.setResult(BindingManagerFactory.instance.createValue(true));
+				return BindingManagerFactory.instance.createValue(true);
 			}
 
 			public void toString(StringBuilder sb) {
 				sb.append("every(");
-				argsIterators[0].toString(sb);//TODO startOf
+				producers[0].toString(sb);//TODO startOf
 				sb.append(" satisfies ");
-				argsIterators[1].toString(sb);//TODO startOf
+				producers[1].toString(sb);//TODO startOf
 				sb.append(")");
 			}
 		};

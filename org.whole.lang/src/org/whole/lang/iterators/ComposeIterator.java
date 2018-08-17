@@ -90,9 +90,9 @@ public class ComposeIterator<E extends IEntity> extends AbstractLazyCloneableCom
 	}
 	protected boolean updateIterators() {
 		boolean result = false;
-		if (resetEntity != null) {
-			nestedIterator(laIndex).reset(resetEntity);
-			resetEntity = null;
+		if (selfEntity != null) {
+			nestedIterator(laIndex).reset(selfEntity);
+			selfEntity = null;
 		}
 		getBindings().wEnterScope(lookaheadScope(), true);
 		for (int updateIndex = laIndex; updateIndex <= nestedIterators.length-1; updateIndex++)

@@ -15,48 +15,31 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.iterators;
+package org.whole.lang.steppers;
 
 import org.whole.lang.model.IEntity;
-import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Riccardo Solmi
  */
-public class FollowingSiblingIterator<E extends IEntity> extends AbstractByIndexIterator<E> {
-	protected boolean includeSelf;
+public class ChildOrAdjacentStepper<E extends IEntity> extends AbstractByIndexStepper<E> {
+    public ChildOrAdjacentStepper(boolean forward) {
+    	super(forward);
+    }
+    public ChildOrAdjacentStepper(boolean forward, int relativeFirstIndex) {
+        super(forward, relativeFirstIndex);
+    }
 
-	public FollowingSiblingIterator(boolean forward, boolean includeSelf) {
-		super(forward);
-		this.includeSelf = includeSelf;
-	}
-
-	private int startIndex;
-    @Override
     protected final int startIndex() {
-    	return startIndex;
+    	return 0;
     }
-    @Override
     protected final int endIndex() {
-    	return selfEntity.wSize()-1;
+    	return selfEntity.wSize()+selfEntity.wAdjacentSize()-1;
     }
-
-	@Override
-    public void reset(IEntity entity) {
-		//workaround for composeIterator init behavior
-		if (entity == null || !EntityUtils.hasParent(entity)) {
-			super.reset(null);
-			return;
-		}
-
-		IEntity parentEntity = entity.wGetParent();
-		startIndex = parentEntity.wIndexOf(entity) + (includeSelf ? 0 : 1);
-		super.reset(parentEntity);
-	}
 
     @Override
 	public void toString(StringBuilder sb) {
-		sb.append(includeSelf ? "following-siblings-or-self" : "following-siblings");
+    	sb.append("childOrAdjacent");
 		sb.append(forward ? "()" : "-reverse()");
     }
 }

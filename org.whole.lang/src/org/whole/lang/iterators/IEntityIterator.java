@@ -23,20 +23,20 @@ import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.operations.ICloneable;
-import org.whole.lang.producers.IControlFlowProducer;
 import org.whole.lang.reflect.ISourceable;
 import org.whole.lang.steppers.IDataFlowConsumer;
+import org.whole.lang.steppers.IFlowStepper;
 
 /**
  * @author Riccardo Solmi
  */
-public interface IEntityIterator<E extends IEntity> extends IControlFlowProducer, IEvaluator<E>, IJavaIterator<E>, ICloneable, ISourceable {
+public interface IEntityIterator<E extends IEntity> extends IFlowStepper, IEvaluator<E>, IJavaIterator<E>, ICloneable, ISourceable {
 	public IEntityIterator<E> withConsumer(IDataFlowConsumer consumer);
 	public IDataFlowConsumer getConsumer();
 //	public IEntityIterator<E> withProducers(IControlFlowProducer... producers);
 //	public IEntityIterator<E> withProducer(int index, IControlFlowProducer producer);
-//	public int getProducersSize();
-//	public IControlFlowProducer getProducer(int index);
+//	public int producersSize();
+//	public IEntityIterator<IEntity> getProducer(int index);
 
 	public IEntityIterator<E> withSourceEntity(IEntity entity);
 
@@ -90,11 +90,19 @@ public interface IEntityIterator<E extends IEntity> extends IControlFlowProducer
 		return result;
 	}
 
-	public default boolean tryEvaluateAsBoolean(IEntity selfEntity, IBindingManager bm) {
+	public default boolean evaluateAsBooleanOrFail(IEntity selfEntity, IBindingManager bm) {
 		try {
 			return evaluate(selfEntity, bm).wBooleanValue();
         } catch (Throwable e) {
             throw IWholeRuntimeException.asWholeException(e, getSourceEntity(), bm);
+        }
+	}
+
+	public default boolean evaluateAsBooleanOrFail() {
+		try {
+			return evaluateRemaining().wBooleanValue();
+        } catch (Throwable e) {
+            throw IWholeRuntimeException.asWholeException(e, getSourceEntity(), getBindings());
         }
 	}
 

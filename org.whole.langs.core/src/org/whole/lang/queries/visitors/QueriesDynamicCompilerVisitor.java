@@ -1093,8 +1093,8 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 			return clone;
 		}
 
-		protected void setArgumentsBindings(IBindingManager bindings) {
-			super.setArgumentsBindings(bindings);
+		protected void setProducersBindings(IBindingManager bindings) {
+			super.setProducersBindings(bindings);
 			queryPredicate.setBindings(bindings);
 		}
 

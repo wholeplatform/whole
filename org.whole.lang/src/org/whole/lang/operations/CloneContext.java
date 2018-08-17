@@ -18,14 +18,16 @@
 package org.whole.lang.operations;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @author Riccardo Solmi
  */
 public class CloneContext implements ICloneContext {
 	private ICloneContext prototypeCloneContext;
-	protected Map<ICloneable, ICloneable> cloneMap = new HashMap<ICloneable, ICloneable>(1024);
+	protected Map<ICloneable, ICloneable> cloneMap = new HashMap<>(1024);
 
 	public ICloneContext getPrototypeCloneContext() {
 		if (this.prototypeCloneContext == null)

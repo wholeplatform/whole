@@ -30,7 +30,8 @@ public interface IEvaluator<E extends IEntity> {
 	public E evaluate(IEntity self, IBindingManager bm);
 	public E evaluateFirst(IEntity self, IBindingManager bm);
 
-	public boolean tryEvaluateAsBoolean(IEntity self, IBindingManager bm);
+	public boolean evaluateAsBooleanOrFail(IEntity self, IBindingManager bm);
+	public boolean evaluateAsBooleanOrFail();
 	public E evaluateSingleton();
 }
 

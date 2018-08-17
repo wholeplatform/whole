@@ -125,8 +125,8 @@ public class WithStageIterator<E extends IEntity> extends AbstractDelegatingIter
 		super.reset(entity);
 	}
 
-    protected void setArgumentsBindings(IBindingManager bindings) {
-		super.setArgumentsBindings(bindings);
+    protected void setProducersBindings(IBindingManager bindings) {
+		super.setProducersBindings(bindings);
 		stageIterator.setBindings(bindings);
 	}
 

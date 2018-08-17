@@ -34,6 +34,6 @@ public class ConstantChildIterator<E extends IEntity> extends ChildIterator<E> {
 
 	@Override
 	public void reset(IEntity entity) {
-		super.reset(this.entity);
+		super.reset(this.selfEntity);
 	}
 }

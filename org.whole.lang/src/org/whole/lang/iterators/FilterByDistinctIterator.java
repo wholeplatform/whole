@@ -61,8 +61,8 @@ public class FilterByDistinctIterator<E extends IEntity> extends AbstractDelegat
 		return this;
 	}
 
-	protected void setArgumentsBindings(IBindingManager bindings) {
-		super.setArgumentsBindings(bindings);
+	protected void setProducersBindings(IBindingManager bindings) {
+		super.setProducersBindings(bindings);
 		comparator.setBindings(bindings);
 	}
 
@@ -72,7 +72,7 @@ public class FilterByDistinctIterator<E extends IEntity> extends AbstractDelegat
 			protected void resetArguments(IEntity entity) {
 			}
 			@Override
-			protected void setArgumentsBindings(IBindingManager bindings) {
+			protected void setProducersBindings(IBindingManager bindings) {
 			}
 
 			protected void run(IEntity selfEntity, IBindingManager bm) {

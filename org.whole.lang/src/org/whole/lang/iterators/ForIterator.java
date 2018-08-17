@@ -77,11 +77,11 @@ public class ForIterator<E extends IEntity> extends AbstractDelegatingIterator<E
 		clearLookaheadScope();
 		getBindings().wEnterScope(lookaheadScope(), true);
 
-		boolean isFirstValue = resetEntity != null;
+		boolean isFirstValue = selfEntity != null;
 		if (isFirstValue) {
 			lookaheadScope.wEnterScope();
-			forIterator.reset(resetEntity);
-			resetEntity = null;
+			forIterator.reset(selfEntity);
+			selfEntity = null;
 		}
 
 		if (forEntity != null)
@@ -118,12 +118,12 @@ public class ForIterator<E extends IEntity> extends AbstractDelegatingIterator<E
 	public void reset(IEntity entity) {
 		forEntity = null;
 		nextEntity = null;
-		resetEntity = entity;
+		selfEntity = entity;
 		clearLookaheadScope();
 	}
 
-    protected void setArgumentsBindings(IBindingManager bindings) {
-	    super.setArgumentsBindings(bindings);
+    protected void setProducersBindings(IBindingManager bindings) {
+	    super.setProducersBindings(bindings);
 	    forIterator.setBindings(bindings);
 	}
 

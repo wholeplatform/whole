@@ -26,14 +26,14 @@ import java.util.NoSuchElementException;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.commons.factories.CommonsEntityFactory;
-import org.whole.lang.executables.AbstractExecutableIteratingEvaluatingProducer;
+import org.whole.lang.executables.AbstractExecutableIteratingEvaluatingStepper;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.sql.factories.SQLEntityFactory;
 
 /**
  * @author Riccardo Solmi
  */
-public class ResultSetIterator extends AbstractExecutableIteratingEvaluatingProducer<IEntity> {
+public class ResultSetIterator extends AbstractExecutableIteratingEvaluatingStepper<IEntity> {
 	private ResultSet resultSet;
 	private IEntity nextEntity = null;
 	private String[] labels;

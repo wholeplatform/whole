@@ -15,35 +15,30 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.iterators;
-
-import org.whole.lang.model.IEntity;
+package org.whole.lang.operations;
 
 /**
- * Iterator that returns all immediate children and adjacents of a given IEntity in order.
- * 
  * @author Riccardo Solmi
  */
-public class ChildOrAdjacentIterator<E extends IEntity> extends AbstractByIndexIterator<E> {
-    protected ChildOrAdjacentIterator(boolean forward) {
-    	super(forward);
-    }
-    protected ChildOrAdjacentIterator(boolean forward, int relativeFirstIndex) {
-        super(forward, relativeFirstIndex);
-    }
+public class IdentityCloneContext implements ICloneContext {
+	public static final ICloneContext instance = new IdentityCloneContext();
 
-    @Override
-    protected final int startIndex() {
-    	return 0;
-    }
-    @Override
-    protected final int endIndex() {
-    	return selfEntity.wSize()+selfEntity.wAdjacentSize()-1;
-    }
+	protected IdentityCloneContext() {
+	}
 
-    @Override
-	public void toString(StringBuilder sb) {
-    	sb.append("childOrAdjacent");
-		sb.append(forward ? "()" : "-reverse()");
-    }
+	public ICloneContext getPrototypeCloneContext() {
+		return this;
+	}
+
+	public <T extends ICloneable> T clone(T prototype) {
+		return prototype;
+	}
+
+	public <T extends ICloneable> T getClone(T prototype) {
+		return prototype;
+	}
+
+	public void putClone(ICloneable prototype, ICloneable clone) {
+	}
 }
+

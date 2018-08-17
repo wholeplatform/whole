@@ -66,7 +66,7 @@ public class InstrumentingIterator<E extends IEntity> extends AbstractDelegating
 	}
 
 	public IEntity getResetEntity() {
-		return resetEntity;
+		return selfEntity;
 	}
 	protected IEntity nextResetEntity;
 	public IEntity getNextResetEntity() {
@@ -108,9 +108,9 @@ public class InstrumentingIterator<E extends IEntity> extends AbstractDelegating
 	}
 
 	@Override
-	protected void setArgumentsBindings(IBindingManager bindings) {
+	protected void setProducersBindings(IBindingManager bindings) {
 		instrumentation.beforeSetBindings(this);
-		super.setArgumentsBindings(bindings);
+		super.setProducersBindings(bindings);
 		instrumentation.afterSetBindings(this);
 	}
 	

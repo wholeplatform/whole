@@ -26,7 +26,7 @@ import org.whole.lang.model.IEntity;
 /**
  * @author Riccardo Solmi
  */
-public class FailureExecutable<E extends IEntity> extends AbstractExecutableEvaluatingProducer<E> {
+public class FailureExecutable<E extends IEntity> extends AbstractExecutableEvaluatingStepper<E> {
 	protected final Throwable failure;
 
 	public FailureExecutable(Throwable failure) {

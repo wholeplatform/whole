@@ -38,7 +38,7 @@ public class ChildIterator<E extends IEntity> extends AbstractByIndexIterator<E>
     }
     @Override
     protected final int endIndex() {
-    	return entity.wSize()-1;
+    	return selfEntity.wSize()-1;
     }
 
     @Override

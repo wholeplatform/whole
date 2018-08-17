@@ -34,11 +34,11 @@ public class AdjacentIterator<E extends IEntity> extends AbstractByIndexIterator
     
     @Override
     protected final int startIndex() {
-    	return entity.wSize();
+    	return selfEntity.wSize();
     }
     @Override
     protected final int endIndex() {
-    	return entity.wSize()+entity.wAdjacentSize()-1;
+    	return selfEntity.wSize()+selfEntity.wAdjacentSize()-1;
     }
 
     @Override

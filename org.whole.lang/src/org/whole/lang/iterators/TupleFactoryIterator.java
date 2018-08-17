@@ -44,8 +44,8 @@ public class TupleFactoryIterator extends SelfIterator<IEntity> {
 		return iterator;
 	}
 
-    protected void setArgumentsBindings(IBindingManager bindings) {
-		super.setArgumentsBindings(bindings);
+    protected void setProducersBindings(IBindingManager bindings) {
+		super.setProducersBindings(bindings);
 		for (IEntityIterator<?> tupleIterator : tupleIterators)
 			tupleIterator.setBindings(bindings);
 	}

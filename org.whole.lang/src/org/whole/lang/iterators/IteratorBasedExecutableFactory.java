@@ -182,7 +182,6 @@ public class IteratorBasedExecutableFactory implements IteratorFactory {
 	public <E extends IEntity> IEntityIterator<E> childIterator(int relativeFirstIndex) {
 		return new ChildIterator<E>(true, relativeFirstIndex);
 	}
-
 	public <E extends IEntity> IEntityIterator<E> childReverseIterator() {
 		return new ChildIterator<E>(false);
 	}
@@ -256,19 +255,19 @@ public class IteratorBasedExecutableFactory implements IteratorFactory {
 		return new AdjacentIterator<E>(false);
 	}
 
+	public <E extends IEntity> IEntityIterator<E> childOrAdjacentIterator() {
+		return new ChildOrAdjacentIterator<E>(true);
+	}
+	public <E extends IEntity> IEntityIterator<E> childOrAdjacentIterator(int relativeFirstIndex) {
+		return new ChildOrAdjacentIterator<E>(true, relativeFirstIndex);
+	}
+
 	public <E extends IEntity> IEntityIterator<E> reachableIterator(boolean includeSelf) {
 		DistinctScope<E> distinctScope = distinctScope(ObjectIdentityComparator.instance);
 		return distinctScope.withIterator(reachableIterator(includeSelf, distinctScope));
 	}
 	public <E extends IEntity> IEntityIterator<E> reachableIterator(boolean includeSelf, DistinctScope<E> distinctScope) {
 		return new ReachableIterator<E>(includeSelf, distinctScope);
-	}
-
-	public <E extends IEntity> IEntityIterator<E> childOrAdjacentIterator() {
-		return new ChildOrAdjacentIterator<E>(true);
-	}
-	public <E extends IEntity> IEntityIterator<E> childOrAdjacentIterator(int relativeFirstIndex) {
-		return new ChildOrAdjacentIterator<E>(true, relativeFirstIndex);
 	}
 
 	public <E extends IEntity> IEntityIterator<E> descendantOrReachableIterator() {
@@ -319,7 +318,7 @@ public class IteratorBasedExecutableFactory implements IteratorFactory {
 		}
 
 		protected boolean filter(IEntity selfEntity) {
-			return filterIterator.tryEvaluateAsBoolean(selfEntity, getBindings());
+			return filterIterator.evaluateAsBooleanOrFail(selfEntity, getBindings());
 		}
 
 	    @Override
@@ -585,7 +584,7 @@ public class IteratorBasedExecutableFactory implements IteratorFactory {
 		return new AbstractSingleValuedRunnableIterator<IEntity>(argsIterators) {
 			protected void run(IEntity selfEntity, IBindingManager bm) {
 				for (int i=0; i<argsIterators.length; i++)
-					if (!argsIterators[i].tryEvaluateAsBoolean(selfEntity, bm)) {
+					if (!argsIterators[i].evaluateAsBooleanOrFail(selfEntity, bm)) {
 						bm.setResult(BindingManagerFactory.instance.createValue(false));
 						return;
 					}
@@ -603,7 +602,7 @@ public class IteratorBasedExecutableFactory implements IteratorFactory {
 		return new AbstractSingleValuedRunnableIterator<IEntity>(argsIterators) {
 			protected void run(IEntity selfEntity, IBindingManager bm) {
 				for (int i=0; i<argsIterators.length; i++)
-					if (argsIterators[i].tryEvaluateAsBoolean(selfEntity, bm)) {
+					if (argsIterators[i].evaluateAsBooleanOrFail(selfEntity, bm)) {
 						bm.setResult(BindingManagerFactory.instance.createValue(true));
 						return;
 					}
@@ -620,7 +619,7 @@ public class IteratorBasedExecutableFactory implements IteratorFactory {
 	public IEntityIterator<?> notIterator(IEntityIterator<?> argIterator) {
 		return new AbstractSingleValuedRunnableIterator<IEntity>(argIterator) {
 			protected void run(IEntity selfEntity, IBindingManager bm) {
-				bm.setResult(BindingManagerFactory.instance.createValue(!argsIterators[0].tryEvaluateAsBoolean(selfEntity, bm)));
+				bm.setResult(BindingManagerFactory.instance.createValue(!argsIterators[0].evaluateAsBooleanOrFail(selfEntity, bm)));
 			}
 
 			public void toString(StringBuilder sb) {
@@ -635,7 +634,7 @@ public class IteratorBasedExecutableFactory implements IteratorFactory {
 			protected void run(IEntity selfEntity, IBindingManager bm) {
 				IBindingScope laScope = null;
 				for (IEntity e : argsIterators[0]) {
-					if (!argsIterators[1].tryEvaluateAsBoolean(e, bm))
+					if (!argsIterators[1].evaluateAsBooleanOrFail(e, bm))
 						continue;
 
 					if (laScope != null) {
@@ -713,7 +712,7 @@ public class IteratorBasedExecutableFactory implements IteratorFactory {
 		return new AbstractSingleValuedRunnableIterator<IEntity>(fromClause, satisfiesClause) {
 			protected void run(IEntity selfEntity, IBindingManager bm) {
 				for (IEntity e : argsIterators[0])
-					if (!argsIterators[1].tryEvaluateAsBoolean(e, bm)) {
+					if (!argsIterators[1].evaluateAsBooleanOrFail(e, bm)) {
 						bm.setResult(BindingManagerFactory.instance.createValue(false));
 						return;
 					}
@@ -1106,7 +1105,7 @@ public class IteratorBasedExecutableFactory implements IteratorFactory {
 			protected void resetArguments(IEntity entity) {
 			}
 			@Override
-			protected void setArgumentsBindings(IBindingManager bindings) {
+			protected void setProducersBindings(IBindingManager bindings) {
 			}
 
 			protected void run(IEntity selfEntity, IBindingManager bm) {
@@ -1136,7 +1135,7 @@ public class IteratorBasedExecutableFactory implements IteratorFactory {
 			protected void resetArguments(IEntity entity) {
 			}
 			@Override
-			protected void setArgumentsBindings(IBindingManager bindings) {
+			protected void setProducersBindings(IBindingManager bindings) {
 			}
 
 			protected void run(IEntity selfEntity, IBindingManager bm) {
@@ -1157,7 +1156,7 @@ public class IteratorBasedExecutableFactory implements IteratorFactory {
 			protected void resetArguments(IEntity entity) {
 			}
 			@Override
-			protected void setArgumentsBindings(IBindingManager bindings) {
+			protected void setProducersBindings(IBindingManager bindings) {
 			}
 
 			protected void run(IEntity selfEntity, IBindingManager bm) {

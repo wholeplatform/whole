@@ -27,7 +27,7 @@ import org.whole.lang.model.IEntity;
 /**
  * @author Riccardo Solmi
  */
-public class EmptyExecutable<E extends IEntity> extends AbstractExecutableEvaluatingProducer<E> {
+public class EmptyExecutable<E extends IEntity> extends AbstractExecutableEvaluatingStepper<E> {
     public void reset(IEntity entity) {
     }
 

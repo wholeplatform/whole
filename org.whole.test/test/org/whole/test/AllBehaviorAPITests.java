@@ -26,6 +26,7 @@ import org.whole.lang.builders.GenericForwardSpecificBuilderTest;
 import org.whole.lang.builders.ModelFragmentsBuilderTest;
 import org.whole.lang.codebase.PersistenceTest;
 import org.whole.lang.codebase.PushPullOperationsTest;
+import org.whole.lang.executables.ExecutableFactoryTest;
 import org.whole.lang.iterators.IteratorFactoryTest;
 import org.whole.lang.iterators.ScannerTest;
 import org.whole.lang.java.JDTJavaSourcePersistenceTest;
@@ -66,6 +67,7 @@ import org.whole.lang.visitors.TraversalFactoryTest;
 	NormalizerOperationTest.class,
 	MatcherTest.class,
 	GenericMatcherTestSuite.class,
+	ExecutableFactoryTest.class,
 	IteratorFactoryTest.class,
 	ScannerTest.class,
 	ResourceTemplateTest.class,

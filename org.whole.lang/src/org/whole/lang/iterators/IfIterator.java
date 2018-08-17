@@ -119,8 +119,8 @@ public class IfIterator<E extends IEntity> extends AbstractDelegatingIterator<E>
 		super.reset(entity);
 	}
 
-    protected void setArgumentsBindings(IBindingManager bindings) {
-	    super.setArgumentsBindings(bindings);
+    protected void setProducersBindings(IBindingManager bindings) {
+	    super.setProducersBindings(bindings);
 	    conditionIterator.setBindings(bindings);
 	}
 

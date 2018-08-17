@@ -41,7 +41,7 @@ public abstract class AbstractExecutable<E extends IEntity> implements IEntityIt
 	public IEntity getSourceEntity() {
 		return sourceEntity;
 	}
-	
+
 	public IEntityIterator<E> clone() {
 		return clone(new CloneContext());
 	}
@@ -65,6 +65,15 @@ public abstract class AbstractExecutable<E extends IEntity> implements IEntityIt
 	public IDataFlowConsumer getConsumer() {
 		return consumer;
 	}
+	public void doBegin(int size) {
+		getConsumer().doBegin(size);
+	}
+	public void doNext(IEntity entity) {
+		getConsumer().doNext(entity);
+	}
+	public void doEnd() {
+		getConsumer().doEnd();
+	}
 
 	private IBindingManager bindings;
 	public final boolean hasBindings() {
@@ -81,10 +90,10 @@ public abstract class AbstractExecutable<E extends IEntity> implements IEntityIt
     public final void setBindings(IBindingManager bindings) {
     	if (this.bindings != bindings) {
     		this.bindings = bindings;
-    		setArgumentsBindings(bindings);
+    		setProducersBindings(bindings);
     	}
 	}
-    protected void setArgumentsBindings(IBindingManager bindings) {
+    protected void setProducersBindings(IBindingManager bindings) {
 	}
 
 	public IteratorFactory iteratorFactory() {
@@ -110,7 +119,9 @@ public abstract class AbstractExecutable<E extends IEntity> implements IEntityIt
 		ITransactionScope resettableScope = BindingManagerFactory.instance.createTransactionScope();
 		bm.wEnterScope(resettableScope);
 		try {
-			while ((result = evaluateNext()) != null) {
+			E next;
+			while ((next = evaluateNext()) != null) {
+				result = next;
 				bm.setResult(result);
 				resettableScope.commit();
 			}

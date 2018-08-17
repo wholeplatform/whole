@@ -84,7 +84,7 @@ public class ChooseByTypeIterator<E extends IEntity> extends AbstractLazyCloneab
 		}
 		IEntityIterator<E> result = iteratorFactory().emptyIterator();
 		result.setBindings(getBindings());
-		result.reset(resetEntity);
+		result.reset(selfEntity);
 		return result;
 	}
 

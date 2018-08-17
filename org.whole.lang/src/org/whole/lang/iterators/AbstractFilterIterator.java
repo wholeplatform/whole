@@ -20,7 +20,7 @@ package org.whole.lang.iterators;
 import java.util.NoSuchElementException;
 
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.executables.AbstractExecutableIteratingEvaluatingProducer;
+import org.whole.lang.executables.AbstractExecutableIteratingEvaluatingStepper;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.util.EntityUtils;
@@ -28,7 +28,7 @@ import org.whole.lang.util.EntityUtils;
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractFilterIterator<E extends IEntity> extends AbstractExecutableIteratingEvaluatingProducer<E> {
+public abstract class AbstractFilterIterator<E extends IEntity> extends AbstractExecutableIteratingEvaluatingStepper<E> {
 	protected IEntityIterator<E> iterator;
 	private int nextIndex = 0;
 	private E nextEntity = null;
@@ -46,8 +46,8 @@ public abstract class AbstractFilterIterator<E extends IEntity> extends Abstract
 		return iterator;
 	}
 
-	protected void setArgumentsBindings(IBindingManager bindings) {
-		super.setArgumentsBindings(bindings);
+	protected void setProducersBindings(IBindingManager bindings) {
+		super.setProducersBindings(bindings);
     	iterator.setBindings(bindings);
 	}
 

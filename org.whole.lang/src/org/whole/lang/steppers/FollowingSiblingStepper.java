@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.iterators;
+package org.whole.lang.steppers;
 
 import org.whole.lang.model.IEntity;
 import org.whole.lang.util.EntityUtils;
@@ -23,20 +23,18 @@ import org.whole.lang.util.EntityUtils;
 /**
  * @author Riccardo Solmi
  */
-public class FollowingSiblingIterator<E extends IEntity> extends AbstractByIndexIterator<E> {
+public class FollowingSiblingStepper<E extends IEntity> extends AbstractByIndexStepper<E> {
 	protected boolean includeSelf;
 
-	public FollowingSiblingIterator(boolean forward, boolean includeSelf) {
+	public FollowingSiblingStepper(boolean forward, boolean includeSelf) {
 		super(forward);
 		this.includeSelf = includeSelf;
 	}
 
 	private int startIndex;
-    @Override
     protected final int startIndex() {
     	return startIndex;
     }
-    @Override
     protected final int endIndex() {
     	return selfEntity.wSize()-1;
     }

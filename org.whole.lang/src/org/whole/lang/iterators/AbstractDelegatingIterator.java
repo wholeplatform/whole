@@ -52,9 +52,9 @@ public class AbstractDelegatingIterator<E extends IEntity> extends AbstractLazyC
 			withIterator(getCloneContext().clone(iterator));
 			if (hasBindings())
 				iterator.setBindings(getBindings());
-			if (lazyReset && resetEntity != null) {
+			if (lazyReset && selfEntity != null) {
 				lazyReset = false;
-				iterator.reset(resetEntity);
+				iterator.reset(selfEntity);
 			}
 		}
 		return iterator;
@@ -66,8 +66,8 @@ public class AbstractDelegatingIterator<E extends IEntity> extends AbstractLazyC
 		return this;
 	}
 
-	protected void setArgumentsBindings(IBindingManager bindings) {
-		super.setArgumentsBindings(bindings);
+	protected void setProducersBindings(IBindingManager bindings) {
+		super.setProducersBindings(bindings);
 		if (!lazyClone && getIterator() != null)
 			getIterator().setBindings(bindings);
 	}
@@ -101,7 +101,7 @@ public class AbstractDelegatingIterator<E extends IEntity> extends AbstractLazyC
 	}
 
 	public void reset(IEntity entity) {
-		this.resetEntity = entity;
+		this.selfEntity = entity;
 		this.lazyReset = lazyClone;
 		if (!lazyClone)
 			getIterator().reset(entity);

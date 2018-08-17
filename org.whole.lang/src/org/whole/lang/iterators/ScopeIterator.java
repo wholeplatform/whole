@@ -24,14 +24,14 @@ import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.bindings.INestableScope;
-import org.whole.lang.executables.AbstractExecutableIteratingEvaluatingProducer;
+import org.whole.lang.executables.AbstractExecutableIteratingEvaluatingStepper;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 
 /**
  * @author Riccardo Solmi
  */
-public class ScopeIterator<E extends IEntity> extends AbstractExecutableIteratingEvaluatingProducer<E> {
+public class ScopeIterator<E extends IEntity> extends AbstractExecutableIteratingEvaluatingStepper<E> {
 	private IBindingManager queryBindings;
 	private String environmentName;
 	private Set<String> localNames;
@@ -96,7 +96,7 @@ public class ScopeIterator<E extends IEntity> extends AbstractExecutableIteratin
 			queryBindings.wClear();
 	}
 
-    protected void setArgumentsBindings(IBindingManager bindings) {
+    protected void setProducersBindings(IBindingManager bindings) {
 		if (!localNames.isEmpty())
 			lookaheadScope = BindingManagerFactory.instance.createExcludeFilterScope(localNames);
 

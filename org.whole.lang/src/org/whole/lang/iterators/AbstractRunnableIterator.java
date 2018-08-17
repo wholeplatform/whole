@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.exceptions.WholeIllegalArgumentException;
-import org.whole.lang.executables.AbstractExecutableIteratingEvaluatingProducer;
+import org.whole.lang.executables.AbstractExecutableIteratingEvaluatingStepper;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.util.WholeMessages;
@@ -34,7 +34,7 @@ import org.whole.lang.util.WholeMessages;
  * 
  * TODO keep same as AbstractRunnableEvaluator
  */
-public abstract class AbstractRunnableIterator<E extends IEntity> extends AbstractExecutableIteratingEvaluatingProducer<E> {
+public abstract class AbstractRunnableIterator<E extends IEntity> extends AbstractExecutableIteratingEvaluatingStepper<E> {
 	protected IEntity selfEntity;
 	protected IEntityIterator<? extends IEntity>[] argsIterators;
 	protected Set<Integer> optionalArgsIndexSet;
@@ -68,8 +68,8 @@ public abstract class AbstractRunnableIterator<E extends IEntity> extends Abstra
     			i.reset(entity);		
 	}
 
-    protected void setArgumentsBindings(IBindingManager bindings) {
-		super.setArgumentsBindings(bindings);
+    protected void setProducersBindings(IBindingManager bindings) {
+		super.setProducersBindings(bindings);
 		if (argsIterators != null)
 			for (IEntityIterator<? extends IEntity> i : argsIterators)
 				i.setBindings(bindings);

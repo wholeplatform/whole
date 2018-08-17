@@ -15,16 +15,31 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.producers;
+package org.whole.lang.steppers;
 
 import org.whole.lang.model.IEntity;
 
 /**
  * @author Riccardo Solmi
  */
-public interface IControlFlowProducer {
-	public void reset(IEntity entity);
-	public void callNext();
-	public void callRemaining();
-}
+public class ChildStepper<E extends IEntity> extends AbstractByIndexStepper<E> {
+	public ChildStepper(boolean forward) {
+    	super(forward);
+    }
+	public ChildStepper(boolean forward, int relativeFirstIndex) {
+        super(forward, relativeFirstIndex);
+    }
 
+    protected final int startIndex() {
+    	return 0;
+    }
+    protected final int endIndex() {
+    	return selfEntity.wSize()-1;
+    }
+
+    @Override
+	public void toString(StringBuilder sb) {
+    	sb.append("child");
+		sb.append(forward ? "()" : "-reverse()");
+    }
+}

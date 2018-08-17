@@ -15,31 +15,18 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.executables;
+package org.whole.lang.evaluators;
+
+import java.util.function.Function;
 
 import org.whole.lang.model.IEntity;
 
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractExecutableEvaluatingProducer<E extends IEntity> extends AbstractExecutable<E> {
-	public void callNext() {
-		IEntity entity = null;
-		if ((entity = evaluateNext()) != null) {
-			//TODO if first  getConsumer().doBegin();
-			getConsumer().doNext(entity);
-		} else
-			getConsumer().doEnd();
-	}
-
-	public void callRemaining() {
-		//TODO if first  getConsumer().doBegin();
-		
-		IEntity entity = null;
-		while ((entity = evaluateNext()) != null) {
-			getConsumer().doNext(entity);
-		}
-		getConsumer().doEnd();
+public abstract class AbstractFunctionEvaluator<E extends IEntity> extends AbstractSupplierEvaluator<E> implements Function<IEntity[], E> {
+	public final E get() {
+		return apply(evaluateProducers());
 	}
 }
 
