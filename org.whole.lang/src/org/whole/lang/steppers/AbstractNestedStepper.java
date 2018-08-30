@@ -19,6 +19,8 @@ package org.whole.lang.steppers;
 
 import java.util.BitSet;
 
+import org.whole.lang.bindings.BindingManagerFactory;
+import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.executables.AbstractExecutableSteppingEvaluatingIterator;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
@@ -84,6 +86,57 @@ public abstract class AbstractNestedStepper<E extends IEntity> extends AbstractE
 		p.reset(selfEntity);
 		p.withConsumer(this);
 	}
+
+	protected void scopedCallNext(int producerIndex, IBindingScope scope) {
+		try {
+			getBindings().wEnterScope(scope, true);
+			getProducer(producerIndex).callNext();
+		} finally {
+			getBindings().wExitScope();
+		}
+	}
+	protected void scopedCallRemaining(int producerIndex, IBindingScope scope) {
+		try {
+			getBindings().wEnterScope(scope, true);
+			getProducer(producerIndex).callRemaining();
+		} finally {
+			getBindings().wExitScope();
+		}
+	}
+	protected IEntity scopedEvaluateNext(int producerIndex, IBindingScope scope) {
+		try {
+			getBindings().wEnterScope(scope, true);
+			return getProducer(producerIndex).evaluateNext();
+		} finally {
+			getBindings().wExitScope();
+		}
+	}
+	protected IEntity scopedEvaluateRemaining(int producerIndex, IBindingScope scope) {
+		try {
+			getBindings().wEnterScope(scope, true);
+			return getProducer(producerIndex).evaluateRemaining();
+		} finally {
+			getBindings().wExitScope();
+		}
+	}
+	protected boolean scopedEvaluateAsBooleanOrFail(int producerIndex, IBindingScope scope) {
+		try {
+			getBindings().wEnterScope(scope, true);
+			return getProducer(producerIndex).evaluateAsBooleanOrFail();
+		} finally {
+			getBindings().wExitScope();
+		}
+	}
+	protected boolean scopedEvaluateAsBooleanOrFail(int producerIndex, boolean mergeOnTrue) {
+		boolean merge = false;
+		try {
+			getBindings().wEnterScope(BindingManagerFactory.instance.createSimpleScope(), true);
+			return merge = getProducer(producerIndex).evaluateAsBooleanOrFail();
+		} finally {
+			getBindings().wExitScope(mergeOnTrue ? merge : !merge);
+		}
+	}
+
 
     public void prune() {
     }

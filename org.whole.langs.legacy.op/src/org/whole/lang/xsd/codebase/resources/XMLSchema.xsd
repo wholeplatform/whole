@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.w3.org/2001/XMLSchema">
-	<xsd:element name="schema" type="xsd:Schema"/>
-	<xsd:complexType name="Schema">
-		<xsd:sequence>
-			<xsd:any processContents="lax"/>
-		</xsd:sequence>
-  </xsd:complexType>
-</xsd:schema>

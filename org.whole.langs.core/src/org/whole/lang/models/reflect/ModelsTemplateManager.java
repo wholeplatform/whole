@@ -53,8 +53,6 @@ import org.whole.lang.models.codebase.VariantsModel;
 import org.whole.lang.models.codebase.VersionsModel;
 import org.whole.lang.models.codebase.VisitorsModel;
 import org.whole.lang.models.codebase.XmlModel;
-import org.whole.lang.models.codebase.XsdMappingModel;
-import org.whole.lang.models.codebase.XsdModel;
 import org.whole.lang.models.model.Model;
 import org.whole.lang.templates.AbstractTemplateFactory;
 import org.whole.lang.templates.AbstractTemplateManager;
@@ -128,8 +126,6 @@ public class ModelsTemplateManager extends AbstractTemplateManager {
 
 		put("Java Patterns model", new JavaPatternsModel());
 		put("Xml model", new XmlModel());
-		put("Xsd model", new XsdModel());
-		put("Xsd Mapping model", new XsdMappingModel());
 		put("Properties model", new PropertiesModel());
 		put("Grammars model", new GrammarsModel());
 		put("Grammar Based Notation model", new GrammarBasedModel());

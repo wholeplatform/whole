@@ -22,9 +22,9 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 /**
- * Runs: 509
+ * Runs: 484
  * Errors: 4
- * Failures: 18
+ * Failures: 11
  *
  * @author Riccardo Solmi
  */

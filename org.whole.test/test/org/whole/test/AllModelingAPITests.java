@@ -39,9 +39,9 @@ import org.whole.lang.reflect.LanguageRequestHandlerTest;
 import org.whole.lang.reflect.ReflectiveAPITest;
 
 /**
- * Runs: 133
+ * Runs: 132
  * Errors: 2
- * Failures: 7
+ * Failures: 6
  *
  * @author Riccardo Solmi
  */

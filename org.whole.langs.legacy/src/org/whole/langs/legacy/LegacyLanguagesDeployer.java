@@ -27,8 +27,6 @@ import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.scripts.reflect.ScriptsLanguageDeployer;
 import org.whole.lang.text.reflect.TextLanguageDeployer;
 import org.whole.lang.xml.reflect.XmlLanguageDeployer;
-import org.whole.lang.xsd.mapping.reflect.MappingLanguageDeployer;
-import org.whole.lang.xsd.reflect.XsdLanguageDeployer;
 
 /**
  * @author Riccardo Solmi
@@ -45,8 +43,6 @@ public class LegacyLanguagesDeployer extends AbstractSuiteDeployer {
 			PropertiesLanguageDeployer.class,
 			TextLanguageDeployer.class,
 			XmlLanguageDeployer.class,
-			XsdLanguageDeployer.class,
-			MappingLanguageDeployer.class,
 			ScriptsLanguageDeployer.class,
 			JavaScriptLanguageDeployer.class,
 			JavaPersistenceDeployer.class,

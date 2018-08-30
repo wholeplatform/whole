@@ -17,6 +17,8 @@
  */
 package org.whole.lang.steppers;
 
+import org.whole.lang.bindings.BindingManagerFactory;
+import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
 
@@ -48,6 +50,56 @@ public abstract class AbstractDelegatingNestedStepper<E extends IEntity> extends
 	}
 	protected IEntityIterator<?> getProducer() {
 		return getProducer(producerIndex);
+	}
+
+	protected void scopedCallNext(IBindingScope scope) {
+		try {
+			getBindings().wEnterScope(scope, true);
+			getProducer().callNext();
+		} finally {
+			getBindings().wExitScope();
+		}
+	}
+	protected void scopedCallRemaining(IBindingScope scope) {
+		try {
+			getBindings().wEnterScope(scope, true);
+			getProducer().callRemaining();
+		} finally {
+			getBindings().wExitScope();
+		}
+	}
+	protected IEntity scopedEvaluateNext(IBindingScope scope) {
+		try {
+			getBindings().wEnterScope(scope, true);
+			return getProducer().evaluateNext();
+		} finally {
+			getBindings().wExitScope();
+		}
+	}
+	protected IEntity scopedEvaluateRemaining(IBindingScope scope) {
+		try {
+			getBindings().wEnterScope(scope, true);
+			return getProducer().evaluateRemaining();
+		} finally {
+			getBindings().wExitScope();
+		}
+	}
+	protected boolean scopedEvaluateAsBooleanOrFail(IBindingScope scope) {
+		try {
+			getBindings().wEnterScope(scope, true);
+			return getProducer().evaluateAsBooleanOrFail();
+		} finally {
+			getBindings().wExitScope();
+		}
+	}
+	protected boolean scopedEvaluateAsBooleanOrFail(boolean mergeOnTrue) {
+		boolean merge = false;
+		try {
+			getBindings().wEnterScope(BindingManagerFactory.instance.createSimpleScope(), true);
+			return merge = getProducer().evaluateAsBooleanOrFail();
+		} finally {
+			getBindings().wExitScope(mergeOnTrue ? merge : !merge);
+		}
 	}
 
 	@Override

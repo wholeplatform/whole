@@ -26,8 +26,6 @@ import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.scripts.reflect.ScriptsLanguageKit;
 import org.whole.lang.text.reflect.TextLanguageKit;
 import org.whole.lang.xml.reflect.XmlLanguageKit;
-import org.whole.lang.xsd.mapping.reflect.MappingLanguageKit;
-import org.whole.lang.xsd.reflect.XsdLanguageKit;
 
 /**
  * @author Riccardo Solmi
@@ -46,13 +44,11 @@ public class LegacyMetaModelsDeployer extends AbstractLanguageExtensionDeployer 
 		platform.setMetaModelTemplate(JavaLanguageKit.URI, "Java model", "org/whole/lang/java/JavaModel.xwl");
 		platform.setMetaModelTemplate(JavaScriptLanguageKit.URI, "org.whole.lang.models.codebase.JavaScriptModel");
 		platform.setMetaModelTemplate(JSONLanguageKit.URI, "JSON model", "org/whole/lang/json/JSONModel.xwl");
-		platform.setMetaModelTemplate(MappingLanguageKit.URI, "org.whole.lang.models.codebase.XsdMappingModel");
 		platform.setMetaModelTemplate(MEDIAWIKI_URI, "MediaWiki model", "org/whole/lang/mediawiki/MediaWikiModel.xwl");
 		platform.setMetaModelTemplate(PropertiesLanguageKit.URI, "org.whole.lang.models.codebase.PropertiesModel");
 		platform.setMetaModelTemplate(ScriptsLanguageKit.URI, "org.whole.lang.models.codebase.ScriptsModel");
 		platform.setMetaModelTemplate(TextLanguageKit.URI, "Text model", "org/whole/lang/text/TextModel.xwl");
 		platform.setMetaModelTemplate(XmlLanguageKit.URI, "org.whole.lang.models.codebase.XmlModel");
-		platform.setMetaModelTemplate(XsdLanguageKit.URI, "org.whole.lang.models.codebase.XsdModel");
 	}
 
 	public void undeploy(ReflectionFactory platform) {
@@ -60,12 +56,10 @@ public class LegacyMetaModelsDeployer extends AbstractLanguageExtensionDeployer 
 		platform.unsetMetaModelTemplate(JavaLanguageKit.URI);
 		platform.unsetMetaModelTemplate(JavaScriptLanguageKit.URI);
 		platform.unsetMetaModelTemplate(JSONLanguageKit.URI);
-		platform.unsetMetaModelTemplate(MappingLanguageKit.URI);
 		platform.unsetMetaModelTemplate(MEDIAWIKI_URI);
 		platform.unsetMetaModelTemplate(PropertiesLanguageKit.URI);
 		platform.unsetMetaModelTemplate(ScriptsLanguageKit.URI);
 		platform.unsetMetaModelTemplate(TextLanguageKit.URI);
 		platform.unsetMetaModelTemplate(XmlLanguageKit.URI);
-		platform.unsetMetaModelTemplate(XsdLanguageKit.URI);
 	}
 }

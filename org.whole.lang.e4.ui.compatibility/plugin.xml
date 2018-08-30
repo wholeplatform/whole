@@ -370,22 +370,6 @@
             <contentTypeBinding contentTypeId="org.eclipse.core.runtime.xml"/>
       </editor>
       <editor
-            name="XSD Editor"
-            extensions="xsd"
-            icon="icons/editors/xml_source.gif"
-            default="false"
-            class="org.whole.lang.e4.ui.compatibility.EditorPart"
-            id="org.whole.lang.xsd.XsdSourceEditor">
-      </editor>
-      <editor
-            name="XSI Editor"
-            extensions="xml"
-            icon="icons/editors/xml_source.gif"
-            default="false"
-            class="org.whole.lang.e4.ui.compatibility.EditorPart"
-            id="org.whole.lang.xsd.XsiSourceEditor">
-      </editor>
-      <editor
             name="JavaScript Editor (Whole)"
             extensions="js"
             default="false"

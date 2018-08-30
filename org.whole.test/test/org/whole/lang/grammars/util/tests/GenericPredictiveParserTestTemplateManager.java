@@ -37,7 +37,6 @@ public class GenericPredictiveParserTestTemplateManager extends AbstractTemplate
         put("fragment18", newfragment18());
         put("fragment19", newfragment19());
         put("fragment20", newfragment20());
-        put("fragment21", newfragment21());
         put("fragment22", newfragment22());
         put("fragment23", newfragment23());
         put("fragment24", newfragment24());
@@ -693,71 +692,6 @@ public class GenericPredictiveParserTestTemplateManager extends AbstractTemplate
         };
     }
 
-    public ITemplateFactory<IEntity> newfragment21() {
-        return new AbstractTemplateFactory<IEntity>() {
-
-            public void apply(org.whole.lang.builders.IBuilderOperation op) {
-                org.whole.lang.commons.builders.ICommonsBuilder b0 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
-                b0.StageUpFragment_();
-                org.whole.lang.reflect.EntityDescriptorEnum e1 = org.whole.lang.reflect.ReflectionFactory.getLanguageKit("http://xsd.dataintegration.examples.whole.org/DTAUS").getEntityDescriptorEnum();
-                b0.wEntity_(e1.valueOf("DTAUS"));
-                b0.wEntity_(e1.valueOf("ARecord"));
-                b0.wEntity(e1.valueOf("TransactionKind"), "GK");
-                b0.wEntity(e1.valueOf("SNumber"), 50099900);
-                b0.wEntity(e1.valueOf("Chars"), "MUSTERMANN                 ");
-                b0.wEntity(e1.valueOf("SDate"), "070108");
-                b0.wEntity(e1.valueOf("LNumber"), 1234567890l);
-                b0.wEntity(e1.valueOf("RefType"), "EF00010402");
-                b0.wEntity(e1.valueOf("FDate"), "21012008");
-                b0.wEntity(e1.valueOf("Currency"), "1");
-                b0._wEntity(e1.valueOf("ARecord"));
-                b0.wEntity_(e1.valueOf("CRecords"), 1);
-                b0.wEntity_(e1.valueOf("CRecord"));
-                b0.wEntity(e1.valueOf("Size"), (short) 303);
-                b0.wEntity(e1.valueOf("SNumber"), 50099900);
-                b0.wEntity(e1.valueOf("SNumber"), 70099900);
-                b0.wEntity(e1.valueOf("LNumber"), 9876543210l);
-                b0.wEntity(e1.valueOf("InternalID"), "0800000123468");
-                b0.wEntity(e1.valueOf("TransactionType"), "51000");
-                b0.wEntity(e1.valueOf("AMNumber"), 0l);
-                b0.wEntity(e1.valueOf("SNumber"), 50099900);
-                b0.wEntity(e1.valueOf("LNumber"), 1234567890l);
-                b0.wEntity(e1.valueOf("AMNumber"), 1010044l);
-                b0.wEntity(e1.valueOf("Chars"), "MALEREI PINSEL UND KLECKS G");
-                b0.wEntity(e1.valueOf("Chars"), "NIKOLAUS MUSTERMANN        ");
-                b0.wEntity(e1.valueOf("Chars"), "                           ");
-                b0.wEntity(e1.valueOf("Currency"), "1");
-                b0.wEntity(e1.valueOf("VSNumber"), 5);
-                b0.wEntity(e1.valueOf("ExpansionType"), "01");
-                b0.wEntity(e1.valueOf("Chars"), "MBH                        ");
-                b0.wEntity(e1.valueOf("ExpansionType"), "02");
-                b0.wEntity(e1.valueOf("Chars"), "RECHNUNG 1111 VOM 13.1.2008");
-                b0.wEntity_(e1.valueOf("ExpansionRecords"), 1);
-                b0.wEntity_(e1.valueOf("ExpansionRecord"));
-                b0.wEntity(e1.valueOf("ExpansionType"), "02");
-                b0.wEntity(e1.valueOf("Chars"), " RECHNUNG 1112 VOM 14.1.200");
-                b0.wEntity(e1.valueOf("ExpansionType"), "02");
-                b0.wEntity(e1.valueOf("Chars"), "8 RECHNUNG 1113 VOM 15.1.20");
-                b0.wEntity(e1.valueOf("ExpansionType"), "02");
-                b0.wEntity(e1.valueOf("Chars"), "08                         ");
-                b0.wEntity(e1.valueOf("ExpansionType"), "  ");
-                b0.wEntity(e1.valueOf("Chars"), "                           ");
-                b0._wEntity(e1.valueOf("ExpansionRecord"));
-                b0._wEntity(e1.valueOf("ExpansionRecords"));
-                b0._wEntity(e1.valueOf("CRecord"));
-                b0._wEntity(e1.valueOf("CRecords"));
-                b0.wEntity_(e1.valueOf("ERecord"));
-                b0.wEntity(e1.valueOf("RecordNumber"), 1);
-                b0.wEntity(e1.valueOf("STotal"), 0l);
-                b0.wEntity(e1.valueOf("LTotal"), 9876543210l);
-                b0.wEntity(e1.valueOf("LTotal"), 70099900l);
-                b0.wEntity(e1.valueOf("STotal"), 1010044l);
-                b0._wEntity(e1.valueOf("ERecord"));
-                b0._wEntity(e1.valueOf("DTAUS"));
-                b0._StageUpFragment();
-            }
-        };
-    }
 
     public ITemplateFactory<IEntity> newfragment22() {
         return new AbstractTemplateFactory<IEntity>() {

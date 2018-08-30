@@ -22,7 +22,6 @@ import java.beans.PropertyChangeEvent;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.whole.lang.commons.reflect.CommonsFeatureDescriptorEnum;
 import org.whole.lang.events.IPropertyChangeObserver;
 import org.whole.lang.factories.GenericEntityFactory;
@@ -37,24 +36,28 @@ import org.whole.lang.models.model.ComponentModifiers;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.reflect.ReflectionFactory;
+import org.whole.lang.testentities.factories.TestEntitiesEntityFactory;
+import org.whole.lang.testentities.model.BooleanTestEntity;
+import org.whole.lang.testentities.model.ByteTestEntity;
+import org.whole.lang.testentities.model.CharTestEntity;
+import org.whole.lang.testentities.model.DateTestEntity;
+import org.whole.lang.testentities.model.DoubleTestEntity;
+import org.whole.lang.testentities.model.EnumTestEntity;
+import org.whole.lang.testentities.model.EnumTestEntityEnum;
+import org.whole.lang.testentities.model.FloatTestEntity;
+import org.whole.lang.testentities.model.IntTestEntity;
+import org.whole.lang.testentities.model.ListTestEntity;
+import org.whole.lang.testentities.model.LongTestEntity;
+import org.whole.lang.testentities.model.MapTestEntity;
+import org.whole.lang.testentities.model.ObjectTestEntity;
+import org.whole.lang.testentities.model.ShortTestEntity;
+import org.whole.lang.testentities.model.SimpleTestEntity;
+import org.whole.lang.testentities.model.StringTestEntity;
+import org.whole.lang.testentities.reflect.TestEntitiesLanguageDeployer;
 import org.whole.lang.util.EntityUtils;
 import org.whole.lang.xml.factories.XmlEntityFactory;
 import org.whole.lang.xml.model.Attribute;
 import org.whole.lang.xml.model.Attributes;
-import org.whole.lang.xsd.factories.XsdEntityFactory;
-import org.whole.lang.xsd.mapping.factories.MappingEntityFactory;
-import org.whole.lang.xsd.mapping.model.AttributeMapping;
-import org.whole.lang.xsd.mapping.model.ElementMapping;
-import org.whole.lang.xsd.mapping.model.Mapping;
-import org.whole.lang.xsd.mapping.model.Mappings;
-import org.whole.lang.xsd.mapping.model.StructuralMapping;
-import org.whole.lang.xsd.model.Annotation;
-import org.whole.lang.xsd.model.Bounded;
-import org.whole.lang.xsd.model.ElementRef;
-import org.whole.lang.xsd.model.NamespaceDecls;
-import org.whole.lang.xsd.model.QName;
-import org.whole.lang.xsd.model.StringData;
-import org.whole.test.KnownFailingTests;
 
 /**
  * @author Enrico Persiani
@@ -96,7 +99,8 @@ public class ByChildAPITest {
     @BeforeClass
     public static void deployWholePlatform() {
     	ReflectionFactory.deployWholePlatform();
-    }
+		ReflectionFactory.deploy(TestEntitiesLanguageDeployer.class);
+   }
 
 	private void orderedCompositeOperationsEntityTest(IEntity[] entitiesArray, int[] businessEquivalence, IEntity entities) {
 		// test wIndexOf
@@ -304,23 +308,6 @@ public class ByChildAPITest {
 		propertyChangeEntityTest(modifiersArray, modifiers, mf.createComponentModifier(ComponentModifierEnum.unique));
 	}
 
-	@Category(KnownFailingTests.class)
-	@Test
-	public void testAbstractBagCompositeEntity() {
-		MappingEntityFactory mf = MappingEntityFactory.instance(RegistryConfigurations.STRICT);
-
-		AttributeMapping am = mf.createAttributeMapping();
-		ElementMapping em1 = mf.createElementMapping();
-		ElementMapping em2 = mf.createElementMapping();
-		StructuralMapping cm = mf.createStructuralMapping();
-
-		Mapping[] mappingsArray = new Mapping[] {am, em1, em2, cm};
-		Mappings mappings = mf.createMappings(mappingsArray);
-
-		unorderedCompositeOperationsEntityTest(mappingsArray, mappings);
-		commonOperationsEntityTest(mappingsArray, mappingsArray, mappings);
-		propertyChangeEntityTest(mappingsArray, mappings, mf.createStructuralMapping());
-	}
 
 //	public void testAbstractMapEntity() {
 //		InfoEntityFactory infof = InfoEntityFactory.instance;
@@ -347,19 +334,28 @@ public class ByChildAPITest {
 
 	@Test
 	public void testAbstractSimpleEntity() {
-		XsdEntityFactory mf = XsdEntityFactory.instance;
+		TestEntitiesEntityFactory mf = TestEntitiesEntityFactory.instance;
 
-		NamespaceDecls decls = mf.createNamespaceDecls(mf.createNamespaceDecl(mf.createName("prefix"), mf.createAnyURI("uri")));
-		QName ref = mf.createQName("testQName");
-		org.whole.lang.xsd.model.Attributes attributes = mf.createAttributes(0);
-		Bounded min = mf.createBounded(1);
-		Bounded max = mf.createBounded(1);
-		Annotation ann = mf.createAnnotation();
-		StringData id = mf.createStringData("myId");
+		SimpleTestEntity decls = mf.createSimpleTestEntity();
+		MapTestEntity id = mf.createMapTestEntity();
+		ListTestEntity attributes = mf.createListTestEntity();
+		StringTestEntity min = mf.createStringTestEntity("string");
+		BooleanTestEntity max = mf.createBooleanTestEntity(true);
+		ByteTestEntity ref = mf.createByteTestEntity((byte) 1);
+		CharTestEntity ann = mf.createCharTestEntity('$');
+		DoubleTestEntity d1 = mf.createDoubleTestEntity(23874628364.34287);
+		FloatTestEntity d2 = mf.createFloatTestEntity(12.4f);
+		IntTestEntity d3 = mf.createIntTestEntity(345345);
+		LongTestEntity d4 = mf.createLongTestEntity(34534435l);
+		ShortTestEntity d5 = mf.createShortTestEntity((short) 123);
+		StringTestEntity d6 = mf.createStringTestEntity("string");
+		DateTestEntity d7 = mf.createDateTestEntity();
+		EnumTestEntity d8 = mf.createEnumTestEntity(EnumTestEntityEnum.five);
+		ObjectTestEntity d9 = mf.createObjectTestEntity(null);
 
-		IEntity[] featuresArray = new IEntity[] {decls, id, attributes, min, max, ref, ann};
-		int[] businessEquivalence = new int[] {-1, 1, -1, 3, 3, 5, -1};
-		ElementRef elementRef = mf.createElementRef(decls, id, attributes, min, max, ref, ann);
+		IEntity[] featuresArray = new IEntity[] {decls, id, attributes, min, max, ref, ann, d1, d2, d3, d4, d5, d6, d7, d8, d9};
+		int[] businessEquivalence = new int[] {-1, -1, -1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 3, 13, 14, 15};
+		SimpleTestEntity elementRef = mf.createSimpleTestEntity(decls, id, attributes, min, max, ref, ann, d1, d2, d3, d4, d5, d6, d7, d8, d9);
 
 		// test wIndexOf
 		// object identity
@@ -368,7 +364,8 @@ public class ByChildAPITest {
 
 		// business identity
 		for (int i=0; i<elementRef.wSize(); i++)
-			Assert.assertTrue(elementRef.wIndexOf(EntityUtils.clone(featuresArray[i])) == businessEquivalence[i]);
+			if (elementRef.wIndexOf(EntityUtils.clone(featuresArray[i])) != businessEquivalence[i])
+				Assert.assertTrue(elementRef.wIndexOf(EntityUtils.clone(featuresArray[i])) == businessEquivalence[i]);
 
 		// test wGet
 		// business identity

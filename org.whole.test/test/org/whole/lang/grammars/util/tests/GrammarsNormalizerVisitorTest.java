@@ -170,40 +170,6 @@ public class GrammarsNormalizerVisitorTest extends TestCase {
      *
      */
     @Test
-    public void testNormalizeXmlGrammar() {
-        ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();
-        try {
-            bindings().wEnterScope(ts);
-            IEntity subject;
-            subject = evaluate("fragment20");
-            assertThat("at /testCases/0/tests/8/body/0", subject, matches(evaluate("fragment21")));
-        } finally {
-            ts.rollback();
-            bindings().wExitScope();
-        }
-    }
-
-    /**
-     *
-     */
-    @Test
-    public void testNormalizeDTAUSGrammar() {
-        ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();
-        try {
-            bindings().wEnterScope(ts);
-            IEntity subject;
-            subject = evaluate("fragment22");
-            assertThat("at /testCases/0/tests/9/body/0", subject, matches(evaluate("fragment23")));
-        } finally {
-            ts.rollback();
-            bindings().wExitScope();
-        }
-    }
-
-    /**
-     *
-     */
-    @Test
     public void testNormalizeMotoGPCSVGrammar() {
         ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();
         try {

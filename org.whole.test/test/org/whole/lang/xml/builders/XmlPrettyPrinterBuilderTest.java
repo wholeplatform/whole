@@ -62,7 +62,6 @@ public class XmlPrettyPrinterBuilderTest {
 	@Test
     public void testConformanceWithVisitor() throws Exception {
 		comparePrettyPrints("read.xml");
-		comparePrettyPrints("../../xsd/util/wsbpel_2_0.xsd");
 		comparePrettyPrints("testwspace.xml");
 	}
 

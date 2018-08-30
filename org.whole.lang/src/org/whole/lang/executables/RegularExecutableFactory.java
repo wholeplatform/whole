@@ -248,6 +248,13 @@ public class RegularExecutableFactory extends IteratorBasedExecutableFactory {
 		};
 	}
 
+	@SuppressWarnings("unchecked")
+	public <E extends IEntity> IEntityIterator<E> ifIterator(IEntityIterator<? extends IEntity> conditionIterator, IEntityIterator<E> doIterator) {
+		return super.ifIterator(conditionIterator, doIterator);
+	//FIXME
+//		return (IEntityIterator<E>) new IfStepper((IEntityIterator<IEntity>) conditionIterator, (IEntityIterator<IEntity>) doIterator);
+	}
+
 	public <E extends IEntity> IEntityIterator<E> chooseIterator(IEntityIterator<? extends E>... iteratorChain) {
 		return super.chooseIterator(iteratorChain);
 		//FIXME

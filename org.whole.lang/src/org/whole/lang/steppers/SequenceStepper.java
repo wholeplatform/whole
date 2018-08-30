@@ -17,6 +17,8 @@
  */
 package org.whole.lang.steppers;
 
+import org.whole.lang.bindings.AbstractFilterScope;
+import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
 
@@ -29,9 +31,35 @@ public class SequenceStepper<E extends IEntity> extends AbstractDelegatingNested
 		super(steppers);
 	}
 
+	protected AbstractFilterScope sequenceScope = BindingManagerFactory.instance.createExcludeFilterSimpleScope();
+	protected void clearSequenceScope() {
+		if (sequenceScope != null) {
+			sequenceScope.setFilterEnabled(false);
+			for (String name : sequenceScope.wLocalNames())
+				getBindings().wUnset(name);
+			sequenceScope.wClear();
+			sequenceScope.getFilterNames().clear();
+			sequenceScope.setFilterEnabled(true);
+		}
+	}
+
+	@Override
+	public void reset(IEntity entity) {
+		super.reset(entity);
+		clearSequenceScope();
+	}
+
 	public void callNext() {
 		while (isValidProducer()) {
-			getProducer().callNext();
+			sequenceScope.setFilterEnabled(false);
+			for (String name : sequenceScope.wLocalNames())
+				getBindings().wUnset(name);
+			scopedCallNext(sequenceScope);
+			sequenceScope.setFilterEnabled(true);
+			getBindings().wAddAll(sequenceScope);
+			sequenceScope.getFilterNames().addAll(sequenceScope.wLocalNames());
+			
+			//getProducer().callNext();
 			if (nextEntity != null)
 				return;
 		}
@@ -39,8 +67,14 @@ public class SequenceStepper<E extends IEntity> extends AbstractDelegatingNested
 	}
 
 	public void callRemaining() {
-		while (isValidProducer())
-			getProducer().callRemaining();
+		while (isValidProducer()) {
+			sequenceScope.setFilterEnabled(false);
+			scopedCallRemaining(sequenceScope);
+			sequenceScope.setFilterEnabled(true);
+			getBindings().wAddAll(sequenceScope);
+
+			//getProducer().callRemaining();
+		}
 		super.doEnd();
 	}
 

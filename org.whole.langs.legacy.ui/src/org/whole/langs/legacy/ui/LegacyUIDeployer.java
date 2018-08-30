@@ -26,8 +26,6 @@ import org.whole.lang.reflect.IDeployer;
 import org.whole.lang.scripts.ui.ScriptsUIDeployer;
 import org.whole.lang.text.ui.TextUIDeployer;
 import org.whole.lang.xml.ui.XmlUIDeployer;
-import org.whole.lang.xsd.ui.XsdUIDeployer;
-import org.whole.lang.xsi.ui.XsiUIDeployer;
 
 /**
  * @author Riccardo Solmi
@@ -46,9 +44,7 @@ public class LegacyUIDeployer extends AbstractSuiteDeployer {
 			PropertiesUIDeployer.class,
 			ScriptsUIDeployer.class,
 			TextUIDeployer.class,
-			XmlUIDeployer.class,
-			XsiUIDeployer.class,
-			XsdUIDeployer.class
+			XmlUIDeployer.class
 		);
 	}
 }

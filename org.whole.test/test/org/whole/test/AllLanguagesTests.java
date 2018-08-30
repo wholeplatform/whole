@@ -39,16 +39,11 @@ import org.whole.lang.workflows.visitors.WorkflowsInterpreterVisitorTest;
 import org.whole.lang.workflows.visitors.tests.WorkflowsTestSuite;
 import org.whole.lang.xml.builders.XmlNormalizerBuilderTest;
 import org.whole.lang.xml.builders.XmlPrettyPrinterBuilderTest;
-import org.whole.lang.xsd.builders.XsdModelBuilderTest;
-import org.whole.lang.xsd.mapping.XsdMappingTest;
-import org.whole.lang.xsd.templates.XsiModelTemplateTest;
-import org.whole.lang.xsd.util.XsdLanguageTest;
-import org.whole.lang.xsd.util.XsiDateTimeUtilsTest;
 
 /**
- * Runs: 252
+ * Runs: 216
  * Errors: 1
- * Failures: 11
+ * Failures: 5
 
  * @author Riccardo Solmi
  */
@@ -68,11 +63,6 @@ import org.whole.lang.xsd.util.XsiDateTimeUtilsTest;
 	SQLInterpreterTest.class,
 	XmlNormalizerBuilderTest.class,
 	XmlPrettyPrinterBuilderTest.class,
-	XsdLanguageTest.class,
-	XsdMappingTest.class,
-	XsiModelTemplateTest.class,
-	XsdModelBuilderTest.class,
-	XsiDateTimeUtilsTest.class,
 	BindingCommandTest.class,
 	TestsInterpreterVisitorTest.class,
 	WorkflowsInterpreterVisitorTest.class,

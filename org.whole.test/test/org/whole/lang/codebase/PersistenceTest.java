@@ -167,7 +167,7 @@ public class PersistenceTest {
 	@Test
     public void testSaxHandlerBuilder() throws Exception {
 		Document xmlModel = (Document) XmlSourcePersistenceKit.instance().readModel(
-				new ClasspathPersistenceProvider("org/whole/lang/xsd/util/javaee_web_services_client_1_2.xsd"));
+				new ClasspathPersistenceProvider("org/whole/lang/codebase/persistenceTest.xwl"));
 
 		ModelBuilderOperation op = new ModelBuilderOperation();
 		SaxConsumerHandler saxHandler = new SaxConsumerHandler(op, !EntityUtils.isResolver(xmlModel.getProlog().getXmlDecl()));

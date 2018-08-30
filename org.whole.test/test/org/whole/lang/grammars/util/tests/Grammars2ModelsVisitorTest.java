@@ -187,23 +187,6 @@ public class Grammars2ModelsVisitorTest extends TestCase {
      *
      */
     @Test
-    public void testMappingDTAUSGrammar() {
-        ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();
-        try {
-            bindings().wEnterScope(ts);
-            IEntity subject;
-            subject = evaluate("fragment22");
-            assertThat("at /testCases/1/tests/9/body/0", subject, matches(evaluate("fragment23")));
-        } finally {
-            ts.rollback();
-            bindings().wExitScope();
-        }
-    }
-
-    /**
-     *
-     */
-    @Test
     public void testMappingMotoGPCSVGrammar() {
         ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();
         try {

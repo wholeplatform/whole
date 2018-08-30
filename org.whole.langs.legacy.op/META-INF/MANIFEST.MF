@@ -6,10 +6,7 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Export-Package: org.whole.lang.xsd.codebase,
- org.whole.lang.xsd.util,
- org.whole.lang.xsd.visitors,
- org.whole.langs.legacy.op
+Export-Package: org.whole.langs.legacy.op
 Require-Bundle: org.whole.lang,
  org.whole.langs.core,
  org.whole.langs.legacy,

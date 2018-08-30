@@ -5,11 +5,6 @@
      <extension
          point="org.whole.lang.deployers">
       <deployer
-            desc="Legacy Languages Operations Deployer"
-            class="org.whole.langs.legacy.op.LegacyOperationsDeployer"
-            id="org.whole.langs.legacy.op.LegacyOperationsDeployer">
-      </deployer>
-      <deployer
             desc="Legacy Languages Contributions Extensions Deployer"
             class="org.whole.langs.legacy.op.LegacyContributionExtensionsDeployer"
             id="org.whole.langs.legacy.op.LegacyContributionExtensionsDeployer">
