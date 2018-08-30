@@ -116,7 +116,9 @@ public class BehaviorUtils {
 
 			resultIterator.reset(selfEntity);
 	
-			return resultIterator.evaluateSingleton();
+			IEntity result = resultIterator.evaluateSingleton();
+			bm.setResult(result);
+			return result;
 		} else {
 			IEntity result = bm.getResult();
 			if (result == null)

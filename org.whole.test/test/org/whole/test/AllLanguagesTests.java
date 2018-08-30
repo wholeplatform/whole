@@ -41,8 +41,8 @@ import org.whole.lang.xml.builders.XmlNormalizerBuilderTest;
 import org.whole.lang.xml.builders.XmlPrettyPrinterBuilderTest;
 
 /**
- * Runs: 216
- * Errors: 1
+ * Runs: 217
+ * Errors: 0
  * Failures: 5
 
  * @author Riccardo Solmi

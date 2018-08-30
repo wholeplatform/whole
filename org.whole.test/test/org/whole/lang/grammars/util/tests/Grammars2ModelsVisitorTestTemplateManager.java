@@ -38,10 +38,10 @@ public class Grammars2ModelsVisitorTestTemplateManager extends AbstractTemplateM
         put("fragment19", newfragment19());
         put("fragment20", newfragment20());
         put("fragment21", newfragment21());
+        put("fragment22", newfragment22());
+        put("fragment23", newfragment23());
         put("fragment24", newfragment24());
         put("fragment25", newfragment25());
-        put("fragment26", newfragment26());
-        put("fragment27", newfragment27());
     }
 
     public ITemplateFactory<IEntity> newfragment() {
@@ -5805,7 +5805,7 @@ public class Grammars2ModelsVisitorTestTemplateManager extends AbstractTemplateM
         };
     }
 
-    public ITemplateFactory<IEntity> newfragment24() {
+    public ITemplateFactory<IEntity> newfragment22() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -5935,7 +5935,7 @@ public class Grammars2ModelsVisitorTestTemplateManager extends AbstractTemplateM
         };
     }
 
-    public ITemplateFactory<IEntity> newfragment25() {
+    public ITemplateFactory<IEntity> newfragment23() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -6044,7 +6044,7 @@ public class Grammars2ModelsVisitorTestTemplateManager extends AbstractTemplateM
         };
     }
 
-    public ITemplateFactory<IEntity> newfragment26() {
+    public ITemplateFactory<IEntity> newfragment24() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -6167,7 +6167,7 @@ public class Grammars2ModelsVisitorTestTemplateManager extends AbstractTemplateM
         };
     }
 
-    public ITemplateFactory<IEntity> newfragment27() {
+    public ITemplateFactory<IEntity> newfragment25() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {

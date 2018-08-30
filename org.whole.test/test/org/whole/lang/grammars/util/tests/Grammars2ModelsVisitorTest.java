@@ -4,14 +4,11 @@ import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.whole.lang.tests.junit.EntityMatchers.*;
 import org.junit.*;
-import org.junit.experimental.categories.Category;
 import org.whole.lang.bindings.*;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.tests.junit.TestCase;
-import org.whole.test.SlowTests;
 
-@Category(SlowTests.class)
 public class Grammars2ModelsVisitorTest extends TestCase {
 
     protected static IEntity create(String templateName) {
@@ -192,8 +189,8 @@ public class Grammars2ModelsVisitorTest extends TestCase {
         try {
             bindings().wEnterScope(ts);
             IEntity subject;
-            subject = evaluate("fragment24");
-            assertThat("at /testCases/1/tests/10/body/0", subject, matches(evaluate("fragment25")));
+            subject = evaluate("fragment22");
+            assertThat("at /testCases/1/tests/9/body/0", subject, matches(evaluate("fragment23")));
         } finally {
             ts.rollback();
             bindings().wExitScope();
@@ -209,8 +206,8 @@ public class Grammars2ModelsVisitorTest extends TestCase {
         try {
             bindings().wEnterScope(ts);
             IEntity subject;
-            subject = evaluate("fragment26");
-            assertThat("at /testCases/1/tests/11/body/0", subject, matches(evaluate("fragment27")));
+            subject = evaluate("fragment24");
+            assertThat("at /testCases/1/tests/10/body/0", subject, matches(evaluate("fragment25")));
         } finally {
             ts.rollback();
             bindings().wExitScope();

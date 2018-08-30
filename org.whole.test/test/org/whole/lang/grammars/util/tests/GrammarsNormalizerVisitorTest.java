@@ -4,14 +4,11 @@ import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.whole.lang.tests.junit.EntityMatchers.*;
 import org.junit.*;
-import org.junit.experimental.categories.Category;
 import org.whole.lang.bindings.*;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.tests.junit.TestCase;
-import org.whole.test.SlowTests;
 
-@Category(SlowTests.class)
 public class GrammarsNormalizerVisitorTest extends TestCase {
 
     protected static IEntity create(String templateName) {
@@ -170,13 +167,30 @@ public class GrammarsNormalizerVisitorTest extends TestCase {
      *
      */
     @Test
+    public void testNormalizeXmlGrammar() {
+        ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();
+        try {
+            bindings().wEnterScope(ts);
+            IEntity subject;
+            subject = evaluate("fragment20");
+            assertThat("at /testCases/0/tests/8/body/0", subject, matches(evaluate("fragment21")));
+        } finally {
+            ts.rollback();
+            bindings().wExitScope();
+        }
+    }
+
+    /**
+     *
+     */
+    @Test
     public void testNormalizeMotoGPCSVGrammar() {
         ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();
         try {
             bindings().wEnterScope(ts);
             IEntity subject;
-            subject = evaluate("fragment24");
-            assertThat("at /testCases/0/tests/10/body/0", subject, matches(evaluate("fragment25")));
+            subject = evaluate("fragment22");
+            assertThat("at /testCases/0/tests/9/body/0", subject, matches(evaluate("fragment23")));
         } finally {
             ts.rollback();
             bindings().wExitScope();
@@ -192,8 +206,8 @@ public class GrammarsNormalizerVisitorTest extends TestCase {
         try {
             bindings().wEnterScope(ts);
             IEntity subject;
-            subject = evaluate("fragment26");
-            assertThat("at /testCases/0/tests/11/body/0", subject, matches(evaluate("fragment27")));
+            subject = evaluate("fragment24");
+            assertThat("at /testCases/0/tests/10/body/0", subject, matches(evaluate("fragment25")));
         } finally {
             ts.rollback();
             bindings().wExitScope();
