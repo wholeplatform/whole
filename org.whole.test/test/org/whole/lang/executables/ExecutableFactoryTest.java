@@ -127,13 +127,11 @@ public class ExecutableFactoryTest {
 
     @Test
     public void testEmptyStepper() {
+    	TesterDataFlowConsumer c = new TesterDataFlowConsumer();
     	IEntityIterator<?> p = f.emptyIterator();
+		p.withConsumer(c);
     	p.setBindings(bmf.createBindingManager());
     	p.reset(VALUES[0]);
-
-    	
-    	TesterDataFlowConsumer c = new TesterDataFlowConsumer();
-		p.withConsumer(c);
 
     	c.setExpectedEvents(Event.END);
     	p.callNext();
@@ -148,8 +146,8 @@ public class ExecutableFactoryTest {
     public void testConstantStepper() {
     	TesterDataFlowConsumer c = new TesterDataFlowConsumer();
     	IEntityIterator<?> p = f.constantIterator(VALUES[0], false);
-    	p.setBindings(bmf.createBindingManager());
 		p.withConsumer(c);
+    	p.setBindings(bmf.createBindingManager());
 
     	c.useSameComparator(true);
     	c.setExpectedValues(VALUES[0]);
@@ -187,8 +185,8 @@ public class ExecutableFactoryTest {
     	IBindingManager bm = bmf.createBindingManager();
     	TesterDataFlowConsumer c = new TesterDataFlowConsumer();
     	IEntityIterator<?> p = f.asVariableIterator("v0");
-    	p.setBindings(bm);
 		p.withConsumer(c);
+    	p.setBindings(bm);
 
     	c.setExpectedValues(TRUE_VALUE);
     	c.setExpectedEvents(Event.NEXT, Event.END, Event.END);
@@ -225,8 +223,8 @@ public class ExecutableFactoryTest {
     	bm.wDef("v0", VALUES[0]);
     	TesterDataFlowConsumer c = new TesterDataFlowConsumer();
     	IEntityIterator<?> p = f.variableIterator("v0");
-    	p.setBindings(bm);
 		p.withConsumer(c);
+    	p.setBindings(bm);
 
     	p.reset(VALUES[1]);
     	c.setExpectedEvents(Event.NEXT);
@@ -249,8 +247,8 @@ public class ExecutableFactoryTest {
     	IBindingManager bm = bmf.createBindingManager();
     	TesterDataFlowConsumer c = new TesterDataFlowConsumer();
     	IEntityIterator<?> p = f.filterIterator(f.constantIterator(VALUES[0], false), f.asVariableIterator("v0"));
-    	p.setBindings(bm);
 		p.withConsumer(c);
+    	p.setBindings(bm);
 
     	p.reset(VALUES[1]);
     	c.setExpectedEvents(Event.NEXT, Event.END);
@@ -273,6 +271,7 @@ public class ExecutableFactoryTest {
 
     @Test
     public void testSequenceStepper() {
+    	TesterDataFlowConsumer c = new TesterDataFlowConsumer();
     	@SuppressWarnings("unchecked")
 		IEntityIterator<?> p = f.sequenceIterator(
     			f.constantIterator(VALUES[0], false),
@@ -286,10 +285,9 @@ public class ExecutableFactoryTest {
     	    			f.constantIterator(VALUES[6], false),
     	    			f.constantIterator(VALUES[7], false))
     	);
+		p.withConsumer(c);
     	p.setBindings(bmf.createBindingManager());
 
-    	TesterDataFlowConsumer c = new TesterDataFlowConsumer();
-		p.withConsumer(c);
 		c.setExpectedValues(
     			VALUES[0], VALUES[1], VALUES[2], VALUES[3], VALUES[4], VALUES[5], VALUES[6], VALUES[7]);
     	c.setExpectedEvents(
@@ -329,8 +327,8 @@ public class ExecutableFactoryTest {
 				f.filterIterator(f.variableIterator("v3"), f.asVariableIterator("v6")), //not bound: missing v3
     			f.filterIterator(f.constantIterator(VALUES[4], false), f.asVariableIterator("v3"))
     	);
-    	p.setBindings(bm);
 		p.withConsumer(c);
+    	p.setBindings(bm);
 
     	c.setExpectedEvents(
     			Event.NEXT, Event.NEXT, Event.NEXT, Event.NEXT, Event.NEXT, Event.NEXT, Event.NEXT, Event.END);
@@ -383,8 +381,8 @@ public class ExecutableFactoryTest {
 				f.filterIterator(f.variableIterator("v1"), f.asVariableIterator("v5")),
 				f.filterIterator(f.variableIterator("v2"), f.asVariableIterator("v6")) //not bound
     	);
-    	p.setBindings(bm);
 		p.withConsumer(c);
+    	p.setBindings(bm);
 
     	c.setExpectedEvents(
     			Event.NEXT, Event.NEXT, Event.NEXT, Event.NEXT, Event.NEXT, Event.END);

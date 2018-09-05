@@ -15,24 +15,36 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.test;
+package org.whole.lang.steppers;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.model.IEntity;
 
 /**
- * Runs: 485
- * Errors: 3
- * Failures: 11
- *
  * @author Riccardo Solmi
  */
-@RunWith(Suite.class)
-@SuiteClasses( {
-	AllModelingAPITests.class,
-	AllBehaviorAPITests.class,
-	AllLanguagesTests.class
-})
-public class AllTests {
+public class ConstantComposeStepper<E extends IEntity> extends AbstractDelegatingNestedStepper<E> {
+	protected IEntity constant;
+
+	@SuppressWarnings("unchecked")
+	public ConstantComposeStepper(IEntity constant, IEntityIterator<E> iterator) {
+		super(iterator);
+		this.constant = constant;
+		iterator.reset(constant);
+	}
+
+	@Override
+	public void reset(IEntity entity) {
+		super.reset(constant);
+	}
+
+	@Override
+	public void callNext() {
+		getProducer().callNext();
+	}
+
+	@Override
+	public void callRemaining() {
+		getProducer().callRemaining();
+	}
 }

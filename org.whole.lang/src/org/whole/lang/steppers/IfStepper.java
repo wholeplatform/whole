@@ -51,7 +51,7 @@ public class IfStepper extends AbstractDelegatingNestedStepper<IEntity> {
 	public void callNext() {
 		if (isFirstProducer()) {
 			conditionValue = scopedEvaluateAsBooleanOrFail(true);
-			producerIndex += 1;				
+			producerIndex += 1;
 		}
 
 		if (conditionValue)

@@ -15,24 +15,33 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.test;
+package org.whole.lang.evaluators;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.model.IEntity;
+import org.whole.lang.util.IRunnable;
 
 /**
- * Runs: 485
- * Errors: 3
- * Failures: 11
- *
  * @author Riccardo Solmi
  */
-@RunWith(Suite.class)
-@SuiteClasses( {
-	AllModelingAPITests.class,
-	AllBehaviorAPITests.class,
-	AllLanguagesTests.class
-})
-public class AllTests {
+public class SingleValuedRunnableSupplierEvaluator<E extends IEntity> extends AbstractSupplierEvaluator<E> {
+	protected IRunnable runnable;
+
+	public SingleValuedRunnableSupplierEvaluator(IRunnable runnable) {
+		this.runnable = runnable;
+	}
+
+	@SuppressWarnings("unchecked")
+	public E get() {
+		IBindingManager bm = getBindings();
+		bm.setResult(null);
+		runnable.run(selfEntity, bm);
+		return (E) bm.getResult();
+	}
+
+	@Override
+	public void toString(StringBuilder sb) {
+		sb.append(runnable.toString());
+		super.toString(sb);
+	}
 }

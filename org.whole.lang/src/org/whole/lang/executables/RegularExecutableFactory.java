@@ -27,12 +27,16 @@ import org.whole.lang.evaluators.AbstractPureConditionalSupplierEvaluator;
 import org.whole.lang.evaluators.AbstractTypeRelationEvaluator;
 import org.whole.lang.evaluators.AbstractVariableTestOrBindEvaluator;
 import org.whole.lang.evaluators.CloneReplacingEvaluator;
+import org.whole.lang.evaluators.CollectionEvaluator;
 import org.whole.lang.evaluators.ConstantEvaluator;
 import org.whole.lang.evaluators.FeatureByIndexEvaluator;
 import org.whole.lang.evaluators.FeatureByNameEvaluator;
 import org.whole.lang.evaluators.LocalVariableEvaluator;
+import org.whole.lang.evaluators.MultiValuedRunnableEvaluator;
 import org.whole.lang.evaluators.OuterLocalVariableEvaluator;
 import org.whole.lang.evaluators.OuterVariableEvaluator;
+import org.whole.lang.evaluators.SingleValuedRunnableEvaluator;
+import org.whole.lang.evaluators.SingleValuedRunnableSupplierEvaluator;
 import org.whole.lang.evaluators.VariableEvaluator;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorBasedExecutableFactory;
@@ -48,10 +52,13 @@ import org.whole.lang.steppers.ChildOrAdjacentStepper;
 import org.whole.lang.steppers.ChildRangeStepper;
 import org.whole.lang.steppers.ChildStepper;
 import org.whole.lang.steppers.ConstantChildStepper;
+import org.whole.lang.steppers.ConstantComposeStepper;
 import org.whole.lang.steppers.FollowingSiblingStepper;
 import org.whole.lang.steppers.PrecedingSiblingStepper;
 import org.whole.lang.util.BindingUtils;
 import org.whole.lang.util.EntityUtils;
+import org.whole.lang.util.IDataTypeWrapper;
+import org.whole.lang.util.IRunnable;
 
 /**
  * @author Riccardo Solmi
@@ -88,6 +95,35 @@ public class RegularExecutableFactory extends IteratorBasedExecutableFactory {
 	}
 	public <E extends IEntity> IEntityIterator<E> constantChildIterator(IEntity constant) {
 		return new ConstantChildStepper<E>(true, constant);
+	}
+	public <E extends IEntity> IEntityIterator<E> constantComposeIterator(IEntity constant, IEntityIterator<E> iterator) {
+		return new ConstantComposeStepper<E>(constant, iterator);
+	}
+
+	public <E extends IEntity> IEntityIterator<E> entityCollectionIterator(Iterable<E> entityCollectionIterable) {
+		return collectionIterator(entityCollectionIterable, IDataTypeWrapper.identity);
+	}
+	public <E extends IEntity> IEntityIterator<E> javaCollectionIterator(Iterable<?> collectionIterable) {
+		return collectionIterator(collectionIterable, IDataTypeWrapper.envSpecificValue);
+	}
+	public <E extends IEntity> IEntityIterator<E> collectionIterator(Iterable<?> collectionIterable, IDataTypeWrapper elementWrapper) {
+		return new CollectionEvaluator<E>(elementWrapper, collectionIterable);
+	}
+
+	public <E extends IEntity> IEntityIterator<E> singleValuedRunnableIterator(IRunnable runnable) {
+		return new SingleValuedRunnableSupplierEvaluator<E>(runnable);
+	}
+	public <E extends IEntity> IEntityIterator<E> singleValuedRunnableIterator(IRunnable runnable, IEntityIterator<?>... argsIterators) {
+		return new SingleValuedRunnableEvaluator<E>(runnable, argsIterators);
+	}
+	public <E extends IEntity> IEntityIterator<E> singleValuedRunnableIterator(IRunnable runnable, int[] optionalArgsIndexes, IEntityIterator<?>... argsIterators) {
+		return new SingleValuedRunnableEvaluator<E>(runnable, optionalArgsIndexes, argsIterators);
+	}
+	public <E extends IEntity> IEntityIterator<E> multiValuedRunnableIterator(IRunnable runnable, IEntityIterator<?>... argsIterators) {
+		return new MultiValuedRunnableEvaluator<E>(runnable, argsIterators);
+	}
+	public <E extends IEntity> IEntityIterator<E> multiValuedRunnableIterator(IRunnable runnable, int[] optionalArgsIndexes, IEntityIterator<?>... argsIterators) {
+		return new MultiValuedRunnableEvaluator<E>(runnable, optionalArgsIndexes, argsIterators);
 	}
 
 	public <E extends IEntity> IEntityIterator<E> selfIterator() {
@@ -251,19 +287,19 @@ public class RegularExecutableFactory extends IteratorBasedExecutableFactory {
 	@SuppressWarnings("unchecked")
 	public <E extends IEntity> IEntityIterator<E> ifIterator(IEntityIterator<? extends IEntity> conditionIterator, IEntityIterator<E> doIterator) {
 		return super.ifIterator(conditionIterator, doIterator);
-	//FIXME
+//FIXME
 //		return (IEntityIterator<E>) new IfStepper((IEntityIterator<IEntity>) conditionIterator, (IEntityIterator<IEntity>) doIterator);
 	}
 
 	public <E extends IEntity> IEntityIterator<E> chooseIterator(IEntityIterator<? extends E>... iteratorChain) {
 		return super.chooseIterator(iteratorChain);
-		//FIXME
+//FIXME
 //		return new ChooseByOrderStepper<E>(iteratorChain);
 	}
 
 	public <E extends IEntity> IEntityIterator<E> sequenceIterator(IEntityIterator<? extends E>... iteratorChain) {
 		return super.sequenceIterator(iteratorChain);
-		//FIXME
+//FIXME
 //		return new SequenceStepper<E>(iteratorChain);
 	}
 
