@@ -22,24 +22,39 @@ import java.util.Set;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
+import org.whole.lang.comparators.ObjectIdentityComparator;
 import org.whole.lang.evaluators.AbstractNestedSupplierEvaluator;
 import org.whole.lang.evaluators.AbstractPureConditionalSupplierEvaluator;
 import org.whole.lang.evaluators.AbstractTypeRelationEvaluator;
 import org.whole.lang.evaluators.AbstractVariableTestOrBindEvaluator;
+import org.whole.lang.evaluators.AncestorEvaluator;
+import org.whole.lang.evaluators.AncestorOrSelfReverseEvaluator;
+import org.whole.lang.evaluators.AncestorReverseEvaluator;
 import org.whole.lang.evaluators.CloneReplacingEvaluator;
 import org.whole.lang.evaluators.CollectionEvaluator;
 import org.whole.lang.evaluators.ConstantEvaluator;
+import org.whole.lang.evaluators.DescendantEvaluator;
+import org.whole.lang.evaluators.DescendantOrReachableEvaluator;
+import org.whole.lang.evaluators.DescendantReverseEvaluator;
 import org.whole.lang.evaluators.FeatureByIndexEvaluator;
 import org.whole.lang.evaluators.FeatureByNameEvaluator;
+import org.whole.lang.evaluators.FollowingEvaluator;
+import org.whole.lang.evaluators.InverseAdjacentEvaluator;
+import org.whole.lang.evaluators.InverseReachableEvaluator;
 import org.whole.lang.evaluators.LocalVariableEvaluator;
 import org.whole.lang.evaluators.MultiValuedRunnableEvaluator;
 import org.whole.lang.evaluators.OuterLocalVariableEvaluator;
 import org.whole.lang.evaluators.OuterVariableEvaluator;
+import org.whole.lang.evaluators.PrecedingEvaluator;
+import org.whole.lang.evaluators.ReachableEvaluator;
 import org.whole.lang.evaluators.SingleValuedRunnableEvaluator;
 import org.whole.lang.evaluators.SingleValuedRunnableSupplierEvaluator;
 import org.whole.lang.evaluators.VariableEvaluator;
+import org.whole.lang.iterators.AbstractIteratorBasedExecutableFactory;
+import org.whole.lang.iterators.DistinctScope;
 import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.IteratorBasedExecutableFactory;
+import org.whole.lang.iterators.MatcherIterator;
+import org.whole.lang.iterators.ScannerIterator;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.CompositeKinds;
@@ -63,7 +78,7 @@ import org.whole.lang.util.IRunnable;
 /**
  * @author Riccardo Solmi
  */
-public class RegularExecutableFactory extends IteratorBasedExecutableFactory {
+public class RegularExecutableFactory extends AbstractIteratorBasedExecutableFactory {
 	public <E extends IEntity> IEntityIterator<E> emptyIterator() {
 		return new EmptyExecutable<E>();
 	}
@@ -198,6 +213,30 @@ public class RegularExecutableFactory extends IteratorBasedExecutableFactory {
 		};
 	}
 
+	public <E extends IEntity> IEntityIterator<E> ancestorIterator() {
+		return new AncestorEvaluator<E>(false);
+	}
+	public <E extends IEntity> IEntityIterator<E> ancestorOrSelfIterator() {
+		return new AncestorEvaluator<E>(true);
+	}
+	public IEntityIterator<IEntity> ancestorReverseIterator() {
+		return new AncestorReverseEvaluator();
+	}
+	public IEntityIterator<IEntity> ancestorOrSelfReverseIterator() {
+		return new AncestorOrSelfReverseEvaluator();
+	}
+
+	public IEntityIterator<IEntity> inverseAdjacentIterator() {
+		return new InverseAdjacentEvaluator();
+	}
+	public IEntityIterator<IEntity> inverseReachableIterator(boolean includeSelf) {
+		DistinctScope<IEntity> distinctScope = distinctScope(ObjectIdentityComparator.instance);
+		return distinctScope.withIterator(inverseReachableIterator(includeSelf, distinctScope));
+	}
+	public IEntityIterator<IEntity> inverseReachableIterator(boolean includeSelf, DistinctScope<IEntity> distinctScope) {
+		return new InverseReachableEvaluator(includeSelf, distinctScope);
+	}
+
 	public IEntityIterator<IEntity> featureByNameIterator(String fdUri) {
 		return new FeatureByNameEvaluator(fdUri);
 	}
@@ -223,6 +262,19 @@ public class RegularExecutableFactory extends IteratorBasedExecutableFactory {
 	}
 	public <E extends IEntity> IEntityIterator<E> childRangeIterator(int relativeStartIndex, int relativeEndIndex) {
 		return new ChildRangeStepper<E>(true, relativeStartIndex, relativeEndIndex);
+	}
+
+	public <E extends IEntity> IEntityIterator<E> descendantIterator() {
+		return new DescendantEvaluator<E>(false);
+	}
+	public <E extends IEntity> IEntityIterator<E> descendantOrSelfIterator() {
+		return new DescendantEvaluator<E>(true);
+	}
+	public <E extends IEntity> IEntityIterator<E> descendantReverseIterator() {
+		return new DescendantReverseEvaluator<E>(false);
+	}
+	public <E extends IEntity> IEntityIterator<E> descendantOrSelfReverseIterator() {
+		return new DescendantReverseEvaluator<E>(true);
 	}
 
 	public <E extends IEntity> IEntityIterator<E> followingSiblingIterator() {
@@ -251,6 +303,19 @@ public class RegularExecutableFactory extends IteratorBasedExecutableFactory {
 		return new PrecedingSiblingStepper<E>(true, true);
 	}
 
+	public <E extends IEntity> IEntityIterator<E> followingIterator() {
+		return new FollowingEvaluator<E>(false);
+	}
+	public <E extends IEntity> IEntityIterator<E> followingOrSelfIterator() {
+		return new FollowingEvaluator<E>(true);
+	}
+	public <E extends IEntity> IEntityIterator<E> precedingIterator() {
+		return new PrecedingEvaluator<E>(false);
+	}
+	public <E extends IEntity> IEntityIterator<E> precedingOrSelfIterator() {
+		return new PrecedingEvaluator<E>(true);
+	}
+
 	public <E extends IEntity> IEntityIterator<E> adjacentIterator() {
 		return new AdjacentStepper<E>(true);
 	}
@@ -266,6 +331,22 @@ public class RegularExecutableFactory extends IteratorBasedExecutableFactory {
 	}
 	public <E extends IEntity> IEntityIterator<E> childOrAdjacentIterator(int relativeFirstIndex) {
 		return new ChildOrAdjacentStepper<E>(true, relativeFirstIndex);
+	}
+
+	public <E extends IEntity> IEntityIterator<E> reachableIterator(boolean includeSelf) {
+		DistinctScope<E> distinctScope = distinctScope(ObjectIdentityComparator.instance);
+		return distinctScope.withIterator(reachableIterator(includeSelf, distinctScope));
+	}
+	public <E extends IEntity> IEntityIterator<E> reachableIterator(boolean includeSelf, DistinctScope<E> distinctScope) {
+		return new ReachableEvaluator<E>(includeSelf, distinctScope);
+	}
+
+	public <E extends IEntity> IEntityIterator<E> descendantOrReachableIterator() {
+		DistinctScope<E> distinctScope = distinctScope(ObjectIdentityComparator.instance);
+		return distinctScope.withIterator(descendantOrReachableIterator(false, distinctScope));
+	}
+	public <E extends IEntity> IEntityIterator<E> descendantOrReachableIterator(boolean includeSelf, DistinctScope<E> distinctScope) {
+		return new DescendantOrReachableEvaluator<E>(includeSelf, distinctScope);
 	}
 
 	public IEntityIterator<IEntity> matchInScopeIterator(IEntityIterator<IEntity> patternIterator) {
@@ -301,6 +382,41 @@ public class RegularExecutableFactory extends IteratorBasedExecutableFactory {
 		return super.sequenceIterator(iteratorChain);
 //FIXME
 //		return new SequenceStepper<E>(iteratorChain);
+	}
+
+	public <E extends IEntity> IEntityIterator<E> ancestorScannerIterator() {
+		return scannerIterator(ancestorIterator());
+	}
+	public <E extends IEntity> ScannerIterator<E> childScannerIterator() {
+		return scannerIterator(childIterator());
+	}
+	public <E extends IEntity> ScannerIterator<E> childReverseScannerIterator() {
+		return scannerIterator(childReverseIterator());
+	}
+	public <E extends IEntity> ScannerIterator<E> descendantOrSelfScannerIterator() {
+		return scannerIterator(descendantOrSelfIterator());
+	}
+	public <E extends IEntity> ScannerIterator<E> descendantOrSelfReverseScannerIterator() {
+		return scannerIterator(descendantOrSelfReverseIterator());
+	}
+
+	public <E extends IEntity> MatcherIterator<E> ancestorMatcherIterator() {
+		return matcherIterator(ancestorIterator());
+	}
+	public <E extends IEntity> MatcherIterator<E> ancestorOrSelfMatcherIterator() {
+		return matcherIterator(ancestorOrSelfIterator());
+	}
+	public <E extends IEntity> MatcherIterator<E> childMatcherIterator() {
+		return matcherIterator(childIterator());
+	}
+	public <E extends IEntity> MatcherIterator<E> childReverseMatcherIterator() {
+		return matcherIterator(childReverseIterator());
+	}
+	public <E extends IEntity> MatcherIterator<E> descendantOrSelfMatcherIterator() {
+		return matcherIterator(descendantOrSelfIterator());
+	}
+	public <E extends IEntity> MatcherIterator<E> descendantOrSelfReverseMatcherIterator() {
+		return matcherIterator(descendantOrSelfReverseIterator());
 	}
 
 	public IEntityIterator<IEntity> atStageIterator(int stage) {
@@ -855,7 +971,7 @@ public class RegularExecutableFactory extends IteratorBasedExecutableFactory {
 		};
 	}
 
-	
+
 	public IEntityIterator<?> cloneReplacingIterator(IEntityIterator<?> childMappingIterator) {
 		return cloneReplacingIterator(childMappingIterator, null);
 	}

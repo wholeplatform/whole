@@ -30,15 +30,15 @@ import org.whole.lang.model.IEntity;
  */
 //public abstract class AbstractExecutableSteppingEvaluatingIterator<E extends IEntity> extends AbstractExecutableSteppingEvaluator<E> {
 public abstract class AbstractExecutableEvaluatingStepperIterator<E extends IEntity> extends AbstractExecutableEvaluatingStepper<E> {
-	private boolean lookaheadIsCached;
 	private IBindingScope lookaheadScope;
+	private boolean lookaheadIsCached;
 	protected E lookaheadEntity;
     protected E lastEntity;
 
     public void reset(IEntity entity) {
     	lookaheadIsCached = false;
-		lastEntity = null;
 		lookaheadEntity = null;
+		lastEntity = null;
 		clearLookaheadScope();
    }
 
@@ -53,7 +53,8 @@ public abstract class AbstractExecutableEvaluatingStepperIterator<E extends IEnt
 
     	getBindings().wAddAll(lookaheadScope());
 
-    	lookaheadEntity = null;
+    	lookaheadIsCached = false;
+		lookaheadEntity = null;
 		return lastEntity = nextEntity;
 	}
 

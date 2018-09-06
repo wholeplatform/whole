@@ -50,7 +50,7 @@ import org.whole.lang.util.ResourceUtils;
  * 
  * @author Riccardo Solmi
  */
-public class IteratorBasedExecutableFactory implements IteratorFactory {
+public class IteratorBasedExecutableFactory extends AbstractIteratorBasedExecutableFactory {
 	public <E extends IEntity> IEntityIterator<E> emptyIterator() {
 		return new EmptyExecutable<E>();
 	}
@@ -195,11 +195,11 @@ public class IteratorBasedExecutableFactory implements IteratorFactory {
 	public <E extends IEntity> IEntityIterator<E> descendantIterator() {
 		return new DescendantIterator<E>(false);
 	}
-	public <E extends IEntity> IEntityIterator<E> descendantReverseIterator() {
-		return new DescendantReverseIterator<E>(false);
-	}
 	public <E extends IEntity> IEntityIterator<E> descendantOrSelfIterator() {
 		return new DescendantIterator<E>(true);
+	}
+	public <E extends IEntity> IEntityIterator<E> descendantReverseIterator() {
+		return new DescendantReverseIterator<E>(false);
 	}
 	public <E extends IEntity> IEntityIterator<E> descendantOrSelfReverseIterator() {
 		return new DescendantReverseIterator<E>(true);
@@ -234,12 +234,11 @@ public class IteratorBasedExecutableFactory implements IteratorFactory {
 	public <E extends IEntity> IEntityIterator<E> followingIterator() {
 		return new FollowingIterator<E>(false);
 	}
-	public <E extends IEntity> IEntityIterator<E> precedingIterator() {
-		return new PrecedingIterator<E>(false);
-	}
-
 	public <E extends IEntity> IEntityIterator<E> followingOrSelfIterator() {
 		return new FollowingIterator<E>(true);
+	}
+	public <E extends IEntity> IEntityIterator<E> precedingIterator() {
+		return new PrecedingIterator<E>(false);
 	}
 	public <E extends IEntity> IEntityIterator<E> precedingOrSelfIterator() {
 		return new PrecedingIterator<E>(true);
@@ -289,46 +288,6 @@ public class IteratorBasedExecutableFactory implements IteratorFactory {
 		return new FilterIterator<E>(iterator, filterIterator);
 	}
 
-	public static class FilterIterator<E extends IEntity> extends MatcherIterator<E> {
-		protected IEntityIterator<? extends IEntity> filterIterator;
-
-		protected FilterIterator(IEntityIterator<E> iterator, IEntityIterator<? extends IEntity> filterIterator) {
-			super(iterator);
-			this.filterIterator = filterIterator;
-		}
-
-		@Override
-		public IEntityIterator<E> clone(ICloneContext cc) {
-			FilterIterator<E> iterator = (FilterIterator<E>) super.clone(cc);
-			iterator.filterIterator = cc.clone(filterIterator);
-			return iterator;
-		}
-
-		@Override
-		protected E patternFilteredLookahead() {
-			boolean found = false;
-			E lookahead = null;
-			while (iterator.hasNext() && !(found = filter(lookahead = iterator.lookahead()))) {
-				lookaheadScope().wClear();
-				iterator.next();
-			}
-			if (!found)
-				lookahead = null;
-			return lookahead;
-		}
-
-		protected boolean filter(IEntity selfEntity) {
-			return filterIterator.evaluateAsBooleanOrFail(selfEntity, getBindings());
-		}
-
-	    @Override
-		public void toString(StringBuilder sb) {
-	    	iterator.toString(sb);
-	    	sb.append("[");
-	    	filterIterator.toString(sb);
-	    	sb.append("]");
-	    }
-	}
 
 	public IEntityIterator<IEntity> matchInScopeIterator(IEntityIterator<IEntity> patternIterator) {
 		return new AbstractSingleValuedRunnableIterator<IEntity>(patternIterator) {
@@ -849,10 +808,6 @@ public class IteratorBasedExecutableFactory implements IteratorFactory {
 				sb.append("\")");
 			}
 		};
-	}
-	protected static final FeatureDescriptor getFeatureDescriptor(String fdUri, FeatureDescriptor selfFd, IBindingManager bm) {
-		return ResourceUtils.hasFragmentPart(fdUri) ?
-				CommonsDataTypePersistenceParser.getFeatureDescriptor(fdUri, true, bm) : selfFd.getFeatureDescriptorEnum().valueOf(fdUri);		
 	}
 
 	public IEntityIterator<IEntity> atIndexIterator(int index) {
