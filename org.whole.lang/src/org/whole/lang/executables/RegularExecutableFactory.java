@@ -22,6 +22,7 @@ import java.util.Set;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
+import org.whole.lang.comparators.IEntityComparator;
 import org.whole.lang.comparators.ObjectIdentityComparator;
 import org.whole.lang.evaluators.AbstractNestedSupplierEvaluator;
 import org.whole.lang.evaluators.AbstractPureConditionalSupplierEvaluator;
@@ -49,6 +50,7 @@ import org.whole.lang.evaluators.PrecedingEvaluator;
 import org.whole.lang.evaluators.ReachableEvaluator;
 import org.whole.lang.evaluators.SingleValuedRunnableEvaluator;
 import org.whole.lang.evaluators.SingleValuedRunnableSupplierEvaluator;
+import org.whole.lang.evaluators.SortEvaluator;
 import org.whole.lang.evaluators.VariableEvaluator;
 import org.whole.lang.iterators.AbstractIteratorBasedExecutableFactory;
 import org.whole.lang.iterators.DistinctScope;
@@ -382,6 +384,13 @@ public class RegularExecutableFactory extends AbstractIteratorBasedExecutableFac
 		return super.sequenceIterator(iteratorChain);
 //FIXME
 //		return new SequenceStepper<E>(iteratorChain);
+	}
+
+	public <E extends IEntity> IEntityIterator<E> sort(IEntityIterator<E> iterator) {
+		return new SortEvaluator<E>(iterator);
+	}
+	public <E extends IEntity> IEntityIterator<E> sort(IEntityIterator<E> iterator, IEntityComparator<E> comparator) {
+		return new SortEvaluator<E>(iterator, comparator);
 	}
 
 	public <E extends IEntity> IEntityIterator<E> ancestorScannerIterator() {

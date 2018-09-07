@@ -19,6 +19,7 @@ package org.whole.lang.steppers;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingScope;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
 
@@ -48,7 +49,7 @@ public abstract class AbstractDelegatingNestedStepper<E extends IEntity> extends
 	protected boolean isValidProducer() {
 		return producerIndex < producersSize();
 	}
-	protected IEntityIterator<?> getProducer() {
+	protected IExecutable<?> getProducer() {
 		return getProducer(producerIndex);
 	}
 

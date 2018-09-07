@@ -22,6 +22,7 @@ import java.util.BitSet;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.executables.AbstractExecutableSteppingEvaluatingIterator;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
@@ -34,7 +35,7 @@ import org.whole.lang.util.EntityUtils;
 public abstract class AbstractNestedStepper<E extends IEntity> extends AbstractExecutableSteppingEvaluatingIterator<E> {
 	protected ICloneContext cloneContext = IdentityCloneContext.instance;
 	protected IEntity selfEntity;
-	protected IEntityIterator<?>[] producers;
+	protected IExecutable<?>[] producers;
 	protected BitSet producersNeedClone;
 	protected BitSet producersNeedInit;
 
@@ -66,13 +67,13 @@ public abstract class AbstractNestedStepper<E extends IEntity> extends AbstractE
 	public int producersSize() {
 		return producers.length;
 	}
-	public IEntityIterator<?> getProducer(int index) {
+	public IExecutable<?> getProducer(int index) {
 		if (producersNeedClone.get(index)) {
 			producersNeedClone.clear(index);
 			producers[index] = producers[index].clone(cloneContext);
 		}
 
-		IEntityIterator<?> producer = producers[index];
+		IExecutable<?> producer = producers[index];
 
 		if (producersNeedInit.get(index)) {
 			producersNeedInit.clear(index);
@@ -81,7 +82,7 @@ public abstract class AbstractNestedStepper<E extends IEntity> extends AbstractE
 
 		return producer;
 	}
-	protected void initProducer(IEntityIterator<?> p, int index) {
+	protected void initProducer(IExecutable<?> p, int index) {
 		p.setBindings(getBindings());
 		p.reset(selfEntity);
 		p.withConsumer(this);

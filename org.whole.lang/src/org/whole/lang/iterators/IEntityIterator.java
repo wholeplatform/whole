@@ -17,93 +17,19 @@
  */
 package org.whole.lang.iterators;
 
-import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.evaluators.IEvaluator;
-import org.whole.lang.exceptions.IWholeRuntimeException;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.operations.ICloneContext;
-import org.whole.lang.operations.ICloneable;
-import org.whole.lang.reflect.ISourceable;
-import org.whole.lang.steppers.IDataFlowConsumer;
-import org.whole.lang.steppers.IFlowStepper;
 
 /**
  * @author Riccardo Solmi
  */
-public interface IEntityIterator<E extends IEntity> extends IFlowStepper, IEvaluator<E>, IJavaIterator<E>, ICloneable, ISourceable {
-	public IEntityIterator<E> withConsumer(IDataFlowConsumer consumer);
-	public IDataFlowConsumer getConsumer();
-//	public IEntityIterator<E> withProducers(IControlFlowProducer... producers);
-//	public IEntityIterator<E> withProducer(int index, IControlFlowProducer producer);
-//	public int producersSize();
-//	public IEntityIterator<IEntity> getProducer(int index);
-
+public interface IEntityIterator<E extends IEntity> extends IExecutable<E>, IJavaIterator<E> {
 	public IEntityIterator<E> withSourceEntity(IEntity entity);
 
 	public IEntityIterator<E> clone();
-	public IEntityIterator<E> clone(ICloneContext cc);
 
-	public IBindingManager getBindings();
-	public void setBindings(IBindingManager bindings);
-	public void reset(IEntity entity);
-
-	public void prune();
-
-	public void set(E entity);
-	public void add(E entity);
-
-	public void toString(StringBuilder sb);
-
-	public IteratorFactory iteratorFactory();
-
-	public default IEntityIterator<E> undecoratedIterator() {
-		return this instanceof InstrumentingIterator ? ((InstrumentingIterator<E>) this).getIterator() : this;
-	}
-
-	public default E evaluate(IEntity self, IBindingManager bm) {
-		IEntity oldSelfEntity = bm.wGet(IBindingManager.SELF);
-
-		bm.wDef(IBindingManager.SELF, self);
-		setBindings(bm);
-		reset(self);
-
-		E result = evaluateRemaining();
-
-		if (oldSelfEntity == null && bm.wGet(IBindingManager.SELF) == self)
-			bm.wUnset(IBindingManager.SELF);
-
-		return result;
-	}
-
-	public default E evaluateFirst(IEntity self, IBindingManager bm) {
-		IEntity oldSelfEntity = bm.wGet(IBindingManager.SELF);
-    	
-		bm.wDef(IBindingManager.SELF, self);
-		setBindings(bm);
-		reset(self);
-
-		E result = evaluateNext();
-
-		if (oldSelfEntity == null && bm.wGet(IBindingManager.SELF) == self)
-			bm.wUnset(IBindingManager.SELF);
-
-		return result;
-	}
-
-	public default boolean evaluateAsBooleanOrFail(IEntity selfEntity, IBindingManager bm) {
-		try {
-			return evaluate(selfEntity, bm).wBooleanValue();
-        } catch (Throwable e) {
-            throw IWholeRuntimeException.asWholeException(e, getSourceEntity(), bm);
-        }
-	}
-
-	public default boolean evaluateAsBooleanOrFail() {
-		try {
-			return evaluateRemaining().wBooleanValue();
-        } catch (Throwable e) {
-            throw IWholeRuntimeException.asWholeException(e, getSourceEntity(), getBindings());
-        }
-	}
-
+	//TODO workaround to avoid conflict with the default method inherited
+	default void remove() {
+        throw new UnsupportedOperationException("remove");
+    }
 }

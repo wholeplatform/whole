@@ -153,13 +153,6 @@ public abstract class AbstractIteratorBasedExecutableFactory implements Iterator
 		return new FilterByDistinctIterator<E>(comparator);
 	}
 
-	public <E extends IEntity> IEntityIterator<E> sort(IEntityIterator<E> iterator) {
-		return new SortIterator<E>(iterator);
-	}
-	public <E extends IEntity> IEntityIterator<E> sort(IEntityIterator<E> iterator, IEntityComparator<E> comparator) {
-		return new SortIterator<E>(iterator, comparator);
-	}
-
 	@SuppressWarnings("unchecked")
 	public IEntityIterator<IEntity> unionAllIterator(IEntityIterator<? extends IEntity>... iteratorChain) {
 		return new UnionAllIterator(iteratorChain);

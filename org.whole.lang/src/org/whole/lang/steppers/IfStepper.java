@@ -18,6 +18,7 @@
 package org.whole.lang.steppers;
 
 import org.whole.lang.bindings.BindingManagerFactory;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
 
@@ -40,7 +41,7 @@ public class IfStepper extends AbstractDelegatingNestedStepper<IEntity> {
 	}
 
 	@Override
-	protected void initProducer(IEntityIterator<?> p, int index) {
+	protected void initProducer(IExecutable<?> p, int index) {
 		if (index == 0) {
 			p.setBindings(getBindings());
 			p.reset(selfEntity);
