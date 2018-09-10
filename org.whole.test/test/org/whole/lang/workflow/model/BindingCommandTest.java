@@ -25,7 +25,7 @@ import org.whole.lang.builders.IBuilderOperation;
 import org.whole.lang.commands.NullCommand;
 import org.whole.lang.commons.builders.ICommonsBuilder;
 import org.whole.lang.commons.reflect.CommonsLanguageKit;
-import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.model.InternalIEntity;
@@ -51,7 +51,7 @@ public class BindingCommandTest {
 	public void testBindingCommand() {
 		IEntity program = new ExampleTest().create();
 
-		IEntityIterator<IEntity> i = IteratorFactory.instance.descendantOrSelfIterator();
+		IExecutable<IEntity> i = IteratorFactory.instance.descendantOrSelfIterator();
 		i.reset(program);
 		for (IEntity e : i)
 			if (((InternalIEntity) e).wGetBindingCommand() != NullCommand.instance)

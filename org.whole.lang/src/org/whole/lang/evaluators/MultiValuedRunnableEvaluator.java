@@ -19,7 +19,7 @@ package org.whole.lang.evaluators;
 
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.exceptions.IWholeRuntimeException;
-import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.util.IRunnable;
@@ -28,19 +28,19 @@ import org.whole.lang.util.IRunnable;
  * @author Riccardo Solmi
  */
 public class MultiValuedRunnableEvaluator<E extends IEntity> extends AbstractNestedEvaluator<E> {
-	protected IEntityIterator<E> resultIterator;
+	protected IExecutable<E> resultIterator;
 	protected IRunnable runnable;
 
-	public MultiValuedRunnableEvaluator(IRunnable runnable, IEntityIterator<?>... argsIterators) {
+	public MultiValuedRunnableEvaluator(IRunnable runnable, IExecutable<?>... argsIterators) {
 		super(argsIterators);
 		this.runnable = runnable;
 	}
-	public MultiValuedRunnableEvaluator(IRunnable runnable, int[] optionalArgsIndexes, IEntityIterator<?>... argsIterators) {
+	public MultiValuedRunnableEvaluator(IRunnable runnable, int[] optionalArgsIndexes, IExecutable<?>... argsIterators) {
 		super(optionalArgsIndexes, argsIterators);
 		this.runnable = runnable;
 	}
 
-	public IEntityIterator<E> clone(ICloneContext cc) {
+	public IExecutable<E> clone(ICloneContext cc) {
 		MultiValuedRunnableEvaluator<E> iterator = (MultiValuedRunnableEvaluator<E>) super.clone(cc);
 		iterator.resultIterator = cc.clone(resultIterator);
 		return iterator;
@@ -61,7 +61,7 @@ public class MultiValuedRunnableEvaluator<E extends IEntity> extends AbstractNes
 		return lastEntity = getResultIterator().evaluateRemaining();
 	}
 
-	protected IEntityIterator<E> getResultIterator() {
+	protected IExecutable<E> getResultIterator() {
 		if (resultIterator == null) {
 			try {
 				IBindingManager bm = getBindings();
@@ -85,7 +85,7 @@ public class MultiValuedRunnableEvaluator<E extends IEntity> extends AbstractNes
 		}
 		return resultIterator;
 	}
-	protected void resetResultIterator(IEntityIterator<E> resultIterator, IEntity selfEntity, IBindingManager bm) {
+	protected void resetResultIterator(IExecutable<E> resultIterator, IEntity selfEntity, IBindingManager bm) {
 		resultIterator.setBindings(bm);
 		resultIterator.reset(selfEntity);
 	}

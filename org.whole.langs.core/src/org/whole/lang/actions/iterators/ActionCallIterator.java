@@ -22,6 +22,7 @@ import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.bindings.NullScope;
 import org.whole.lang.executables.AbstractExecutableIteratingEvaluatingStepper;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
@@ -48,7 +49,7 @@ public class ActionCallIterator extends AbstractExecutableIteratingEvaluatingSte
 	}
 
 	@Override
-	public IEntityIterator<IEntity> clone(ICloneContext cc) {
+	public IExecutable<IEntity> clone(ICloneContext cc) {
 		ActionCallIterator iterator = (ActionCallIterator) super.clone(cc);
 		iterator.functionIterator = cc.clone(functionIterator);
 		if (argsIterators != null) {

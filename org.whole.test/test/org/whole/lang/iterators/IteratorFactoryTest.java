@@ -406,7 +406,7 @@ public class IteratorFactoryTest {
 
 		IEntityIterator<IEntity> i = f.rootIterator();
 		i.reset(prologNt);
-		IEntityIterator<IEntity> i2 = i.clone();
+		IJavaIterator<IEntity> i2 = i.clone().iterator();
 		assertTrue(i.hasNext());
 		assertSame(g, i.next());
 		assertFalse(i.hasNext());
@@ -421,7 +421,7 @@ public class IteratorFactoryTest {
 		
 		IEntityIterator<Grammar> si = f.<Grammar>selfIterator();
 		si.reset(g);
-		IEntityIterator<Grammar> si2 = si.clone();
+		IJavaIterator<Grammar> si2 = si.clone().iterator();
 		assertSame(g, si.next());
 		assertFalse(si.hasNext());
 
@@ -437,8 +437,8 @@ public class IteratorFactoryTest {
 		i.reset(g);
 		i.next();
 		i.next();
-		IEntityIterator<IEntity> i2 = i.clone();
-		IEntityIterator<IEntity> i3 = i.clone();
+		IJavaIterator<IEntity> i2 = i.clone().iterator();
+		IJavaIterator<IEntity> i3 = i.clone().iterator();
 		IEntity e1 = i.next();
 		IEntity e2 = i.next();
 
@@ -456,8 +456,8 @@ public class IteratorFactoryTest {
 		i.reset(g);
 		i.next();
 		i.next();
-		IEntityIterator<IEntity> i2 = i.clone();
-		IEntityIterator<IEntity> i3 = i.clone();
+		IJavaIterator<IEntity> i2 = i.clone().iterator();
+		IJavaIterator<IEntity> i3 = i.clone().iterator();
 		IEntity e1 = i.next();
 		IEntity e2 = i.next();
 
@@ -474,7 +474,7 @@ public class IteratorFactoryTest {
 
 		IEntityIterator<IEntity> i = f.parentIterator();
 		i.reset(r);
-		IEntityIterator<IEntity> i2 = i.clone();
+		IJavaIterator<IEntity> i2 = i.clone().iterator();
 		assertTrue(i.hasNext());
 		IEntity e1 = i.next();
 		assertSame(r.wGetParent(), e1);
@@ -492,8 +492,8 @@ public class IteratorFactoryTest {
 		i.reset(r);
 		i.next();
 		i.next();
-		IEntityIterator<IEntity> i2 = i.clone();
-		IEntityIterator<IEntity> i3 = i.clone();
+		IJavaIterator<IEntity> i2 = i.clone().iterator();
+		IJavaIterator<IEntity> i3 = i.clone().iterator();
 		IEntity e1 = i.next();
 		IEntity e2 = i.next();
 
@@ -514,8 +514,8 @@ public class IteratorFactoryTest {
 		assertSame(r, e1);
 		e1 = i.next();
 		assertSame(r.wGetParent(), e1);
-		IEntityIterator<IEntity> i2 = i.clone();
-		IEntityIterator<IEntity> i3 = i.clone();
+		IJavaIterator<IEntity> i2 = i.clone().iterator();
+		IJavaIterator<IEntity> i3 = i.clone().iterator();
 		e1 = i.next();
 		IEntity e2 = i.next();
 
@@ -598,7 +598,7 @@ public class IteratorFactoryTest {
 		assertSame(g, g1);
 		assertFalse(i.hasNext());
 		i.reset(g);
-		IEntityIterator<IEntity> i2 = i.clone();
+		IJavaIterator<IEntity> i2 = i.clone().iterator();
 		assertTrue(i.hasNext());
 		g1 = i.next();
 		assertSame(g, g1);
@@ -759,8 +759,8 @@ public class IteratorFactoryTest {
 		i.reset(g);
 		for (int j=0; j<15; j++)
 			i.next();
-		IEntityIterator<IEntity> i2 = i.clone();
-		IEntityIterator<IEntity> i3 = i.clone();
+		IJavaIterator<IEntity> i2 = i.clone().iterator();
+		IJavaIterator<IEntity> i3 = i.clone().iterator();
 		IEntity e1 = i.next();
 		IEntity e2 = i.next();
 		for (int j=0; j<7; j++)
@@ -780,8 +780,8 @@ public class IteratorFactoryTest {
 		i.reset(g);
 		for (int j=0; j<15; j++)
 			i.next();
-		IEntityIterator<IEntity> i2 = i.clone();
-		IEntityIterator<IEntity> i3 = i.clone();
+		IJavaIterator<IEntity> i2 = i.clone().iterator();
+		IJavaIterator<IEntity> i3 = i.clone().iterator();
 		IEntity e1 = i.next();
 		IEntity e2 = i.next();
 		for (int j=0; j<7; j++)
@@ -802,8 +802,8 @@ public class IteratorFactoryTest {
 		i.reset(g);
 		for (int j=0; j<15; j++)
 			i.next();
-		IEntityIterator<IEntity> i2 = i.clone();
-		IEntityIterator<IEntity> i3 = i.clone();
+		IJavaIterator<IEntity> i2 = i.clone().iterator();
+		IJavaIterator<IEntity> i3 = i.clone().iterator();
 		IEntity e1 = i.next();
 		IEntity e2 = i.next();
 		for (int j=0; j<7; j++)
@@ -1050,7 +1050,7 @@ public class IteratorFactoryTest {
 		for (IEntity e : i1) {
 			assertSame(e, i2.next());
 			
-			IEntityIterator<IEntity> i12 = i1.clone();
+			IJavaIterator<IEntity> i12 = i1.clone().iterator();
 			i12.prune();
 		}
 		assertSame(i1.hasNext(), i2.hasNext());
@@ -1061,7 +1061,7 @@ public class IteratorFactoryTest {
 			IEntityIterator<IEntity> i3 = f.<IEntity>followingSiblingIterator();
 			i3.reset(e);
 			if (i3.hasNext()) {
-				IEntityIterator<IEntity> i12 = i1.clone();
+				IJavaIterator<IEntity> i12 = i1.clone().iterator();
 				i12.prune();
 
 				IEntity e1 = i12.next();
@@ -1083,7 +1083,7 @@ public class IteratorFactoryTest {
 			fi.reset(e);
 			
 			if (fi.hasNext()) {
-				IEntityIterator<IEntity> tdi2 = tdi.clone();
+				IJavaIterator<IEntity> tdi2 = tdi.clone().iterator();
 				tdi2.prune();
 
 				assertSame(tdi2.hasNext(), fi.hasNext());
@@ -1109,7 +1109,7 @@ public class IteratorFactoryTest {
 			fi.reset(e);
 			
 			if (fi.hasNext()) {
-				IEntityIterator<IEntity> tdi2 = tdi.clone();
+				IJavaIterator<IEntity> tdi2 = tdi.clone().iterator();
 				tdi2.prune();
 				
 					
@@ -1206,7 +1206,7 @@ public class IteratorFactoryTest {
 	}
 
 	private void assertSingleton(IEntityIterator<?> i, IEntity e) {
-		IEntityIterator<?> i2 = i.clone();
+		IJavaIterator<?> i2 = i.clone().iterator();
 		assertTrue(i.hasNext());
 		assertSame(e, i.lookahead());
 		assertSame(e, i.next());

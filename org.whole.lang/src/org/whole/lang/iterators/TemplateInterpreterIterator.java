@@ -22,6 +22,7 @@ import java.util.NoSuchElementException;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.executables.AbstractExecutableIteratingEvaluatingStepper;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.operations.InterpreterOperation;
@@ -38,7 +39,7 @@ public class TemplateInterpreterIterator<E extends IEntity> extends AbstractExec
 		this.pattern = pattern;
 	}
 
-	public IEntityIterator<E> clone(ICloneContext cc) {
+	public IExecutable<E> clone(ICloneContext cc) {
 		TemplateInterpreterIterator<E> iterator = (TemplateInterpreterIterator<E>) super.clone(cc);
 		iterator.nextEntityIterator = cc.clone(nextEntityIterator);
 		return iterator;

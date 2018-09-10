@@ -21,6 +21,7 @@ import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.commons.factories.CommonsEntityFactory;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 
@@ -36,7 +37,7 @@ public class TupleFactoryIterator extends SelfIterator<IEntity> {
 	}
 
 	@Override
-	public IEntityIterator<IEntity> clone(ICloneContext cc) {
+	public IExecutable<IEntity> clone(ICloneContext cc) {
 		TupleFactoryIterator iterator = (TupleFactoryIterator) super.clone(cc);
 		iterator.tupleIterators = tupleIterators.clone();
 		for (int i=0; i<tupleIterators.length; i++)

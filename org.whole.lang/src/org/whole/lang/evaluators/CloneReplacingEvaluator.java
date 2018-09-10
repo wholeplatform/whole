@@ -22,7 +22,7 @@ import java.util.Set;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.commons.factories.CommonsEntityFactory;
-import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.model.InternalIEntity;
 import org.whole.lang.reflect.EntityDescriptor;
@@ -35,7 +35,7 @@ import org.whole.lang.util.EntityUtils;
 public class CloneReplacingEvaluator extends AbstractNestedSupplierEvaluator<IEntity> {
 		private final Set<String> shallowUriSet;
 
-		public CloneReplacingEvaluator(Set<String> shallowUriSet, IEntityIterator<?>... argsIterators) {
+		public CloneReplacingEvaluator(Set<String> shallowUriSet, IExecutable<?>... argsIterators) {
 			super(argsIterators);
 			this.shallowUriSet = shallowUriSet;
 		}

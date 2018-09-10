@@ -23,6 +23,7 @@ import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.exceptions.IWholeRuntimeException;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 
@@ -40,7 +41,7 @@ public abstract class AbstractCartesianIterator<E extends IEntity> extends Abstr
 	}
 
 	@Override
-	public IEntityIterator<E> clone(ICloneContext cc) {
+	public IExecutable<E> clone(ICloneContext cc) {
 		AbstractCartesianIterator<E> iterator = (AbstractCartesianIterator<E>) super.clone(cc);
 		iterator.valuesIterator = cc.clone(valuesIterator);
 		return iterator;

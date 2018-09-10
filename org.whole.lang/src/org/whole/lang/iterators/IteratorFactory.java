@@ -22,6 +22,7 @@ import java.util.Set;
 
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.comparators.IEntityComparator;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.executables.InstrumentedExecutableFactory;
 import org.whole.lang.executables.RegularExecutableFactory;
 import org.whole.lang.model.IEntity;
@@ -63,7 +64,7 @@ public interface IteratorFactory {
 
 	<E extends IEntity> IEntityIterator<E> constantChildIterator(IEntity constant);
 
-	<E extends IEntity> IEntityIterator<E> constantComposeIterator(IEntity constant, IEntityIterator<E> iterator);
+	<E extends IEntity> IEntityIterator<E> constantComposeIterator(IEntity constant, IExecutable<E> iterator);
 
 	<E extends IEntity> IEntityIterator<E> constantSubstituteIterator(E constant, boolean useClone);
 
@@ -75,13 +76,13 @@ public interface IteratorFactory {
 
 	<E extends IEntity> IEntityIterator<E> singleValuedRunnableIterator(IRunnable runnable);
 
-	<E extends IEntity> IEntityIterator<E> singleValuedRunnableIterator(IRunnable runnable, IEntityIterator<?>... argsIterators);
+	<E extends IEntity> IEntityIterator<E> singleValuedRunnableIterator(IRunnable runnable, IExecutable<?>... argsIterators);
 
-	<E extends IEntity> IEntityIterator<E> singleValuedRunnableIterator(IRunnable runnable, int[] optionalArgsIndexes, IEntityIterator<?>... argsIterators);
+	<E extends IEntity> IEntityIterator<E> singleValuedRunnableIterator(IRunnable runnable, int[] optionalArgsIndexes, IExecutable<?>... argsIterators);
 
-	<E extends IEntity> IEntityIterator<E> multiValuedRunnableIterator(IRunnable runnable, IEntityIterator<?>... argsIterators);
+	<E extends IEntity> IEntityIterator<E> multiValuedRunnableIterator(IRunnable runnable, IExecutable<?>... argsIterators);
 
-	<E extends IEntity> IEntityIterator<E> multiValuedRunnableIterator(IRunnable runnable, int[] optionalArgsIndexes, IEntityIterator<?>... argsIterators);
+	<E extends IEntity> IEntityIterator<E> multiValuedRunnableIterator(IRunnable runnable, int[] optionalArgsIndexes, IExecutable<?>... argsIterators);
 
 	IEntityIterator<IEntity> aspectIterator();
 
@@ -175,17 +176,17 @@ public interface IteratorFactory {
 
 	<E extends IEntity> IEntityIterator<E> descendantOrReachableIterator(boolean includeSelf, DistinctScope<E> distinctScope);
 
-	<E extends IEntity> ScannerIterator<E> scannerIterator(IEntityIterator<E> iterator);
+	<E extends IEntity> ScannerIterator<E> scannerIterator(IExecutable<E> iterator);
 
-	<E extends IEntity> MatcherIterator<E> matcherIterator(IEntityIterator<E> iterator);
+	<E extends IEntity> MatcherIterator<E> matcherIterator(IExecutable<E> iterator);
 
-	<E extends IEntity> IEntityIterator<E> filterIterator(IEntityIterator<E> iterator, IEntityIterator<? extends IEntity> filterIterator);
+	<E extends IEntity> IEntityIterator<E> filterIterator(IExecutable<E> iterator, IExecutable<? extends IEntity> filterIterator);
 
-	IEntityIterator<IEntity> matchInScopeIterator(IEntityIterator<IEntity> patternIterator);
+	IEntityIterator<IEntity> matchInScopeIterator(IExecutable<IEntity> patternIterator);
 
-	<E extends IEntity> IEntityIterator<E> ifIterator(IEntityIterator<? extends IEntity> conditionIterator, IEntityIterator<E> doIterator);
+	<E extends IEntity> IEntityIterator<E> ifIterator(IExecutable<? extends IEntity> conditionIterator, IExecutable<E> doIterator);
 
-	<E extends IEntity> IEntityIterator<E> forIterator(IEntityIterator<? extends IEntity> forIterator, IEntityIterator<E> doIterator);
+	<E extends IEntity> IEntityIterator<E> forIterator(IExecutable<? extends IEntity> forIterator, IExecutable<E> doIterator);
 
 	IEntityIterator<IEntity> functionApplicationIterator(String functionUri);
 
@@ -194,22 +195,22 @@ public interface IteratorFactory {
 	<E extends IEntity> IEntityIterator<E> templateInterpreterIterator(IEntity template);
 
 	@SuppressWarnings("unchecked")
-	<E extends IEntity> IEntityIterator<E> chooseIterator(IEntityIterator<? extends E>... iteratorChain);
+	<E extends IEntity> IEntityIterator<E> chooseIterator(IExecutable<? extends E>... iteratorChain);
 
 	<E extends IEntity> IEntityIterator<E> chooseIterator(ILanguageKit languageKit);
 
 	@SuppressWarnings("unchecked")
-	<E extends IEntity> IEntityIterator<E> blockIterator(IEntityIterator<? extends E>... iteratorChain);
+	<E extends IEntity> IEntityIterator<E> blockIterator(IExecutable<? extends E>... iteratorChain);
 
 	@SuppressWarnings("unchecked")
-	<E extends IEntity> IEntityIterator<E> sequenceIterator(IEntityIterator<? extends E>... iteratorChain);
+	<E extends IEntity> IEntityIterator<E> sequenceIterator(IExecutable<? extends E>... iteratorChain);
 
 	@SuppressWarnings("unchecked")
-	<E extends IEntity> IEntityIterator<E> composeIterator(IEntityIterator<E> iterator, IEntityIterator<? extends IEntity>... nestedIterators);
+	<E extends IEntity> IEntityIterator<E> composeIterator(IExecutable<E> iterator, IExecutable<? extends IEntity>... nestedIterators);
 
-	<E extends IEntity> IEntityIterator<E> filterByIndexIterator(IEntityIterator<E> iterator, int index);
+	<E extends IEntity> IEntityIterator<E> filterByIndexIterator(IExecutable<E> iterator, int index);
 
-	<E extends IEntity> IEntityIterator<E> filterByIndexRangeIterator(IEntityIterator<E> iterator, int startIndex, int endIndex);
+	<E extends IEntity> IEntityIterator<E> filterByIndexRangeIterator(IExecutable<E> iterator, int startIndex, int endIndex);
 
 	<E extends IEntity> IEntityIterator<E> filterByIndexRangeIterator();
 
@@ -217,21 +218,21 @@ public interface IteratorFactory {
 
 	<E extends IEntity> DistinctScope<E> distinctScope(IEntityComparator<IEntity> comparator);
 
-	<E extends IEntity> IEntityIterator<E> sort(IEntityIterator<E> iterator);
+	<E extends IEntity> IEntityIterator<E> sort(IExecutable<E> iterator);
 
-	<E extends IEntity> IEntityIterator<E> sort(IEntityIterator<E> iterator, IEntityComparator<E> comparator);
-
-	@SuppressWarnings("unchecked")
-	IEntityIterator<IEntity> unionAllIterator(IEntityIterator<? extends IEntity>... iteratorChain);
+	<E extends IEntity> IEntityIterator<E> sort(IExecutable<E> iterator, IEntityComparator<E> comparator);
 
 	@SuppressWarnings("unchecked")
-	IEntityIterator<IEntity> unionIterator(IEntityIterator<? extends IEntity>... iteratorChain);
+	IEntityIterator<IEntity> unionAllIterator(IExecutable<? extends IEntity>... iteratorChain);
 
 	@SuppressWarnings("unchecked")
-	IEntityIterator<IEntity> intersectIterator(IEntityIterator<? extends IEntity>... iteratorChain);
+	IEntityIterator<IEntity> unionIterator(IExecutable<? extends IEntity>... iteratorChain);
 
 	@SuppressWarnings("unchecked")
-	IEntityIterator<IEntity> exceptIterator(IEntityIterator<? extends IEntity>... iteratorChain);
+	IEntityIterator<IEntity> intersectIterator(IExecutable<? extends IEntity>... iteratorChain);
+
+	@SuppressWarnings("unchecked")
+	IEntityIterator<IEntity> exceptIterator(IExecutable<? extends IEntity>... iteratorChain);
 
 	<E extends IEntity> IEntityIterator<E> ancestorScannerIterator();
 
@@ -275,19 +276,19 @@ public interface IteratorFactory {
 
 	IEntityIterator<IEntity> isImplIterator();
 
-	IEntityIterator<?> andIterator(IEntityIterator<?>... argsIterators);
+	IEntityIterator<?> andIterator(IExecutable<?>... argsIterators);
 
-	IEntityIterator<?> orIterator(IEntityIterator<?>... argsIterators);
+	IEntityIterator<?> orIterator(IExecutable<?>... argsIterators);
 
-	IEntityIterator<?> notIterator(IEntityIterator<?> argIterator);
+	IEntityIterator<?> notIterator(IExecutable<?> argIterator);
 
-	IEntityIterator<IEntity> oneIterator(IEntityIterator<IEntity> fromClause, IEntityIterator<IEntity> satisfiesClause);
+	IEntityIterator<IEntity> oneIterator(IExecutable<IEntity> fromClause, IExecutable<IEntity> satisfiesClause);
 
-	IEntityIterator<IEntity> someIterator(IEntityIterator<IEntity> fromClause);
+	IEntityIterator<IEntity> someIterator(IExecutable<IEntity> fromClause);
 
-	IEntityIterator<IEntity> someIterator(IEntityIterator<IEntity> fromClause, IEntityIterator<IEntity> satisfiesClause);
+	IEntityIterator<IEntity> someIterator(IExecutable<IEntity> fromClause, IExecutable<IEntity> satisfiesClause);
 
-	IEntityIterator<IEntity> everyIterator(IEntityIterator<IEntity> fromClause, IEntityIterator<IEntity> satisfiesClause);
+	IEntityIterator<IEntity> everyIterator(IExecutable<IEntity> fromClause, IExecutable<IEntity> satisfiesClause);
 
 	IEntityIterator<IEntity> isLanguageIterator(String languageURI);
 
@@ -323,44 +324,44 @@ public interface IteratorFactory {
 
 	IEntityIterator<IEntity> extendedLanguageSupertypeOfVariableIterator(String name);
 
-	IEntityIterator<IEntity> iterationIndexVariableIterator(IEntityIterator<?> indexIterator, String name);
+	IEntityIterator<IEntity> iterationIndexVariableIterator(IExecutable<?> indexIterator, String name);
 
-	IEntityIterator<IEntity> iterationIndexIterator(IEntityIterator<?> indexIterator, int index);
+	IEntityIterator<IEntity> iterationIndexIterator(IExecutable<?> indexIterator, int index);
 
-	IEntityIterator<IEntity> iterationIndexRangeIterator(IEntityIterator<?> indexIterator, int startIndex, int endIndex);
+	IEntityIterator<IEntity> iterationIndexRangeIterator(IExecutable<?> indexIterator, int startIndex, int endIndex);
 
-	IEntityIterator<IEntity> pointwiseEqualsIterator(IEntityIterator<IEntity> leftOperand, IEntityIterator<IEntity> rightOperand);
+	IEntityIterator<IEntity> pointwiseEqualsIterator(IExecutable<IEntity> leftOperand, IExecutable<IEntity> rightOperand);
 
-	<E extends IEntity> IEntityIterator<E> scopeIterator(IEntityIterator<E> scopeIterator, String environmentName, Set<String> localNames, boolean withFreshNames);
+	<E extends IEntity> IEntityIterator<E> scopeIterator(IExecutable<E> scopeIterator, String environmentName, Set<String> localNames, boolean withFreshNames);
 
-	IEntityIterator<?> tupleFactoryIterator(IEntityIterator<?>... tupleIterators);
+	IEntityIterator<?> tupleFactoryIterator(IExecutable<?>... tupleIterators);
 
-	<E extends IEntity> IEntityIterator<E> selectIterator(IEntityIterator<E> selectIterator, IEntityIterator<? extends IEntity> fromIterator, IEntityIterator<? extends IEntity> whereIterator);
-
-	@SuppressWarnings("unchecked")
-	IEntityIterator<IEntity> cartesianProductIterator(IEntityIterator<? extends IEntity>... iterators);
+	<E extends IEntity> IEntityIterator<E> selectIterator(IExecutable<E> selectIterator, IExecutable<? extends IEntity> fromIterator, IExecutable<? extends IEntity> whereIterator);
 
 	@SuppressWarnings("unchecked")
-	IEntityIterator<IEntity> pointwiseProductIterator(IEntityIterator<? extends IEntity>... iterators);
-
-	<E extends IEntity> IEntityIterator<E> cartesianUpdateIterator(IEntityIterator<? extends E> valuesIterator, IEntityIterator<E> toIterator);
-
-	<E extends IEntity> IEntityIterator<E> pointwiseUpdateIterator(IEntityIterator<E> valuesIterator, IEntityIterator<? super E> toIterator);
-
-	<E extends IEntity> IEntityIterator<E> cartesianInsertIterator(IEntityIterator<? extends E> valuesIterator, IEntityIterator<E> toIterator, Placement placement);
-
-	<E extends IEntity> IEntityIterator<E> pointwiseInsertIterator(IEntityIterator<E> valuesIterator, IEntityIterator<? super E> toIterator, Placement placement);
-
-	<E extends IEntity> IEntityIterator<E> deleteIterator(IEntityIterator<E> valuesIterator);
+	IEntityIterator<IEntity> cartesianProductIterator(IExecutable<? extends IEntity>... iterators);
 
 	@SuppressWarnings("unchecked")
-	public <E extends IEntity> IEntityIterator<E> callIterator(String name, IEntityIterator<? extends E>... argsIterators);
+	IEntityIterator<IEntity> pointwiseProductIterator(IExecutable<? extends IEntity>... iterators);
+
+	<E extends IEntity> IEntityIterator<E> cartesianUpdateIterator(IExecutable<? extends E> valuesIterator, IExecutable<E> toIterator);
+
+	<E extends IEntity> IEntityIterator<E> pointwiseUpdateIterator(IExecutable<E> valuesIterator, IExecutable<? super E> toIterator);
+
+	<E extends IEntity> IEntityIterator<E> cartesianInsertIterator(IExecutable<? extends E> valuesIterator, IExecutable<E> toIterator, Placement placement);
+
+	<E extends IEntity> IEntityIterator<E> pointwiseInsertIterator(IExecutable<E> valuesIterator, IExecutable<? super E> toIterator, Placement placement);
+
+	<E extends IEntity> IEntityIterator<E> deleteIterator(IExecutable<E> valuesIterator);
+
+	@SuppressWarnings("unchecked")
+	public <E extends IEntity> IEntityIterator<E> callIterator(String name, IExecutable<? extends E>... argsIterators);
 
 	IEntityIterator<?> nestedVariableIterator();
 
 	IEntityIterator<?> nestedFragmentIterator(Map<IEntity, IEntityIterator<?>> fragmentIteratorMap);
 
-	IEntityIterator<?> cloneReplacingIterator(IEntityIterator<?> childMappingIterator);
+	IEntityIterator<?> cloneReplacingIterator(IExecutable<?> childMappingIterator);
 
-	IEntityIterator<?> cloneReplacingIterator(IEntityIterator<?> childMappingIterator, Set<String> shallowUriSet);
+	IEntityIterator<?> cloneReplacingIterator(IExecutable<?> childMappingIterator, Set<String> shallowUriSet);
 }

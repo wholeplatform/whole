@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 
 /**
@@ -31,7 +31,7 @@ public class AncestorReverseEvaluator extends CollectionEvaluator<IEntity> {
 	@Override
 	protected Iterable<?> getCollectionIterable(IEntity entity) {
         List<IEntity> ancestors = new ArrayList<IEntity>();
-        IEntityIterator<IEntity> i = iteratorFactory().ancestorIterator();
+        IExecutable<IEntity> i = iteratorFactory().ancestorIterator();
         i.reset(entity);
 		for (IEntity parent : i)
         	ancestors.add(parent);

@@ -26,9 +26,13 @@ import org.whole.lang.model.IEntity;
  * @author Riccardo Solmi
  */
 public interface IJavaIterator<E extends IEntity> extends Iterator<E>, Iterable<E> {
+	public void reset(IEntity entity);
+
 //	public boolean hasNext();
 //	public E next();
 	public E lookahead();
 	public IBindingScope lookaheadScope();
+
+	public void prune();
 }
 

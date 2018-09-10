@@ -23,7 +23,6 @@ import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.executables.AbstractExecutableSteppingEvaluatingIterator;
 import org.whole.lang.executables.IExecutable;
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.operations.IdentityCloneContext;
@@ -39,7 +38,7 @@ public abstract class AbstractNestedStepper<E extends IEntity> extends AbstractE
 	protected BitSet producersNeedClone;
 	protected BitSet producersNeedInit;
 
-	protected AbstractNestedStepper(IEntityIterator<?>... producers) {
+	protected AbstractNestedStepper(IExecutable<?>... producers) {
 		this.producers = producers;
 		producersNeedClone = new BitSet(producersSize());
 		producersNeedClone.set(0, producersSize(), false);
@@ -47,7 +46,7 @@ public abstract class AbstractNestedStepper<E extends IEntity> extends AbstractE
 		producersNeedInit.set(0, producersSize(), true);
 	}
 
-	public IEntityIterator<E> clone(ICloneContext cc) {
+	public IExecutable<E> clone(ICloneContext cc) {
 		cloneContext = cc.getPrototypeCloneContext();
 		producersNeedClone.set(0, producersSize(), true);
 		

@@ -26,6 +26,7 @@ import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.comparators.BusinessIdentityComparator;
 import org.whole.lang.comparators.IEntityComparator;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.visitors.AbstractVisitor;
@@ -48,7 +49,7 @@ public class FilterByDistinctIterator<E extends IEntity> extends AbstractDelegat
 	}
 
 	@Override
-	public IEntityIterator<E> clone(ICloneContext cc) {
+	public IExecutable<E> clone(ICloneContext cc) {
 		FilterByDistinctIterator<E> iterator = (FilterByDistinctIterator<E>) super.clone(cc);
 		if (distinctSetMap != null)
 			iterator.distinctSetMap = new HashMap<Object, Set<IEntity>>(distinctSetMap);

@@ -21,6 +21,7 @@ import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.bindings.NullScope;
 import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.executables.AbstractExecutableIteratingEvaluatingStepper;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.resources.FunctionLibraryRegistry;
@@ -42,7 +43,7 @@ public class FunctionApplicationIterator extends AbstractExecutableIteratingEval
 	}
 
 	@Override
-	public IEntityIterator<IEntity> clone(ICloneContext cc) {
+	public IExecutable<IEntity> clone(ICloneContext cc) {
 		FunctionApplicationIterator iterator = (FunctionApplicationIterator) super.clone(cc);
 		iterator.functionIterator = cc.clone(functionIterator);
 		return iterator;

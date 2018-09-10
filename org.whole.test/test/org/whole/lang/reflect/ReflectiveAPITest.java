@@ -17,14 +17,18 @@
  */
 package org.whole.lang.reflect;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.json.reflect.JSONLanguageKit;
 import org.whole.lang.matchers.Matcher;
@@ -128,7 +132,7 @@ public class ReflectiveAPITest {
         Model m = model;
 
         List<IEntity> features = new ArrayList<IEntity>();
-        IEntityIterator<IEntity> i = IteratorFactory.instance.childIterator();
+        IExecutable<IEntity> i = IteratorFactory.instance.childIterator();
         i.reset(m);
 		for (IEntity e : i)
             features.add(e);

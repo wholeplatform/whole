@@ -22,7 +22,7 @@ import java.util.Iterator;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.bindings.NullScope;
 import org.whole.lang.executables.AbstractExecutableEvaluatingStepperIterator;
-import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.util.IDataTypeWrapper;
@@ -46,7 +46,7 @@ public class CollectionEvaluator<E extends IEntity> extends AbstractExecutableEv
     }
 
 	@Override
-	public IEntityIterator<E> clone(ICloneContext cc) {
+	public IExecutable<E> clone(ICloneContext cc) {
 		CollectionEvaluator<E> iterator = (CollectionEvaluator<E>) super.clone(cc);
 		if (collectionIterator != null)
 			iterator.collectionIterator = collectionIterable.iterator();

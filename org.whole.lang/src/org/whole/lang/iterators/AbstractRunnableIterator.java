@@ -25,6 +25,7 @@ import java.util.stream.Collectors;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.executables.AbstractExecutableIteratingEvaluatingStepper;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.util.WholeMessages;
@@ -48,7 +49,7 @@ public abstract class AbstractRunnableIterator<E extends IEntity> extends Abstra
 		this.argsIterators = argsIterators;
 	}
 
-	public IEntityIterator<E> clone(ICloneContext cc) {
+	public IExecutable<E> clone(ICloneContext cc) {
 		AbstractRunnableIterator<E> iterator = (AbstractRunnableIterator<E>) super.clone(cc);
 		if (argsIterators != null) {
 			iterator.argsIterators = argsIterators.clone();

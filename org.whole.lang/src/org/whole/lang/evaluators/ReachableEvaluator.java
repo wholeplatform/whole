@@ -17,8 +17,8 @@
  */
 package org.whole.lang.evaluators;
 
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.iterators.DistinctScope;
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 
@@ -35,7 +35,7 @@ public class ReachableEvaluator<E extends IEntity> extends AbstractTransitiveClo
 	}
 
 	@Override
-	public IEntityIterator<E> clone(ICloneContext cc) {
+	public IExecutable<E> clone(ICloneContext cc) {
 		ReachableEvaluator<E> iterator = (ReachableEvaluator<E>) super.clone(cc);
 		iterator.distinctScope = cc.clone(distinctScope);
 		return iterator;
@@ -45,7 +45,7 @@ public class ReachableEvaluator<E extends IEntity> extends AbstractTransitiveClo
 		return entity.wAdjacentSize() > 0;
 	}
     
-    protected IEntityIterator<E> createRelationIterator() {
+    protected IExecutable<E> createRelationIterator() {
     	return iteratorFactory().matcherIterator(iteratorFactory().<E>adjacentIterator()).withPattern(distinctScope.distinctMatcher());
     }
 

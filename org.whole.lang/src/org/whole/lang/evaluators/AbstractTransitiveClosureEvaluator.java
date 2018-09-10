@@ -23,7 +23,7 @@ import java.util.List;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.bindings.NullScope;
 import org.whole.lang.executables.AbstractExecutableEvaluatingStepperIterator;
-import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 
@@ -31,8 +31,8 @@ import org.whole.lang.operations.ICloneContext;
  * @author Riccardo Solmi
  */
 public abstract class AbstractTransitiveClosureEvaluator<E extends IEntity> extends AbstractExecutableEvaluatingStepperIterator<E> {
-	protected List<IEntityIterator<E>> iteratorStack = new ArrayList<IEntityIterator<E>>(16);
-	protected IEntityIterator<E> lastIterator;
+	protected List<IExecutable<E>> iteratorStack = new ArrayList<IExecutable<E>>(16);
+	protected IExecutable<E> lastIterator;
 	protected boolean includeSelf;
 
 	protected AbstractTransitiveClosureEvaluator(boolean includeSelf) {
@@ -40,12 +40,12 @@ public abstract class AbstractTransitiveClosureEvaluator<E extends IEntity> exte
     }
 
 	@Override
-	public IEntityIterator<E> clone(ICloneContext cc) {
+	public IExecutable<E> clone(ICloneContext cc) {
 		AbstractTransitiveClosureEvaluator<E> iterator = (AbstractTransitiveClosureEvaluator<E>) super.clone(cc);
 		if (iteratorStack != null) {
-			iterator.iteratorStack = new ArrayList<IEntityIterator<E>>(iteratorStack.size());
+			iterator.iteratorStack = new ArrayList<IExecutable<E>>(iteratorStack.size());
 			for (int i=0,size=iteratorStack.size(); i<size; i++) {
-				IEntityIterator<E> isClone = cc.clone(iteratorStack.get(i));
+				IExecutable<E> isClone = cc.clone(iteratorStack.get(i));
 				iterator.iteratorStack.add(isClone);
 				if (iteratorStack.get(i) == lastIterator)
 					iterator.lastIterator = isClone;
@@ -54,15 +54,15 @@ public abstract class AbstractTransitiveClosureEvaluator<E extends IEntity> exte
 		return iterator;
 	}
 
-    protected IEntityIterator<E> peekIterator() {
+    protected IExecutable<E> peekIterator() {
     	return iteratorStack.get(iteratorStack.size()-1);
     }
-    protected final void pushIterator(IEntityIterator<E> iterator, IEntity entity) {
+    protected final void pushIterator(IExecutable<E> iterator, IEntity entity) {
     	iterator.setBindings(getBindings());
     	iterator.reset(entity);
     	iteratorStack.add(iterator);
     }
-    protected final IEntityIterator<E> popIterator() {
+    protected final IExecutable<E> popIterator() {
     	return iteratorStack.remove(iteratorStack.size()-1);
     }
 
@@ -71,7 +71,7 @@ public abstract class AbstractTransitiveClosureEvaluator<E extends IEntity> exte
 	}
 
 	protected abstract boolean isRelationNotEmpty(IEntity entity);
-    protected abstract IEntityIterator<E> createRelationIterator();
+    protected abstract IExecutable<E> createRelationIterator();
 
 
     public IBindingScope lookaheadScope() {

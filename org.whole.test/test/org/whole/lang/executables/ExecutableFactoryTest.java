@@ -20,7 +20,6 @@ package org.whole.lang.executables;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +28,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.ReflectionFactory;
@@ -128,7 +126,7 @@ public class ExecutableFactoryTest {
     @Test
     public void testEmptyStepper() {
     	TesterDataFlowConsumer c = new TesterDataFlowConsumer();
-    	IEntityIterator<?> p = f.emptyIterator();
+    	IExecutable<?> p = f.emptyIterator();
 		p.withConsumer(c);
     	p.setBindings(bmf.createBindingManager());
     	p.reset(VALUES[0]);
@@ -145,7 +143,7 @@ public class ExecutableFactoryTest {
     @Test
     public void testConstantStepper() {
     	TesterDataFlowConsumer c = new TesterDataFlowConsumer();
-    	IEntityIterator<?> p = f.constantIterator(VALUES[0], false);
+    	IExecutable<?> p = f.constantIterator(VALUES[0], false);
 		p.withConsumer(c);
     	p.setBindings(bmf.createBindingManager());
 
@@ -184,7 +182,7 @@ public class ExecutableFactoryTest {
     public void testAsVariableStepper() {
     	IBindingManager bm = bmf.createBindingManager();
     	TesterDataFlowConsumer c = new TesterDataFlowConsumer();
-    	IEntityIterator<?> p = f.asVariableIterator("v0");
+    	IExecutable<?> p = f.asVariableIterator("v0");
 		p.withConsumer(c);
     	p.setBindings(bm);
 
@@ -222,7 +220,7 @@ public class ExecutableFactoryTest {
     	IBindingManager bm = bmf.createBindingManager();
     	bm.wDef("v0", VALUES[0]);
     	TesterDataFlowConsumer c = new TesterDataFlowConsumer();
-    	IEntityIterator<?> p = f.variableIterator("v0");
+    	IExecutable<?> p = f.variableIterator("v0");
 		p.withConsumer(c);
     	p.setBindings(bm);
 
@@ -246,7 +244,7 @@ public class ExecutableFactoryTest {
     public void testBindVariableStepper() {
     	IBindingManager bm = bmf.createBindingManager();
     	TesterDataFlowConsumer c = new TesterDataFlowConsumer();
-    	IEntityIterator<?> p = f.filterIterator(f.constantIterator(VALUES[0], false), f.asVariableIterator("v0"));
+    	IExecutable<?> p = f.filterIterator(f.constantIterator(VALUES[0], false), f.asVariableIterator("v0"));
 		p.withConsumer(c);
     	p.setBindings(bm);
 
@@ -273,7 +271,7 @@ public class ExecutableFactoryTest {
     public void testSequenceStepper() {
     	TesterDataFlowConsumer c = new TesterDataFlowConsumer();
     	@SuppressWarnings("unchecked")
-		IEntityIterator<?> p = f.sequenceIterator(
+		IExecutable<?> p = f.sequenceIterator(
     			f.constantIterator(VALUES[0], false),
     			f.constantIterator(VALUES[1], false),
     			f.constantIterator(VALUES[2], false),
@@ -315,7 +313,7 @@ public class ExecutableFactoryTest {
     	IBindingManager bm = bmf.createBindingManager();
     	TesterDataFlowConsumer c = new TesterDataFlowConsumer();
 		@SuppressWarnings("unchecked")
-		IEntityIterator<?> p = f.sequenceIterator(
+		IExecutable<?> p = f.sequenceIterator(
 				f.filterIterator(f.constantIterator(VALUES[0], false), f.asVariableIterator("v0")),
 				f.filterIterator(f.constantIterator(VALUES[1], false), f.asVariableIterator("v1")),
 				f.filterIterator(f.variableIterator("v0"), f.asVariableIterator("v2")),
@@ -370,7 +368,7 @@ public class ExecutableFactoryTest {
     	IBindingManager bm = bmf.createBindingManager();
     	TesterDataFlowConsumer c = new TesterDataFlowConsumer();
 		@SuppressWarnings("unchecked")
-		IEntityIterator<?> p = f.sequenceIterator(
+		IExecutable<?> p = f.sequenceIterator(
 				f.filterIterator(f.constantIterator(VALUES[0], false), f.asVariableIterator("v0")),
     			f.ifIterator(
     					f.filterIterator(f.constantIterator(TRUE_VALUE, false), f.asVariableIterator("v1")),
@@ -414,7 +412,7 @@ public class ExecutableFactoryTest {
 
     @Test
     public void testEmptyEvaluator() {
-    	IEntityIterator<?> i = f.emptyIterator();
+    	IExecutable<?> i = f.emptyIterator();
     	i.setBindings(bmf.createBindingManager());
     	i.reset(VALUES[0]);
 
@@ -433,7 +431,7 @@ public class ExecutableFactoryTest {
 
     @Test
     public void testConstantEvaluator() {
-    	IEntityIterator<?> i = f.constantIterator(VALUES[0], false);
+    	IExecutable<?> i = f.constantIterator(VALUES[0], false);
     	i.setBindings(bmf.createBindingManager());
     	i.reset(VALUES[1]);
 
@@ -456,7 +454,7 @@ public class ExecutableFactoryTest {
     @Test
     public void testSequenceEvaluator() {
     	@SuppressWarnings("unchecked")
-		IEntityIterator<?> i = f.sequenceIterator(
+		IExecutable<?> i = f.sequenceIterator(
     			f.constantIterator(VALUES[0], false),
     			f.constantIterator(VALUES[1], false),
     			f.constantIterator(VALUES[2], false),
@@ -492,7 +490,7 @@ public class ExecutableFactoryTest {
     @Test
     public void testChooseByOrderEvaluator() {
     	@SuppressWarnings("unchecked")
-		IEntityIterator<?> i = f.chooseIterator(
+		IExecutable<?> i = f.chooseIterator(
     			f.emptyIterator(),
     			f.emptyIterator(),
     			f.sequenceIterator(

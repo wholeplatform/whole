@@ -25,6 +25,7 @@ import org.whole.lang.bindings.AbstractFilterScope;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.exceptions.WholeIllegalStateException;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
@@ -51,7 +52,7 @@ public class SelectIterator<E extends IEntity> extends AbstractLazyCloneableIter
 	}
 
 	@Override
-	public IEntityIterator<E> clone(ICloneContext cc) {
+	public IExecutable<E> clone(ICloneContext cc) {
 		SelectIterator<E> iterator = (SelectIterator<E>) super.clone(cc);
 		iterator.fromIterator = cc.clone(fromIterator);
 		iterator.lazyCloneSelect = lazyCloneSelect = iterator.lazyCloneWhere = lazyCloneWhere = true;

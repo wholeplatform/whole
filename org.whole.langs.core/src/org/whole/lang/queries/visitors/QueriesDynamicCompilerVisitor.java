@@ -35,6 +35,7 @@ import org.whole.lang.comparators.IEntityComparator;
 import org.whole.lang.comparators.IdentityIteratorComparator;
 import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.executables.EmptyExecutable;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.factories.GenericEntityFactory;
 import org.whole.lang.iterators.AbstractCollectIterator;
 import org.whole.lang.iterators.AbstractIteratorBasedExecutableFactory.FilterIterator;
@@ -1087,7 +1088,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		}
 
 		@Override
-		public IEntityIterator<IEntity> clone(ICloneContext cc) {
+		public IExecutable<IEntity> clone(ICloneContext cc) {
 			PredicateWrapperIterator clone = (PredicateWrapperIterator) super.clone(cc);
 			clone.queryPredicate = cc.clone(queryPredicate);
 			return clone;

@@ -26,6 +26,7 @@ import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.INestableScope;
 import org.whole.lang.commons.parsers.CommonsDataTypePresentationParser;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.iterators.instrumentation.AbstractInstrumentationData;
 import org.whole.lang.iterators.instrumentation.CompositeInstrumentation;
 import org.whole.lang.iterators.instrumentation.DiagnosticData;
@@ -98,7 +99,7 @@ public class InstrumentingIterator<E extends IEntity> extends AbstractDelegating
 
 	
 	@Override
-	public IEntityIterator<E> clone(ICloneContext cc) {
+	public IExecutable<E> clone(ICloneContext cc) {
 		instrumentation.beforeClone(this);
 		InstrumentingIterator<E> result = (InstrumentingIterator<E>) super.clone(cc);
 		result.instrumentationDataMap = instrumentationDataMap.entrySet().stream()

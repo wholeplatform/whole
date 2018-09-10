@@ -17,6 +17,7 @@
  */
 package org.whole.lang.iterators;
 
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 
@@ -33,7 +34,7 @@ public class DescendantOrReachableIterator<E extends IEntity> extends AbstractTr
 	}
 
 	@Override
-	public IEntityIterator<E> clone(ICloneContext cc) {
+	public IExecutable<E> clone(ICloneContext cc) {
 		DescendantOrReachableIterator<E> iterator = (DescendantOrReachableIterator<E>) super.clone(cc);
 		iterator.distinctScope = cc.clone(distinctScope);
 		return iterator;

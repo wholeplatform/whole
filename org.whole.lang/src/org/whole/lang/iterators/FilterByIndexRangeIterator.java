@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 
@@ -59,7 +60,7 @@ public class FilterByIndexRangeIterator<E extends IEntity> extends AbstractDeleg
 	}
 
 	@Override
-	public IEntityIterator<E> clone(ICloneContext cc) {
+	public IExecutable<E> clone(ICloneContext cc) {
 		FilterByIndexRangeIterator<E> iterator = (FilterByIndexRangeIterator<E>) super.clone(cc);
 		if (indexMap != null)
 			iterator.indexMap = new HashMap<Object, IndexPair>(indexMap);

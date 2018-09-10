@@ -20,6 +20,7 @@ package org.whole.lang.iterators;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.matchers.GenericMatcherFactory;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
@@ -40,7 +41,7 @@ public abstract class AbstractPatternFilterIterator<E extends IEntity> extends A
 	}
 
 	@Override
-	public IEntityIterator<E> clone(ICloneContext cc) {
+	public IExecutable<E> clone(ICloneContext cc) {
 		AbstractPatternFilterIterator<E> iterator = (AbstractPatternFilterIterator<E>) super.clone(cc);
 		iterator.patternVisitor = cc.clone(patternVisitor);
 		return iterator;

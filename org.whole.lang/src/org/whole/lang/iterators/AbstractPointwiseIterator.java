@@ -21,6 +21,7 @@ import java.util.NoSuchElementException;
 
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.exceptions.IWholeRuntimeException;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 
@@ -37,7 +38,7 @@ public abstract class AbstractPointwiseIterator<E extends IEntity> extends Abstr
 	}
 
 	@Override
-	public IEntityIterator<E> clone(ICloneContext cc) {
+	public IExecutable<E> clone(ICloneContext cc) {
 		AbstractPointwiseIterator<E> iterator = (AbstractPointwiseIterator<E>) super.clone(cc);
 		iterator.toIterator = cc.clone(toIterator);
 		return iterator;

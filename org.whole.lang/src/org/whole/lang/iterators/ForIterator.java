@@ -23,6 +23,7 @@ import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.bindings.NullScope;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 
@@ -41,7 +42,7 @@ public class ForIterator<E extends IEntity> extends AbstractDelegatingIterator<E
 	}
 
 	@Override
-	public IEntityIterator<E> clone(ICloneContext cc) {
+	public IExecutable<E> clone(ICloneContext cc) {
 		ForIterator<E> iterator = (ForIterator<E>) super.clone(cc);
 		iterator.forIterator = cc.clone(forIterator);
 		return iterator;

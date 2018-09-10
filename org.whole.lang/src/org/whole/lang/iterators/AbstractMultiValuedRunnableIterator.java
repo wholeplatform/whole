@@ -21,6 +21,7 @@ import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.bindings.NullScope;
 import org.whole.lang.exceptions.IWholeRuntimeException;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 
@@ -37,7 +38,7 @@ public abstract class AbstractMultiValuedRunnableIterator<E extends IEntity> ext
 		super(optionalArgsIndexes, argsIterators);
 	}
 
-	public IEntityIterator<E> clone(ICloneContext cc) {
+	public IExecutable<E> clone(ICloneContext cc) {
 		AbstractMultiValuedRunnableIterator<E> iterator = (AbstractMultiValuedRunnableIterator<E>) super.clone(cc);
 		iterator.resultIterator = cc.clone(resultIterator);
 		return iterator;

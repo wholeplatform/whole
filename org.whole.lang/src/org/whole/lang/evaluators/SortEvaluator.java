@@ -22,7 +22,7 @@ import java.util.TreeSet;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.comparators.BusinessIdentityComparator;
 import org.whole.lang.comparators.IEntityComparator;
-import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 
@@ -30,20 +30,20 @@ import org.whole.lang.operations.ICloneContext;
  * @author Riccardo Solmi
  */
 public class SortEvaluator<E extends IEntity> extends CollectionEvaluator<E> {
-	protected IEntityIterator<? extends E> iterator;
+	protected IExecutable<? extends E> iterator;
 	protected IEntityComparator<? super E> comparator;
 
 	@SuppressWarnings("unchecked")
-	public SortEvaluator(IEntityIterator<? extends E> iterator) {
+	public SortEvaluator(IExecutable<? extends E> iterator) {
 		this(iterator, (IEntityComparator<E>) BusinessIdentityComparator.instance);
 	}
-	public SortEvaluator(IEntityIterator<? extends E> iterator, IEntityComparator<E> comparator) {
+	public SortEvaluator(IExecutable<? extends E> iterator, IEntityComparator<E> comparator) {
 		this.iterator = iterator;
 		this.comparator = comparator;
 	}
 
 	@Override
-	public IEntityIterator<E> clone(ICloneContext cc) {
+	public IExecutable<E> clone(ICloneContext cc) {
 		SortEvaluator<E> iterator = (SortEvaluator<E>) super.clone(cc);
 		iterator.iterator = cc.clone(this.iterator);
 		iterator.comparator = cc.clone(comparator);

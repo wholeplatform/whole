@@ -22,6 +22,7 @@ import java.util.NoSuchElementException;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 
@@ -41,7 +42,7 @@ public class IfIterator<E extends IEntity> extends AbstractDelegatingIterator<E>
 	}
 
 	@Override
-	public IEntityIterator<E> clone(ICloneContext cc) {
+	public IExecutable<E> clone(ICloneContext cc) {
 		IfIterator<E> iterator = (IfIterator<E>) super.clone(cc);
 		iterator.conditionIterator = cc.clone(conditionIterator);
 		return iterator;

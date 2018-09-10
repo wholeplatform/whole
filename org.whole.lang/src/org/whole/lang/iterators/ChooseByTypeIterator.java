@@ -21,6 +21,7 @@ import java.util.Map;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingScope;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.reflect.EntityDescriptor;
@@ -59,7 +60,7 @@ public class ChooseByTypeIterator<E extends IEntity> extends AbstractLazyCloneab
 	}
 
 	@Override
-	public IEntityIterator<E> clone(ICloneContext cc) {
+	public IExecutable<E> clone(ICloneContext cc) {
 		ChooseByTypeIterator<E> iterator = (ChooseByTypeIterator<E>) super.clone(cc);
 		iterator.iteratorChain = iterator.iteratorChain.clone();
 		return iterator;

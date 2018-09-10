@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.executables.AbstractExecutableEvaluatingStepperIterator;
-import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.util.EntityUtils;
@@ -36,19 +36,19 @@ import org.whole.lang.util.WholeMessages;
  */
 public abstract class AbstractNestedEvaluator<E extends IEntity> extends AbstractExecutableEvaluatingStepperIterator<E> {
 	protected IEntity selfEntity;
-	protected IEntityIterator<? extends IEntity>[] producers;
+	protected IExecutable<? extends IEntity>[] producers;
 	protected Set<Integer> optionalProducersIndexSet;
 
-	protected AbstractNestedEvaluator(IEntityIterator<?>... producers) {
+	protected AbstractNestedEvaluator(IExecutable<?>... producers) {
 		optionalProducersIndexSet = Collections.emptySet();
 		this.producers = producers;
 	}
-	protected AbstractNestedEvaluator(int[] optionalArgsIndexes, IEntityIterator<?>... producers) {
+	protected AbstractNestedEvaluator(int[] optionalArgsIndexes, IExecutable<?>... producers) {
 		optionalProducersIndexSet = Arrays.stream(optionalArgsIndexes).boxed().collect(Collectors.toSet());
 		this.producers = producers;
 	}
 
-	public IEntityIterator<E> clone(ICloneContext cc) {
+	public IExecutable<E> clone(ICloneContext cc) {
 		AbstractNestedEvaluator<E> iterator = (AbstractNestedEvaluator<E>) super.clone(cc);
 		if (producers != null) {
 			iterator.producers = producers.clone();
@@ -61,7 +61,7 @@ public abstract class AbstractNestedEvaluator<E extends IEntity> extends Abstrac
 	public int producersSize() {
 		return producers.length;
 	}
-	public IEntityIterator<?> getProducer(int index) {
+	public IExecutable<?> getProducer(int index) {
 		return producers[index];
 	}
 
@@ -72,14 +72,14 @@ public abstract class AbstractNestedEvaluator<E extends IEntity> extends Abstrac
     }
 	protected void resetProducers(IEntity entity) {
         if (producers != null)
-    		for (IEntityIterator<? extends IEntity> i : producers)
+    		for (IExecutable<? extends IEntity> i : producers)
     			i.reset(entity);		
 	}
 
     protected void setProducersBindings(IBindingManager bindings) {
 		super.setProducersBindings(bindings);
 		if (producers != null)
-			for (IEntityIterator<? extends IEntity> i : producers)
+			for (IExecutable<? extends IEntity> i : producers)
 				i.setBindings(bindings);
 	}
 

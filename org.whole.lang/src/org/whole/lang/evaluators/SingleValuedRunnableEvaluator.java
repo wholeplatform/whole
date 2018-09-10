@@ -18,7 +18,7 @@
 package org.whole.lang.evaluators;
 
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.util.IRunnable;
 
@@ -28,11 +28,11 @@ import org.whole.lang.util.IRunnable;
 public class SingleValuedRunnableEvaluator<E extends IEntity> extends AbstractNestedSupplierEvaluator<E> {
 	protected IRunnable runnable;
 
-	public SingleValuedRunnableEvaluator(IRunnable runnable, IEntityIterator<?>... argsIterators) {
+	public SingleValuedRunnableEvaluator(IRunnable runnable, IExecutable<?>... argsIterators) {
 		super(argsIterators);
 		this.runnable = runnable;
 	}
-	public SingleValuedRunnableEvaluator(IRunnable runnable, int[] optionalArgsIndexes, IEntityIterator<?>... argsIterators) {
+	public SingleValuedRunnableEvaluator(IRunnable runnable, int[] optionalArgsIndexes, IExecutable<?>... argsIterators) {
 		super(optionalArgsIndexes, argsIterators);
 		this.runnable = runnable;
 	}

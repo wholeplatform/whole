@@ -31,6 +31,7 @@ import org.whole.lang.comparators.IEntityComparator;
 import org.whole.lang.comparators.ObjectIdentityComparator;
 import org.whole.lang.executables.EmptyExecutable;
 import org.whole.lang.executables.FailureExecutable;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
@@ -82,8 +83,8 @@ public class IteratorBasedExecutableFactory extends AbstractIteratorBasedExecuta
 	public <E extends IEntity> IEntityIterator<E> constantChildIterator(IEntity constant) {
 		return new ConstantChildIterator<E>(true, constant);
 	}
-	public <E extends IEntity> IEntityIterator<E> constantComposeIterator(IEntity constant, IEntityIterator<E> iterator) {
-		return new ConstantComposeIterator<E>(constant, iterator);
+	public <E extends IEntity> IEntityIterator<E> constantComposeIterator(IEntity constant, IExecutable<E> iterator) {
+		return new ConstantComposeIterator<E>(constant, iterator.iterator());
 	}
 
 	public <E extends IEntity> IEntityIterator<E> entityCollectionIterator(Iterable<E> entityCollectionIterable) {
@@ -99,17 +100,17 @@ public class IteratorBasedExecutableFactory extends AbstractIteratorBasedExecuta
 	public <E extends IEntity> IEntityIterator<E> singleValuedRunnableIterator(IRunnable runnable) {
 		return new SingleValuedRunnableIterator<E>(runnable);
 	}
-	public <E extends IEntity> IEntityIterator<E> singleValuedRunnableIterator(IRunnable runnable, IEntityIterator<?>... argsIterators) {
-		return new SingleValuedRunnableIterator<E>(runnable, argsIterators);
+	public <E extends IEntity> IEntityIterator<E> singleValuedRunnableIterator(IRunnable runnable, IExecutable<?>... argsIterators) {
+		return new SingleValuedRunnableIterator<E>(runnable, toIterators(argsIterators));
 	}
-	public <E extends IEntity> IEntityIterator<E> singleValuedRunnableIterator(IRunnable runnable, int[] optionalArgsIndexes, IEntityIterator<?>... argsIterators) {
-		return new SingleValuedRunnableIterator<E>(runnable, optionalArgsIndexes, argsIterators);
+	public <E extends IEntity> IEntityIterator<E> singleValuedRunnableIterator(IRunnable runnable, int[] optionalArgsIndexes, IExecutable<?>... argsIterators) {
+		return new SingleValuedRunnableIterator<E>(runnable, optionalArgsIndexes, toIterators(argsIterators));
 	}
-	public <E extends IEntity> IEntityIterator<E> multiValuedRunnableIterator(IRunnable runnable, IEntityIterator<?>... argsIterators) {
-		return new MultiValuedRunnableIterator<E>(runnable, argsIterators);
+	public <E extends IEntity> IEntityIterator<E> multiValuedRunnableIterator(IRunnable runnable, IExecutable<?>... argsIterators) {
+		return new MultiValuedRunnableIterator<E>(runnable, toIterators(argsIterators));
 	}
-	public <E extends IEntity> IEntityIterator<E> multiValuedRunnableIterator(IRunnable runnable, int[] optionalArgsIndexes, IEntityIterator<?>... argsIterators) {
-		return new MultiValuedRunnableIterator<E>(runnable, optionalArgsIndexes, argsIterators);
+	public <E extends IEntity> IEntityIterator<E> multiValuedRunnableIterator(IRunnable runnable, int[] optionalArgsIndexes, IExecutable<?>... argsIterators) {
+		return new MultiValuedRunnableIterator<E>(runnable, optionalArgsIndexes, toIterators(argsIterators));
 	}
 
 	public IEntityIterator<IEntity> aspectIterator() {
@@ -277,20 +278,20 @@ public class IteratorBasedExecutableFactory extends AbstractIteratorBasedExecuta
 		return new DescendantOrReachableIterator<E>(includeSelf, distinctScope);
 	}
 
-	public <E extends IEntity> ScannerIterator<E> scannerIterator(IEntityIterator<E> iterator) {
-		return new ScannerIterator<E>(iterator);
+	public <E extends IEntity> ScannerIterator<E> scannerIterator(IExecutable<E> iterator) {
+		return new ScannerIterator<E>(iterator.iterator());
 	}
-	public <E extends IEntity> MatcherIterator<E> matcherIterator(IEntityIterator<E> iterator) {
-		return new MatcherIterator<E>(iterator);
-	}
-
-	public <E extends IEntity> IEntityIterator<E> filterIterator(IEntityIterator<E> iterator, IEntityIterator<? extends IEntity> filterIterator) {
-		return new FilterIterator<E>(iterator, filterIterator);
+	public <E extends IEntity> MatcherIterator<E> matcherIterator(IExecutable<E> iterator) {
+		return new MatcherIterator<E>(iterator.iterator());
 	}
 
+	public <E extends IEntity> IEntityIterator<E> filterIterator(IExecutable<E> iterator, IExecutable<? extends IEntity> filterIterator) {
+		return new FilterIterator<E>(iterator.iterator(), filterIterator.iterator());
+	}
 
-	public IEntityIterator<IEntity> matchInScopeIterator(IEntityIterator<IEntity> patternIterator) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(patternIterator) {
+
+	public IEntityIterator<IEntity> matchInScopeIterator(IExecutable<IEntity> patternIterator) {
+		return new AbstractSingleValuedRunnableIterator<IEntity>(patternIterator.iterator()) {
 			protected void run(IEntity selfEntity, IBindingManager bm) {
 				IEntity pattern = argsIterators[0].evaluateNext();
 				bm.setResult(BindingManagerFactory.instance.createValue(pattern != null && Matcher.match(pattern, selfEntity, bm)));
@@ -305,11 +306,11 @@ public class IteratorBasedExecutableFactory extends AbstractIteratorBasedExecuta
 	}
 
 
-	public <E extends IEntity> IEntityIterator<E> ifIterator(IEntityIterator<? extends IEntity> conditionIterator, IEntityIterator<E> doIterator) {
-		return new IfIterator<E>(conditionIterator, doIterator);
+	public <E extends IEntity> IEntityIterator<E> ifIterator(IExecutable<? extends IEntity> conditionIterator, IExecutable<E> doIterator) {
+		return new IfIterator<E>(conditionIterator.iterator(), doIterator.iterator());
 	}
-	public <E extends IEntity> IEntityIterator<E> forIterator(IEntityIterator<? extends IEntity> forIterator, IEntityIterator<E> doIterator) {
-		return new ForIterator<E>(forIterator, doIterator);
+	public <E extends IEntity> IEntityIterator<E> forIterator(IExecutable<? extends IEntity> forIterator, IExecutable<E> doIterator) {
+		return new ForIterator<E>(forIterator.iterator(), doIterator.iterator());
 	}
 
 	public IEntityIterator<IEntity> functionApplicationIterator(String functionUri) {
@@ -322,31 +323,31 @@ public class IteratorBasedExecutableFactory extends AbstractIteratorBasedExecuta
 		return new TemplateInterpreterIterator<E>(template);
 	}
 
-	public <E extends IEntity> IEntityIterator<E> chooseIterator(IEntityIterator<? extends E>... iteratorChain) {
-		return new ChooseByOrderIterator<E>(iteratorChain);
+	public <E extends IEntity> IEntityIterator<E> chooseIterator(IExecutable<? extends E>... iteratorChain) {
+		return new ChooseByOrderIterator<E>(toIterators(iteratorChain));
 	}
 
 	public <E extends IEntity> IEntityIterator<E> chooseIterator(ILanguageKit languageKit) {
 		return new ChooseByTypeIterator<E>(languageKit);
 	}
 
-	public <E extends IEntity> IEntityIterator<E> blockIterator(IEntityIterator<? extends E>... iteratorChain) {
-		return new BlockIterator<E>(iteratorChain);
+	public <E extends IEntity> IEntityIterator<E> blockIterator(IExecutable<? extends E>... iteratorChain) {
+		return new BlockIterator<E>(toIterators(iteratorChain));
 	}
 
-	public <E extends IEntity> IEntityIterator<E> sequenceIterator(IEntityIterator<? extends E>... iteratorChain) {
-		return new SequenceIterator<E>(iteratorChain);
+	public <E extends IEntity> IEntityIterator<E> sequenceIterator(IExecutable<? extends E>... iteratorChain) {
+		return new SequenceIterator<E>(toIterators(iteratorChain));
 	}
 
-	public <E extends IEntity> IEntityIterator<E> composeIterator(IEntityIterator<E> iterator, IEntityIterator<? extends IEntity>... nestedIterators) {
-		return new ComposeIterator<E>(iterator, nestedIterators);
+	public <E extends IEntity> IEntityIterator<E> composeIterator(IExecutable<E> iterator, IExecutable<? extends IEntity>... nestedIterators) {
+		return new ComposeIterator<E>(iterator.iterator(), toIterators(nestedIterators));
 	}
 
-	public <E extends IEntity> IEntityIterator<E> filterByIndexIterator(IEntityIterator<E> iterator, int index) {
-		return new FilterByIndexRangeIterator<E>(iterator, index, index);
+	public <E extends IEntity> IEntityIterator<E> filterByIndexIterator(IExecutable<E> iterator, int index) {
+		return new FilterByIndexRangeIterator<E>(iterator.iterator(), index, index);
 	}
-	public <E extends IEntity> IEntityIterator<E> filterByIndexRangeIterator(IEntityIterator<E> iterator, int startIndex, int endIndex) {
-		return new FilterByIndexRangeIterator<E>(iterator, startIndex, endIndex);
+	public <E extends IEntity> IEntityIterator<E> filterByIndexRangeIterator(IExecutable<E> iterator, int startIndex, int endIndex) {
+		return new FilterByIndexRangeIterator<E>(iterator.iterator(), startIndex, endIndex);
 	}
 	public <E extends IEntity> IEntityIterator<E> filterByIndexRangeIterator() {
 		return new FilterByIndexRangeIterator<E>();
@@ -359,28 +360,28 @@ public class IteratorBasedExecutableFactory extends AbstractIteratorBasedExecuta
 		return new FilterByDistinctIterator<E>(comparator);
 	}
 
-	public <E extends IEntity> IEntityIterator<E> sort(IEntityIterator<E> iterator) {
-		return new SortIterator<E>(iterator);
+	public <E extends IEntity> IEntityIterator<E> sort(IExecutable<E> iterator) {
+		return new SortIterator<E>(iterator.iterator());
 	}
-	public <E extends IEntity> IEntityIterator<E> sort(IEntityIterator<E> iterator, IEntityComparator<E> comparator) {
-		return new SortIterator<E>(iterator, comparator);
+	public <E extends IEntity> IEntityIterator<E> sort(IExecutable<E> iterator, IEntityComparator<E> comparator) {
+		return new SortIterator<E>(iterator.iterator(), comparator);
 	}
 
 	@SuppressWarnings("unchecked")
-	public IEntityIterator<IEntity> unionAllIterator(IEntityIterator<? extends IEntity>... iteratorChain) {
-		return new UnionAllIterator(iteratorChain);
+	public IEntityIterator<IEntity> unionAllIterator(IExecutable<? extends IEntity>... iteratorChain) {
+		return new UnionAllIterator(toIterators(iteratorChain));
 	}
 	@SuppressWarnings("unchecked")
-	public IEntityIterator<IEntity> unionIterator(IEntityIterator<? extends IEntity>... iteratorChain) {
-		return new UnionIterator(iteratorChain);
+	public IEntityIterator<IEntity> unionIterator(IExecutable<? extends IEntity>... iteratorChain) {
+		return new UnionIterator(toIterators(iteratorChain));
 	}
 	@SuppressWarnings("unchecked")
-	public IEntityIterator<IEntity> intersectIterator(IEntityIterator<? extends IEntity>... iteratorChain) {
-		return new IntersectIterator(iteratorChain);
+	public IEntityIterator<IEntity> intersectIterator(IExecutable<? extends IEntity>... iteratorChain) {
+		return new IntersectIterator(toIterators(iteratorChain));
 	}
 	@SuppressWarnings("unchecked")
-	public IEntityIterator<IEntity> exceptIterator(IEntityIterator<? extends IEntity>... iteratorChain) {
-		return new ExceptIterator(iteratorChain);
+	public IEntityIterator<IEntity> exceptIterator(IExecutable<? extends IEntity>... iteratorChain) {
+		return new ExceptIterator(toIterators(iteratorChain));
 	}
 
 
@@ -539,8 +540,8 @@ public class IteratorBasedExecutableFactory extends AbstractIteratorBasedExecuta
 		};
 	}
 
-	public IEntityIterator<?> andIterator(IEntityIterator<?>... argsIterators) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(argsIterators) {
+	public IEntityIterator<?> andIterator(IExecutable<?>... argsIterators) {
+		return new AbstractSingleValuedRunnableIterator<IEntity>(toIterators(argsIterators)) {
 			protected void run(IEntity selfEntity, IBindingManager bm) {
 				for (int i=0; i<argsIterators.length; i++)
 					if (!argsIterators[i].evaluateAsBooleanOrFail(selfEntity, bm)) {
@@ -557,8 +558,8 @@ public class IteratorBasedExecutableFactory extends AbstractIteratorBasedExecuta
 			}
 		};
 	}
-	public IEntityIterator<?> orIterator(IEntityIterator<?>... argsIterators) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(argsIterators) {
+	public IEntityIterator<?> orIterator(IExecutable<?>... argsIterators) {
+		return new AbstractSingleValuedRunnableIterator<IEntity>(toIterators(argsIterators)) {
 			protected void run(IEntity selfEntity, IBindingManager bm) {
 				for (int i=0; i<argsIterators.length; i++)
 					if (argsIterators[i].evaluateAsBooleanOrFail(selfEntity, bm)) {
@@ -575,8 +576,8 @@ public class IteratorBasedExecutableFactory extends AbstractIteratorBasedExecuta
 			}
 		};
 	}
-	public IEntityIterator<?> notIterator(IEntityIterator<?> argIterator) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(argIterator) {
+	public IEntityIterator<?> notIterator(IExecutable<?> argIterator) {
+		return new AbstractSingleValuedRunnableIterator<IEntity>(argIterator.iterator()) {
 			protected void run(IEntity selfEntity, IBindingManager bm) {
 				bm.setResult(BindingManagerFactory.instance.createValue(!argsIterators[0].evaluateAsBooleanOrFail(selfEntity, bm)));
 			}
@@ -588,8 +589,8 @@ public class IteratorBasedExecutableFactory extends AbstractIteratorBasedExecuta
 		};
 	}
 
-	public IEntityIterator<IEntity> oneIterator(IEntityIterator<IEntity> fromClause, IEntityIterator<IEntity> satisfiesClause) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(fromClause, satisfiesClause) {
+	public IEntityIterator<IEntity> oneIterator(IExecutable<IEntity> fromClause, IExecutable<IEntity> satisfiesClause) {
+		return new AbstractSingleValuedRunnableIterator<IEntity>(fromClause.iterator(), satisfiesClause.iterator()) {
 			protected void run(IEntity selfEntity, IBindingManager bm) {
 				IBindingScope laScope = null;
 				for (IEntity e : argsIterators[0]) {
@@ -624,8 +625,8 @@ public class IteratorBasedExecutableFactory extends AbstractIteratorBasedExecuta
 			}
 		};
 	}
-	public IEntityIterator<IEntity> someIterator(IEntityIterator<IEntity> fromClause) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(fromClause) {
+	public IEntityIterator<IEntity> someIterator(IExecutable<IEntity> fromClause) {
+		return new AbstractSingleValuedRunnableIterator<IEntity>(fromClause.iterator()) {
 			protected void run(IEntity selfEntity, IBindingManager bm) {
 				if (argsIterators[0].hasNext()) {
 					argsIterators[0].next();
@@ -643,8 +644,8 @@ public class IteratorBasedExecutableFactory extends AbstractIteratorBasedExecuta
 			}
 		};
 	}
-	public IEntityIterator<IEntity> someIterator(IEntityIterator<IEntity> fromClause, IEntityIterator<IEntity> satisfiesClause) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(fromClause, satisfiesClause) {
+	public IEntityIterator<IEntity> someIterator(IExecutable<IEntity> fromClause, IExecutable<IEntity> satisfiesClause) {
+		return new AbstractSingleValuedRunnableIterator<IEntity>(fromClause.iterator(), satisfiesClause.iterator()) {
 			protected void run(IEntity selfEntity, IBindingManager bm) {
 				for (IEntity e : argsIterators[0]) {
 					argsIterators[1].reset(e);
@@ -667,8 +668,8 @@ public class IteratorBasedExecutableFactory extends AbstractIteratorBasedExecuta
 			}
 		};
 	}
-	public IEntityIterator<IEntity> everyIterator(IEntityIterator<IEntity> fromClause, IEntityIterator<IEntity> satisfiesClause) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(fromClause, satisfiesClause) {
+	public IEntityIterator<IEntity> everyIterator(IExecutable<IEntity> fromClause, IExecutable<IEntity> satisfiesClause) {
+		return new AbstractSingleValuedRunnableIterator<IEntity>(fromClause.iterator(), satisfiesClause.iterator()) {
 			protected void run(IEntity selfEntity, IBindingManager bm) {
 				for (IEntity e : argsIterators[0])
 					if (!argsIterators[1].evaluateAsBooleanOrFail(e, bm)) {
@@ -1050,13 +1051,13 @@ public class IteratorBasedExecutableFactory extends AbstractIteratorBasedExecuta
 		};
 	}
 
-	public IEntityIterator<IEntity> iterationIndexVariableIterator(IEntityIterator<?> indexIterator, String name) {
+	public IEntityIterator<IEntity> iterationIndexVariableIterator(IExecutable<?> indexIterator, String name) {
 		final boolean hasEnvironmentPart = BindingUtils.hasEnvironmentPart(name);
 		final int index = name.indexOf('#');
 		final String envName = hasEnvironmentPart ? name.substring(BindingUtils.ENVIRONMENT_URI_PREFIX.length(), index) : null;
 		final String varName = hasEnvironmentPart ? name.substring(index+1) : name;
 
-		return new AbstractSingleValuedRunnableIterator<IEntity>(indexIterator) {
+		return new AbstractSingleValuedRunnableIterator<IEntity>(indexIterator.iterator()) {
 			@Override
 			protected void resetArguments(IEntity entity) {
 			}
@@ -1085,8 +1086,8 @@ public class IteratorBasedExecutableFactory extends AbstractIteratorBasedExecuta
 		};
 	}
 
-	public IEntityIterator<IEntity> iterationIndexIterator(IEntityIterator<?> indexIterator, int index) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(indexIterator) {
+	public IEntityIterator<IEntity> iterationIndexIterator(IExecutable<?> indexIterator, int index) {
+		return new AbstractSingleValuedRunnableIterator<IEntity>(indexIterator.iterator()) {
 			@Override
 			protected void resetArguments(IEntity entity) {
 			}
@@ -1106,8 +1107,8 @@ public class IteratorBasedExecutableFactory extends AbstractIteratorBasedExecuta
 			}
 		};
 	}
-	public IEntityIterator<IEntity> iterationIndexRangeIterator(IEntityIterator<?> indexIterator, int startIndex, int endIndex) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(indexIterator) {
+	public IEntityIterator<IEntity> iterationIndexRangeIterator(IExecutable<?> indexIterator, int startIndex, int endIndex) {
+		return new AbstractSingleValuedRunnableIterator<IEntity>(indexIterator.iterator()) {
 			@Override
 			protected void resetArguments(IEntity entity) {
 			}
@@ -1130,8 +1131,8 @@ public class IteratorBasedExecutableFactory extends AbstractIteratorBasedExecuta
 		};
 	}
 
-	public IEntityIterator<IEntity> pointwiseEqualsIterator(IEntityIterator<IEntity> leftOperand, IEntityIterator<IEntity> rightOperand) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(leftOperand, rightOperand) {
+	public IEntityIterator<IEntity> pointwiseEqualsIterator(IExecutable<IEntity> leftOperand, IExecutable<IEntity> rightOperand) {
+		return new AbstractSingleValuedRunnableIterator<IEntity>(leftOperand.iterator(), rightOperand.iterator()) {
 			protected void run(IEntity selfEntity, IBindingManager bm) {
 				for (IEntity e : argsIterators[0])
 					if (!argsIterators[1].hasNext() || !e.wEquals(argsIterators[1].next())) {
@@ -1152,9 +1153,9 @@ public class IteratorBasedExecutableFactory extends AbstractIteratorBasedExecuta
 		};
 	}
 
-	public <E extends IEntity> IEntityIterator<E> scopeIterator(IEntityIterator<E> scopeIterator, String environmentName, Set<String> localNames, boolean withFreshNames) {
-    	return withFreshNames ? new LocalScopeIterator<E>(scopeIterator, localNames) :
-    		new LocalScopeIterator<E>(scopeIterator, localNames) {
+	public <E extends IEntity> IEntityIterator<E> scopeIterator(IExecutable<E> scopeIterator, String environmentName, Set<String> localNames, boolean withFreshNames) {
+    	return withFreshNames ? new LocalScopeIterator<E>(scopeIterator.iterator(), localNames) :
+    		new LocalScopeIterator<E>(scopeIterator.iterator(), localNames) {
     			@Override
     			protected AbstractFilterScope createScopeFilter(Set<String> localNames) {
     				return BindingManagerFactory.instance.createIncludeFilterScope(localNames);
@@ -1162,47 +1163,47 @@ public class IteratorBasedExecutableFactory extends AbstractIteratorBasedExecuta
     		};
     }
 
-	public IEntityIterator<?> tupleFactoryIterator(IEntityIterator<?>... tupleIterators) {
-		return new TupleFactoryIterator(tupleIterators);
+	public IEntityIterator<?> tupleFactoryIterator(IExecutable<?>... tupleIterators) {
+		return new TupleFactoryIterator(toIterators(tupleIterators));
 	}
 
-	public <E extends IEntity> IEntityIterator<E> selectIterator(IEntityIterator<E> selectIterator, IEntityIterator<? extends IEntity> fromIterator, IEntityIterator<? extends IEntity> whereIterator) {
-		return new SelectIterator<E>(selectIterator, fromIterator, whereIterator);
-	}
-
-	@SuppressWarnings("unchecked")
-	public IEntityIterator<IEntity> cartesianProductIterator(IEntityIterator<? extends IEntity>... iterators) {
-		return new CartesianProductIterator(iterators);
+	public <E extends IEntity> IEntityIterator<E> selectIterator(IExecutable<E> selectIterator, IExecutable<? extends IEntity> fromIterator, IExecutable<? extends IEntity> whereIterator) {
+		return new SelectIterator<E>(selectIterator.iterator(), fromIterator.iterator(), whereIterator.iterator());
 	}
 
 	@SuppressWarnings("unchecked")
-	public IEntityIterator<IEntity> pointwiseProductIterator(IEntityIterator<? extends IEntity>... iterators) {
-		return new PointwiseProductIterator(iterators);
-	}
-
-	public <E extends IEntity> IEntityIterator<E> cartesianUpdateIterator(IEntityIterator<? extends E> valuesIterator, IEntityIterator<E> toIterator) {
-		return new CartesianUpdateIterator<E>(valuesIterator, toIterator);
-	}
-
-	public <E extends IEntity> IEntityIterator<E> pointwiseUpdateIterator(IEntityIterator<E> valuesIterator, IEntityIterator<? super E> toIterator) {
-		return new PointwiseUpdateIterator<E>(valuesIterator, toIterator);
-	}
-
-	public <E extends IEntity> IEntityIterator<E> cartesianInsertIterator(IEntityIterator<? extends E> valuesIterator, IEntityIterator<E> toIterator, Placement placement) {
-		return new CartesianInsertIterator<E>(valuesIterator, toIterator, placement);
-	}
-
-	public <E extends IEntity> IEntityIterator<E> pointwiseInsertIterator(IEntityIterator<E> valuesIterator, IEntityIterator<? super E> toIterator, Placement placement) {
-		return new PointwiseInsertIterator<E>(valuesIterator, toIterator, placement);
-	}
-
-	public <E extends IEntity> IEntityIterator<E> deleteIterator(IEntityIterator<E> valuesIterator) {
-		return new DeleteIterator<E>(valuesIterator);
+	public IEntityIterator<IEntity> cartesianProductIterator(IExecutable<? extends IEntity>... iterators) {
+		return new CartesianProductIterator(toIterators(iterators));
 	}
 
 	@SuppressWarnings("unchecked")
-	public <E extends IEntity> IEntityIterator<E> callIterator(String name, IEntityIterator<? extends E>... argsIterators) {
-    	return new CallIterator<E>(name, argsIterators);
+	public IEntityIterator<IEntity> pointwiseProductIterator(IExecutable<? extends IEntity>... iterators) {
+		return new PointwiseProductIterator(toIterators(iterators));
+	}
+
+	public <E extends IEntity> IEntityIterator<E> cartesianUpdateIterator(IExecutable<? extends E> valuesIterator, IExecutable<E> toIterator) {
+		return new CartesianUpdateIterator<E>(valuesIterator.iterator(), toIterator.iterator());
+	}
+
+	public <E extends IEntity> IEntityIterator<E> pointwiseUpdateIterator(IExecutable<E> valuesIterator, IExecutable<? super E> toIterator) {
+		return new PointwiseUpdateIterator<E>(valuesIterator.iterator(), toIterator.iterator());
+	}
+
+	public <E extends IEntity> IEntityIterator<E> cartesianInsertIterator(IExecutable<? extends E> valuesIterator, IExecutable<E> toIterator, Placement placement) {
+		return new CartesianInsertIterator<E>(valuesIterator.iterator(), toIterator.iterator(), placement);
+	}
+
+	public <E extends IEntity> IEntityIterator<E> pointwiseInsertIterator(IExecutable<E> valuesIterator, IExecutable<? super E> toIterator, Placement placement) {
+		return new PointwiseInsertIterator<E>(valuesIterator.iterator(), toIterator.iterator(), placement);
+	}
+
+	public <E extends IEntity> IEntityIterator<E> deleteIterator(IExecutable<E> valuesIterator) {
+		return new DeleteIterator<E>(valuesIterator.iterator());
+	}
+
+	@SuppressWarnings("unchecked")
+	public <E extends IEntity> IEntityIterator<E> callIterator(String name, IExecutable<? extends E>... argsIterators) {
+    	return new CallIterator<E>(name, toIterators(argsIterators));
     }
 
 	public IEntityIterator<?> nestedVariableIterator() {
@@ -1256,10 +1257,10 @@ public class IteratorBasedExecutableFactory extends AbstractIteratorBasedExecuta
 		};
 	}
 
-	public IEntityIterator<?> cloneReplacingIterator(IEntityIterator<?> childMappingIterator) {
-		return cloneReplacingIterator(childMappingIterator, null);
+	public IEntityIterator<?> cloneReplacingIterator(IExecutable<?> childMappingIterator) {
+		return cloneReplacingIterator(childMappingIterator.iterator(), null);
 	}
-	public IEntityIterator<?> cloneReplacingIterator(IEntityIterator<?> childMappingIterator, Set<String> shallowUriSet) {
+	public IEntityIterator<?> cloneReplacingIterator(IExecutable<?> childMappingIterator, Set<String> shallowUriSet) {
 		if (childMappingIterator.undecoratedIterator() instanceof EmptyExecutable) {
 			return new AbstractSingleValuedRunnableIterator<IEntity>() {
 				protected void run(IEntity selfEntity, IBindingManager bm) {
@@ -1267,6 +1268,6 @@ public class IteratorBasedExecutableFactory extends AbstractIteratorBasedExecuta
 				}
 			};
 		} else
-			return new CloneReplacingIterator(shallowUriSet, childMappingIterator);
+			return new CloneReplacingIterator(shallowUriSet, childMappingIterator.iterator());
 	}
 }

@@ -21,6 +21,7 @@ import java.util.NoSuchElementException;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingScope;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 
@@ -44,7 +45,7 @@ public class ComposeIterator<E extends IEntity> extends AbstractLazyCloneableCom
 	}
 
 	@Override
-	public IEntityIterator<E> clone(ICloneContext cc) {
+	public IExecutable<E> clone(ICloneContext cc) {
 		ComposeIterator<E> iterator = (ComposeIterator<E>) super.clone(cc);
 		iterator.nestedIterators = iterator.nestedIterators.clone();
 		return iterator;

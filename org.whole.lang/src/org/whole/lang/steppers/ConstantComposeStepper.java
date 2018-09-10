@@ -17,7 +17,7 @@
  */
 package org.whole.lang.steppers;
 
-import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 
 /**
@@ -27,7 +27,7 @@ public class ConstantComposeStepper<E extends IEntity> extends AbstractDelegatin
 	protected IEntity constant;
 
 	@SuppressWarnings("unchecked")
-	public ConstantComposeStepper(IEntity constant, IEntityIterator<E> iterator) {
+	public ConstantComposeStepper(IEntity constant, IExecutable<E> iterator) {
 		super(iterator);
 		this.constant = constant;
 		iterator.reset(constant);

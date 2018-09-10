@@ -17,8 +17,8 @@
  */
 package org.whole.lang.evaluators;
 
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.iterators.DistinctScope;
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 
@@ -36,7 +36,7 @@ public class InverseReachableEvaluator extends AbstractTransitiveClosureEvaluato
 	}
 
 	@Override
-	public IEntityIterator<IEntity> clone(ICloneContext cc) {
+	public IExecutable<IEntity> clone(ICloneContext cc) {
 		InverseReachableEvaluator iterator = (InverseReachableEvaluator) super.clone(cc);
 		iterator.distinctScope = cc.clone(distinctScope);
 		return iterator;
@@ -46,7 +46,7 @@ public class InverseReachableEvaluator extends AbstractTransitiveClosureEvaluato
 		return entity.wInverseAdjacentSize() > 0;
 	}
 
-    protected IEntityIterator<IEntity> createRelationIterator() {
+    protected IExecutable<IEntity> createRelationIterator() {
     	return iteratorFactory().matcherIterator(iteratorFactory().inverseAdjacentIterator()).withPattern(distinctScope.distinctMatcher());
     }
 

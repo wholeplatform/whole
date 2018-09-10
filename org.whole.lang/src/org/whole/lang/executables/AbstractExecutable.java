@@ -17,12 +17,14 @@
  */
 package org.whole.lang.executables;
 
-import java.util.Iterator;
+import java.util.Spliterator;
+import java.util.function.Consumer;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.ITransactionScope;
 import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.iterators.IJavaIterator;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.CloneContext;
@@ -42,12 +44,12 @@ public abstract class AbstractExecutable<E extends IEntity> implements IEntityIt
 		return sourceEntity;
 	}
 
-	public IEntityIterator<E> clone() {
+	public IExecutable<E> clone() {
 		return clone(new CloneContext());
 	}
 
 	@SuppressWarnings("unchecked")
-	public IEntityIterator<E> clone(ICloneContext cc) {
+	public IExecutable<E> clone(ICloneContext cc) {
 		try {
 			AbstractExecutable<E> iterator = (AbstractExecutable<E>) super.clone();
 			cc.putClone(this, iterator);
@@ -58,7 +60,7 @@ public abstract class AbstractExecutable<E extends IEntity> implements IEntityIt
 	}
 
 	protected IDataFlowConsumer consumer = IDataFlowConsumer.IDENTITY;
-	public IEntityIterator<E> withConsumer(IDataFlowConsumer consumer) {
+	public IExecutable<E> withConsumer(IDataFlowConsumer consumer) {
 		this.consumer = consumer;
 		return this;
 	}
@@ -100,7 +102,8 @@ public abstract class AbstractExecutable<E extends IEntity> implements IEntityIt
 		return hasBindings() ? IteratorFactory.instance(getBindings()) : IteratorFactory.instance;
 	}
 
-	public Iterator<E> iterator() {
+	public IEntityIterator<E> iterator() {
+//	public IJavaIterator<E> iterator() {
 		return this;
 	}
 	
@@ -149,5 +152,52 @@ public abstract class AbstractExecutable<E extends IEntity> implements IEntityIt
 			bm.wExitScope();
 		}
 		return result;
+	}
+
+
+	public Spliterator<E> spliterator() {
+		return this;
+	}
+
+	public boolean tryAdvance(Consumer<? super E> action) {
+		final E nextValue = evaluateNext();
+		final boolean hasNext = nextValue != null;
+
+		if (hasNext) action.accept((E) nextValue);
+
+		return hasNext;
+	}
+
+	public void forEach(Consumer<? super E> action) {
+		forEachRemaining(action);
+	}
+	public void forEachRemaining(Consumer<? super E> action) {
+		IDataFlowConsumer oldConsumer = getConsumer();
+
+		withConsumer(new IDataFlowConsumer() {
+			public void doBegin(int size) {
+			}
+			@SuppressWarnings("unchecked")
+			public void doNext(IEntity entity) {
+				action.accept((E) entity);
+			}
+			public void doEnd() {
+			}
+		});
+		callRemaining();
+
+		withConsumer(oldConsumer);
+	}
+
+	public Spliterator<E> trySplit() {
+		return null;
+	}
+
+	public long estimateSize() {
+		return Long.MAX_VALUE;
+	}
+
+	public int characteristics() {
+		return NONNULL;
 	}
 }

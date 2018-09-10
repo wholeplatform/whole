@@ -17,7 +17,7 @@
  */
 package org.whole.lang.steppers;
 
-import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 
 /**
@@ -27,7 +27,7 @@ public class ChooseByOrderStepper<E extends IEntity> extends AbstractDelegatingN
 	protected boolean choosen;
 
 	@SuppressWarnings("unchecked")
-	public ChooseByOrderStepper(IEntityIterator<? extends E>... steppers) {
+	public ChooseByOrderStepper(IExecutable<? extends E>... steppers) {
 		super(steppers);
 	}
 

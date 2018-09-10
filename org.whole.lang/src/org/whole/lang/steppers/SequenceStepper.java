@@ -19,7 +19,7 @@ package org.whole.lang.steppers;
 
 import org.whole.lang.bindings.AbstractFilterScope;
 import org.whole.lang.bindings.BindingManagerFactory;
-import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 
 /**
@@ -27,7 +27,7 @@ import org.whole.lang.model.IEntity;
  */
 public class SequenceStepper<E extends IEntity> extends AbstractDelegatingNestedStepper<E> {
 	@SuppressWarnings("unchecked")
-	public SequenceStepper(IEntityIterator<? extends E>... steppers) {
+	public SequenceStepper(IExecutable<? extends E>... steppers) {
 		super(steppers);
 	}
 

@@ -19,6 +19,7 @@ package org.whole.lang.iterators;
 
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.bindings.NullScope;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 
@@ -36,7 +37,7 @@ public class ChooseByOrderIterator<E extends IEntity> extends AbstractLazyClonea
 	}
 
 	@Override
-	public IEntityIterator<E> clone(ICloneContext cc) {
+	public IExecutable<E> clone(ICloneContext cc) {
 		ChooseByOrderIterator<E> iterator = (ChooseByOrderIterator<E>) super.clone(cc);
 		iterator.iteratorChain = iterator.iteratorChain.clone();
 		return iterator;

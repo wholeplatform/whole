@@ -17,7 +17,7 @@
  */
 package org.whole.lang.evaluators;
 
-import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.util.EntityUtils;
 
@@ -40,7 +40,7 @@ public class FollowingEvaluator<E extends IEntity> extends AbstractTransitiveClo
 		}
 	}
 
-	protected IEntityIterator<E> createChildIterator() {
+	protected IExecutable<E> createChildIterator() {
 		return includeSelf ? iteratorFactory().<E>followingSiblingOrSelfIterator() :
 			iteratorFactory().<E>followingSiblingIterator();
 	}
@@ -49,11 +49,10 @@ public class FollowingEvaluator<E extends IEntity> extends AbstractTransitiveClo
 		return entity.wSize() > 0;
 	}
 
-    protected IEntityIterator<E> createRelationIterator() {
+    protected IExecutable<E> createRelationIterator() {
     	return iteratorFactory().<E>childIterator();
     }
 
-	@Override
 	public void toString(StringBuilder sb) {
 		sb.append(includeSelf ? "following-or-self()" : "following()");
 	}

@@ -19,6 +19,7 @@ package org.whole.lang.iterators;
 
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 
@@ -37,7 +38,7 @@ public class AbstractDelegatingIterator<E extends IEntity> extends AbstractLazyC
 	}
 
 	@Override
-	public IEntityIterator<E> clone(ICloneContext cc) {
+	public IExecutable<E> clone(ICloneContext cc) {
 		AbstractDelegatingIterator<E> iterator = (AbstractDelegatingIterator<E>) super.clone(cc);
 		iterator.lazyClone = lazyClone = this.iterator != null;
 		return iterator;

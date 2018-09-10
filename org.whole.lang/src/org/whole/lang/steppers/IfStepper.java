@@ -19,7 +19,6 @@ package org.whole.lang.steppers;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.executables.IExecutable;
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
 
 /**
@@ -30,7 +29,7 @@ public class IfStepper extends AbstractDelegatingNestedStepper<IEntity> {
 	protected boolean isFirstValue;
 
 	@SuppressWarnings("unchecked")
-	public IfStepper(IEntityIterator<IEntity> conditionStepper, IEntityIterator<IEntity> doStepper) {
+	public IfStepper(IExecutable<IEntity> conditionStepper, IExecutable<IEntity> doStepper) {
 		super(conditionStepper, doStepper);
 	}
 

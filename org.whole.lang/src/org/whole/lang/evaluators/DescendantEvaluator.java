@@ -17,7 +17,7 @@
  */
 package org.whole.lang.evaluators;
 
-import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 
 /**
@@ -32,7 +32,7 @@ public class DescendantEvaluator<E extends IEntity> extends AbstractTransitiveCl
 		return entity.wSize() > 0;
 	}
 
-    protected IEntityIterator<E> createRelationIterator() {
+    protected IExecutable<E> createRelationIterator() {
     	return iteratorFactory().<E>childIterator();
     }
 

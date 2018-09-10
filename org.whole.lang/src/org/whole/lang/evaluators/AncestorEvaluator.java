@@ -17,7 +17,7 @@
  */
 package org.whole.lang.evaluators;
 
-import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.util.EntityUtils;
 
@@ -33,7 +33,7 @@ public class AncestorEvaluator<E extends IEntity> extends AbstractTransitiveClos
 		return EntityUtils.hasParent(entity);
 	}
 
-	protected IEntityIterator<E> createRelationIterator() {
+	protected IExecutable<E> createRelationIterator() {
     	return iteratorFactory().parentIterator();
     }
 

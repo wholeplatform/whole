@@ -22,6 +22,7 @@ import java.util.TreeSet;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.comparators.BusinessIdentityComparator;
 import org.whole.lang.comparators.IEntityComparator;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 
@@ -42,7 +43,7 @@ public class SortIterator<E extends IEntity> extends CollectionIterator<E> {
 	}
 
 	@Override
-	public IEntityIterator<E> clone(ICloneContext cc) {
+	public IExecutable<E> clone(ICloneContext cc) {
 		SortIterator<E> iterator = (SortIterator<E>) super.clone(cc);
 		iterator.iterator = cc.clone(this.iterator);
 		iterator.comparator = cc.clone(comparator);

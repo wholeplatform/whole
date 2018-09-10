@@ -23,6 +23,7 @@ import java.util.List;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.bindings.NullScope;
 import org.whole.lang.executables.AbstractExecutableIteratingEvaluatingStepper;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 
@@ -40,7 +41,7 @@ public abstract class AbstractTransitiveClosureIterator<E extends IEntity> exten
     }
 
 	@Override
-	public IEntityIterator<E> clone(ICloneContext cc) {
+	public IExecutable<E> clone(ICloneContext cc) {
 		AbstractTransitiveClosureIterator<E> iterator = (AbstractTransitiveClosureIterator<E>) super.clone(cc);
 		if (iteratorStack != null) {
 			iterator.iteratorStack = new ArrayList<IEntityIterator<E>>(iteratorStack.size());

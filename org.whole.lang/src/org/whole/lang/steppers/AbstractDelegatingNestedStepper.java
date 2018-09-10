@@ -20,7 +20,6 @@ package org.whole.lang.steppers;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.executables.IExecutable;
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
 
 /**
@@ -30,7 +29,7 @@ public abstract class AbstractDelegatingNestedStepper<E extends IEntity> extends
 	protected int producerIndex = 0;
 
 	@SuppressWarnings("unchecked")
-	public AbstractDelegatingNestedStepper(IEntityIterator<? extends E>... steppers) {
+	public AbstractDelegatingNestedStepper(IExecutable<? extends E>... steppers) {
 		super(steppers);
 	}
 
@@ -114,14 +113,14 @@ public abstract class AbstractDelegatingNestedStepper<E extends IEntity> extends
     	if (!isValidProducer())
     		throw new IllegalStateException();
 
-    	((IEntityIterator<? super E>) getProducer()).set(entity);
+    	((IExecutable<? super E>) getProducer()).set(entity);
 	}
 	@SuppressWarnings("unchecked")
 	public void add(E entity) {
     	if (!isValidProducer())
     		throw new IllegalStateException();
 
-		((IEntityIterator<? super E>) getProducer()).add(entity);
+		((IExecutable<? super E>) getProducer()).add(entity);
 	}
 
 	public void remove() {

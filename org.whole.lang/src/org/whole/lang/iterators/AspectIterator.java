@@ -23,6 +23,7 @@ import java.util.NoSuchElementException;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.bindings.NullScope;
 import org.whole.lang.executables.AbstractExecutableIteratingEvaluatingStepper;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.reflect.FeatureDescriptor;
@@ -37,7 +38,7 @@ public class AspectIterator extends AbstractExecutableIteratingEvaluatingStepper
     protected FeatureDescriptor lastFeatureDescriptor;
 
 	@Override
-	public IEntityIterator<IEntity> clone(ICloneContext cc) {
+	public IExecutable<IEntity> clone(ICloneContext cc) {
 		AspectIterator iterator = (AspectIterator) super.clone(cc);
 		iterator.aspectualFeatureDescriptorIterator = null;
 		return this;

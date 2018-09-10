@@ -113,7 +113,7 @@ public class RegularExecutableFactory extends AbstractIteratorBasedExecutableFac
 	public <E extends IEntity> IEntityIterator<E> constantChildIterator(IEntity constant) {
 		return new ConstantChildStepper<E>(true, constant);
 	}
-	public <E extends IEntity> IEntityIterator<E> constantComposeIterator(IEntity constant, IEntityIterator<E> iterator) {
+	public <E extends IEntity> IEntityIterator<E> constantComposeIterator(IEntity constant, IExecutable<E> iterator) {
 		return new ConstantComposeStepper<E>(constant, iterator);
 	}
 
@@ -130,16 +130,16 @@ public class RegularExecutableFactory extends AbstractIteratorBasedExecutableFac
 	public <E extends IEntity> IEntityIterator<E> singleValuedRunnableIterator(IRunnable runnable) {
 		return new SingleValuedRunnableSupplierEvaluator<E>(runnable);
 	}
-	public <E extends IEntity> IEntityIterator<E> singleValuedRunnableIterator(IRunnable runnable, IEntityIterator<?>... argsIterators) {
+	public <E extends IEntity> IEntityIterator<E> singleValuedRunnableIterator(IRunnable runnable, IExecutable<?>... argsIterators) {
 		return new SingleValuedRunnableEvaluator<E>(runnable, argsIterators);
 	}
-	public <E extends IEntity> IEntityIterator<E> singleValuedRunnableIterator(IRunnable runnable, int[] optionalArgsIndexes, IEntityIterator<?>... argsIterators) {
+	public <E extends IEntity> IEntityIterator<E> singleValuedRunnableIterator(IRunnable runnable, int[] optionalArgsIndexes, IExecutable<?>... argsIterators) {
 		return new SingleValuedRunnableEvaluator<E>(runnable, optionalArgsIndexes, argsIterators);
 	}
-	public <E extends IEntity> IEntityIterator<E> multiValuedRunnableIterator(IRunnable runnable, IEntityIterator<?>... argsIterators) {
+	public <E extends IEntity> IEntityIterator<E> multiValuedRunnableIterator(IRunnable runnable, IExecutable<?>... argsIterators) {
 		return new MultiValuedRunnableEvaluator<E>(runnable, argsIterators);
 	}
-	public <E extends IEntity> IEntityIterator<E> multiValuedRunnableIterator(IRunnable runnable, int[] optionalArgsIndexes, IEntityIterator<?>... argsIterators) {
+	public <E extends IEntity> IEntityIterator<E> multiValuedRunnableIterator(IRunnable runnable, int[] optionalArgsIndexes, IExecutable<?>... argsIterators) {
 		return new MultiValuedRunnableEvaluator<E>(runnable, optionalArgsIndexes, argsIterators);
 	}
 
@@ -351,7 +351,7 @@ public class RegularExecutableFactory extends AbstractIteratorBasedExecutableFac
 		return new DescendantOrReachableEvaluator<E>(includeSelf, distinctScope);
 	}
 
-	public IEntityIterator<IEntity> matchInScopeIterator(IEntityIterator<IEntity> patternIterator) {
+	public IEntityIterator<IEntity> matchInScopeIterator(IExecutable<IEntity> patternIterator) {
 		return new AbstractNestedSupplierEvaluator<IEntity>(patternIterator) {
 			public IEntity get() {
 				IEntity pattern = getProducer(0).evaluateNext();
@@ -368,28 +368,28 @@ public class RegularExecutableFactory extends AbstractIteratorBasedExecutableFac
 	}
 
 	@SuppressWarnings("unchecked")
-	public <E extends IEntity> IEntityIterator<E> ifIterator(IEntityIterator<? extends IEntity> conditionIterator, IEntityIterator<E> doIterator) {
+	public <E extends IEntity> IEntityIterator<E> ifIterator(IExecutable<? extends IEntity> conditionIterator, IExecutable<E> doIterator) {
 		return super.ifIterator(conditionIterator, doIterator);
 //FIXME
-//		return (IEntityIterator<E>) new IfStepper((IEntityIterator<IEntity>) conditionIterator, (IEntityIterator<IEntity>) doIterator);
+//		return (IEntityIterator<E>) new IfStepper((IExecutable<IEntity>) conditionIterator, (IExecutable<IEntity>) doIterator);
 	}
 
-	public <E extends IEntity> IEntityIterator<E> chooseIterator(IEntityIterator<? extends E>... iteratorChain) {
+	public <E extends IEntity> IEntityIterator<E> chooseIterator(IExecutable<? extends E>... iteratorChain) {
 		return super.chooseIterator(iteratorChain);
 //FIXME
 //		return new ChooseByOrderStepper<E>(iteratorChain);
 	}
 
-	public <E extends IEntity> IEntityIterator<E> sequenceIterator(IEntityIterator<? extends E>... iteratorChain) {
+	public <E extends IEntity> IEntityIterator<E> sequenceIterator(IExecutable<? extends E>... iteratorChain) {
 		return super.sequenceIterator(iteratorChain);
 //FIXME
 //		return new SequenceStepper<E>(iteratorChain);
 	}
 
-	public <E extends IEntity> IEntityIterator<E> sort(IEntityIterator<E> iterator) {
+	public <E extends IEntity> IEntityIterator<E> sort(IExecutable<E> iterator) {
 		return new SortEvaluator<E>(iterator);
 	}
-	public <E extends IEntity> IEntityIterator<E> sort(IEntityIterator<E> iterator, IEntityComparator<E> comparator) {
+	public <E extends IEntity> IEntityIterator<E> sort(IExecutable<E> iterator, IEntityComparator<E> comparator) {
 		return new SortEvaluator<E>(iterator, comparator);
 	}
 
@@ -558,7 +558,7 @@ public class RegularExecutableFactory extends AbstractIteratorBasedExecutableFac
 		};
 	}
 
-	public IEntityIterator<?> andIterator(IEntityIterator<?>... argsIterators) {
+	public IEntityIterator<?> andIterator(IExecutable<?>... argsIterators) {
 		return super.andIterator(argsIterators);
 		//FIXME lookaheadScope
 //		return new AbstractSingleValuedRunnableEvaluator<IEntity>(argsIterators) {
@@ -578,7 +578,7 @@ public class RegularExecutableFactory extends AbstractIteratorBasedExecutableFac
 //			}
 //		};
 	}
-	public IEntityIterator<?> orIterator(IEntityIterator<?>... argsIterators) {
+	public IEntityIterator<?> orIterator(IExecutable<?>... argsIterators) {
 		return new AbstractNestedSupplierEvaluator<IEntity>(argsIterators) {
 			public IEntity get() {
 				for (int i=0; i<producersSize(); i++)
@@ -594,7 +594,7 @@ public class RegularExecutableFactory extends AbstractIteratorBasedExecutableFac
 			}
 		};
 	}
-	public IEntityIterator<?> notIterator(IEntityIterator<?> argIterator) {
+	public IEntityIterator<?> notIterator(IExecutable<?> argIterator) {
 		return new AbstractNestedSupplierEvaluator<IEntity>(argIterator) {
 			public IEntity get() {
 				return BindingManagerFactory.instance.createValue(
@@ -608,7 +608,7 @@ public class RegularExecutableFactory extends AbstractIteratorBasedExecutableFac
 		};
 	}
 
-	public IEntityIterator<IEntity> oneIterator(IEntityIterator<IEntity> fromClause, IEntityIterator<IEntity> satisfiesClause) {
+	public IEntityIterator<IEntity> oneIterator(IExecutable<IEntity> fromClause, IExecutable<IEntity> satisfiesClause) {
 		return super.oneIterator(fromClause, satisfiesClause);
 		//FIXME lookaheadScope
 //		return new AbstractSingleValuedRunnableEvaluator<IEntity>(fromClause, satisfiesClause) {
@@ -649,7 +649,7 @@ public class RegularExecutableFactory extends AbstractIteratorBasedExecutableFac
 //			}
 //		};
 	}
-	public IEntityIterator<IEntity> someIterator(IEntityIterator<IEntity> fromClause) {
+	public IEntityIterator<IEntity> someIterator(IExecutable<IEntity> fromClause) {
 		return new AbstractNestedSupplierEvaluator<IEntity>(fromClause) {
 			public IEntity get() {
 				return BindingManagerFactory.instance.createValue(
@@ -663,7 +663,7 @@ public class RegularExecutableFactory extends AbstractIteratorBasedExecutableFac
 			}
 		};
 	}
-	public IEntityIterator<IEntity> someIterator(IEntityIterator<IEntity> fromClause, IEntityIterator<IEntity> satisfiesClause) {
+	public IEntityIterator<IEntity> someIterator(IExecutable<IEntity> fromClause, IExecutable<IEntity> satisfiesClause) {
 		return new AbstractNestedSupplierEvaluator<IEntity>(fromClause, satisfiesClause) {
 			public IEntity get() {
 				IEntity e = null;
@@ -686,7 +686,7 @@ public class RegularExecutableFactory extends AbstractIteratorBasedExecutableFac
 			}
 		};
 	}
-	public IEntityIterator<IEntity> everyIterator(IEntityIterator<IEntity> fromClause, IEntityIterator<IEntity> satisfiesClause) {
+	public IEntityIterator<IEntity> everyIterator(IExecutable<IEntity> fromClause, IExecutable<IEntity> satisfiesClause) {
 		return new AbstractNestedSupplierEvaluator<IEntity>(fromClause, satisfiesClause) {
 			public IEntity get() {
 				IEntity e = null;
@@ -981,10 +981,10 @@ public class RegularExecutableFactory extends AbstractIteratorBasedExecutableFac
 	}
 
 
-	public IEntityIterator<?> cloneReplacingIterator(IEntityIterator<?> childMappingIterator) {
+	public IEntityIterator<?> cloneReplacingIterator(IExecutable<?> childMappingIterator) {
 		return cloneReplacingIterator(childMappingIterator, null);
 	}
-	public IEntityIterator<?> cloneReplacingIterator(IEntityIterator<?> childMappingIterator, Set<String> shallowUriSet) {
+	public IEntityIterator<?> cloneReplacingIterator(IExecutable<?> childMappingIterator, Set<String> shallowUriSet) {
 		if (childMappingIterator.undecoratedIterator() instanceof EmptyExecutable) {
 			return new AbstractPureConditionalSupplierEvaluator<IEntity>() {
 				public IEntity get() {

@@ -25,6 +25,7 @@ import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.bindings.INestableScope;
 import org.whole.lang.executables.AbstractExecutableIteratingEvaluatingStepper;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 
@@ -45,7 +46,7 @@ public class ScopeIterator<E extends IEntity> extends AbstractExecutableIteratin
 	}
 
 	@Override
-	public IEntityIterator<E> clone(ICloneContext cc) {
+	public IExecutable<E> clone(ICloneContext cc) {
 		ScopeIterator<E> iterator = (ScopeIterator<E>) super.clone(cc);
 		iterator.scopeIterator = cc.clone(scopeIterator);
 		return iterator;

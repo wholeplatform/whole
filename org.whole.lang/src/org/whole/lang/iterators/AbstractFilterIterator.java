@@ -21,6 +21,7 @@ import java.util.NoSuchElementException;
 
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.executables.AbstractExecutableIteratingEvaluatingStepper;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.util.EntityUtils;
@@ -40,7 +41,7 @@ public abstract class AbstractFilterIterator<E extends IEntity> extends Abstract
 	}
 
 	@Override
-	public IEntityIterator<E> clone(ICloneContext cc) {
+	public IExecutable<E> clone(ICloneContext cc) {
 		AbstractFilterIterator<E> iterator = (AbstractFilterIterator<E>) super.clone(cc);
 		iterator.iterator = cc.clone(this.iterator);
 		return iterator;

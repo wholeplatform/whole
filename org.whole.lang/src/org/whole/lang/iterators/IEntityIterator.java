@@ -17,6 +17,8 @@
  */
 package org.whole.lang.iterators;
 
+import java.util.function.Consumer;
+
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 
@@ -26,10 +28,12 @@ import org.whole.lang.model.IEntity;
 public interface IEntityIterator<E extends IEntity> extends IExecutable<E>, IJavaIterator<E> {
 	public IEntityIterator<E> withSourceEntity(IEntity entity);
 
-	public IEntityIterator<E> clone();
-
 	//TODO workaround to avoid conflict with the default method inherited
 	default void remove() {
         throw new UnsupportedOperationException("remove");
+    }
+	//TODO workaround to avoid duplicate default methods inherited
+	default void forEachRemaining(Consumer<? super E> action) {
+        do { } while (tryAdvance(action));
     }
 }
