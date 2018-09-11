@@ -17,15 +17,32 @@
  */
 package org.whole.lang.iterators;
 
+import java.util.Iterator;
 import java.util.function.Consumer;
 
+import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 
 /**
  * @author Riccardo Solmi
  */
-public interface IEntityIterator<E extends IEntity> extends IExecutable<E>, IJavaIterator<E> {
+public interface IEntityIterator<E extends IEntity> extends Iterator<E>, IExecutable<E> {//TODO replace IExecutable with Iterable<E>, ICloneable, ISourceable {
+//	public IBindingManager getBindings();
+//	public void setBindings(IBindingManager bindings);
+//	public void reset(IEntity entity);
+
+	public E lookahead();
+	public IBindingScope lookaheadScope();
+
+//	public void prune();
+//
+//	public void set(E entity);
+//	public void add(E entity);
+//	public void remove();
+//
+//	public void toString(StringBuilder sb);
+
 	//TODO workaround to avoid conflict with the default method inherited
 	default void remove() {
         throw new UnsupportedOperationException("remove");

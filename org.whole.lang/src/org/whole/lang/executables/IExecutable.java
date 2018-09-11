@@ -24,7 +24,6 @@ import org.whole.lang.evaluators.IEvaluator;
 import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.IJavaIterator;
 import org.whole.lang.iterators.InstrumentingIterator;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
@@ -61,9 +60,7 @@ public interface IExecutable<E extends IEntity> extends IFlowStepper, IEvaluator
 
 	public void toString(StringBuilder sb);
 
-//TODO fix iterators and replace
 	public IEntityIterator<E> iterator();
-//	public IJavaIterator<E> iterator();
 
 	public ExecutableFactory executableFactory();
 

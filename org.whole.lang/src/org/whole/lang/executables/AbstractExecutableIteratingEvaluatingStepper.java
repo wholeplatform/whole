@@ -20,12 +20,17 @@ package org.whole.lang.executables;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.ITransactionScope;
+import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
 
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractExecutableIteratingEvaluatingStepper<E extends IEntity> extends AbstractExecutableEvaluatingStepper<E> {
+public abstract class AbstractExecutableIteratingEvaluatingStepper<E extends IEntity> extends AbstractExecutableEvaluatingStepper<E> implements IEntityIterator<E> {
+	public IEntityIterator<E> iterator() {
+		return this;
+	}
+
 	public final E evaluateNext() {
 		return hasNext() ? next() : null;
 	}

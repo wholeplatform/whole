@@ -22,12 +22,13 @@ import java.util.NoSuchElementException;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.bindings.NullScope;
+import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
 
 /**
  * @author Riccardo Solmi
  */
-public class EmptyExecutable<E extends IEntity> extends AbstractExecutableEvaluatingStepper<E> {
+public class EmptyExecutable<E extends IEntity> extends AbstractExecutableEvaluatingStepper<E> implements IEntityIterator<E> {
     public void reset(IEntity entity) {
     }
 
@@ -52,7 +53,11 @@ public class EmptyExecutable<E extends IEntity> extends AbstractExecutableEvalua
 	}
 	
 
-    public boolean hasNext() {
+	public IEntityIterator<E> iterator() {
+		return this;
+	}
+
+	public boolean hasNext() {
         return false;
     }
 	public E next() {

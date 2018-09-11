@@ -32,7 +32,7 @@ import org.junit.Test;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.executables.IExecutable;
-import org.whole.lang.iterators.IJavaIterator;
+import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.DynamicCompilerOperation;
@@ -175,7 +175,7 @@ public class SQLInterpreterTest {
 
 		IEntity map = DBMappingTemplateManager.instance().create("selectDatatypesDB");
 		IEntity results = DBMappingTemplateManager.instance().create("selectDatatypesDBResults");
-		IJavaIterator<IEntity> resultsIterator = DynamicCompilerOperation.compile(results, bm).getExecutableResult().iterator();
+		IEntityIterator<IEntity> resultsIterator = DynamicCompilerOperation.compile(results, bm).getExecutableResult().iterator();
 		resultsIterator.reset(BindingManagerFactory.instance.createNull());
 		IExecutable<IEntity> mapIterator = DynamicCompilerOperation.compile(map, bm).getExecutableResult();
 		mapIterator.reset(BindingManagerFactory.instance.createNull());

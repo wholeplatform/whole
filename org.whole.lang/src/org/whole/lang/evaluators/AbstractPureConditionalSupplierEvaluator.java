@@ -23,13 +23,14 @@ import java.util.function.Supplier;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.bindings.NullScope;
 import org.whole.lang.executables.AbstractExecutableEvaluatingStepper;
+import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractPureConditionalSupplierEvaluator<E extends IEntity> extends AbstractExecutableEvaluatingStepper<E> implements Supplier<E> {
+public abstract class AbstractPureConditionalSupplierEvaluator<E extends IEntity> extends AbstractExecutableEvaluatingStepper<E> implements Supplier<E>, IEntityIterator<E> {
     protected boolean isEvaluated;
 	protected IEntity selfEntity;
     protected E lastEntity;
@@ -39,6 +40,10 @@ public abstract class AbstractPureConditionalSupplierEvaluator<E extends IEntity
         selfEntity = entity;
 		lastEntity = null;
     }
+
+	public IEntityIterator<E> iterator() {
+		return this;
+	}
 
 	public boolean hasNext() {
 		return !(isEvaluated || EntityUtils.isNull(selfEntity));

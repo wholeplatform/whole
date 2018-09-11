@@ -21,6 +21,7 @@ import java.util.NoSuchElementException;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingScope;
+import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
 
 /**
@@ -28,8 +29,8 @@ import org.whole.lang.model.IEntity;
  * 
  * TODO keep same code in the two classes except declaration line
  */
-//public abstract class AbstractExecutableSteppingEvaluatingIterator<E extends IEntity> extends AbstractExecutableSteppingEvaluator<E> {
-public abstract class AbstractExecutableEvaluatingStepperIterator<E extends IEntity> extends AbstractExecutableEvaluatingStepper<E> {
+//public abstract class AbstractExecutableSteppingEvaluatingIterator<E extends IEntity> extends AbstractExecutableSteppingEvaluator<E> implements IEntityIterator<E> {
+public abstract class AbstractExecutableEvaluatingStepperIterator<E extends IEntity> extends AbstractExecutableEvaluatingStepper<E> implements IEntityIterator<E> {
 	private IBindingScope lookaheadScope;
 	private boolean lookaheadIsCached;
 	protected E lookaheadEntity;
@@ -41,6 +42,10 @@ public abstract class AbstractExecutableEvaluatingStepperIterator<E extends IEnt
 		lastEntity = null;
 		clearLookaheadScope();
    }
+
+	public IEntityIterator<E> iterator() {
+		return this;
+	}
 
 	public final boolean hasNext() {
 		return cachedEvaluateNext() != null;

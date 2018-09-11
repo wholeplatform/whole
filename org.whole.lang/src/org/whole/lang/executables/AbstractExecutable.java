@@ -24,8 +24,6 @@ import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.ITransactionScope;
 import org.whole.lang.iterators.ExecutableFactory;
-import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.IJavaIterator;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.CloneContext;
 import org.whole.lang.operations.ICloneContext;
@@ -34,7 +32,7 @@ import org.whole.lang.steppers.IDataFlowConsumer;
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractExecutable<E extends IEntity> implements IEntityIterator<E> {
+public abstract class AbstractExecutable<E extends IEntity> implements IExecutable<E> {
 	private IEntity sourceEntity;
 	public IExecutable<E> withSourceEntity(IEntity entity) {
 		sourceEntity = entity;
@@ -102,10 +100,10 @@ public abstract class AbstractExecutable<E extends IEntity> implements IEntityIt
 		return hasBindings() ? ExecutableFactory.instance(getBindings()) : ExecutableFactory.instance;
 	}
 
-	public IEntityIterator<E> iterator() {
-//	public IJavaIterator<E> iterator() {
-		return this;
-	}
+//	public IEntityIterator<E> iterator() {
+////	public IJavaIterator<E> iterator() {
+//		return this;
+//	}
 	
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
