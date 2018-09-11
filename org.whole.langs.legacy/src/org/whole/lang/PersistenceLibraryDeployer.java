@@ -212,7 +212,7 @@ public class PersistenceLibraryDeployer extends AbstractFunctionLibraryDeployer 
 				} catch (EvalError e) {
 				}
 				
-				bm.setResultIterator(IteratorFactory.instance.emptyIterator());
+				bm.setExecutableResult(IteratorFactory.instance.emptyIterator());
 			}
 		});
 	}
@@ -255,7 +255,7 @@ public class PersistenceLibraryDeployer extends AbstractFunctionLibraryDeployer 
 					return;
 				} catch (Exception e) {
 				}
-				bm.setResultIterator(IteratorFactory.instance.emptyIterator());
+				bm.setExecutableResult(IteratorFactory.instance.emptyIterator());
 			}
 		});
 	}

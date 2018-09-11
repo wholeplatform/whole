@@ -24,7 +24,7 @@ import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 
@@ -34,7 +34,7 @@ import org.whole.lang.operations.ICloneContext;
 public class SimpleScope extends AbstractScope {
 	protected Map<String, IEntity> map;
     protected IEntity result;
-    protected IEntityIterator<?> resultIterator;
+    protected IExecutable<?> executableResult;
 
 	protected SimpleScope() {
 		this(new HashMap<String, IEntity>());
@@ -108,26 +108,26 @@ public class SimpleScope extends AbstractScope {
 		resultScope = scope;	
 	}
 
-	public boolean hasResultIterator() {
-		return resultIterator != null;
+	public boolean isExecutableResult() {
+		return executableResult != null;
 	}
 	@SuppressWarnings("unchecked")
-	public <E extends IEntity> IEntityIterator<E> getResultIterator() {
-		return hasResultIterator() ?
-				(IEntityIterator<E>) resultIterator : BindingManagerFactory.instance.resultIteratorOf((E) result);
+	public <E extends IEntity> IExecutable<E> getExecutableResult() {
+		return isExecutableResult() ?
+				(IExecutable<E>) executableResult : BindingManagerFactory.instance.executableResultOf((E) result);
 	}
 	public IEntity getResult() {
-		return hasResultIterator() ?
-				BindingManagerFactory.instance.resultOf(resultIterator) : result;
+		return isExecutableResult() ?
+				BindingManagerFactory.instance.resultOf(executableResult) : result;
 	}
 
-	public void setResultIterator(IEntityIterator<?> resultIterator) {
+	public void setExecutableResult(IExecutable<?> executableResult) {
 		this.result = null;
-		this.resultIterator = resultIterator;
+		this.executableResult = executableResult;
 	}
 	public void setResult(IEntity result) {
 		this.result = result;
-		this.resultIterator = null;
+		this.executableResult = null;
 	}
 
 	public String toString() {

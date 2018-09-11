@@ -92,8 +92,8 @@ public abstract class AbstractOperation implements IOperation {
 	}
 
 	public IBindingScope getResultsScope() {
-		if (resultsScope.hasResultIterator())
-			resultsScope.getResultIterator().setBindings(operationEnvironment);
+		if (resultsScope.isExecutableResult())
+			resultsScope.getExecutableResult().setBindings(operationEnvironment);
 
 		return resultsScope;
 	}

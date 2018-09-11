@@ -22,7 +22,7 @@ import java.lang.reflect.Method;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.java.util.JavaReflectUtils;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.model.adapters.IEntityAdapter;
@@ -83,23 +83,23 @@ public class WorkflowsDynamicCompilerVisitor extends WorkflowsIdentityDefaultVis
 //
 //		final Arguments arguments = entity.getArguments();
 //		int size = arguments.wSize();
-//    	IEntityIterator<?>[] runnableIterators = new IEntityIterator<?>[size];
+//    	IExecutable<?>[] runnableIterators = new IExecutable<?>[size];
 //
 //		if (Matcher.matchImpl(WorkflowsEntityDescriptorEnum.Assignments, arguments)) {
 //	    	for (int i=0; i<size; i++) {
 //	    		Assign argument = ((Assignments) arguments).get(i);
 //	    		String name = argument.getName().getValue();
 //	    		argument.getExpression().accept(this);
-//				runnableIterators[i] = getResultIterator();//FIXME
+//				runnableIterators[i] = getExecutableResult();//FIXME
 //			}			
 //		} else if (Matcher.matchImpl(WorkflowsEntityDescriptorEnum.Expressions, arguments)) {
 //	    	for (int i=0; i<size; i++) {
 //				((Expressions) arguments).get(i).accept(this);
-//				runnableIterators[i] = getResultIterator();
+//				runnableIterators[i] = getExecutableResult();
 //			}			
 //		}
 //
-//    	setResultIterator(iteratorFactory().multiValuedRunnableIterator(new AbstractWorkflowsRunnable() {
+//    	setExecutableResult(iteratorFactory().multiValuedRunnableIterator(new AbstractWorkflowsRunnable() {
 //			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
 //				EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.parseEntityDescriptor(typeName);
 //				if (ed == null)
@@ -142,22 +142,22 @@ public class WorkflowsDynamicCompilerVisitor extends WorkflowsIdentityDefaultVis
 
 		Expressions arguments = entity.getArguments();
 		int size= arguments.wSize();
-    	IEntityIterator<?>[] runnableIterators = new IEntityIterator<?>[3+size];
+    	IExecutable<?>[] runnableIterators = new IExecutable<?>[3+size];
 
     	entity.getClassName().accept(this);
-		runnableIterators[0] = getResultIterator();
+		runnableIterators[0] = getExecutableResult();
 
 		entity.getConstructor().accept(this);
-		runnableIterators[1] = getResultIterator();
+		runnableIterators[1] = getExecutableResult();
 
 		runnableIterators[2] = iteratorFactory().constantIterator(BindingManagerFactory.instance.createVoid(), false);
 
     	for (int i=0; i<size; i++) {
 			arguments.get(i).accept(this);
-			runnableIterators[3+i] = getResultIterator();
+			runnableIterators[3+i] = getExecutableResult();
 		}
 
-    	setResultIterator(iteratorFactory().singleValuedRunnableIterator(new AbstractWorkflowsRunnable() {
+    	setExecutableResult(iteratorFactory().singleValuedRunnableIterator(new AbstractWorkflowsRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
 				String className = argsEntities[0].wStringValue();
 				IEntity constructorData = argsEntities[1];
@@ -183,22 +183,22 @@ public class WorkflowsDynamicCompilerVisitor extends WorkflowsIdentityDefaultVis
 
 		Expressions arguments = entity.getArguments();
 		int size= arguments.wSize();
-    	IEntityIterator<?>[] runnableIterators = new IEntityIterator<?>[3+size];
+    	IExecutable<?>[] runnableIterators = new IExecutable<?>[3+size];
 
     	entity.getClassName().accept(this);
-		runnableIterators[0] = getResultIterator();
+		runnableIterators[0] = getExecutableResult();
 
 		entity.getMethod().accept(this);
-		runnableIterators[1] = getResultIterator();
+		runnableIterators[1] = getExecutableResult();
 		
 		runnableIterators[2] = iteratorFactory().constantIterator(BindingManagerFactory.instance.createVoid(), false);
 
     	for (int i=0; i<size; i++) {
 			arguments.get(i).accept(this);
-			runnableIterators[3+i] = getResultIterator();
+			runnableIterators[3+i] = getExecutableResult();
 		}
 
-    	setResultIterator(iteratorFactory().multiValuedRunnableIterator(new AbstractWorkflowsRunnable() {
+    	setExecutableResult(iteratorFactory().multiValuedRunnableIterator(new AbstractWorkflowsRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
 				String className = argsEntities[0].wStringValue();
 				IEntity methodData = argsEntities[1];
@@ -224,23 +224,23 @@ public class WorkflowsDynamicCompilerVisitor extends WorkflowsIdentityDefaultVis
 
 		Expressions arguments = entity.getArguments();
 		int size= arguments.wSize();
-    	IEntityIterator<?>[] runnableIterators = new IEntityIterator<?>[3+size];
+    	IExecutable<?>[] runnableIterators = new IExecutable<?>[3+size];
 
     	entity.getClassName().accept(this);
-		runnableIterators[0] = getResultIterator();
+		runnableIterators[0] = getExecutableResult();
 
 		entity.getMethod().accept(this);
-		runnableIterators[1] = getResultIterator();
+		runnableIterators[1] = getExecutableResult();
 
 		entity.getObject().accept(this);
-		runnableIterators[2] = getResultIterator();
+		runnableIterators[2] = getExecutableResult();
 
 		for (int i=0; i<size; i++) {
 			arguments.get(i).accept(this);
-			runnableIterators[3+i] = getResultIterator();
+			runnableIterators[3+i] = getExecutableResult();
 		}
 
-    	setResultIterator(iteratorFactory().multiValuedRunnableIterator(new AbstractWorkflowsRunnable() {
+    	setExecutableResult(iteratorFactory().multiValuedRunnableIterator(new AbstractWorkflowsRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
 				String className = argsEntities[0].wStringValue();
 				IEntity methodData = argsEntities[1];
@@ -265,25 +265,25 @@ public class WorkflowsDynamicCompilerVisitor extends WorkflowsIdentityDefaultVis
 	@Override
 	public void visit(Variable entity) {
 		String varName = entity.getValue();
-    	setResultIterator((varName.equals(IBindingManager.SELF) ?
+    	setExecutableResult((varName.equals(IBindingManager.SELF) ?
     			iteratorFactory().selfIterator() : iteratorFactory().variableIterator(varName)).withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(BooleanLiteral entity) {
-		setResultIterator(iteratorFactory().constantIterator(
+		setExecutableResult(iteratorFactory().constantIterator(
 				BindingManagerFactory.instance.createValue(entity.isValue()), true).withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(IntLiteral entity) {
-		setResultIterator(iteratorFactory().constantIterator(
+		setExecutableResult(iteratorFactory().constantIterator(
 				BindingManagerFactory.instance.createValue(entity.getValue()), true).withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(StringLiteral entity) {
-		setResultIterator(iteratorFactory().constantIterator(
+		setExecutableResult(iteratorFactory().constantIterator(
 				BindingManagerFactory.instance.createValue(entity.getValue()), true).withSourceEntity(entity));
 	}
 }

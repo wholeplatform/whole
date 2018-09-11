@@ -24,6 +24,7 @@ import org.whole.lang.commons.model.Variable;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.commons.reflect.CommonsLanguageKit;
 import org.whole.lang.commons.visitors.CommonsInterpreterVisitor;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.factories.GenericEntityFactory;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
@@ -38,10 +39,10 @@ import org.whole.lang.util.EntityUtils;
  */
 public class GenericTemplateInterpreterVisitor extends AbstractVisitor {
     @Override
-	public void setResultIterator(IEntityIterator<?> iterator) {
+	public void setExecutableResult(IExecutable<?> iterator) {
 		if (iterator != null)
 			iterator.setBindings(getBindings());
-		super.setResultIterator(iterator);
+		super.setExecutableResult(iterator);
 	}
 
 	public void visit(IEntity entity) {
@@ -71,7 +72,7 @@ public class GenericTemplateInterpreterVisitor extends AbstractVisitor {
 	        	if (getBindings().wGet(IBindingManager.SELF) != oldSelfEntity)
 	        		getBindings().wDef(IBindingManager.SELF, oldSelfEntity);
 
-	        	if (getStage()+stageShift0>0 && !isResultIterator())
+	        	if (getStage()+stageShift0>0 && !isExecutableResult())
 	        		setResult(GenericEntityFactory.instance.create(
 		       				CommonsEntityDescriptorEnum.StageDownFragment,
 		       				//CommonsEntityFactory.instance.createStageDownFragment(
@@ -112,9 +113,9 @@ public class GenericTemplateInterpreterVisitor extends AbstractVisitor {
 			int nextResultSize = entityClone.wSize();
 			index += (nextResultSize - resultSize);
 
-			if (isResultIterator()) {
-				IEntityIterator<?> iterator = getResultIterator();
-				setResultIterator(null);
+			if (isExecutableResult()) {
+				IEntityIterator<?> iterator = getExecutableResult().iterator();
+				setExecutableResult(null);
 				IEntity selfEntity = getBindings().wGet(IBindingManager.SELF);
 	        	if (selfEntity != oldSelfEntity2)
 	        		getBindings().wDef(IBindingManager.SELF, selfEntity = oldSelfEntity2);

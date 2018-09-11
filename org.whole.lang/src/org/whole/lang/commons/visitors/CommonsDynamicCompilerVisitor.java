@@ -30,6 +30,7 @@ import org.whole.lang.commons.model.Resolver;
 import org.whole.lang.commons.model.StageDownFragment;
 import org.whole.lang.commons.model.StageUpFragment;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.matchers.Matcher;
@@ -46,7 +47,7 @@ import org.whole.lang.visitors.VisitException;
 public class CommonsDynamicCompilerVisitor extends CommonsIdentityDefaultVisitor {
 	@Override
 	public void visit(ICommonsEntity entity) {
-		setResultIterator(iteratorFactory().templateInterpreterIterator(entity).withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().templateInterpreterIterator(entity).withSourceEntity(entity));
 	}
 
 	@Override
@@ -94,7 +95,7 @@ public class CommonsDynamicCompilerVisitor extends CommonsIdentityDefaultVisitor
 			return;
 		}
 
-		setResultIterator(iteratorFactory().templateInterpreterIterator(entity).withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().templateInterpreterIterator(entity).withSourceEntity(entity));
 	}
 
 	@SuppressWarnings("unchecked")
@@ -117,7 +118,7 @@ public class CommonsDynamicCompilerVisitor extends CommonsIdentityDefaultVisitor
 			}
 		}, rootEntity, fragments, false);
 
-		Map<IEntity, IEntityIterator<?>> fragmentIteratorMap = new HashMap<>();
+		Map<IEntity, IExecutable<?>> fragmentIteratorMap = new HashMap<>();
 		IEntity oldSelfEntity = getBindings().wGet(IBindingManager.SELF);
 		int stage = getStage();
 
@@ -125,15 +126,15 @@ public class CommonsDynamicCompilerVisitor extends CommonsIdentityDefaultVisitor
 			getBindings().enforceSelfBinding(oldSelfEntity);
 
 			setResult(null);
-			IEntityIterator<?> fragmentIterator = null;
+			IExecutable<?> fragmentIterator = null;
 			if (Matcher.matchAnyImpl(f, CommonsEntityDescriptorEnum.StageDownFragment)) {
 				stagedVisit(f.wGetRoot(), -stage);
-				fragmentIterator = getResultIterator();
+				fragmentIterator = getExecutableResult();
 			} else
-				setResultIterator(fragmentIterator = 
+				setExecutableResult(fragmentIterator = 
 						iteratorFactory().templateInterpreterIterator(f).withSourceEntity(sourceEntity));
 
-			fragmentIteratorMap.put(f, getResultIterator());
+			fragmentIteratorMap.put(f, getExecutableResult());
 		});
 
 		IteratorFactory f = iteratorFactory();
@@ -170,6 +171,6 @@ public class CommonsDynamicCompilerVisitor extends CommonsIdentityDefaultVisitor
 				), null, Set.of(outerSelfName), true).withSourceEntity(sourceEntity);
 		}
 
-		setResultIterator(compiledIterator);
+		setExecutableResult(compiledIterator);
 	}
 }

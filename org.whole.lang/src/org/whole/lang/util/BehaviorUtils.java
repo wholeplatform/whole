@@ -19,6 +19,7 @@ package org.whole.lang.util;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.matchers.Matcher;
@@ -60,16 +61,16 @@ public class BehaviorUtils {
 		return compileAndLazyEvaluate(behavior, self, BindingManagerFactory.instance.createArguments());
 	}
 	public static <E extends IEntity> IEntityIterator<E> compileAndLazyEvaluate(IEntity behavior, IEntity self, IBindingManager bm) {
-		IEntityIterator<E> iterator = DynamicCompilerOperation.compile(behavior, bm).getResultIterator();
+		IExecutable<E> iterator = DynamicCompilerOperation.compile(behavior, bm).getExecutableResult();
 		iterator.setBindings(bm);
 		bm.enforceSelfBinding(self);
 		iterator.reset(self);
-		return iterator;
+		return iterator.iterator();
 	}
 
-	public static IEntityIterator<?> lazyEvaluateOnSelfBinding(IEntity behavior, int relativeStage, IBindingManager bm) {
+	public static IExecutable<?> lazyEvaluateOnSelfBinding(IEntity behavior, int relativeStage, IBindingManager bm) {
 		InterpreterOperation.lazyInterpretOnSelfBinding(behavior, bm, relativeStage);
-		return bm.getResultIterator();
+		return bm.getExecutableResult();
 	}
 	public static IEntity evaluate(IEntity behavior, int relativeStage, IBindingManager bm) {
 		InterpreterOperation.lazyInterpret(behavior, bm, relativeStage);
@@ -88,35 +89,35 @@ public class BehaviorUtils {
 		return evaluateResult(op.getOperationEnvironment());
 	}
 	public static final IEntity evaluateResult(IBindingManager bm) {
-		if (bm.hasResultIterator()) {
-			IEntityIterator<?> resultIterator = bm.getResultIterator();
-			bm.setResultIterator(null);
-			resultIterator.setBindings(bm);
+		if (bm.isExecutableResult()) {
+			IExecutable<?> executableResult = bm.getExecutableResult();
+			bm.setExecutableResult(null);
+			executableResult.setBindings(bm);
 			IEntity selfEntity = bm.wGet(IBindingManager.SELF);
 
 //			assert selfEntity != null;
 //			if (selfEntity == null)
 //				selfEntity = BindingManagerFactory.instance.createNull();
 
-			resultIterator.reset(selfEntity);
+			executableResult.reset(selfEntity);
 
-			return resultIterator.evaluateRemaining();
+			return executableResult.evaluateRemaining();
 		} else
 			return bm.getResult();
 	}
 	public static final IEntity evaluateSingletonResult(IBindingManager bm) {
-		if (bm.hasResultIterator()) {
-			IEntityIterator<?> resultIterator = bm.getResultIterator();
-			bm.setResultIterator(null);
+		if (bm.isExecutableResult()) {
+			IExecutable<?> executableResult = bm.getExecutableResult();
+			bm.setExecutableResult(null);
 			IEntity selfEntity = bm.wGet(IBindingManager.SELF);
 
 //			assert selfEntity != null;
 //			if (selfEntity == null)
 //				selfEntity = BindingManagerFactory.instance.createNull();
 
-			resultIterator.reset(selfEntity);
+			executableResult.reset(selfEntity);
 	
-			IEntity result = resultIterator.evaluateSingleton();
+			IEntity result = executableResult.evaluateSingleton();
 			bm.setResult(result);
 			return result;
 		} else {

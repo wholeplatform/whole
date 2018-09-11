@@ -22,7 +22,7 @@ import org.whole.lang.actions.model.ActionCall;
 import org.whole.lang.actions.reflect.ActionsEntityDescriptorEnum;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.DynamicCompilerOperation;
@@ -56,10 +56,10 @@ import org.whole.lang.visitors.MissingVariableException;
 */
 public class SemanticsInterpreterVisitor extends SemanticsTraverseAllChildrenVisitor {
     @Override
-	public void setResultIterator(IEntityIterator<?> iterator) {
+	public void setExecutableResult(IExecutable<?> iterator) {
 		if (iterator != null)
 			iterator.setBindings(getBindings());
-		super.setResultIterator(iterator);
+		super.setExecutableResult(iterator);
 	}
 
     @Override

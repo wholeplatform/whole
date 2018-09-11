@@ -33,7 +33,7 @@ import org.whole.lang.operations.ICloneContext;
 public class ActionCallIterator extends AbstractExecutableIteratingEvaluatingStepper<IEntity>{
 	protected String functionUri;
 	private IEntityIterator<IEntity> functionIterator;
-	private IEntityIterator<?>[] argsIterators;
+	private IExecutable<?>[] argsIterators;
 	private boolean useSelectedEntities;
 	private IEntity nextEntity = null;
 	private IEntity resetEntity = null;
@@ -42,7 +42,7 @@ public class ActionCallIterator extends AbstractExecutableIteratingEvaluatingSte
 		this(functionUri, null);
 		useSelectedEntities = true;
 	}
-	public /*protected*/ ActionCallIterator(String functionUri, IEntityIterator<?>[] optArgsIterators) {
+	public /*protected*/ ActionCallIterator(String functionUri, IExecutable<?>[] optArgsIterators) {
 		this.functionUri = functionUri;
 		this.argsIterators = optArgsIterators;
 		useSelectedEntities = false;
@@ -78,7 +78,7 @@ public class ActionCallIterator extends AbstractExecutableIteratingEvaluatingSte
 			IEntity selectedEntities = BindingManagerFactory.instance.createTuple();
 	
 			if (argsIterators != null && argsIterators.length > 0)
-				for (IEntityIterator<?> argIterator : argsIterators) {
+				for (IExecutable<?> argIterator : argsIterators) {
 					argIterator.setBindings(getBindings());
 					argIterator.reset(resetEntity);
 					

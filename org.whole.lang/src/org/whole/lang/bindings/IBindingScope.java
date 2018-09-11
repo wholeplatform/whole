@@ -20,7 +20,7 @@ package org.whole.lang.bindings;
 import java.util.Date;
 import java.util.Set;
 
-import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.EnumValue;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
@@ -138,9 +138,9 @@ public interface IBindingScope extends ICloneable, ISourceable {
 	public IBindingScope wResultScope();
 	public void wSetResultScope(IBindingScope scope);
 
-	public boolean hasResultIterator();
-	public <E extends IEntity> IEntityIterator<E> getResultIterator();
-	public void setResultIterator(IEntityIterator<?> resultIterator);
+	public boolean isExecutableResult();
+	public <E extends IEntity> IExecutable<E> getExecutableResult();
+	public void setExecutableResult(IExecutable<?> executableResult);
 	public IEntity getResult();
 	public void setResult(IEntity value);
 }

@@ -20,7 +20,7 @@ package org.whole.lang.bindings;
 import java.util.Date;
 import java.util.Set;
 
-import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.EnumValue;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
@@ -209,14 +209,14 @@ public abstract class AbstractDelegatingScope extends AbstractCloneableScope {
 		delegateScope.wSetResultScope(scope);
 	}
 
-	public boolean hasResultIterator() {
-		return delegateScope.hasResultIterator();
+	public boolean isExecutableResult() {
+		return delegateScope.isExecutableResult();
 	}
-	public <E extends IEntity> IEntityIterator<E> getResultIterator() {
-		return delegateScope.getResultIterator();
+	public <E extends IEntity> IExecutable<E> getExecutableResult() {
+		return delegateScope.getExecutableResult();
 	}
-	public void setResultIterator(IEntityIterator<?> resultIterator) {
-		delegateScope.setResultIterator(resultIterator);
+	public void setExecutableResult(IExecutable<?> executableResult) {
+		delegateScope.setExecutableResult(executableResult);
 	}
 	public IEntity getResult() {
 		return delegateScope.getResult();

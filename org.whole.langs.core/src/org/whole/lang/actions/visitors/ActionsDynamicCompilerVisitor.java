@@ -26,6 +26,7 @@ import org.whole.lang.actions.model.SelectedEntities;
 import org.whole.lang.actions.model.SimpleAction;
 import org.whole.lang.actions.reflect.ActionsEntityDescriptorEnum;
 import org.whole.lang.actions.resources.ActionsRegistry;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
@@ -59,7 +60,7 @@ public class ActionsDynamicCompilerVisitor extends ActionsIdentityDefaultVisitor
     @Override
     public void visit(SimpleAction entity) {
     	stagedVisit(entity.getTransformation().wGetAdaptee(false));
-    	IEntityIterator<?> functionBehavior = getResultIterator();
+    	IExecutable<?> functionBehavior = getExecutableResult();
 
     	ActionsRegistry.instance().putFunctionCode(getActionsUri(entity)+"#"+entity.getName().getValue(), functionBehavior);
     }
@@ -68,7 +69,7 @@ public class ActionsDynamicCompilerVisitor extends ActionsIdentityDefaultVisitor
     public void visit(GuardedAction entity) {
     	//TODO add condition test
     	stagedVisit(entity.getTransformation().wGetAdaptee(false));
-    	IEntityIterator<?> functionBehavior = getResultIterator();
+    	IExecutable<?> functionBehavior = getExecutableResult();
 
     	ActionsRegistry.instance().putFunctionCode(getActionsUri(entity)+"#"+entity.getName().getValue(), functionBehavior);
     }
@@ -76,16 +77,16 @@ public class ActionsDynamicCompilerVisitor extends ActionsIdentityDefaultVisitor
 	@Override
 	public void visit(ActionCall entity) {
     	SelectedEntities selectedEntitiesFeature = entity.getSelectedEntities();
-    	IEntityIterator<?>[] argumentsIterators = null;
+    	IExecutable<?>[] argumentsIterators = null;
     	if (EntityUtils.isNotResolver(selectedEntitiesFeature)) {
 			selectedEntitiesFeature.accept(this);
-			IEntityIterator<?> resultIterator = getResultIterator();
+			IExecutable<?> executableResult = getExecutableResult();
 
         	argumentsIterators = new IEntityIterator<?>[1];
-        	argumentsIterators[0] = resultIterator;
+        	argumentsIterators[0] = executableResult;
 		}
 
-    	setResultIterator(new ActionCallIterator(
+    	setExecutableResult(new ActionCallIterator(
     			entity.getName().getValue(), argumentsIterators).withSourceEntity(entity));
 	}
 }

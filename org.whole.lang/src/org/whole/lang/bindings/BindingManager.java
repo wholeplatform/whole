@@ -109,8 +109,8 @@ public class BindingManager extends AbstractDelegatingScope implements IBindingM
 
 	@Override
 	public IEntity getResult() {
-		if (hasResultIterator())
-			getResultIterator().setBindings(this);
+		if (isExecutableResult())
+			getExecutableResult().setBindings(this);
 
 		return super.getResult();
 	}

@@ -25,7 +25,7 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.EnumValue;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
@@ -39,7 +39,7 @@ public class EarlyTransactionScope extends AbstractDelegatingScope implements IT
 	public static enum CachedResult { NONE, VALUE, ITERATOR };
 	protected CachedResult cachedResult = CachedResult.NONE;
 	protected IEntity result = null;
-	protected IEntityIterator<?> resultIterator = null;
+	protected IExecutable<?> executableResult = null;
 
 	protected EarlyTransactionScope() {
 		this(new HashMap<String, IEntity>());
@@ -79,7 +79,7 @@ public class EarlyTransactionScope extends AbstractDelegatingScope implements IT
 
 		cachedResult = CachedResult.NONE;
 		result = null;
-		resultIterator = null;
+		executableResult = null;
 	}
 	public void rollback() {
 		for (Entry<String, IEntity> entry : map.entrySet()) {
@@ -96,13 +96,13 @@ public class EarlyTransactionScope extends AbstractDelegatingScope implements IT
 		if (cachedResult == CachedResult.VALUE)
 			super.setResult(result);
 		else if (cachedResult == CachedResult.ITERATOR)
-			super.setResultIterator(resultIterator);
+			super.setExecutableResult(executableResult);
 
 		map.clear();
 
 		cachedResult = CachedResult.NONE;
 		result = null;
-		resultIterator = null;
+		executableResult = null;
 	}
 	
 	private void updateMap(String name) {
@@ -273,9 +273,9 @@ public class EarlyTransactionScope extends AbstractDelegatingScope implements IT
 		super.wSetResultScope(scope != this ? scope : scope.wEnclosingScope());
 	}
 
-	public void setResultIterator(IEntityIterator<?> resultIterator) {
+	public void setExecutableResult(IExecutable<?> executableResult) {
 		cacheResult();
-		super.setResultIterator(resultIterator);
+		super.setExecutableResult(executableResult);
 	}
 	public void setResult(IEntity value) {
 		cacheResult();
@@ -283,14 +283,14 @@ public class EarlyTransactionScope extends AbstractDelegatingScope implements IT
 	}
 	protected void cacheResult() {
 		if (cachedResult == CachedResult.NONE) {
-			if (super.hasResultIterator()) {
+			if (super.isExecutableResult()) {
 				cachedResult = CachedResult.ITERATOR;
 				this.result = null;
-				this.resultIterator = super.getResultIterator();
+				this.executableResult = super.getExecutableResult();
 			} else {
 				cachedResult = CachedResult.VALUE;
 				this.result = super.getResult();
-				this.resultIterator = null;
+				this.executableResult = null;
 			}
 		}
 	}

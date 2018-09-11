@@ -22,7 +22,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.EnumValue;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
@@ -211,13 +211,13 @@ public class NullScope implements IBindingScope {
 	public void wSetResultScope(IBindingScope scope) {
 	}
 
-	public boolean hasResultIterator() {
+	public boolean isExecutableResult() {
 		return false;
 	}
-	public <E extends IEntity> IEntityIterator<E> getResultIterator() {
+	public <E extends IEntity> IExecutable<E> getExecutableResult() {
 		throw new IllegalStateException("NullBindingManager");		
 	}
-	public void setResultIterator(IEntityIterator<?> resultIterator) {
+	public void setExecutableResult(IExecutable<?> executableResult) {
 		throw new IllegalStateException("NullBindingManager");		
 	}
 	public IEntity getResult() {

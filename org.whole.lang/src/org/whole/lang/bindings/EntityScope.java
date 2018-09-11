@@ -22,7 +22,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.EnumValue;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
@@ -396,14 +396,14 @@ public class EntityScope extends AbstractCloneableScope {
 		resultScope = scope;	
 	}
 
-	public boolean hasResultIterator() {
+	public boolean isExecutableResult() {
 		return false;
 	}
 	@SuppressWarnings("unchecked")
-	public <E extends IEntity> IEntityIterator<E> getResultIterator() {
-		return BindingManagerFactory.instance.resultIteratorOf((E) getResult());		
+	public <E extends IEntity> IExecutable<E> getExecutableResult() {
+		return BindingManagerFactory.instance.executableResultOf((E) getResult());		
 	}
-	public void setResultIterator(IEntityIterator<?> resultIterator) {
+	public void setExecutableResult(IExecutable<?> executableResult) {
 	}
 	public IEntity getResult() {
 		return null;		

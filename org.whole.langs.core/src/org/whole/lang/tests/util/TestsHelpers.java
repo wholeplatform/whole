@@ -102,9 +102,9 @@ public class TestsHelpers {
 		bm.wDef(IBindingManager.SELF, subject);
 		IBindingScope bs = InterpreterOperation.lazyInterpretOnSelfBinding(EntityUtils.isFragment(filter) ? filter.wGetRoot() : filter, bm, false);
 
-		if (bs.hasResultIterator()) {
-			IEntityIterator<?> iterator = bs.getResultIterator();
-			bs.setResultIterator(null);
+		if (bs.isExecutableResult()) {
+			IEntityIterator<?> iterator = bs.getExecutableResult().iterator();
+			bs.setExecutableResult(null);
 			iterator.reset(subject);
 			while (iterator.hasNext())
 				iterator.next();

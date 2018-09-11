@@ -655,7 +655,7 @@ public class AbstractDecoratedExecutableFactory implements IteratorFactory {
 		return decorate(factory.nestedVariableIterator());
 	}
 
-	public IEntityIterator<?> nestedFragmentIterator(Map<IEntity, IEntityIterator<?>> fragmentIteratorMap) {
+	public IEntityIterator<?> nestedFragmentIterator(Map<IEntity, IExecutable<?>> fragmentIteratorMap) {
 		return decorate(factory.nestedFragmentIterator(fragmentIteratorMap));
 	}
 

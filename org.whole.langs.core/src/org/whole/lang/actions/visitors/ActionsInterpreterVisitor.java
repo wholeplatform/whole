@@ -30,7 +30,7 @@ import org.whole.lang.actions.reflect.ActionsEntityDescriptorEnum;
 import org.whole.lang.actions.resources.ActionsRegistry;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.model.adapters.IEntityAdapter;
@@ -59,10 +59,10 @@ public class ActionsInterpreterVisitor extends ActionsTraverseAllVisitor {
 	public enum WholeAction {VALUE_ASSIST, VALIDATOR, NORMALIZER, PRETTY_PRINTER, INTERPRETER, GENERATOR};
 	protected WholeAction wholeAction;
 
-	protected IEntityIterator<?> lazyEvaluate(IActionsEntity entity) {
+	protected IExecutable<?> lazyEvaluate(IActionsEntity entity) {
 		setResult(null);
 		entity.accept(this);
-		return getResultIterator();
+		return getExecutableResult();
 	}
 	protected IEntity evaluate(IActionsEntity entity) {
 		lazyEvaluate(entity);

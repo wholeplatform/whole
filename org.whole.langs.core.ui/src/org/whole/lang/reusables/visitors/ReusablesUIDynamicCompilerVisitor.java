@@ -20,8 +20,7 @@ package org.whole.lang.reusables.visitors;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.codebase.IPersistenceProvider;
 import org.whole.lang.e4.ui.util.E4Utils;
-import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.IteratorFactory;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.reusables.model.Workspace;
 
 /**
@@ -31,12 +30,12 @@ public class ReusablesUIDynamicCompilerVisitor extends ReusablesDynamicCompilerV
 	@Override
 	public void visit(Workspace entity) {
 		entity.getPersistence().accept(this);
-		IEntityIterator<?> persistenceIterator = getResultIterator();
+		IExecutable<?> persistenceIterator = getExecutableResult();
 		
 		entity.getContent().accept(this);
-		IEntityIterator<?> contentIterator = getResultIterator();
+		IExecutable<?> contentIterator = getExecutableResult();
 
-		setResultIterator(iteratorFactory().composeIterator(
+		setExecutableResult(iteratorFactory().composeIterator(
 				iteratorFactory().singleValuedRunnableIterator(new ResourcePersistenceRunnable() {
 					protected IPersistenceProvider getPersistenceProvider(String path, IBindingManager bm) {
 						return E4Utils.createWorkspaceProvider(bm, path);

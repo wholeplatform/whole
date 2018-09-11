@@ -50,6 +50,7 @@ import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.commons.visitors.CommonsInterpreterVisitor;
 import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.exceptions.WholeIllegalArgumentException;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.factories.GenericEntityFactory;
 import org.whole.lang.factories.IEntityFactory;
 import org.whole.lang.factories.IEntityRegistryProvider;
@@ -135,10 +136,10 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 	}
 
     @Override
-	public void setResultIterator(IEntityIterator<?> iterator) {
+	public void setExecutableResult(IExecutable<?> iterator) {
 		if (iterator != null)
 			iterator.setBindings(getBindings());
-		super.setResultIterator(iterator);
+		super.setExecutableResult(iterator);
 	}
 
     protected void setResult(Variable variable, IEntity model) {
@@ -147,8 +148,8 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
     	setResult(model);
     }
     protected void setResult(Variable variable, Object resultValue, Class<?> resultType) {
-		if (resultValue instanceof IEntityIterator) {
-			setResultIterator((IEntityIterator<?>) resultValue);
+		if (resultValue instanceof IExecutable) {
+			setExecutableResult((IExecutable<?>) resultValue);
 		} else if (Void.TYPE.equals(resultType)) {
 			if (EntityUtils.isNotResolver(variable))
 				throw new IllegalArgumentException("cannot bind a void result");
@@ -222,7 +223,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 		}
 	}
 
-	protected void resetIterator(IEntityIterator<?> iterator) {
+	protected void resetIterator(IExecutable<?> iterator) {
 		IEntity selfEntity = getBindings().wGet(IBindingManager.SELF);
 		iterator.reset(selfEntity != null ? selfEntity : NullEntity.instance);
 	}
@@ -232,9 +233,9 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 		evaluate(entity.getCompositeVariable());
 
 		IEntityIterator<?> iterator = null;
-		if (isResultIterator()) {
-			iterator = getResultIterator();
-			setResultIterator(null);
+		if (isExecutableResult()) {
+			iterator = getExecutableResult().iterator();
+			setExecutableResult(null);
 			resetIterator(iterator);
 		} else {
 			IEntity result = getResult();
@@ -269,7 +270,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 	public void visit(SwitchControl entity) {
 		boolean isExclusive = entity.getSwitchType().wContainsValue(SwitchTypeEnum.exclusive);
 
-		IEntityIterator<ConditionalCase> i = iteratorFactory().childIterator();
+		IEntityIterator<ConditionalCase> i = iteratorFactory().<ConditionalCase>childIterator().iterator();
 		i.reset(entity.getConditionalCases());
 
 		boolean executed = false;
@@ -375,9 +376,9 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 		String name = entity.getName().getValue();
 		evaluate(entity.getExpression());
 		
-		if (isResultIterator()) {
-			IEntityIterator<?> iterator = getResultIterator();
-			setResultIterator(null);
+		if (isExecutableResult()) {
+			IEntityIterator<?> iterator = getExecutableResult().iterator();
+			setExecutableResult(null);
 			resetIterator(iterator);
 			if (iterator.hasNext()) {
 				IEntity first = iterator.next();
@@ -446,7 +447,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 		Variable queryName = entity.getQueryName();
 		Arguments arguments = entity.getArguments();
 
-		IEntityIterator<? extends IEntity>[] argsIterators = new IEntityIterator<?>[0];
+		IExecutable<? extends IEntity>[] argsIterators = new IExecutable<?>[0];
 
 		Set<String> filterNames = getOperation().getResultsScope().wNames();
 		IBindingManager args = BindingManagerFactory.instance.createBindingManager(
@@ -456,20 +457,20 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 		if (!EntityUtils.isNotResolver(arguments)) {
 			setResultValue(argsIterators);
 			arguments.accept(this);
-			argsIterators = (IEntityIterator<?>[]) getResultValue();
+			argsIterators = (IExecutable<?>[]) getResultValue();
 		} else if (Matcher.match(WorkflowsEntityDescriptorEnum.Expressions, arguments)) {
 			IEntity selfEntity = getBindings().wGet(IBindingManager.SELF);
-			argsIterators = new IEntityIterator<?>[arguments.wSize()];
+			argsIterators = new IExecutable<?>[arguments.wSize()];
 			for (int i = 0; i < argsIterators.length; i++) {
 				((Expressions) arguments).get(i).accept(this);
-				argsIterators[i] = getResultIterator();
-				setResultIterator(null);
+				argsIterators[i] = getExecutableResult();
+				setExecutableResult(null);
 				resetSelfEntity(selfEntity);
 			}
 		} else
 			define(args, (Assignments) arguments);
 
-		IEntityIterator<?> iterator = iteratorFactory().callIterator(queryName.getValue(), argsIterators);
+		IEntityIterator<?> iterator = iteratorFactory().callIterator(queryName.getValue(), argsIterators).iterator();
 		iterator.setBindings(args);
 		resetIterator(iterator);
 		while (iterator.hasNext())
@@ -556,7 +557,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 		IEntity model = getResult();
 		//TODO remove ?
 		if (Matcher.matchImpl(WorkflowsEntityDescriptorEnum.Name, entity.getTemplate())) {
-			IEntityIterator<IEntity> tii = iteratorFactory().templateInterpreterIterator(getResult());
+			IEntityIterator<IEntity> tii = iteratorFactory().templateInterpreterIterator(getResult()).iterator();
 			tii.setBindings(getBindings());
 			tii.reset(entity);
 			model = tii.next();

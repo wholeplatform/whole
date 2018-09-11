@@ -17,6 +17,7 @@
  */
 package org.whole.lang.misc.visitors;
 
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.misc.model.Misc;
 import org.whole.lang.model.IEntity;
@@ -31,14 +32,14 @@ public class MiscDynamicCompilerVisitor extends MiscOperationVisitor {
     	if (size == 1)
     		entity.get(0).accept(this);
     	else {
-			IEntityIterator<? extends IEntity>[] iteratorChain = new IEntityIterator<?>[size];
+    		IExecutable<? extends IEntity>[] iteratorChain = new IEntityIterator<?>[size];
 			
 	    	for (int i=0; i<size; i++) {
 				entity.get(i).accept(this);
-				iteratorChain[i] = getResultIterator();
+				iteratorChain[i] = getExecutableResult();
 			}
 
-	    	setResultIterator(iteratorFactory().sequenceIterator(iteratorChain).withSourceEntity(entity));
+	    	setExecutableResult(iteratorFactory().sequenceIterator(iteratorChain).withSourceEntity(entity));
     	}
 	}
 }

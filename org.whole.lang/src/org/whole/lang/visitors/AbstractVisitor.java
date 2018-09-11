@@ -20,7 +20,7 @@ package org.whole.lang.visitors;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.commons.visitors.CommonsInterpreterVisitor;
-import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.model.adapters.IEntityAdapter;
@@ -88,14 +88,14 @@ public abstract class AbstractVisitor implements IVisitor {
 		this.bindings = bm;
 	}
 
-	public boolean isResultIterator() {
-		return getBindings().hasResultIterator();
+	public boolean isExecutableResult() {
+		return getBindings().isExecutableResult();
 	}
-	public <E extends IEntity> IEntityIterator<E> getResultIterator() {
-		return getBindings().getResultIterator();
+	public <E extends IEntity> IExecutable<E> getExecutableResult() {
+		return getBindings().getExecutableResult();
 	}
-	public void setResultIterator(IEntityIterator<?> entityIterator) {
-		getBindings().setResultIterator(entityIterator);
+	public void setExecutableResult(IExecutable<?> entityIterator) {
+		getBindings().setExecutableResult(entityIterator);
 	}
 	public IEntity getResult() {
 		return getBindings().getResult();

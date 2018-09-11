@@ -84,9 +84,9 @@ public class TemplateInterpreterIterator<E extends IEntity> extends AbstractExec
 
 		getBindings().wExitScope();
 
-		nextEntityIterator = results.getResultIterator();
-		if (results.hasResultIterator()) {
-			results.setResultIterator(null);
+		nextEntityIterator = (IEntityIterator<E>) results.getExecutableResult().iterator();
+		if (results.isExecutableResult()) {
+			results.setExecutableResult(null);
 			lookaheadScope = null;
 		}
 		getBindings().enforceSelfBinding(resetEntity);

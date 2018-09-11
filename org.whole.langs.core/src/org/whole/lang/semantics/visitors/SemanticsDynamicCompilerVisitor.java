@@ -18,6 +18,7 @@
 package org.whole.lang.semantics.visitors;
 
 import org.whole.lang.actions.iterators.ActionCallIterator;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.SelfIterator;
 import org.whole.lang.matchers.Matcher;
@@ -66,14 +67,14 @@ public class SemanticsDynamicCompilerVisitor extends SemanticsIdentityDefaultVis
 	public void visit(SemanticFunction entity) {
     	FunctionBody rules = entity.getRules();
     	if (Matcher.match(SemanticsEntityDescriptorEnum.InferenceRules, rules)) {
-    		setResultIterator(iteratorFactory().emptyIterator().withSourceEntity(entity));//TODO not supported yet
+    		setExecutableResult(iteratorFactory().emptyIterator().withSourceEntity(entity));//TODO not supported yet
     		return;
     	}
 
     	IEntityIterator<?> ac = new ActionCallIterator(
     			"whole:org.whole.lang.semantics:SemanticsActions:1.0.0#Translate Normalized Function to Query", null);
     	stagedVisit(ac.evaluate(entity, getBindings()));
-		IEntityIterator<?> functionBehavior = getResultIterator();
+		IExecutable<?> functionBehavior = getExecutableResult();
 
 		FunctionLibraryRegistry.instance().putFunctionCode(getLibraryUri(entity)+"#"+entity.getName().getValue(), functionBehavior);
 	}
@@ -93,56 +94,56 @@ public class SemanticsDynamicCompilerVisitor extends SemanticsIdentityDefaultVis
 //    	if (functionUri.indexOf("#") == -1)
 //    		functionUri = getLibraryUri(entity)+"#"+functionUri;
 
-		IEntityIterator<IEntity> resultIterator = iteratorFactory().functionApplicationIterator(functionUri).withSourceEntity(entity);
+    	IExecutable<IEntity> executableResult = iteratorFactory().functionApplicationIterator(functionUri).withSourceEntity(entity);
 
 		if (functionUri.endsWith("#stagedVisit"))
-			resultIterator = iteratorFactory().recursiveFunctionApplicationIterator().withSourceEntity(entity);
+			executableResult = iteratorFactory().recursiveFunctionApplicationIterator().withSourceEntity(entity);
 
     	Expression arguments = entity.getArguments();
 		if (!EntityUtils.isResolver(arguments)) {
     		arguments.accept(this);
-    		IEntityIterator<?> argumentsIterator = getResultIterator();
+    		IExecutable<?> argumentsIterator = getExecutableResult();
 
     		if (!argumentsIterator.getClass().equals(SelfIterator.class))
-    			resultIterator = iteratorFactory().composeIterator(resultIterator, argumentsIterator).withSourceEntity(entity);
+    			executableResult = iteratorFactory().composeIterator(executableResult, argumentsIterator).withSourceEntity(entity);
     	}
-		setResultIterator(resultIterator);
+		setExecutableResult(executableResult);
   	}
 
 	@Override
 	public void visit(TypeCast entity) {
-		IEntityIterator<IEntity> resultIterator;
+		IExecutable<IEntity> executableResult;
 		CastType type = entity.getType();
 		if (Matcher.matchImpl(SemanticsEntityDescriptorEnum.EnvType, type))
-			resultIterator = SemanticsUtils.typeCastIterator().withSourceEntity(entity);
+			executableResult = SemanticsUtils.typeCastIterator().withSourceEntity(entity);
 		else
-			resultIterator = SemanticsUtils.typeCastIterator(type.wStringValue()).withSourceEntity(entity);
+			executableResult = SemanticsUtils.typeCastIterator(type.wStringValue()).withSourceEntity(entity);
 
 		Term expression = entity.getExpression();
 		if (!EntityUtils.isResolver(expression)) {
     		expression.accept(this);
-    		IEntityIterator<?> expressionIterator = getResultIterator();
+    		IExecutable<?> expressionIterator = getExecutableResult();
 
     		if (!expressionIterator.getClass().equals(SelfIterator.class))
-    			resultIterator = iteratorFactory().forIterator(expressionIterator, resultIterator).withSourceEntity(entity);
+    			executableResult = iteratorFactory().forIterator(expressionIterator, executableResult).withSourceEntity(entity);
     	}
-		setResultIterator(resultIterator);
+		setExecutableResult(executableResult);
 	}
 
 //	@Override
 //	public void visit(Arguments entity) {
-//    	IEntityIterator<?>[] argumentsIterators = new IEntityIterator<?>[entity.size()];
+//    	IExecutable<?>[] argumentsIterators = new IExecutable<?>[entity.size()];
 //    	for (int i=0, size=entity.size(); i<size; i++) {
 //    		entity.get(i).accept(this);
-//			argumentsIterators[i] = getResultIterator();
+//			argumentsIterators[i] = getExecutableResult();
 //		}
 //
 //    	if (argumentsIterators.length == 0)
-//    		setResultIterator(iteratorFactory().selfIterator().withDomainEntity(entity)); 
+//    		setExecutableResult(iteratorFactory().selfIterator().withDomainEntity(entity)); 
 //    	else if (argumentsIterators.length == 1) {
-//			setResultIterator(argumentsIterators[0]);
+//    		setExecutableResult(argumentsIterators[0]);
 //		} else {//== if (argumentsIterators.length > 1) {
-//			setResultIterator(iteratorFactory().pointwiseProductIterator(argumentsIterators).withDomainEntity(entity));
+//			setExecutableResult(iteratorFactory().pointwiseProductIterator(argumentsIterators).withDomainEntity(entity));
 //		}
 //	}
 }

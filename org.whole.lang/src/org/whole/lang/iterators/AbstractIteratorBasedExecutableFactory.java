@@ -422,11 +422,11 @@ public abstract class AbstractIteratorBasedExecutableFactory implements Iterator
 		};
 	}
 
-	public IEntityIterator<?> nestedFragmentIterator(Map<IEntity, IEntityIterator<?>> fragmentIteratorMap) {
+	public IEntityIterator<?> nestedFragmentIterator(Map<IEntity, IExecutable<?>> fragmentIteratorMap) {
 		return new AbstractMultiValuedRunnableIterator<IEntity>() {
 			@Override
 			protected void run(IEntity selfEntity, IBindingManager bm) {
-				IEntityIterator<?> fragmentIterator = fragmentIteratorMap.getOrDefault(selfEntity, emptyIterator());
+				IExecutable<?> fragmentIterator = fragmentIteratorMap.getOrDefault(selfEntity, emptyIterator());
 				
 				//TODO clone iterator
 
@@ -434,7 +434,7 @@ public abstract class AbstractIteratorBasedExecutableFactory implements Iterator
 //				bm.wDef(IBindingManager.SELF, outerSelfEntity);
 //				fragmentIterator.setBindings(bm);
 //				fragmentIterator.reset(outerSelfEntity);
-				bm.setResultIterator(fragmentIterator);
+				bm.setExecutableResult(fragmentIterator);
 			}
 			@Override
 			protected void resetResultIterator(IEntityIterator<IEntity> resultIterator, IEntity selfEntity, IBindingManager bm) {

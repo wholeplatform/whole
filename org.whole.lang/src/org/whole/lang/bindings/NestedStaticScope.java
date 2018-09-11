@@ -17,7 +17,7 @@
  */
 package org.whole.lang.bindings;
 
-import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 
@@ -71,14 +71,14 @@ public class NestedStaticScope extends AbstractDelegatingScope implements INesta
 	protected final IBindingScope resultScopeDelegate() {
 		return wResultScope() != this ? wEnclosingScope() : wTargetScope();
 	}
-	public boolean hasResultIterator() {
-		return resultScopeDelegate().hasResultIterator();
+	public boolean isExecutableResult() {
+		return resultScopeDelegate().isExecutableResult();
 	}
-	public <E extends IEntity> IEntityIterator<E> getResultIterator() {
-		return resultScopeDelegate().getResultIterator();
+	public <E extends IEntity> IExecutable<E> getExecutableResult() {
+		return resultScopeDelegate().getExecutableResult();
 	}
-	public void setResultIterator(IEntityIterator<?> resultIterator) {
-		resultScopeDelegate().setResultIterator(resultIterator);
+	public void setExecutableResult(IExecutable<?> executableResult) {
+		resultScopeDelegate().setExecutableResult(executableResult);
 	}
 	public IEntity getResult() {
 		return resultScopeDelegate().getResult();

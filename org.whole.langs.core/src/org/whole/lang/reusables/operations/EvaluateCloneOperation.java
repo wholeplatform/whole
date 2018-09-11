@@ -22,6 +22,7 @@ import java.util.Collection;
 import java.util.function.Predicate;
 
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.iterators.Placement;
@@ -61,8 +62,8 @@ public class EvaluateCloneOperation extends CloneOperationOld {
 		IEntity child = entityClone.wGet(index);
 		if (shouldEvaluate.test(child)) {
 			IEntity selfEntity = getBindings().wGet(IBindingManager.SELF);
-			IEntityIterator<?> iterator = BehaviorUtils.lazyEvaluateOnSelfBinding(child, 0, getBindings());
-//			IEntityIterator<?> iterator = DynamicCompilerOperation.compile(child, getBindings()).getResultIterator();
+			IExecutable<?> iterator = BehaviorUtils.lazyEvaluateOnSelfBinding(child, 0, getBindings());
+//			IExecutable<?> iterator = DynamicCompilerOperation.compile(child, getBindings()).getExecutableResult();
 			if (EntityUtils.isSimple(entityClone)) {
 				iterator = IteratorFactory.instance.composeIterator(IteratorFactory.instance.singleValuedRunnableIterator(
 						(self, bm, arguments) -> entityClone.wSet(index, self)
@@ -89,8 +90,8 @@ public class EvaluateCloneOperation extends CloneOperationOld {
 		IEntity child = entityClone.wGet(fd);
 		if (shouldEvaluate.test(child)) {
 			IEntity selfEntity = getBindings().wGet(IBindingManager.SELF);
-			IEntityIterator<?> iterator = BehaviorUtils.lazyEvaluateOnSelfBinding(child, 0, getBindings());
-//			IEntityIterator<?> iterator = DynamicCompilerOperation.compile(child, getBindings()).getResultIterator();
+			IExecutable<?> iterator = BehaviorUtils.lazyEvaluateOnSelfBinding(child, 0, getBindings());
+//			IExecutable<?> iterator = DynamicCompilerOperation.compile(child, getBindings()).getExecutableResult();
 			iterator = IteratorFactory.instance.composeIterator(IteratorFactory.instance.singleValuedRunnableIterator(
 					(self, bm, arguments) -> entityClone.wSet(fd, self)
 			),	iterator);

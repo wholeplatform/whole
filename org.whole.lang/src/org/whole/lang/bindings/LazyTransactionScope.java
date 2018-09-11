@@ -25,7 +25,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 
@@ -83,7 +83,7 @@ public class LazyTransactionScope extends SimpleScope implements ITransactionSco
 
 		definedResult = DefinedResult.NONE;
 		result = null;
-		resultIterator = null;
+		executableResult = null;
 	}
 	public void commit() {
 		for (String name : unsetNames)
@@ -100,7 +100,7 @@ public class LazyTransactionScope extends SimpleScope implements ITransactionSco
 		if (definedResult == DefinedResult.VALUE)
 			wEnclosingScope().setResult(result);
 		else if (definedResult == DefinedResult.ITERATOR)
-			wEnclosingScope().setResultIterator(resultIterator);
+			wEnclosingScope().setExecutableResult(executableResult);
 
 		map.clear();
 		defNames.clear();
@@ -108,7 +108,7 @@ public class LazyTransactionScope extends SimpleScope implements ITransactionSco
 
 		definedResult = DefinedResult.NONE;
 		result = null;
-		resultIterator = null;
+		executableResult = null;
 	}
 
 	public void wClear() {
@@ -174,21 +174,21 @@ public class LazyTransactionScope extends SimpleScope implements ITransactionSco
 		resultScope = scope;
 	}
 
-	public boolean hasResultIterator() {
+	public boolean isExecutableResult() {
 		if (wResultScope() != this)
-			return wEnclosingScope().hasResultIterator();
+			return wEnclosingScope().isExecutableResult();
 		else
-			return super.hasResultIterator();
+			return super.isExecutableResult();
 	}
-	public <E extends IEntity> IEntityIterator<E> getResultIterator() {
+	public <E extends IEntity> IExecutable<E> getExecutableResult() {
 		if (wResultScope() != this)
-			return wEnclosingScope().getResultIterator();
+			return wEnclosingScope().getExecutableResult();
 		else
-			return super.getResultIterator();
+			return super.getExecutableResult();
 	}
-	public void setResultIterator(IEntityIterator<?> resultIterator) {
+	public void setExecutableResult(IExecutable<?> executableResult) {
 		definedResult = DefinedResult.ITERATOR;
-		super.setResultIterator(resultIterator);
+		super.setExecutableResult(executableResult);
 	}
 	public void setResult(IEntity value) {
 		definedResult = DefinedResult.VALUE;

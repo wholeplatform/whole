@@ -24,7 +24,7 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 
@@ -93,23 +93,23 @@ public class NestedDynamicSimpleScope extends SimpleScope implements INestableSc
 		resultScope = scope;
 	}
 
-	public boolean hasResultIterator() {
+	public boolean isExecutableResult() {
 		if (wResultScope() != this)
-			return wEnclosingScope().hasResultIterator();
+			return wEnclosingScope().isExecutableResult();
 		else
-			return super.hasResultIterator();
+			return super.isExecutableResult();
 	}
-	public <E extends IEntity> IEntityIterator<E> getResultIterator() {
+	public <E extends IEntity> IExecutable<E> getExecutableResult() {
 		if (wResultScope() != this)
-			return wEnclosingScope().getResultIterator();
+			return wEnclosingScope().getExecutableResult();
 		else
-			return super.getResultIterator();
+			return super.getExecutableResult();
 	}
-	public void setResultIterator(IEntityIterator<?> resultIterator) {
+	public void setExecutableResult(IExecutable<?> executableResult) {
 		if (wResultScope() != this)
-			wEnclosingScope().setResultIterator(resultIterator);
+			wEnclosingScope().setExecutableResult(executableResult);
 		else
-			super.setResultIterator(resultIterator);
+			super.setExecutableResult(executableResult);
 	}
 	public IEntity getResult() {
 		if (wResultScope() != this)

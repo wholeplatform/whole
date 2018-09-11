@@ -34,7 +34,6 @@ import org.whole.lang.executables.FailureExecutable;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.reflect.CompositeKinds;
 import org.whole.lang.reflect.DataKinds;
 import org.whole.lang.reflect.EntityDescriptor;
@@ -1228,11 +1227,11 @@ public class IteratorBasedExecutableFactory extends AbstractIteratorBasedExecuta
 		};
 	}
 
-	public IEntityIterator<?> nestedFragmentIterator(Map<IEntity, IEntityIterator<?>> fragmentIteratorMap) {
+	public IEntityIterator<?> nestedFragmentIterator(Map<IEntity, IExecutable<?>> fragmentIteratorMap) {
 		return new AbstractMultiValuedRunnableIterator<IEntity>() {
 			@Override
 			protected void run(IEntity selfEntity, IBindingManager bm) {
-				IEntityIterator<?> fragmentIterator = fragmentIteratorMap.getOrDefault(selfEntity, emptyIterator());
+				IExecutable<?> fragmentIterator = fragmentIteratorMap.getOrDefault(selfEntity, emptyIterator());
 				
 				//TODO clone iterator
 
@@ -1240,7 +1239,7 @@ public class IteratorBasedExecutableFactory extends AbstractIteratorBasedExecuta
 //				bm.wDef(IBindingManager.SELF, outerSelfEntity);
 //				fragmentIterator.setBindings(bm);
 //				fragmentIterator.reset(outerSelfEntity);
-				bm.setResultIterator(fragmentIterator);
+				bm.setExecutableResult(fragmentIterator);
 			}
 			@Override
 			protected void resetResultIterator(IEntityIterator<IEntity> resultIterator, IEntity selfEntity, IBindingManager bm) {

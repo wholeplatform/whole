@@ -31,7 +31,7 @@ public class ReusablesArtifactsGeneratorVisitor extends ReusablesIdentityDefault
 	public void visit(IReusablesEntity entity) {
 		IReusablesEntity entityClone = EntityUtils.clone(entity);
 		IBindingScope resultsScope = InterpreterOperation.interpret(entityClone);
-		for (IEntity result : resultsScope.getResultIterator()) {
+		for (IEntity result : resultsScope.getExecutableResult()) {
 			IEntity adaptee = result.wGetAdaptee(false);
 			stagedVisit(adaptee);
 		}

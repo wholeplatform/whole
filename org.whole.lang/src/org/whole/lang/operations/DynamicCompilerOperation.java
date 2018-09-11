@@ -42,7 +42,7 @@ public class DynamicCompilerOperation extends AbstractOperation {
 	@Override
 	public IBindingScope getResultsScope() {
 		IBindingScope rs = super.getResultsScope();
-		if (!rs.hasResultIterator()) {
+		if (!rs.isExecutableResult()) {
 	    	Object rv = rs.getResult().wGetValue();
 	    	if (rv instanceof IVisitor)
 	    		((IVisitor) rv).setBindings(getOperationEnvironment());
@@ -60,7 +60,7 @@ public class DynamicCompilerOperation extends AbstractOperation {
 		else
 			return new AbstractVisitor() {
 				public void visit(IEntity entity) {
-					setResultIterator(iteratorFactory().templateInterpreterIterator(entity).withSourceEntity(entity));
+					setExecutableResult(iteratorFactory().templateInterpreterIterator(entity).withSourceEntity(entity));
 				}
 			};
 	}

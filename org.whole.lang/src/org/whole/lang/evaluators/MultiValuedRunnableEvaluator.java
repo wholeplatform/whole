@@ -28,7 +28,7 @@ import org.whole.lang.util.IRunnable;
  * @author Riccardo Solmi
  */
 public class MultiValuedRunnableEvaluator<E extends IEntity> extends AbstractNestedEvaluator<E> {
-	protected IExecutable<E> resultIterator;
+	protected IExecutable<E> executableResult;
 	protected IRunnable runnable;
 
 	public MultiValuedRunnableEvaluator(IRunnable runnable, IExecutable<?>... argsIterators) {
@@ -42,27 +42,27 @@ public class MultiValuedRunnableEvaluator<E extends IEntity> extends AbstractNes
 
 	public IExecutable<E> clone(ICloneContext cc) {
 		MultiValuedRunnableEvaluator<E> iterator = (MultiValuedRunnableEvaluator<E>) super.clone(cc);
-		iterator.resultIterator = cc.clone(resultIterator);
+		iterator.executableResult = cc.clone(executableResult);
 		return iterator;
 	}
 
 	public void reset(IEntity entity) {
         super.reset(entity);
-		resultIterator = null;
+		executableResult = null;
     }
 
 	@Override
 	public E evaluateNext() {
-		return lastEntity = getResultIterator().evaluateNext();
+		return lastEntity = getExecutableResult().evaluateNext();
 	}
 
 	@Override
 	public E evaluateRemaining() {
-		return lastEntity = getResultIterator().evaluateRemaining();
+		return lastEntity = getExecutableResult().evaluateRemaining();
 	}
 
-	protected IExecutable<E> getResultIterator() {
-		if (resultIterator == null) {
+	protected IExecutable<E> getExecutableResult() {
+		if (executableResult == null) {
 			try {
 				IBindingManager bm = getBindings();
 				bm.setResult(null);
@@ -73,44 +73,44 @@ public class MultiValuedRunnableEvaluator<E extends IEntity> extends AbstractNes
 		            throw IWholeRuntimeException.asWholeException(e, getSourceEntity(), bm);
 		        }
 
-				resultIterator = bm.getResultIterator();
-				if (bm.hasResultIterator())
-					bm.setResultIterator(null);
+				executableResult = bm.getExecutableResult();
+				if (bm.isExecutableResult())
+					bm.setExecutableResult(null);
 
-				resetResultIterator(resultIterator, selfEntity, bm);
+				resetExecutableResult(executableResult, selfEntity, bm);
 			} catch (Throwable e) {
-				resultIterator = iteratorFactory().failureIterator(e);
+				executableResult = iteratorFactory().failureIterator(e);
 				//TODO reset
 			}
 		}
-		return resultIterator;
+		return executableResult;
 	}
-	protected void resetResultIterator(IExecutable<E> resultIterator, IEntity selfEntity, IBindingManager bm) {
-		resultIterator.setBindings(bm);
-		resultIterator.reset(selfEntity);
+	protected void resetExecutableResult(IExecutable<E> executableResult, IEntity selfEntity, IBindingManager bm) {
+		executableResult.setBindings(bm);
+		executableResult.reset(selfEntity);
 	}
 
     public void prune() {
-    	if (resultIterator != null)
-    		resultIterator.prune();
+    	if (executableResult != null)
+    		executableResult.prune();
     }
 	public void set(E entity) {
-    	if (resultIterator == null)
+    	if (executableResult == null)
     		throw new IllegalStateException();
 
-    	resultIterator.set(entity);
+    	executableResult.set(entity);
 	}
 	public void add(E entity) {
-    	if (resultIterator == null)
+    	if (executableResult == null)
     		throw new IllegalStateException();
 
-    	resultIterator.add(entity);
+    	executableResult.add(entity);
 	}
 	public void remove() {
-    	if (resultIterator == null)
+    	if (executableResult == null)
     		throw new IllegalStateException();
 
-    	resultIterator.remove();
+    	executableResult.remove();
 	}
 
 	@Override

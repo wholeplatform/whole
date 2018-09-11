@@ -59,9 +59,9 @@ public class RecursiveFunctionApplicationIterator extends AbstractExecutableIter
 
 		getBindings().wExitScope();
 
-		functionIterator = getBindings().getResultIterator();
-		if (getBindings().hasResultIterator())
-			getBindings().setResultIterator(null);
+		functionIterator = getBindings().getExecutableResult().iterator();
+		if (getBindings().isExecutableResult())
+			getBindings().setExecutableResult(null);
 
 		getBindings().enforceSelfBinding(resetEntity);
 		functionIterator.reset(resetEntity);

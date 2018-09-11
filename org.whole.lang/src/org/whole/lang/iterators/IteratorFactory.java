@@ -359,7 +359,7 @@ public interface IteratorFactory {
 
 	IEntityIterator<?> nestedVariableIterator();
 
-	IEntityIterator<?> nestedFragmentIterator(Map<IEntity, IEntityIterator<?>> fragmentIteratorMap);
+	IEntityIterator<?> nestedFragmentIterator(Map<IEntity, IExecutable<?>> fragmentIteratorMap);
 
 	IEntityIterator<?> cloneReplacingIterator(IExecutable<?> childMappingIterator);
 

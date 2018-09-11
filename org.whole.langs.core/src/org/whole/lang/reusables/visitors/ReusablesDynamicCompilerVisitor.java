@@ -28,6 +28,7 @@ import org.whole.lang.codebase.IPersistenceKit;
 import org.whole.lang.codebase.IPersistenceProvider;
 import org.whole.lang.codebase.URLPersistenceProvider;
 import org.whole.lang.exceptions.WholeIllegalArgumentException;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.model.adapters.IEntityAdapter;
@@ -57,7 +58,7 @@ import org.whole.lang.util.WholeMessages;
  */
 public class ReusablesDynamicCompilerVisitor extends AbstractReusablesSemanticsVisitor {
 	public void setResult(IEntity result, IEntity sourceEntity) {
-		setResultIterator(iteratorFactory().constantIterator(result, false).withSourceEntity(sourceEntity));
+		setExecutableResult(iteratorFactory().constantIterator(result, false).withSourceEntity(sourceEntity));
 	}
 
 	@Override
@@ -74,22 +75,22 @@ public class ReusablesDynamicCompilerVisitor extends AbstractReusablesSemanticsV
 
 	@Override
 	public void visit(Exists entity) {
-		setResultIterator(existsResource(entity.getResource()));
+		setExecutableResult(existsResource(entity.getResource()));
 	}
 
 	@Override
 	public void visit(Delete entity) {
-		setResultIterator(deleteResource(entity.getResource()));
+		setExecutableResult(deleteResource(entity.getResource()));
 	}
 
 	@Override
 	public void visit(Load entity) {
-		setResultIterator(readResource(entity.getResource()));
+		setExecutableResult(readResource(entity.getResource()));
 	}
 
 	@Override
 	public void visit(Save entity) {
-		setResultIterator(saveResource(entity.getResource()));
+		setExecutableResult(saveResource(entity.getResource()));
 	}
 
 	protected abstract static class ResourcePersistenceRunnable implements IRunnable {
@@ -114,12 +115,12 @@ public class ReusablesDynamicCompilerVisitor extends AbstractReusablesSemanticsV
 	@Override
 	public void visit(Classpath entity) {
 		entity.getPersistence().accept(this);
-		IEntityIterator<?> persistenceIterator = getResultIterator();
+		IExecutable<?> persistenceIterator = getExecutableResult();
 		
 		entity.getContent().accept(this);
-		IEntityIterator<?> contentIterator = getResultIterator();
+		IExecutable<?> contentIterator = getExecutableResult();
 
-		setResultIterator(iteratorFactory().composeIterator(
+		setExecutableResult(iteratorFactory().composeIterator(
 					iteratorFactory().singleValuedRunnableIterator(new ResourcePersistenceRunnable() {
 						protected IPersistenceProvider getPersistenceProvider(String path, IBindingManager bm) {
 							return new ClasspathPersistenceProvider(path, bm);
@@ -130,12 +131,12 @@ public class ReusablesDynamicCompilerVisitor extends AbstractReusablesSemanticsV
 	@Override
 	public void visit(FileSystem entity) {
 		entity.getPersistence().accept(this);
-		IEntityIterator<?> persistenceIterator = getResultIterator();
+		IExecutable<?> persistenceIterator = getExecutableResult();
 		
 		entity.getContent().accept(this);
-		IEntityIterator<?> contentIterator = getResultIterator();
+		IExecutable<?> contentIterator = getExecutableResult();
 
-		setResultIterator(iteratorFactory().composeIterator(
+		setExecutableResult(iteratorFactory().composeIterator(
 				iteratorFactory().singleValuedRunnableIterator(new ResourcePersistenceRunnable() {
 					protected IPersistenceProvider getPersistenceProvider(String path, IBindingManager bm) {
 						return new FilePersistenceProvider(new File(path), bm);
@@ -151,12 +152,12 @@ public class ReusablesDynamicCompilerVisitor extends AbstractReusablesSemanticsV
 	@Override
 	public void visit(URL entity) {
 		entity.getPersistence().accept(this);
-		IEntityIterator<?> persistenceIterator = getResultIterator();
+		IExecutable<?> persistenceIterator = getExecutableResult();
 		
 		entity.getContent().accept(this);
-		IEntityIterator<?> contentIterator = getResultIterator();
+		IExecutable<?> contentIterator = getExecutableResult();
 
-		setResultIterator(iteratorFactory().composeIterator(
+		setExecutableResult(iteratorFactory().composeIterator(
 				iteratorFactory().singleValuedRunnableIterator(new ResourcePersistenceRunnable() {
 					protected IPersistenceProvider getPersistenceProvider(String path, IBindingManager bm) {
 						try { 
@@ -174,28 +175,28 @@ public class ReusablesDynamicCompilerVisitor extends AbstractReusablesSemanticsV
     	if (size == 1)
     		entity.get(0).accept(this);
     	else {
-			IEntityIterator<? extends IEntity>[] contentIterators = new IEntityIterator<?>[size];
+			IExecutable<? extends IEntity>[] contentIterators = new IExecutable<?>[size];
 
 	    	for (int i=0; i<size; i++) {
 				entity.get(i).accept(this);
-				contentIterators[i] = getResultIterator();
+				contentIterators[i] = getExecutableResult();
 			}
 
-	    	setResultIterator(iteratorFactory().sequenceIterator(contentIterators).withSourceEntity(entity));
+	    	setExecutableResult(iteratorFactory().sequenceIterator(contentIterators).withSourceEntity(entity));
     	}
 	}
 
 	@Override
 	public void visit(Folder entity) {
 		entity.getPath().accept(this);
-		IEntityIterator<?> pathIterator = getResultIterator();
+		IExecutable<?> pathIterator = getExecutableResult();
 
 //TODO		entity.getPersistence();
 
 		entity.getContent().accept(this);
-		IEntityIterator<?> contentIterator = getResultIterator();
+		IExecutable<?> contentIterator = getExecutableResult();
 
-		setResultIterator(iteratorFactory().composeIterator(
+		setExecutableResult(iteratorFactory().composeIterator(
 				iteratorFactory().singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
 					if (!BindingManagerFactory.instance.isVoid(selfEntity)) {
 						bm.setResult(BindingManagerFactory.instance.createValue(
@@ -209,11 +210,11 @@ public class ReusablesDynamicCompilerVisitor extends AbstractReusablesSemanticsV
 	@Override
 	public void visit(org.whole.lang.reusables.model.File entity) {
 		entity.getPath().accept(this);
-		IEntityIterator<?> pathIterator = getResultIterator();
+		IExecutable<?> pathIterator = getExecutableResult();
 
 //TODO		entity.getPersistence();
 
-		setResultIterator(iteratorFactory().singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
+		setExecutableResult(iteratorFactory().singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
 					if (!BindingManagerFactory.instance.isVoid(selfEntity)) {
 						bm.setResult(BindingManagerFactory.instance.createValue(
 								arguments[0].wStringValue()));
@@ -227,14 +228,14 @@ public class ReusablesDynamicCompilerVisitor extends AbstractReusablesSemanticsV
     	if (size == 1)
     		entity.get(0).accept(this);
     	else {
-			IEntityIterator<? extends IEntity>[] segmentIterators = new IEntityIterator<?>[size];
+			IExecutable<? extends IEntity>[] segmentIterators = new IExecutable<?>[size];
 
 	    	for (int i=0; i<size; i++) {
 				entity.get(i).accept(this);
-				segmentIterators[i] = getResultIterator();
+				segmentIterators[i] = getExecutableResult();
 			}
 
-			setResultIterator(iteratorFactory().singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
+			setExecutableResult(iteratorFactory().singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
 				if (!BindingManagerFactory.instance.isVoid(selfEntity)) {
 					StringBuilder sb = new StringBuilder();
 					
@@ -250,12 +251,12 @@ public class ReusablesDynamicCompilerVisitor extends AbstractReusablesSemanticsV
 	@Override
 	public void visit(PathWithExtension entity) {
 		entity.getPath().accept(this);
-		IEntityIterator<?> pathIterator = getResultIterator();
+		IExecutable<?> pathIterator = getExecutableResult();
 
 		entity.getExtension().accept(this);
-		IEntityIterator<?> extensionIterator = getResultIterator();
+		IExecutable<?> extensionIterator = getExecutableResult();
 
-		setResultIterator(iteratorFactory().singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
+		setExecutableResult(iteratorFactory().singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
 			if (!BindingManagerFactory.instance.isVoid(selfEntity)) {
 				bm.setResult(BindingManagerFactory.instance.createValue(
 						arguments[0].wStringValue() + '.' + arguments[1].wStringValue()));
@@ -272,7 +273,7 @@ public class ReusablesDynamicCompilerVisitor extends AbstractReusablesSemanticsV
 	public void visit(PersistenceId entity) {
 		String persistenceKitId = entity.getValue();
 
-		setResultIterator(iteratorFactory().singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
+		setExecutableResult(iteratorFactory().singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
 					if (!ReflectionFactory.hasPersistenceKit(persistenceKitId))
 						throw new WholeIllegalArgumentException("The Persistence is not deployed: "+persistenceKitId)
 						.withSourceEntity(entity).withBindings(bm);

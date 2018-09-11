@@ -75,9 +75,9 @@ public class GenericCloneVisitor extends AbstractVisitor {
 			int nextResultSize = entityClone.wSize();
 			index += (nextResultSize - resultSize);
 			
-			if (isResultIterator()) {
-				IEntityIterator<?> iterator = getResultIterator();
-				setResultIterator(null);
+			if (isExecutableResult()) {
+				IEntityIterator<?> iterator = getExecutableResult().iterator();
+				setExecutableResult(null);
 				IEntity selfEntity = getBindings().wGet(IBindingManager.SELF);
 	        	if (selfEntity != oldSelfEntity2)
 	        		getBindings().wDef(IBindingManager.SELF, selfEntity = oldSelfEntity2);
@@ -139,9 +139,9 @@ public class GenericCloneVisitor extends AbstractVisitor {
 			if (!fd.isReference()) {
 				stagedVisitIfNeeded(entityClone.wGet(fd));
 //was			applyIfNeeded(entity.wGet(fd));
-				if (isResultIterator()) {
-					IEntityIterator<?> iterator = getResultIterator();
-					setResultIterator(null);
+				if (isExecutableResult()) {
+					IEntityIterator<?> iterator = getExecutableResult().iterator();
+					setExecutableResult(null);
 					IEntity selfEntity = getBindings().wGet(IBindingManager.SELF);
 		        	if (selfEntity != oldSelfEntity2)
 		        		getBindings().wDef(IBindingManager.SELF, selfEntity = oldSelfEntity2);

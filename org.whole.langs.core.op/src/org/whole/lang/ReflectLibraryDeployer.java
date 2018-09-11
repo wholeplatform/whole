@@ -143,7 +143,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 	public static IEntityIterator<IEntity> languagesIterator() {
 		return IteratorFactory.instance.multiValuedRunnableIterator(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
-				bm.setResultIterator(IteratorFactory.instance.collectionIterator(
+				bm.setExecutableResult(IteratorFactory.instance.collectionIterator(
 						ReflectionFactory.getLanguageKits(false, ResourceUtils.SIMPLE_COMPARATOR),
 						IDataTypeWrapper.envObjectValue));
 			}
@@ -257,7 +257,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 	}
 	protected abstract static class LanguageMultiValuedPropertyRunnable extends LanguagePropertyRunnable {
 		protected void setResult(IBindingManager bm, ILanguageKit languageKit) {
-			bm.setResultIterator(getPropertyIterator(languageKit));
+			bm.setExecutableResult(getPropertyIterator(languageKit));
 		}
 		protected abstract IEntityIterator<?> getPropertyIterator(ILanguageKit languageKit);
 	}
@@ -461,7 +461,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 	}
 	protected abstract static class EntityMultiValuedPropertyRunnable extends EntityPropertyRunnable {
 		protected void setResult(IBindingManager bm, EntityDescriptor<?> ed) {
-			bm.setResultIterator(getPropertyIterator(ed));
+			bm.setExecutableResult(getPropertyIterator(ed));
 		}
 		protected abstract IEntityIterator<?> getPropertyIterator(EntityDescriptor<?> ed);
 	}
@@ -701,7 +701,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 	public static IEntityIterator<IEntity> instanceSupertypesIterator() {
 		return IteratorFactory.instance.multiValuedRunnableIterator(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
-				bm.setResultIterator(supertypesIterator(selfEntity.wGetEntityDescriptor()));
+				bm.setExecutableResult(supertypesIterator(selfEntity.wGetEntityDescriptor()));
 			}
 		});
 	}
@@ -714,7 +714,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 	public static IEntityIterator<IEntity> instanceSubtypesIterator() {
 		return IteratorFactory.instance.multiValuedRunnableIterator(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
-				bm.setResultIterator(subtypesIterator(selfEntity.wGetEntityDescriptor()));
+				bm.setExecutableResult(subtypesIterator(selfEntity.wGetEntityDescriptor()));
 			}
 		});
 	}
@@ -727,7 +727,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 	public static IEntityIterator<IEntity> instanceExtendedConcreteSubtypesIterator() {
 		return IteratorFactory.instance.multiValuedRunnableIterator(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
-				bm.setResultIterator(extendedConcreteSubtypesIterator(selfEntity.wGetEntityDescriptor()));
+				bm.setExecutableResult(extendedConcreteSubtypesIterator(selfEntity.wGetEntityDescriptor()));
 			}
 		});
 	}
@@ -775,7 +775,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 	public static IEntityIterator<IEntity> instanceFeaturesIterator() {
 		return IteratorFactory.instance.multiValuedRunnableIterator(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
-				bm.setResultIterator(featuresIterator(selfEntity.wGetEntityDescriptor()));
+				bm.setExecutableResult(featuresIterator(selfEntity.wGetEntityDescriptor()));
 			}
 		});
 	}
@@ -787,7 +787,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 	public static IEntityIterator<IEntity> instanceAspectualFeaturesIterator() {
 		return IteratorFactory.instance.multiValuedRunnableIterator(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
-				bm.setResultIterator(IteratorFactory.instance.collectionIterator(
+				bm.setExecutableResult(IteratorFactory.instance.collectionIterator(
 						selfEntity.wGetAspectualFeatureDescriptors(),
 						IDataTypeWrapper.envEnumValue));
 			}

@@ -98,7 +98,7 @@ public class CallIterator<E extends IEntity>  extends AbstractExecutableIteratin
 			} else
 				queryBindings = getBindings();
 
-			queryIterator = DynamicCompilerOperation.compile(queryBody, queryBindings).getResultIterator();
+			queryIterator = (IEntityIterator<E>) DynamicCompilerOperation.compile(queryBody, queryBindings).getExecutableResult().iterator();
 
 //TODO test
 //			IBindingManager queriesRegistry = getDynamicQueriesRegistry();

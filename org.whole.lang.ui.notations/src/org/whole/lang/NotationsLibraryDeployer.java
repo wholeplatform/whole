@@ -112,7 +112,7 @@ public class NotationsLibraryDeployer extends AbstractFunctionLibraryDeployer {
 	}
 	protected abstract static class EntityPartMultiValuedPropertyRunnable extends EntityPartPropertyRunnable {
 		protected void setResult(IBindingManager bm, IEntityPart entityPart) {
-			bm.setResultIterator(getPropertyIterator((IEntityPartViewer) bm.wGetValue("viewer"), entityPart));
+			bm.setExecutableResult(getPropertyIterator((IEntityPartViewer) bm.wGetValue("viewer"), entityPart));
 		}
 		protected abstract IEntityIterator<?> getPropertyIterator(IEntityPartViewer viewer, IEntityPart entityPart);
 	}
@@ -152,7 +152,7 @@ public class NotationsLibraryDeployer extends AbstractFunctionLibraryDeployer {
 	}
 	protected abstract static class EntityFigureMultiValuedPropertyRunnable extends EntityFigurePropertyRunnable {
 		protected void setResult(IBindingManager bm, IEntityFigure entityFigure) {
-			bm.setResultIterator(getPropertyIterator((IEntityPartViewer) bm.wGetValue("viewer"), entityFigure));
+			bm.setExecutableResult(getPropertyIterator((IEntityPartViewer) bm.wGetValue("viewer"), entityFigure));
 		}
 		protected abstract IEntityIterator<?> getPropertyIterator(IEntityPartViewer viewer, IEntityFigure entityFigure);
 	}

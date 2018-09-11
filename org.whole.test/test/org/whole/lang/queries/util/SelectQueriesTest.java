@@ -524,7 +524,7 @@ public class SelectQueriesTest {
     public void testDeclaredNamesBinding() {
 		IEntityIterator<IEntity> iterator = DynamicCompilerOperation.compile(
 				SelectQueriesTemplateManager.instance().create("selectDeclaredNamesBinding"),
-				BindingManagerFactory.instance.createArguments()).getResultIterator();
+				BindingManagerFactory.instance.createArguments()).getExecutableResult().iterator();
 		
 		iterator.reset(BindingManagerFactory.instance.createNull());
 		

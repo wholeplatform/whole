@@ -80,7 +80,7 @@ public class SQLInterpreterTest {
 		IEntity map = DBMappingTemplateManager.instance().create("mapAuthorsQuery");
 		IEntity results = DBMappingTemplateManager.instance().create("mapAuthorsResults");
 		int index = 0;
-		IExecutable<IEntity> ci = DynamicCompilerOperation.compile(map, bm).getResultIterator();
+		IExecutable<IEntity> ci = DynamicCompilerOperation.compile(map, bm).getExecutableResult();
 		ci.reset(BindingManagerFactory.instance.createNull());
 		for (IEntity result : ci) {
 			IEntity expectedResult = results.wGet(index++).wGet(0);
@@ -104,7 +104,7 @@ public class SQLInterpreterTest {
 		IEntity map = DBMappingTemplateManager.instance().create("mapAuthorsQuery2");
 		IEntity results = DBMappingTemplateManager.instance().create("mapAuthorsResults");
 		int index = 0;
-		IExecutable<IEntity> ci = DynamicCompilerOperation.compile(map, bm).getResultIterator();
+		IExecutable<IEntity> ci = DynamicCompilerOperation.compile(map, bm).getExecutableResult();
 		ci.reset(BindingManagerFactory.instance.createNull());
 		for (IEntity result : ci) {
 			IEntity expectedResult = results.wGet(index++).wGet(0);
@@ -128,7 +128,7 @@ public class SQLInterpreterTest {
 		IEntity map = DBMappingTemplateManager.instance().create("mapAuthorsQuery3");
 		IEntity results = DBMappingTemplateManager.instance().create("mapAuthorsResults");
 		int index = 0;
-		IExecutable<IEntity> ci = DynamicCompilerOperation.compile(map, bm).getResultIterator();
+		IExecutable<IEntity> ci = DynamicCompilerOperation.compile(map, bm).getExecutableResult();
 		ci.reset(BindingManagerFactory.instance.createNull());
 		for (IEntity result : ci) {
 			IEntity expectedResult = results.wGet(index++).wGet(0);
@@ -152,7 +152,7 @@ public class SQLInterpreterTest {
 		IEntity map = DBMappingTemplateManager.instance().create("mapAuthorsQueryWithNestedVar");
 		IEntity results = DBMappingTemplateManager.instance().create("mapAuthorsResults");
 		int index = 0;
-		IExecutable<IEntity> ci = DynamicCompilerOperation.compile(map, bm).getResultIterator();
+		IExecutable<IEntity> ci = DynamicCompilerOperation.compile(map, bm).getExecutableResult();
 		ci.reset(BindingManagerFactory.instance.createNull());
 		for (IEntity result : ci) {
 			IEntity expectedResult = results.wGet(index++).wGet(0);
@@ -175,9 +175,9 @@ public class SQLInterpreterTest {
 
 		IEntity map = DBMappingTemplateManager.instance().create("selectDatatypesDB");
 		IEntity results = DBMappingTemplateManager.instance().create("selectDatatypesDBResults");
-		IJavaIterator<IEntity> resultsIterator = DynamicCompilerOperation.compile(results, bm).getResultIterator().iterator();
+		IJavaIterator<IEntity> resultsIterator = DynamicCompilerOperation.compile(results, bm).getExecutableResult().iterator();
 		resultsIterator.reset(BindingManagerFactory.instance.createNull());
-		IExecutable<IEntity> mapIterator = DynamicCompilerOperation.compile(map, bm).getResultIterator();
+		IExecutable<IEntity> mapIterator = DynamicCompilerOperation.compile(map, bm).getExecutableResult();
 		mapIterator.reset(BindingManagerFactory.instance.createNull());
 		for (IEntity result : mapIterator) {
 			assertTrue(resultsIterator.hasNext());
