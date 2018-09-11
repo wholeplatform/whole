@@ -57,7 +57,7 @@ public class EditorsArtifactsGeneratorVisitor extends EditorsIdentityDefaultVisi
 	}
 
 	protected IEntity generateWorkspaceModel(IEntity model, IBindingManager bm) {
-		return BehaviorUtils.compileAndLazyEvaluate(createMappingQuery(), model, bm).next();
+		return BehaviorUtils.compileAndLazyEvaluate(createMappingQuery(), model, bm).evaluateNext();
 	}
 
 	protected PathExpression createMappingQuery() {

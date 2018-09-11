@@ -18,8 +18,8 @@
 package org.whole.lang.util;
 
 import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
-import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.IteratorFactory;
+import org.whole.lang.executables.IExecutable;
+import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.visitors.GenericIdentityVisitor;
 import org.whole.lang.visitors.GenericTraversalFactory;
@@ -46,7 +46,7 @@ public class GenericNormalizer {
 
 	protected static void beforeRemovingResolvers(IEntity entity) {
 		if (EntityUtils.isComposite(entity)) {
-			IEntityIterator<IEntity> i = IteratorFactory.instance.childIterator();
+			IExecutable<?> i = ExecutableFactory.instance.createChild();
 			i.reset(entity);
 			for (IEntity child : i)
 				if (EntityUtils.isResolver(child))

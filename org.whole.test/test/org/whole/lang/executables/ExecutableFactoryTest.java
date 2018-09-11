@@ -28,7 +28,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.iterators.IteratorFactory;
+import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.steppers.IDataFlowConsumer;
@@ -37,7 +37,7 @@ import org.whole.lang.steppers.IDataFlowConsumer;
  * @author Riccardo Solmi
  */
 public class ExecutableFactoryTest {
-	protected static IteratorFactory f;
+	protected static ExecutableFactory f;
 	protected static BindingManagerFactory bmf;
 	protected static IEntity[] VALUES;
 	protected static IEntity TRUE_VALUE;
@@ -126,7 +126,7 @@ public class ExecutableFactoryTest {
     @Test
     public void testEmptyStepper() {
     	TesterDataFlowConsumer c = new TesterDataFlowConsumer();
-    	IExecutable<?> p = f.emptyIterator();
+    	IExecutable<?> p = f.createEmpty();
 		p.withConsumer(c);
     	p.setBindings(bmf.createBindingManager());
     	p.reset(VALUES[0]);
@@ -143,7 +143,7 @@ public class ExecutableFactoryTest {
     @Test
     public void testConstantStepper() {
     	TesterDataFlowConsumer c = new TesterDataFlowConsumer();
-    	IExecutable<?> p = f.constantIterator(VALUES[0], false);
+    	IExecutable<?> p = f.createConstant(VALUES[0], false);
 		p.withConsumer(c);
     	p.setBindings(bmf.createBindingManager());
 
@@ -182,7 +182,7 @@ public class ExecutableFactoryTest {
     public void testAsVariableStepper() {
     	IBindingManager bm = bmf.createBindingManager();
     	TesterDataFlowConsumer c = new TesterDataFlowConsumer();
-    	IExecutable<?> p = f.asVariableIterator("v0");
+    	IExecutable<?> p = f.createAsVariable("v0");
 		p.withConsumer(c);
     	p.setBindings(bm);
 
@@ -220,7 +220,7 @@ public class ExecutableFactoryTest {
     	IBindingManager bm = bmf.createBindingManager();
     	bm.wDef("v0", VALUES[0]);
     	TesterDataFlowConsumer c = new TesterDataFlowConsumer();
-    	IExecutable<?> p = f.variableIterator("v0");
+    	IExecutable<?> p = f.createVariable("v0");
 		p.withConsumer(c);
     	p.setBindings(bm);
 
@@ -244,7 +244,7 @@ public class ExecutableFactoryTest {
     public void testBindVariableStepper() {
     	IBindingManager bm = bmf.createBindingManager();
     	TesterDataFlowConsumer c = new TesterDataFlowConsumer();
-    	IExecutable<?> p = f.filterIterator(f.constantIterator(VALUES[0], false), f.asVariableIterator("v0"));
+    	IExecutable<?> p = f.createFilter(f.createConstant(VALUES[0], false), f.createAsVariable("v0"));
 		p.withConsumer(c);
     	p.setBindings(bm);
 
@@ -271,17 +271,17 @@ public class ExecutableFactoryTest {
     public void testSequenceStepper() {
     	TesterDataFlowConsumer c = new TesterDataFlowConsumer();
     	@SuppressWarnings("unchecked")
-		IExecutable<?> p = f.sequenceIterator(
-    			f.constantIterator(VALUES[0], false),
-    			f.constantIterator(VALUES[1], false),
-    			f.constantIterator(VALUES[2], false),
-    			f.sequenceIterator(
-    	    			f.constantIterator(VALUES[3], false),
-    	    			f.constantIterator(VALUES[4], false)),
-    			f.sequenceIterator(
-    	    			f.constantIterator(VALUES[5], false),
-    	    			f.constantIterator(VALUES[6], false),
-    	    			f.constantIterator(VALUES[7], false))
+		IExecutable<?> p = f.createSequence(
+    			f.createConstant(VALUES[0], false),
+    			f.createConstant(VALUES[1], false),
+    			f.createConstant(VALUES[2], false),
+    			f.createSequence(
+    	    			f.createConstant(VALUES[3], false),
+    	    			f.createConstant(VALUES[4], false)),
+    			f.createSequence(
+    	    			f.createConstant(VALUES[5], false),
+    	    			f.createConstant(VALUES[6], false),
+    	    			f.createConstant(VALUES[7], false))
     	);
 		p.withConsumer(c);
     	p.setBindings(bmf.createBindingManager());
@@ -313,17 +313,17 @@ public class ExecutableFactoryTest {
     	IBindingManager bm = bmf.createBindingManager();
     	TesterDataFlowConsumer c = new TesterDataFlowConsumer();
 		@SuppressWarnings("unchecked")
-		IExecutable<?> p = f.sequenceIterator(
-				f.filterIterator(f.constantIterator(VALUES[0], false), f.asVariableIterator("v0")),
-				f.filterIterator(f.constantIterator(VALUES[1], false), f.asVariableIterator("v1")),
-				f.filterIterator(f.variableIterator("v0"), f.asVariableIterator("v2")),
-    			f.sequenceIterator(
-    					f.filterIterator(f.constantIterator(VALUES[2], false), f.asVariableIterator("v0")), //not bound
-    					f.filterIterator(f.constantIterator(VALUES[3], false), f.asVariableIterator("v3")),
-    					f.filterIterator(f.variableIterator("v1"), f.asVariableIterator("v4"))),
-				f.filterIterator(f.variableIterator("v0"), f.asVariableIterator("v5")),
-				f.filterIterator(f.variableIterator("v3"), f.asVariableIterator("v6")), //not bound: missing v3
-    			f.filterIterator(f.constantIterator(VALUES[4], false), f.asVariableIterator("v3"))
+		IExecutable<?> p = f.createSequence(
+				f.createFilter(f.createConstant(VALUES[0], false), f.createAsVariable("v0")),
+				f.createFilter(f.createConstant(VALUES[1], false), f.createAsVariable("v1")),
+				f.createFilter(f.createVariable("v0"), f.createAsVariable("v2")),
+    			f.createSequence(
+    					f.createFilter(f.createConstant(VALUES[2], false), f.createAsVariable("v0")), //not bound
+    					f.createFilter(f.createConstant(VALUES[3], false), f.createAsVariable("v3")),
+    					f.createFilter(f.createVariable("v1"), f.createAsVariable("v4"))),
+				f.createFilter(f.createVariable("v0"), f.createAsVariable("v5")),
+				f.createFilter(f.createVariable("v3"), f.createAsVariable("v6")), //not bound: missing v3
+    			f.createFilter(f.createConstant(VALUES[4], false), f.createAsVariable("v3"))
     	);
 		p.withConsumer(c);
     	p.setBindings(bm);
@@ -368,16 +368,16 @@ public class ExecutableFactoryTest {
     	IBindingManager bm = bmf.createBindingManager();
     	TesterDataFlowConsumer c = new TesterDataFlowConsumer();
 		@SuppressWarnings("unchecked")
-		IExecutable<?> p = f.sequenceIterator(
-				f.filterIterator(f.constantIterator(VALUES[0], false), f.asVariableIterator("v0")),
-    			f.ifIterator(
-    					f.filterIterator(f.constantIterator(TRUE_VALUE, false), f.asVariableIterator("v1")),
-    	    			f.sequenceIterator(
-    	    					f.filterIterator(f.variableIterator("v1"), f.asVariableIterator("v2")),
-    	    					f.filterIterator(f.constantIterator(VALUES[3], false), f.asVariableIterator("v3")))),
-				f.filterIterator(f.variableIterator("v0"), f.asVariableIterator("v4")),
-				f.filterIterator(f.variableIterator("v1"), f.asVariableIterator("v5")),
-				f.filterIterator(f.variableIterator("v2"), f.asVariableIterator("v6")) //not bound
+		IExecutable<?> p = f.createSequence(
+				f.createFilter(f.createConstant(VALUES[0], false), f.createAsVariable("v0")),
+    			f.createIf(
+    					f.createFilter(f.createConstant(TRUE_VALUE, false), f.createAsVariable("v1")),
+    	    			f.createSequence(
+    	    					f.createFilter(f.createVariable("v1"), f.createAsVariable("v2")),
+    	    					f.createFilter(f.createConstant(VALUES[3], false), f.createAsVariable("v3")))),
+				f.createFilter(f.createVariable("v0"), f.createAsVariable("v4")),
+				f.createFilter(f.createVariable("v1"), f.createAsVariable("v5")),
+				f.createFilter(f.createVariable("v2"), f.createAsVariable("v6")) //not bound
     	);
 		p.withConsumer(c);
     	p.setBindings(bm);
@@ -412,7 +412,7 @@ public class ExecutableFactoryTest {
 
     @Test
     public void testEmptyEvaluator() {
-    	IExecutable<?> i = f.emptyIterator();
+    	IExecutable<?> i = f.createEmpty();
     	i.setBindings(bmf.createBindingManager());
     	i.reset(VALUES[0]);
 
@@ -431,7 +431,7 @@ public class ExecutableFactoryTest {
 
     @Test
     public void testConstantEvaluator() {
-    	IExecutable<?> i = f.constantIterator(VALUES[0], false);
+    	IExecutable<?> i = f.createConstant(VALUES[0], false);
     	i.setBindings(bmf.createBindingManager());
     	i.reset(VALUES[1]);
 
@@ -454,17 +454,17 @@ public class ExecutableFactoryTest {
     @Test
     public void testSequenceEvaluator() {
     	@SuppressWarnings("unchecked")
-		IExecutable<?> i = f.sequenceIterator(
-    			f.constantIterator(VALUES[0], false),
-    			f.constantIterator(VALUES[1], false),
-    			f.constantIterator(VALUES[2], false),
-    			f.sequenceIterator(
-    	    			f.constantIterator(VALUES[3], false),
-    	    			f.constantIterator(VALUES[4], false)),
-    			f.sequenceIterator(
-    	    			f.constantIterator(VALUES[5], false),
-    	    			f.constantIterator(VALUES[6], false),
-    	    			f.constantIterator(VALUES[7], false))
+		IExecutable<?> i = f.createSequence(
+    			f.createConstant(VALUES[0], false),
+    			f.createConstant(VALUES[1], false),
+    			f.createConstant(VALUES[2], false),
+    			f.createSequence(
+    	    			f.createConstant(VALUES[3], false),
+    	    			f.createConstant(VALUES[4], false)),
+    			f.createSequence(
+    	    			f.createConstant(VALUES[5], false),
+    	    			f.createConstant(VALUES[6], false),
+    	    			f.createConstant(VALUES[7], false))
     	);
     	i.setBindings(bmf.createBindingManager());
     	i.reset(VALUES[0]);
@@ -490,15 +490,15 @@ public class ExecutableFactoryTest {
     @Test
     public void testChooseByOrderEvaluator() {
     	@SuppressWarnings("unchecked")
-		IExecutable<?> i = f.chooseIterator(
-    			f.emptyIterator(),
-    			f.emptyIterator(),
-    			f.sequenceIterator(
-    	    			f.constantIterator(VALUES[0], false),
-    	    			f.constantIterator(VALUES[1], false),
-    	    			f.constantIterator(VALUES[2], false)),
-    			f.constantIterator(VALUES[3], false),
-    			f.constantIterator(VALUES[4], false)
+		IExecutable<?> i = f.createChoose(
+    			f.createEmpty(),
+    			f.createEmpty(),
+    			f.createSequence(
+    	    			f.createConstant(VALUES[0], false),
+    	    			f.createConstant(VALUES[1], false),
+    	    			f.createConstant(VALUES[2], false)),
+    			f.createConstant(VALUES[3], false),
+    			f.createConstant(VALUES[4], false)
     	);
     	i.setBindings(bmf.createBindingManager());
     	i.reset(VALUES[0]);

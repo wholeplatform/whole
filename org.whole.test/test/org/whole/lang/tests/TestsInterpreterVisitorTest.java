@@ -23,8 +23,8 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.java.reflect.JavaEntityDescriptorEnum;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
@@ -72,14 +72,14 @@ public class TestsInterpreterVisitorTest {
 		Assert.assertEquals(0, result.wGet(2).wIntValue());
 
 		// remove timestamps from both the models
-		IEntityIterator<IEntity> iterator = IteratorFactory.instance.descendantOrSelfMatcherIterator()
+		IEntityIterator<IEntity> iterator = ExecutableFactory.instance.createDescendantOrSelfMatcher()
 				.withPattern(JavaEntityDescriptorEnum.LongLiteral);
 		iterator.reset(testSuiteToComplete);
 		while (iterator.hasNext()) {
 			iterator.next();
 			iterator.remove();
 		}
-		iterator = IteratorFactory.instance.descendantOrSelfMatcherIterator()
+		iterator = ExecutableFactory.instance.createDescendantOrSelfMatcher()
 				.withPattern(JavaEntityDescriptorEnum.LongLiteral);
 		iterator.reset(testSuiteCompleted);
 		while (iterator.hasNext()) {

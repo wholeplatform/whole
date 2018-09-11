@@ -27,13 +27,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.whole.lang.bindings.BindingManagerFactory;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.grammars.factories.GrammarsEntityFactory;
 import org.whole.lang.grammars.model.DataTypeEnum;
 import org.whole.lang.grammars.model.Format;
 import org.whole.lang.grammars.model.NonTerminal;
 import org.whole.lang.grammars.model.Template;
-import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.IteratorFactory;
+import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.util.DataTypeUtils;
 import org.whole.lang.util.FreshNameGenerator;
@@ -83,7 +83,7 @@ public class GrammarsActionsHelpers {
 		}
 		public TokenSet(IEntity tuple) {
 			this(tuple.wSize()*2);
-			IEntityIterator<NonTerminal> i = IteratorFactory.instance.<NonTerminal>childIterator();
+			IExecutable<NonTerminal> i = ExecutableFactory.instance.<NonTerminal>createChild();
 			i.reset(tuple);
 			for (NonTerminal nt : i)
 				add(nt.getValue());

@@ -19,8 +19,8 @@ package org.whole.lang.actions.util;
 
 import org.whole.lang.actions.resources.ActionsRegistry;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.IteratorFactory;
+import org.whole.lang.executables.IExecutable;
+import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.util.ResourceUtils;
@@ -29,8 +29,8 @@ import org.whole.lang.util.ResourceUtils;
  * @author Riccardo Solmi
  */
 public class ActionsUtils {
-	public static IEntityIterator<IEntity> actionsModulesIterator() {
-		return IteratorFactory.instance.javaCollectionIterator(
+	public static IExecutable<?> actionsModulesIterator() {
+		return ExecutableFactory.instance.createJavaCollection(
 				ActionsRegistry.instance().getResources(false, ResourceUtils.SIMPLE_COMPARATOR));
 	}
 	public static IEntity getActionsModule(IBindingManager bm, String resourceURI, boolean loadOnDemand) {

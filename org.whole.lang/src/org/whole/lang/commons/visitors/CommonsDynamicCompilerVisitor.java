@@ -31,8 +31,7 @@ import org.whole.lang.commons.model.StageDownFragment;
 import org.whole.lang.commons.model.StageUpFragment;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.executables.IExecutable;
-import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.IteratorFactory;
+import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.util.BehaviorUtils;
@@ -47,7 +46,7 @@ import org.whole.lang.visitors.VisitException;
 public class CommonsDynamicCompilerVisitor extends CommonsIdentityDefaultVisitor {
 	@Override
 	public void visit(ICommonsEntity entity) {
-		setExecutableResult(iteratorFactory().templateInterpreterIterator(entity).withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createTemplateInterpreter(entity).withSourceEntity(entity));
 	}
 
 	@Override
@@ -95,7 +94,7 @@ public class CommonsDynamicCompilerVisitor extends CommonsIdentityDefaultVisitor
 			return;
 		}
 
-		setExecutableResult(iteratorFactory().templateInterpreterIterator(entity).withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createTemplateInterpreter(entity).withSourceEntity(entity));
 	}
 
 	@SuppressWarnings("unchecked")
@@ -132,41 +131,41 @@ public class CommonsDynamicCompilerVisitor extends CommonsIdentityDefaultVisitor
 				fragmentIterator = getExecutableResult();
 			} else
 				setExecutableResult(fragmentIterator = 
-						iteratorFactory().templateInterpreterIterator(f).withSourceEntity(sourceEntity));
+						iteratorFactory().createTemplateInterpreter(f).withSourceEntity(sourceEntity));
 
 			fragmentIteratorMap.put(f, getExecutableResult());
 		});
 
-		IteratorFactory f = iteratorFactory();
-		IEntityIterator<?> compiledIterator = f.chooseIterator(
-			f.ifIterator(
-					f.atStageIterator(0),
-					f.composeIterator(
-							f.chooseIterator(
-									f.ifIterator(
-											f.isFragmentIterator(), f.nestedFragmentIterator(fragmentIteratorMap)),
-									f.ifIterator(
-											f.isVariableIterator(), f.nestedVariableIterator()),
-									f.cloneReplacingIterator(
-											f.chooseIterator(
-													f.ifIterator(
-															f.isFragmentIterator(), f.nestedFragmentIterator(fragmentIteratorMap)),
-													f.ifIterator(
-															f.isVariableIterator(), f.nestedVariableIterator())
+		ExecutableFactory f = iteratorFactory();
+		IExecutable<?> compiledIterator = f.createChoose(
+			f.createIf(
+					f.createAtStage(0),
+					f.createCompose(
+							f.createChoose(
+									f.createIf(
+											f.createIsFragment(), f.createNestedFragment(fragmentIteratorMap)),
+									f.createIf(
+											f.createIsVariable(), f.createNestedVariable()),
+									f.createCloneReplacing(
+											f.createChoose(
+													f.createIf(
+															f.createIsFragment(), f.createNestedFragment(fragmentIteratorMap)),
+													f.createIf(
+															f.createIsVariable(), f.createNestedVariable())
 											), Set.of(
 											CommonsEntityDescriptorEnum.StageUpFragment.getURI(),
 											CommonsEntityDescriptorEnum.StageDownFragment.getURI(),
 											CommonsEntityDescriptorEnum.Variable.getURI(),
 											CommonsEntityDescriptorEnum.InlineVariable.getURI()))),
-							f.constantIterator(rootEntity, false))),
-			f.templateInterpreterIterator(fragment).withSourceEntity(sourceEntity)//TODO f.constantIterator(fragment, true)
+							f.createConstant(rootEntity, false))),
+			f.createTemplateInterpreter(fragment).withSourceEntity(sourceEntity)//TODO f.constantIterator(fragment, true)
 		).withSourceEntity(sourceEntity);
 
 		if (!nested) {
 			String outerSelfName = IBindingManager.OUTER_SELF;
-			compiledIterator = f.scopeIterator(
-				f.blockIterator(
-						f.filterIterator(f.selfIterator(), f.asVariableIterator(outerSelfName)),
+			compiledIterator = f.createScope(
+				f.createBlock(
+						f.createFilter(f.createSelf(), f.createAsVariable(outerSelfName)),
 						compiledIterator
 				), null, Set.of(outerSelfName), true).withSourceEntity(sourceEntity);
 		}

@@ -33,7 +33,7 @@ public class DescendantEvaluator<E extends IEntity> extends AbstractTransitiveCl
 	}
 
     protected IExecutable<E> createRelationIterator() {
-    	return iteratorFactory().<E>childIterator();
+    	return executableFactory().<E>createChild();
     }
 
     public void toString(StringBuilder sb) {

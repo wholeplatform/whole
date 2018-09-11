@@ -41,7 +41,7 @@ import org.whole.lang.util.ResourceUtils;
  * 
  * @author Riccardo Solmi
  */
-public abstract class AbstractIteratorBasedExecutableFactory implements IteratorFactory {
+public abstract class AbstractIteratorBasedExecutableFactory implements ExecutableFactory {
 
 	public static <E extends IEntity> IEntityIterator<E>[] toIterators(@SuppressWarnings("unchecked") IExecutable<E>... executables) {
 		@SuppressWarnings("unchecked")
@@ -53,26 +53,26 @@ public abstract class AbstractIteratorBasedExecutableFactory implements Iterator
 	}
 	
 	
-	public IEntityIterator<IEntity> aspectIterator() {
+	public IExecutable<IEntity> createAspect() {
 		return new AspectIterator();
 	}
 
-	public <E extends IEntity> ScannerIterator<E> scannerIterator(IExecutable<E> iterator) {
-		return new ScannerIterator<E>(iterator.iterator());
+	public <E extends IEntity> ScannerIterator<E> createScanner(IExecutable<E> executable) {
+		return new ScannerIterator<E>(executable.iterator());
 	}
-	public <E extends IEntity> MatcherIterator<E> matcherIterator(IExecutable<E> iterator) {
-		return new MatcherIterator<E>(iterator.iterator());
+	public <E extends IEntity> MatcherIterator<E> createMatcher(IExecutable<E> executable) {
+		return new MatcherIterator<E>(executable.iterator());
 	}
 
-	public <E extends IEntity> IEntityIterator<E> filterIterator(IExecutable<E> iterator, IExecutable<? extends IEntity> filterIterator) {
-		return new FilterIterator<E>(iterator.iterator(), filterIterator.iterator());
+	public <E extends IEntity> IExecutable<E> createFilter(IExecutable<E> executable, IExecutable<? extends IEntity> filterExecutable) {
+		return new FilterIterator<E>(executable.iterator(), filterExecutable.iterator());
 	}
 
 	public static class FilterIterator<E extends IEntity> extends MatcherIterator<E> {
-		protected IEntityIterator<? extends IEntity> filterIterator;
+		protected IExecutable<? extends IEntity> filterIterator;
 
-		protected FilterIterator(IExecutable<E> iterator, IExecutable<? extends IEntity> filterIterator) {
-			super(iterator.iterator());
+		protected FilterIterator(IExecutable<E> executable, IExecutable<? extends IEntity> filterIterator) {
+			super(executable.iterator());
 			this.filterIterator = filterIterator.iterator();
 		}
 
@@ -110,83 +110,83 @@ public abstract class AbstractIteratorBasedExecutableFactory implements Iterator
 	}
 
 
-	public <E extends IEntity> IEntityIterator<E> ifIterator(IExecutable<? extends IEntity> conditionIterator, IExecutable<E> doIterator) {
-		return new IfIterator<E>(conditionIterator.iterator(), doIterator.iterator());
+	public <E extends IEntity> IExecutable<E> createIf(IExecutable<? extends IEntity> conditionExecutable, IExecutable<E> doExecutable) {
+		return new IfIterator<E>(conditionExecutable.iterator(), doExecutable.iterator());
 	}
-	public <E extends IEntity> IEntityIterator<E> forIterator(IExecutable<? extends IEntity> forIterator, IExecutable<E> doIterator) {
-		return new ForIterator<E>(forIterator.iterator(), doIterator.iterator());
+	public <E extends IEntity> IExecutable<E> createFor(IExecutable<? extends IEntity> forExecutable, IExecutable<E> doExecutable) {
+		return new ForIterator<E>(forExecutable.iterator(), doExecutable.iterator());
 	}
 
-	public IEntityIterator<IEntity> functionApplicationIterator(String functionUri) {
+	public IExecutable<IEntity> createFunctionApplication(String functionUri) {
 		return new FunctionApplicationIterator(functionUri);
 	}
-	public IEntityIterator<IEntity> recursiveFunctionApplicationIterator() {
+	public IExecutable<IEntity> createRecursiveFunctionApplication() {
 		return new RecursiveFunctionApplicationIterator();
 	}
-	public <E extends IEntity> IEntityIterator<E> templateInterpreterIterator(IEntity template) {
+	public <E extends IEntity> IExecutable<E> createTemplateInterpreter(IEntity template) {
 		return new TemplateInterpreterIterator<E>(template);
 	}
 
-	public <E extends IEntity> IEntityIterator<E> chooseIterator(IExecutable<? extends E>... iteratorChain) {
-		return new ChooseByOrderIterator<E>(toIterators(iteratorChain));
+	public <E extends IEntity> IExecutable<E> createChoose(IExecutable<? extends E>... executableChain) {
+		return new ChooseByOrderIterator<E>(toIterators(executableChain));
 	}
 
-	public <E extends IEntity> IEntityIterator<E> chooseIterator(ILanguageKit languageKit) {
+	public <E extends IEntity> IExecutable<E> createChoose(ILanguageKit languageKit) {
 		return new ChooseByTypeIterator<E>(languageKit);
 	}
 
-	public <E extends IEntity> IEntityIterator<E> blockIterator(IExecutable<? extends E>... iteratorChain) {
-		return new BlockIterator<E>(toIterators(iteratorChain));
+	public <E extends IEntity> IExecutable<E> createBlock(IExecutable<? extends E>... executableChain) {
+		return new BlockIterator<E>(toIterators(executableChain));
 	}
 
-	public <E extends IEntity> IEntityIterator<E> sequenceIterator(IExecutable<? extends E>... iteratorChain) {
-		return new SequenceIterator<E>(toIterators(iteratorChain));
+	public <E extends IEntity> IExecutable<E> createSequence(IExecutable<? extends E>... executableChain) {
+		return new SequenceIterator<E>(toIterators(executableChain));
 	}
 
-	public <E extends IEntity> IEntityIterator<E> composeIterator(IExecutable<E> iterator, IExecutable<? extends IEntity>... nestedIterators) {
-		return new ComposeIterator<E>(iterator.iterator(), toIterators(nestedIterators));
+	public <E extends IEntity> IExecutable<E> createCompose(IExecutable<E> executable, IExecutable<? extends IEntity>... nestedExecutables) {
+		return new ComposeIterator<E>(executable.iterator(), toIterators(nestedExecutables));
 	}
 
-	public <E extends IEntity> IEntityIterator<E> filterByIndexIterator(IExecutable<E> iterator, int index) {
-		return new FilterByIndexRangeIterator<E>(iterator.iterator(), index, index);
+	public <E extends IEntity> IExecutable<E> createFilterByIndex(IExecutable<E> executable, int index) {
+		return new FilterByIndexRangeIterator<E>(executable.iterator(), index, index);
 	}
-	public <E extends IEntity> IEntityIterator<E> filterByIndexRangeIterator(IExecutable<E> iterator, int startIndex, int endIndex) {
-		return new FilterByIndexRangeIterator<E>(iterator.iterator(), startIndex, endIndex);
+	public <E extends IEntity> IExecutable<E> createFilterByIndexRange(IExecutable<E> executable, int startIndex, int endIndex) {
+		return new FilterByIndexRangeIterator<E>(executable.iterator(), startIndex, endIndex);
 	}
-	public <E extends IEntity> IEntityIterator<E> filterByIndexRangeIterator() {
+	public <E extends IEntity> IExecutable<E> createFilterByIndexRange() {
 		return new FilterByIndexRangeIterator<E>();
 	}
 
-	public <E extends IEntity> DistinctScope<E> distinctScope() {
+	public <E extends IEntity> DistinctScope<E> createDistinctScope() {
 		return new FilterByDistinctIterator<E>();
 	}
-	public <E extends IEntity> DistinctScope<E> distinctScope(IEntityComparator<IEntity> comparator) {
+	public <E extends IEntity> DistinctScope<E> createDistinctScope(IEntityComparator<IEntity> comparator) {
 		return new FilterByDistinctIterator<E>(comparator);
 	}
 
 	@SuppressWarnings("unchecked")
-	public IEntityIterator<IEntity> unionAllIterator(IExecutable<? extends IEntity>... iteratorChain) {
-		return new UnionAllIterator(toIterators(iteratorChain));
+	public IExecutable<IEntity> createUnionAll(IExecutable<? extends IEntity>... executableChain) {
+		return new UnionAllIterator(toIterators(executableChain));
 	}
 	@SuppressWarnings("unchecked")
-	public IEntityIterator<IEntity> unionIterator(IExecutable<? extends IEntity>... iteratorChain) {
-		return new UnionIterator(toIterators(iteratorChain));
+	public IExecutable<IEntity> createUnion(IExecutable<? extends IEntity>... executableChain) {
+		return new UnionIterator(toIterators(executableChain));
 	}
 	@SuppressWarnings("unchecked")
-	public IEntityIterator<IEntity> intersectIterator(IExecutable<? extends IEntity>... iteratorChain) {
-		return new IntersectIterator(toIterators(iteratorChain));
+	public IExecutable<IEntity> createIntersect(IExecutable<? extends IEntity>... executableChain) {
+		return new IntersectIterator(toIterators(executableChain));
 	}
 	@SuppressWarnings("unchecked")
-	public IEntityIterator<IEntity> exceptIterator(IExecutable<? extends IEntity>... iteratorChain) {
-		return new ExceptIterator(toIterators(iteratorChain));
+	public IExecutable<IEntity> createExcept(IExecutable<? extends IEntity>... executableChain) {
+		return new ExceptIterator(toIterators(executableChain));
 	}
 
 
-	public IEntityIterator<?> andIterator(IExecutable<?>... argsIterators) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(toIterators(argsIterators)) {
+	public IExecutable<?> createAnd(IExecutable<?>... argsExecutables) {
+		return new AbstractSingleValuedRunnableIterator<IEntity>(toIterators(argsExecutables)) {
 			protected void run(IEntity selfEntity, IBindingManager bm) {
-				for (int i=0; i<argsIterators.length; i++)
-					if (!argsIterators[i].evaluateAsBooleanOrFail(selfEntity, bm)) {
+				for (int i=0; i<argsExecutables.length; i++)
+					if (!argsExecutables[i].evaluateAsBooleanOrFail(selfEntity, bm)) {
 						bm.setResult(BindingManagerFactory.instance.createValue(false));
 						return;
 					}
@@ -201,7 +201,7 @@ public abstract class AbstractIteratorBasedExecutableFactory implements Iterator
 		};
 	}
 
-	public IEntityIterator<IEntity> oneIterator(IExecutable<IEntity> fromClause, IExecutable<IEntity> satisfiesClause) {
+	public IExecutable<IEntity> createOne(IExecutable<IEntity> fromClause, IExecutable<IEntity> satisfiesClause) {
 		return new AbstractSingleValuedRunnableIterator<IEntity>(fromClause.iterator(), satisfiesClause.iterator()) {
 			protected void run(IEntity selfEntity, IBindingManager bm) {
 				IBindingScope laScope = null;
@@ -245,13 +245,13 @@ public abstract class AbstractIteratorBasedExecutableFactory implements Iterator
 	}
 
 
-	public IEntityIterator<IEntity> iterationIndexVariableIterator(IExecutable<?> indexIterator, String name) {
+	public IExecutable<IEntity> createIterationIndexVariable(IExecutable<?> indexExecutable, String name) {
 		final boolean hasEnvironmentPart = BindingUtils.hasEnvironmentPart(name);
 		final int index = name.indexOf('#');
 		final String envName = hasEnvironmentPart ? name.substring(BindingUtils.ENVIRONMENT_URI_PREFIX.length(), index) : null;
 		final String varName = hasEnvironmentPart ? name.substring(index+1) : name;
 
-		return new AbstractSingleValuedRunnableIterator<IEntity>(indexIterator.iterator()) {
+		return new AbstractSingleValuedRunnableIterator<IEntity>(indexExecutable.iterator()) {
 			@Override
 			protected void resetArguments(IEntity entity) {
 			}
@@ -263,7 +263,7 @@ public abstract class AbstractIteratorBasedExecutableFactory implements Iterator
 				run(selfEntity, hasEnvironmentPart ? bm.wGetEnvironmentManager().getEnvironment(envName) : bm, varName);
 			};
 			protected final void run(IEntity selfEntity, IBindingManager bm, String name) {
-				int iterationIndex = ((FilterByIndexRangeIterator<?>) argsIterators[0].undecoratedIterator()).predicateIndex(this);
+				int iterationIndex = ((FilterByIndexRangeIterator<?>) argsIterators[0].undecoratedExecutable()).predicateIndex(this);
 				if (bm.wIsSet(name)) {
 					bm.setResult(BindingManagerFactory.instance.createValue(iterationIndex == bm.wIntValue(name)));
 				} else {
@@ -280,8 +280,8 @@ public abstract class AbstractIteratorBasedExecutableFactory implements Iterator
 		};
 	}
 
-	public IEntityIterator<IEntity> iterationIndexIterator(IExecutable<?> indexIterator, int index) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(indexIterator.iterator()) {
+	public IExecutable<IEntity> createIterationIndex(IExecutable<?> indexExecutable, int index) {
+		return new AbstractSingleValuedRunnableIterator<IEntity>(indexExecutable.iterator()) {
 			@Override
 			protected void resetArguments(IEntity entity) {
 			}
@@ -290,7 +290,7 @@ public abstract class AbstractIteratorBasedExecutableFactory implements Iterator
 			}
 
 			protected void run(IEntity selfEntity, IBindingManager bm) {
-				int iterationIndex = ((FilterByIndexRangeIterator<?>) argsIterators[0].undecoratedIterator()).predicateIndex(this);
+				int iterationIndex = ((FilterByIndexRangeIterator<?>) argsIterators[0].undecoratedExecutable()).predicateIndex(this);
 				bm.setResult(BindingManagerFactory.instance.createValue(iterationIndex == index));
 			}
 
@@ -301,8 +301,8 @@ public abstract class AbstractIteratorBasedExecutableFactory implements Iterator
 			}
 		};
 	}
-	public IEntityIterator<IEntity> iterationIndexRangeIterator(IExecutable<?> indexIterator, int startIndex, int endIndex) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(indexIterator.iterator()) {
+	public IExecutable<IEntity> createIterationIndexRange(IExecutable<?> indexExecutable, int startIndex, int endIndex) {
+		return new AbstractSingleValuedRunnableIterator<IEntity>(indexExecutable.iterator()) {
 			@Override
 			protected void resetArguments(IEntity entity) {
 			}
@@ -311,7 +311,7 @@ public abstract class AbstractIteratorBasedExecutableFactory implements Iterator
 			}
 
 			protected void run(IEntity selfEntity, IBindingManager bm) {
-				int iterationIndex = ((FilterByIndexRangeIterator<?>) argsIterators[0].undecoratedIterator()).predicateIndex(this);
+				int iterationIndex = ((FilterByIndexRangeIterator<?>) argsIterators[0].undecoratedExecutable()).predicateIndex(this);
 				bm.setResult(BindingManagerFactory.instance.createValue(startIndex <= iterationIndex && iterationIndex <= endIndex));
 			}
 
@@ -325,7 +325,7 @@ public abstract class AbstractIteratorBasedExecutableFactory implements Iterator
 		};
 	}
 
-	public IEntityIterator<IEntity> pointwiseEqualsIterator(IExecutable<IEntity> leftOperand, IExecutable<IEntity> rightOperand) {
+	public IExecutable<IEntity> createPointwiseEquals(IExecutable<IEntity> leftOperand, IExecutable<IEntity> rightOperand) {
 		return new AbstractSingleValuedRunnableIterator<IEntity>(leftOperand.iterator(), rightOperand.iterator()) {
 			protected void run(IEntity selfEntity, IBindingManager bm) {
 				for (IEntity e : argsIterators[0])
@@ -347,9 +347,9 @@ public abstract class AbstractIteratorBasedExecutableFactory implements Iterator
 		};
 	}
 
-	public <E extends IEntity> IEntityIterator<E> scopeIterator(IExecutable<E> scopeIterator, String environmentName, Set<String> localNames, boolean withFreshNames) {
-    	return withFreshNames ? new LocalScopeIterator<E>(scopeIterator.iterator(), localNames) :
-    		new LocalScopeIterator<E>(scopeIterator.iterator(), localNames) {
+	public <E extends IEntity> IExecutable<E> createScope(IExecutable<E> scopeExecutable, String environmentName, Set<String> localNames, boolean withFreshNames) {
+    	return withFreshNames ? new LocalScopeIterator<E>(scopeExecutable.iterator(), localNames) :
+    		new LocalScopeIterator<E>(scopeExecutable.iterator(), localNames) {
     			@Override
     			protected AbstractFilterScope createScopeFilter(Set<String> localNames) {
     				return BindingManagerFactory.instance.createIncludeFilterScope(localNames);
@@ -357,50 +357,50 @@ public abstract class AbstractIteratorBasedExecutableFactory implements Iterator
     		};
     }
 
-	public IEntityIterator<?> tupleFactoryIterator(IExecutable<?>... tupleIterators) {
-		return new TupleFactoryIterator(toIterators(tupleIterators));
+	public IExecutable<?> createTupleFactory(IExecutable<?>... tupleExecutables) {
+		return new TupleFactoryIterator(toIterators(tupleExecutables));
 	}
 
-	public <E extends IEntity> IEntityIterator<E> selectIterator(IExecutable<E> selectIterator, IExecutable<? extends IEntity> fromIterator, IExecutable<? extends IEntity> whereIterator) {
-		return new SelectIterator<E>(selectIterator.iterator(), fromIterator.iterator(), whereIterator.iterator());
-	}
-
-	@SuppressWarnings("unchecked")
-	public IEntityIterator<IEntity> cartesianProductIterator(IExecutable<? extends IEntity>... iterators) {
-		return new CartesianProductIterator(toIterators(iterators));
+	public <E extends IEntity> IExecutable<E> createSelect(IExecutable<E> selectExecutable, IExecutable<? extends IEntity> fromExecutable, IExecutable<? extends IEntity> whereExecutable) {
+		return new SelectIterator<E>(selectExecutable.iterator(), fromExecutable.iterator(), whereExecutable.iterator());
 	}
 
 	@SuppressWarnings("unchecked")
-	public IEntityIterator<IEntity> pointwiseProductIterator(IExecutable<? extends IEntity>... iterators) {
-		return new PointwiseProductIterator(toIterators(iterators));
-	}
-
-	public <E extends IEntity> IEntityIterator<E> cartesianUpdateIterator(IExecutable<? extends E> valuesIterator, IExecutable<E> toIterator) {
-		return new CartesianUpdateIterator<E>(valuesIterator.iterator(), toIterator.iterator());
-	}
-
-	public <E extends IEntity> IEntityIterator<E> pointwiseUpdateIterator(IExecutable<E> valuesIterator, IExecutable<? super E> toIterator) {
-		return new PointwiseUpdateIterator<E>(valuesIterator.iterator(), toIterator.iterator());
-	}
-
-	public <E extends IEntity> IEntityIterator<E> cartesianInsertIterator(IExecutable<? extends E> valuesIterator, IExecutable<E> toIterator, Placement placement) {
-		return new CartesianInsertIterator<E>(valuesIterator.iterator(), toIterator.iterator(), placement);
-	}
-
-	public <E extends IEntity> IEntityIterator<E> pointwiseInsertIterator(IExecutable<E> valuesIterator, IExecutable<? super E> toIterator, Placement placement) {
-		return new PointwiseInsertIterator<E>(valuesIterator.iterator(), toIterator.iterator(), placement);
-	}
-
-	public <E extends IEntity> IEntityIterator<E> deleteIterator(IExecutable<E> valuesIterator) {
-		return new DeleteIterator<E>(valuesIterator.iterator());
+	public IExecutable<IEntity> createCartesianProduct(IExecutable<? extends IEntity>... executables) {
+		return new CartesianProductIterator(toIterators(executables));
 	}
 
 	@SuppressWarnings("unchecked")
-	public <E extends IEntity> IEntityIterator<E> callIterator(String name, IExecutable<? extends E>... argsIterators) {
-    	return new CallIterator<E>(name, toIterators(argsIterators));
+	public IExecutable<IEntity> createPointwiseProduct(IExecutable<? extends IEntity>... executables) {
+		return new PointwiseProductIterator(toIterators(executables));
+	}
+
+	public <E extends IEntity> IExecutable<E> createCartesianUpdate(IExecutable<? extends E> valuesExecutable, IExecutable<E> toExecutable) {
+		return new CartesianUpdateIterator<E>(valuesExecutable.iterator(), toExecutable.iterator());
+	}
+
+	public <E extends IEntity> IExecutable<E> createPointwiseUpdate(IExecutable<E> valuesExecutable, IExecutable<? super E> toExecutable) {
+		return new PointwiseUpdateIterator<E>(valuesExecutable.iterator(), toExecutable.iterator());
+	}
+
+	public <E extends IEntity> IExecutable<E> createCartesianInsert(IExecutable<? extends E> valuesExecutable, IExecutable<E> toExecutable, Placement placement) {
+		return new CartesianInsertIterator<E>(valuesExecutable.iterator(), toExecutable.iterator(), placement);
+	}
+
+	public <E extends IEntity> IExecutable<E> createPointwiseInsert(IExecutable<E> valuesExecutable, IExecutable<? super E> toExecutable, Placement placement) {
+		return new PointwiseInsertIterator<E>(valuesExecutable.iterator(), toExecutable.iterator(), placement);
+	}
+
+	public <E extends IEntity> IExecutable<E> createDelete(IExecutable<E> valuesExecutable) {
+		return new DeleteIterator<E>(valuesExecutable.iterator());
+	}
+
+	@SuppressWarnings("unchecked")
+	public <E extends IEntity> IExecutable<E> createCall(String name, IExecutable<? extends E>... argsExecutables) {
+    	return new CallIterator<E>(name, toIterators(argsExecutables));
     }
 
-	public IEntityIterator<?> nestedVariableIterator() {
+	public IExecutable<?> createNestedVariable() {
 		return new AbstractMultiValuedRunnableIterator<IEntity>() {
 			@Override
 			protected void run(IEntity selfEntity, IBindingManager bm) {
@@ -422,19 +422,19 @@ public abstract class AbstractIteratorBasedExecutableFactory implements Iterator
 		};
 	}
 
-	public IEntityIterator<?> nestedFragmentIterator(Map<IEntity, IExecutable<?>> fragmentIteratorMap) {
+	public IExecutable<?> createNestedFragment(Map<IEntity, IExecutable<?>> fragmentExecutableMap) {
 		return new AbstractMultiValuedRunnableIterator<IEntity>() {
 			@Override
 			protected void run(IEntity selfEntity, IBindingManager bm) {
-				IExecutable<?> fragmentIterator = fragmentIteratorMap.getOrDefault(selfEntity, emptyIterator());
+				IExecutable<?> fragmentExecutable = fragmentExecutableMap.getOrDefault(selfEntity, createEmpty());
 				
 				//TODO clone iterator
 
 //				IEntity outerSelfEntity = bm.wGet(OUTER_SELF_NAME);
 //				bm.wDef(IBindingManager.SELF, outerSelfEntity);
-//				fragmentIterator.setBindings(bm);
-//				fragmentIterator.reset(outerSelfEntity);
-				bm.setExecutableResult(fragmentIterator);
+//				fragmentExecutable.setBindings(bm);
+//				fragmentExecutable.reset(outerSelfEntity);
+				bm.setExecutableResult(fragmentExecutable);
 			}
 			@Override
 			protected void resetResultIterator(IEntityIterator<IEntity> resultIterator, IEntity selfEntity, IBindingManager bm) {

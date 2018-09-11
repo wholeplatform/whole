@@ -22,9 +22,8 @@ import java.util.Set;
 
 import org.whole.lang.comparators.IEntityComparator;
 import org.whole.lang.iterators.DistinctScope;
-import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.iterators.InstrumentingIterator;
-import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.iterators.MatcherIterator;
 import org.whole.lang.iterators.Placement;
 import org.whole.lang.iterators.ScannerIterator;
@@ -40,631 +39,631 @@ import org.whole.lang.util.IRunnable;
 /**
  * @author Riccardo Solmi
  */
-public class AbstractDecoratedExecutableFactory implements IteratorFactory {
-	IteratorFactory factory = IteratorFactory.regularInstance;
+public class AbstractDecoratedExecutableFactory implements ExecutableFactory {
+	ExecutableFactory factory = ExecutableFactory.regularInstance;
 
-	protected <E extends IEntity> IEntityIterator<E> decorate(IExecutable<E> iterator) {
-		return new InstrumentingIterator<E>(iterator.iterator());
+	protected <E extends IEntity> IExecutable<E> decorate(IExecutable<E> executable) {
+		return new InstrumentingIterator<E>(executable.iterator());
 	}
 
-	public <E extends IEntity> IEntityIterator<E> emptyIterator() {
-		return decorate(factory.emptyIterator());
+	public <E extends IEntity> IExecutable<E> createEmpty() {
+		return decorate(factory.createEmpty());
 	}
 
-	public <E extends IEntity> IEntityIterator<E> failureIterator(Throwable failure) {
-		return decorate(factory.failureIterator(failure));
+	public <E extends IEntity> IExecutable<E> createFailure(Throwable failure) {
+		return decorate(factory.createFailure(failure));
 	}
 
-	public <E extends IEntity> IEntityIterator<E> variableIterator(String varName) {
-		return decorate(factory.variableIterator(varName));
+	public <E extends IEntity> IExecutable<E> createVariable(String varName) {
+		return decorate(factory.createVariable(varName));
 	}
 
-	public <E extends IEntity> IEntityIterator<E> outerVariableIterator(String varName) {
-		return decorate(factory.outerVariableIterator(varName));
+	public <E extends IEntity> IExecutable<E> createOuterVariable(String varName) {
+		return decorate(factory.createOuterVariable(varName));
 	}
 
-	public <E extends IEntity> IEntityIterator<E> constantIterator(E constant, boolean useClone) {
-		return decorate(factory.constantIterator(constant, useClone));
+	public <E extends IEntity> IExecutable<E> createConstant(E constant, boolean useClone) {
+		return decorate(factory.createConstant(constant, useClone));
 	}
 
-	public <E extends IEntity> IEntityIterator<E> constantChildIterator(IEntity constant) {
-		return decorate(factory.constantChildIterator(constant));
+	public <E extends IEntity> IExecutable<E> createConstantChild(IEntity constant) {
+		return decorate(factory.createConstantChild(constant));
 	}
 
-	public <E extends IEntity> IEntityIterator<E> constantComposeIterator(IEntity constant, IExecutable<E> iterator) {
-		return decorate(factory.constantComposeIterator(constant, iterator));
+	public <E extends IEntity> IExecutable<E> createConstantCompose(IEntity constant, IExecutable<E> executable) {
+		return decorate(factory.createConstantCompose(constant, executable));
 	}
 
-	public <E extends IEntity> IEntityIterator<E> constantSubstituteIterator(E constant, boolean useClone) {
-		return decorate(factory.constantSubstituteIterator(constant, useClone));
+	public <E extends IEntity> IExecutable<E> createConstantSubstitute(E constant, boolean useClone) {
+		return decorate(factory.createConstantSubstitute(constant, useClone));
 	}
 
-	public <E extends IEntity> IEntityIterator<E> entityCollectionIterator(Iterable<E> entityCollectionIterable) {
-		return decorate(factory.entityCollectionIterator(entityCollectionIterable));
+	public <E extends IEntity> IExecutable<E> createEntityCollection(Iterable<E> entityCollectionIterable) {
+		return decorate(factory.createEntityCollection(entityCollectionIterable));
 	}
 
-	public <E extends IEntity> IEntityIterator<E> javaCollectionIterator(Iterable<?> collectionIterable) {
-		return decorate(factory.javaCollectionIterator(collectionIterable));
+	public <E extends IEntity> IExecutable<E> createJavaCollection(Iterable<?> collectionIterable) {
+		return decorate(factory.createJavaCollection(collectionIterable));
 	}
 
-	public <E extends IEntity> IEntityIterator<E> collectionIterator(Iterable<?> collectionIterable,
+	public <E extends IEntity> IExecutable<E> createCollection(Iterable<?> collectionIterable,
 			IDataTypeWrapper elementWrapper) {
-		return decorate(factory.collectionIterator(collectionIterable, elementWrapper));
+		return decorate(factory.createCollection(collectionIterable, elementWrapper));
 	}
 
-	public <E extends IEntity> IEntityIterator<E> singleValuedRunnableIterator(IRunnable runnable) {
-		return decorate(factory.singleValuedRunnableIterator(runnable));
+	public <E extends IEntity> IExecutable<E> createSingleValuedRunnable(IRunnable runnable) {
+		return decorate(factory.createSingleValuedRunnable(runnable));
 	}
 
-	public <E extends IEntity> IEntityIterator<E> singleValuedRunnableIterator(IRunnable runnable,
-			IExecutable<?>... argsIterators) {
-		return decorate(factory.singleValuedRunnableIterator(runnable, argsIterators));
+	public <E extends IEntity> IExecutable<E> createSingleValuedRunnable(IRunnable runnable,
+			IExecutable<?>... argsExecutables) {
+		return decorate(factory.createSingleValuedRunnable(runnable, argsExecutables));
 	}
 
-	public <E extends IEntity> IEntityIterator<E> singleValuedRunnableIterator(IRunnable runnable,
-			int[] optionalArgsIndexes, IExecutable<?>... argsIterators) {
-		return decorate(factory.singleValuedRunnableIterator(runnable, optionalArgsIndexes, argsIterators));
+	public <E extends IEntity> IExecutable<E> createSingleValuedRunnable(IRunnable runnable,
+			int[] optionalArgsIndexes, IExecutable<?>... argsExecutables) {
+		return decorate(factory.createSingleValuedRunnable(runnable, optionalArgsIndexes, argsExecutables));
 	}
 
-	public <E extends IEntity> IEntityIterator<E> multiValuedRunnableIterator(IRunnable runnable,
-			IExecutable<?>... argsIterators) {
-		return decorate(factory.multiValuedRunnableIterator(runnable, argsIterators));
+	public <E extends IEntity> IExecutable<E> createMultiValuedRunnable(IRunnable runnable,
+			IExecutable<?>... argsExecutables) {
+		return decorate(factory.createMultiValuedRunnable(runnable, argsExecutables));
 	}
 
-	public <E extends IEntity> IEntityIterator<E> multiValuedRunnableIterator(IRunnable runnable,
-			int[] optionalArgsIndexes, IExecutable<?>... argsIterators) {
-		return decorate(factory.multiValuedRunnableIterator(runnable, optionalArgsIndexes, argsIterators));
+	public <E extends IEntity> IExecutable<E> createMultiValuedRunnable(IRunnable runnable,
+			int[] optionalArgsIndexes, IExecutable<?>... argsExecutables) {
+		return decorate(factory.createMultiValuedRunnable(runnable, optionalArgsIndexes, argsExecutables));
 	}
 
-	public IEntityIterator<IEntity> aspectIterator() {
-		return decorate(factory.aspectIterator());
+	public IExecutable<IEntity> createAspect() {
+		return decorate(factory.createAspect());
 	}
 
-	public <E extends IEntity> IEntityIterator<E> selfIterator() {
-		return decorate(factory.selfIterator());
+	public <E extends IEntity> IExecutable<E> createSelf() {
+		return decorate(factory.createSelf());
 	}
 
-	public <E extends IEntity> IEntityIterator<E> repeatedSelfIterator() {
-		return decorate(factory.repeatedSelfIterator());
+	public <E extends IEntity> IExecutable<E> createRepeatedSelf() {
+		return decorate(factory.createRepeatedSelf());
 	}
 
-	public IEntityIterator<IEntity> rootIterator() {
-		return decorate(factory.rootIterator());
+	public IExecutable<IEntity> createRoot() {
+		return decorate(factory.createRoot());
 	}
 
-	public IEntityIterator<IEntity> fragmentRootIterator() {
-		return decorate(factory.fragmentRootIterator());
+	public IExecutable<IEntity> createFragmentRoot() {
+		return decorate(factory.createFragmentRoot());
 	}
 
-	public <E extends IEntity> IEntityIterator<E> parentIterator() {
-		return decorate(factory.parentIterator());
+	public <E extends IEntity> IExecutable<E> createParent() {
+		return decorate(factory.createParent());
 	}
 
-	public <E extends IEntity> IEntityIterator<E> ancestorIterator() {
-		return decorate(factory.ancestorIterator());
+	public <E extends IEntity> IExecutable<E> createAncestor() {
+		return decorate(factory.createAncestor());
 	}
 
-	public <E extends IEntity> IEntityIterator<E> ancestorOrSelfIterator() {
-		return decorate(factory.ancestorOrSelfIterator());
+	public <E extends IEntity> IExecutable<E> createAncestorOrSelf() {
+		return decorate(factory.createAncestorOrSelf());
 	}
 
-	public IEntityIterator<IEntity> ancestorReverseIterator() {
-		return decorate(factory.ancestorReverseIterator());
+	public IExecutable<IEntity> createAncestorReverse() {
+		return decorate(factory.createAncestorReverse());
 	}
 
-	public IEntityIterator<IEntity> ancestorOrSelfReverseIterator() {
-		return decorate(factory.ancestorOrSelfReverseIterator());
+	public IExecutable<IEntity> createAncestorOrSelfReverse() {
+		return decorate(factory.createAncestorOrSelfReverse());
 	}
 
-	public IEntityIterator<IEntity> inverseAdjacentIterator() {
-		return decorate(factory.inverseAdjacentIterator());
+	public IExecutable<IEntity> createInverseAdjacent() {
+		return decorate(factory.createInverseAdjacent());
 	}
 
-	public IEntityIterator<IEntity> inverseReachableIterator(boolean includeSelf) {
-		return decorate(factory.inverseReachableIterator(includeSelf));
+	public IExecutable<IEntity> createInverseReachable(boolean includeSelf) {
+		return decorate(factory.createInverseReachable(includeSelf));
 	}
 
-	public IEntityIterator<IEntity> inverseReachableIterator(boolean includeSelf,
+	public IExecutable<IEntity> createInverseReachable(boolean includeSelf,
 			DistinctScope<IEntity> distinctScope) {
-		return decorate(factory.inverseReachableIterator(includeSelf, distinctScope));
+		return decorate(factory.createInverseReachable(includeSelf, distinctScope));
 	}
 
-	public IEntityIterator<IEntity> featureByNameIterator(String fdUri) {
-		return decorate(factory.featureByNameIterator(fdUri));
+	public IExecutable<IEntity> createFeatureByName(String fdUri) {
+		return decorate(factory.createFeatureByName(fdUri));
 	}
 
-	public IEntityIterator<IEntity> featureByNameIterator(FeatureDescriptor fd) {
-		return decorate(factory.featureByNameIterator(fd));
+	public IExecutable<IEntity> createFeatureByName(FeatureDescriptor fd) {
+		return decorate(factory.createFeatureByName(fd));
 	}
 
-	public IEntityIterator<IEntity> featureByIndexIterator(int relativeIndex) {
-		return decorate(factory.featureByIndexIterator(relativeIndex));
+	public IExecutable<IEntity> createFeatureByIndex(int relativeIndex) {
+		return decorate(factory.createFeatureByIndex(relativeIndex));
 	}
 
-	public <E extends IEntity> IEntityIterator<E> childIterator() {
-		return decorate(factory.childIterator());
+	public <E extends IEntity> IExecutable<E> createChild() {
+		return decorate(factory.createChild());
 	}
 
-	public <E extends IEntity> IEntityIterator<E> childIterator(int relativeFirstIndex) {
-		return decorate(factory.childIterator(relativeFirstIndex));
+	public <E extends IEntity> IExecutable<E> createChild(int relativeFirstIndex) {
+		return decorate(factory.createChild(relativeFirstIndex));
 	}
 
-	public <E extends IEntity> IEntityIterator<E> childReverseIterator() {
-		return decorate(factory.childReverseIterator());
+	public <E extends IEntity> IExecutable<E> createChildReverse() {
+		return decorate(factory.createChildReverse());
 	}
 
-	public <E extends IEntity> IEntityIterator<E> childReverseIterator(int relativeFirstIndex) {
-		return decorate(factory.childReverseIterator(relativeFirstIndex));
+	public <E extends IEntity> IExecutable<E> createChildReverse(int relativeFirstIndex) {
+		return decorate(factory.createChildReverse(relativeFirstIndex));
 	}
 
-	public <E extends IEntity> IEntityIterator<E> childRangeIterator(int relativeStartIndex, int relativeEndIndex) {
-		return decorate(factory.childRangeIterator(relativeStartIndex, relativeEndIndex));
+	public <E extends IEntity> IExecutable<E> createChildRange(int relativeStartIndex, int relativeEndIndex) {
+		return decorate(factory.createChildRange(relativeStartIndex, relativeEndIndex));
 	}
 
-	public <E extends IEntity> IEntityIterator<E> descendantIterator() {
-		return decorate(factory.descendantIterator());
+	public <E extends IEntity> IExecutable<E> createDescendant() {
+		return decorate(factory.createDescendant());
 	}
 
-	public <E extends IEntity> IEntityIterator<E> descendantReverseIterator() {
-		return decorate(factory.descendantReverseIterator());
+	public <E extends IEntity> IExecutable<E> createDescendantReverse() {
+		return decorate(factory.createDescendantReverse());
 	}
 
-	public <E extends IEntity> IEntityIterator<E> descendantOrSelfIterator() {
-		return decorate(factory.descendantOrSelfIterator());
+	public <E extends IEntity> IExecutable<E> createDescendantOrSelf() {
+		return decorate(factory.createDescendantOrSelf());
 	}
 
-	public <E extends IEntity> IEntityIterator<E> descendantOrSelfReverseIterator() {
-		return decorate(factory.descendantOrSelfReverseIterator());
+	public <E extends IEntity> IExecutable<E> createDescendantOrSelfReverse() {
+		return decorate(factory.createDescendantOrSelfReverse());
 	}
 
-	public <E extends IEntity> IEntityIterator<E> followingSiblingIterator() {
-		return decorate(factory.followingSiblingIterator());
+	public <E extends IEntity> IExecutable<E> createFollowingSibling() {
+		return decorate(factory.createFollowingSibling());
 	}
 
-	public <E extends IEntity> IEntityIterator<E> followingSiblingReverseIterator() {
-		return decorate(factory.followingSiblingReverseIterator());
+	public <E extends IEntity> IExecutable<E> createFollowingSiblingReverse() {
+		return decorate(factory.createFollowingSiblingReverse());
 	}
 
-	public <E extends IEntity> IEntityIterator<E> precedingSiblingIterator() {
-		return decorate(factory.precedingSiblingIterator());
+	public <E extends IEntity> IExecutable<E> createPrecedingSibling() {
+		return decorate(factory.createPrecedingSibling());
 	}
 
-	public <E extends IEntity> IEntityIterator<E> precedingSiblingReverseIterator() {
-		return decorate(factory.precedingSiblingReverseIterator());
+	public <E extends IEntity> IExecutable<E> createPrecedingSiblingReverse() {
+		return decorate(factory.createPrecedingSiblingReverse());
 	}
 
-	public <E extends IEntity> IEntityIterator<E> followingSiblingOrSelfIterator() {
-		return decorate(factory.followingSiblingOrSelfIterator());
+	public <E extends IEntity> IExecutable<E> createFollowingSiblingOrSelf() {
+		return decorate(factory.createFollowingSiblingOrSelf());
 	}
 
-	public <E extends IEntity> IEntityIterator<E> followingSiblingOrSelfReverseIterator() {
-		return decorate(factory.followingSiblingOrSelfReverseIterator());
+	public <E extends IEntity> IExecutable<E> createFollowingSiblingOrSelfReverse() {
+		return decorate(factory.createFollowingSiblingOrSelfReverse());
 	}
 
-	public <E extends IEntity> IEntityIterator<E> precedingSiblingOrSelfIterator() {
-		return decorate(factory.precedingSiblingOrSelfIterator());
+	public <E extends IEntity> IExecutable<E> createPrecedingSiblingOrSelf() {
+		return decorate(factory.createPrecedingSiblingOrSelf());
 	}
 
-	public <E extends IEntity> IEntityIterator<E> precedingSiblingOrSelfReverseIterator() {
-		return decorate(factory.precedingSiblingOrSelfReverseIterator());
+	public <E extends IEntity> IExecutable<E> createPrecedingSiblingOrSelfReverse() {
+		return decorate(factory.createPrecedingSiblingOrSelfReverse());
 	}
 
-	public <E extends IEntity> IEntityIterator<E> followingIterator() {
-		return decorate(factory.followingIterator());
+	public <E extends IEntity> IExecutable<E> createFollowing() {
+		return decorate(factory.createFollowing());
 	}
 
-	public <E extends IEntity> IEntityIterator<E> precedingIterator() {
-		return decorate(factory.precedingIterator());
+	public <E extends IEntity> IExecutable<E> createPreceding() {
+		return decorate(factory.createPreceding());
 	}
 
-	public <E extends IEntity> IEntityIterator<E> followingOrSelfIterator() {
-		return decorate(factory.followingOrSelfIterator());
+	public <E extends IEntity> IExecutable<E> createFollowingOrSelf() {
+		return decorate(factory.createFollowingOrSelf());
 	}
 
-	public <E extends IEntity> IEntityIterator<E> precedingOrSelfIterator() {
-		return decorate(factory.precedingOrSelfIterator());
+	public <E extends IEntity> IExecutable<E> createPrecedingOrSelf() {
+		return decorate(factory.createPrecedingOrSelf());
 	}
 
-	public <E extends IEntity> IEntityIterator<E> adjacentIterator() {
-		return decorate(factory.adjacentIterator());
+	public <E extends IEntity> IExecutable<E> createAdjacent() {
+		return decorate(factory.createAdjacent());
 	}
 
-	public <E extends IEntity> IEntityIterator<E> adjacentIterator(int relativeFirstIndex) {
-		return decorate(factory.adjacentIterator(relativeFirstIndex));
+	public <E extends IEntity> IExecutable<E> createAdjacent(int relativeFirstIndex) {
+		return decorate(factory.createAdjacent(relativeFirstIndex));
 	}
 
-	public <E extends IEntity> IEntityIterator<E> adjacentReverseIterator() {
-		return decorate(factory.adjacentReverseIterator());
+	public <E extends IEntity> IExecutable<E> createAdjacentReverse() {
+		return decorate(factory.createAdjacentReverse());
 	}
 
-	public <E extends IEntity> IEntityIterator<E> reachableIterator(boolean includeSelf) {
-		return decorate(factory.reachableIterator(includeSelf));
+	public <E extends IEntity> IExecutable<E> createReachable(boolean includeSelf) {
+		return decorate(factory.createReachable(includeSelf));
 	}
 
-	public <E extends IEntity> IEntityIterator<E> reachableIterator(boolean includeSelf,
+	public <E extends IEntity> IExecutable<E> createReachable(boolean includeSelf,
 			DistinctScope<E> distinctScope) {
-		return decorate(factory.reachableIterator(includeSelf, distinctScope));
+		return decorate(factory.createReachable(includeSelf, distinctScope));
 	}
 
-	public <E extends IEntity> IEntityIterator<E> childOrAdjacentIterator() {
-		return decorate(factory.childOrAdjacentIterator());
+	public <E extends IEntity> IExecutable<E> createChildOrAdjacent() {
+		return decorate(factory.createChildOrAdjacent());
 	}
 
-	public <E extends IEntity> IEntityIterator<E> childOrAdjacentIterator(int relativeFirstIndex) {
-		return decorate(factory.childOrAdjacentIterator(relativeFirstIndex));
+	public <E extends IEntity> IExecutable<E> createChildOrAdjacent(int relativeFirstIndex) {
+		return decorate(factory.createChildOrAdjacent(relativeFirstIndex));
 	}
 
-	public <E extends IEntity> IEntityIterator<E> descendantOrReachableIterator() {
-		return decorate(factory.descendantOrReachableIterator());
+	public <E extends IEntity> IExecutable<E> createDescendantOrReachable() {
+		return decorate(factory.createDescendantOrReachable());
 	}
 
-	public <E extends IEntity> IEntityIterator<E> descendantOrReachableIterator(boolean includeSelf,
+	public <E extends IEntity> IExecutable<E> createDescendantOrReachable(boolean includeSelf,
 			DistinctScope<E> distinctScope) {
-		return decorate(factory.descendantOrReachableIterator(includeSelf, distinctScope));
+		return decorate(factory.createDescendantOrReachable(includeSelf, distinctScope));
 	}
 
-	public <E extends IEntity> ScannerIterator<E> scannerIterator(IExecutable<E> iterator) {
-		return factory .scannerIterator(iterator);
+	public <E extends IEntity> ScannerIterator<E> createScanner(IExecutable<E> executable) {
+		return factory .createScanner(executable);
 	}
 
-	public <E extends IEntity> MatcherIterator<E> matcherIterator(IExecutable<E> iterator) {
-		return factory .matcherIterator(iterator);
+	public <E extends IEntity> MatcherIterator<E> createMatcher(IExecutable<E> executable) {
+		return factory .createMatcher(executable);
 	}
 
-	public <E extends IEntity> IEntityIterator<E> filterIterator(IExecutable<E> iterator, IExecutable<? extends IEntity> filterIterator) {
-		return decorate(factory.filterIterator(iterator, filterIterator));
+	public <E extends IEntity> IExecutable<E> createFilter(IExecutable<E> executable, IExecutable<? extends IEntity> filterExecutable) {
+		return decorate(factory.createFilter(executable, filterExecutable));
 	}
 
-	public IEntityIterator<IEntity> matchInScopeIterator(IExecutable<IEntity> patternIterator) {
-		return decorate(factory.matchInScopeIterator(patternIterator));
+	public IExecutable<IEntity> createMatchInScope(IExecutable<IEntity> patternExecutable) {
+		return decorate(factory.createMatchInScope(patternExecutable));
 	}
 
-	public <E extends IEntity> IEntityIterator<E> ifIterator(IExecutable<? extends IEntity> conditionIterator, IExecutable<E> doIterator) {
-		return decorate(factory.ifIterator(conditionIterator, doIterator));
+	public <E extends IEntity> IExecutable<E> createIf(IExecutable<? extends IEntity> conditionExecutable, IExecutable<E> doExecutable) {
+		return decorate(factory.createIf(conditionExecutable, doExecutable));
 	}
 
-	public <E extends IEntity> IEntityIterator<E> forIterator(IExecutable<? extends IEntity> forIterator, IExecutable<E> doIterator) {
-		return decorate(factory.forIterator(forIterator, doIterator));
+	public <E extends IEntity> IExecutable<E> createFor(IExecutable<? extends IEntity> forExecutable, IExecutable<E> doExecutable) {
+		return decorate(factory.createFor(forExecutable, doExecutable));
 	}
 
-	public IEntityIterator<IEntity> functionApplicationIterator(String functionUri) {
-		return decorate(factory.functionApplicationIterator(functionUri));
+	public IExecutable<IEntity> createFunctionApplication(String functionUri) {
+		return decorate(factory.createFunctionApplication(functionUri));
 	}
 
-	public IEntityIterator<IEntity> recursiveFunctionApplicationIterator() {
-		return decorate(factory.recursiveFunctionApplicationIterator());
+	public IExecutable<IEntity> createRecursiveFunctionApplication() {
+		return decorate(factory.createRecursiveFunctionApplication());
 	}
 
-	public <E extends IEntity> IEntityIterator<E> templateInterpreterIterator(IEntity template) {
-		return decorate(factory.templateInterpreterIterator(template));
+	public <E extends IEntity> IExecutable<E> createTemplateInterpreter(IEntity template) {
+		return decorate(factory.createTemplateInterpreter(template));
 	}
 
-	public <E extends IEntity> IEntityIterator<E> chooseIterator(IExecutable<? extends E>... iteratorChain) {
-		return decorate(factory.chooseIterator(iteratorChain));
+	public <E extends IEntity> IExecutable<E> createChoose(IExecutable<? extends E>... executableChain) {
+		return decorate(factory.createChoose(executableChain));
 	}
 
-	public <E extends IEntity> IEntityIterator<E> chooseIterator(ILanguageKit languageKit) {
-		return decorate(factory.chooseIterator(languageKit));
+	public <E extends IEntity> IExecutable<E> createChoose(ILanguageKit languageKit) {
+		return decorate(factory.createChoose(languageKit));
 	}
 
-	public <E extends IEntity> IEntityIterator<E> blockIterator(IExecutable<? extends E>... iteratorChain) {
-		return decorate(factory.blockIterator(iteratorChain));
+	public <E extends IEntity> IExecutable<E> createBlock(IExecutable<? extends E>... executableChain) {
+		return decorate(factory.createBlock(executableChain));
 	}
 
-	public <E extends IEntity> IEntityIterator<E> sequenceIterator(IExecutable<? extends E>... iteratorChain) {
-		return decorate(factory.sequenceIterator(iteratorChain));
+	public <E extends IEntity> IExecutable<E> createSequence(IExecutable<? extends E>... executableChain) {
+		return decorate(factory.createSequence(executableChain));
 	}
 
-	public <E extends IEntity> IEntityIterator<E> composeIterator(IExecutable<E> iterator, IExecutable<? extends IEntity>... nestedIterators) {
-		return decorate(factory.composeIterator(iterator, nestedIterators));
+	public <E extends IEntity> IExecutable<E> createCompose(IExecutable<E> executable, IExecutable<? extends IEntity>... nestedExecutables) {
+		return decorate(factory.createCompose(executable, nestedExecutables));
 	}
 
-	public <E extends IEntity> IEntityIterator<E> filterByIndexIterator(IExecutable<E> iterator, int index) {
-		return decorate(factory.filterByIndexIterator(iterator, index));
+	public <E extends IEntity> IExecutable<E> createFilterByIndex(IExecutable<E> executable, int index) {
+		return decorate(factory.createFilterByIndex(executable, index));
 	}
 
-	public <E extends IEntity> IEntityIterator<E> filterByIndexRangeIterator(IExecutable<E> iterator, int startIndex, int endIndex) {
-		return decorate(factory.filterByIndexRangeIterator(iterator, startIndex, endIndex));
+	public <E extends IEntity> IExecutable<E> createFilterByIndexRange(IExecutable<E> executable, int startIndex, int endIndex) {
+		return decorate(factory.createFilterByIndexRange(executable, startIndex, endIndex));
 	}
 
-	public <E extends IEntity> IEntityIterator<E> filterByIndexRangeIterator() {
-		return decorate(factory.filterByIndexRangeIterator());
+	public <E extends IEntity> IExecutable<E> createFilterByIndexRange() {
+		return decorate(factory.createFilterByIndexRange());
 	}
 
-	public <E extends IEntity> DistinctScope<E> distinctScope() {
-		return factory .distinctScope();
+	public <E extends IEntity> DistinctScope<E> createDistinctScope() {
+		return factory .createDistinctScope();
 	}
 
-	public <E extends IEntity> DistinctScope<E> distinctScope(IEntityComparator<IEntity> comparator) {
-		return factory .distinctScope(comparator);
+	public <E extends IEntity> DistinctScope<E> createDistinctScope(IEntityComparator<IEntity> comparator) {
+		return factory .createDistinctScope(comparator);
 	}
 
-	public <E extends IEntity> IEntityIterator<E> sort(IExecutable<E> iterator) {
-		return decorate(factory.sort(iterator));
+	public <E extends IEntity> IExecutable<E> createSort(IExecutable<E> executable) {
+		return decorate(factory.createSort(executable));
 	}
 
-	public <E extends IEntity> IEntityIterator<E> sort(IExecutable<E> iterator, IEntityComparator<E> comparator) {
-		return decorate(factory.sort(iterator, comparator));
-	}
-
-	@SuppressWarnings("unchecked")
-	public IEntityIterator<IEntity> unionAllIterator(IExecutable<? extends IEntity>... iteratorChain) {
-		return decorate(factory.unionAllIterator(iteratorChain));
+	public <E extends IEntity> IExecutable<E> createSort(IExecutable<E> executable, IEntityComparator<E> comparator) {
+		return decorate(factory.createSort(executable, comparator));
 	}
 
 	@SuppressWarnings("unchecked")
-	public IEntityIterator<IEntity> unionIterator(IExecutable<? extends IEntity>... iteratorChain) {
-		return decorate(factory.unionIterator(iteratorChain));
+	public IExecutable<IEntity> createUnionAll(IExecutable<? extends IEntity>... executableChain) {
+		return decorate(factory.createUnionAll(executableChain));
 	}
 
 	@SuppressWarnings("unchecked")
-	public IEntityIterator<IEntity> intersectIterator(IExecutable<? extends IEntity>... iteratorChain) {
-		return decorate(factory.intersectIterator(iteratorChain));
+	public IExecutable<IEntity> createUnion(IExecutable<? extends IEntity>... executableChain) {
+		return decorate(factory.createUnion(executableChain));
 	}
 
 	@SuppressWarnings("unchecked")
-	public IEntityIterator<IEntity> exceptIterator(IExecutable<? extends IEntity>... iteratorChain) {
-		return decorate(factory.exceptIterator(iteratorChain));
+	public IExecutable<IEntity> createIntersect(IExecutable<? extends IEntity>... executableChain) {
+		return decorate(factory.createIntersect(executableChain));
 	}
 
-	public <E extends IEntity> IEntityIterator<E> ancestorScannerIterator() {
-		return decorate(factory.ancestorScannerIterator());
+	@SuppressWarnings("unchecked")
+	public IExecutable<IEntity> createExcept(IExecutable<? extends IEntity>... executableChain) {
+		return decorate(factory.createExcept(executableChain));
 	}
 
-	public <E extends IEntity> ScannerIterator<E> childScannerIterator() {
-		return factory .childScannerIterator();
+	public <E extends IEntity> IExecutable<E> createAncestorScanner() {
+		return decorate(factory.createAncestorScanner());
 	}
 
-	public <E extends IEntity> ScannerIterator<E> childReverseScannerIterator() {
-		return factory .childReverseScannerIterator();
+	public <E extends IEntity> ScannerIterator<E> createChildScanner() {
+		return factory .createChildScanner();
 	}
 
-	public <E extends IEntity> ScannerIterator<E> descendantOrSelfScannerIterator() {
-		return factory .descendantOrSelfScannerIterator();
+	public <E extends IEntity> ScannerIterator<E> createChildReverseScanner() {
+		return factory .createChildReverseScanner();
 	}
 
-	public <E extends IEntity> ScannerIterator<E> descendantOrSelfReverseScannerIterator() {
-		return factory .descendantOrSelfReverseScannerIterator();
+	public <E extends IEntity> ScannerIterator<E> createDescendantOrSelfScanner() {
+		return factory .createDescendantOrSelfScanner();
 	}
 
-	public <E extends IEntity> MatcherIterator<E> ancestorMatcherIterator() {
-		return factory .ancestorMatcherIterator();
+	public <E extends IEntity> ScannerIterator<E> createDescendantOrSelfReverseScanner() {
+		return factory .createDescendantOrSelfReverseScanner();
 	}
 
-	public <E extends IEntity> MatcherIterator<E> ancestorOrSelfMatcherIterator() {
-		return factory .ancestorOrSelfMatcherIterator();
+	public <E extends IEntity> MatcherIterator<E> createAncestorMatcher() {
+		return factory .createAncestorMatcher();
 	}
 
-	public <E extends IEntity> MatcherIterator<E> childMatcherIterator() {
-		return factory .childMatcherIterator();
+	public <E extends IEntity> MatcherIterator<E> createAncestorOrSelfMatcher() {
+		return factory .createAncestorOrSelfMatcher();
 	}
 
-	public <E extends IEntity> MatcherIterator<E> childReverseMatcherIterator() {
-		return factory .childReverseMatcherIterator();
+	public <E extends IEntity> MatcherIterator<E> createChildMatcher() {
+		return factory .createChildMatcher();
 	}
 
-	public <E extends IEntity> MatcherIterator<E> descendantOrSelfMatcherIterator() {
-		return factory .descendantOrSelfMatcherIterator();
+	public <E extends IEntity> MatcherIterator<E> createChildReverseMatcher() {
+		return factory .createChildReverseMatcher();
 	}
 
-	public <E extends IEntity> MatcherIterator<E> descendantOrSelfReverseMatcherIterator() {
-		return factory .descendantOrSelfReverseMatcherIterator();
+	public <E extends IEntity> MatcherIterator<E> createDescendantOrSelfMatcher() {
+		return factory .createDescendantOrSelfMatcher();
 	}
 
-	public IEntityIterator<IEntity> atStageIterator(int stage) {
-		return decorate(factory.atStageIterator(stage));
+	public <E extends IEntity> MatcherIterator<E> createDescendantOrSelfReverseMatcher() {
+		return factory .createDescendantOrSelfReverseMatcher();
 	}
 
-	public IEntityIterator<IEntity> atHostStageIterator() {
-		return decorate(factory.atHostStageIterator());
+	public IExecutable<IEntity> createAtStage(int stage) {
+		return decorate(factory.createAtStage(stage));
 	}
 
-	public IEntityIterator<IEntity> atTemplateStageIterator() {
-		return decorate(factory.atTemplateStageIterator());
+	public IExecutable<IEntity> createAtHostStage() {
+		return decorate(factory.createAtHostStage());
 	}
 
-	public IEntityIterator<IEntity> hasKindIterator(EntityKinds kind) {
-		return decorate(factory.hasKindIterator(kind));
+	public IExecutable<IEntity> createAtTemplateStage() {
+		return decorate(factory.createAtTemplateStage());
 	}
 
-	public IEntityIterator<IEntity> hasCompositeKindIterator(CompositeKinds kind) {
-		return decorate(factory.hasCompositeKindIterator(kind));
+	public IExecutable<IEntity> createHasKind(EntityKinds kind) {
+		return decorate(factory.createHasKind(kind));
 	}
 
-	public IEntityIterator<IEntity> hasDataKindIterator(DataKinds kind) {
-		return decorate(factory.hasDataKindIterator(kind));
+	public IExecutable<IEntity> createHasCompositeKind(CompositeKinds kind) {
+		return decorate(factory.createHasCompositeKind(kind));
 	}
 
-	public IEntityIterator<IEntity> isFragmentIterator() {
-		return decorate(factory.isFragmentIterator());
+	public IExecutable<IEntity> createHasDataKind(DataKinds kind) {
+		return decorate(factory.createHasDataKind(kind));
 	}
 
-	public IEntityIterator<IEntity> isVariableIterator() {
-		return decorate(factory.isVariableIterator());
+	public IExecutable<IEntity> createIsFragment() {
+		return decorate(factory.createIsFragment());
 	}
 
-	public IEntityIterator<IEntity> isResolverIterator() {
-		return decorate(factory.isResolverIterator());
+	public IExecutable<IEntity> createIsVariable() {
+		return decorate(factory.createIsVariable());
 	}
 
-	public IEntityIterator<IEntity> isImplIterator() {
-		return decorate(factory.isImplIterator());
+	public IExecutable<IEntity> createIsResolver() {
+		return decorate(factory.createIsResolver());
 	}
 
-	public IEntityIterator<?> andIterator(IExecutable<?>... argsIterators) {
-		return decorate(factory.andIterator(argsIterators));
+	public IExecutable<IEntity> createIsImpl() {
+		return decorate(factory.createIsImpl());
 	}
 
-	public IEntityIterator<?> orIterator(IExecutable<?>... argsIterators) {
-		return decorate(factory.orIterator(argsIterators));
+	public IExecutable<?> createAnd(IExecutable<?>... argsExecutables) {
+		return decorate(factory.createAnd(argsExecutables));
 	}
 
-	public IEntityIterator<?> notIterator(IExecutable<?> argIterator) {
-		return decorate(factory.notIterator(argIterator));
+	public IExecutable<?> createOr(IExecutable<?>... argsExecutables) {
+		return decorate(factory.createOr(argsExecutables));
 	}
 
-	public IEntityIterator<IEntity> oneIterator(IExecutable<IEntity> fromClause, IExecutable<IEntity> satisfiesClause) {
-		return decorate(factory.oneIterator(fromClause, satisfiesClause));
+	public IExecutable<?> createNot(IExecutable<?> argExecutable) {
+		return decorate(factory.createNot(argExecutable));
 	}
 
-	public IEntityIterator<IEntity> someIterator(IExecutable<IEntity> fromClause) {
-		return decorate(factory.someIterator(fromClause));
+	public IExecutable<IEntity> createOne(IExecutable<IEntity> fromClause, IExecutable<IEntity> satisfiesClause) {
+		return decorate(factory.createOne(fromClause, satisfiesClause));
 	}
 
-	public IEntityIterator<IEntity> someIterator(IExecutable<IEntity> fromClause, IExecutable<IEntity> satisfiesClause) {
-		return decorate(factory.someIterator(fromClause, satisfiesClause));
+	public IExecutable<IEntity> createSome(IExecutable<IEntity> fromClause) {
+		return decorate(factory.createSome(fromClause));
 	}
 
-	public IEntityIterator<IEntity> everyIterator(IExecutable<IEntity> fromClause, IExecutable<IEntity> satisfiesClause) {
-		return decorate(factory.everyIterator(fromClause, satisfiesClause));
+	public IExecutable<IEntity> createSome(IExecutable<IEntity> fromClause, IExecutable<IEntity> satisfiesClause) {
+		return decorate(factory.createSome(fromClause, satisfiesClause));
 	}
 
-	public IEntityIterator<IEntity> isLanguageIterator(String languageURI) {
-		return decorate(factory.isLanguageIterator(languageURI));
+	public IExecutable<IEntity> createEvery(IExecutable<IEntity> fromClause, IExecutable<IEntity> satisfiesClause) {
+		return decorate(factory.createEvery(fromClause, satisfiesClause));
 	}
 
-	public IEntityIterator<IEntity> hasTypeIterator(String typeUri) {
-		return decorate(factory.hasTypeIterator(typeUri));
+	public IExecutable<IEntity> createIsLanguage(String languageURI) {
+		return decorate(factory.createIsLanguage(languageURI));
 	}
 
-	public IEntityIterator<IEntity> isLanguageSubtypeOfIterator(String typeUri) {
-		return decorate(factory.isLanguageSubtypeOfIterator(typeUri));
+	public IExecutable<IEntity> createHasType(String typeUri) {
+		return decorate(factory.createHasType(typeUri));
 	}
 
-	public IEntityIterator<IEntity> isLanguageSupertypeOfIterator(String typeUri) {
-		return decorate(factory.isLanguageSupertypeOfIterator(typeUri));
+	public IExecutable<IEntity> createIsLanguageSubtypeOf(String typeUri) {
+		return decorate(factory.createIsLanguageSubtypeOf(typeUri));
 	}
 
-	public IEntityIterator<IEntity> isExtendedLanguageSubtypeOfIterator(String typeUri) {
-		return decorate(factory.isExtendedLanguageSubtypeOfIterator(typeUri));
+	public IExecutable<IEntity> createIsLanguageSupertypeOf(String typeUri) {
+		return decorate(factory.createIsLanguageSupertypeOf(typeUri));
 	}
 
-	public IEntityIterator<IEntity> isExtendedLanguageSupertypeOfIterator(String typeUri) {
-		return decorate(factory.isExtendedLanguageSupertypeOfIterator(typeUri));
+	public IExecutable<IEntity> createIsExtendedLanguageSubtypeOf(String typeUri) {
+		return decorate(factory.createIsExtendedLanguageSubtypeOf(typeUri));
 	}
 
-	public IEntityIterator<IEntity> atTypeIterator(String edUri) {
-		return decorate(factory.atTypeIterator(edUri));
+	public IExecutable<IEntity> createIsExtendedLanguageSupertypeOf(String typeUri) {
+		return decorate(factory.createIsExtendedLanguageSupertypeOf(typeUri));
 	}
 
-	public IEntityIterator<IEntity> atFeatureIterator(String fdUri) {
-		return decorate(factory.atFeatureIterator(fdUri));
+	public IExecutable<IEntity> createAtType(String edUri) {
+		return decorate(factory.createAtType(edUri));
 	}
 
-	public IEntityIterator<IEntity> atIndexIterator(int index) {
-		return decorate(factory.atIndexIterator(index));
+	public IExecutable<IEntity> createAtFeature(String fdUri) {
+		return decorate(factory.createAtFeature(fdUri));
 	}
 
-	public IEntityIterator<IEntity> asVariableIterator(String name) {
-		return decorate(factory.asVariableIterator(name));
+	public IExecutable<IEntity> createAtIndex(int index) {
+		return decorate(factory.createAtIndex(index));
 	}
 
-	public IEntityIterator<IEntity> atStageVariableIterator(String name) {
-		return decorate(factory.atStageVariableIterator(name));
+	public IExecutable<IEntity> createAsVariable(String name) {
+		return decorate(factory.createAsVariable(name));
 	}
 
-	public IEntityIterator<IEntity> languageVariableIterator(String name) {
-		return decorate(factory.languageVariableIterator(name));
+	public IExecutable<IEntity> createAtStageVariable(String name) {
+		return decorate(factory.createAtStageVariable(name));
 	}
 
-	public IEntityIterator<IEntity> typeVariableIterator(String name) {
-		return decorate(factory.typeVariableIterator(name));
+	public IExecutable<IEntity> createLanguageVariable(String name) {
+		return decorate(factory.createLanguageVariable(name));
 	}
 
-	public IEntityIterator<IEntity> languageSubtypeOfVariableIterator(String name) {
-		return decorate(factory.languageSubtypeOfVariableIterator(name));
+	public IExecutable<IEntity> createTypeVariable(String name) {
+		return decorate(factory.createTypeVariable(name));
 	}
 
-	public IEntityIterator<IEntity> languageSupertypeOfVariableIterator(String name) {
-		return decorate(factory.languageSupertypeOfVariableIterator(name));
+	public IExecutable<IEntity> createLanguageSubtypeOfVariable(String name) {
+		return decorate(factory.createLanguageSubtypeOfVariable(name));
 	}
 
-	public IEntityIterator<IEntity> extendedLanguageSubtypeOfVariableIterator(String name) {
-		return decorate(factory.extendedLanguageSubtypeOfVariableIterator(name));
+	public IExecutable<IEntity> createLanguageSupertypeOfVariable(String name) {
+		return decorate(factory.createLanguageSupertypeOfVariable(name));
 	}
 
-	public IEntityIterator<IEntity> extendedLanguageSupertypeOfVariableIterator(String name) {
-		return decorate(factory.extendedLanguageSupertypeOfVariableIterator(name));
+	public IExecutable<IEntity> createExtendedLanguageSubtypeOfVariable(String name) {
+		return decorate(factory.createExtendedLanguageSubtypeOfVariable(name));
 	}
 
-	public IEntityIterator<IEntity> iterationIndexVariableIterator(IExecutable<?> indexIterator, String name) {
-		return decorate(factory.iterationIndexVariableIterator(indexIterator, name));
+	public IExecutable<IEntity> createExtendedLanguageSupertypeOfVariable(String name) {
+		return decorate(factory.createExtendedLanguageSupertypeOfVariable(name));
 	}
 
-	public IEntityIterator<IEntity> iterationIndexIterator(IExecutable<?> indexIterator, int index) {
-		return decorate(factory.iterationIndexIterator(indexIterator, index));
+	public IExecutable<IEntity> createIterationIndexVariable(IExecutable<?> indexExecutable, String name) {
+		return decorate(factory.createIterationIndexVariable(indexExecutable, name));
 	}
 
-	public IEntityIterator<IEntity> iterationIndexRangeIterator(IExecutable<?> indexIterator, int startIndex, int endIndex) {
-		return decorate(factory.iterationIndexRangeIterator(indexIterator, startIndex, endIndex));
+	public IExecutable<IEntity> createIterationIndex(IExecutable<?> indexExecutable, int index) {
+		return decorate(factory.createIterationIndex(indexExecutable, index));
 	}
 
-	public IEntityIterator<IEntity> pointwiseEqualsIterator(IExecutable<IEntity> leftOperand, IExecutable<IEntity> rightOperand) {
-		return decorate(factory.pointwiseEqualsIterator(leftOperand, rightOperand));
+	public IExecutable<IEntity> createIterationIndexRange(IExecutable<?> indexExecutable, int startIndex, int endIndex) {
+		return decorate(factory.createIterationIndexRange(indexExecutable, startIndex, endIndex));
 	}
 
-	public <E extends IEntity> IEntityIterator<E> scopeIterator(IExecutable<E> scopeIterator,
+	public IExecutable<IEntity> createPointwiseEquals(IExecutable<IEntity> leftOperand, IExecutable<IEntity> rightOperand) {
+		return decorate(factory.createPointwiseEquals(leftOperand, rightOperand));
+	}
+
+	public <E extends IEntity> IExecutable<E> createScope(IExecutable<E> scopeExecutable,
 			String environmentName, Set<String> localNames, boolean withFreshNames) {
-		return decorate(factory.scopeIterator(scopeIterator, environmentName, localNames, withFreshNames));
+		return decorate(factory.createScope(scopeExecutable, environmentName, localNames, withFreshNames));
 	}
 
-	public IEntityIterator<?> tupleFactoryIterator(IExecutable<?>... tupleIterators) {
-		return decorate(factory.tupleFactoryIterator(tupleIterators));
+	public IExecutable<?> createTupleFactory(IExecutable<?>... tupleExecutables) {
+		return decorate(factory.createTupleFactory(tupleExecutables));
 	}
 
-	public <E extends IEntity> IEntityIterator<E> selectIterator(IExecutable<E> selectIterator, IExecutable<? extends IEntity> fromIterator, IExecutable<? extends IEntity> whereIterator) {
-		return decorate(factory.selectIterator(selectIterator, fromIterator, whereIterator));
-	}
-
-	@SuppressWarnings("unchecked")
-	public IEntityIterator<IEntity> cartesianProductIterator(IExecutable<? extends IEntity>... iterators) {
-		return decorate(factory.cartesianProductIterator(iterators));
+	public <E extends IEntity> IExecutable<E> createSelect(IExecutable<E> selectExecutable, IExecutable<? extends IEntity> fromExecutable, IExecutable<? extends IEntity> whereExecutable) {
+		return decorate(factory.createSelect(selectExecutable, fromExecutable, whereExecutable));
 	}
 
 	@SuppressWarnings("unchecked")
-	public IEntityIterator<IEntity> pointwiseProductIterator(IExecutable<? extends IEntity>... iterators) {
-		return decorate(factory.pointwiseProductIterator(iterators));
-	}
-
-	public <E extends IEntity> IEntityIterator<E> cartesianUpdateIterator(IExecutable<? extends E> valuesIterator, IExecutable<E> toIterator) {
-		return decorate(factory.cartesianUpdateIterator(valuesIterator, toIterator));
-	}
-
-	public <E extends IEntity> IEntityIterator<E> pointwiseUpdateIterator(IExecutable<E> valuesIterator, IExecutable<? super E> toIterator) {
-		return decorate(factory.pointwiseUpdateIterator(valuesIterator, toIterator));
-	}
-
-	public <E extends IEntity> IEntityIterator<E> cartesianInsertIterator(IExecutable<? extends E> valuesIterator, IExecutable<E> toIterator, Placement placement) {
-		return decorate(factory.cartesianInsertIterator(valuesIterator, toIterator, placement));
-	}
-
-	public <E extends IEntity> IEntityIterator<E> pointwiseInsertIterator(IExecutable<E> valuesIterator, IExecutable<? super E> toIterator, Placement placement) {
-		return decorate(factory.pointwiseInsertIterator(valuesIterator, toIterator, placement));
-	}
-
-	public <E extends IEntity> IEntityIterator<E> deleteIterator(IExecutable<E> valuesIterator) {
-		return decorate(factory.deleteIterator(valuesIterator));
+	public IExecutable<IEntity> createCartesianProduct(IExecutable<? extends IEntity>... executables) {
+		return decorate(factory.createCartesianProduct(executables));
 	}
 
 	@SuppressWarnings("unchecked")
-	public <E extends IEntity> IEntityIterator<E> callIterator(String name, IExecutable<? extends E>... argsIterators) {
-		return decorate(factory.callIterator(name, argsIterators));
+	public IExecutable<IEntity> createPointwiseProduct(IExecutable<? extends IEntity>... executables) {
+		return decorate(factory.createPointwiseProduct(executables));
 	}
 
-	public IEntityIterator<?> nestedVariableIterator() {
-		return decorate(factory.nestedVariableIterator());
+	public <E extends IEntity> IExecutable<E> createCartesianUpdate(IExecutable<? extends E> valuesExecutable, IExecutable<E> toExecutable) {
+		return decorate(factory.createCartesianUpdate(valuesExecutable, toExecutable));
 	}
 
-	public IEntityIterator<?> nestedFragmentIterator(Map<IEntity, IExecutable<?>> fragmentIteratorMap) {
-		return decorate(factory.nestedFragmentIterator(fragmentIteratorMap));
+	public <E extends IEntity> IExecutable<E> createPointwiseUpdate(IExecutable<E> valuesExecutable, IExecutable<? super E> toExecutable) {
+		return decorate(factory.createPointwiseUpdate(valuesExecutable, toExecutable));
 	}
 
-	public IEntityIterator<?> cloneReplacingIterator(IExecutable<?> childMappingIterator) {
-		return decorate(factory.cloneReplacingIterator(childMappingIterator));
+	public <E extends IEntity> IExecutable<E> createCartesianInsert(IExecutable<? extends E> valuesExecutable, IExecutable<E> toExecutable, Placement placement) {
+		return decorate(factory.createCartesianInsert(valuesExecutable, toExecutable, placement));
 	}
 
-	public IEntityIterator<?> cloneReplacingIterator(IExecutable<?> childMappingIterator, Set<String> shallowUriSet) {
-		return decorate(factory.cloneReplacingIterator(childMappingIterator, shallowUriSet));
+	public <E extends IEntity> IExecutable<E> createPointwiseInsert(IExecutable<E> valuesExecutable, IExecutable<? super E> toExecutable, Placement placement) {
+		return decorate(factory.createPointwiseInsert(valuesExecutable, toExecutable, placement));
+	}
+
+	public <E extends IEntity> IExecutable<E> createDelete(IExecutable<E> valuesExecutable) {
+		return decorate(factory.createDelete(valuesExecutable));
+	}
+
+	@SuppressWarnings("unchecked")
+	public <E extends IEntity> IExecutable<E> createCall(String name, IExecutable<? extends E>... argsExecutables) {
+		return decorate(factory.createCall(name, argsExecutables));
+	}
+
+	public IExecutable<?> createNestedVariable() {
+		return decorate(factory.createNestedVariable());
+	}
+
+	public IExecutable<?> createNestedFragment(Map<IEntity, IExecutable<?>> fragmentExecutableMap) {
+		return decorate(factory.createNestedFragment(fragmentExecutableMap));
+	}
+
+	public IExecutable<?> createCloneReplacing(IExecutable<?> childMappingExecutable) {
+		return decorate(factory.createCloneReplacing(childMappingExecutable));
+	}
+
+	public IExecutable<?> createCloneReplacing(IExecutable<?> childMappingExecutable, Set<String> shallowUriSet) {
+		return decorate(factory.createCloneReplacing(childMappingExecutable, shallowUriSet));
 	}
 }
 

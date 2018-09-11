@@ -27,7 +27,7 @@ import org.whole.lang.events.IPropertyChangeObserver;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.factories.GenericEntityFactory;
 import org.whole.lang.factories.RegistryConfigurations;
-import org.whole.lang.iterators.IteratorFactory;
+import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.models.factories.ModelsEntityFactory;
 import org.whole.lang.models.model.ComponentModifier;
@@ -145,7 +145,7 @@ public class ByChildAPITest {
 		for (int i=0; i<entities.wSize(); i++)
 			Assert.assertTrue(composite.wAdd(EntityUtils.clone(entitiesArray[i])));
 
-		IExecutable<IEntity> i = IteratorFactory.instance.childIterator();
+		IExecutable<IEntity> i = ExecutableFactory.instance.createChild();
 		i.reset(composite);
 		for (IEntity child : i)
 			Assert.assertTrue(entities.wContains(child));
@@ -219,7 +219,7 @@ public class ByChildAPITest {
 		composite.wSet(composite.wGet(0), EntityUtils.clone(composite.wGet(1)));
 		Assert.assertSame(oldChild, composite.wGet(0));
 		
-		IExecutable<IEntity> i = IteratorFactory.instance.childIterator();
+		IExecutable<IEntity> i = ExecutableFactory.instance.createChild();
 		i.reset(composite);
 		for (IEntity child : i)
 			Assert.assertTrue(entities.wContains(child));
@@ -229,7 +229,7 @@ public class ByChildAPITest {
 		composite = EntityUtils.clone(entities);
 		Assert.assertFalse(composite.wAdd(EntityUtils.clone(composite.wGet(1))));
 
-		i = IteratorFactory.instance.childIterator();
+		i = ExecutableFactory.instance.createChild();
 		i.reset(composite);
 		for (IEntity child : i)
 			Assert.assertTrue(entities.wContains(child));

@@ -32,8 +32,8 @@ import org.whole.lang.grammars.model.NonTerminal;
 import org.whole.lang.grammars.model.Production;
 import org.whole.lang.grammars.model.Rule;
 import org.whole.lang.grammars.util.TestXmlGrammar;
+import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.java.factories.JavaEntityFactory;
 import org.whole.lang.java.model.Assignment;
 import org.whole.lang.java.model.BodyDeclarations;
@@ -195,7 +195,7 @@ public class SelectQueriesTest {
 		PathExpression pe1 = (PathExpression) tm.create("selectTemplateWithNestedRelativeQuery");
 		PathExpression pe2 = (PathExpression) tm.create("selectTemplateWithNestedQuery");
 
-		IEntityIterator<ClassDeclaration> i2 = BehaviorUtils.<ClassDeclaration>compileAndLazyEvaluate(pe2, m);
+		IEntityIterator<ClassDeclaration> i2 = BehaviorUtils.<ClassDeclaration>compileAndLazyEvaluate(pe2, m).iterator();
 		for (ClassDeclaration t : BehaviorUtils.<ClassDeclaration>compileAndLazyEvaluate(pe1, m)) {
 			assertTrue(i2.hasNext());
 			assertTrue(Matcher.match(i2.next(), t));
@@ -332,7 +332,7 @@ public class SelectQueriesTest {
 
 		PathExpression pe1 = (PathExpression) tm.create("selectTemplateFromPathWithPattern");
 
-		IEntityIterator<Feature> featureIterator = IteratorFactory.instance.<Feature>descendantOrSelfMatcherIterator().withPattern(ModelsEntityDescriptorEnum.Feature);
+		IEntityIterator<Feature> featureIterator = ExecutableFactory.instance.<Feature>createDescendantOrSelfMatcher().withPattern(ModelsEntityDescriptorEnum.Feature);
 		featureIterator.reset(m);
 
 		for (FieldDeclaration field : BehaviorUtils.<FieldDeclaration>compileAndLazyEvaluate(pe1, m)) {

@@ -24,8 +24,8 @@ import org.whole.lang.actions.reflect.ActionsEntityDescriptorEnum;
 import org.whole.lang.actions.resources.ActionsRegistry;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.handler.HandlersBehavior;
+import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.resources.IResource;
@@ -60,7 +60,7 @@ public class ActionsVisibleWhen extends AbstractSelectionConstrainedVisibleWhen 
 			if (DataTypeUtils.getDataKind(targetLanguage).isString() && !languageURI.equals(targetLanguage.getValue()))
 				continue;
 
-			IEntityIterator<GuardedAction> iterator = IteratorFactory.instance.<GuardedAction>childMatcherIterator()
+			IEntityIterator<GuardedAction> iterator = ExecutableFactory.instance.<GuardedAction>createChildMatcher()
 					.withPattern(ActionsEntityDescriptorEnum.GuardedAction);
 			iterator.reset(getActions(actionsModule));
 			if (iterator.hasNext())

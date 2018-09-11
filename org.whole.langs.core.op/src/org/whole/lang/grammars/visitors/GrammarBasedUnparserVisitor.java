@@ -47,7 +47,7 @@ import org.whole.lang.grammars.model.Split;
 import org.whole.lang.grammars.model.Splitter;
 import org.whole.lang.grammars.model.When;
 import org.whole.lang.grammars.reflect.GrammarsEntityDescriptorEnum;
-import org.whole.lang.iterators.IteratorFactory;
+import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.iterators.ScannerIterator;
 import org.whole.lang.matchers.GenericMatcherFactory;
 import org.whole.lang.matchers.Matcher;
@@ -135,14 +135,14 @@ public class GrammarBasedUnparserVisitor extends GrammarsTraverseAllVisitor {
 	protected void normalize(Grammar entity) {
 		Grammar g = entity;//FIXME ensure normalized: NormalizerOperation.normalize(entity);
 
-		ScannerIterator<Production> li = iteratorFactory().<Production>childScannerIterator();
+		ScannerIterator<Production> li = iteratorFactory().<Production>createChildScanner();
 		li.reset(g.getLexicalStructure());
 		for (Production p : li) {
 			String name = p.getName().getValue();
 			nameProductionMap.put(name, p);
 			lexiconSet.add(name);
 		}
-		ScannerIterator<Production> pi = iteratorFactory().<Production>childScannerIterator();
+		ScannerIterator<Production> pi = iteratorFactory().<Production>createChildScanner();
 		pi.reset(g.getPhraseStructure());
 		for (Production p : pi)
 			nameProductionMap.put(p.getName().getValue(), p);

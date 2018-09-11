@@ -18,8 +18,8 @@
 package org.whole.lang.ui.commands;
 
 import org.eclipse.gef.commands.Command;
-import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.IteratorFactory;
+import org.whole.lang.executables.IExecutable;
+import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.reflect.FeatureDescriptorEnum;
@@ -66,7 +66,7 @@ public abstract class AbstractConnectionCommand extends Command implements ILega
 
 	protected FeatureDescriptor getConnectionConnectedFeature(IEntity node) {
 		FeatureDescriptor fd = null;
-		IEntityIterator<IEntity> i = IteratorFactory.instance.childIterator();
+		IExecutable<?> i = ExecutableFactory.instance.createChild();
 		i.reset(node);
 		for (IEntity child : i)
 			if ((EntityUtils.isComposite(child) && child.wContains(getConnection())) ||
@@ -86,12 +86,12 @@ public abstract class AbstractConnectionCommand extends Command implements ILega
 
 	protected boolean connectionExists(IEntity sourceTransistion, IEntity targetTransistion) {
 		if (EntityUtils.isNotResolver(sourceTransistion) && EntityUtils.isNotResolver(targetTransistion)) {
-			IEntityIterator<IEntity> sourceChildrenIterator = EntityUtils.isComposite(sourceTransistion) ?
-					IteratorFactory.instance.childIterator() : IteratorFactory.instance.selfIterator();
+			IExecutable<?> sourceChildrenIterator = EntityUtils.isComposite(sourceTransistion) ?
+					ExecutableFactory.instance.createChild() : ExecutableFactory.instance.createSelf();
 			sourceChildrenIterator.reset(sourceTransistion);
 			
-			IEntityIterator<IEntity> targetChildrenIterator = EntityUtils.isComposite(targetTransistion) ?
-					IteratorFactory.instance.childIterator() : IteratorFactory.instance.selfIterator();
+			IExecutable<?> targetChildrenIterator = EntityUtils.isComposite(targetTransistion) ?
+					ExecutableFactory.instance.createChild() : ExecutableFactory.instance.createSelf();
 			targetChildrenIterator.reset(targetTransistion);
 			
 			for (IEntity sourceEntity : sourceChildrenIterator) {

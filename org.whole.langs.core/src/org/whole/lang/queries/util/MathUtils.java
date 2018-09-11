@@ -20,8 +20,8 @@ package org.whole.lang.queries.util;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.exceptions.WholeIllegalArgumentException;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.iterators.AbstractSingleValuedRunnableIterator;
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.DataKinds;
 import org.whole.lang.util.DataTypeUtils;
@@ -32,8 +32,8 @@ import org.whole.lang.util.WholeMessages;
  * @author Riccardo Solmi
  */
 public class MathUtils {
-	public static IEntityIterator<?> additionStepIterator(IEntityIterator<?> expression) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(expression) {
+	public static IExecutable<?> additionStepIterator(IExecutable<?> expression) {
+		return new AbstractSingleValuedRunnableIterator<IEntity>(expression.iterator()) {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
 				bm.setResult(addition(selfEntity, argsEntities[0]));
 			}
@@ -43,8 +43,8 @@ public class MathUtils {
 			}
 		};
 	}
-	public static IEntityIterator<?> subtractionStepIterator(IEntityIterator<?> expression) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(expression) {
+	public static IExecutable<?> subtractionStepIterator(IExecutable<?> expression) {
+		return new AbstractSingleValuedRunnableIterator<IEntity>(expression.iterator()) {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
 				bm.setResult(subtraction(selfEntity, argsEntities[0]));
 			}
@@ -54,8 +54,8 @@ public class MathUtils {
 			}
 		};
 	}
-	public static IEntityIterator<?> multiplicationStepIterator(IEntityIterator<?> expression) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(expression) {
+	public static IExecutable<?> multiplicationStepIterator(IExecutable<?> expression) {
+		return new AbstractSingleValuedRunnableIterator<IEntity>(expression.iterator()) {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
 				bm.setResult(multiplication(selfEntity, argsEntities[0]));
 			}
@@ -65,8 +65,8 @@ public class MathUtils {
 			}
 		};
 	}
-	public static IEntityIterator<?> divisionStepIterator(IEntityIterator<?> expression) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(expression) {
+	public static IExecutable<?> divisionStepIterator(IExecutable<?> expression) {
+		return new AbstractSingleValuedRunnableIterator<IEntity>(expression.iterator()) {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
 				bm.setResult(division(selfEntity, argsEntities[0]));
 			}
@@ -76,8 +76,8 @@ public class MathUtils {
 			}
 		};
 	}
-	public static IEntityIterator<?> remainderStepIterator(IEntityIterator<?> expression) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(expression) {
+	public static IExecutable<?> remainderStepIterator(IExecutable<?> expression) {
+		return new AbstractSingleValuedRunnableIterator<IEntity>(expression.iterator()) {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
 				bm.setResult(remainder(selfEntity, argsEntities[0]));
 			}
@@ -88,8 +88,8 @@ public class MathUtils {
 		};
 	}
 
-	public static IEntityIterator<?> equalsStepIterator(IEntityIterator<?> expression) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(expression) {
+	public static IExecutable<?> equalsStepIterator(IExecutable<?> expression) {
+		return new AbstractSingleValuedRunnableIterator<IEntity>(expression.iterator()) {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
 				bm.setResult(MathUtils.equals(selfEntity, argsEntities[0]));
 			}
@@ -99,8 +99,8 @@ public class MathUtils {
 			}
 		};
 	}
-	public static IEntityIterator<?> notEqualsStepIterator(IEntityIterator<?> expression) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(expression) {
+	public static IExecutable<?> notEqualsStepIterator(IExecutable<?> expression) {
+		return new AbstractSingleValuedRunnableIterator<IEntity>(expression.iterator()) {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
 				bm.setResult(notEquals(selfEntity, argsEntities[0]));
 			}
@@ -110,8 +110,8 @@ public class MathUtils {
 			}
 		};
 	}
-	public static IEntityIterator<?> lessThanStepIterator(IEntityIterator<?> expression) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(expression) {
+	public static IExecutable<?> lessThanStepIterator(IExecutable<?> expression) {
+		return new AbstractSingleValuedRunnableIterator<IEntity>(expression.iterator()) {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
 				bm.setResult(lessThan(selfEntity, argsEntities[0]));
 			}
@@ -121,8 +121,8 @@ public class MathUtils {
 			}
 		};
 	}
-	public static IEntityIterator<?> lessOrEqualsStepIterator(IEntityIterator<?> expression) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(expression) {
+	public static IExecutable<?> lessOrEqualsStepIterator(IExecutable<?> expression) {
+		return new AbstractSingleValuedRunnableIterator<IEntity>(expression.iterator()) {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
 				bm.setResult(lessOrEquals(selfEntity, argsEntities[0]));
 			}
@@ -132,8 +132,8 @@ public class MathUtils {
 			}
 		};
 	}
-	public static IEntityIterator<?> greaterThanStepIterator(IEntityIterator<?> expression) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(expression) {
+	public static IExecutable<?> greaterThanStepIterator(IExecutable<?> expression) {
+		return new AbstractSingleValuedRunnableIterator<IEntity>(expression.iterator()) {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
 				bm.setResult(greaterThan(selfEntity, argsEntities[0]));
 			}
@@ -143,8 +143,8 @@ public class MathUtils {
 			}
 		};
 	}
-	public static IEntityIterator<?> greaterOrEqualsStepIterator(IEntityIterator<?> expression) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(expression) {
+	public static IExecutable<?> greaterOrEqualsStepIterator(IExecutable<?> expression) {
+		return new AbstractSingleValuedRunnableIterator<IEntity>(expression.iterator()) {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
 				bm.setResult(greaterOrEquals(selfEntity, argsEntities[0]));
 			}
@@ -157,8 +157,8 @@ public class MathUtils {
 
 
 
-	public static IEntityIterator<?> additionIterator(IEntityIterator<?> exp1, IEntityIterator<?> exp2) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(exp1, exp2) {
+	public static IExecutable<?> additionIterator(IExecutable<?> exp1, IExecutable<?> exp2) {
+		return new AbstractSingleValuedRunnableIterator<IEntity>(exp1.iterator(), exp2.iterator()) {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
 				bm.setResult(addition(argsEntities[0], argsEntities[1]));
 			}
@@ -168,8 +168,8 @@ public class MathUtils {
 			}
 		};
 	}
-	public static IEntityIterator<?> subtractionIterator(IEntityIterator<?> exp1, IEntityIterator<?> exp2) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(exp1, exp2) {
+	public static IExecutable<?> subtractionIterator(IExecutable<?> exp1, IExecutable<?> exp2) {
+		return new AbstractSingleValuedRunnableIterator<IEntity>(exp1.iterator(), exp2.iterator()) {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
 				bm.setResult(subtraction(argsEntities[0], argsEntities[1]));
 			}
@@ -179,8 +179,8 @@ public class MathUtils {
 			}
 		};
 	}
-	public static IEntityIterator<?> multiplicationIterator(IEntityIterator<?> exp1, IEntityIterator<?> exp2) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(exp1, exp2) {
+	public static IExecutable<?> multiplicationIterator(IExecutable<?> exp1, IExecutable<?> exp2) {
+		return new AbstractSingleValuedRunnableIterator<IEntity>(exp1.iterator(), exp2.iterator()) {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
 				bm.setResult(multiplication(argsEntities[0], argsEntities[1]));
 			}
@@ -190,8 +190,8 @@ public class MathUtils {
 			}
 		};
 	}
-	public static IEntityIterator<?> divisionIterator(IEntityIterator<?> exp1, IEntityIterator<?> exp2) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(exp1, exp2) {
+	public static IExecutable<?> divisionIterator(IExecutable<?> exp1, IExecutable<?> exp2) {
+		return new AbstractSingleValuedRunnableIterator<IEntity>(exp1.iterator(), exp2.iterator()) {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
 				bm.setResult(division(argsEntities[0], argsEntities[1]));
 			}
@@ -201,8 +201,8 @@ public class MathUtils {
 			}
 		};
 	}
-	public static IEntityIterator<?> remainderIterator(IEntityIterator<?> exp1, IEntityIterator<?> exp2) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(exp1, exp2) {
+	public static IExecutable<?> remainderIterator(IExecutable<?> exp1, IExecutable<?> exp2) {
+		return new AbstractSingleValuedRunnableIterator<IEntity>(exp1.iterator(), exp2.iterator()) {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
 				bm.setResult(remainder(argsEntities[0], argsEntities[1]));
 			}
@@ -213,8 +213,8 @@ public class MathUtils {
 		};
 	}
 
-	public static IEntityIterator<?> equalsIterator(IEntityIterator<?> exp1, IEntityIterator<?> exp2) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(exp1, exp2) {
+	public static IExecutable<?> equalsIterator(IExecutable<?> exp1, IExecutable<?> exp2) {
+		return new AbstractSingleValuedRunnableIterator<IEntity>(exp1.iterator(), exp2.iterator()) {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
 				bm.setResult(MathUtils.equals(argsEntities[0], argsEntities[1]));
 			}
@@ -224,8 +224,8 @@ public class MathUtils {
 			}
 		};
 	}
-	public static IEntityIterator<?> notEqualsIterator(IEntityIterator<?> exp1, IEntityIterator<?> exp2) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(exp1, exp2) {
+	public static IExecutable<?> notEqualsIterator(IExecutable<?> exp1, IExecutable<?> exp2) {
+		return new AbstractSingleValuedRunnableIterator<IEntity>(exp1.iterator(), exp2.iterator()) {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
 				bm.setResult(notEquals(argsEntities[0], argsEntities[1]));
 			}
@@ -235,8 +235,8 @@ public class MathUtils {
 			}
 		};
 	}
-	public static IEntityIterator<?> lessThanIterator(IEntityIterator<?> exp1, IEntityIterator<?> exp2) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(exp1, exp2) {
+	public static IExecutable<?> lessThanIterator(IExecutable<?> exp1, IExecutable<?> exp2) {
+		return new AbstractSingleValuedRunnableIterator<IEntity>(exp1.iterator(), exp2.iterator()) {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
 				bm.setResult(lessThan(argsEntities[0], argsEntities[1]));
 			}
@@ -246,8 +246,8 @@ public class MathUtils {
 			}
 		};
 	}
-	public static IEntityIterator<?> lessOrEqualsIterator(IEntityIterator<?> exp1, IEntityIterator<?> exp2) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(exp1, exp2) {
+	public static IExecutable<?> lessOrEqualsIterator(IExecutable<?> exp1, IExecutable<?> exp2) {
+		return new AbstractSingleValuedRunnableIterator<IEntity>(exp1.iterator(), exp2.iterator()) {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
 				bm.setResult(lessOrEquals(argsEntities[0], argsEntities[1]));
 			}
@@ -257,8 +257,8 @@ public class MathUtils {
 			}
 		};
 	}
-	public static IEntityIterator<?> greaterThanIterator(IEntityIterator<?> exp1, IEntityIterator<?> exp2) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(exp1, exp2) {
+	public static IExecutable<?> greaterThanIterator(IExecutable<?> exp1, IExecutable<?> exp2) {
+		return new AbstractSingleValuedRunnableIterator<IEntity>(exp1.iterator(), exp2.iterator()) {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
 				bm.setResult(greaterThan(argsEntities[0], argsEntities[1]));
 			}
@@ -268,8 +268,8 @@ public class MathUtils {
 			}
 		};
 	}
-	public static IEntityIterator<?> greaterOrEqualsIterator(IEntityIterator<?> exp1, IEntityIterator<?> exp2) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(exp1, exp2) {
+	public static IExecutable<?> greaterOrEqualsIterator(IExecutable<?> exp1, IExecutable<?> exp2) {
+		return new AbstractSingleValuedRunnableIterator<IEntity>(exp1.iterator(), exp2.iterator()) {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
 				bm.setResult(greaterOrEquals(argsEntities[0], argsEntities[1]));
 			}

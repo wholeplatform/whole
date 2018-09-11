@@ -27,7 +27,7 @@ import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.commons.model.Variable;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.iterators.AbstractPatternFilterIterator;
-import org.whole.lang.iterators.IteratorFactory;
+import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.lifecycle.IHistoryManager;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.EntityDescriptor;
@@ -98,7 +98,7 @@ public class Matcher {
 		return (E) findAncestor(mv, model);
 	}
 	public static IEntity findAncestor(IVisitor matcherVisitor, IEntity model) {
-		AbstractPatternFilterIterator<IEntity> i = IteratorFactory.instance.ancestorMatcherIterator().withPattern(matcherVisitor);
+		AbstractPatternFilterIterator<IEntity> i = ExecutableFactory.instance.createAncestorMatcher().withPattern(matcherVisitor);
 		i.reset(model);
 		for (IEntity e : i)
 			return e;
@@ -123,7 +123,7 @@ public class Matcher {
 		return (E) findAncestorOrSelf(mv, model);
 	}
 	public static IEntity findAncestorOrSelf(IVisitor matcherVisitor, IEntity model) {
-		AbstractPatternFilterIterator<IEntity> i = IteratorFactory.instance.ancestorOrSelfMatcherIterator().withPattern(matcherVisitor);
+		AbstractPatternFilterIterator<IEntity> i = ExecutableFactory.instance.createAncestorOrSelfMatcher().withPattern(matcherVisitor);
 		i.reset(model);
 		for (IEntity e : i)
 			return e;
@@ -148,7 +148,7 @@ public class Matcher {
 		return (E) findChild(mv, model);
 	}
 	public static IEntity findChild(IVisitor matcherVisitor, IEntity model) {
-		AbstractPatternFilterIterator<IEntity> i = IteratorFactory.instance.childMatcherIterator().withPattern(matcherVisitor);
+		AbstractPatternFilterIterator<IEntity> i = ExecutableFactory.instance.createChildMatcher().withPattern(matcherVisitor);
 		i.reset(model);
 		for (IEntity e : i)
 			return e;
@@ -356,7 +356,7 @@ public class Matcher {
 	public static boolean removeVars(IEntity pattern, boolean force) {
 		boolean allVarsAreOptional = true;
 
-		AbstractPatternFilterIterator<IEntity> variableIterator = IteratorFactory.instance.descendantOrSelfMatcherIterator()
+		AbstractPatternFilterIterator<IEntity> variableIterator = ExecutableFactory.instance.createDescendantOrSelfMatcher()
 				.withPattern(GenericMatcherFactory.instance.isVariableMatcher());
 		variableIterator.reset(pattern);
 		for (IEntity variableAdapter : variableIterator) {
@@ -377,7 +377,7 @@ public class Matcher {
 
 		boolean allVarsAreOptional = true;
 
-		AbstractPatternFilterIterator<IEntity> variableIterator = IteratorFactory.instance.descendantOrSelfMatcherIterator()
+		AbstractPatternFilterIterator<IEntity> variableIterator = ExecutableFactory.instance.createDescendantOrSelfMatcher()
 				.withPattern(GenericMatcherFactory.instance.isVariableMatcher());
 		variableIterator.reset(pattern);
 		for (IEntity variableAdapter : variableIterator) {
@@ -395,7 +395,7 @@ public class Matcher {
 	public static Set<String> vars(IEntity pattern, boolean includeOptionals) {
 		Set<String> names = new HashSet<String>();
 
-		AbstractPatternFilterIterator<IEntity> variableIterator = IteratorFactory.instance.descendantOrSelfMatcherIterator()
+		AbstractPatternFilterIterator<IEntity> variableIterator = ExecutableFactory.instance.createDescendantOrSelfMatcher()
 				.withPattern(GenericMatcherFactory.instance.isVariableMatcher());
 		variableIterator.reset(pattern);
 		for (IEntity variableAdapter : variableIterator) {

@@ -27,8 +27,7 @@ import org.whole.lang.artifacts.model.PackageArtifact;
 import org.whole.lang.artifacts.model.Project;
 import org.whole.lang.artifacts.model.Workspace;
 import org.whole.lang.artifacts.util.IArtifactsOperations;
-import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.IteratorFactory;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.visitors.VisitException;
 
@@ -46,7 +45,7 @@ public class ArtifactsResourceVisitor<T> extends ArtifactsIdentityDefaultVisitor
 	}
 
 	protected void acceptChildren(IEntity entity) {
-		IEntityIterator<IEntity> i = iteratorFactory().childIterator();
+		IExecutable<?> i = iteratorFactory().createChild();
 		i.reset(getChildren(entity));
 		for (IEntity child : i)
 			acceptChild(child, getArtifactsOperations().getChild(

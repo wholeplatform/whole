@@ -23,7 +23,7 @@ import java.util.WeakHashMap;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.iterators.IteratorFactory;
+import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.DynamicCompilerOperation;
@@ -102,7 +102,7 @@ public class CompoundResourceRegistry<T extends IResource> extends ResourceRegis
 		}
 		
 		if (functionCode == null)
-			functionCode = IteratorFactory.instance(bm).emptyIterator();//TODO should be configurable
+			functionCode = ExecutableFactory.instance(bm).createEmpty();//TODO should be configurable
 			
 		return (B) functionCode.clone();
 	}

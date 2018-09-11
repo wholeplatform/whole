@@ -44,8 +44,8 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IWorkbench;
 import org.whole.gen.util.JDTUtils;
+import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.java.codebase.JavaSourceTemplateFactory;
 import org.whole.lang.java.model.BodyDeclarations;
 import org.whole.lang.java.model.CompilationUnit;
@@ -178,7 +178,7 @@ public class WizardPojoModelImportPage1 extends AbstractWizardWholeModelImportPa
 			if (map.containsKey(compilationUnitName)) {
 				List<String> memberNames = map.get(compilationUnitName);
 				BodyDeclarations bodyDeclarations = compilationUnit.getTypes().get(0).getBodyDeclarations();
-				IEntityIterator<TypeDeclaration> entityIterator = IteratorFactory.instance.<TypeDeclaration>childMatcherIterator()
+				IEntityIterator<TypeDeclaration> entityIterator = ExecutableFactory.instance.<TypeDeclaration>createChildMatcher()
 						.withPattern(JavaEntityDescriptorEnum.TypeDeclaration);
 				entityIterator.reset(bodyDeclarations);
 				while (entityIterator.hasNext()) 

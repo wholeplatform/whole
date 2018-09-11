@@ -146,7 +146,7 @@ public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisit
 		IExecutable<?> contentIterator = null;
 		IExecutable<?> adapterIterator = null;
 		if (EntityUtils.isResolver(reusable)) {
-			contentIterator = iteratorFactory().constantIterator(entity.getOriginal(), false);
+			contentIterator = iteratorFactory().createConstant(entity.getOriginal(), false);
 
 			if (EntityUtils.isNotResolver(entity.getAdapter())) {
 				entity.getAdapter().accept(this);
@@ -155,10 +155,10 @@ public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisit
 		}
 
 		if (contentIterator == null)
-			contentIterator = iteratorFactory().constantIterator(reusable, false);
+			contentIterator = iteratorFactory().createConstant(reusable, false);
 
 		boolean updateAdapted = EntityUtils.isResolver(entity.getAdapted());
-		IExecutable<?> evaluateIterator = iteratorFactory().singleValuedRunnableIterator(
+		IExecutable<?> evaluateIterator = iteratorFactory().createSingleValuedRunnable(
 			(selfEntity, bm, arguments) -> {
 				try {
 					getBindings().wEnterScope();
@@ -181,8 +181,8 @@ public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisit
 		);
 
 		IExecutable<? extends IEntity> expandIterator = adapterIterator != null ? 
-				iteratorFactory().composeIterator(evaluateIterator, adapterIterator, contentIterator) :
-					iteratorFactory().composeIterator(evaluateIterator, contentIterator);
+				iteratorFactory().createCompose(evaluateIterator, adapterIterator, contentIterator) :
+					iteratorFactory().createCompose(evaluateIterator, contentIterator);
 
 		for (IEntity result : expandIterator) {
 			stagedVisit(result.wGetAdaptee(false));
@@ -194,9 +194,9 @@ public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisit
 	public void visit(Include entity) {
 		IExecutable<?> contentIterator = readResource(entity.getResource());
 
-		IExecutable<?> evaluateIterator = iteratorFactory().singleValuedRunnableIterator(
+		IExecutable<?> evaluateIterator = iteratorFactory().createSingleValuedRunnable(
 				(selfEntity, bm, arguments) -> evaluateAndClone(selfEntity, bm));
-		setExecutableResult(iteratorFactory().composeIterator(evaluateIterator, contentIterator));
+		setExecutableResult(iteratorFactory().createCompose(evaluateIterator, contentIterator));
 	}
 
 	@Override
@@ -215,7 +215,7 @@ public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisit
 				reusable =  entity.getOriginal();
 	
 				if (EntityUtils.isResolver(reusable)) {
-					contentIterator = readResource(entity.getResource());
+					contentIterator = readResource(entity.getResource()).iterator();
 					contentIterator.setBindings(getBindings());
 					contentIterator.reset(entity);
 					if (contentIterator.hasNext())
@@ -238,10 +238,10 @@ public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisit
 		}
 
 		if (contentIterator == null)
-			contentIterator = iteratorFactory().constantIterator(reusable, false);
+			contentIterator = iteratorFactory().createConstant(reusable, false).iterator();
 
 		boolean updateAdapted = EntityUtils.isResolver(entity.getAdapted());
-		IExecutable<?> evaluateIterator = iteratorFactory().singleValuedRunnableIterator(
+		IExecutable<?> evaluateIterator = iteratorFactory().createSingleValuedRunnable(
 			(selfEntity, bm, arguments) -> {
 				try {
 					getBindings().wEnterScope();
@@ -264,8 +264,8 @@ public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisit
 		);
 
 		setExecutableResult(adapterIterator != null ? 
-				iteratorFactory().composeIterator(evaluateIterator, adapterIterator, contentIterator) :
-					iteratorFactory().composeIterator(evaluateIterator, contentIterator));
+				iteratorFactory().createCompose(evaluateIterator, adapterIterator, contentIterator) :
+					iteratorFactory().createCompose(evaluateIterator, contentIterator));
 	}
 
 	@Override
@@ -275,8 +275,8 @@ public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisit
 		if (EntityUtils.isResolver(reusable))
 			visit((Reuse) entity);
 		else {
-			setExecutableResult(iteratorFactory().constantComposeIterator(reusable,
-					iteratorFactory().singleValuedRunnableIterator(
+			setExecutableResult(iteratorFactory().createConstantCompose(reusable,
+					iteratorFactory().createSingleValuedRunnable(
 							(selfEntity, bm, arguments) -> evaluateAndClone(selfEntity, bm)
 			)));
 		}

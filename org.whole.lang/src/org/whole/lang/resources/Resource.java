@@ -26,8 +26,8 @@ import org.whole.lang.builders.IBuilderOperation;
 import org.whole.lang.codebase.FilePersistenceProvider;
 import org.whole.lang.codebase.IPersistenceKit;
 import org.whole.lang.codebase.IPersistenceProvider;
-import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.IteratorFactory;
+import org.whole.lang.executables.IExecutable;
+import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.InterpreterOperation;
 import org.whole.lang.reflect.ReflectionFactory;
@@ -118,14 +118,14 @@ public class Resource implements IResource {
 		return EntityUtils.getLocation(entity);
 	}
 
-	public <E extends IEntity> IEntityIterator<E> apply(IEntity query, IBindingManager bindings) {
+	public <E extends IEntity> IExecutable<E> apply(IEntity query, IBindingManager bindings) {
 		return apply(this.<IEntity>getEntity(), query, bindings);//FIXME workaround for Java 8 compiler
 	}
-	public <E extends IEntity> IEntityIterator<E> apply(String uriFragment, IEntity query, IBindingManager bindings) {
+	public <E extends IEntity> IExecutable<E> apply(String uriFragment, IEntity query, IBindingManager bindings) {
 		return apply(this.<IEntity>getEntity(uriFragment), query, bindings);//FIXME workaround for Java 8 compiler
 	}
-	protected <E extends IEntity> IEntityIterator<E> apply(IEntity entity, IEntity query, IBindingManager bindings) {
-		IEntityIterator<E> iterator = IteratorFactory.instance(bindings).templateInterpreterIterator(query);
+	protected <E extends IEntity> IExecutable<E> apply(IEntity entity, IEntity query, IBindingManager bindings) {
+		IExecutable<E> iterator = ExecutableFactory.instance(bindings).createTemplateInterpreter(query);
 		iterator.setBindings(bindings);
 		iterator.reset(entity);
 		return iterator;

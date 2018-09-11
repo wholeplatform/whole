@@ -53,8 +53,8 @@ import org.whole.lang.grammars.reflect.GrammarsLanguageKit;
 import org.whole.lang.grammars.visitors.GrammarsIdentityVisitor;
 import org.whole.lang.grammars.visitors.GrammarsTraverseAllVisitor;
 import org.whole.lang.iterators.AbstractPatternFilterIterator;
+import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.EnumType;
 import org.whole.lang.parsers.Lexer;
@@ -92,7 +92,7 @@ public class GenericPredictiveParser extends AbstractPredictiveParser {
 
 		cb = (ICommonsBuilder) op.wGetBuilder(CommonsLanguageKit.URI);
 
-		AbstractPatternFilterIterator<Production> i = IteratorFactory.instance.<Production>descendantOrSelfMatcherIterator().withPattern(GrammarsEntityDescriptorEnum.Production);
+		AbstractPatternFilterIterator<Production> i = ExecutableFactory.instance.<Production>createDescendantOrSelfMatcher().withPattern(GrammarsEntityDescriptorEnum.Production);
 		i.reset(this.grammar);
 		for (Production production : i)
 			productionsMap.put(production.getName().getValue(), production);
@@ -388,7 +388,7 @@ public class GenericPredictiveParser extends AbstractPredictiveParser {
 
 			switch (predicate.wGetEntityOrd()) {
 			case GrammarsEntityDescriptorEnum.And_ord:
-				iterator = IteratorFactory.instance.<Predicate>childIterator();
+				iterator = ExecutableFactory.instance.<Predicate>createChild().iterator();
 				iterator.reset(predicate);
 				while (iterator.hasNext()) {
 					Lexer.Memento memento = mark();
@@ -398,7 +398,7 @@ public class GenericPredictiveParser extends AbstractPredictiveParser {
 				break;
 
 			case GrammarsEntityDescriptorEnum.Or_ord:
-				iterator = IteratorFactory.instance.<Predicate>childIterator();
+				iterator = ExecutableFactory.instance.<Predicate>createChild().iterator();
 				iterator.reset(predicate);
 				while (iterator.hasNext()) {
 					Lexer.Memento memento = mark();

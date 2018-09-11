@@ -32,7 +32,7 @@ public class FollowingEvaluator<E extends IEntity> extends AbstractTransitiveClo
 	@Override
 	protected void pushInitialIterators(IEntity entity) {
 		if (entity == null || !EntityUtils.hasParent(entity))
-			pushIterator(iteratorFactory().<E>emptyIterator(), entity);
+			pushIterator(executableFactory().<E>createEmpty(), entity);
 		else {
 			IEntity parent = entity.wGetParent();
 			pushInitialIterators(parent);
@@ -41,8 +41,8 @@ public class FollowingEvaluator<E extends IEntity> extends AbstractTransitiveClo
 	}
 
 	protected IExecutable<E> createChildIterator() {
-		return includeSelf ? iteratorFactory().<E>followingSiblingOrSelfIterator() :
-			iteratorFactory().<E>followingSiblingIterator();
+		return includeSelf ? executableFactory().<E>createFollowingSiblingOrSelf() :
+			executableFactory().<E>createFollowingSibling();
 	}
 
 	protected boolean isRelationNotEmpty(IEntity entity) {
@@ -50,7 +50,7 @@ public class FollowingEvaluator<E extends IEntity> extends AbstractTransitiveClo
 	}
 
     protected IExecutable<E> createRelationIterator() {
-    	return iteratorFactory().<E>childIterator();
+    	return executableFactory().<E>createChild();
     }
 
 	public void toString(StringBuilder sb) {

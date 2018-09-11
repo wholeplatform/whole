@@ -25,7 +25,7 @@ import org.whole.lang.model.IEntity;
  * @author Riccardo Solmi
  */
 public class InstrumentedExecutableFactory extends AbstractDecoratedExecutableFactory {
-	protected <E extends IEntity> IEntityIterator<E> decorate(IEntityIterator<E> iterator) {
+	protected <E extends IEntity> IExecutable<E> decorate(IEntityIterator<E> iterator) {
 		return new InstrumentingIterator<E>(iterator);
 	}
 }

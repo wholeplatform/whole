@@ -29,12 +29,12 @@ public class PrecedingEvaluator<E extends IEntity> extends FollowingEvaluator<E>
 	}
 
 	protected IExecutable<E> createRelationIterator() {
-		return iteratorFactory().<E>childReverseIterator();
+		return executableFactory().<E>createChildReverse();
 	}
 
 	protected IExecutable<E> createChildIterator() {
-		return includeSelf ? iteratorFactory().<E>precedingSiblingOrSelfIterator() :
-			iteratorFactory().<E>precedingSiblingIterator();
+		return includeSelf ? executableFactory().<E>createPrecedingSiblingOrSelf() :
+			executableFactory().<E>createPrecedingSibling();
 	}
 
 	public void toString(StringBuilder sb) {

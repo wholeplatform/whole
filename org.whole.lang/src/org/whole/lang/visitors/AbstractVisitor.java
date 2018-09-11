@@ -21,7 +21,7 @@ import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.commons.visitors.CommonsInterpreterVisitor;
 import org.whole.lang.executables.IExecutable;
-import org.whole.lang.iterators.IteratorFactory;
+import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.model.adapters.IEntityAdapter;
 import org.whole.lang.operations.AnonymousOperation;
@@ -47,10 +47,10 @@ public abstract class AbstractVisitor implements IVisitor {
 	private IOperation operation;
 	protected IBindingManager bindings;
 
-	private IteratorFactory iteratorFactory;
-	public IteratorFactory iteratorFactory() {
+	private ExecutableFactory iteratorFactory;
+	public ExecutableFactory iteratorFactory() {
 		if (iteratorFactory == null)
-			iteratorFactory = bindings != null ? IteratorFactory.instance(bindings) : IteratorFactory.instance;
+			iteratorFactory = bindings != null ? ExecutableFactory.instance(bindings) : ExecutableFactory.instance;
 		return iteratorFactory;
 	}
 

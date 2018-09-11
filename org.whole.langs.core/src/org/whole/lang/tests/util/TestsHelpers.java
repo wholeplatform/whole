@@ -15,9 +15,10 @@ import java.util.Map;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.factories.GenericEntityFactory;
+import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.matchers.GenericMatcher;
 import org.whole.lang.matchers.MatchException;
 import org.whole.lang.model.IEntity;
@@ -117,10 +118,10 @@ public class TestsHelpers {
 
 	public static Map<String, FilterRule> createFilterRulesMap(TestSuite testSuite) {
 		Map<String, FilterRule> filterRulesMap = new HashMap<String, FilterRule>();
-		IEntityIterator<FilterFamily> filterFamilies = IteratorFactory.instance.childIterator();
+		IExecutable<FilterFamily> filterFamilies = ExecutableFactory.instance.createChild();
 		filterFamilies.reset(testSuite.getFilterFamilies());
 		for (FilterFamily filterFamily : filterFamilies) {
-			IEntityIterator<FilterRule> filterRules = IteratorFactory.instance.childIterator();
+			IExecutable<FilterRule> filterRules = ExecutableFactory.instance.createChild();
 			filterRules.reset(filterFamily.getFilterRules());
 			for (FilterRule filterRule : filterRules) {
 				String name = filterFamily.getName().getValue()+'.'+filterRule.getName().getValue();

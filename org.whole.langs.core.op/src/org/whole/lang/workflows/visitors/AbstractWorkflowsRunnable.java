@@ -22,6 +22,7 @@ import java.lang.reflect.Array;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.util.DataTypeUtils;
@@ -40,7 +41,7 @@ public abstract class AbstractWorkflowsRunnable implements IRunnable {
     }
     protected static void setResult(IBindingManager bm, Variable variable, Object resultValue, Class<?> resultType) {
 		if (resultValue instanceof IEntityIterator) {
-			bm.setExecutableResult((IEntityIterator<?>) resultValue);
+			bm.setExecutableResult((IExecutable<?>) resultValue);
 		} else if (Void.TYPE.equals(resultType)) {
 			if (EntityUtils.isNotResolver(variable))
 				throw new IllegalArgumentException("cannot bind a void result");

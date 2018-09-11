@@ -18,8 +18,8 @@
 package org.whole.lang;
 
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.IteratorFactory;
+import org.whole.lang.executables.IExecutable;
+import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.FindDeclarationOperation;
 import org.whole.lang.operations.FindDeclarationsOperation;
@@ -40,15 +40,15 @@ public class ViewDerivationLibraryDeployer extends AbstractFunctionLibraryDeploy
 		putFunctionCode("deriveMapViewContents", deriveMapViewContentsIterator());
 	}
 
-	public static IEntityIterator<IEntity> deriveIndexViewContentsIterator() {
-		return IteratorFactory.instance.singleValuedRunnableIterator(new IRunnable() {
+	public static IExecutable<?> deriveIndexViewContentsIterator() {
+		return ExecutableFactory.instance.createSingleValuedRunnable(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				bm.setResult(FindDeclarationsOperation.findDeclarations(selfEntity));
 			}
 		});
 	}
-	public static IEntityIterator<IEntity> deriveMapViewContentsIterator() {
-		return IteratorFactory.instance.singleValuedRunnableIterator(new IRunnable() {
+	public static IExecutable<?> deriveMapViewContentsIterator() {
+		return ExecutableFactory.instance.createSingleValuedRunnable(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				IEntity result = null;
 				if (bm.wIsSet("primarySelectedEntity"))

@@ -23,9 +23,9 @@ import java.util.function.Consumer;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.ITransactionScope;
+import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IJavaIterator;
-import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.CloneContext;
 import org.whole.lang.operations.ICloneContext;
@@ -36,7 +36,7 @@ import org.whole.lang.steppers.IDataFlowConsumer;
  */
 public abstract class AbstractExecutable<E extends IEntity> implements IEntityIterator<E> {
 	private IEntity sourceEntity;
-	public IEntityIterator<E> withSourceEntity(IEntity entity) {
+	public IExecutable<E> withSourceEntity(IEntity entity) {
 		sourceEntity = entity;
 		return this;
 	}
@@ -98,8 +98,8 @@ public abstract class AbstractExecutable<E extends IEntity> implements IEntityIt
     protected void setProducersBindings(IBindingManager bindings) {
 	}
 
-	public IteratorFactory iteratorFactory() {
-		return hasBindings() ? IteratorFactory.instance(getBindings()) : IteratorFactory.instance;
+	public ExecutableFactory executableFactory() {
+		return hasBindings() ? ExecutableFactory.instance(getBindings()) : ExecutableFactory.instance;
 	}
 
 	public IEntityIterator<E> iterator() {

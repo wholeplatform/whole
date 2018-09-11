@@ -33,7 +33,7 @@ public class DescendantReverseEvaluator<E extends IEntity> extends AbstractTrans
 	}
 
 	protected IExecutable<E> createRelationIterator() {
-    	return iteratorFactory().<E>childReverseIterator();
+    	return executableFactory().<E>createChildReverse();
     }
 
     public void toString(StringBuilder sb) {

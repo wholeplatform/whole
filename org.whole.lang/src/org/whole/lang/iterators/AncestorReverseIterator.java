@@ -30,7 +30,7 @@ public class AncestorReverseIterator extends CollectionIterator<IEntity> {
 	@Override
 	protected Iterable<?> getCollectionIterable(IEntity entity) {
         List<IEntity> ancestors = new ArrayList<IEntity>();
-        IEntityIterator<IEntity> i = iteratorFactory().ancestorIterator();
+        IEntityIterator<IEntity> i = executableFactory().createAncestor().iterator();
         i.reset(entity);
 		for (IEntity parent : i)
         	ancestors.add(parent);

@@ -31,10 +31,11 @@ import java.util.Set;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.factories.GenericEntityFactory;
 import org.whole.lang.factories.RegistryConfigurations;
+import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.EnumValue;
 import org.whole.lang.model.IEntity;
@@ -63,7 +64,6 @@ import org.whole.lang.pojo.model.Type;
 import org.whole.lang.pojo.reflect.PojoEntityDescriptorEnum;
 import org.whole.lang.pojo.templates.PojoTemplateManager;
 import org.whole.lang.queries.model.Expression;
-import org.whole.lang.queries.model.PathExpression;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.reflect.ILanguageKit;
@@ -226,7 +226,7 @@ public class PojoUtils {
 
 	public static void translate(Object fromObject, IEntity toIEntity, PojoDeclaration pojoDeclaration, Library library) {
 		// translate inherited properties
-		IEntityIterator<ReferenceType> superPojosIterator = IteratorFactory.instance.<ReferenceType>childIterator();
+		IExecutable<ReferenceType> superPojosIterator = ExecutableFactory.instance.<ReferenceType>createChild();
 		superPojosIterator.reset(pojoDeclaration.getTypes());
 		for (ReferenceType superType : superPojosIterator) {
 			PojoDeclaration superDeclaration = (PojoDeclaration) findProductDeclaration(superType, library);
@@ -234,7 +234,7 @@ public class PojoUtils {
 		}
 
 		// translate declared properties
-		IEntityIterator<Property> iterator = IteratorFactory.instance.<Property>childIterator();
+		IEntityIterator<Property> iterator = ExecutableFactory.instance.<Property>createChild().iterator();
 		iterator.reset(pojoDeclaration.getProperties());
 		EntityDescriptor<?> ed = toIEntity.wGetEntityDescriptor();
 		Property property = null;
@@ -262,7 +262,7 @@ public class PojoUtils {
 
 	public static void translate(IEntity fromEntity, Object toObject, PojoDeclaration pojoDeclaration, Library library) {
 		// translate inherited properties
-		IEntityIterator<ReferenceType> superPojosIterator = IteratorFactory.instance.<ReferenceType>childIterator();
+		IExecutable<ReferenceType> superPojosIterator = ExecutableFactory.instance.<ReferenceType>createChild();
 		superPojosIterator.reset(pojoDeclaration.getTypes());
 		for (ReferenceType superType : superPojosIterator) {
 			PojoDeclaration superDeclaration = (PojoDeclaration) findProductDeclaration(superType, library);
@@ -270,7 +270,7 @@ public class PojoUtils {
 		}
 
 		// translate declared properties
-		IEntityIterator<Property> iterator = IteratorFactory.instance.<Property>childIterator();
+		IEntityIterator<Property> iterator = ExecutableFactory.instance.<Property>createChild().iterator();
 		iterator.reset(pojoDeclaration.getProperties());
 		EntityDescriptor<?> ed = fromEntity.wGetEntityDescriptor();
 		Property property = null;
@@ -424,7 +424,7 @@ public class PojoUtils {
 			case CollectionType_ord:
 				Collection<Object> toCollection = ((CollectionType) type).getCollectionInterface().getValue().equals(CollectionInterfaceEnum.Set) ?
 						new HashSet<Object>() : new ArrayList<Object>();
-				IEntityIterator<IEntity> ci = IteratorFactory.instance.childIterator();
+				IExecutable<?> ci = ExecutableFactory.instance.createChild();
 				ci.reset(fromEntity);
 				for (IEntity feature : ci)
 					toCollection.add(create(feature, library));
@@ -490,7 +490,7 @@ public class PojoUtils {
 	public static List<Constructor> getConstructors(PojoDeclaration pojoDeclaration) {
 		Constructors constructors = pojoDeclaration.getConstructors();
 		List<Constructor> constructorsList = new ArrayList<Constructor>(constructors.wSize());
-		IEntityIterator<Constructor> i = IteratorFactory.instance.<Constructor>childIterator();
+		IExecutable<Constructor> i = ExecutableFactory.instance.<Constructor>createChild();
 		i.reset(constructors);
 		for (Constructor constructor : i)
 			constructorsList.add(constructor);
@@ -510,7 +510,7 @@ public class PojoUtils {
 		int[] supportedFields = new int[constructors.size()];
 
 		Expression findAllReadOnlyFields = (Expression) PojoTemplateManager.instance().create("findAllReadOnlyFields");
-		IEntityIterator<Name> iterator = BehaviorUtils.<Name>compileAndLazyEvaluate(findAllReadOnlyFields, pojoDeclaration, bindings);
+		IEntityIterator<Name> iterator = BehaviorUtils.<Name>compileAndLazyEvaluate(findAllReadOnlyFields, pojoDeclaration, bindings).iterator();
 		int readOnlyFieldCount = 0;
 		while (iterator.hasNext()) {
 			iterator.next();
@@ -538,7 +538,7 @@ public class PojoUtils {
 		IBindingManager bindings = BindingManagerFactory.instance.createArguments();
 		Expression findPropertyByTemplate = (Expression) PojoTemplateManager.instance().create("findPropertyByTemplate");
 		Expression findParameterByTemplate = (Expression) PojoTemplateManager.instance().create("findParameterByTemplate");
-		IEntityIterator<Parameter> iterator = BehaviorUtils.<Parameter>compileAndLazyEvaluate(findParameterByTemplate, constructor, bindings);
+		IEntityIterator<Parameter> iterator = BehaviorUtils.<Parameter>compileAndLazyEvaluate(findParameterByTemplate, constructor, bindings).iterator();
 		while (iterator.hasNext()) {
 			iterator.next();
 			Property property = BehaviorUtils.<Property>evaluateFirstResult(findPropertyByTemplate, pojoDeclaration, bindings);

@@ -42,8 +42,8 @@ import org.whole.lang.codebase.PrettyPrintPersistenceKit;
 import org.whole.lang.contexts.EntityContext;
 import org.whole.lang.contexts.IEntityContext;
 import org.whole.lang.events.IChangeEventHandler;
-import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.IteratorFactory;
+import org.whole.lang.executables.IExecutable;
+import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.lifecycle.IHistoryManager;
 import org.whole.lang.lifecycle.ITransaction;
 import org.whole.lang.model.IEntity;
@@ -255,14 +255,14 @@ public class ReflectionFactory {
     public static SortedSet<ILanguageKit> getLanguageKits(boolean includeHidden, Comparator<? super ILanguageKit> comparator) {
     	return languageKitRegistry.getResources(includeHidden, comparator);
     }
-	public static IEntityIterator<IEntity> languageKitsIterator() {
-		return IteratorFactory.instance.javaCollectionIterator(getLanguageKits(false, ResourceUtils.SIMPLE_COMPARATOR));
+	public static IExecutable<IEntity> languageKitsIterator() {
+		return ExecutableFactory.instance.createJavaCollection(getLanguageKits(false, ResourceUtils.SIMPLE_COMPARATOR));
 	}
-	public static IEntityIterator<IEntity> entityDescriptorIterator(ILanguageKit languageKit) {
+	public static IExecutable<IEntity> entityDescriptorIterator(ILanguageKit languageKit) {
 		if (languageKit == null)
-			return IteratorFactory.instance.emptyIterator();
+			return ExecutableFactory.instance.createEmpty();
 		else
-			return IteratorFactory.instance.javaCollectionIterator(languageKit.getEntityDescriptorEnum());
+			return ExecutableFactory.instance.createJavaCollection(languageKit.getEntityDescriptorEnum());
 	}
 	public static EntityDescriptor<?> firstEntityDescriptor(ILanguageKit languageKit, String optName, boolean excludeAbstract) {
 		EntityDescriptorEnum edEnum = languageKit.getEntityDescriptorEnum();

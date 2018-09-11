@@ -25,7 +25,7 @@ import org.whole.lang.grammarbased.GrammarsToGrammarBasedQuery;
 import org.whole.lang.grammarbased.ui.editparts.GrammarBasedPartFactory;
 import org.whole.lang.grammars.codebase.GrammarsRegistry;
 import org.whole.lang.grammars.model.Grammar;
-import org.whole.lang.iterators.IteratorFactory;
+import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.iterators.ScannerIterator;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.NormalizerOperation;
@@ -57,7 +57,7 @@ public class GrammarsUIInterpreterVisitor extends GrammarsInterpreterVisitor {
 	public static Map<String, IEntity> createConfigurations(IEntity grammarBased) {
 		FeatureDescriptorEnum fdEnum = grammarBased.wGetLanguageKit().getFeatureDescriptorEnum();
 		Map<String, IEntity> configurations = new HashMap<String, IEntity>();
-		ScannerIterator<IEntity> i = IteratorFactory.instance.childScannerIterator();
+		ScannerIterator<IEntity> i = ExecutableFactory.instance.createChildScanner();
 		i.reset(grammarBased);
 		for (IEntity configuration : i) {
 			IEntity name = configuration.wGet(fdEnum.valueOf("name"));

@@ -24,8 +24,8 @@ import org.junit.Test;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.builders.ModelBuilderOperation;
+import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.NormalizerOperation;
@@ -56,15 +56,15 @@ public class XmlNormalizerBuilderTest {
 			Document xmlDocument = sampleXmlModelTemplate.create();
 
 			// has nested Content
-			IEntityIterator<IEntity> iterator = BehaviorUtils.compileAndLazyEvaluate(findNestedContent, xmlDocument);
+			IEntityIterator<IEntity> iterator = BehaviorUtils.compileAndLazyEvaluate(findNestedContent, xmlDocument).iterator();
 			assertTrue(iterator.hasNext());
 
 			// has nested implied Content
-			iterator = BehaviorUtils.compileAndLazyEvaluate(findMissingContentEntities, xmlDocument);
+			iterator = BehaviorUtils.compileAndLazyEvaluate(findMissingContentEntities, xmlDocument).iterator();
 			assertTrue(iterator.hasNext());
 
 			// has consecutive CharData or consecutive CDataSect
-			iterator = BehaviorUtils.compileAndLazyEvaluate(findConsecutiveCharDataOrCDataSect, xmlDocument);
+			iterator = BehaviorUtils.compileAndLazyEvaluate(findConsecutiveCharDataOrCDataSect, xmlDocument).iterator();
 			assertTrue(iterator.hasNext());
 
 			// create normalized sample xml model
@@ -74,15 +74,15 @@ public class XmlNormalizerBuilderTest {
 			Document normalizedXmlDocument = (Document) mop.wGetResult();
 
 			// no nested Content
-			iterator = BehaviorUtils.compileAndLazyEvaluate(findNestedContent, normalizedXmlDocument);
+			iterator = BehaviorUtils.compileAndLazyEvaluate(findNestedContent, normalizedXmlDocument).iterator();
 			assertFalse(iterator.hasNext());
 
 			// no nested implied Content
-			iterator = BehaviorUtils.compileAndLazyEvaluate(findMissingContentEntities, normalizedXmlDocument);
+			iterator = BehaviorUtils.compileAndLazyEvaluate(findMissingContentEntities, normalizedXmlDocument).iterator();
 			assertFalse(iterator.hasNext());
 
 			// no consecutive CharData or consecutive CDataSect
-			iterator = BehaviorUtils.compileAndLazyEvaluate(findConsecutiveCharDataOrCDataSect, normalizedXmlDocument);
+			iterator = BehaviorUtils.compileAndLazyEvaluate(findConsecutiveCharDataOrCDataSect, normalizedXmlDocument).iterator();
 			assertFalse(iterator.hasNext());
 
 			// both normalization strategies must yield the same result
@@ -112,19 +112,19 @@ public class XmlNormalizerBuilderTest {
 			Document normalizedXmlDocument = (Document) mop.wGetResult();
 
 			// no nested Content
-			IEntityIterator<IEntity> iterator = BehaviorUtils.compileAndLazyEvaluate(findNestedContent, normalizedXmlDocument);
+			IEntityIterator<IEntity> iterator = BehaviorUtils.compileAndLazyEvaluate(findNestedContent, normalizedXmlDocument).iterator();
 			assertFalse(iterator.hasNext());
 
 			// no nested implied Content
-			iterator = BehaviorUtils.compileAndLazyEvaluate(findMissingContentEntities, normalizedXmlDocument);
+			iterator = BehaviorUtils.compileAndLazyEvaluate(findMissingContentEntities, normalizedXmlDocument).iterator();
 			assertFalse(iterator.hasNext());
 
 			// no consecutive CharData
-			iterator = BehaviorUtils.compileAndLazyEvaluate(findConsecutiveCharDataOrCDataSect, normalizedXmlDocument);
+			iterator = BehaviorUtils.compileAndLazyEvaluate(findConsecutiveCharDataOrCDataSect, normalizedXmlDocument).iterator();
 			assertFalse(iterator.hasNext());
 
 			// no CDataSect at all
-			iterator = IteratorFactory.instance.descendantOrSelfMatcherIterator().withPattern(XmlEntityDescriptorEnum.CDataSect);
+			iterator = ExecutableFactory.instance.createDescendantOrSelfMatcher().withPattern(XmlEntityDescriptorEnum.CDataSect);
 			iterator.reset(normalizedXmlDocument);
 			assertFalse(iterator.hasNext());
 

@@ -148,7 +148,7 @@ public class InstrumentingIterator<E extends IEntity> extends AbstractDelegating
 	}
 
 	@Override
-	public IEntityIterator<E> withSourceEntity(IEntity entity) {
+	public IExecutable<E> withSourceEntity(IEntity entity) {
 		getIterator().withSourceEntity(entity);
 		return super.withSourceEntity(entity);
 	}

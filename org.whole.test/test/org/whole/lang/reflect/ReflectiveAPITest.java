@@ -29,7 +29,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.whole.lang.executables.IExecutable;
-import org.whole.lang.iterators.IteratorFactory;
+import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.json.reflect.JSONLanguageKit;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
@@ -132,7 +132,7 @@ public class ReflectiveAPITest {
         Model m = model;
 
         List<IEntity> features = new ArrayList<IEntity>();
-        IExecutable<IEntity> i = IteratorFactory.instance.childIterator();
+        IExecutable<IEntity> i = ExecutableFactory.instance.createChild();
         i.reset(m);
 		for (IEntity e : i)
             features.add(e);

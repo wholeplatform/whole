@@ -24,7 +24,7 @@ public class BindVariablesInPathTest {
 		IEntity compilationUnits = BindVariablesInPathTemplateManager.instance().create("compilationUnit");
 		PathExpression findClassDeclarationsOK1 = (PathExpression) BindVariablesInPathTemplateManager.instance().create("findClassDeclarationsOK1");
 		IEntityIterator<IEntity> iterator;
-		iterator = BehaviorUtils.<IEntity>compileAndLazyEvaluate(findClassDeclarationsOK1, compilationUnits, bindings);
+		iterator = BehaviorUtils.<IEntity>compileAndLazyEvaluate(findClassDeclarationsOK1, compilationUnits, bindings).iterator();
 		while (iterator.hasNext()) {
 			assertNotNull(iterator.next());
 			assertTrue(bindings.wIsSet("methodDeclaration"));
@@ -36,7 +36,7 @@ public class BindVariablesInPathTest {
 		IEntity compilationUnits = BindVariablesInPathTemplateManager.instance().create("compilationUnit");
 		PathExpression findClassDeclarationsOK2 = (PathExpression) BindVariablesInPathTemplateManager.instance().create("findClassDeclarationsOK2");
 		IEntityIterator<IEntity> iterator;
-		iterator = BehaviorUtils.<IEntity>compileAndLazyEvaluate(findClassDeclarationsOK2, compilationUnits, bindings);
+		iterator = BehaviorUtils.<IEntity>compileAndLazyEvaluate(findClassDeclarationsOK2, compilationUnits, bindings).iterator();
 		while (iterator.hasNext()) {
 			assertNotNull(iterator.next());
 			assertTrue(bindings.wIsSet("methodDeclaration"));
@@ -48,7 +48,7 @@ public class BindVariablesInPathTest {
 		IEntity compilationUnits = BindVariablesInPathTemplateManager.instance().create("compilationUnit");
 		PathExpression findClassDeclarationsBAD1 = (PathExpression) BindVariablesInPathTemplateManager.instance().create("findClassDeclarationsBAD1");
 		IEntityIterator<IEntity> iterator;
-		iterator = BehaviorUtils.<IEntity>compileAndLazyEvaluate(findClassDeclarationsBAD1, compilationUnits, bindings);
+		iterator = BehaviorUtils.<IEntity>compileAndLazyEvaluate(findClassDeclarationsBAD1, compilationUnits, bindings).iterator();
 		while (iterator.hasNext()) {
 			assertNotNull(iterator.next());
 			assertTrue(bindings.wIsSet("methodDeclaration"));
@@ -60,7 +60,7 @@ public class BindVariablesInPathTest {
 		IEntity compilationUnits = BindVariablesInPathTemplateManager.instance().create("compilationUnit");
 		PathExpression findClassDeclarationsBAD2 = (PathExpression) BindVariablesInPathTemplateManager.instance().create("findClassDeclarationsBAD2");
 		IEntityIterator<IEntity> iterator;
-		iterator = BehaviorUtils.<IEntity>compileAndLazyEvaluate(findClassDeclarationsBAD2, compilationUnits, bindings);
+		iterator = BehaviorUtils.<IEntity>compileAndLazyEvaluate(findClassDeclarationsBAD2, compilationUnits, bindings).iterator();
 		while (iterator.hasNext()) {
 			assertNotNull(iterator.next());
 			assertTrue(bindings.wIsSet("methodDeclaration"));

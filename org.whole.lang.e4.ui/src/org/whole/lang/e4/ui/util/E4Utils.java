@@ -80,8 +80,8 @@ import org.whole.lang.events.IdentityRequestEventHandler;
 import org.whole.lang.exceptions.IWholeFrameworkException;
 import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.exceptions.WholeRuntimeException;
+import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.InterpreterOperation;
@@ -228,7 +228,7 @@ public class E4Utils {
 			bm.wDef("focusEntity", focusEntityPart.getModelEntity());
 		}
 		bm.wDef("selectedEntities", selectedEntities);
-		IEntityIterator<IEntity> iterator = IteratorFactory.instance.childIterator();
+		IEntityIterator<IEntity> iterator = ExecutableFactory.instance.createChild().iterator();
 		iterator.reset(selectedEntities);
 		if (iterator.hasNext()) {
 			IEntity focusEntity = iterator.next();

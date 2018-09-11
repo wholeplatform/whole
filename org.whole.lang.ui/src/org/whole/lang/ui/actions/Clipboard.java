@@ -30,8 +30,8 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Display;
-import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.IteratorFactory;
+import org.whole.lang.executables.IExecutable;
+import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.editparts.IGraphicalEntityPart;
 import org.whole.lang.ui.editpolicies.FailWithFeedbackStrategy;
@@ -126,7 +126,7 @@ public class Clipboard {
 
 			// create temporary files
 			List<File> files = new ArrayList<File>();
-			IEntityIterator<IEntity> iterator = IteratorFactory.instance.childIterator();
+			IExecutable<IEntity> iterator = ExecutableFactory.instance.createChild();
 			iterator.set(tuple);
 			for (IEntity entity : iterator) {
 				File file = ClipboardUtils.createTempXmlBuilderFile(entity);

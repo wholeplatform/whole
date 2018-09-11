@@ -38,10 +38,10 @@ import org.whole.lang.actions.model.SubgroupAction;
 import org.whole.lang.actions.model.TemplateAction;
 import org.whole.lang.codebase.IPersistenceKit;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.factories.IEntityRegistryProvider;
 import org.whole.lang.factories.RegistryConfigurations;
-import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.IteratorFactory;
+import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.iterators.MatcherIterator;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.queries.factories.QueriesEntityFactory;
@@ -122,7 +122,7 @@ public class ActionsUIEntityFactory extends ActionsEntityFactory {
 	}
 
 	public GroupAction createAllVariablesGroupAction(ActionKindEnum.Value kind, Set<String> excludeSet, EntityDescriptor<?> resultEd, IEntity model) {
-		MatcherIterator<IEntity> i = IteratorFactory.instance.<IEntity>descendantOrSelfMatcherIterator();
+		MatcherIterator<IEntity> i = ExecutableFactory.instance.<IEntity>createDescendantOrSelfMatcher();
 		i.reset(EntityUtils.safeGetRootEntity(model));
 		return createVariablesGroupAction(kind, excludeSet, resultEd, i
 				.withPattern(new GenericIdentityVisitor() {
@@ -141,7 +141,7 @@ public class ActionsUIEntityFactory extends ActionsEntityFactory {
 				ed.equals(WorkflowsEntityDescriptorEnum.Variable));
 	}
 
-	public GroupAction createVariablesGroupAction(ActionKindEnum.Value kind, Set<String> excludeSet, EntityDescriptor<?> resultEd, IEntityIterator<IEntity> variableIterator) {
+	public GroupAction createVariablesGroupAction(ActionKindEnum.Value kind, Set<String> excludeSet, EntityDescriptor<?> resultEd, IExecutable<?> variableIterator) {
 		GroupAction groupAction = createHierarchicalGroupAction(resultEd.getLanguageKit().getName()+".languages");
 
 		Actions actions = createActions(0);

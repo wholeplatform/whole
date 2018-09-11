@@ -75,9 +75,9 @@ public class ControlQueriesTest {
 		ITemplateManager tm = ControlQueriesTemplateManager.instance();
 		PathExpression query = (PathExpression) tm.create("if1");
 
-		assertFalse(BehaviorUtils.compileAndLazyEvaluate(query, model.getDeclarations()).hasNext());
+		assertFalse(BehaviorUtils.compileAndLazyEvaluate(query, model.getDeclarations()).iterator().hasNext());
 
-		IEntityIterator<IEntity> iterator = BehaviorUtils.compileAndLazyEvaluate(query, model);
+		IEntityIterator<IEntity> iterator = BehaviorUtils.compileAndLazyEvaluate(query, model).iterator();
 		assertTrue(iterator.hasNext());
 		assertEquals(model.getName().getValue(), iterator.next().wStringValue());
 		assertFalse(iterator.hasNext());
@@ -116,7 +116,7 @@ public class ControlQueriesTest {
 		IEntity queryExp1 = qef.createDivision(qef.createIntLiteral(10), qef.createIntLiteral(8));
 
 		IBindingManager bm = BindingManagerFactory.instance.createBindingManager();
-		IEntityIterator<IEntity> iterator = BehaviorUtils.compileAndLazyEvaluate(query, queryExp1, bm);
+		IEntityIterator<IEntity> iterator = BehaviorUtils.compileAndLazyEvaluate(query, queryExp1, bm).iterator();
 		
 		assertTrue(iterator.hasNext());
 		IEntity exp1 = iterator.next();
@@ -195,7 +195,7 @@ public class ControlQueriesTest {
 		ITemplateManager tm = ControlQueriesTemplateManager.instance();
 		PathExpression query = (PathExpression) tm.create("choose1");
 
-		assertFalse(BehaviorUtils.compileAndLazyEvaluate(query, model).hasNext());
+		assertFalse(BehaviorUtils.compileAndLazyEvaluate(query, model).iterator().hasNext());
 
 		int i=0;
 		while (!Matcher.match(ModelsEntityDescriptorEnum.SimpleEntity, decls.wGet(i)))
@@ -215,7 +215,7 @@ public class ControlQueriesTest {
 			i++;
 		CompositeEntity compositeEntity = (CompositeEntity) decls.wGet(i);
 		
-		IEntityIterator<IEntity> iterator = BehaviorUtils.compileAndLazyEvaluate(query, compositeEntity);
+		IEntityIterator<IEntity> iterator = BehaviorUtils.compileAndLazyEvaluate(query, compositeEntity).iterator();
 		assertTrue(iterator.hasNext());
 		assertEquals(compositeEntity.getComponentType().wStringValue(), iterator.next().wStringValue());
 		assertFalse(iterator.hasNext());
@@ -224,7 +224,7 @@ public class ControlQueriesTest {
 			i++;
 		EnumEntity enumEntity = (EnumEntity) decls.wGet(i);
 		
-		iterator = BehaviorUtils.compileAndLazyEvaluate(query, enumEntity);
+		iterator = BehaviorUtils.compileAndLazyEvaluate(query, enumEntity).iterator();
 		assertTrue(iterator.hasNext());
 		assertTrue(iterator.next() instanceof EnumValues);
 		assertFalse(iterator.hasNext());
@@ -239,7 +239,7 @@ public class ControlQueriesTest {
 		PathExpression query = (PathExpression) tm.create("choose2");
 
 		int i=0;
-		IEntityIterator<IEntity> iterator = BehaviorUtils.compileAndLazyEvaluate(query, model);
+		IEntityIterator<IEntity> iterator = BehaviorUtils.compileAndLazyEvaluate(query, model).iterator();
 		while (iterator.hasNext()) {
 			IEntity result;
 
@@ -292,7 +292,7 @@ public class ControlQueriesTest {
 		PathExpression query = (PathExpression) tm.create("choose3");
 
 		int i=0;
-		IEntityIterator<IEntity> iterator = BehaviorUtils.compileAndLazyEvaluate(query, model);
+		IEntityIterator<IEntity> iterator = BehaviorUtils.compileAndLazyEvaluate(query, model).iterator();
 		while (iterator.hasNext()) {
 			IEntity result = iterator.next();
 
@@ -336,7 +336,7 @@ public class ControlQueriesTest {
 		PathExpression query = (PathExpression) tm.create("choose4");
 
 		int i=0;
-		IEntityIterator<IEntity> iterator = BehaviorUtils.compileAndLazyEvaluate(query, model, bm);
+		IEntityIterator<IEntity> iterator = BehaviorUtils.compileAndLazyEvaluate(query, model, bm).iterator();
 		while (iterator.hasNext()) {
 			IEntity result = iterator.next();
 			assertSame(result, bm.wGet("type"));

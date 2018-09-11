@@ -18,15 +18,13 @@
 package org.whole.lang.queries.util;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
-import org.whole.lang.comparators.BusinessIdentityComparator;
+import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.queries.factories.QueriesEntityFactory;
 import org.whole.lang.queries.model.Path;
@@ -43,7 +41,7 @@ public class QueriesUtils {
 		QueriesEntityFactory qef = QueriesEntityFactory.instance;
 		Path path = qef.createPath(0);
 		IEntity parent = null;
-		IEntityIterator<IEntity> iterator = IteratorFactory.instance.ancestorOrSelfReverseIterator();
+		IEntityIterator<IEntity> iterator = ExecutableFactory.instance.createAncestorOrSelfReverse().iterator();
 		iterator.reset(entity);
 		
 		if (CommonsEntityDescriptorEnum.RootFragment.equals(iterator.lookahead().wGetEntityDescriptor()))

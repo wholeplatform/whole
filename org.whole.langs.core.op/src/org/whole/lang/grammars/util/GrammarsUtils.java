@@ -32,8 +32,8 @@ import org.whole.lang.grammars.parsers.GenericPredictiveParser;
 import org.whole.lang.grammars.reflect.GrammarsEntityDescriptorEnum;
 import org.whole.lang.grammars.visitors.GrammarBasedUnparserVisitor;
 import org.whole.lang.grammars.visitors.Grammars2ModelsVisitor;
+import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.models.model.Model;
@@ -127,7 +127,7 @@ public class GrammarsUtils {
 	}
 
 	public static void ensureCompiledPatterns(Grammar grammar) {
-		IEntityIterator<IEntity> i = IteratorFactory.instance.<IEntity>descendantOrSelfMatcherIterator()
+		IEntityIterator<IEntity> i = ExecutableFactory.instance.<IEntity>createDescendantOrSelfMatcher()
 				.withPattern(GrammarsEntityDescriptorEnum.RegExp);
 		i.reset(grammar);
 

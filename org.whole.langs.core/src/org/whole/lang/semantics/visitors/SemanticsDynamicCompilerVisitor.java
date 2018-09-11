@@ -19,7 +19,6 @@ package org.whole.lang.semantics.visitors;
 
 import org.whole.lang.actions.iterators.ActionCallIterator;
 import org.whole.lang.executables.IExecutable;
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.SelfIterator;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
@@ -67,11 +66,11 @@ public class SemanticsDynamicCompilerVisitor extends SemanticsIdentityDefaultVis
 	public void visit(SemanticFunction entity) {
     	FunctionBody rules = entity.getRules();
     	if (Matcher.match(SemanticsEntityDescriptorEnum.InferenceRules, rules)) {
-    		setExecutableResult(iteratorFactory().emptyIterator().withSourceEntity(entity));//TODO not supported yet
+    		setExecutableResult(iteratorFactory().createEmpty().withSourceEntity(entity));//TODO not supported yet
     		return;
     	}
 
-    	IEntityIterator<?> ac = new ActionCallIterator(
+    	IExecutable<?> ac = new ActionCallIterator(
     			"whole:org.whole.lang.semantics:SemanticsActions:1.0.0#Translate Normalized Function to Query", null);
     	stagedVisit(ac.evaluate(entity, getBindings()));
 		IExecutable<?> functionBehavior = getExecutableResult();
@@ -94,10 +93,10 @@ public class SemanticsDynamicCompilerVisitor extends SemanticsIdentityDefaultVis
 //    	if (functionUri.indexOf("#") == -1)
 //    		functionUri = getLibraryUri(entity)+"#"+functionUri;
 
-    	IExecutable<IEntity> executableResult = iteratorFactory().functionApplicationIterator(functionUri).withSourceEntity(entity);
+    	IExecutable<IEntity> executableResult = iteratorFactory().createFunctionApplication(functionUri).withSourceEntity(entity);
 
 		if (functionUri.endsWith("#stagedVisit"))
-			executableResult = iteratorFactory().recursiveFunctionApplicationIterator().withSourceEntity(entity);
+			executableResult = iteratorFactory().createRecursiveFunctionApplication().withSourceEntity(entity);
 
     	Expression arguments = entity.getArguments();
 		if (!EntityUtils.isResolver(arguments)) {
@@ -105,14 +104,14 @@ public class SemanticsDynamicCompilerVisitor extends SemanticsIdentityDefaultVis
     		IExecutable<?> argumentsIterator = getExecutableResult();
 
     		if (!argumentsIterator.getClass().equals(SelfIterator.class))
-    			executableResult = iteratorFactory().composeIterator(executableResult, argumentsIterator).withSourceEntity(entity);
+    			executableResult = iteratorFactory().createCompose(executableResult, argumentsIterator).withSourceEntity(entity);
     	}
 		setExecutableResult(executableResult);
   	}
 
 	@Override
 	public void visit(TypeCast entity) {
-		IExecutable<IEntity> executableResult;
+		IExecutable<?> executableResult;
 		CastType type = entity.getType();
 		if (Matcher.matchImpl(SemanticsEntityDescriptorEnum.EnvType, type))
 			executableResult = SemanticsUtils.typeCastIterator().withSourceEntity(entity);
@@ -125,7 +124,7 @@ public class SemanticsDynamicCompilerVisitor extends SemanticsIdentityDefaultVis
     		IExecutable<?> expressionIterator = getExecutableResult();
 
     		if (!expressionIterator.getClass().equals(SelfIterator.class))
-    			executableResult = iteratorFactory().forIterator(expressionIterator, executableResult).withSourceEntity(entity);
+    			executableResult = iteratorFactory().createFor(expressionIterator, executableResult).withSourceEntity(entity);
     	}
 		setExecutableResult(executableResult);
 	}

@@ -25,6 +25,7 @@ import java.util.Set;
 
 import org.whole.lang.builders.IBuilder;
 import org.whole.lang.builders.IBuilderOperation;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.grammars.factories.GrammarsEntityFactory;
 import org.whole.lang.grammars.model.As;
 import org.whole.lang.grammars.model.Concatenate;
@@ -38,8 +39,7 @@ import org.whole.lang.grammars.reflect.GrammarsEntityDescriptorEnum;
 import org.whole.lang.grammars.reflect.GrammarsFeatureDescriptorEnum;
 import org.whole.lang.grammars.reflect.GrammarsLanguageKit;
 import org.whole.lang.grammars.util.GrammarsUtils;
-import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.IteratorFactory;
+import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.NormalizerOperation;
 import org.whole.lang.parsers.Lexer;
@@ -183,12 +183,12 @@ public class ParserTemplateFactory<E extends IEntity> extends AbstractTemplateFa
 	}
 	protected Production getProduction(NonTerminal nt) {
 		//TODO cache in a map
-		IEntityIterator<Production> pi = IteratorFactory.instance.<Production>childIterator();
+		IExecutable<Production> pi = ExecutableFactory.instance.<Production>createChild();
 		pi.reset(grammar.getPhraseStructure());
 		for (Production p : pi)
 			if (p.getName().wEquals(nt))
 				return p;
-		IEntityIterator<Production> li = IteratorFactory.instance.<Production>childIterator();
+		IExecutable<Production> li = ExecutableFactory.instance.<Production>createChild();
 		li.reset(grammar.getLexicalStructure());
 		for (Production p : li)
 			if (p.getName().wEquals(nt))

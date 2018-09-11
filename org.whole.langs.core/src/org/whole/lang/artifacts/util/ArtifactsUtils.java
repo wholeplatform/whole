@@ -41,11 +41,12 @@ import org.whole.lang.artifacts.reflect.ArtifactsEntityDescriptorEnum;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.codebase.IPersistenceKit;
 import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.factories.GenericEntityFactory;
 import org.whole.lang.factories.IEntityFactory;
 import org.whole.lang.factories.RegistryConfigurations;
+import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.matchers.GenericMatcherFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
@@ -116,7 +117,7 @@ public class ArtifactsUtils {
 		return getChild(entity, child) != null;
 	}
 	public static IEntity getChild(IEntity entity, IEntity child) {
-		IEntityIterator<IEntity> iterator = IteratorFactory.instance.childMatcherIterator().withPattern(createPattern(child));
+		IEntityIterator<IEntity> iterator = ExecutableFactory.instance.createChildMatcher().withPattern(createPattern(child));
 		iterator.reset(entity);
 		return iterator.hasNext() ? iterator.next() : null;
 	}
@@ -154,8 +155,8 @@ public class ArtifactsUtils {
 
 	public static IPersistenceKit calculateInheritedPersistence(IEntity model, IPersistenceKit defaultPersistenceKit) {
 		if (model != null) {
-			IEntityIterator<IEntity> iterator = IteratorFactory.instance.scannerIterator(
-						IteratorFactory.instance.ancestorOrSelfIterator())
+			IEntityIterator<IEntity> iterator = ExecutableFactory.instance.createScanner(
+						ExecutableFactory.instance.createAncestorOrSelf())
 								.withPattern(GenericTraversalFactory.instance.one(
 										GenericMatcherFactory.instance.isFragmentMatcher(),
 										GenericMatcherFactory.instance.hasKindMatcher(EntityKinds.COMPOSITE)));
@@ -177,7 +178,7 @@ public class ArtifactsUtils {
 			if (projectsPoint == null)
 				throw new IllegalArgumentException("projectsPoint is undefined");
 
-			IEntityIterator<Project> projectIterator = IteratorFactory.instance.childIterator();
+			IExecutable<Project> projectIterator = ExecutableFactory.instance.createChild();
 			projectIterator.reset(((Workspace) artifacts).getProjects());
 			for (Project project : projectIterator) {
 				projectIterator.remove();
@@ -189,7 +190,7 @@ public class ArtifactsUtils {
 			if (packagesPoint == null)
 				throw new IllegalArgumentException("packagesPoint is undefined");
 
-			IEntityIterator<Artifact> artifactIterator = IteratorFactory.instance.childIterator();
+			IExecutable<Artifact> artifactIterator = ExecutableFactory.instance.createChild();
 			artifactIterator.reset(artifacts);
 			for (Artifact artifact : artifactIterator) {
 				artifactIterator.remove();

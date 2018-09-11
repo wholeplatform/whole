@@ -46,7 +46,7 @@ public class ReachableEvaluator<E extends IEntity> extends AbstractTransitiveClo
 	}
     
     protected IExecutable<E> createRelationIterator() {
-    	return iteratorFactory().matcherIterator(iteratorFactory().<E>adjacentIterator()).withPattern(distinctScope.distinctMatcher());
+    	return executableFactory().createMatcher(executableFactory().<E>createAdjacent()).withPattern(distinctScope.distinctMatcher());
     }
 
     public void toString(StringBuilder sb) {

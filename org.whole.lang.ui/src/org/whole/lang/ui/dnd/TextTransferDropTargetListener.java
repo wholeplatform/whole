@@ -38,8 +38,8 @@ import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.codebase.IPersistenceKit;
 import org.whole.lang.codebase.StringPersistenceProvider;
+import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.ui.dialogs.IImportAsModelDialog;
@@ -111,11 +111,11 @@ public class TextTransferDropTargetListener extends AbstractTransferDropTargetLi
 			boolean needsCompositeTarget = false;
 			if (hasSyntheticRoot) {
 				IEntity syntheticRoot = bm.wGet("syntheticRoot");
-				iterator = IteratorFactory.instance.childIterator();
+				iterator = ExecutableFactory.instance.createChild().iterator();
 				iterator.reset(syntheticRoot);
 				needsCompositeTarget = syntheticRoot.wSize() > 1;
 			} else {
-				iterator = IteratorFactory.instance.selfIterator();
+				iterator = ExecutableFactory.instance.createSelf().iterator();
 				iterator.reset(entity);
 			}
 

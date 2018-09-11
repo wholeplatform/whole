@@ -31,7 +31,7 @@ public class AncestorReverseEvaluator extends CollectionEvaluator<IEntity> {
 	@Override
 	protected Iterable<?> getCollectionIterable(IEntity entity) {
         List<IEntity> ancestors = new ArrayList<IEntity>();
-        IExecutable<IEntity> i = iteratorFactory().ancestorIterator();
+        IExecutable<IEntity> i = executableFactory().createAncestor();
         i.reset(entity);
 		for (IEntity parent : i)
         	ancestors.add(parent);

@@ -1,7 +1,10 @@
 package org.whole.lang.tests.visitors;
 
-import static org.whole.lang.tests.reflect.TestsEntityDescriptorEnum.*;
-import static org.whole.lang.tests.reflect.TestsFeatureDescriptorEnum.*;
+import static org.whole.lang.tests.reflect.TestsEntityDescriptorEnum.AfterTestCase;
+import static org.whole.lang.tests.reflect.TestsEntityDescriptorEnum.AssertThat;
+import static org.whole.lang.tests.reflect.TestsEntityDescriptorEnum.BeforeTestCase;
+import static org.whole.lang.tests.reflect.TestsEntityDescriptorEnum.StringLiteral;
+import static org.whole.lang.tests.reflect.TestsFeatureDescriptorEnum.outcome;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -13,8 +16,7 @@ import org.whole.lang.bindings.ITransactionScope;
 import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
 import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.exceptions.WholeIllegalArgumentException;
-import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.IteratorFactory;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.matchers.GenericMatcherFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
@@ -102,7 +104,7 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 	protected IVisitor getResultVisitor() {
 		return (IVisitor) getResultValue();
 	}
-	protected void resetIterator(IEntityIterator<?> iterator) {
+	protected void resetIterator(IExecutable<?> iterator) {
 		IEntity selfEntity = getBindings().wGet(IBindingManager.SELF);
 		iterator.reset(selfEntity != null ? selfEntity : NullEntity.instance);
 	}
@@ -161,7 +163,7 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 		try {
 			getBindings().wDef(IBindingManager.SELF, BindingManagerFactory.instance.createNull());
 
-			IEntityIterator<BeforeTestCase> beforeIterator = iteratorFactory().<BeforeTestCase>childMatcherIterator().withPattern(BeforeTestCase);
+			IExecutable<BeforeTestCase> beforeIterator = iteratorFactory().<BeforeTestCase>createChildMatcher().withPattern(BeforeTestCase);
 			beforeIterator.setBindings(getBindings());
 			Aspects aspects = entity.getAspects();
 			getBindings().enforceSelfBinding(aspects);
@@ -198,7 +200,7 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 				result.setValue(result.getValue() + 1);
 			}
 
-			IEntityIterator<AfterTestCase> afterIterator = iteratorFactory().<AfterTestCase>childMatcherIterator().withPattern(AfterTestCase);
+			IExecutable<AfterTestCase> afterIterator = iteratorFactory().<AfterTestCase>createChildMatcher().withPattern(AfterTestCase);
 			afterIterator.setBindings(getBindings());
 			getBindings().enforceSelfBinding(aspects);
 			afterIterator.reset(aspects);

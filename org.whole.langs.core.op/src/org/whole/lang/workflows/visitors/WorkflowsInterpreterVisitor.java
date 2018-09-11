@@ -242,7 +242,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 			if (result == null)
 				return;
 			
-			iterator = iteratorFactory().childIterator();
+			iterator = iteratorFactory().createChild().iterator();
 			iterator.setBindings(getBindings());
 			iterator.reset(result);
 		}
@@ -270,7 +270,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 	public void visit(SwitchControl entity) {
 		boolean isExclusive = entity.getSwitchType().wContainsValue(SwitchTypeEnum.exclusive);
 
-		IEntityIterator<ConditionalCase> i = iteratorFactory().<ConditionalCase>childIterator().iterator();
+		IEntityIterator<ConditionalCase> i = iteratorFactory().<ConditionalCase>createChild().iterator();
 		i.reset(entity.getConditionalCases());
 
 		boolean executed = false;
@@ -470,7 +470,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 		} else
 			define(args, (Assignments) arguments);
 
-		IEntityIterator<?> iterator = iteratorFactory().callIterator(queryName.getValue(), argsIterators).iterator();
+		IEntityIterator<?> iterator = iteratorFactory().createCall(queryName.getValue(), argsIterators).iterator();
 		iterator.setBindings(args);
 		resetIterator(iterator);
 		while (iterator.hasNext())
@@ -557,7 +557,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 		IEntity model = getResult();
 		//TODO remove ?
 		if (Matcher.matchImpl(WorkflowsEntityDescriptorEnum.Name, entity.getTemplate())) {
-			IEntityIterator<IEntity> tii = iteratorFactory().templateInterpreterIterator(getResult()).iterator();
+			IEntityIterator<IEntity> tii = iteratorFactory().createTemplateInterpreter(getResult()).iterator();
 			tii.setBindings(getBindings());
 			tii.reset(entity);
 			model = tii.next();

@@ -37,8 +37,8 @@ import org.whole.lang.artifacts.templates.ResourceTemplate;
 import org.whole.lang.builders.ModelBuilderOperation;
 import org.whole.lang.commons.builders.ICommonsBuilder;
 import org.whole.lang.commons.reflect.CommonsLanguageKit;
+import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.rdb.codebase.OrderedMatcher;
@@ -88,7 +88,7 @@ public class ResourceTemplateTest {
 		IEntity testSubFolder = op.wGetResult();
 
 		FolderArtifact compareTo = null;
-		IEntityIterator<FolderArtifact> iterator = IteratorFactory.instance.<FolderArtifact>childMatcherIterator()
+		IEntityIterator<FolderArtifact> iterator = ExecutableFactory.instance.<FolderArtifact>createChildMatcher()
 				.withPattern(ArtifactsEntityDescriptorEnum.FolderArtifact);
 		iterator.reset(testFolder.wGet(ArtifactsFeatureDescriptorEnum.artifacts));
 		while (iterator.hasNext()) {

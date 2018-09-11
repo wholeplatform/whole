@@ -17,7 +17,12 @@
  */
 package org.whole.lang.artifacts.visitors;
 
-import static org.whole.lang.artifacts.util.ArtifactsUtils.*;
+import static org.whole.lang.artifacts.util.ArtifactsUtils.calculateInheritedPersistence;
+import static org.whole.lang.artifacts.util.ArtifactsUtils.cloneArtifact;
+import static org.whole.lang.artifacts.util.ArtifactsUtils.getChild;
+import static org.whole.lang.artifacts.util.ArtifactsUtils.getChildren;
+import static org.whole.lang.artifacts.util.ArtifactsUtils.hasChild;
+import static org.whole.lang.artifacts.util.ArtifactsUtils.isFileArtifact;
 
 import java.util.Stack;
 
@@ -30,8 +35,8 @@ import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.codebase.IPersistenceKit;
 import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
 import org.whole.lang.commons.model.QuantifierEnum;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.matchers.GenericMatcherFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
@@ -98,7 +103,7 @@ public class ArtifactsSynchronizerVisitor<T> extends ArtifactsResourceVisitor<T>
 			IEntity fsModel = getArtifactsOperations().toArtifactsModel(parentContext);
 			if (append && artifact != basePath) {
 				IBindingManager bindings = BindingManagerFactory.instance.createBindingManager();
-				IEntityIterator<IEntity> iterator = iteratorFactory().childIterator();
+				IExecutable<?> iterator = iteratorFactory().createChild();
 				iterator.reset(getChildren(fsModel));
 				for (IEntity child : iterator) {
 					bindings.wDef(SUB_TREE_ROOT, child);
@@ -113,8 +118,8 @@ public class ArtifactsSynchronizerVisitor<T> extends ArtifactsResourceVisitor<T>
 	}
 
 	private IEntity createBasePath(IArtifactsEntity entity) {
-		IEntityIterator<IEntity> iterator = iteratorFactory().scannerIterator(
-					iteratorFactory().ancestorIterator())
+		IEntityIterator<IEntity> iterator = iteratorFactory().createScanner(
+					iteratorFactory().createAncestor())
 							.withPattern(GenericTraversalFactory.instance.one(
 									GenericMatcherFactory.instance.isFragmentMatcher(),
 									GenericMatcherFactory.instance.hasKindMatcher(EntityKinds.COMPOSITE)));
@@ -151,7 +156,7 @@ public class ArtifactsSynchronizerVisitor<T> extends ArtifactsResourceVisitor<T>
 			if (basePath != null) {
 				IBindingManager bindings = BindingManagerFactory.instance.createBindingManager();
 				model = EntityUtils.clone(basePath);
-				IEntityIterator<IEntity> i = iteratorFactory().childIterator();
+				IExecutable<?> i = iteratorFactory().createChild();
 				i.reset(getChildren(entity));
 				for (IEntity child : i) {
 					bindings.wDef(SUB_TREE_ROOT, EntityUtils.clone(child));
@@ -172,7 +177,7 @@ public class ArtifactsSynchronizerVisitor<T> extends ArtifactsResourceVisitor<T>
 	private void synchronize(IEntity children, IEntity compareToChildren) {
 		// perform delete missing resources
 		if (synchronize.isRemoving()) {
-			IEntityIterator<IEntity> iterator = iteratorFactory().childIterator();
+			IEntityIterator<IEntity> iterator = iteratorFactory().createChild().iterator();
 			iterator.reset(compareToChildren);
 			while (iterator.hasNext()) {
 				IEntity child = iterator.next();
@@ -188,7 +193,7 @@ public class ArtifactsSynchronizerVisitor<T> extends ArtifactsResourceVisitor<T>
 
 		// perform remove additions
 		if (synchronize.isUpdateOnly()) {
-			IEntityIterator<IEntity> iterator = iteratorFactory().childIterator();
+			IEntityIterator<IEntity> iterator = iteratorFactory().createChild().iterator();
 			iterator.reset(children);
 			while (iterator.hasNext()) {
 				IEntity child = iterator.next();
@@ -213,7 +218,7 @@ public class ArtifactsSynchronizerVisitor<T> extends ArtifactsResourceVisitor<T>
 		} else {
 			firstPass = false;
 
-			IEntityIterator<IEntity> i = iteratorFactory().childIterator();
+			IExecutable<?> i = iteratorFactory().createChild();
 			i.reset(children);
 			for (IEntity child : i) {
 				// first pass, remove all descendants

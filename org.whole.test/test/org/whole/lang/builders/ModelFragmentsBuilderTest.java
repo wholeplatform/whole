@@ -24,7 +24,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.whole.lang.builders.builder.ModelFeaturesBuilder;
 import org.whole.lang.iterators.AbstractPatternFilterIterator;
-import org.whole.lang.iterators.IteratorFactory;
+import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.models.codebase.ModelsModel;
 import org.whole.lang.models.factories.ModelsEntityFactory;
 import org.whole.lang.models.model.Feature;
@@ -51,7 +51,7 @@ public class ModelFragmentsBuilderTest {
 
 		int count = 0;
 		Model model = modelsModel.create();
-		AbstractPatternFilterIterator<Feature> i = IteratorFactory.instance.<Feature>descendantOrSelfMatcherIterator().withPattern(ModelsEntityDescriptorEnum.Feature);
+		AbstractPatternFilterIterator<Feature> i = ExecutableFactory.instance.<Feature>createDescendantOrSelfMatcher().withPattern(ModelsEntityDescriptorEnum.Feature);
 		i.reset(model);
 		for (Feature feature : i)
 			if (EntityUtils.isNotResolver(feature))
@@ -70,7 +70,7 @@ public class ModelFragmentsBuilderTest {
 		
 		int count = 0;
 		Model model = modelsModel.create();
-		AbstractPatternFilterIterator<Feature> i = IteratorFactory.instance.<Feature>descendantOrSelfMatcherIterator().withPattern(ModelsEntityDescriptorEnum.Feature);
+		AbstractPatternFilterIterator<Feature> i = ExecutableFactory.instance.<Feature>createDescendantOrSelfMatcher().withPattern(ModelsEntityDescriptorEnum.Feature);
 		i.reset(model);
 		for (Feature feature : i)
 			if (EntityUtils.isNotResolver(feature))

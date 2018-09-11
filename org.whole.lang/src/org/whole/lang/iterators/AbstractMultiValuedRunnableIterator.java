@@ -72,7 +72,7 @@ public abstract class AbstractMultiValuedRunnableIterator<E extends IEntity> ext
 
 				resetResultIterator(resultIterator, selfEntity, bm);
 			} catch (Throwable e) {
-				resultIterator = iteratorFactory().failureIterator(e);
+				resultIterator = executableFactory().<E>createFailure(e).iterator();
 				//TODO reset
 			}
 		}

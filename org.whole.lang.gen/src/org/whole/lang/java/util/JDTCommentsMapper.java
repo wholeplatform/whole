@@ -25,8 +25,8 @@ import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.Comment;
 import org.eclipse.jdt.core.dom.Javadoc;
 import org.whole.lang.bindings.BindingManagerFactory;
-import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.IteratorFactory;
+import org.whole.lang.executables.IExecutable;
+import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.util.StringUtils;
 
@@ -50,7 +50,7 @@ public class JDTCommentsMapper {
 		return comments.remove(comment);
 	}
 	public void appendOrphanCommentsToBlock(IEntity block) {
-		IEntityIterator<IEntity> iterator = IteratorFactory.instance.childIterator();
+		IExecutable<?> iterator = ExecutableFactory.instance.createChild();
 		iterator.reset(orphanComments);
 		for (IEntity child : iterator) {
 			block.wAdd(child);

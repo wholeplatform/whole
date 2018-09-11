@@ -34,7 +34,7 @@ public class AncestorEvaluator<E extends IEntity> extends AbstractTransitiveClos
 	}
 
 	protected IExecutable<E> createRelationIterator() {
-    	return iteratorFactory().parentIterator();
+    	return executableFactory().createParent();
     }
 
     public void toString(StringBuilder sb) {

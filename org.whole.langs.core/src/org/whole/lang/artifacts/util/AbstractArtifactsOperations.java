@@ -17,8 +17,8 @@
  */
 package org.whole.lang.artifacts.util;
 
+import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.matchers.GenericMatcherFactory;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.EntityKinds;
@@ -33,8 +33,8 @@ public abstract class AbstractArtifactsOperations<T> implements IArtifactsOperat
 		if (descendant == null || !EntityUtils.hasParent(descendant))
 			return resource;
 
-		IEntityIterator<IEntity> iterator = IteratorFactory.instance.scannerIterator(
-				IteratorFactory.instance.ancestorOrSelfReverseIterator())
+		IEntityIterator<IEntity> iterator = ExecutableFactory.instance.createScanner(
+				ExecutableFactory.instance.createAncestorOrSelfReverse())
 				.withPattern(GenericTraversalFactory.instance.one(
 						GenericMatcherFactory.instance.isFragmentMatcher(),
 						GenericMatcherFactory.instance.hasKindMatcher(EntityKinds.COMPOSITE)));

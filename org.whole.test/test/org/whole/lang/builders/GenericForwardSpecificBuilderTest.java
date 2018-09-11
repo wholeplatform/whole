@@ -24,8 +24,8 @@ import org.junit.Test;
 import org.whole.lang.codebase.ClasspathPersistenceProvider;
 import org.whole.lang.commons.model.Variable;
 import org.whole.lang.factories.GenericEntityFactory;
+import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.matchers.GenericMatcherFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
@@ -54,10 +54,10 @@ public class GenericForwardSpecificBuilderTest {
 		IEntity newEntity = mop.wGetResult();
 
 		// to match variables fill variables with defaults
-		IEntityIterator<IEntity> variableIterator = IteratorFactory.instance.<IEntity>descendantOrSelfMatcherIterator()
+		IEntityIterator<IEntity> variableIterator = ExecutableFactory.instance.<IEntity>createDescendantOrSelfMatcher()
 				.withPattern(GenericMatcherFactory.instance.isVariableMatcher());
 		variableIterator.reset(entity);
-		IEntityIterator<IEntity> newVariableIterator = IteratorFactory.instance.<IEntity>descendantOrSelfMatcherIterator()
+		IEntityIterator<IEntity> newVariableIterator = ExecutableFactory.instance.<IEntity>createDescendantOrSelfMatcher()
 				.withPattern(GenericMatcherFactory.instance.isVariableMatcher());
 		newVariableIterator.reset(newEntity);
 		while (variableIterator.hasNext()) {

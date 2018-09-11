@@ -79,7 +79,7 @@ public class MultiValuedRunnableEvaluator<E extends IEntity> extends AbstractNes
 
 				resetExecutableResult(executableResult, selfEntity, bm);
 			} catch (Throwable e) {
-				executableResult = iteratorFactory().failureIterator(e);
+				executableResult = executableFactory().createFailure(e);
 				//TODO reset
 			}
 		}

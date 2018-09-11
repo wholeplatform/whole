@@ -58,8 +58,8 @@ import org.eclipse.jdt.core.formatter.CodeFormatter;
 import org.eclipse.jface.text.Document;
 import org.eclipse.text.edits.TextEdit;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.IteratorFactory;
+import org.whole.lang.executables.IExecutable;
+import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.java.factories.JavaEntityFactory;
 import org.whole.lang.java.model.JavaSystemSoftware;
 import org.whole.lang.java.util.JDTTransformerVisitor;
@@ -173,8 +173,8 @@ public class JDTUtils {
 		packageFragment.createCompilationUnit(typeName+".java", asFormattedString(cu), true, monitor);
 	}
 
-	public static IEntityIterator<IEntity> generateJavaSystemSoftware() {
-		return IteratorFactory.instance.singleValuedRunnableIterator(new IRunnable() {
+	public static IExecutable<?> generateJavaSystemSoftware() {
+		return ExecutableFactory.instance.createSingleValuedRunnable(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				final List<CompilationUnit> cuList = JavaCompilerOperation.compile(selfEntity, bm);
 				final JavaSystemSoftware javaSystemSoftware = JavaEntityFactory.instance.createJavaSystemSoftware(0);

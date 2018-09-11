@@ -67,7 +67,7 @@ public abstract class AbstractTransitiveClosureEvaluator<E extends IEntity> exte
     }
 
 	protected void pushInitialIterators(IEntity entity) {
-    	pushIterator(includeSelf ? iteratorFactory().<E>selfIterator() : createRelationIterator(), entity);		
+    	pushIterator(includeSelf ? executableFactory().<E>createSelf() : createRelationIterator(), entity);		
 	}
 
 	protected abstract boolean isRelationNotEmpty(IEntity entity);

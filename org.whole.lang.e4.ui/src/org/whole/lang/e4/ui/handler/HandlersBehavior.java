@@ -42,9 +42,10 @@ import org.whole.lang.commons.reflect.CommonsFeatureDescriptorEnum;
 import org.whole.lang.e4.ui.actions.IE4UIConstants;
 import org.whole.lang.e4.ui.jobs.RunnableWithResult;
 import org.whole.lang.e4.ui.util.E4Utils;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.factories.GenericEntityFactory;
+import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.misc.factories.MiscEntityFactory;
 import org.whole.lang.model.IEntity;
@@ -115,7 +116,7 @@ public class HandlersBehavior {
 		if (selectionTuple.wSize() == 0 || (single && selectionTuple.wSize() > 1))
 			return false;
 		
-		IEntityIterator<IEntity> iterator = IteratorFactory.instance.childIterator();
+		IEntityIterator<IEntity> iterator = ExecutableFactory.instance.createChild().iterator();
 		iterator.getBindings().enforceSelfBinding(selectionTuple);
 		iterator.reset(selectionTuple);
 		while (iterator.hasNext()) {
@@ -199,7 +200,7 @@ public class HandlersBehavior {
 		if (clipboardTuple == null)
 			return false;
 
-		IEntityIterator<IEntity> iterator = IteratorFactory.instance.childIterator();
+		IEntityIterator<IEntity> iterator = ExecutableFactory.instance.createChild().iterator();
 		iterator.getBindings().enforceSelfBinding(clipboardTuple);
 		iterator.reset(clipboardTuple);
 
@@ -224,7 +225,7 @@ public class HandlersBehavior {
 
 		IEntity clipboardContent = runnable.get();
 		if (clipboardContent != null) {
-			IEntityIterator<IEntity> iterator = IteratorFactory.instance.childReverseIterator();
+			IEntityIterator<IEntity> iterator = ExecutableFactory.instance.createChildReverse().iterator();
 			iterator.getBindings().enforceSelfBinding(clipboardContent);
 			iterator.reset(clipboardContent);
 	
@@ -288,13 +289,13 @@ public class HandlersBehavior {
 			adding |= syntheticRoot.wSize() > 1;
 			if (adding && !EntityUtils.isComposite(focusEntity)) {
 				adding = false;
-				iterator = IteratorFactory.instance.selfIterator();
+				iterator = ExecutableFactory.instance.createSelf().iterator();
 			} else
-				iterator = IteratorFactory.instance.childReverseIterator();
+				iterator = ExecutableFactory.instance.createChildReverse().iterator();
 			iterator.getBindings().enforceSelfBinding(syntheticRoot);
 			iterator.reset(syntheticRoot);
 		} else {
-			iterator = IteratorFactory.instance.selfIterator();
+			iterator = ExecutableFactory.instance.createSelf().iterator();
 			iterator.getBindings().enforceSelfBinding(entity);
 			iterator.reset(entity);
 		}
@@ -328,7 +329,7 @@ public class HandlersBehavior {
 		IEntity selectedEntities = bm.wGet("selectedEntities");
 		List<IEntity> rootEntities = new ArrayList<IEntity>();
 
-		IEntityIterator<IEntity> iterator = IteratorFactory.instance.childIterator();
+		IEntityIterator<IEntity> iterator = ExecutableFactory.instance.createChild().iterator();
 		iterator.getBindings().enforceSelfBinding(selectedEntities);
 		iterator.reset(selectedEntities);
 		while (iterator.hasNext()) {
@@ -590,7 +591,7 @@ public class HandlersBehavior {
 			bm.wSet("focusEntity", EntityUtils.mapEntity(bm.wGet("focusEntity"), model));
 		}
 
-		IEntityIterator<?> iterator = new ActionCallIterator(bm.wStringValue("functionUri"));
+		IExecutable<?> iterator = new ActionCallIterator(bm.wStringValue("functionUri"));
 
 		if (analyzing) {
 			iterator.setBindings(bm);

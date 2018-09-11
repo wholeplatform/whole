@@ -54,7 +54,7 @@ public class ScannerTest {
 	public void testNext() {
 		IEntity fact = new Factorial().create();
 
-		ScannerIterator<IEntity> s = IteratorFactory.instance.descendantOrSelfScannerIterator();
+		ScannerIterator<IEntity> s = ExecutableFactory.instance.createDescendantOrSelfScanner();
 		s.reset(fact);
 		try {
 			IEntity e1 = s.next(JavaEntityDescriptorEnum.CompilationUnit);
@@ -76,7 +76,7 @@ public class ScannerTest {
 	public void testSkip() {
 		IEntity fact = new Factorial().create();
 
-		ScannerIterator<IEntity> s = IteratorFactory.instance.descendantOrSelfScannerIterator();
+		ScannerIterator<IEntity> s = ExecutableFactory.instance.createDescendantOrSelfScanner();
 		s.reset(fact);
 		try {
 			s.skipTo(JavaEntityDescriptorEnum.SingleVariableDeclaration);
@@ -112,7 +112,7 @@ public class ScannerTest {
 	public void testPatternIterator() {
 		IEntity fact = new Factorial().create();
 		
-		IEntityIterator<IEntity> i = IteratorFactory.instance.childMatcherIterator()
+		IEntityIterator<IEntity> i = ExecutableFactory.instance.createChildMatcher()
 			.withPattern(JavaEntityDescriptorEnum.MethodDeclaration);
 		i.reset(fact);
 		

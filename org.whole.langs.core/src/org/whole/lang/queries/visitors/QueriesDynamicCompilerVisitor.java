@@ -98,10 +98,10 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		if (adapteeEd.getLanguageKit().getURI().equals(CommonsLanguageKit.URI)) {
 			switch (adapteeEd.getOrdinal()) {
 			case CommonsEntityDescriptorEnum.Resolver_ord:
-				setExecutableResult(iteratorFactory().emptyIterator().withSourceEntity(adaptee));
+				setExecutableResult(iteratorFactory().createEmpty().withSourceEntity(adaptee));
 				return false;
 			case CommonsEntityDescriptorEnum.StageDownFragment_ord:
-				setExecutableResult(iteratorFactory().templateInterpreterIterator(
+				setExecutableResult(iteratorFactory().createTemplateInterpreter(
 						GenericEntityFactory.instance.create(
 								CommonsEntityDescriptorEnum.StageDownFragment, EntityUtils.clone(entity)))
 						.withSourceEntity(adaptee));
@@ -124,9 +124,9 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		declaredNames.add(queryName);
 
 		setExecutableResult(
-				iteratorFactory().filterIterator(
-						iteratorFactory().constantIterator(entity, true).withSourceEntity(entity),
-								iteratorFactory().asVariableIterator(queryName))
+				iteratorFactory().createFilter(
+						iteratorFactory().createConstant(entity, true).withSourceEntity(entity),
+								iteratorFactory().createAsVariable(queryName))
 						.withSourceEntity(entity));
 	}
 
@@ -140,7 +140,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 			argsIterators[i] = getExecutableResult();
 		}
 
-		setExecutableResult(iteratorFactory().callIterator(stringValue(entity.getName()), argsIterators).withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createCall(stringValue(entity.getName()), argsIterators).withSourceEntity(entity));
 	}
 
 	@Override
@@ -153,7 +153,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 
 		boolean withFreshNames = !(entity.getLocalNames() instanceof ScopeNames);
 		if (!withFreshNames || !localNames.isEmpty())
-			setExecutableResult(iteratorFactory().scopeIterator(getExecutableResult(), null, localNames, withFreshNames).withSourceEntity(entity));
+			setExecutableResult(iteratorFactory().createScope(getExecutableResult(), null, localNames, withFreshNames).withSourceEntity(entity));
 	}
 
 	@Override
@@ -171,7 +171,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		entity.get(entity.wSize() - 1).accept(this);
 
 		setExecutableResult(
-				iteratorFactory().composeIterator(getExecutableResult(), nestedIterators).withSourceEntity(entity));
+				iteratorFactory().createCompose(getExecutableResult(), nestedIterators).withSourceEntity(entity));
 
 		if (distinctScope != null)
 			setExecutableResult(distinctScope.withIterator(getExecutableResult().iterator()));
@@ -243,8 +243,8 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 			getBindings().wExitScope();
 
 			if (canOptimize && languageKit != null) {
-				IExecutable<?> ri = iteratorFactory().chooseIterator(languageKit);
-				ChooseByTypeIterator<?> chooseIterator = (ChooseByTypeIterator<?>) ri.undecoratedIterator();
+				IExecutable<?> ri = iteratorFactory().createChoose(languageKit);
+				ChooseByTypeIterator<?> chooseIterator = (ChooseByTypeIterator<?>) ri.undecoratedExecutable();
 
 				for (Entry<EntityDescriptor<?>, Expression> entry : typeMap.entrySet()) {
 					Set<String> oldDeclaredNames = declaredNames;
@@ -265,7 +265,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 					iteratorChain[i] = getExecutableResult();
 				}
 
-				setExecutableResult(iteratorFactory().chooseIterator(iteratorChain).withSourceEntity(entity));
+				setExecutableResult(iteratorFactory().createChoose(iteratorChain).withSourceEntity(entity));
 			}
 		}
 	}
@@ -283,7 +283,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 				iteratorChain[i] = getExecutableResult();
 			}
 
-			setExecutableResult(iteratorFactory().blockIterator(iteratorChain).withSourceEntity(entity));
+			setExecutableResult(iteratorFactory().createBlock(iteratorChain).withSourceEntity(entity));
 		}
 	}
 
@@ -300,7 +300,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 				iteratorChain[i] = getExecutableResult();
 			}
 
-			setExecutableResult(iteratorFactory().sequenceIterator(iteratorChain).withSourceEntity(entity));
+			setExecutableResult(iteratorFactory().createSequence(iteratorChain).withSourceEntity(entity));
 		}
 	}
 
@@ -334,18 +334,18 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		if (Matcher.matchImpl(QueriesEntityDescriptorEnum.ChildStep, expression)) {
 			if (Matcher.matchImpl(QueriesEntityDescriptorEnum.IndexTest, predicate)) {
 				int relativeIndex = predicate.wGet(0).wIntValue();
-				setExecutableResult(iteratorFactory().featureByIndexIterator(relativeIndex).withSourceEntity(entity));
+				setExecutableResult(iteratorFactory().createFeatureByIndex(relativeIndex).withSourceEntity(entity));
 				optimizeIndexTest = true;
 			} else if (Matcher.matchImpl(QueriesEntityDescriptorEnum.AtIndexTest, predicate)) {
 				int index = predicate.wIntValue();
-				setExecutableResult(iteratorFactory().featureByIndexIterator(index).withSourceEntity(entity));
+				setExecutableResult(iteratorFactory().createFeatureByIndex(index).withSourceEntity(entity));
 				optimizeIndexTest = true;
 			} else if (Matcher.matchImpl(QueriesEntityDescriptorEnum.IndexRangeTest, predicate)) {
 				int relativeStartIndex = ((IndexRangeTest) predicate).getStartIndex().getValue();
 				IntLiteral relativeEndIndexEntity = ((IndexRangeTest) predicate).getEndIndex();
 				int relativeEndIndex = EntityUtils.isResolver(relativeEndIndexEntity) ? -1
 						: relativeEndIndexEntity.getValue();
-				setExecutableResult(iteratorFactory().childRangeIterator(relativeStartIndex, relativeEndIndex)
+				setExecutableResult(iteratorFactory().createChildRange(relativeStartIndex, relativeEndIndex)
 						.withSourceEntity(entity));
 				optimizeIndexTest = true;
 			}
@@ -357,16 +357,16 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 			IExecutable<IEntity> queryPredicateIterator = getExecutableResult();
 
 			expression.accept(this);
-			if (getExecutableResult().undecoratedIterator() instanceof EmptyExecutable)
-				setExecutableResult(iteratorFactory().selfIterator().withSourceEntity(entity));
+			if (getExecutableResult().undecoratedExecutable() instanceof EmptyExecutable)
+				setExecutableResult(iteratorFactory().createSelf().withSourceEntity(entity));
 
 			if (filterByIndexIterator != null) {
-				((FilterByIndexRangeIterator<IEntity>) filterByIndexIterator.undecoratedIterator()).withIterator((IEntityIterator<IEntity>) getExecutableResult().iterator());
+				((FilterByIndexRangeIterator<IEntity>) filterByIndexIterator.undecoratedExecutable()).withIterator((IEntityIterator<IEntity>) getExecutableResult().iterator());
 				setExecutableResult(filterByIndexIterator);
 
 				if (canFilterByIndex) {
 					// ((FilterByIndexRangeIterator<?>) filterByIndexIterator.specificIterator()).withStartIndex(startIndex);
-					((FilterByIndexRangeIterator<?>) filterByIndexIterator.undecoratedIterator()).withEndIndex(endIndex);
+					((FilterByIndexRangeIterator<?>) filterByIndexIterator.undecoratedExecutable()).withEndIndex(endIndex);
 				}
 			}
 
@@ -374,9 +374,9 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 					&& Matcher.match(QueriesEntityDescriptorEnum.Path, entity.wGetParent())))
 				setExecutableResult(distinctScope.withIterator(getExecutableResult().iterator()));
 
-			if (!(queryPredicateIterator.undecoratedIterator() instanceof EmptyExecutable)) {
-				IExecutable<?> ri = iteratorFactory().filterIterator(getExecutableResult(), queryPredicateIterator);
-				((FilterIterator<?>) ri.undecoratedIterator()).withAutoPrune(usePruneFilter);
+			if (!(queryPredicateIterator.undecoratedExecutable() instanceof EmptyExecutable)) {
+				IExecutable<?> ri = iteratorFactory().createFilter(getExecutableResult(), queryPredicateIterator);
+				((FilterIterator<?>) ri.undecoratedExecutable()).withAutoPrune(usePruneFilter);
 				setExecutableResult(ri.withSourceEntity(entity));
 			}
 		}
@@ -390,127 +390,127 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 
 	@Override
 	public void visit(AspectStep entity) {
-		setExecutableResult(iteratorFactory().aspectIterator().withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createAspect().withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(AdjacentStep entity) {
-		setExecutableResult(iteratorFactory().adjacentIterator().withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createAdjacent().withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(ReachableStep entity) {
-		setExecutableResult(iteratorFactory().reachableIterator(false).withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createReachable(false).withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(ReachableOrSelfStep entity) {
-		setExecutableResult(iteratorFactory().reachableIterator(true).withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createReachable(true).withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(InverseAdjacentStep entity) {
-		setExecutableResult(iteratorFactory().inverseAdjacentIterator().withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createInverseAdjacent().withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(InverseReachableStep entity) {
-		setExecutableResult(iteratorFactory().inverseReachableIterator(false).withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createInverseReachable(false).withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(InverseReachableOrSelfStep entity) {
-		setExecutableResult(iteratorFactory().inverseReachableIterator(true).withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createInverseReachable(true).withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(RootStep entity) {
-		setExecutableResult(iteratorFactory().rootIterator().withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createRoot().withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(FragmentRootStep entity) {
-		setExecutableResult(iteratorFactory().fragmentRootIterator().withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createFragmentRoot().withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(SelfStep entity) {
-		setExecutableResult(iteratorFactory().selfIterator().withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createSelf().withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(FeatureStep entity) {
-		setExecutableResult(iteratorFactory().featureByNameIterator(entity.getValue()).withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createFeatureByName(entity.getValue()).withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(ChildStep entity) {
-		setExecutableResult(iteratorFactory().childIterator().withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createChild().withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(DescendantStep entity) {
-		setExecutableResult(iteratorFactory().descendantIterator().withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createDescendant().withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(DescendantOrSelfStep entity) {
-		setExecutableResult(iteratorFactory().descendantOrSelfIterator().withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createDescendantOrSelf().withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(FollowingSiblingStep entity) {
-		setExecutableResult(iteratorFactory().followingSiblingIterator().withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createFollowingSibling().withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(FollowingSiblingOrSelfStep entity) {
-		setExecutableResult(iteratorFactory().followingSiblingOrSelfIterator().withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createFollowingSiblingOrSelf().withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(FollowingStep entity) {
-		setExecutableResult(iteratorFactory().followingIterator().withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createFollowing().withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(FollowingOrSelfStep entity) {
-		setExecutableResult(iteratorFactory().followingOrSelfIterator().withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createFollowingOrSelf().withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(ParentStep entity) {
-		setExecutableResult(iteratorFactory().parentIterator().withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createParent().withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(AncestorStep entity) {
-		setExecutableResult(iteratorFactory().ancestorIterator().withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createAncestor().withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(AncestorOrSelfStep entity) {
-		setExecutableResult(iteratorFactory().ancestorOrSelfIterator().withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createAncestorOrSelf().withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(PrecedingSiblingStep entity) {
-		setExecutableResult(iteratorFactory().precedingSiblingIterator().withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createPrecedingSibling().withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(PrecedingSiblingOrSelfStep entity) {
-		setExecutableResult(iteratorFactory().precedingSiblingOrSelfIterator().withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createPrecedingSiblingOrSelf().withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(PrecedingStep entity) {
-		setExecutableResult(iteratorFactory().precedingIterator().withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createPreceding().withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(PrecedingOrSelfStep entity) {
-		setExecutableResult(iteratorFactory().precedingOrSelfIterator().withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createPrecedingOrSelf().withSourceEntity(entity));
 	}
 
 	@Override
@@ -522,34 +522,34 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		if (step.wGetLanguageKit().getURI().equals(QueriesLanguageKit.URI)) {
 			switch (step.wGetEntityOrd()) {
 			case QueriesEntityDescriptorEnum.ChildStep_ord:
-				iterator = iteratorFactory().childReverseIterator();
+				iterator = iteratorFactory().createChildReverse();
 				break;
 			case QueriesEntityDescriptorEnum.AdjacentStep_ord:
-				iterator = iteratorFactory().adjacentReverseIterator();
+				iterator = iteratorFactory().createAdjacentReverse();
 				break;
 			case QueriesEntityDescriptorEnum.DescendantStep_ord:
-				iterator = iteratorFactory().descendantReverseIterator();
+				iterator = iteratorFactory().createDescendantReverse();
 				break;
 			case QueriesEntityDescriptorEnum.DescendantOrSelfStep_ord:
-				iterator = iteratorFactory().descendantOrSelfReverseIterator();
+				iterator = iteratorFactory().createDescendantOrSelfReverse();
 				break;
 			case QueriesEntityDescriptorEnum.FollowingSiblingStep_ord:
-				iterator = iteratorFactory().followingSiblingReverseIterator();
+				iterator = iteratorFactory().createFollowingSiblingReverse();
 				break;
 			case QueriesEntityDescriptorEnum.FollowingSiblingOrSelfStep_ord:
-				iterator = iteratorFactory().followingSiblingOrSelfReverseIterator();
+				iterator = iteratorFactory().createFollowingSiblingOrSelfReverse();
 				break;
 			case QueriesEntityDescriptorEnum.PrecedingSiblingStep_ord:
-				iterator = iteratorFactory().precedingSiblingReverseIterator();
+				iterator = iteratorFactory().createPrecedingSiblingReverse();
 				break;
 			case QueriesEntityDescriptorEnum.PrecedingSiblingOrSelfStep_ord:
-				iterator = iteratorFactory().precedingSiblingOrSelfReverseIterator();
+				iterator = iteratorFactory().createPrecedingSiblingOrSelfReverse();
 				break;
 			case QueriesEntityDescriptorEnum.AncestorStep_ord:
-				iterator = iteratorFactory().ancestorReverseIterator();
+				iterator = iteratorFactory().createAncestorReverse();
 				break;
 			case QueriesEntityDescriptorEnum.AncestorOrSelfStep_ord:
-				iterator = iteratorFactory().ancestorOrSelfReverseIterator();
+				iterator = iteratorFactory().createAncestorOrSelfReverse();
 				break;
 			}
 		}
@@ -564,7 +564,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 	public void visit(VariableRefStep entity) {
 		String varName = entity.getValue();
     	setExecutableResult((varName.equals(IBindingManager.SELF) ?
-    			iteratorFactory().selfIterator() : iteratorFactory().variableIterator(varName)).withSourceEntity(entity));
+    			iteratorFactory().createSelf() : iteratorFactory().createVariable(varName)).withSourceEntity(entity));
 	}
 
 	@Override
@@ -572,7 +572,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		String name = entity.getValue();
 		declaredNames.add(name);
 
-		setExecutableResult(iteratorFactory().asVariableIterator(name).withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createAsVariable(name).withSourceEntity(entity));
 	}
 
 	@Override
@@ -583,7 +583,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 			iterators[i] = getExecutableResult();
 		}
 
-		setExecutableResult(iteratorFactory().cartesianProductIterator(iterators).withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createCartesianProduct(iterators).withSourceEntity(entity));
 	}
 
 	@Override
@@ -595,7 +595,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 			iterators[i] = getExecutableResult();
 		}
 
-		setExecutableResult(iteratorFactory().pointwiseProductIterator(iterators).withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createPointwiseProduct(iterators).withSourceEntity(entity));
 	}
 
 	@Override
@@ -603,7 +603,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		entity.getFromClause().accept(this);
 		IExecutable<? extends IEntity> fromIterator = getExecutableResult();
 
-		setExecutableResult(iteratorFactory().cloneReplacingIterator(fromIterator).withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createCloneReplacing(fromIterator).withSourceEntity(entity));
 	}
 
 	@Override
@@ -611,7 +611,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		entity.getFromClause().accept(this);
 		IExecutable<? extends IEntity> fromIterator = getExecutableResult();
 
-		setExecutableResult(iteratorFactory().deleteIterator(fromIterator).withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createDelete(fromIterator).withSourceEntity(entity));
 	}
 
 	@Override
@@ -619,8 +619,8 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		entity.getFromClause().accept(this);
 		IExecutable<IEntity> fromIterator = getExecutableResult();
 
-		setExecutableResult(iteratorFactory().pointwiseUpdateIterator(
-				iteratorFactory().repeatedSelfIterator().withSourceEntity(entity), fromIterator)
+		setExecutableResult(iteratorFactory().createPointwiseUpdate(
+				iteratorFactory().createRepeatedSelf().withSourceEntity(entity), fromIterator)
 				.withSourceEntity(entity));
 	}
 
@@ -629,11 +629,11 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		entity.getFromClause().accept(this);
 		IExecutable<IEntity> fromIterator = getExecutableResult();
 
-		setExecutableResult(iteratorFactory().emptyIterator().withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createEmpty().withSourceEntity(entity));
 		entity.getValuesClause().accept(this);
 		IExecutable<? extends IEntity> valuesIterator = getExecutableResult();
 
-		setExecutableResult(iteratorFactory().cartesianUpdateIterator(
+		setExecutableResult(iteratorFactory().createCartesianUpdate(
 				valuesIterator, fromIterator).withSourceEntity(entity));
 	}
 
@@ -642,11 +642,11 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		entity.getFromClause().accept(this);
 		IExecutable<IEntity> fromIterator = getExecutableResult();
 
-		setExecutableResult(iteratorFactory().emptyIterator().withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createEmpty().withSourceEntity(entity));
 		entity.getValuesClause().accept(this);
 		IExecutable<? extends IEntity> valuesIterator = getExecutableResult();
 
-		setExecutableResult(iteratorFactory().pointwiseUpdateIterator(
+		setExecutableResult(iteratorFactory().createPointwiseUpdate(
 				valuesIterator, fromIterator).withSourceEntity(entity));
 	}
 
@@ -656,8 +656,8 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		IExecutable<IEntity> fromIterator = getExecutableResult();
 
 		Placement placement = Placement.valueOf(entity.getPlacement().getValue().getName());
-		setExecutableResult(iteratorFactory().pointwiseInsertIterator(
-				iteratorFactory().repeatedSelfIterator().withSourceEntity(entity),
+		setExecutableResult(iteratorFactory().createPointwiseInsert(
+				iteratorFactory().createRepeatedSelf().withSourceEntity(entity),
 				fromIterator, placement)
 				.withSourceEntity(entity));
 	}
@@ -667,12 +667,12 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		entity.getFromClause().accept(this);
 		IExecutable<IEntity> fromIterator = getExecutableResult();
 
-		setExecutableResult(iteratorFactory().emptyIterator().withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createEmpty().withSourceEntity(entity));
 		entity.getValuesClause().accept(this);
 		IExecutable<? extends IEntity> valuesIterator = getExecutableResult();
 
 		Placement placement = Placement.valueOf(entity.getPlacement().getValue().getName());
-		setExecutableResult(iteratorFactory().cartesianInsertIterator(
+		setExecutableResult(iteratorFactory().createCartesianInsert(
 				valuesIterator, fromIterator, placement)
 				.withSourceEntity(entity));
 	}
@@ -682,12 +682,12 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		entity.getFromClause().accept(this);
 		IExecutable<IEntity> fromIterator = getExecutableResult();
 
-		setExecutableResult(iteratorFactory().emptyIterator().withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createEmpty().withSourceEntity(entity));
 		entity.getValuesClause().accept(this);
 		IExecutable<? extends IEntity> valuesIterator = getExecutableResult();
 
 		Placement placement = Placement.valueOf(entity.getPlacement().getValue().getName());
-		setExecutableResult(iteratorFactory().pointwiseInsertIterator(
+		setExecutableResult(iteratorFactory().createPointwiseInsert(
 				valuesIterator, fromIterator, placement)
 				.withSourceEntity(entity));
 	}
@@ -701,7 +701,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		entity.getFromClause().accept(this);
 		IExecutable<? extends IEntity> fromIterator = getExecutableResult();
 
-		setExecutableResult(iteratorFactory().emptyIterator().withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createEmpty().withSourceEntity(entity));
 		entity.getWhereClause().accept(this);
 		IExecutable<? extends IEntity> whereIterator = getExecutableResult();
 
@@ -715,8 +715,8 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		useNamesComplement = false;
 		entity.getClearClause().accept(this);
 
-		IExecutable<?> si = iteratorFactory().selectIterator(selectIterator, fromIterator, whereIterator);
-		((SelectIterator<?>) si.undecoratedIterator()).withNamesToBind(namesExp).withNamesComplement(useNamesComplement);
+		IExecutable<?> si = iteratorFactory().createSelect(selectIterator, fromIterator, whereIterator);
+		((SelectIterator<?>) si.undecoratedExecutable()).withNamesToBind(namesExp).withNamesComplement(useNamesComplement);
 		setExecutableResult(si.withSourceEntity(entity));
 
 		declaredNames = oldDeclaredNames;
@@ -792,7 +792,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 
 		declaredNames = namesToBound;
 
-		setExecutableResult(iteratorFactory().forIterator(fromIterator, selectIterator).withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createFor(fromIterator, selectIterator).withSourceEntity(entity));
 
 		declaredNames = oldDeclaredNames;
 	}
@@ -810,12 +810,12 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 
 		entity.getExpression().accept(this);
 		
-		if (!(conditionIterator.undecoratedIterator() instanceof EmptyExecutable)) {
+		if (!(conditionIterator.undecoratedExecutable() instanceof EmptyExecutable)) {
 			IExecutable<? extends IEntity> selectIterator = getExecutableResult();
 	
 			declaredNames = namesToBound;
 	
-			setExecutableResult(iteratorFactory().ifIterator(conditionIterator, selectIterator).withSourceEntity(entity));
+			setExecutableResult(iteratorFactory().createIf(conditionIterator, selectIterator).withSourceEntity(entity));
 		}
 		declaredNames = oldDeclaredNames;
 	}
@@ -835,7 +835,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 			entity.get(i).accept(this);
 			tupleIterators[i] = getExecutableResult();
 		}
-		setExecutableResult(iteratorFactory().tupleFactoryIterator(tupleIterators).withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createTupleFactory(tupleIterators).withSourceEntity(entity));
 	}
 
 	@Override
@@ -845,7 +845,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		entity.getWhereClause().accept(this);
 
 		IExecutable<IEntity> satisfiesClause = getExecutableResult();
-		setExecutableResult(iteratorFactory().oneIterator(fromClause, satisfiesClause).withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createOne(fromClause, satisfiesClause).withSourceEntity(entity));
 	}
 
 	@Override
@@ -855,10 +855,10 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		entity.getWhereClause().accept(this);
 
 		IExecutable<IEntity> satisfiesClause = getExecutableResult();
-		if (satisfiesClause.undecoratedIterator() instanceof EmptyExecutable)
-			setExecutableResult(iteratorFactory().someIterator(fromClause).withSourceEntity(entity));			
+		if (satisfiesClause.undecoratedExecutable() instanceof EmptyExecutable)
+			setExecutableResult(iteratorFactory().createSome(fromClause).withSourceEntity(entity));			
 		else
-			setExecutableResult(iteratorFactory().someIterator(fromClause, satisfiesClause).withSourceEntity(entity));
+			setExecutableResult(iteratorFactory().createSome(fromClause, satisfiesClause).withSourceEntity(entity));
 	}
 
 	@Override
@@ -868,7 +868,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		entity.getWhereClause().accept(this);
 
 		IExecutable<IEntity> satisfiesClause = getExecutableResult();
-		setExecutableResult(iteratorFactory().everyIterator(fromClause, satisfiesClause).withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createEvery(fromClause, satisfiesClause).withSourceEntity(entity));
 	}
 
 	@Override
@@ -876,31 +876,31 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		Value kind = entity.getValue();
 		switch (kind.getOrdinal()) {
 		case KindTestEnum.IMPL_ord:
-			setExecutableResult(iteratorFactory().isImplIterator().withSourceEntity(entity));
+			setExecutableResult(iteratorFactory().createIsImpl().withSourceEntity(entity));
 			break;
 		case KindTestEnum.FRAGMENT_ord:
-			setExecutableResult(iteratorFactory().isFragmentIterator().withSourceEntity(entity));
+			setExecutableResult(iteratorFactory().createIsFragment().withSourceEntity(entity));
 			break;
 		case KindTestEnum.VARIABLE_ord:
-			setExecutableResult(iteratorFactory().isVariableIterator().withSourceEntity(entity));
+			setExecutableResult(iteratorFactory().createIsVariable().withSourceEntity(entity));
 			break;
 		case KindTestEnum.RESOLVER_ord:
-			setExecutableResult(iteratorFactory().isResolverIterator().withSourceEntity(entity));
+			setExecutableResult(iteratorFactory().createIsResolver().withSourceEntity(entity));
 			break;
 		default:
 			EntityKinds ekind = EntityKinds.valueOf(kind.getName());
-			setExecutableResult(iteratorFactory().hasKindIterator(ekind).withSourceEntity(entity));
+			setExecutableResult(iteratorFactory().createHasKind(ekind).withSourceEntity(entity));
 		}
 	}
 	@Override
 	public void visit(CompositeKindTest entity) {
 		CompositeKindTestEnum.Value kind = entity.getValue();
-		setExecutableResult(iteratorFactory().hasCompositeKindIterator(CompositeKinds.valueOf(kind.getName())));
+		setExecutableResult(iteratorFactory().createHasCompositeKind(CompositeKinds.valueOf(kind.getName())));
 	}
 	@Override
 	public void visit(DataKindTest entity) {
 		DataKindTestEnum.Value kind = entity.getValue();
-		setExecutableResult(iteratorFactory().hasDataKindIterator(DataKinds.valueOf(kind.getName())));
+		setExecutableResult(iteratorFactory().createHasDataKind(DataKinds.valueOf(kind.getName())));
 	}
 
 	@Override
@@ -908,90 +908,90 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		StageTestEnum.Value stage = entity.getValue();
 		switch (stage.getOrdinal()) {
 		case StageTestEnum.HOST_STAGE_ord:
-			setExecutableResult(iteratorFactory().atHostStageIterator().withSourceEntity(entity));
+			setExecutableResult(iteratorFactory().createAtHostStage().withSourceEntity(entity));
 			break;
 		case StageTestEnum.HOST_STAGE_0_ord:
-			setExecutableResult(iteratorFactory().atStageIterator(0).withSourceEntity(entity));
+			setExecutableResult(iteratorFactory().createAtStage(0).withSourceEntity(entity));
 			break;
 		case StageTestEnum.TEMPLATE_STAGE_1_ord:
-			setExecutableResult(iteratorFactory().atStageIterator(1).withSourceEntity(entity));
+			setExecutableResult(iteratorFactory().createAtStage(1).withSourceEntity(entity));
 			break;
 		case StageTestEnum.TEMPLATE_STAGE_ord:
-			setExecutableResult(iteratorFactory().atTemplateStageIterator().withSourceEntity(entity));
+			setExecutableResult(iteratorFactory().createAtTemplateStage().withSourceEntity(entity));
 			break;
 		}
 	}
 
 	@Override
 	public void visit(StageVariableTest entity) {
-		setExecutableResult(iteratorFactory().atStageVariableIterator(entity.getValue()).withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createAtStageVariable(entity.getValue()).withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(LanguageVariableTest entity) {
-		setExecutableResult(iteratorFactory().languageVariableIterator(entity.getValue()).withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createLanguageVariable(entity.getValue()).withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(TypeVariableTest entity) {
-		setExecutableResult(iteratorFactory().typeVariableIterator(entity.getValue()).withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createTypeVariable(entity.getValue()).withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(SubtypeVariableTest entity) {
-		setExecutableResult(iteratorFactory().languageSubtypeOfVariableIterator(entity.getValue()).withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createLanguageSubtypeOfVariable(entity.getValue()).withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(SupertypeVariableTest entity) {
-		setExecutableResult(iteratorFactory().languageSupertypeOfVariableIterator(entity.getValue()).withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createLanguageSupertypeOfVariable(entity.getValue()).withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(ExtendedSubtypeVariableTest entity) {
-		setExecutableResult(iteratorFactory().extendedLanguageSubtypeOfVariableIterator(entity.getValue()).withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createExtendedLanguageSubtypeOfVariable(entity.getValue()).withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(ExtendedSupertypeVariableTest entity) {
-		setExecutableResult(iteratorFactory().extendedLanguageSupertypeOfVariableIterator(entity.getValue()).withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createExtendedLanguageSupertypeOfVariable(entity.getValue()).withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(LanguageTest entity) {
-		setExecutableResult(iteratorFactory().isLanguageIterator(entity.getValue()).withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createIsLanguage(entity.getValue()).withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(TypeTest entity) {
-		setExecutableResult(iteratorFactory().hasTypeIterator(entity.getValue()).withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createHasType(entity.getValue()).withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(SubtypeTest entity) {
-		setExecutableResult(iteratorFactory().isLanguageSubtypeOfIterator(entity.getValue()).withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createIsLanguageSubtypeOf(entity.getValue()).withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(SupertypeTest entity) {
-		setExecutableResult(iteratorFactory().isLanguageSupertypeOfIterator(entity.getValue()).withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createIsLanguageSupertypeOf(entity.getValue()).withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(ExtendedSubtypeTest entity) {
-		setExecutableResult(iteratorFactory().isExtendedLanguageSubtypeOfIterator(entity.getValue()).withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createIsExtendedLanguageSubtypeOf(entity.getValue()).withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(ExtendedSupertypeTest entity) {
-		setExecutableResult(iteratorFactory().isExtendedLanguageSupertypeOfIterator(entity.getValue()).withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createIsExtendedLanguageSupertypeOf(entity.getValue()).withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(MatchTest entity) {
 		Expression e = entity.getExpression();
 		e.accept(this);
-		setExecutableResult(iteratorFactory().matchInScopeIterator(getExecutableResult()).withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createMatchInScope(getExecutableResult()).withSourceEntity(entity));
 	}
 
 	@Override
@@ -1000,24 +1000,24 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		IExecutable<IEntity> exp1Iterator = getExecutableResult();
 		entity.getPexp2().accept(this);
 		
-		setExecutableResult(iteratorFactory().pointwiseEqualsIterator(exp1Iterator, getExecutableResult()).withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createPointwiseEquals(exp1Iterator, getExecutableResult()).withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(AtTypeTest entity) {
-		setExecutableResult(iteratorFactory().atTypeIterator(entity.getValue()).withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createAtType(entity.getValue()).withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(AtFeatureTest entity) {
-		setExecutableResult(iteratorFactory().atFeatureIterator(entity.getValue()).withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createAtFeature(entity.getValue()).withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(AtIndexTest entity) {
 		int index = entity.getIndex().getValue();
 
-		setExecutableResult(iteratorFactory().atIndexIterator(index).withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createAtIndex(index).withSourceEntity(entity));
 	}
 
 	@Override
@@ -1026,11 +1026,11 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		declaredNames.add(varName);
 
 		if (filterByIndexIterator == null) {
-			filterByIndexIterator = iteratorFactory().filterByIndexRangeIterator();
+			filterByIndexIterator = iteratorFactory().createFilterByIndexRange();
 			filterByIndexIterator.withSourceEntity(entity);
 		}
 
-		setExecutableResult(iteratorFactory().iterationIndexVariableIterator(filterByIndexIterator, varName).withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createIterationIndexVariable(filterByIndexIterator, varName).withSourceEntity(entity));
 
 		updateIndexRange(0, Integer.MAX_VALUE);
 	}
@@ -1038,12 +1038,12 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 	@Override
 	public void visit(IndexTest entity) {
 		if (filterByIndexIterator == null) {
-			filterByIndexIterator = iteratorFactory().filterByIndexRangeIterator();
+			filterByIndexIterator = iteratorFactory().createFilterByIndexRange();
 			filterByIndexIterator.withSourceEntity(entity);
 		}
 
 		int index = entity.getIndex().getValue();
-		setExecutableResult(iteratorFactory().iterationIndexIterator(filterByIndexIterator, index).withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createIterationIndex(filterByIndexIterator, index).withSourceEntity(entity));
 
 		updateIndexRange(index, index);
 	}
@@ -1051,7 +1051,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 	@Override
 	public void visit(IndexRangeTest entity) {
 		if (filterByIndexIterator == null) {
-			filterByIndexIterator = iteratorFactory().filterByIndexRangeIterator();
+			filterByIndexIterator = iteratorFactory().createFilterByIndexRange();
 			filterByIndexIterator.withSourceEntity(entity);
 		}
 
@@ -1063,7 +1063,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		else
 			endIndexValue = Integer.MAX_VALUE;
 
-		setExecutableResult(iteratorFactory().iterationIndexRangeIterator(filterByIndexIterator, startIndexValue, endIndexValue).withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createIterationIndexRange(filterByIndexIterator, startIndexValue, endIndexValue).withSourceEntity(entity));
 
 		updateIndexRange(startIndexValue, endIndexValue);
 	}
@@ -1119,7 +1119,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		entity.getComparator().accept(this);
 
 		if (distinctScope == null)
-			distinctScope = iteratorFactory().distinctScope();
+			distinctScope = iteratorFactory().createDistinctScope();
 
 		distinctScope.withComparator(comparator);
 		setExecutableResult(distinctScope.distinctIterator().withSourceEntity(entity));
@@ -1139,7 +1139,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 			argsIterators[i] = getExecutableResult();
 		}
 
-		setExecutableResult(iteratorFactory().andIterator(argsIterators).withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createAnd(argsIterators).withSourceEntity(entity));
 	}
 
 	@Override
@@ -1155,7 +1155,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 			canFilterByIndexResult &= !canFilterByIndex;
 		}
 
-		setExecutableResult(iteratorFactory().orIterator(argsIterators).withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createOr(argsIterators).withSourceEntity(entity));
 
 		canFilterByIndex = canFilterByIndexResult;
 	}
@@ -1163,7 +1163,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 	@Override
 	public void visit(Not entity) {
 		entity.getPredicate().accept(this);
-		setExecutableResult(iteratorFactory().notIterator(getExecutableResult()).withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createNot(getExecutableResult()).withSourceEntity(entity));
 	}
 
 	@Override
@@ -1189,7 +1189,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 	@Override
 	public void visit(UnionAll entity) {
 		entity.getExpressions().accept(this);
-		setExecutableResult(iteratorFactory().unionAllIterator(iteratorChain).withSourceEntity(entity));
+		setExecutableResult(iteratorFactory().createUnionAll(iteratorChain).withSourceEntity(entity));
 	}
 
 	public void visitCollectByExpression(CollectByExpression entity) {
@@ -1202,8 +1202,8 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		IEntityComparator<IEntity> oldComparator = comparator;
 		comparator = BusinessIdentityComparator.instance;
 		visitCollectByExpression(entity);
-		IExecutable<?> ri = iteratorFactory().unionIterator(iteratorChain);
-		((AbstractCollectIterator) ri.undecoratedIterator()).withComparator(comparator);
+		IExecutable<?> ri = iteratorFactory().createUnion(iteratorChain);
+		((AbstractCollectIterator) ri.undecoratedExecutable()).withComparator(comparator);
 		setExecutableResult(ri.withSourceEntity(entity));
 		comparator = oldComparator;
 	}
@@ -1213,8 +1213,8 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		IEntityComparator<IEntity> oldComparator = comparator;
 		comparator = BusinessIdentityComparator.instance;
 		visitCollectByExpression(entity);
-		IExecutable<?> ri = iteratorFactory().intersectIterator(iteratorChain);
-		((AbstractCollectIterator) ri.undecoratedIterator()).withComparator(comparator);
+		IExecutable<?> ri = iteratorFactory().createIntersect(iteratorChain);
+		((AbstractCollectIterator) ri.undecoratedExecutable()).withComparator(comparator);
 		setExecutableResult(ri.withSourceEntity(entity));
 		comparator = oldComparator;
 	}
@@ -1224,15 +1224,15 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		IEntityComparator<IEntity> oldComparator = comparator;
 		comparator = BusinessIdentityComparator.instance;
 		visitCollectByExpression(entity);
-		IExecutable<?> ri = iteratorFactory().exceptIterator(iteratorChain);
-		((AbstractCollectIterator) ri.undecoratedIterator()).withComparator(comparator);
+		IExecutable<?> ri = iteratorFactory().createExcept(iteratorChain);
+		((AbstractCollectIterator) ri.undecoratedExecutable()).withComparator(comparator);
 		setExecutableResult(ri.withSourceEntity(entity));
 		comparator = oldComparator;
 	}
 
 	protected void setLiteral(IEntity entity) {
 		setExecutableResult(
-				iteratorFactory().constantIterator(BindingManagerFactory.instance.createSpecificValue(entity), true)
+				iteratorFactory().createConstant(BindingManagerFactory.instance.createSpecificValue(entity), true)
 						.withSourceEntity(entity));
 	}
 
@@ -1277,11 +1277,11 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 	}
 
 	public void visit(VoidLiteral entity) {
-		setExecutableResult(iteratorFactory().constantIterator(BindingManagerFactory.instance.createVoid(), true)
+		setExecutableResult(iteratorFactory().createConstant(BindingManagerFactory.instance.createVoid(), true)
 				.withSourceEntity(entity));
 	}
 
-	protected IEntityIterator<?> compile(Expression entity) {
+	protected IExecutable<?> compile(Expression entity) {
 		entity.accept(this);
 		return getExecutableResult().iterator();
 	}

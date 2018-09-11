@@ -21,7 +21,7 @@ import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.builders.IBuilderOperation;
 import org.whole.lang.codebase.IPersistenceKit;
 import org.whole.lang.codebase.IPersistenceProvider;
-import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.templates.ITemplate;
 
@@ -45,8 +45,8 @@ public interface IResource extends ITemplate {
 
 	//public void call(IEntity selfModel, IBindingManager bindings);
 
-	public <E extends IEntity> IEntityIterator<E> apply(IEntity query, IBindingManager bindings);
-	public <E extends IEntity> IEntityIterator<E> apply(String uriFragment, IEntity query, IBindingManager bindings);
+	public <E extends IEntity> IExecutable<E> apply(IEntity query, IBindingManager bindings);
+	public <E extends IEntity> IExecutable<E> apply(String uriFragment, IEntity query, IBindingManager bindings);
 
 	public void apply(String uriFragment, IBuilderOperation operation);
 

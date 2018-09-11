@@ -19,7 +19,7 @@ package org.whole.lang.models.visitors;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.commons.reflect.CommonsFeatureDescriptorEnum;
-import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.models.model.AnyType;
 import org.whole.lang.models.model.ComponentModifier;
@@ -206,7 +206,7 @@ public class ModelsInterpreterVisitor extends ModelsIdentityDefaultVisitor {
 			String name = entity.getName().wStringValue();
 
 			boolean isOrdered = false, isUnique = false;
-			IEntityIterator<ComponentModifier> i = iteratorFactory().<ComponentModifier>childIterator();
+			IExecutable<ComponentModifier> i = iteratorFactory().<ComponentModifier>createChild();
 			i.reset(entity.getComponentModifiers());
 			for (ComponentModifier modifier : i)
 				switch (modifier.getValue().getOrdinal()) {
@@ -249,7 +249,7 @@ public class ModelsInterpreterVisitor extends ModelsIdentityDefaultVisitor {
 			String componentName = entity.getComponentType().wStringValue();
 
 			boolean isReference = false, isDerived = false, isShared = false;
-			IEntityIterator<ComponentModifier> i = iteratorFactory().<ComponentModifier>childIterator();
+			IExecutable<ComponentModifier> i = iteratorFactory().<ComponentModifier>createChild();
 			i.reset(entity.getComponentModifiers());
 			for (ComponentModifier modifier : i)
 				switch (modifier.getValue().getOrdinal()) {
@@ -291,7 +291,7 @@ public class ModelsInterpreterVisitor extends ModelsIdentityDefaultVisitor {
 							oppositeFeatureName, modelInfo.featureImplName(oppositeFeatureName));
 
 				boolean isOptional = false, isId = false, isReference = false, isDerived = false, isShared = false;
-				IEntityIterator<FeatureModifier> i2 = iteratorFactory().<FeatureModifier>childIterator();
+				IExecutable<FeatureModifier> i2 = iteratorFactory().<FeatureModifier>createChild();
 				i2.reset(feature.getModifiers());
 				for (FeatureModifier modifier : i2)
 					switch (modifier.getValue().getOrdinal()) {

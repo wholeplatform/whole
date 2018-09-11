@@ -54,7 +54,7 @@ import org.whole.lang.e4.ui.actions.E4KeyHandler;
 import org.whole.lang.e4.ui.actions.E4NavigationKeyHandler;
 import org.whole.lang.e4.ui.actions.IE4UIConstants;
 import org.whole.lang.e4.ui.util.E4Utils;
-import org.whole.lang.iterators.IteratorFactory;
+import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.iterators.MatcherIterator;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
@@ -93,7 +93,7 @@ public class E4FindReplaceDialog extends E4Dialog {
 		super(shell);
 		setShellStyle(getShellStyle() ^ SWT.APPLICATION_MODAL);
 		setBlockOnOpen(false);
-		this.iterator = IteratorFactory.instance.descendantOrSelfMatcherIterator();
+		this.iterator = ExecutableFactory.instance.createDescendantOrSelfMatcher();
 		this.bindings = BindingManagerFactory.instance.createArguments();
 		enableSelectionTracking(true);
 		clearFoundEntity();

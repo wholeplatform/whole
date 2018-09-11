@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.grammars.codebase.GrammarsRegistry;
 import org.whole.lang.grammars.model.CompiledPattern;
 import org.whole.lang.grammars.model.DataTerminal;
@@ -32,7 +33,6 @@ import org.whole.lang.grammars.model.Rule;
 import org.whole.lang.grammars.reflect.GrammarsEntityDescriptorEnum;
 import org.whole.lang.grammars.util.GrammarsUtils;
 import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.IDecorationManager;
@@ -91,13 +91,13 @@ public class GenericGrammarBasedValidatorVisitor extends GenericIdentityVisitor 
 		
 		//TODO ensure grammar normalized
 		Map<String, Rule> productions = new HashMap<String, Rule>();
-		IEntityIterator<Production> pi = iteratorFactory().<Production>childIterator();
+		IExecutable<Production> pi = iteratorFactory().<Production>createChild();
 		pi.reset(grammar.getPhraseStructure());
 		for (Production p : pi)
 			productions.put(p.getName().getValue(), p.getRule());
 		
 		Map<String, Rule> lexicon = new HashMap<String, Rule>();
-		IEntityIterator<Production> li = iteratorFactory().<Production>childIterator();
+		IExecutable<Production> li = iteratorFactory().<Production>createChild();
 		li.reset(grammar.getLexicalStructure());
 		for (Production p : li)
 			lexicon.put(p.getName().getValue(), p.getRule());
@@ -127,7 +127,7 @@ public class GenericGrammarBasedValidatorVisitor extends GenericIdentityVisitor 
 
 		calculateDataTerminals(grammar);
 
-		IEntityIterator<IEntity> iterator = iteratorFactory().descendantOrSelfMatcherIterator().withPattern(EntityKinds.DATA);
+		IEntityIterator<IEntity> iterator = iteratorFactory().createDescendantOrSelfMatcher().withPattern(EntityKinds.DATA);
 		iterator.reset(entity);
 		while (iterator.hasNext())
 			validateDataTerminal(iterator.next());

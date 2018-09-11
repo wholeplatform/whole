@@ -26,8 +26,6 @@ import org.whole.lang.model.IEntity;
  * @author Riccardo Solmi
  */
 public interface IEntityIterator<E extends IEntity> extends IExecutable<E>, IJavaIterator<E> {
-	public IEntityIterator<E> withSourceEntity(IEntity entity);
-
 	//TODO workaround to avoid conflict with the default method inherited
 	default void remove() {
         throw new UnsupportedOperationException("remove");

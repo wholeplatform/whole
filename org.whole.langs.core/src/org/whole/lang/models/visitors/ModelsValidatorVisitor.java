@@ -21,8 +21,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.iterators.AbstractPatternFilterIterator;
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.models.model.ComponentModifier;
@@ -162,7 +162,7 @@ public class ModelsValidatorVisitor extends ModelsTraverseAllVisitor {
 
 	@Override
 	public void visit(Types entity) {
-		AbstractPatternFilterIterator<SimpleName> i = iteratorFactory().<SimpleName>childMatcherIterator()
+		AbstractPatternFilterIterator<SimpleName> i = iteratorFactory().<SimpleName>createChildMatcher()
 				.withPattern(ModelsEntityDescriptorEnum.SimpleName);
 		i.reset(entity);
 		for (SimpleName t : i) {
@@ -274,7 +274,7 @@ public class ModelsValidatorVisitor extends ModelsTraverseAllVisitor {
 	protected String location(IEntity entity) {
 		String result = "";
 		
-		IEntityIterator<IEntity> i = iteratorFactory().ancestorReverseIterator();
+		IExecutable<?> i = iteratorFactory().createAncestorReverse();
 		i.reset(entity);
 		for (IEntity e : i) {
 			if (e.wContains(ModelsFeatureDescriptorEnum.name)

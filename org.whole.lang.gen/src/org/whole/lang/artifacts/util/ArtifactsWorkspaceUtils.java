@@ -61,6 +61,7 @@ import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
 import org.whole.lang.commons.factories.CommonsEntityFactory;
 import org.whole.lang.commons.model.Resolver;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.factories.RegistryConfigurations;
 import org.whole.lang.iterators.CollectionIterator;
 import org.whole.lang.iterators.IEntityIterator;
@@ -503,7 +504,7 @@ public class ArtifactsWorkspaceUtils {
 			List<IEntity> ancestors = new ArrayList<IEntity>();
 			ILanguageKit languageKit = entity.wGetLanguageKit();
 
-	        IEntityIterator<IEntity> iterator = iteratorFactory().ancestorOrSelfIterator();
+	        IExecutable<?> iterator = executableFactory().createAncestorOrSelf();
 	        iterator.reset(entity);
 			for (IEntity parent : iterator) {
 	        	if (languageKit.equals(parent.wGetLanguageKit()))

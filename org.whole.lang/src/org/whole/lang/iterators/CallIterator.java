@@ -67,7 +67,7 @@ public class CallIterator<E extends IEntity>  extends AbstractExecutableIteratin
 		if (queryIterator == null) {
 			parameters = null;
 			if (!getBindings().wIsSet(queryName))
-				return queryIterator = iteratorFactory().emptyIterator();
+				return queryIterator = executableFactory().<E>createEmpty().iterator();
 
 			queryBody = getBindings().wGet(queryName);
 			boolean isQueryDeclaration = queryBody.wGetEntityDescriptor().getURI().equals("http://lang.whole.org/Queries#QueryDeclaration");

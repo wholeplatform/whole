@@ -20,8 +20,7 @@ package org.whole.lang.util;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.executables.IExecutable;
-import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.IteratorFactory;
+import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.model.NullEntity;
@@ -47,20 +46,20 @@ public class BehaviorUtils {
 		return apply(functionUri, self, BindingManagerFactory.instance.createArguments());
 	}
 	public static IEntity apply(String functionUri, IEntity self, IBindingManager bm) {
-		return IteratorFactory.instance(bm).functionApplicationIterator(functionUri).evaluate(self, bm);
+		return ExecutableFactory.instance(bm).createFunctionApplication(functionUri).evaluate(self, bm);
 	}
 
 	public static IEntity applyFirstResult(String functionUri, IEntity self) {
 		return applyFirstResult(functionUri, self, BindingManagerFactory.instance.createArguments());
 	}
 	public static IEntity applyFirstResult(String functionUri, IEntity self, IBindingManager bm) {
-		return IteratorFactory.instance(bm).functionApplicationIterator(functionUri).evaluateFirst(self, bm);
+		return ExecutableFactory.instance(bm).createFunctionApplication(functionUri).evaluateFirst(self, bm);
 	}
 
-	public static <E extends IEntity> IEntityIterator<E> compileAndLazyEvaluate(IEntity behavior, IEntity self) {
+	public static <E extends IEntity> IExecutable<E> compileAndLazyEvaluate(IEntity behavior, IEntity self) {
 		return compileAndLazyEvaluate(behavior, self, BindingManagerFactory.instance.createArguments());
 	}
-	public static <E extends IEntity> IEntityIterator<E> compileAndLazyEvaluate(IEntity behavior, IEntity self, IBindingManager bm) {
+	public static <E extends IEntity> IExecutable<E> compileAndLazyEvaluate(IEntity behavior, IEntity self, IBindingManager bm) {
 		IExecutable<E> iterator = DynamicCompilerOperation.compile(behavior, bm).getExecutableResult();
 		iterator.setBindings(bm);
 		bm.enforceSelfBinding(self);
@@ -132,7 +131,7 @@ public class BehaviorUtils {
 		return evaluateFirstResult(behavior, self, BindingManagerFactory.instance.createArguments());
 	}
 	public static <E extends IEntity> E evaluateFirstResult(IEntity behavior, IEntity self, IBindingManager bm) {
-		IEntityIterator<E> iterator = compileAndLazyEvaluate(behavior, self, bm);
+		IExecutable<E> iterator = compileAndLazyEvaluate(behavior, self, bm);
 		return iterator.evaluateNext();
 	}
 

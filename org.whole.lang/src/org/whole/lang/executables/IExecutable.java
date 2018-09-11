@@ -22,10 +22,10 @@ import java.util.Spliterator;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.evaluators.IEvaluator;
 import org.whole.lang.exceptions.IWholeRuntimeException;
+import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IJavaIterator;
 import org.whole.lang.iterators.InstrumentingIterator;
-import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.operations.ICloneable;
@@ -65,9 +65,9 @@ public interface IExecutable<E extends IEntity> extends IFlowStepper, IEvaluator
 	public IEntityIterator<E> iterator();
 //	public IJavaIterator<E> iterator();
 
-	public IteratorFactory iteratorFactory();
+	public ExecutableFactory executableFactory();
 
-	public default IExecutable<E> undecoratedIterator() {
+	public default IExecutable<E> undecoratedExecutable() {
 		return this instanceof InstrumentingIterator ? ((InstrumentingIterator<E>) this).getIterator() : this;
 	}
 

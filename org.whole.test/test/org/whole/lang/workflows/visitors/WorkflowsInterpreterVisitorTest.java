@@ -23,8 +23,8 @@ import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.codebase.FilePersistenceProvider;
 import org.whole.lang.factories.RegistryConfigurations;
+import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.java.codebase.JavaClassTemplateFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
@@ -200,8 +200,8 @@ public class WorkflowsInterpreterVisitorTest {
 		Assert.assertFalse(OrderedMatcher.match(artifacts, deepResult, comparatorsMap));
 
 		// the only difference is the content on the file artifact
-		IEntityIterator<IEntity> iterator = IteratorFactory.instance.matcherIterator(
-				IteratorFactory.instance.descendantOrSelfIterator())
+		IEntityIterator<IEntity> iterator = ExecutableFactory.instance.createMatcher(
+				ExecutableFactory.instance.createDescendantOrSelf())
 						.withPattern(ArtifactsFeatureDescriptorEnum.content);
 
 		iterator.reset(deepFileResult);
@@ -242,8 +242,8 @@ public class WorkflowsInterpreterVisitorTest {
 		Assert.assertFalse(OrderedMatcher.match(artifacts, deepDirectoryResult, comparatorsMap));
 
 		// the only difference is the content on the file artifact
-		IEntityIterator<IEntity> iterator = IteratorFactory.instance.matcherIterator(
-				IteratorFactory.instance.descendantOrSelfIterator())
+		IEntityIterator<IEntity> iterator = ExecutableFactory.instance.createMatcher(
+				ExecutableFactory.instance.createDescendantOrSelf())
 						.withPattern(ArtifactsFeatureDescriptorEnum.content);
 
 		iterator.reset(deepResult);

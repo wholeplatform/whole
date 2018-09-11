@@ -19,8 +19,8 @@ package org.whole.lang.java;
 
 import org.eclipse.jdt.core.IJavaProject;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.IteratorFactory;
+import org.whole.lang.executables.IExecutable;
+import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.java.codebase.JavaSourceTemplateFactory;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.AbstractFunctionLibraryDeployer;
@@ -39,8 +39,8 @@ public class JavaReflectLibraryDeployer extends AbstractFunctionLibraryDeployer 
 		putFunctionCode("compilationUnit", compilationUnitIterator());
 	}
 
-	public static IEntityIterator<IEntity> compilationUnitIterator() {
-		return IteratorFactory.instance.singleValuedRunnableIterator(new IRunnable() {
+	public static IExecutable<?> compilationUnitIterator() {
+		return ExecutableFactory.instance.createSingleValuedRunnable(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				try {
 					String className = selfEntity.wStringValue();

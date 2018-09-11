@@ -25,7 +25,7 @@ import java.io.OutputStream;
 import java.util.Enumeration;
 
 import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
-import org.whole.lang.iterators.IteratorFactory;
+import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.iterators.ScannerIterator;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.properties.factories.PropertiesEntityFactory;
@@ -107,7 +107,7 @@ public class PropertiesUtils {
 				translate(props.getDefaults()));
 
 		props.getEntries();
-		ScannerIterator<Property> i = IteratorFactory.instance.<Property>childScannerIterator();
+		ScannerIterator<Property> i = ExecutableFactory.instance.<Property>createChildScanner();
 		i.reset(props.getEntries());
 		for (Property p : i)
 			try {
