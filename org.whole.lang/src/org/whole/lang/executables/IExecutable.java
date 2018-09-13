@@ -24,7 +24,6 @@ import org.whole.lang.evaluators.IEvaluator;
 import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.InstrumentingIterator;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.operations.ICloneable;
@@ -65,7 +64,7 @@ public interface IExecutable<E extends IEntity> extends IFlowStepper, IEvaluator
 	public ExecutableFactory executableFactory();
 
 	public default IExecutable<E> undecoratedExecutable() {
-		return this instanceof InstrumentingIterator ? ((InstrumentingIterator<E>) this).getIterator() : this;
+		return this instanceof InstrumentingExecutable ? ((InstrumentingExecutable<E>) this).getExecutable() : this;
 	}
 
 	public default E evaluate(IEntity self, IBindingManager bm) {

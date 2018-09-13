@@ -22,10 +22,10 @@ import java.util.function.Predicate;
 
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.util.E4Utils;
-import org.whole.lang.iterators.InstrumentingIterator;
-import org.whole.lang.iterators.instrumentation.DebuggerInstrumentation;
-import org.whole.lang.iterators.instrumentation.DiagnosticData;
-import org.whole.lang.iterators.instrumentation.DiagnosticInstrumentation;
+import org.whole.lang.executables.InstrumentingExecutable;
+import org.whole.lang.executables.instrumentation.DebuggerInstrumentation;
+import org.whole.lang.executables.instrumentation.DiagnosticData;
+import org.whole.lang.executables.instrumentation.DiagnosticInstrumentation;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.util.SuspensionKind;
 import org.whole.lang.util.BehaviorUtils;
@@ -35,7 +35,7 @@ import org.whole.lang.util.EntityUtils;
  * @author Riccardo Solmi
  */
 public class BreakpointUtils {
-	public static Predicate<InstrumentingIterator<?>> breakpointPredicate = (ii) -> {
+	public static Predicate<InstrumentingExecutable<?>> breakpointPredicate = (ii) -> {
 		IEntity selfEntity = ii.getResetEntity();
 		if (selfEntity == null || !ii.hasBindings())
 			return false;
@@ -56,7 +56,7 @@ public class BreakpointUtils {
 		return isEnabled;
 	};
 
-	public static Consumer<InstrumentingIterator<?>> breakpointConsumer = (ii) -> {
+	public static Consumer<InstrumentingExecutable<?>> breakpointConsumer = (ii) -> {
 		if (DebuggerInstrumentation.evaluatingPredicate)
 			return;
 

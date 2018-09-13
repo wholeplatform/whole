@@ -1,4 +1,4 @@
-package org.whole.lang.iterators.instrumentation;
+package org.whole.lang.executables.instrumentation;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -9,6 +9,13 @@ public class ProfilerData extends AbstractInstrumentationData {
 	public int cloneCalls;
 	public int setBindingsCalls;
 	public int resetCalls;
+	public int evaluateNextCalls;
+	public int evaluateRemainingCalls;
+	public int callNextCalls;
+	public int callRemainingCalls;
+	public int doNextCalls;
+	public int doEndCalls;
+	
 	public int hasNextCalls;
 	public int lookaheadCalls;
 	public int nextCalls;
@@ -16,6 +23,13 @@ public class ProfilerData extends AbstractInstrumentationData {
 	public Duration cloneDuration = Duration.ZERO;
 	public Duration setBindingsDuration = Duration.ZERO;
 	public Duration resetDuration = Duration.ZERO;
+	public Duration evaluateNextDuration = Duration.ZERO;
+	public Duration evaluateRemainingDuration = Duration.ZERO;
+	public Duration callNextDuration = Duration.ZERO;
+	public Duration callRemainingDuration = Duration.ZERO;
+	public Duration doNextDuration = Duration.ZERO;
+	public Duration doEndDuration = Duration.ZERO;
+
 	public Duration hasNextDuration = Duration.ZERO;
 	public Duration lookaheadDuration = Duration.ZERO;
 	public Duration nextDuration = Duration.ZERO;
@@ -26,6 +40,13 @@ public class ProfilerData extends AbstractInstrumentationData {
 		data.cloneDuration = Duration.from(cloneDuration);
 		data.setBindingsDuration = Duration.from(setBindingsDuration);
 		data.resetDuration = Duration.from(resetDuration);
+		data.evaluateNextDuration = Duration.from(evaluateNextDuration);
+		data.evaluateRemainingDuration = Duration.from(evaluateRemainingDuration);
+		data.callNextDuration = Duration.from(callNextDuration);
+		data.callRemainingDuration = Duration.from(callRemainingDuration);
+		data.doNextDuration = Duration.from(doNextDuration);
+		data.doEndDuration = Duration.from(doEndDuration);
+
 		data.hasNextDuration = Duration.from(hasNextDuration);
 		data.lookaheadDuration = Duration.from(lookaheadDuration);
 		data.nextDuration = Duration.from(nextDuration);
@@ -44,32 +65,62 @@ public class ProfilerData extends AbstractInstrumentationData {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("\nclone      :");
+		sb.append("\nclone            :");
 		sb.append(cloneCalls);
 		sb.append("  ");
 		sb.append(cloneDuration);
 
-		sb.append("\nsetBindings:");
+		sb.append("\nsetBindings      :");
 		sb.append(setBindingsCalls);
 		sb.append("  ");
 		sb.append(setBindingsDuration);
 
-		sb.append("\nreset      :");
+		sb.append("\nreset            :");
 		sb.append(resetCalls);
 		sb.append("  ");
 		sb.append(resetDuration);
 
-		sb.append("\nhasNext    :");
+		sb.append("\nevaluateNext     :");
+		sb.append(evaluateNextCalls);
+		sb.append("  ");
+		sb.append(evaluateNextDuration);
+
+		sb.append("\nevaluateRemaining:");
+		sb.append(evaluateRemainingCalls);
+		sb.append("  ");
+		sb.append(evaluateRemainingDuration);
+
+		sb.append("\ncallNext         :");
+		sb.append(callNextCalls);
+		sb.append("  ");
+		sb.append(callNextDuration);
+
+		sb.append("\ncallRemaining    :");
+		sb.append(callRemainingCalls);
+		sb.append("  ");
+		sb.append(callRemainingDuration);
+
+		sb.append("\ndoNext           :");
+		sb.append(doNextCalls);
+		sb.append("  ");
+		sb.append(doNextDuration);
+
+		sb.append("\ndoEnd            :");
+		sb.append(doEndCalls);
+		sb.append("  ");
+		sb.append(doEndDuration);
+
+		sb.append("\nhasNext          :");
 		sb.append(hasNextCalls);
 		sb.append("  ");
 		sb.append(hasNextDuration);
 
-		sb.append("\nlookahead  :");
+		sb.append("\nlookahead        :");
 		sb.append(lookaheadCalls);
 		sb.append("  ");
 		sb.append(lookaheadDuration);
 
-		sb.append("\nnext       :");
+		sb.append("\nnext             :");
 		sb.append(nextCalls);
 		sb.append("  ");
 		sb.append(nextDuration);

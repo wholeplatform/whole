@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.iterators;
+package org.whole.lang.executables;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,14 +24,15 @@ import java.util.stream.Collectors;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.bindings.INestableScope;
 import org.whole.lang.commons.parsers.CommonsDataTypePresentationParser;
-import org.whole.lang.executables.IExecutable;
-import org.whole.lang.iterators.instrumentation.AbstractInstrumentationData;
-import org.whole.lang.iterators.instrumentation.CompositeInstrumentation;
-import org.whole.lang.iterators.instrumentation.DiagnosticData;
-import org.whole.lang.iterators.instrumentation.DiagnosticInstrumentation;
-import org.whole.lang.iterators.instrumentation.IEntityIteratorInstrumentation;
+import org.whole.lang.executables.instrumentation.AbstractInstrumentationData;
+import org.whole.lang.executables.instrumentation.CompositeInstrumentation;
+import org.whole.lang.executables.instrumentation.DiagnosticData;
+import org.whole.lang.executables.instrumentation.DiagnosticInstrumentation;
+import org.whole.lang.executables.instrumentation.IExecutableInstrumentation;
+import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.util.BehaviorUtils;
@@ -39,33 +40,46 @@ import org.whole.lang.util.BehaviorUtils;
 /**
  * @author Riccardo Solmi
  */
-public class InstrumentingIterator<E extends IEntity> extends AbstractDelegatingIterator<E> {
-	public static IEntityIteratorInstrumentation instrumentation = CompositeInstrumentation.instance;
+public class InstrumentingExecutable<E extends IEntity> extends AbstractExecutable<E> implements IEntityIterator<E> {
+	public static IExecutableInstrumentation instrumentation = CompositeInstrumentation.instance;
 
 	public static final IEntity MISSING_SOURCE_ENTITY = BindingManagerFactory.instance.createNull();
 
-	public InstrumentingIterator(IEntityIterator<E> iterator) {
-		super(iterator);
+	protected IExecutable<E> executable;
+
+	public InstrumentingExecutable(IExecutable<E> executable) {
+		this.executable = executable;
 	}
 
-	public IEntityIterator<E> getSourceCode() {
-		return getIterator();
+	public IExecutable<E> getExecutable() {
+		return executable;
+	}
+
+	public IExecutable<E> getSourceCode() {
+		return getExecutable();
 	}
 
 	public String getSourceCodeClassName() {
-		return getIterator().getClass().getSimpleName();
+		return getExecutable().getClass().getSimpleName();
+	}
+
+	@Override
+	public IExecutable<E> withSourceEntity(IEntity entity) {
+		getExecutable().withSourceEntity(entity);
+		return super.withSourceEntity(entity);
 	}
 
 	@Override
 	public IEntity getSourceEntity() {
 		IEntity sourceEntity = super.getSourceEntity();
 		if (sourceEntity == null)
-			sourceEntity = getIterator().getSourceEntity();
+			sourceEntity = getExecutable().getSourceEntity();
 		if (sourceEntity == null)
 			sourceEntity = MISSING_SOURCE_ENTITY;
 		return sourceEntity;
 	}
 
+	protected IEntity selfEntity;
 	public IEntity getResetEntity() {
 		return selfEntity;
 	}
@@ -101,7 +115,8 @@ public class InstrumentingIterator<E extends IEntity> extends AbstractDelegating
 	@Override
 	public IExecutable<E> clone(ICloneContext cc) {
 		instrumentation.beforeClone(this);
-		InstrumentingIterator<E> result = (InstrumentingIterator<E>) super.clone(cc);
+		InstrumentingExecutable<E> result = (InstrumentingExecutable<E>) super.clone(cc);
+		result.executable = executable.clone(cc);
 		result.instrumentationDataMap = instrumentationDataMap.entrySet().stream()
 				.collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue().clone(cc)));
 		instrumentation.afterClone(this, result);
@@ -112,45 +127,114 @@ public class InstrumentingIterator<E extends IEntity> extends AbstractDelegating
 	protected void setProducersBindings(IBindingManager bindings) {
 		instrumentation.beforeSetBindings(this);
 		super.setProducersBindings(bindings);
+		getExecutable().setBindings(bindings);
 		instrumentation.afterSetBindings(this);
 	}
-	
+
 	@Override
 	public void reset(IEntity entity) {
 		nextResetEntity = entity;
 		instrumentation.beforeReset(this);
-		super.reset(entity);
+		selfEntity = entity;
+		getExecutable().reset(entity);
 		instrumentation.afterReset(this);
+	}
+
+	@Override
+	public E evaluateNext() {
+		instrumentation.beforeEvaluateNext(this);
+		E result = getExecutable().evaluateNext();
+		instrumentation.afterEvaluateNext(this, result);
+		return result;
+	}
+	@Override
+	public E evaluateRemaining() {
+		instrumentation.beforeEvaluateRemaining(this);
+		E result = getExecutable().evaluateRemaining();
+		instrumentation.afterEvaluateRemaining(this, result);
+		return result;
+	}
+
+	@Override
+	public void callNext() {
+		instrumentation.beforeCallNext(this);
+		getExecutable().callNext();
+		instrumentation.afterCallNext(this);
+	}
+	@Override
+	public void callRemaining() {
+		instrumentation.beforeCallRemaining(this);
+		getExecutable().callRemaining();
+		instrumentation.afterCallRemaining(this);
+	}
+
+	@Override
+	public void doNext(IEntity entity) {
+		instrumentation.beforeDoNext(this, entity);
+		getExecutable().doNext(entity);
+		instrumentation.afterDoNext(this);
+	}
+	@Override
+	public void doEnd() {
+		instrumentation.beforeDoEnd(this);
+		getExecutable().doEnd();
+		instrumentation.afterDoEnd(this);
+	}
+
+	@Override
+	public IEntityIterator<E> iterator() {
+		return this;
 	}
 
 	@Override
 	public boolean hasNext() {
 		instrumentation.beforeHasNext(this);
-		boolean result = super.hasNext();
+		boolean result = getExecutable().iterator().hasNext();
 		instrumentation.afterHasNext(this, result);
 		return result;
 	}
-
 	@Override
 	public E lookahead() {
 		instrumentation.beforeLookahead(this);
-		E result = super.lookahead();
+		E result = getExecutable().iterator().lookahead();
 		instrumentation.afterLookahead(this, result);
 		return result;
 	}
-
+	@Override
+	public IBindingScope lookaheadScope() {
+		return getExecutable().iterator().lookaheadScope();
+	}
 	@Override
 	public E next() {
 		instrumentation.beforeNext(this);
-		E result = super.next();
+		E result = getExecutable().iterator().next();
 		instrumentation.afterNext(this, result);
 		return result;
 	}
 
 	@Override
-	public IExecutable<E> withSourceEntity(IEntity entity) {
-		getIterator().withSourceEntity(entity);
-		return super.withSourceEntity(entity);
+	public void prune() {
+		getExecutable().prune();
+	}
+
+	@Override
+	public void set(E entity) {
+		getExecutable().set(entity);
+	}
+
+	@Override
+	public void add(E entity) {
+		getExecutable().add(entity);
+	}
+
+	@Override
+	public void remove() {
+		getExecutable().remove();
+	}
+
+	@Override
+	public void toString(StringBuilder sb) {
+		getExecutable().toString(sb);
 	}
 
 	@Override
@@ -178,7 +262,7 @@ public class InstrumentingIterator<E extends IEntity> extends AbstractDelegating
 
 		IEntity sourceEntity = super.getSourceEntity();
 		if (sourceEntity == null)
-			sourceEntity = getIterator().getSourceEntity();
+			sourceEntity = getExecutable().getSourceEntity();
 		if (sourceEntity != null) {
 			sourceEntityName = CommonsDataTypePresentationParser.unparseEntityDescriptor(
 					sourceEntity.wGetEntityDescriptor());
@@ -241,6 +325,6 @@ public class InstrumentingIterator<E extends IEntity> extends AbstractDelegating
 		}
 		sb.append("\n\n");
 
-		super.toString(sb);
+		getExecutable().toString(sb);
 	}
 }

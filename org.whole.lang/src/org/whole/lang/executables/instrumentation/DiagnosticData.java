@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.iterators.instrumentation;
+package org.whole.lang.executables.instrumentation;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -23,10 +23,10 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.whole.lang.commons.parsers.CommonsDataTypePresentationParser;
-import org.whole.lang.iterators.InstrumentingIterator;
-import org.whole.lang.iterators.instrumentation.DiagnosticInstrumentation.InstrumentedMethod;
-import org.whole.lang.iterators.instrumentation.DiagnosticInstrumentation.Severity;
-import org.whole.lang.iterators.instrumentation.DiagnosticInstrumentation.State;
+import org.whole.lang.executables.InstrumentingExecutable;
+import org.whole.lang.executables.instrumentation.DiagnosticInstrumentation.InstrumentedMethod;
+import org.whole.lang.executables.instrumentation.DiagnosticInstrumentation.Severity;
+import org.whole.lang.executables.instrumentation.DiagnosticInstrumentation.State;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 
@@ -45,8 +45,8 @@ public class DiagnosticData extends AbstractInstrumentationData {
 	public Severity severity;
 
 	public State stateWhenCloned = null;
-	public InstrumentingIterator<?> firstPrototype = null;
-	public Set<InstrumentingIterator<?>> cloneSet = null;
+	public InstrumentingExecutable<?> firstPrototype = null;
+	public Set<InstrumentingExecutable<?>> cloneSet = null;
 
 	@Override
 	public DiagnosticData clone(ICloneContext cc) {
@@ -59,13 +59,13 @@ public class DiagnosticData extends AbstractInstrumentationData {
 	public final int cloneSetSize() {
 		return cloneSet != null ? cloneSet.size() : 0;
 	}
-	public final boolean isFirstPrototype(InstrumentingIterator<?> ii) {
+	public final boolean isFirstPrototype(InstrumentingExecutable<?> ii) {
 		return firstPrototype == ii;
 	}
 	public final boolean usedWhenCloned() {
 		return stateWhenCloned == State.USED;
 	}
-	public final Set<InstrumentingIterator<?>> unusedCloneSet() {
+	public final Set<InstrumentingExecutable<?>> unusedCloneSet() {
 		return cloneSet.stream().filter((i) -> DiagnosticInstrumentation.diagnosticData(i).state != State.USED).collect(Collectors.toSet());
 	}
 

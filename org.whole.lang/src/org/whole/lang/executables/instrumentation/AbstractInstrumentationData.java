@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.iterators.instrumentation;
+package org.whole.lang.executables.instrumentation;
 
 import org.whole.lang.operations.CloneContext;
 import org.whole.lang.operations.ICloneContext;

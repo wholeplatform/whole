@@ -17,15 +17,13 @@
  */
 package org.whole.lang.executables;
 
-import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.InstrumentingIterator;
 import org.whole.lang.model.IEntity;
 
 /**
  * @author Riccardo Solmi
  */
 public class InstrumentedExecutableFactory extends AbstractDecoratedExecutableFactory {
-	protected <E extends IEntity> IExecutable<E> decorate(IEntityIterator<E> iterator) {
-		return new InstrumentingIterator<E>(iterator);
+	protected <E extends IEntity> IExecutable<E> decorate(IExecutable<E> executable) {
+		return new InstrumentingExecutable<E>(executable);
 	}
 }

@@ -18,7 +18,7 @@
 package org.whole.lang.ide;
 
 import org.whole.lang.codebase.ClasspathPersistenceProvider;
-import org.whole.lang.iterators.instrumentation.DebuggerInstrumentation;
+import org.whole.lang.executables.instrumentation.DebuggerInstrumentation;
 import org.whole.lang.operations.InterpreterOperation;
 import org.whole.lang.reflect.AbstractContributionExtensionDeployer;
 import org.whole.lang.reflect.ReflectionFactory;

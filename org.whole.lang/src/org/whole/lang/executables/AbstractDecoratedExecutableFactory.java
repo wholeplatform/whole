@@ -23,7 +23,6 @@ import java.util.Set;
 import org.whole.lang.comparators.IEntityComparator;
 import org.whole.lang.iterators.DistinctScope;
 import org.whole.lang.iterators.ExecutableFactory;
-import org.whole.lang.iterators.InstrumentingIterator;
 import org.whole.lang.iterators.MatcherIterator;
 import org.whole.lang.iterators.Placement;
 import org.whole.lang.iterators.ScannerIterator;
@@ -43,7 +42,7 @@ public class AbstractDecoratedExecutableFactory implements ExecutableFactory {
 	ExecutableFactory factory = ExecutableFactory.regularInstance;
 
 	protected <E extends IEntity> IExecutable<E> decorate(IExecutable<E> executable) {
-		return new InstrumentingIterator<E>(executable.iterator());
+		return new InstrumentingExecutable<E>(executable);
 	}
 
 	public <E extends IEntity> IExecutable<E> createEmpty() {

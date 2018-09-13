@@ -15,26 +15,26 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.iterators.instrumentation;
+package org.whole.lang.executables.instrumentation;
 
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-import org.whole.lang.iterators.InstrumentingIterator;
+import org.whole.lang.executables.InstrumentingExecutable;
 import org.whole.lang.model.IEntity;
 
 /**
  * @author Riccardo Solmi
  */
 public class DebuggerInstrumentation extends IdentityInstrumentation {
-	public static final IEntityIteratorInstrumentation instance = new DebuggerInstrumentation();
+	public static final IExecutableInstrumentation instance = new DebuggerInstrumentation();
 
 	public static boolean evaluatingPredicate = false;
-	public static Predicate<InstrumentingIterator<?>> breakpointPredicate = (ii) -> {
+	public static Predicate<InstrumentingExecutable<?>> breakpointPredicate = (ii) -> {
 		//TODO replace with a framework level predicate
 		return false;
 	};
-	public static Consumer<InstrumentingIterator<?>> breakpointConsumer = (ii) -> {
+	public static Consumer<InstrumentingExecutable<?>> breakpointConsumer = (ii) -> {
 		//TODO place a breakpoint here to stop at the framework level
 		return;
 	};
@@ -42,14 +42,36 @@ public class DebuggerInstrumentation extends IdentityInstrumentation {
 	protected static IEntity lastSourceEntity;
 	public static boolean sourceEntityChanged;
 
-	@Override
-	public void beforeNext(InstrumentingIterator<?> ii) {
+	protected void beforeBehavior(InstrumentingExecutable<?> ii) {
 		IEntity sourceEntity = ii.getSourceEntity();
-		sourceEntityChanged = sourceEntity != lastSourceEntity && lastSourceEntity != InstrumentingIterator.MISSING_SOURCE_ENTITY;
+		sourceEntityChanged = sourceEntity != lastSourceEntity && lastSourceEntity != InstrumentingExecutable.MISSING_SOURCE_ENTITY;
 		lastSourceEntity = sourceEntity;
 
 //		if (!evaluatingPredicate && (sourceEntityChanged || breakpointPredicate.test(ii)))
 		if (!evaluatingPredicate && breakpointPredicate.test(ii))
 			breakpointConsumer.accept(ii);
+	}
+
+	@Override
+	public void beforeEvaluateNext(InstrumentingExecutable<?> ii) {
+		beforeBehavior(ii);
+	}
+	@Override
+	public void beforeEvaluateRemaining(InstrumentingExecutable<?> ii) {
+		beforeBehavior(ii);
+	}
+
+	@Override
+	public void beforeCallNext(InstrumentingExecutable<?> ii) {
+		beforeBehavior(ii);
+	}
+	@Override
+	public void beforeCallRemaining(InstrumentingExecutable<?> ii) {
+		beforeBehavior(ii);
+	}
+
+	@Override
+	public void beforeNext(InstrumentingExecutable<?> ii) {
+		beforeBehavior(ii);
 	}
 }
