@@ -33,6 +33,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
@@ -120,6 +121,7 @@ public class MergeResourcesAction extends AbstractE4Action {
 		ITreeContentProvider contentProvider = javaInput != null ? new StandardJavaElementContentProvider() : new WorkbenchContentProvider();
 
 		ElementTreeSelectionDialog dialog = new ElementTreeSelectionDialog(shell, labelProvider, contentProvider);
+		dialog.setComparator(new ViewerComparator());
 		dialog.setInput(javaInput != null ? javaInput : input);
 		dialog.setTitle(SELECT_RESOURCE_MSG);
 		dialog.setMessage("Choose a resource");
