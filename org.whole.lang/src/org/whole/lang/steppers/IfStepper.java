@@ -81,5 +81,14 @@ public class IfStepper extends AbstractDelegatingNestedStepper<IEntity> {
 			super.done();
 	}
 
+	protected String toStringPrefix() {
+		return "if ";
+	}
+	protected String toStringSeparator() {
+		return " do ";
+	}
+	protected String toStringSuffix() {
+		return "";
+	}
 }
 

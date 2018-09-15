@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.steppers;
+package org.whole.lang.evaluators;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingScope;
@@ -27,12 +27,12 @@ import org.whole.lang.model.IEntity;
  * 
  * TODO keep same code in the two classes except declaration line
  */
-//public abstract class AbstractDelegatingNestedEvaluator<E extends IEntity> extends AbstractNestedEvaluator<E> {
-public abstract class AbstractDelegatingNestedStepper<E extends IEntity> extends AbstractNestedStepper<E> {
+public abstract class AbstractDelegatingNestedEvaluator<E extends IEntity> extends AbstractNestedEvaluator<E> {
+//public abstract class AbstractDelegatingNestedStepper<E extends IEntity> extends AbstractNestedStepper<E> {
 	protected int producerIndex = 0;
 
 	@SuppressWarnings("unchecked")
-	public AbstractDelegatingNestedStepper(IExecutable<? extends E>... steppers) {
+	public AbstractDelegatingNestedEvaluator(IExecutable<? extends E>... steppers) {
 		super(steppers);
 	}
 

@@ -17,26 +17,36 @@
  */
 package org.whole.lang.evaluators;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.exceptions.IWholeRuntimeException;
+import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.util.IRunnable;
+import org.whole.lang.util.WholeMessages;
 
 /**
  * @author Riccardo Solmi
  */
 public class MultiValuedRunnableEvaluator<E extends IEntity> extends AbstractNestedEvaluator<E> {
+	protected Set<Integer> optionalProducersIndexSet;
 	protected IExecutable<E> executableResult;
 	protected IRunnable runnable;
 
 	public MultiValuedRunnableEvaluator(IRunnable runnable, IExecutable<?>... argsIterators) {
 		super(argsIterators);
+		optionalProducersIndexSet = Collections.emptySet();
 		this.runnable = runnable;
 	}
 	public MultiValuedRunnableEvaluator(IRunnable runnable, int[] optionalArgsIndexes, IExecutable<?>... argsIterators) {
-		super(optionalArgsIndexes, argsIterators);
+		super(argsIterators);
+		optionalProducersIndexSet = Arrays.stream(optionalArgsIndexes).boxed().collect(Collectors.toSet());
 		this.runnable = runnable;
 	}
 
@@ -50,6 +60,18 @@ public class MultiValuedRunnableEvaluator<E extends IEntity> extends AbstractNes
         super.reset(entity);
 		executableResult = null;
     }
+
+	protected IEntity[] evaluateProducers() {
+		IEntity[] arguments = null;
+    	IBindingManager bm = getBindings();
+    	arguments = new IEntity[producersSize()];
+    	for (int i=0; i<producersSize(); i++) {
+    		arguments[i] = getProducer(i).evaluateRemaining();
+    		if (arguments[i] == null && !optionalProducersIndexSet.contains(i))
+    			throw new WholeIllegalArgumentException(WholeMessages.null_value_argument).withSourceEntity(getProducer(i).getSourceEntity()).withBindings(bm);
+    	}
+        return arguments;
+	}
 
 	@Override
 	public E evaluateNext() {
@@ -113,9 +135,7 @@ public class MultiValuedRunnableEvaluator<E extends IEntity> extends AbstractNes
     	executableResult.remove();
 	}
 
-	@Override
-	public void toString(StringBuilder sb) {
-		sb.append(runnable.toString());
-		super.toString(sb);
+	protected String toStringPrefix() {
+		return runnable.toString()+"(";
 	}
 }

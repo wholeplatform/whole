@@ -31,6 +31,12 @@ public class ChooseByOrderStepper<E extends IEntity> extends AbstractDelegatingN
 		super(steppers);
 	}
 
+	@Override
+	public void reset(IEntity entity) {
+		super.reset(entity);
+		choosen = false;
+	}
+
 	public void callNext() {
 		nextEntity = null;//FIXME workaround
 
@@ -63,8 +69,8 @@ public class ChooseByOrderStepper<E extends IEntity> extends AbstractDelegatingN
 	}
 
     @Override
-	protected String toStringName() {
-		return "chooseByOrder";
+	protected String toStringPrefix() {
+		return "chooseByOrder(";
 	}
     @Override
 	protected String toStringSeparator() {

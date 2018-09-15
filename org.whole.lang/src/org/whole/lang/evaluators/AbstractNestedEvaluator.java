@@ -17,85 +17,111 @@
  */
 package org.whole.lang.evaluators;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.BitSet;
 
-import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.exceptions.WholeIllegalArgumentException;
+import org.whole.lang.bindings.BindingManagerFactory;
+import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.executables.AbstractExecutableEvaluatingStepperIterator;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
+import org.whole.lang.operations.IdentityCloneContext;
 import org.whole.lang.util.EntityUtils;
-import org.whole.lang.util.WholeMessages;
 
 /**
  * @author Riccardo Solmi
  */
 public abstract class AbstractNestedEvaluator<E extends IEntity> extends AbstractExecutableEvaluatingStepperIterator<E> {
+	protected ICloneContext cloneContext = IdentityCloneContext.instance;
 	protected IEntity selfEntity;
 	protected IExecutable<? extends IEntity>[] producers;
-	protected Set<Integer> optionalProducersIndexSet;
+	protected BitSet producersNeedClone;
+	protected BitSet producersNeedInit;
 
 	protected AbstractNestedEvaluator(IExecutable<?>... producers) {
-		optionalProducersIndexSet = Collections.emptySet();
 		this.producers = producers;
-	}
-	protected AbstractNestedEvaluator(int[] optionalArgsIndexes, IExecutable<?>... producers) {
-		optionalProducersIndexSet = Arrays.stream(optionalArgsIndexes).boxed().collect(Collectors.toSet());
-		this.producers = producers;
+		producersNeedClone = new BitSet(producersSize());
+		producersNeedClone.set(0, producersSize(), false);
+		producersNeedInit = new BitSet(producersSize());
+		producersNeedInit.set(0, producersSize(), true);
 	}
 
 	public IExecutable<E> clone(ICloneContext cc) {
-		AbstractNestedEvaluator<E> iterator = (AbstractNestedEvaluator<E>) super.clone(cc);
-		if (producers != null) {
-			iterator.producers = producers.clone();
-			for (int i=0; i<producersSize(); i++)
-				iterator.producers[i] = cc.clone(producers[i]);
-		}
-		return iterator;
-	}
+		cloneContext = cc.getPrototypeCloneContext();
+		producersNeedClone.set(0, producersSize(), true);
 
-	public int producersSize() {
-		return producers.length;
-	}
-	public IExecutable<?> getProducer(int index) {
-		return producers[index];
+		AbstractNestedEvaluator<E> iterator = (AbstractNestedEvaluator<E>) super.clone(cc);
+		iterator.cloneContext = cc;
+		iterator.producers = producers.clone();
+		iterator.producersNeedClone = (BitSet) producersNeedClone.clone();
+		iterator.producersNeedInit = (BitSet) producersNeedInit.clone();
+		return iterator;
 	}
 
 	public void reset(IEntity entity) {
 		super.reset(entity);
         selfEntity = entity;
-        resetProducers(entity);
+        producersNeedInit.set(0, producersSize(), true);
     }
-	protected void resetProducers(IEntity entity) {
-        if (producers != null)
-    		for (IExecutable<? extends IEntity> i : producers)
-    			i.reset(entity);		
+
+    public int producersSize() {
+		return producers.length;
+	}
+	public IExecutable<?> getProducer(int index) {
+		if (producersNeedClone.get(index)) {
+			producersNeedClone.clear(index);
+			producers[index] = producers[index].clone(cloneContext);
+		}
+
+		IExecutable<?> producer = producers[index];
+
+		if (producersNeedInit.get(index)) {
+			producersNeedInit.clear(index);
+			initProducer(producer, index);			
+		}
+
+		return producer;
+	}
+	protected void initProducer(IExecutable<?> p, int index) {
+		p.setBindings(getBindings());
+		p.reset(selfEntity);
+		p.withConsumer(this);
 	}
 
-    protected void setProducersBindings(IBindingManager bindings) {
-		super.setProducersBindings(bindings);
-		if (producers != null)
-			for (IExecutable<? extends IEntity> i : producers)
-				i.setBindings(bindings);
+	protected IEntity scopedEvaluateNext(int producerIndex, IBindingScope scope) {
+		try {
+			getBindings().wEnterScope(scope, true);
+			return getProducer(producerIndex).evaluateNext();
+		} finally {
+			getBindings().wExitScope();
+		}
+	}
+	protected IEntity scopedEvaluateRemaining(int producerIndex, IBindingScope scope) {
+		try {
+			getBindings().wEnterScope(scope, true);
+			return getProducer(producerIndex).evaluateRemaining();
+		} finally {
+			getBindings().wExitScope();
+		}
+	}
+	protected boolean scopedEvaluateAsBooleanOrFail(int producerIndex, IBindingScope scope) {
+		try {
+			getBindings().wEnterScope(scope, true);
+			return getProducer(producerIndex).evaluateAsBooleanOrFail();
+		} finally {
+			getBindings().wExitScope();
+		}
+	}
+	protected boolean scopedEvaluateAsBooleanOrFail(int producerIndex, boolean mergeOnTrue) {
+		boolean merge = false;
+		try {
+			getBindings().wEnterScope(BindingManagerFactory.instance.createSimpleScope(), true);
+			return merge = getProducer(producerIndex).evaluateAsBooleanOrFail();
+		} finally {
+			getBindings().wExitScope(mergeOnTrue ? merge : !merge);
+		}
 	}
 
-	protected IEntity[] evaluateProducers() {
-		IEntity[] arguments = null;
-        if (producers != null) {
-        	IBindingManager bm = getBindings();
-        	arguments = new IEntity[producersSize()];
-        	for (int i=0; i<producersSize(); i++) {
-        		arguments[i] = producers[i].evaluateRemaining();
-        		if (arguments[i] == null && !optionalProducersIndexSet.contains(i))
-        			throw new WholeIllegalArgumentException(WholeMessages.null_value_argument).withSourceEntity(producers[i].getSourceEntity()).withBindings(bm);
-        	}
-        }
-        return arguments;
-	}
 
     public void prune() {
     }
@@ -127,15 +153,23 @@ public abstract class AbstractNestedEvaluator<E extends IEntity> extends Abstrac
 
 	@Override
 	public void toString(StringBuilder sb) {
-    	sb.append("(");
+		sb.append(toStringPrefix());
     	
-    	if (producers != null)
-			for (int i=0; i<producersSize(); i++) {
-				if (i>0)
-					sb.append(", ");
-				producers[i].toString(sb);
-			}
+		for (int i=0; i<producersSize(); i++) {
+			if (i>0)
+				sb.append(toStringSeparator());
+			producers[i].toString(sb);
+		}
 
-    	sb.append(")");
+    	sb.append(toStringSuffix());
     }
+	protected String toStringPrefix() {
+		return "(";
+	}
+	protected String toStringSeparator() {
+		return ", ";
+	}
+	protected String toStringSuffix() {
+		return ")";
+	}
 }

@@ -49,7 +49,7 @@ public abstract class AbstractNestedStepper<E extends IEntity> extends AbstractE
 	public IExecutable<E> clone(ICloneContext cc) {
 		cloneContext = cc.getPrototypeCloneContext();
 		producersNeedClone.set(0, producersSize(), true);
-		
+
 		AbstractNestedStepper<E> iterator = (AbstractNestedStepper<E>) super.clone(cc);
 		iterator.cloneContext = cc;
 		iterator.producers = producers.clone();
@@ -59,6 +59,7 @@ public abstract class AbstractNestedStepper<E extends IEntity> extends AbstractE
 	}
 
 	public void reset(IEntity entity) {
+		super.reset(entity);
         selfEntity = entity;
         producersNeedInit.set(0, producersSize(), true);
     }
@@ -168,8 +169,7 @@ public abstract class AbstractNestedStepper<E extends IEntity> extends AbstractE
 
 	@Override
 	public void toString(StringBuilder sb) {
-		sb.append(toStringName());
-    	sb.append("(");
+		sb.append(toStringPrefix());
     	
 		for (int i=0; i<producersSize(); i++) {
 			if (i>0)
@@ -177,12 +177,15 @@ public abstract class AbstractNestedStepper<E extends IEntity> extends AbstractE
 			producers[i].toString(sb);
 		}
 
-    	sb.append(")");
+    	sb.append(toStringSuffix());
     }
-	protected String toStringName() {
-		return "";
+	protected String toStringPrefix() {
+		return "(";
 	}
 	protected String toStringSeparator() {
 		return ", ";
+	}
+	protected String toStringSuffix() {
+		return ")";
 	}
 }
