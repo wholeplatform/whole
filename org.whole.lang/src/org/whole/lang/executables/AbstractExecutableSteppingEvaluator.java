@@ -31,13 +31,13 @@ public abstract class AbstractExecutableSteppingEvaluator<E extends IEntity> ext
 	}
 
 	@SuppressWarnings("unchecked")
-	public void doNext(IEntity entity) {
+	public void accept(IEntity entity) {
 		nextEntity = (E) entity;
-		super.doNext(entity);
+		super.accept(entity);
 	}
-	public void doEnd() {
+	public void done() {
 		nextEntity = null;
-		super.doEnd();
+		super.done();
 	}
 }
 

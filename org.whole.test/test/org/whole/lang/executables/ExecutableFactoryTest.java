@@ -61,7 +61,7 @@ public class ExecutableFactoryTest {
     }
 
 	public static enum Event {
-		BEGIN, NEXT, END
+		NEXT, DONE
 	}
 
     public static class TesterDataFlowConsumer implements IDataFlowConsumer {
@@ -109,17 +109,13 @@ public class ExecutableFactoryTest {
     		}
     	}
 
-		public void doBegin(int size) {
-			addEvent(Event.BEGIN);
-		}
-
-		public void doNext(IEntity entity) {
+		public void accept(IEntity entity) {
 			addEvent(Event.NEXT);
 			addValue(entity);
 		}
 
-		public void doEnd() {
-			addEvent(Event.END);
+		public void done() {
+			addEvent(Event.DONE);
 		}
     }
 
@@ -131,11 +127,11 @@ public class ExecutableFactoryTest {
     	p.setBindings(bmf.createBindingManager());
     	p.reset(VALUES[0]);
 
-    	c.setExpectedEvents(Event.END);
+    	c.setExpectedEvents(Event.DONE);
     	p.callNext();
 
     	c.clear();
-    	c.setExpectedEvents(Event.END, Event.END);
+    	c.setExpectedEvents(Event.DONE, Event.DONE);
     	p.callNext();
     	p.callNext();
     }
@@ -149,7 +145,7 @@ public class ExecutableFactoryTest {
 
     	c.useSameComparator(true);
     	c.setExpectedValues(VALUES[0]);
-    	c.setExpectedEvents(Event.NEXT, Event.END);
+    	c.setExpectedEvents(Event.NEXT, Event.DONE);
     	p.reset(VALUES[1]);
     	p.callNext();
     	p.callRemaining();
@@ -163,7 +159,7 @@ public class ExecutableFactoryTest {
     	p.callNext();
     	p.callNext();
 
-    	c.setExpectedEvents(Event.NEXT, Event.END, Event.END, Event.END);
+    	c.setExpectedEvents(Event.NEXT, Event.DONE, Event.DONE, Event.DONE);
     	c.clear();
     	p.reset(VALUES[1]);
     	p.callNext();
@@ -187,7 +183,7 @@ public class ExecutableFactoryTest {
     	p.setBindings(bm);
 
     	c.setExpectedValues(TRUE_VALUE);
-    	c.setExpectedEvents(Event.NEXT, Event.END, Event.END);
+    	c.setExpectedEvents(Event.NEXT, Event.DONE, Event.DONE);
     	p.reset(VALUES[0]);
     	assertFalse(bm.wIsSet("v0"));
     	p.callNext();
@@ -234,7 +230,7 @@ public class ExecutableFactoryTest {
     	bm.wUnset("v0");
     	c.clear();
     	p.reset(VALUES[1]);
-    	c.setExpectedEvents(Event.END);
+    	c.setExpectedEvents(Event.DONE);
     	assertFalse(bm.wIsSet("v0"));
     	p.callNext();
     	assertFalse(bm.wIsSet("v0"));
@@ -249,7 +245,7 @@ public class ExecutableFactoryTest {
     	p.setBindings(bm);
 
     	p.reset(VALUES[1]);
-    	c.setExpectedEvents(Event.NEXT, Event.END);
+    	c.setExpectedEvents(Event.NEXT, Event.DONE);
     	c.setExpectedValues(VALUES[0]);
     	c.useSameComparator(true);
     	assertFalse(bm.wIsSet("v0"));
@@ -260,7 +256,7 @@ public class ExecutableFactoryTest {
 
     	bm.wDef("v0", VALUES[2]);
     	c.clear();
-    	c.setExpectedEvents(Event.END);
+    	c.setExpectedEvents(Event.DONE);
     	p.reset(VALUES[1]);
     	assertSame(VALUES[2], bm.wGet("v0"));
     	p.callRemaining();
@@ -289,7 +285,7 @@ public class ExecutableFactoryTest {
 		c.setExpectedValues(
     			VALUES[0], VALUES[1], VALUES[2], VALUES[3], VALUES[4], VALUES[5], VALUES[6], VALUES[7]);
     	c.setExpectedEvents(
-    			Event.NEXT, Event.NEXT, Event.NEXT, Event.NEXT, Event.NEXT, Event.NEXT, Event.NEXT, Event.NEXT, Event.END);
+    			Event.NEXT, Event.NEXT, Event.NEXT, Event.NEXT, Event.NEXT, Event.NEXT, Event.NEXT, Event.NEXT, Event.DONE);
 
     	p.reset(VALUES[0]);
     	p.callNext();
@@ -329,7 +325,7 @@ public class ExecutableFactoryTest {
     	p.setBindings(bm);
 
     	c.setExpectedEvents(
-    			Event.NEXT, Event.NEXT, Event.NEXT, Event.NEXT, Event.NEXT, Event.NEXT, Event.NEXT, Event.END);
+    			Event.NEXT, Event.NEXT, Event.NEXT, Event.NEXT, Event.NEXT, Event.NEXT, Event.NEXT, Event.DONE);
 		c.setExpectedValues(
     			VALUES[0], VALUES[1], VALUES[0], VALUES[3], VALUES[1], VALUES[0], VALUES[4]);
     	c.useSameComparator(true);
@@ -383,7 +379,7 @@ public class ExecutableFactoryTest {
     	p.setBindings(bm);
 
     	c.setExpectedEvents(
-    			Event.NEXT, Event.NEXT, Event.NEXT, Event.NEXT, Event.NEXT, Event.END);
+    			Event.NEXT, Event.NEXT, Event.NEXT, Event.NEXT, Event.NEXT, Event.DONE);
 		c.setExpectedValues(
     			VALUES[0], TRUE_VALUE, VALUES[3], VALUES[0], TRUE_VALUE);
     	p.reset(VALUES[5]);

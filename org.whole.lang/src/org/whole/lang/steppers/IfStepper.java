@@ -57,7 +57,7 @@ public class IfStepper extends AbstractDelegatingNestedStepper<IEntity> {
 		if (conditionValue)
 			getProducer().callNext();
 		else
-			doEnd();
+			done();
 	}
 
 	public void callRemaining() {
@@ -69,16 +69,16 @@ public class IfStepper extends AbstractDelegatingNestedStepper<IEntity> {
 		if (conditionValue)
 			getProducer().callRemaining();
 		else
-			doEnd();
+			done();
 	}
 
 	@Override
-	public void doEnd() {
+	public void done() {
 		if (isFirstValue) {
 			isFirstValue = false;
-			doNext(BindingManagerFactory.instance.createVoid());
+			accept(BindingManagerFactory.instance.createVoid());
 		} else
-			super.doEnd();
+			super.done();
 	}
 
 }

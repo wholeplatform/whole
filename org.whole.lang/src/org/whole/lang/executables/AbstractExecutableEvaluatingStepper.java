@@ -26,20 +26,17 @@ public abstract class AbstractExecutableEvaluatingStepper<E extends IEntity> ext
 	public void callNext() {
 		IEntity entity = null;
 		if ((entity = evaluateNext()) != null) {
-			//TODO if first  getConsumer().doBegin();
-			getConsumer().doNext(entity);
+			getConsumer().accept(entity);
 		} else
-			getConsumer().doEnd();
+			getConsumer().done();
 	}
 
 	public void callRemaining() {
-		//TODO if first  getConsumer().doBegin();
-		
 		IEntity entity = null;
 		while ((entity = evaluateNext()) != null) {
-			getConsumer().doNext(entity);
+			getConsumer().accept(entity);
 		}
-		getConsumer().doEnd();
+		getConsumer().done();
 	}
 }
 

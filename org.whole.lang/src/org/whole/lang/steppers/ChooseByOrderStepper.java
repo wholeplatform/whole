@@ -40,7 +40,7 @@ public class ChooseByOrderStepper<E extends IEntity> extends AbstractDelegatingN
 			getProducer().callNext();
 		}
 		if (nextEntity == null)
-			super.doEnd();
+			super.done();
 	}
 
 	public void callRemaining() {
@@ -49,13 +49,13 @@ public class ChooseByOrderStepper<E extends IEntity> extends AbstractDelegatingN
 	}
 
 	@Override
-	public void doNext(IEntity entity) {
+	public void accept(IEntity entity) {
 		choosen = true;
-		super.doNext(entity);
+		super.accept(entity);
 	}
 
 	@Override
-	public void doEnd() {
+	public void done() {
 		if (!choosen && isValidProducer()) {
 			producerIndex += 1;
 			nextEntity = null;

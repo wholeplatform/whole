@@ -65,14 +65,11 @@ public abstract class AbstractExecutable<E extends IEntity> implements IExecutab
 	public IDataFlowConsumer getConsumer() {
 		return consumer;
 	}
-	public void doBegin(int size) {
-		getConsumer().doBegin(size);
+	public void accept(IEntity entity) {
+		getConsumer().accept(entity);
 	}
-	public void doNext(IEntity entity) {
-		getConsumer().doNext(entity);
-	}
-	public void doEnd() {
-		getConsumer().doEnd();
+	public void done() {
+		getConsumer().done();
 	}
 
 	private IBindingManager bindings;
@@ -173,13 +170,11 @@ public abstract class AbstractExecutable<E extends IEntity> implements IExecutab
 		IDataFlowConsumer oldConsumer = getConsumer();
 
 		withConsumer(new IDataFlowConsumer() {
-			public void doBegin(int size) {
-			}
 			@SuppressWarnings("unchecked")
-			public void doNext(IEntity entity) {
+			public void accept(IEntity entity) {
 				action.accept((E) entity);
 			}
-			public void doEnd() {
+			public void done() {
 			}
 		});
 		callRemaining();

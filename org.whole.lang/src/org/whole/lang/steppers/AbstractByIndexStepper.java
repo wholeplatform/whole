@@ -116,23 +116,23 @@ public abstract class AbstractByIndexStepper<E extends IEntity> extends Abstract
 
 	public void callNext() {
 		if (hasNext()) {
-			doNext(get());
+			accept(get());
 		} else
-			doEnd();
+			done();
 	}
 
 	public void callRemaining() {
 		while (hasNext()) {
-			doNext(get());
+			accept(get());
 		}
-		doEnd();
+		done();
 	}
 
 	@Override
-	public void doNext(IEntity entity) {
+	public void accept(IEntity entity) {
 		lastIndex = nextIndex;
 		nextIndex += forward ? +1 : -1;
-		super.doNext(entity);
+		super.accept(entity);
 	}
 
 	public void prune() {

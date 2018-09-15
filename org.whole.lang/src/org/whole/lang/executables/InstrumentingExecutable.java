@@ -169,15 +169,15 @@ public class InstrumentingExecutable<E extends IEntity> extends AbstractExecutab
 	}
 
 	@Override
-	public void doNext(IEntity entity) {
+	public void accept(IEntity entity) {
 		instrumentation.beforeDoNext(this, entity);
-		getExecutable().doNext(entity);
+		getExecutable().accept(entity);
 		instrumentation.afterDoNext(this);
 	}
 	@Override
-	public void doEnd() {
+	public void done() {
 		instrumentation.beforeDoEnd(this);
-		getExecutable().doEnd();
+		getExecutable().done();
 		instrumentation.afterDoEnd(this);
 	}
 

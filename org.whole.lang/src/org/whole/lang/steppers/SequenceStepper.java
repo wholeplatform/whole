@@ -63,7 +63,7 @@ public class SequenceStepper<E extends IEntity> extends AbstractDelegatingNested
 			if (nextEntity != null)
 				return;
 		}
-		super.doEnd();
+		super.done();
 	}
 
 	public void callRemaining() {
@@ -75,17 +75,11 @@ public class SequenceStepper<E extends IEntity> extends AbstractDelegatingNested
 
 			//getProducer().callRemaining();
 		}
-		super.doEnd();
+		super.done();
 	}
 
 	@Override
-	public void doBegin(int size) {
-		if (isFirstProducer())
-			super.doBegin(size);
-	}
-
-	@Override
-	public void doEnd() {
+	public void done() {
 		if (isValidProducer()) {
 			producerIndex += 1;
 			nextEntity = null;

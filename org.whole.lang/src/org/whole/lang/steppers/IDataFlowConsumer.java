@@ -24,16 +24,13 @@ import org.whole.lang.model.IEntity;
  */
 public interface IDataFlowConsumer {
 	public static final IDataFlowConsumer IDENTITY = new IDataFlowConsumer() {
-		public void doBegin(int size) {
+		public void accept(IEntity entity) {
 		}
-		public void doNext(IEntity entity) {
-		}
-		public void doEnd() {
+		public void done() {
 		}
 	};
 
-	public void doBegin(int size);
-	public void doNext(IEntity entity);
-	public void doEnd();
+	public void accept(IEntity entity);
+	public void done();
 }
 
