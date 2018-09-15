@@ -100,7 +100,9 @@ public class BehaviorUtils {
 
 			executableResult.reset(selfEntity);
 
-			return executableResult.evaluateRemaining();
+			IEntity result = executableResult.evaluateRemaining();
+			bm.setResult(result);
+			return result;
 		} else
 			return bm.getResult();
 	}
