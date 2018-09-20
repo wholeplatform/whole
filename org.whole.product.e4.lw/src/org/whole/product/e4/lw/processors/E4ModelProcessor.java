@@ -33,7 +33,6 @@ import org.eclipse.e4.ui.model.application.ui.advanced.MAdvancedFactory;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspective;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspectiveStack;
 import org.eclipse.e4.ui.model.application.ui.basic.MBasicFactory;
-import org.eclipse.e4.ui.model.application.ui.basic.MDialog;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartSashContainer;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
@@ -47,6 +46,8 @@ import org.eclipse.e4.ui.model.application.ui.menu.MMenuFactory;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolBar;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolBarElement;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
+import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.widgets.Display;
 import org.whole.lang.codebase.ClasspathPersistenceProvider;
 import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.operations.InterpreterOperation;
@@ -80,10 +81,12 @@ public class E4ModelProcessor {
 			MTrimmedWindow window = MBasicFactory.INSTANCE.createTrimmedWindow();
 
 			window.setLabel("Whole Language Workbench Window");
-			window.setX(500);
-			window.setY(20);
-			window.setWidth(800);
-			window.setHeight(1000);
+			Display current = Display.getCurrent();
+			Rectangle displayBounds = current.getBounds();
+			window.setX(displayBounds.x+displayBounds.width/3);
+			window.setY(displayBounds.y+displayBounds.height/6);
+			window.setWidth(displayBounds.width/3);
+			window.setHeight(displayBounds.height*2/3);
 
 			MMenu mainMenu = MMenuFactory.INSTANCE.createMenu();
 			mainMenu.setElementId("menu:org.eclipse.ui.main.menu");
