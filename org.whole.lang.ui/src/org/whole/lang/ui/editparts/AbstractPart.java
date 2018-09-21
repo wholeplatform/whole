@@ -105,10 +105,10 @@ public abstract class AbstractPart extends AbstractGraphicalEditPart implements 
 
 	@Override
 	public boolean isSelectable() {
-		if (!super.isSelectable())
-			return false;
 		if (getFlag(FLAG_FORCE_SELECTABLE))
 			return true;
+		if (!super.isSelectable())
+			return false;
 
 		IEntityFigure entityFigure = (IEntityFigure) getFigure();
 		return entityFigure.isInteractiveInherited() ?
