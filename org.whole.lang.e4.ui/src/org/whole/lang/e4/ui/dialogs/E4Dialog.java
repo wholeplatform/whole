@@ -167,8 +167,6 @@ public class E4Dialog extends Dialog {
 
 	protected void updateSelection(IBindingManager bm) {
 		selectionService.setSelection(bm);
-		//FIXME workaround selectionService.setSelection(bm); doesn't update the ACTIVE_SELECTION in the active context
-		context.set(IServiceConstants.ACTIVE_SELECTION, bm);
 	}
 
 	protected IEntity createDefaultContents() {

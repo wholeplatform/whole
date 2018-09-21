@@ -184,8 +184,6 @@ public abstract class AbstractE4Part {
 		if (modelInput != null)
 			E4Utils.defineResourceBindings(bm, modelInput);
 		selectionService.setSelection(bm);
-		//FIXME workaround selectionService.setSelection(bm); doesn't update the ACTIVE_SELECTION in the active context
-		context.set(IServiceConstants.ACTIVE_SELECTION, bm);
 	}
 	
 	protected void configureContextMenu() {
