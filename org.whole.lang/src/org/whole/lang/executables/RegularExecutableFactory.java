@@ -28,18 +28,28 @@ import org.whole.lang.evaluators.AbstractNestedSupplierEvaluator;
 import org.whole.lang.evaluators.AbstractPureConditionalSupplierEvaluator;
 import org.whole.lang.evaluators.AbstractTypeRelationEvaluator;
 import org.whole.lang.evaluators.AbstractVariableTestOrBindEvaluator;
+import org.whole.lang.evaluators.AdjacentEvaluator;
 import org.whole.lang.evaluators.AncestorEvaluator;
 import org.whole.lang.evaluators.AncestorOrSelfReverseEvaluator;
 import org.whole.lang.evaluators.AncestorReverseEvaluator;
+import org.whole.lang.evaluators.ChildEvaluator;
+import org.whole.lang.evaluators.ChildOrAdjacentEvaluator;
+import org.whole.lang.evaluators.ChildRangeEvaluator;
+import org.whole.lang.evaluators.ChooseByOrderEvaluator;
 import org.whole.lang.evaluators.CloneReplacingEvaluator;
 import org.whole.lang.evaluators.CollectionEvaluator;
+import org.whole.lang.evaluators.ConstantChildEvaluator;
+import org.whole.lang.evaluators.ConstantComposeEvaluator;
 import org.whole.lang.evaluators.ConstantEvaluator;
 import org.whole.lang.evaluators.DescendantEvaluator;
 import org.whole.lang.evaluators.DescendantOrReachableEvaluator;
 import org.whole.lang.evaluators.DescendantReverseEvaluator;
 import org.whole.lang.evaluators.FeatureByIndexEvaluator;
 import org.whole.lang.evaluators.FeatureByNameEvaluator;
+import org.whole.lang.evaluators.FilterByDistinctEvaluator;
 import org.whole.lang.evaluators.FollowingEvaluator;
+import org.whole.lang.evaluators.FollowingSiblingEvaluator;
+import org.whole.lang.evaluators.IfEvaluator;
 import org.whole.lang.evaluators.InverseAdjacentEvaluator;
 import org.whole.lang.evaluators.InverseReachableEvaluator;
 import org.whole.lang.evaluators.LocalVariableEvaluator;
@@ -47,6 +57,7 @@ import org.whole.lang.evaluators.MultiValuedRunnableEvaluator;
 import org.whole.lang.evaluators.OuterLocalVariableEvaluator;
 import org.whole.lang.evaluators.OuterVariableEvaluator;
 import org.whole.lang.evaluators.PrecedingEvaluator;
+import org.whole.lang.evaluators.PrecedingSiblingEvaluator;
 import org.whole.lang.evaluators.ReachableEvaluator;
 import org.whole.lang.evaluators.SingleValuedRunnableEvaluator;
 import org.whole.lang.evaluators.SingleValuedRunnableSupplierEvaluator;
@@ -54,6 +65,7 @@ import org.whole.lang.evaluators.SortEvaluator;
 import org.whole.lang.evaluators.VariableEvaluator;
 import org.whole.lang.iterators.AbstractIteratorBasedExecutableFactory;
 import org.whole.lang.iterators.DistinctScope;
+import org.whole.lang.iterators.ForIterator;
 import org.whole.lang.iterators.MatcherIterator;
 import org.whole.lang.iterators.ScannerIterator;
 import org.whole.lang.matchers.Matcher;
@@ -63,14 +75,6 @@ import org.whole.lang.reflect.DataKinds;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.EntityKinds;
 import org.whole.lang.reflect.FeatureDescriptor;
-import org.whole.lang.steppers.AdjacentStepper;
-import org.whole.lang.steppers.ChildOrAdjacentStepper;
-import org.whole.lang.steppers.ChildRangeStepper;
-import org.whole.lang.steppers.ChildStepper;
-import org.whole.lang.steppers.ConstantChildStepper;
-import org.whole.lang.steppers.ConstantComposeStepper;
-import org.whole.lang.steppers.FollowingSiblingStepper;
-import org.whole.lang.steppers.PrecedingSiblingStepper;
 import org.whole.lang.util.BindingUtils;
 import org.whole.lang.util.EntityUtils;
 import org.whole.lang.util.IDataTypeWrapper;
@@ -110,10 +114,10 @@ public class RegularExecutableFactory extends AbstractIteratorBasedExecutableFac
 		};
 	}
 	public <E extends IEntity> IExecutable<E> createConstantChild(IEntity constant) {
-		return new ConstantChildStepper<E>(true, constant);
+		return new ConstantChildEvaluator<E>(true, constant);
 	}
 	public <E extends IEntity> IExecutable<E> createConstantCompose(IEntity constant, IExecutable<E> executable) {
-		return new ConstantComposeStepper<E>(constant, executable);
+		return (IExecutable<E>) new ConstantComposeEvaluator(constant, executable);
 	}
 
 	public <E extends IEntity> IExecutable<E> createEntityCollection(Iterable<E> entityCollectionIterable) {
@@ -232,7 +236,7 @@ public class RegularExecutableFactory extends AbstractIteratorBasedExecutableFac
 	}
 	public IExecutable<IEntity> createInverseReachable(boolean includeSelf) {
 		DistinctScope<IEntity> distinctScope = createDistinctScope(ObjectIdentityComparator.instance);
-		return distinctScope.withIterator(createInverseReachable(includeSelf, distinctScope).iterator());
+		return distinctScope.withExecutable(createInverseReachable(includeSelf, distinctScope));
 	}
 	public IExecutable<IEntity> createInverseReachable(boolean includeSelf, DistinctScope<IEntity> distinctScope) {
 		return new InverseReachableEvaluator(includeSelf, distinctScope);
@@ -250,19 +254,19 @@ public class RegularExecutableFactory extends AbstractIteratorBasedExecutableFac
 	}
 
 	public <E extends IEntity> IExecutable<E> createChild() {
-		return new ChildStepper<E>(true);
+		return new ChildEvaluator<E>(true);
 	}
 	public <E extends IEntity> IExecutable<E> createChild(int relativeFirstIndex) {
-		return new ChildStepper<E>(true, relativeFirstIndex);
+		return new ChildEvaluator<E>(true, relativeFirstIndex);
 	}
 	public <E extends IEntity> IExecutable<E> createChildReverse() {
-		return new ChildStepper<E>(false);
+		return new ChildEvaluator<E>(false);
 	}
 	public <E extends IEntity> IExecutable<E> createChildReverse(int relativeFirstIndex) {
-		return new ChildStepper<E>(false, relativeFirstIndex);
+		return new ChildEvaluator<E>(false, relativeFirstIndex);
 	}
 	public <E extends IEntity> IExecutable<E> createChildRange(int relativeStartIndex, int relativeEndIndex) {
-		return new ChildRangeStepper<E>(true, relativeStartIndex, relativeEndIndex);
+		return new ChildRangeEvaluator<E>(true, relativeStartIndex, relativeEndIndex);
 	}
 
 	public <E extends IEntity> IExecutable<E> createDescendant() {
@@ -279,29 +283,29 @@ public class RegularExecutableFactory extends AbstractIteratorBasedExecutableFac
 	}
 
 	public <E extends IEntity> IExecutable<E> createFollowingSibling() {
-		return new FollowingSiblingStepper<E>(true, false);
+		return new FollowingSiblingEvaluator<E>(true, false);
 	}
 	public <E extends IEntity> IExecutable<E> createFollowingSiblingReverse() {
-		return new FollowingSiblingStepper<E>(false, false);
+		return new FollowingSiblingEvaluator<E>(false, false);
 	}
 	public <E extends IEntity> IExecutable<E> createPrecedingSibling() {
-		return new PrecedingSiblingStepper<E>(false, false);
+		return new PrecedingSiblingEvaluator<E>(false, false);
 	}
 	public <E extends IEntity> IExecutable<E> createPrecedingSiblingReverse() {
-		return new PrecedingSiblingStepper<E>(true, false);
+		return new PrecedingSiblingEvaluator<E>(true, false);
 	}
 
 	public <E extends IEntity> IExecutable<E> createFollowingSiblingOrSelf() {
-		return new FollowingSiblingStepper<E>(true, true);
+		return new FollowingSiblingEvaluator<E>(true, true);
 	}
 	public <E extends IEntity> IExecutable<E> createFollowingSiblingOrSelfReverse() {
-		return new FollowingSiblingStepper<E>(false, true);
+		return new FollowingSiblingEvaluator<E>(false, true);
 	}
 	public <E extends IEntity> IExecutable<E> createPrecedingSiblingOrSelf() {
-		return new PrecedingSiblingStepper<E>(false, true);
+		return new PrecedingSiblingEvaluator<E>(false, true);
 	}
 	public <E extends IEntity> IExecutable<E> createPrecedingSiblingOrSelfReverse() {
-		return new PrecedingSiblingStepper<E>(true, true);
+		return new PrecedingSiblingEvaluator<E>(true, true);
 	}
 
 	public <E extends IEntity> IExecutable<E> createFollowing() {
@@ -318,25 +322,25 @@ public class RegularExecutableFactory extends AbstractIteratorBasedExecutableFac
 	}
 
 	public <E extends IEntity> IExecutable<E> createAdjacent() {
-		return new AdjacentStepper<E>(true);
+		return new AdjacentEvaluator<E>(true);
 	}
 	public <E extends IEntity> IExecutable<E> createAdjacent(int relativeFirstIndex) {
-		return new AdjacentStepper<E>(true, relativeFirstIndex);
+		return new AdjacentEvaluator<E>(true, relativeFirstIndex);
 	}
 	public <E extends IEntity> IExecutable<E> createAdjacentReverse() {
-		return new AdjacentStepper<E>(false);
+		return new AdjacentEvaluator<E>(false);
 	}
 
 	public <E extends IEntity> IExecutable<E> createChildOrAdjacent() {
-		return new ChildOrAdjacentStepper<E>(true);
+		return new ChildOrAdjacentEvaluator<E>(true);
 	}
 	public <E extends IEntity> IExecutable<E> createChildOrAdjacent(int relativeFirstIndex) {
-		return new ChildOrAdjacentStepper<E>(true, relativeFirstIndex);
+		return new ChildOrAdjacentEvaluator<E>(true, relativeFirstIndex);
 	}
 
 	public <E extends IEntity> IExecutable<E> createReachable(boolean includeSelf) {
 		DistinctScope<E> distinctScope = createDistinctScope(ObjectIdentityComparator.instance);
-		return distinctScope.withIterator(createReachable(includeSelf, distinctScope).iterator());
+		return distinctScope.withExecutable(createReachable(includeSelf, distinctScope));
 	}
 	public <E extends IEntity> IExecutable<E> createReachable(boolean includeSelf, DistinctScope<E> distinctScope) {
 		return new ReachableEvaluator<E>(includeSelf, distinctScope);
@@ -344,7 +348,7 @@ public class RegularExecutableFactory extends AbstractIteratorBasedExecutableFac
 
 	public <E extends IEntity> IExecutable<E> createDescendantOrReachable() {
 		DistinctScope<E> distinctScope = createDistinctScope(ObjectIdentityComparator.instance);
-		return distinctScope.withIterator(createDescendantOrReachable(false, distinctScope).iterator());
+		return distinctScope.withExecutable(createDescendantOrReachable(false, distinctScope));
 	}
 	public <E extends IEntity> IExecutable<E> createDescendantOrReachable(boolean includeSelf, DistinctScope<E> distinctScope) {
 		return new DescendantOrReachableEvaluator<E>(includeSelf, distinctScope);
@@ -368,21 +372,25 @@ public class RegularExecutableFactory extends AbstractIteratorBasedExecutableFac
 
 	@SuppressWarnings("unchecked")
 	public <E extends IEntity> IExecutable<E> createIf(IExecutable<? extends IEntity> conditionExecutable, IExecutable<E> doExecutable) {
-		return super.createIf(conditionExecutable, doExecutable);
-//FIXME
-//		return (IExecutable<E>) new IfStepper((IExecutable<IEntity>) conditionExecutable, (IExecutable<IEntity>) doExecutable);
+		return (IExecutable<E>) new IfEvaluator((IExecutable<IEntity>) conditionExecutable, (IExecutable<IEntity>) doExecutable);
 	}
 
+	@SuppressWarnings("unchecked")
+	public <E extends IEntity> IExecutable<E> createFor(IExecutable<? extends IEntity> forExecutable, IExecutable<E> doExecutable) {
+		return super.createFor(forExecutable, doExecutable);
+		//FIXME
+//		return (IExecutable<E>) new ForEvaluator((IExecutable<IEntity>) forExecutable, (IExecutable<IEntity>) doExecutable);
+	}
+
+	@SuppressWarnings("unchecked")
 	public <E extends IEntity> IExecutable<E> createChoose(IExecutable<? extends E>... executableChain) {
-		return super.createChoose(executableChain);
-//FIXME
-//		return new ChooseByOrderStepper<E>(executableChain);
+		return (IExecutable<E>) new ChooseByOrderEvaluator((IExecutable<IEntity>[]) executableChain);
 	}
 
 	public <E extends IEntity> IExecutable<E> createSequence(IExecutable<? extends E>... executableChain) {
 		return super.createSequence(executableChain);
 //FIXME
-//		return new SequenceStepper<E>(executableChain);
+//		return new SequenceEvaluator<>(executableChain);
 	}
 
 	public <E extends IEntity> IExecutable<E> createSort(IExecutable<E> executable) {
@@ -556,6 +564,14 @@ public class RegularExecutableFactory extends AbstractIteratorBasedExecutableFac
 			}
 		};
 	}
+
+	public <E extends IEntity> DistinctScope<E> createDistinctScope() {
+		return new FilterByDistinctEvaluator<E>();
+	}
+	public <E extends IEntity> DistinctScope<E> createDistinctScope(IEntityComparator<IEntity> comparator) {
+		return new FilterByDistinctEvaluator<E>(comparator);
+	}
+
 
 	public IExecutable<?> createAnd(IExecutable<?>... argsExecutables) {
 		return super.createAnd(argsExecutables);

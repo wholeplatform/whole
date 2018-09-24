@@ -123,16 +123,16 @@ public class ControlQueriesTest {
 		assertSame(queryExp1.wGet(0), exp1);
 		assertTrue(bm.wIsSet("a"));
 		assertFalse(bm.wIsSet("b"));
-		assertFalse(bm.wIsSet("exp1"));
-		assertFalse(bm.wIsSet("exp2"));
+		assertTrue(bm.wIsSet("exp1"));
+		assertTrue(bm.wIsSet("exp2"));
 
 		assertTrue(iterator.hasNext());
 		IEntity exp2 = iterator.next();
 		assertSame(queryExp1.wGet(1), exp2);
 		assertFalse(bm.wIsSet("a"));		
 		assertTrue(bm.wIsSet("b"));
-		assertFalse(bm.wIsSet("exp1"));
-		assertFalse(bm.wIsSet("exp2"));
+		assertTrue(bm.wIsSet("exp1"));
+		assertTrue(bm.wIsSet("exp2"));
 
 		assertFalse(iterator.hasNext());
 	}
@@ -154,8 +154,8 @@ public class ControlQueriesTest {
 		assertTrue(Matcher.match(queryExp1.wGet(1), queryRes1.wGet(1)));
 		assertTrue(bm.wIsSet("a"));
 		assertTrue(bm.wIsSet("b"));
-		assertFalse(bm.wIsSet("exp1"));
-		assertFalse(bm.wIsSet("exp2"));
+		assertTrue(bm.wIsSet("exp1"));
+		assertTrue(bm.wIsSet("exp2"));
 	}
 
     @Test

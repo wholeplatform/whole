@@ -32,8 +32,8 @@ public abstract class AbstractDelegatingNestedEvaluator<E extends IEntity> exten
 	protected int producerIndex = 0;
 
 	@SuppressWarnings("unchecked")
-	public AbstractDelegatingNestedEvaluator(IExecutable<? extends E>... steppers) {
-		super(steppers);
+	public AbstractDelegatingNestedEvaluator(IExecutable<? extends E>... executables) {
+		super(executables);
 	}
 
 	@Override

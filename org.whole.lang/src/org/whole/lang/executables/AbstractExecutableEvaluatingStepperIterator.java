@@ -32,7 +32,7 @@ import org.whole.lang.model.IEntity;
 //public abstract class AbstractExecutableSteppingEvaluatingIterator<E extends IEntity> extends AbstractExecutableSteppingEvaluator<E> implements IEntityIterator<E> {
 public abstract class AbstractExecutableEvaluatingStepperIterator<E extends IEntity> extends AbstractExecutableEvaluatingStepper<E> implements IEntityIterator<E> {
 	private IBindingScope lookaheadScope;
-	private boolean lookaheadIsCached;
+	protected boolean lookaheadIsCached;
 	protected E lookaheadEntity;
     protected E lastEntity;
 

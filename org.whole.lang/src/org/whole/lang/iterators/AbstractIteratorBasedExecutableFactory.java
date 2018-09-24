@@ -27,7 +27,6 @@ import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.commons.model.Variable;
 import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
 import org.whole.lang.commons.visitors.CommonsInterpreterVisitor;
-import org.whole.lang.comparators.IEntityComparator;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
@@ -110,9 +109,6 @@ public abstract class AbstractIteratorBasedExecutableFactory implements Executab
 	}
 
 
-	public <E extends IEntity> IExecutable<E> createIf(IExecutable<? extends IEntity> conditionExecutable, IExecutable<E> doExecutable) {
-		return new IfIterator<E>(conditionExecutable.iterator(), doExecutable.iterator());
-	}
 	public <E extends IEntity> IExecutable<E> createFor(IExecutable<? extends IEntity> forExecutable, IExecutable<E> doExecutable) {
 		return new ForIterator<E>(forExecutable.iterator(), doExecutable.iterator());
 	}
@@ -125,10 +121,6 @@ public abstract class AbstractIteratorBasedExecutableFactory implements Executab
 	}
 	public <E extends IEntity> IExecutable<E> createTemplateInterpreter(IEntity template) {
 		return new TemplateInterpreterIterator<E>(template);
-	}
-
-	public <E extends IEntity> IExecutable<E> createChoose(IExecutable<? extends E>... executableChain) {
-		return new ChooseByOrderIterator<E>(toIterators(executableChain));
 	}
 
 	public <E extends IEntity> IExecutable<E> createChoose(ILanguageKit languageKit) {
@@ -155,13 +147,6 @@ public abstract class AbstractIteratorBasedExecutableFactory implements Executab
 	}
 	public <E extends IEntity> IExecutable<E> createFilterByIndexRange() {
 		return new FilterByIndexRangeIterator<E>();
-	}
-
-	public <E extends IEntity> DistinctScope<E> createDistinctScope() {
-		return new FilterByDistinctIterator<E>();
-	}
-	public <E extends IEntity> DistinctScope<E> createDistinctScope(IEntityComparator<IEntity> comparator) {
-		return new FilterByDistinctIterator<E>(comparator);
 	}
 
 	@SuppressWarnings("unchecked")

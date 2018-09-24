@@ -40,6 +40,7 @@ import org.whole.lang.util.IRunnable;
 public interface ExecutableFactory {
 //TODO switch comment to test a specific factory
 //	public static ExecutableFactory regularInstance = new IteratorBasedExecutableFactory();
+//	public static ExecutableFactory regularInstance = new StepperBasedExecutableFactory();
 	public static ExecutableFactory regularInstance = new RegularExecutableFactory();
 	public static ExecutableFactory instrumentedInstance = new InstrumentedExecutableFactory();
 

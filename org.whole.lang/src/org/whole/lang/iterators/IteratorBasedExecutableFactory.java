@@ -159,7 +159,7 @@ public class IteratorBasedExecutableFactory extends AbstractIteratorBasedExecuta
 	}
 	public IExecutable<IEntity> createInverseReachable(boolean includeSelf) {
 		DistinctScope<IEntity> distinctScope = createDistinctScope(ObjectIdentityComparator.instance);
-		return distinctScope.withIterator(createInverseReachable(includeSelf, distinctScope).iterator());
+		return distinctScope.withExecutable(createInverseReachable(includeSelf, distinctScope));
 	}
 	public IExecutable<IEntity> createInverseReachable(boolean includeSelf, DistinctScope<IEntity> distinctScope) {
 		return new InverseReachableIterator(includeSelf, distinctScope);
@@ -263,7 +263,7 @@ public class IteratorBasedExecutableFactory extends AbstractIteratorBasedExecuta
 
 	public <E extends IEntity> IExecutable<E> createReachable(boolean includeSelf) {
 		DistinctScope<E> distinctScope = createDistinctScope(ObjectIdentityComparator.instance);
-		return distinctScope.withIterator(createReachable(includeSelf, distinctScope).iterator());
+		return distinctScope.withExecutable(createReachable(includeSelf, distinctScope));
 	}
 	public <E extends IEntity> IExecutable<E> createReachable(boolean includeSelf, DistinctScope<E> distinctScope) {
 		return new ReachableIterator<E>(includeSelf, distinctScope);
@@ -271,7 +271,7 @@ public class IteratorBasedExecutableFactory extends AbstractIteratorBasedExecuta
 
 	public <E extends IEntity> IExecutable<E> createDescendantOrReachable() {
 		DistinctScope<E> distinctScope = createDistinctScope(ObjectIdentityComparator.instance);
-		return distinctScope.withIterator(createDescendantOrReachable(false, distinctScope).iterator());
+		return distinctScope.withExecutable(createDescendantOrReachable(false, distinctScope));
 	}
 	public <E extends IEntity> IExecutable<E> createDescendantOrReachable(boolean includeSelf, DistinctScope<E> distinctScope) {
 		return new DescendantOrReachableIterator<E>(includeSelf, distinctScope);

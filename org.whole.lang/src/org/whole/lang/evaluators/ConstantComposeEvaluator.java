@@ -15,21 +15,36 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.iterators;
+package org.whole.lang.evaluators;
 
-import org.whole.lang.comparators.IEntityComparator;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.operations.ICloneable;
-import org.whole.lang.visitors.IVisitor;
 
 /**
  * @author Riccardo Solmi
  */
-public interface DistinctScope<E extends IEntity> extends ICloneable {
-	public DistinctScope<E> withComparator(IEntityComparator<IEntity> comparator);
-	public IExecutable<E> withExecutable(IExecutable<E> iterator);
+public class ConstantComposeEvaluator extends AbstractDelegatingNestedEvaluator<IEntity> {
+	protected IEntity constant;
 
-	public IExecutable<IEntity> distinctExecutable();
-	public IVisitor distinctMatcher();
+	@SuppressWarnings("unchecked")
+	public ConstantComposeEvaluator(IEntity constant, IExecutable<?> executable) {
+		super(executable);
+		this.constant = constant;
+		executable.reset(constant);
+	}
+
+	@Override
+	public void reset(IEntity entity) {
+		super.reset(constant);
+	}
+
+	@Override
+	public IEntity evaluateNext() {
+		return getProducer().evaluateNext();
+	}
+
+	@Override
+	public IEntity evaluateRemaining() {
+		return getProducer().evaluateRemaining();
+	}
 }

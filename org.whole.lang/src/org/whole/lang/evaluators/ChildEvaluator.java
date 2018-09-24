@@ -15,21 +15,31 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.iterators;
+package org.whole.lang.evaluators;
 
-import org.whole.lang.comparators.IEntityComparator;
-import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.operations.ICloneable;
-import org.whole.lang.visitors.IVisitor;
 
 /**
  * @author Riccardo Solmi
  */
-public interface DistinctScope<E extends IEntity> extends ICloneable {
-	public DistinctScope<E> withComparator(IEntityComparator<IEntity> comparator);
-	public IExecutable<E> withExecutable(IExecutable<E> iterator);
+public class ChildEvaluator<E extends IEntity> extends AbstractByIndexEvaluator<E> {
+	public ChildEvaluator(boolean forward) {
+    	super(forward);
+    }
+	public ChildEvaluator(boolean forward, int relativeFirstIndex) {
+        super(forward, relativeFirstIndex);
+    }
 
-	public IExecutable<IEntity> distinctExecutable();
-	public IVisitor distinctMatcher();
+    protected final int startIndex() {
+    	return 0;
+    }
+    protected final int endIndex() {
+    	return selfEntity.wSize()-1;
+    }
+
+    @Override
+	public void toString(StringBuilder sb) {
+    	sb.append("child");
+		sb.append(forward ? "()" : "-reverse()");
+    }
 }

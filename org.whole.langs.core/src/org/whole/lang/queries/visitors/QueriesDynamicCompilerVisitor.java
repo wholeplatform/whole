@@ -174,7 +174,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 				iteratorFactory().createCompose(getExecutableResult(), nestedIterators).withSourceEntity(entity));
 
 		if (distinctScope != null)
-			setExecutableResult(distinctScope.withIterator(getExecutableResult().iterator()));
+			setExecutableResult(distinctScope.withExecutable(getExecutableResult()));
 
 		distinctScope = oldDistinctScope;
 	}
@@ -365,14 +365,14 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 				setExecutableResult(filterByIndexIterator);
 
 				if (canFilterByIndex) {
-					// ((FilterByIndexRangeIterator<?>) filterByIndexIterator.specificIterator()).withStartIndex(startIndex);
+					// ((FilterByIndexRangeIterator<?>) filterByIndexIterator.undecoratedExecutable()).withStartIndex(startIndex);
 					((FilterByIndexRangeIterator<?>) filterByIndexIterator.undecoratedExecutable()).withEndIndex(endIndex);
 				}
 			}
 
 			if (distinctScope != null && !(EntityUtils.hasParent(entity)
 					&& Matcher.match(QueriesEntityDescriptorEnum.Path, entity.wGetParent())))
-				setExecutableResult(distinctScope.withIterator(getExecutableResult().iterator()));
+				setExecutableResult(distinctScope.withExecutable(getExecutableResult()));
 
 			if (!(queryPredicateIterator.undecoratedExecutable() instanceof EmptyExecutable)) {
 				IExecutable<?> ri = iteratorFactory().createFilter(getExecutableResult(), queryPredicateIterator);
@@ -1122,7 +1122,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 			distinctScope = iteratorFactory().createDistinctScope();
 
 		distinctScope.withComparator(comparator);
-		setExecutableResult(distinctScope.distinctIterator().withSourceEntity(entity));
+		setExecutableResult(distinctScope.distinctExecutable().withSourceEntity(entity));
 		comparator = oldComparator;
 	}
 
