@@ -31,6 +31,7 @@ public interface IE4UIConstants {
 	public static final String BUNDLE_ID = "org.whole.lang.e4.ui";
 
 	// part id
+	public static final String FINDREPLACE_PART_ID = BUNDLE_ID+".part.findreplace";
 	public static final String DETAILS_PART_ID = BUNDLE_ID+".part.details";
 	public static final String MAP_PART_ID = BUNDLE_ID+".part.map";
 	public static final String INDEX_PART_ID = BUNDLE_ID+".part.index";
@@ -176,6 +177,11 @@ public interface IE4UIConstants {
 	public static final String ANALYZE_LABEL = "Analyze";
 	public static final String MIGRATE_LABEL = "Migrate";
 
+	public static final String FIND_LABEL = "Find";
+	public static final String REPLACE_LABEL = "Replace";
+	public static final String REPLACEFIND_LABEL = "Replace/Find";
+	public static final String REPLACEALL_LABEL = "Replace All";
+
 	public static final String CLEAR_CONTENTS_LABEL = "Feature Assist";
 	public static final String SAVE_AS_LABEL = "Save As...";
 
@@ -191,8 +197,9 @@ public interface IE4UIConstants {
 	public static final String WHOLE_PREFERENCE_PAGE_ID = BUNDLE_ID+".preference.page.whole";
 	public static final String EDITOR_PREFERENCE_PAGE_ID = BUNDLE_ID+".preference.page.editor";
 
-	public static final String TOPIC_UPDATE_RESULTS = "TOPIC_UPDATE_RESULTS";
 	public static final String TOPIC_UPDATE_DEBUG = "TOPIC_BREAK_DEBUG";
+	public static final String TOPIC_UPDATE_FINDREPLACE = "TOPIC_UPDATE_FINDREPLACE";
+	public static final String TOPIC_UPDATE_RESULTS = "TOPIC_UPDATE_RESULTS";
 	public static final String TOPIC_UPDATE_VARIABLES = "TOPIC_UPDATE_VARIABLES";
 	public static final String TOPIC_UPDATE_SAMPLE_CONTEXT = "TOPIC_UPDATE_SAMPLE_CONTEXT";
 	public static final String TOPIC_REBUILD_VIEWER_CONDITIONAL = "TOPIC_REBUILD_VIEWER_CONDITIONAL";
@@ -200,7 +207,6 @@ public interface IE4UIConstants {
 	public static final String TOPIC_REFRESH_VIEWER = "TOPIC_REFRESH_VIEWER";
 	public static final String TOPIC_SYNC_OUTLINE_SELECTION = "TOPIC_SYNC_OUTLINE_SELECTION";
 
-	public static final String FIND_REPLACE_DIALOG_TEXT = "Find/Replace";
 	public static final String FIND_BUTTON_TEXT = "Find";
 	public static final String REPLACE_BUTTON_TEXT = "Replace";
 	public static final String REPLACE_FIND_BUTTON_TEXT = "Replace/Find";

@@ -122,6 +122,14 @@
 		</category>
 		<view
 				category="org.whole.lang.ui.views.category"
+				id="org.whole.lang.e4.ui.part.findreplace"
+				class="org.whole.lang.e4.ui.compatibility.FindReplaceViewPart"
+				icon="icons/views/whole.gif"
+				name="Find/Replace"
+				restorable="true">
+		</view>
+		<view
+				category="org.whole.lang.ui.views.category"
 				id="org.whole.lang.e4.ui.part.palette"
 				class="org.whole.lang.e4.ui.compatibility.PaletteViewPart"
 				icon="icons/views/whole.gif"

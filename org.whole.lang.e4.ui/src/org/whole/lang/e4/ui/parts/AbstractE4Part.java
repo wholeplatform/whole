@@ -46,7 +46,6 @@ import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.menu.MPopupMenu;
 import org.eclipse.e4.ui.model.application.ui.menu.impl.MenuFactoryImpl;
 import org.eclipse.e4.ui.services.EMenuService;
-import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.gef.ContextMenuProvider;
@@ -57,8 +56,8 @@ import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.swt.events.FocusAdapter;
 import org.eclipse.swt.events.FocusEvent;
-import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.whole.lang.bindings.IBindingManager;
@@ -124,11 +123,7 @@ public abstract class AbstractE4Part {
 				updateSelection(E4Utils.createSelectionBindings(event, context));
 			}
 		});
-		viewer.getControl().addFocusListener(new FocusListener() {
-			@Override
-			public void focusLost(FocusEvent event) {
-			}
-
+		viewer.getControl().addFocusListener(new FocusAdapter() {
 			@Override
 			@SuppressWarnings("unchecked")
 			public void focusGained(FocusEvent event) {
