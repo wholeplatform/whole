@@ -46,6 +46,7 @@ public class ModelObserver implements IPropertyChangeObserver {
 	}
 
 	public void dispose() {
+		viewer.getEditDomain().removePropertyChangeListener(this);
 		model.removeEventListener(this);
 	}
 
