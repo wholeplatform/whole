@@ -56,7 +56,7 @@ public class SuspensionFeedbackEditPolicy extends AbstractEditPolicy {
 		if (!suspensionKind.isSuspended())
 			return;
 
-		IFigure layer = getLayer(LayerConstants.HANDLE_LAYER);
+		IFigure layer = getLayer(LayerConstants.SCALED_FEEDBACK_LAYER);
 		String message = throwable != null ? throwable.getLocalizedMessage() : suspensionKind.name().toLowerCase();
 		handle = new DebugLabeledHandle(message, (GraphicalEditPart) getHost(), suspensionKind);
 		layer.add(handle);
@@ -64,9 +64,8 @@ public class SuspensionFeedbackEditPolicy extends AbstractEditPolicy {
 	protected void removeSuspensionFeedback() {
 		if (handle == null)
 			return;
-		IFigure layer = getLayer(LayerConstants.HANDLE_LAYER);
+		IFigure layer = getLayer(LayerConstants.SCALED_FEEDBACK_LAYER);
 		layer.remove(handle);
 		handle = null;
-		getHost().removeEditPolicy(SUSPENSION_FEEDBACK_ROLE);
 	}
 }
