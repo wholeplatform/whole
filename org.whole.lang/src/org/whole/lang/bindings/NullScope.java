@@ -17,7 +17,6 @@
  */
 package org.whole.lang.bindings;
 
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -68,7 +67,7 @@ public class NullScope implements IBindingScope {
 	}
 
 	public Set<String> wLocalNames() {
-		return Collections.<String>emptySet();
+		return new HashSet<String>();
 	}
 
 	public void wAddAll(IBindingScope scope) {

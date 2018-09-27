@@ -18,8 +18,8 @@
 package org.whole.lang.bindings;
 
 import java.beans.PropertyDescriptor;
-import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -80,7 +80,7 @@ public class JavaBeanScope extends AbstractCloneableScope {
 	}
 
 	public Set<String> wLocalNames() {
-		return Collections.unmodifiableSet(propertyMap.keySet());
+		return new HashSet<String>(propertyMap.keySet());
 	}
 
 	public IEntity wGet(String name) {

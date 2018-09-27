@@ -17,8 +17,6 @@
  */
 package org.whole.lang.bindings;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -36,9 +34,9 @@ public class ExcludeFilterScope extends AbstractFilterScope {
 	@Override
 	public Set<String> wLocalNames() {
 		if (isFilterEnabled()) {
-			Set<String> filteredNames = new HashSet<String>(super.wLocalNames());
+			Set<String> filteredNames = super.wLocalNames();
 			filteredNames.removeAll(getFilterNames());
-			return Collections.unmodifiableSet(filteredNames);
+			return filteredNames;
 		} else
 			return super.wLocalNames();
 	}

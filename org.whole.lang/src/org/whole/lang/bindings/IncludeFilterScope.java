@@ -17,8 +17,6 @@
  */
 package org.whole.lang.bindings;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -37,9 +35,9 @@ public class IncludeFilterScope extends AbstractFilterScope {
 	@Override
 	public Set<String> wLocalNames() {
 		if (isFilterEnabled()) {
-			Set<String> filteredNames = new HashSet<String>(super.wLocalNames());
+			Set<String> filteredNames = super.wLocalNames();
 			filteredNames.retainAll(extendedFilterNames(filteredNames));
-			return Collections.unmodifiableSet(filteredNames);
+			return filteredNames;
 		} else
 			return super.wLocalNames();
 	}

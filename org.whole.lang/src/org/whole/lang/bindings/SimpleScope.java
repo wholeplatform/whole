@@ -17,8 +17,8 @@
  */
 package org.whole.lang.bindings;
 
-import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.SortedMap;
@@ -72,7 +72,7 @@ public class SimpleScope extends AbstractScope {
 	}
 
 	public Set<String> wLocalNames() {
-		return Collections.unmodifiableSet(map.keySet());
+		return new HashSet<String>(map.keySet());
 	}
 
 	public IEntity wGet(String name) {

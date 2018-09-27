@@ -17,7 +17,6 @@
  */
 package org.whole.lang.bindings;
 
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -85,7 +84,7 @@ public class EntityScope extends AbstractCloneableScope {
 		Set<String> localNames = new HashSet<String>();
 		for (FeatureDescriptor fd : entity.wGetEntityDescriptor().getEntityFeatureDescriptors())
 			localNames.add(fd.getName());
-		return Collections.unmodifiableSet(localNames);
+		return localNames;
 	}
 
 	private FeatureDescriptor getFeature(String name) {

@@ -17,7 +17,6 @@
  */
 package org.whole.lang.bindings;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -118,10 +117,10 @@ public class LazyTransactionScope extends SimpleScope implements ITransactionSco
 	}
 
 	public Set<String> wLocalNames() {
-		Set<String> nameSet = new HashSet<String>(wEnclosingScope().wLocalNames());
+		Set<String> nameSet = wEnclosingScope().wLocalNames();
 		nameSet.removeAll(unsetNames);
 		nameSet.addAll(defNames);
-		return Collections.unmodifiableSet(nameSet);
+		return nameSet;
 	}
 	public Set<String> wNames() {
 		Set<String> nameSet = wEnclosingScope().wNames();

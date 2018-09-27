@@ -49,7 +49,7 @@ public interface IBindingScope extends ICloneable, ISourceable {
 	 */
 	public void wClear();
 	/**
-	 * Return the set of names defined in the current scope (local).
+	 * Return (a copy of) the set of names defined in the current scope (local).
 	 */
 	public Set<String> wLocalNames();
 	/**
