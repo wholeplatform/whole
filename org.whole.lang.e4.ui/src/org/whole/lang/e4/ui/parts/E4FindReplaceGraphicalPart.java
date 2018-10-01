@@ -30,6 +30,7 @@ import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.gef.ContextMenuProvider;
 import org.eclipse.gef.EditPart;
 import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.SWT;
@@ -37,6 +38,7 @@ import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.events.FocusAdapter;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.whole.lang.bindings.BindingManagerFactory;
@@ -76,7 +78,7 @@ public class E4FindReplaceGraphicalPart extends E4GraphicalPart {
 	protected IBindingManager selection;
 	protected boolean selectionTracking;
 	protected IEntity foundEntity;
-
+	protected boolean singleReplaceEnabled;
 
 	@Override
 	protected IEntityPartViewer createEntityViewer(Composite parent) {
@@ -87,22 +89,48 @@ public class E4FindReplaceGraphicalPart extends E4GraphicalPart {
 
 	@PostConstruct
 	public void createPartControl(Composite parent) {
-		SashForm sashForm = new SashForm(parent, SWT.HORIZONTAL | SWT.SMOOTH);
-		sashForm.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-		
+		findReplaceActions = new IUpdatableAction[Operation.values().length];
+
+		SashForm sashForm;
+		if (E4Utils.isLegacyApplication()) {
+			sashForm = new SashForm(parent, SWT.HORIZONTAL | SWT.SMOOTH);
+			sashForm.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		} else {
+			
+			parent.setLayoutData(new GridData(GridData.FILL_BOTH));
+			parent.setLayout(new GridLayout());
+
+			ToolBarManager toolBarManager = new ToolBarManager(SWT.FLAT);
+			for (Operation operation : Operation.values())
+				toolBarManager.add(getFindReplaceAction(operation));
+			toolBarManager.createControl(parent);
+			GridData layoutData = new GridData(SWT.FILL, SWT.END, true, false);
+			toolBarManager.getControl().setLayoutData(layoutData);
+			toolBarManager.getControl().setVisible(!E4Utils.isLegacyApplication());
+
+			sashForm = new SashForm(parent, SWT.HORIZONTAL | SWT.SMOOTH);
+
+			GridData gd = new GridData(GridData.FILL_BOTH);
+			gd.widthHint = 300;
+			sashForm.setLayoutData(gd);
+		}
+
 		super.createPartControl(sashForm);
 		createReplaceArea(sashForm);
 
 		E4FindReplaceGraphicalPart.this.iterator = ExecutableFactory.instance.createDescendantOrSelfMatcher();
 		E4FindReplaceGraphicalPart.this.bindings = BindingManagerFactory.instance.createArguments();
-		findReplaceActions = new IUpdatableAction[Operation.values().length];
 		setPattern(CommonsEntityFactory.instance.createResolver());
 		setReplacement(CommonsEntityFactory.instance.createResolver());
 		enableSelectionTracking(true);
 		clearFoundEntity();
 	}
 
-	protected boolean singleReplaceEnabled;
+	@Override
+	protected void setDirty(boolean dirty) {
+		// never mark dirty
+	}
+
 	protected void updateButtonsEnablement(boolean singleReplaceEnabled) {
 		this.singleReplaceEnabled = singleReplaceEnabled;
 		for (Operation operation : Operation.values())
@@ -239,6 +267,11 @@ public class E4FindReplaceGraphicalPart extends E4GraphicalPart {
 		}
 	}
 	protected void doReplaceAll() {
+		if (selection == null) {
+			showStatusMessage(IE4UIConstants.PATTERN_NOT_FOUND_TEXT, false);
+			return;
+		}
+
 		IEntity self = selection.wGet("compoundRoot");
 		iterator.reset(self);
 

@@ -156,7 +156,7 @@ public abstract class AbstractE4Part {
 				@Override
 				public void stackChanged(CommandStackEvent event) {
 					if ((event.getDetail() & CommandStack.POST_MASK) != 0)
-						part.setDirty(viewer.isDirty());
+						setDirty(viewer.isDirty());
 				}
 			});
 
@@ -166,6 +166,10 @@ public abstract class AbstractE4Part {
 				viewer.setContents(modelInput, null);
 			}
 		});
+	}
+
+	protected void setDirty(boolean dirty) {
+		part.setDirty(dirty);
 	}
 
 	protected void registerHandlers() {

@@ -17,6 +17,7 @@
  */
 package org.whole.product.e4.lw.processors;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -26,6 +27,7 @@ import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Execute;
+import org.eclipse.e4.ui.bindings.EBindingService;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.SideValue;
@@ -33,6 +35,7 @@ import org.eclipse.e4.ui.model.application.ui.advanced.MAdvancedFactory;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspective;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspectiveStack;
 import org.eclipse.e4.ui.model.application.ui.basic.MBasicFactory;
+import org.eclipse.e4.ui.model.application.ui.basic.MDialog;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartSashContainer;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
@@ -46,9 +49,12 @@ import org.eclipse.e4.ui.model.application.ui.menu.MMenuFactory;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolBar;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolBarElement;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
+import org.eclipse.jface.bindings.Binding;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Monitor;
 import org.whole.lang.codebase.ClasspathPersistenceProvider;
+import org.whole.lang.e4.ui.actions.IE4UIConstants;
 import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.operations.InterpreterOperation;
 import org.whole.lang.xml.codebase.XmlBuilderPersistenceKit;
@@ -79,14 +85,31 @@ public class E4ModelProcessor {
 				throw new IllegalStateException("Unable to remove placeholder window with id: '"+PLACEHOLDER_WINDOW_ID+"'");
 
 			MTrimmedWindow window = MBasicFactory.INSTANCE.createTrimmedWindow();
-
+			window.setElementId(IE4UIConstants.MAIN_WINDOW_ID);
 			window.setLabel("Whole Language Workbench Window");
 			Display current = Display.getCurrent();
-			Rectangle displayBounds = current.getBounds();
-			window.setX(displayBounds.x+displayBounds.width/3);
-			window.setY(displayBounds.y+displayBounds.height/6);
-			window.setWidth(displayBounds.width/3);
-			window.setHeight(displayBounds.height*2/3);
+			Monitor[] monitors = current.getMonitors();
+			Rectangle clientArea = monitors[0].getClientArea();
+			window.setX(clientArea.x+clientArea.width/3);
+			window.setY(clientArea.y+clientArea.height/6);
+			window.setWidth(clientArea.width/3);
+			window.setHeight(clientArea.height*2/3);
+
+			MDialog findReplaceDialog = MBasicFactory.INSTANCE.createDialog();
+			findReplaceDialog.setElementId(IE4UIConstants.FIND_REPLACE_DIALOG_ID);
+			findReplaceDialog.setLabel("Find Replace...");
+			findReplaceDialog.setX(window.getX()+window.getWidth()/3);
+			findReplaceDialog.setY(window.getY()+window.getHeight()/6);
+			findReplaceDialog.setWidth(window.getWidth()/3);
+			findReplaceDialog.setHeight(window.getHeight()*1/5);
+
+			MPart part = MBasicFactory.INSTANCE.createPart();
+			part.setElementId(IE4UIConstants.FINDREPLACE_PART_ID);
+			part.setContributionURI("bundleclass://org.whole.lang.e4.ui/org.whole.lang.e4.ui.parts.E4FindReplaceGraphicalPart");
+			part.setLabel("Find/Replace");
+			part.setCloseable(false);
+			findReplaceDialog.getChildren().add(part);
+			application.getSnippets().add(findReplaceDialog);
 
 			MMenu mainMenu = MMenuFactory.INSTANCE.createMenu();
 			mainMenu.setElementId("menu:org.eclipse.ui.main.menu");
@@ -106,7 +129,7 @@ public class E4ModelProcessor {
 			MPartSashContainer partSashContainer = MBasicFactory.INSTANCE.createPartSashContainer();
 			partSashContainer.setHorizontal(false);
 			MPartStack partStack = MBasicFactory.INSTANCE.createPartStack();
-			MPart part = MBasicFactory.INSTANCE.createPart();
+			part = MBasicFactory.INSTANCE.createPart();
 			part.setContributionURI("bundleclass://org.whole.lang.e4.ui/org.whole.lang.e4.ui.parts.E4GraphicalPart");
 			part.setLabel("Part1a");
 			part.setCloseable(true);
@@ -157,17 +180,17 @@ public class E4ModelProcessor {
 
 		List<MMenuElement> menuItems = editMenu.getChildren();
 
-		menuItems.add(createHandledMenuItem("undo", "Undo", "org.eclipse.ui.edit.undo"));
-		menuItems.add(createHandledMenuItem("redo", "Redo", "org.eclipse.ui.edit.redo"));
+		menuItems.add(createHandledMenuItem("undo", "Undo", IE4UIConstants.EDIT_UNDO));
+		menuItems.add(createHandledMenuItem("redo", "Redo", IE4UIConstants.EDIT_REDO));
 		menuItems.add(MMenuFactory.INSTANCE.createMenuSeparator());
 
-		menuItems.add(createHandledMenuItem("cut", "Cut", "org.eclipse.ui.edit.cut"));
-		menuItems.add(createHandledMenuItem("copy", "Copy", "org.eclipse.ui.edit.copy"));
-		menuItems.add(createHandledMenuItem("paste", "Paste", "org.eclipse.ui.edit.paste"));
+		menuItems.add(createHandledMenuItem("cut", "Cut", IE4UIConstants.EDIT_CUT));
+		menuItems.add(createHandledMenuItem("copy", "Copy", IE4UIConstants.EDIT_COPY));
+		menuItems.add(createHandledMenuItem("paste", "Paste", IE4UIConstants.EDIT_PASTE));
 
-		menuItems.add(createHandledMenuItem("delete", "Delete", "org.eclipse.ui.edit.delete"));
-		menuItems.add(createHandledMenuItem("selectAll", "Select All", "org.eclipse.ui.edit.selectAll"));
-		menuItems.add(createHandledMenuItem("findReplace", "Find/Replace...", "org.eclipse.ui.edit.findReplace"));
+		menuItems.add(createHandledMenuItem("delete", "Delete", IE4UIConstants.EDIT_DELETE));
+		menuItems.add(createHandledMenuItem("selectAll", "Select All", IE4UIConstants.EDIT_SELECT_ALL));
+		menuItems.add(createHandledMenuItem("findReplace", "Find/Replace...", IE4UIConstants.EDIT_FIND_AND_REPLACE));
 		return editMenu;
 	}
 

@@ -40,6 +40,7 @@
     <bindings xmi:id="_l32joOW9EeOwa6zyDulOEA" elementId="" keySequence="M1+Z" command="_boOyIOW2EeOwa6zyDulOEA"/>
     <bindings xmi:id="_vk0_QOW9EeOwa6zyDulOEA" elementId="" keySequence="M1+SHIFT+Z" command="_bgFiwOW2EeOwa6zyDulOEA"/>
     <bindings xmi:id="_3cBlAOW9EeOwa6zyDulOEA" elementId="" keySequence="DEL" command="_YguwUOWjEeOr3YUCTkHmhA"/>
+    <bindings xmi:id="_M_nWkMV_EeiR06clw-9sGw" keySequence="M1+F" command="_ylqekOWzEeOwa6zyDulOEA"/>
   </bindingTables>
   <rootContext xmi:id="_2TgSCeWiEeOr3YUCTkHmhA" elementId="org.eclipse.ui.contexts.dialogAndWindow" name="In Dialog and Windows">
     <children xmi:id="_2TgSCuWiEeOr3YUCTkHmhA" elementId="org.eclipse.ui.contexts.window" name="In Windows"/>

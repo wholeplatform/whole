@@ -30,6 +30,10 @@ public interface IE4UIConstants {
 	// bundle id
 	public static final String BUNDLE_ID = "org.whole.lang.e4.ui";
 
+	// window/dialog id
+	public static final String MAIN_WINDOW_ID = BUNDLE_ID+".window.main";
+	public static final String FIND_REPLACE_DIALOG_ID = BUNDLE_ID+".dialog.findreplace";
+
 	// part id
 	public static final String FINDREPLACE_PART_ID = BUNDLE_ID+".part.findreplace";
 	public static final String DETAILS_PART_ID = BUNDLE_ID+".part.details";
@@ -87,7 +91,6 @@ public interface IE4UIConstants {
 	public static final String GENERATEARTIFACTS_COMMAND_ID = COMMAND_NS+"generateArtifacts";
 	public static final String GENERATEJAVA_COMMAND_ID = COMMAND_NS+"generateJava";
 
-	
 	public static final String ED_URI_PARAMETER_ID = PARAMETER_NS+"entityDescriptor";
 	public static final String FD_URI_PARAMETER_ID = PARAMETER_NS+"featureDescriptor";
 	public static final String FRAGMENT_XWL_PARAMETER_ID = PARAMETER_NS+"fragmentEntity";
