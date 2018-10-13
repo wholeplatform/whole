@@ -47,27 +47,27 @@ public class ChooseByOrderEvaluator extends AbstractDelegatingNestedEvaluator<IE
 			if (result != null)
 				choosen = true;
 			else
-				producerIndex += 1;
+				selectFollowingProducer();
 		}
 
 		return result;
 	}
 
-	public IEntity evaluateRemaining() {
-		IEntity result = null;
-
-		if (choosen)
-			result = getProducer().evaluateRemaining();
-		else while (!choosen && isValidProducer()) {
-			result = getProducer().evaluateRemaining();
-			if (result != null)
-				choosen = true;
-			else
-				producerIndex += 1;
-		}
-
-		return result;
-	}
+//	public IEntity evaluateRemaining() {
+//		IEntity result = null;
+//
+//		if (choosen)
+//			result = getProducer().evaluateRemaining();
+//		else while (!choosen && isValidProducer()) {
+//			result = getProducer().evaluateRemaining();
+//			if (result != null)
+//				choosen = true;
+//			else
+//				selectFollowingProducer();
+//		}
+//
+//		return result;
+//	}
 
     @Override
 	protected String toStringPrefix() {

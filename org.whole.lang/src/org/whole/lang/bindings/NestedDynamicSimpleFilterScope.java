@@ -19,38 +19,36 @@ package org.whole.lang.bindings;
 
 import java.util.Set;
 
-import org.whole.lang.model.IEntity;
-import org.whole.lang.operations.CloneContext;
-import org.whole.lang.operations.ICloneContext;
-
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractCloneableScope implements IBindingScope {
-	private IEntity sourceEntity;
-	public IBindingScope withSourceEntity(IEntity entity) {
-		sourceEntity = entity;
+public class NestedDynamicSimpleFilterScope extends NestedDynamicSimpleScope {
+
+	protected NestedDynamicSimpleFilterScope(Set<String> names, boolean asFreshNames) {
+		super();
+
+		enclosingScope = (asFreshNames ?
+				BindingManagerFactory.instance.createExcludeFilterScope(names) :
+				BindingManagerFactory.instance.createIncludeFilterScope(names)).wWithEnclosingScope(enclosingScope);
+	}
+
+	@Override
+	public AbstractFilterScope wFilteringEnclosingScope() {
+		return (AbstractFilterScope) enclosingScope;
+	}
+
+	@Override
+	public IBindingScope wEnclosingScope() {
+		return wFilteringEnclosingScope().wEnclosingScope();
+	}
+
+	@Override
+	public INestableScope wWithEnclosingScope(IBindingScope enclosingScope) {
+		wFilteringEnclosingScope().wWithEnclosingScope(enclosingScope);
+		resultScope = null;
 		return this;
 	}
-	public IEntity getSourceEntity() {
-		return sourceEntity;
-	}
 
-	public IBindingScope clone() {
-		return clone(new CloneContext());
-	}
-
-	public IBindingScope clone(ICloneContext cc) {
-		try {
-			AbstractCloneableScope scope = (AbstractCloneableScope) super.clone();
-			cc.putClone(this, scope);
-			return scope;
-		} catch (CloneNotSupportedException e) {
-			throw new InternalError();
-		}
-	}
-
-	public Set<String> wTargetNames() {
-		return wNames();
-	}
+	//TODO toString
 }
+

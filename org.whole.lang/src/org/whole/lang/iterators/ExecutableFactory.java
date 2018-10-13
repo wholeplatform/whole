@@ -333,7 +333,7 @@ public interface ExecutableFactory {
 
 	IExecutable<IEntity> createPointwiseEquals(IExecutable<IEntity> leftOperand, IExecutable<IEntity> rightOperand);
 
-	<E extends IEntity> IExecutable<E> createScope(IExecutable<E> scopeExecutable, String environmentName, Set<String> localNames, boolean withFreshNames);
+	<E extends IEntity> IExecutable<E> createScope(IExecutable<E> scopeExecutable, String environmentName, Set<String> names, boolean asFreshNames);
 
 	IExecutable<?> createTupleFactory(IExecutable<?>... tupleExecutables);
 

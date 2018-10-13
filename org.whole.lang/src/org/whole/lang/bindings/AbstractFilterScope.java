@@ -81,9 +81,34 @@ public abstract class AbstractFilterScope extends AbstractDelegatingScope implem
 	}
 	protected abstract boolean isHidden(String name, boolean forReading);
 
+	@Override
+	public Set<String> wLocalNames() {
+		return filter(super.wLocalNames());
+	}
+	@Override
+	public Set<String> wNames() {
+		return filter(super.wNames());
+	}
+	@Override
+	public Set<String> wTargetNames() {
+		return filter(super.wTargetNames());
+	}
+	protected abstract Set<String> filter(Set<String> names);
+
 	public void wClear() {
 		for (String name : wNames())
 			super.wUnset(name);
+	}
+
+	@Override
+	public void wAddAll(IBindingScope scope) {
+		if (scope == NullScope.instance)
+			return;
+		Set<String> names = scope.wEnclosingScope() == this || scope.wEnclosingScope() == NullScope.instance ?
+				scope.wLocalNames() :
+				scope.wNames();
+		for (String name : filter(names))
+			super.wDef(name, scope.wGet(name));
 	}
 
 	public boolean wBooleanValue(String name) {

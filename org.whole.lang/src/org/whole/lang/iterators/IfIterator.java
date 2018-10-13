@@ -132,7 +132,7 @@ public class IfIterator<E extends IEntity> extends AbstractDelegatingIterator<E>
 	}
 	protected void clearLookaheadScope() {
 		if (lookaheadScope != null) {
-			for (String name : lookaheadScope.wNames())
+			for (String name : lookaheadScope.wTargetNames())
 				getBindings().wUnset(name);
 			lookaheadScope.wClear();
 		}

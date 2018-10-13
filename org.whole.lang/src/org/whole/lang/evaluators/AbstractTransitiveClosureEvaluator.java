@@ -100,12 +100,12 @@ public abstract class AbstractTransitiveClosureEvaluator<E extends IEntity> exte
 		return entity;
 	}
 
-	@Override
-	public E evaluateRemaining() {
-		while (evaluateNext() != null)
-			;
-		return lastEntity;
-	}
+//	@Override
+//	public E evaluateRemaining() {
+//		while (evaluateNext() != null)
+//			;
+//		return lastEntity;
+//	}
 
 	public void prune() {
 		for (int i=iteratorStack.size()-1; i>=0; i--)

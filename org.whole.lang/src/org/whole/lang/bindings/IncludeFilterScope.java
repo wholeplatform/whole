@@ -32,24 +32,10 @@ public class IncludeFilterScope extends AbstractFilterScope {
 		return !getFilterNames().contains(name) && !name.startsWith("eclipse#") && !name.startsWith("debug#");
 	}
 
-	@Override
-	public Set<String> wLocalNames() {
-		if (isFilterEnabled()) {
-			Set<String> filteredNames = super.wLocalNames();
-			filteredNames.retainAll(extendedFilterNames(filteredNames));
-			return filteredNames;
-		} else
-			return super.wLocalNames();
-	}
-
-	@Override
-	public Set<String> wNames() {
-		if (isFilterEnabled()) {
-			Set<String> filteredNames = super.wNames();
-			filteredNames.retainAll(extendedFilterNames(filteredNames));
-			return filteredNames;
-		} else
-			return super.wNames();
+	protected Set<String> filter(Set<String> names) {
+		if (isFilterEnabled())
+			names.retainAll(extendedFilterNames(names));
+		return names;
 	}
 
 	protected Set<String> extendedFilterNames(Set<String> names) {

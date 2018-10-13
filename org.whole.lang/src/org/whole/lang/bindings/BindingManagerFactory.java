@@ -101,6 +101,13 @@ public class BindingManagerFactory {
 		return new NestedDynamicSimpleScope();
 	}
 
+	public INestableScope createNestedDynamicFilterScope(IBindingScope scope, Set<String> names, boolean asFreshNames) {
+		return new NestedDynamicFilterScope(scope, names, asFreshNames);
+	}
+	public INestableScope createNestedDynamicSimpleFilterScope(Set<String> names, boolean asFreshNames) {
+		return new NestedDynamicSimpleFilterScope(names, asFreshNames);
+	}
+
 	public AbstractFilterScope createIncludeFilterScope(Set<String> names) {
 		return new IncludeFilterScope(names);
 	}

@@ -128,6 +128,10 @@ public class LazyTransactionScope extends SimpleScope implements ITransactionSco
 		nameSet.addAll(defNames);
 		return nameSet;
 	}
+	@Override
+	public Set<String> wTargetNames() {
+		return wNames();
+	}
 
 	public IBindingScope wFindScope(String name) {
 		if (unsetNames.contains(name))

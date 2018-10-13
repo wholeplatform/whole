@@ -31,23 +31,10 @@ public class ExcludeFilterScope extends AbstractFilterScope {
 		return getFilterNames().contains(name);
 	}
 
-	@Override
-	public Set<String> wLocalNames() {
-		if (isFilterEnabled()) {
-			Set<String> filteredNames = super.wLocalNames();
-			filteredNames.removeAll(getFilterNames());
-			return filteredNames;
-		} else
-			return super.wLocalNames();
-	}
-	@Override
-	public Set<String> wNames() {
-		if (isFilterEnabled()) {
-			Set<String> filteredNames = super.wNames();
-			filteredNames.removeAll(getFilterNames());
-			return filteredNames;
-		} else
-			return super.wNames();
+	protected Set<String> filter(Set<String> names) {
+		if (isFilterEnabled())
+			names.removeAll(getFilterNames());
+		return names;
 	}
 
 	@Override

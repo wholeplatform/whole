@@ -23,6 +23,7 @@ import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.operations.ICloneContext;
 
 /**
  * @author Riccardo Solmi
@@ -31,16 +32,24 @@ import org.whole.lang.model.IEntity;
  */
 //public abstract class AbstractExecutableSteppingEvaluatingIterator<E extends IEntity> extends AbstractExecutableSteppingEvaluator<E> implements IEntityIterator<E> {
 public abstract class AbstractExecutableEvaluatingStepperIterator<E extends IEntity> extends AbstractExecutableEvaluatingStepper<E> implements IEntityIterator<E> {
-	private IBindingScope lookaheadScope;
+	protected IBindingScope executorScope;
+	protected boolean mergeLookaheadScope = true;
 	protected boolean lookaheadIsCached;
 	protected E lookaheadEntity;
     protected E lastEntity;
+
+	@Override
+    public IExecutable<E> clone(ICloneContext cc) {
+    	AbstractExecutableEvaluatingStepperIterator<E> executor = (AbstractExecutableEvaluatingStepperIterator<E>) super.clone(cc);
+		executor.executorScope = executorScope != null ? executorScope.clone() : null;
+		return executor;
+    }
 
     public void reset(IEntity entity) {
     	lookaheadIsCached = false;
 		lookaheadEntity = null;
 		lastEntity = null;
-		clearLookaheadScope();
+		clearExecutorScope();
    }
 
 	public IEntityIterator<E> iterator() {
@@ -48,15 +57,26 @@ public abstract class AbstractExecutableEvaluatingStepperIterator<E extends IEnt
 	}
 
 	public final boolean hasNext() {
-		return cachedEvaluateNext() != null;
+		return cachedEvaluateNext(false) != null;
 	}
 
 	public final E next() {
-		E nextEntity = cachedEvaluateNext();
+		E nextEntity = cachedEvaluateNext(true);
 		if (nextEntity == null)
 			throw new NoSuchElementException();
 
-    	getBindings().wAddAll(lookaheadScope());
+		//TODO uncomment for testing merge scope issues
+//		IBindingScope scope = lookaheadScope();
+//		if (scope != NullScope.instance) {
+//			boolean useLocalNames = scope.wEnclosingScope() == this || scope.wEnclosingScope() == NullScope.instance;
+//			Set<String> names = useLocalNames ? scope.wLocalNames() : scope.wNames();
+//			for (String name : names) {
+//				IEntity actualValue = getBindings().wGet(name);
+//				IEntity localValue = scope.wGet(name);
+//				if (actualValue != localValue)
+//					getBindings().wDef(name, scope.wGet(name)); //should never stop with a breakpoint here
+//			}
+//		}
 
     	lookaheadIsCached = false;
 		lookaheadEntity = null;
@@ -64,34 +84,56 @@ public abstract class AbstractExecutableEvaluatingStepperIterator<E extends IEnt
 	}
 
 	public final E lookahead() {
-		return cachedEvaluateNext();
+		return cachedEvaluateNext(false);
 	}
-	protected E cachedEvaluateNext() {
+	protected final E cachedEvaluateNext(boolean merge) {
 		if (!lookaheadIsCached) {
 			lookaheadIsCached = true;
-			
-			getBindings().wEnterScope(lookaheadScope(), true);
 
 			E cachedLastEntity = lastEntity;
-			lookaheadEntity = evaluateNext();
+			lookaheadEntity = scopedEvaluateNext(merge);
 			lastEntity = cachedLastEntity;
 
-			getBindings().wExitScope();
-		}
+		} else if (merge && lookaheadEntity != null)
+			getBindings().wAddAll(lookaheadScope());
+
 		return lookaheadEntity;
+	}
+	protected E scopedEvaluateNext(boolean merge) {
+		getBindings().wEnterScope(lookaheadScope(), true);
+		E result = evaluateNext();
+		getBindings().wExitScope(merge && result != null);
+		return result;
 	}
 
 	public IBindingScope lookaheadScope() {
-		if (lookaheadScope == null)
-			lookaheadScope = BindingManagerFactory.instance.createSimpleScope();
-		return lookaheadScope;
+		return executorScope();
 	}
 	protected void clearLookaheadScope() {
-		if (lookaheadScope != null) {
-			for (String name : lookaheadScope.wLocalNames())
-				getBindings().wUnset(name);
-			lookaheadScope.wClear();
+		clearExecutorScope();
+	}
+
+	protected IBindingScope executorScope() {
+		if (executorScope == null)
+			executorScope = BindingManagerFactory.instance.createSimpleScope();
+		return executorScope;
+	}
+	protected void clearExecutorScope() {
+		if (executorScope != null) {
+			if (lastEntity != null)
+				for (String name : executorScope.wTargetNames())
+					getBindings().wUnset(name);
+			executorScope.wClear();
 		}
+	}
+	protected boolean needClearExecutorScope(/*int producerIndex*/) {
+		return true;
+	}
+	protected void clearProducerScope(/*int producerIndex*/) {
+		clearExecutorScope();
+	}
+	protected boolean needMergeExecutorScope(/*int producerIndex*/) {
+		return mergeLookaheadScope;
 	}
 }
 

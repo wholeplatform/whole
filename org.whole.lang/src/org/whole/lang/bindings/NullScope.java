@@ -70,6 +70,11 @@ public class NullScope implements IBindingScope {
 		return new HashSet<String>();
 	}
 
+	@Override
+	public Set<String> wTargetNames() {
+		return wLocalNames();
+	}
+
 	public void wAddAll(IBindingScope scope) {
 		throw new IllegalStateException("NullBindingManager");		
 	}

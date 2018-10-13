@@ -105,14 +105,14 @@ public abstract class AbstractByIndexEvaluator<E extends IEntity> extends Abstra
 			return null;
 	}
 
-	@Override
-	public E evaluateRemaining() {
-		E result = null;
-		E next;
-		while ((next = evaluateNext()) != null)
-			result = next;
-		return result;
-	}
+//	@Override
+//	public E evaluateRemaining() {
+//		E result = null;
+//		E next;
+//		while ((next = evaluateNext()) != null)
+//			result = next;
+//		return result;
+//	}
 
 	@Override
 	public E evaluateSingleton() {

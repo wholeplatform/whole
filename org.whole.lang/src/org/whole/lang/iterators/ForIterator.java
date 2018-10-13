@@ -101,7 +101,7 @@ public class ForIterator<E extends IEntity> extends AbstractDelegatingIterator<E
 	}
 
 	@Override
-	public E next(){
+	public E next() {
 		E result = lookahead();
 		if (result == null)
 			throw new NoSuchElementException();
@@ -135,7 +135,7 @@ public class ForIterator<E extends IEntity> extends AbstractDelegatingIterator<E
 	}
 	protected void clearLookaheadScope() {
 		if (lookaheadScope != null) {
-			for (String name : lookaheadScope.wNames())
+			for (String name : lookaheadScope.wTargetNames())
 				getBindings().wUnset(name);
 			lookaheadScope.wClear();
 		}

@@ -23,6 +23,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.bindings.IBindingScope;
+import org.whole.lang.bindings.NullScope;
 import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.executables.IExecutable;
@@ -71,6 +73,18 @@ public class MultiValuedRunnableEvaluator<E extends IEntity> extends AbstractNes
     			throw new WholeIllegalArgumentException(WholeMessages.null_value_argument).withSourceEntity(getProducer(i).getSourceEntity()).withBindings(bm);
     	}
         return arguments;
+	}
+
+	@Override
+	public IBindingScope lookaheadScope() {
+		return executableResult != null ? executableResult.iterator().lookaheadScope() : NullScope.instance;
+	}
+	@Override
+	protected E scopedEvaluateNext(boolean merge) {
+		mergeLookaheadScope = merge;
+		E result = evaluateNext();
+		mergeLookaheadScope = true;
+		return result;
 	}
 
 	@Override

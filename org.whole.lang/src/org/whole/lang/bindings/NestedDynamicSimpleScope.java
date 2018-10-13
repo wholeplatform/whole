@@ -32,7 +32,7 @@ import org.whole.lang.operations.ICloneContext;
  * @author Riccardo Solmi
  */
 public class NestedDynamicSimpleScope extends SimpleScope implements INestableScope {
-	private IBindingScope enclosingScope = NullScope.instance;
+	protected IBindingScope enclosingScope = NullScope.instance;
 
 	protected NestedDynamicSimpleScope() {
 		this(new HashMap<String, IEntity>());
@@ -48,6 +48,9 @@ public class NestedDynamicSimpleScope extends SimpleScope implements INestableSc
 		return scope;
 	}
 
+	public IBindingScope wFilteringEnclosingScope() {
+		return enclosingScope;
+	}
 	public IBindingScope wEnclosingScope() {
 		return enclosingScope;
 	}
@@ -58,68 +61,68 @@ public class NestedDynamicSimpleScope extends SimpleScope implements INestableSc
 	}
 
 	public IBindingScope wFindScope(String name) {
-		return super.wIsSet(name) ? this : wEnclosingScope().wFindScope(name);
+		return super.wIsSet(name) ? this : wFilteringEnclosingScope().wFindScope(name);
 	}
 
 	public boolean wIsSet(String name) {
-		return super.wIsSet(name) ? true : wEnclosingScope().wIsSet(name);
+		return super.wIsSet(name) ? true : wFilteringEnclosingScope().wIsSet(name);
 	}
 	public IEntity wGet(String name) {
 		IEntity value = super.wGet(name);
-		return (value != null) ? value : wEnclosingScope().wGet(name);
+		return (value != null) ? value : wFilteringEnclosingScope().wGet(name);
 	}
 	public void wSet(String name, IEntity value) {
 		if (super.wIsSet(name))
 			wDef(name, value);//= wSet without if wIsSet
 		else
-			wEnclosingScope().wSet(name, value);
+			wFilteringEnclosingScope().wSet(name, value);
 	}
 	public void wUnset(String name) {
 		if (super.wIsSet(name))
 			super.wUnset(name);
 		else
-			wEnclosingScope().wUnset(name);
+			wFilteringEnclosingScope().wUnset(name);
 	}
 
 	public IBindingScope wResultScope() {
 		if (resultScope == null)
-			resultScope = wEnclosingScope().wResultScope();
+			resultScope = wFilteringEnclosingScope().wResultScope();
 		return resultScope != null ? resultScope : this;
 	}
 	public void wSetResultScope(IBindingScope scope) {
 		if (scope != this)
-			wEnclosingScope().wSetResultScope(scope);
+			wFilteringEnclosingScope().wSetResultScope(scope);
 		//assert resultScope == null || resultScope == scope;
 		resultScope = scope;
 	}
 
 	public boolean isExecutableResult() {
 		if (wResultScope() != this)
-			return wEnclosingScope().isExecutableResult();
+			return wFilteringEnclosingScope().isExecutableResult();
 		else
 			return super.isExecutableResult();
 	}
 	public <E extends IEntity> IExecutable<E> getExecutableResult() {
 		if (wResultScope() != this)
-			return wEnclosingScope().getExecutableResult();
+			return wFilteringEnclosingScope().getExecutableResult();
 		else
 			return super.getExecutableResult();
 	}
 	public void setExecutableResult(IExecutable<?> executableResult) {
 		if (wResultScope() != this)
-			wEnclosingScope().setExecutableResult(executableResult);
+			wFilteringEnclosingScope().setExecutableResult(executableResult);
 		else
 			super.setExecutableResult(executableResult);
 	}
 	public IEntity getResult() {
 		if (wResultScope() != this)
-			return wEnclosingScope().getResult();
+			return wFilteringEnclosingScope().getResult();
 		else
 			return super.getResult();
 	}
 	public void setResult(IEntity result) {
 		if (wResultScope() != this)
-			wEnclosingScope().setResult(result);
+			wFilteringEnclosingScope().setResult(result);
 		else
 			super.setResult(result);
 	}

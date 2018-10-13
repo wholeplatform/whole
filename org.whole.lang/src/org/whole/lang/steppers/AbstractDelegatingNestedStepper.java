@@ -48,6 +48,12 @@ public abstract class AbstractDelegatingNestedStepper<E extends IEntity> extends
 	protected boolean isLastProducer() {
 		return producerIndex == producersSize()-1;
 	}
+	protected boolean isNotFirstProducer() {
+		return producerIndex > 0;
+	}
+	protected boolean isNotLastProducer() {
+		return producerIndex < producersSize()-1;
+	}
 	protected boolean isValidProducer() {
 		return producerIndex < producersSize();
 	}

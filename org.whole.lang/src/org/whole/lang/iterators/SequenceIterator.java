@@ -72,7 +72,7 @@ public class SequenceIterator<E extends IEntity> extends AbstractLazyCloneableCo
 		final Map<String, IEntity> lookaheadBindings = new HashMap<String, IEntity>();
 
 		IBindingScope currentLookaheadScope = currentIterator().lookaheadScope();
-		for (String name : currentLookaheadScope.wLocalNames()) {
+		for (String name : currentLookaheadScope.wTargetNames()) {
 			bindings.wUnset(name);
 			lookaheadBindings.put(name, currentLookaheadScope.wGet(name));
 		}

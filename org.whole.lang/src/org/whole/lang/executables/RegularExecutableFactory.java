@@ -38,6 +38,7 @@ import org.whole.lang.evaluators.ChildRangeEvaluator;
 import org.whole.lang.evaluators.ChooseByOrderEvaluator;
 import org.whole.lang.evaluators.CloneReplacingEvaluator;
 import org.whole.lang.evaluators.CollectionEvaluator;
+import org.whole.lang.evaluators.ComposeEvaluator;
 import org.whole.lang.evaluators.ConstantChildEvaluator;
 import org.whole.lang.evaluators.ConstantComposeEvaluator;
 import org.whole.lang.evaluators.ConstantEvaluator;
@@ -49,9 +50,11 @@ import org.whole.lang.evaluators.FeatureByNameEvaluator;
 import org.whole.lang.evaluators.FilterByDistinctEvaluator;
 import org.whole.lang.evaluators.FollowingEvaluator;
 import org.whole.lang.evaluators.FollowingSiblingEvaluator;
+import org.whole.lang.evaluators.ForEvaluator;
 import org.whole.lang.evaluators.IfEvaluator;
 import org.whole.lang.evaluators.InverseAdjacentEvaluator;
 import org.whole.lang.evaluators.InverseReachableEvaluator;
+import org.whole.lang.evaluators.LocalScopeEvaluator;
 import org.whole.lang.evaluators.LocalVariableEvaluator;
 import org.whole.lang.evaluators.MultiValuedRunnableEvaluator;
 import org.whole.lang.evaluators.OuterLocalVariableEvaluator;
@@ -65,7 +68,6 @@ import org.whole.lang.evaluators.SortEvaluator;
 import org.whole.lang.evaluators.VariableEvaluator;
 import org.whole.lang.iterators.AbstractIteratorBasedExecutableFactory;
 import org.whole.lang.iterators.DistinctScope;
-import org.whole.lang.iterators.ForIterator;
 import org.whole.lang.iterators.MatcherIterator;
 import org.whole.lang.iterators.ScannerIterator;
 import org.whole.lang.matchers.Matcher;
@@ -354,6 +356,12 @@ public class RegularExecutableFactory extends AbstractIteratorBasedExecutableFac
 		return new DescendantOrReachableEvaluator<E>(includeSelf, distinctScope);
 	}
 
+	public <E extends IEntity> IExecutable<E> createFilter(IExecutable<E> executable, IExecutable<? extends IEntity> filterExecutable) {
+		return super.createFilter(executable, filterExecutable);
+		//FIXME
+//		return (IExecutable<E>) new FilterEvaluator((IExecutable<IEntity>) executable, (IExecutable<IEntity>) filterExecutable);
+	}
+
 	public IExecutable<IEntity> createMatchInScope(IExecutable<IEntity> patternExecutable) {
 		return new AbstractNestedSupplierEvaluator<IEntity>(patternExecutable) {
 			public IEntity get() {
@@ -377,9 +385,7 @@ public class RegularExecutableFactory extends AbstractIteratorBasedExecutableFac
 
 	@SuppressWarnings("unchecked")
 	public <E extends IEntity> IExecutable<E> createFor(IExecutable<? extends IEntity> forExecutable, IExecutable<E> doExecutable) {
-		return super.createFor(forExecutable, doExecutable);
-		//FIXME
-//		return (IExecutable<E>) new ForEvaluator((IExecutable<IEntity>) forExecutable, (IExecutable<IEntity>) doExecutable);
+		return (IExecutable<E>) new ForEvaluator((IExecutable<IEntity>) forExecutable, (IExecutable<IEntity>) doExecutable);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -393,6 +399,24 @@ public class RegularExecutableFactory extends AbstractIteratorBasedExecutableFac
 //		return new SequenceEvaluator<>(executableChain);
 	}
 
+	@SuppressWarnings("unchecked")
+	public <E extends IEntity> IExecutable<E> createCompose(IExecutable<E> innerExecutable, IExecutable<? extends IEntity>... outerExecutables) {
+		int index = outerExecutables.length;
+		IExecutable<?>[] nestedExecutables = new IExecutable<?>[outerExecutables.length+1];
+		nestedExecutables[index--] = innerExecutable;
+		for (IExecutable<?> e : outerExecutables) {
+			nestedExecutables[index--] = e;
+		}
+
+		return (IExecutable<E>) new ComposeEvaluator(nestedExecutables);
+	}
+
+	@SuppressWarnings("unchecked")
+	public <E extends IEntity> IExecutable<E> createScope(IExecutable<E> scopeExecutable, String environmentName, Set<String> names, boolean asFreshNames) {
+		return (IExecutable<E>) new LocalScopeEvaluator((IExecutable<IEntity>) scopeExecutable, names, asFreshNames);
+    }
+
+	
 	public <E extends IEntity> IExecutable<E> createSort(IExecutable<E> executable) {
 		return new SortEvaluator<E>(executable);
 	}

@@ -60,6 +60,10 @@ public abstract class AbstractDelegatingScope extends AbstractCloneableScope {
 	public Set<String> wLocalNames() {
 		return delegateScope.wLocalNames();
 	}
+	@Override
+	public Set<String> wTargetNames() {
+		return delegateScope.wNames();
+	}
 
 	public void wAddAll(IBindingScope scope) {
 		if (scope == NullScope.instance)

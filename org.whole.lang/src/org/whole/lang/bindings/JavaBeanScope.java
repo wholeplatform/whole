@@ -75,7 +75,10 @@ public class JavaBeanScope extends AbstractCloneableScope {
 
 	public Set<String> wNames() {
 		Set<String> nameSet = wEnclosingScope().wNames();
-		nameSet.addAll(wLocalNames());
+		if (nameSet.isEmpty())
+			nameSet = wLocalNames();
+		else
+			nameSet.addAll(wLocalNames());
 		return nameSet;
 	}
 

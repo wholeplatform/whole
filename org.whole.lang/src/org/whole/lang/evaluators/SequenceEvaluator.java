@@ -31,55 +31,54 @@ public class SequenceEvaluator<E extends IEntity> extends AbstractDelegatingNest
 		super(executables);
 	}
 
-	protected AbstractFilterScope localScope;
-	public AbstractFilterScope localScope() {
-		if (localScope == null)
-			localScope = BindingManagerFactory.instance.createExcludeFilterSimpleScope();
-		return localScope;
+	public AbstractFilterScope executorScope() {
+		if (executorScope == null)
+			executorScope = BindingManagerFactory.instance.createExcludeFilterSimpleScope();
+		return (AbstractFilterScope) executorScope;
 	}
-	protected void clearLocalScope() {
-		if (localScope != null) {
-			localScope.setFilterEnabled(false);
-			for (String name : localScope.wLocalNames())
+	protected void clearExecutorScope() {
+		if (executorScope != null) {
+			executorScope().setFilterEnabled(false);
+			for (String name : executorScope.wLocalNames())
 				getBindings().wUnset(name);
-			localScope.wClear();
-			localScope.getFilterNames().clear();
-			localScope.setFilterEnabled(true);
+			executorScope.wClear();
+			executorScope().getFilterNames().clear();
+			executorScope().setFilterEnabled(true);
 		}
 	}
-	protected IEntity localScopedEvaluateNext() {
+	protected IEntity scopedEvaluateNext() {
 		try {
 			//clearLocalScope();
-			localScope().setFilterEnabled(false);
-			for (String name : localScope().wLocalNames())
+			executorScope().setFilterEnabled(false);
+			for (String name : executorScope().wLocalNames())
 				getBindings().wUnset(name);
-			getBindings().wEnterScope(localScope(), true);
+			getBindings().wEnterScope(executorScope(), true);
 			return getProducer().evaluateNext();
 		} finally {
-			localScope().setFilterEnabled(true);
+			executorScope().setFilterEnabled(true);
 			getBindings().wExitScope(true);
-			localScope().getFilterNames().addAll(localScope().wLocalNames());
+			executorScope().getFilterNames().addAll(executorScope().wLocalNames());
 		}
 	}
-	protected IEntity localScopedEvaluateRemaining() {
+	protected IEntity scopedEvaluateRemaining() {
 		try {
 			//clearLocalScope();
-			localScope().setFilterEnabled(false);
-			for (String name : localScope().wLocalNames())
+			executorScope().setFilterEnabled(false);
+			for (String name : executorScope().wLocalNames())
 				getBindings().wUnset(name);
-			getBindings().wEnterScope(localScope(), true);
+			getBindings().wEnterScope(executorScope(), true);
 			return getProducer().evaluateRemaining();
 		} finally {
-			localScope().setFilterEnabled(true);
+			executorScope().setFilterEnabled(true);
 			getBindings().wExitScope(true);
-			localScope().getFilterNames().addAll(localScope().wLocalNames());
+			executorScope().getFilterNames().addAll(executorScope().wLocalNames());
 		}
 	}
 
 	@Override
 	public void reset(IEntity entity) {
 		super.reset(entity);
-		clearLocalScope();
+		clearExecutorScope();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -87,23 +86,23 @@ public class SequenceEvaluator<E extends IEntity> extends AbstractDelegatingNest
 		IEntity result = null;
 
 		while (isValidProducer()) {
-			result = localScopedEvaluateNext();
+			result = scopedEvaluateNext();
 			if (result != null)
 				break;
-			producerIndex += 1;
+			selectFollowingProducer();
 		}
-		return (E) result;
+		return lastEntity = (E) result;
 	}
 
-	@SuppressWarnings("unchecked")
-	public E evaluateRemaining() {
-		IEntity result = null;
-
-		while (isValidProducer()) {
-			result = localScopedEvaluateRemaining();
-			producerIndex += 1;
-		}
-		return (E) result;
-	}
+//	@SuppressWarnings("unchecked")
+//	public E evaluateRemaining() {
+//		IEntity result = null;
+//
+//		while (isValidProducer()) {
+//			result = scopedEvaluateRemaining();
+//			selectFollowingProducer();
+//		}
+//		return lastEntity = (E) result;
+//	}
 }
 

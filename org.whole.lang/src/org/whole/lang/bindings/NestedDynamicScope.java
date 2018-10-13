@@ -29,7 +29,8 @@ import org.whole.lang.operations.ICloneContext;
  */
 public class NestedDynamicScope extends AbstractScope implements INestableScope {
 	private IBindingScope targetScope;
-	private IBindingScope enclosingScope = NullScope.instance;
+	protected IBindingScope enclosingScope = NullScope.instance;
+	protected IBindingScope resultScope;
 
 	protected NestedDynamicScope(IBindingScope targetScope) {
 		this.targetScope = targetScope;
@@ -46,6 +47,9 @@ public class NestedDynamicScope extends AbstractScope implements INestableScope 
 
 	public IBindingScope wTargetScope() {
 		return targetScope;
+	}
+	public IBindingScope wFilteringEnclosingScope() {
+		return enclosingScope;
 	}
 	public IBindingScope wEnclosingScope() {
 		return enclosingScope;
@@ -65,28 +69,36 @@ public class NestedDynamicScope extends AbstractScope implements INestableScope 
 	}
 
 	public Set<String> wNames() {
-		Set<String> nameSet = wEnclosingScope().wNames();
-		nameSet.addAll(wTargetScope().wNames());
+		Set<String> nameSet = wFilteringEnclosingScope().wNames();
+		if (nameSet.isEmpty())
+			nameSet = wTargetScope().wNames();
+		else
+			nameSet.addAll(wTargetScope().wNames());
 		return nameSet;
 	}
+	@Override
+	public Set<String> wTargetNames() {
+		return wTargetScope().wNames();
+	}
+
 
 	public IBindingScope wFindScope(String name) {
 		IBindingScope scope = wTargetScope().wFindScope(name);
-		return scope != VoidScope.instance ? scope : wEnclosingScope().wFindScope(name);
+		return scope != VoidScope.instance ? scope : wFilteringEnclosingScope().wFindScope(name);
 	}
 
 	public boolean wIsSet(String name) {
-		return wTargetScope().wIsSet(name) ? true : wEnclosingScope().wIsSet(name);
+		return wTargetScope().wIsSet(name) ? true : wFilteringEnclosingScope().wIsSet(name);
 	}
 	public IEntity wGet(String name) {
 		IEntity value = wTargetScope().wGet(name);
-		return (value != null) ? value : wEnclosingScope().wGet(name);
+		return (value != null) ? value : wFilteringEnclosingScope().wGet(name);
 	}
 	public void wSet(String name, IEntity value) {
 		if (wTargetScope().wIsSet(name))
 			wTargetScope().wSet(name, value);
 		else
-			wEnclosingScope().wSet(name, value);
+			wFilteringEnclosingScope().wSet(name, value);
 	}
 	public void wDef(String name, IEntity value) {
 		wTargetScope().wDef(name, value);
@@ -96,24 +108,23 @@ public class NestedDynamicScope extends AbstractScope implements INestableScope 
 		if (wTargetScope().wIsSet(name))
 			wTargetScope().wUnset(name);
 		else
-			wEnclosingScope().wUnset(name);
+			wFilteringEnclosingScope().wUnset(name);
 	}
 
-	private IBindingScope resultScope;
 	public IBindingScope wResultScope() {
 		if (resultScope == null)
-			resultScope = wEnclosingScope().wResultScope();
+			resultScope = wFilteringEnclosingScope().wResultScope();
 		return resultScope != null ? resultScope : this;
 	}
 	public void wSetResultScope(IBindingScope scope) {
 		if (scope != this)
-			wEnclosingScope().wSetResultScope(scope);
+			wFilteringEnclosingScope().wSetResultScope(scope);
 		//assert resultScope == null || resultScope == scope;
 		resultScope = scope;
 	}
 
 	protected final IBindingScope resultScopeDelegate() {
-		return wResultScope() != this ? wEnclosingScope() : wTargetScope();
+		return wResultScope() != this ? wFilteringEnclosingScope() : wTargetScope();
 	}
 	public boolean isExecutableResult() {
 		return resultScopeDelegate().isExecutableResult();

@@ -36,17 +36,17 @@ public abstract class AbstractScope extends AbstractCloneableScope {
 
 	public Set<String> wNames() {
 		Set<String> nameSet = wEnclosingScope().wNames();
-		nameSet.addAll(wLocalNames());
+		if (nameSet.isEmpty())
+			nameSet = wLocalNames();
+		else
+			nameSet.addAll(wLocalNames());
 		return nameSet;
 	}
 
 	public void wAddAll(IBindingScope scope) {
 		if (scope == NullScope.instance)
 			return;
-		Set<String> names = scope.wEnclosingScope() == this || scope.wEnclosingScope() == NullScope.instance ?
-				scope.wLocalNames() :
-				scope.wNames();
-		for (String name : names)
+		for (String name : scope.wTargetNames())
 			wDef(name, scope.wGet(name));
 	}
 

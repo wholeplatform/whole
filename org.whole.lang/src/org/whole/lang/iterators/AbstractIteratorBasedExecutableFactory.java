@@ -18,9 +18,7 @@
 package org.whole.lang.iterators;
 
 import java.util.Map;
-import java.util.Set;
 
-import org.whole.lang.bindings.AbstractFilterScope;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
@@ -109,10 +107,6 @@ public abstract class AbstractIteratorBasedExecutableFactory implements Executab
 	}
 
 
-	public <E extends IEntity> IExecutable<E> createFor(IExecutable<? extends IEntity> forExecutable, IExecutable<E> doExecutable) {
-		return new ForIterator<E>(forExecutable.iterator(), doExecutable.iterator());
-	}
-
 	public IExecutable<IEntity> createFunctionApplication(String functionUri) {
 		return new FunctionApplicationIterator(functionUri);
 	}
@@ -133,10 +127,6 @@ public abstract class AbstractIteratorBasedExecutableFactory implements Executab
 
 	public <E extends IEntity> IExecutable<E> createSequence(IExecutable<? extends E>... executableChain) {
 		return new SequenceIterator<E>(toIterators(executableChain));
-	}
-
-	public <E extends IEntity> IExecutable<E> createCompose(IExecutable<E> executable, IExecutable<? extends IEntity>... nestedExecutables) {
-		return new ComposeIterator<E>(executable.iterator(), toIterators(nestedExecutables));
 	}
 
 	public <E extends IEntity> IExecutable<E> createFilterByIndex(IExecutable<E> executable, int index) {
@@ -331,16 +321,6 @@ public abstract class AbstractIteratorBasedExecutableFactory implements Executab
 			}
 		};
 	}
-
-	public <E extends IEntity> IExecutable<E> createScope(IExecutable<E> scopeExecutable, String environmentName, Set<String> localNames, boolean withFreshNames) {
-    	return withFreshNames ? new LocalScopeIterator<E>(scopeExecutable.iterator(), localNames) :
-    		new LocalScopeIterator<E>(scopeExecutable.iterator(), localNames) {
-    			@Override
-    			protected AbstractFilterScope createScopeFilter(Set<String> localNames) {
-    				return BindingManagerFactory.instance.createIncludeFilterScope(localNames);
-    			}
-    		};
-    }
 
 	public IExecutable<?> createTupleFactory(IExecutable<?>... tupleExecutables) {
 		return new TupleFactoryIterator(toIterators(tupleExecutables));

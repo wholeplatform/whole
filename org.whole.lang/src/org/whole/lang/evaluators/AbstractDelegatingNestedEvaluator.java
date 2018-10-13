@@ -45,14 +45,29 @@ public abstract class AbstractDelegatingNestedEvaluator<E extends IEntity> exten
 	protected boolean isFirstProducer() {
 		return producerIndex == 0;
 	}
+	protected boolean isNotFirstProducer() {
+		return producerIndex > 0;
+	}
+	protected boolean isNotLastProducer() {
+		return producerIndex < producersSize()-1;
+	}
 	protected boolean isLastProducer() {
 		return producerIndex == producersSize()-1;
 	}
 	protected boolean isValidProducer() {
 		return producerIndex < producersSize();
 	}
+	protected boolean isValidResultProducer() {
+		return isValidProducer();
+	}
 	protected IExecutable<?> getProducer() {
 		return getProducer(producerIndex);
+	}
+	protected void selectFollowingProducer() {
+		producerIndex += 1;
+	}
+	protected void selectPrecedingProducer() {
+		producerIndex -= 1;
 	}
 
 	protected void scopedCallNext(IBindingScope scope) {
@@ -79,12 +94,34 @@ public abstract class AbstractDelegatingNestedEvaluator<E extends IEntity> exten
 			getBindings().wExitScope();
 		}
 	}
+	protected IEntity scopedEvaluateNext() {
+		IEntity result = null;
+		try {
+			if (needClearExecutorScope())
+				clearProducerScope();
+			getBindings().wEnterScope(executorScope(), true);
+			return result = getProducer().evaluateNext();
+		} finally {
+			getBindings().wExitScope(needMergeExecutorScope() && result != null);
+		}
+	}
 	protected IEntity scopedEvaluateRemaining(IBindingScope scope) {
 		try {
 			getBindings().wEnterScope(scope, true);
 			return getProducer().evaluateRemaining();
 		} finally {
 			getBindings().wExitScope();
+		}
+	}
+	protected IEntity scopedEvaluateRemaining() {
+		IEntity result = null;
+		try {
+			if (needClearExecutorScope())
+				clearProducerScope();
+			getBindings().wEnterScope(executorScope(), true);
+			return result = getProducer().evaluateRemaining();
+		} finally {
+			getBindings().wExitScope(needMergeExecutorScope() && result != null);
 		}
 	}
 	protected boolean scopedEvaluateAsBooleanOrFail(IBindingScope scope) {
@@ -96,38 +133,47 @@ public abstract class AbstractDelegatingNestedEvaluator<E extends IEntity> exten
 		}
 	}
 	protected boolean scopedEvaluateAsBooleanOrFail(boolean mergeOnTrue) {
-		boolean merge = false;
+		boolean result = false;
 		try {
 			getBindings().wEnterScope(BindingManagerFactory.instance.createSimpleScope(), true);
-			return merge = getProducer().evaluateAsBooleanOrFail();
+			return result = getProducer().evaluateAsBooleanOrFail();
 		} finally {
-			getBindings().wExitScope(mergeOnTrue ? merge : !merge);
+			getBindings().wExitScope(mergeOnTrue && result);
+		}
+	}
+	protected boolean scopedEvaluateAsBooleanOrFail() {
+		boolean result = false;
+		try {
+			getBindings().wEnterScope(executorScope(), true);
+			return result = getProducer().evaluateAsBooleanOrFail();
+		} finally {
+			getBindings().wExitScope(needMergeExecutorScope() && result);
 		}
 	}
 
 	@Override
 	public void prune() {
-		if (isValidProducer())
+		if (isValidResultProducer())
 			getProducer().prune();
 	}
 
 	@SuppressWarnings("unchecked")
 	public void set(E entity) {
-    	if (!isValidProducer())
+    	if (!isValidResultProducer())
     		throw new IllegalStateException();
 
     	((IExecutable<? super E>) getProducer()).set(entity);
 	}
 	@SuppressWarnings("unchecked")
 	public void add(E entity) {
-    	if (!isValidProducer())
+    	if (!isValidResultProducer())
     		throw new IllegalStateException();
 
 		((IExecutable<? super E>) getProducer()).add(entity);
 	}
 
 	public void remove() {
-    	if (!isValidProducer())
+    	if (!isValidResultProducer())
     		throw new IllegalStateException();
 
 		getProducer().remove();

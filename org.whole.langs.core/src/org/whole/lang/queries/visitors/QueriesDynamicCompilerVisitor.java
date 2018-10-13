@@ -33,6 +33,7 @@ import org.whole.lang.commons.reflect.CommonsLanguageKit;
 import org.whole.lang.comparators.BusinessIdentityComparator;
 import org.whole.lang.comparators.IEntityComparator;
 import org.whole.lang.comparators.IdentityIteratorComparator;
+import org.whole.lang.evaluators.FilterEvaluator;
 import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.executables.EmptyExecutable;
 import org.whole.lang.executables.IExecutable;
@@ -376,7 +377,10 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 
 			if (!(queryPredicateIterator.undecoratedExecutable() instanceof EmptyExecutable)) {
 				IExecutable<?> ri = iteratorFactory().createFilter(getExecutableResult(), queryPredicateIterator);
-				((FilterIterator<?>) ri.undecoratedExecutable()).withAutoPrune(usePruneFilter);
+				if (ri instanceof FilterEvaluator)
+					((FilterEvaluator) ri.undecoratedExecutable()).withAutoPrune(usePruneFilter);
+				else
+					((FilterIterator<?>) ri.undecoratedExecutable()).withAutoPrune(usePruneFilter);
 				setExecutableResult(ri.withSourceEntity(entity));
 			}
 		}

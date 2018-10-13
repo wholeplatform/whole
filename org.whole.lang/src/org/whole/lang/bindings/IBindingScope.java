@@ -45,10 +45,6 @@ public interface IBindingScope extends ICloneable, ISourceable {
 
 
 	/**
-	 * Unbind all local names.
-	 */
-	public void wClear();
-	/**
 	 * Return (a copy of) the set of names defined in the current scope (local).
 	 */
 	public Set<String> wLocalNames();
@@ -56,6 +52,15 @@ public interface IBindingScope extends ICloneable, ISourceable {
 	 * Return (a copy of) the set of names local or in scope (dynamic scope chain).
 	 */
 	public Set<String> wNames();
+	/**
+	 * Return (a copy of) the set of names in target scope.
+	 */
+	public Set<String> wTargetNames();
+
+	/**
+	 * Unbind all local names.
+	 */
+	public void wClear();
 
 	/**
 	 * Add (wDef) to the current scope all bindings (local or in scope) defined

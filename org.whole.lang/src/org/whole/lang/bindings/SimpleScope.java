@@ -74,6 +74,10 @@ public class SimpleScope extends AbstractScope {
 	public Set<String> wLocalNames() {
 		return new HashSet<String>(map.keySet());
 	}
+	@Override
+	public Set<String> wTargetNames() {
+		return wLocalNames();
+	}
 
 	public IEntity wGet(String name) {
 		return map.get(name);

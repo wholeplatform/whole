@@ -136,7 +136,7 @@ public class WithStageIterator<E extends IEntity> extends AbstractDelegatingIter
 	}
 	protected void clearLookaheadScope() {
 		if (lookaheadScope != null) {
-			for (String name : lookaheadScope.wNames())
+			for (String name : lookaheadScope.wTargetNames())
 				getBindings().wUnset(name);
 			lookaheadScope.wClear();
 		}

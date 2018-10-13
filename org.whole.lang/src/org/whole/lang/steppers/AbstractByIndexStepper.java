@@ -94,14 +94,14 @@ public abstract class AbstractByIndexStepper<E extends IEntity> extends Abstract
 		return NullScope.instance;
 	}
 
-	@Override
-	public E evaluateRemaining() {
-		E result = null;
-		E next;
-		while ((next = evaluateNext()) != null)
-			result = next;
-		return result;
-	}
+//	@Override
+//	public E evaluateRemaining() {
+//		E result = null;
+//		E next;
+//		while ((next = evaluateNext()) != null)
+//			result = next;
+//		return result;
+//	}
 
 	@Override
 	public E evaluateSingleton() {

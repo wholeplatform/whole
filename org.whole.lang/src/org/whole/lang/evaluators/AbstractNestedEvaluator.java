@@ -19,8 +19,6 @@ package org.whole.lang.evaluators;
 
 import java.util.BitSet;
 
-import org.whole.lang.bindings.BindingManagerFactory;
-import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.executables.AbstractExecutableEvaluatingStepperIterator;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
@@ -85,42 +83,47 @@ public abstract class AbstractNestedEvaluator<E extends IEntity> extends Abstrac
 	protected void initProducer(IExecutable<?> p, int index) {
 		p.setBindings(getBindings());
 		p.reset(selfEntity);
-		p.withConsumer(this);
 	}
 
-	protected IEntity scopedEvaluateNext(int producerIndex, IBindingScope scope) {
-		try {
-			getBindings().wEnterScope(scope, true);
-			return getProducer(producerIndex).evaluateNext();
-		} finally {
-			getBindings().wExitScope();
-		}
-	}
-	protected IEntity scopedEvaluateRemaining(int producerIndex, IBindingScope scope) {
-		try {
-			getBindings().wEnterScope(scope, true);
-			return getProducer(producerIndex).evaluateRemaining();
-		} finally {
-			getBindings().wExitScope();
-		}
-	}
-	protected boolean scopedEvaluateAsBooleanOrFail(int producerIndex, IBindingScope scope) {
-		try {
-			getBindings().wEnterScope(scope, true);
-			return getProducer(producerIndex).evaluateAsBooleanOrFail();
-		} finally {
-			getBindings().wExitScope();
-		}
-	}
-	protected boolean scopedEvaluateAsBooleanOrFail(int producerIndex, boolean mergeOnTrue) {
-		boolean merge = false;
-		try {
-			getBindings().wEnterScope(BindingManagerFactory.instance.createSimpleScope(), true);
-			return merge = getProducer(producerIndex).evaluateAsBooleanOrFail();
-		} finally {
-			getBindings().wExitScope(mergeOnTrue ? merge : !merge);
-		}
-	}
+//	protected IEntity scopedEvaluateNext(int producerIndex) {
+//		return scopedEvaluateNext(producerIndex, executorScope());
+//	}
+//	protected IEntity scopedEvaluateNext(int producerIndex, IBindingScope scope) {
+//		try {
+//			getBindings().wEnterScope(scope, true);
+//			return getProducer(producerIndex).evaluateNext();
+//		} finally {
+//			getBindings().wExitScope();
+//		}
+//	}
+//	protected IEntity scopedEvaluateRemaining(int producerIndex) {
+//		return scopedEvaluateRemaining(producerIndex, executorScope());
+//	}
+//	protected IEntity scopedEvaluateRemaining(int producerIndex, IBindingScope scope) {
+//		try {
+//			getBindings().wEnterScope(scope, true);
+//			return getProducer(producerIndex).evaluateRemaining();
+//		} finally {
+//			getBindings().wExitScope();
+//		}
+//	}
+//	protected boolean scopedEvaluateAsBooleanOrFail(int producerIndex, IBindingScope scope) {
+//		try {
+//			getBindings().wEnterScope(scope, true);
+//			return getProducer(producerIndex).evaluateAsBooleanOrFail();
+//		} finally {
+//			getBindings().wExitScope();
+//		}
+//	}
+//	protected boolean scopedEvaluateAsBooleanOrFail(int producerIndex, boolean mergeOnTrue) {
+//		boolean result = false;
+//		try {
+//			getBindings().wEnterScope(BindingManagerFactory.instance.createSimpleScope(), true);
+//			return result = getProducer(producerIndex).evaluateAsBooleanOrFail();
+//		} finally {
+//			getBindings().wExitScope(mergeOnTrue && result);
+//		}
+//	}
 
 
     public void prune() {

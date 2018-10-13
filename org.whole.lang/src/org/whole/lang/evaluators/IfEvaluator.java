@@ -18,7 +18,6 @@
 package org.whole.lang.evaluators;
 
 import org.whole.lang.bindings.BindingManagerFactory;
-import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 
@@ -34,87 +33,42 @@ public class IfEvaluator extends AbstractDelegatingNestedEvaluator<IEntity> {
 		super(conditionExecutable, doExecutable);
 	}
 
-	//FIXME clone localScope
-
 	@Override
 	public void reset(IEntity entity) {
 		super.reset(entity);
 		isFirstValue = true;
-//		localScope = null;
 	}
 
 	@Override
-	protected void initProducer(IExecutable<?> p, int index) {
-		if (index == 0) {
-			p.setBindings(getBindings());
-			p.reset(selfEntity);
-		} else
-			super.initProducer(p, index);
+	protected boolean isValidResultProducer() {
+		return isLastProducer();
 	}
 
 	@Override
-	protected IEntity cachedEvaluateNext() {
-		if (!lookaheadIsCached) {
-			lookaheadIsCached = true;
-			
-			IEntity cachedLastEntity = lastEntity;
-			lookaheadEntity = evaluateNext();//FIXME exitScope(false)
-			lastEntity = cachedLastEntity;
-		}
-		return lookaheadEntity;
-	}
-
-//	protected IBindingScope localScope;
-	public IBindingScope localScope() {
-		return lookaheadScope();
-//		if (localScope == null)
-//			localScope = BindingManagerFactory.instance.createSimpleScope();
-//		return localScope;
-	}
-	protected void clearLocalScope() {
-		clearLookaheadScope();
-//		if (localScope != null) {
-//			for (String name : localScope.wLocalNames())
-//				getBindings().wUnset(name);
-//			localScope.wClear();
-//		}
-	}
-	protected IEntity localScopedEvaluateNext() {
-		try {
-			clearLocalScope();
-			getBindings().wEnterScope(localScope(), true);
-			return getProducer().evaluateNext();
-		} finally {
-			getBindings().wExitScope(true);
-		}
-	}
-	protected IEntity localScopedEvaluateRemaining() {
-		try {
-			clearLocalScope();
-			getBindings().wEnterScope(localScope(), true);
-			return getProducer().evaluateRemaining();
-		} finally {
-			getBindings().wExitScope(true);
-		}
+	protected IEntity scopedEvaluateNext(boolean merge) {
+		mergeLookaheadScope = merge;
+		IEntity result = evaluateNext();
+		mergeLookaheadScope = true;
+		return result;
 	}
 
 	public IEntity evaluateNext() {
 		if (isFirstProducer()) {
 			conditionValue = scopedEvaluateAsBooleanOrFail(true);
-			producerIndex += 1;
+			selectFollowingProducer();
 		}
-
-		return conditionValue ? enforceSomeValue(localScopedEvaluateNext()) : null;
+			
+		return conditionValue ? enforceSomeValue(scopedEvaluateNext()) : null;
 	}
 
-	public IEntity evaluateRemaining() {
-		if (isFirstProducer()) {
-			conditionValue = scopedEvaluateAsBooleanOrFail(true);
-			producerIndex += 1;				
-		}
-
-		return conditionValue ? enforceSomeValue(localScopedEvaluateRemaining()) : null;
-	}
+//	public IEntity evaluateRemaining() {
+//		if (isFirstProducer()) {
+//			conditionValue = scopedEvaluateAsBooleanOrFail(true);
+//			selectFollowingProducer();				
+//		}
+//			
+//		return conditionValue ? enforceSomeValue(scopedEvaluateRemaining()) : null;
+//	}
 
 	protected IEntity enforceSomeValue(IEntity entity) {
 		if (isFirstValue) {

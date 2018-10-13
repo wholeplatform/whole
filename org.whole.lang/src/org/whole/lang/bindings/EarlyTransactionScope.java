@@ -21,7 +21,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -119,10 +118,7 @@ public class EarlyTransactionScope extends AbstractDelegatingScope implements IT
 	public void wAddAll(IBindingScope scope) {
 		if (scope == NullScope.instance)
 			return;
-		Set<String> names = scope.wEnclosingScope() == this ?
-				scope.wLocalNames() :
-				scope.wNames();
-		for (String name : names)
+		for (String name : scope.wTargetNames())
 			updateMap(name);
 		super.wAddAll(scope);
 	}

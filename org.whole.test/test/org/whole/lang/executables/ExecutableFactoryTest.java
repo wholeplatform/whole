@@ -17,18 +17,23 @@
  */
 package org.whole.lang.executables;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.evaluators.FilterEvaluator;
+import org.whole.lang.iterators.AbstractIteratorBasedExecutableFactory.FilterIterator;
 import org.whole.lang.iterators.ExecutableFactory;
+import org.whole.lang.iterators.IteratorBasedExecutableFactory;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.steppers.IDataFlowConsumer;
@@ -238,6 +243,8 @@ public class ExecutableFactoryTest {
 
     @Test
     public void testBindVariableStepper() {
+//    	f = new RegularExecutableFactory();
+ 
     	IBindingManager bm = bmf.createBindingManager();
     	TesterDataFlowConsumer c = new TesterDataFlowConsumer();
     	IExecutable<?> p = f.createFilter(f.createConstant(VALUES[0], false), f.createAsVariable("v0"));
@@ -252,7 +259,10 @@ public class ExecutableFactoryTest {
     	p.callNext();
     	assertSame(VALUES[0], bm.wGet("v0"));
     	p.callNext();
-    	assertFalse(bm.wIsSet("v0")); // predicate effects are cleared before each expression step
+//    	if (p instanceof FilterIterator)
+    		assertFalse(bm.wIsSet("v0")); // bindings effects are cleared when hasNext is false (iterator semantics)
+//    	else
+//        	assertTrue(bm.wIsSet("v0")); // last bindings effects are in place when evaluateNext is null (evaluator semantics)
 
     	bm.wDef("v0", VALUES[2]);
     	c.clear();
@@ -515,6 +525,161 @@ public class ExecutableFactoryTest {
     	assertSame(VALUES[2], i.evaluateRemaining());
     	assertNull(i.evaluateRemaining());
     	assertNull(i.evaluateRemaining());
+    }
+
+    @Test
+    public void testFilterEvaluator() {
+    	f = new RegularExecutableFactory() {
+    		public <E extends IEntity> IExecutable<E> createFilter(IExecutable<E> executable, IExecutable<? extends IEntity> filterExecutable) {
+    			return (IExecutable<E>) new FilterEvaluator((IExecutable<IEntity>) executable, (IExecutable<IEntity>) filterExecutable);
+    		}
+    	};
+//    	f = IteratorBasedExecutableFactory.instance;
+
+    	IBindingManager bm = bmf.createBindingManager();
+    	bm.wDef("v0", VALUES[0]);
+    	bm.wDef("v1", VALUES[1]);
+
+    	@SuppressWarnings("unchecked")
+		IExecutable<?> i = f.createFilter(
+				new TestEvaluator((index, bm0) -> {
+					switch (index) {
+					case 0:
+						return VALUES[0];
+					case 1:
+						return VALUES[1];
+					case 2:
+						return VALUES[2];
+					}
+					return null;
+				}),
+				new TestEvaluator((index, bm0) -> {
+					switch (index) {
+					case 0:
+						return TRUE_VALUE;
+					default:
+						return null;
+					}
+				}));
+
+    	i.setBindings(bm);
+    	i.reset(VALUES[0]);
+
+    	assertSame(VALUES[0], i.evaluateNext());   	
+    	assertSame(VALUES[1], i.evaluateNext());   	
+    	assertSame(VALUES[2], i.evaluateNext());   	
+    	assertNull(i.evaluateNext());   	
+    }
+
+    @Test
+    public void testScopeEvaluator() {
+   	IBindingManager bm = bmf.createBindingManager();
+    	bm.wDef("v0", VALUES[0]);
+    	bm.wDef("v1", VALUES[1]);
+
+    	@SuppressWarnings("unchecked")
+		IExecutable<?> i = f.createScope(
+//				new TestEvaluator((index, bm0) -> {
+//					switch (index) {
+//					case 0:
+//						assertTrue(bm0.wIsSet("v0"));
+//						assertFalse(bm0.wIsSet("v1"));
+//						assertFalse(bm0.wIsSet("v2"));
+//						bm0.wDef("v1", bm0.wGet("v0"));
+//						return bm0.wGet("v1");
+//					case 1:
+//						assertTrue(bm0.wIsSet("v1"));
+//						assertFalse(bm0.wIsSet("v2"));
+//						bm0.wDef("v2", bm0.wGet("v1"));
+//						return bm0.wGet("v2");
+//					case 2:
+//						assertTrue(bm0.wIsSet("v1"));
+//						assertTrue(bm0.wIsSet("v2"));
+//						bm0.wDef("v3", VALUES[2]);
+//						return bm0.wGet("v3");
+//					}
+//					return null;
+//				}),
+    			f.createSequence(
+    					f.createFilter(f.createVariable("v1"), f.createAsVariable("v2")),
+    					f.createFilter(f.createVariable("v0"), f.createAsVariable("v1")),
+    					f.createFilter(f.createVariable("v1"), f.createAsVariable("v2")),
+    					f.createFilter(f.createConstant(VALUES[2], false), f.createAsVariable("v3"))),
+    			null, Set.of("v1", "v2"), true);
+
+    	i.setBindings(bm);
+    	i.reset(VALUES[0]);
+
+    	assertSame(VALUES[0], i.evaluateNext());
+    	assertSame(VALUES[0], bm.wGet("v0"));
+       	assertFalse(bm.wIsSet("v2"));
+       	assertSame(VALUES[0], i.evaluateNext());
+    	assertSame(VALUES[0], bm.wGet("v0"));
+    	assertSame(VALUES[2], i.evaluateNext());
+    	assertSame(VALUES[0], bm.wGet("v0"));
+    	assertSame(VALUES[2], bm.wGet("v3"));
+    	assertNull(i.evaluateNext());
+    	assertSame(VALUES[0], bm.wGet("v0"));
+    	assertSame(VALUES[1], bm.wGet("v1"));
+       	assertFalse(bm.wIsSet("v2"));
+    }
+
+    @FunctionalInterface
+    public static interface NextEvaluator<E extends IEntity> {
+    	public E evaluateNext(int index, IBindingManager bm);
+    }
+    //FIXME add executor scope?
+    public static class TestEvaluator extends AbstractExecutableEvaluatingStepperIterator<IEntity> {
+    	protected int resultIndex = 0;
+    	protected NextEvaluator<?> nextEvaluator;
+
+    	public TestEvaluator(NextEvaluator<?> nextEvaluator) {
+    		this.nextEvaluator = nextEvaluator;
+    	}
+
+    	@Override
+    	public void reset(IEntity entity) {
+    		super.reset(entity);
+    		resultIndex = 0;
+    	}
+    	
+		@Override
+		public IEntity evaluateNext() {
+			IEntity result = null;
+			try {
+				if (needClearExecutorScope())
+					clearProducerScope();
+				getBindings().wEnterScope(executorScope(), true);
+				return result = nextEvaluator.evaluateNext(resultIndex++, getBindings());
+			} finally {
+				getBindings().wExitScope(needMergeExecutorScope() && result != null);
+			}
+		}
+
+    	public void prune() {
+    	}
+
+        public void set(IEntity entity) {
+        	if (lastEntity == null)
+        		throw new IllegalStateException();
+
+        	lastEntity.wGetParent().wSet(lastEntity, entity);
+        	lastEntity = entity;
+        }
+    	public void add(IEntity value) {
+        	if (lastEntity == null)
+        		throw new IllegalStateException();
+
+    		IEntity parentEntity = lastEntity.wGetParent();
+    		parentEntity.wAdd(parentEntity.wIndexOf(lastEntity), value);        
+    	}
+    	public void remove() {
+        	if (lastEntity == null)
+        		throw new IllegalStateException();
+
+        	lastEntity.wGetParent().wRemove(lastEntity);
+        	lastEntity = null;
+    	}
     }
 }
 
