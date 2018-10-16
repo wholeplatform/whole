@@ -489,15 +489,15 @@ public class AbstractDecoratedExecutableFactory implements ExecutableFactory {
 		return decorate(factory.createIsImpl());
 	}
 
-	public IExecutable<?> createAnd(IExecutable<?>... argsExecutables) {
+	public IExecutable<IEntity> createAnd(IExecutable<IEntity>... argsExecutables) {
 		return decorate(factory.createAnd(argsExecutables));
 	}
 
-	public IExecutable<?> createOr(IExecutable<?>... argsExecutables) {
+	public IExecutable<IEntity> createOr(IExecutable<IEntity>... argsExecutables) {
 		return decorate(factory.createOr(argsExecutables));
 	}
 
-	public IExecutable<?> createNot(IExecutable<?> argExecutable) {
+	public IExecutable<IEntity> createNot(IExecutable<IEntity> argExecutable) {
 		return decorate(factory.createNot(argExecutable));
 	}
 

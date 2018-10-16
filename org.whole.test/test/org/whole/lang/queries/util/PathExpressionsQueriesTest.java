@@ -25,7 +25,6 @@ import java.util.Set;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.codebase.ClasspathPersistenceProvider;
@@ -60,7 +59,6 @@ import org.whole.lang.util.EntityUtils;
 import org.whole.lang.visitors.GenericIdentityVisitor;
 import org.whole.lang.visitors.VisitException;
 import org.whole.lang.xml.codebase.XmlBuilderPersistenceKit;
-import org.whole.test.KnownFailingTests;
 
 /**
  * @author Riccardo Solmi
@@ -265,7 +263,6 @@ public class PathExpressionsQueriesTest {
 		Assert.assertEquals(22, set.size());
 	}
 
-	@Category(KnownFailingTests.class)
 	@Test
 	public void testPathWithTuple() {
 		ITemplateManager tm = PathExpressionsQueriesTemplateManager.instance();

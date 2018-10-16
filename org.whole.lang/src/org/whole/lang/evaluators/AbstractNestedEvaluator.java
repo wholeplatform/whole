@@ -19,6 +19,7 @@ package org.whole.lang.evaluators;
 
 import java.util.BitSet;
 
+import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.executables.AbstractExecutableEvaluatingStepperIterator;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
@@ -85,17 +86,17 @@ public abstract class AbstractNestedEvaluator<E extends IEntity> extends Abstrac
 		p.reset(selfEntity);
 	}
 
-//	protected IEntity scopedEvaluateNext(int producerIndex) {
-//		return scopedEvaluateNext(producerIndex, executorScope());
-//	}
-//	protected IEntity scopedEvaluateNext(int producerIndex, IBindingScope scope) {
-//		try {
-//			getBindings().wEnterScope(scope, true);
-//			return getProducer(producerIndex).evaluateNext();
-//		} finally {
-//			getBindings().wExitScope();
-//		}
-//	}
+	protected IEntity scopedEvaluateNext(int producerIndex) {
+		return scopedEvaluateNext(producerIndex, executorScope());
+	}
+	protected IEntity scopedEvaluateNext(int producerIndex, IBindingScope scope) {
+		try {
+			getBindings().wEnterScope(scope, true);
+			return getProducer(producerIndex).evaluateNext();
+		} finally {
+			getBindings().wExitScope();
+		}
+	}
 //	protected IEntity scopedEvaluateRemaining(int producerIndex) {
 //		return scopedEvaluateRemaining(producerIndex, executorScope());
 //	}
@@ -107,14 +108,17 @@ public abstract class AbstractNestedEvaluator<E extends IEntity> extends Abstrac
 //			getBindings().wExitScope();
 //		}
 //	}
-//	protected boolean scopedEvaluateAsBooleanOrFail(int producerIndex, IBindingScope scope) {
-//		try {
-//			getBindings().wEnterScope(scope, true);
-//			return getProducer(producerIndex).evaluateAsBooleanOrFail();
-//		} finally {
-//			getBindings().wExitScope();
-//		}
-//	}
+	protected boolean scopedEvaluateAsBooleanOrFail(int producerIndex) {
+		return scopedEvaluateAsBooleanOrFail(producerIndex, executorScope());
+	}
+	protected boolean scopedEvaluateAsBooleanOrFail(int producerIndex, IBindingScope scope) {
+		try {
+			getBindings().wEnterScope(scope, true);
+			return getProducer(producerIndex).evaluateAsBooleanOrFail();
+		} finally {
+			getBindings().wExitScope();
+		}
+	}
 //	protected boolean scopedEvaluateAsBooleanOrFail(int producerIndex, boolean mergeOnTrue) {
 //		boolean result = false;
 //		try {

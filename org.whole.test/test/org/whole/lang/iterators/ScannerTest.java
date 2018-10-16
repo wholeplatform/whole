@@ -24,7 +24,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.whole.lang.java.codebase.Factorial;
 import org.whole.lang.java.model.MethodDeclaration;
 import org.whole.lang.java.reflect.JavaEntityDescriptorEnum;
@@ -32,7 +31,6 @@ import org.whole.lang.matchers.GenericMatcherFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.ReflectionFactory;
-import org.whole.test.KnownFailingTests;
 
 /**
  * @author Riccardo Solmi
@@ -120,40 +118,5 @@ public class ScannerTest {
 			MethodDeclaration md = (MethodDeclaration) i.next();
 			md.getName();
 		}
-	}
-
-	@Category(KnownFailingTests.class)
-	@Test
-	public void testFilterReferencesIterator() {
-		if (true)
-			throw new IllegalStateException("endless loop regression"); //FIXME
-
-//		FlowchartEntityFactory ef = FlowchartEntityFactory.instance;
-//		Entry entry = ef.createEntry();
-//		Block block = ef.createBlock();
-//		Exit exit = ef.createExit();
-//		SimpleTransition t1 = ef.createSimpleTransition(entry, block);
-//		entry.setSourceTransition(t1);
-//		block.setTargetTransition(t1);
-//		SimpleTransition t2 = ef.createSimpleTransition(block, exit);
-//		block.setSourceTransition(t2);
-//		exit.setTargetTransition(t2);
-//		
-//		Flowchart flowchart = ef.createFlowchart(
-//				ef.createNodes(entry, block, exit),
-//				ef.createTransitions(t1, t2));
-//				
-//		IEntityIterator<?> i = IteratorFactory.instance.topDownScannerIterator(flowchart)
-//			.usePattern(new AbstractVisitor() {
-//				public void visit(IEntity entity) {
-//					//FIXME return when entity is in a reference iterator path
-//					throw new VisitException();
-//				}
-//			});
-//
-//		int count=0;
-//		for (IEntity e : i) {
-//			count++;
-//		}
 	}
 }

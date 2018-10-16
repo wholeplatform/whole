@@ -17,10 +17,8 @@
  */
 package org.whole.lang.evaluators;
 
-import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.operations.ICloneContext;
 
 /**
  * @author Riccardo Solmi
@@ -35,9 +33,9 @@ public class FilterEvaluator extends AbstractDelegatingNestedEvaluator<IEntity> 
 	}
 
 	@Override
-	public IExecutable<IEntity> clone(ICloneContext cc) {
-		FilterEvaluator executor = (FilterEvaluator) super.clone(cc);
-		return executor;
+	public void reset(IEntity entity) {
+		super.reset(entity);
+		doEntity = null;
 	}
 
 	@Override
@@ -63,8 +61,8 @@ public class FilterEvaluator extends AbstractDelegatingNestedEvaluator<IEntity> 
 
 	@Override
 	protected boolean needClearExecutorScope(/*int producerIndex*/) {
-		return super.needClearExecutorScope();
-//		return lastEntity != null && isLastProducer();
+//		return super.needClearExecutorScope();
+		return lastEntity != null && isFirstProducer();
 	}
 	@Override
 	protected boolean needMergeExecutorScope(/*int producerIndex*/) {
@@ -80,7 +78,7 @@ public class FilterEvaluator extends AbstractDelegatingNestedEvaluator<IEntity> 
 	}
 
 	public IEntity evaluateNext() {
-		do {
+		while (true) {
 			doEntity = scopedEvaluateNext();//TODO add producerIndex and remove explicit calls to increment/decrement
 			if (doEntity == null) {
 				return lastEntity = doEntity;
@@ -91,7 +89,7 @@ public class FilterEvaluator extends AbstractDelegatingNestedEvaluator<IEntity> 
 			if (filterResult) {
 				return lastEntity = doEntity;
 			}
-		} while (true);
+		}
 	}
 
 //	public IEntity evaluateRemaining() {

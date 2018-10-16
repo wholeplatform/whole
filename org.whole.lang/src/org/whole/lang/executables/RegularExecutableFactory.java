@@ -21,9 +21,11 @@ import java.util.Set;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
 import org.whole.lang.comparators.IEntityComparator;
 import org.whole.lang.comparators.ObjectIdentityComparator;
+import org.whole.lang.evaluators.AbstractDelegatingNestedSupplierEvaluator;
 import org.whole.lang.evaluators.AbstractNestedSupplierEvaluator;
 import org.whole.lang.evaluators.AbstractPureConditionalSupplierEvaluator;
 import org.whole.lang.evaluators.AbstractTypeRelationEvaluator;
@@ -42,6 +44,7 @@ import org.whole.lang.evaluators.ComposeEvaluator;
 import org.whole.lang.evaluators.ConstantChildEvaluator;
 import org.whole.lang.evaluators.ConstantComposeEvaluator;
 import org.whole.lang.evaluators.ConstantEvaluator;
+import org.whole.lang.evaluators.DeleteEvaluator;
 import org.whole.lang.evaluators.DescendantEvaluator;
 import org.whole.lang.evaluators.DescendantOrReachableEvaluator;
 import org.whole.lang.evaluators.DescendantReverseEvaluator;
@@ -597,27 +600,29 @@ public class RegularExecutableFactory extends AbstractIteratorBasedExecutableFac
 	}
 
 
-	public IExecutable<?> createAnd(IExecutable<?>... argsExecutables) {
-		return super.createAnd(argsExecutables);
-		//FIXME lookaheadScope
-//		return new AbstractSingleValuedRunnableEvaluator<IEntity>(argsExecutables) {
-//			protected void run(IEntity selfEntity, IBindingManager bm) {
-//				for (int i=0; i<argsExecutables.length; i++)
-//					if (!argsExecutables[i].tryEvaluateAsBoolean(selfEntity, bm)) {
-//						bm.setResult(BindingManagerFactory.instance.createValue(false));
-//						return;
-//					}
-//
-//				bm.setResult(BindingManagerFactory.instance.createValue(true));
-//			}
-//
-//			public void toString(StringBuilder sb) {
-//				sb.append("and");
-//				super.toString(sb);
-//			}
-//		};
+	public IExecutable<IEntity> createAnd(IExecutable<IEntity>... argsExecutables) {
+//		return super.createAnd(argsExecutables);
+		//FIXME
+		return new AbstractDelegatingNestedSupplierEvaluator(argsExecutables) {
+			public IEntity get() {
+				for (int i=0; i<producersSize(); i++)
+					if (!scopedEvaluateAsBooleanOrFail(i)) {
+						executorScope().wClear();
+						return BindingManagerFactory.instance.createValue(false);
+					}
+
+				if (mergeLookaheadScope)
+					getBindings().wAddAll(executorScope());
+				return BindingManagerFactory.instance.createValue(true);
+			}
+
+			public void toString(StringBuilder sb) {
+				sb.append("and");
+				super.toString(sb);
+			}
+		};
 	}
-	public IExecutable<?> createOr(IExecutable<?>... argsExecutables) {
+	public IExecutable<IEntity> createOr(IExecutable<IEntity>... argsExecutables) {
 		return new AbstractNestedSupplierEvaluator<IEntity>(argsExecutables) {
 			public IEntity get() {
 				for (int i=0; i<producersSize(); i++)
@@ -633,7 +638,7 @@ public class RegularExecutableFactory extends AbstractIteratorBasedExecutableFac
 			}
 		};
 	}
-	public IExecutable<?> createNot(IExecutable<?> argExecutable) {
+	public IExecutable<IEntity> createNot(IExecutable<IEntity> argExecutable) {
 		return new AbstractNestedSupplierEvaluator<IEntity>(argExecutable) {
 			public IEntity get() {
 				return BindingManagerFactory.instance.createValue(
@@ -647,46 +652,49 @@ public class RegularExecutableFactory extends AbstractIteratorBasedExecutableFac
 		};
 	}
 
+	@SuppressWarnings("unchecked")
 	public IExecutable<IEntity> createOne(IExecutable<IEntity> fromClause, IExecutable<IEntity> satisfiesClause) {
-		return super.createOne(fromClause, satisfiesClause);
-		//FIXME lookaheadScope
-//		return new AbstractSingleValuedRunnableEvaluator<IEntity>(fromClause, satisfiesClause) {
-//			protected void run(IEntity selfEntity, IBindingManager bm) {
-//				IBindingScope laScope = null;
-//				
-//				IEntity e = null;
-//				while ((e = argsExecutables[0].evaluateNext()) != null) {
-//				//for (IEntity e : argsExecutables[0]) {
-//					if (!argsExecutables[1].tryEvaluateAsBoolean(e, bm))
-//						continue;
-//
-//					if (laScope != null) {
-//						bm.setResult(BindingManagerFactory.instance.createValue(false));
-//						return;
-//					} else {
-//						laScope = BindingManagerFactory.instance.createSimpleScope();
-//						laScope.wAddAll(argsExecutables[0].lookaheadScope());
-//						laScope.wAddAll(argsExecutables[1].lookaheadScope());
-//					}
-//				}
-//
-//				if (laScope == null) {
-//					bm.setResult(BindingManagerFactory.instance.createValue(false));
-//					return;
-//				}
-//				
-//				bm.wAddAll(laScope);
-//				bm.setResult(BindingManagerFactory.instance.createValue(true));
-//			}
-//
-//			public void toString(StringBuilder sb) {
-//				sb.append("one(");
-//				argsExecutables[0].toString(sb);//TODO startOf
-//				sb.append(" satisfies ");
-//				argsExecutables[1].toString(sb);//TODO startOf
-//				sb.append(")");
-//			}
-//		};
+		return new AbstractDelegatingNestedSupplierEvaluator(fromClause, satisfiesClause) {
+			@Override
+			protected void initProducer(IExecutable<?> p, int index) {
+				p.setBindings(getBindings());
+				if (index == 0)
+					p.reset(selfEntity);
+			}
+
+			public IEntity get() {
+				IBindingScope oneScope = null;
+				IBindingScope fromScope = BindingManagerFactory.instance.createSimpleScope();
+				IEntity fromEntity;
+
+				while ((fromEntity = scopedEvaluateNext(0, fromScope)) != null) {
+					getProducer(1).reset(fromEntity);
+					if (scopedEvaluateAsBooleanOrFail(1, fromScope)) {
+						if (oneScope == null) {
+							oneScope = fromScope.clone();
+						} else
+							return BindingManagerFactory.instance.createValue(false);
+					}
+					fromScope.wClear();
+				}
+
+				if (oneScope == null)
+					return BindingManagerFactory.instance.createValue(false);
+				else {
+					executorScope = oneScope;
+					if (mergeLookaheadScope)
+						getBindings().wAddAll(executorScope());
+					return BindingManagerFactory.instance.createValue(true);
+				}
+			}
+
+			protected String toStringPrefix() {
+				return "one(";
+			}
+			protected String toStringSeparator() {
+				return " satisfies ";
+			}
+		};
 	}
 	public IExecutable<IEntity> createSome(IExecutable<IEntity> fromClause) {
 		return new AbstractNestedSupplierEvaluator<IEntity>(fromClause) {
@@ -702,46 +710,78 @@ public class RegularExecutableFactory extends AbstractIteratorBasedExecutableFac
 			}
 		};
 	}
+	@SuppressWarnings("unchecked")
 	public IExecutable<IEntity> createSome(IExecutable<IEntity> fromClause, IExecutable<IEntity> satisfiesClause) {
-		return new AbstractNestedSupplierEvaluator<IEntity>(fromClause, satisfiesClause) {
-			public IEntity get() {
-				IEntity e = null;
-				while ((e = getProducer(0).evaluateNext()) != null) {
-					getProducer(1).reset(e);
+		return new AbstractDelegatingNestedSupplierEvaluator(fromClause, satisfiesClause) {
+			@Override
+			protected void initProducer(IExecutable<?> p, int index) {
+				p.setBindings(getBindings());
+				if (index == 0)
+					p.reset(selfEntity);
+			}
 
-					if (getProducer(1).evaluateNext().wBooleanValue())
+			public IEntity get() {
+				IEntity fromEntity;
+
+				while ((fromEntity = scopedEvaluateNext(0, executorScope())) != null) {
+					getProducer(1).reset(fromEntity);
+					if (scopedEvaluateAsBooleanOrFail(1, executorScope())) {
+						if (mergeLookaheadScope)
+							getBindings().wAddAll(executorScope());
 						return BindingManagerFactory.instance.createValue(true);
+					}
+					executorScope().wClear();
 				}
 
 				return BindingManagerFactory.instance.createValue(false);
 			}
 
-			public void toString(StringBuilder sb) {
-				sb.append("some(");
-				producers[0].toString(sb);//TODO startOf
-				sb.append(" satisfies ");
-				producers[1].toString(sb);//TODO startOf
-				sb.append(")");
+			protected String toStringPrefix() {
+				return "some(";
+			}
+			protected String toStringSeparator() {
+				return " satisfies ";
 			}
 		};
 	}
+	@SuppressWarnings("unchecked")
 	public IExecutable<IEntity> createEvery(IExecutable<IEntity> fromClause, IExecutable<IEntity> satisfiesClause) {
-		return new AbstractNestedSupplierEvaluator<IEntity>(fromClause, satisfiesClause) {
-			public IEntity get() {
-				IEntity e = null;
-				while ((e = getProducer(0).evaluateNext()) != null)
-					if (!getProducer(1).evaluateAsBooleanOrFail(e, getBindings()))
-						return BindingManagerFactory.instance.createValue(false);
-
-				return BindingManagerFactory.instance.createValue(true);
+		return new AbstractDelegatingNestedSupplierEvaluator(fromClause, satisfiesClause) {
+			@Override
+			protected void initProducer(IExecutable<?> p, int index) {
+				p.setBindings(getBindings());
+				if (index == 0)
+					p.reset(selfEntity);
 			}
 
-			public void toString(StringBuilder sb) {
-				sb.append("every(");
-				producers[0].toString(sb);//TODO startOf
-				sb.append(" satisfies ");
-				producers[1].toString(sb);//TODO startOf
-				sb.append(")");
+			public IEntity get() {
+				IBindingScope everyScope = null;
+				IBindingScope fromScope = BindingManagerFactory.instance.createSimpleScope();
+				IEntity fromEntity;
+
+				while ((fromEntity = scopedEvaluateNext(0, fromScope)) != null) {
+					getProducer(1).reset(fromEntity);
+					if (!scopedEvaluateAsBooleanOrFail(1, fromScope))
+						return BindingManagerFactory.instance.createValue(false);
+					everyScope = fromScope.clone();
+					fromScope.wClear();
+				}
+
+				if (everyScope == null)
+					return BindingManagerFactory.instance.createValue(false);
+				else {
+					executorScope = everyScope;
+					if (mergeLookaheadScope)
+						getBindings().wAddAll(executorScope());
+					return BindingManagerFactory.instance.createValue(true);
+				}
+			}
+
+			protected String toStringPrefix() {
+				return "every(";
+			}
+			protected String toStringSeparator() {
+				return " satisfies ";
 			}
 		};
 	}
@@ -1019,6 +1059,9 @@ public class RegularExecutableFactory extends AbstractIteratorBasedExecutableFac
 		};
 	}
 
+	public <E extends IEntity> IExecutable<E> createDelete(IExecutable<E> valuesExecutable) {
+		return new DeleteEvaluator<E>(valuesExecutable);
+	}
 
 	public IExecutable<?> createCloneReplacing(IExecutable<?> childMappingExecutable) {
 		return createCloneReplacing(childMappingExecutable, null);

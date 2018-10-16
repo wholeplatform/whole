@@ -15,24 +15,33 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.test;
+package org.whole.lang.evaluators;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import org.whole.lang.executables.IExecutable;
+import org.whole.lang.model.IEntity;
 
 /**
- * Runs: 486
- * Errors: 2
- * Failures: 11
- *
  * @author Riccardo Solmi
  */
-@RunWith(Suite.class)
-@SuiteClasses( {
-	AllModelingAPITests.class,
-	AllBehaviorAPITests.class,
-	AllLanguagesTests.class
-})
-public class AllTests {
+public class DeleteEvaluator<E extends IEntity> extends AbstractDelegatingNestedEvaluator<E> {
+	@SuppressWarnings("unchecked")
+	public DeleteEvaluator(IExecutable<E> valuesExecutable) {
+		super(valuesExecutable);
+	}
+
+	@Override
+	public E evaluateNext() {
+		lastEntity = (E) getProducer().evaluateNext();
+		if (lastEntity != null)
+			remove();
+		return lastEntity;
+	}
+
+//	public IEntity evaluateRemaining() {
+
+	@Override
+	protected String toStringPrefix() {
+		return "Delete(";
+	}
 }
+

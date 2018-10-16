@@ -57,9 +57,20 @@ public class IfEvaluator extends AbstractDelegatingNestedEvaluator<IEntity> {
 			conditionValue = scopedEvaluateAsBooleanOrFail(true);
 			selectFollowingProducer();
 		}
-			
-		return conditionValue ? enforceSomeValue(scopedEvaluateNext()) : null;
+
+		return lastEntity = conditionValue ? enforceSomeValue(scopedEvaluateNext()) : null;
+//FIXME		return lastEntity = conditionValue ? enforceSomeValue(getProducer().evaluateNext()) : null;
 	}
+
+//	@Override
+//	public IBindingScope lookaheadScope() {
+//		if (lastEntity == null)
+//			return super.lookaheadScope();
+//		IBindingScope scope = BindingManagerFactory.instance.createSimpleScope();
+//		scope.wAddAll(getProducer(0).iterator().lookaheadScope());
+//		scope.wAddAll(getProducer(1).iterator().lookaheadScope());
+//		return scope;
+//	}
 
 //	public IEntity evaluateRemaining() {
 //		if (isFirstProducer()) {

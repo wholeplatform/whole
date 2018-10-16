@@ -93,6 +93,15 @@ public abstract class AbstractNestedSupplierEvaluator<E extends IEntity> extends
         return arguments;
 	}
 
+	protected boolean scopedEvaluateAsBooleanOrFail(int producerIndex) {
+		try {
+			getBindings().wEnterScope(executorScope(), true);
+			return getProducer(producerIndex).evaluateAsBooleanOrFail();
+		} finally {
+			getBindings().wExitScope();
+		}
+	}
+
 	@Override
 	public void toString(StringBuilder sb) {
     	sb.append("(");

@@ -46,8 +46,8 @@ import org.whole.lang.util.StringUtilsTest;
 import org.whole.lang.visitors.TraversalFactoryTest;
 
 /**
- * Runs: 136
- * Errors: 1
+ * Runs: 135
+ * Errors: 0
  * Failures: 0
  * 
  * @author Riccardo Solmi

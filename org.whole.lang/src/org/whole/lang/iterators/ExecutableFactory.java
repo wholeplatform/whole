@@ -277,11 +277,13 @@ public interface ExecutableFactory {
 
 	IExecutable<IEntity> createIsImpl();
 
-	IExecutable<?> createAnd(IExecutable<?>... argsExecutables);
+	@SuppressWarnings("unchecked")
+	IExecutable<IEntity> createAnd(IExecutable<IEntity>... argsExecutables);
 
-	IExecutable<?> createOr(IExecutable<?>... argsExecutables);
+	@SuppressWarnings("unchecked")
+	IExecutable<IEntity> createOr(IExecutable<IEntity>... argsExecutables);
 
-	IExecutable<?> createNot(IExecutable<?> argExecutable);
+	IExecutable<IEntity> createNot(IExecutable<IEntity> argExecutable);
 
 	IExecutable<IEntity> createOne(IExecutable<IEntity> fromClause, IExecutable<IEntity> satisfiesClause);
 

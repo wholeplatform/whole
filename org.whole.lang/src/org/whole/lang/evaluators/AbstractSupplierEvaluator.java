@@ -31,6 +31,7 @@ public abstract class AbstractSupplierEvaluator<E extends IEntity> extends Abstr
     protected boolean isEvaluated;
 	protected IEntity selfEntity;
 
+	@Override
 	public void reset(IEntity entity) {
 		super.reset(entity);
 		isEvaluated = false;
@@ -38,9 +39,11 @@ public abstract class AbstractSupplierEvaluator<E extends IEntity> extends Abstr
     }
 
 	public E evaluateNext() {
-		if (isEvaluated)
+		if (isEvaluated) {
+			if (executorScope != null)
+				executorScope().wClear();
 			return null;
-		else {
+		} else {
 			isEvaluated = true;
 
 			try {

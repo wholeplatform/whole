@@ -34,6 +34,9 @@ import org.whole.lang.evaluators.FilterEvaluator;
 import org.whole.lang.iterators.AbstractIteratorBasedExecutableFactory.FilterIterator;
 import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.iterators.IteratorBasedExecutableFactory;
+import org.whole.lang.math.builders.MathGenericBuilderAdapter;
+import org.whole.lang.math.factories.MathEntityFactory;
+import org.whole.lang.math.model.Identifier;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.steppers.IDataFlowConsumer;
@@ -525,6 +528,40 @@ public class ExecutableFactoryTest {
     	assertSame(VALUES[2], i.evaluateRemaining());
     	assertNull(i.evaluateRemaining());
     	assertNull(i.evaluateRemaining());
+    }
+
+    @Test
+    public void testOneEvaluator() {
+    	IBindingManager bm = bmf.createBindingManager();
+    	IExecutable<IEntity> i = f.createOne(f.createChild(), f.createAnd(f.createHasType("Identifier"), f.createAsVariable("exp")));
+
+    	MathEntityFactory mf = MathEntityFactory.instance;
+       	Identifier id = mf.createIdentifier("v");
+    	IEntity addition = mf.createAddition(mf.createInteger(0), id, mf.createInteger(1), mf.createInteger(2));
+
+    	i.setBindings(bm);
+     	i.reset(addition);
+    	assertTrue(i.evaluateNext().wBooleanValue());
+    	assertSame(id, bm.wGet("exp"));
+
+    	bm.wClear();
+    	i.reset(addition);
+    	assertTrue(i.iterator().hasNext());
+    	assertTrue(i.iterator().next().wBooleanValue());
+    	assertSame(id, bm.wGet("exp"));
+
+    	addition = mf.createAddition(mf.createInteger(0), mf.createIdentifier("v1"), mf.createInteger(1), mf.createIdentifier("v2"), mf.createInteger(2));
+
+    	bm.wClear();
+     	i.reset(addition);
+    	assertFalse(i.evaluateNext().wBooleanValue());
+    	assertFalse(bm.wIsSet("exp"));
+
+    	bm.wClear();
+    	i.reset(addition);
+    	assertTrue(i.iterator().hasNext());
+    	assertFalse(i.iterator().next().wBooleanValue());
+    	assertFalse(bm.wIsSet("exp"));
     }
 
     @Test

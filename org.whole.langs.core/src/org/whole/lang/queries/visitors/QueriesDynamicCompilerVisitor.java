@@ -1137,7 +1137,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 
 	private void visitFrom(And entity, int from) {
 		int size = entity.wSize() - from;
-		IExecutable<?>[] argsIterators = new IExecutable[size];
+		IExecutable<IEntity>[] argsIterators = new IExecutable[size];
 		for (int i = from; i < size; i++) {
 			entity.get(i).accept(this);
 			argsIterators[i] = getExecutableResult();
@@ -1151,7 +1151,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		boolean canFilterByIndexResult = canFilterByIndex;
 
 		int size = entity.wSize();
-		IExecutable<?>[] argsIterators = new IExecutable[size];
+		IExecutable<IEntity>[] argsIterators = new IExecutable[size];
 		for (int i = 0; i < size; i++) {
 			canFilterByIndex = false;
 			entity.get(i).accept(this);

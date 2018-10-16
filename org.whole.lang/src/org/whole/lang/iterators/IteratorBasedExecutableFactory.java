@@ -539,7 +539,7 @@ public class IteratorBasedExecutableFactory extends AbstractIteratorBasedExecuta
 		};
 	}
 
-	public IExecutable<?> createAnd(IExecutable<?>... argsExecutables) {
+	public IExecutable<IEntity> createAnd(IExecutable<IEntity>... argsExecutables) {
 		return new AbstractSingleValuedRunnableIterator<IEntity>(toIterators(argsExecutables)) {
 			protected void run(IEntity selfEntity, IBindingManager bm) {
 				for (int i=0; i<argsExecutables.length; i++)
@@ -557,7 +557,7 @@ public class IteratorBasedExecutableFactory extends AbstractIteratorBasedExecuta
 			}
 		};
 	}
-	public IExecutable<?> createOr(IExecutable<?>... argsExecutables) {
+	public IExecutable<IEntity> createOr(IExecutable<IEntity>... argsExecutables) {
 		return new AbstractSingleValuedRunnableIterator<IEntity>(toIterators(argsExecutables)) {
 			protected void run(IEntity selfEntity, IBindingManager bm) {
 				for (int i=0; i<argsExecutables.length; i++)
@@ -575,7 +575,7 @@ public class IteratorBasedExecutableFactory extends AbstractIteratorBasedExecuta
 			}
 		};
 	}
-	public IExecutable<?> createNot(IExecutable<?> argExecutable) {
+	public IExecutable<IEntity> createNot(IExecutable<IEntity> argExecutable) {
 		return new AbstractSingleValuedRunnableIterator<IEntity>(argExecutable.iterator()) {
 			protected void run(IEntity selfEntity, IBindingManager bm) {
 				bm.setResult(BindingManagerFactory.instance.createValue(!argsIterators[0].evaluateAsBooleanOrFail(selfEntity, bm)));

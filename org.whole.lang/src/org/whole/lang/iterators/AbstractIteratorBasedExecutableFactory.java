@@ -21,7 +21,6 @@ import java.util.Map;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.commons.model.Variable;
 import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
 import org.whole.lang.commons.visitors.CommonsInterpreterVisitor;
@@ -157,7 +156,7 @@ public abstract class AbstractIteratorBasedExecutableFactory implements Executab
 	}
 
 
-	public IExecutable<?> createAnd(IExecutable<?>... argsExecutables) {
+	public IExecutable<IEntity> createAnd(IExecutable<IEntity>... argsExecutables) {
 		return new AbstractSingleValuedRunnableIterator<IEntity>(toIterators(argsExecutables)) {
 			protected void run(IEntity selfEntity, IBindingManager bm) {
 				for (int i=0; i<argsExecutables.length; i++)
@@ -172,43 +171,6 @@ public abstract class AbstractIteratorBasedExecutableFactory implements Executab
 			public void toString(StringBuilder sb) {
 				sb.append("and");
 				super.toString(sb);
-			}
-		};
-	}
-
-	public IExecutable<IEntity> createOne(IExecutable<IEntity> fromClause, IExecutable<IEntity> satisfiesClause) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(fromClause.iterator(), satisfiesClause.iterator()) {
-			protected void run(IEntity selfEntity, IBindingManager bm) {
-				IBindingScope laScope = null;
-				for (IEntity e : argsIterators[0]) {
-					if (!argsIterators[1].evaluateAsBooleanOrFail(e, bm))
-						continue;
-
-					if (laScope != null) {
-						bm.setResult(BindingManagerFactory.instance.createValue(false));
-						return;
-					} else {
-						laScope = BindingManagerFactory.instance.createSimpleScope();
-						laScope.wAddAll(argsIterators[0].lookaheadScope());
-						laScope.wAddAll(argsIterators[1].lookaheadScope());
-					}
-				}
-
-				if (laScope == null) {
-					bm.setResult(BindingManagerFactory.instance.createValue(false));
-					return;
-				}
-				
-				bm.wAddAll(laScope);
-				bm.setResult(BindingManagerFactory.instance.createValue(true));
-			}
-
-			public void toString(StringBuilder sb) {
-				sb.append("one(");
-				argsIterators[0].toString(sb);//TODO startOf
-				sb.append(" satisfies ");
-				argsIterators[1].toString(sb);//TODO startOf
-				sb.append(")");
 			}
 		};
 	}
@@ -354,10 +316,6 @@ public abstract class AbstractIteratorBasedExecutableFactory implements Executab
 
 	public <E extends IEntity> IExecutable<E> createPointwiseInsert(IExecutable<E> valuesExecutable, IExecutable<? super E> toExecutable, Placement placement) {
 		return new PointwiseInsertIterator<E>(valuesExecutable.iterator(), toExecutable.iterator(), placement);
-	}
-
-	public <E extends IEntity> IExecutable<E> createDelete(IExecutable<E> valuesExecutable) {
-		return new DeleteIterator<E>(valuesExecutable.iterator());
 	}
 
 	@SuppressWarnings("unchecked")
