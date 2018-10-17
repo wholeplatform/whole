@@ -601,8 +601,6 @@ public class RegularExecutableFactory extends AbstractIteratorBasedExecutableFac
 
 
 	public IExecutable<IEntity> createAnd(IExecutable<IEntity>... argsExecutables) {
-//		return super.createAnd(argsExecutables);
-		//FIXME
 		return new AbstractDelegatingNestedSupplierEvaluator(argsExecutables) {
 			public IEntity get() {
 				for (int i=0; i<producersSize(); i++)

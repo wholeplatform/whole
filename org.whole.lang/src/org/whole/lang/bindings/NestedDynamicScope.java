@@ -78,7 +78,10 @@ public class NestedDynamicScope extends AbstractScope implements INestableScope 
 	}
 	@Override
 	public Set<String> wTargetNames() {
-		return wTargetScope().wNames();
+		Set<String> names = wTargetScope().wNames();
+		names.remove(IBindingManager.SELF);
+		return names;
+//		return wTargetScope().wNames();
 	}
 
 

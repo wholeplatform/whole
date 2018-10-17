@@ -17,6 +17,7 @@
  */
 package org.whole.lang.evaluators;
 
+import org.whole.lang.bindings.BindingManager;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.executables.IExecutable;
@@ -55,7 +56,8 @@ public class ComposeEvaluator extends AbstractDelegatingNestedEvaluator<IEntity>
 	@Override
 	protected IBindingManager executorScope() {
 		if (executorScope == null)
-			executorScope = BindingManagerFactory.instance.createBindingManager();
+			executorScope = BindingManagerFactory.instance.createBindingManager(
+					BindingManagerFactory.instance.createSimpleScope(), getBindings().wGetEnvironmentManager());
 
 		return (IBindingManager) executorScope;
 	}
@@ -65,7 +67,7 @@ public class ComposeEvaluator extends AbstractDelegatingNestedEvaluator<IEntity>
 			if (lastEntity != null)
 				for (String name : executorScope.wTargetNames())
 					getBindings().wUnset(name);
-			executorScope = null;
+			((BindingManager) executorScope).wSetTargetScope(BindingManagerFactory.instance.createSimpleScope());
 		}
 	}
 	@Override

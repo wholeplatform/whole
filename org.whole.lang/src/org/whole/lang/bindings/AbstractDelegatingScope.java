@@ -62,14 +62,17 @@ public abstract class AbstractDelegatingScope extends AbstractCloneableScope {
 	}
 	@Override
 	public Set<String> wTargetNames() {
-		return delegateScope.wNames();
+		Set<String> names = delegateScope.wNames();
+		names.remove(IBindingManager.SELF);
+		return names;
+//		return delegateScope.wNames();
 	}
 
 	public void wAddAll(IBindingScope scope) {
 		if (scope == NullScope.instance)
 			return;
 		if (scope.wEnclosingScope() == this) {
-			for (String name : scope.wLocalNames())
+			for (String name : scope.wTargetNames())
 				delegateScope.wDef(name, scope.wGet(name));
 		} else
 			delegateScope.wAddAll(scope);

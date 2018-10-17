@@ -429,8 +429,12 @@ public class PathExpressionsQueriesTest {
 			while ((p1 = i1.lookahead()) != null) {
 				Set<String> s1 = i1.lookaheadScope().wNames();
 				IEntity p2 = i1.next();
-//				false for tuples        		Assert.assertSame(p1,p2);
-				Assert.assertEquals(bm.wNames().size(), s1.size());
+//FIXME product iterators create Tuple result in lookahead and in next 
+//				if (p1 != p2)
+//					continue;
+//				Assert.assertSame(p1,p2);
+				//FIXME workaround unset outer self binding
+				Assert.assertEquals(bm.wNames().size() - (bm.wIsSet(IBindingManager.SELF) ? 1 : 0), s1.size());
 				for(String name : s1)
 					Assert.assertTrue(bm.wIsSet(name));
 			}
@@ -562,7 +566,8 @@ public class PathExpressionsQueriesTest {
 		bm = BindingManagerFactory.instance.createArguments();
 		iterator = BehaviorUtils.<Production>compileAndLazyEvaluate(pe1, g, bm).iterator();
 		iterator.next();
-		Assert.assertTrue(bm.wNames().size() == 1);//self binding
+		Assert.assertTrue(bm.wIsSet("pname"));
+		Assert.assertTrue(bm.wIsSet("nt"));
 	}
 
 	@Test

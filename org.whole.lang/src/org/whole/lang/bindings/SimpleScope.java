@@ -76,7 +76,10 @@ public class SimpleScope extends AbstractScope {
 	}
 	@Override
 	public Set<String> wTargetNames() {
-		return wLocalNames();
+		Set<String> names = wLocalNames();
+		names.remove(IBindingManager.SELF);
+		return names;
+//		return wLocalNames();
 	}
 
 	public IEntity wGet(String name) {

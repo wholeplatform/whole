@@ -51,6 +51,9 @@ public abstract class AbstractCloneableScope implements IBindingScope {
 	}
 
 	public Set<String> wTargetNames() {
-		return wNames();
+		Set<String> names = wNames();
+		names.remove(IBindingManager.SELF);
+		return names;
+//		return wNames();
 	}
 }

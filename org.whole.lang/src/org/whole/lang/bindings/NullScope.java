@@ -72,7 +72,7 @@ public class NullScope implements IBindingScope {
 
 	@Override
 	public Set<String> wTargetNames() {
-		return wLocalNames();
+		return new HashSet<String>();
 	}
 
 	public void wAddAll(IBindingScope scope) {

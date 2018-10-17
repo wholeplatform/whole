@@ -17,7 +17,6 @@
  */
 package org.whole.lang.evaluators;
 
-import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
@@ -130,15 +129,6 @@ public abstract class AbstractDelegatingNestedEvaluator<E extends IEntity> exten
 			return getProducer().evaluateAsBooleanOrFail();
 		} finally {
 			getBindings().wExitScope();
-		}
-	}
-	protected boolean scopedEvaluateAsBooleanOrFail(boolean mergeOnTrue) {
-		boolean result = false;
-		try {
-			getBindings().wEnterScope(BindingManagerFactory.instance.createSimpleScope(), true);
-			return result = getProducer().evaluateAsBooleanOrFail();
-		} finally {
-			getBindings().wExitScope(mergeOnTrue && result);
 		}
 	}
 	protected boolean scopedEvaluateAsBooleanOrFail() {

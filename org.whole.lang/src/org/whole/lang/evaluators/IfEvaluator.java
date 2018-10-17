@@ -17,7 +17,9 @@
  */
 package org.whole.lang.evaluators;
 
+import org.whole.lang.bindings.BindingManager;
 import org.whole.lang.bindings.BindingManagerFactory;
+import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 
@@ -40,6 +42,39 @@ public class IfEvaluator extends AbstractDelegatingNestedEvaluator<IEntity> {
 	}
 
 	@Override
+	protected IBindingManager executorScope() {
+		if (executorScope == null)
+			executorScope = BindingManagerFactory.instance.createBindingManager(
+					BindingManagerFactory.instance.createSimpleScope(), getBindings().wGetEnvironmentManager());
+
+		return (IBindingManager) executorScope;
+	}
+	@Override
+	protected void clearExecutorScope() {
+		if (executorScope != null) {
+			if (lastEntity != null)
+				for (String name : executorScope.wTargetNames())
+					getBindings().wUnset(name);
+			((BindingManager) executorScope).wSetTargetScope(BindingManagerFactory.instance.createSimpleScope());
+		}
+	}
+	@Override
+	protected void clearProducerScope() {
+		if (executorScope != null) {
+			for (String name : executorScope.wTargetScope().wLocalNames())
+				getBindings().wUnset(name);
+			executorScope.wClear();
+		}
+	}
+
+	@Override
+	protected void selectFollowingProducer() {
+		executorScope().wEnterScope();
+		super.selectFollowingProducer();
+		producersNeedInit.set(producerIndex);
+	}
+
+	@Override
 	protected boolean isValidResultProducer() {
 		return isLastProducer();
 	}
@@ -54,36 +89,26 @@ public class IfEvaluator extends AbstractDelegatingNestedEvaluator<IEntity> {
 
 	public IEntity evaluateNext() {
 		if (isFirstProducer()) {
-			conditionValue = scopedEvaluateAsBooleanOrFail(true);
+			conditionValue = scopedEvaluateAsBooleanOrFail();
 			selectFollowingProducer();
 		}
 
 		return lastEntity = conditionValue ? enforceSomeValue(scopedEvaluateNext()) : null;
-//FIXME		return lastEntity = conditionValue ? enforceSomeValue(getProducer().evaluateNext()) : null;
 	}
 
-//	@Override
-//	public IBindingScope lookaheadScope() {
-//		if (lastEntity == null)
-//			return super.lookaheadScope();
-//		IBindingScope scope = BindingManagerFactory.instance.createSimpleScope();
-//		scope.wAddAll(getProducer(0).iterator().lookaheadScope());
-//		scope.wAddAll(getProducer(1).iterator().lookaheadScope());
-//		return scope;
-//	}
+	public IEntity evaluateRemaining() {
+		if (isFirstProducer()) {
+			conditionValue = scopedEvaluateAsBooleanOrFail();
+			selectFollowingProducer();				
+		}
 
-//	public IEntity evaluateRemaining() {
-//		if (isFirstProducer()) {
-//			conditionValue = scopedEvaluateAsBooleanOrFail(true);
-//			selectFollowingProducer();				
-//		}
-//			
-//		return conditionValue ? enforceSomeValue(scopedEvaluateRemaining()) : null;
-//	}
+		return lastEntity = conditionValue ? enforceSomeValue(scopedEvaluateRemaining()) : null;
+	}
 
 	protected IEntity enforceSomeValue(IEntity entity) {
 		if (isFirstValue) {
 			isFirstValue = false;
+			getBindings().wAddAll(executorScope());
 			return entity != null ? entity : BindingManagerFactory.instance.createVoid();
 		} else
 			return entity;

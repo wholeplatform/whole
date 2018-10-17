@@ -156,25 +156,6 @@ public abstract class AbstractIteratorBasedExecutableFactory implements Executab
 	}
 
 
-	public IExecutable<IEntity> createAnd(IExecutable<IEntity>... argsExecutables) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(toIterators(argsExecutables)) {
-			protected void run(IEntity selfEntity, IBindingManager bm) {
-				for (int i=0; i<argsExecutables.length; i++)
-					if (!argsExecutables[i].evaluateAsBooleanOrFail(selfEntity, bm)) {
-						bm.setResult(BindingManagerFactory.instance.createValue(false));
-						return;
-					}
-
-				bm.setResult(BindingManagerFactory.instance.createValue(true));
-			}
-
-			public void toString(StringBuilder sb) {
-				sb.append("and");
-				super.toString(sb);
-			}
-		};
-	}
-
 
 	protected static final FeatureDescriptor getFeatureDescriptor(String fdUri, FeatureDescriptor selfFd, IBindingManager bm) {
 		return ResourceUtils.hasFragmentPart(fdUri) ?

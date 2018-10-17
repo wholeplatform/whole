@@ -130,7 +130,10 @@ public class LazyTransactionScope extends SimpleScope implements ITransactionSco
 	}
 	@Override
 	public Set<String> wTargetNames() {
-		return wNames();
+		Set<String> names = wNames();
+		names.remove(IBindingManager.SELF);
+		return names;
+//		return wNames();
 	}
 
 	public IBindingScope wFindScope(String name) {
