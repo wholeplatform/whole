@@ -183,7 +183,7 @@ public class WorkflowsDynamicCompilerVisitor extends WorkflowsIdentityDefaultVis
 
 		Expressions arguments = entity.getArguments();
 		int size= arguments.wSize();
-    	IExecutable<?>[] runnableIterators = new IExecutable<?>[3+size];
+    	IExecutable<IEntity>[] runnableIterators = new IExecutable[3+size];
 
     	entity.getClassName().accept(this);
 		runnableIterators[0] = getExecutableResult();
@@ -224,7 +224,7 @@ public class WorkflowsDynamicCompilerVisitor extends WorkflowsIdentityDefaultVis
 
 		Expressions arguments = entity.getArguments();
 		int size= arguments.wSize();
-    	IExecutable<?>[] runnableIterators = new IExecutable<?>[3+size];
+    	IExecutable<IEntity>[] runnableIterators = new IExecutable[3+size];
 
     	entity.getClassName().accept(this);
 		runnableIterators[0] = getExecutableResult();

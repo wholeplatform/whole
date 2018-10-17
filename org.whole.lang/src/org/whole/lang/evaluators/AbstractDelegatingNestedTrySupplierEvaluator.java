@@ -17,34 +17,25 @@
  */
 package org.whole.lang.evaluators;
 
+import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 
 /**
  * @author Riccardo Solmi
  */
-public class ConstantComposeEvaluator extends AbstractDelegatingNestedEvaluator<IEntity> {
-	protected IEntity constant;
-
-	@SuppressWarnings("unchecked")
-	public ConstantComposeEvaluator(IEntity constant, IExecutable<IEntity> executable) {
-		super(executable);
-		this.constant = constant;
-		executable.reset(constant);
+public abstract class AbstractDelegatingNestedTrySupplierEvaluator extends AbstractDelegatingNestedSupplierEvaluator {
+    @SuppressWarnings("unchecked")
+	public AbstractDelegatingNestedTrySupplierEvaluator(IExecutable<IEntity>... executables) {
+		super(executables);
 	}
-
-	@Override
-	public void reset(IEntity entity) {
-		super.reset(constant);
-	}
-
 	@Override
 	public IEntity evaluateNext() {
-		return getProducer().evaluateNext();
-	}
-
-	@Override
-	public IEntity evaluateRemaining() {
-		return getProducer().evaluateRemaining();
+		try {
+			return super.evaluateNext();
+        } catch (Throwable e) {
+            throw IWholeRuntimeException.asWholeException(e, getSourceEntity(), getBindings());
+        }
 	}
 }
+

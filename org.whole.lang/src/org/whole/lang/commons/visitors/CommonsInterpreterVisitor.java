@@ -71,7 +71,7 @@ public class CommonsInterpreterVisitor extends CommonsIdentityVisitor {
 		stagedVisit(entity.wGetRoot(), +1);
 
 		if (isExecutableResult()) {
-			IExecutable<?> templateIterator = getExecutableResult();
+			IExecutable<IEntity> templateIterator = getExecutableResult();
 			setExecutableResult(iteratorFactory().createCompose(
 					iteratorFactory().createSingleValuedRunnable((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
 						if (!BindingManagerFactory.instance.isVoid(selfEntity))

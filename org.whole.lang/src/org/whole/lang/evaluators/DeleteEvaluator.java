@@ -25,7 +25,7 @@ import org.whole.lang.model.IEntity;
  */
 public class DeleteEvaluator<E extends IEntity> extends AbstractDelegatingNestedEvaluator<E> {
 	@SuppressWarnings("unchecked")
-	public DeleteEvaluator(IExecutable<E> valuesExecutable) {
+	public DeleteEvaluator(IExecutable<IEntity> valuesExecutable) {
 		super(valuesExecutable);
 	}
 

@@ -61,11 +61,11 @@ public interface ExecutableFactory {
 
 	<E extends IEntity> IExecutable<E> createOuterVariable(String varName);
 
-	<E extends IEntity> IExecutable<E> createConstant(E constant, boolean useClone);
+	<E extends IEntity> IExecutable<E> createConstant(IEntity constant, boolean useClone);
 
 	<E extends IEntity> IExecutable<E> createConstantChild(IEntity constant);
 
-	<E extends IEntity> IExecutable<E> createConstantCompose(IEntity constant, IExecutable<E> executable);
+	<E extends IEntity> IExecutable<E> createConstantCompose(IEntity constant, IExecutable<IEntity> executable);
 
 	<E extends IEntity> IExecutable<E> createConstantSubstitute(E constant, boolean useClone);
 
@@ -81,9 +81,9 @@ public interface ExecutableFactory {
 
 	<E extends IEntity> IExecutable<E> createSingleValuedRunnable(IRunnable runnable, int[] optionalArgsIndexes, IExecutable<?>... argsExecutables);
 
-	<E extends IEntity> IExecutable<E> createMultiValuedRunnable(IRunnable runnable, IExecutable<?>... argsExecutables);
+	<E extends IEntity> IExecutable<E> createMultiValuedRunnable(IRunnable runnable, IExecutable<IEntity>... argsExecutables);
 
-	<E extends IEntity> IExecutable<E> createMultiValuedRunnable(IRunnable runnable, int[] optionalArgsIndexes, IExecutable<?>... argsExecutables);
+	<E extends IEntity> IExecutable<E> createMultiValuedRunnable(IRunnable runnable, int[] optionalArgsIndexes, IExecutable<IEntity>... argsExecutables);
 
 	IExecutable<IEntity> createAspect();
 
@@ -207,7 +207,7 @@ public interface ExecutableFactory {
 	<E extends IEntity> IExecutable<E> createSequence(IExecutable<? extends E>... executableChain);
 
 	@SuppressWarnings("unchecked")
-	<E extends IEntity> IExecutable<E> createCompose(IExecutable<E> executable, IExecutable<? extends IEntity>... nestedExecutables);
+	<E extends IEntity> IExecutable<E> createCompose(IExecutable<IEntity> executable, IExecutable<IEntity>... nestedExecutables);
 
 	<E extends IEntity> IExecutable<E> createFilterByIndex(IExecutable<E> executable, int index);
 
@@ -355,7 +355,7 @@ public interface ExecutableFactory {
 
 	<E extends IEntity> IExecutable<E> createPointwiseInsert(IExecutable<E> valuesExecutable, IExecutable<? super E> toExecutable, Placement placement);
 
-	<E extends IEntity> IExecutable<E> createDelete(IExecutable<E> valuesExecutable);
+	<E extends IEntity> IExecutable<E> createDelete(IExecutable<IEntity> valuesExecutable);
 
 	@SuppressWarnings("unchecked")
 	public <E extends IEntity> IExecutable<E> createCall(String name, IExecutable<? extends E>... argsExecutables);

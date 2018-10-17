@@ -41,12 +41,12 @@ public class MultiValuedRunnableEvaluator<E extends IEntity> extends AbstractNes
 	protected IExecutable<E> executableResult;
 	protected IRunnable runnable;
 
-	public MultiValuedRunnableEvaluator(IRunnable runnable, IExecutable<?>... argsIterators) {
+	public MultiValuedRunnableEvaluator(IRunnable runnable, IExecutable<IEntity>... argsIterators) {
 		super(argsIterators);
 		optionalProducersIndexSet = Collections.emptySet();
 		this.runnable = runnable;
 	}
-	public MultiValuedRunnableEvaluator(IRunnable runnable, int[] optionalArgsIndexes, IExecutable<?>... argsIterators) {
+	public MultiValuedRunnableEvaluator(IRunnable runnable, int[] optionalArgsIndexes, IExecutable<IEntity>... argsIterators) {
 		super(argsIterators);
 		optionalProducersIndexSet = Arrays.stream(optionalArgsIndexes).boxed().collect(Collectors.toSet());
 		this.runnable = runnable;

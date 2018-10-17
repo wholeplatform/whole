@@ -18,10 +18,9 @@
 package org.whole.lang.queries.util;
 
 import org.whole.lang.bindings.BindingManagerFactory;
-import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.evaluators.AbstractDelegatingNestedTrySupplierEvaluator;
 import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.executables.IExecutable;
-import org.whole.lang.iterators.AbstractSingleValuedRunnableIterator;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.DataKinds;
 import org.whole.lang.util.DataTypeUtils;
@@ -32,250 +31,249 @@ import org.whole.lang.util.WholeMessages;
  * @author Riccardo Solmi
  */
 public class MathUtils {
-	public static IExecutable<?> additionStepIterator(IExecutable<?> expression) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(expression.iterator()) {
-			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
-				bm.setResult(addition(selfEntity, argsEntities[0]));
+	@SuppressWarnings("unchecked")
+	public static IExecutable<IEntity> createAdditionStep(IExecutable<IEntity> expression) {
+		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
+			public IEntity get() {
+				return addition(selfEntity, getProducer(0).evaluateRemaining());
 			}
-			public void toString(StringBuilder sb) {
-				sb.append("addition");
-				super.toString(sb);
-			}
-		};
-	}
-	public static IExecutable<?> subtractionStepIterator(IExecutable<?> expression) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(expression.iterator()) {
-			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
-				bm.setResult(subtraction(selfEntity, argsEntities[0]));
-			}
-			public void toString(StringBuilder sb) {
-				sb.append("subtraction");
-				super.toString(sb);
+			public String toStringPrefix() {
+				return "addition(";
 			}
 		};
 	}
-	public static IExecutable<?> multiplicationStepIterator(IExecutable<?> expression) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(expression.iterator()) {
-			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
-				bm.setResult(multiplication(selfEntity, argsEntities[0]));
+	@SuppressWarnings("unchecked")
+	public static IExecutable<IEntity> createSubtractionStep(IExecutable<IEntity> expression) {
+		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
+			public IEntity get() {
+				return subtraction(selfEntity, getProducer(0).evaluateRemaining());
 			}
-			public void toString(StringBuilder sb) {
-				sb.append("multiplication");
-				super.toString(sb);
-			}
-		};
-	}
-	public static IExecutable<?> divisionStepIterator(IExecutable<?> expression) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(expression.iterator()) {
-			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
-				bm.setResult(division(selfEntity, argsEntities[0]));
-			}
-			public void toString(StringBuilder sb) {
-				sb.append("division");
-				super.toString(sb);
+			public String toStringPrefix() {
+				return "subtraction(";
 			}
 		};
 	}
-	public static IExecutable<?> remainderStepIterator(IExecutable<?> expression) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(expression.iterator()) {
-			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
-				bm.setResult(remainder(selfEntity, argsEntities[0]));
+	@SuppressWarnings("unchecked")
+	public static IExecutable<IEntity> createMultiplicationStep(IExecutable<IEntity> expression) {
+		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
+			public IEntity get() {
+				return multiplication(selfEntity, getProducer(0).evaluateRemaining());
 			}
-			public void toString(StringBuilder sb) {
-				sb.append("remainder");
-				super.toString(sb);
-			}
-		};
-	}
-
-	public static IExecutable<?> equalsStepIterator(IExecutable<?> expression) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(expression.iterator()) {
-			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
-				bm.setResult(MathUtils.equals(selfEntity, argsEntities[0]));
-			}
-			public void toString(StringBuilder sb) {
-				sb.append("equals");
-				super.toString(sb);
+			public String toStringPrefix() {
+				return "multiplication(";
 			}
 		};
 	}
-	public static IExecutable<?> notEqualsStepIterator(IExecutable<?> expression) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(expression.iterator()) {
-			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
-				bm.setResult(notEquals(selfEntity, argsEntities[0]));
+	@SuppressWarnings("unchecked")
+	public static IExecutable<IEntity> createDivisionStep(IExecutable<IEntity> expression) {
+		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
+			public IEntity get() {
+				return division(selfEntity, getProducer(0).evaluateRemaining());
 			}
-			public void toString(StringBuilder sb) {
-				sb.append("notEquals");
-				super.toString(sb);
-			}
-		};
-	}
-	public static IExecutable<?> lessThanStepIterator(IExecutable<?> expression) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(expression.iterator()) {
-			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
-				bm.setResult(lessThan(selfEntity, argsEntities[0]));
-			}
-			public void toString(StringBuilder sb) {
-				sb.append("lessThan");
-				super.toString(sb);
+			public String toStringPrefix() {
+				return "division(";
 			}
 		};
 	}
-	public static IExecutable<?> lessOrEqualsStepIterator(IExecutable<?> expression) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(expression.iterator()) {
-			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
-				bm.setResult(lessOrEquals(selfEntity, argsEntities[0]));
+	@SuppressWarnings("unchecked")
+	public static IExecutable<IEntity> createRemainderStep(IExecutable<IEntity> expression) {
+		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
+			public IEntity get() {
+				return remainder(selfEntity, getProducer(0).evaluateRemaining());
 			}
-			public void toString(StringBuilder sb) {
-				sb.append("lessOrEquals");
-				super.toString(sb);
-			}
-		};
-	}
-	public static IExecutable<?> greaterThanStepIterator(IExecutable<?> expression) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(expression.iterator()) {
-			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
-				bm.setResult(greaterThan(selfEntity, argsEntities[0]));
-			}
-			public void toString(StringBuilder sb) {
-				sb.append("greaterThan");
-				super.toString(sb);
-			}
-		};
-	}
-	public static IExecutable<?> greaterOrEqualsStepIterator(IExecutable<?> expression) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(expression.iterator()) {
-			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
-				bm.setResult(greaterOrEquals(selfEntity, argsEntities[0]));
-			}
-			public void toString(StringBuilder sb) {
-				sb.append("greaterOrEquals");
-				super.toString(sb);
+			public String toStringPrefix() {
+				return "remainder(";
 			}
 		};
 	}
 
+	@SuppressWarnings("unchecked")
+	public static IExecutable<IEntity> createEqualsStep(IExecutable<IEntity> expression) {
+		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
+			public IEntity get() {
+				return MathUtils.equals(selfEntity, getProducer(0).evaluateRemaining());
+			}
+			public String toStringPrefix() {
+				return "equals(";
+			}
+		};
+	}
+	@SuppressWarnings("unchecked")
+	public static IExecutable<IEntity> createNotEqualsStep(IExecutable<IEntity> expression) {
+		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
+			public IEntity get() {
+				return notEquals(selfEntity, getProducer(0).evaluateRemaining());
+			}
+			public String toStringPrefix() {
+				return "notEquals(";
+			}
+		};
+	}
+	@SuppressWarnings("unchecked")
+	public static IExecutable<IEntity> createLessThanStep(IExecutable<IEntity> expression) {
+		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
+			public IEntity get() {
+				return lessThan(selfEntity, getProducer(0).evaluateRemaining());
+			}
+			public String toStringPrefix() {
+				return "lessThan(";
+			}
+		};
+	}
+	@SuppressWarnings("unchecked")
+	public static IExecutable<IEntity> createLessOrEqualsStep(IExecutable<IEntity> expression) {
+		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
+			public IEntity get() {
+				return lessOrEquals(selfEntity, getProducer(0).evaluateRemaining());
+			}
+			public String toStringPrefix() {
+				return "lessOrEquals(";
+			}
+		};
+	}
+	@SuppressWarnings("unchecked")
+	public static IExecutable<IEntity> createGreaterThanStep(IExecutable<IEntity> expression) {
+		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
+			public IEntity get() {
+				return greaterThan(selfEntity, getProducer(0).evaluateRemaining());
+			}
+			public String toStringPrefix() {
+				return "greaterThan(";
+			}
+		};
+	}
+	@SuppressWarnings("unchecked")
+	public static IExecutable<IEntity> createGreaterOrEqualsStep(IExecutable<IEntity> expression) {
+		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
+			public IEntity get() {
+				return greaterOrEquals(selfEntity, getProducer(0).evaluateRemaining());
+			}
+			public String toStringPrefix() {
+				return "greaterOrEquals(";
+			}
+		};
+	}
 
 
-	public static IExecutable<?> additionIterator(IExecutable<?> exp1, IExecutable<?> exp2) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(exp1.iterator(), exp2.iterator()) {
-			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
-				bm.setResult(addition(argsEntities[0], argsEntities[1]));
+	@SuppressWarnings("unchecked")
+	public static IExecutable<IEntity> createAddition(IExecutable<IEntity> exp1, IExecutable<IEntity> exp2) {
+		return new AbstractDelegatingNestedTrySupplierEvaluator(exp1, exp2) {
+			public IEntity get() {
+				return addition(getProducer(0).evaluateRemaining(), getProducer(1).evaluateRemaining());
 			}
-			public void toString(StringBuilder sb) {
-				sb.append("addition");
-				super.toString(sb);
-			}
-		};
-	}
-	public static IExecutable<?> subtractionIterator(IExecutable<?> exp1, IExecutable<?> exp2) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(exp1.iterator(), exp2.iterator()) {
-			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
-				bm.setResult(subtraction(argsEntities[0], argsEntities[1]));
-			}
-			public void toString(StringBuilder sb) {
-				sb.append("subtraction");
-				super.toString(sb);
+			public String toStringPrefix() {
+				return "addition(";
 			}
 		};
 	}
-	public static IExecutable<?> multiplicationIterator(IExecutable<?> exp1, IExecutable<?> exp2) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(exp1.iterator(), exp2.iterator()) {
-			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
-				bm.setResult(multiplication(argsEntities[0], argsEntities[1]));
+	@SuppressWarnings("unchecked")
+	public static IExecutable<IEntity> createSubtraction(IExecutable<IEntity> exp1, IExecutable<IEntity> exp2) {
+		return new AbstractDelegatingNestedTrySupplierEvaluator(exp1, exp2) {
+			public IEntity get() {
+				return subtraction(getProducer(0).evaluateRemaining(), getProducer(1).evaluateRemaining());
 			}
-			public void toString(StringBuilder sb) {
-				sb.append("multiplication");
-				super.toString(sb);
-			}
-		};
-	}
-	public static IExecutable<?> divisionIterator(IExecutable<?> exp1, IExecutable<?> exp2) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(exp1.iterator(), exp2.iterator()) {
-			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
-				bm.setResult(division(argsEntities[0], argsEntities[1]));
-			}
-			public void toString(StringBuilder sb) {
-				sb.append("division");
-				super.toString(sb);
+			public String toStringPrefix() {
+				return "subtraction(";
 			}
 		};
 	}
-	public static IExecutable<?> remainderIterator(IExecutable<?> exp1, IExecutable<?> exp2) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(exp1.iterator(), exp2.iterator()) {
-			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
-				bm.setResult(remainder(argsEntities[0], argsEntities[1]));
+	@SuppressWarnings("unchecked")
+	public static IExecutable<IEntity> createMultiplication(IExecutable<IEntity> exp1, IExecutable<IEntity> exp2) {
+		return new AbstractDelegatingNestedTrySupplierEvaluator(exp1, exp2) {
+			public IEntity get() {
+				return multiplication(getProducer(0).evaluateRemaining(), getProducer(1).evaluateRemaining());
 			}
-			public void toString(StringBuilder sb) {
-				sb.append("remainder");
-				super.toString(sb);
+			public String toStringPrefix() {
+				return "multiplication(";
+			}
+		};
+	}
+	@SuppressWarnings("unchecked")
+	public static IExecutable<IEntity> createDivision(IExecutable<IEntity> exp1, IExecutable<IEntity> exp2) {
+		return new AbstractDelegatingNestedTrySupplierEvaluator(exp1, exp2) {
+			public IEntity get() {
+				return division(getProducer(0).evaluateRemaining(), getProducer(1).evaluateRemaining());
+			}
+			public String toStringPrefix() {
+				return "division(";
+			}
+		};
+	}
+	@SuppressWarnings("unchecked")
+	public static IExecutable<IEntity> createRemainder(IExecutable<IEntity> exp1, IExecutable<IEntity> exp2) {
+		return new AbstractDelegatingNestedTrySupplierEvaluator(exp1, exp2) {
+			public IEntity get() {
+				return remainder(getProducer(0).evaluateRemaining(), getProducer(1).evaluateRemaining());
+			}
+			public String toStringPrefix() {
+				return "remainder(";
 			}
 		};
 	}
 
-	public static IExecutable<?> equalsIterator(IExecutable<?> exp1, IExecutable<?> exp2) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(exp1.iterator(), exp2.iterator()) {
-			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
-				bm.setResult(MathUtils.equals(argsEntities[0], argsEntities[1]));
+	@SuppressWarnings("unchecked")
+	public static IExecutable<IEntity> createEquals(IExecutable<IEntity> exp1, IExecutable<IEntity> exp2) {
+		return new AbstractDelegatingNestedTrySupplierEvaluator(exp1, exp2) {
+			public IEntity get() {
+				return MathUtils.equals(getProducer(0).evaluateRemaining(), getProducer(1).evaluateRemaining());
 			}
-			public void toString(StringBuilder sb) {
-				sb.append("equals");
-				super.toString(sb);
-			}
-		};
-	}
-	public static IExecutable<?> notEqualsIterator(IExecutable<?> exp1, IExecutable<?> exp2) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(exp1.iterator(), exp2.iterator()) {
-			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
-				bm.setResult(notEquals(argsEntities[0], argsEntities[1]));
-			}
-			public void toString(StringBuilder sb) {
-				sb.append("notEquals");
-				super.toString(sb);
+			public String toStringPrefix() {
+				return "equals(";
 			}
 		};
 	}
-	public static IExecutable<?> lessThanIterator(IExecutable<?> exp1, IExecutable<?> exp2) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(exp1.iterator(), exp2.iterator()) {
-			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
-				bm.setResult(lessThan(argsEntities[0], argsEntities[1]));
+	@SuppressWarnings("unchecked")
+	public static IExecutable<IEntity> createNotEquals(IExecutable<IEntity> exp1, IExecutable<IEntity> exp2) {
+		return new AbstractDelegatingNestedTrySupplierEvaluator(exp1, exp2) {
+			public IEntity get() {
+				return notEquals(getProducer(0).evaluateRemaining(), getProducer(1).evaluateRemaining());
 			}
-			public void toString(StringBuilder sb) {
-				sb.append("lessThan");
-				super.toString(sb);
-			}
-		};
-	}
-	public static IExecutable<?> lessOrEqualsIterator(IExecutable<?> exp1, IExecutable<?> exp2) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(exp1.iterator(), exp2.iterator()) {
-			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
-				bm.setResult(lessOrEquals(argsEntities[0], argsEntities[1]));
-			}
-			public void toString(StringBuilder sb) {
-				sb.append("lessOrEquals");
-				super.toString(sb);
+			public String toStringPrefix() {
+				return "notEquals(";
 			}
 		};
 	}
-	public static IExecutable<?> greaterThanIterator(IExecutable<?> exp1, IExecutable<?> exp2) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(exp1.iterator(), exp2.iterator()) {
-			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
-				bm.setResult(greaterThan(argsEntities[0], argsEntities[1]));
+	@SuppressWarnings("unchecked")
+	public static IExecutable<IEntity> createLessThan(IExecutable<IEntity> exp1, IExecutable<IEntity> exp2) {
+		return new AbstractDelegatingNestedTrySupplierEvaluator(exp1, exp2) {
+			public IEntity get() {
+				return lessThan(getProducer(0).evaluateRemaining(), getProducer(1).evaluateRemaining());
 			}
-			public void toString(StringBuilder sb) {
-				sb.append("greaterThan");
-				super.toString(sb);
+			public String toStringPrefix() {
+				return "lessThan(";
 			}
 		};
 	}
-	public static IExecutable<?> greaterOrEqualsIterator(IExecutable<?> exp1, IExecutable<?> exp2) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(exp1.iterator(), exp2.iterator()) {
-			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
-				bm.setResult(greaterOrEquals(argsEntities[0], argsEntities[1]));
+	@SuppressWarnings("unchecked")
+	public static IExecutable<IEntity> createLessOrEquals(IExecutable<IEntity> exp1, IExecutable<IEntity> exp2) {
+		return new AbstractDelegatingNestedTrySupplierEvaluator(exp1, exp2) {
+			public IEntity get() {
+				return lessOrEquals(getProducer(0).evaluateRemaining(), getProducer(1).evaluateRemaining());
 			}
-			public void toString(StringBuilder sb) {
-				sb.append("greaterOrEquals");
-				super.toString(sb);
+			public String toStringPrefix() {
+				return "lessOrEquals(";
+			}
+		};
+	}
+	@SuppressWarnings("unchecked")
+	public static IExecutable<IEntity> createGreaterThan(IExecutable<IEntity> exp1, IExecutable<IEntity> exp2) {
+		return new AbstractDelegatingNestedTrySupplierEvaluator(exp1, exp2) {
+			public IEntity get() {
+				return greaterThan(getProducer(0).evaluateRemaining(), getProducer(1).evaluateRemaining());
+			}
+			public String toStringPrefix() {
+				return "greaterThan(";
+			}
+		};
+	}
+	@SuppressWarnings("unchecked")
+	public static IExecutable<IEntity> createGreaterOrEquals(IExecutable<IEntity> exp1, IExecutable<IEntity> exp2) {
+		return new AbstractDelegatingNestedTrySupplierEvaluator(exp1, exp2) {
+			public IEntity get() {
+				return greaterOrEquals(getProducer(0).evaluateRemaining(), getProducer(1).evaluateRemaining());
+			}
+			public String toStringPrefix() {
+				return "greaterOrEquals(";
 			}
 		};
 	}

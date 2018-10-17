@@ -61,7 +61,7 @@ public class AbstractDecoratedExecutableFactory implements ExecutableFactory {
 		return decorate(factory.createOuterVariable(varName));
 	}
 
-	public <E extends IEntity> IExecutable<E> createConstant(E constant, boolean useClone) {
+	public <E extends IEntity> IExecutable<E> createConstant(IEntity constant, boolean useClone) {
 		return decorate(factory.createConstant(constant, useClone));
 	}
 
@@ -69,7 +69,7 @@ public class AbstractDecoratedExecutableFactory implements ExecutableFactory {
 		return decorate(factory.createConstantChild(constant));
 	}
 
-	public <E extends IEntity> IExecutable<E> createConstantCompose(IEntity constant, IExecutable<E> executable) {
+	public <E extends IEntity> IExecutable<E> createConstantCompose(IEntity constant, IExecutable<IEntity> executable) {
 		return decorate(factory.createConstantCompose(constant, executable));
 	}
 
@@ -104,13 +104,11 @@ public class AbstractDecoratedExecutableFactory implements ExecutableFactory {
 		return decorate(factory.createSingleValuedRunnable(runnable, optionalArgsIndexes, argsExecutables));
 	}
 
-	public <E extends IEntity> IExecutable<E> createMultiValuedRunnable(IRunnable runnable,
-			IExecutable<?>... argsExecutables) {
+	public <E extends IEntity> IExecutable<E> createMultiValuedRunnable(IRunnable runnable, IExecutable<IEntity>... argsExecutables) {
 		return decorate(factory.createMultiValuedRunnable(runnable, argsExecutables));
 	}
 
-	public <E extends IEntity> IExecutable<E> createMultiValuedRunnable(IRunnable runnable,
-			int[] optionalArgsIndexes, IExecutable<?>... argsExecutables) {
+	public <E extends IEntity> IExecutable<E> createMultiValuedRunnable(IRunnable runnable, int[] optionalArgsIndexes, IExecutable<IEntity>... argsExecutables) {
 		return decorate(factory.createMultiValuedRunnable(runnable, optionalArgsIndexes, argsExecutables));
 	}
 
@@ -353,7 +351,7 @@ public class AbstractDecoratedExecutableFactory implements ExecutableFactory {
 		return decorate(factory.createSequence(executableChain));
 	}
 
-	public <E extends IEntity> IExecutable<E> createCompose(IExecutable<E> executable, IExecutable<? extends IEntity>... nestedExecutables) {
+	public <E extends IEntity> IExecutable<E> createCompose(IExecutable<IEntity> executable, IExecutable<IEntity>... nestedExecutables) {
 		return decorate(factory.createCompose(executable, nestedExecutables));
 	}
 
@@ -640,7 +638,7 @@ public class AbstractDecoratedExecutableFactory implements ExecutableFactory {
 		return decorate(factory.createPointwiseInsert(valuesExecutable, toExecutable, placement));
 	}
 
-	public <E extends IEntity> IExecutable<E> createDelete(IExecutable<E> valuesExecutable) {
+	public <E extends IEntity> IExecutable<E> createDelete(IExecutable<IEntity> valuesExecutable) {
 		return decorate(factory.createDelete(valuesExecutable));
 	}
 

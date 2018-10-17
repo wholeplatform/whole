@@ -33,11 +33,11 @@ import org.whole.lang.util.EntityUtils;
 public abstract class AbstractNestedEvaluator<E extends IEntity> extends AbstractExecutableEvaluatingStepperIterator<E> {
 	protected ICloneContext cloneContext = IdentityCloneContext.instance;
 	protected IEntity selfEntity;
-	protected IExecutable<? extends IEntity>[] producers;
+	protected IExecutable<IEntity>[] producers;
 	protected BitSet producersNeedClone;
 	protected BitSet producersNeedInit;
 
-	protected AbstractNestedEvaluator(IExecutable<?>... producers) {
+	protected AbstractNestedEvaluator(IExecutable<IEntity>... producers) {
 		this.producers = producers;
 		producersNeedClone = new BitSet(producersSize());
 		producersNeedClone.set(0, producersSize(), false);
@@ -66,13 +66,13 @@ public abstract class AbstractNestedEvaluator<E extends IEntity> extends Abstrac
     public int producersSize() {
 		return producers.length;
 	}
-	public IExecutable<?> getProducer(int index) {
+	public IExecutable<IEntity> getProducer(int index) {
 		if (producersNeedClone.get(index)) {
 			producersNeedClone.clear(index);
 			producers[index] = producers[index].clone(cloneContext);
 		}
 
-		IExecutable<?> producer = producers[index];
+		IExecutable<IEntity> producer = producers[index];
 
 		if (producersNeedInit.get(index)) {
 			producersNeedInit.clear(index);

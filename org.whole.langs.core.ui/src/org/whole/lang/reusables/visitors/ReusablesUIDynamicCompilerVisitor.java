@@ -21,6 +21,7 @@ import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.codebase.IPersistenceProvider;
 import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.executables.IExecutable;
+import org.whole.lang.model.IEntity;
 import org.whole.lang.reusables.model.Workspace;
 
 /**
@@ -33,7 +34,7 @@ public class ReusablesUIDynamicCompilerVisitor extends ReusablesDynamicCompilerV
 		IExecutable<?> persistenceIterator = getExecutableResult();
 		
 		entity.getContent().accept(this);
-		IExecutable<?> contentIterator = getExecutableResult();
+		IExecutable<IEntity> contentIterator = getExecutableResult();
 
 		setExecutableResult(iteratorFactory().createCompose(
 				iteratorFactory().createSingleValuedRunnable(new ResourcePersistenceRunnable() {

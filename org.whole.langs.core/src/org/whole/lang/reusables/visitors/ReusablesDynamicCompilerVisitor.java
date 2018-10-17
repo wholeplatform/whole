@@ -118,7 +118,7 @@ public class ReusablesDynamicCompilerVisitor extends AbstractReusablesSemanticsV
 		IExecutable<?> persistenceIterator = getExecutableResult();
 		
 		entity.getContent().accept(this);
-		IExecutable<?> contentIterator = getExecutableResult();
+		IExecutable<IEntity> contentIterator = getExecutableResult();
 
 		setExecutableResult(iteratorFactory().createCompose(
 					iteratorFactory().createSingleValuedRunnable(new ResourcePersistenceRunnable() {
@@ -134,7 +134,7 @@ public class ReusablesDynamicCompilerVisitor extends AbstractReusablesSemanticsV
 		IExecutable<?> persistenceIterator = getExecutableResult();
 		
 		entity.getContent().accept(this);
-		IExecutable<?> contentIterator = getExecutableResult();
+		IExecutable<IEntity> contentIterator = getExecutableResult();
 
 		setExecutableResult(iteratorFactory().createCompose(
 				iteratorFactory().createSingleValuedRunnable(new ResourcePersistenceRunnable() {
@@ -155,7 +155,7 @@ public class ReusablesDynamicCompilerVisitor extends AbstractReusablesSemanticsV
 		IExecutable<?> persistenceIterator = getExecutableResult();
 		
 		entity.getContent().accept(this);
-		IExecutable<?> contentIterator = getExecutableResult();
+		IExecutable<IEntity> contentIterator = getExecutableResult();
 
 		setExecutableResult(iteratorFactory().createCompose(
 				iteratorFactory().createSingleValuedRunnable(new ResourcePersistenceRunnable() {
@@ -194,7 +194,7 @@ public class ReusablesDynamicCompilerVisitor extends AbstractReusablesSemanticsV
 //TODO		entity.getPersistence();
 
 		entity.getContent().accept(this);
-		IExecutable<?> contentIterator = getExecutableResult();
+		IExecutable<IEntity> contentIterator = getExecutableResult();
 
 		setExecutableResult(iteratorFactory().createCompose(
 				iteratorFactory().createSingleValuedRunnable((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {

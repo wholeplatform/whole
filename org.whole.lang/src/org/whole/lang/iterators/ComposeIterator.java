@@ -37,7 +37,7 @@ public class ComposeIterator<E extends IEntity> extends AbstractLazyCloneableCom
 	private int laIndex = -1;
 	private E nextEntity = null;
 
-	protected ComposeIterator(IEntityIterator<E> iterator, IEntityIterator<? extends IEntity>... nestedIterators) {
+	protected ComposeIterator(IEntityIterator<E> iterator, IEntityIterator<IEntity>... nestedIterators) {
 		this.iterator = iterator;
 		this.nestedIterators = nestedIterators;
 		laIndex = nestedIterators.length-1;

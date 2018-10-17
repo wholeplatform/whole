@@ -101,7 +101,7 @@ public class SemanticsDynamicCompilerVisitor extends SemanticsIdentityDefaultVis
     	Expression arguments = entity.getArguments();
 		if (!EntityUtils.isResolver(arguments)) {
     		arguments.accept(this);
-    		IExecutable<?> argumentsIterator = getExecutableResult();
+    		IExecutable<IEntity> argumentsIterator = getExecutableResult();
 
     		if (!argumentsIterator.getClass().equals(SelfIterator.class))
     			executableResult = iteratorFactory().createCompose(executableResult, argumentsIterator).withSourceEntity(entity);

@@ -143,8 +143,8 @@ public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisit
 	public void visit(Adapt entity) {
 		Reusable reusable = entity.getAdapted();
 
-		IExecutable<?> contentIterator = null;
-		IExecutable<?> adapterIterator = null;
+		IExecutable<IEntity> contentIterator = null;
+		IExecutable<IEntity> adapterIterator = null;
 		if (EntityUtils.isResolver(reusable)) {
 			contentIterator = iteratorFactory().createConstant(entity.getOriginal(), false);
 
@@ -158,7 +158,7 @@ public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisit
 			contentIterator = iteratorFactory().createConstant(reusable, false);
 
 		boolean updateAdapted = EntityUtils.isResolver(entity.getAdapted());
-		IExecutable<?> evaluateIterator = iteratorFactory().createSingleValuedRunnable(
+		IExecutable<IEntity> evaluateIterator = iteratorFactory().createSingleValuedRunnable(
 			(selfEntity, bm, arguments) -> {
 				try {
 					getBindings().wEnterScope();
@@ -192,9 +192,9 @@ public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisit
 
 	@Override
 	public void visit(Include entity) {
-		IExecutable<?> contentIterator = readResource(entity.getResource());
+		IExecutable<IEntity> contentIterator = (IExecutable<IEntity>) readResource(entity.getResource());
 
-		IExecutable<?> evaluateIterator = iteratorFactory().createSingleValuedRunnable(
+		IExecutable<IEntity> evaluateIterator = iteratorFactory().createSingleValuedRunnable(
 				(selfEntity, bm, arguments) -> evaluateAndClone(selfEntity, bm));
 		setExecutableResult(iteratorFactory().createCompose(evaluateIterator, contentIterator));
 	}
@@ -205,8 +205,8 @@ public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisit
 
 		Reusable original = CommonsEntityAdapterFactory.createResolver(Reusable);
 
-		IEntityIterator<?> contentIterator = null;
-		IExecutable<?> adapterIterator = null;
+		IEntityIterator<IEntity> contentIterator = null;
+		IExecutable<IEntity> adapterIterator = null;
 		if (EntityUtils.isResolver(reusable)) {
 			try {
 				getBindings().wEnterScope();
@@ -215,7 +215,7 @@ public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisit
 				reusable =  entity.getOriginal();
 	
 				if (EntityUtils.isResolver(reusable)) {
-					contentIterator = readResource(entity.getResource()).iterator();
+					contentIterator = (IEntityIterator<IEntity>) readResource(entity.getResource()).iterator();
 					contentIterator.setBindings(getBindings());
 					contentIterator.reset(entity);
 					if (contentIterator.hasNext())
@@ -241,7 +241,7 @@ public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisit
 			contentIterator = iteratorFactory().createConstant(reusable, false).iterator();
 
 		boolean updateAdapted = EntityUtils.isResolver(entity.getAdapted());
-		IExecutable<?> evaluateIterator = iteratorFactory().createSingleValuedRunnable(
+		IExecutable<IEntity> evaluateIterator = iteratorFactory().createSingleValuedRunnable(
 			(selfEntity, bm, arguments) -> {
 				try {
 					getBindings().wEnterScope();

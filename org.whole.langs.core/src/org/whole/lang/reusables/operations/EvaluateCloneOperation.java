@@ -62,7 +62,7 @@ public class EvaluateCloneOperation extends CloneOperationOld {
 		IEntity child = entityClone.wGet(index);
 		if (shouldEvaluate.test(child)) {
 			IEntity selfEntity = getBindings().wGet(IBindingManager.SELF);
-			IExecutable<?> iterator = BehaviorUtils.lazyEvaluateOnSelfBinding(child, 0, getBindings());
+			IExecutable<IEntity> iterator = (IExecutable<IEntity>) BehaviorUtils.lazyEvaluateOnSelfBinding(child, 0, getBindings());
 //			IExecutable<?> iterator = DynamicCompilerOperation.compile(child, getBindings()).getExecutableResult();
 			if (EntityUtils.isSimple(entityClone)) {
 				iterator = ExecutableFactory.instance.createCompose(ExecutableFactory.instance.createSingleValuedRunnable(
@@ -90,7 +90,7 @@ public class EvaluateCloneOperation extends CloneOperationOld {
 		IEntity child = entityClone.wGet(fd);
 		if (shouldEvaluate.test(child)) {
 			IEntity selfEntity = getBindings().wGet(IBindingManager.SELF);
-			IExecutable<?> iterator = BehaviorUtils.lazyEvaluateOnSelfBinding(child, 0, getBindings());
+			IExecutable<IEntity> iterator = (IExecutable<IEntity>) BehaviorUtils.lazyEvaluateOnSelfBinding(child, 0, getBindings());
 //			IExecutable<?> iterator = DynamicCompilerOperation.compile(child, getBindings()).getExecutableResult();
 			iterator = ExecutableFactory.instance.createCompose(ExecutableFactory.instance.createSingleValuedRunnable(
 					(self, bm, arguments) -> entityClone.wSet(fd, self)

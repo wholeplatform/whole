@@ -27,7 +27,7 @@ import org.whole.lang.model.IEntity;
  */
 public class SequenceEvaluator<E extends IEntity> extends AbstractDelegatingNestedEvaluator<E> {
 	@SuppressWarnings("unchecked")
-	public SequenceEvaluator(IExecutable<? extends E>... executables) {
+	public SequenceEvaluator(IExecutable<IEntity>... executables) {
 		super(executables);
 	}
 

@@ -66,8 +66,8 @@ public class IteratorBasedExecutableFactory extends AbstractIteratorBasedExecuta
 		return BindingUtils.hasEnvironmentPart(varName) ? new OuterVariableIterator<E>(varName) : new OuterLocalVariableIterator<E>(varName);
 	}
 
-	public <E extends IEntity> IExecutable<E> createConstant(E constant, boolean useClone) {
-		return new ConstantIterator<E>(constant, useClone);
+	public <E extends IEntity> IExecutable<E> createConstant(IEntity constant, boolean useClone) {
+		return new ConstantIterator<E>((E) constant, useClone);
 	}
 	public <E extends IEntity> IExecutable<E> createConstantSubstitute(E constant, boolean useClone) {
 		return new ConstantIterator<E>(constant, useClone) {
@@ -82,8 +82,8 @@ public class IteratorBasedExecutableFactory extends AbstractIteratorBasedExecuta
 	public <E extends IEntity> IExecutable<E> createConstantChild(IEntity constant) {
 		return new ConstantChildIterator<E>(true, constant);
 	}
-	public <E extends IEntity> IExecutable<E> createConstantCompose(IEntity constant, IExecutable<E> executable) {
-		return new ConstantComposeIterator<E>(constant, executable.iterator());
+	public <E extends IEntity> IExecutable<E> createConstantCompose(IEntity constant, IExecutable<IEntity> executable) {
+		return new ConstantComposeIterator<E>(constant, (IEntityIterator<E>) executable.iterator());
 	}
 
 	public <E extends IEntity> IExecutable<E> createEntityCollection(Iterable<E> entityCollectionIterable) {
@@ -105,10 +105,10 @@ public class IteratorBasedExecutableFactory extends AbstractIteratorBasedExecuta
 	public <E extends IEntity> IExecutable<E> createSingleValuedRunnable(IRunnable runnable, int[] optionalArgsIndexes, IExecutable<?>... argsExecutables) {
 		return new SingleValuedRunnableIterator<E>(runnable, optionalArgsIndexes, toIterators(argsExecutables));
 	}
-	public <E extends IEntity> IExecutable<E> createMultiValuedRunnable(IRunnable runnable, IExecutable<?>... argsExecutables) {
+	public <E extends IEntity> IExecutable<E> createMultiValuedRunnable(IRunnable runnable, IExecutable<IEntity>... argsExecutables) {
 		return new MultiValuedRunnableIterator<E>(runnable, toIterators(argsExecutables));
 	}
-	public <E extends IEntity> IExecutable<E> createMultiValuedRunnable(IRunnable runnable, int[] optionalArgsIndexes, IExecutable<?>... argsExecutables) {
+	public <E extends IEntity> IExecutable<E> createMultiValuedRunnable(IRunnable runnable, int[] optionalArgsIndexes, IExecutable<IEntity>... argsExecutables) {
 		return new MultiValuedRunnableIterator<E>(runnable, optionalArgsIndexes, toIterators(argsExecutables));
 	}
 
@@ -338,8 +338,8 @@ public class IteratorBasedExecutableFactory extends AbstractIteratorBasedExecuta
 		return new SequenceIterator<E>(toIterators(executableChain));
 	}
 
-	public <E extends IEntity> IExecutable<E> createCompose(IExecutable<E> executable, IExecutable<? extends IEntity>... nestedExecutables) {
-		return new ComposeIterator<E>(executable.iterator(), toIterators(nestedExecutables));
+	public <E extends IEntity> IExecutable<E> createCompose(IExecutable<IEntity> executable, IExecutable<IEntity>... nestedExecutables) {
+		return new ComposeIterator<E>((IEntityIterator<E>) executable.iterator(), toIterators(nestedExecutables));
 	}
 
 	public <E extends IEntity> IExecutable<E> createFilterByIndex(IExecutable<E> executable, int index) {
@@ -1196,8 +1196,8 @@ public class IteratorBasedExecutableFactory extends AbstractIteratorBasedExecuta
 		return new PointwiseInsertIterator<E>(valuesExecutable.iterator(), toExecutable.iterator(), placement);
 	}
 
-	public <E extends IEntity> IExecutable<E> createDelete(IExecutable<E> valuesExecutable) {
-		return new DeleteIterator<E>(valuesExecutable.iterator());
+	public <E extends IEntity> IExecutable<E> createDelete(IExecutable<IEntity> valuesExecutable) {
+		return new DeleteIterator<E>((IEntityIterator<E>) valuesExecutable.iterator());
 	}
 
 	@SuppressWarnings("unchecked")

@@ -33,6 +33,7 @@ import org.whole.lang.commons.reflect.CommonsLanguageKit;
 import org.whole.lang.comparators.BusinessIdentityComparator;
 import org.whole.lang.comparators.IEntityComparator;
 import org.whole.lang.comparators.IdentityIteratorComparator;
+import org.whole.lang.evaluators.AbstractDelegatingNestedTrySupplierEvaluator;
 import org.whole.lang.evaluators.FilterEvaluator;
 import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.executables.EmptyExecutable;
@@ -40,7 +41,6 @@ import org.whole.lang.executables.IExecutable;
 import org.whole.lang.factories.GenericEntityFactory;
 import org.whole.lang.iterators.AbstractCollectIterator;
 import org.whole.lang.iterators.AbstractIteratorBasedExecutableFactory.FilterIterator;
-import org.whole.lang.iterators.AbstractSingleValuedRunnableIterator;
 import org.whole.lang.iterators.ChooseByTypeIterator;
 import org.whole.lang.iterators.DistinctScope;
 import org.whole.lang.iterators.FilterByIndexRangeIterator;
@@ -163,7 +163,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		distinctScope = null;
 
 		int nestedIndex = entity.wSize() - 1;
-		IExecutable<?>[] nestedIterators = new IExecutable<?>[nestedIndex >= 0 ? nestedIndex : 0];
+		IExecutable<IEntity>[] nestedIterators = new IExecutable[nestedIndex >= 0 ? nestedIndex : 0];
 		nestedIndex--;
 		for (int i = 0; i < entity.wSize() - 1; i++) {
 			entity.get(i).accept(this);
@@ -613,7 +613,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 	@Override
 	public void visit(Delete entity) {
 		entity.getFromClause().accept(this);
-		IExecutable<? extends IEntity> fromIterator = getExecutableResult();
+		IExecutable<IEntity> fromIterator = getExecutableResult();
 
 		setExecutableResult(iteratorFactory().createDelete(fromIterator).withSourceEntity(entity));
 	}
@@ -1084,10 +1084,11 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 	public void visit(VisitorTest entity) {
 		setExecutableResult(new PredicateWrapperIterator(entity.getValue().withSourceEntity(entity)));
 	}
-	public static class PredicateWrapperIterator extends AbstractSingleValuedRunnableIterator<IEntity> {
+	public static class PredicateWrapperIterator extends AbstractDelegatingNestedTrySupplierEvaluator {
 		protected IVisitor queryPredicate;
 
 		public PredicateWrapperIterator(IVisitor queryPredicate) {
+			super();
 			this.queryPredicate = queryPredicate;
 		}
 
@@ -1103,9 +1104,9 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 			queryPredicate.setBindings(bindings);
 		}
 
-		protected void run(IEntity selfEntity, IBindingManager bm) {
-			queryPredicate.setBindings(bm);
-			bm.setResult(BindingManagerFactory.instance.createValue(Matcher.match(queryPredicate, selfEntity)));
+		public IEntity get() {
+			queryPredicate.setBindings(getBindings());
+			return BindingManagerFactory.instance.createValue(Matcher.match(queryPredicate, selfEntity));
 		}
 
 		@Override
@@ -1285,131 +1286,131 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 				.withSourceEntity(entity));
 	}
 
-	protected IExecutable<?> compile(Expression entity) {
+	protected IExecutable<IEntity> compile(Expression entity) {
 		entity.accept(this);
 		return getExecutableResult().iterator();
 	}
 
 	@Override
 	public void visit(AdditionStep entity) {
-		setExecutableResult(MathUtils.additionStepIterator(compile(entity.getExpression())).withSourceEntity(entity));
+		setExecutableResult(MathUtils.createAdditionStep(compile(entity.getExpression())).withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(SubtractionStep entity) {
-		setExecutableResult(MathUtils.subtractionStepIterator(compile(entity.getExpression())).withSourceEntity(entity));
+		setExecutableResult(MathUtils.createSubtractionStep(compile(entity.getExpression())).withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(MultiplicationStep entity) {
 		setExecutableResult(
-				MathUtils.multiplicationStepIterator(compile(entity.getExpression())).withSourceEntity(entity));
+				MathUtils.createMultiplicationStep(compile(entity.getExpression())).withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(DivisionStep entity) {
-		setExecutableResult(MathUtils.divisionStepIterator(compile(entity.getExpression())).withSourceEntity(entity));
+		setExecutableResult(MathUtils.createDivisionStep(compile(entity.getExpression())).withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(RemainderStep entity) {
-		setExecutableResult(MathUtils.remainderStepIterator(compile(entity.getExpression())).withSourceEntity(entity));
+		setExecutableResult(MathUtils.createRemainderStep(compile(entity.getExpression())).withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(EqualsStep entity) {
-		setExecutableResult(MathUtils.equalsStepIterator(compile(entity.getExpression())).withSourceEntity(entity));
+		setExecutableResult(MathUtils.createEqualsStep(compile(entity.getExpression())).withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(NotEqualsStep entity) {
-		setExecutableResult(MathUtils.notEqualsStepIterator(compile(entity.getExpression())).withSourceEntity(entity));
+		setExecutableResult(MathUtils.createNotEqualsStep(compile(entity.getExpression())).withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(LessThanStep entity) {
-		setExecutableResult(MathUtils.lessThanStepIterator(compile(entity.getExpression())).withSourceEntity(entity));
+		setExecutableResult(MathUtils.createLessThanStep(compile(entity.getExpression())).withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(LessOrEqualsStep entity) {
-		setExecutableResult(MathUtils.lessOrEqualsStepIterator(compile(entity.getExpression())).withSourceEntity(entity));
+		setExecutableResult(MathUtils.createLessOrEqualsStep(compile(entity.getExpression())).withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(GreaterThanStep entity) {
-		setExecutableResult(MathUtils.greaterThanStepIterator(compile(entity.getExpression())).withSourceEntity(entity));
+		setExecutableResult(MathUtils.createGreaterThanStep(compile(entity.getExpression())).withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(GreaterOrEqualsStep entity) {
 		setExecutableResult(
-				MathUtils.greaterOrEqualsStepIterator(compile(entity.getExpression())).withSourceEntity(entity));
+				MathUtils.createGreaterOrEqualsStep(compile(entity.getExpression())).withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(Addition entity) {
-		setExecutableResult(MathUtils.additionIterator(compile(entity.getExp1()), compile(entity.getExp2()))
+		setExecutableResult(MathUtils.createAddition(compile(entity.getExp1()), compile(entity.getExp2()))
 				.withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(Subtraction entity) {
-		setExecutableResult(MathUtils.subtractionIterator(compile(entity.getExp1()), compile(entity.getExp2()))
+		setExecutableResult(MathUtils.createSubtraction(compile(entity.getExp1()), compile(entity.getExp2()))
 				.withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(Multiplication entity) {
-		setExecutableResult(MathUtils.multiplicationIterator(compile(entity.getExp1()), compile(entity.getExp2()))
+		setExecutableResult(MathUtils.createMultiplication(compile(entity.getExp1()), compile(entity.getExp2()))
 				.withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(Division entity) {
-		setExecutableResult(MathUtils.divisionIterator(compile(entity.getExp1()), compile(entity.getExp2()))
+		setExecutableResult(MathUtils.createDivision(compile(entity.getExp1()), compile(entity.getExp2()))
 				.withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(Remainder entity) {
-		setExecutableResult(MathUtils.remainderIterator(compile(entity.getExp1()), compile(entity.getExp2()))
+		setExecutableResult(MathUtils.createRemainder(compile(entity.getExp1()), compile(entity.getExp2()))
 				.withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(Equals entity) {
-		setExecutableResult(MathUtils.equalsIterator(compile(entity.getExp1()), compile(entity.getExp2()))
+		setExecutableResult(MathUtils.createEquals(compile(entity.getExp1()), compile(entity.getExp2()))
 				.withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(NotEquals entity) {
-		setExecutableResult(MathUtils.notEqualsIterator(compile(entity.getExp1()), compile(entity.getExp2()))
+		setExecutableResult(MathUtils.createNotEquals(compile(entity.getExp1()), compile(entity.getExp2()))
 				.withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(LessThan entity) {
-		setExecutableResult(MathUtils.lessThanIterator(compile(entity.getExp1()), compile(entity.getExp2()))
+		setExecutableResult(MathUtils.createLessThan(compile(entity.getExp1()), compile(entity.getExp2()))
 				.withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(LessOrEquals entity) {
-		setExecutableResult(MathUtils.lessOrEqualsIterator(compile(entity.getExp1()), compile(entity.getExp2()))
+		setExecutableResult(MathUtils.createLessOrEquals(compile(entity.getExp1()), compile(entity.getExp2()))
 				.withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(GreaterThan entity) {
-		setExecutableResult(MathUtils.greaterThanIterator(compile(entity.getExp1()), compile(entity.getExp2()))
+		setExecutableResult(MathUtils.createGreaterThan(compile(entity.getExp1()), compile(entity.getExp2()))
 				.withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(GreaterOrEquals entity) {
-		setExecutableResult(MathUtils.greaterOrEqualsIterator(compile(entity.getExp1()), compile(entity.getExp2()))
+		setExecutableResult(MathUtils.createGreaterOrEquals(compile(entity.getExp1()), compile(entity.getExp2()))
 				.withSourceEntity(entity));
 	}
 

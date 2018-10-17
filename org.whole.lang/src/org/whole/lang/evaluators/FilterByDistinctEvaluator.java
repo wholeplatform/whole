@@ -46,7 +46,7 @@ public class FilterByDistinctEvaluator<E extends IEntity> extends AbstractDelega
 	}
 	@SuppressWarnings("unchecked")
 	public FilterByDistinctEvaluator(IEntityComparator<IEntity> comparator) {
-		super((IExecutable<E>) null);
+		super((IExecutable<IEntity>) null);
 		this.comparator = comparator;
 	}
 
@@ -64,7 +64,7 @@ public class FilterByDistinctEvaluator<E extends IEntity> extends AbstractDelega
 		return this;
 	}
 	public IExecutable<E> withExecutable(IExecutable<E> executable) {
-		producers[0] = executable;
+		producers[0] = (IExecutable<IEntity>) executable;
 		return this;
 	}
 

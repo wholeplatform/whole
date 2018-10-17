@@ -1005,9 +1005,9 @@ public class IteratorFactoryTest {
 
 		//query: g/phraseStructure/child()[ED = Production]/rule//[ED = Production]
 		IExecutable<Production> pi = f.createCompose(
-				f.<Production>createDescendantOrSelfMatcher().withPattern(GrammarsEntityDescriptorEnum.Production),
+				f.<IEntity>createDescendantOrSelfMatcher().withPattern(GrammarsEntityDescriptorEnum.Production),
 				f.createFeatureByName("rule"),
-				f.<Production>createChildMatcher().withPattern(GrammarsEntityDescriptorEnum.Production),
+				f.<IEntity>createChildMatcher().withPattern(GrammarsEntityDescriptorEnum.Production),
 				f.createFeatureByName("phraseStructure"));
 
 		pi.reset(g);

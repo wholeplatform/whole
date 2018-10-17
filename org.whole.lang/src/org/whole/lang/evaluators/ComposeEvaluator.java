@@ -30,7 +30,7 @@ import org.whole.lang.operations.ICloneContext;
 public class ComposeEvaluator extends AbstractDelegatingNestedEvaluator<IEntity> {
 	protected IEntity[] nestedResults;
 
-	public ComposeEvaluator(IExecutable<?>... nestedExecutables) {
+	public ComposeEvaluator(IExecutable<IEntity>... nestedExecutables) {
 		super(nestedExecutables);
 		nestedResults = new IEntity[nestedExecutables.length];
 	}

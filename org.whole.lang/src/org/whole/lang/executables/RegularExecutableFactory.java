@@ -71,6 +71,7 @@ import org.whole.lang.evaluators.SortEvaluator;
 import org.whole.lang.evaluators.VariableEvaluator;
 import org.whole.lang.iterators.AbstractIteratorBasedExecutableFactory;
 import org.whole.lang.iterators.DistinctScope;
+import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.MatcherIterator;
 import org.whole.lang.iterators.ScannerIterator;
 import org.whole.lang.matchers.Matcher;
@@ -104,8 +105,8 @@ public class RegularExecutableFactory extends AbstractIteratorBasedExecutableFac
 		return BindingUtils.hasEnvironmentPart(varName) ? new OuterVariableEvaluator<E>(varName) : new OuterLocalVariableEvaluator<E>(varName);
 	}
 
-	public <E extends IEntity> IExecutable<E> createConstant(E constant, boolean useClone) {
-		return new ConstantEvaluator<E>(constant, useClone);
+	public <E extends IEntity> IExecutable<E> createConstant(IEntity constant, boolean useClone) {
+		return new ConstantEvaluator<E>((E) constant, useClone);
 	}
 	public <E extends IEntity> IExecutable<E> createConstantSubstitute(E constant, boolean useClone) {
 		return new ConstantEvaluator<E>(constant, useClone) {
@@ -121,7 +122,7 @@ public class RegularExecutableFactory extends AbstractIteratorBasedExecutableFac
 	public <E extends IEntity> IExecutable<E> createConstantChild(IEntity constant) {
 		return new ConstantChildEvaluator<E>(true, constant);
 	}
-	public <E extends IEntity> IExecutable<E> createConstantCompose(IEntity constant, IExecutable<E> executable) {
+	public <E extends IEntity> IExecutable<E> createConstantCompose(IEntity constant, IExecutable<IEntity> executable) {
 		return (IExecutable<E>) new ConstantComposeEvaluator(constant, executable);
 	}
 
@@ -144,10 +145,10 @@ public class RegularExecutableFactory extends AbstractIteratorBasedExecutableFac
 	public <E extends IEntity> IExecutable<E> createSingleValuedRunnable(IRunnable runnable, int[] optionalArgsIndexes, IExecutable<?>... argsExecutables) {
 		return new SingleValuedRunnableEvaluator<E>(runnable, optionalArgsIndexes, argsExecutables);
 	}
-	public <E extends IEntity> IExecutable<E> createMultiValuedRunnable(IRunnable runnable, IExecutable<?>... argsExecutables) {
+	public <E extends IEntity> IExecutable<E> createMultiValuedRunnable(IRunnable runnable, IExecutable<IEntity>... argsExecutables) {
 		return new MultiValuedRunnableEvaluator<E>(runnable, argsExecutables);
 	}
-	public <E extends IEntity> IExecutable<E> createMultiValuedRunnable(IRunnable runnable, int[] optionalArgsIndexes, IExecutable<?>... argsExecutables) {
+	public <E extends IEntity> IExecutable<E> createMultiValuedRunnable(IRunnable runnable, int[] optionalArgsIndexes, IExecutable<IEntity>... argsExecutables) {
 		return new MultiValuedRunnableEvaluator<E>(runnable, optionalArgsIndexes, argsExecutables);
 	}
 
@@ -403,13 +404,12 @@ public class RegularExecutableFactory extends AbstractIteratorBasedExecutableFac
 	}
 
 	@SuppressWarnings("unchecked")
-	public <E extends IEntity> IExecutable<E> createCompose(IExecutable<E> innerExecutable, IExecutable<? extends IEntity>... outerExecutables) {
+	public <E extends IEntity> IExecutable<E> createCompose(IExecutable<IEntity> innerExecutable, IExecutable<IEntity>... outerExecutables) {
 		int index = outerExecutables.length;
-		IExecutable<?>[] nestedExecutables = new IExecutable<?>[outerExecutables.length+1];
+		IExecutable<IEntity>[] nestedExecutables = new IExecutable[outerExecutables.length+1];
 		nestedExecutables[index--] = innerExecutable;
-		for (IExecutable<?> e : outerExecutables) {
+		for (IExecutable<IEntity> e : outerExecutables)
 			nestedExecutables[index--] = e;
-		}
 
 		return (IExecutable<E>) new ComposeEvaluator(nestedExecutables);
 	}
@@ -1057,7 +1057,7 @@ public class RegularExecutableFactory extends AbstractIteratorBasedExecutableFac
 		};
 	}
 
-	public <E extends IEntity> IExecutable<E> createDelete(IExecutable<E> valuesExecutable) {
+	public <E extends IEntity> IExecutable<E> createDelete(IExecutable<IEntity> valuesExecutable) {
 		return new DeleteEvaluator<E>(valuesExecutable);
 	}
 
