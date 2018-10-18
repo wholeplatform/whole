@@ -83,6 +83,8 @@ public class IfEvaluator extends AbstractDelegatingNestedEvaluator<IEntity> {
 	protected IEntity scopedEvaluateNext(boolean merge) {
 		mergeLookaheadScope = merge;
 		IEntity result = evaluateNext();
+		if (result == null && !executorScope.wNames().isEmpty())
+			((BindingManager) executorScope).wSetTargetScope(BindingManagerFactory.instance.createSimpleScope());
 		mergeLookaheadScope = true;
 		return result;
 	}

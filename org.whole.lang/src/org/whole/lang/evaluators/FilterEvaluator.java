@@ -24,7 +24,6 @@ import org.whole.lang.model.IEntity;
  * @author Riccardo Solmi
  */
 public class FilterEvaluator extends AbstractDelegatingNestedEvaluator<IEntity> {
-	protected IEntity doEntity;
 	private boolean autoPrune = false;
 	
 	@SuppressWarnings("unchecked")
@@ -33,40 +32,10 @@ public class FilterEvaluator extends AbstractDelegatingNestedEvaluator<IEntity> 
 	}
 
 	@Override
-	public void reset(IEntity entity) {
-		super.reset(entity);
-		doEntity = null;
-	}
-
-	@Override
 	protected void initProducer(IExecutable<?> p, int index) {
 		p.setBindings(getBindings());
-		p.reset(index == 0 ? selfEntity : doEntity);
-	}
-
-	@Override
-	protected void selectFollowingProducer() {
-		super.selectFollowingProducer();
-		producersNeedInit.set(producerIndex);
-	}
-
-	@Override
-	protected void clearProducerScope() {
-		if (executorScope != null) {
-			for (String name : executorScope.wNames()) //wLocalNames())
-				getBindings().wUnset(name);
-			executorScope.wClear();
-		}
-	}
-
-	@Override
-	protected boolean needClearExecutorScope(/*int producerIndex*/) {
-//		return super.needClearExecutorScope();
-		return lastEntity != null && isFirstProducer();
-	}
-	@Override
-	protected boolean needMergeExecutorScope(/*int producerIndex*/) {
-		return super.needMergeExecutorScope() && isLastProducer();
+		if (index == 0)
+			p.reset(selfEntity);
 	}
 
 	@Override
@@ -78,17 +47,26 @@ public class FilterEvaluator extends AbstractDelegatingNestedEvaluator<IEntity> 
 	}
 
 	public IEntity evaluateNext() {
-		while (true) {
-			doEntity = scopedEvaluateNext();//TODO add producerIndex and remove explicit calls to increment/decrement
-			if (doEntity == null) {
-				return lastEntity = doEntity;
+		if (lastEntity != null)
+			for (String name : executorScope.wTargetNames())
+				getBindings().wUnset(name);
+
+		try {
+			getBindings().wEnterScope(executorScope(), true);
+			while (true) {
+				executorScope.wClear();
+				lastEntity = getProducer(0).evaluateNext();
+				if (lastEntity == null) {
+					executorScope().wClear();
+					return lastEntity;
+				}
+
+				getProducer(1).reset(lastEntity);
+				if (getProducer(1).evaluateAsBooleanOrFail())
+					return lastEntity;
 			}
-			selectFollowingProducer();
-			boolean filterResult = scopedEvaluateAsBooleanOrFail();
-			selectPrecedingProducer();
-			if (filterResult) {
-				return lastEntity = doEntity;
-			}
+		} finally {
+			getBindings().wExitScope(mergeLookaheadScope && lastEntity != null);
 		}
 	}
 
