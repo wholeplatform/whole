@@ -62,8 +62,11 @@ public class FilterEvaluator extends AbstractDelegatingNestedEvaluator<IEntity> 
 				}
 
 				getProducer(1).reset(lastEntity);
-				if (getProducer(1).evaluateAsBooleanOrFail())
+				if (getProducer(1).evaluateAsBooleanOrFail()) {
+					if (autoPrune())
+						prune();
 					return lastEntity;
+				}
 			}
 		} finally {
 			getBindings().wExitScope(mergeLookaheadScope && lastEntity != null);
@@ -97,7 +100,6 @@ public class FilterEvaluator extends AbstractDelegatingNestedEvaluator<IEntity> 
 	}
 
 	public void prune() {
-//		nextEntity = null;
 		getProducer(0).prune();
 	}
 

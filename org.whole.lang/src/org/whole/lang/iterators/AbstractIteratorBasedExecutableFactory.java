@@ -26,7 +26,6 @@ import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
 import org.whole.lang.commons.visitors.CommonsInterpreterVisitor;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.reflect.ILanguageKit;
 import org.whole.lang.util.BindingUtils;
@@ -59,52 +58,6 @@ public abstract class AbstractIteratorBasedExecutableFactory implements Executab
 	public <E extends IEntity> MatcherIterator<E> createMatcher(IExecutable<E> executable) {
 		return new MatcherIterator<E>(executable.iterator());
 	}
-
-	public <E extends IEntity> IExecutable<E> createFilter(IExecutable<E> executable, IExecutable<? extends IEntity> filterExecutable) {
-		return new FilterIterator<E>(executable.iterator(), filterExecutable.iterator());
-	}
-
-	public static class FilterIterator<E extends IEntity> extends MatcherIterator<E> {
-		protected IExecutable<? extends IEntity> filterIterator;
-
-		protected FilterIterator(IExecutable<E> executable, IExecutable<? extends IEntity> filterIterator) {
-			super(executable.iterator());
-			this.filterIterator = filterIterator.iterator();
-		}
-
-		@Override
-		public IExecutable<E> clone(ICloneContext cc) {
-			FilterIterator<E> iterator = (FilterIterator<E>) super.clone(cc);
-			iterator.filterIterator = cc.clone(filterIterator);
-			return iterator;
-		}
-
-		@Override
-		protected E patternFilteredLookahead() {
-			boolean found = false;
-			E lookahead = null;
-			while (iterator.hasNext() && !(found = filter(lookahead = iterator.lookahead()))) {
-				lookaheadScope().wClear();
-				iterator.next();
-			}
-			if (!found)
-				lookahead = null;
-			return lookahead;
-		}
-
-		protected boolean filter(IEntity selfEntity) {
-			return filterIterator.evaluateAsBooleanOrFail(selfEntity, getBindings());
-		}
-
-	    @Override
-		public void toString(StringBuilder sb) {
-	    	iterator.toString(sb);
-	    	sb.append("[");
-	    	filterIterator.toString(sb);
-	    	sb.append("]");
-	    }
-	}
-
 
 	public IExecutable<IEntity> createFunctionApplication(String functionUri) {
 		return new FunctionApplicationIterator(functionUri);

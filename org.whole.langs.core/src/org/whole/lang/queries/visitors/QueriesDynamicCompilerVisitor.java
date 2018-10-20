@@ -40,11 +40,11 @@ import org.whole.lang.executables.EmptyExecutable;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.factories.GenericEntityFactory;
 import org.whole.lang.iterators.AbstractCollectIterator;
-import org.whole.lang.iterators.AbstractIteratorBasedExecutableFactory.FilterIterator;
 import org.whole.lang.iterators.ChooseByTypeIterator;
 import org.whole.lang.iterators.DistinctScope;
 import org.whole.lang.iterators.FilterByIndexRangeIterator;
 import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.iterators.IteratorBasedExecutableFactory.FilterIterator;
 import org.whole.lang.iterators.Placement;
 import org.whole.lang.iterators.SelectIterator;
 import org.whole.lang.matchers.Matcher;
@@ -377,10 +377,13 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 
 			if (!(queryPredicateIterator.undecoratedExecutable() instanceof EmptyExecutable)) {
 				IExecutable<?> ri = iteratorFactory().createFilter(getExecutableResult(), queryPredicateIterator);
-				if (ri instanceof FilterEvaluator)
-					((FilterEvaluator) ri.undecoratedExecutable()).withAutoPrune(usePruneFilter);
-				else
-					((FilterIterator<?>) ri.undecoratedExecutable()).withAutoPrune(usePruneFilter);
+				if (usePruneFilter) {
+					IExecutable<?> riUndecorated = ri.undecoratedExecutable();
+					if (riUndecorated instanceof FilterEvaluator)
+						((FilterEvaluator) riUndecorated).withAutoPrune(usePruneFilter);
+					else
+						((FilterIterator<?>) riUndecorated).withAutoPrune(usePruneFilter);
+				}
 				setExecutableResult(ri.withSourceEntity(entity));
 			}
 		}

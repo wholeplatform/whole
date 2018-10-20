@@ -51,6 +51,7 @@ import org.whole.lang.evaluators.DescendantReverseEvaluator;
 import org.whole.lang.evaluators.FeatureByIndexEvaluator;
 import org.whole.lang.evaluators.FeatureByNameEvaluator;
 import org.whole.lang.evaluators.FilterByDistinctEvaluator;
+import org.whole.lang.evaluators.FilterEvaluator;
 import org.whole.lang.evaluators.FollowingEvaluator;
 import org.whole.lang.evaluators.FollowingSiblingEvaluator;
 import org.whole.lang.evaluators.ForEvaluator;
@@ -71,7 +72,6 @@ import org.whole.lang.evaluators.SortEvaluator;
 import org.whole.lang.evaluators.VariableEvaluator;
 import org.whole.lang.iterators.AbstractIteratorBasedExecutableFactory;
 import org.whole.lang.iterators.DistinctScope;
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.MatcherIterator;
 import org.whole.lang.iterators.ScannerIterator;
 import org.whole.lang.matchers.Matcher;
@@ -361,9 +361,7 @@ public class RegularExecutableFactory extends AbstractIteratorBasedExecutableFac
 	}
 
 	public <E extends IEntity> IExecutable<E> createFilter(IExecutable<E> executable, IExecutable<? extends IEntity> filterExecutable) {
-		return super.createFilter(executable, filterExecutable);
-		//FIXME
-//		return (IExecutable<E>) new FilterEvaluator((IExecutable<IEntity>) executable, (IExecutable<IEntity>) filterExecutable);
+		return (IExecutable<E>) new FilterEvaluator((IExecutable<IEntity>) executable, (IExecutable<IEntity>) filterExecutable);
 	}
 
 	public IExecutable<IEntity> createMatchInScope(IExecutable<IEntity> patternExecutable) {

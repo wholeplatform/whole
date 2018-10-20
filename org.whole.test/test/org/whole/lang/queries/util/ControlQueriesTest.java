@@ -491,8 +491,8 @@ public class ControlQueriesTest {
 			assertTrue(Matcher.match(GrammarsEntityDescriptorEnum.Production, p));
 			count++;
 		}
-		
-		assertEquals(4, count);
+
+		assertEquals(1, count);
 	}
 
     @Test

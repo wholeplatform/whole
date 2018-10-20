@@ -17,10 +17,10 @@
  */
 package org.whole.lang.executables;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,10 +31,7 @@ import org.junit.Test;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.evaluators.FilterEvaluator;
-import org.whole.lang.iterators.AbstractIteratorBasedExecutableFactory.FilterIterator;
 import org.whole.lang.iterators.ExecutableFactory;
-import org.whole.lang.iterators.IteratorBasedExecutableFactory;
-import org.whole.lang.math.builders.MathGenericBuilderAdapter;
 import org.whole.lang.math.factories.MathEntityFactory;
 import org.whole.lang.math.model.Identifier;
 import org.whole.lang.model.IEntity;

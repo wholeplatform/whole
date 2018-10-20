@@ -34,6 +34,7 @@ import org.whole.lang.executables.FailureExecutable;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.reflect.CompositeKinds;
 import org.whole.lang.reflect.DataKinds;
 import org.whole.lang.reflect.EntityDescriptor;
@@ -286,6 +287,47 @@ public class IteratorBasedExecutableFactory extends AbstractIteratorBasedExecuta
 
 	public <E extends IEntity> IExecutable<E> createFilter(IExecutable<E> executable, IExecutable<? extends IEntity> filterExecutable) {
 		return new FilterIterator<E>(executable.iterator(), filterExecutable.iterator());
+	}
+
+	public static class FilterIterator<E extends IEntity> extends MatcherIterator<E> {
+		protected IExecutable<? extends IEntity> filterIterator;
+
+		protected FilterIterator(IExecutable<E> executable, IExecutable<? extends IEntity> filterIterator) {
+			super(executable.iterator());
+			this.filterIterator = filterIterator.iterator();
+		}
+
+		@Override
+		public IExecutable<E> clone(ICloneContext cc) {
+			FilterIterator<E> iterator = (FilterIterator<E>) super.clone(cc);
+			iterator.filterIterator = cc.clone(filterIterator);
+			return iterator;
+		}
+
+		@Override
+		protected E patternFilteredLookahead() {
+			boolean found = false;
+			E lookahead = null;
+			while (iterator.hasNext() && !(found = filter(lookahead = iterator.lookahead()))) {
+				lookaheadScope().wClear();
+				iterator.next();
+			}
+			if (!found)
+				lookahead = null;
+			return lookahead;
+		}
+
+		protected boolean filter(IEntity selfEntity) {
+			return filterIterator.evaluateAsBooleanOrFail(selfEntity, getBindings());
+		}
+
+	    @Override
+		public void toString(StringBuilder sb) {
+	    	iterator.toString(sb);
+	    	sb.append("[");
+	    	filterIterator.toString(sb);
+	    	sb.append("]");
+	    }
 	}
 
 
