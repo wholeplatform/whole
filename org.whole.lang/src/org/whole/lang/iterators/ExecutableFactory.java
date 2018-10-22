@@ -209,9 +209,9 @@ public interface ExecutableFactory {
 	@SuppressWarnings("unchecked")
 	<E extends IEntity> IExecutable<E> createCompose(IExecutable<IEntity> executable, IExecutable<IEntity>... nestedExecutables);
 
-	<E extends IEntity> IExecutable<E> createFilterByIndex(IExecutable<E> executable, int index);
+	<E extends IEntity> IExecutable<E> createFilterByIndex(IExecutable<IEntity> executable, int index);
 
-	<E extends IEntity> IExecutable<E> createFilterByIndexRange(IExecutable<E> executable, int startIndex, int endIndex);
+	<E extends IEntity> IExecutable<E> createFilterByIndexRange(IExecutable<IEntity> executable, int startIndex, int endIndex);
 
 	<E extends IEntity> IExecutable<E> createFilterByIndexRange();
 

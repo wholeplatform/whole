@@ -103,7 +103,7 @@ public class ArtifactsSynchronizerVisitor<T> extends ArtifactsResourceVisitor<T>
 			IEntity fsModel = getArtifactsOperations().toArtifactsModel(parentContext);
 			if (append && artifact != basePath) {
 				IBindingManager bindings = BindingManagerFactory.instance.createBindingManager();
-				IExecutable<?> iterator = iteratorFactory().createChild();
+				IExecutable<?> iterator = executableFactory().createChild();
 				iterator.reset(getChildren(fsModel));
 				for (IEntity child : iterator) {
 					bindings.wDef(SUB_TREE_ROOT, child);
@@ -118,8 +118,8 @@ public class ArtifactsSynchronizerVisitor<T> extends ArtifactsResourceVisitor<T>
 	}
 
 	private IEntity createBasePath(IArtifactsEntity entity) {
-		IEntityIterator<IEntity> iterator = iteratorFactory().createScanner(
-					iteratorFactory().createAncestor())
+		IEntityIterator<IEntity> iterator = executableFactory().createScanner(
+					executableFactory().createAncestor())
 							.withPattern(GenericTraversalFactory.instance.one(
 									GenericMatcherFactory.instance.isFragmentMatcher(),
 									GenericMatcherFactory.instance.hasKindMatcher(EntityKinds.COMPOSITE)));
@@ -156,7 +156,7 @@ public class ArtifactsSynchronizerVisitor<T> extends ArtifactsResourceVisitor<T>
 			if (basePath != null) {
 				IBindingManager bindings = BindingManagerFactory.instance.createBindingManager();
 				model = EntityUtils.clone(basePath);
-				IExecutable<?> i = iteratorFactory().createChild();
+				IExecutable<?> i = executableFactory().createChild();
 				i.reset(getChildren(entity));
 				for (IEntity child : i) {
 					bindings.wDef(SUB_TREE_ROOT, EntityUtils.clone(child));
@@ -177,7 +177,7 @@ public class ArtifactsSynchronizerVisitor<T> extends ArtifactsResourceVisitor<T>
 	private void synchronize(IEntity children, IEntity compareToChildren) {
 		// perform delete missing resources
 		if (synchronize.isRemoving()) {
-			IEntityIterator<IEntity> iterator = iteratorFactory().createChild().iterator();
+			IEntityIterator<IEntity> iterator = executableFactory().createChild().iterator();
 			iterator.reset(compareToChildren);
 			while (iterator.hasNext()) {
 				IEntity child = iterator.next();
@@ -193,7 +193,7 @@ public class ArtifactsSynchronizerVisitor<T> extends ArtifactsResourceVisitor<T>
 
 		// perform remove additions
 		if (synchronize.isUpdateOnly()) {
-			IEntityIterator<IEntity> iterator = iteratorFactory().createChild().iterator();
+			IEntityIterator<IEntity> iterator = executableFactory().createChild().iterator();
 			iterator.reset(children);
 			while (iterator.hasNext()) {
 				IEntity child = iterator.next();
@@ -218,7 +218,7 @@ public class ArtifactsSynchronizerVisitor<T> extends ArtifactsResourceVisitor<T>
 		} else {
 			firstPass = false;
 
-			IExecutable<?> i = iteratorFactory().createChild();
+			IExecutable<?> i = executableFactory().createChild();
 			i.reset(children);
 			for (IEntity child : i) {
 				// first pass, remove all descendants

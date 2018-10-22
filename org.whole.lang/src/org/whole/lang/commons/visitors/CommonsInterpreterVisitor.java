@@ -72,8 +72,8 @@ public class CommonsInterpreterVisitor extends CommonsIdentityVisitor {
 
 		if (isExecutableResult()) {
 			IExecutable<IEntity> templateIterator = getExecutableResult();
-			setExecutableResult(iteratorFactory().createCompose(
-					iteratorFactory().createSingleValuedRunnable((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
+			setExecutableResult(executableFactory().createCompose(
+					executableFactory().createSingleValuedRunnable((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
 						if (!BindingManagerFactory.instance.isVoid(selfEntity))
 							bm.setResult(EntityUtils.cloneIfParented(selfEntity));
 					}).withSourceEntity(entity), templateIterator));

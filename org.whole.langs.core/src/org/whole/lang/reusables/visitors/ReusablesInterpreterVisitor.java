@@ -146,7 +146,7 @@ public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisit
 		IExecutable<IEntity> contentIterator = null;
 		IExecutable<IEntity> adapterIterator = null;
 		if (EntityUtils.isResolver(reusable)) {
-			contentIterator = iteratorFactory().createConstant(entity.getOriginal(), false);
+			contentIterator = executableFactory().createConstant(entity.getOriginal(), false);
 
 			if (EntityUtils.isNotResolver(entity.getAdapter())) {
 				entity.getAdapter().accept(this);
@@ -155,10 +155,10 @@ public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisit
 		}
 
 		if (contentIterator == null)
-			contentIterator = iteratorFactory().createConstant(reusable, false);
+			contentIterator = executableFactory().createConstant(reusable, false);
 
 		boolean updateAdapted = EntityUtils.isResolver(entity.getAdapted());
-		IExecutable<IEntity> evaluateIterator = iteratorFactory().createSingleValuedRunnable(
+		IExecutable<IEntity> evaluateIterator = executableFactory().createSingleValuedRunnable(
 			(selfEntity, bm, arguments) -> {
 				try {
 					getBindings().wEnterScope();
@@ -181,8 +181,8 @@ public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisit
 		);
 
 		IExecutable<? extends IEntity> expandIterator = adapterIterator != null ? 
-				iteratorFactory().createCompose(evaluateIterator, adapterIterator, contentIterator) :
-					iteratorFactory().createCompose(evaluateIterator, contentIterator);
+				executableFactory().createCompose(evaluateIterator, adapterIterator, contentIterator) :
+					executableFactory().createCompose(evaluateIterator, contentIterator);
 
 		for (IEntity result : expandIterator) {
 			stagedVisit(result.wGetAdaptee(false));
@@ -194,9 +194,9 @@ public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisit
 	public void visit(Include entity) {
 		IExecutable<IEntity> contentIterator = (IExecutable<IEntity>) readResource(entity.getResource());
 
-		IExecutable<IEntity> evaluateIterator = iteratorFactory().createSingleValuedRunnable(
+		IExecutable<IEntity> evaluateIterator = executableFactory().createSingleValuedRunnable(
 				(selfEntity, bm, arguments) -> evaluateAndClone(selfEntity, bm));
-		setExecutableResult(iteratorFactory().createCompose(evaluateIterator, contentIterator));
+		setExecutableResult(executableFactory().createCompose(evaluateIterator, contentIterator));
 	}
 
 	@Override
@@ -238,10 +238,10 @@ public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisit
 		}
 
 		if (contentIterator == null)
-			contentIterator = iteratorFactory().createConstant(reusable, false).iterator();
+			contentIterator = executableFactory().createConstant(reusable, false).iterator();
 
 		boolean updateAdapted = EntityUtils.isResolver(entity.getAdapted());
-		IExecutable<IEntity> evaluateIterator = iteratorFactory().createSingleValuedRunnable(
+		IExecutable<IEntity> evaluateIterator = executableFactory().createSingleValuedRunnable(
 			(selfEntity, bm, arguments) -> {
 				try {
 					getBindings().wEnterScope();
@@ -264,8 +264,8 @@ public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisit
 		);
 
 		setExecutableResult(adapterIterator != null ? 
-				iteratorFactory().createCompose(evaluateIterator, adapterIterator, contentIterator) :
-					iteratorFactory().createCompose(evaluateIterator, contentIterator));
+				executableFactory().createCompose(evaluateIterator, adapterIterator, contentIterator) :
+					executableFactory().createCompose(evaluateIterator, contentIterator));
 	}
 
 	@Override
@@ -275,8 +275,8 @@ public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisit
 		if (EntityUtils.isResolver(reusable))
 			visit((Reuse) entity);
 		else {
-			setExecutableResult(iteratorFactory().createConstantCompose(reusable,
-					iteratorFactory().createSingleValuedRunnable(
+			setExecutableResult(executableFactory().createConstantCompose(reusable,
+					executableFactory().createSingleValuedRunnable(
 							(selfEntity, bm, arguments) -> evaluateAndClone(selfEntity, bm)
 			)));
 		}

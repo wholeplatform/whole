@@ -206,7 +206,7 @@ public class ModelsInterpreterVisitor extends ModelsIdentityDefaultVisitor {
 			String name = entity.getName().wStringValue();
 
 			boolean isOrdered = false, isUnique = false;
-			IExecutable<ComponentModifier> i = iteratorFactory().<ComponentModifier>createChild();
+			IExecutable<ComponentModifier> i = executableFactory().<ComponentModifier>createChild();
 			i.reset(entity.getComponentModifiers());
 			for (ComponentModifier modifier : i)
 				switch (modifier.getValue().getOrdinal()) {
@@ -249,7 +249,7 @@ public class ModelsInterpreterVisitor extends ModelsIdentityDefaultVisitor {
 			String componentName = entity.getComponentType().wStringValue();
 
 			boolean isReference = false, isDerived = false, isShared = false;
-			IExecutable<ComponentModifier> i = iteratorFactory().<ComponentModifier>createChild();
+			IExecutable<ComponentModifier> i = executableFactory().<ComponentModifier>createChild();
 			i.reset(entity.getComponentModifiers());
 			for (ComponentModifier modifier : i)
 				switch (modifier.getValue().getOrdinal()) {
@@ -291,7 +291,7 @@ public class ModelsInterpreterVisitor extends ModelsIdentityDefaultVisitor {
 							oppositeFeatureName, modelInfo.featureImplName(oppositeFeatureName));
 
 				boolean isOptional = false, isId = false, isReference = false, isDerived = false, isShared = false;
-				IExecutable<FeatureModifier> i2 = iteratorFactory().<FeatureModifier>createChild();
+				IExecutable<FeatureModifier> i2 = executableFactory().<FeatureModifier>createChild();
 				i2.reset(feature.getModifiers());
 				for (FeatureModifier modifier : i2)
 					switch (modifier.getValue().getOrdinal()) {

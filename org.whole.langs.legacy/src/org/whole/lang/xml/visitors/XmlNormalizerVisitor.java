@@ -41,7 +41,7 @@ public class XmlNormalizerVisitor extends XmlTraverseAllVisitor {
 	public void visit(CDataSect entity) {
 		// pack children
 		if (entity.wSize() > 1) {
-			IEntityIterator<IEntity> i = iteratorFactory().createChild().iterator();
+			IEntityIterator<IEntity> i = executableFactory().createChild().iterator();
 			i.reset(entity);
 			IEntity first = i.next();
 			StringBuilder sb = getStringBuilder().append(first.wStringValue());
@@ -61,7 +61,7 @@ public class XmlNormalizerVisitor extends XmlTraverseAllVisitor {
 	@Override
 	public void visit(Content entity) {
 		// recursively normalize nested composite entities
-		IEntityIterator<IEntity> iterator = iteratorFactory().createChildMatcher().withPattern(EntityKinds.COMPOSITE);
+		IEntityIterator<IEntity> iterator = executableFactory().createChildMatcher().withPattern(EntityKinds.COMPOSITE);
 		iterator.reset(entity);
 		while (iterator.hasNext()) {
 			IEntity composite = iterator.next();

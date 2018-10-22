@@ -46,7 +46,7 @@ import org.whole.lang.visitors.VisitException;
 public class CommonsDynamicCompilerVisitor extends CommonsIdentityDefaultVisitor {
 	@Override
 	public void visit(ICommonsEntity entity) {
-		setExecutableResult(iteratorFactory().createTemplateInterpreter(entity).withSourceEntity(entity));
+		setExecutableResult(executableFactory().createTemplateInterpreter(entity).withSourceEntity(entity));
 	}
 
 	@Override
@@ -94,7 +94,7 @@ public class CommonsDynamicCompilerVisitor extends CommonsIdentityDefaultVisitor
 			return;
 		}
 
-		setExecutableResult(iteratorFactory().createTemplateInterpreter(entity).withSourceEntity(entity));
+		setExecutableResult(executableFactory().createTemplateInterpreter(entity).withSourceEntity(entity));
 	}
 
 	@SuppressWarnings("unchecked")
@@ -131,12 +131,12 @@ public class CommonsDynamicCompilerVisitor extends CommonsIdentityDefaultVisitor
 				fragmentIterator = getExecutableResult();
 			} else
 				setExecutableResult(fragmentIterator = 
-						iteratorFactory().createTemplateInterpreter(f).withSourceEntity(sourceEntity));
+						executableFactory().createTemplateInterpreter(f).withSourceEntity(sourceEntity));
 
 			fragmentIteratorMap.put(f, getExecutableResult());
 		});
 
-		ExecutableFactory f = iteratorFactory();
+		ExecutableFactory f = executableFactory();
 		IExecutable<?> compiledIterator = f.createChoose(
 			f.createIf(
 					f.createAtStage(0),

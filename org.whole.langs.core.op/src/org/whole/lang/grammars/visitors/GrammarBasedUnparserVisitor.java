@@ -135,14 +135,14 @@ public class GrammarBasedUnparserVisitor extends GrammarsTraverseAllVisitor {
 	protected void normalize(Grammar entity) {
 		Grammar g = entity;//FIXME ensure normalized: NormalizerOperation.normalize(entity);
 
-		ScannerIterator<Production> li = iteratorFactory().<Production>createChildScanner();
+		ScannerIterator<Production> li = executableFactory().<Production>createChildScanner();
 		li.reset(g.getLexicalStructure());
 		for (Production p : li) {
 			String name = p.getName().getValue();
 			nameProductionMap.put(name, p);
 			lexiconSet.add(name);
 		}
-		ScannerIterator<Production> pi = iteratorFactory().<Production>createChildScanner();
+		ScannerIterator<Production> pi = executableFactory().<Production>createChildScanner();
 		pi.reset(g.getPhraseStructure());
 		for (Production p : pi)
 			nameProductionMap.put(p.getName().getValue(), p);

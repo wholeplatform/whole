@@ -355,11 +355,11 @@ public class AbstractDecoratedExecutableFactory implements ExecutableFactory {
 		return decorate(factory.createCompose(executable, nestedExecutables));
 	}
 
-	public <E extends IEntity> IExecutable<E> createFilterByIndex(IExecutable<E> executable, int index) {
+	public <E extends IEntity> IExecutable<E> createFilterByIndex(IExecutable<IEntity> executable, int index) {
 		return decorate(factory.createFilterByIndex(executable, index));
 	}
 
-	public <E extends IEntity> IExecutable<E> createFilterByIndexRange(IExecutable<E> executable, int startIndex, int endIndex) {
+	public <E extends IEntity> IExecutable<E> createFilterByIndexRange(IExecutable<IEntity> executable, int startIndex, int endIndex) {
 		return decorate(factory.createFilterByIndexRange(executable, startIndex, endIndex));
 	}
 

@@ -384,11 +384,11 @@ public class IteratorBasedExecutableFactory extends AbstractIteratorBasedExecuta
 		return new ComposeIterator<E>((IEntityIterator<E>) executable.iterator(), toIterators(nestedExecutables));
 	}
 
-	public <E extends IEntity> IExecutable<E> createFilterByIndex(IExecutable<E> executable, int index) {
-		return new FilterByIndexRangeIterator<E>(executable.iterator(), index, index);
+	public <E extends IEntity> IExecutable<E> createFilterByIndex(IExecutable<IEntity> executable, int index) {
+		return new FilterByIndexRangeIterator<E>((IEntityIterator<E>) executable.iterator(), index, index);
 	}
-	public <E extends IEntity> IExecutable<E> createFilterByIndexRange(IExecutable<E> executable, int startIndex, int endIndex) {
-		return new FilterByIndexRangeIterator<E>(executable.iterator(), startIndex, endIndex);
+	public <E extends IEntity> IExecutable<E> createFilterByIndexRange(IExecutable<IEntity> executable, int startIndex, int endIndex) {
+		return new FilterByIndexRangeIterator<E>((IEntityIterator<E>) executable.iterator(), startIndex, endIndex);
 	}
 	public <E extends IEntity> IExecutable<E> createFilterByIndexRange() {
 		return new FilterByIndexRangeIterator<E>();

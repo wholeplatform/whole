@@ -51,6 +51,7 @@ import org.whole.lang.evaluators.DescendantReverseEvaluator;
 import org.whole.lang.evaluators.FeatureByIndexEvaluator;
 import org.whole.lang.evaluators.FeatureByNameEvaluator;
 import org.whole.lang.evaluators.FilterByDistinctEvaluator;
+import org.whole.lang.evaluators.FilterByIndexRangeEvaluator;
 import org.whole.lang.evaluators.FilterEvaluator;
 import org.whole.lang.evaluators.FollowingEvaluator;
 import org.whole.lang.evaluators.FollowingSiblingEvaluator;
@@ -410,6 +411,130 @@ public class RegularExecutableFactory extends AbstractIteratorBasedExecutableFac
 			nestedExecutables[index--] = e;
 
 		return (IExecutable<E>) new ComposeEvaluator(nestedExecutables);
+	}
+
+	public <E extends IEntity> IExecutable<E> createFilterByIndex(IExecutable<IEntity> executable, int index) {
+		return new FilterByIndexRangeEvaluator<E>(executable, index, index);
+	}
+	public <E extends IEntity> IExecutable<E> createFilterByIndexRange(IExecutable<IEntity> executable, int startIndex, int endIndex) {
+		return new FilterByIndexRangeEvaluator<E>(executable, startIndex, endIndex);
+	}
+	public <E extends IEntity> IExecutable<E> createFilterByIndexRange() {
+		return new FilterByIndexRangeEvaluator<E>();
+	}
+
+	public IExecutable<IEntity> createIterationIndexVariable(IExecutable<?> indexExecutable, String name) {
+		final boolean hasEnvironmentPart = BindingUtils.hasEnvironmentPart(name);
+		final int index = name.indexOf('#');
+		final String envName = hasEnvironmentPart ? name.substring(BindingUtils.ENVIRONMENT_URI_PREFIX.length(), index) : null;
+		final String varName = hasEnvironmentPart ? name.substring(index+1) : name;
+
+		return new AbstractNestedSupplierEvaluator<IEntity>(indexExecutable) {
+			@Override
+			protected void resetProducers(IEntity entity) {
+			}
+			@Override
+			protected void setProducersBindings(IBindingManager bindings) {
+			}
+
+			public IEntity get() {
+				IBindingManager bm = hasEnvironmentPart ? getBindings().wGetEnvironmentManager().getEnvironment(envName) : getBindings();
+				int iterationIndex = ((FilterByIndexRangeEvaluator<?>) getProducer(0).undecoratedExecutable()).predicateIndex(this);
+
+				if (bm.wIsSet(varName)) {
+					return BindingManagerFactory.instance.createValue(iterationIndex == bm.wIntValue(varName));
+				} else {
+					bm.wDefValue(varName, iterationIndex);
+					return BindingManagerFactory.instance.createValue(true);
+				}
+			}
+
+			public void toString(StringBuilder sb) {
+				sb.append("iterationAs($");
+				sb.append(name);
+				sb.append(")");
+			}
+		};
+	}
+	public IExecutable<IEntity> createIterationIndex(IExecutable<?> indexExecutable, int index) {
+		return new AbstractNestedSupplierEvaluator<IEntity>(indexExecutable) {
+			@Override
+			protected void resetProducers(IEntity entity) {
+			}
+			@Override
+			protected void setProducersBindings(IBindingManager bindings) {
+			}
+
+			public IEntity get() {
+				int iterationIndex = ((FilterByIndexRangeEvaluator<?>) getProducer(0).undecoratedExecutable()).predicateIndex(this);
+
+				return BindingManagerFactory.instance.createValue(iterationIndex == index);
+			}
+
+			public void toString(StringBuilder sb) {
+				sb.append("iteration(");
+				sb.append(index);
+				sb.append(")");
+			}
+		};
+	}
+	public IExecutable<IEntity> createIterationIndexRange(IExecutable<?> indexExecutable, int startIndex, int endIndex) {
+		return new AbstractNestedSupplierEvaluator<IEntity>(indexExecutable) {
+			@Override
+			protected void resetProducers(IEntity entity) {
+			}
+			@Override
+			protected void setProducersBindings(IBindingManager bindings) {
+			}
+
+			public IEntity get() {
+				int iterationIndex = ((FilterByIndexRangeEvaluator<?>) getProducer(0).undecoratedExecutable()).predicateIndex(this);
+
+				return BindingManagerFactory.instance.createValue(startIndex <= iterationIndex && iterationIndex <= endIndex);
+			}
+
+			public void toString(StringBuilder sb) {
+				sb.append("iterationRange(");
+				sb.append(startIndex);
+				sb.append("..");
+				sb.append(endIndex == Integer.MAX_VALUE ? "*" : String.valueOf(endIndex));
+				sb.append(")");
+			}
+		};
+	}
+
+	@SuppressWarnings("unchecked")
+	public IExecutable<IEntity> createPointwiseEquals(IExecutable<IEntity> leftOperand, IExecutable<IEntity> rightOperand) {
+		return new AbstractDelegatingNestedSupplierEvaluator(leftOperand, rightOperand) {
+			public IEntity get() {
+				getBindings().wEnterScope(executorScope(), true);
+
+				IEntity le, re;
+				do {
+					le = getProducer(0).evaluateNext();
+					re = getProducer(1).evaluateNext();
+				} while (le != null && re != null && le.wEquals(re));
+
+				getBindings().wExitScope();
+
+				boolean result = (le == null && re == null);
+				if (result) {
+					if (mergeLookaheadScope)
+						getBindings().wAddAll(executorScope());
+				} else
+					executorScope().wClear();
+
+				return BindingManagerFactory.instance.createValue(result);
+			}
+
+			public void toString(StringBuilder sb) {
+				sb.append("pointwiseEquals(");
+				getProducer(0).toString(sb);//TODO startOf
+				sb.append(", ");
+				getProducer(1).toString(sb);//TODO startOf
+				sb.append(")");
+			}
+		};
 	}
 
 	@SuppressWarnings("unchecked")

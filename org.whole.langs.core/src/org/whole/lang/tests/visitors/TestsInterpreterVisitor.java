@@ -163,7 +163,7 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 		try {
 			getBindings().wDef(IBindingManager.SELF, BindingManagerFactory.instance.createNull());
 
-			IExecutable<BeforeTestCase> beforeIterator = iteratorFactory().<BeforeTestCase>createChildMatcher().withPattern(BeforeTestCase);
+			IExecutable<BeforeTestCase> beforeIterator = executableFactory().<BeforeTestCase>createChildMatcher().withPattern(BeforeTestCase);
 			beforeIterator.setBindings(getBindings());
 			Aspects aspects = entity.getAspects();
 			getBindings().enforceSelfBinding(aspects);
@@ -200,7 +200,7 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 				result.setValue(result.getValue() + 1);
 			}
 
-			IExecutable<AfterTestCase> afterIterator = iteratorFactory().<AfterTestCase>createChildMatcher().withPattern(AfterTestCase);
+			IExecutable<AfterTestCase> afterIterator = executableFactory().<AfterTestCase>createChildMatcher().withPattern(AfterTestCase);
 			afterIterator.setBindings(getBindings());
 			getBindings().enforceSelfBinding(aspects);
 			afterIterator.reset(aspects);

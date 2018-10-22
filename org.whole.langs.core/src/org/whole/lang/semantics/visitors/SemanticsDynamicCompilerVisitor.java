@@ -66,7 +66,7 @@ public class SemanticsDynamicCompilerVisitor extends SemanticsIdentityDefaultVis
 	public void visit(SemanticFunction entity) {
     	FunctionBody rules = entity.getRules();
     	if (Matcher.match(SemanticsEntityDescriptorEnum.InferenceRules, rules)) {
-    		setExecutableResult(iteratorFactory().createEmpty().withSourceEntity(entity));//TODO not supported yet
+    		setExecutableResult(executableFactory().createEmpty().withSourceEntity(entity));//TODO not supported yet
     		return;
     	}
 
@@ -93,10 +93,10 @@ public class SemanticsDynamicCompilerVisitor extends SemanticsIdentityDefaultVis
 //    	if (functionUri.indexOf("#") == -1)
 //    		functionUri = getLibraryUri(entity)+"#"+functionUri;
 
-    	IExecutable<IEntity> executableResult = iteratorFactory().createFunctionApplication(functionUri).withSourceEntity(entity);
+    	IExecutable<IEntity> executableResult = executableFactory().createFunctionApplication(functionUri).withSourceEntity(entity);
 
 		if (functionUri.endsWith("#stagedVisit"))
-			executableResult = iteratorFactory().createRecursiveFunctionApplication().withSourceEntity(entity);
+			executableResult = executableFactory().createRecursiveFunctionApplication().withSourceEntity(entity);
 
     	Expression arguments = entity.getArguments();
 		if (!EntityUtils.isResolver(arguments)) {
@@ -104,7 +104,7 @@ public class SemanticsDynamicCompilerVisitor extends SemanticsIdentityDefaultVis
     		IExecutable<IEntity> argumentsIterator = getExecutableResult();
 
     		if (!argumentsIterator.getClass().equals(SelfIterator.class))
-    			executableResult = iteratorFactory().createCompose(executableResult, argumentsIterator).withSourceEntity(entity);
+    			executableResult = executableFactory().createCompose(executableResult, argumentsIterator).withSourceEntity(entity);
     	}
 		setExecutableResult(executableResult);
   	}
@@ -124,7 +124,7 @@ public class SemanticsDynamicCompilerVisitor extends SemanticsIdentityDefaultVis
     		IExecutable<?> expressionIterator = getExecutableResult();
 
     		if (!expressionIterator.getClass().equals(SelfIterator.class))
-    			executableResult = iteratorFactory().createFor(expressionIterator, executableResult).withSourceEntity(entity);
+    			executableResult = executableFactory().createFor(expressionIterator, executableResult).withSourceEntity(entity);
     	}
 		setExecutableResult(executableResult);
 	}

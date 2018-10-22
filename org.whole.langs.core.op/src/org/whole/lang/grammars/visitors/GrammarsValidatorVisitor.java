@@ -66,7 +66,7 @@ public class GrammarsValidatorVisitor extends GrammarsIdentityDefaultVisitor {
 	}
 
 	public void checkPatterns(Grammar entity) {
-		AbstractPatternFilterIterator<RegExp> i = iteratorFactory().<RegExp>createDescendantOrSelfMatcher().withPattern(GrammarsEntityDescriptorEnum.RegExp);
+		AbstractPatternFilterIterator<RegExp> i = executableFactory().<RegExp>createDescendantOrSelfMatcher().withPattern(GrammarsEntityDescriptorEnum.RegExp);
 		i.reset(entity);
 		for (RegExp regex : i) {
 			try {
@@ -89,7 +89,7 @@ public class GrammarsValidatorVisitor extends GrammarsIdentityDefaultVisitor {
 		Set<String> ntUses = new HashSet<String>();
 		Set<NonTerminal> nts = new HashSet<NonTerminal>();
 		
-		AbstractPatternFilterIterator<NonTerminal> i = iteratorFactory().<NonTerminal>createDescendantOrSelfMatcher().withPattern(GrammarsEntityDescriptorEnum.NonTerminal);
+		AbstractPatternFilterIterator<NonTerminal> i = executableFactory().<NonTerminal>createDescendantOrSelfMatcher().withPattern(GrammarsEntityDescriptorEnum.NonTerminal);
 		i.reset(entity);
 		for (NonTerminal nt : i) {
 			IEntity parent = nt.wGetParent();
@@ -110,7 +110,7 @@ public class GrammarsValidatorVisitor extends GrammarsIdentityDefaultVisitor {
 			if (!ntDefs.contains(nt.getValue()))
 				getDecorationManager().addError(nt, "Production not defined", nt.getValue());//TODO location with production
 
-		AbstractPatternFilterIterator<Production> i2 = iteratorFactory().<Production>createChildMatcher()
+		AbstractPatternFilterIterator<Production> i2 = executableFactory().<Production>createChildMatcher()
 				.withPattern(GrammarsEntityDescriptorEnum.Production);
 		i2.reset(entity.getPhraseStructure());
 		for (Production p : i2)

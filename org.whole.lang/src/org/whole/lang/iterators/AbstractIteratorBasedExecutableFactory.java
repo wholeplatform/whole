@@ -19,7 +19,6 @@ package org.whole.lang.iterators;
 
 import java.util.Map;
 
-import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.commons.model.Variable;
 import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
@@ -81,16 +80,6 @@ public abstract class AbstractIteratorBasedExecutableFactory implements Executab
 		return new SequenceIterator<E>(toIterators(executableChain));
 	}
 
-	public <E extends IEntity> IExecutable<E> createFilterByIndex(IExecutable<E> executable, int index) {
-		return new FilterByIndexRangeIterator<E>(executable.iterator(), index, index);
-	}
-	public <E extends IEntity> IExecutable<E> createFilterByIndexRange(IExecutable<E> executable, int startIndex, int endIndex) {
-		return new FilterByIndexRangeIterator<E>(executable.iterator(), startIndex, endIndex);
-	}
-	public <E extends IEntity> IExecutable<E> createFilterByIndexRange() {
-		return new FilterByIndexRangeIterator<E>();
-	}
-
 	@SuppressWarnings("unchecked")
 	public IExecutable<IEntity> createUnionAll(IExecutable<? extends IEntity>... executableChain) {
 		return new UnionAllIterator(toIterators(executableChain));
@@ -115,108 +104,6 @@ public abstract class AbstractIteratorBasedExecutableFactory implements Executab
 				CommonsDataTypePersistenceParser.getFeatureDescriptor(fdUri, true, bm) : selfFd.getFeatureDescriptorEnum().valueOf(fdUri);		
 	}
 
-
-	public IExecutable<IEntity> createIterationIndexVariable(IExecutable<?> indexExecutable, String name) {
-		final boolean hasEnvironmentPart = BindingUtils.hasEnvironmentPart(name);
-		final int index = name.indexOf('#');
-		final String envName = hasEnvironmentPart ? name.substring(BindingUtils.ENVIRONMENT_URI_PREFIX.length(), index) : null;
-		final String varName = hasEnvironmentPart ? name.substring(index+1) : name;
-
-		return new AbstractSingleValuedRunnableIterator<IEntity>(indexExecutable.iterator()) {
-			@Override
-			protected void resetArguments(IEntity entity) {
-			}
-			@Override
-			protected void setProducersBindings(IBindingManager bindings) {
-			}
-
-			protected void run(IEntity selfEntity, IBindingManager bm) {
-				run(selfEntity, hasEnvironmentPart ? bm.wGetEnvironmentManager().getEnvironment(envName) : bm, varName);
-			};
-			protected final void run(IEntity selfEntity, IBindingManager bm, String name) {
-				int iterationIndex = ((FilterByIndexRangeIterator<?>) argsIterators[0].undecoratedExecutable()).predicateIndex(this);
-				if (bm.wIsSet(name)) {
-					bm.setResult(BindingManagerFactory.instance.createValue(iterationIndex == bm.wIntValue(name)));
-				} else {
-					bm.wDefValue(name, iterationIndex);
-					bm.setResult(BindingManagerFactory.instance.createValue(true));
-				}
-			}
-
-			public void toString(StringBuilder sb) {
-				sb.append("iterationAs($");
-				sb.append(name);
-				sb.append(")");
-			}
-		};
-	}
-
-	public IExecutable<IEntity> createIterationIndex(IExecutable<?> indexExecutable, int index) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(indexExecutable.iterator()) {
-			@Override
-			protected void resetArguments(IEntity entity) {
-			}
-			@Override
-			protected void setProducersBindings(IBindingManager bindings) {
-			}
-
-			protected void run(IEntity selfEntity, IBindingManager bm) {
-				int iterationIndex = ((FilterByIndexRangeIterator<?>) argsIterators[0].undecoratedExecutable()).predicateIndex(this);
-				bm.setResult(BindingManagerFactory.instance.createValue(iterationIndex == index));
-			}
-
-			public void toString(StringBuilder sb) {
-				sb.append("iteration(");
-				sb.append(index);
-				sb.append(")");
-			}
-		};
-	}
-	public IExecutable<IEntity> createIterationIndexRange(IExecutable<?> indexExecutable, int startIndex, int endIndex) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(indexExecutable.iterator()) {
-			@Override
-			protected void resetArguments(IEntity entity) {
-			}
-			@Override
-			protected void setProducersBindings(IBindingManager bindings) {
-			}
-
-			protected void run(IEntity selfEntity, IBindingManager bm) {
-				int iterationIndex = ((FilterByIndexRangeIterator<?>) argsIterators[0].undecoratedExecutable()).predicateIndex(this);
-				bm.setResult(BindingManagerFactory.instance.createValue(startIndex <= iterationIndex && iterationIndex <= endIndex));
-			}
-
-			public void toString(StringBuilder sb) {
-				sb.append("iterationRange(");
-				sb.append(startIndex);
-				sb.append("..");
-				sb.append(endIndex == Integer.MAX_VALUE ? "*" : String.valueOf(endIndex));
-				sb.append(")");
-			}
-		};
-	}
-
-	public IExecutable<IEntity> createPointwiseEquals(IExecutable<IEntity> leftOperand, IExecutable<IEntity> rightOperand) {
-		return new AbstractSingleValuedRunnableIterator<IEntity>(leftOperand.iterator(), rightOperand.iterator()) {
-			protected void run(IEntity selfEntity, IBindingManager bm) {
-				for (IEntity e : argsIterators[0])
-					if (!argsIterators[1].hasNext() || !e.wEquals(argsIterators[1].next())) {
-						bm.setResult(BindingManagerFactory.instance.createValue(false));
-						return;
-					}
-
-				bm.setResult(BindingManagerFactory.instance.createValue(true));
-			}
-
-			public void toString(StringBuilder sb) {
-				sb.append("pointwiseEquals(");
-				argsIterators[0].toString(sb);//TODO startOf
-				sb.append(", ");
-				argsIterators[1].toString(sb);//TODO startOf
-				sb.append(")");
-			}
-		};
-	}
 
 	public IExecutable<?> createTupleFactory(IExecutable<?>... tupleExecutables) {
 		return new TupleFactoryIterator(toIterators(tupleExecutables));

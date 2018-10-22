@@ -47,11 +47,11 @@ public abstract class AbstractVisitor implements IVisitor {
 	private IOperation operation;
 	protected IBindingManager bindings;
 
-	private ExecutableFactory iteratorFactory;
-	public ExecutableFactory iteratorFactory() {
-		if (iteratorFactory == null)
-			iteratorFactory = bindings != null ? ExecutableFactory.instance(bindings) : ExecutableFactory.instance;
-		return iteratorFactory;
+	private ExecutableFactory executableFactory;
+	public ExecutableFactory executableFactory() {
+		if (executableFactory == null)
+			executableFactory = bindings != null ? ExecutableFactory.instance(bindings) : ExecutableFactory.instance;
+		return executableFactory;
 	}
 
 	public IVisitor clone() {
