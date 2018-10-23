@@ -64,6 +64,9 @@ import org.whole.lang.evaluators.LocalVariableEvaluator;
 import org.whole.lang.evaluators.MultiValuedRunnableEvaluator;
 import org.whole.lang.evaluators.OuterLocalVariableEvaluator;
 import org.whole.lang.evaluators.OuterVariableEvaluator;
+import org.whole.lang.evaluators.PointwiseInsertEvaluator;
+import org.whole.lang.evaluators.PointwiseProductEvaluator;
+import org.whole.lang.evaluators.PointwiseUpdateEvaluator;
 import org.whole.lang.evaluators.PrecedingEvaluator;
 import org.whole.lang.evaluators.PrecedingSiblingEvaluator;
 import org.whole.lang.evaluators.ReachableEvaluator;
@@ -74,6 +77,7 @@ import org.whole.lang.evaluators.VariableEvaluator;
 import org.whole.lang.iterators.AbstractIteratorBasedExecutableFactory;
 import org.whole.lang.iterators.DistinctScope;
 import org.whole.lang.iterators.MatcherIterator;
+import org.whole.lang.iterators.Placement;
 import org.whole.lang.iterators.ScannerIterator;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
@@ -1178,6 +1182,18 @@ public class RegularExecutableFactory extends AbstractIteratorBasedExecutableFac
 				sb.append(")");
 			}
 		};
+	}
+
+	@SuppressWarnings("unchecked")
+	public IExecutable<IEntity> createPointwiseProduct(IExecutable<? extends IEntity>... executables) {
+		return new PointwiseProductEvaluator((IExecutable<IEntity>[]) executables);
+	}
+	public <E extends IEntity> IExecutable<E> createPointwiseUpdate(IExecutable<E> valuesExecutable, IExecutable<? super E> toExecutable) {
+		return (IExecutable<E>) new PointwiseUpdateEvaluator((IExecutable<IEntity>) valuesExecutable, (IExecutable<IEntity>) toExecutable);
+	}
+
+	public <E extends IEntity> IExecutable<E> createPointwiseInsert(IExecutable<E> valuesExecutable, IExecutable<? super E> toExecutable, Placement placement) {
+		return (IExecutable<E>) new PointwiseInsertEvaluator((IExecutable<IEntity>) valuesExecutable, (IExecutable<IEntity>) toExecutable, placement);
 	}
 
 	public <E extends IEntity> IExecutable<E> createDelete(IExecutable<IEntity> valuesExecutable) {

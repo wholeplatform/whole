@@ -118,25 +118,12 @@ public abstract class AbstractIteratorBasedExecutableFactory implements Executab
 		return new CartesianProductIterator(toIterators(executables));
 	}
 
-	@SuppressWarnings("unchecked")
-	public IExecutable<IEntity> createPointwiseProduct(IExecutable<? extends IEntity>... executables) {
-		return new PointwiseProductIterator(toIterators(executables));
-	}
-
 	public <E extends IEntity> IExecutable<E> createCartesianUpdate(IExecutable<? extends E> valuesExecutable, IExecutable<E> toExecutable) {
 		return new CartesianUpdateIterator<E>(valuesExecutable.iterator(), toExecutable.iterator());
 	}
 
-	public <E extends IEntity> IExecutable<E> createPointwiseUpdate(IExecutable<E> valuesExecutable, IExecutable<? super E> toExecutable) {
-		return new PointwiseUpdateIterator<E>(valuesExecutable.iterator(), toExecutable.iterator());
-	}
-
 	public <E extends IEntity> IExecutable<E> createCartesianInsert(IExecutable<? extends E> valuesExecutable, IExecutable<E> toExecutable, Placement placement) {
 		return new CartesianInsertIterator<E>(valuesExecutable.iterator(), toExecutable.iterator(), placement);
-	}
-
-	public <E extends IEntity> IExecutable<E> createPointwiseInsert(IExecutable<E> valuesExecutable, IExecutable<? super E> toExecutable, Placement placement) {
-		return new PointwiseInsertIterator<E>(valuesExecutable.iterator(), toExecutable.iterator(), placement);
 	}
 
 	@SuppressWarnings("unchecked")
