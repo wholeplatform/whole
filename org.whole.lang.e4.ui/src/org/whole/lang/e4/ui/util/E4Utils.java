@@ -498,7 +498,7 @@ public class E4Utils {
 	}
 
 	public static void suspendOrReportException(IEclipseContext context, SuspensionKind kind, String title, String description, Exception e, IBindingManager bindings) {
-		IWholeRuntimeException we = e instanceof IWholeRuntimeException ? (IWholeRuntimeException) e : new WholeRuntimeException(e).withBindings(bindings);
+		IWholeRuntimeException we = e instanceof IWholeRuntimeException ? (IWholeRuntimeException) e : new WholeRuntimeException(description, e).withBindings(bindings);
 		if (context != null)
 			we.getBindings().wDefValue(IBindingManager.ECLIPSE_CONTEXT, context);
 

@@ -26,18 +26,17 @@ import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.DragTracker;
-import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.handles.AbstractHandle;
 import org.eclipse.gef.handles.MoveHandleLocator;
 import org.whole.lang.ui.WholeImages;
-import org.whole.lang.ui.figures.EntityLabel;
+import org.whole.lang.ui.editparts.IGraphicalEntityPart;
 import org.whole.lang.ui.util.SuspensionKind;
 
 /**
  * @author Enrico Persiani
  */
-public class DebugLabeledHandle extends AbstractHandle {
-	public DebugLabeledHandle(String label, GraphicalEditPart owner, SuspensionKind suspensionKind) {
+public class DebugHandle extends AbstractHandle {
+	public DebugHandle(IGraphicalEntityPart owner, SuspensionKind suspensionKind) {
 		super(owner, new MoveHandleLocator(owner.getFigure()));
 		LineBorder line = new LineBorder(suspensionKind.isBreak() ? ColorConstants.darkGreen : ColorConstants.red, 3) {
 			@Override
@@ -64,7 +63,6 @@ public class DebugLabeledHandle extends AbstractHandle {
 		};
 		setBorder(border);
 		setOpaque(false);
-		setToolTip(new EntityLabel(label));
 	}
 
 	protected DragTracker createDragTracker() {

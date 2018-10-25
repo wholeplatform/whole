@@ -18,11 +18,12 @@
 package org.whole.lang.ui.editpolicies;
 
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.editparts.LayerManager;
 import org.eclipse.gef.editpolicies.AbstractEditPolicy;
-import org.whole.lang.ui.handles.DebugLabeledHandle;
+import org.whole.lang.operations.IDecorationManager.DecorationKind;
+import org.whole.lang.ui.editparts.IGraphicalEntityPart;
+import org.whole.lang.ui.handles.DebugHandle;
 import org.whole.lang.ui.util.SuspensionKind;
 
 /**
@@ -51,15 +52,33 @@ public class SuspensionFeedbackEditPolicy extends AbstractEditPolicy {
 		return LayerManager.Helper.find(getHost()).getLayer(layer);
 	}
 
-	protected DebugLabeledHandle handle;
+	protected DebugHandle handle;
 	protected void addSuspensionFeedbak() {
 		if (!suspensionKind.isSuspended())
 			return;
 
+		IGraphicalEntityPart hostPart = (IGraphicalEntityPart) getHost();
+
 		IFigure layer = getLayer(LayerConstants.SCALED_FEEDBACK_LAYER);
-		String message = throwable != null ? throwable.getLocalizedMessage() : suspensionKind.name().toLowerCase();
-		handle = new DebugLabeledHandle(message, (GraphicalEditPart) getHost(), suspensionKind);
+		handle = new DebugHandle(hostPart, suspensionKind);
 		layer.add(handle);
+
+		switch (suspensionKind) {
+		case BREAK:
+			hostPart.addDecoration(DecorationKind.ASSIST, "Suspended on a breakpoint");
+			break;
+
+		case ERROR:
+			hostPart.addDecoration(DecorationKind.ERROR, throwable.getLocalizedMessage());
+			break;
+
+		case RECOVERABLE_ERROR:
+			hostPart.addDecoration(DecorationKind.WARNING, throwable.getLocalizedMessage());
+			break;
+
+		default:
+			break;
+		}
 	}
 	protected void removeSuspensionFeedback() {
 		if (handle == null)
