@@ -416,16 +416,17 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 				NormalizerOperation.normalize(model, bm);
 				break;
 			case OperationEnum.PRETTY_PRINTER_ord:
-				PrettyPrinterOperation.prettyPrint(model, bm);
+				performPrettyPrintOperation(bm, model);
 				break;
 			case OperationEnum.INTERPRETER_ord:
-				InterpreterOperation.interpret(model, bm, (Reader) null, (Writer) null);
+				performInterpreterOperation(bm, model);
 				break;
 			case OperationEnum.ARTIFACTS_GENERATOR_ord:
 				ArtifactsGeneratorOperation.generate(model, bm);
 				break;
 			case OperationEnum.JAVA_COMPILER_ord:
 				performJavaCompilerOperation(model);
+				break;
 			}
 	
 			bm.wExitScope();
@@ -438,6 +439,12 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 		}
 	}
 
+	protected void performPrettyPrintOperation(IBindingManager bm, IEntity model) {
+		PrettyPrinterOperation.prettyPrint(model, bm);
+	}
+	protected void performInterpreterOperation(IBindingManager bm, IEntity model) {
+		InterpreterOperation.interpret(model, bm, (Reader) null, (Writer) null);
+	}
 	protected  void performJavaCompilerOperation(IEntity model) {
 		throw new UnsupportedOperationException("The Eclipse JDT is not available");
 	}
