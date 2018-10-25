@@ -27,17 +27,18 @@ import org.whole.lang.operations.ICloneContext;
 /**
  * @author Riccardo Solmi
  */
-public class ComposeEvaluator extends AbstractDelegatingNestedEvaluator<IEntity> {
+public abstract class AbstractCartesianEvaluator extends AbstractDelegatingNestedEvaluator<IEntity> {
 	protected IEntity[] nestedResults;
 
-	public ComposeEvaluator(IExecutable<IEntity>... nestedExecutables) {
-		super(nestedExecutables);
-		nestedResults = new IEntity[nestedExecutables.length];
+	@SuppressWarnings("unchecked")
+	public AbstractCartesianEvaluator(IExecutable<IEntity>... executables) {
+		super(executables);
+		nestedResults = new IEntity[executables.length];
 	}
 
 	@Override
 	public IExecutable<IEntity> clone(ICloneContext cc) {
-		ComposeEvaluator executor = (ComposeEvaluator) super.clone(cc);
+		AbstractCartesianEvaluator executor = (AbstractCartesianEvaluator) super.clone(cc);
 		executor.nestedResults = nestedResults.clone();
 		return executor;
 	}
@@ -73,23 +74,10 @@ public class ComposeEvaluator extends AbstractDelegatingNestedEvaluator<IEntity>
 	@Override
 	protected void clearProducerScope() {
 		if (executorScope != null) {
-			for (String name : executorScope.wNames()) //TODO ? optimize clear 1/3 .wTaretScope().wLocalNames()
+			for (String name : executorScope.wNames())
 				getBindings().wUnset(name);
 			executorScope.wClear();
 		}
-	}
-	@Override
-	protected void selectFollowingProducer() {
-		executorScope().wEnterScope();
-		super.selectFollowingProducer();
-		producersNeedInit.set(producerIndex);
-	}
-	@Override
-	protected void selectPrecedingProducer() {
-		//TODO ? optimize clear 2/3
-//		clearProducerScope(); //unneeded wClear() in clearProducerScope()
-		executorScope().wExitScope();
-		super.selectPrecedingProducer();
 	}
 
 	@Override
@@ -100,60 +88,35 @@ public class ComposeEvaluator extends AbstractDelegatingNestedEvaluator<IEntity>
 		return result;
 	}
 
-	@Override
-	protected boolean needClearExecutorScope(/*int producerIndex*/) {
-		return lastEntity != null && isLastProducer(); //TODO ? optimize clear 3/3 without && isLastProducer()
-	}
-	@Override
-	protected boolean needMergeExecutorScope(/*int producerIndex*/) {
-		return super.needMergeExecutorScope() && isLastProducer();
-	}
-
-
-	protected void updateResults() {
-		boolean needFollowingProducerResult, needPrecedingProducerResult;
-
-		do {
-			nestedResults[producerIndex] = scopedEvaluateNext();
-
-			needFollowingProducerResult = isNotLastProducer() && nestedResults[producerIndex] != null;
-			needPrecedingProducerResult = isNotFirstProducer() && nestedResults[producerIndex] == null;
-
-			if (needFollowingProducerResult)
-				selectFollowingProducer();
-			else if (needPrecedingProducerResult)
-				selectPrecedingProducer();
-
-		} while (needFollowingProducerResult || needPrecedingProducerResult);
-	}
-
 	public IEntity evaluateNext() {
-		updateResults();
-		return lastEntity = enforceSomeValue(nestedResults[producerIndex]);
-	}
+		if (lastEntity != null)
+			clearProducerScope();
 
-//	public IEntity evaluateRemaining() {
-//		do {
-//			updateResults();
-//			if (nestedResults[producerIndex] != null)
-//				lastEntity = nestedResults[producerIndex];
-//		} while (nestedResults[producerIndex] != null);
-//
-//		return lastEntity = enforceSomeValue(lastEntity);
-//	}
+		try {
+			getBindings().wEnterScope(executorScope(), true);
+	
+			boolean needFollowingProducerResult, needPrecedingProducerResult;
+			do {
+				nestedResults[producerIndex] = getProducer(producerIndex).evaluateNext();
+	
+				needFollowingProducerResult = isNotLastProducer() && nestedResults[producerIndex] != null;
+				needPrecedingProducerResult = isNotFirstProducer() && nestedResults[producerIndex] == null;
+	
+				if (needFollowingProducerResult) {
+					executorScope().wEnterScope();
+					producerIndex += 1;
+					producersNeedInit.set(producerIndex);
+				} else if (needPrecedingProducerResult) {
+					executorScope().wExitScope();
+					producerIndex -= 1;
+				}
+			} while (needFollowingProducerResult || needPrecedingProducerResult);
 
-	protected IEntity enforceSomeValue(IEntity entity) {
-		return entity;
+			return lastEntity = evaluateNestedResults();
+		} finally {
+			getBindings().wExitScope(mergeLookaheadScope && lastEntity != null);
+		}
 	}
-
-	protected String toStringPrefix() {
-		return "";
-	}
-	protected String toStringSeparator() {
-		return "/";
-	}
-	protected String toStringSuffix() {
-		return "";
-	}
+	protected abstract IEntity evaluateNestedResults();
 }
 

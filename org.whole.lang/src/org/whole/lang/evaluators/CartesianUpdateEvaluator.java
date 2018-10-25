@@ -19,62 +19,36 @@ package org.whole.lang.evaluators;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.executables.IExecutable;
-import org.whole.lang.iterators.Placement;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Riccardo Solmi
  */
-public class PointwiseInsertEvaluator extends AbstractPointwiseEvaluator {
-	protected Placement placement;
-
+public class CartesianUpdateEvaluator extends AbstractCartesianEvaluator {
 	@SuppressWarnings("unchecked")
-	public PointwiseInsertEvaluator(IExecutable<IEntity> toExecutable, IExecutable<IEntity> valuesExecutable, Placement placement) {
+	public CartesianUpdateEvaluator(IExecutable<IEntity> toExecutable, IExecutable<IEntity> valuesExecutable) {
 		super(toExecutable, valuesExecutable);
-		this.placement = placement;
 	}
 
 	protected IEntity evaluateNestedResults() {
+		if (isNotLastProducer())
+			return null;
+
 		if (BindingManagerFactory.instance.isVoid(nestedResults[1]))
 			return nestedResults[1];
 
-		EntityDescriptor<?> toEd;
-		switch (placement) {
-		case BEFORE:
-			toEd = nestedResults[0].wGetParent().wGetEntityDescriptor(nestedResults[0]);
-			break;
-		case INTO:
-			//TODO workaround for Resolver ED
-			if (EntityUtils.isResolver(nestedResults[0]))
-				toEd = nestedResults[0].wGetParent().wGetEntityDescriptor(nestedResults[0]).getEntityDescriptor(0);
-			else
-				toEd = nestedResults[0].wGetEntityDescriptor(0);
-			break;
-		default:
-			throw new IllegalArgumentException("unsupported placement");
-		}
-		IEntity result = EntityUtils.convertCloneIfParented(nestedResults[1], toEd);
-
-		switch (placement) {
-		case BEFORE:
-			getProducer(0).add(result);
-			break;
-		case INTO:
-			nestedResults[0].wAdd(result);
-			break;
-		}
-
+		IEntity result = EntityUtils.convertCloneIfParented(nestedResults[1], EntityUtils.getFormalType(nestedResults[0]));
+		getProducer(0).set(result);
 		return result;
 	}
 
 	@Override
 	protected String toStringPrefix() {
-		return "insert"+placement+"(";
+		return "update(";
 	}
 	@Override
 	protected String toStringSeparator() {
-		return " .= ";
+		return " x= ";
 	}
 }

@@ -1222,19 +1222,19 @@ public class IteratorBasedExecutableFactory extends AbstractIteratorBasedExecuta
 		return new PointwiseProductIterator(toIterators(executables));
 	}
 
-	public <E extends IEntity> IExecutable<E> createCartesianUpdate(IExecutable<? extends E> valuesExecutable, IExecutable<E> toExecutable) {
+	public <E extends IEntity> IExecutable<E> createCartesianUpdate(IExecutable<E> toExecutable, IExecutable<? extends E> valuesExecutable) {
 		return new CartesianUpdateIterator<E>(valuesExecutable.iterator(), toExecutable.iterator());
 	}
 
-	public <E extends IEntity> IExecutable<E> createPointwiseUpdate(IExecutable<E> valuesExecutable, IExecutable<? super E> toExecutable) {
+	public <E extends IEntity> IExecutable<E> createPointwiseUpdate(IExecutable<? super E> toExecutable, IExecutable<E> valuesExecutable) {
 		return new PointwiseUpdateIterator<E>(valuesExecutable.iterator(), toExecutable.iterator());
 	}
 
-	public <E extends IEntity> IExecutable<E> createCartesianInsert(IExecutable<? extends E> valuesExecutable, IExecutable<E> toExecutable, Placement placement) {
+	public <E extends IEntity> IExecutable<E> createCartesianInsert(IExecutable<E> toExecutable, IExecutable<? extends E> valuesExecutable, Placement placement) {
 		return new CartesianInsertIterator<E>(valuesExecutable.iterator(), toExecutable.iterator(), placement);
 	}
 
-	public <E extends IEntity> IExecutable<E> createPointwiseInsert(IExecutable<E> valuesExecutable, IExecutable<? super E> toExecutable, Placement placement) {
+	public <E extends IEntity> IExecutable<E> createPointwiseInsert(IExecutable<? super E> toExecutable, IExecutable<E> valuesExecutable, Placement placement) {
 		return new PointwiseInsertIterator<E>(valuesExecutable.iterator(), toExecutable.iterator(), placement);
 	}
 

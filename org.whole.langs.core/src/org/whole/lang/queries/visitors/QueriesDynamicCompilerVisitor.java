@@ -638,7 +638,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		IExecutable<IEntity> fromIterator = getExecutableResult();
 
 		setExecutableResult(executableFactory().createPointwiseUpdate(
-				executableFactory().createRepeatedSelf().withSourceEntity(entity), fromIterator)
+				fromIterator, executableFactory().createRepeatedSelf().withSourceEntity(entity))
 				.withSourceEntity(entity));
 	}
 
@@ -652,7 +652,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		IExecutable<? extends IEntity> valuesIterator = getExecutableResult();
 
 		setExecutableResult(executableFactory().createCartesianUpdate(
-				valuesIterator, fromIterator).withSourceEntity(entity));
+				fromIterator, valuesIterator).withSourceEntity(entity));
 	}
 
 	@Override
@@ -665,7 +665,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		IExecutable<? extends IEntity> valuesIterator = getExecutableResult();
 
 		setExecutableResult(executableFactory().createPointwiseUpdate(
-				valuesIterator, fromIterator).withSourceEntity(entity));
+				fromIterator, valuesIterator).withSourceEntity(entity));
 	}
 
 	@Override
@@ -675,8 +675,8 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 
 		Placement placement = Placement.valueOf(entity.getPlacement().getValue().getName());
 		setExecutableResult(executableFactory().createPointwiseInsert(
-				executableFactory().createRepeatedSelf().withSourceEntity(entity),
-				fromIterator, placement)
+				fromIterator,
+				executableFactory().createRepeatedSelf().withSourceEntity(entity), placement)
 				.withSourceEntity(entity));
 	}
 
@@ -691,7 +691,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 
 		Placement placement = Placement.valueOf(entity.getPlacement().getValue().getName());
 		setExecutableResult(executableFactory().createCartesianInsert(
-				valuesIterator, fromIterator, placement)
+				fromIterator, valuesIterator, placement)
 				.withSourceEntity(entity));
 	}
 
@@ -706,7 +706,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 
 		Placement placement = Placement.valueOf(entity.getPlacement().getValue().getName());
 		setExecutableResult(executableFactory().createPointwiseInsert(
-				valuesIterator, fromIterator, placement)
+				fromIterator, valuesIterator, placement)
 				.withSourceEntity(entity));
 	}
 

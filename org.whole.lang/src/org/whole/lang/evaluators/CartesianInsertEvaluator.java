@@ -27,16 +27,19 @@ import org.whole.lang.util.EntityUtils;
 /**
  * @author Riccardo Solmi
  */
-public class PointwiseInsertEvaluator extends AbstractPointwiseEvaluator {
+public class CartesianInsertEvaluator extends AbstractCartesianEvaluator {
 	protected Placement placement;
 
 	@SuppressWarnings("unchecked")
-	public PointwiseInsertEvaluator(IExecutable<IEntity> toExecutable, IExecutable<IEntity> valuesExecutable, Placement placement) {
+	public CartesianInsertEvaluator(IExecutable<IEntity> toExecutable, IExecutable<IEntity> valuesExecutable, Placement placement) {
 		super(toExecutable, valuesExecutable);
 		this.placement = placement;
 	}
 
 	protected IEntity evaluateNestedResults() {
+		if (isNotLastProducer())
+			return null;
+
 		if (BindingManagerFactory.instance.isVoid(nestedResults[1]))
 			return nestedResults[1];
 
@@ -75,6 +78,6 @@ public class PointwiseInsertEvaluator extends AbstractPointwiseEvaluator {
 	}
 	@Override
 	protected String toStringSeparator() {
-		return " .= ";
+		return " x= ";
 	}
 }

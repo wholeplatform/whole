@@ -17,24 +17,30 @@
  */
 package org.whole.lang.evaluators;
 
-import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 
 /**
  * @author Riccardo Solmi
  */
-public class PointwiseProductEvaluator extends AbstractPointwiseEvaluator {
+public class PathEvaluator extends AbstractCartesianEvaluator {
 	@SuppressWarnings("unchecked")
-	public PointwiseProductEvaluator(IExecutable<IEntity>... executables) {
+	public PathEvaluator(IExecutable<IEntity>... executables) {
 		super(executables);
 	}
 
 	protected IEntity evaluateNestedResults() {
-		return BindingManagerFactory.instance.createTuple(nestedResults);
+		return isLastProducer() ? nestedResults[producerIndex] : null;
 	}
 
+	protected String toStringPrefix() {
+		return "";
+	}
 	protected String toStringSeparator() {
-		return " . ";
+		return "/";
+	}
+	protected String toStringSuffix() {
+		return "";
 	}
 }
+

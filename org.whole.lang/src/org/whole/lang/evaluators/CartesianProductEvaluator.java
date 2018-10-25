@@ -24,17 +24,23 @@ import org.whole.lang.model.IEntity;
 /**
  * @author Riccardo Solmi
  */
-public class PointwiseProductEvaluator extends AbstractPointwiseEvaluator {
+public class CartesianProductEvaluator extends AbstractCartesianEvaluator {
 	@SuppressWarnings("unchecked")
-	public PointwiseProductEvaluator(IExecutable<IEntity>... executables) {
+	public CartesianProductEvaluator(IExecutable<IEntity>... executables) {
 		super(executables);
 	}
 
+	@Override
+	protected void initProducer(IExecutable<?> p, int index) {
+		p.setBindings(getBindings());
+		p.reset(selfEntity);
+	}
+
 	protected IEntity evaluateNestedResults() {
-		return BindingManagerFactory.instance.createTuple(nestedResults);
+		return isLastProducer() ? BindingManagerFactory.instance.createTuple(nestedResults) : null;
 	}
 
 	protected String toStringSeparator() {
-		return " . ";
+		return " x ";
 	}
 }

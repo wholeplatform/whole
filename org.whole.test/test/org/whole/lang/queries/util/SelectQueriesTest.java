@@ -471,7 +471,7 @@ public class SelectQueriesTest {
 						d.wGet(3).wGet(1+f).wStringValue());
 				assertEquals("true",
 						d.wGet(4).wGet(1+f).wStringValue());
-				assertEquals("true",
+				assertEquals("false",
 						d.wGet(5).wGet(1+f).wStringValue());
 			}
 			assertEquals(3, d.wGet(6).wSize());

@@ -27,27 +27,27 @@ import org.whole.lang.util.EntityUtils;
  */
 public class PointwiseUpdateEvaluator extends AbstractPointwiseEvaluator {
 	@SuppressWarnings("unchecked")
-	public PointwiseUpdateEvaluator(IExecutable<IEntity> valuesExecutable, IExecutable<IEntity> toExecutable) {
-		super(valuesExecutable, toExecutable);
+	public PointwiseUpdateEvaluator(IExecutable<IEntity> toExecutable, IExecutable<IEntity> valuesExecutable) {
+		super(toExecutable, valuesExecutable);
 	}
 
-	protected IEntity apply(IEntity[] nestedResults) {
-		if (BindingManagerFactory.instance.isVoid(nestedResults[0]))
-			return nestedResults[0];
+	protected IEntity evaluateNestedResults() {
+		if (BindingManagerFactory.instance.isVoid(nestedResults[1]))
+			return nestedResults[1];
 
-		IEntity result = EntityUtils.convertCloneIfParented(nestedResults[0], EntityUtils.getFormalType(nestedResults[1]));
+		IEntity result = EntityUtils.convertCloneIfParented(nestedResults[1], EntityUtils.getFormalType(nestedResults[0]));
 
-		getProducer(1).set(result);
+		getProducer(0).set(result);
 
 		return result;
 	}
 
-    @Override
-	public void toString(StringBuilder sb) {
-    	sb.append("update(");
-    	getProducer(1).toString(sb);
-    	sb.append(" .= ");
-    	getProducer(0).toString(sb);
-    	sb.append(")");
-    }
+	@Override
+	protected String toStringPrefix() {
+		return "update(";
+	}
+	@Override
+	protected String toStringSeparator() {
+		return " .= ";
+	}
 }

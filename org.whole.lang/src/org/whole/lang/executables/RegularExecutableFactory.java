@@ -34,13 +34,15 @@ import org.whole.lang.evaluators.AdjacentEvaluator;
 import org.whole.lang.evaluators.AncestorEvaluator;
 import org.whole.lang.evaluators.AncestorOrSelfReverseEvaluator;
 import org.whole.lang.evaluators.AncestorReverseEvaluator;
+import org.whole.lang.evaluators.CartesianInsertEvaluator;
+import org.whole.lang.evaluators.CartesianProductEvaluator;
+import org.whole.lang.evaluators.CartesianUpdateEvaluator;
 import org.whole.lang.evaluators.ChildEvaluator;
 import org.whole.lang.evaluators.ChildOrAdjacentEvaluator;
 import org.whole.lang.evaluators.ChildRangeEvaluator;
 import org.whole.lang.evaluators.ChooseByOrderEvaluator;
 import org.whole.lang.evaluators.CloneReplacingEvaluator;
 import org.whole.lang.evaluators.CollectionEvaluator;
-import org.whole.lang.evaluators.ComposeEvaluator;
 import org.whole.lang.evaluators.ConstantChildEvaluator;
 import org.whole.lang.evaluators.ConstantComposeEvaluator;
 import org.whole.lang.evaluators.ConstantEvaluator;
@@ -64,6 +66,7 @@ import org.whole.lang.evaluators.LocalVariableEvaluator;
 import org.whole.lang.evaluators.MultiValuedRunnableEvaluator;
 import org.whole.lang.evaluators.OuterLocalVariableEvaluator;
 import org.whole.lang.evaluators.OuterVariableEvaluator;
+import org.whole.lang.evaluators.PathEvaluator;
 import org.whole.lang.evaluators.PointwiseInsertEvaluator;
 import org.whole.lang.evaluators.PointwiseProductEvaluator;
 import org.whole.lang.evaluators.PointwiseUpdateEvaluator;
@@ -73,6 +76,7 @@ import org.whole.lang.evaluators.ReachableEvaluator;
 import org.whole.lang.evaluators.SingleValuedRunnableEvaluator;
 import org.whole.lang.evaluators.SingleValuedRunnableSupplierEvaluator;
 import org.whole.lang.evaluators.SortEvaluator;
+import org.whole.lang.evaluators.TupleFactoryEvaluator;
 import org.whole.lang.evaluators.VariableEvaluator;
 import org.whole.lang.iterators.AbstractIteratorBasedExecutableFactory;
 import org.whole.lang.iterators.DistinctScope;
@@ -396,6 +400,17 @@ public class RegularExecutableFactory extends AbstractIteratorBasedExecutableFac
 	}
 
 	@SuppressWarnings("unchecked")
+	public <E extends IEntity> IExecutable<E> createCompose(IExecutable<IEntity> innerExecutable, IExecutable<IEntity>... outerExecutables) {
+		int index = outerExecutables.length;
+		IExecutable<IEntity>[] nestedExecutables = new IExecutable[outerExecutables.length+1];
+		nestedExecutables[index--] = innerExecutable;
+		for (IExecutable<IEntity> e : outerExecutables)
+			nestedExecutables[index--] = e;
+
+		return (IExecutable<E>) new PathEvaluator(nestedExecutables);
+	}
+
+	@SuppressWarnings("unchecked")
 	public <E extends IEntity> IExecutable<E> createChoose(IExecutable<? extends E>... executableChain) {
 		return (IExecutable<E>) new ChooseByOrderEvaluator((IExecutable<IEntity>[]) executableChain);
 	}
@@ -404,17 +419,6 @@ public class RegularExecutableFactory extends AbstractIteratorBasedExecutableFac
 		return super.createSequence(executableChain);
 //FIXME
 //		return new SequenceEvaluator<>(executableChain);
-	}
-
-	@SuppressWarnings("unchecked")
-	public <E extends IEntity> IExecutable<E> createCompose(IExecutable<IEntity> innerExecutable, IExecutable<IEntity>... outerExecutables) {
-		int index = outerExecutables.length;
-		IExecutable<IEntity>[] nestedExecutables = new IExecutable[outerExecutables.length+1];
-		nestedExecutables[index--] = innerExecutable;
-		for (IExecutable<IEntity> e : outerExecutables)
-			nestedExecutables[index--] = e;
-
-		return (IExecutable<E>) new ComposeEvaluator(nestedExecutables);
 	}
 
 	public <E extends IEntity> IExecutable<E> createFilterByIndex(IExecutable<IEntity> executable, int index) {
@@ -1184,16 +1188,34 @@ public class RegularExecutableFactory extends AbstractIteratorBasedExecutableFac
 		};
 	}
 
+	public IExecutable<?> createTupleFactory(IExecutable<?>... executables) {
+		return (IExecutable<?>) new TupleFactoryEvaluator((IExecutable<IEntity>[]) executables);
+	}
 	@SuppressWarnings("unchecked")
 	public IExecutable<IEntity> createPointwiseProduct(IExecutable<? extends IEntity>... executables) {
 		return new PointwiseProductEvaluator((IExecutable<IEntity>[]) executables);
 	}
-	public <E extends IEntity> IExecutable<E> createPointwiseUpdate(IExecutable<E> valuesExecutable, IExecutable<? super E> toExecutable) {
-		return (IExecutable<E>) new PointwiseUpdateEvaluator((IExecutable<IEntity>) valuesExecutable, (IExecutable<IEntity>) toExecutable);
+	@SuppressWarnings("unchecked")
+	public IExecutable<IEntity> createCartesianProduct(IExecutable<? extends IEntity>... executables) {
+		return new CartesianProductEvaluator((IExecutable<IEntity>[]) executables);
 	}
 
-	public <E extends IEntity> IExecutable<E> createPointwiseInsert(IExecutable<E> valuesExecutable, IExecutable<? super E> toExecutable, Placement placement) {
-		return (IExecutable<E>) new PointwiseInsertEvaluator((IExecutable<IEntity>) valuesExecutable, (IExecutable<IEntity>) toExecutable, placement);
+	@SuppressWarnings("unchecked")
+	public <E extends IEntity> IExecutable<E> createPointwiseUpdate(IExecutable<? super E> toExecutable, IExecutable<E> valuesExecutable) {
+		return (IExecutable<E>) new PointwiseUpdateEvaluator((IExecutable<IEntity>) toExecutable, (IExecutable<IEntity>) valuesExecutable);
+	}
+	@SuppressWarnings("unchecked")
+	public <E extends IEntity> IExecutable<E> createCartesianUpdate(IExecutable<E> toExecutable, IExecutable<? extends E> valuesExecutable) {
+		return (IExecutable<E>) new CartesianUpdateEvaluator((IExecutable<IEntity>) toExecutable, (IExecutable<IEntity>) valuesExecutable);
+	}
+
+	@SuppressWarnings("unchecked")
+	public <E extends IEntity> IExecutable<E> createPointwiseInsert(IExecutable<? super E> toExecutable, IExecutable<E> valuesExecutable, Placement placement) {
+		return (IExecutable<E>) new PointwiseInsertEvaluator((IExecutable<IEntity>) toExecutable, (IExecutable<IEntity>) valuesExecutable, placement);
+	}
+	@SuppressWarnings("unchecked")
+	public <E extends IEntity> IExecutable<E> createCartesianInsert(IExecutable<E> toExecutable, IExecutable<? extends E> valuesExecutable, Placement placement) {
+		return (IExecutable<E>) new CartesianInsertEvaluator((IExecutable<IEntity>) toExecutable, (IExecutable<IEntity>) valuesExecutable, placement);
 	}
 
 	public <E extends IEntity> IExecutable<E> createDelete(IExecutable<IEntity> valuesExecutable) {

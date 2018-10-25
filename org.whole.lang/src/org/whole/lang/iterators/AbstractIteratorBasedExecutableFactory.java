@@ -105,25 +105,8 @@ public abstract class AbstractIteratorBasedExecutableFactory implements Executab
 	}
 
 
-	public IExecutable<?> createTupleFactory(IExecutable<?>... tupleExecutables) {
-		return new TupleFactoryIterator(toIterators(tupleExecutables));
-	}
-
 	public <E extends IEntity> IExecutable<E> createSelect(IExecutable<E> selectExecutable, IExecutable<? extends IEntity> fromExecutable, IExecutable<? extends IEntity> whereExecutable) {
 		return new SelectIterator<E>(selectExecutable.iterator(), fromExecutable.iterator(), whereExecutable.iterator());
-	}
-
-	@SuppressWarnings("unchecked")
-	public IExecutable<IEntity> createCartesianProduct(IExecutable<? extends IEntity>... executables) {
-		return new CartesianProductIterator(toIterators(executables));
-	}
-
-	public <E extends IEntity> IExecutable<E> createCartesianUpdate(IExecutable<? extends E> valuesExecutable, IExecutable<E> toExecutable) {
-		return new CartesianUpdateIterator<E>(valuesExecutable.iterator(), toExecutable.iterator());
-	}
-
-	public <E extends IEntity> IExecutable<E> createCartesianInsert(IExecutable<? extends E> valuesExecutable, IExecutable<E> toExecutable, Placement placement) {
-		return new CartesianInsertIterator<E>(valuesExecutable.iterator(), toExecutable.iterator(), placement);
 	}
 
 	@SuppressWarnings("unchecked")

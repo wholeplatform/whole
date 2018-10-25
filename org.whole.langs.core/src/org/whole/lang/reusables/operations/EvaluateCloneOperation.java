@@ -70,11 +70,11 @@ public class EvaluateCloneOperation extends CloneOperationOld {
 				),	iterator);
 			} else {
 				if (index == entityClone.wSize()-1)
-					iterator = ExecutableFactory.instance.createCartesianInsert(iterator, 
-							ExecutableFactory.instance.createSelf(), Placement.INTO);
+					iterator = ExecutableFactory.instance.createCartesianInsert(ExecutableFactory.instance.createSelf(), 
+							iterator, Placement.INTO);
 				else
-					iterator = ExecutableFactory.instance.createCartesianInsert(iterator, 
-							ExecutableFactory.instance.createChild(index+1), Placement.BEFORE);
+					iterator = ExecutableFactory.instance.createCartesianInsert(ExecutableFactory.instance.createChild(index+1), 
+							iterator, Placement.BEFORE);
 			}
 			if (EntityUtils.isSimple(entityClone))
 				entityClone.wRemove(index);

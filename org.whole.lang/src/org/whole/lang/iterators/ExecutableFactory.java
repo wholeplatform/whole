@@ -189,6 +189,9 @@ public interface ExecutableFactory {
 
 	<E extends IEntity> IExecutable<E> createFor(IExecutable<? extends IEntity> forExecutable, IExecutable<E> doExecutable);
 
+	@SuppressWarnings("unchecked")
+	<E extends IEntity> IExecutable<E> createCompose(IExecutable<IEntity> executable, IExecutable<IEntity>... nestedExecutables);
+
 	IExecutable<IEntity> createFunctionApplication(String functionUri);
 
 	IExecutable<IEntity> createRecursiveFunctionApplication();
@@ -205,9 +208,6 @@ public interface ExecutableFactory {
 
 	@SuppressWarnings("unchecked")
 	<E extends IEntity> IExecutable<E> createSequence(IExecutable<? extends E>... executableChain);
-
-	@SuppressWarnings("unchecked")
-	<E extends IEntity> IExecutable<E> createCompose(IExecutable<IEntity> executable, IExecutable<IEntity>... nestedExecutables);
 
 	<E extends IEntity> IExecutable<E> createFilterByIndex(IExecutable<IEntity> executable, int index);
 
@@ -347,13 +347,13 @@ public interface ExecutableFactory {
 	@SuppressWarnings("unchecked")
 	IExecutable<IEntity> createPointwiseProduct(IExecutable<? extends IEntity>... executables);
 
-	<E extends IEntity> IExecutable<E> createCartesianUpdate(IExecutable<? extends E> valuesExecutable, IExecutable<E> toExecutable);
+	<E extends IEntity> IExecutable<E> createCartesianUpdate(IExecutable<E> toExecutable, IExecutable<? extends E> valuesExecutable);
 
-	<E extends IEntity> IExecutable<E> createPointwiseUpdate(IExecutable<E> valuesExecutable, IExecutable<? super E> toExecutable);
+	<E extends IEntity> IExecutable<E> createPointwiseUpdate(IExecutable<? super E> toExecutable, IExecutable<E> valuesExecutable);
 
-	<E extends IEntity> IExecutable<E> createCartesianInsert(IExecutable<? extends E> valuesExecutable, IExecutable<E> toExecutable, Placement placement);
+	<E extends IEntity> IExecutable<E> createCartesianInsert(IExecutable<E> toExecutable, IExecutable<? extends E> valuesExecutable, Placement placement);
 
-	<E extends IEntity> IExecutable<E> createPointwiseInsert(IExecutable<E> valuesExecutable, IExecutable<? super E> toExecutable, Placement placement);
+	<E extends IEntity> IExecutable<E> createPointwiseInsert(IExecutable<? super E> toExecutable, IExecutable<E> valuesExecutable, Placement placement);
 
 	<E extends IEntity> IExecutable<E> createDelete(IExecutable<IEntity> valuesExecutable);
 

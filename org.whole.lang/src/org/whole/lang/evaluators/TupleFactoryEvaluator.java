@@ -18,23 +18,36 @@
 package org.whole.lang.evaluators;
 
 import org.whole.lang.bindings.BindingManagerFactory;
+import org.whole.lang.commons.factories.CommonsEntityFactory;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Riccardo Solmi
  */
-public class PointwiseProductEvaluator extends AbstractPointwiseEvaluator {
+public class TupleFactoryEvaluator extends AbstractPointwiseEvaluator {
 	@SuppressWarnings("unchecked")
-	public PointwiseProductEvaluator(IExecutable<IEntity>... executables) {
+	public TupleFactoryEvaluator(IExecutable<IEntity>... executables) {
 		super(executables);
+	}
+
+	@Override
+	protected boolean stopOnNullNestedResult(int i) {
+		nestedResults[i] = CommonsEntityFactory.instance.createResolver();
+		if (i < nestedResults.length-1)
+			return false;
+		for (int j=0; j<nestedResults.length-1; j++)
+			if (!EntityUtils.isResolver(nestedResults[j]))
+				return false;
+		return true;
 	}
 
 	protected IEntity evaluateNestedResults() {
 		return BindingManagerFactory.instance.createTuple(nestedResults);
 	}
 
-	protected String toStringSeparator() {
-		return " . ";
+	protected String toStringPrefix() {
+		return "Tuple(";
 	}
 }

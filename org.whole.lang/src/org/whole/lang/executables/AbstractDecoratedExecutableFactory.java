@@ -323,6 +323,10 @@ public class AbstractDecoratedExecutableFactory implements ExecutableFactory {
 		return decorate(factory.createFor(forExecutable, doExecutable));
 	}
 
+	public <E extends IEntity> IExecutable<E> createCompose(IExecutable<IEntity> executable, IExecutable<IEntity>... nestedExecutables) {
+		return decorate(factory.createCompose(executable, nestedExecutables));
+	}
+
 	public IExecutable<IEntity> createFunctionApplication(String functionUri) {
 		return decorate(factory.createFunctionApplication(functionUri));
 	}
@@ -349,10 +353,6 @@ public class AbstractDecoratedExecutableFactory implements ExecutableFactory {
 
 	public <E extends IEntity> IExecutable<E> createSequence(IExecutable<? extends E>... executableChain) {
 		return decorate(factory.createSequence(executableChain));
-	}
-
-	public <E extends IEntity> IExecutable<E> createCompose(IExecutable<IEntity> executable, IExecutable<IEntity>... nestedExecutables) {
-		return decorate(factory.createCompose(executable, nestedExecutables));
 	}
 
 	public <E extends IEntity> IExecutable<E> createFilterByIndex(IExecutable<IEntity> executable, int index) {
@@ -622,20 +622,20 @@ public class AbstractDecoratedExecutableFactory implements ExecutableFactory {
 		return decorate(factory.createPointwiseProduct(executables));
 	}
 
-	public <E extends IEntity> IExecutable<E> createCartesianUpdate(IExecutable<? extends E> valuesExecutable, IExecutable<E> toExecutable) {
-		return decorate(factory.createCartesianUpdate(valuesExecutable, toExecutable));
+	public <E extends IEntity> IExecutable<E> createCartesianUpdate(IExecutable<E> toExecutable, IExecutable<? extends E> valuesExecutable) {
+		return decorate(factory.createCartesianUpdate(toExecutable, valuesExecutable));
 	}
 
-	public <E extends IEntity> IExecutable<E> createPointwiseUpdate(IExecutable<E> valuesExecutable, IExecutable<? super E> toExecutable) {
-		return decorate(factory.createPointwiseUpdate(valuesExecutable, toExecutable));
+	public <E extends IEntity> IExecutable<E> createPointwiseUpdate(IExecutable<? super E> toExecutable, IExecutable<E> valuesExecutable) {
+		return decorate(factory.createPointwiseUpdate(toExecutable, valuesExecutable));
 	}
 
-	public <E extends IEntity> IExecutable<E> createCartesianInsert(IExecutable<? extends E> valuesExecutable, IExecutable<E> toExecutable, Placement placement) {
-		return decorate(factory.createCartesianInsert(valuesExecutable, toExecutable, placement));
+	public <E extends IEntity> IExecutable<E> createCartesianInsert(IExecutable<E> toExecutable, IExecutable<? extends E> valuesExecutable, Placement placement) {
+		return decorate(factory.createCartesianInsert(toExecutable, valuesExecutable, placement));
 	}
 
-	public <E extends IEntity> IExecutable<E> createPointwiseInsert(IExecutable<E> valuesExecutable, IExecutable<? super E> toExecutable, Placement placement) {
-		return decorate(factory.createPointwiseInsert(valuesExecutable, toExecutable, placement));
+	public <E extends IEntity> IExecutable<E> createPointwiseInsert(IExecutable<? super E> toExecutable, IExecutable<E> valuesExecutable, Placement placement) {
+		return decorate(factory.createPointwiseInsert(toExecutable, valuesExecutable, placement));
 	}
 
 	public <E extends IEntity> IExecutable<E> createDelete(IExecutable<IEntity> valuesExecutable) {

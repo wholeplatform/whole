@@ -24,10 +24,10 @@ import org.whole.lang.model.IEntity;
 /**
  * @author Riccardo Solmi
  */
-public class ForEvaluator extends ComposeEvaluator {
-	protected boolean hasForValue = false;
+public class ForEvaluator extends AbstractCartesianEvaluator {
 	protected boolean isFirstValue = true;
 
+	@SuppressWarnings("unchecked")
 	public ForEvaluator(IExecutable<IEntity> forExecutable, IExecutable<IEntity> doExecutable) {
 		super(forExecutable, doExecutable);
 	}
@@ -35,22 +35,18 @@ public class ForEvaluator extends ComposeEvaluator {
 	@Override
 	public void reset(IEntity entity) {
 		super.reset(entity);
-		hasForValue = false;
 		isFirstValue = true;
 	}
 
-	@Override
-	protected boolean needMergeExecutorScope(/*int producerIndex*/) {
-		return mergeLookaheadScope;// super.mergeExecutorScope() ;//&& isLastProducer();
-	}
-
-	@Override
-	protected IEntity enforceSomeValue(IEntity entity) {
-		if (isFirstValue && hasForValue) {
+	protected IEntity evaluateNestedResults() {
+		if (isFirstValue) {
 			isFirstValue = false;
-			return entity != null ? entity : BindingManagerFactory.instance.createVoid();
-		} else
-			return entity;
+
+			if (isFirstProducer() && !producersNeedInit.get(1)) //hasForValue
+				return BindingManagerFactory.instance.createVoid();
+		}
+
+		return nestedResults[producerIndex];
 	}
 
 	protected String toStringPrefix() {

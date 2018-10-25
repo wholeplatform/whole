@@ -47,21 +47,21 @@ public abstract class AbstractPointwiseEvaluator extends AbstractDelegatingNeste
 			nestedResults = new IEntity[producersSize()];
 			for (int i=0; i<producersSize(); i++) {
 				nestedResults[i] = getProducer(i).evaluateNext();
-				if (nestedResults[i] == null && stopOnNestedNullResult(i)) {
+				if (nestedResults[i] == null && stopOnNullNestedResult(i)) {
 					executorScope().wClear();
 					return lastEntity = null;
 				}
 			}
 
-			return lastEntity = apply(nestedResults);
+			return lastEntity = evaluateNestedResults();
 		} catch(Exception e) {
 			throw IWholeRuntimeException.asWholeException(e, getSourceEntity(), getBindings());
 		} finally {
 			getBindings().wExitScope(mergeLookaheadScope && lastEntity != null);
 		}
 	}
-	protected boolean stopOnNestedNullResult(int i) {
+	protected boolean stopOnNullNestedResult(int i) {
 		return true;
 	}
-	protected abstract IEntity apply(IEntity[] nestedResults);
+	protected abstract IEntity evaluateNestedResults();
 }
