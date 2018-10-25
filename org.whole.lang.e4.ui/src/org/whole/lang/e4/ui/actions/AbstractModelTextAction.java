@@ -66,7 +66,7 @@ public abstract class AbstractModelTextAction extends AbstractE4Action {
 
 		IEclipseContext context = (IEclipseContext) bm.wGetValue(IBindingManager.ECLIPSE_CONTEXT);
 		ISynchronizableRunnable runnable = new FunctionRunnable(context, bm, getText(), getEnablementUri());
-		IEntity result = runnable.syncExec(3000).getResult();
+		IEntity result = runnable.syncExec(3000, "Calculate text action enablement...").getResult();
 		return result != null && result.wBooleanValue();
 	}
 
@@ -75,6 +75,6 @@ public abstract class AbstractModelTextAction extends AbstractE4Action {
 		ESelectionService selectionService = getContext().get(ESelectionService.class);
 		IBindingManager bm = (IBindingManager) selectionService.getSelection();
 		ISynchronizableRunnable runnable = new TextualFunctionRunnable(getContext(), bm, getText(), getBehaviorUri());
-		runnable.syncExec(3000);
+		runnable.syncExec(3000, "Execute text action...");
 	}
 }

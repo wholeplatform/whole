@@ -83,14 +83,14 @@ public abstract class AbstractRunnableWithProgress implements ISynchronizableRun
 		EntityEditDomainJob.asyncExec(message, editDomain, this);
 	}
 
-	public synchronized IBindingScope syncExec(long timeout) {
+	public synchronized IBindingScope syncExec(long timeout, String message) {
 		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
 		EntityEditDomain editDomain = viewer.getEditDomain();
 
 		UISynchronize uiSynchronize = context.get(UISynchronize.class);
 		try {
 			context.set(UISynchronize.class, NoUISynchronize.instance);
-			EntityEditDomainJob.syncExec("boh", editDomain, this);
+			EntityEditDomainJob.syncExec(message, editDomain, this);
 		} finally {
 			context.set(UISynchronize.class, uiSynchronize);
 		}

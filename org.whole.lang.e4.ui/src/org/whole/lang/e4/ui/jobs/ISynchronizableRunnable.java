@@ -25,5 +25,5 @@ import org.whole.lang.bindings.IBindingScope;
  */
 public interface ISynchronizableRunnable extends IRunnableWithProgress {
 	public void asyncExec(String message);
-	public IBindingScope syncExec(long timeout);
+	public IBindingScope syncExec(long timeout, String message);
 }

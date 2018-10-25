@@ -43,7 +43,7 @@ public class ContentAssistVisibleWhen extends AbstractSelectionConstrainedVisibl
 
 		IEclipseContext context = (IEclipseContext) bm.wGetValue(IBindingManager.ECLIPSE_CONTEXT);
 		ContentAssistRunnable runnable = new ContentAssistRunnable(context, bm);
-		IEntity result = runnable.syncExec(3000).getResult();
+		IEntity result = runnable.syncExec(3000, "Calculate content assist enablement...").getResult();
 		IEntity[] values = (IEntity[]) result.wGetValue();
 		if (values == null)
 			return false;
