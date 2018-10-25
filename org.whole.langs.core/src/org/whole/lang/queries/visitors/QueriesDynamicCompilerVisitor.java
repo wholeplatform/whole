@@ -40,7 +40,6 @@ import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.executables.EmptyExecutable;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.factories.GenericEntityFactory;
-import org.whole.lang.iterators.AbstractCollectIterator;
 import org.whole.lang.iterators.ChooseByTypeIterator;
 import org.whole.lang.iterators.DistinctScope;
 import org.whole.lang.iterators.FilterByIndexRangeIterator;
@@ -1195,7 +1194,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 
 	@Override
 	public void visit(Expressions entity) {
-		IExecutable<?>[] iteratorChain = new IExecutable<?>[entity.wSize()];
+		IExecutable<IEntity>[] iteratorChain = new IExecutable[entity.wSize()];
 		for (int i = 0; i < entity.wSize(); i++) {
 			entity.get(i).accept(this);
 			iteratorChain[i] = getExecutableResult();
@@ -1203,7 +1202,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		this.iteratorChain = iteratorChain;
 	}
 
-	protected IExecutable<?>[] iteratorChain;
+	protected IExecutable<IEntity>[] iteratorChain;
 
 	@Override
 	public void visit(UnionAll entity) {
@@ -1221,8 +1220,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		IEntityComparator<IEntity> oldComparator = comparator;
 		comparator = BusinessIdentityComparator.instance;
 		visitCollectByExpression(entity);
-		IExecutable<?> ri = executableFactory().createUnion(iteratorChain);
-		((AbstractCollectIterator) ri.undecoratedExecutable()).withComparator(comparator);
+		IExecutable<?> ri = executableFactory().createUnion(comparator, iteratorChain);
 		setExecutableResult(ri.withSourceEntity(entity));
 		comparator = oldComparator;
 	}
@@ -1232,8 +1230,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		IEntityComparator<IEntity> oldComparator = comparator;
 		comparator = BusinessIdentityComparator.instance;
 		visitCollectByExpression(entity);
-		IExecutable<?> ri = executableFactory().createIntersect(iteratorChain);
-		((AbstractCollectIterator) ri.undecoratedExecutable()).withComparator(comparator);
+		IExecutable<?> ri = executableFactory().createIntersect(comparator, iteratorChain);
 		setExecutableResult(ri.withSourceEntity(entity));
 		comparator = oldComparator;
 	}
@@ -1243,8 +1240,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		IEntityComparator<IEntity> oldComparator = comparator;
 		comparator = BusinessIdentityComparator.instance;
 		visitCollectByExpression(entity);
-		IExecutable<?> ri = executableFactory().createExcept(iteratorChain);
-		((AbstractCollectIterator) ri.undecoratedExecutable()).withComparator(comparator);
+		IExecutable<?> ri = executableFactory().createExcept(comparator, iteratorChain);
 		setExecutableResult(ri.withSourceEntity(entity));
 		comparator = oldComparator;
 	}

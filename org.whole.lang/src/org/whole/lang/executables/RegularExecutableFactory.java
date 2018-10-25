@@ -50,6 +50,7 @@ import org.whole.lang.evaluators.DeleteEvaluator;
 import org.whole.lang.evaluators.DescendantEvaluator;
 import org.whole.lang.evaluators.DescendantOrReachableEvaluator;
 import org.whole.lang.evaluators.DescendantReverseEvaluator;
+import org.whole.lang.evaluators.ExceptEvaluator;
 import org.whole.lang.evaluators.FeatureByIndexEvaluator;
 import org.whole.lang.evaluators.FeatureByNameEvaluator;
 import org.whole.lang.evaluators.FilterByDistinctEvaluator;
@@ -59,6 +60,7 @@ import org.whole.lang.evaluators.FollowingEvaluator;
 import org.whole.lang.evaluators.FollowingSiblingEvaluator;
 import org.whole.lang.evaluators.ForEvaluator;
 import org.whole.lang.evaluators.IfEvaluator;
+import org.whole.lang.evaluators.IntersectEvaluator;
 import org.whole.lang.evaluators.InverseAdjacentEvaluator;
 import org.whole.lang.evaluators.InverseReachableEvaluator;
 import org.whole.lang.evaluators.LocalScopeEvaluator;
@@ -77,6 +79,8 @@ import org.whole.lang.evaluators.SingleValuedRunnableEvaluator;
 import org.whole.lang.evaluators.SingleValuedRunnableSupplierEvaluator;
 import org.whole.lang.evaluators.SortEvaluator;
 import org.whole.lang.evaluators.TupleFactoryEvaluator;
+import org.whole.lang.evaluators.UnionAllEvaluator;
+import org.whole.lang.evaluators.UnionEvaluator;
 import org.whole.lang.evaluators.VariableEvaluator;
 import org.whole.lang.iterators.AbstractIteratorBasedExecutableFactory;
 import org.whole.lang.iterators.DistinctScope;
@@ -730,6 +734,23 @@ public class RegularExecutableFactory extends AbstractIteratorBasedExecutableFac
 		return new FilterByDistinctEvaluator<E>(comparator);
 	}
 
+	@SuppressWarnings("unchecked")
+	public IExecutable<IEntity> createUnionAll(IExecutable<IEntity>... executables) {
+		return new UnionAllEvaluator(executables);
+	}
+	@SuppressWarnings("unchecked")
+	public IExecutable<IEntity> createUnion(IEntityComparator<IEntity> comparator, IExecutable<IEntity>... executables) {
+		return new UnionEvaluator(comparator, executables);
+	}
+	@SuppressWarnings("unchecked")
+	public IExecutable<IEntity> createIntersect(IEntityComparator<IEntity> comparator, IExecutable<IEntity>... executables) {
+		return new IntersectEvaluator(comparator, executables);
+	}
+	@SuppressWarnings("unchecked")
+	public IExecutable<IEntity> createExcept(IEntityComparator<IEntity> comparator, IExecutable<IEntity>... executables) {
+		return new ExceptEvaluator(comparator, executables);
+	}
+
 
 	public IExecutable<IEntity> createAnd(IExecutable<IEntity>... argsExecutables) {
 		return new AbstractDelegatingNestedSupplierEvaluator(argsExecutables) {
@@ -1188,6 +1209,7 @@ public class RegularExecutableFactory extends AbstractIteratorBasedExecutableFac
 		};
 	}
 
+	@SuppressWarnings("unchecked")
 	public IExecutable<?> createTupleFactory(IExecutable<?>... executables) {
 		return (IExecutable<?>) new TupleFactoryEvaluator((IExecutable<IEntity>[]) executables);
 	}

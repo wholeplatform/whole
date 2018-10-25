@@ -224,16 +224,16 @@ public interface ExecutableFactory {
 	<E extends IEntity> IExecutable<E> createSort(IExecutable<E> executable, IEntityComparator<E> comparator);
 
 	@SuppressWarnings("unchecked")
-	IExecutable<IEntity> createUnionAll(IExecutable<? extends IEntity>... executableChain);
+	IExecutable<IEntity> createUnionAll(IExecutable<IEntity>... executables);
 
 	@SuppressWarnings("unchecked")
-	IExecutable<IEntity> createUnion(IExecutable<? extends IEntity>... executableChain);
+	IExecutable<IEntity> createUnion(IEntityComparator<IEntity> comparator, IExecutable<IEntity>... executables);
 
 	@SuppressWarnings("unchecked")
-	IExecutable<IEntity> createIntersect(IExecutable<? extends IEntity>... executableChain);
+	IExecutable<IEntity> createIntersect(IEntityComparator<IEntity> comparator, IExecutable<IEntity>... executables);
 
 	@SuppressWarnings("unchecked")
-	IExecutable<IEntity> createExcept(IExecutable<? extends IEntity>... executableChain);
+	IExecutable<IEntity> createExcept(IEntityComparator<IEntity> comparator, IExecutable<IEntity>... executables);
 
 	<E extends IEntity> IExecutable<E> createAncestorScanner();
 

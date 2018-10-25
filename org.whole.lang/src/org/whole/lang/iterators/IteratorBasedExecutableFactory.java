@@ -409,20 +409,20 @@ public class IteratorBasedExecutableFactory extends AbstractIteratorBasedExecuta
 	}
 
 	@SuppressWarnings("unchecked")
-	public IExecutable<IEntity> createUnionAll(IExecutable<? extends IEntity>... executableChain) {
+	public IExecutable<IEntity> createUnionAll(IExecutable<IEntity>... executableChain) {
 		return new UnionAllIterator(toIterators(executableChain));
 	}
 	@SuppressWarnings("unchecked")
-	public IExecutable<IEntity> createUnion(IExecutable<? extends IEntity>... executableChain) {
-		return new UnionIterator(toIterators(executableChain));
+	public IExecutable<IEntity> createUnion(IEntityComparator<IEntity> comparator, IExecutable<IEntity>... executableChain) {
+		return new UnionIterator(toIterators(executableChain)).withComparator(comparator);
 	}
 	@SuppressWarnings("unchecked")
-	public IExecutable<IEntity> createIntersect(IExecutable<? extends IEntity>... executableChain) {
-		return new IntersectIterator(toIterators(executableChain));
+	public IExecutable<IEntity> createIntersect(IEntityComparator<IEntity> comparator, IExecutable<IEntity>... executableChain) {
+		return new IntersectIterator(toIterators(executableChain)).withComparator(comparator);
 	}
 	@SuppressWarnings("unchecked")
-	public IExecutable<IEntity> createExcept(IExecutable<? extends IEntity>... executableChain) {
-		return new ExceptIterator(toIterators(executableChain));
+	public IExecutable<IEntity> createExcept(IEntityComparator<IEntity> comparator, IExecutable<IEntity>... executableChain) {
+		return new ExceptIterator(toIterators(executableChain)).withComparator(comparator);
 	}
 
 

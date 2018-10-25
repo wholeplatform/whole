@@ -49,12 +49,12 @@ public abstract class AbstractNestedEvaluator<E extends IEntity> extends Abstrac
 		cloneContext = cc.getPrototypeCloneContext();
 		producersNeedClone.set(0, producersSize(), true);
 
-		AbstractNestedEvaluator<E> iterator = (AbstractNestedEvaluator<E>) super.clone(cc);
-		iterator.cloneContext = cc;
-		iterator.producers = producers.clone();
-		iterator.producersNeedClone = (BitSet) producersNeedClone.clone();
-		iterator.producersNeedInit = (BitSet) producersNeedInit.clone();
-		return iterator;
+		AbstractNestedEvaluator<E> evaluator = (AbstractNestedEvaluator<E>) super.clone(cc);
+		evaluator.cloneContext = cc;
+		evaluator.producers = producers.clone();
+		evaluator.producersNeedClone = (BitSet) producersNeedClone.clone();
+		evaluator.producersNeedInit = (BitSet) producersNeedInit.clone();
+		return evaluator;
 	}
 
 	public void reset(IEntity entity) {

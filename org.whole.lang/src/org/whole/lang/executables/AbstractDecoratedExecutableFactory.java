@@ -384,23 +384,23 @@ public class AbstractDecoratedExecutableFactory implements ExecutableFactory {
 	}
 
 	@SuppressWarnings("unchecked")
-	public IExecutable<IEntity> createUnionAll(IExecutable<? extends IEntity>... executableChain) {
-		return decorate(factory.createUnionAll(executableChain));
+	public IExecutable<IEntity> createUnionAll(IExecutable<IEntity>... executables) {
+		return decorate(factory.createUnionAll(executables));
 	}
 
 	@SuppressWarnings("unchecked")
-	public IExecutable<IEntity> createUnion(IExecutable<? extends IEntity>... executableChain) {
-		return decorate(factory.createUnion(executableChain));
+	public IExecutable<IEntity> createUnion(IEntityComparator<IEntity> comparator, IExecutable<IEntity>... executables) {
+		return decorate(factory.createUnion(comparator, executables));
 	}
 
 	@SuppressWarnings("unchecked")
-	public IExecutable<IEntity> createIntersect(IExecutable<? extends IEntity>... executableChain) {
-		return decorate(factory.createIntersect(executableChain));
+	public IExecutable<IEntity> createIntersect(IEntityComparator<IEntity> comparator, IExecutable<IEntity>... executables) {
+		return decorate(factory.createIntersect(comparator, executables));
 	}
 
 	@SuppressWarnings("unchecked")
-	public IExecutable<IEntity> createExcept(IExecutable<? extends IEntity>... executableChain) {
-		return decorate(factory.createExcept(executableChain));
+	public IExecutable<IEntity> createExcept(IEntityComparator<IEntity> comparator, IExecutable<IEntity>... executables) {
+		return decorate(factory.createExcept(comparator, executables));
 	}
 
 	public <E extends IEntity> IExecutable<E> createAncestorScanner() {

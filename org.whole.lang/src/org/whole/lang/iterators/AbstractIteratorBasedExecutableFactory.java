@@ -80,24 +80,6 @@ public abstract class AbstractIteratorBasedExecutableFactory implements Executab
 		return new SequenceIterator<E>(toIterators(executableChain));
 	}
 
-	@SuppressWarnings("unchecked")
-	public IExecutable<IEntity> createUnionAll(IExecutable<? extends IEntity>... executableChain) {
-		return new UnionAllIterator(toIterators(executableChain));
-	}
-	@SuppressWarnings("unchecked")
-	public IExecutable<IEntity> createUnion(IExecutable<? extends IEntity>... executableChain) {
-		return new UnionIterator(toIterators(executableChain));
-	}
-	@SuppressWarnings("unchecked")
-	public IExecutable<IEntity> createIntersect(IExecutable<? extends IEntity>... executableChain) {
-		return new IntersectIterator(toIterators(executableChain));
-	}
-	@SuppressWarnings("unchecked")
-	public IExecutable<IEntity> createExcept(IExecutable<? extends IEntity>... executableChain) {
-		return new ExceptIterator(toIterators(executableChain));
-	}
-
-
 
 	protected static final FeatureDescriptor getFeatureDescriptor(String fdUri, FeatureDescriptor selfFd, IBindingManager bm) {
 		return ResourceUtils.hasFragmentPart(fdUri) ?
