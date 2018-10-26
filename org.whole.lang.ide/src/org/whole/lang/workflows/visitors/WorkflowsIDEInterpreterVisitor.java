@@ -201,12 +201,12 @@ public class WorkflowsIDEInterpreterVisitor extends WorkflowsInterpreterVisitor 
 
 	@Override
 	protected void performPrettyPrintOperation(IBindingManager bm, IEntity model) {
-		bm.wDefValue("compoundRoot", model);
+		bm.wDef("compoundRoot", model);
 		E4Utils.invokePrettyPrinter(bm);
 	}
 	@Override
 	protected void performInterpreterOperation(IBindingManager bm, IEntity model) {
-		bm.wDefValue("compoundRoot", model);
+		bm.wDef("compoundRoot", model);
 		E4Utils.invokeInterpreter(bm);
 	}
 	@Override
