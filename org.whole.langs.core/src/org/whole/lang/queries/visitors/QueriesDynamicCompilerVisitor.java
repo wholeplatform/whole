@@ -34,17 +34,16 @@ import org.whole.lang.comparators.BusinessIdentityComparator;
 import org.whole.lang.comparators.IEntityComparator;
 import org.whole.lang.comparators.IdentityIteratorComparator;
 import org.whole.lang.evaluators.AbstractDelegatingNestedTrySupplierEvaluator;
+import org.whole.lang.evaluators.ChooseByTypeEvaluator;
 import org.whole.lang.evaluators.FilterByIndexRangeEvaluator;
 import org.whole.lang.evaluators.FilterEvaluator;
 import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.executables.EmptyExecutable;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.factories.GenericEntityFactory;
-import org.whole.lang.iterators.ChooseByTypeIterator;
 import org.whole.lang.iterators.DistinctScope;
 import org.whole.lang.iterators.FilterByIndexRangeIterator;
 import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.IteratorBasedExecutableFactory.FilterIterator;
 import org.whole.lang.iterators.Placement;
 import org.whole.lang.iterators.SelectIterator;
 import org.whole.lang.matchers.Matcher;
@@ -245,7 +244,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 
 			if (canOptimize && languageKit != null) {
 				IExecutable<?> ri = executableFactory().createChoose(languageKit);
-				ChooseByTypeIterator<?> chooseIterator = (ChooseByTypeIterator<?>) ri.undecoratedExecutable();
+				ChooseByTypeEvaluator chooseIterator = (ChooseByTypeEvaluator) ri.undecoratedExecutable();
 
 				for (Entry<EntityDescriptor<?>, Expression> entry : typeMap.entrySet()) {
 					Set<String> oldDeclaredNames = declaredNames;
@@ -364,20 +363,12 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 			if (filterByIndexExecutable != null) {
 				IExecutable<?> fiUndecorated = filterByIndexExecutable.undecoratedExecutable();
 
-				if (fiUndecorated instanceof FilterByIndexRangeIterator)
-					((FilterByIndexRangeIterator<IEntity>) fiUndecorated).withIterator((IEntityIterator<IEntity>) getExecutableResult().iterator());
-				else
-					((FilterByIndexRangeEvaluator<IEntity>) fiUndecorated).withExecutable(getExecutableResult());
+				((FilterByIndexRangeEvaluator<IEntity>) fiUndecorated).withExecutable(getExecutableResult());
 				setExecutableResult(filterByIndexExecutable);
 
 				if (canFilterByIndex) {
-					if (fiUndecorated instanceof FilterByIndexRangeIterator) { 
-						// ((FilterByIndexRangeIterator<?>) fiUndecorated).withStartIndex(startIndex);
-						((FilterByIndexRangeIterator<?>) fiUndecorated).withEndIndex(endIndex);
-					} else {
-						// ((FilterByIndexRangeEvaluator<?>) fiUndecorated).withStartIndex(startIndex);
-						((FilterByIndexRangeEvaluator<?>) fiUndecorated).withEndIndex(endIndex);
-					}
+					// ((FilterByIndexRangeEvaluator<?>) fiUndecorated).withStartIndex(startIndex);
+					((FilterByIndexRangeEvaluator<?>) fiUndecorated).withEndIndex(endIndex);
 				}
 			}
 
@@ -389,10 +380,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 				IExecutable<?> ri = executableFactory().createFilter(getExecutableResult(), queryPredicateIterator);
 				if (usePruneFilter) {
 					IExecutable<?> riUndecorated = ri.undecoratedExecutable();
-					if (riUndecorated instanceof FilterEvaluator)
-						((FilterEvaluator) riUndecorated).withAutoPrune(usePruneFilter);
-					else
-						((FilterIterator<?>) riUndecorated).withAutoPrune(usePruneFilter);
+					((FilterEvaluator) riUndecorated).withAutoPrune(usePruneFilter);
 				}
 				setExecutableResult(ri.withSourceEntity(entity));
 			}

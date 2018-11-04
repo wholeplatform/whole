@@ -17,8 +17,8 @@
  */
 package org.whole.lang.grammarbased.ui.figures;
 
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.iterators.ExecutableFactory;
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.EntityDescriptorEnum;
@@ -145,10 +145,12 @@ public class GrammarBasedUIUtils {
 		EntityDescriptorEnum edEnum = entity.wGetLanguageKit().getEntityDescriptorEnum();
 
 		StringBuilder sb = new StringBuilder();
-		IEntityIterator<IEntity> iterator = ExecutableFactory.instance.createDescendantOrSelfMatcher().withPattern(edEnum.valueOf("Literal"));
+		ExecutableFactory f = ExecutableFactory.instance;
+		IExecutable<IEntity> iterator = f.createFilter(f.createDescendantOrSelf(), f.createHasType(edEnum.valueOf("Literal").getURI()));
 		iterator.reset(entity);
-		while (iterator.hasNext())
-			sb.append(EntityUtils.safeStringValue(iterator.next(), ""));
+		for (IEntity e = iterator.evaluateNext(); e != null;
+				     e = iterator.evaluateNext())
+			sb.append(EntityUtils.safeStringValue(e, ""));
 		String separatorText = sb.toString();
 		return separatorText.trim();
 	}

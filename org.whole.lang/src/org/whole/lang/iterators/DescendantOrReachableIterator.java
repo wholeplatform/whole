@@ -46,8 +46,7 @@ public class DescendantOrReachableIterator<E extends IEntity> extends AbstractTr
 	}
     @Override
     protected IEntityIterator<E> createRelationIterator() {
-    	return executableFactory().createMatcher(
-    			executableFactory().<E>createChildOrAdjacent()).withPattern(distinctScope.distinctMatcher());
+    	return executableFactory().createFilter(executableFactory().<E>createChildOrAdjacent(), distinctScope.distinctExecutable()).iterator();
     }
 
     @Override

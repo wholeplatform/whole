@@ -46,7 +46,7 @@ public class DescendantOrReachableEvaluator<E extends IEntity> extends AbstractT
 	}
     
     protected IExecutable<E> createRelationIterator() {
-    	return executableFactory().createMatcher(executableFactory().<E>createChildOrAdjacent()).withPattern(distinctScope.distinctMatcher());
+    	return executableFactory().createFilter(executableFactory().<E>createChildOrAdjacent(), distinctScope.distinctExecutable());
     }
 
     public void toString(StringBuilder sb) {

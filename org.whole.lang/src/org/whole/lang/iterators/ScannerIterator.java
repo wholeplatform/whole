@@ -36,7 +36,7 @@ import org.whole.lang.visitors.IVisitor;
  * @author Riccardo Solmi
  */
 public class ScannerIterator<E extends IEntity> extends AbstractPatternFilterIterator<E> {
-	protected ScannerIterator(IEntityIterator<E> iterator) {
+	public ScannerIterator(IEntityIterator<E> iterator) {
 		super(iterator);
 	}
 

@@ -19,6 +19,7 @@ package org.whole.lang.evaluators;
 
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Riccardo Solmi
@@ -101,6 +102,28 @@ public class FilterEvaluator extends AbstractDelegatingNestedEvaluator<IEntity> 
 
 	public void prune() {
 		getProducer(0).prune();
+	}
+
+	public void set(IEntity entity) {
+    	if (lastEntity == null)
+    		throw new IllegalStateException();
+
+    	if (EntityUtils.hasParent(lastEntity))
+    		lastEntity.wGetParent().wSet(lastEntity, entity);
+    	lastEntity = entity;
+	}
+	public void add(IEntity entity) {
+    	if (lastEntity == null)
+    		throw new IllegalStateException();
+
+    	getProducer(0).add(entity);
+	}
+	public void remove() {
+    	if (lastEntity == null)
+    		throw new IllegalStateException();
+
+    	getProducer(0).remove();
+    	lastEntity = null;
 	}
 
 	protected String toStringPrefix() {

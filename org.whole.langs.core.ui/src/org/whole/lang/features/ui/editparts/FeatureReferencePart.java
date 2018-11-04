@@ -24,16 +24,15 @@ import org.eclipse.draw2d.ActionEvent;
 import org.eclipse.draw2d.ActionListener;
 import org.eclipse.draw2d.IFigure;
 import org.whole.lang.features.ui.figures.FeatureReferenceFigure;
-import org.whole.lang.frames.model.Feature;
 import org.whole.lang.frames.model.FeatureReference;
 import org.whole.lang.frames.model.Frame;
 import org.whole.lang.frames.model.SolitaryFeatureName;
 import org.whole.lang.frames.reflect.FramesEntityDescriptorEnum;
+import org.whole.lang.frames.reflect.FramesFeatureDescriptorEnum;
+import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
-import org.whole.lang.visitors.GenericIdentityVisitor;
-import org.whole.lang.visitors.VisitException;
 
 /**
  * @author Riccardo Solmi
@@ -47,17 +46,14 @@ public class FeatureReferencePart extends AbstractContentPanePart {
 
 				Frame frame = Matcher.findAncestor(FramesEntityDescriptorEnum.Frame, entity);
 				if (frame != null) {
+					ExecutableFactory ef = ExecutableFactory.instance;
+					@SuppressWarnings("unchecked")
 					IEntity targetFeature = Matcher.findChild(
-							new GenericIdentityVisitor() {
-								public void visit(IEntity entity) {
-									if (!Matcher.matchImpl(FramesEntityDescriptorEnum.Feature, entity))
-										throw new VisitException();
-
-									Feature f = (Feature) entity;
-									if (!Matcher.match(referenceName, f.getName()))
-										throw new VisitException();
-								}
-							}, frame.getVariability());
+							ef.createAnd(
+									ef.createHasType(FramesEntityDescriptorEnum.Feature.getURI()),
+								ef.createSome(ef.createFeatureByName(FramesFeatureDescriptorEnum.name),
+										ef.createMatchInScope(ef.createConstant(referenceName, false))))
+							, frame.getVariability());
 
 					if (targetFeature != null)
 						getViewer().selectAndReveal(targetFeature);

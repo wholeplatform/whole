@@ -54,8 +54,8 @@ import org.whole.lang.e4.ui.actions.FindReplaceAction.IFindAction;
 import org.whole.lang.e4.ui.actions.FindReplaceAction.Operation;
 import org.whole.lang.e4.ui.actions.IE4UIConstants;
 import org.whole.lang.e4.ui.util.E4Utils;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.iterators.ExecutableFactory;
-import org.whole.lang.iterators.MatcherIterator;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.actions.IUpdatableAction;
@@ -70,7 +70,7 @@ import org.whole.lang.util.EntityUtils;
  * @author Enrico Persiani
  */
 public class E4FindReplaceGraphicalPart extends E4GraphicalPart {
-	protected MatcherIterator<IEntity> iterator;
+	protected IExecutable<IEntity> executable;
 	protected IBindingManager bindings;
 	protected IUpdatableAction[] findReplaceActions;
 	protected IEntityPartViewer replaceViewer;
@@ -87,6 +87,7 @@ public class E4FindReplaceGraphicalPart extends E4GraphicalPart {
 		return viewer;
 	}
 
+	@SuppressWarnings("unchecked")
 	@PostConstruct
 	public void createPartControl(Composite parent) {
 		findReplaceActions = new IUpdatableAction[Operation.values().length];
@@ -118,7 +119,13 @@ public class E4FindReplaceGraphicalPart extends E4GraphicalPart {
 		super.createPartControl(sashForm);
 		createReplaceArea(sashForm);
 
-		E4FindReplaceGraphicalPart.this.iterator = ExecutableFactory.instance.createDescendantOrSelfMatcher();
+		ExecutableFactory f = ExecutableFactory.instance;
+		E4FindReplaceGraphicalPart.this.executable = f.createFilter(f.createDescendantOrSelf(), f.createOr(
+				f.createSingleValuedRunnable((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
+					bm.setResult(BindingManagerFactory.instance.createValue(
+							bm.wIsSet(IBindingManager.FIND_SKIPTO) && selfEntity == bm.wGet(IBindingManager.FIND_SKIPTO)));
+				}),
+				f.createMatchInScope(f.createVariable(IBindingManager.FIND_PATTERN))));
 		E4FindReplaceGraphicalPart.this.bindings = BindingManagerFactory.instance.createArguments();
 		setPattern(CommonsEntityFactory.instance.createResolver());
 		setReplacement(CommonsEntityFactory.instance.createResolver());
@@ -245,7 +252,7 @@ public class E4FindReplaceGraphicalPart extends E4GraphicalPart {
 		try {
 			command.setModel(getFoundEntity());
 			command.begin();
-			iterator.set(replacement);
+			executable.set(replacement);
 			command.commit();
 		} catch (Exception e) {
 			command.rollbackIfNeeded();
@@ -273,7 +280,7 @@ public class E4FindReplaceGraphicalPart extends E4GraphicalPart {
 		}
 
 		IEntity self = selection.wGet("compoundRoot");
-		iterator.reset(self);
+		executable.reset(self);
 
 		if (!findNext(true))
 			return;
@@ -289,7 +296,7 @@ public class E4FindReplaceGraphicalPart extends E4GraphicalPart {
 			do {
 				lastReplaced = EntityUtils.clone(replacement);
 				Matcher.substitute(lastReplaced, bindings, false);
-				iterator.set(lastReplaced);
+				executable.set(lastReplaced);
 				replaced += 1;
 			} while (findNext(false));
 			command.commit();
@@ -331,12 +338,15 @@ public class E4FindReplaceGraphicalPart extends E4GraphicalPart {
 		
 		this.selection = selection.clone();
 		IEntity self = this.selection.wGet("compoundRoot");
-		iterator.reset(self);
-		iterator.setBindings(this.bindings);
+		executable.setBindings(this.bindings);
+		executable.reset(self);
 		if (this.selection.wIsSet("primarySelectedEntity")) {
 			IEntity primarySelectedEntity = this.selection.wGet("primarySelectedEntity");
-			if (primarySelectedEntity != self && EntityUtils.isAncestorOrSelf(self, primarySelectedEntity))
-				iterator.skipToSame(primarySelectedEntity);
+			if (primarySelectedEntity != self && EntityUtils.isAncestorOrSelf(self, primarySelectedEntity)) {
+				this.bindings.wDef(IBindingManager.FIND_SKIPTO, primarySelectedEntity);
+				executable.evaluateNext();
+				this.bindings.wUnset(IBindingManager.FIND_SKIPTO);
+			}
 		}
 	}
 
@@ -350,9 +360,10 @@ public class E4FindReplaceGraphicalPart extends E4GraphicalPart {
 	}
 
 	protected boolean findNext(boolean updateStatus) {
-		iterator.withPattern(viewer.getEntityContents());
-		boolean hasNext = iterator.hasNext();
-		foundEntity = hasNext ? iterator.next() : null;
+		this.bindings.wDef(IBindingManager.FIND_PATTERN, viewer.getEntityContents());
+		foundEntity = executable.evaluateNext();
+		this.bindings.wUnset(IBindingManager.FIND_PATTERN);
+		boolean hasNext = foundEntity != null;
 		updateButtonsEnablement(hasNext);
 		if (updateStatus && !hasNext)
 			showStatusMessage(IE4UIConstants.PATTERN_NOT_FOUND_TEXT, false);
@@ -374,7 +385,7 @@ public class E4FindReplaceGraphicalPart extends E4GraphicalPart {
 	@Optional
 	public void setTemplate(@UIEventTopic(IE4UIConstants.TOPIC_UPDATE_FINDREPLACE) IEntity template) {
 		setPattern(template);
-		iterator.reset(null);
+		executable.reset(null);
 		updateButtonsEnablement(false);
 	}
 }

@@ -22,9 +22,9 @@ import org.whole.lang.artifacts.reflect.ArtifactsFeatureDescriptorEnum;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.codebase.FilePersistenceProvider;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.factories.RegistryConfigurations;
 import org.whole.lang.iterators.ExecutableFactory;
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.java.codebase.JavaClassTemplateFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
@@ -200,15 +200,13 @@ public class WorkflowsInterpreterVisitorTest {
 		Assert.assertFalse(OrderedMatcher.match(artifacts, deepResult, comparatorsMap));
 
 		// the only difference is the content on the file artifact
-		IEntityIterator<IEntity> iterator = ExecutableFactory.instance.createMatcher(
-				ExecutableFactory.instance.createDescendantOrSelf())
-						.withPattern(ArtifactsFeatureDescriptorEnum.content);
+		ExecutableFactory f = ExecutableFactory.instance;
+		IExecutable<IEntity> iterator = f.createFilter(f.createDescendantOrSelf(), f.createAtFeature(ArtifactsFeatureDescriptorEnum.content.getURI()));
 
 		iterator.reset(deepFileResult);
-		while (iterator.hasNext()) {
-			iterator.next();
+		while (iterator.evaluateNext() != null)
 			iterator.remove();
-		}
+
 		Assert.assertTrue(OrderedMatcher.match(deepDirectoryResult, deepFileResult, comparatorsMap));
 	}
 
@@ -242,15 +240,12 @@ public class WorkflowsInterpreterVisitorTest {
 		Assert.assertFalse(OrderedMatcher.match(artifacts, deepDirectoryResult, comparatorsMap));
 
 		// the only difference is the content on the file artifact
-		IEntityIterator<IEntity> iterator = ExecutableFactory.instance.createMatcher(
-				ExecutableFactory.instance.createDescendantOrSelf())
-						.withPattern(ArtifactsFeatureDescriptorEnum.content);
+		ExecutableFactory f = ExecutableFactory.instance;
+		IExecutable<IEntity> iterator = f.createFilter(f.createDescendantOrSelf(), f.createAtFeature(ArtifactsFeatureDescriptorEnum.content.getURI()));
 
 		iterator.reset(deepResult);
-		while (iterator.hasNext()) {
-			iterator.next();
+		while (iterator.evaluateNext() != null)
 			iterator.remove();
-		}
 		Assert.assertTrue(Matcher.match(deepDirectoryResult, deepResult));
 	}
 

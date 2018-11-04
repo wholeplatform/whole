@@ -45,7 +45,7 @@ public class SelectIterator<E extends IEntity> extends AbstractLazyCloneableIter
 	private Set<String> namesToBind = Collections.emptySet();
 	private boolean withNamesComplement;
 
-	protected SelectIterator(IEntityIterator<E> selectIterator, IEntityIterator<?> fromIterator, IEntityIterator<? extends IEntity> whereIterator) {
+	public SelectIterator(IEntityIterator<E> selectIterator, IEntityIterator<?> fromIterator, IEntityIterator<? extends IEntity> whereIterator) {
 		this.selectIterator = selectIterator;
 		this.fromIterator = fromIterator;
 		this.whereIterator = whereIterator;

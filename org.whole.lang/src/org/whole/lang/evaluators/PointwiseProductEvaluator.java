@@ -34,6 +34,21 @@ public class PointwiseProductEvaluator extends AbstractPointwiseEvaluator {
 		return BindingManagerFactory.instance.createTuple(nestedResults);
 	}
 
+	@Override
+	public void prune() {
+	}
+
+	public void set(IEntity entity) {
+		throw new UnsupportedOperationException();
+	}
+	public void add(IEntity entity) {
+		throw new UnsupportedOperationException();
+	}
+	public void remove() {
+		for (IExecutable<IEntity> p : producers)
+			p.remove();
+	}
+
 	protected String toStringSeparator() {
 		return " . ";
 	}

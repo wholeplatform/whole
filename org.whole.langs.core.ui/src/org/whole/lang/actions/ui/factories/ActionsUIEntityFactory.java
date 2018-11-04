@@ -41,8 +41,8 @@ import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.factories.IEntityRegistryProvider;
 import org.whole.lang.factories.RegistryConfigurations;
+import org.whole.lang.grammars.model.NonTerminal;
 import org.whole.lang.iterators.ExecutableFactory;
-import org.whole.lang.iterators.MatcherIterator;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.queries.factories.QueriesEntityFactory;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
@@ -53,8 +53,6 @@ import org.whole.lang.resources.IResourceRegistry;
 import org.whole.lang.ui.actions.IActionConstants;
 import org.whole.lang.util.EntityUtils;
 import org.whole.lang.util.ResourceUtils;
-import org.whole.lang.visitors.GenericIdentityVisitor;
-import org.whole.lang.visitors.VisitException;
 import org.whole.lang.workflows.reflect.WorkflowsEntityDescriptorEnum;
 
 /**
@@ -122,15 +120,10 @@ public class ActionsUIEntityFactory extends ActionsEntityFactory {
 	}
 
 	public GroupAction createAllVariablesGroupAction(ActionKindEnum.Value kind, Set<String> excludeSet, EntityDescriptor<?> resultEd, IEntity model) {
-		MatcherIterator<IEntity> i = ExecutableFactory.instance.<IEntity>createDescendantOrSelfMatcher();
+		ExecutableFactory f = ExecutableFactory.instance;
+		IExecutable<NonTerminal> i = f.createFilter(f.createDescendantOrSelf(), f.createIsVariable());
 		i.reset(EntityUtils.safeGetRootEntity(model));
-		return createVariablesGroupAction(kind, excludeSet, resultEd, i
-				.withPattern(new GenericIdentityVisitor() {
-					public void visit(IEntity entity) {
-						if (!isVariable(entity.wGetAdaptee(false).wGetEntityDescriptor()))
-							throw new VisitException();
-					}
-				}));
+		return createVariablesGroupAction(kind, excludeSet, resultEd, i);
 	}
 	protected boolean isVariable(EntityDescriptor<?> ed) {
 		return ed.getEntityKind().isData() &&

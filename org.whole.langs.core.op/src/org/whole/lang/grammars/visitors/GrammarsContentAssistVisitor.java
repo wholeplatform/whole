@@ -28,12 +28,12 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.grammars.model.Grammar;
 import org.whole.lang.grammars.model.Name;
 import org.whole.lang.grammars.model.NonTerminal;
 import org.whole.lang.grammars.model.Production;
 import org.whole.lang.grammars.util.GrammarsUtils;
-import org.whole.lang.iterators.AbstractPatternFilterIterator;
 import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
@@ -85,7 +85,8 @@ public class GrammarsContentAssistVisitor extends GrammarsIdentityVisitor {
 						names.add(nt.getValue());
 				}
 			} else {
-				AbstractPatternFilterIterator<NonTerminal> i = ExecutableFactory.instance.<NonTerminal>createDescendantOrSelfMatcher().withPattern(NonTerminal);
+				ExecutableFactory f = ExecutableFactory.instance;
+				IExecutable<NonTerminal> i = f.createFilter(f.createDescendantOrSelf(), f.createHasType(NonTerminal.getURI()));
 				i.reset(grammar);
 				for (NonTerminal nt : i)
 					if (EntityUtils.isNotResolver(nt))

@@ -33,11 +33,10 @@ public abstract class AbstractArtifactsOperations<T> implements IArtifactsOperat
 		if (descendant == null || !EntityUtils.hasParent(descendant))
 			return resource;
 
-		IEntityIterator<IEntity> iterator = ExecutableFactory.instance.createScanner(
-				ExecutableFactory.instance.createAncestorOrSelfReverse())
-				.withPattern(GenericTraversalFactory.instance.one(
-						GenericMatcherFactory.instance.isFragmentMatcher(),
-						GenericMatcherFactory.instance.hasKindMatcher(EntityKinds.COMPOSITE)));
+		ExecutableFactory ef = ExecutableFactory.instance;
+		IEntityIterator<IEntity> iterator = ef.createFilter(
+				ef.createAncestorOrSelfReverse(),
+				ef.createSome(ef.createIsFragment(), ef.createHasKind(EntityKinds.COMPOSITE))).iterator();
 
 		T parentContext = getParent(resource);
 		iterator.reset(descendant);

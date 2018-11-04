@@ -35,7 +35,7 @@ public class TemplateInterpreterIterator<E extends IEntity> extends AbstractExec
 	protected IEntity pattern;
 	protected IEntityIterator<E> nextEntityIterator;
 
-	protected TemplateInterpreterIterator(IEntity pattern) {
+	public TemplateInterpreterIterator(IEntity pattern) {
 		this.pattern = pattern;
 	}
 

@@ -21,6 +21,7 @@ import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.builders.IBuilderOperation;
 import org.whole.lang.builders.ModelBuilderOperation;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.grammars.codebase.GrammarsRegistry;
 import org.whole.lang.grammars.codebase.IGrammarProvider;
 import org.whole.lang.grammars.factories.GrammarsEntityFactory;
@@ -33,7 +34,6 @@ import org.whole.lang.grammars.reflect.GrammarsEntityDescriptorEnum;
 import org.whole.lang.grammars.visitors.GrammarBasedUnparserVisitor;
 import org.whole.lang.grammars.visitors.Grammars2ModelsVisitor;
 import org.whole.lang.iterators.ExecutableFactory;
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.models.model.Model;
@@ -127,12 +127,12 @@ public class GrammarsUtils {
 	}
 
 	public static void ensureCompiledPatterns(Grammar grammar) {
-		IEntityIterator<IEntity> i = ExecutableFactory.instance.<IEntity>createDescendantOrSelfMatcher()
-				.withPattern(GrammarsEntityDescriptorEnum.RegExp);
+		ExecutableFactory f = ExecutableFactory.instance;
+		IExecutable<IEntity> i = f.createFilter(f.createDescendantOrSelf(), f.createHasType(GrammarsEntityDescriptorEnum.RegExp.getURI()));
 		i.reset(grammar);
 
-		while (i.hasNext()) {
-			IEntity pattern = i.next();
+		for (IEntity pattern = i.evaluateNext(); pattern != null;
+					 pattern = i.evaluateNext()) {
 			if (EntityUtils.isNotResolver(pattern)) {
 				if (Matcher.match(GrammarsEntityDescriptorEnum.CompiledPattern, pattern))
 					return;
@@ -143,8 +143,8 @@ public class GrammarsUtils {
 			}
 		}
 
-		while (i.hasNext()) {
-			IEntity e = i.next();
+		for (IEntity e = i.evaluateNext(); e != null;
+				     e = i.evaluateNext()) {
 			i.set(GrammarsEntityFactory.instance.createCompiledPattern(java.util.regex.Pattern.compile(e.wStringValue())));
 		}
 	}

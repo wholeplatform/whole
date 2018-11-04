@@ -17,6 +17,7 @@ import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
 import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.executables.IExecutable;
+import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.matchers.GenericMatcherFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
@@ -163,7 +164,8 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 		try {
 			getBindings().wDef(IBindingManager.SELF, BindingManagerFactory.instance.createNull());
 
-			IExecutable<BeforeTestCase> beforeIterator = executableFactory().<BeforeTestCase>createChildMatcher().withPattern(BeforeTestCase);
+			ExecutableFactory ef = executableFactory();
+			IExecutable<BeforeTestCase> beforeIterator = ef.createFilter(ef.createChild(), ef.createHasType(BeforeTestCase.getURI()));
 			beforeIterator.setBindings(getBindings());
 			Aspects aspects = entity.getAspects();
 			getBindings().enforceSelfBinding(aspects);
@@ -200,7 +202,7 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 				result.setValue(result.getValue() + 1);
 			}
 
-			IExecutable<AfterTestCase> afterIterator = executableFactory().<AfterTestCase>createChildMatcher().withPattern(AfterTestCase);
+			IExecutable<AfterTestCase> afterIterator = ef.createFilter(ef.createChild(), ef.createHasType(AfterTestCase.getURI()));
 			afterIterator.setBindings(getBindings());
 			getBindings().enforceSelfBinding(aspects);
 			afterIterator.reset(aspects);

@@ -36,6 +36,7 @@ import org.whole.lang.codebase.IPersistenceKit;
 import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
 import org.whole.lang.commons.model.QuantifierEnum;
 import org.whole.lang.executables.IExecutable;
+import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.matchers.GenericMatcherFactory;
 import org.whole.lang.matchers.Matcher;
@@ -118,11 +119,10 @@ public class ArtifactsSynchronizerVisitor<T> extends ArtifactsResourceVisitor<T>
 	}
 
 	private IEntity createBasePath(IArtifactsEntity entity) {
-		IEntityIterator<IEntity> iterator = executableFactory().createScanner(
-					executableFactory().createAncestor())
-							.withPattern(GenericTraversalFactory.instance.one(
-									GenericMatcherFactory.instance.isFragmentMatcher(),
-									GenericMatcherFactory.instance.hasKindMatcher(EntityKinds.COMPOSITE)));
+		ExecutableFactory ef = executableFactory();
+		IEntityIterator<IEntity> iterator = ef.createFilter(
+				ef.createAncestor(),
+				ef.createSome(ef.createIsFragment(), ef.createHasKind(EntityKinds.COMPOSITE))).iterator();
 
 		iterator.reset(entity);
 

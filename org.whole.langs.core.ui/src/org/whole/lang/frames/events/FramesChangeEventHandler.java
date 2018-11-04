@@ -24,7 +24,7 @@ import org.eclipse.e4.ui.di.UISynchronize;
 import org.whole.lang.events.IdentityChangeEventHandler;
 import org.whole.lang.frames.reflect.FramesFeatureDescriptorEnum;
 import org.whole.lang.frames.util.FramesUtils;
-import org.whole.lang.matchers.GenericMatcherFactory;
+import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.EnumValue;
 import org.whole.lang.model.IEntity;
@@ -56,9 +56,8 @@ public class FramesChangeEventHandler extends IdentityChangeEventHandler {
 	}
 
 	public boolean isVariabilityDescendant(IEntity source) {
-		GenericMatcherFactory mf = GenericMatcherFactory.instance;
 		return Matcher.findAncestor(
-				mf.atFeatureMatcher(FramesFeatureDescriptorEnum.variability), source) != null;
+				ExecutableFactory.instance.createAtFeature(FramesFeatureDescriptorEnum.variability.getURI()), source) != null;
 	}
 
     public void notifyAdded(IEntity source, FeatureDescriptor featureDesc, int index, IEntity newValue) {

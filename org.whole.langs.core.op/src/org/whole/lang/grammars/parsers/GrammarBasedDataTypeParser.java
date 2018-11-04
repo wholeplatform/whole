@@ -33,7 +33,6 @@ import org.whole.lang.grammars.model.Rule;
 import org.whole.lang.grammars.reflect.GrammarsEntityDescriptorEnum;
 import org.whole.lang.grammars.util.GrammarsUtils;
 import org.whole.lang.iterators.ExecutableFactory;
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.EnumValue;
 import org.whole.lang.parsers.ForwardStrategyDataTypeParser;
@@ -95,10 +94,11 @@ public class GrammarBasedDataTypeParser extends ForwardStrategyDataTypeParser {
 				if(ed.getDataKind().isEnumValue()) {
 					for (int i=0, size=production.wSize(); i<size; i++) {
 						As as = EntityUtils.clone((As) production.wGet(i));
-						IEntityIterator<Rule> iterator = ExecutableFactory.instance.<Rule>createDescendantOrSelfMatcher().withPattern(GrammarsEntityDescriptorEnum.NonTerminal);
+						ExecutableFactory f = ExecutableFactory.instance;
+						IExecutable<Rule> iterator = f.createFilter(f.createDescendantOrSelf(), f.createHasType(GrammarsEntityDescriptorEnum.NonTerminal.getURI()));
 						iterator.reset(as);
-						while (iterator.hasNext()) {
-							NonTerminal nt = (NonTerminal) iterator.next();
+						for (NonTerminal nt = (NonTerminal) iterator.evaluateNext(); nt != null;
+								nt = (NonTerminal) iterator.evaluateNext()) {
 							iterator.set(EntityUtils.clone(lexicon.get(nt.getValue())));
 						}
 						enumRules.put(ed.getDataEnumType().valueOf(as.getName().getValue()), as.getRule());

@@ -17,7 +17,9 @@
  */
 package org.whole.lang.xml.builders;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -124,9 +126,10 @@ public class XmlNormalizerBuilderTest {
 			assertFalse(iterator.hasNext());
 
 			// no CDataSect at all
-			iterator = ExecutableFactory.instance.createDescendantOrSelfMatcher().withPattern(XmlEntityDescriptorEnum.CDataSect);
+			ExecutableFactory f = ExecutableFactory.instance;
+			iterator = f.createFilter(f.createDescendantOrSelf(), f.createHasType(XmlEntityDescriptorEnum.CDataSect.getURI())).iterator();
 			iterator.reset(normalizedXmlDocument);
-			assertFalse(iterator.hasNext());
+			assertFalse(iterator.evaluateNext() != null);
 
 			// both normalization strategies must yield the same result
 			assertTrue(Matcher.match(normalizedXmlDocument, NormalizerOperation.normalize(xmlDocument, parameters)));

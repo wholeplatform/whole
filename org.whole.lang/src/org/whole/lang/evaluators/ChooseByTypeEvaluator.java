@@ -17,61 +17,53 @@
  */
 package org.whole.lang.evaluators;
 
+import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.reflect.EntityDescriptor;
+import org.whole.lang.reflect.ILanguageKit;
 
 /**
  * @author Riccardo Solmi
  */
-public class ChooseByOrderEvaluator extends AbstractDelegatingNestedEvaluator<IEntity> {
-	protected boolean choosen;
+public class ChooseByTypeEvaluator extends AbstractDelegatingNestedEvaluator<IEntity> {
+	private ILanguageKit languageKit;
 
 	@SuppressWarnings("unchecked")
-	public ChooseByOrderEvaluator(IExecutable<IEntity>... executables) {
-		super(executables);
+	public ChooseByTypeEvaluator(ILanguageKit languageKit) {
+		super(new IExecutable[languageKit.getEntityDescriptorEnum().size()+1]);
+		this.languageKit = languageKit;
+
+		for (int i = 0; i < producersSize()-1; i++) {
+			producers[i] = executableFactory().createConstant(BindingManagerFactory.instance.createVoid(), true);
+		}
+		producers[producersSize()-1] = executableFactory().createEmpty();
+	}
+
+	public void setCase(EntityDescriptor<?> ed, IExecutable<IEntity> executable) {
+		if (!ed.getLanguageKit().equals(languageKit))
+			throw new IllegalArgumentException();
+
+		producers[ed.getOrdinal()] = executable;
 	}
 
 	@Override
 	public void reset(IEntity entity) {
 		super.reset(entity);
-		choosen = false;
+		producerIndex = entity.wGetLanguageKit().equals(languageKit) ? entity.wGetEntityOrd() : languageKit.getEntityDescriptorEnum().size();
 	}
 
 	public IEntity evaluateNext() {
-		IEntity result = null;
-
-		if (choosen)
-			result = getProducer().evaluateNext();
-		else while (!choosen && isValidProducer()) {
-			result = getProducer().evaluateNext();
-			if (result != null)
-				choosen = true;
-			else
-				selectFollowingProducer();
-		}
-
-		return lastEntity = result;
+		return lastEntity = getProducer().evaluateNext();
 	}
 
-//	public IEntity evaluateRemaining() {
-//		IEntity result = null;
-//
-//		if (choosen)
-//			result = getProducer().evaluateRemaining();
-//		else while (!choosen && isValidProducer()) {
-//			result = getProducer().evaluateRemaining();
-//			if (result != null)
-//				choosen = true;
-//			else
-//				selectFollowingProducer();
-//		}
-//
-//		return result;
-//	}
+	public IEntity evaluateRemaining() {
+		return lastEntity = getProducer().evaluateRemaining();
+	}
 
     @Override
 	protected String toStringPrefix() {
-		return "chooseByOrder(";
+		return "chooseByType(";
 	}
     @Override
 	protected String toStringSeparator() {

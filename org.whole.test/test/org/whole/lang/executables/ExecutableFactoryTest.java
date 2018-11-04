@@ -563,18 +563,10 @@ public class ExecutableFactoryTest {
 
     @Test
     public void testFilterEvaluator() {
-    	f = new RegularExecutableFactory() {
-    		public <E extends IEntity> IExecutable<E> createFilter(IExecutable<E> executable, IExecutable<? extends IEntity> filterExecutable) {
-    			return (IExecutable<E>) new FilterEvaluator((IExecutable<IEntity>) executable, (IExecutable<IEntity>) filterExecutable);
-    		}
-    	};
-//    	f = IteratorBasedExecutableFactory.instance;
-
     	IBindingManager bm = bmf.createBindingManager();
     	bm.wDef("v0", VALUES[0]);
     	bm.wDef("v1", VALUES[1]);
 
-    	@SuppressWarnings("unchecked")
 		IExecutable<?> i = f.createFilter(
 				new TestEvaluator((index, bm0) -> {
 					switch (index) {

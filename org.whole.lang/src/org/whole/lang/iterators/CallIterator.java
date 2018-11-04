@@ -44,7 +44,7 @@ public class CallIterator<E extends IEntity>  extends AbstractExecutableIteratin
 	private E nextEntity = null;
 	private IEntity resetEntity = null;
 
-	protected CallIterator(String queryName, IEntityIterator<? extends E>... argsIterators) {
+	public CallIterator(String queryName, IEntityIterator<? extends E>... argsIterators) {
 		this.queryName = queryName;
 		this.argsIterators = argsIterators;
 	}

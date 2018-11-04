@@ -20,9 +20,13 @@ package org.whole.lang.iterators;
 import java.util.Iterator;
 import java.util.function.Consumer;
 
+import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.executables.IExecutable;
+import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.reflect.EntityDescriptor;
+import org.whole.lang.reflect.EntityKinds;
 
 /**
  * @author Riccardo Solmi
@@ -51,4 +55,32 @@ public interface IEntityIterator<E extends IEntity> extends Iterator<E>, IExecut
 	default void forEachRemaining(Consumer<? super E> action) {
         do { } while (tryAdvance(action));
     }
+
+	public default boolean skipTo(EntityDescriptor<?> descriptor) {
+		boolean found = false;
+		while (hasNext() && !(found = Matcher.isAssignableAsIsFrom(descriptor, lookahead())))
+			next();
+		return found;
+	}
+	public default boolean skipTo(EntityKinds kind) {
+		boolean found = false;
+		while (hasNext() && !(found = Matcher.match(kind, lookahead())))
+			next();
+		return found;
+	}
+	public default boolean skipToSame(IEntity entity) {
+		boolean found = false;
+		while (hasNext() && !(found = (entity == lookahead())))
+			next();
+		return found;
+	}
+	public default boolean skipTo(IEntity pattern) {
+		return skipTo(pattern, getBindings()); //FIXME previous bindings interference
+	}
+	public default boolean skipTo(IEntity pattern, IBindingManager bindings) {
+		boolean found = false;
+		while (hasNext() && !(found = Matcher.match(pattern, lookahead(), bindings)))
+			next();
+		return found;
+	}
 }

@@ -21,7 +21,6 @@ import org.whole.lang.comparators.IEntityComparator;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneable;
-import org.whole.lang.visitors.IVisitor;
 
 /**
  * @author Riccardo Solmi
@@ -31,5 +30,4 @@ public interface DistinctScope<E extends IEntity> extends ICloneable {
 	public IExecutable<E> withExecutable(IExecutable<E> iterator);
 
 	public IExecutable<IEntity> distinctExecutable();
-	public IVisitor distinctMatcher();
 }

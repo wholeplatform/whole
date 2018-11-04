@@ -19,6 +19,8 @@ package org.whole.lang.xml.visitors;
 
 import static org.whole.lang.xml.reflect.XmlEntityDescriptorEnum.Content;
 
+import org.whole.lang.executables.IExecutable;
+import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
@@ -61,10 +63,10 @@ public class XmlNormalizerVisitor extends XmlTraverseAllVisitor {
 	@Override
 	public void visit(Content entity) {
 		// recursively normalize nested composite entities
-		IEntityIterator<IEntity> iterator = executableFactory().createChildMatcher().withPattern(EntityKinds.COMPOSITE);
+		ExecutableFactory f = ExecutableFactory.instance;
+		IExecutable<IEntity> iterator = f.createFilter(f.createChild(), f.createHasKind(EntityKinds.COMPOSITE));
 		iterator.reset(entity);
-		while (iterator.hasNext()) {
-			IEntity composite = iterator.next();
+		for (IEntity composite = iterator.evaluateNext(); composite != null; composite = iterator.evaluateNext()) {
 			((IXmlEntity) composite).accept(this);
 
 			// move Content's children in place of Content entity

@@ -32,7 +32,7 @@ import org.whole.lang.grammars.model.Production;
 import org.whole.lang.grammars.model.Rule;
 import org.whole.lang.grammars.reflect.GrammarsEntityDescriptorEnum;
 import org.whole.lang.grammars.util.GrammarsUtils;
-import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.IDecorationManager;
@@ -127,9 +127,11 @@ public class GenericGrammarBasedValidatorVisitor extends GenericIdentityVisitor 
 
 		calculateDataTerminals(grammar);
 
-		IEntityIterator<IEntity> iterator = executableFactory().createDescendantOrSelfMatcher().withPattern(EntityKinds.DATA);
+		ExecutableFactory f = executableFactory();
+		IExecutable<IEntity> iterator = f.createFilter(f.createDescendantOrSelf(), f.createHasKind(EntityKinds.DATA));
 		iterator.reset(entity);
-		while (iterator.hasNext())
-			validateDataTerminal(iterator.next());
+		for (IEntity e = iterator.evaluateNext(); e != null;
+					 e = iterator.evaluateNext())
+			validateDataTerminal(e);
 	}
 }

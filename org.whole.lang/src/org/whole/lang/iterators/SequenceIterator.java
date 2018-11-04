@@ -39,7 +39,7 @@ public class SequenceIterator<E extends IEntity> extends AbstractLazyCloneableCo
 	protected int iteratorIndex;
 	private E nextEntity = null;
 
-	protected SequenceIterator(IEntityIterator<? extends E>... iteratorChain) {
+	public SequenceIterator(IEntityIterator<? extends E>... iteratorChain) {
 		this.iteratorChain = iteratorChain;
 		initLazyClone(false);
 	}

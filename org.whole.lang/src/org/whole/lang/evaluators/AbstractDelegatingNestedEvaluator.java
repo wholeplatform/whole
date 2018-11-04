@@ -59,7 +59,7 @@ public abstract class AbstractDelegatingNestedEvaluator<E extends IEntity> exten
 	protected boolean isValidResultProducer() {
 		return isValidProducer();
 	}
-	protected IExecutable<?> getProducer() {
+	protected IExecutable<IEntity> getProducer() {
 		return getProducer(producerIndex);
 	}
 	protected void selectFollowingProducer() {
@@ -147,21 +147,18 @@ public abstract class AbstractDelegatingNestedEvaluator<E extends IEntity> exten
 			getProducer().prune();
 	}
 
-	@SuppressWarnings("unchecked")
 	public void set(E entity) {
     	if (!isValidResultProducer())
     		throw new IllegalStateException();
 
     	((IExecutable<? super E>) getProducer()).set(entity);
 	}
-	@SuppressWarnings("unchecked")
 	public void add(E entity) {
     	if (!isValidResultProducer())
     		throw new IllegalStateException();
 
 		((IExecutable<? super E>) getProducer()).add(entity);
 	}
-
 	public void remove() {
     	if (!isValidResultProducer())
     		throw new IllegalStateException();

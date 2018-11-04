@@ -43,6 +43,34 @@ public class TupleFactoryEvaluator extends AbstractPointwiseEvaluator {
 		return true;
 	}
 
+    public void prune() {
+    }
+	public void set(IEntity entity) {
+    	if (lastEntity == null)
+    		throw new IllegalStateException();
+
+    	if (EntityUtils.hasParent(lastEntity))
+    		lastEntity.wGetParent().wSet(lastEntity, entity);
+    	lastEntity = entity;
+	}
+	public void add(IEntity entity) {
+    	if (lastEntity == null)
+    		throw new IllegalStateException();
+
+    	if (EntityUtils.hasParent(lastEntity)) {
+    		IEntity lastEntityParent = lastEntity.wGetParent();
+    		lastEntityParent.wAdd(lastEntityParent.wIndexOf(lastEntity), entity);
+    	}
+	}
+	public void remove() {
+    	if (lastEntity == null)
+    		throw new IllegalStateException();
+
+    	if (EntityUtils.hasParent(lastEntity))
+    		lastEntity.wGetParent().wRemove(lastEntity);
+    	lastEntity = null;
+	}
+
 	protected IEntity evaluateNestedResults() {
 		return BindingManagerFactory.instance.createTuple(nestedResults);
 	}

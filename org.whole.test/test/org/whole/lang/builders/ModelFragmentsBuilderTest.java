@@ -18,13 +18,14 @@
 package org.whole.lang.builders;
 
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.whole.lang.builders.builder.ModelFeaturesBuilder;
-import org.whole.lang.iterators.AbstractPatternFilterIterator;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.iterators.ExecutableFactory;
+import org.whole.lang.model.IEntity;
 import org.whole.lang.models.codebase.ModelsModel;
 import org.whole.lang.models.factories.ModelsEntityFactory;
 import org.whole.lang.models.model.Feature;
@@ -51,9 +52,11 @@ public class ModelFragmentsBuilderTest {
 
 		int count = 0;
 		Model model = modelsModel.create();
-		AbstractPatternFilterIterator<Feature> i = ExecutableFactory.instance.<Feature>createDescendantOrSelfMatcher().withPattern(ModelsEntityDescriptorEnum.Feature);
+		ExecutableFactory f = ExecutableFactory.instance;
+		IExecutable<IEntity> i = f.createFilter(f.createDescendantOrSelf(), f.createHasType(ModelsEntityDescriptorEnum.Feature.getURI()));
 		i.reset(model);
-		for (Feature feature : i)
+		for (Feature feature = (Feature) i.evaluateNext(); feature != null;
+					 feature = (Feature) i.evaluateNext())
 			if (EntityUtils.isNotResolver(feature))
 				count++;
 
@@ -70,10 +73,12 @@ public class ModelFragmentsBuilderTest {
 		
 		int count = 0;
 		Model model = modelsModel.create();
-		AbstractPatternFilterIterator<Feature> i = ExecutableFactory.instance.<Feature>createDescendantOrSelfMatcher().withPattern(ModelsEntityDescriptorEnum.Feature);
+		ExecutableFactory f = ExecutableFactory.instance;
+		IExecutable<IEntity> i = f.createFilter(f.createDescendantOrSelf(), f.createHasType(ModelsEntityDescriptorEnum.Feature.getURI()));
 		i.reset(model);
-		for (Feature feature : i)
-			if (EntityUtils.isNotResolver(feature))
+		for (Feature feature = (Feature) i.evaluateNext(); feature != null;
+				 feature = (Feature) i.evaluateNext())
+		if (EntityUtils.isNotResolver(feature))
 				count++;
 
 		assertEquals(features.wSize(), count);

@@ -39,7 +39,6 @@ import org.whole.lang.util.IRunnable;
  */
 public interface ExecutableFactory {
 //TODO switch comment to test a specific factory
-//	public static ExecutableFactory regularInstance = new IteratorBasedExecutableFactory();
 //	public static ExecutableFactory regularInstance = new StepperBasedExecutableFactory();
 	public static ExecutableFactory regularInstance = new RegularExecutableFactory();
 	public static ExecutableFactory instrumentedInstance = new InstrumentedExecutableFactory();
@@ -177,10 +176,6 @@ public interface ExecutableFactory {
 
 	<E extends IEntity> IExecutable<E> createDescendantOrReachable(boolean includeSelf, DistinctScope<E> distinctScope);
 
-	<E extends IEntity> ScannerIterator<E> createScanner(IExecutable<E> executable);
-
-	<E extends IEntity> MatcherIterator<E> createMatcher(IExecutable<E> executable);
-
 	<E extends IEntity> IExecutable<E> createFilter(IExecutable<E> executable, IExecutable<? extends IEntity> filterExecutable);
 
 	IExecutable<IEntity> createMatchInScope(IExecutable<IEntity> patternExecutable);
@@ -234,28 +229,6 @@ public interface ExecutableFactory {
 
 	@SuppressWarnings("unchecked")
 	IExecutable<IEntity> createExcept(IEntityComparator<IEntity> comparator, IExecutable<IEntity>... executables);
-
-	<E extends IEntity> IExecutable<E> createAncestorScanner();
-
-	<E extends IEntity> ScannerIterator<E> createChildScanner();
-
-	<E extends IEntity> ScannerIterator<E> createChildReverseScanner();
-
-	<E extends IEntity> ScannerIterator<E> createDescendantOrSelfScanner();
-
-	<E extends IEntity> ScannerIterator<E> createDescendantOrSelfReverseScanner();
-
-	<E extends IEntity> MatcherIterator<E> createAncestorMatcher();
-
-	<E extends IEntity> MatcherIterator<E> createAncestorOrSelfMatcher();
-
-	<E extends IEntity> MatcherIterator<E> createChildMatcher();
-
-	<E extends IEntity> MatcherIterator<E> createChildReverseMatcher();
-
-	<E extends IEntity> MatcherIterator<E> createDescendantOrSelfMatcher();
-
-	<E extends IEntity> MatcherIterator<E> createDescendantOrSelfReverseMatcher();
 
 	IExecutable<IEntity> createAtStage(int stage);
 

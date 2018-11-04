@@ -28,7 +28,6 @@ import org.whole.lang.codebase.PersistenceTest;
 import org.whole.lang.codebase.PushPullOperationsTest;
 import org.whole.lang.executables.ExecutableFactoryTest;
 import org.whole.lang.iterators.IteratorFactoryTest;
-import org.whole.lang.iterators.ScannerTest;
 import org.whole.lang.java.JDTJavaSourcePersistenceTest;
 import org.whole.lang.java.codebase.JavaClassTemplateFactoryTest;
 import org.whole.lang.java.util.JavaReflectUtilsTest;
@@ -46,7 +45,7 @@ import org.whole.lang.util.StringUtilsTest;
 import org.whole.lang.visitors.TraversalFactoryTest;
 
 /**
- * Runs: 135
+ * Runs: 126
  * Errors: 0
  * Failures: 0
  * 
@@ -69,7 +68,6 @@ import org.whole.lang.visitors.TraversalFactoryTest;
 	GenericMatcherTestSuite.class,
 	ExecutableFactoryTest.class,
 	IteratorFactoryTest.class,
-	ScannerTest.class,
 	ResourceTemplateTest.class,
 
 	ResourceArtifactsGeneratorTest.class,

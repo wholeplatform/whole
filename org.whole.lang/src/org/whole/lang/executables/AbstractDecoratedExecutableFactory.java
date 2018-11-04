@@ -23,9 +23,7 @@ import java.util.Set;
 import org.whole.lang.comparators.IEntityComparator;
 import org.whole.lang.iterators.DistinctScope;
 import org.whole.lang.iterators.ExecutableFactory;
-import org.whole.lang.iterators.MatcherIterator;
 import org.whole.lang.iterators.Placement;
-import org.whole.lang.iterators.ScannerIterator;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.CompositeKinds;
 import org.whole.lang.reflect.DataKinds;
@@ -299,14 +297,6 @@ public class AbstractDecoratedExecutableFactory implements ExecutableFactory {
 		return decorate(factory.createDescendantOrReachable(includeSelf, distinctScope));
 	}
 
-	public <E extends IEntity> ScannerIterator<E> createScanner(IExecutable<E> executable) {
-		return factory .createScanner(executable);
-	}
-
-	public <E extends IEntity> MatcherIterator<E> createMatcher(IExecutable<E> executable) {
-		return factory .createMatcher(executable);
-	}
-
 	public <E extends IEntity> IExecutable<E> createFilter(IExecutable<E> executable, IExecutable<? extends IEntity> filterExecutable) {
 		return decorate(factory.createFilter(executable, filterExecutable));
 	}
@@ -401,50 +391,6 @@ public class AbstractDecoratedExecutableFactory implements ExecutableFactory {
 	@SuppressWarnings("unchecked")
 	public IExecutable<IEntity> createExcept(IEntityComparator<IEntity> comparator, IExecutable<IEntity>... executables) {
 		return decorate(factory.createExcept(comparator, executables));
-	}
-
-	public <E extends IEntity> IExecutable<E> createAncestorScanner() {
-		return decorate(factory.createAncestorScanner());
-	}
-
-	public <E extends IEntity> ScannerIterator<E> createChildScanner() {
-		return factory .createChildScanner();
-	}
-
-	public <E extends IEntity> ScannerIterator<E> createChildReverseScanner() {
-		return factory .createChildReverseScanner();
-	}
-
-	public <E extends IEntity> ScannerIterator<E> createDescendantOrSelfScanner() {
-		return factory .createDescendantOrSelfScanner();
-	}
-
-	public <E extends IEntity> ScannerIterator<E> createDescendantOrSelfReverseScanner() {
-		return factory .createDescendantOrSelfReverseScanner();
-	}
-
-	public <E extends IEntity> MatcherIterator<E> createAncestorMatcher() {
-		return factory .createAncestorMatcher();
-	}
-
-	public <E extends IEntity> MatcherIterator<E> createAncestorOrSelfMatcher() {
-		return factory .createAncestorOrSelfMatcher();
-	}
-
-	public <E extends IEntity> MatcherIterator<E> createChildMatcher() {
-		return factory .createChildMatcher();
-	}
-
-	public <E extends IEntity> MatcherIterator<E> createChildReverseMatcher() {
-		return factory .createChildReverseMatcher();
-	}
-
-	public <E extends IEntity> MatcherIterator<E> createDescendantOrSelfMatcher() {
-		return factory .createDescendantOrSelfMatcher();
-	}
-
-	public <E extends IEntity> MatcherIterator<E> createDescendantOrSelfReverseMatcher() {
-		return factory .createDescendantOrSelfReverseMatcher();
 	}
 
 	public IExecutable<IEntity> createAtStage(int stage) {

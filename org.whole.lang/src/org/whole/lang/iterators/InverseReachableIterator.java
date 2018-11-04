@@ -38,8 +38,8 @@ public class InverseReachableIterator extends AbstractTransitiveClosureIterator<
 	}
     @Override
     protected IEntityIterator<IEntity> createRelationIterator() {
-    	return executableFactory().createMatcher(
-    			executableFactory().createInverseAdjacent()).withPattern(distinctScope.distinctMatcher());
+    	return executableFactory().createFilter(
+    			executableFactory().createInverseAdjacent(), distinctScope.distinctExecutable()).iterator();
     }
 
     @Override

@@ -31,7 +31,7 @@ import org.whole.lang.visitors.IVisitor;
  * @author Riccardo Solmi
  */
 public class MatcherIterator<E extends IEntity> extends AbstractPatternFilterIterator<E> {
-	protected MatcherIterator(IEntityIterator<E> iterator) {
+	public MatcherIterator(IEntityIterator<E> iterator) {
 		super(iterator);
 	}
 

@@ -17,16 +17,16 @@
  */
 package org.whole.lang.builders;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.whole.lang.codebase.ClasspathPersistenceProvider;
 import org.whole.lang.commons.model.Variable;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.factories.GenericEntityFactory;
 import org.whole.lang.iterators.ExecutableFactory;
-import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.matchers.GenericMatcherFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.EntityDescriptor;
@@ -54,17 +54,18 @@ public class GenericForwardSpecificBuilderTest {
 		IEntity newEntity = mop.wGetResult();
 
 		// to match variables fill variables with defaults
-		IEntityIterator<IEntity> variableIterator = ExecutableFactory.instance.<IEntity>createDescendantOrSelfMatcher()
-				.withPattern(GenericMatcherFactory.instance.isVariableMatcher());
+		ExecutableFactory f = ExecutableFactory.instance;
+		IExecutable<IEntity> variableIterator = f.createFilter(f.createDescendantOrSelf(), f.createIsVariable());
 		variableIterator.reset(entity);
-		IEntityIterator<IEntity> newVariableIterator = ExecutableFactory.instance.<IEntity>createDescendantOrSelfMatcher()
-				.withPattern(GenericMatcherFactory.instance.isVariableMatcher());
+		IExecutable<IEntity> newVariableIterator = f.createFilter(f.createDescendantOrSelf(), f.createIsVariable());
 		newVariableIterator.reset(newEntity);
-		while (variableIterator.hasNext()) {
-			assertTrue(newVariableIterator.hasNext());
+		
+		for (IEntity e1 = variableIterator.evaluateNext(), e2 = newVariableIterator.evaluateNext(); e1 != null;
+				e1 = variableIterator.evaluateNext(), e2 = newVariableIterator.evaluateNext()) {
+			assertTrue(e2 != null);
 
-			Variable variable = (Variable) variableIterator.next().wGetAdaptee(false);
-			Variable newVariable = (Variable) newVariableIterator.next().wGetAdaptee(false);
+			Variable variable = (Variable) e1.wGetAdaptee(false);
+			Variable newVariable = (Variable) e2.wGetAdaptee(false);
 
 			EntityDescriptor<?> ed = variable.getVarType().getValue();
 			EntityDescriptor<?> newEd = newVariable.getVarType().getValue();

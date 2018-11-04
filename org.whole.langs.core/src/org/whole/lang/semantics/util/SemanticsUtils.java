@@ -55,8 +55,6 @@ import org.whole.lang.util.FreshNameGenerator;
 import org.whole.lang.util.IRunnable;
 import org.whole.lang.util.ResourceUtils;
 import org.whole.lang.util.StringUtils;
-import org.whole.lang.visitors.GenericIdentityVisitor;
-import org.whole.lang.visitors.VisitException;
 
 /**
  * @author Riccardo Solmi
@@ -260,20 +258,18 @@ public class SemanticsUtils {
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	public static boolean inStageDownContext(IEntity entity) {
-		IEntity ancestor = Matcher.findAncestor(new GenericIdentityVisitor() {
-			public void visit(IEntity entity) {
-				EntityDescriptor<?> ed = entity.wGetEntityDescriptor();
-				if (!(ed.equals(SemanticsEntityDescriptorEnum.ExecutionRule) ||
-						ed.equals(SemanticsEntityDescriptorEnum.InputBinding) ||
-						ed.equals(SemanticsEntityDescriptorEnum.FunctionApplication) ||
-//						ed.equals(SemanticsEntityDescriptorEnum.TypeCast) ||
-						ed.equals(SemanticsEntityDescriptorEnum.EnvironmentVariable) ||
-						ed.equals(SemanticsEntityDescriptorEnum.VariableValue) ||
-						EntityUtils.isFragment(ed)))
-					throw new VisitException();
-			}
-		}, entity);
+		ExecutableFactory ef = ExecutableFactory.instance;
+		IEntity ancestor = Matcher.findAncestor(ef.createNot(ef.createOr(
+				ef.createHasType(SemanticsEntityDescriptorEnum.ExecutionRule.getURI()),
+				ef.createHasType(SemanticsEntityDescriptorEnum.InputBinding.getURI()),
+				ef.createHasType(SemanticsEntityDescriptorEnum.FunctionApplication.getURI()),
+//				ef.createHasType(SemanticsEntityDescriptorEnum.TypeCast.getURI()),
+				ef.createHasType(SemanticsEntityDescriptorEnum.EnvironmentVariable.getURI()),
+				ef.createHasType(SemanticsEntityDescriptorEnum.VariableValue.getURI()),
+				ef.createIsFragment()
+				)), entity);
 		return ancestor != null && (
 				Matcher.match(SemanticsEntityDescriptorEnum.VariableValue, ancestor) ||
 				EntityUtils.isStageUpFragment(ancestor));

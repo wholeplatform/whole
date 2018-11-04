@@ -17,15 +17,20 @@
  */
 package org.whole.lang.queries.util;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.util.HashSet;
 import java.util.Set;
-
-import static org.junit.Assert.*;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.grammars.model.As;
 import org.whole.lang.grammars.model.Grammar;
 import org.whole.lang.grammars.model.NonTerminal;
@@ -332,11 +337,12 @@ public class SelectQueriesTest {
 
 		PathExpression pe1 = (PathExpression) tm.create("selectTemplateFromPathWithPattern");
 
-		IEntityIterator<Feature> featureIterator = ExecutableFactory.instance.<Feature>createDescendantOrSelfMatcher().withPattern(ModelsEntityDescriptorEnum.Feature);
+		ExecutableFactory f = ExecutableFactory.instance;
+		IExecutable<IEntity> featureIterator = f.createFilter(f.createDescendantOrSelf(), f.createHasType(ModelsEntityDescriptorEnum.Feature.getURI()));
 		featureIterator.reset(m);
 
 		for (FieldDeclaration field : BehaviorUtils.<FieldDeclaration>compileAndLazyEvaluate(pe1, m)) {
-			Feature feature = featureIterator.next();
+			Feature feature = (Feature) featureIterator.evaluateNext();
 			assertEquals(feature.getType().wStringValue(), field.getType().wStringValue());
 			assertEquals(feature.getName().wStringValue(), field.getFragments().wGet(0).wGet(0).wStringValue());
 		}

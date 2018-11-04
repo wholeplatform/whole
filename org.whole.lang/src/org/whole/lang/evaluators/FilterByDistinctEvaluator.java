@@ -30,9 +30,6 @@ import org.whole.lang.executables.IExecutable;
 import org.whole.lang.iterators.DistinctScope;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
-import org.whole.lang.visitors.AbstractVisitor;
-import org.whole.lang.visitors.IVisitor;
-import org.whole.lang.visitors.VisitException;
 
 /**
  * @author Riccardo Solmi
@@ -104,39 +101,6 @@ public class FilterByDistinctEvaluator<E extends IEntity> extends AbstractDelega
 				sb.append("distinct()");
 			}
 		};
-	}
-
-	public IVisitor distinctMatcher() {
-		return new DistinctMatcherVisitor(this);
-	}
-
-	public static class DistinctMatcherVisitor extends AbstractVisitor {
-		private FilterByDistinctEvaluator<?> distinctScope;
-
-		public DistinctMatcherVisitor(FilterByDistinctEvaluator<?> distinctScope) {
-			this.distinctScope = distinctScope;
-		}
-
-		@Override
-		public IVisitor clone(ICloneContext cc) {
-			DistinctMatcherVisitor visitor = (DistinctMatcherVisitor) super.clone(cc);
-			visitor.distinctScope = cc.clone(distinctScope);
-			return visitor;
-		}
-
-		public void visit(IEntity entity) {
-			if (!distinctScope.addDistinct(this, entity))
-				throw new VisitException();
-		}
-
-		@Override
-		public void setBindings(IBindingManager bm) {
-			distinctScope.setBindings(bm);
-		}
-
-		public void toString(StringBuilder sb) {
-			sb.append("matchDistinct()");
-		}
 	}
 
 	protected boolean addDistinct(Object distinctSetKey,  IEntity value) {

@@ -34,7 +34,6 @@ import org.whole.gen.lang.model.SimpleEntityInterfaceBuilder;
 import org.whole.gen.lang.model.adapters.EntityAdapterBuilder;
 import org.whole.gen.lang.model.impl.SimpleEntityImplBuilder;
 import org.whole.lang.executables.IExecutable;
-import org.whole.lang.iterators.AbstractPatternFilterIterator;
 import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.AbstractBagCompositeEntity;
@@ -242,8 +241,8 @@ public class ModelsJavaModelGeneratorVisitor extends ModelsIdentityVisitor {
 	}
 
 	public void visit(Types types) {
-		AbstractPatternFilterIterator<SimpleName> i = executableFactory().<SimpleName>createChildMatcher()
-				.withPattern(ModelsEntityDescriptorEnum.SimpleName);
+		ExecutableFactory ef = executableFactory();
+		IExecutable<SimpleName> i = ef.createFilter(ef.createChild(), ef.createHasType(ModelsEntityDescriptorEnum.SimpleName.getURI()));
 		i.reset(types);
 		for (SimpleName name : i) {
 			String typeName = name.wStringValue();
@@ -573,8 +572,8 @@ public class ModelsJavaModelGeneratorVisitor extends ModelsIdentityVisitor {
 
     public void visit(SupertypesOf entity) {
     	List<String> types = new ArrayList<String>();
-		AbstractPatternFilterIterator<SimpleName> i = executableFactory().<SimpleName>createChildMatcher()
-				.withPattern(ModelsEntityDescriptorEnum.SimpleName);
+    	ExecutableFactory ef = executableFactory();
+		IExecutable<SimpleName> i = ef.createFilter(ef.createChild(), ef.createHasType(ModelsEntityDescriptorEnum.SimpleName.getURI()));
 		i.reset(entity.getTypes());
 		for (SimpleName name : i)
 			types.add(name.wStringValue());
@@ -588,8 +587,8 @@ public class ModelsJavaModelGeneratorVisitor extends ModelsIdentityVisitor {
 
     public void visit(SubtypesOf entity) {
     	List<String> types = new ArrayList<String>();
-		AbstractPatternFilterIterator<SimpleName> i = executableFactory().<SimpleName>createChildMatcher()
-				.withPattern(ModelsEntityDescriptorEnum.SimpleName);
+    	ExecutableFactory ef = executableFactory();
+		IExecutable<SimpleName> i = ef.createFilter(ef.createChild(), ef.createHasType(ModelsEntityDescriptorEnum.SimpleName.getURI()));
 		i.reset(entity.getTypes());
 		for (SimpleName name : i)
 			types.add(name.wStringValue());

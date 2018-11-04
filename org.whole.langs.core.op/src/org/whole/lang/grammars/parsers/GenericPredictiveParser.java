@@ -26,6 +26,7 @@ import org.whole.lang.builders.IBuilderOperation;
 import org.whole.lang.builders.ModelBuilderOperation;
 import org.whole.lang.commons.builders.ICommonsBuilder;
 import org.whole.lang.commons.reflect.CommonsLanguageKit;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.grammars.model.As;
 import org.whole.lang.grammars.model.Bound;
 import org.whole.lang.grammars.model.ByDelimiter;
@@ -52,7 +53,6 @@ import org.whole.lang.grammars.reflect.GrammarsFeatureDescriptorEnum;
 import org.whole.lang.grammars.reflect.GrammarsLanguageKit;
 import org.whole.lang.grammars.visitors.GrammarsIdentityVisitor;
 import org.whole.lang.grammars.visitors.GrammarsTraverseAllVisitor;
-import org.whole.lang.iterators.AbstractPatternFilterIterator;
 import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.matchers.Matcher;
@@ -91,8 +91,8 @@ public class GenericPredictiveParser extends AbstractPredictiveParser {
 			builder = op.wGetBuilder();
 
 		cb = (ICommonsBuilder) op.wGetBuilder(CommonsLanguageKit.URI);
-
-		AbstractPatternFilterIterator<Production> i = ExecutableFactory.instance.<Production>createDescendantOrSelfMatcher().withPattern(GrammarsEntityDescriptorEnum.Production);
+		ExecutableFactory f = ExecutableFactory.instance;
+		IExecutable<Production> i = f.createFilter(f.createDescendantOrSelf(), f.createIsLanguageSubtypeOf(GrammarsEntityDescriptorEnum.Production.getURI()));
 		i.reset(this.grammar);
 		for (Production production : i)
 			productionsMap.put(production.getName().getValue(), production);

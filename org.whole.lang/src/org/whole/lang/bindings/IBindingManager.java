@@ -37,6 +37,9 @@ public interface IBindingManager extends IBindingScope, ICloneable {
 
 	public static final String ECLIPSE_CONTEXT = "eclipse#eclipseContext";
 
+	public static final String FIND_SKIPTO = "findReplace#skipTo";
+	public static final String FIND_PATTERN = "findReplace#pattern";
+
 
 	public IBindingManager withSourceEntity(IEntity entity);
 

@@ -22,11 +22,12 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.commons.model.Variable;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
-import org.whole.lang.iterators.AbstractPatternFilterIterator;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.lifecycle.IHistoryManager;
 import org.whole.lang.model.IEntity;
@@ -80,75 +81,48 @@ public class Matcher {
 			return c.iterator().next();
 	}
 
-	public static IEntity findAncestor(EntityKinds kind, IEntity model) {
-		return findAncestor(GenericMatcherFactory.instance.hasKindMatcher(kind), model);
-	}
 	@SuppressWarnings("unchecked")
 	public static <E extends IEntity> E findAncestor(EntityDescriptor<E> descriptor, IEntity model) {
-		return (E) findAncestor(GenericMatcherFactory.instance.hasTypeMatcher(descriptor), model);
+		return (E) findAncestor(ExecutableFactory.instance.createHasType(descriptor.getURI()), model);
 	}
-	@SuppressWarnings("unchecked")
-	public static <E extends IEntity> E findAncestor(E pattern, IEntity model) {
-		return (E) findAncestor(GenericMatcherFactory.instance.match(pattern), model);
-	}
-	@SuppressWarnings("unchecked")
-	public static <E extends IEntity> E findAncestor(E pattern, IEntity model, IBindingManager bindings) {
-		IVisitor mv = GenericMatcherFactory.instance.matchInScope(pattern);
-		mv.setBindings(bindings);
-		return (E) findAncestor(mv, model);
-	}
-	public static IEntity findAncestor(IVisitor matcherVisitor, IEntity model) {
-		AbstractPatternFilterIterator<IEntity> i = ExecutableFactory.instance.createAncestorMatcher().withPattern(matcherVisitor);
+	public static IEntity findAncestor(IExecutable<IEntity> predicate, IEntity model) {
+		ExecutableFactory f = ExecutableFactory.instance;
+		IExecutable<IEntity> i = f.createFilter(f.createAncestor(), predicate);
 		i.reset(model);
 		for (IEntity e : i)
 			return e;
 		return null;
 	}
 
-	public static IEntity findAncestorOrSelf(EntityKinds kind, IEntity model) {
-		return findAncestorOrSelf(GenericMatcherFactory.instance.hasKindMatcher(kind), model);
-	}
 	@SuppressWarnings("unchecked")
 	public static <E extends IEntity> E findAncestorOrSelf(EntityDescriptor<E> descriptor, IEntity model) {
-		return (E) findAncestorOrSelf(GenericMatcherFactory.instance.hasTypeMatcher(descriptor), model);
+		return (E) findAncestorOrSelf(ExecutableFactory.instance.createHasType(descriptor.getURI()), model);
 	}
-	@SuppressWarnings("unchecked")
-	public static <E extends IEntity> E findAncestorOrSelf(E pattern, IEntity model) {
-		return (E) findAncestorOrSelf(GenericMatcherFactory.instance.match(pattern), model);
-	}
-	@SuppressWarnings("unchecked")
-	public static <E extends IEntity> E findAncestorOrSelf(E pattern, IEntity model, IBindingManager bindings) {
-		IVisitor mv = GenericMatcherFactory.instance.matchInScope(pattern);
-		mv.setBindings(bindings);
-		return (E) findAncestorOrSelf(mv, model);
-	}
-	public static IEntity findAncestorOrSelf(IVisitor matcherVisitor, IEntity model) {
-		AbstractPatternFilterIterator<IEntity> i = ExecutableFactory.instance.createAncestorOrSelfMatcher().withPattern(matcherVisitor);
+	public static IEntity findAncestorOrSelf(IExecutable<IEntity> predicate, IEntity model) {
+		ExecutableFactory f = ExecutableFactory.instance;
+		IExecutable<IEntity> i = f.createFilter(f.createAncestorOrSelf(), predicate);
 		i.reset(model);
 		for (IEntity e : i)
 			return e;
 		return null;
 	}
 
-	public static IEntity findChild(EntityKinds kind, IEntity model) {
-		return findChild(GenericMatcherFactory.instance.hasKindMatcher(kind), model);
-	}
 	@SuppressWarnings("unchecked")
 	public static <E extends IEntity> E findChild(EntityDescriptor<E> descriptor, IEntity model) {
-		return (E) findChild(GenericMatcherFactory.instance.hasTypeMatcher(descriptor), model);
+		return (E) findChild(ExecutableFactory.instance.createHasType(descriptor.getURI()), model);
 	}
 	@SuppressWarnings("unchecked")
 	public static <E extends IEntity> E findChild(E pattern, IEntity model) {
-		return (E) findChild(GenericMatcherFactory.instance.match(pattern), model);
+		ExecutableFactory f = ExecutableFactory.instance;
+		return (E) findChild(f.createMatchInScope(f.createConstant(pattern, false)), model);
 	}
-	@SuppressWarnings("unchecked")
-	public static <E extends IEntity> E findChild(E pattern, IEntity model, IBindingManager bindings) {
-		IVisitor mv = GenericMatcherFactory.instance.matchInScope(pattern);
-		mv.setBindings(bindings);
-		return (E) findChild(mv, model);
+	public static IEntity findChild(IExecutable<IEntity> predicate, IEntity model) {
+		return findChild(predicate, model, BindingManagerFactory.instance.createBindingManager());
 	}
-	public static IEntity findChild(IVisitor matcherVisitor, IEntity model) {
-		AbstractPatternFilterIterator<IEntity> i = ExecutableFactory.instance.createChildMatcher().withPattern(matcherVisitor);
+	public static IEntity findChild(IExecutable<IEntity> predicate, IEntity model, IBindingManager bm) {
+		ExecutableFactory f = ExecutableFactory.instance(bm);
+		IExecutable<IEntity> i = f.createFilter(f.createChild(), predicate);
+		i.setBindings(bm);
 		i.reset(model);
 		for (IEntity e : i)
 			return e;
@@ -356,8 +330,8 @@ public class Matcher {
 	public static boolean removeVars(IEntity pattern, boolean force) {
 		boolean allVarsAreOptional = true;
 
-		AbstractPatternFilterIterator<IEntity> variableIterator = ExecutableFactory.instance.createDescendantOrSelfMatcher()
-				.withPattern(GenericMatcherFactory.instance.isVariableMatcher());
+		ExecutableFactory f = ExecutableFactory.instance;
+		IExecutable<IEntity> variableIterator = f.createFilter(f.createDescendantOrSelf(), f.createIsVariable());
 		variableIterator.reset(pattern);
 		for (IEntity variableAdapter : variableIterator) {
 			Variable variable = (Variable) variableAdapter.wGetAdaptee(false);
@@ -377,8 +351,8 @@ public class Matcher {
 
 		boolean allVarsAreOptional = true;
 
-		AbstractPatternFilterIterator<IEntity> variableIterator = ExecutableFactory.instance.createDescendantOrSelfMatcher()
-				.withPattern(GenericMatcherFactory.instance.isVariableMatcher());
+		ExecutableFactory f = ExecutableFactory.instance;
+		IExecutable<IEntity> variableIterator = f.createFilter(f.createDescendantOrSelf(), f.createIsVariable());
 		variableIterator.reset(pattern);
 		for (IEntity variableAdapter : variableIterator) {
 			Variable variable = (Variable) variableAdapter.wGetAdaptee(false);
@@ -395,8 +369,8 @@ public class Matcher {
 	public static Set<String> vars(IEntity pattern, boolean includeOptionals) {
 		Set<String> names = new HashSet<String>();
 
-		AbstractPatternFilterIterator<IEntity> variableIterator = ExecutableFactory.instance.createDescendantOrSelfMatcher()
-				.withPattern(GenericMatcherFactory.instance.isVariableMatcher());
+		ExecutableFactory f = ExecutableFactory.instance;
+		IExecutable<IEntity> variableIterator = f.createFilter(f.createDescendantOrSelf(), f.createIsVariable());
 		variableIterator.reset(pattern);
 		for (IEntity variableAdapter : variableIterator) {
 			Variable variable = (Variable) variableAdapter.wGetAdaptee(false);

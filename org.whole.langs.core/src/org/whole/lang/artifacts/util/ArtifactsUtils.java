@@ -47,7 +47,6 @@ import org.whole.lang.factories.IEntityFactory;
 import org.whole.lang.factories.RegistryConfigurations;
 import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.matchers.GenericMatcherFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.EntityDescriptor;
@@ -56,7 +55,6 @@ import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.util.DataTypeUtils;
 import org.whole.lang.util.EntityUtils;
-import org.whole.lang.visitors.GenericTraversalFactory;
 
 /**
  * @author Enrico Persiani
@@ -117,9 +115,7 @@ public class ArtifactsUtils {
 		return getChild(entity, child) != null;
 	}
 	public static IEntity getChild(IEntity entity, IEntity child) {
-		IEntityIterator<IEntity> iterator = ExecutableFactory.instance.createChildMatcher().withPattern(createPattern(child));
-		iterator.reset(entity);
-		return iterator.hasNext() ? iterator.next() : null;
+		return Matcher.findChild(createPattern(child), entity);
 	}
 	private static IEntity createPattern(IEntity child) {
 		IEntity pattern = EntityUtils.clone(child);
@@ -155,11 +151,10 @@ public class ArtifactsUtils {
 
 	public static IPersistenceKit calculateInheritedPersistence(IEntity model, IPersistenceKit defaultPersistenceKit) {
 		if (model != null) {
-			IEntityIterator<IEntity> iterator = ExecutableFactory.instance.createScanner(
-						ExecutableFactory.instance.createAncestorOrSelf())
-								.withPattern(GenericTraversalFactory.instance.one(
-										GenericMatcherFactory.instance.isFragmentMatcher(),
-										GenericMatcherFactory.instance.hasKindMatcher(EntityKinds.COMPOSITE)));
+			ExecutableFactory ef = ExecutableFactory.instance;
+			IEntityIterator<IEntity> iterator = ef.createFilter(
+					ef.createAncestorOrSelf(),
+					ef.createSome(ef.createIsFragment(), ef.createHasKind(EntityKinds.COMPOSITE))).iterator();
 			iterator.getBindings().enforceSelfBinding(model);
 			iterator.reset(model);
 			while (iterator.hasNext()) {

@@ -23,8 +23,8 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.iterators.ExecutableFactory;
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.java.reflect.JavaEntityDescriptorEnum;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
@@ -72,20 +72,16 @@ public class TestsInterpreterVisitorTest {
 		Assert.assertEquals(0, result.wGet(2).wIntValue());
 
 		// remove timestamps from both the models
-		IEntityIterator<IEntity> iterator = ExecutableFactory.instance.createDescendantOrSelfMatcher()
-				.withPattern(JavaEntityDescriptorEnum.LongLiteral);
+		ExecutableFactory f = ExecutableFactory.instance;
+		IExecutable<IEntity> iterator = f.createFilter(f.createDescendantOrSelf(), f.createHasType(JavaEntityDescriptorEnum.LongLiteral.getURI()));
 		iterator.reset(testSuiteToComplete);
-		while (iterator.hasNext()) {
-			iterator.next();
+		while (iterator.evaluateNext() != null)
 			iterator.remove();
-		}
-		iterator = ExecutableFactory.instance.createDescendantOrSelfMatcher()
-				.withPattern(JavaEntityDescriptorEnum.LongLiteral);
+
+		iterator = f.createFilter(f.createDescendantOrSelf(), f.createHasType(JavaEntityDescriptorEnum.LongLiteral.getURI()));
 		iterator.reset(testSuiteCompleted);
-		while (iterator.hasNext()) {
-			iterator.next();
+		while (iterator.evaluateNext() != null)
 			iterator.remove();
-		}
 
 		Assert.assertTrue(Matcher.match(testSuiteCompleted, testSuiteToComplete));
 	}

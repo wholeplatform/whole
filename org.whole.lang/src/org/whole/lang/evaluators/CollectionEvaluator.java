@@ -77,17 +77,17 @@ public class CollectionEvaluator<E extends IEntity> extends AbstractExecutableEv
 		return collectionIterator.hasNext() ? lastEntity = elementWrapper.createEntity(collectionIterator.next()) : null;
 	}
 
-//	@Override
-//	public E evaluateRemaining() {
-//		if (collectionIterator.hasNext()) {
-//			Object value = null;
-//			do {
-//				value = collectionIterator.next();
-//			} while (collectionIterator.hasNext());
-//			return lastEntity = elementWrapper.createEntity(value);			
-//		} else
-//			return null;
-//	}
+	@Override
+	public E evaluateRemaining() {
+		if (collectionIterator.hasNext()) {
+			Object value = null;
+			do {
+				value = collectionIterator.next();
+			} while (collectionIterator.hasNext());
+			return lastEntity = elementWrapper.createEntity(value);			
+		} else
+			return null;
+	}
 
 	public void prune() {
 	}

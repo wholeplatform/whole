@@ -37,8 +37,7 @@ public class ReachableIterator<E extends IEntity> extends AbstractTransitiveClos
 	}
     @Override
     protected IEntityIterator<E> createRelationIterator() {
-    	return executableFactory().createMatcher(
-    			executableFactory().<E>createAdjacent()).withPattern(distinctScope.distinctMatcher());
+    	return executableFactory().createFilter(executableFactory().<E>createAdjacent(), distinctScope.distinctExecutable()).iterator();
     }
 
     @Override

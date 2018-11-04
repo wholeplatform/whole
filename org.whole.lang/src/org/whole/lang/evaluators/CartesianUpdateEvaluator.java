@@ -44,6 +44,31 @@ public class CartesianUpdateEvaluator extends AbstractCartesianEvaluator {
 	}
 
 	@Override
+	public void prune() {
+		if (isValidResultProducer())
+			getProducer(0).prune();
+	}
+
+	public void set(IEntity entity) {
+    	if (!isValidResultProducer())
+    		throw new IllegalStateException();
+
+    	getProducer(0).set(entity);
+	}
+	public void add(IEntity entity) {
+    	if (!isValidResultProducer())
+    		throw new IllegalStateException();
+
+		getProducer(0).add(entity);
+	}
+	public void remove() {
+    	if (!isValidResultProducer())
+    		throw new IllegalStateException();
+
+		getProducer(0).remove();
+	}
+
+	@Override
 	protected String toStringPrefix() {
 		return "update(";
 	}

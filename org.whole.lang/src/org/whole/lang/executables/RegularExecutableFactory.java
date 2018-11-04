@@ -17,12 +17,15 @@
  */
 package org.whole.lang.executables;
 
+import java.util.Map;
 import java.util.Set;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
+import org.whole.lang.commons.model.Variable;
 import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
+import org.whole.lang.commons.visitors.CommonsInterpreterVisitor;
 import org.whole.lang.comparators.IEntityComparator;
 import org.whole.lang.comparators.ObjectIdentityComparator;
 import org.whole.lang.evaluators.AbstractDelegatingNestedSupplierEvaluator;
@@ -34,6 +37,7 @@ import org.whole.lang.evaluators.AdjacentEvaluator;
 import org.whole.lang.evaluators.AncestorEvaluator;
 import org.whole.lang.evaluators.AncestorOrSelfReverseEvaluator;
 import org.whole.lang.evaluators.AncestorReverseEvaluator;
+import org.whole.lang.evaluators.AspectEvaluator;
 import org.whole.lang.evaluators.CartesianInsertEvaluator;
 import org.whole.lang.evaluators.CartesianProductEvaluator;
 import org.whole.lang.evaluators.CartesianUpdateEvaluator;
@@ -41,6 +45,7 @@ import org.whole.lang.evaluators.ChildEvaluator;
 import org.whole.lang.evaluators.ChildOrAdjacentEvaluator;
 import org.whole.lang.evaluators.ChildRangeEvaluator;
 import org.whole.lang.evaluators.ChooseByOrderEvaluator;
+import org.whole.lang.evaluators.ChooseByTypeEvaluator;
 import org.whole.lang.evaluators.CloneReplacingEvaluator;
 import org.whole.lang.evaluators.CollectionEvaluator;
 import org.whole.lang.evaluators.ConstantChildEvaluator;
@@ -59,6 +64,7 @@ import org.whole.lang.evaluators.FilterEvaluator;
 import org.whole.lang.evaluators.FollowingEvaluator;
 import org.whole.lang.evaluators.FollowingSiblingEvaluator;
 import org.whole.lang.evaluators.ForEvaluator;
+import org.whole.lang.evaluators.FunctionApplicationEvaluator;
 import org.whole.lang.evaluators.IfEvaluator;
 import org.whole.lang.evaluators.IntersectEvaluator;
 import org.whole.lang.evaluators.InverseAdjacentEvaluator;
@@ -75,6 +81,7 @@ import org.whole.lang.evaluators.PointwiseUpdateEvaluator;
 import org.whole.lang.evaluators.PrecedingEvaluator;
 import org.whole.lang.evaluators.PrecedingSiblingEvaluator;
 import org.whole.lang.evaluators.ReachableEvaluator;
+import org.whole.lang.evaluators.RecursiveFunctionApplicationEvaluator;
 import org.whole.lang.evaluators.SingleValuedRunnableEvaluator;
 import org.whole.lang.evaluators.SingleValuedRunnableSupplierEvaluator;
 import org.whole.lang.evaluators.SortEvaluator;
@@ -82,11 +89,16 @@ import org.whole.lang.evaluators.TupleFactoryEvaluator;
 import org.whole.lang.evaluators.UnionAllEvaluator;
 import org.whole.lang.evaluators.UnionEvaluator;
 import org.whole.lang.evaluators.VariableEvaluator;
-import org.whole.lang.iterators.AbstractIteratorBasedExecutableFactory;
+import org.whole.lang.iterators.AbstractMultiValuedRunnableIterator;
+import org.whole.lang.iterators.BlockIterator;
+import org.whole.lang.iterators.CallIterator;
 import org.whole.lang.iterators.DistinctScope;
-import org.whole.lang.iterators.MatcherIterator;
+import org.whole.lang.iterators.ExecutableFactory;
+import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.Placement;
-import org.whole.lang.iterators.ScannerIterator;
+import org.whole.lang.iterators.SelectIterator;
+import org.whole.lang.iterators.SequenceIterator;
+import org.whole.lang.iterators.TemplateInterpreterIterator;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.CompositeKinds;
@@ -94,15 +106,27 @@ import org.whole.lang.reflect.DataKinds;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.EntityKinds;
 import org.whole.lang.reflect.FeatureDescriptor;
+import org.whole.lang.reflect.ILanguageKit;
 import org.whole.lang.util.BindingUtils;
 import org.whole.lang.util.EntityUtils;
 import org.whole.lang.util.IDataTypeWrapper;
 import org.whole.lang.util.IRunnable;
+import org.whole.lang.util.ResourceUtils;
 
 /**
  * @author Riccardo Solmi
  */
-public class RegularExecutableFactory extends AbstractIteratorBasedExecutableFactory {
+public class RegularExecutableFactory implements ExecutableFactory {
+	@Deprecated
+	public static <E extends IEntity> IEntityIterator<E>[] toIterators(@SuppressWarnings("unchecked") IExecutable<E>... executables) {
+		@SuppressWarnings("unchecked")
+		IEntityIterator<E>[] iterators = new IEntityIterator[executables.length];
+		for (int i=0; i<executables.length; i++)
+			iterators[i] = executables[i].iterator();
+
+		return iterators;
+	}
+
 	public <E extends IEntity> IExecutable<E> createEmpty() {
 		return new EmptyExecutable<E>();
 	}
@@ -272,6 +296,10 @@ public class RegularExecutableFactory extends AbstractIteratorBasedExecutableFac
 		return new FeatureByIndexEvaluator(relativeIndex);
 	}
 
+	public IExecutable<IEntity> createAspect() {
+		return new AspectEvaluator();
+	}
+
 	public <E extends IEntity> IExecutable<E> createChild() {
 		return new ChildEvaluator<E>(true);
 	}
@@ -418,11 +446,21 @@ public class RegularExecutableFactory extends AbstractIteratorBasedExecutableFac
 	public <E extends IEntity> IExecutable<E> createChoose(IExecutable<? extends E>... executableChain) {
 		return (IExecutable<E>) new ChooseByOrderEvaluator((IExecutable<IEntity>[]) executableChain);
 	}
+	@SuppressWarnings("unchecked")
+	public <E extends IEntity> IExecutable<E> createChoose(ILanguageKit languageKit) {
+		return (IExecutable<E>) new ChooseByTypeEvaluator(languageKit);
+	}
 
+	@Deprecated
 	public <E extends IEntity> IExecutable<E> createSequence(IExecutable<? extends E>... executableChain) {
-		return super.createSequence(executableChain);
+		return new SequenceIterator<E>(toIterators(executableChain));
 //FIXME
 //		return new SequenceEvaluator<>(executableChain);
+	}
+
+	@Deprecated
+	public <E extends IEntity> IExecutable<E> createBlock(IExecutable<? extends E>... executableChain) {
+		return new BlockIterator<E>(toIterators(executableChain));
 	}
 
 	public <E extends IEntity> IExecutable<E> createFilterByIndex(IExecutable<IEntity> executable, int index) {
@@ -560,41 +598,6 @@ public class RegularExecutableFactory extends AbstractIteratorBasedExecutableFac
 	}
 	public <E extends IEntity> IExecutable<E> createSort(IExecutable<E> executable, IEntityComparator<E> comparator) {
 		return new SortEvaluator<E>(executable, comparator);
-	}
-
-	public <E extends IEntity> IExecutable<E> createAncestorScanner() {
-		return createScanner(createAncestor());
-	}
-	public <E extends IEntity> ScannerIterator<E> createChildScanner() {
-		return createScanner(createChild());
-	}
-	public <E extends IEntity> ScannerIterator<E> createChildReverseScanner() {
-		return createScanner(createChildReverse());
-	}
-	public <E extends IEntity> ScannerIterator<E> createDescendantOrSelfScanner() {
-		return createScanner(createDescendantOrSelf());
-	}
-	public <E extends IEntity> ScannerIterator<E> createDescendantOrSelfReverseScanner() {
-		return createScanner(createDescendantOrSelfReverse());
-	}
-
-	public <E extends IEntity> MatcherIterator<E> createAncestorMatcher() {
-		return createMatcher(createAncestor());
-	}
-	public <E extends IEntity> MatcherIterator<E> createAncestorOrSelfMatcher() {
-		return createMatcher(createAncestorOrSelf());
-	}
-	public <E extends IEntity> MatcherIterator<E> createChildMatcher() {
-		return createMatcher(createChild());
-	}
-	public <E extends IEntity> MatcherIterator<E> createChildReverseMatcher() {
-		return createMatcher(createChildReverse());
-	}
-	public <E extends IEntity> MatcherIterator<E> createDescendantOrSelfMatcher() {
-		return createMatcher(createDescendantOrSelf());
-	}
-	public <E extends IEntity> MatcherIterator<E> createDescendantOrSelfReverseMatcher() {
-		return createMatcher(createDescendantOrSelfReverse());
 	}
 
 	public IExecutable<IEntity> createAtStage(int stage) {
@@ -1004,7 +1007,10 @@ public class RegularExecutableFactory extends AbstractIteratorBasedExecutableFac
 	public IExecutable<IEntity> createAtType(String edUri) {
 		return new AbstractPureConditionalSupplierEvaluator<IEntity>() {
 			public IEntity get() {
-				EntityDescriptor<?> selfEd = selfEntity.wGetParent().wGetEntityDescriptor(selfEntity);
+				IEntity parent = selfEntity.wGetParent();
+				if (EntityUtils.isNull(parent))
+					return BindingManagerFactory.instance.createValue(false);
+				EntityDescriptor<?> selfEd = parent.wGetEntityDescriptor(selfEntity);
 				EntityDescriptor<?> ed = AbstractTypeRelationEvaluator.getEntityDescriptor(edUri, selfEd, getBindings());
 				return BindingManagerFactory.instance.createValue(ed != null && ed.equals(selfEd));
 			}
@@ -1020,8 +1026,13 @@ public class RegularExecutableFactory extends AbstractIteratorBasedExecutableFac
 	public IExecutable<IEntity> createAtFeature(String fdUri) {
 		return new AbstractPureConditionalSupplierEvaluator<IEntity>() {
 			public IEntity get() {
-				FeatureDescriptor selfFd = selfEntity.wGetParent().wGetFeatureDescriptor(selfEntity);
-				FeatureDescriptor fd = getFeatureDescriptor(fdUri, selfFd, getBindings());
+				IEntity parent = selfEntity.wGetParent();
+				if (EntityUtils.isNull(parent))
+					return BindingManagerFactory.instance.createValue(false);
+				FeatureDescriptor selfFd = parent.wGetFeatureDescriptor(selfEntity);
+				FeatureDescriptor fd = ResourceUtils.hasFragmentPart(fdUri) ?
+						CommonsDataTypePersistenceParser.getFeatureDescriptor(fdUri, true, getBindings())
+						: selfFd.getFeatureDescriptorEnum().valueOf(fdUri);
 				return BindingManagerFactory.instance.createValue(fd != null && fd.equals(selfFd));
 			}
 
@@ -1037,6 +1048,8 @@ public class RegularExecutableFactory extends AbstractIteratorBasedExecutableFac
 		return new AbstractPureConditionalSupplierEvaluator<IEntity>() {
 			public IEntity get() {
 				IEntity parent = selfEntity.wGetParent();
+				if (EntityUtils.isNull(parent))
+					return BindingManagerFactory.instance.createValue(false);
 				int selfIndex = parent.wIndexOf(selfEntity);
 				if (index < 0)
 					selfIndex -= parent.wSize();
@@ -1209,6 +1222,11 @@ public class RegularExecutableFactory extends AbstractIteratorBasedExecutableFac
 		};
 	}
 
+	@Deprecated
+	public <E extends IEntity> IExecutable<E> createSelect(IExecutable<E> selectExecutable, IExecutable<? extends IEntity> fromExecutable, IExecutable<? extends IEntity> whereExecutable) {
+		return new SelectIterator<E>(selectExecutable.iterator(), fromExecutable.iterator(), whereExecutable.iterator());
+	}
+
 	@SuppressWarnings("unchecked")
 	public IExecutable<?> createTupleFactory(IExecutable<?>... executables) {
 		return (IExecutable<?>) new TupleFactoryEvaluator((IExecutable<IEntity>[]) executables);
@@ -1242,6 +1260,77 @@ public class RegularExecutableFactory extends AbstractIteratorBasedExecutableFac
 
 	public <E extends IEntity> IExecutable<E> createDelete(IExecutable<IEntity> valuesExecutable) {
 		return new DeleteEvaluator<E>(valuesExecutable);
+	}
+
+	public IExecutable<IEntity> createFunctionApplication(String functionUri) {
+		return new FunctionApplicationEvaluator(functionUri);
+	}
+	public IExecutable<IEntity> createRecursiveFunctionApplication() {
+		return new RecursiveFunctionApplicationEvaluator();
+	}
+
+	@Deprecated
+	@SuppressWarnings("unchecked")
+	public <E extends IEntity> IExecutable<E> createCall(String name, IExecutable<? extends E>... argsExecutables) {
+    	return new CallIterator<E>(name, toIterators(argsExecutables));
+    }
+
+	@Deprecated
+	public <E extends IEntity> IExecutable<E> createTemplateInterpreter(IEntity template) {
+		return new TemplateInterpreterIterator<E>(template);
+	}
+
+	@Deprecated
+	public IExecutable<?> createNestedVariable() {
+		return new AbstractMultiValuedRunnableIterator<IEntity>() {
+			@Override
+			protected void run(IEntity selfEntity, IBindingManager bm) {
+					IEntity outerSelfEntity = bm.wGet(IBindingManager.OUTER_SELF);
+					bm.wDef(IBindingManager.SELF, outerSelfEntity);
+					Variable variable = (Variable) selfEntity;
+					String varName = variable.getVarName().getValue();
+		        	IEntity value = BindingUtils.wGet(bm, varName);
+					if (value != null) {
+						CommonsInterpreterVisitor.setVariableValueResult(bm, variable, value);
+					} else
+						bm.setResult(EntityUtils.cloneIfParented(selfEntity));					
+			}
+
+			public void toString(StringBuilder sb) {
+				sb.append("nestedVariable");
+				super.toString(sb);
+			}
+		};
+	}
+
+	@Deprecated
+	public IExecutable<?> createNestedFragment(Map<IEntity, IExecutable<?>> fragmentExecutableMap) {
+		return new AbstractMultiValuedRunnableIterator<IEntity>() {
+			@Override
+			protected void run(IEntity selfEntity, IBindingManager bm) {
+				IExecutable<?> fragmentExecutable = fragmentExecutableMap.getOrDefault(selfEntity, createEmpty());
+				
+				//TODO clone iterator
+
+//				IEntity outerSelfEntity = bm.wGet(OUTER_SELF_NAME);
+//				bm.wDef(IBindingManager.SELF, outerSelfEntity);
+//				fragmentExecutable.setBindings(bm);
+//				fragmentExecutable.reset(outerSelfEntity);
+				bm.setExecutableResult(fragmentExecutable);
+			}
+			@Override
+			protected void resetResultIterator(IEntityIterator<IEntity> resultIterator, IEntity selfEntity, IBindingManager bm) {
+				IEntity outerSelfEntity = bm.wGet(IBindingManager.OUTER_SELF);
+				bm.wDef(IBindingManager.SELF, outerSelfEntity);
+				resultIterator.setBindings(bm);
+				resultIterator.reset(outerSelfEntity);
+			}
+
+			public void toString(StringBuilder sb) {
+				sb.append("nestedFragment");
+				super.toString(sb);
+			}
+		};
 	}
 
 	public IExecutable<?> createCloneReplacing(IExecutable<?> childMappingExecutable) {

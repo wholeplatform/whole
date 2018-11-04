@@ -26,9 +26,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.whole.lang.iterators.AbstractPatternFilterIterator;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.iterators.ExecutableFactory;
-import org.whole.lang.iterators.ScannerIterator;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.models.factories.ModelsEntityFactory;
@@ -83,7 +82,8 @@ public class ModelInfo {
 		FreshNameGenerator entityNameGen = new FreshNameGenerator();
 		FreshNameGenerator featureNameGen = new FreshNameGenerator();
 
-		ScannerIterator<ModelDeclaration> i = ExecutableFactory.instance.<ModelDeclaration>createChildScanner();
+		ExecutableFactory ef = ExecutableFactory.instance;
+		IExecutable<ModelDeclaration> i = ef.createFilter(ef.createChild(), ef.createIsImpl());
 		i.reset(model.getDeclarations());
 		for (ModelDeclaration md : i) {
 			SimpleName simpleName;
@@ -100,8 +100,7 @@ public class ModelInfo {
 			if (md.getModifiers().wContainsValue(EntityModifierEnum._abstract))
 				abstractTypes.add(entityName);
 
-			AbstractPatternFilterIterator<Type> i3 = ExecutableFactory.instance.<Type>createChildMatcher()
-					.withPattern(ModelsEntityDescriptorEnum.SimpleName);
+			IExecutable<SimpleName> i3 = ef.createFilter(ef.createChild(), ef.createHasType(ModelsEntityDescriptorEnum.SimpleName.getURI()));
 			i3.reset(md.getTypes());
 			for (Type type : i3) {
 				String typeName = type.wStringValue();
@@ -118,7 +117,7 @@ public class ModelInfo {
 					markerTypes.add(entityName);
 
 				Set<String> featureNameSet = new HashSet<String>();
-				ScannerIterator<Feature> i2 = ExecutableFactory.instance.<Feature>createChildScanner();
+				IExecutable<Feature> i2 = ExecutableFactory.instance.<Feature>createChild();
 				i2.reset(se.getFeatures());
 				for (Feature feature : i2) {
 					SimpleName featureName = feature.getName();
@@ -280,14 +279,15 @@ public class ModelInfo {
 		}
 	}
 	protected void addInheritedFeatures(SimpleEntity entity, Types types, Set<String> entityTypes, Map<String, Set<String>> entityFeatures) {
-		ScannerIterator<IEntity> i = ExecutableFactory.instance.createChildReverseScanner();
+		ExecutableFactory ef = ExecutableFactory.instance;
+		IExecutable<IEntity> i = ef.createFilter(ef.createChildReverse(), ef.createIsImpl());
 		i.reset(types);
 		for (IEntity type : i) {
 			String typeName = type.wStringValue();
 			entityTypes.remove(typeName);
 			SimpleEntity declaration = (SimpleEntity) nameEntityMap.get(typeName);
 			if (declaration != null) {
-				ScannerIterator<Feature> i2 = ExecutableFactory.instance.<Feature>createChildReverseScanner();
+				IExecutable<Feature> i2 = ef.createFilter(ef.createChildReverse(), ef.createIsImpl());
 				i2.reset(declaration.getFeatures());
 				for (Feature feature : i2) {
 					if (entityFeatures.get(entity.getName().wStringValue()).add(feature.getName().wStringValue()))

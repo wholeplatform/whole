@@ -24,6 +24,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.grammars.model.As;
 import org.whole.lang.grammars.model.BySize;
 import org.whole.lang.grammars.model.Choose;
@@ -48,7 +49,6 @@ import org.whole.lang.grammars.model.Splitter;
 import org.whole.lang.grammars.model.When;
 import org.whole.lang.grammars.reflect.GrammarsEntityDescriptorEnum;
 import org.whole.lang.iterators.ExecutableFactory;
-import org.whole.lang.iterators.ScannerIterator;
 import org.whole.lang.matchers.GenericMatcherFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
@@ -134,15 +134,15 @@ public class GrammarBasedUnparserVisitor extends GrammarsTraverseAllVisitor {
 
 	protected void normalize(Grammar entity) {
 		Grammar g = entity;//FIXME ensure normalized: NormalizerOperation.normalize(entity);
-
-		ScannerIterator<Production> li = executableFactory().<Production>createChildScanner();
+		ExecutableFactory f = executableFactory();
+		IExecutable<Production> li = f.createFilter(f.createChild(), f.createIsImpl());
 		li.reset(g.getLexicalStructure());
 		for (Production p : li) {
 			String name = p.getName().getValue();
 			nameProductionMap.put(name, p);
 			lexiconSet.add(name);
 		}
-		ScannerIterator<Production> pi = executableFactory().<Production>createChildScanner();
+		IExecutable<Production> pi = f.createFilter(f.createChild(), f.createIsImpl());
 		pi.reset(g.getPhraseStructure());
 		for (Production p : pi)
 			nameProductionMap.put(p.getName().getValue(), p);

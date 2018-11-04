@@ -23,7 +23,7 @@ import org.whole.lang.model.IEntity;
  * @author Riccardo Solmi
  */
 public class BlockIterator<E extends IEntity> extends SequenceIterator<E> {
-	protected BlockIterator(IEntityIterator<? extends E>... iteratorChain) {
+	public BlockIterator(IEntityIterator<? extends E>... iteratorChain) {
 		super(iteratorChain);
 	}
 

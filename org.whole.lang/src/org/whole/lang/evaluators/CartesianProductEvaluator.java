@@ -40,6 +40,21 @@ public class CartesianProductEvaluator extends AbstractCartesianEvaluator {
 		return isLastProducer() ? BindingManagerFactory.instance.createTuple(nestedResults) : null;
 	}
 
+	@Override
+	public void prune() {
+	}
+
+	public void set(IEntity entity) {
+		throw new UnsupportedOperationException();
+	}
+	public void add(IEntity entity) {
+		throw new UnsupportedOperationException();
+	}
+	public void remove() {
+		for (IExecutable<IEntity> p : producers)
+			p.remove();
+	}
+
 	protected String toStringSeparator() {
 		return " x ";
 	}

@@ -47,7 +47,7 @@ public class InverseReachableEvaluator extends AbstractTransitiveClosureEvaluato
 	}
 
     protected IExecutable<IEntity> createRelationIterator() {
-    	return executableFactory().createMatcher(executableFactory().createInverseAdjacent()).withPattern(distinctScope.distinctMatcher());
+    	return executableFactory().createFilter(executableFactory().createInverseAdjacent(), distinctScope.distinctExecutable());
     }
 
     public void toString(StringBuilder sb) {

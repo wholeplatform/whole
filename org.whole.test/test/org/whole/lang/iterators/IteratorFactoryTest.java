@@ -50,20 +50,16 @@ import org.whole.lang.grammars.model.Production;
 import org.whole.lang.grammars.model.Productions;
 import org.whole.lang.grammars.model.Rule;
 import org.whole.lang.grammars.reflect.GrammarsEntityDescriptorEnum;
-import org.whole.lang.grammars.reflect.GrammarsFeatureDescriptorEnum;
 import org.whole.lang.grammars.util.TestXmlGrammar;
 import org.whole.lang.java.model.CompilationUnit;
 import org.whole.lang.java.model.ImportModifier;
 import org.whole.lang.java.reflect.JavaEntityDescriptorEnum;
-import org.whole.lang.matchers.GenericMatcherFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.misc.factories.MiscEntityFactory;
 import org.whole.lang.misc.model.Any;
 import org.whole.lang.misc.model.Misc;
 import org.whole.lang.misc.reflect.MiscEntityDescriptorEnum;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.models.factories.ModelsEntityFactory;
-import org.whole.lang.models.model.Type;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.util.EntityUtils;
 import org.whole.lang.visitors.GenericIdentityVisitor;
@@ -112,23 +108,6 @@ public class IteratorFactoryTest {
 
 		int index = 0;
 		IEntityIterator<Production> ci = f.<Production>createChild().iterator();
-		ci.reset(productions);
-		while (ci.hasNext()) {
-			Production p = ci.next();
-			assertSame(productions.wGet(index++), p);
-		}
-
-		index = 0;
-		ci = f.<Production>createChildScanner().iterator();
-		ci.reset(productions);
-		while (ci.hasNext()) {
-			Production p = ci.next();
-			assertSame(productions.wGet(index++), p);
-		}
-
-		index = 0;
-		ci = f.<Production>createChildMatcher()
-				.withPattern(GrammarsEntityDescriptorEnum.Production);
 		ci.reset(productions);
 		while (ci.hasNext()) {
 			Production p = ci.next();
@@ -213,27 +192,6 @@ public class IteratorFactoryTest {
 			ci.remove();
 		}
 		assertEquals(0, productions.wSize());
-
-		productions = EntityUtils.clone(g.getPhraseStructure());
-		ci = f.<Production>createChildScanner().iterator();
-		ci.reset(productions);
-		while (ci.hasNext()) {
-			Production p = ci.next();
-			assertSame(productions.wGet(0), p);
-			ci.remove();
-		}
-		assertEquals(0, productions.wSize());
-
-		productions = EntityUtils.clone(g.getPhraseStructure());
-		ci = f.<Production>createChildMatcher()
-				.withPattern(GrammarsEntityDescriptorEnum.Production);
-		ci.reset(productions);
-		while (ci.hasNext()) {
-			Production p = ci.next();
-			assertSame(productions.wGet(0), p);
-			ci.remove();
-		}
-		assertEquals(0, productions.wSize());
 	}
 
     @Test
@@ -248,23 +206,6 @@ public class IteratorFactoryTest {
 			Production p = ci.next();
 			assertSame(productions.wGet(--index), p);
 		}
-
-		index = productions.wSize();
-		ci = f.<Production>createChildReverseScanner().iterator();
-		ci.reset(productions);
-		while (ci.hasNext()) {
-			Production p = ci.next();
-			assertSame(productions.wGet(--index), p);
-		}
-
-		index = productions.wSize();
-		ci = f.<Production>createChildReverseMatcher()
-				.withPattern(GrammarsEntityDescriptorEnum.Production);
-		ci.reset(productions);
-		while (ci.hasNext()) {
-			Production p = ci.next();
-			assertSame(productions.wGet(--index), p);
-		}
 	}
 
     @Test
@@ -273,27 +214,6 @@ public class IteratorFactoryTest {
 
 		Productions productions = EntityUtils.clone(g.getPhraseStructure());
 		IEntityIterator<Production> ci = f.<Production>createChildReverse().iterator();
-		ci.reset(productions);
-		while (ci.hasNext()) {
-			Production p = ci.next();
-			assertSame(productions.wGet(productions.wSize()-1), p);
-			ci.remove();
-		}
-		assertEquals(0, productions.wSize());
-
-		productions = EntityUtils.clone(g.getPhraseStructure());
-		ci = f.<Production>createChildReverseScanner().iterator();
-		ci.reset(productions);
-		while (ci.hasNext()) {
-			Production p = ci.next();
-			assertSame(productions.wGet(productions.wSize()-1), p);
-			ci.remove();
-		}
-		assertEquals(0, productions.wSize());
-
-		productions = EntityUtils.clone(g.getPhraseStructure());
-		ci = f.<Production>createChildReverseMatcher()
-				.withPattern(GrammarsEntityDescriptorEnum.Production);
 		ci.reset(productions);
 		while (ci.hasNext()) {
 			Production p = ci.next();
@@ -319,46 +239,6 @@ public class IteratorFactoryTest {
 			}
 		}, false);
 		v.visit(productions);
-
-		final IEntityIterator<IEntity> ci2 = f.<IEntity>createDescendantOrSelfScanner().iterator();
-		ci2.reset(productions);
-		v = GenericTraversalFactory.instance.topDown(new GenericIdentityVisitor() {
-			public void visit(IEntity entity) {
-				if (EntityUtils.isResolver(entity))
-					return;
-
-				if (ci2.hasNext())
-					assertSame(entity, ci2.next());
-				else
-					fail();
-			}
-		}, false);
-		v.visit(productions);
-
-		final IEntityIterator<IEntity> ci3 = f.<IEntity>createDescendantOrSelfMatcher()
-				.withPattern(GrammarsEntityDescriptorEnum.Production);
-		ci3.reset(productions);
-		v = GenericTraversalFactory.instance.topDown(new GenericIdentityVisitor() {
-			public void visit(IEntity entity) {
-				if (!Matcher.match(GrammarsEntityDescriptorEnum.Production, entity))
-					return;
-					
-				if (ci3.hasNext())
-					assertSame(entity, ci3.next());
-				else
-					fail();
-			}
-		}, false);
-		v.visit(productions);
-		
-		IEntity artifactsModel = XmlBuilderPersistenceKit.instance().readModel(
-				new ClasspathPersistenceProvider("org/whole/lang/artifacts/ArtifactsModel.xwl"));
-		Set<Type> typeSet = new HashSet<Type>();
-		IEntityIterator<Type> ci4 = f.<Type>createDescendantOrSelfMatcher()
-				.withPattern(ModelsEntityFactory.instance.createSimpleName("Atifacts"));
-		ci4.reset(artifactsModel);
-		while (ci4.hasNext())
-			assertTrue(typeSet.add(ci4.next()));
 	}
 
     @Test
@@ -774,77 +654,6 @@ public class IteratorFactoryTest {
 	}
 
 	@Test
-    public void testTopDownScannerIteratorMarkReset() {
-		Grammar g = new TestXmlGrammar().create();
-
-		IEntityIterator<IEntity> i = f.<IEntity>createDescendantOrSelfScanner().iterator();
-		i.reset(g);
-		for (int j=0; j<15; j++)
-			i.next();
-		IEntityIterator<IEntity> i2 = i.clone().iterator();
-		IEntityIterator<IEntity> i3 = i.clone().iterator();
-		IEntity e1 = i.next();
-		IEntity e2 = i.next();
-		for (int j=0; j<7; j++)
-			i.next();
-
-		assertSame(e1, i2.next());
-
-		assertSame(e1, i3.next());
-		assertSame(e2, i3.next());
-	}
-
-	@Test
-    public void testTopDownMatcherIteratorMarkReset() {
-		Grammar g = new TestXmlGrammar().create();
-
-		IEntityIterator<IEntity> i = f.<IEntity>createDescendantOrSelfMatcher()
-				.withPattern(GrammarsEntityDescriptorEnum.Rule);
-		i.reset(g);
-		for (int j=0; j<15; j++)
-			i.next();
-		IEntityIterator<IEntity> i2 = i.clone().iterator();
-		IEntityIterator<IEntity> i3 = i.clone().iterator();
-		IEntity e1 = i.next();
-		IEntity e2 = i.next();
-		for (int j=0; j<7; j++)
-			i.next();
-
-		assertSame(e1, i2.next());
-
-		assertSame(e1, i3.next());
-		assertSame(e2, i3.next());
-	}
-	@Test
-    public void testTopDownMatcherIteratorRemove() {
-		Grammar g = new TestXmlGrammar().create();
-		g.wRemove(GrammarsFeatureDescriptorEnum.lexicalStructure);
-
-		Productions productions = g.getPhraseStructure();
-		IEntityIterator<Production> ci = f.<Production>createDescendantOrSelfMatcher()
-				.withPattern(GrammarsEntityDescriptorEnum.Production);
-		ci.reset(g);
-		while (ci.hasNext()) {
-			Production p = ci.next();
-			assertSame(productions.wGet(0), p);
-			ci.remove();
-		}
-		assertEquals(0, productions.wSize());
-
-		g = new TestXmlGrammar().create();
-		IEntityIterator<NonTerminal> ci2 = f.<NonTerminal>createDescendantOrSelfMatcher()
-				.withPattern(GrammarsEntityDescriptorEnum.NonTerminal);
-		ci2.reset(g);
-		while (ci2.hasNext()) {
-			NonTerminal nt = ci2.next();
-			ci2.remove();
-		}
-		assertNull(Matcher.find(GenericTraversalFactory.instance.sequence(
-				GenericMatcherFactory.instance.hasTypeMatcher(GrammarsEntityDescriptorEnum.NonTerminal),
-				GenericMatcherFactory.instance.isImplMatcher()), g, false));
-	}
-
-	@Test
     public void testChildIteratorAdd() {
 		Grammar g = new TestXmlGrammar().create();
 
@@ -855,37 +664,6 @@ public class IteratorFactoryTest {
 		Production pAdded2 = null;
 		
 		IEntityIterator<Production> i = f.<Production>createChild().iterator();
-		i.reset(productions);
-		while (i.hasNext()) {
-			Production p = i.next();
-			assertNotSame(pAdded1, p);
-			assertNotSame(pAdded2, p);
-
-			count++;
-			if (count == 1)
-				i.add(pAdded1 = GrammarsEntityFactory.instance.createProduction());
-
-			if (count == 3) {
-				i.add(pAdded1 = GrammarsEntityFactory.instance.createProduction());
-				i.add(pAdded2 = GrammarsEntityFactory.instance.createProduction());
-			}
-		}
-
-		assertEquals(size, count);
-		assertEquals(size+3, productions.wSize());
-	}
-
-	@Test
-    public void testChildScannerIteratorAdd() {
-		Grammar g = new TestXmlGrammar().create();
-
-		Productions productions = g.getPhraseStructure();
-		int size = productions.wSize();
-		int count = 0;
-		Production pAdded1 = null;
-		Production pAdded2 = null;
-		
-		IEntityIterator<Production> i = f.<Production>createChildScanner().iterator();
 		i.reset(productions);
 		while (i.hasNext()) {
 			Production p = i.next();
@@ -1005,9 +783,9 @@ public class IteratorFactoryTest {
 
 		//query: g/phraseStructure/child()[ED = Production]/rule//[ED = Production]
 		IExecutable<Production> pi = f.createCompose(
-				f.<IEntity>createDescendantOrSelfMatcher().withPattern(GrammarsEntityDescriptorEnum.Production),
+				f.createFilter(f.createDescendantOrSelf(), f.createHasType(GrammarsEntityDescriptorEnum.Production.getURI())),
 				f.createFeatureByName("rule"),
-				f.<IEntity>createChildMatcher().withPattern(GrammarsEntityDescriptorEnum.Production),
+				f.createFilter(f.createChild(), f.createHasType(GrammarsEntityDescriptorEnum.Production.getURI())),
 				f.createFeatureByName("phraseStructure"));
 
 		pi.reset(g);

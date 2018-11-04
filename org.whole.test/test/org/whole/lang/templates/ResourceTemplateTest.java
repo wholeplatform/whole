@@ -17,12 +17,14 @@
  */
 package org.whole.lang.templates;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Comparator;
 import java.util.HashMap;
-
-import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -37,8 +39,8 @@ import org.whole.lang.artifacts.templates.ResourceTemplate;
 import org.whole.lang.builders.ModelBuilderOperation;
 import org.whole.lang.commons.builders.ICommonsBuilder;
 import org.whole.lang.commons.reflect.CommonsLanguageKit;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.iterators.ExecutableFactory;
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.rdb.codebase.OrderedMatcher;
@@ -88,11 +90,10 @@ public class ResourceTemplateTest {
 		IEntity testSubFolder = op.wGetResult();
 
 		FolderArtifact compareTo = null;
-		IEntityIterator<FolderArtifact> iterator = ExecutableFactory.instance.<FolderArtifact>createChildMatcher()
-				.withPattern(ArtifactsEntityDescriptorEnum.FolderArtifact);
+		ExecutableFactory ef = ExecutableFactory.instance;
+		IExecutable<FolderArtifact> iterator = ef.createFilter(ef.createChild(), ef.createHasType(ArtifactsEntityDescriptorEnum.FolderArtifact.getURI()));
 		iterator.reset(testFolder.wGet(ArtifactsFeatureDescriptorEnum.artifacts));
-		while (iterator.hasNext()) {
-			FolderArtifact folder = iterator.next();
+		for (FolderArtifact folder = iterator.evaluateNext(); folder != null; folder = iterator.evaluateNext()) {
 			if (folder.getName().wEquals(testSubFolder.wGet(ArtifactsFeatureDescriptorEnum.name))) {
 				compareTo = folder;
 				break;
