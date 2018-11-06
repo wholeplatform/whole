@@ -17,11 +17,12 @@
  */
 package org.whole.lang.evaluators;
 
-import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 import org.whole.lang.bindings.AbstractFilterScope;
 import org.whole.lang.bindings.BindingManagerFactory;
+import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.DynamicCompilerOperation;
@@ -63,7 +64,7 @@ public class CallEvaluator extends AbstractDelegatingNestedEvaluator<IEntity> {
 
 	protected AbstractFilterScope filterScope() {
 		if (filterScope == null)
-			filterScope = BindingManagerFactory.instance.createExcludeFilterScope(Collections.emptySet());
+			filterScope = BindingManagerFactory.instance.createExcludeFilterScope(new HashSet<String>());
 
 		return filterScope;
 	}
@@ -93,6 +94,9 @@ public class CallEvaluator extends AbstractDelegatingNestedEvaluator<IEntity> {
 		ResourceUtils.handleCancelRequest(getBindings());
 
 		if (queryExecutable == null) {
+			Set<String> freshNames = filterScope().getFilterNames();
+			freshNames.clear();
+
 			if (getBindings().wIsSet(queryName)) {
 				queryBody = getBindings().wGet(queryName);
 
@@ -110,13 +114,14 @@ public class CallEvaluator extends AbstractDelegatingNestedEvaluator<IEntity> {
 					int parametersSize = parameters.wSize();
 					queryParams = new String[parametersSize];
 					for (int i=0; i<parametersSize; i++)
-						queryParams[i] = parameters.wGet(i).wStringValue();
-	
-					filterScope().setFilterNames(Set.of(queryParams));
+						freshNames.add(queryParams[i] = parameters.wGet(i).wStringValue());
 				} else
 					queryParams = null;
-	
-				queryExecutable = DynamicCompilerOperation.compile(queryBody, getBindings()).getExecutableResult();
+
+				IBindingScope results = DynamicCompilerOperation.compile(queryBody, getBindings());
+				queryExecutable = results.getExecutableResult();
+				if (results.isExecutableResult())
+					results.setExecutableResult(null);
 			} else
 				queryExecutable = executableFactory().createEmpty();
 		}
