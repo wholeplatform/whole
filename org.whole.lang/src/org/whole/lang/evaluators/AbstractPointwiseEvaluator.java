@@ -42,6 +42,7 @@ public abstract class AbstractPointwiseEvaluator extends AbstractDelegatingNeste
 
 	public IEntity evaluateNext() {
 		try {
+			executorScope().wClear();
 			getBindings().wEnterScope(executorScope(), true);
 
 			nestedResults = new IEntity[producersSize()];
