@@ -38,6 +38,7 @@ import org.whole.lang.evaluators.AncestorEvaluator;
 import org.whole.lang.evaluators.AncestorOrSelfReverseEvaluator;
 import org.whole.lang.evaluators.AncestorReverseEvaluator;
 import org.whole.lang.evaluators.AspectEvaluator;
+import org.whole.lang.evaluators.CallEvaluator;
 import org.whole.lang.evaluators.CartesianInsertEvaluator;
 import org.whole.lang.evaluators.CartesianProductEvaluator;
 import org.whole.lang.evaluators.CartesianUpdateEvaluator;
@@ -85,20 +86,18 @@ import org.whole.lang.evaluators.RecursiveFunctionApplicationEvaluator;
 import org.whole.lang.evaluators.SingleValuedRunnableEvaluator;
 import org.whole.lang.evaluators.SingleValuedRunnableSupplierEvaluator;
 import org.whole.lang.evaluators.SortEvaluator;
+import org.whole.lang.evaluators.TemplateInterpreterEvaluator;
 import org.whole.lang.evaluators.TupleFactoryEvaluator;
 import org.whole.lang.evaluators.UnionAllEvaluator;
 import org.whole.lang.evaluators.UnionEvaluator;
 import org.whole.lang.evaluators.VariableEvaluator;
-import org.whole.lang.iterators.AbstractMultiValuedRunnableIterator;
 import org.whole.lang.iterators.BlockIterator;
-import org.whole.lang.iterators.CallIterator;
 import org.whole.lang.iterators.DistinctScope;
 import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.Placement;
 import org.whole.lang.iterators.SelectIterator;
 import org.whole.lang.iterators.SequenceIterator;
-import org.whole.lang.iterators.TemplateInterpreterIterator;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.CompositeKinds;
@@ -1269,22 +1268,19 @@ public class RegularExecutableFactory implements ExecutableFactory {
 		return new RecursiveFunctionApplicationEvaluator();
 	}
 
-	@Deprecated
 	@SuppressWarnings("unchecked")
 	public <E extends IEntity> IExecutable<E> createCall(String name, IExecutable<? extends E>... argsExecutables) {
-    	return new CallIterator<E>(name, toIterators(argsExecutables));
+    	return (IExecutable<E>) new CallEvaluator(name, (IExecutable<IEntity>[]) argsExecutables);
     }
 
-	@Deprecated
+	@SuppressWarnings("unchecked")
 	public <E extends IEntity> IExecutable<E> createTemplateInterpreter(IEntity template) {
-		return new TemplateInterpreterIterator<E>(template);
+		return (IExecutable<E>) new TemplateInterpreterEvaluator(template);
 	}
 
-	@Deprecated
+	@SuppressWarnings("unchecked")
 	public IExecutable<?> createNestedVariable() {
-		return new AbstractMultiValuedRunnableIterator<IEntity>() {
-			@Override
-			protected void run(IEntity selfEntity, IBindingManager bm) {
+		return new MultiValuedRunnableEvaluator<IEntity>( (selfEntity, bm, args) -> {
 					IEntity outerSelfEntity = bm.wGet(IBindingManager.OUTER_SELF);
 					bm.wDef(IBindingManager.SELF, outerSelfEntity);
 					Variable variable = (Variable) selfEntity;
@@ -1294,7 +1290,7 @@ public class RegularExecutableFactory implements ExecutableFactory {
 						CommonsInterpreterVisitor.setVariableValueResult(bm, variable, value);
 					} else
 						bm.setResult(EntityUtils.cloneIfParented(selfEntity));					
-			}
+			}) {
 
 			public void toString(StringBuilder sb) {
 				sb.append("nestedVariable");
@@ -1303,11 +1299,9 @@ public class RegularExecutableFactory implements ExecutableFactory {
 		};
 	}
 
-	@Deprecated
+	@SuppressWarnings("unchecked")
 	public IExecutable<?> createNestedFragment(Map<IEntity, IExecutable<?>> fragmentExecutableMap) {
-		return new AbstractMultiValuedRunnableIterator<IEntity>() {
-			@Override
-			protected void run(IEntity selfEntity, IBindingManager bm) {
+		return new MultiValuedRunnableEvaluator<IEntity>( (selfEntity, bm, args) -> {
 				IExecutable<?> fragmentExecutable = fragmentExecutableMap.getOrDefault(selfEntity, createEmpty());
 				
 				//TODO clone iterator
@@ -1317,13 +1311,13 @@ public class RegularExecutableFactory implements ExecutableFactory {
 //				fragmentExecutable.setBindings(bm);
 //				fragmentExecutable.reset(outerSelfEntity);
 				bm.setExecutableResult(fragmentExecutable);
-			}
+		}) {
 			@Override
-			protected void resetResultIterator(IEntityIterator<IEntity> resultIterator, IEntity selfEntity, IBindingManager bm) {
+			protected void resetExecutableResult(IExecutable<IEntity> executableResult, IEntity selfEntity, IBindingManager bm) {
 				IEntity outerSelfEntity = bm.wGet(IBindingManager.OUTER_SELF);
 				bm.wDef(IBindingManager.SELF, outerSelfEntity);
-				resultIterator.setBindings(bm);
-				resultIterator.reset(outerSelfEntity);
+				executableResult.setBindings(bm);
+				executableResult.reset(outerSelfEntity);
 			}
 
 			public void toString(StringBuilder sb) {
