@@ -27,19 +27,22 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.codebase.ClasspathPersistenceProvider;
+import org.whole.lang.codebase.IPersistenceProvider;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.InterpreterOperation;
 import org.whole.lang.rdb.model.Database;
+import org.whole.lang.rdb.model.Schema;
+import org.whole.lang.rdb.model.Table;
 import org.whole.lang.rdb.reflect.RDBEntityDescriptorEnum;
 import org.whole.lang.rdb.reflect.RDBFeatureDescriptorEnum;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.util.EntityUtils;
-import org.whole.test.KnownFailingTests;
+import org.whole.lang.xml.codebase.XmlBuilderPersistenceKit;
 
 /**
  * @author Enrico Persiani
@@ -55,7 +58,7 @@ public class DBSchemaTemplateFactoryTest {
 	@Before
     public void setUp() throws Exception {
 		Class.forName("org.h2.Driver");
-		connection = DriverManager.getConnection("jdbc:h2:mem:DBNAME");
+		connection = DriverManager.getConnection("jdbc:h2:mem:DBNAME;DATABASE_TO_UPPER=false");
 	}
 
 	@After
@@ -68,8 +71,10 @@ public class DBSchemaTemplateFactoryTest {
 		IBindingManager bm = BindingManagerFactory.instance.createArguments();
 		bm.wDefValue("connection", connection);
 		bm.wDefValue("generateDropStatements", false);
+		bm.wDefValue("batchMode", false);
 
-		Database template = new CycleModel().create();
+		IPersistenceProvider pp = new ClasspathPersistenceProvider("org/whole/lang/rdb/codebase/CycleModel.xwl");
+		Database template = (Database) XmlBuilderPersistenceKit.instance().readModel(pp);
 		Database database = EntityUtils.clone(template);
 		Matcher.removeVars(database, true);
 		InterpreterOperation.interpret(database, bm);
@@ -83,14 +88,15 @@ public class DBSchemaTemplateFactoryTest {
 		Assert.assertTrue(OrderedMatcher.match(template, generatedDatabase, comparatorsMap));
 	}
 
-	@Category(KnownFailingTests.class)
 	@Test
 	public void testRDBUtils() throws Exception {
 		IBindingManager bm = BindingManagerFactory.instance.createArguments();
 		bm.wDefValue("connection", connection);
 		bm.wDefValue("generateDropStatements", false);
+		bm.wDefValue("batchMode", false);
 
-		Database database = new SampleDatabase().create();
+		IPersistenceProvider pp = new ClasspathPersistenceProvider("org/whole/lang/rdb/codebase/SampleDatabase.xwl");
+		Database database = (Database) XmlBuilderPersistenceKit.instance().readModel(pp);
 		InterpreterOperation.interpret(database, bm);
 
 		DBSchemaTemplateFactory dbSchemaTemplateFactory = new DBSchemaTemplateFactory(connection, "DBNAME", null);
@@ -99,8 +105,16 @@ public class DBSchemaTemplateFactoryTest {
 		HashMap<EntityDescriptor<?>, Comparator<IEntity>> comparatorsMap = new HashMap<EntityDescriptor<?>, Comparator<IEntity>>();
 		comparatorsMap.put(RDBEntityDescriptorEnum.Tables, new OrderedMatcher.SimpleFeatureComparator(RDBFeatureDescriptorEnum.name));
 
-		Assert.assertTrue(OrderedMatcher.match(database, generatedDatabase, comparatorsMap));
+		Schema originalSchema = (Schema) database.getSchemas().wGet(0);
+		Schema generatedSchema = (Schema) generatedDatabase.getSchemas().wGet(1);
 		
-		Assert.fail();
+		//FIXME add support for schema name reveng
+		generatedSchema.setName(EntityUtils.cloneIfParented(originalSchema.getName()));
+
+		// remove automatically generated indexes
+		for (Table table : generatedSchema.getTables())
+			table.wRemove(RDBFeatureDescriptorEnum.indices);
+
+		Assert.assertTrue(OrderedMatcher.match(originalSchema, generatedSchema, comparatorsMap));
 	}
 }

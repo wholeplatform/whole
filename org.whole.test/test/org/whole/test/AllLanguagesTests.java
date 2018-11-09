@@ -43,7 +43,7 @@ import org.whole.lang.xml.builders.XmlPrettyPrinterBuilderTest;
 /**
  * Runs: 217
  * Errors: 0
- * Failures: 5
+ * Failures: 4
 
  * @author Riccardo Solmi
  */
