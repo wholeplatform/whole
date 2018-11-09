@@ -31,6 +31,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.codebase.ClasspathPersistenceProvider;
+import org.whole.lang.codebase.IPersistenceProvider;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.matchers.Matcher;
@@ -38,10 +40,10 @@ import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.DynamicCompilerOperation;
 import org.whole.lang.operations.InterpreterOperation;
 import org.whole.lang.rdb.codebase.DBMappingTemplateManager;
-import org.whole.lang.rdb.codebase.SampleDatabase;
 import org.whole.lang.rdb.model.Database;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.sql.reflect.SQLEntityDescriptorEnum;
+import org.whole.lang.xml.codebase.XmlBuilderPersistenceKit;
 
 /**
  * @author Riccardo Solmi
@@ -66,12 +68,13 @@ public class SQLInterpreterTest {
 	}
 
 	@Test
-    public void testMapAuthorsQuery() {
+    public void testMapAuthorsQuery() throws Exception {
 		IBindingManager bm = BindingManagerFactory.instance.createArguments();
 		bm.wDefValue("connection", connection);
 		bm.wDefValue("generateDropStatements", false);
 
-		Database database = new SampleDatabase().create();
+		IPersistenceProvider pp = new ClasspathPersistenceProvider("org/whole/lang/rdb/codebase/SampleDatabase.xwl");
+		Database database = (Database) XmlBuilderPersistenceKit.instance().readModel(pp);
 		InterpreterOperation.interpret(database, bm);
 
 		IEntity e = DBMappingTemplateManager.instance().create("populateDB");
@@ -90,12 +93,13 @@ public class SQLInterpreterTest {
 	}
 
 	@Test
-    public void testMapAuthorsQuery2() {
+    public void testMapAuthorsQuery2() throws Exception {
 		IBindingManager bm = BindingManagerFactory.instance.createArguments();
 		bm.wDefValue("connection", connection);
 		bm.wDefValue("generateDropStatements", false);
 
-		Database database = new SampleDatabase().create();
+		IPersistenceProvider pp = new ClasspathPersistenceProvider("org/whole/lang/rdb/codebase/SampleDatabase.xwl");
+		Database database = (Database) XmlBuilderPersistenceKit.instance().readModel(pp);
 		InterpreterOperation.interpret(database, bm);
 
 		IEntity e = DBMappingTemplateManager.instance().create("populateDB");
@@ -114,12 +118,13 @@ public class SQLInterpreterTest {
 	}
 
 	@Test
-    public void testMapAuthorsQuery3() {
+    public void testMapAuthorsQuery3() throws Exception {
 		IBindingManager bm = BindingManagerFactory.instance.createArguments();
 		bm.wDefValue("connection", connection);
 		bm.wDefValue("generateDropStatements", false);
 
-		Database database = new SampleDatabase().create();
+		IPersistenceProvider pp = new ClasspathPersistenceProvider("org/whole/lang/rdb/codebase/SampleDatabase.xwl");
+		Database database = (Database) XmlBuilderPersistenceKit.instance().readModel(pp);
 		InterpreterOperation.interpret(database, bm);
 
 		IEntity e = DBMappingTemplateManager.instance().create("populateDB");
@@ -138,12 +143,13 @@ public class SQLInterpreterTest {
 	}
 
 	@Test
-    public void testMapAuthorsQueryWithNestedVar() {
+    public void testMapAuthorsQueryWithNestedVar() throws Exception {
 		IBindingManager bm = BindingManagerFactory.instance.createArguments();
 		bm.wDefValue("connection", connection);
 		bm.wDefValue("generateDropStatements", false);
 
-		Database database = new SampleDatabase().create();
+		IPersistenceProvider pp = new ClasspathPersistenceProvider("org/whole/lang/rdb/codebase/SampleDatabase.xwl");
+		Database database = (Database) XmlBuilderPersistenceKit.instance().readModel(pp);
 		InterpreterOperation.interpret(database, bm);
 
 		IEntity e = DBMappingTemplateManager.instance().create("populateDB");
@@ -162,12 +168,13 @@ public class SQLInterpreterTest {
 	}
 
 	@Test
-    public void testDataTypes() {
+    public void testDataTypes() throws Exception {
 		IBindingManager bm = BindingManagerFactory.instance.createArguments();
 		bm.wDefValue("connection", connection);
 		bm.wDefValue("generateDropStatements", false);
 
-		Database database = new AllTypesDatabase().create();
+		IPersistenceProvider pp = new ClasspathPersistenceProvider("org/whole/lang/sql/AllTypesDatabase.xwl");
+		Database database = (Database) XmlBuilderPersistenceKit.instance().readModel(pp);
 		InterpreterOperation.interpret(database, bm);
 
 		IEntity e = DBMappingTemplateManager.instance().create("populateDatatypesDB");
