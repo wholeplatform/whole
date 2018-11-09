@@ -156,12 +156,15 @@ public class SQLInterpreterVisitor extends SQLIdentityDefaultVisitor {
 	@Override
 	public void visit(SQLStatements entity) {
 		try {
-			batchMode = true;
+			batchMode = getBindings().wIsSet("batchMode") ? 
+					getBindings().wBooleanValue("batchMode") : true;
 
 			int size = entity.wSize();
 			for (int i=0; i<size; i++)
 				((ISQLEntity) entity.wGet(i)).accept(this);
-			statement.executeBatch();
+			
+			if (batchMode)
+				statement.executeBatch();
 
 		} catch (Exception e) {
 			throw new VisitException(SQL_INTERPRETER_ERROR_MESSAGE, e);
