@@ -31,8 +31,7 @@ public class IsAdapter extends AbstractEntityAdapter implements Is {
 	}
 
 	public SQLExpression getExpression() {
-		return wGet(SQLFeatureDescriptorEnum.expression).wGetAdapter(
-				SQLEntityDescriptorEnum.SQLExpression);
+		return wGet(SQLFeatureDescriptorEnum.expression).wGetAdapter(SQLEntityDescriptorEnum.SQLExpression);
 	}
 
 	public void setExpression(SQLExpression expression) {
@@ -40,8 +39,7 @@ public class IsAdapter extends AbstractEntityAdapter implements Is {
 	}
 
 	public IsType getType() {
-		return wGet(SQLFeatureDescriptorEnum.type).wGetAdapter(
-				SQLEntityDescriptorEnum.IsType);
+		return wGet(SQLFeatureDescriptorEnum.type).wGetAdapter(SQLEntityDescriptorEnum.IsType);
 	}
 
 	public void setType(IsType type) {

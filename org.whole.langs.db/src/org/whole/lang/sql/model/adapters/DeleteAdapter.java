@@ -31,8 +31,7 @@ public class DeleteAdapter extends AbstractEntityAdapter implements Delete {
 	}
 
 	public TableName getTableName() {
-		return wGet(SQLFeatureDescriptorEnum.tableName).wGetAdapter(
-				SQLEntityDescriptorEnum.TableName);
+		return wGet(SQLFeatureDescriptorEnum.tableName).wGetAdapter(SQLEntityDescriptorEnum.TableName);
 	}
 
 	public void setTableName(TableName tableName) {
@@ -40,8 +39,7 @@ public class DeleteAdapter extends AbstractEntityAdapter implements Delete {
 	}
 
 	public SQLExpression getWhereExpr() {
-		return wGet(SQLFeatureDescriptorEnum.whereExpr).wGetAdapter(
-				SQLEntityDescriptorEnum.SQLExpression);
+		return wGet(SQLFeatureDescriptorEnum.whereExpr).wGetAdapter(SQLEntityDescriptorEnum.SQLExpression);
 	}
 
 	public void setWhereExpr(SQLExpression whereExpr) {
@@ -49,8 +47,7 @@ public class DeleteAdapter extends AbstractEntityAdapter implements Delete {
 	}
 
 	public IntValue getLimit() {
-		return wGet(SQLFeatureDescriptorEnum.limit).wGetAdapter(
-				SQLEntityDescriptorEnum.IntValue);
+		return wGet(SQLFeatureDescriptorEnum.limit).wGetAdapter(SQLEntityDescriptorEnum.IntValue);
 	}
 
 	public void setLimit(IntValue limit) {

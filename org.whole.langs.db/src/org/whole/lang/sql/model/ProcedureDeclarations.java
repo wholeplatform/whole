@@ -5,6 +5,5 @@ import java.util.Set;
 /** 
  * @generator Whole
  */
-public interface ProcedureDeclarations extends ISQLEntity,
-		Set<ProcedureDeclaration> {
+public interface ProcedureDeclarations extends ISQLEntity, Set<ProcedureDeclaration> {
 }

@@ -11,8 +11,7 @@ import org.whole.lang.sql.model.NullOrderTypeEnum.Value;
 /** 
  * @generator Whole
  */
-public class NullOrderTypeAdapter extends AbstractEntityAdapter implements
-		NullOrderType {
+public class NullOrderTypeAdapter extends AbstractEntityAdapter implements NullOrderType {
 	private static final long serialVersionUID = 1;
 
 	public NullOrderTypeAdapter(IEntity implementor) {

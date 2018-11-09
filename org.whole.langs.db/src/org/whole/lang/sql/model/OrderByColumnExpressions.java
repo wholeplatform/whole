@@ -5,6 +5,5 @@ import java.util.List;
 /** 
  * @generator Whole
  */
-public interface OrderByColumnExpressions extends ISQLEntity,
-		List<OrderByColumnExpression> {
+public interface OrderByColumnExpressions extends ISQLEntity, List<OrderByColumnExpression> {
 }

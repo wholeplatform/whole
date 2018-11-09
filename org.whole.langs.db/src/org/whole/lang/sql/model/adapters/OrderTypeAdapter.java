@@ -11,8 +11,7 @@ import org.whole.lang.sql.model.OrderTypeEnum.Value;
 /** 
  * @generator Whole
  */
-public class OrderTypeAdapter extends AbstractEntityAdapter implements
-		OrderType {
+public class OrderTypeAdapter extends AbstractEntityAdapter implements OrderType {
 	private static final long serialVersionUID = 1;
 
 	public OrderTypeAdapter(IEntity implementor) {

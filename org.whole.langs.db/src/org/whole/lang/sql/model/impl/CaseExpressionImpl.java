@@ -1,18 +1,20 @@
 package org.whole.lang.sql.model.impl;
 
 import org.whole.lang.model.AbstractSimpleEntity;
-import org.whole.lang.sql.model.*;
+import org.whole.lang.sql.model.CaseExpression;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.sql.reflect.SQLEntityDescriptorEnum;
 import org.whole.lang.sql.visitors.ISQLVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
+import org.whole.lang.sql.model.WhenClauses;
 import org.whole.lang.sql.reflect.SQLFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.sql.model.SQLExpression;
 
 /** 
  * @generator Whole
  */
-public class CaseExpressionImpl extends AbstractSimpleEntity implements
-		CaseExpression {
+public class CaseExpressionImpl extends AbstractSimpleEntity implements CaseExpression {
 	private static final long serialVersionUID = 1;
 
 	public EntityDescriptor<CaseExpression> wGetEntityDescriptor() {
@@ -27,20 +29,18 @@ public class CaseExpressionImpl extends AbstractSimpleEntity implements
 		try {
 			visitor.visit(this);
 		} catch (Exception e) {
-			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+			throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
 		}
 	}
 
 	private WhenClauses whenClauses;
 
 	public WhenClauses getWhenClauses() {
-		return notifyRequested(SQLFeatureDescriptorEnum.whenClauses,
-				whenClauses);
+		return notifyRequested(SQLFeatureDescriptorEnum.whenClauses, whenClauses);
 	}
 
 	public void setWhenClauses(WhenClauses whenClauses) {
-		notifyChanged(SQLFeatureDescriptorEnum.whenClauses, this.whenClauses,
-				this.whenClauses = whenClauses);
+		notifyChanged(SQLFeatureDescriptorEnum.whenClauses, this.whenClauses, this.whenClauses = whenClauses);
 	}
 
 	private SQLExpression elseClause;
@@ -50,8 +50,7 @@ public class CaseExpressionImpl extends AbstractSimpleEntity implements
 	}
 
 	public void setElseClause(SQLExpression elseClause) {
-		notifyChanged(SQLFeatureDescriptorEnum.elseClause, this.elseClause,
-				this.elseClause = elseClause);
+		notifyChanged(SQLFeatureDescriptorEnum.elseClause, this.elseClause, this.elseClause = elseClause);
 	}
 
 	public IEntity wGet(int index) {
@@ -68,12 +67,10 @@ public class CaseExpressionImpl extends AbstractSimpleEntity implements
 	public void wSet(int index, IEntity value) {
 		switch (index) {
 		case 0:
-			setWhenClauses(value
-					.wGetAdapter(SQLEntityDescriptorEnum.WhenClauses));
+			setWhenClauses(value.wGetAdapter(SQLEntityDescriptorEnum.WhenClauses));
 			break;
 		case 1:
-			setElseClause(value
-					.wGetAdapter(SQLEntityDescriptorEnum.SQLExpression));
+			setElseClause(value.wGetAdapter(SQLEntityDescriptorEnum.SQLExpression));
 			break;
 		default:
 			throw new IllegalArgumentException();

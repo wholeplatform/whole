@@ -48,6 +48,8 @@ public interface ISQLBuilder extends IBuilder {
 
 	public void foreignColumnNames();
 
+	public void constraintName();
+
 	public void foreignColumnName();
 
 	public void foreignTableName();
@@ -481,6 +483,10 @@ public interface ISQLBuilder extends IBuilder {
 	public void IndexName();
 
 	public void IndexName(String value);
+
+	public void ConstraintName();
+
+	public void ConstraintName(String value);
 
 	public void CaseExpression();
 

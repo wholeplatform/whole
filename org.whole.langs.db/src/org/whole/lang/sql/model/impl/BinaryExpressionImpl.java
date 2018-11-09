@@ -1,18 +1,20 @@
 package org.whole.lang.sql.model.impl;
 
 import org.whole.lang.model.AbstractSimpleEntity;
-import org.whole.lang.sql.model.*;
+import org.whole.lang.sql.model.BinaryExpression;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.sql.reflect.SQLEntityDescriptorEnum;
 import org.whole.lang.sql.visitors.ISQLVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
+import org.whole.lang.sql.model.SQLExpression;
 import org.whole.lang.sql.reflect.SQLFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.sql.model.BinaryOperator;
 
 /** 
  * @generator Whole
  */
-public class BinaryExpressionImpl extends AbstractSimpleEntity implements
-		BinaryExpression {
+public class BinaryExpressionImpl extends AbstractSimpleEntity implements BinaryExpression {
 	private static final long serialVersionUID = 1;
 
 	public EntityDescriptor<BinaryExpression> wGetEntityDescriptor() {
@@ -27,7 +29,7 @@ public class BinaryExpressionImpl extends AbstractSimpleEntity implements
 		try {
 			visitor.visit(this);
 		} catch (Exception e) {
-			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+			throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
 		}
 	}
 
@@ -38,8 +40,7 @@ public class BinaryExpressionImpl extends AbstractSimpleEntity implements
 	}
 
 	public void setLeftExpr(SQLExpression leftExpr) {
-		notifyChanged(SQLFeatureDescriptorEnum.leftExpr, this.leftExpr,
-				this.leftExpr = leftExpr);
+		notifyChanged(SQLFeatureDescriptorEnum.leftExpr, this.leftExpr, this.leftExpr = leftExpr);
 	}
 
 	private BinaryOperator operator;
@@ -49,8 +50,7 @@ public class BinaryExpressionImpl extends AbstractSimpleEntity implements
 	}
 
 	public void setOperator(BinaryOperator operator) {
-		notifyChanged(SQLFeatureDescriptorEnum.operator, this.operator,
-				this.operator = operator);
+		notifyChanged(SQLFeatureDescriptorEnum.operator, this.operator, this.operator = operator);
 	}
 
 	private SQLExpression rightExpr;
@@ -60,8 +60,7 @@ public class BinaryExpressionImpl extends AbstractSimpleEntity implements
 	}
 
 	public void setRightExpr(SQLExpression rightExpr) {
-		notifyChanged(SQLFeatureDescriptorEnum.rightExpr, this.rightExpr,
-				this.rightExpr = rightExpr);
+		notifyChanged(SQLFeatureDescriptorEnum.rightExpr, this.rightExpr, this.rightExpr = rightExpr);
 	}
 
 	public IEntity wGet(int index) {
@@ -80,16 +79,13 @@ public class BinaryExpressionImpl extends AbstractSimpleEntity implements
 	public void wSet(int index, IEntity value) {
 		switch (index) {
 		case 0:
-			setLeftExpr(value
-					.wGetAdapter(SQLEntityDescriptorEnum.SQLExpression));
+			setLeftExpr(value.wGetAdapter(SQLEntityDescriptorEnum.SQLExpression));
 			break;
 		case 1:
-			setOperator(value
-					.wGetAdapter(SQLEntityDescriptorEnum.BinaryOperator));
+			setOperator(value.wGetAdapter(SQLEntityDescriptorEnum.BinaryOperator));
 			break;
 		case 2:
-			setRightExpr(value
-					.wGetAdapter(SQLEntityDescriptorEnum.SQLExpression));
+			setRightExpr(value.wGetAdapter(SQLEntityDescriptorEnum.SQLExpression));
 			break;
 		default:
 			throw new IllegalArgumentException();

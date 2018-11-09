@@ -27,14 +27,12 @@ import org.whole.lang.sql.model.ReferenceTypeEnum;
 /** 
  * @generator Whole
  */
-public class SQLSpecificBuilderAdapter extends GenericBuilderContext implements
-		ISQLBuilder {
+public class SQLSpecificBuilderAdapter extends GenericBuilderContext implements ISQLBuilder {
 	public SQLSpecificBuilderAdapter(IBuilder strategy) {
 		super(strategy);
 	}
 
-	public SQLSpecificBuilderAdapter(IBuilder strategy,
-			IEntityContext entityContext) {
+	public SQLSpecificBuilderAdapter(IBuilder strategy, IEntityContext entityContext) {
 		super(strategy, entityContext);
 	}
 
@@ -80,6 +78,10 @@ public class SQLSpecificBuilderAdapter extends GenericBuilderContext implements
 
 	public void foreignColumnNames() {
 		wFeature(SQLFeatureDescriptorEnum.foreignColumnNames);
+	}
+
+	public void constraintName() {
+		wFeature(SQLFeatureDescriptorEnum.constraintName);
 	}
 
 	public void foreignColumnName() {
@@ -953,6 +955,14 @@ public class SQLSpecificBuilderAdapter extends GenericBuilderContext implements
 		wEntity(SQLEntityDescriptorEnum.IndexName, value);
 	}
 
+	public void ConstraintName() {
+		wEntity(SQLEntityDescriptorEnum.ConstraintName);
+	}
+
+	public void ConstraintName(String value) {
+		wEntity(SQLEntityDescriptorEnum.ConstraintName, value);
+	}
+
 	public void CaseExpression() {
 		wEntity(SQLEntityDescriptorEnum.CaseExpression);
 	}
@@ -1122,8 +1132,7 @@ public class SQLSpecificBuilderAdapter extends GenericBuilderContext implements
 	}
 
 	public void OrderByColumnExpressions_(int initialCapacity) {
-		wEntity_(SQLEntityDescriptorEnum.OrderByColumnExpressions,
-				initialCapacity);
+		wEntity_(SQLEntityDescriptorEnum.OrderByColumnExpressions, initialCapacity);
 	}
 
 	public void _OrderByColumnExpressions() {
@@ -1191,8 +1200,7 @@ public class SQLSpecificBuilderAdapter extends GenericBuilderContext implements
 	}
 
 	public void DeclarationOrConstraints_(int initialCapacity) {
-		wEntity_(SQLEntityDescriptorEnum.DeclarationOrConstraints,
-				initialCapacity);
+		wEntity_(SQLEntityDescriptorEnum.DeclarationOrConstraints, initialCapacity);
 	}
 
 	public void _DeclarationOrConstraints() {

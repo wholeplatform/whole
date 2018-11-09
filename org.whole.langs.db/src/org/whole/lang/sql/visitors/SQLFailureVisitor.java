@@ -240,6 +240,10 @@ public class SQLFailureVisitor extends SQLIdentityVisitor {
 		throw new VisitException();
 	}
 
+	public void visit(ConstraintName entity) {
+		throw new VisitException();
+	}
+
 	public void visit(CaseExpression entity) {
 		throw new VisitException();
 	}

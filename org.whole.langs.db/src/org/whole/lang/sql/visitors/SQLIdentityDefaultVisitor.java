@@ -300,6 +300,11 @@ public class SQLIdentityDefaultVisitor extends SQLIdentityVisitor {
 		visit((SQLExpression) entity);
 	}
 
+	public void visit(ConstraintName entity) {
+		visit((ISQLEntity) entity);
+		visit((SQLExpression) entity);
+	}
+
 	public void visit(CaseExpression entity) {
 		visit((ISQLEntity) entity);
 		visit((SQLExpression) entity);

@@ -11,8 +11,7 @@ import org.whole.lang.sql.reflect.SQLFeatureDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class StoredProcedureAdapter extends AbstractEntityAdapter implements
-		StoredProcedure {
+public class StoredProcedureAdapter extends AbstractEntityAdapter implements StoredProcedure {
 	private static final long serialVersionUID = 1;
 
 	public StoredProcedureAdapter(IEntity implementor) {
@@ -32,8 +31,7 @@ public class StoredProcedureAdapter extends AbstractEntityAdapter implements
 	}
 
 	public Name getName() {
-		return wGet(SQLFeatureDescriptorEnum.name).wGetAdapter(
-				SQLEntityDescriptorEnum.Name);
+		return wGet(SQLFeatureDescriptorEnum.name).wGetAdapter(SQLEntityDescriptorEnum.Name);
 	}
 
 	public void setName(Name name) {
@@ -45,15 +43,13 @@ public class StoredProcedureAdapter extends AbstractEntityAdapter implements
 				.wGetAdapter(SQLEntityDescriptorEnum.ProcedureDeclarations);
 	}
 
-	public void setProcedureDeclarations(
-			ProcedureDeclarations procedureDeclarations) {
-		wSet(SQLFeatureDescriptorEnum.procedureDeclarations,
-				procedureDeclarations);
+	public void setProcedureDeclarations(ProcedureDeclarations procedureDeclarations) {
+		wSet(SQLFeatureDescriptorEnum.procedureDeclarations, procedureDeclarations);
 	}
 
 	public ProcedureStatements getProcedureStatements() {
-		return wGet(SQLFeatureDescriptorEnum.procedureStatements).wGetAdapter(
-				SQLEntityDescriptorEnum.ProcedureStatements);
+		return wGet(SQLFeatureDescriptorEnum.procedureStatements)
+				.wGetAdapter(SQLEntityDescriptorEnum.ProcedureStatements);
 	}
 
 	public void setProcedureStatements(ProcedureStatements procedureStatements) {

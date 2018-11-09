@@ -30,6 +30,5 @@ public interface Select extends ISQLEntity, SelectSQLStatement {
 
 	public OrderByColumnExpressions getOrderByColumnExprs();
 
-	public void setOrderByColumnExprs(
-			OrderByColumnExpressions orderByColumnExprs);
+	public void setOrderByColumnExprs(OrderByColumnExpressions orderByColumnExprs);
 }

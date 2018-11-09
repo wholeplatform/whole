@@ -11,8 +11,7 @@ import org.whole.lang.sql.reflect.SQLFeatureDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class RightOuterJoinFromClauseAdapter extends AbstractEntityAdapter
-		implements RightOuterJoinFromClause {
+public class RightOuterJoinFromClauseAdapter extends AbstractEntityAdapter implements RightOuterJoinFromClause {
 	private static final long serialVersionUID = 1;
 
 	public RightOuterJoinFromClauseAdapter(IEntity implementor) {
@@ -32,8 +31,7 @@ public class RightOuterJoinFromClauseAdapter extends AbstractEntityAdapter
 	}
 
 	public TableName getTableName() {
-		return wGet(SQLFeatureDescriptorEnum.tableName).wGetAdapter(
-				SQLEntityDescriptorEnum.TableName);
+		return wGet(SQLFeatureDescriptorEnum.tableName).wGetAdapter(SQLEntityDescriptorEnum.TableName);
 	}
 
 	public void setTableName(TableName tableName) {
@@ -41,8 +39,7 @@ public class RightOuterJoinFromClauseAdapter extends AbstractEntityAdapter
 	}
 
 	public TableName getOuterTable() {
-		return wGet(SQLFeatureDescriptorEnum.outerTable).wGetAdapter(
-				SQLEntityDescriptorEnum.TableName);
+		return wGet(SQLFeatureDescriptorEnum.outerTable).wGetAdapter(SQLEntityDescriptorEnum.TableName);
 	}
 
 	public void setOuterTable(TableName outerTable) {
@@ -50,8 +47,7 @@ public class RightOuterJoinFromClauseAdapter extends AbstractEntityAdapter
 	}
 
 	public SQLExpression getOnExpression() {
-		return wGet(SQLFeatureDescriptorEnum.onExpression).wGetAdapter(
-				SQLEntityDescriptorEnum.SQLExpression);
+		return wGet(SQLFeatureDescriptorEnum.onExpression).wGetAdapter(SQLEntityDescriptorEnum.SQLExpression);
 	}
 
 	public void setOnExpression(SQLExpression onExpression) {

@@ -121,6 +121,8 @@ public interface ISQLVisitor extends IVisitor {
 
 	public void visit(IndexName entity);
 
+	public void visit(ConstraintName entity);
+
 	public void visit(CaseExpression entity);
 
 	public void visit(WhenClauses entity);

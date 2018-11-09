@@ -1,12 +1,16 @@
 package org.whole.lang.sql.model.impl;
 
 import org.whole.lang.model.AbstractSimpleEntity;
-import org.whole.lang.sql.model.*;
+import org.whole.lang.sql.model.Delete;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.sql.reflect.SQLEntityDescriptorEnum;
 import org.whole.lang.sql.visitors.ISQLVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
+import org.whole.lang.sql.model.TableName;
 import org.whole.lang.sql.reflect.SQLFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.sql.model.SQLExpression;
+import org.whole.lang.sql.model.IntValue;
 
 /** 
  * @generator Whole
@@ -26,7 +30,7 @@ public class DeleteImpl extends AbstractSimpleEntity implements Delete {
 		try {
 			visitor.visit(this);
 		} catch (Exception e) {
-			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+			throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
 		}
 	}
 
@@ -37,8 +41,7 @@ public class DeleteImpl extends AbstractSimpleEntity implements Delete {
 	}
 
 	public void setTableName(TableName tableName) {
-		notifyChanged(SQLFeatureDescriptorEnum.tableName, this.tableName,
-				this.tableName = tableName);
+		notifyChanged(SQLFeatureDescriptorEnum.tableName, this.tableName, this.tableName = tableName);
 	}
 
 	private SQLExpression whereExpr;
@@ -48,8 +51,7 @@ public class DeleteImpl extends AbstractSimpleEntity implements Delete {
 	}
 
 	public void setWhereExpr(SQLExpression whereExpr) {
-		notifyChanged(SQLFeatureDescriptorEnum.whereExpr, this.whereExpr,
-				this.whereExpr = whereExpr);
+		notifyChanged(SQLFeatureDescriptorEnum.whereExpr, this.whereExpr, this.whereExpr = whereExpr);
 	}
 
 	private IntValue limit;
@@ -59,8 +61,7 @@ public class DeleteImpl extends AbstractSimpleEntity implements Delete {
 	}
 
 	public void setLimit(IntValue limit) {
-		notifyChanged(SQLFeatureDescriptorEnum.limit, this.limit,
-				this.limit = limit);
+		notifyChanged(SQLFeatureDescriptorEnum.limit, this.limit, this.limit = limit);
 	}
 
 	public IEntity wGet(int index) {
@@ -82,8 +83,7 @@ public class DeleteImpl extends AbstractSimpleEntity implements Delete {
 			setTableName(value.wGetAdapter(SQLEntityDescriptorEnum.TableName));
 			break;
 		case 1:
-			setWhereExpr(value
-					.wGetAdapter(SQLEntityDescriptorEnum.SQLExpression));
+			setWhereExpr(value.wGetAdapter(SQLEntityDescriptorEnum.SQLExpression));
 			break;
 		case 2:
 			setLimit(value.wGetAdapter(SQLEntityDescriptorEnum.IntValue));

@@ -11,8 +11,7 @@ import java.sql.Timestamp;
 /** 
  * @generator Whole
  */
-public class TimestampValueAdapter extends AbstractEntityAdapter implements
-		TimestampValue {
+public class TimestampValueAdapter extends AbstractEntityAdapter implements TimestampValue {
 	private static final long serialVersionUID = 1;
 
 	public TimestampValueAdapter(IEntity implementor) {

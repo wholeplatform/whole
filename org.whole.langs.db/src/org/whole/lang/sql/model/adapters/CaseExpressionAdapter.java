@@ -11,8 +11,7 @@ import org.whole.lang.sql.reflect.SQLFeatureDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class CaseExpressionAdapter extends AbstractEntityAdapter implements
-		CaseExpression {
+public class CaseExpressionAdapter extends AbstractEntityAdapter implements CaseExpression {
 	private static final long serialVersionUID = 1;
 
 	public CaseExpressionAdapter(IEntity implementor) {
@@ -32,8 +31,7 @@ public class CaseExpressionAdapter extends AbstractEntityAdapter implements
 	}
 
 	public WhenClauses getWhenClauses() {
-		return wGet(SQLFeatureDescriptorEnum.whenClauses).wGetAdapter(
-				SQLEntityDescriptorEnum.WhenClauses);
+		return wGet(SQLFeatureDescriptorEnum.whenClauses).wGetAdapter(SQLEntityDescriptorEnum.WhenClauses);
 	}
 
 	public void setWhenClauses(WhenClauses whenClauses) {
@@ -41,8 +39,7 @@ public class CaseExpressionAdapter extends AbstractEntityAdapter implements
 	}
 
 	public SQLExpression getElseClause() {
-		return wGet(SQLFeatureDescriptorEnum.elseClause).wGetAdapter(
-				SQLEntityDescriptorEnum.SQLExpression);
+		return wGet(SQLFeatureDescriptorEnum.elseClause).wGetAdapter(SQLEntityDescriptorEnum.SQLExpression);
 	}
 
 	public void setElseClause(SQLExpression elseClause) {

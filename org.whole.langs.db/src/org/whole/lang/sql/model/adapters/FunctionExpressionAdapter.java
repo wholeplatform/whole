@@ -11,8 +11,7 @@ import org.whole.lang.sql.reflect.SQLFeatureDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class FunctionExpressionAdapter extends AbstractEntityAdapter implements
-		FunctionExpression {
+public class FunctionExpressionAdapter extends AbstractEntityAdapter implements FunctionExpression {
 	private static final long serialVersionUID = 1;
 
 	public FunctionExpressionAdapter(IEntity implementor) {
@@ -32,8 +31,7 @@ public class FunctionExpressionAdapter extends AbstractEntityAdapter implements
 	}
 
 	public FunctionName getFunctionName() {
-		return wGet(SQLFeatureDescriptorEnum.functionName).wGetAdapter(
-				SQLEntityDescriptorEnum.FunctionName);
+		return wGet(SQLFeatureDescriptorEnum.functionName).wGetAdapter(SQLEntityDescriptorEnum.FunctionName);
 	}
 
 	public void setFunctionName(FunctionName functionName) {
@@ -41,8 +39,7 @@ public class FunctionExpressionAdapter extends AbstractEntityAdapter implements
 	}
 
 	public SQLExpressions getParams() {
-		return wGet(SQLFeatureDescriptorEnum.params).wGetAdapter(
-				SQLEntityDescriptorEnum.SQLExpressions);
+		return wGet(SQLFeatureDescriptorEnum.params).wGetAdapter(SQLEntityDescriptorEnum.SQLExpressions);
 	}
 
 	public void setParams(SQLExpressions params) {

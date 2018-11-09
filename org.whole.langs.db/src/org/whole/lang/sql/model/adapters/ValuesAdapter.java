@@ -10,8 +10,7 @@ import org.whole.lang.sql.reflect.SQLEntityDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class ValuesAdapter extends AbstractListEntityAdapter<SQLExpressions>
-		implements Values {
+public class ValuesAdapter extends AbstractListEntityAdapter<SQLExpressions> implements Values {
 	private static final long serialVersionUID = 1;
 
 	public ValuesAdapter(IEntity implementor) {

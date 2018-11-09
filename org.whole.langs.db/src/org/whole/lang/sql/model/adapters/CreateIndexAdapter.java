@@ -11,8 +11,7 @@ import org.whole.lang.sql.reflect.SQLFeatureDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class CreateIndexAdapter extends AbstractEntityAdapter implements
-		CreateIndex {
+public class CreateIndexAdapter extends AbstractEntityAdapter implements CreateIndex {
 	private static final long serialVersionUID = 1;
 
 	public CreateIndexAdapter(IEntity implementor) {
@@ -32,8 +31,7 @@ public class CreateIndexAdapter extends AbstractEntityAdapter implements
 	}
 
 	public UniqueIndex getUnique() {
-		return wGet(SQLFeatureDescriptorEnum.unique).wGetAdapter(
-				SQLEntityDescriptorEnum.UniqueIndex);
+		return wGet(SQLFeatureDescriptorEnum.unique).wGetAdapter(SQLEntityDescriptorEnum.UniqueIndex);
 	}
 
 	public void setUnique(UniqueIndex unique) {
@@ -41,8 +39,7 @@ public class CreateIndexAdapter extends AbstractEntityAdapter implements
 	}
 
 	public IndexName getIndexName() {
-		return wGet(SQLFeatureDescriptorEnum.indexName).wGetAdapter(
-				SQLEntityDescriptorEnum.IndexName);
+		return wGet(SQLFeatureDescriptorEnum.indexName).wGetAdapter(SQLEntityDescriptorEnum.IndexName);
 	}
 
 	public void setIndexName(IndexName indexName) {
@@ -50,8 +47,7 @@ public class CreateIndexAdapter extends AbstractEntityAdapter implements
 	}
 
 	public TableName getTableName() {
-		return wGet(SQLFeatureDescriptorEnum.tableName).wGetAdapter(
-				SQLEntityDescriptorEnum.TableName);
+		return wGet(SQLFeatureDescriptorEnum.tableName).wGetAdapter(SQLEntityDescriptorEnum.TableName);
 	}
 
 	public void setTableName(TableName tableName) {
@@ -59,8 +55,7 @@ public class CreateIndexAdapter extends AbstractEntityAdapter implements
 	}
 
 	public IndexDeclarations getIndexDeclarations() {
-		return wGet(SQLFeatureDescriptorEnum.indexDeclarations).wGetAdapter(
-				SQLEntityDescriptorEnum.IndexDeclarations);
+		return wGet(SQLFeatureDescriptorEnum.indexDeclarations).wGetAdapter(SQLEntityDescriptorEnum.IndexDeclarations);
 	}
 
 	public void setIndexDeclarations(IndexDeclarations indexDeclarations) {

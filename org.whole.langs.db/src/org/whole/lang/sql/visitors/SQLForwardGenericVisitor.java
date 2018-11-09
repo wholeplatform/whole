@@ -8,8 +8,7 @@ import org.whole.lang.model.IEntity;
 /** 
  * @generator Whole
  */
-public class SQLForwardGenericVisitor extends AbstractUnaryVisitor<IVisitor>
-		implements ISQLVisitor {
+public class SQLForwardGenericVisitor extends AbstractUnaryVisitor<IVisitor> implements ISQLVisitor {
 	public SQLForwardGenericVisitor(IVisitor visitor1) {
 		super(visitor1);
 	}
@@ -243,6 +242,10 @@ public class SQLForwardGenericVisitor extends AbstractUnaryVisitor<IVisitor>
 	}
 
 	public void visit(IndexName entity) {
+		wGetVisitor1().visit(entity);
+	}
+
+	public void visit(ConstraintName entity) {
 		wGetVisitor1().visit(entity);
 	}
 

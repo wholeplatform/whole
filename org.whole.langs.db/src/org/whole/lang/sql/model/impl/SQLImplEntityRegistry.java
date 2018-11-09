@@ -69,6 +69,7 @@ public class SQLImplEntityRegistry extends AbstractEntityRegistry {
 		put(new TableNameImpl());
 		put(new ColumnNameImpl());
 		put(new IndexNameImpl());
+		put(new ConstraintNameImpl());
 		put(new CaseExpressionImpl());
 		put(new WhenClausesImpl());
 		put(new WhenClauseImpl());

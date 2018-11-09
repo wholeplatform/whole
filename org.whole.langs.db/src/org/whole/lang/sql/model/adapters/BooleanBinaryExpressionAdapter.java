@@ -11,8 +11,7 @@ import org.whole.lang.sql.reflect.SQLFeatureDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class BooleanBinaryExpressionAdapter extends AbstractEntityAdapter
-		implements BooleanBinaryExpression {
+public class BooleanBinaryExpressionAdapter extends AbstractEntityAdapter implements BooleanBinaryExpression {
 	private static final long serialVersionUID = 1;
 
 	public BooleanBinaryExpressionAdapter(IEntity implementor) {
@@ -32,8 +31,7 @@ public class BooleanBinaryExpressionAdapter extends AbstractEntityAdapter
 	}
 
 	public SQLExpression getLeftExpr() {
-		return wGet(SQLFeatureDescriptorEnum.leftExpr).wGetAdapter(
-				SQLEntityDescriptorEnum.SQLExpression);
+		return wGet(SQLFeatureDescriptorEnum.leftExpr).wGetAdapter(SQLEntityDescriptorEnum.SQLExpression);
 	}
 
 	public void setLeftExpr(SQLExpression leftExpr) {
@@ -41,8 +39,7 @@ public class BooleanBinaryExpressionAdapter extends AbstractEntityAdapter
 	}
 
 	public BooleanOperator getOperator() {
-		return wGet(SQLFeatureDescriptorEnum.operator).wGetAdapter(
-				SQLEntityDescriptorEnum.BooleanOperator);
+		return wGet(SQLFeatureDescriptorEnum.operator).wGetAdapter(SQLEntityDescriptorEnum.BooleanOperator);
 	}
 
 	public void setOperator(BooleanOperator operator) {
@@ -50,8 +47,7 @@ public class BooleanBinaryExpressionAdapter extends AbstractEntityAdapter
 	}
 
 	public SQLExpression getRightExpr() {
-		return wGet(SQLFeatureDescriptorEnum.rightExpr).wGetAdapter(
-				SQLEntityDescriptorEnum.SQLExpression);
+		return wGet(SQLFeatureDescriptorEnum.rightExpr).wGetAdapter(SQLEntityDescriptorEnum.SQLExpression);
 	}
 
 	public void setRightExpr(SQLExpression rightExpr) {

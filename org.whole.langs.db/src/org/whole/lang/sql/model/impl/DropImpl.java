@@ -1,10 +1,12 @@
 package org.whole.lang.sql.model.impl;
 
 import org.whole.lang.model.AbstractSimpleEntity;
-import org.whole.lang.sql.model.*;
+import org.whole.lang.sql.model.Drop;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.sql.reflect.SQLEntityDescriptorEnum;
 import org.whole.lang.sql.visitors.ISQLVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
+import org.whole.lang.sql.model.TableName;
 import org.whole.lang.sql.reflect.SQLFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
 
@@ -26,7 +28,7 @@ public class DropImpl extends AbstractSimpleEntity implements Drop {
 		try {
 			visitor.visit(this);
 		} catch (Exception e) {
-			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+			throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
 		}
 	}
 
@@ -37,8 +39,7 @@ public class DropImpl extends AbstractSimpleEntity implements Drop {
 	}
 
 	public void setTableName(TableName tableName) {
-		notifyChanged(SQLFeatureDescriptorEnum.tableName, this.tableName,
-				this.tableName = tableName);
+		notifyChanged(SQLFeatureDescriptorEnum.tableName, this.tableName, this.tableName = tableName);
 	}
 
 	public IEntity wGet(int index) {

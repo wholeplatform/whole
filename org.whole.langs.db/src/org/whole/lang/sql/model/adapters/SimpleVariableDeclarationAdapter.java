@@ -11,8 +11,7 @@ import org.whole.lang.sql.reflect.SQLFeatureDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class SimpleVariableDeclarationAdapter extends AbstractEntityAdapter
-		implements SimpleVariableDeclaration {
+public class SimpleVariableDeclarationAdapter extends AbstractEntityAdapter implements SimpleVariableDeclaration {
 	private static final long serialVersionUID = 1;
 
 	public SimpleVariableDeclarationAdapter(IEntity implementor) {
@@ -32,8 +31,7 @@ public class SimpleVariableDeclarationAdapter extends AbstractEntityAdapter
 	}
 
 	public Name getName() {
-		return wGet(SQLFeatureDescriptorEnum.name).wGetAdapter(
-				SQLEntityDescriptorEnum.Name);
+		return wGet(SQLFeatureDescriptorEnum.name).wGetAdapter(SQLEntityDescriptorEnum.Name);
 	}
 
 	public void setName(Name name) {
@@ -41,8 +39,7 @@ public class SimpleVariableDeclarationAdapter extends AbstractEntityAdapter
 	}
 
 	public Type getType() {
-		return wGet(SQLFeatureDescriptorEnum.type).wGetAdapter(
-				SQLEntityDescriptorEnum.Type);
+		return wGet(SQLFeatureDescriptorEnum.type).wGetAdapter(SQLEntityDescriptorEnum.Type);
 	}
 
 	public void setType(Type type) {

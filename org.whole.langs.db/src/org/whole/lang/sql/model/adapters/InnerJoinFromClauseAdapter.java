@@ -11,8 +11,7 @@ import org.whole.lang.sql.reflect.SQLFeatureDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class InnerJoinFromClauseAdapter extends AbstractEntityAdapter implements
-		InnerJoinFromClause {
+public class InnerJoinFromClauseAdapter extends AbstractEntityAdapter implements InnerJoinFromClause {
 	private static final long serialVersionUID = 1;
 
 	public InnerJoinFromClauseAdapter(IEntity implementor) {
@@ -32,8 +31,7 @@ public class InnerJoinFromClauseAdapter extends AbstractEntityAdapter implements
 	}
 
 	public TableName getTableName() {
-		return wGet(SQLFeatureDescriptorEnum.tableName).wGetAdapter(
-				SQLEntityDescriptorEnum.TableName);
+		return wGet(SQLFeatureDescriptorEnum.tableName).wGetAdapter(SQLEntityDescriptorEnum.TableName);
 	}
 
 	public void setTableName(TableName tableName) {
@@ -41,8 +39,7 @@ public class InnerJoinFromClauseAdapter extends AbstractEntityAdapter implements
 	}
 
 	public TableName getInnerTable() {
-		return wGet(SQLFeatureDescriptorEnum.innerTable).wGetAdapter(
-				SQLEntityDescriptorEnum.TableName);
+		return wGet(SQLFeatureDescriptorEnum.innerTable).wGetAdapter(SQLEntityDescriptorEnum.TableName);
 	}
 
 	public void setInnerTable(TableName innerTable) {
@@ -50,8 +47,7 @@ public class InnerJoinFromClauseAdapter extends AbstractEntityAdapter implements
 	}
 
 	public SQLExpression getOnExpression() {
-		return wGet(SQLFeatureDescriptorEnum.onExpression).wGetAdapter(
-				SQLEntityDescriptorEnum.SQLExpression);
+		return wGet(SQLFeatureDescriptorEnum.onExpression).wGetAdapter(SQLEntityDescriptorEnum.SQLExpression);
 	}
 
 	public void setOnExpression(SQLExpression onExpression) {

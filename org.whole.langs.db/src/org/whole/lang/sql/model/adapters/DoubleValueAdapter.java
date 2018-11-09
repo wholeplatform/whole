@@ -10,8 +10,7 @@ import org.whole.lang.sql.reflect.SQLEntityDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class DoubleValueAdapter extends AbstractEntityAdapter implements
-		DoubleValue {
+public class DoubleValueAdapter extends AbstractEntityAdapter implements DoubleValue {
 	private static final long serialVersionUID = 1;
 
 	public DoubleValueAdapter(IEntity implementor) {

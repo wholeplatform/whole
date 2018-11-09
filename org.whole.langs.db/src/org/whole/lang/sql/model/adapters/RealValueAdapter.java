@@ -10,8 +10,7 @@ import org.whole.lang.sql.reflect.SQLEntityDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class RealValueAdapter extends AbstractEntityAdapter implements
-		RealValue {
+public class RealValueAdapter extends AbstractEntityAdapter implements RealValue {
 	private static final long serialVersionUID = 1;
 
 	public RealValueAdapter(IEntity implementor) {

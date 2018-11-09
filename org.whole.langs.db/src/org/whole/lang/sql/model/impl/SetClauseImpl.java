@@ -1,12 +1,15 @@
 package org.whole.lang.sql.model.impl;
 
 import org.whole.lang.model.AbstractSimpleEntity;
-import org.whole.lang.sql.model.*;
+import org.whole.lang.sql.model.SetClause;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.sql.reflect.SQLEntityDescriptorEnum;
 import org.whole.lang.sql.visitors.ISQLVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
+import org.whole.lang.sql.model.ColumnName;
 import org.whole.lang.sql.reflect.SQLFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.sql.model.SQLExpression;
 
 /** 
  * @generator Whole
@@ -26,7 +29,7 @@ public class SetClauseImpl extends AbstractSimpleEntity implements SetClause {
 		try {
 			visitor.visit(this);
 		} catch (Exception e) {
-			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+			throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
 		}
 	}
 
@@ -40,8 +43,7 @@ public class SetClauseImpl extends AbstractSimpleEntity implements SetClause {
 		if (!wGetEntityDescriptor().equals(entity.wGetEntityDescriptor()))
 			return false;
 		try {
-			return getColumnName().wEquals(
-					entity.wGet(SQLFeatureDescriptorEnum.columnName));
+			return getColumnName().wEquals(entity.wGet(SQLFeatureDescriptorEnum.columnName));
 		} catch (Exception e) {
 			return false;
 		}
@@ -59,8 +61,7 @@ public class SetClauseImpl extends AbstractSimpleEntity implements SetClause {
 	}
 
 	public void setColumnName(ColumnName columnName) {
-		notifyChanged(SQLFeatureDescriptorEnum.columnName, this.columnName,
-				this.columnName = columnName);
+		notifyChanged(SQLFeatureDescriptorEnum.columnName, this.columnName, this.columnName = columnName);
 	}
 
 	private SQLExpression expression;
@@ -70,8 +71,7 @@ public class SetClauseImpl extends AbstractSimpleEntity implements SetClause {
 	}
 
 	public void setExpression(SQLExpression expression) {
-		notifyChanged(SQLFeatureDescriptorEnum.expression, this.expression,
-				this.expression = expression);
+		notifyChanged(SQLFeatureDescriptorEnum.expression, this.expression, this.expression = expression);
 	}
 
 	public IEntity wGet(int index) {
@@ -91,8 +91,7 @@ public class SetClauseImpl extends AbstractSimpleEntity implements SetClause {
 			setColumnName(value.wGetAdapter(SQLEntityDescriptorEnum.ColumnName));
 			break;
 		case 1:
-			setExpression(value
-					.wGetAdapter(SQLEntityDescriptorEnum.SQLExpression));
+			setExpression(value.wGetAdapter(SQLEntityDescriptorEnum.SQLExpression));
 			break;
 		default:
 			throw new IllegalArgumentException();

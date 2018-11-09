@@ -10,8 +10,7 @@ public interface StoredProcedure extends ISQLEntity {
 
 	public ProcedureDeclarations getProcedureDeclarations();
 
-	public void setProcedureDeclarations(
-			ProcedureDeclarations procedureDeclarations);
+	public void setProcedureDeclarations(ProcedureDeclarations procedureDeclarations);
 
 	public ProcedureStatements getProcedureStatements();
 

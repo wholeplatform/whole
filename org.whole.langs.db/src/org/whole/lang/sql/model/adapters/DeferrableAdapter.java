@@ -11,8 +11,7 @@ import org.whole.lang.sql.model.DeferrableEnum.Value;
 /** 
  * @generator Whole
  */
-public class DeferrableAdapter extends AbstractEntityAdapter implements
-		Deferrable {
+public class DeferrableAdapter extends AbstractEntityAdapter implements Deferrable {
 	private static final long serialVersionUID = 1;
 
 	public DeferrableAdapter(IEntity implementor) {

@@ -1,17 +1,18 @@
 package org.whole.lang.sql.model.impl;
 
 import org.whole.lang.model.AbstractDataEntity;
-import org.whole.lang.sql.model.*;
+import org.whole.lang.sql.model.BinaryOperator;
 import org.whole.lang.sql.visitors.ISQLVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.sql.reflect.SQLEntityDescriptorEnum;
 import org.whole.lang.reflect.EntityDescriptor;
+import org.whole.lang.sql.model.BinaryOperatorEnum;
 import org.whole.lang.model.EnumValue;
 
 /** 
  * @generator Whole
  */
-public class BinaryOperatorImpl extends AbstractDataEntity implements
-		BinaryOperator {
+public class BinaryOperatorImpl extends AbstractDataEntity implements BinaryOperator {
 	private static final long serialVersionUID = 1;
 	private org.whole.lang.sql.model.BinaryOperatorEnum.Value value;
 
@@ -27,7 +28,7 @@ public class BinaryOperatorImpl extends AbstractDataEntity implements
 		try {
 			visitor.visit(this);
 		} catch (Exception e) {
-			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+			throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
 		}
 	}
 

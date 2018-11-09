@@ -1,18 +1,21 @@
 package org.whole.lang.sql.model.impl;
 
 import org.whole.lang.model.AbstractSimpleEntity;
-import org.whole.lang.sql.model.*;
+import org.whole.lang.sql.model.StoredProcedure;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.sql.reflect.SQLEntityDescriptorEnum;
 import org.whole.lang.sql.visitors.ISQLVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
+import org.whole.lang.sql.model.Name;
 import org.whole.lang.sql.reflect.SQLFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.sql.model.ProcedureDeclarations;
+import org.whole.lang.sql.model.ProcedureStatements;
 
 /** 
  * @generator Whole
  */
-public class StoredProcedureImpl extends AbstractSimpleEntity implements
-		StoredProcedure {
+public class StoredProcedureImpl extends AbstractSimpleEntity implements StoredProcedure {
 	private static final long serialVersionUID = 1;
 
 	public EntityDescriptor<StoredProcedure> wGetEntityDescriptor() {
@@ -27,7 +30,7 @@ public class StoredProcedureImpl extends AbstractSimpleEntity implements
 		try {
 			visitor.visit(this);
 		} catch (Exception e) {
-			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+			throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
 		}
 	}
 
@@ -41,8 +44,7 @@ public class StoredProcedureImpl extends AbstractSimpleEntity implements
 		if (!wGetEntityDescriptor().equals(entity.wGetEntityDescriptor()))
 			return false;
 		try {
-			return getName()
-					.wEquals(entity.wGet(SQLFeatureDescriptorEnum.name));
+			return getName().wEquals(entity.wGet(SQLFeatureDescriptorEnum.name));
 		} catch (Exception e) {
 			return false;
 		}
@@ -60,34 +62,28 @@ public class StoredProcedureImpl extends AbstractSimpleEntity implements
 	}
 
 	public void setName(Name name) {
-		notifyChanged(SQLFeatureDescriptorEnum.name, this.name,
-				this.name = name);
+		notifyChanged(SQLFeatureDescriptorEnum.name, this.name, this.name = name);
 	}
 
 	private ProcedureDeclarations procedureDeclarations;
 
 	public ProcedureDeclarations getProcedureDeclarations() {
-		return notifyRequested(SQLFeatureDescriptorEnum.procedureDeclarations,
-				procedureDeclarations);
+		return notifyRequested(SQLFeatureDescriptorEnum.procedureDeclarations, procedureDeclarations);
 	}
 
-	public void setProcedureDeclarations(
-			ProcedureDeclarations procedureDeclarations) {
-		notifyChanged(SQLFeatureDescriptorEnum.procedureDeclarations,
-				this.procedureDeclarations,
+	public void setProcedureDeclarations(ProcedureDeclarations procedureDeclarations) {
+		notifyChanged(SQLFeatureDescriptorEnum.procedureDeclarations, this.procedureDeclarations,
 				this.procedureDeclarations = procedureDeclarations);
 	}
 
 	private ProcedureStatements procedureStatements;
 
 	public ProcedureStatements getProcedureStatements() {
-		return notifyRequested(SQLFeatureDescriptorEnum.procedureStatements,
-				procedureStatements);
+		return notifyRequested(SQLFeatureDescriptorEnum.procedureStatements, procedureStatements);
 	}
 
 	public void setProcedureStatements(ProcedureStatements procedureStatements) {
-		notifyChanged(SQLFeatureDescriptorEnum.procedureStatements,
-				this.procedureStatements,
+		notifyChanged(SQLFeatureDescriptorEnum.procedureStatements, this.procedureStatements,
 				this.procedureStatements = procedureStatements);
 	}
 
@@ -110,12 +106,10 @@ public class StoredProcedureImpl extends AbstractSimpleEntity implements
 			setName(value.wGetAdapter(SQLEntityDescriptorEnum.Name));
 			break;
 		case 1:
-			setProcedureDeclarations(value
-					.wGetAdapter(SQLEntityDescriptorEnum.ProcedureDeclarations));
+			setProcedureDeclarations(value.wGetAdapter(SQLEntityDescriptorEnum.ProcedureDeclarations));
 			break;
 		case 2:
-			setProcedureStatements(value
-					.wGetAdapter(SQLEntityDescriptorEnum.ProcedureStatements));
+			setProcedureStatements(value.wGetAdapter(SQLEntityDescriptorEnum.ProcedureStatements));
 			break;
 		default:
 			throw new IllegalArgumentException();

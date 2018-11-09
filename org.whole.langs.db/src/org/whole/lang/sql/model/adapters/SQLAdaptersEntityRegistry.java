@@ -74,6 +74,7 @@ public class SQLAdaptersEntityRegistry extends AbstractEntityRegistry {
 		put(new TableNameAdapter());
 		put(new ColumnNameAdapter());
 		put(new IndexNameAdapter());
+		put(new ConstraintNameAdapter());
 		put(new CaseExpressionAdapter());
 		put(new WhenClausesAdapter());
 		put(new WhenClauseAdapter());

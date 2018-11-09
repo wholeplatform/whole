@@ -31,8 +31,7 @@ public class UpdateAdapter extends AbstractEntityAdapter implements Update {
 	}
 
 	public TableName getTableName() {
-		return wGet(SQLFeatureDescriptorEnum.tableName).wGetAdapter(
-				SQLEntityDescriptorEnum.TableName);
+		return wGet(SQLFeatureDescriptorEnum.tableName).wGetAdapter(SQLEntityDescriptorEnum.TableName);
 	}
 
 	public void setTableName(TableName tableName) {
@@ -40,8 +39,7 @@ public class UpdateAdapter extends AbstractEntityAdapter implements Update {
 	}
 
 	public SetClauses getSetClauses() {
-		return wGet(SQLFeatureDescriptorEnum.setClauses).wGetAdapter(
-				SQLEntityDescriptorEnum.SetClauses);
+		return wGet(SQLFeatureDescriptorEnum.setClauses).wGetAdapter(SQLEntityDescriptorEnum.SetClauses);
 	}
 
 	public void setSetClauses(SetClauses setClauses) {
@@ -49,8 +47,7 @@ public class UpdateAdapter extends AbstractEntityAdapter implements Update {
 	}
 
 	public FromClauses getFromClauses() {
-		return wGet(SQLFeatureDescriptorEnum.fromClauses).wGetAdapter(
-				SQLEntityDescriptorEnum.FromClauses);
+		return wGet(SQLFeatureDescriptorEnum.fromClauses).wGetAdapter(SQLEntityDescriptorEnum.FromClauses);
 	}
 
 	public void setFromClauses(FromClauses fromClauses) {
@@ -58,8 +55,7 @@ public class UpdateAdapter extends AbstractEntityAdapter implements Update {
 	}
 
 	public SQLExpression getWhereExpr() {
-		return wGet(SQLFeatureDescriptorEnum.whereExpr).wGetAdapter(
-				SQLEntityDescriptorEnum.SQLExpression);
+		return wGet(SQLFeatureDescriptorEnum.whereExpr).wGetAdapter(SQLEntityDescriptorEnum.SQLExpression);
 	}
 
 	public void setWhereExpr(SQLExpression whereExpr) {
@@ -67,8 +63,7 @@ public class UpdateAdapter extends AbstractEntityAdapter implements Update {
 	}
 
 	public IntValue getLimit() {
-		return wGet(SQLFeatureDescriptorEnum.limit).wGetAdapter(
-				SQLEntityDescriptorEnum.IntValue);
+		return wGet(SQLFeatureDescriptorEnum.limit).wGetAdapter(SQLEntityDescriptorEnum.IntValue);
 	}
 
 	public void setLimit(IntValue limit) {

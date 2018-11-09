@@ -11,8 +11,7 @@ import org.whole.lang.sql.reflect.SQLFeatureDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class AlterTableAdapter extends AbstractEntityAdapter implements
-		AlterTable {
+public class AlterTableAdapter extends AbstractEntityAdapter implements AlterTable {
 	private static final long serialVersionUID = 1;
 
 	public AlterTableAdapter(IEntity implementor) {
@@ -32,8 +31,7 @@ public class AlterTableAdapter extends AbstractEntityAdapter implements
 	}
 
 	public TableName getTableName() {
-		return wGet(SQLFeatureDescriptorEnum.tableName).wGetAdapter(
-				SQLEntityDescriptorEnum.TableName);
+		return wGet(SQLFeatureDescriptorEnum.tableName).wGetAdapter(SQLEntityDescriptorEnum.TableName);
 	}
 
 	public void setTableName(TableName tableName) {
@@ -41,8 +39,7 @@ public class AlterTableAdapter extends AbstractEntityAdapter implements
 	}
 
 	public AlterAction getAction() {
-		return wGet(SQLFeatureDescriptorEnum.action).wGetAdapter(
-				SQLEntityDescriptorEnum.AlterAction);
+		return wGet(SQLFeatureDescriptorEnum.action).wGetAdapter(SQLEntityDescriptorEnum.AlterAction);
 	}
 
 	public void setAction(AlterAction action) {

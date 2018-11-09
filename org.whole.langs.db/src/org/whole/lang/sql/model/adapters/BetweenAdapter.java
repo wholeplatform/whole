@@ -31,8 +31,7 @@ public class BetweenAdapter extends AbstractEntityAdapter implements Between {
 	}
 
 	public SQLExpression getExpression() {
-		return wGet(SQLFeatureDescriptorEnum.expression).wGetAdapter(
-				SQLEntityDescriptorEnum.SQLExpression);
+		return wGet(SQLFeatureDescriptorEnum.expression).wGetAdapter(SQLEntityDescriptorEnum.SQLExpression);
 	}
 
 	public void setExpression(SQLExpression expression) {
@@ -40,8 +39,7 @@ public class BetweenAdapter extends AbstractEntityAdapter implements Between {
 	}
 
 	public SQLExpression getLowerExpression() {
-		return wGet(SQLFeatureDescriptorEnum.lowerExpression).wGetAdapter(
-				SQLEntityDescriptorEnum.SQLExpression);
+		return wGet(SQLFeatureDescriptorEnum.lowerExpression).wGetAdapter(SQLEntityDescriptorEnum.SQLExpression);
 	}
 
 	public void setLowerExpression(SQLExpression lowerExpression) {
@@ -49,8 +47,7 @@ public class BetweenAdapter extends AbstractEntityAdapter implements Between {
 	}
 
 	public SQLExpression getUpperExpression() {
-		return wGet(SQLFeatureDescriptorEnum.upperExpression).wGetAdapter(
-				SQLEntityDescriptorEnum.SQLExpression);
+		return wGet(SQLFeatureDescriptorEnum.upperExpression).wGetAdapter(SQLEntityDescriptorEnum.SQLExpression);
 	}
 
 	public void setUpperExpression(SQLExpression upperExpression) {

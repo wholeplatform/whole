@@ -1,12 +1,15 @@
 package org.whole.lang.sql.model.impl;
 
 import org.whole.lang.model.AbstractSimpleEntity;
-import org.whole.lang.sql.model.*;
+import org.whole.lang.sql.model.NotIn;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.sql.reflect.SQLEntityDescriptorEnum;
 import org.whole.lang.sql.visitors.ISQLVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
+import org.whole.lang.sql.model.SQLExpression;
 import org.whole.lang.sql.reflect.SQLFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.sql.model.InPredicate;
 
 /** 
  * @generator Whole
@@ -26,7 +29,7 @@ public class NotInImpl extends AbstractSimpleEntity implements NotIn {
 		try {
 			visitor.visit(this);
 		} catch (Exception e) {
-			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+			throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
 		}
 	}
 
@@ -37,20 +40,17 @@ public class NotInImpl extends AbstractSimpleEntity implements NotIn {
 	}
 
 	public void setLeftExpr(SQLExpression leftExpr) {
-		notifyChanged(SQLFeatureDescriptorEnum.leftExpr, this.leftExpr,
-				this.leftExpr = leftExpr);
+		notifyChanged(SQLFeatureDescriptorEnum.leftExpr, this.leftExpr, this.leftExpr = leftExpr);
 	}
 
 	private InPredicate inPredicate;
 
 	public InPredicate getInPredicate() {
-		return notifyRequested(SQLFeatureDescriptorEnum.inPredicate,
-				inPredicate);
+		return notifyRequested(SQLFeatureDescriptorEnum.inPredicate, inPredicate);
 	}
 
 	public void setInPredicate(InPredicate inPredicate) {
-		notifyChanged(SQLFeatureDescriptorEnum.inPredicate, this.inPredicate,
-				this.inPredicate = inPredicate);
+		notifyChanged(SQLFeatureDescriptorEnum.inPredicate, this.inPredicate, this.inPredicate = inPredicate);
 	}
 
 	public IEntity wGet(int index) {
@@ -67,12 +67,10 @@ public class NotInImpl extends AbstractSimpleEntity implements NotIn {
 	public void wSet(int index, IEntity value) {
 		switch (index) {
 		case 0:
-			setLeftExpr(value
-					.wGetAdapter(SQLEntityDescriptorEnum.SQLExpression));
+			setLeftExpr(value.wGetAdapter(SQLEntityDescriptorEnum.SQLExpression));
 			break;
 		case 1:
-			setInPredicate(value
-					.wGetAdapter(SQLEntityDescriptorEnum.InPredicate));
+			setInPredicate(value.wGetAdapter(SQLEntityDescriptorEnum.InPredicate));
 			break;
 		default:
 			throw new IllegalArgumentException();

@@ -10,8 +10,7 @@ import org.whole.lang.sql.reflect.SQLEntityDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class TableNameAdapter extends AbstractEntityAdapter implements
-		TableName {
+public class TableNameAdapter extends AbstractEntityAdapter implements TableName {
 	private static final long serialVersionUID = 1;
 
 	public TableNameAdapter(IEntity implementor) {

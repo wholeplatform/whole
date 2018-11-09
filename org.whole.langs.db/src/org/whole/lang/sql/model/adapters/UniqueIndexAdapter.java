@@ -10,8 +10,7 @@ import org.whole.lang.sql.reflect.SQLEntityDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class UniqueIndexAdapter extends AbstractEntityAdapter implements
-		UniqueIndex {
+public class UniqueIndexAdapter extends AbstractEntityAdapter implements UniqueIndex {
 	private static final long serialVersionUID = 1;
 
 	public UniqueIndexAdapter(IEntity implementor) {

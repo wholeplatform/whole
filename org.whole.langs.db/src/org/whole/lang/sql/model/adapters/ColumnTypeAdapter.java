@@ -11,8 +11,7 @@ import org.whole.lang.sql.reflect.SQLFeatureDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class ColumnTypeAdapter extends AbstractEntityAdapter implements
-		ColumnType {
+public class ColumnTypeAdapter extends AbstractEntityAdapter implements ColumnType {
 	private static final long serialVersionUID = 1;
 
 	public ColumnTypeAdapter(IEntity implementor) {
@@ -32,8 +31,7 @@ public class ColumnTypeAdapter extends AbstractEntityAdapter implements
 	}
 
 	public Type getType() {
-		return wGet(SQLFeatureDescriptorEnum.type).wGetAdapter(
-				SQLEntityDescriptorEnum.Type);
+		return wGet(SQLFeatureDescriptorEnum.type).wGetAdapter(SQLEntityDescriptorEnum.Type);
 	}
 
 	public void setType(Type type) {
@@ -41,8 +39,7 @@ public class ColumnTypeAdapter extends AbstractEntityAdapter implements
 	}
 
 	public IntValue getSize() {
-		return wGet(SQLFeatureDescriptorEnum.size).wGetAdapter(
-				SQLEntityDescriptorEnum.IntValue);
+		return wGet(SQLFeatureDescriptorEnum.size).wGetAdapter(SQLEntityDescriptorEnum.IntValue);
 	}
 
 	public void setSize(IntValue size) {
@@ -50,8 +47,7 @@ public class ColumnTypeAdapter extends AbstractEntityAdapter implements
 	}
 
 	public IntValue getPrecision() {
-		return wGet(SQLFeatureDescriptorEnum.precision).wGetAdapter(
-				SQLEntityDescriptorEnum.IntValue);
+		return wGet(SQLFeatureDescriptorEnum.precision).wGetAdapter(SQLEntityDescriptorEnum.IntValue);
 	}
 
 	public void setPrecision(IntValue precision) {

@@ -11,8 +11,7 @@ import java.sql.Time;
 /** 
  * @generator Whole
  */
-public class TimeValueAdapter extends AbstractEntityAdapter implements
-		TimeValue {
+public class TimeValueAdapter extends AbstractEntityAdapter implements TimeValue {
 	private static final long serialVersionUID = 1;
 
 	public TimeValueAdapter(IEntity implementor) {

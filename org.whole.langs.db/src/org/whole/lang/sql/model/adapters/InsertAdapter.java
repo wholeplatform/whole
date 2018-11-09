@@ -31,8 +31,7 @@ public class InsertAdapter extends AbstractEntityAdapter implements Insert {
 	}
 
 	public TableName getTableName() {
-		return wGet(SQLFeatureDescriptorEnum.tableName).wGetAdapter(
-				SQLEntityDescriptorEnum.TableName);
+		return wGet(SQLFeatureDescriptorEnum.tableName).wGetAdapter(SQLEntityDescriptorEnum.TableName);
 	}
 
 	public void setTableName(TableName tableName) {
@@ -40,8 +39,7 @@ public class InsertAdapter extends AbstractEntityAdapter implements Insert {
 	}
 
 	public ColumnNames getColumnNames() {
-		return wGet(SQLFeatureDescriptorEnum.columnNames).wGetAdapter(
-				SQLEntityDescriptorEnum.ColumnNames);
+		return wGet(SQLFeatureDescriptorEnum.columnNames).wGetAdapter(SQLEntityDescriptorEnum.ColumnNames);
 	}
 
 	public void setColumnNames(ColumnNames columnNames) {
@@ -49,8 +47,7 @@ public class InsertAdapter extends AbstractEntityAdapter implements Insert {
 	}
 
 	public Values getValues() {
-		return wGet(SQLFeatureDescriptorEnum.values).wGetAdapter(
-				SQLEntityDescriptorEnum.Values);
+		return wGet(SQLFeatureDescriptorEnum.values).wGetAdapter(SQLEntityDescriptorEnum.Values);
 	}
 
 	public void setValues(Values values) {

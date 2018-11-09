@@ -11,8 +11,7 @@ import org.whole.lang.sql.model.BooleanOperatorEnum.Value;
 /** 
  * @generator Whole
  */
-public class BooleanOperatorAdapter extends AbstractEntityAdapter implements
-		BooleanOperator {
+public class BooleanOperatorAdapter extends AbstractEntityAdapter implements BooleanOperator {
 	private static final long serialVersionUID = 1;
 
 	public BooleanOperatorAdapter(IEntity implementor) {

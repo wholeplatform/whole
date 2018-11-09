@@ -10,8 +10,7 @@ import org.whole.lang.sql.reflect.SQLEntityDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class BinaryValueAdapter extends AbstractEntityAdapter implements
-		BinaryValue {
+public class BinaryValueAdapter extends AbstractEntityAdapter implements BinaryValue {
 	private static final long serialVersionUID = 1;
 
 	public BinaryValueAdapter(IEntity implementor) {

@@ -10,10 +10,8 @@ public class DeferCheckEnum extends EnumType<DeferCheckEnum.Value> {
 	public static final int INITIALLY_IMMEDIATE_ord = 0;
 	public static final int INITIALLY_DEFERRED_ord = 1;
 	public static final DeferCheckEnum instance = new DeferCheckEnum();
-	public static final Value INITIALLY_IMMEDIATE = instance
-			.valueOf(INITIALLY_IMMEDIATE_ord);
-	public static final Value INITIALLY_DEFERRED = instance
-			.valueOf(INITIALLY_DEFERRED_ord);
+	public static final Value INITIALLY_IMMEDIATE = instance.valueOf(INITIALLY_IMMEDIATE_ord);
+	public static final Value INITIALLY_DEFERRED = instance.valueOf(INITIALLY_DEFERRED_ord);
 
 	private DeferCheckEnum() {
 		enumValue(INITIALLY_IMMEDIATE_ord, "INITIALLY_IMMEDIATE");

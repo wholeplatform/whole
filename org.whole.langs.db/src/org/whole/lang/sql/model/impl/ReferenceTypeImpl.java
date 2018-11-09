@@ -1,17 +1,18 @@
 package org.whole.lang.sql.model.impl;
 
 import org.whole.lang.model.AbstractDataEntity;
-import org.whole.lang.sql.model.*;
+import org.whole.lang.sql.model.ReferenceType;
 import org.whole.lang.sql.visitors.ISQLVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.sql.reflect.SQLEntityDescriptorEnum;
 import org.whole.lang.reflect.EntityDescriptor;
+import org.whole.lang.sql.model.ReferenceTypeEnum;
 import org.whole.lang.model.EnumValue;
 
 /** 
  * @generator Whole
  */
-public class ReferenceTypeImpl extends AbstractDataEntity implements
-		ReferenceType {
+public class ReferenceTypeImpl extends AbstractDataEntity implements ReferenceType {
 	private static final long serialVersionUID = 1;
 	private org.whole.lang.sql.model.ReferenceTypeEnum.Value value;
 
@@ -27,7 +28,7 @@ public class ReferenceTypeImpl extends AbstractDataEntity implements
 		try {
 			visitor.visit(this);
 		} catch (Exception e) {
-			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+			throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
 		}
 	}
 

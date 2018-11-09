@@ -11,8 +11,7 @@ import org.whole.lang.sql.model.SelectTypeEnum.Value;
 /** 
  * @generator Whole
  */
-public class SelectTypeAdapter extends AbstractEntityAdapter implements
-		SelectType {
+public class SelectTypeAdapter extends AbstractEntityAdapter implements SelectType {
 	private static final long serialVersionUID = 1;
 
 	public SelectTypeAdapter(IEntity implementor) {

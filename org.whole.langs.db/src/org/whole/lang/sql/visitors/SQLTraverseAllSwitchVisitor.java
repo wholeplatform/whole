@@ -7,8 +7,7 @@ import org.whole.lang.sql.model.*;
 /** 
  * @generator Whole
  */
-public class SQLTraverseAllSwitchVisitor extends
-		SQLIdentityUnaryVisitor<IVisitor> {
+public class SQLTraverseAllSwitchVisitor extends SQLIdentityUnaryVisitor<IVisitor> {
 	public SQLTraverseAllSwitchVisitor(IVisitor visitor1) {
 		super(visitor1);
 	}
@@ -276,15 +275,23 @@ public class SQLTraverseAllSwitchVisitor extends
 		wGetVisitor1().visit(entity.getForeignColumnName());
 	}
 
+	public void visit(TableConstraint entity) {
+		wGetVisitor1().visit(entity.getConstraintName());
+		wGetVisitor1().visit(entity.getColumnNames());
+	}
+
 	public void visit(UniqueTableConstraint entity) {
+		wGetVisitor1().visit(entity.getConstraintName());
 		wGetVisitor1().visit(entity.getColumnNames());
 	}
 
 	public void visit(PrimaryKeyTableConstraint entity) {
+		wGetVisitor1().visit(entity.getConstraintName());
 		wGetVisitor1().visit(entity.getColumnNames());
 	}
 
 	public void visit(ForeignKeyTableConstraint entity) {
+		wGetVisitor1().visit(entity.getConstraintName());
 		wGetVisitor1().visit(entity.getColumnNames());
 		wGetVisitor1().visit(entity.getForeignTableName());
 		wGetVisitor1().visit(entity.getForeignColumnNames());

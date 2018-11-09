@@ -11,8 +11,7 @@ import org.whole.lang.sql.reflect.SQLFeatureDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class UniqueTableConstraintAdapter extends AbstractEntityAdapter
-		implements UniqueTableConstraint {
+public class UniqueTableConstraintAdapter extends AbstractEntityAdapter implements UniqueTableConstraint {
 	private static final long serialVersionUID = 1;
 
 	public UniqueTableConstraintAdapter(IEntity implementor) {
@@ -31,9 +30,16 @@ public class UniqueTableConstraintAdapter extends AbstractEntityAdapter
 		return SQLEntityDescriptorEnum.UniqueTableConstraint;
 	}
 
+	public ConstraintName getConstraintName() {
+		return wGet(SQLFeatureDescriptorEnum.constraintName).wGetAdapter(SQLEntityDescriptorEnum.ConstraintName);
+	}
+
+	public void setConstraintName(ConstraintName constraintName) {
+		wSet(SQLFeatureDescriptorEnum.constraintName, constraintName);
+	}
+
 	public ColumnNames getColumnNames() {
-		return wGet(SQLFeatureDescriptorEnum.columnNames).wGetAdapter(
-				SQLEntityDescriptorEnum.ColumnNames);
+		return wGet(SQLFeatureDescriptorEnum.columnNames).wGetAdapter(SQLEntityDescriptorEnum.ColumnNames);
 	}
 
 	public void setColumnNames(ColumnNames columnNames) {

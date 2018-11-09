@@ -11,8 +11,7 @@ import org.whole.lang.sql.reflect.SQLFeatureDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class AddActionAdapter extends AbstractEntityAdapter implements
-		AddAction {
+public class AddActionAdapter extends AbstractEntityAdapter implements AddAction {
 	private static final long serialVersionUID = 1;
 
 	public AddActionAdapter(IEntity implementor) {
@@ -36,9 +35,7 @@ public class AddActionAdapter extends AbstractEntityAdapter implements
 				.wGetAdapter(SQLEntityDescriptorEnum.DeclarationOrConstraint);
 	}
 
-	public void setDeclarationOrConstraint(
-			DeclarationOrConstraint declarationOrConstraint) {
-		wSet(SQLFeatureDescriptorEnum.declarationOrConstraint,
-				declarationOrConstraint);
+	public void setDeclarationOrConstraint(DeclarationOrConstraint declarationOrConstraint) {
+		wSet(SQLFeatureDescriptorEnum.declarationOrConstraint, declarationOrConstraint);
 	}
 }

@@ -11,8 +11,7 @@ import org.whole.lang.sql.reflect.SQLFeatureDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class InsertFromSelectAdapter extends AbstractEntityAdapter implements
-		InsertFromSelect {
+public class InsertFromSelectAdapter extends AbstractEntityAdapter implements InsertFromSelect {
 	private static final long serialVersionUID = 1;
 
 	public InsertFromSelectAdapter(IEntity implementor) {
@@ -32,8 +31,7 @@ public class InsertFromSelectAdapter extends AbstractEntityAdapter implements
 	}
 
 	public TableName getTableName() {
-		return wGet(SQLFeatureDescriptorEnum.tableName).wGetAdapter(
-				SQLEntityDescriptorEnum.TableName);
+		return wGet(SQLFeatureDescriptorEnum.tableName).wGetAdapter(SQLEntityDescriptorEnum.TableName);
 	}
 
 	public void setTableName(TableName tableName) {
@@ -41,8 +39,7 @@ public class InsertFromSelectAdapter extends AbstractEntityAdapter implements
 	}
 
 	public ColumnNames getColumnNames() {
-		return wGet(SQLFeatureDescriptorEnum.columnNames).wGetAdapter(
-				SQLEntityDescriptorEnum.ColumnNames);
+		return wGet(SQLFeatureDescriptorEnum.columnNames).wGetAdapter(SQLEntityDescriptorEnum.ColumnNames);
 	}
 
 	public void setColumnNames(ColumnNames columnNames) {
@@ -50,8 +47,7 @@ public class InsertFromSelectAdapter extends AbstractEntityAdapter implements
 	}
 
 	public SelectSQLStatement getSelect() {
-		return wGet(SQLFeatureDescriptorEnum.select).wGetAdapter(
-				SQLEntityDescriptorEnum.SelectSQLStatement);
+		return wGet(SQLFeatureDescriptorEnum.select).wGetAdapter(SQLEntityDescriptorEnum.SelectSQLStatement);
 	}
 
 	public void setSelect(SelectSQLStatement select) {

@@ -11,8 +11,7 @@ import org.whole.lang.sql.model.SimpleColumnConstraintEnum.Value;
 /** 
  * @generator Whole
  */
-public class SimpleColumnConstraintAdapter extends AbstractEntityAdapter
-		implements SimpleColumnConstraint {
+public class SimpleColumnConstraintAdapter extends AbstractEntityAdapter implements SimpleColumnConstraint {
 	private static final long serialVersionUID = 1;
 
 	public SimpleColumnConstraintAdapter(IEntity implementor) {

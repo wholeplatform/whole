@@ -31,8 +31,7 @@ public class SelectAdapter extends AbstractEntityAdapter implements Select {
 	}
 
 	public SelectType getSelectType() {
-		return wGet(SQLFeatureDescriptorEnum.selectType).wGetAdapter(
-				SQLEntityDescriptorEnum.SelectType);
+		return wGet(SQLFeatureDescriptorEnum.selectType).wGetAdapter(SQLEntityDescriptorEnum.SelectType);
 	}
 
 	public void setSelectType(SelectType selectType) {
@@ -40,8 +39,7 @@ public class SelectAdapter extends AbstractEntityAdapter implements Select {
 	}
 
 	public ColumnExpressions getColumnExprs() {
-		return wGet(SQLFeatureDescriptorEnum.columnExprs).wGetAdapter(
-				SQLEntityDescriptorEnum.ColumnExpressions);
+		return wGet(SQLFeatureDescriptorEnum.columnExprs).wGetAdapter(SQLEntityDescriptorEnum.ColumnExpressions);
 	}
 
 	public void setColumnExprs(ColumnExpressions columnExprs) {
@@ -49,8 +47,7 @@ public class SelectAdapter extends AbstractEntityAdapter implements Select {
 	}
 
 	public FromClauses getFromClauses() {
-		return wGet(SQLFeatureDescriptorEnum.fromClauses).wGetAdapter(
-				SQLEntityDescriptorEnum.FromClauses);
+		return wGet(SQLFeatureDescriptorEnum.fromClauses).wGetAdapter(SQLEntityDescriptorEnum.FromClauses);
 	}
 
 	public void setFromClauses(FromClauses fromClauses) {
@@ -58,8 +55,7 @@ public class SelectAdapter extends AbstractEntityAdapter implements Select {
 	}
 
 	public SQLExpression getWhereExpr() {
-		return wGet(SQLFeatureDescriptorEnum.whereExpr).wGetAdapter(
-				SQLEntityDescriptorEnum.SQLExpression);
+		return wGet(SQLFeatureDescriptorEnum.whereExpr).wGetAdapter(SQLEntityDescriptorEnum.SQLExpression);
 	}
 
 	public void setWhereExpr(SQLExpression whereExpr) {
@@ -67,8 +63,7 @@ public class SelectAdapter extends AbstractEntityAdapter implements Select {
 	}
 
 	public SQLExpressions getGroupByExprs() {
-		return wGet(SQLFeatureDescriptorEnum.groupByExprs).wGetAdapter(
-				SQLEntityDescriptorEnum.SQLExpressions);
+		return wGet(SQLFeatureDescriptorEnum.groupByExprs).wGetAdapter(SQLEntityDescriptorEnum.SQLExpressions);
 	}
 
 	public void setGroupByExprs(SQLExpressions groupByExprs) {
@@ -76,8 +71,7 @@ public class SelectAdapter extends AbstractEntityAdapter implements Select {
 	}
 
 	public SQLExpression getHavingExpr() {
-		return wGet(SQLFeatureDescriptorEnum.havingExpr).wGetAdapter(
-				SQLEntityDescriptorEnum.SQLExpression);
+		return wGet(SQLFeatureDescriptorEnum.havingExpr).wGetAdapter(SQLEntityDescriptorEnum.SQLExpression);
 	}
 
 	public void setHavingExpr(SQLExpression havingExpr) {
@@ -85,12 +79,11 @@ public class SelectAdapter extends AbstractEntityAdapter implements Select {
 	}
 
 	public OrderByColumnExpressions getOrderByColumnExprs() {
-		return wGet(SQLFeatureDescriptorEnum.orderByColumnExprs).wGetAdapter(
-				SQLEntityDescriptorEnum.OrderByColumnExpressions);
+		return wGet(SQLFeatureDescriptorEnum.orderByColumnExprs)
+				.wGetAdapter(SQLEntityDescriptorEnum.OrderByColumnExpressions);
 	}
 
-	public void setOrderByColumnExprs(
-			OrderByColumnExpressions orderByColumnExprs) {
+	public void setOrderByColumnExprs(OrderByColumnExpressions orderByColumnExprs) {
 		wSet(SQLFeatureDescriptorEnum.orderByColumnExprs, orderByColumnExprs);
 	}
 }

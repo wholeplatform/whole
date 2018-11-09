@@ -11,8 +11,7 @@ import org.whole.lang.sql.reflect.SQLFeatureDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class UnionSelectAdapter extends AbstractEntityAdapter implements
-		UnionSelect {
+public class UnionSelectAdapter extends AbstractEntityAdapter implements UnionSelect {
 	private static final long serialVersionUID = 1;
 
 	public UnionSelectAdapter(IEntity implementor) {
@@ -32,8 +31,7 @@ public class UnionSelectAdapter extends AbstractEntityAdapter implements
 	}
 
 	public Select getSimpleSelect() {
-		return wGet(SQLFeatureDescriptorEnum.simpleSelect).wGetAdapter(
-				SQLEntityDescriptorEnum.Select);
+		return wGet(SQLFeatureDescriptorEnum.simpleSelect).wGetAdapter(SQLEntityDescriptorEnum.Select);
 	}
 
 	public void setSimpleSelect(Select simpleSelect) {
@@ -41,12 +39,11 @@ public class UnionSelectAdapter extends AbstractEntityAdapter implements
 	}
 
 	public SelectSQLStatement getUnionSelectStatement() {
-		return wGet(SQLFeatureDescriptorEnum.unionSelectStatement).wGetAdapter(
-				SQLEntityDescriptorEnum.SelectSQLStatement);
+		return wGet(SQLFeatureDescriptorEnum.unionSelectStatement)
+				.wGetAdapter(SQLEntityDescriptorEnum.SelectSQLStatement);
 	}
 
 	public void setUnionSelectStatement(SelectSQLStatement unionSelectStatement) {
-		wSet(SQLFeatureDescriptorEnum.unionSelectStatement,
-				unionSelectStatement);
+		wSet(SQLFeatureDescriptorEnum.unionSelectStatement, unionSelectStatement);
 	}
 }

@@ -11,8 +11,7 @@ import org.whole.lang.sql.reflect.SQLFeatureDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class IndexDeclarationAdapter extends AbstractEntityAdapter implements
-		IndexDeclaration {
+public class IndexDeclarationAdapter extends AbstractEntityAdapter implements IndexDeclaration {
 	private static final long serialVersionUID = 1;
 
 	public IndexDeclarationAdapter(IEntity implementor) {
@@ -32,8 +31,7 @@ public class IndexDeclarationAdapter extends AbstractEntityAdapter implements
 	}
 
 	public ColumnName getColumnName() {
-		return wGet(SQLFeatureDescriptorEnum.columnName).wGetAdapter(
-				SQLEntityDescriptorEnum.ColumnName);
+		return wGet(SQLFeatureDescriptorEnum.columnName).wGetAdapter(SQLEntityDescriptorEnum.ColumnName);
 	}
 
 	public void setColumnName(ColumnName columnName) {
@@ -41,8 +39,7 @@ public class IndexDeclarationAdapter extends AbstractEntityAdapter implements
 	}
 
 	public OrderType getOrderType() {
-		return wGet(SQLFeatureDescriptorEnum.orderType).wGetAdapter(
-				SQLEntityDescriptorEnum.OrderType);
+		return wGet(SQLFeatureDescriptorEnum.orderType).wGetAdapter(SQLEntityDescriptorEnum.OrderType);
 	}
 
 	public void setOrderType(OrderType orderType) {
@@ -50,8 +47,7 @@ public class IndexDeclarationAdapter extends AbstractEntityAdapter implements
 	}
 
 	public NullOrderType getNullOrderType() {
-		return wGet(SQLFeatureDescriptorEnum.nullOrderType).wGetAdapter(
-				SQLEntityDescriptorEnum.NullOrderType);
+		return wGet(SQLFeatureDescriptorEnum.nullOrderType).wGetAdapter(SQLEntityDescriptorEnum.NullOrderType);
 	}
 
 	public void setNullOrderType(NullOrderType nullOrderType) {

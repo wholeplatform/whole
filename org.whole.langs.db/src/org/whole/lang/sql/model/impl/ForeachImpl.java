@@ -1,12 +1,16 @@
 package org.whole.lang.sql.model.impl;
 
 import org.whole.lang.model.AbstractSimpleEntity;
-import org.whole.lang.sql.model.*;
+import org.whole.lang.sql.model.Foreach;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.sql.reflect.SQLEntityDescriptorEnum;
 import org.whole.lang.sql.visitors.ISQLVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
+import org.whole.lang.sql.model.Name;
 import org.whole.lang.sql.reflect.SQLFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.sql.model.ArrayExpr;
+import org.whole.lang.sql.model.SQLStatement;
 
 /** 
  * @generator Whole
@@ -26,7 +30,7 @@ public class ForeachImpl extends AbstractSimpleEntity implements Foreach {
 		try {
 			visitor.visit(this);
 		} catch (Exception e) {
-			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+			throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
 		}
 	}
 
@@ -37,8 +41,7 @@ public class ForeachImpl extends AbstractSimpleEntity implements Foreach {
 	}
 
 	public void setName(Name name) {
-		notifyChanged(SQLFeatureDescriptorEnum.name, this.name,
-				this.name = name);
+		notifyChanged(SQLFeatureDescriptorEnum.name, this.name, this.name = name);
 	}
 
 	private ArrayExpr arrayExp;
@@ -48,8 +51,7 @@ public class ForeachImpl extends AbstractSimpleEntity implements Foreach {
 	}
 
 	public void setArrayExp(ArrayExpr arrayExp) {
-		notifyChanged(SQLFeatureDescriptorEnum.arrayExp, this.arrayExp,
-				this.arrayExp = arrayExp);
+		notifyChanged(SQLFeatureDescriptorEnum.arrayExp, this.arrayExp, this.arrayExp = arrayExp);
 	}
 
 	private SQLStatement trueBody;
@@ -59,8 +61,7 @@ public class ForeachImpl extends AbstractSimpleEntity implements Foreach {
 	}
 
 	public void setTrueBody(SQLStatement trueBody) {
-		notifyChanged(SQLFeatureDescriptorEnum.trueBody, this.trueBody,
-				this.trueBody = trueBody);
+		notifyChanged(SQLFeatureDescriptorEnum.trueBody, this.trueBody, this.trueBody = trueBody);
 	}
 
 	public IEntity wGet(int index) {

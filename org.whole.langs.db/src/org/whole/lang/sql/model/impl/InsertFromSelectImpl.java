@@ -1,18 +1,21 @@
 package org.whole.lang.sql.model.impl;
 
 import org.whole.lang.model.AbstractSimpleEntity;
-import org.whole.lang.sql.model.*;
+import org.whole.lang.sql.model.InsertFromSelect;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.sql.reflect.SQLEntityDescriptorEnum;
 import org.whole.lang.sql.visitors.ISQLVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
+import org.whole.lang.sql.model.TableName;
 import org.whole.lang.sql.reflect.SQLFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.sql.model.ColumnNames;
+import org.whole.lang.sql.model.SelectSQLStatement;
 
 /** 
  * @generator Whole
  */
-public class InsertFromSelectImpl extends AbstractSimpleEntity implements
-		InsertFromSelect {
+public class InsertFromSelectImpl extends AbstractSimpleEntity implements InsertFromSelect {
 	private static final long serialVersionUID = 1;
 
 	public EntityDescriptor<InsertFromSelect> wGetEntityDescriptor() {
@@ -27,7 +30,7 @@ public class InsertFromSelectImpl extends AbstractSimpleEntity implements
 		try {
 			visitor.visit(this);
 		} catch (Exception e) {
-			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+			throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
 		}
 	}
 
@@ -38,20 +41,17 @@ public class InsertFromSelectImpl extends AbstractSimpleEntity implements
 	}
 
 	public void setTableName(TableName tableName) {
-		notifyChanged(SQLFeatureDescriptorEnum.tableName, this.tableName,
-				this.tableName = tableName);
+		notifyChanged(SQLFeatureDescriptorEnum.tableName, this.tableName, this.tableName = tableName);
 	}
 
 	private ColumnNames columnNames;
 
 	public ColumnNames getColumnNames() {
-		return notifyRequested(SQLFeatureDescriptorEnum.columnNames,
-				columnNames);
+		return notifyRequested(SQLFeatureDescriptorEnum.columnNames, columnNames);
 	}
 
 	public void setColumnNames(ColumnNames columnNames) {
-		notifyChanged(SQLFeatureDescriptorEnum.columnNames, this.columnNames,
-				this.columnNames = columnNames);
+		notifyChanged(SQLFeatureDescriptorEnum.columnNames, this.columnNames, this.columnNames = columnNames);
 	}
 
 	private SelectSQLStatement select;
@@ -61,8 +61,7 @@ public class InsertFromSelectImpl extends AbstractSimpleEntity implements
 	}
 
 	public void setSelect(SelectSQLStatement select) {
-		notifyChanged(SQLFeatureDescriptorEnum.select, this.select,
-				this.select = select);
+		notifyChanged(SQLFeatureDescriptorEnum.select, this.select, this.select = select);
 	}
 
 	public IEntity wGet(int index) {
@@ -84,12 +83,10 @@ public class InsertFromSelectImpl extends AbstractSimpleEntity implements
 			setTableName(value.wGetAdapter(SQLEntityDescriptorEnum.TableName));
 			break;
 		case 1:
-			setColumnNames(value
-					.wGetAdapter(SQLEntityDescriptorEnum.ColumnNames));
+			setColumnNames(value.wGetAdapter(SQLEntityDescriptorEnum.ColumnNames));
 			break;
 		case 2:
-			setSelect(value
-					.wGetAdapter(SQLEntityDescriptorEnum.SelectSQLStatement));
+			setSelect(value.wGetAdapter(SQLEntityDescriptorEnum.SelectSQLStatement));
 			break;
 		default:
 			throw new IllegalArgumentException();

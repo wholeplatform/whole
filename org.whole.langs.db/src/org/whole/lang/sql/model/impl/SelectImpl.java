@@ -1,12 +1,19 @@
 package org.whole.lang.sql.model.impl;
 
 import org.whole.lang.model.AbstractSimpleEntity;
-import org.whole.lang.sql.model.*;
+import org.whole.lang.sql.model.Select;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.sql.reflect.SQLEntityDescriptorEnum;
 import org.whole.lang.sql.visitors.ISQLVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
+import org.whole.lang.sql.model.SelectType;
 import org.whole.lang.sql.reflect.SQLFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.sql.model.ColumnExpressions;
+import org.whole.lang.sql.model.FromClauses;
+import org.whole.lang.sql.model.SQLExpression;
+import org.whole.lang.sql.model.SQLExpressions;
+import org.whole.lang.sql.model.OrderByColumnExpressions;
 
 /** 
  * @generator Whole
@@ -26,7 +33,7 @@ public class SelectImpl extends AbstractSimpleEntity implements Select {
 		try {
 			visitor.visit(this);
 		} catch (Exception e) {
-			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+			throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
 		}
 	}
 
@@ -37,32 +44,27 @@ public class SelectImpl extends AbstractSimpleEntity implements Select {
 	}
 
 	public void setSelectType(SelectType selectType) {
-		notifyChanged(SQLFeatureDescriptorEnum.selectType, this.selectType,
-				this.selectType = selectType);
+		notifyChanged(SQLFeatureDescriptorEnum.selectType, this.selectType, this.selectType = selectType);
 	}
 
 	private ColumnExpressions columnExprs;
 
 	public ColumnExpressions getColumnExprs() {
-		return notifyRequested(SQLFeatureDescriptorEnum.columnExprs,
-				columnExprs);
+		return notifyRequested(SQLFeatureDescriptorEnum.columnExprs, columnExprs);
 	}
 
 	public void setColumnExprs(ColumnExpressions columnExprs) {
-		notifyChanged(SQLFeatureDescriptorEnum.columnExprs, this.columnExprs,
-				this.columnExprs = columnExprs);
+		notifyChanged(SQLFeatureDescriptorEnum.columnExprs, this.columnExprs, this.columnExprs = columnExprs);
 	}
 
 	private FromClauses fromClauses;
 
 	public FromClauses getFromClauses() {
-		return notifyRequested(SQLFeatureDescriptorEnum.fromClauses,
-				fromClauses);
+		return notifyRequested(SQLFeatureDescriptorEnum.fromClauses, fromClauses);
 	}
 
 	public void setFromClauses(FromClauses fromClauses) {
-		notifyChanged(SQLFeatureDescriptorEnum.fromClauses, this.fromClauses,
-				this.fromClauses = fromClauses);
+		notifyChanged(SQLFeatureDescriptorEnum.fromClauses, this.fromClauses, this.fromClauses = fromClauses);
 	}
 
 	private SQLExpression whereExpr;
@@ -72,20 +74,17 @@ public class SelectImpl extends AbstractSimpleEntity implements Select {
 	}
 
 	public void setWhereExpr(SQLExpression whereExpr) {
-		notifyChanged(SQLFeatureDescriptorEnum.whereExpr, this.whereExpr,
-				this.whereExpr = whereExpr);
+		notifyChanged(SQLFeatureDescriptorEnum.whereExpr, this.whereExpr, this.whereExpr = whereExpr);
 	}
 
 	private SQLExpressions groupByExprs;
 
 	public SQLExpressions getGroupByExprs() {
-		return notifyRequested(SQLFeatureDescriptorEnum.groupByExprs,
-				groupByExprs);
+		return notifyRequested(SQLFeatureDescriptorEnum.groupByExprs, groupByExprs);
 	}
 
 	public void setGroupByExprs(SQLExpressions groupByExprs) {
-		notifyChanged(SQLFeatureDescriptorEnum.groupByExprs, this.groupByExprs,
-				this.groupByExprs = groupByExprs);
+		notifyChanged(SQLFeatureDescriptorEnum.groupByExprs, this.groupByExprs, this.groupByExprs = groupByExprs);
 	}
 
 	private SQLExpression havingExpr;
@@ -95,21 +94,17 @@ public class SelectImpl extends AbstractSimpleEntity implements Select {
 	}
 
 	public void setHavingExpr(SQLExpression havingExpr) {
-		notifyChanged(SQLFeatureDescriptorEnum.havingExpr, this.havingExpr,
-				this.havingExpr = havingExpr);
+		notifyChanged(SQLFeatureDescriptorEnum.havingExpr, this.havingExpr, this.havingExpr = havingExpr);
 	}
 
 	private OrderByColumnExpressions orderByColumnExprs;
 
 	public OrderByColumnExpressions getOrderByColumnExprs() {
-		return notifyRequested(SQLFeatureDescriptorEnum.orderByColumnExprs,
-				orderByColumnExprs);
+		return notifyRequested(SQLFeatureDescriptorEnum.orderByColumnExprs, orderByColumnExprs);
 	}
 
-	public void setOrderByColumnExprs(
-			OrderByColumnExpressions orderByColumnExprs) {
-		notifyChanged(SQLFeatureDescriptorEnum.orderByColumnExprs,
-				this.orderByColumnExprs,
+	public void setOrderByColumnExprs(OrderByColumnExpressions orderByColumnExprs) {
+		notifyChanged(SQLFeatureDescriptorEnum.orderByColumnExprs, this.orderByColumnExprs,
 				this.orderByColumnExprs = orderByColumnExprs);
 	}
 
@@ -140,28 +135,22 @@ public class SelectImpl extends AbstractSimpleEntity implements Select {
 			setSelectType(value.wGetAdapter(SQLEntityDescriptorEnum.SelectType));
 			break;
 		case 1:
-			setColumnExprs(value
-					.wGetAdapter(SQLEntityDescriptorEnum.ColumnExpressions));
+			setColumnExprs(value.wGetAdapter(SQLEntityDescriptorEnum.ColumnExpressions));
 			break;
 		case 2:
-			setFromClauses(value
-					.wGetAdapter(SQLEntityDescriptorEnum.FromClauses));
+			setFromClauses(value.wGetAdapter(SQLEntityDescriptorEnum.FromClauses));
 			break;
 		case 3:
-			setWhereExpr(value
-					.wGetAdapter(SQLEntityDescriptorEnum.SQLExpression));
+			setWhereExpr(value.wGetAdapter(SQLEntityDescriptorEnum.SQLExpression));
 			break;
 		case 4:
-			setGroupByExprs(value
-					.wGetAdapter(SQLEntityDescriptorEnum.SQLExpressions));
+			setGroupByExprs(value.wGetAdapter(SQLEntityDescriptorEnum.SQLExpressions));
 			break;
 		case 5:
-			setHavingExpr(value
-					.wGetAdapter(SQLEntityDescriptorEnum.SQLExpression));
+			setHavingExpr(value.wGetAdapter(SQLEntityDescriptorEnum.SQLExpression));
 			break;
 		case 6:
-			setOrderByColumnExprs(value
-					.wGetAdapter(SQLEntityDescriptorEnum.OrderByColumnExpressions));
+			setOrderByColumnExprs(value.wGetAdapter(SQLEntityDescriptorEnum.OrderByColumnExpressions));
 			break;
 		default:
 			throw new IllegalArgumentException();

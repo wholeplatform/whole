@@ -81,8 +81,7 @@ public class SQLModelContext extends EntityContext {
 	}
 
 	public void setUnionSelectStatement(SQLModelContext unionSelectStatement) {
-		wSet(SQLFeatureDescriptorEnum.unionSelectStatement,
-				unionSelectStatement);
+		wSet(SQLFeatureDescriptorEnum.unionSelectStatement, unionSelectStatement);
 	}
 
 	public SQLModelContext getTableName() {
@@ -137,10 +136,8 @@ public class SQLModelContext extends EntityContext {
 		return (SQLModelContext) wGet(SQLFeatureDescriptorEnum.declarationOrConstraints);
 	}
 
-	public void setDeclarationOrConstraints(
-			SQLModelContext declarationOrConstraints) {
-		wSet(SQLFeatureDescriptorEnum.declarationOrConstraints,
-				declarationOrConstraints);
+	public void setDeclarationOrConstraints(SQLModelContext declarationOrConstraints) {
+		wSet(SQLFeatureDescriptorEnum.declarationOrConstraints, declarationOrConstraints);
 	}
 
 	public SQLModelContext getAction() {
@@ -227,10 +224,8 @@ public class SQLModelContext extends EntityContext {
 		return (SQLModelContext) wGet(SQLFeatureDescriptorEnum.declarationOrConstraint);
 	}
 
-	public void setDeclarationOrConstraint(
-			SQLModelContext declarationOrConstraint) {
-		wSet(SQLFeatureDescriptorEnum.declarationOrConstraint,
-				declarationOrConstraint);
+	public void setDeclarationOrConstraint(SQLModelContext declarationOrConstraint) {
+		wSet(SQLFeatureDescriptorEnum.declarationOrConstraint, declarationOrConstraint);
 	}
 
 	public SQLModelContext getExpression() {
@@ -433,6 +428,14 @@ public class SQLModelContext extends EntityContext {
 		wSet(SQLFeatureDescriptorEnum.foreignColumnName, foreignColumnName);
 	}
 
+	public SQLModelContext getConstraintName() {
+		return (SQLModelContext) wGet(SQLFeatureDescriptorEnum.constraintName);
+	}
+
+	public void setConstraintName(SQLModelContext constraintName) {
+		wSet(SQLFeatureDescriptorEnum.constraintName, constraintName);
+	}
+
 	public SQLModelContext getForeignColumnNames() {
 		return (SQLModelContext) wGet(SQLFeatureDescriptorEnum.foreignColumnNames);
 	}
@@ -486,8 +489,7 @@ public class SQLModelContext extends EntityContext {
 	}
 
 	public void setProcedureDeclarations(SQLModelContext procedureDeclarations) {
-		wSet(SQLFeatureDescriptorEnum.procedureDeclarations,
-				procedureDeclarations);
+		wSet(SQLFeatureDescriptorEnum.procedureDeclarations, procedureDeclarations);
 	}
 
 	public SQLModelContext getProcedureStatements() {

@@ -6,6 +6,5 @@ package org.whole.lang.sql.model;
 public interface BooleanOperator extends ISQLEntity {
 	public org.whole.lang.sql.model.BooleanOperatorEnum.Value getValue();
 
-	public void setValue(
-			org.whole.lang.sql.model.BooleanOperatorEnum.Value value);
+	public void setValue(org.whole.lang.sql.model.BooleanOperatorEnum.Value value);
 }

@@ -10,6 +10,5 @@ public interface Create extends ISQLEntity, SQLStatement {
 
 	public DeclarationOrConstraints getDeclarationOrConstraints();
 
-	public void setDeclarationOrConstraints(
-			DeclarationOrConstraints declarationOrConstraints);
+	public void setDeclarationOrConstraints(DeclarationOrConstraints declarationOrConstraints);
 }

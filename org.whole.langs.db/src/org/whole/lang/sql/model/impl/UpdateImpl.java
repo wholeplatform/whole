@@ -1,12 +1,18 @@
 package org.whole.lang.sql.model.impl;
 
 import org.whole.lang.model.AbstractSimpleEntity;
-import org.whole.lang.sql.model.*;
+import org.whole.lang.sql.model.Update;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.sql.reflect.SQLEntityDescriptorEnum;
 import org.whole.lang.sql.visitors.ISQLVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
+import org.whole.lang.sql.model.TableName;
 import org.whole.lang.sql.reflect.SQLFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.sql.model.SetClauses;
+import org.whole.lang.sql.model.FromClauses;
+import org.whole.lang.sql.model.SQLExpression;
+import org.whole.lang.sql.model.IntValue;
 
 /** 
  * @generator Whole
@@ -26,7 +32,7 @@ public class UpdateImpl extends AbstractSimpleEntity implements Update {
 		try {
 			visitor.visit(this);
 		} catch (Exception e) {
-			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+			throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
 		}
 	}
 
@@ -37,8 +43,7 @@ public class UpdateImpl extends AbstractSimpleEntity implements Update {
 	}
 
 	public void setTableName(TableName tableName) {
-		notifyChanged(SQLFeatureDescriptorEnum.tableName, this.tableName,
-				this.tableName = tableName);
+		notifyChanged(SQLFeatureDescriptorEnum.tableName, this.tableName, this.tableName = tableName);
 	}
 
 	private SetClauses setClauses;
@@ -48,20 +53,17 @@ public class UpdateImpl extends AbstractSimpleEntity implements Update {
 	}
 
 	public void setSetClauses(SetClauses setClauses) {
-		notifyChanged(SQLFeatureDescriptorEnum.setClauses, this.setClauses,
-				this.setClauses = setClauses);
+		notifyChanged(SQLFeatureDescriptorEnum.setClauses, this.setClauses, this.setClauses = setClauses);
 	}
 
 	private FromClauses fromClauses;
 
 	public FromClauses getFromClauses() {
-		return notifyRequested(SQLFeatureDescriptorEnum.fromClauses,
-				fromClauses);
+		return notifyRequested(SQLFeatureDescriptorEnum.fromClauses, fromClauses);
 	}
 
 	public void setFromClauses(FromClauses fromClauses) {
-		notifyChanged(SQLFeatureDescriptorEnum.fromClauses, this.fromClauses,
-				this.fromClauses = fromClauses);
+		notifyChanged(SQLFeatureDescriptorEnum.fromClauses, this.fromClauses, this.fromClauses = fromClauses);
 	}
 
 	private SQLExpression whereExpr;
@@ -71,8 +73,7 @@ public class UpdateImpl extends AbstractSimpleEntity implements Update {
 	}
 
 	public void setWhereExpr(SQLExpression whereExpr) {
-		notifyChanged(SQLFeatureDescriptorEnum.whereExpr, this.whereExpr,
-				this.whereExpr = whereExpr);
+		notifyChanged(SQLFeatureDescriptorEnum.whereExpr, this.whereExpr, this.whereExpr = whereExpr);
 	}
 
 	private IntValue limit;
@@ -82,8 +83,7 @@ public class UpdateImpl extends AbstractSimpleEntity implements Update {
 	}
 
 	public void setLimit(IntValue limit) {
-		notifyChanged(SQLFeatureDescriptorEnum.limit, this.limit,
-				this.limit = limit);
+		notifyChanged(SQLFeatureDescriptorEnum.limit, this.limit, this.limit = limit);
 	}
 
 	public IEntity wGet(int index) {
@@ -112,12 +112,10 @@ public class UpdateImpl extends AbstractSimpleEntity implements Update {
 			setSetClauses(value.wGetAdapter(SQLEntityDescriptorEnum.SetClauses));
 			break;
 		case 2:
-			setFromClauses(value
-					.wGetAdapter(SQLEntityDescriptorEnum.FromClauses));
+			setFromClauses(value.wGetAdapter(SQLEntityDescriptorEnum.FromClauses));
 			break;
 		case 3:
-			setWhereExpr(value
-					.wGetAdapter(SQLEntityDescriptorEnum.SQLExpression));
+			setWhereExpr(value.wGetAdapter(SQLEntityDescriptorEnum.SQLExpression));
 			break;
 		case 4:
 			setLimit(value.wGetAdapter(SQLEntityDescriptorEnum.IntValue));

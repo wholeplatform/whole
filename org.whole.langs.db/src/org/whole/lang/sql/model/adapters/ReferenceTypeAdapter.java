@@ -11,8 +11,7 @@ import org.whole.lang.sql.model.ReferenceTypeEnum.Value;
 /** 
  * @generator Whole
  */
-public class ReferenceTypeAdapter extends AbstractEntityAdapter implements
-		ReferenceType {
+public class ReferenceTypeAdapter extends AbstractEntityAdapter implements ReferenceType {
 	private static final long serialVersionUID = 1;
 
 	public ReferenceTypeAdapter(IEntity implementor) {

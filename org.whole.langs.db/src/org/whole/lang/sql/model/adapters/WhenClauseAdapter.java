@@ -11,8 +11,7 @@ import org.whole.lang.sql.reflect.SQLFeatureDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class WhenClauseAdapter extends AbstractEntityAdapter implements
-		WhenClause {
+public class WhenClauseAdapter extends AbstractEntityAdapter implements WhenClause {
 	private static final long serialVersionUID = 1;
 
 	public WhenClauseAdapter(IEntity implementor) {
@@ -32,8 +31,7 @@ public class WhenClauseAdapter extends AbstractEntityAdapter implements
 	}
 
 	public BooleanExpression getCondition() {
-		return wGet(SQLFeatureDescriptorEnum.condition).wGetAdapter(
-				SQLEntityDescriptorEnum.BooleanExpression);
+		return wGet(SQLFeatureDescriptorEnum.condition).wGetAdapter(SQLEntityDescriptorEnum.BooleanExpression);
 	}
 
 	public void setCondition(BooleanExpression condition) {
@@ -41,8 +39,7 @@ public class WhenClauseAdapter extends AbstractEntityAdapter implements
 	}
 
 	public SQLExpression getResult() {
-		return wGet(SQLFeatureDescriptorEnum.result).wGetAdapter(
-				SQLEntityDescriptorEnum.SQLExpression);
+		return wGet(SQLFeatureDescriptorEnum.result).wGetAdapter(SQLEntityDescriptorEnum.SQLExpression);
 	}
 
 	public void setResult(SQLExpression result) {

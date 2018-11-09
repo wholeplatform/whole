@@ -1,17 +1,18 @@
 package org.whole.lang.sql.model.impl;
 
 import org.whole.lang.model.AbstractDataEntity;
-import org.whole.lang.sql.model.*;
+import org.whole.lang.sql.model.SimpleColumnConstraint;
 import org.whole.lang.sql.visitors.ISQLVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.sql.reflect.SQLEntityDescriptorEnum;
 import org.whole.lang.reflect.EntityDescriptor;
+import org.whole.lang.sql.model.SimpleColumnConstraintEnum;
 import org.whole.lang.model.EnumValue;
 
 /** 
  * @generator Whole
  */
-public class SimpleColumnConstraintImpl extends AbstractDataEntity implements
-		SimpleColumnConstraint {
+public class SimpleColumnConstraintImpl extends AbstractDataEntity implements SimpleColumnConstraint {
 	private static final long serialVersionUID = 1;
 	private org.whole.lang.sql.model.SimpleColumnConstraintEnum.Value value;
 
@@ -19,8 +20,7 @@ public class SimpleColumnConstraintImpl extends AbstractDataEntity implements
 		return notifyRequested(value);
 	}
 
-	public void setValue(
-			org.whole.lang.sql.model.SimpleColumnConstraintEnum.Value value) {
+	public void setValue(org.whole.lang.sql.model.SimpleColumnConstraintEnum.Value value) {
 		notifyChanged(this.value, this.value = value);
 	}
 
@@ -28,7 +28,7 @@ public class SimpleColumnConstraintImpl extends AbstractDataEntity implements
 		try {
 			visitor.visit(this);
 		} catch (Exception e) {
-			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+			throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
 		}
 	}
 

@@ -1,12 +1,15 @@
 package org.whole.lang.sql.model.impl;
 
 import org.whole.lang.model.AbstractSimpleEntity;
-import org.whole.lang.sql.model.*;
+import org.whole.lang.sql.model.ColumnType;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.sql.reflect.SQLEntityDescriptorEnum;
 import org.whole.lang.sql.visitors.ISQLVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
+import org.whole.lang.sql.model.Type;
 import org.whole.lang.sql.reflect.SQLFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.sql.model.IntValue;
 
 /** 
  * @generator Whole
@@ -26,7 +29,7 @@ public class ColumnTypeImpl extends AbstractSimpleEntity implements ColumnType {
 		try {
 			visitor.visit(this);
 		} catch (Exception e) {
-			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+			throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
 		}
 	}
 
@@ -37,8 +40,7 @@ public class ColumnTypeImpl extends AbstractSimpleEntity implements ColumnType {
 	}
 
 	public void setType(Type type) {
-		notifyChanged(SQLFeatureDescriptorEnum.type, this.type,
-				this.type = type);
+		notifyChanged(SQLFeatureDescriptorEnum.type, this.type, this.type = type);
 	}
 
 	private IntValue size;
@@ -48,8 +50,7 @@ public class ColumnTypeImpl extends AbstractSimpleEntity implements ColumnType {
 	}
 
 	public void setSize(IntValue size) {
-		notifyChanged(SQLFeatureDescriptorEnum.size, this.size,
-				this.size = size);
+		notifyChanged(SQLFeatureDescriptorEnum.size, this.size, this.size = size);
 	}
 
 	private IntValue precision;
@@ -59,8 +60,7 @@ public class ColumnTypeImpl extends AbstractSimpleEntity implements ColumnType {
 	}
 
 	public void setPrecision(IntValue precision) {
-		notifyChanged(SQLFeatureDescriptorEnum.precision, this.precision,
-				this.precision = precision);
+		notifyChanged(SQLFeatureDescriptorEnum.precision, this.precision, this.precision = precision);
 	}
 
 	public IEntity wGet(int index) {

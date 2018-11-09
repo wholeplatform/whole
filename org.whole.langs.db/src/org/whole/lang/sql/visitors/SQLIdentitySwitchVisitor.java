@@ -8,8 +8,7 @@ import org.whole.lang.sql.reflect.SQLEntityDescriptorEnum;
 /** 
  * @generator Whole
  */
-public abstract class SQLIdentitySwitchVisitor extends AbstractVisitor
-		implements ISQLVisitor {
+public abstract class SQLIdentitySwitchVisitor extends AbstractVisitor implements ISQLVisitor {
 	public void visit(IEntity entity) {
 		switch (entity.wGetEntityOrd()) {
 		case SQLEntityDescriptorEnum.SQLStatements_ord:
@@ -182,6 +181,9 @@ public abstract class SQLIdentitySwitchVisitor extends AbstractVisitor
 			break;
 		case SQLEntityDescriptorEnum.IndexName_ord:
 			visit((IndexName) entity);
+			break;
+		case SQLEntityDescriptorEnum.ConstraintName_ord:
+			visit((ConstraintName) entity);
 			break;
 		case SQLEntityDescriptorEnum.CaseExpression_ord:
 			visit((CaseExpression) entity);

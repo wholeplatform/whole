@@ -11,8 +11,7 @@ import org.whole.lang.sql.reflect.SQLFeatureDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class DeclareCursorAdapter extends AbstractEntityAdapter implements
-		DeclareCursor {
+public class DeclareCursorAdapter extends AbstractEntityAdapter implements DeclareCursor {
 	private static final long serialVersionUID = 1;
 
 	public DeclareCursorAdapter(IEntity implementor) {
@@ -32,8 +31,7 @@ public class DeclareCursorAdapter extends AbstractEntityAdapter implements
 	}
 
 	public Name getName() {
-		return wGet(SQLFeatureDescriptorEnum.name).wGetAdapter(
-				SQLEntityDescriptorEnum.Name);
+		return wGet(SQLFeatureDescriptorEnum.name).wGetAdapter(SQLEntityDescriptorEnum.Name);
 	}
 
 	public void setName(Name name) {
@@ -41,8 +39,7 @@ public class DeclareCursorAdapter extends AbstractEntityAdapter implements
 	}
 
 	public SQLStatement getSqlStatement() {
-		return wGet(SQLFeatureDescriptorEnum.sqlStatement).wGetAdapter(
-				SQLEntityDescriptorEnum.SQLStatement);
+		return wGet(SQLFeatureDescriptorEnum.sqlStatement).wGetAdapter(SQLEntityDescriptorEnum.SQLStatement);
 	}
 
 	public void setSqlStatement(SQLStatement sqlStatement) {

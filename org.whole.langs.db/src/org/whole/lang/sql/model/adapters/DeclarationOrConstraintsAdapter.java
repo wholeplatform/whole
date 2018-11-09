@@ -10,9 +10,8 @@ import org.whole.lang.sql.reflect.SQLEntityDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class DeclarationOrConstraintsAdapter extends
-		AbstractSetEntityAdapter<DeclarationOrConstraint> implements
-		DeclarationOrConstraints {
+public class DeclarationOrConstraintsAdapter extends AbstractSetEntityAdapter<DeclarationOrConstraint>
+		implements DeclarationOrConstraints {
 	private static final long serialVersionUID = 1;
 
 	public DeclarationOrConstraintsAdapter(IEntity implementor) {

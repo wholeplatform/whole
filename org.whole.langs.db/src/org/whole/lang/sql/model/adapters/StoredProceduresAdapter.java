@@ -10,8 +10,7 @@ import org.whole.lang.sql.reflect.SQLEntityDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class StoredProceduresAdapter extends
-		AbstractSetEntityAdapter<StoredProcedure> implements StoredProcedures {
+public class StoredProceduresAdapter extends AbstractSetEntityAdapter<StoredProcedure> implements StoredProcedures {
 	private static final long serialVersionUID = 1;
 
 	public StoredProceduresAdapter(IEntity implementor) {

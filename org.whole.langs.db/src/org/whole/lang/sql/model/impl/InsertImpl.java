@@ -1,12 +1,16 @@
 package org.whole.lang.sql.model.impl;
 
 import org.whole.lang.model.AbstractSimpleEntity;
-import org.whole.lang.sql.model.*;
+import org.whole.lang.sql.model.Insert;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.sql.reflect.SQLEntityDescriptorEnum;
 import org.whole.lang.sql.visitors.ISQLVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
+import org.whole.lang.sql.model.TableName;
 import org.whole.lang.sql.reflect.SQLFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.sql.model.ColumnNames;
+import org.whole.lang.sql.model.Values;
 
 /** 
  * @generator Whole
@@ -26,7 +30,7 @@ public class InsertImpl extends AbstractSimpleEntity implements Insert {
 		try {
 			visitor.visit(this);
 		} catch (Exception e) {
-			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+			throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
 		}
 	}
 
@@ -37,20 +41,17 @@ public class InsertImpl extends AbstractSimpleEntity implements Insert {
 	}
 
 	public void setTableName(TableName tableName) {
-		notifyChanged(SQLFeatureDescriptorEnum.tableName, this.tableName,
-				this.tableName = tableName);
+		notifyChanged(SQLFeatureDescriptorEnum.tableName, this.tableName, this.tableName = tableName);
 	}
 
 	private ColumnNames columnNames;
 
 	public ColumnNames getColumnNames() {
-		return notifyRequested(SQLFeatureDescriptorEnum.columnNames,
-				columnNames);
+		return notifyRequested(SQLFeatureDescriptorEnum.columnNames, columnNames);
 	}
 
 	public void setColumnNames(ColumnNames columnNames) {
-		notifyChanged(SQLFeatureDescriptorEnum.columnNames, this.columnNames,
-				this.columnNames = columnNames);
+		notifyChanged(SQLFeatureDescriptorEnum.columnNames, this.columnNames, this.columnNames = columnNames);
 	}
 
 	private Values values;
@@ -60,8 +61,7 @@ public class InsertImpl extends AbstractSimpleEntity implements Insert {
 	}
 
 	public void setValues(Values values) {
-		notifyChanged(SQLFeatureDescriptorEnum.values, this.values,
-				this.values = values);
+		notifyChanged(SQLFeatureDescriptorEnum.values, this.values, this.values = values);
 	}
 
 	public IEntity wGet(int index) {
@@ -83,8 +83,7 @@ public class InsertImpl extends AbstractSimpleEntity implements Insert {
 			setTableName(value.wGetAdapter(SQLEntityDescriptorEnum.TableName));
 			break;
 		case 1:
-			setColumnNames(value
-					.wGetAdapter(SQLEntityDescriptorEnum.ColumnNames));
+			setColumnNames(value.wGetAdapter(SQLEntityDescriptorEnum.ColumnNames));
 			break;
 		case 2:
 			setValues(value.wGetAdapter(SQLEntityDescriptorEnum.Values));

@@ -10,8 +10,7 @@ import org.whole.lang.sql.reflect.SQLEntityDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class SetClausesAdapter extends AbstractSetEntityAdapter<SetClause>
-		implements SetClauses {
+public class SetClausesAdapter extends AbstractSetEntityAdapter<SetClause> implements SetClauses {
 	private static final long serialVersionUID = 1;
 
 	public SetClausesAdapter(IEntity implementor) {

@@ -11,8 +11,7 @@ import org.whole.lang.sql.reflect.SQLFeatureDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class ForeignKeyTableConstraintAdapter extends AbstractEntityAdapter
-		implements ForeignKeyTableConstraint {
+public class ForeignKeyTableConstraintAdapter extends AbstractEntityAdapter implements ForeignKeyTableConstraint {
 	private static final long serialVersionUID = 1;
 
 	public ForeignKeyTableConstraintAdapter(IEntity implementor) {
@@ -31,9 +30,16 @@ public class ForeignKeyTableConstraintAdapter extends AbstractEntityAdapter
 		return SQLEntityDescriptorEnum.ForeignKeyTableConstraint;
 	}
 
+	public ConstraintName getConstraintName() {
+		return wGet(SQLFeatureDescriptorEnum.constraintName).wGetAdapter(SQLEntityDescriptorEnum.ConstraintName);
+	}
+
+	public void setConstraintName(ConstraintName constraintName) {
+		wSet(SQLFeatureDescriptorEnum.constraintName, constraintName);
+	}
+
 	public ColumnNames getColumnNames() {
-		return wGet(SQLFeatureDescriptorEnum.columnNames).wGetAdapter(
-				SQLEntityDescriptorEnum.ColumnNames);
+		return wGet(SQLFeatureDescriptorEnum.columnNames).wGetAdapter(SQLEntityDescriptorEnum.ColumnNames);
 	}
 
 	public void setColumnNames(ColumnNames columnNames) {
@@ -41,8 +47,7 @@ public class ForeignKeyTableConstraintAdapter extends AbstractEntityAdapter
 	}
 
 	public TableName getForeignTableName() {
-		return wGet(SQLFeatureDescriptorEnum.foreignTableName).wGetAdapter(
-				SQLEntityDescriptorEnum.TableName);
+		return wGet(SQLFeatureDescriptorEnum.foreignTableName).wGetAdapter(SQLEntityDescriptorEnum.TableName);
 	}
 
 	public void setForeignTableName(TableName foreignTableName) {
@@ -50,8 +55,7 @@ public class ForeignKeyTableConstraintAdapter extends AbstractEntityAdapter
 	}
 
 	public ColumnNames getForeignColumnNames() {
-		return wGet(SQLFeatureDescriptorEnum.foreignColumnNames).wGetAdapter(
-				SQLEntityDescriptorEnum.ColumnNames);
+		return wGet(SQLFeatureDescriptorEnum.foreignColumnNames).wGetAdapter(SQLEntityDescriptorEnum.ColumnNames);
 	}
 
 	public void setForeignColumnNames(ColumnNames foreignColumnNames) {
@@ -59,8 +63,7 @@ public class ForeignKeyTableConstraintAdapter extends AbstractEntityAdapter
 	}
 
 	public Match getMatch() {
-		return wGet(SQLFeatureDescriptorEnum.match).wGetAdapter(
-				SQLEntityDescriptorEnum.Match);
+		return wGet(SQLFeatureDescriptorEnum.match).wGetAdapter(SQLEntityDescriptorEnum.Match);
 	}
 
 	public void setMatch(Match match) {
@@ -68,8 +71,7 @@ public class ForeignKeyTableConstraintAdapter extends AbstractEntityAdapter
 	}
 
 	public Action getOnDelete() {
-		return wGet(SQLFeatureDescriptorEnum.onDelete).wGetAdapter(
-				SQLEntityDescriptorEnum.Action);
+		return wGet(SQLFeatureDescriptorEnum.onDelete).wGetAdapter(SQLEntityDescriptorEnum.Action);
 	}
 
 	public void setOnDelete(Action onDelete) {
@@ -77,8 +79,7 @@ public class ForeignKeyTableConstraintAdapter extends AbstractEntityAdapter
 	}
 
 	public Action getOnUpdate() {
-		return wGet(SQLFeatureDescriptorEnum.onUpdate).wGetAdapter(
-				SQLEntityDescriptorEnum.Action);
+		return wGet(SQLFeatureDescriptorEnum.onUpdate).wGetAdapter(SQLEntityDescriptorEnum.Action);
 	}
 
 	public void setOnUpdate(Action onUpdate) {
@@ -86,8 +87,7 @@ public class ForeignKeyTableConstraintAdapter extends AbstractEntityAdapter
 	}
 
 	public Deferrable getDeferrable() {
-		return wGet(SQLFeatureDescriptorEnum.deferrable).wGetAdapter(
-				SQLEntityDescriptorEnum.Deferrable);
+		return wGet(SQLFeatureDescriptorEnum.deferrable).wGetAdapter(SQLEntityDescriptorEnum.Deferrable);
 	}
 
 	public void setDeferrable(Deferrable deferrable) {
@@ -95,8 +95,7 @@ public class ForeignKeyTableConstraintAdapter extends AbstractEntityAdapter
 	}
 
 	public DeferCheck getDeferCheck() {
-		return wGet(SQLFeatureDescriptorEnum.deferCheck).wGetAdapter(
-				SQLEntityDescriptorEnum.DeferCheck);
+		return wGet(SQLFeatureDescriptorEnum.deferCheck).wGetAdapter(SQLEntityDescriptorEnum.DeferCheck);
 	}
 
 	public void setDeferCheck(DeferCheck deferCheck) {

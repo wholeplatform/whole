@@ -1,12 +1,15 @@
 package org.whole.lang.sql.model.impl;
 
 import org.whole.lang.model.AbstractSimpleEntity;
-import org.whole.lang.sql.model.*;
+import org.whole.lang.sql.model.WhenClause;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.sql.reflect.SQLEntityDescriptorEnum;
 import org.whole.lang.sql.visitors.ISQLVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
+import org.whole.lang.sql.model.BooleanExpression;
 import org.whole.lang.sql.reflect.SQLFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.sql.model.SQLExpression;
 
 /** 
  * @generator Whole
@@ -26,7 +29,7 @@ public class WhenClauseImpl extends AbstractSimpleEntity implements WhenClause {
 		try {
 			visitor.visit(this);
 		} catch (Exception e) {
-			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+			throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
 		}
 	}
 
@@ -37,8 +40,7 @@ public class WhenClauseImpl extends AbstractSimpleEntity implements WhenClause {
 	}
 
 	public void setCondition(BooleanExpression condition) {
-		notifyChanged(SQLFeatureDescriptorEnum.condition, this.condition,
-				this.condition = condition);
+		notifyChanged(SQLFeatureDescriptorEnum.condition, this.condition, this.condition = condition);
 	}
 
 	private SQLExpression result;
@@ -48,8 +50,7 @@ public class WhenClauseImpl extends AbstractSimpleEntity implements WhenClause {
 	}
 
 	public void setResult(SQLExpression result) {
-		notifyChanged(SQLFeatureDescriptorEnum.result, this.result,
-				this.result = result);
+		notifyChanged(SQLFeatureDescriptorEnum.result, this.result, this.result = result);
 	}
 
 	public IEntity wGet(int index) {
@@ -66,8 +67,7 @@ public class WhenClauseImpl extends AbstractSimpleEntity implements WhenClause {
 	public void wSet(int index, IEntity value) {
 		switch (index) {
 		case 0:
-			setCondition(value
-					.wGetAdapter(SQLEntityDescriptorEnum.BooleanExpression));
+			setCondition(value.wGetAdapter(SQLEntityDescriptorEnum.BooleanExpression));
 			break;
 		case 1:
 			setResult(value.wGetAdapter(SQLEntityDescriptorEnum.SQLExpression));

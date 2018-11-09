@@ -10,8 +10,7 @@ import org.whole.lang.sql.reflect.SQLEntityDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class BooleanExpressionAdapter extends AbstractEntityAdapter implements
-		BooleanExpression {
+public class BooleanExpressionAdapter extends AbstractEntityAdapter implements BooleanExpression {
 	private static final long serialVersionUID = 1;
 
 	public BooleanExpressionAdapter(IEntity implementor) {

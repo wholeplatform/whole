@@ -10,8 +10,7 @@ import org.whole.lang.sql.reflect.SQLEntityDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class ColumnConstraintAdapter extends AbstractEntityAdapter implements
-		ColumnConstraint {
+public class ColumnConstraintAdapter extends AbstractEntityAdapter implements ColumnConstraint {
 	private static final long serialVersionUID = 1;
 
 	public ColumnConstraintAdapter(IEntity implementor) {

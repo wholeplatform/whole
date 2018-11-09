@@ -11,8 +11,7 @@ import java.sql.Clob;
 /** 
  * @generator Whole
  */
-public class ClobValueAdapter extends AbstractEntityAdapter implements
-		ClobValue {
+public class ClobValueAdapter extends AbstractEntityAdapter implements ClobValue {
 	private static final long serialVersionUID = 1;
 
 	public ClobValueAdapter(IEntity implementor) {

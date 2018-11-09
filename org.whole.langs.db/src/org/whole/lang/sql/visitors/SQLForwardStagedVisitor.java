@@ -234,6 +234,10 @@ public class SQLForwardStagedVisitor extends SQLIdentityVisitor {
 		stagedVisit(entity);
 	}
 
+	public void visit(ConstraintName entity) {
+		stagedVisit(entity);
+	}
+
 	public void visit(CaseExpression entity) {
 		stagedVisit(entity);
 	}

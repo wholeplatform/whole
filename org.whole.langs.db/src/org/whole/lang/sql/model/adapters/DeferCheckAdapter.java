@@ -11,8 +11,7 @@ import org.whole.lang.sql.model.DeferCheckEnum.Value;
 /** 
  * @generator Whole
  */
-public class DeferCheckAdapter extends AbstractEntityAdapter implements
-		DeferCheck {
+public class DeferCheckAdapter extends AbstractEntityAdapter implements DeferCheck {
 	private static final long serialVersionUID = 1;
 
 	public DeferCheckAdapter(IEntity implementor) {

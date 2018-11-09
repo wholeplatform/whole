@@ -1,18 +1,20 @@
 package org.whole.lang.sql.model.impl;
 
 import org.whole.lang.model.AbstractSimpleEntity;
-import org.whole.lang.sql.model.*;
+import org.whole.lang.sql.model.ColumnExpression;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.sql.reflect.SQLEntityDescriptorEnum;
 import org.whole.lang.sql.visitors.ISQLVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
+import org.whole.lang.sql.model.SQLExpression;
 import org.whole.lang.sql.reflect.SQLFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.sql.model.Alias;
 
 /** 
  * @generator Whole
  */
-public class ColumnExpressionImpl extends AbstractSimpleEntity implements
-		ColumnExpression {
+public class ColumnExpressionImpl extends AbstractSimpleEntity implements ColumnExpression {
 	private static final long serialVersionUID = 1;
 
 	public EntityDescriptor<ColumnExpression> wGetEntityDescriptor() {
@@ -27,7 +29,7 @@ public class ColumnExpressionImpl extends AbstractSimpleEntity implements
 		try {
 			visitor.visit(this);
 		} catch (Exception e) {
-			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+			throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
 		}
 	}
 
@@ -38,8 +40,7 @@ public class ColumnExpressionImpl extends AbstractSimpleEntity implements
 	}
 
 	public void setExpression(SQLExpression expression) {
-		notifyChanged(SQLFeatureDescriptorEnum.expression, this.expression,
-				this.expression = expression);
+		notifyChanged(SQLFeatureDescriptorEnum.expression, this.expression, this.expression = expression);
 	}
 
 	private Alias alias;
@@ -49,8 +50,7 @@ public class ColumnExpressionImpl extends AbstractSimpleEntity implements
 	}
 
 	public void setAlias(Alias alias) {
-		notifyChanged(SQLFeatureDescriptorEnum.alias, this.alias,
-				this.alias = alias);
+		notifyChanged(SQLFeatureDescriptorEnum.alias, this.alias, this.alias = alias);
 	}
 
 	public IEntity wGet(int index) {
@@ -67,8 +67,7 @@ public class ColumnExpressionImpl extends AbstractSimpleEntity implements
 	public void wSet(int index, IEntity value) {
 		switch (index) {
 		case 0:
-			setExpression(value
-					.wGetAdapter(SQLEntityDescriptorEnum.SQLExpression));
+			setExpression(value.wGetAdapter(SQLEntityDescriptorEnum.SQLExpression));
 			break;
 		case 1:
 			setAlias(value.wGetAdapter(SQLEntityDescriptorEnum.Alias));

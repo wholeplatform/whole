@@ -31,8 +31,7 @@ public class ForeachAdapter extends AbstractEntityAdapter implements Foreach {
 	}
 
 	public Name getName() {
-		return wGet(SQLFeatureDescriptorEnum.name).wGetAdapter(
-				SQLEntityDescriptorEnum.Name);
+		return wGet(SQLFeatureDescriptorEnum.name).wGetAdapter(SQLEntityDescriptorEnum.Name);
 	}
 
 	public void setName(Name name) {
@@ -40,8 +39,7 @@ public class ForeachAdapter extends AbstractEntityAdapter implements Foreach {
 	}
 
 	public ArrayExpr getArrayExp() {
-		return wGet(SQLFeatureDescriptorEnum.arrayExp).wGetAdapter(
-				SQLEntityDescriptorEnum.ArrayExpr);
+		return wGet(SQLFeatureDescriptorEnum.arrayExp).wGetAdapter(SQLEntityDescriptorEnum.ArrayExpr);
 	}
 
 	public void setArrayExp(ArrayExpr arrayExp) {
@@ -49,8 +47,7 @@ public class ForeachAdapter extends AbstractEntityAdapter implements Foreach {
 	}
 
 	public SQLStatement getTrueBody() {
-		return wGet(SQLFeatureDescriptorEnum.trueBody).wGetAdapter(
-				SQLEntityDescriptorEnum.SQLStatement);
+		return wGet(SQLFeatureDescriptorEnum.trueBody).wGetAdapter(SQLEntityDescriptorEnum.SQLStatement);
 	}
 
 	public void setTrueBody(SQLStatement trueBody) {

@@ -25,8 +25,7 @@ public class SQLGenericBuilderAdapter extends GenericIdentityBuilder {
 		this.specificBuilder = specificBuilder;
 	}
 
-	public SQLGenericBuilderAdapter(ISQLBuilder specificBuilder,
-			IEntityContext entityContext) {
+	public SQLGenericBuilderAdapter(ISQLBuilder specificBuilder, IEntityContext entityContext) {
 		this(specificBuilder);
 		wSetEntityContext(entityContext);
 	}
@@ -809,6 +808,9 @@ public class SQLGenericBuilderAdapter extends GenericIdentityBuilder {
 		case SQLFeatureDescriptorEnum.foreignColumnName_ord:
 			specificBuilder.foreignColumnName();
 			break;
+		case SQLFeatureDescriptorEnum.constraintName_ord:
+			specificBuilder.constraintName();
+			break;
 		case SQLFeatureDescriptorEnum.foreignColumnNames_ord:
 			specificBuilder.foreignColumnNames();
 			break;
@@ -851,48 +853,37 @@ public class SQLGenericBuilderAdapter extends GenericIdentityBuilder {
 			specificBuilder.NullOrderType((Value) value);
 			break;
 		case SQLEntityDescriptorEnum.SelectType_ord:
-			specificBuilder
-					.SelectType((org.whole.lang.sql.model.SelectTypeEnum.Value) value);
+			specificBuilder.SelectType((org.whole.lang.sql.model.SelectTypeEnum.Value) value);
 			break;
 		case SQLEntityDescriptorEnum.IsType_ord:
-			specificBuilder
-					.IsType((org.whole.lang.sql.model.IsTypeEnum.Value) value);
+			specificBuilder.IsType((org.whole.lang.sql.model.IsTypeEnum.Value) value);
 			break;
 		case SQLEntityDescriptorEnum.BinaryOperator_ord:
-			specificBuilder
-					.BinaryOperator((org.whole.lang.sql.model.BinaryOperatorEnum.Value) value);
+			specificBuilder.BinaryOperator((org.whole.lang.sql.model.BinaryOperatorEnum.Value) value);
 			break;
 		case SQLEntityDescriptorEnum.BooleanOperator_ord:
-			specificBuilder
-					.BooleanOperator((org.whole.lang.sql.model.BooleanOperatorEnum.Value) value);
+			specificBuilder.BooleanOperator((org.whole.lang.sql.model.BooleanOperatorEnum.Value) value);
 			break;
 		case SQLEntityDescriptorEnum.OrderType_ord:
-			specificBuilder
-					.OrderType((org.whole.lang.sql.model.OrderTypeEnum.Value) value);
+			specificBuilder.OrderType((org.whole.lang.sql.model.OrderTypeEnum.Value) value);
 			break;
 		case SQLEntityDescriptorEnum.SimpleColumnConstraint_ord:
-			specificBuilder
-					.SimpleColumnConstraint((org.whole.lang.sql.model.SimpleColumnConstraintEnum.Value) value);
+			specificBuilder.SimpleColumnConstraint((org.whole.lang.sql.model.SimpleColumnConstraintEnum.Value) value);
 			break;
 		case SQLEntityDescriptorEnum.Match_ord:
-			specificBuilder
-					.Match((org.whole.lang.sql.model.MatchEnum.Value) value);
+			specificBuilder.Match((org.whole.lang.sql.model.MatchEnum.Value) value);
 			break;
 		case SQLEntityDescriptorEnum.Action_ord:
-			specificBuilder
-					.Action((org.whole.lang.sql.model.ActionEnum.Value) value);
+			specificBuilder.Action((org.whole.lang.sql.model.ActionEnum.Value) value);
 			break;
 		case SQLEntityDescriptorEnum.Deferrable_ord:
-			specificBuilder
-					.Deferrable((org.whole.lang.sql.model.DeferrableEnum.Value) value);
+			specificBuilder.Deferrable((org.whole.lang.sql.model.DeferrableEnum.Value) value);
 			break;
 		case SQLEntityDescriptorEnum.DeferCheck_ord:
-			specificBuilder
-					.DeferCheck((org.whole.lang.sql.model.DeferCheckEnum.Value) value);
+			specificBuilder.DeferCheck((org.whole.lang.sql.model.DeferCheckEnum.Value) value);
 			break;
 		case SQLEntityDescriptorEnum.ReferenceType_ord:
-			specificBuilder
-					.ReferenceType((org.whole.lang.sql.model.ReferenceTypeEnum.Value) value);
+			specificBuilder.ReferenceType((org.whole.lang.sql.model.ReferenceTypeEnum.Value) value);
 			break;
 		}
 	}
@@ -916,6 +907,9 @@ public class SQLGenericBuilderAdapter extends GenericIdentityBuilder {
 			break;
 		case SQLEntityDescriptorEnum.IndexName_ord:
 			specificBuilder.IndexName(value);
+			break;
+		case SQLEntityDescriptorEnum.ConstraintName_ord:
+			specificBuilder.ConstraintName(value);
 			break;
 		case SQLEntityDescriptorEnum.FunctionName_ord:
 			specificBuilder.FunctionName(value);

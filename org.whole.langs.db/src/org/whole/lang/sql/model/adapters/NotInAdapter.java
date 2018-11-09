@@ -31,8 +31,7 @@ public class NotInAdapter extends AbstractEntityAdapter implements NotIn {
 	}
 
 	public SQLExpression getLeftExpr() {
-		return wGet(SQLFeatureDescriptorEnum.leftExpr).wGetAdapter(
-				SQLEntityDescriptorEnum.SQLExpression);
+		return wGet(SQLFeatureDescriptorEnum.leftExpr).wGetAdapter(SQLEntityDescriptorEnum.SQLExpression);
 	}
 
 	public void setLeftExpr(SQLExpression leftExpr) {
@@ -40,8 +39,7 @@ public class NotInAdapter extends AbstractEntityAdapter implements NotIn {
 	}
 
 	public InPredicate getInPredicate() {
-		return wGet(SQLFeatureDescriptorEnum.inPredicate).wGetAdapter(
-				SQLEntityDescriptorEnum.InPredicate);
+		return wGet(SQLFeatureDescriptorEnum.inPredicate).wGetAdapter(SQLEntityDescriptorEnum.InPredicate);
 	}
 
 	public void setInPredicate(InPredicate inPredicate) {

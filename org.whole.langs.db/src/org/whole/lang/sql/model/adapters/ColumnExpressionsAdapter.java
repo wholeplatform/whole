@@ -10,9 +10,7 @@ import org.whole.lang.sql.reflect.SQLEntityDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class ColumnExpressionsAdapter extends
-		AbstractListEntityAdapter<ColumnExpression> implements
-		ColumnExpressions {
+public class ColumnExpressionsAdapter extends AbstractListEntityAdapter<ColumnExpression> implements ColumnExpressions {
 	private static final long serialVersionUID = 1;
 
 	public ColumnExpressionsAdapter(IEntity implementor) {

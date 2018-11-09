@@ -11,8 +11,7 @@ import org.whole.lang.sql.model.BinaryOperatorEnum.Value;
 /** 
  * @generator Whole
  */
-public class BinaryOperatorAdapter extends AbstractEntityAdapter implements
-		BinaryOperator {
+public class BinaryOperatorAdapter extends AbstractEntityAdapter implements BinaryOperator {
 	private static final long serialVersionUID = 1;
 
 	public BinaryOperatorAdapter(IEntity implementor) {

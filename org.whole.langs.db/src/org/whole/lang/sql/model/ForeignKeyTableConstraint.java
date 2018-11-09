@@ -4,10 +4,6 @@ package org.whole.lang.sql.model;
  * @generator Whole
  */
 public interface ForeignKeyTableConstraint extends ISQLEntity, TableConstraint {
-	public ColumnNames getColumnNames();
-
-	public void setColumnNames(ColumnNames columnNames);
-
 	public TableName getForeignTableName();
 
 	public void setForeignTableName(TableName foreignTableName);

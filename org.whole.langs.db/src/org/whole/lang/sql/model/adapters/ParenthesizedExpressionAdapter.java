@@ -11,8 +11,7 @@ import org.whole.lang.sql.reflect.SQLFeatureDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class ParenthesizedExpressionAdapter extends AbstractEntityAdapter
-		implements ParenthesizedExpression {
+public class ParenthesizedExpressionAdapter extends AbstractEntityAdapter implements ParenthesizedExpression {
 	private static final long serialVersionUID = 1;
 
 	public ParenthesizedExpressionAdapter(IEntity implementor) {
@@ -32,8 +31,7 @@ public class ParenthesizedExpressionAdapter extends AbstractEntityAdapter
 	}
 
 	public SQLExpression getExpression() {
-		return wGet(SQLFeatureDescriptorEnum.expression).wGetAdapter(
-				SQLEntityDescriptorEnum.SQLExpression);
+		return wGet(SQLFeatureDescriptorEnum.expression).wGetAdapter(SQLEntityDescriptorEnum.SQLExpression);
 	}
 
 	public void setExpression(SQLExpression expression) {

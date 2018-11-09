@@ -11,8 +11,7 @@ import java.math.BigDecimal;
 /** 
  * @generator Whole
  */
-public class DecimalValueAdapter extends AbstractEntityAdapter implements
-		DecimalValue {
+public class DecimalValueAdapter extends AbstractEntityAdapter implements DecimalValue {
 	private static final long serialVersionUID = 1;
 
 	public DecimalValueAdapter(IEntity implementor) {

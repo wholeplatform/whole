@@ -31,8 +31,7 @@ public class CreateAdapter extends AbstractEntityAdapter implements Create {
 	}
 
 	public TableName getTableName() {
-		return wGet(SQLFeatureDescriptorEnum.tableName).wGetAdapter(
-				SQLEntityDescriptorEnum.TableName);
+		return wGet(SQLFeatureDescriptorEnum.tableName).wGetAdapter(SQLEntityDescriptorEnum.TableName);
 	}
 
 	public void setTableName(TableName tableName) {
@@ -44,9 +43,7 @@ public class CreateAdapter extends AbstractEntityAdapter implements Create {
 				.wGetAdapter(SQLEntityDescriptorEnum.DeclarationOrConstraints);
 	}
 
-	public void setDeclarationOrConstraints(
-			DeclarationOrConstraints declarationOrConstraints) {
-		wSet(SQLFeatureDescriptorEnum.declarationOrConstraints,
-				declarationOrConstraints);
+	public void setDeclarationOrConstraints(DeclarationOrConstraints declarationOrConstraints) {
+		wSet(SQLFeatureDescriptorEnum.declarationOrConstraints, declarationOrConstraints);
 	}
 }

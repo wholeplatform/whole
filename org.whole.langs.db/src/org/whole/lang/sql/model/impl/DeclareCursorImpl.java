@@ -1,18 +1,20 @@
 package org.whole.lang.sql.model.impl;
 
 import org.whole.lang.model.AbstractSimpleEntity;
-import org.whole.lang.sql.model.*;
+import org.whole.lang.sql.model.DeclareCursor;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.sql.reflect.SQLEntityDescriptorEnum;
 import org.whole.lang.sql.visitors.ISQLVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
+import org.whole.lang.sql.model.Name;
 import org.whole.lang.sql.reflect.SQLFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.sql.model.SQLStatement;
 
 /** 
  * @generator Whole
  */
-public class DeclareCursorImpl extends AbstractSimpleEntity implements
-		DeclareCursor {
+public class DeclareCursorImpl extends AbstractSimpleEntity implements DeclareCursor {
 	private static final long serialVersionUID = 1;
 
 	public EntityDescriptor<DeclareCursor> wGetEntityDescriptor() {
@@ -27,7 +29,7 @@ public class DeclareCursorImpl extends AbstractSimpleEntity implements
 		try {
 			visitor.visit(this);
 		} catch (Exception e) {
-			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+			throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
 		}
 	}
 
@@ -38,20 +40,17 @@ public class DeclareCursorImpl extends AbstractSimpleEntity implements
 	}
 
 	public void setName(Name name) {
-		notifyChanged(SQLFeatureDescriptorEnum.name, this.name,
-				this.name = name);
+		notifyChanged(SQLFeatureDescriptorEnum.name, this.name, this.name = name);
 	}
 
 	private SQLStatement sqlStatement;
 
 	public SQLStatement getSqlStatement() {
-		return notifyRequested(SQLFeatureDescriptorEnum.sqlStatement,
-				sqlStatement);
+		return notifyRequested(SQLFeatureDescriptorEnum.sqlStatement, sqlStatement);
 	}
 
 	public void setSqlStatement(SQLStatement sqlStatement) {
-		notifyChanged(SQLFeatureDescriptorEnum.sqlStatement, this.sqlStatement,
-				this.sqlStatement = sqlStatement);
+		notifyChanged(SQLFeatureDescriptorEnum.sqlStatement, this.sqlStatement, this.sqlStatement = sqlStatement);
 	}
 
 	public IEntity wGet(int index) {
@@ -71,8 +70,7 @@ public class DeclareCursorImpl extends AbstractSimpleEntity implements
 			setName(value.wGetAdapter(SQLEntityDescriptorEnum.Name));
 			break;
 		case 1:
-			setSqlStatement(value
-					.wGetAdapter(SQLEntityDescriptorEnum.SQLStatement));
+			setSqlStatement(value.wGetAdapter(SQLEntityDescriptorEnum.SQLStatement));
 			break;
 		default:
 			throw new IllegalArgumentException();

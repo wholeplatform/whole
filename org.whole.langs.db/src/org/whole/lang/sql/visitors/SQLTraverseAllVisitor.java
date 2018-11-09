@@ -280,15 +280,23 @@ public class SQLTraverseAllVisitor extends SQLIdentityUnaryVisitor<ISQLVisitor> 
 		entity.getForeignColumnName().accept(wGetVisitor1());
 	}
 
+	public void visit(TableConstraint entity) {
+		entity.getConstraintName().accept(wGetVisitor1());
+		entity.getColumnNames().accept(wGetVisitor1());
+	}
+
 	public void visit(UniqueTableConstraint entity) {
+		entity.getConstraintName().accept(wGetVisitor1());
 		entity.getColumnNames().accept(wGetVisitor1());
 	}
 
 	public void visit(PrimaryKeyTableConstraint entity) {
+		entity.getConstraintName().accept(wGetVisitor1());
 		entity.getColumnNames().accept(wGetVisitor1());
 	}
 
 	public void visit(ForeignKeyTableConstraint entity) {
+		entity.getConstraintName().accept(wGetVisitor1());
 		entity.getColumnNames().accept(wGetVisitor1());
 		entity.getForeignTableName().accept(wGetVisitor1());
 		entity.getForeignColumnNames().accept(wGetVisitor1());

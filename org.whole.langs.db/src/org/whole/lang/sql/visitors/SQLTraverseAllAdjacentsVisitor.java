@@ -8,8 +8,7 @@ import org.whole.lang.visitors.IVisitor;
 /** 
  * @generator Whole
  */
-public class SQLTraverseAllAdjacentsVisitor extends
-		SQLIdentityUnaryVisitor<ISQLVisitor> {
+public class SQLTraverseAllAdjacentsVisitor extends SQLIdentityUnaryVisitor<ISQLVisitor> {
 	public SQLTraverseAllAdjacentsVisitor() {
 		wSetVisitor1(this);
 	}

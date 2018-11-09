@@ -1,18 +1,21 @@
 package org.whole.lang.sql.model.impl;
 
 import org.whole.lang.model.AbstractSimpleEntity;
-import org.whole.lang.sql.model.*;
+import org.whole.lang.sql.model.ColumnDeclaration;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.sql.reflect.SQLEntityDescriptorEnum;
 import org.whole.lang.sql.visitors.ISQLVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
+import org.whole.lang.sql.model.ColumnName;
 import org.whole.lang.sql.reflect.SQLFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.sql.model.ColumnType;
+import org.whole.lang.sql.model.ColumnConstraints;
 
 /** 
  * @generator Whole
  */
-public class ColumnDeclarationImpl extends AbstractSimpleEntity implements
-		ColumnDeclaration {
+public class ColumnDeclarationImpl extends AbstractSimpleEntity implements ColumnDeclaration {
 	private static final long serialVersionUID = 1;
 
 	public EntityDescriptor<ColumnDeclaration> wGetEntityDescriptor() {
@@ -27,7 +30,7 @@ public class ColumnDeclarationImpl extends AbstractSimpleEntity implements
 		try {
 			visitor.visit(this);
 		} catch (Exception e) {
-			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+			throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
 		}
 	}
 
@@ -38,8 +41,7 @@ public class ColumnDeclarationImpl extends AbstractSimpleEntity implements
 	}
 
 	public void setColumnName(ColumnName columnName) {
-		notifyChanged(SQLFeatureDescriptorEnum.columnName, this.columnName,
-				this.columnName = columnName);
+		notifyChanged(SQLFeatureDescriptorEnum.columnName, this.columnName, this.columnName = columnName);
 	}
 
 	private ColumnType columnType;
@@ -49,20 +51,17 @@ public class ColumnDeclarationImpl extends AbstractSimpleEntity implements
 	}
 
 	public void setColumnType(ColumnType columnType) {
-		notifyChanged(SQLFeatureDescriptorEnum.columnType, this.columnType,
-				this.columnType = columnType);
+		notifyChanged(SQLFeatureDescriptorEnum.columnType, this.columnType, this.columnType = columnType);
 	}
 
 	private ColumnConstraints columnConstraints;
 
 	public ColumnConstraints getColumnConstraints() {
-		return notifyRequested(SQLFeatureDescriptorEnum.columnConstraints,
-				columnConstraints);
+		return notifyRequested(SQLFeatureDescriptorEnum.columnConstraints, columnConstraints);
 	}
 
 	public void setColumnConstraints(ColumnConstraints columnConstraints) {
-		notifyChanged(SQLFeatureDescriptorEnum.columnConstraints,
-				this.columnConstraints,
+		notifyChanged(SQLFeatureDescriptorEnum.columnConstraints, this.columnConstraints,
 				this.columnConstraints = columnConstraints);
 	}
 
@@ -88,8 +87,7 @@ public class ColumnDeclarationImpl extends AbstractSimpleEntity implements
 			setColumnType(value.wGetAdapter(SQLEntityDescriptorEnum.ColumnType));
 			break;
 		case 2:
-			setColumnConstraints(value
-					.wGetAdapter(SQLEntityDescriptorEnum.ColumnConstraints));
+			setColumnConstraints(value.wGetAdapter(SQLEntityDescriptorEnum.ColumnConstraints));
 			break;
 		default:
 			throw new IllegalArgumentException();

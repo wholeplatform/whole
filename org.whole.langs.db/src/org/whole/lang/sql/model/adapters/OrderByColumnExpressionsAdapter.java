@@ -10,9 +10,8 @@ import org.whole.lang.sql.reflect.SQLEntityDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class OrderByColumnExpressionsAdapter extends
-		AbstractListEntityAdapter<OrderByColumnExpression> implements
-		OrderByColumnExpressions {
+public class OrderByColumnExpressionsAdapter extends AbstractListEntityAdapter<OrderByColumnExpression>
+		implements OrderByColumnExpressions {
 	private static final long serialVersionUID = 1;
 
 	public OrderByColumnExpressionsAdapter(IEntity implementor) {

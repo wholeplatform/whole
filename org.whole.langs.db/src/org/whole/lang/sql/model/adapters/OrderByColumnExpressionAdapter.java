@@ -11,8 +11,7 @@ import org.whole.lang.sql.reflect.SQLFeatureDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class OrderByColumnExpressionAdapter extends AbstractEntityAdapter
-		implements OrderByColumnExpression {
+public class OrderByColumnExpressionAdapter extends AbstractEntityAdapter implements OrderByColumnExpression {
 	private static final long serialVersionUID = 1;
 
 	public OrderByColumnExpressionAdapter(IEntity implementor) {
@@ -32,8 +31,7 @@ public class OrderByColumnExpressionAdapter extends AbstractEntityAdapter
 	}
 
 	public SQLExpression getExpression() {
-		return wGet(SQLFeatureDescriptorEnum.expression).wGetAdapter(
-				SQLEntityDescriptorEnum.SQLExpression);
+		return wGet(SQLFeatureDescriptorEnum.expression).wGetAdapter(SQLEntityDescriptorEnum.SQLExpression);
 	}
 
 	public void setExpression(SQLExpression expression) {
@@ -41,8 +39,7 @@ public class OrderByColumnExpressionAdapter extends AbstractEntityAdapter
 	}
 
 	public OrderType getOrderType() {
-		return wGet(SQLFeatureDescriptorEnum.orderType).wGetAdapter(
-				SQLEntityDescriptorEnum.OrderType);
+		return wGet(SQLFeatureDescriptorEnum.orderType).wGetAdapter(SQLEntityDescriptorEnum.OrderType);
 	}
 
 	public void setOrderType(OrderType orderType) {

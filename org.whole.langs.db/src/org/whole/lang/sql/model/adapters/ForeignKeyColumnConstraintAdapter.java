@@ -11,8 +11,7 @@ import org.whole.lang.sql.reflect.SQLFeatureDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class ForeignKeyColumnConstraintAdapter extends AbstractEntityAdapter
-		implements ForeignKeyColumnConstraint {
+public class ForeignKeyColumnConstraintAdapter extends AbstractEntityAdapter implements ForeignKeyColumnConstraint {
 	private static final long serialVersionUID = 1;
 
 	public ForeignKeyColumnConstraintAdapter(IEntity implementor) {
@@ -32,8 +31,7 @@ public class ForeignKeyColumnConstraintAdapter extends AbstractEntityAdapter
 	}
 
 	public TableName getForeignTableName() {
-		return wGet(SQLFeatureDescriptorEnum.foreignTableName).wGetAdapter(
-				SQLEntityDescriptorEnum.TableName);
+		return wGet(SQLFeatureDescriptorEnum.foreignTableName).wGetAdapter(SQLEntityDescriptorEnum.TableName);
 	}
 
 	public void setForeignTableName(TableName foreignTableName) {
@@ -41,8 +39,7 @@ public class ForeignKeyColumnConstraintAdapter extends AbstractEntityAdapter
 	}
 
 	public ColumnName getForeignColumnName() {
-		return wGet(SQLFeatureDescriptorEnum.foreignColumnName).wGetAdapter(
-				SQLEntityDescriptorEnum.ColumnName);
+		return wGet(SQLFeatureDescriptorEnum.foreignColumnName).wGetAdapter(SQLEntityDescriptorEnum.ColumnName);
 	}
 
 	public void setForeignColumnName(ColumnName foreignColumnName) {

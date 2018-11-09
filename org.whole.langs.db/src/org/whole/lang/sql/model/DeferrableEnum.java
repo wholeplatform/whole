@@ -10,8 +10,7 @@ public class DeferrableEnum extends EnumType<DeferrableEnum.Value> {
 	public static final int NOT_DEFERRABLE_ord = 0;
 	public static final int DEFERRABLE_ord = 1;
 	public static final DeferrableEnum instance = new DeferrableEnum();
-	public static final Value NOT_DEFERRABLE = instance
-			.valueOf(NOT_DEFERRABLE_ord);
+	public static final Value NOT_DEFERRABLE = instance.valueOf(NOT_DEFERRABLE_ord);
 	public static final Value DEFERRABLE = instance.valueOf(DEFERRABLE_ord);
 
 	private DeferrableEnum() {

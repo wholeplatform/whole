@@ -8,8 +8,7 @@ import org.whole.lang.model.IEntity;
 /** 
  * @generator Whole
  */
-public class SQLIdentityUnaryVisitor<V extends IVisitor> extends
-		AbstractUnaryVisitor<V> implements ISQLVisitor {
+public class SQLIdentityUnaryVisitor<V extends IVisitor> extends AbstractUnaryVisitor<V> implements ISQLVisitor {
 	public SQLIdentityUnaryVisitor() {
 		super(null);
 	}
@@ -191,6 +190,9 @@ public class SQLIdentityUnaryVisitor<V extends IVisitor> extends
 	}
 
 	public void visit(IndexName entity) {
+	}
+
+	public void visit(ConstraintName entity) {
 	}
 
 	public void visit(CaseExpression entity) {

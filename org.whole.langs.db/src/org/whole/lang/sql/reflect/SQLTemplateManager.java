@@ -20,8 +20,7 @@ public class SQLTemplateManager extends AbstractTemplateManager {
 	private SQLTemplateManager() {
 		put("empty", new AbstractTemplateFactory<SQLStatements>() {
 			public SQLStatements create() {
-				return GenericEntityFactory.instance
-						.create(SQLEntityDescriptorEnum.SQLStatements);
+				return GenericEntityFactory.instance.create(SQLEntityDescriptorEnum.SQLStatements);
 			}
 		});
 	}

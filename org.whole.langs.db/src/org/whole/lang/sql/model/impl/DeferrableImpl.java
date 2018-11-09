@@ -1,10 +1,12 @@
 package org.whole.lang.sql.model.impl;
 
 import org.whole.lang.model.AbstractDataEntity;
-import org.whole.lang.sql.model.*;
+import org.whole.lang.sql.model.Deferrable;
 import org.whole.lang.sql.visitors.ISQLVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.sql.reflect.SQLEntityDescriptorEnum;
 import org.whole.lang.reflect.EntityDescriptor;
+import org.whole.lang.sql.model.DeferrableEnum;
 import org.whole.lang.model.EnumValue;
 
 /** 
@@ -26,7 +28,7 @@ public class DeferrableImpl extends AbstractDataEntity implements Deferrable {
 		try {
 			visitor.visit(this);
 		} catch (Exception e) {
-			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+			throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
 		}
 	}
 

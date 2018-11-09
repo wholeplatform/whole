@@ -5,6 +5,5 @@ import java.util.List;
 /** 
  * @generator Whole
  */
-public interface InValueList extends ISQLEntity, List<SQLExpression>,
-		InPredicate {
+public interface InValueList extends ISQLEntity, List<SQLExpression>, InPredicate {
 }

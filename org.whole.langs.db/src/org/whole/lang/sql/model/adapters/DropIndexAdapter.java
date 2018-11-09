@@ -11,8 +11,7 @@ import org.whole.lang.sql.reflect.SQLFeatureDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class DropIndexAdapter extends AbstractEntityAdapter implements
-		DropIndex {
+public class DropIndexAdapter extends AbstractEntityAdapter implements DropIndex {
 	private static final long serialVersionUID = 1;
 
 	public DropIndexAdapter(IEntity implementor) {
@@ -32,8 +31,7 @@ public class DropIndexAdapter extends AbstractEntityAdapter implements
 	}
 
 	public IndexName getIndexName() {
-		return wGet(SQLFeatureDescriptorEnum.indexName).wGetAdapter(
-				SQLEntityDescriptorEnum.IndexName);
+		return wGet(SQLFeatureDescriptorEnum.indexName).wGetAdapter(SQLEntityDescriptorEnum.IndexName);
 	}
 
 	public void setIndexName(IndexName indexName) {

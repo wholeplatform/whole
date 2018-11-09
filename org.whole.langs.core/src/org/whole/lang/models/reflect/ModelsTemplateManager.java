@@ -36,7 +36,6 @@ import org.whole.lang.models.codebase.PresentationModel;
 import org.whole.lang.models.codebase.ProcessGraphModel;
 import org.whole.lang.models.codebase.PropertiesModel;
 import org.whole.lang.models.codebase.RDFModel;
-import org.whole.lang.models.codebase.SQLModel;
 import org.whole.lang.models.codebase.SchemeModel;
 import org.whole.lang.models.codebase.ScriptsModel;
 import org.whole.lang.models.codebase.StatusModel;
@@ -83,7 +82,6 @@ public class ModelsTemplateManager extends AbstractTemplateManager {
 
 		put("LangGen model", new LangGenModel());
 		put("ORM model", new ORMModel());
-		put("SQL model", new SQLModel());
 		put("DBCFG model", new DBCFGModel());
 
 		put("Actions", new ActionsModel());

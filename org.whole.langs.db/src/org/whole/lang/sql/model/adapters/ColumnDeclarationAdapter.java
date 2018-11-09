@@ -11,8 +11,7 @@ import org.whole.lang.sql.reflect.SQLFeatureDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class ColumnDeclarationAdapter extends AbstractEntityAdapter implements
-		ColumnDeclaration {
+public class ColumnDeclarationAdapter extends AbstractEntityAdapter implements ColumnDeclaration {
 	private static final long serialVersionUID = 1;
 
 	public ColumnDeclarationAdapter(IEntity implementor) {
@@ -32,8 +31,7 @@ public class ColumnDeclarationAdapter extends AbstractEntityAdapter implements
 	}
 
 	public ColumnName getColumnName() {
-		return wGet(SQLFeatureDescriptorEnum.columnName).wGetAdapter(
-				SQLEntityDescriptorEnum.ColumnName);
+		return wGet(SQLFeatureDescriptorEnum.columnName).wGetAdapter(SQLEntityDescriptorEnum.ColumnName);
 	}
 
 	public void setColumnName(ColumnName columnName) {
@@ -41,8 +39,7 @@ public class ColumnDeclarationAdapter extends AbstractEntityAdapter implements
 	}
 
 	public ColumnType getColumnType() {
-		return wGet(SQLFeatureDescriptorEnum.columnType).wGetAdapter(
-				SQLEntityDescriptorEnum.ColumnType);
+		return wGet(SQLFeatureDescriptorEnum.columnType).wGetAdapter(SQLEntityDescriptorEnum.ColumnType);
 	}
 
 	public void setColumnType(ColumnType columnType) {
@@ -50,8 +47,7 @@ public class ColumnDeclarationAdapter extends AbstractEntityAdapter implements
 	}
 
 	public ColumnConstraints getColumnConstraints() {
-		return wGet(SQLFeatureDescriptorEnum.columnConstraints).wGetAdapter(
-				SQLEntityDescriptorEnum.ColumnConstraints);
+		return wGet(SQLFeatureDescriptorEnum.columnConstraints).wGetAdapter(SQLEntityDescriptorEnum.ColumnConstraints);
 	}
 
 	public void setColumnConstraints(ColumnConstraints columnConstraints) {

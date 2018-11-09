@@ -9,8 +9,7 @@ import org.whole.lang.model.IEntity;
 /** 
  * @generator Whole
  */
-public class SQLSequenceVisitor extends AbstractBinaryVisitor<ISQLVisitor>
-		implements ISQLVisitor {
+public class SQLSequenceVisitor extends AbstractBinaryVisitor<ISQLVisitor> implements ISQLVisitor {
 	public SQLSequenceVisitor(IVisitor visitor1, IVisitor visitor2) {
 		super(visitor1, visitor2);
 	}
@@ -301,6 +300,11 @@ public class SQLSequenceVisitor extends AbstractBinaryVisitor<ISQLVisitor>
 	}
 
 	public void visit(IndexName entity) {
+		wGetVisitor1().visit(entity);
+		wGetVisitor2().visit(entity);
+	}
+
+	public void visit(ConstraintName entity) {
 		wGetVisitor1().visit(entity);
 		wGetVisitor2().visit(entity);
 	}

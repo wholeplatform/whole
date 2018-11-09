@@ -5,6 +5,5 @@ import java.util.Set;
 /** 
  * @generator Whole
  */
-public interface DeclarationOrConstraints extends ISQLEntity,
-		Set<DeclarationOrConstraint> {
+public interface DeclarationOrConstraints extends ISQLEntity, Set<DeclarationOrConstraint> {
 }

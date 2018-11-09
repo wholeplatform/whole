@@ -31,8 +31,7 @@ public class SubqueryAdapter extends AbstractEntityAdapter implements Subquery {
 	}
 
 	public SelectSQLStatement getQuery() {
-		return wGet(SQLFeatureDescriptorEnum.query).wGetAdapter(
-				SQLEntityDescriptorEnum.SelectSQLStatement);
+		return wGet(SQLFeatureDescriptorEnum.query).wGetAdapter(SQLEntityDescriptorEnum.SelectSQLStatement);
 	}
 
 	public void setQuery(SelectSQLStatement query) {

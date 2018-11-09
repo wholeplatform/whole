@@ -183,6 +183,9 @@ public class SQLIdentityVisitor extends AbstractVisitor implements ISQLVisitor {
 	public void visit(IndexName entity) {
 	}
 
+	public void visit(ConstraintName entity) {
+	}
+
 	public void visit(CaseExpression entity) {
 	}
 

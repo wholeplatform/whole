@@ -1,18 +1,22 @@
 package org.whole.lang.sql.model.impl;
 
 import org.whole.lang.model.AbstractSimpleEntity;
-import org.whole.lang.sql.model.*;
+import org.whole.lang.sql.model.CreateIndex;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.sql.reflect.SQLEntityDescriptorEnum;
 import org.whole.lang.sql.visitors.ISQLVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
+import org.whole.lang.sql.model.UniqueIndex;
 import org.whole.lang.sql.reflect.SQLFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.sql.model.IndexName;
+import org.whole.lang.sql.model.TableName;
+import org.whole.lang.sql.model.IndexDeclarations;
 
 /** 
  * @generator Whole
  */
-public class CreateIndexImpl extends AbstractSimpleEntity implements
-		CreateIndex {
+public class CreateIndexImpl extends AbstractSimpleEntity implements CreateIndex {
 	private static final long serialVersionUID = 1;
 
 	public EntityDescriptor<CreateIndex> wGetEntityDescriptor() {
@@ -27,7 +31,7 @@ public class CreateIndexImpl extends AbstractSimpleEntity implements
 		try {
 			visitor.visit(this);
 		} catch (Exception e) {
-			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+			throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
 		}
 	}
 
@@ -38,8 +42,7 @@ public class CreateIndexImpl extends AbstractSimpleEntity implements
 	}
 
 	public void setUnique(UniqueIndex unique) {
-		notifyChanged(SQLFeatureDescriptorEnum.unique, this.unique,
-				this.unique = unique);
+		notifyChanged(SQLFeatureDescriptorEnum.unique, this.unique, this.unique = unique);
 	}
 
 	private IndexName indexName;
@@ -49,8 +52,7 @@ public class CreateIndexImpl extends AbstractSimpleEntity implements
 	}
 
 	public void setIndexName(IndexName indexName) {
-		notifyChanged(SQLFeatureDescriptorEnum.indexName, this.indexName,
-				this.indexName = indexName);
+		notifyChanged(SQLFeatureDescriptorEnum.indexName, this.indexName, this.indexName = indexName);
 	}
 
 	private TableName tableName;
@@ -60,20 +62,17 @@ public class CreateIndexImpl extends AbstractSimpleEntity implements
 	}
 
 	public void setTableName(TableName tableName) {
-		notifyChanged(SQLFeatureDescriptorEnum.tableName, this.tableName,
-				this.tableName = tableName);
+		notifyChanged(SQLFeatureDescriptorEnum.tableName, this.tableName, this.tableName = tableName);
 	}
 
 	private IndexDeclarations indexDeclarations;
 
 	public IndexDeclarations getIndexDeclarations() {
-		return notifyRequested(SQLFeatureDescriptorEnum.indexDeclarations,
-				indexDeclarations);
+		return notifyRequested(SQLFeatureDescriptorEnum.indexDeclarations, indexDeclarations);
 	}
 
 	public void setIndexDeclarations(IndexDeclarations indexDeclarations) {
-		notifyChanged(SQLFeatureDescriptorEnum.indexDeclarations,
-				this.indexDeclarations,
+		notifyChanged(SQLFeatureDescriptorEnum.indexDeclarations, this.indexDeclarations,
 				this.indexDeclarations = indexDeclarations);
 	}
 
@@ -104,8 +103,7 @@ public class CreateIndexImpl extends AbstractSimpleEntity implements
 			setTableName(value.wGetAdapter(SQLEntityDescriptorEnum.TableName));
 			break;
 		case 3:
-			setIndexDeclarations(value
-					.wGetAdapter(SQLEntityDescriptorEnum.IndexDeclarations));
+			setIndexDeclarations(value.wGetAdapter(SQLEntityDescriptorEnum.IndexDeclarations));
 			break;
 		default:
 			throw new IllegalArgumentException();

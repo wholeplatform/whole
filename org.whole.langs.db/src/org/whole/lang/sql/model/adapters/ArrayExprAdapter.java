@@ -10,8 +10,7 @@ import org.whole.lang.sql.reflect.SQLEntityDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class ArrayExprAdapter extends AbstractEntityAdapter implements
-		ArrayExpr {
+public class ArrayExprAdapter extends AbstractEntityAdapter implements ArrayExpr {
 	private static final long serialVersionUID = 1;
 
 	public ArrayExprAdapter(IEntity implementor) {

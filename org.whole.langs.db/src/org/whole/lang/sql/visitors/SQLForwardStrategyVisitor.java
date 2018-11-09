@@ -7,8 +7,7 @@ import org.whole.lang.model.IEntity;
 /** 
  * @generator Whole
  */
-public class SQLForwardStrategyVisitor extends
-		GenericForwardStrategyVisitor<ISQLVisitor> implements ISQLVisitor {
+public class SQLForwardStrategyVisitor extends GenericForwardStrategyVisitor<ISQLVisitor> implements ISQLVisitor {
 	public SQLForwardStrategyVisitor() {
 		this(new SQLIdentityVisitor());
 	}
@@ -246,6 +245,10 @@ public class SQLForwardStrategyVisitor extends
 	}
 
 	public void visit(IndexName entity) {
+		wGetStrategy().visit(entity);
+	}
+
+	public void visit(ConstraintName entity) {
 		wGetStrategy().visit(entity);
 	}
 

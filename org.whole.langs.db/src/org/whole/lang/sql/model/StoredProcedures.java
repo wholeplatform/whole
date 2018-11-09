@@ -5,6 +5,5 @@ import java.util.Set;
 /** 
  * @generator Whole
  */
-public interface StoredProcedures extends ISQLEntity, Set<StoredProcedure>,
-		SQLStatement {
+public interface StoredProcedures extends ISQLEntity, Set<StoredProcedure>, SQLStatement {
 }

@@ -1,12 +1,15 @@
 package org.whole.lang.sql.model.impl;
 
 import org.whole.lang.model.AbstractSimpleEntity;
-import org.whole.lang.sql.model.*;
+import org.whole.lang.sql.model.Is;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.sql.reflect.SQLEntityDescriptorEnum;
 import org.whole.lang.sql.visitors.ISQLVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
+import org.whole.lang.sql.model.SQLExpression;
 import org.whole.lang.sql.reflect.SQLFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.sql.model.IsType;
 
 /** 
  * @generator Whole
@@ -26,7 +29,7 @@ public class IsImpl extends AbstractSimpleEntity implements Is {
 		try {
 			visitor.visit(this);
 		} catch (Exception e) {
-			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+			throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
 		}
 	}
 
@@ -37,8 +40,7 @@ public class IsImpl extends AbstractSimpleEntity implements Is {
 	}
 
 	public void setExpression(SQLExpression expression) {
-		notifyChanged(SQLFeatureDescriptorEnum.expression, this.expression,
-				this.expression = expression);
+		notifyChanged(SQLFeatureDescriptorEnum.expression, this.expression, this.expression = expression);
 	}
 
 	private IsType type;
@@ -48,8 +50,7 @@ public class IsImpl extends AbstractSimpleEntity implements Is {
 	}
 
 	public void setType(IsType type) {
-		notifyChanged(SQLFeatureDescriptorEnum.type, this.type,
-				this.type = type);
+		notifyChanged(SQLFeatureDescriptorEnum.type, this.type, this.type = type);
 	}
 
 	public IEntity wGet(int index) {
@@ -66,8 +67,7 @@ public class IsImpl extends AbstractSimpleEntity implements Is {
 	public void wSet(int index, IEntity value) {
 		switch (index) {
 		case 0:
-			setExpression(value
-					.wGetAdapter(SQLEntityDescriptorEnum.SQLExpression));
+			setExpression(value.wGetAdapter(SQLEntityDescriptorEnum.SQLExpression));
 			break;
 		case 1:
 			setType(value.wGetAdapter(SQLEntityDescriptorEnum.IsType));

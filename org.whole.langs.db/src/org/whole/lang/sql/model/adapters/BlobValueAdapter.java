@@ -11,8 +11,7 @@ import java.sql.Blob;
 /** 
  * @generator Whole
  */
-public class BlobValueAdapter extends AbstractEntityAdapter implements
-		BlobValue {
+public class BlobValueAdapter extends AbstractEntityAdapter implements BlobValue {
 	private static final long serialVersionUID = 1;
 
 	public BlobValueAdapter(IEntity implementor) {

@@ -1,18 +1,21 @@
 package org.whole.lang.sql.model.impl;
 
 import org.whole.lang.model.AbstractSimpleEntity;
-import org.whole.lang.sql.model.*;
+import org.whole.lang.sql.model.VariableDeclaration;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.sql.reflect.SQLEntityDescriptorEnum;
 import org.whole.lang.sql.visitors.ISQLVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
+import org.whole.lang.sql.model.Name;
 import org.whole.lang.sql.reflect.SQLFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.sql.model.Reference;
+import org.whole.lang.sql.model.ReferenceType;
 
 /** 
  * @generator Whole
  */
-public class VariableDeclarationImpl extends AbstractSimpleEntity implements
-		VariableDeclaration {
+public class VariableDeclarationImpl extends AbstractSimpleEntity implements VariableDeclaration {
 	private static final long serialVersionUID = 1;
 
 	public EntityDescriptor<VariableDeclaration> wGetEntityDescriptor() {
@@ -27,7 +30,7 @@ public class VariableDeclarationImpl extends AbstractSimpleEntity implements
 		try {
 			visitor.visit(this);
 		} catch (Exception e) {
-			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+			throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
 		}
 	}
 
@@ -38,8 +41,7 @@ public class VariableDeclarationImpl extends AbstractSimpleEntity implements
 	}
 
 	public void setName(Name name) {
-		notifyChanged(SQLFeatureDescriptorEnum.name, this.name,
-				this.name = name);
+		notifyChanged(SQLFeatureDescriptorEnum.name, this.name, this.name = name);
 	}
 
 	private Reference reference;
@@ -49,20 +51,17 @@ public class VariableDeclarationImpl extends AbstractSimpleEntity implements
 	}
 
 	public void setReference(Reference reference) {
-		notifyChanged(SQLFeatureDescriptorEnum.reference, this.reference,
-				this.reference = reference);
+		notifyChanged(SQLFeatureDescriptorEnum.reference, this.reference, this.reference = reference);
 	}
 
 	private ReferenceType referenceType;
 
 	public ReferenceType getReferenceType() {
-		return notifyRequested(SQLFeatureDescriptorEnum.referenceType,
-				referenceType);
+		return notifyRequested(SQLFeatureDescriptorEnum.referenceType, referenceType);
 	}
 
 	public void setReferenceType(ReferenceType referenceType) {
-		notifyChanged(SQLFeatureDescriptorEnum.referenceType,
-				this.referenceType, this.referenceType = referenceType);
+		notifyChanged(SQLFeatureDescriptorEnum.referenceType, this.referenceType, this.referenceType = referenceType);
 	}
 
 	public IEntity wGet(int index) {
@@ -87,8 +86,7 @@ public class VariableDeclarationImpl extends AbstractSimpleEntity implements
 			setReference(value.wGetAdapter(SQLEntityDescriptorEnum.Reference));
 			break;
 		case 2:
-			setReferenceType(value
-					.wGetAdapter(SQLEntityDescriptorEnum.ReferenceType));
+			setReferenceType(value.wGetAdapter(SQLEntityDescriptorEnum.ReferenceType));
 			break;
 		default:
 			throw new IllegalArgumentException();

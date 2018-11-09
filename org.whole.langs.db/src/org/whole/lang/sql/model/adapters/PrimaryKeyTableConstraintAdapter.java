@@ -11,8 +11,7 @@ import org.whole.lang.sql.reflect.SQLFeatureDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class PrimaryKeyTableConstraintAdapter extends AbstractEntityAdapter
-		implements PrimaryKeyTableConstraint {
+public class PrimaryKeyTableConstraintAdapter extends AbstractEntityAdapter implements PrimaryKeyTableConstraint {
 	private static final long serialVersionUID = 1;
 
 	public PrimaryKeyTableConstraintAdapter(IEntity implementor) {
@@ -31,9 +30,16 @@ public class PrimaryKeyTableConstraintAdapter extends AbstractEntityAdapter
 		return SQLEntityDescriptorEnum.PrimaryKeyTableConstraint;
 	}
 
+	public ConstraintName getConstraintName() {
+		return wGet(SQLFeatureDescriptorEnum.constraintName).wGetAdapter(SQLEntityDescriptorEnum.ConstraintName);
+	}
+
+	public void setConstraintName(ConstraintName constraintName) {
+		wSet(SQLFeatureDescriptorEnum.constraintName, constraintName);
+	}
+
 	public ColumnNames getColumnNames() {
-		return wGet(SQLFeatureDescriptorEnum.columnNames).wGetAdapter(
-				SQLEntityDescriptorEnum.ColumnNames);
+		return wGet(SQLFeatureDescriptorEnum.columnNames).wGetAdapter(SQLEntityDescriptorEnum.ColumnNames);
 	}
 
 	public void setColumnNames(ColumnNames columnNames) {

@@ -11,8 +11,7 @@ import java.sql.Date;
 /** 
  * @generator Whole
  */
-public class DateValueAdapter extends AbstractEntityAdapter implements
-		DateValue {
+public class DateValueAdapter extends AbstractEntityAdapter implements DateValue {
 	private static final long serialVersionUID = 1;
 
 	public DateValueAdapter(IEntity implementor) {

@@ -11,8 +11,7 @@ import org.whole.lang.sql.reflect.SQLFeatureDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class SetClauseAdapter extends AbstractEntityAdapter implements
-		SetClause {
+public class SetClauseAdapter extends AbstractEntityAdapter implements SetClause {
 	private static final long serialVersionUID = 1;
 
 	public SetClauseAdapter(IEntity implementor) {
@@ -32,8 +31,7 @@ public class SetClauseAdapter extends AbstractEntityAdapter implements
 	}
 
 	public ColumnName getColumnName() {
-		return wGet(SQLFeatureDescriptorEnum.columnName).wGetAdapter(
-				SQLEntityDescriptorEnum.ColumnName);
+		return wGet(SQLFeatureDescriptorEnum.columnName).wGetAdapter(SQLEntityDescriptorEnum.ColumnName);
 	}
 
 	public void setColumnName(ColumnName columnName) {
@@ -41,8 +39,7 @@ public class SetClauseAdapter extends AbstractEntityAdapter implements
 	}
 
 	public SQLExpression getExpression() {
-		return wGet(SQLFeatureDescriptorEnum.expression).wGetAdapter(
-				SQLEntityDescriptorEnum.SQLExpression);
+		return wGet(SQLFeatureDescriptorEnum.expression).wGetAdapter(SQLEntityDescriptorEnum.SQLExpression);
 	}
 
 	public void setExpression(SQLExpression expression) {

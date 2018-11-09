@@ -11,8 +11,7 @@ import org.whole.lang.sql.reflect.SQLFeatureDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class NotBetweenAdapter extends AbstractEntityAdapter implements
-		NotBetween {
+public class NotBetweenAdapter extends AbstractEntityAdapter implements NotBetween {
 	private static final long serialVersionUID = 1;
 
 	public NotBetweenAdapter(IEntity implementor) {
@@ -32,8 +31,7 @@ public class NotBetweenAdapter extends AbstractEntityAdapter implements
 	}
 
 	public SQLExpression getExpression() {
-		return wGet(SQLFeatureDescriptorEnum.expression).wGetAdapter(
-				SQLEntityDescriptorEnum.SQLExpression);
+		return wGet(SQLFeatureDescriptorEnum.expression).wGetAdapter(SQLEntityDescriptorEnum.SQLExpression);
 	}
 
 	public void setExpression(SQLExpression expression) {
@@ -41,8 +39,7 @@ public class NotBetweenAdapter extends AbstractEntityAdapter implements
 	}
 
 	public SQLExpression getLowerExpression() {
-		return wGet(SQLFeatureDescriptorEnum.lowerExpression).wGetAdapter(
-				SQLEntityDescriptorEnum.SQLExpression);
+		return wGet(SQLFeatureDescriptorEnum.lowerExpression).wGetAdapter(SQLEntityDescriptorEnum.SQLExpression);
 	}
 
 	public void setLowerExpression(SQLExpression lowerExpression) {
@@ -50,8 +47,7 @@ public class NotBetweenAdapter extends AbstractEntityAdapter implements
 	}
 
 	public SQLExpression getUpperExpression() {
-		return wGet(SQLFeatureDescriptorEnum.upperExpression).wGetAdapter(
-				SQLEntityDescriptorEnum.SQLExpression);
+		return wGet(SQLFeatureDescriptorEnum.upperExpression).wGetAdapter(SQLEntityDescriptorEnum.SQLExpression);
 	}
 
 	public void setUpperExpression(SQLExpression upperExpression) {

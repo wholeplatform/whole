@@ -11,8 +11,7 @@ import org.whole.lang.sql.reflect.SQLFeatureDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class VariableDeclarationAdapter extends AbstractEntityAdapter implements
-		VariableDeclaration {
+public class VariableDeclarationAdapter extends AbstractEntityAdapter implements VariableDeclaration {
 	private static final long serialVersionUID = 1;
 
 	public VariableDeclarationAdapter(IEntity implementor) {
@@ -32,8 +31,7 @@ public class VariableDeclarationAdapter extends AbstractEntityAdapter implements
 	}
 
 	public Name getName() {
-		return wGet(SQLFeatureDescriptorEnum.name).wGetAdapter(
-				SQLEntityDescriptorEnum.Name);
+		return wGet(SQLFeatureDescriptorEnum.name).wGetAdapter(SQLEntityDescriptorEnum.Name);
 	}
 
 	public void setName(Name name) {
@@ -41,8 +39,7 @@ public class VariableDeclarationAdapter extends AbstractEntityAdapter implements
 	}
 
 	public Reference getReference() {
-		return wGet(SQLFeatureDescriptorEnum.reference).wGetAdapter(
-				SQLEntityDescriptorEnum.Reference);
+		return wGet(SQLFeatureDescriptorEnum.reference).wGetAdapter(SQLEntityDescriptorEnum.Reference);
 	}
 
 	public void setReference(Reference reference) {
@@ -50,8 +47,7 @@ public class VariableDeclarationAdapter extends AbstractEntityAdapter implements
 	}
 
 	public ReferenceType getReferenceType() {
-		return wGet(SQLFeatureDescriptorEnum.referenceType).wGetAdapter(
-				SQLEntityDescriptorEnum.ReferenceType);
+		return wGet(SQLFeatureDescriptorEnum.referenceType).wGetAdapter(SQLEntityDescriptorEnum.ReferenceType);
 	}
 
 	public void setReferenceType(ReferenceType referenceType) {
