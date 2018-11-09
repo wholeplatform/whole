@@ -110,7 +110,8 @@ public class DBSchemaTemplateFactory extends AbstractTemplateFactory<Database> {
 		buildPrimaryKey(name);
 		buildForeignKeys(name);
 		buildIndexes(name);
-		buildStringData(remarks);
+		if (remarks != null && remarks.length() > 0)
+			buildStringData(remarks);
 		rdbb._Table();
 	}
 
@@ -191,7 +192,9 @@ public class DBSchemaTemplateFactory extends AbstractTemplateFactory<Database> {
 			else
 				cb.Resolver();
 
-			buildStringData(rs.getString("REMARKS"));
+			String remarks = rs.getString("REMARKS");
+			if (remarks != null && remarks.length() > 0)
+				buildStringData(remarks);
 			rdbb._Columns();
 		} while (rs.next());
 		rs.close();
