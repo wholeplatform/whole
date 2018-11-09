@@ -213,7 +213,7 @@ public class ReflectionFactory {
     }
     public static <T> T instantiateClass(Class<T> clazz) {
     	try {
-    		return clazz.newInstance();
+    		return clazz.getConstructor().newInstance();
     	} catch (Exception e) {
     		throw new DeployerException(e);
     	}
