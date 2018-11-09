@@ -1,0 +1,225 @@
+<?xml version="1.0"?>
+<rdb:Database xmlns:rdb="http://lang.whole.org/RDB">
+    <rdb:URI value="http://rdb.lang.whole.org"/>
+    <rdb:Namespace value="org.whole.lang.rdb"/>
+    <rdb:Schemas initialCapacity="1">
+        <rdb:Schema>
+            <rdb:StringData value="SampleDB"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <rdb:Tables initialCapacity="3">
+                <rdb:Table>
+                    <rdb:StringData value="Author"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <rdb:Columns initialCapacity="3">
+                        <rdb:Column>
+                            <rdb:StringData value="author_id"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:Type value="INTEGER"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:BooleanData value="false"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </rdb:Column>
+                        <rdb:Column>
+                            <rdb:StringData value="first_name"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:Type value="VARCHAR"/>
+                            <rdb:IntData value="128"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:BooleanData value="false"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </rdb:Column>
+                        <rdb:Column>
+                            <rdb:StringData value="last_name"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:Type value="VARCHAR"/>
+                            <rdb:IntData value="128"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:BooleanData value="false"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </rdb:Column>
+                    </rdb:Columns>
+                    <rdb:PrimaryKey>
+                        <rdb:StringData value="author_pkey"/>
+                        <rdb:IdMethod value="IDENTITY"/>
+                        <rdb:ColumnNames initialCapacity="1">
+                            <rdb:StringData value="author_id"/>
+                        </rdb:ColumnNames>
+                    </rdb:PrimaryKey>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </rdb:Table>
+                <rdb:Table>
+                    <rdb:StringData value="Book"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <rdb:Columns initialCapacity="6">
+                        <rdb:Column>
+                            <rdb:StringData value="book_id"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:Type value="INTEGER"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:BooleanData value="false"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </rdb:Column>
+                        <rdb:Column>
+                            <rdb:StringData value="title"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:Type value="VARCHAR"/>
+                            <rdb:IntData value="255"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:BooleanData value="false"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </rdb:Column>
+                        <rdb:Column>
+                            <rdb:StringData value="isbn"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:Type value="VARCHAR"/>
+                            <rdb:IntData value="24"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:BooleanData value="false"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </rdb:Column>
+                        <rdb:Column>
+                            <rdb:StringData value="mypublisher_id"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:Type value="INTEGER"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:BooleanData value="false"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </rdb:Column>
+                        <rdb:Column>
+                            <rdb:StringData value="mypubsecond_id"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:Type value="INTEGER"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:BooleanData value="false"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </rdb:Column>
+                        <rdb:Column>
+                            <rdb:StringData value="author_id"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:Type value="INTEGER"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:BooleanData value="false"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </rdb:Column>
+                    </rdb:Columns>
+                    <rdb:PrimaryKey>
+                        <rdb:StringData value="book_pkey"/>
+                        <rdb:IdMethod value="IDENTITY"/>
+                        <rdb:ColumnNames initialCapacity="1">
+                            <rdb:StringData value="book_id"/>
+                        </rdb:ColumnNames>
+                    </rdb:PrimaryKey>
+                    <rdb:ForeignKeys initialCapacity="2">
+                        <rdb:ForeignKey>
+                            <rdb:StringData value="author_fk"/>
+                            <rdb:StringData value="Author"/>
+                            <rdb:Action value="RESTRICT"/>
+                            <rdb:Action value="RESTRICT"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:ColumnReferences initialCapacity="1">
+                                <rdb:ColumnReference>
+                                    <rdb:StringData value="author_id"/>
+                                    <rdb:StringData value="author_id"/>
+                                </rdb:ColumnReference>
+                            </rdb:ColumnReferences>
+                        </rdb:ForeignKey>
+                        <rdb:ForeignKey>
+                            <rdb:StringData value="publisher_fk"/>
+                            <rdb:StringData value="Publisher"/>
+                            <rdb:Action value="RESTRICT"/>
+                            <rdb:Action value="RESTRICT"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:ColumnReferences initialCapacity="2">
+                                <rdb:ColumnReference>
+                                    <rdb:StringData value="mypublisher_id"/>
+                                    <rdb:StringData value="publisher_id"/>
+                                </rdb:ColumnReference>
+                                <rdb:ColumnReference>
+                                    <rdb:StringData value="mypubsecond_id"/>
+                                    <rdb:StringData value="pubsecond_id"/>
+                                </rdb:ColumnReference>
+                            </rdb:ColumnReferences>
+                        </rdb:ForeignKey>
+                    </rdb:ForeignKeys>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </rdb:Table>
+                <rdb:Table>
+                    <rdb:StringData value="Publisher"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <rdb:Columns initialCapacity="3">
+                        <rdb:Column>
+                            <rdb:StringData value="publisher_id"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:Type value="INTEGER"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:BooleanData value="false"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </rdb:Column>
+                        <rdb:Column>
+                            <rdb:StringData value="pubsecond_id"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:Type value="INTEGER"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:BooleanData value="false"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </rdb:Column>
+                        <rdb:Column>
+                            <rdb:StringData value="name"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:Type value="VARCHAR"/>
+                            <rdb:IntData value="120"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:BooleanData value="false"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </rdb:Column>
+                    </rdb:Columns>
+                    <rdb:PrimaryKey>
+                        <rdb:StringData value="publisher_pkey"/>
+                        <rdb:IdMethod value="IDENTITY"/>
+                        <rdb:ColumnNames initialCapacity="2">
+                            <rdb:StringData value="publisher_id"/>
+                            <rdb:StringData value="pubsecond_id"/>
+                        </rdb:ColumnNames>
+                    </rdb:PrimaryKey>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </rdb:Table>
+            </rdb:Tables>
+        </rdb:Schema>
+    </rdb:Schemas>
+</rdb:Database>

@@ -1,0 +1,2432 @@
+<?xml version="1.0"?>
+<actions:LanguageActionFactory xmlns:actions="http://lang.whole.org/Actions">
+    <actions:URI value="whole:org.whole.lang.rdb:RDBActions"/>
+    <actions:Namespace value="org.whole.lang.rdb"/>
+    <actions:Name value="RDBActions"/>
+    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    <actions:URI value="http://lang.whole.org/RDB"/>
+    <actions:ToolbarActions>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        <actions:SimpleAction>
+            <actions:Label value="Normalize"/>
+            <queries:Block xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                <queries:QueryDeclaration>
+                    <queries:Name value="removeRedundantIndexQualifiers"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <queries:Block initialCapacity="2">
+                        <queries:Delete>
+                            <queries:Path initialCapacity="7">
+                                <queries:FeatureStep value="schemas"/>
+                                <queries:Filter>
+                                    <queries:ChildStep/>
+                                    <queries:Some>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="name"/>
+                                        <queries:VariableTest value="schemaName"/>
+                                        </queries:Filter>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </queries:Some>
+                                </queries:Filter>
+                                <queries:FeatureStep value="tables"/>
+                                <queries:ChildStep/>
+                                <queries:FeatureStep value="indices"/>
+                                <queries:ChildStep/>
+                                <queries:Filter>
+                                    <queries:FeatureStep value="qualifier"/>
+                                    <queries:VariableTest value="schemaName"/>
+                                </queries:Filter>
+                            </queries:Path>
+                        </queries:Delete>
+                        <queries:SelfStep/>
+                    </queries:Block>
+                </queries:QueryDeclaration>
+                <queries:Call>
+                    <queries:Name value="removeRedundantIndexQualifiers"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </queries:Call>
+            </queries:Block>
+        </actions:SimpleAction>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        <actions:SimpleAction>
+            <actions:Label value="Interpreter"/>
+            <queries:Block xmlns:queries="http://lang.whole.org/Queries" initialCapacity="1">
+                <queries:For>
+                    <queries:Path initialCapacity="3">
+                        <queries:FeatureStep value="http://lang.whole.org/RDB#schemas"/>
+                        <queries:ChildStep/>
+                        <actions:ActionCall>
+                            <actions:Label value="whole:org.whole.lang.rdb:RDBActions#Schema To SQL Statements"/>
+                            <queries:SelfStep/>
+                        </actions:ActionCall>
+                    </queries:Path>
+                    <workflows:InvokeOperation xmlns:workflows="http://lang.whole.org/Workflows">
+                        <workflows:Text value="interpret sql statements"/>
+                        <workflows:Variable value="self"/>
+                        <workflows:Operation value="INTERPRETER"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </workflows:InvokeOperation>
+                </queries:For>
+            </queries:Block>
+        </actions:SimpleAction>
+        <actions:SimpleAction>
+            <actions:Label value="Artifacts Generator"/>
+            <queries:Block xmlns:queries="http://lang.whole.org/Queries" initialCapacity="7">
+                <queries:QueryDeclaration>
+                    <queries:Name value="toSpecificUri"/>
+                    <queries:Names initialCapacity="3">
+                        <queries:Name value="baseUri"/>
+                        <queries:Name value="modelName"/>
+                        <queries:Name value="separator"/>
+                    </queries:Names>
+                    <queries:Block initialCapacity="2">
+                        <queries:Filter>
+                            <queries:Choose initialCapacity="2">
+                                <queries:If>
+                                    <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="starts with &quot;urn:&quot;?"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:Variable value="baseUri"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:StringLiteral value="java.lang.String"/>
+                                        <workflows:StringLiteral value="startsWith(java.lang.String)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <workflows:StringLiteral value="urn:"/>
+                                        </workflows:Expressions>
+                                    </workflows:InvokeJavaInstanceMethod>
+                                    <queries:StringLiteral value=":"/>
+                                </queries:If>
+                                <queries:Do>
+                                    <queries:StringLiteral value="/"/>
+                                </queries:Do>
+                            </queries:Choose>
+                            <queries:VariableTest value="separator"/>
+                        </queries:Filter>
+                        <queries:Addition>
+                            <queries:VariableRefStep value="baseUri"/>
+                            <queries:Addition>
+                                <queries:VariableRefStep value="separator"/>
+                                <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                    <workflows:Text value="modelName to lower case"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <workflows:Variable value="modelName"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <workflows:StringLiteral value="java.lang.String"/>
+                                    <workflows:StringLiteral value="toLowerCase()"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </workflows:InvokeJavaInstanceMethod>
+                            </queries:Addition>
+                        </queries:Addition>
+                    </queries:Block>
+                </queries:QueryDeclaration>
+                <queries:QueryDeclaration>
+                    <queries:Name value="toSpecificNamespace"/>
+                    <queries:Names initialCapacity="2">
+                        <queries:Name value="baseNamespace"/>
+                        <queries:Name value="modelName"/>
+                    </queries:Names>
+                    <queries:Addition>
+                        <queries:VariableRefStep value="baseNamespace"/>
+                        <queries:Addition>
+                            <queries:StringLiteral value="."/>
+                            <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                <workflows:Text value="modelName to lower case"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <workflows:Variable value="modelName"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <workflows:StringLiteral value="java.lang.String"/>
+                                <workflows:StringLiteral value="toLowerCase()"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            </workflows:InvokeJavaInstanceMethod>
+                        </queries:Addition>
+                    </queries:Addition>
+                </queries:QueryDeclaration>
+                <queries:QueryDeclaration>
+                    <queries:Name value="initDatatypesMap"/>
+                    <queries:Names initialCapacity="1">
+                        <queries:Name value="datatypesMap"/>
+                    </queries:Names>
+                    <queries:Block initialCapacity="2">
+                        <queries:QueryDeclaration>
+                            <queries:Name value="mapPut"/>
+                            <queries:Names initialCapacity="2">
+                                <queries:Name value="name"/>
+                                <queries:Name value="value"/>
+                            </queries:Names>
+                            <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                <workflows:Text value="put mapping"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <workflows:Variable value="self"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <workflows:StringLiteral value="java.util.Map"/>
+                                <workflows:StringLiteral value="put(java.lang.Object, java.lang.Object)"/>
+                                <workflows:Expressions initialCapacity="2">
+                                    <workflows:Variable value="name"/>
+                                    <workflows:Variable value="value"/>
+                                </workflows:Expressions>
+                            </workflows:InvokeJavaInstanceMethod>
+                        </queries:QueryDeclaration>
+                        <queries:Path initialCapacity="2">
+                            <workflows:CreateJavaClassInstance xmlns:workflows="http://lang.whole.org/Workflows">
+                                <workflows:Text value="create a new hash map"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <workflows:StringLiteral value="java.util.HashMap"/>
+                                <workflows:StringLiteral value="HashMap()"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            </workflows:CreateJavaClassInstance>
+                            <queries:Block initialCapacity="27">
+                                <queries:Call>
+                                    <queries:Name value="mapPut"/>
+                                    <queries:Expressions initialCapacity="2">
+                                        <queries:StringLiteral value="BIT"/>
+                                        <queries:StringLiteral value="boolean"/>
+                                    </queries:Expressions>
+                                </queries:Call>
+                                <queries:Call>
+                                    <queries:Name value="mapPut"/>
+                                    <queries:Expressions initialCapacity="2">
+                                        <queries:StringLiteral value="BOOLEAN"/>
+                                        <queries:StringLiteral value="boolean"/>
+                                    </queries:Expressions>
+                                </queries:Call>
+                                <queries:Call>
+                                    <queries:Name value="mapPut"/>
+                                    <queries:Expressions initialCapacity="2">
+                                        <queries:StringLiteral value="TINYINT"/>
+                                        <queries:StringLiteral value="int"/>
+                                    </queries:Expressions>
+                                </queries:Call>
+                                <queries:Call>
+                                    <queries:Name value="mapPut"/>
+                                    <queries:Expressions initialCapacity="2">
+                                        <queries:StringLiteral value="SMALLINT"/>
+                                        <queries:StringLiteral value="int"/>
+                                    </queries:Expressions>
+                                </queries:Call>
+                                <queries:Call>
+                                    <queries:Name value="mapPut"/>
+                                    <queries:Expressions initialCapacity="2">
+                                        <queries:StringLiteral value="INTEGER"/>
+                                        <queries:StringLiteral value="int"/>
+                                    </queries:Expressions>
+                                </queries:Call>
+                                <queries:Call>
+                                    <queries:Name value="mapPut"/>
+                                    <queries:Expressions initialCapacity="2">
+                                        <queries:StringLiteral value="BIGINT"/>
+                                        <queries:StringLiteral value="int"/>
+                                    </queries:Expressions>
+                                </queries:Call>
+                                <queries:Call>
+                                    <queries:Name value="mapPut"/>
+                                    <queries:Expressions initialCapacity="2">
+                                        <queries:StringLiteral value="REAL"/>
+                                        <queries:StringLiteral value="float"/>
+                                    </queries:Expressions>
+                                </queries:Call>
+                                <queries:Call>
+                                    <queries:Name value="mapPut"/>
+                                    <queries:Expressions initialCapacity="2">
+                                        <queries:StringLiteral value="FLOAT"/>
+                                        <queries:StringLiteral value="double"/>
+                                    </queries:Expressions>
+                                </queries:Call>
+                                <queries:Call>
+                                    <queries:Name value="mapPut"/>
+                                    <queries:Expressions initialCapacity="2">
+                                        <queries:StringLiteral value="DOUBLE"/>
+                                        <queries:StringLiteral value="double"/>
+                                    </queries:Expressions>
+                                </queries:Call>
+                                <queries:Call>
+                                    <queries:Name value="mapPut"/>
+                                    <queries:Expressions initialCapacity="2">
+                                        <queries:StringLiteral value="NUMERIC"/>
+                                        <queries:StringLiteral value="java.math.BigDecimal"/>
+                                    </queries:Expressions>
+                                </queries:Call>
+                                <queries:Call>
+                                    <queries:Name value="mapPut"/>
+                                    <queries:Expressions initialCapacity="2">
+                                        <queries:StringLiteral value="DECIMAL"/>
+                                        <queries:StringLiteral value="java.math.BigDecimal"/>
+                                    </queries:Expressions>
+                                </queries:Call>
+                                <queries:Call>
+                                    <queries:Name value="mapPut"/>
+                                    <queries:Expressions initialCapacity="2">
+                                        <queries:StringLiteral value="TEXT"/>
+                                        <queries:StringLiteral value="String"/>
+                                    </queries:Expressions>
+                                </queries:Call>
+                                <queries:Call>
+                                    <queries:Name value="mapPut"/>
+                                    <queries:Expressions initialCapacity="2">
+                                        <queries:StringLiteral value="DATALINK"/>
+                                        <queries:StringLiteral value="String"/>
+                                    </queries:Expressions>
+                                </queries:Call>
+                                <queries:Call>
+                                    <queries:Name value="mapPut"/>
+                                    <queries:Expressions initialCapacity="2">
+                                        <queries:StringLiteral value="REF"/>
+                                        <queries:StringLiteral value="String"/>
+                                    </queries:Expressions>
+                                </queries:Call>
+                                <queries:Call>
+                                    <queries:Name value="mapPut"/>
+                                    <queries:Expressions initialCapacity="2">
+                                        <queries:StringLiteral value="DATE"/>
+                                        <queries:StringLiteral value="java.sql.Date"/>
+                                    </queries:Expressions>
+                                </queries:Call>
+                                <queries:Call>
+                                    <queries:Name value="mapPut"/>
+                                    <queries:Expressions initialCapacity="2">
+                                        <queries:StringLiteral value="TIME"/>
+                                        <queries:StringLiteral value="java.sql.Time"/>
+                                    </queries:Expressions>
+                                </queries:Call>
+                                <queries:Call>
+                                    <queries:Name value="mapPut"/>
+                                    <queries:Expressions initialCapacity="2">
+                                        <queries:StringLiteral value="TIMESTAMP"/>
+                                        <queries:StringLiteral value="java.sql.Timestamp"/>
+                                    </queries:Expressions>
+                                </queries:Call>
+                                <queries:Call>
+                                    <queries:Name value="mapPut"/>
+                                    <queries:Expressions initialCapacity="2">
+                                        <queries:StringLiteral value="ARRAY"/>
+                                        <queries:StringLiteral value="java.sql.Array"/>
+                                    </queries:Expressions>
+                                </queries:Call>
+                                <queries:Call>
+                                    <queries:Name value="mapPut"/>
+                                    <queries:Expressions initialCapacity="2">
+                                        <queries:StringLiteral value="CHAR"/>
+                                        <queries:StringLiteral value="String"/>
+                                    </queries:Expressions>
+                                </queries:Call>
+                                <queries:Call>
+                                    <queries:Name value="mapPut"/>
+                                    <queries:Expressions initialCapacity="2">
+                                        <queries:StringLiteral value="VARCHAR"/>
+                                        <queries:StringLiteral value="String"/>
+                                    </queries:Expressions>
+                                </queries:Call>
+                                <queries:Call>
+                                    <queries:Name value="mapPut"/>
+                                    <queries:Expressions initialCapacity="2">
+                                        <queries:StringLiteral value="LONGVARCHAR"/>
+                                        <queries:StringLiteral value="String"/>
+                                    </queries:Expressions>
+                                </queries:Call>
+                                <queries:Call>
+                                    <queries:Name value="mapPut"/>
+                                    <queries:Expressions initialCapacity="2">
+                                        <queries:StringLiteral value="BINARY"/>
+                                        <queries:StringLiteral value="Object"/>
+                                    </queries:Expressions>
+                                </queries:Call>
+                                <queries:Call>
+                                    <queries:Name value="mapPut"/>
+                                    <queries:Expressions initialCapacity="2">
+                                        <queries:StringLiteral value="VARBINARY"/>
+                                        <queries:StringLiteral value="Object"/>
+                                    </queries:Expressions>
+                                </queries:Call>
+                                <queries:Call>
+                                    <queries:Name value="mapPut"/>
+                                    <queries:Expressions initialCapacity="2">
+                                        <queries:StringLiteral value="LONGVARBINARY"/>
+                                        <queries:StringLiteral value="Object"/>
+                                    </queries:Expressions>
+                                </queries:Call>
+                                <queries:Call>
+                                    <queries:Name value="mapPut"/>
+                                    <queries:Expressions initialCapacity="2">
+                                        <queries:StringLiteral value="BLOB"/>
+                                        <queries:StringLiteral value="java.sql.Blob"/>
+                                    </queries:Expressions>
+                                </queries:Call>
+                                <queries:Call>
+                                    <queries:Name value="mapPut"/>
+                                    <queries:Expressions initialCapacity="2">
+                                        <queries:StringLiteral value="CLOB"/>
+                                        <queries:StringLiteral value="java.sql.Clob"/>
+                                    </queries:Expressions>
+                                </queries:Call>
+                                <queries:SelfStep/>
+                            </queries:Block>
+                        </queries:Path>
+                    </queries:Block>
+                </queries:QueryDeclaration>
+                <queries:QueryDeclaration>
+                    <queries:Name value="mapGet"/>
+                    <queries:Names initialCapacity="2">
+                        <queries:Name value="name"/>
+                        <queries:Name value="nameString"/>
+                    </queries:Names>
+                    <commons:SameStageFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <workflows:Sequence xmlns:workflows="http://lang.whole.org/Workflows">
+                            <workflows:Text value="sequence"/>
+                            <workflows:FlowObjects initialCapacity="2">
+                                <workflows:InvokeJavaInstanceMethod>
+                                    <workflows:Text value="convert name to string"/>
+                                    <workflows:Variable value="nameString"/>
+                                    <workflows:Variable value="name"/>
+                                    <commons:Resolver/>
+                                    <workflows:StringLiteral value="org.whole.lang.model.IEntity"/>
+                                    <workflows:StringLiteral value="wStringValue()"/>
+                                    <commons:Resolver/>
+                                </workflows:InvokeJavaInstanceMethod>
+                                <workflows:InvokeJavaInstanceMethod>
+                                    <workflows:Text value="get mapping"/>
+                                    <commons:Resolver/>
+                                    <workflows:Variable value="self"/>
+                                    <commons:Resolver/>
+                                    <workflows:StringLiteral value="java.util.Map"/>
+                                    <workflows:StringLiteral value="get(java.lang.Object)"/>
+                                    <workflows:Expressions initialCapacity="1">
+                                        <workflows:Variable value="nameString"/>
+                                    </workflows:Expressions>
+                                </workflows:InvokeJavaInstanceMethod>
+                            </workflows:FlowObjects>
+                        </workflows:Sequence>
+                    </commons:SameStageFragment>
+                </queries:QueryDeclaration>
+                <queries:Filter>
+                    <queries:Call>
+                        <queries:Name value="initDatatypesMap"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </queries:Call>
+                    <queries:VariableTest value="datatypesMap"/>
+                </queries:Filter>
+                <queries:Path initialCapacity="2">
+                    <queries:Clone>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </queries:Clone>
+                    <queries:Filter>
+                        <actions:ActionCall>
+                            <actions:Label value="whole:org.whole.lang.rdb:RDBActions#Complete RDB Entity Mapping"/>
+                            <queries:SelfStep/>
+                        </actions:ActionCall>
+                        <queries:VariableTest value="mappedModel"/>
+                    </queries:Filter>
+                </queries:Path>
+                <queries:Select>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <artifacts:Workspace xmlns:artifacts="http://lang.whole.org/Artifacts">
+                            <commons:Resolver/>
+                            <artifacts:Projects initialCapacity="1">
+                                <artifacts:Project>
+                                    <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Artifacts#ProjectName"/>
+                                        <commons:VarName value="projectName"/>
+                                        <commons:Quantifier value="!"/>
+                                    </commons:Variable>
+                                    <artifacts:Natures initialCapacity="1">
+                                        <commons:Resolver/>
+                                    </artifacts:Natures>
+                                    <commons:Resolver/>
+                                    <artifacts:Artifacts initialCapacity="1">
+                                        <artifacts:FolderArtifact>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Artifacts#FolderName"/>
+                                        <commons:VarName value="sourceFolderName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <commons:Resolver/>
+                                        <artifacts:Artifacts initialCapacity="1">
+                                        <artifacts:PackageArtifact>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Artifacts#PackageName"/>
+                                        <commons:VarName value="packageName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <commons:Resolver/>
+                                        <artifacts:Artifacts initialCapacity="1">
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Artifacts#Artifact"/>
+                                        <commons:VarName value="modelArtifact"/>
+                                        <commons:Quantifier value="*"/>
+                                        </commons:Variable>
+                                        </artifacts:Artifacts>
+                                        </artifacts:PackageArtifact>
+                                        </artifacts:Artifacts>
+                                        </artifacts:FolderArtifact>
+                                    </artifacts:Artifacts>
+                                    <commons:Resolver/>
+                                </artifacts:Project>
+                            </artifacts:Projects>
+                        </artifacts:Workspace>
+                    </commons:StageUpFragment>
+                    <queries:Path initialCapacity="1">
+                        <queries:Filter>
+                            <queries:VariableRefStep value="mappedModel"/>
+                            <queries:And initialCapacity="2">
+                                <queries:Some>
+                                    <queries:Filter>
+                                        <queries:FeatureStep value="uri"/>
+                                        <queries:VariableTest value="baseUri"/>
+                                    </queries:Filter>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </queries:Some>
+                                <queries:Some>
+                                    <queries:Filter>
+                                        <queries:FeatureStep value="namespace"/>
+                                        <queries:VariableTest value="baseNamespace"/>
+                                    </queries:Filter>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </queries:Some>
+                            </queries:And>
+                        </queries:Filter>
+                    </queries:Path>
+                    <queries:Select>
+                        <queries:Filter>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <artifacts:FileArtifact xmlns:artifacts="http://lang.whole.org/Artifacts">
+                                    <artifacts:NameWithExtension>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Artifacts#Name"/>
+                                        <commons:VarName value="modelArtifactName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <artifacts:Extension value="java"/>
+                                    </artifacts:NameWithExtension>
+                                    <artifacts:Metadata>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <artifacts:PersistenceKitId value="org.whole.lang.java.codebase.JavaBuilderPersistenceKit"/>
+                                    </artifacts:Metadata>
+                                    <commons:StageUpFragment>
+                                        <models:Model xmlns:models="http://lang.whole.org/Models">
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Models#SimpleName"/>
+                                        <commons:VarName value="modelName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <models:TypeRelations initialCapacity="0"/>
+                                        <models:ModelDeclarations initialCapacity="2">
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Models#ModelDeclaration"/>
+                                        <commons:VarName value="simpleEntity"/>
+                                        <commons:Quantifier value="*"/>
+                                        </commons:Variable>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Models#ModelDeclaration"/>
+                                        <commons:VarName value="dataEntity"/>
+                                        <commons:Quantifier value="*"/>
+                                        </commons:Variable>
+                                        </models:ModelDeclarations>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Models#Namespace"/>
+                                        <commons:VarName value="namespace"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <commons:Resolver/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Models#URI"/>
+                                        <commons:VarName value="uri"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        </models:Model>
+                                    </commons:StageUpFragment>
+                                </artifacts:FileArtifact>
+                            </commons:StageUpFragment>
+                            <queries:VariableTest value="modelArtifact"/>
+                        </queries:Filter>
+                        <queries:Path initialCapacity="2">
+                            <queries:FeatureStep value="schemas"/>
+                            <queries:ChildStep/>
+                        </queries:Path>
+                        <queries:Sequence initialCapacity="6">
+                            <queries:Filter>
+                                <queries:FeatureStep value="modelName"/>
+                                <queries:VariableTest value="modelName"/>
+                            </queries:Filter>
+                            <queries:Filter>
+                                <queries:Call>
+                                    <queries:Name value="toSpecificUri"/>
+                                    <queries:Expressions initialCapacity="2">
+                                        <queries:VariableRefStep value="baseUri"/>
+                                        <queries:VariableRefStep value="modelName"/>
+                                    </queries:Expressions>
+                                </queries:Call>
+                                <queries:VariableTest value="uri"/>
+                            </queries:Filter>
+                            <queries:Filter>
+                                <queries:Call>
+                                    <queries:Name value="toSpecificNamespace"/>
+                                    <queries:Expressions initialCapacity="2">
+                                        <queries:VariableRefStep value="baseNamespace"/>
+                                        <queries:VariableRefStep value="modelName"/>
+                                    </queries:Expressions>
+                                </queries:Call>
+                                <queries:VariableTest value="namespace"/>
+                            </queries:Filter>
+                            <queries:Filter>
+                                <queries:Addition>
+                                    <queries:VariableRefStep value="modelName"/>
+                                    <queries:StringLiteral value="Model"/>
+                                </queries:Addition>
+                                <queries:VariableTest value="modelArtifactName"/>
+                            </queries:Filter>
+                            <queries:Select>
+                                <queries:Filter>
+                                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <models:SimpleEntity xmlns:models="http://lang.whole.org/Models">
+                                        <models:EntityModifiers initialCapacity="0"/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Models#SimpleName"/>
+                                        <commons:VarName value="entityName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <models:Types initialCapacity="0"/>
+                                        <models:Features initialCapacity="1">
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Models#Feature"/>
+                                        <commons:VarName value="feature"/>
+                                        <commons:Quantifier value="*"/>
+                                        </commons:Variable>
+                                        </models:Features>
+                                        </models:SimpleEntity>
+                                    </commons:StageUpFragment>
+                                    <queries:VariableTest value="simpleEntity"/>
+                                </queries:Filter>
+                                <queries:Path initialCapacity="2">
+                                    <queries:FeatureStep value="tables"/>
+                                    <queries:ChildStep/>
+                                </queries:Path>
+                                <queries:Sequence initialCapacity="3">
+                                    <queries:Filter>
+                                        <queries:FeatureStep value="entityName"/>
+                                        <queries:VariableTest value="entityName"/>
+                                    </queries:Filter>
+                                    <queries:Path initialCapacity="2">
+                                        <queries:FeatureStep value="primaryKey"/>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="columnNames"/>
+                                        <queries:VariableTest value="primaryKeyColumnNames"/>
+                                        </queries:Filter>
+                                    </queries:Path>
+                                    <queries:Select>
+                                        <queries:Filter>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <models:Feature xmlns:models="http://lang.whole.org/Models">
+                                        <models:FeatureModifiers initialCapacity="1">
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Models#FeatureModifier"/>
+                                        <commons:VarName value="modifier"/>
+                                        <commons:Quantifier value="*"/>
+                                        </commons:Variable>
+                                        </models:FeatureModifiers>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Models#SimpleName"/>
+                                        <commons:VarName value="featureType"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Models#SimpleName"/>
+                                        <commons:VarName value="featureName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <commons:Resolver/>
+                                        </models:Feature>
+                                        </commons:StageUpFragment>
+                                        <queries:VariableTest value="feature"/>
+                                        </queries:Filter>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:FeatureStep value="columns"/>
+                                        <queries:ChildStep/>
+                                        </queries:Path>
+                                        <queries:Sequence initialCapacity="4">
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="featureName"/>
+                                        <queries:VariableTest value="featureName"/>
+                                        </queries:Filter>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="featureType"/>
+                                        <queries:VariableTest value="featureType"/>
+                                        </queries:Filter>
+                                        <queries:If>
+                                        <queries:Some>
+                                        <queries:CartesianProduct initialCapacity="2">
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="primaryKeyColumnNames"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:VariableTest value="primaryKeyColumnName"/>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="name"/>
+                                        <queries:VariableTest value="primaryKeyColumnName"/>
+                                        </queries:Filter>
+                                        </queries:CartesianProduct>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
+                                        <queries:Filter>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <models:FeatureModifier xmlns:models="http://lang.whole.org/Models" value="id"/>
+                                        </commons:StageUpFragment>
+                                        <queries:VariableTest value="modifier"/>
+                                        </queries:Filter>
+                                        </queries:If>
+                                        <queries:If>
+                                        <queries:FeatureStep value="nullable"/>
+                                        <queries:Filter>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <models:FeatureModifier xmlns:models="http://lang.whole.org/Models" value="optional"/>
+                                        </commons:StageUpFragment>
+                                        <queries:VariableTest value="modifier"/>
+                                        </queries:Filter>
+                                        </queries:If>
+                                        </queries:Sequence>
+                                        <queries:TemplateNames/>
+                                    </queries:Select>
+                                </queries:Sequence>
+                                <queries:TemplateNames/>
+                            </queries:Select>
+                            <queries:Select>
+                                <queries:Filter>
+                                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <models:DataEntity xmlns:models="http://lang.whole.org/Models">
+                                        <models:EntityModifiers initialCapacity="0"/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Models#SimpleName"/>
+                                        <commons:VarName value="entityName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <models:Types initialCapacity="0"/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Models#DataType"/>
+                                        <commons:VarName value="dataType"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        </models:DataEntity>
+                                    </commons:StageUpFragment>
+                                    <queries:VariableTest value="dataEntity"/>
+                                </queries:Filter>
+                                <queries:Path initialCapacity="5">
+                                    <queries:FeatureStep value="tables"/>
+                                    <queries:ChildStep/>
+                                    <queries:FeatureStep value="columns"/>
+                                    <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:Some>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="type"/>
+                                        <queries:VariableTest value="type"/>
+                                        </queries:Filter>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
+                                    </queries:Filter>
+                                    <queries:Filter>
+                                        <queries:FeatureStep value="featureType"/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:DistinctTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:DistinctTest>
+                                        <queries:VariableTest value="entityName"/>
+                                        </queries:And>
+                                    </queries:Filter>
+                                </queries:Path>
+                                <queries:Path initialCapacity="2">
+                                    <queries:VariableRefStep value="datatypesMap"/>
+                                    <queries:Filter>
+                                        <queries:Call>
+                                        <queries:Name value="mapGet"/>
+                                        <queries:Expressions initialCapacity="1">
+                                        <queries:VariableRefStep value="type"/>
+                                        </queries:Expressions>
+                                        </queries:Call>
+                                        <queries:VariableTest value="dataType"/>
+                                    </queries:Filter>
+                                </queries:Path>
+                                <queries:TemplateNames/>
+                            </queries:Select>
+                        </queries:Sequence>
+                        <queries:TemplateNames/>
+                    </queries:Select>
+                    <queries:TemplateNames/>
+                </queries:Select>
+            </queries:Block>
+        </actions:SimpleAction>
+    </actions:ToolbarActions>
+    <actions:ContextMenuActions>
+        <actions:MenuActions initialCapacity="1">
+            <actions:GuardedAction>
+                <actions:Label value="Remove Primary Keys Indices"/>
+                <queries:For xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:Path initialCapacity="4">
+                        <queries:FeatureStep value="schemas"/>
+                        <queries:ChildStep/>
+                        <queries:FeatureStep value="tables"/>
+                        <queries:ChildStep/>
+                    </queries:Path>
+                    <queries:Sequence initialCapacity="3">
+                        <queries:Path initialCapacity="2">
+                            <queries:FeatureStep value="primaryKey"/>
+                            <queries:Filter>
+                                <queries:FeatureStep value="columnNames"/>
+                                <queries:VariableTest value="pkColumnNames"/>
+                            </queries:Filter>
+                        </queries:Path>
+                        <queries:Delete>
+                            <queries:Path initialCapacity="2">
+                                <queries:FeatureStep value="indices"/>
+                                <queries:Filter>
+                                    <queries:ChildStep/>
+                                    <queries:And initialCapacity="2">
+                                        <queries:Some>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="unique"/>
+                                        <queries:MatchTest>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <rdb:BooleanData xmlns:rdb="http://lang.whole.org/RDB" value="true"/>
+                                        </commons:StageUpFragment>
+                                        </queries:MatchTest>
+                                        </queries:Filter>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
+                                        <queries:PointwiseEquals>
+                                        <queries:Path initialCapacity="3">
+                                        <queries:FeatureStep value="columnIndices"/>
+                                        <queries:ChildStep/>
+                                        <queries:FeatureStep value="name"/>
+                                        </queries:Path>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="pkColumnNames"/>
+                                        <queries:ChildStep/>
+                                        </queries:Path>
+                                        </queries:PointwiseEquals>
+                                    </queries:And>
+                                </queries:Filter>
+                            </queries:Path>
+                        </queries:Delete>
+                        <queries:Delete>
+                            <queries:Path initialCapacity="1">
+                                <queries:Filter>
+                                    <queries:FeatureStep value="indices"/>
+                                    <queries:Not>
+                                        <queries:Some>
+                                        <queries:ChildStep/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
+                                    </queries:Not>
+                                </queries:Filter>
+                            </queries:Path>
+                        </queries:Delete>
+                    </queries:Sequence>
+                </queries:For>
+                <queries:TypeTest xmlns:queries="http://lang.whole.org/Queries" value="Database"/>
+            </actions:GuardedAction>
+        </actions:MenuActions>
+        <actions:MenuActions initialCapacity="0"/>
+        <actions:MenuActions initialCapacity="0"/>
+        <actions:MenuActions initialCapacity="4">
+            <actions:GuardedAction>
+                <actions:Label value="Generate SQL Statements"/>
+                <queries:Block xmlns:queries="http://lang.whole.org/Queries" initialCapacity="1">
+                    <queries:Path initialCapacity="4">
+                        <queries:VariableRefStep value="selectedEntities"/>
+                        <queries:Filter>
+                            <queries:ChildStep/>
+                            <queries:And initialCapacity="2">
+                                <queries:IndexTest>
+                                    <queries:IntLiteral value="0"/>
+                                </queries:IndexTest>
+                                <queries:Not>
+                                    <queries:Some>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="selectedEntities"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:IndexTest>
+                                        <queries:IntLiteral value="1"/>
+                                        </queries:IndexTest>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </queries:Some>
+                                </queries:Not>
+                            </queries:And>
+                        </queries:Filter>
+                        <queries:Filter>
+                            <queries:AncestorOrSelfStep/>
+                            <queries:TypeTest value="Schema"/>
+                        </queries:Filter>
+                        <actions:ActionCall>
+                            <actions:Label value="whole:org.whole.lang.rdb:RDBActions#Schema To SQL Statements"/>
+                            <queries:SelfStep/>
+                        </actions:ActionCall>
+                    </queries:Path>
+                </queries:Block>
+                <queries:Some xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:Path initialCapacity="2">
+                        <queries:VariableRefStep value="selectedEntities"/>
+                        <queries:Filter>
+                            <queries:ChildStep/>
+                            <queries:And initialCapacity="3">
+                                <queries:IndexTest>
+                                    <queries:IntLiteral value="0"/>
+                                </queries:IndexTest>
+                                <queries:Not>
+                                    <queries:Some>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="selectedEntities"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:IndexTest>
+                                        <queries:IntLiteral value="1"/>
+                                        </queries:IndexTest>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </queries:Some>
+                                </queries:Not>
+                                <queries:Some>
+                                    <queries:Filter>
+                                        <queries:AncestorOrSelfStep/>
+                                        <queries:TypeTest value="Schema"/>
+                                    </queries:Filter>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </queries:Some>
+                            </queries:And>
+                        </queries:Filter>
+                    </queries:Path>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </queries:Some>
+            </actions:GuardedAction>
+            <actions:GuardedAction>
+                <actions:Label value="All Enum Values Of Type"/>
+                <queries:Block xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                    <queries:QueryDeclaration>
+                        <queries:Name value="allEnumValues"/>
+                        <queries:Names initialCapacity="7">
+                            <queries:Name value="edUri"/>
+                            <queries:Name value="values"/>
+                            <queries:Name value="ed"/>
+                            <queries:Name value="enumType"/>
+                            <queries:Name value="iterator"/>
+                            <queries:Name value="next"/>
+                            <queries:Name value="name"/>
+                        </queries:Names>
+                        <queries:Block initialCapacity="3">
+                            <queries:Filter>
+                                <queries:Union>
+                                    <queries:Expressions initialCapacity="0"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </queries:Union>
+                                <queries:VariableTest value="values"/>
+                            </queries:Filter>
+                            <queries:Filter>
+                                <commons:SameStageFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <workflows:Sequence xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="sequence"/>
+                                        <workflows:FlowObjects initialCapacity="4">
+                                        <workflows:InvokeJavaClassMethod>
+                                        <workflows:Text value="get entity descriptor"/>
+                                        <workflows:Variable value="ed"/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser"/>
+                                        <workflows:StringLiteral value="getEntityDescriptor(java.lang.String)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <workflows:Variable value="edUri"/>
+                                        </workflows:Expressions>
+                                        </workflows:InvokeJavaClassMethod>
+                                        <workflows:InvokeJavaInstanceMethod>
+                                        <workflows:Text value="get enum type"/>
+                                        <workflows:Variable value="enumType"/>
+                                        <workflows:Variable value="ed"/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="org.whole.lang.reflect.EntityDescriptor"/>
+                                        <workflows:StringLiteral value="getDataEnumType()"/>
+                                        <commons:Resolver/>
+                                        </workflows:InvokeJavaInstanceMethod>
+                                        <workflows:InvokeJavaInstanceMethod>
+                                        <workflows:Text value="get values iterator"/>
+                                        <workflows:Variable value="iterator"/>
+                                        <workflows:Variable value="enumType"/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="org.whole.lang.model.EnumType"/>
+                                        <workflows:StringLiteral value="iterator()"/>
+                                        <commons:Resolver/>
+                                        </workflows:InvokeJavaInstanceMethod>
+                                        <workflows:WhileLoop>
+                                        <workflows:Text value="whileloop"/>
+                                        <workflows:TestTime value="before"/>
+                                        <commons:SameStageFragment>
+                                        <workflows:InvokeJavaInstanceMethod>
+                                        <workflows:Text value="iterator has next?"/>
+                                        <commons:Resolver/>
+                                        <workflows:Variable value="iterator"/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="java.util.Iterator"/>
+                                        <workflows:StringLiteral value="hasNext()"/>
+                                        <commons:Resolver/>
+                                        </workflows:InvokeJavaInstanceMethod>
+                                        </commons:SameStageFragment>
+                                        <workflows:Sequence>
+                                        <workflows:Text value="sequence"/>
+                                        <workflows:FlowObjects initialCapacity="3">
+                                        <workflows:InvokeJavaInstanceMethod>
+                                        <workflows:Text value="get next value"/>
+                                        <workflows:Variable value="next"/>
+                                        <workflows:Variable value="iterator"/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="java.util.Iterator"/>
+                                        <workflows:StringLiteral value="next()"/>
+                                        <commons:Resolver/>
+                                        </workflows:InvokeJavaInstanceMethod>
+                                        <workflows:InvokeJavaInstanceMethod>
+                                        <workflows:Text value="get next value name"/>
+                                        <workflows:Variable value="name"/>
+                                        <workflows:Variable value="next"/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="org.whole.lang.model.EnumValue"/>
+                                        <workflows:StringLiteral value="getName()"/>
+                                        <commons:Resolver/>
+                                        </workflows:InvokeJavaInstanceMethod>
+                                        <workflows:InvokeJavaInstanceMethod>
+                                        <workflows:Text value="add next value name to values"/>
+                                        <commons:Resolver/>
+                                        <workflows:Variable value="values"/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="org.whole.lang.model.IEntity"/>
+                                        <workflows:StringLiteral value="wAdd(org.whole.lang.model.IEntity)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <workflows:Variable value="name"/>
+                                        </workflows:Expressions>
+                                        </workflows:InvokeJavaInstanceMethod>
+                                        </workflows:FlowObjects>
+                                        </workflows:Sequence>
+                                        </workflows:WhileLoop>
+                                        </workflows:FlowObjects>
+                                    </workflows:Sequence>
+                                </commons:SameStageFragment>
+                                <queries:VariableTest value="ed"/>
+                            </queries:Filter>
+                            <queries:VariableRefStep value="values"/>
+                        </queries:Block>
+                    </queries:QueryDeclaration>
+                    <queries:Call>
+                        <queries:Name value="allEnumValues"/>
+                        <queries:Expressions initialCapacity="1">
+                            <queries:StringLiteral value="http://lang.whole.org/RDB#Type"/>
+                        </queries:Expressions>
+                    </queries:Call>
+                </queries:Block>
+                <queries:TypeTest xmlns:queries="http://lang.whole.org/Queries" value="Database"/>
+            </actions:GuardedAction>
+            <actions:GuardedAction>
+                <actions:Label value="Schema To SQL Statements"/>
+                <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:ScopeNames initialCapacity="2">
+                        <queries:Name value="primarySelectedEntity"/>
+                        <queries:Name value="generateDropStatements"/>
+                    </queries:ScopeNames>
+                    <queries:Block initialCapacity="2">
+                        <queries:Filter>
+                            <queries:BooleanLiteral value="true"/>
+                            <queries:VariableTest value="generateDropStatements"/>
+                        </queries:Filter>
+                        <queries:Select>
+                            <queries:Filter>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <sql:SQLStatements xmlns:sql="http://lang.whole.org/SQL" initialCapacity="3">
+                                        <commons:InlineVariable>
+                                        <commons:VarType value="http://lang.whole.org/SQL#SQLStatement"/>
+                                        <commons:VarName value="tableCreationStatements"/>
+                                        <commons:Quantifier value="*"/>
+                                        </commons:InlineVariable>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/SQL#SQLStatement"/>
+                                        <commons:VarName value="tableAlterStatement"/>
+                                        <commons:Quantifier value="*"/>
+                                        </commons:Variable>
+                                        <commons:InlineVariable>
+                                        <commons:VarType value="http://lang.whole.org/SQL#SQLStatement"/>
+                                        <commons:VarName value="indexCreationStatements"/>
+                                        <commons:Quantifier value="*"/>
+                                        </commons:InlineVariable>
+                                    </sql:SQLStatements>
+                                </commons:StageUpFragment>
+                                <queries:VariableTest value="sqlStatements"/>
+                            </queries:Filter>
+                            <queries:VariableRefStep value="primarySelectedEntity"/>
+                            <queries:Sequence initialCapacity="3">
+                                <queries:Select>
+                                    <queries:Filter>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <sql:SQLStatements xmlns:sql="http://lang.whole.org/SQL" initialCapacity="2">
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/SQL#Drop"/>
+                                        <commons:VarName value="dropTable"/>
+                                        <commons:Quantifier value="?"/>
+                                        </commons:Variable>
+                                        <sql:Create>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/SQL#TableName"/>
+                                        <commons:VarName value="tableName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <sql:DeclarationOrConstraints initialCapacity="2">
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/SQL#ColumnDeclaration"/>
+                                        <commons:VarName value="columnDeclaration"/>
+                                        <commons:Quantifier value="+"/>
+                                        </commons:Variable>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/SQL#PrimaryKeyTableConstraint"/>
+                                        <commons:VarName value="primaryKey"/>
+                                        <commons:Quantifier value="?"/>
+                                        </commons:Variable>
+                                        </sql:DeclarationOrConstraints>
+                                        </sql:Create>
+                                        </sql:SQLStatements>
+                                        </commons:StageUpFragment>
+                                        <queries:VariableTest value="tableCreationStatements"/>
+                                    </queries:Filter>
+                                    <queries:Path initialCapacity="2">
+                                        <queries:FeatureStep value="tables"/>
+                                        <queries:ChildStep/>
+                                    </queries:Path>
+                                    <queries:Sequence initialCapacity="5">
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="name"/>
+                                        <queries:VariableTest value="tableName"/>
+                                        </queries:Filter>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="indices"/>
+                                        <queries:VariableTest value="indices"/>
+                                        </queries:Filter>
+                                        <queries:If>
+                                        <queries:VariableRefStep value="generateDropStatements"/>
+                                        <queries:Filter>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <sql:Drop xmlns:sql="http://lang.whole.org/SQL">
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/SQL#TableName"/>
+                                        <commons:VarName value="tableName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        </sql:Drop>
+                                        </commons:StageUpFragment>
+                                        <queries:VariableTest value="dropTable"/>
+                                        </queries:Filter>
+                                        </queries:If>
+                                        <queries:Select>
+                                        <queries:Filter>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <sql:ColumnDeclaration xmlns:sql="http://lang.whole.org/SQL">
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/SQL#ColumnName"/>
+                                        <commons:VarName value="columnName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <sql:ColumnType>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/SQL#Type"/>
+                                        <commons:VarName value="columnType"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/SQL#IntValue"/>
+                                        <commons:VarName value="size"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <commons:Resolver/>
+                                        </sql:ColumnType>
+                                        <sql:ColumnConstraints initialCapacity="2">
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/SQL#ColumnConstraint"/>
+                                        <commons:VarName value="notNull"/>
+                                        <commons:Quantifier value="?"/>
+                                        </commons:Variable>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/SQL#ColumnConstraint"/>
+                                        <commons:VarName value="unique"/>
+                                        <commons:Quantifier value="?"/>
+                                        </commons:Variable>
+                                        </sql:ColumnConstraints>
+                                        </sql:ColumnDeclaration>
+                                        </commons:StageUpFragment>
+                                        <queries:VariableTest value="columnDeclaration"/>
+                                        </queries:Filter>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:FeatureStep value="columns"/>
+                                        <queries:ChildStep/>
+                                        </queries:Path>
+                                        <queries:Sequence initialCapacity="5">
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="name"/>
+                                        <queries:VariableTest value="columnName"/>
+                                        </queries:Filter>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="type"/>
+                                        <queries:VariableTest value="columnType"/>
+                                        </queries:Filter>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="size"/>
+                                        <queries:VariableTest value="size"/>
+                                        </queries:Filter>
+                                        <queries:If>
+                                        <queries:Not>
+                                        <queries:Singleton>
+                                        <queries:FeatureStep value="nullable"/>
+                                        </queries:Singleton>
+                                        </queries:Not>
+                                        <queries:Filter>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <sql:SimpleColumnConstraint xmlns:sql="http://lang.whole.org/SQL" value="NOT_NULL"/>
+                                        </commons:StageUpFragment>
+                                        <queries:VariableTest value="notNull"/>
+                                        </queries:Filter>
+                                        </queries:If>
+                                        <queries:If>
+                                        <queries:Some>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="indices"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:Some>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:FeatureStep value="columnIndices"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:And initialCapacity="3">
+                                        <queries:IndexTest>
+                                        <queries:IntLiteral value="0"/>
+                                        </queries:IndexTest>
+                                        <queries:PointwiseEquals>
+                                        <queries:FeatureStep value="name"/>
+                                        <queries:VariableRefStep value="columnName"/>
+                                        </queries:PointwiseEquals>
+                                        <queries:Not>
+                                        <queries:Some>
+                                        <queries:FollowingSiblingStep/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
+                                        </queries:Not>
+                                        </queries:And>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
+                                        <queries:Filter>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <sql:SimpleColumnConstraint xmlns:sql="http://lang.whole.org/SQL" value="UNIQUE"/>
+                                        </commons:StageUpFragment>
+                                        <queries:VariableTest value="unique"/>
+                                        </queries:Filter>
+                                        </queries:If>
+                                        </queries:Sequence>
+                                        <queries:TemplateNames/>
+                                        </queries:Select>
+                                        <queries:Select>
+                                        <queries:Filter>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <sql:PrimaryKeyTableConstraint xmlns:sql="http://lang.whole.org/SQL">
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/SQL#ConstraintName"/>
+                                        <commons:VarName value="constraintName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <sql:ColumnNames initialCapacity="1">
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/SQL#ColumnName"/>
+                                        <commons:VarName value="columnName"/>
+                                        <commons:Quantifier value="+"/>
+                                        </commons:Variable>
+                                        </sql:ColumnNames>
+                                        </sql:PrimaryKeyTableConstraint>
+                                        </commons:StageUpFragment>
+                                        <queries:VariableTest value="primaryKey"/>
+                                        </queries:Filter>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="primaryKey"/>
+                                        <queries:KindTest value="IMPL"/>
+                                        </queries:Filter>
+                                        <queries:Sequence initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="name"/>
+                                        <queries:VariableTest value="constraintName"/>
+                                        </queries:Filter>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:FeatureStep value="columnNames"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:VariableTest value="columnName"/>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        </queries:Sequence>
+                                        <queries:TemplateNames/>
+                                        </queries:Select>
+                                    </queries:Sequence>
+                                    <queries:TemplateNames/>
+                                </queries:Select>
+                                <queries:Select>
+                                    <queries:Filter>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <sql:AlterTable xmlns:sql="http://lang.whole.org/SQL">
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/SQL#TableName"/>
+                                        <commons:VarName value="tableName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <sql:AddAction>
+                                        <sql:ForeignKeyTableConstraint>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/SQL#ConstraintName"/>
+                                        <commons:VarName value="constraintName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <sql:ColumnNames initialCapacity="1">
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/SQL#ColumnName"/>
+                                        <commons:VarName value="columnName"/>
+                                        <commons:Quantifier value="+"/>
+                                        </commons:Variable>
+                                        </sql:ColumnNames>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/SQL#TableName"/>
+                                        <commons:VarName value="foreignTableName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <sql:ColumnNames initialCapacity="1">
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/SQL#ColumnName"/>
+                                        <commons:VarName value="foreignColumnName"/>
+                                        <commons:Quantifier value="*"/>
+                                        </commons:Variable>
+                                        </sql:ColumnNames>
+                                        <commons:Resolver/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/SQL#Action"/>
+                                        <commons:VarName value="onDelete"/>
+                                        <commons:Quantifier value="?"/>
+                                        </commons:Variable>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/SQL#Action"/>
+                                        <commons:VarName value="onUpdate"/>
+                                        <commons:Quantifier value="?"/>
+                                        </commons:Variable>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/SQL#Deferrable"/>
+                                        <commons:VarName value="deferrable"/>
+                                        <commons:Quantifier value="?"/>
+                                        </commons:Variable>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/SQL#DeferCheck"/>
+                                        <commons:VarName value="deferCheck"/>
+                                        <commons:Quantifier value="?"/>
+                                        </commons:Variable>
+                                        </sql:ForeignKeyTableConstraint>
+                                        </sql:AddAction>
+                                        </sql:AlterTable>
+                                        </commons:StageUpFragment>
+                                        <queries:VariableTest value="tableAlterStatement"/>
+                                    </queries:Filter>
+                                    <queries:Path initialCapacity="4">
+                                        <queries:FeatureStep value="tables"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:Some>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:FeatureStep value="foreignKeys"/>
+                                        <queries:ChildStep/>
+                                        </queries:Path>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
+                                        <queries:Some>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="name"/>
+                                        <queries:VariableTest value="tableName"/>
+                                        </queries:Filter>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
+                                        </queries:And>
+                                        </queries:Filter>
+                                        <queries:FeatureStep value="foreignKeys"/>
+                                        <queries:ChildStep/>
+                                    </queries:Path>
+                                    <queries:Sequence initialCapacity="6">
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="name"/>
+                                        <queries:VariableTest value="constraintName"/>
+                                        </queries:Filter>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="targetTable"/>
+                                        <queries:VariableTest value="foreignTableName"/>
+                                        </queries:Filter>
+                                        <queries:Select>
+                                        <queries:Tuple initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="source"/>
+                                        <queries:VariableTest value="columnName"/>
+                                        </queries:Filter>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="target"/>
+                                        <queries:VariableTest value="foreignColumnName"/>
+                                        </queries:Filter>
+                                        </queries:Tuple>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:FeatureStep value="columnReferences"/>
+                                        <queries:ChildStep/>
+                                        </queries:Path>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <queries:TemplateNames/>
+                                        </queries:Select>
+                                        <queries:Filter>
+                                        <queries:Choose initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="deleteAction"/>
+                                        <queries:KindTest value="IMPL"/>
+                                        </queries:Filter>
+                                        <queries:Do>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <sql:Action xmlns:sql="http://lang.whole.org/SQL" value="NO_ACTION"/>
+                                        </commons:StageUpFragment>
+                                        </queries:Do>
+                                        </queries:Choose>
+                                        <queries:VariableTest value="onDelete"/>
+                                        </queries:Filter>
+                                        <queries:Filter>
+                                        <queries:Choose initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="updateAction"/>
+                                        <queries:KindTest value="IMPL"/>
+                                        </queries:Filter>
+                                        <queries:Do>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <sql:Action xmlns:sql="http://lang.whole.org/SQL" value="NO_ACTION"/>
+                                        </commons:StageUpFragment>
+                                        </queries:Do>
+                                        </queries:Choose>
+                                        <queries:VariableTest value="onUpdate"/>
+                                        </queries:Filter>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="deferrability"/>
+                                        <queries:Or initialCapacity="2">
+                                        <queries:And initialCapacity="2">
+                                        <queries:MatchTest>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <sql:Deferrable xmlns:sql="http://lang.whole.org/SQL" value="DEFERRABLE"/>
+                                        </commons:StageUpFragment>
+                                        </queries:MatchTest>
+                                        <queries:VariableTest value="deferrable"/>
+                                        </queries:And>
+                                        <queries:And initialCapacity="2">
+                                        <queries:MatchTest>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <sql:DeferCheck xmlns:sql="http://lang.whole.org/SQL" value="INITIALLY_DEFERRED"/>
+                                        </commons:StageUpFragment>
+                                        </queries:MatchTest>
+                                        <queries:VariableTest value="deferCheck"/>
+                                        </queries:And>
+                                        </queries:Or>
+                                        </queries:Filter>
+                                    </queries:Sequence>
+                                    <queries:TemplateNames/>
+                                </queries:Select>
+                                <queries:Select>
+                                    <queries:Filter>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <sql:SQLStatements xmlns:sql="http://lang.whole.org/SQL" initialCapacity="2">
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/SQL#DropIndex"/>
+                                        <commons:VarName value="dropIndex"/>
+                                        <commons:Quantifier value="?"/>
+                                        </commons:Variable>
+                                        <sql:CreateIndex>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/SQL#UniqueIndex"/>
+                                        <commons:VarName value="unique"/>
+                                        <commons:Quantifier value="?"/>
+                                        </commons:Variable>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/SQL#IndexName"/>
+                                        <commons:VarName value="indexName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/SQL#TableName"/>
+                                        <commons:VarName value="tableName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <sql:IndexDeclarations initialCapacity="1">
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/SQL#IndexDeclaration"/>
+                                        <commons:VarName value="indexDeclaration"/>
+                                        <commons:Quantifier value="+"/>
+                                        </commons:Variable>
+                                        </sql:IndexDeclarations>
+                                        </sql:CreateIndex>
+                                        </sql:SQLStatements>
+                                        </commons:StageUpFragment>
+                                        <queries:VariableTest value="indexCreationStatements"/>
+                                    </queries:Filter>
+                                    <queries:Path initialCapacity="4">
+                                        <queries:FeatureStep value="tables"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:Some>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="name"/>
+                                        <queries:VariableTest value="tableName"/>
+                                        </queries:Filter>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
+                                        </queries:Filter>
+                                        <queries:FeatureStep value="indices"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:Some>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="name"/>
+                                        <queries:VariableTest value="indexName"/>
+                                        </queries:Filter>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
+                                        </queries:Filter>
+                                    </queries:Path>
+                                    <queries:Sequence initialCapacity="3">
+                                        <queries:If>
+                                        <queries:VariableRefStep value="generateDropStatements"/>
+                                        <queries:Filter>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <sql:DropIndex xmlns:sql="http://lang.whole.org/SQL">
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/SQL#IndexName"/>
+                                        <commons:VarName value="indexName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        </sql:DropIndex>
+                                        </commons:StageUpFragment>
+                                        <queries:VariableTest value="dropIndex"/>
+                                        </queries:Filter>
+                                        </queries:If>
+                                        <queries:If>
+                                        <queries:Singleton>
+                                        <queries:FeatureStep value="unique"/>
+                                        </queries:Singleton>
+                                        <queries:Filter>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <sql:UniqueIndex xmlns:sql="http://lang.whole.org/SQL"/>
+                                        </commons:StageUpFragment>
+                                        <queries:VariableTest value="unique"/>
+                                        </queries:Filter>
+                                        </queries:If>
+                                        <queries:Select>
+                                        <queries:Filter>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <sql:IndexDeclaration xmlns:sql="http://lang.whole.org/SQL">
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/SQL#ColumnName"/>
+                                        <commons:VarName value="columnName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/SQL#OrderType"/>
+                                        <commons:VarName value="orderType"/>
+                                        <commons:Quantifier value="?"/>
+                                        </commons:Variable>
+                                        <commons:Resolver/>
+                                        </sql:IndexDeclaration>
+                                        </commons:StageUpFragment>
+                                        <queries:VariableTest value="indexDeclaration"/>
+                                        </queries:Filter>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:FeatureStep value="columnIndices"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:Some>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="name"/>
+                                        <queries:VariableTest value="columnName"/>
+                                        </queries:Filter>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:FeatureStep value="order"/>
+                                        <queries:Filter>
+                                        <queries:Choose initialCapacity="2">
+                                        <queries:If>
+                                        <queries:MatchTest>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <rdb:Order xmlns:rdb="http://lang.whole.org/RDB" value="ASCENDING"/>
+                                        </commons:StageUpFragment>
+                                        </queries:MatchTest>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <sql:OrderType xmlns:sql="http://lang.whole.org/SQL" value="ASC"/>
+                                        </commons:StageUpFragment>
+                                        </queries:If>
+                                        <queries:If>
+                                        <queries:MatchTest>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <rdb:Order xmlns:rdb="http://lang.whole.org/RDB" value="DESCENDING"/>
+                                        </commons:StageUpFragment>
+                                        </queries:MatchTest>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <sql:OrderType xmlns:sql="http://lang.whole.org/SQL" value="DESC"/>
+                                        </commons:StageUpFragment>
+                                        </queries:If>
+                                        </queries:Choose>
+                                        <queries:VariableTest value="orderType"/>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        <queries:TemplateNames/>
+                                        </queries:Select>
+                                    </queries:Sequence>
+                                    <queries:TemplateNames/>
+                                </queries:Select>
+                            </queries:Sequence>
+                            <queries:TemplateNames/>
+                        </queries:Select>
+                    </queries:Block>
+                </queries:Scope>
+                <queries:Some xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:VariableRefStep value="primarySelectedEntity"/>
+                    <queries:TypeTest value="http://lang.whole.org/RDB#Schema"/>
+                </queries:Some>
+            </actions:GuardedAction>
+            <actions:GuardedAction>
+                <actions:Label value="Complete RDB Entity Mapping"/>
+                <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                    <queries:VariableRefStep value="primarySelectedEntity"/>
+                    <queries:Scope>
+                        <queries:ScopeNames initialCapacity="1">
+                            <queries:Name value="primarySelectedEntity"/>
+                        </queries:ScopeNames>
+                        <queries:Block initialCapacity="23">
+                            <queries:QueryDeclaration>
+                                <queries:Name value="setCreate"/>
+                                <queries:Names initialCapacity="3">
+                                    <queries:Name value="names"/>
+                                    <queries:Name value="set"/>
+                                    <queries:Name value="name"/>
+                                </queries:Names>
+                                <queries:Block initialCapacity="3">
+                                    <queries:Filter>
+                                        <commons:SameStageFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <workflows:CreateJavaClassInstance xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="create a new hash set"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="java.util.HashSet"/>
+                                        <workflows:StringLiteral value="HashSet()"/>
+                                        <commons:Resolver/>
+                                        </workflows:CreateJavaClassInstance>
+                                        </commons:SameStageFragment>
+                                        <queries:VariableTest value="set"/>
+                                    </queries:Filter>
+                                    <queries:For>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="names"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:VariableTest value="name"/>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="set"/>
+                                        <queries:Call>
+                                        <queries:Name value="setAdd"/>
+                                        <queries:Expressions initialCapacity="1">
+                                        <queries:VariableRefStep value="name"/>
+                                        </queries:Expressions>
+                                        </queries:Call>
+                                        </queries:Path>
+                                    </queries:For>
+                                    <queries:VariableRefStep value="set"/>
+                                </queries:Block>
+                            </queries:QueryDeclaration>
+                            <queries:QueryDeclaration>
+                                <queries:Name value="setAdd"/>
+                                <queries:Names initialCapacity="2">
+                                    <queries:Name value="name"/>
+                                    <queries:Name value="string"/>
+                                </queries:Names>
+                                <commons:SameStageFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <workflows:Sequence xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="sequence"/>
+                                        <workflows:FlowObjects initialCapacity="2">
+                                        <workflows:InvokeJavaInstanceMethod>
+                                        <workflows:Text value="convert name to string"/>
+                                        <workflows:Variable value="string"/>
+                                        <workflows:Variable value="name"/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="org.whole.lang.model.IEntity"/>
+                                        <workflows:StringLiteral value="wStringValue()"/>
+                                        <commons:Resolver/>
+                                        </workflows:InvokeJavaInstanceMethod>
+                                        <workflows:InvokeJavaInstanceMethod>
+                                        <workflows:Text value="add string to set"/>
+                                        <commons:Resolver/>
+                                        <workflows:Variable value="self"/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="java.util.Set"/>
+                                        <workflows:StringLiteral value="add(java.lang.Object)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <workflows:Variable value="string"/>
+                                        </workflows:Expressions>
+                                        </workflows:InvokeJavaInstanceMethod>
+                                        </workflows:FlowObjects>
+                                    </workflows:Sequence>
+                                </commons:SameStageFragment>
+                            </queries:QueryDeclaration>
+                            <queries:QueryDeclaration>
+                                <queries:Name value="setContains"/>
+                                <queries:Names initialCapacity="2">
+                                    <queries:Name value="name"/>
+                                    <queries:Name value="string"/>
+                                </queries:Names>
+                                <commons:SameStageFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <workflows:Sequence xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="sequence"/>
+                                        <workflows:FlowObjects initialCapacity="2">
+                                        <workflows:InvokeJavaInstanceMethod>
+                                        <workflows:Text value="convert name to string"/>
+                                        <workflows:Variable value="string"/>
+                                        <workflows:Variable value="name"/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="org.whole.lang.model.IEntity"/>
+                                        <workflows:StringLiteral value="wStringValue()"/>
+                                        <commons:Resolver/>
+                                        </workflows:InvokeJavaInstanceMethod>
+                                        <workflows:InvokeJavaInstanceMethod>
+                                        <workflows:Text value="set contains string?"/>
+                                        <commons:Resolver/>
+                                        <workflows:Variable value="self"/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="java.util.Set"/>
+                                        <workflows:StringLiteral value="contains(java.lang.Object)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <workflows:Variable value="string"/>
+                                        </workflows:Expressions>
+                                        </workflows:InvokeJavaInstanceMethod>
+                                        </workflows:FlowObjects>
+                                    </workflows:Sequence>
+                                </commons:SameStageFragment>
+                            </queries:QueryDeclaration>
+                            <queries:QueryDeclaration>
+                                <queries:Name value="setClone"/>
+                                <queries:Names initialCapacity="1">
+                                    <queries:Name value="set"/>
+                                </queries:Names>
+                                <commons:SameStageFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <workflows:CreateJavaClassInstance xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="create a new hash set"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="java.util.HashSet"/>
+                                        <workflows:StringLiteral value="HashSet(java.util.Collection)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <workflows:Variable value="set"/>
+                                        </workflows:Expressions>
+                                    </workflows:CreateJavaClassInstance>
+                                </commons:SameStageFragment>
+                            </queries:QueryDeclaration>
+                            <queries:QueryDeclaration>
+                                <queries:Name value="mapCreate"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:SameStageFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <workflows:CreateJavaClassInstance xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="create a new hash map"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="java.util.HashMap"/>
+                                        <workflows:StringLiteral value="HashMap()"/>
+                                        <commons:Resolver/>
+                                    </workflows:CreateJavaClassInstance>
+                                </commons:SameStageFragment>
+                            </queries:QueryDeclaration>
+                            <queries:QueryDeclaration>
+                                <queries:Name value="mapPut"/>
+                                <queries:Names initialCapacity="4">
+                                    <queries:Name value="name"/>
+                                    <queries:Name value="value"/>
+                                    <queries:Name value="nameString"/>
+                                    <queries:Name value="valueString"/>
+                                </queries:Names>
+                                <commons:SameStageFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <workflows:Sequence xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="sequence"/>
+                                        <workflows:FlowObjects initialCapacity="3">
+                                        <workflows:InvokeJavaInstanceMethod>
+                                        <workflows:Text value="convert name to string"/>
+                                        <workflows:Variable value="nameString"/>
+                                        <workflows:Variable value="name"/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="org.whole.lang.model.IEntity"/>
+                                        <workflows:StringLiteral value="wStringValue()"/>
+                                        <commons:Resolver/>
+                                        </workflows:InvokeJavaInstanceMethod>
+                                        <workflows:InvokeJavaInstanceMethod>
+                                        <workflows:Text value="convert value to string"/>
+                                        <workflows:Variable value="valueString"/>
+                                        <workflows:Variable value="value"/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="org.whole.lang.model.IEntity"/>
+                                        <workflows:StringLiteral value="wStringValue()"/>
+                                        <commons:Resolver/>
+                                        </workflows:InvokeJavaInstanceMethod>
+                                        <workflows:InvokeJavaInstanceMethod>
+                                        <workflows:Text value="put mapping"/>
+                                        <commons:Resolver/>
+                                        <workflows:Variable value="self"/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="java.util.Map"/>
+                                        <workflows:StringLiteral value="put(java.lang.Object, java.lang.Object)"/>
+                                        <workflows:Expressions initialCapacity="2">
+                                        <workflows:Variable value="nameString"/>
+                                        <workflows:Variable value="valueString"/>
+                                        </workflows:Expressions>
+                                        </workflows:InvokeJavaInstanceMethod>
+                                        </workflows:FlowObjects>
+                                    </workflows:Sequence>
+                                </commons:SameStageFragment>
+                            </queries:QueryDeclaration>
+                            <queries:QueryDeclaration>
+                                <queries:Name value="mapGet"/>
+                                <queries:Names initialCapacity="2">
+                                    <queries:Name value="name"/>
+                                    <queries:Name value="nameString"/>
+                                </queries:Names>
+                                <commons:SameStageFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <workflows:Sequence xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="sequence"/>
+                                        <workflows:FlowObjects initialCapacity="2">
+                                        <workflows:InvokeJavaInstanceMethod>
+                                        <workflows:Text value="convert name to string"/>
+                                        <workflows:Variable value="nameString"/>
+                                        <workflows:Variable value="name"/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="org.whole.lang.model.IEntity"/>
+                                        <workflows:StringLiteral value="wStringValue()"/>
+                                        <commons:Resolver/>
+                                        </workflows:InvokeJavaInstanceMethod>
+                                        <workflows:InvokeJavaInstanceMethod>
+                                        <workflows:Text value="get mapping"/>
+                                        <commons:Resolver/>
+                                        <workflows:Variable value="self"/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="java.util.Map"/>
+                                        <workflows:StringLiteral value="get(java.lang.Object)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <workflows:Variable value="nameString"/>
+                                        </workflows:Expressions>
+                                        </workflows:InvokeJavaInstanceMethod>
+                                        </workflows:FlowObjects>
+                                    </workflows:Sequence>
+                                </commons:SameStageFragment>
+                            </queries:QueryDeclaration>
+                            <queries:QueryDeclaration>
+                                <queries:Name value="toEntityName"/>
+                                <queries:Names initialCapacity="1">
+                                    <queries:Name value="name"/>
+                                </queries:Names>
+                                <queries:Block initialCapacity="2">
+                                    <queries:Filter>
+                                        <queries:SelfStep/>
+                                        <queries:VariableTest value="name"/>
+                                    </queries:Filter>
+                                    <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="to upper cap"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:StringLiteral value="org.whole.lang.util.StringUtils"/>
+                                        <workflows:StringLiteral value="toUpperCap(java.lang.String)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <workflows:Variable value="name"/>
+                                        </workflows:Expressions>
+                                    </workflows:InvokeJavaClassMethod>
+                                </queries:Block>
+                            </queries:QueryDeclaration>
+                            <queries:QueryDeclaration>
+                                <queries:Name value="toDataEntityName"/>
+                                <queries:Names initialCapacity="2">
+                                    <queries:Name value="enumValue"/>
+                                    <queries:Name value="enumValueName"/>
+                                </queries:Names>
+                                <queries:Block initialCapacity="3">
+                                    <queries:Filter>
+                                        <queries:SelfStep/>
+                                        <queries:VariableTest value="enumValue"/>
+                                    </queries:Filter>
+                                    <queries:Filter>
+                                        <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="get enum value name"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:Variable value="enumValue"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:StringLiteral value="org.whole.lang.model.EnumValue"/>
+                                        <workflows:StringLiteral value="getName()"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </workflows:InvokeJavaInstanceMethod>
+                                        <queries:VariableTest value="enumValueName"/>
+                                    </queries:Filter>
+                                    <queries:Call>
+                                        <queries:Name value="toEntityName"/>
+                                        <queries:Expressions initialCapacity="1">
+                                        <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="enum value name to lower case"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:Variable value="enumValueName"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:StringLiteral value="java.lang.String"/>
+                                        <workflows:StringLiteral value="toLowerCase()"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </workflows:InvokeJavaInstanceMethod>
+                                        </queries:Expressions>
+                                    </queries:Call>
+                                </queries:Block>
+                            </queries:QueryDeclaration>
+                            <queries:QueryDeclaration>
+                                <queries:Name value="toFeatureName"/>
+                                <queries:Names initialCapacity="2">
+                                    <queries:Name value="name"/>
+                                    <queries:Name value="lowerPrefixName"/>
+                                </queries:Names>
+                                <queries:Block initialCapacity="2">
+                                    <queries:Filter>
+                                        <queries:SelfStep/>
+                                        <queries:VariableTest value="name"/>
+                                    </queries:Filter>
+                                    <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="to lower prefix"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:StringLiteral value="org.whole.lang.util.StringUtils"/>
+                                        <workflows:StringLiteral value="toLowerPrefix(java.lang.String)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <workflows:Variable value="name"/>
+                                        </workflows:Expressions>
+                                    </workflows:InvokeJavaClassMethod>
+                                </queries:Block>
+                            </queries:QueryDeclaration>
+                            <queries:QueryDeclaration>
+                                <queries:Name value="fngCreate"/>
+                                <queries:Names initialCapacity="1">
+                                    <queries:Name value="names"/>
+                                </queries:Names>
+                                <queries:Block initialCapacity="2">
+                                    <queries:Filter>
+                                        <queries:Call>
+                                        <queries:Name value="setCreate"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Call>
+                                        <queries:VariableTest value="names"/>
+                                    </queries:Filter>
+                                    <commons:SameStageFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <workflows:CreateJavaClassInstance xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="create a new fresh name generator"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="org.whole.lang.util.FreshNameGenerator"/>
+                                        <workflows:StringLiteral value="FreshNameGenerator(java.util.Collection)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <workflows:Variable value="names"/>
+                                        </workflows:Expressions>
+                                        </workflows:CreateJavaClassInstance>
+                                    </commons:SameStageFragment>
+                                </queries:Block>
+                            </queries:QueryDeclaration>
+                            <queries:QueryDeclaration>
+                                <queries:Name value="fngNext"/>
+                                <queries:Names initialCapacity="1">
+                                    <queries:Name value="name"/>
+                                </queries:Names>
+                                <commons:SameStageFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="next fresh name"/>
+                                        <commons:Resolver/>
+                                        <workflows:Variable value="self"/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="org.whole.lang.util.FreshNameGenerator"/>
+                                        <workflows:StringLiteral value="nextFreshName(java.lang.String)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <workflows:Variable value="name"/>
+                                        </workflows:Expressions>
+                                    </workflows:InvokeJavaInstanceMethod>
+                                </commons:SameStageFragment>
+                            </queries:QueryDeclaration>
+                            <queries:QueryDeclaration>
+                                <queries:Name value="updateCollidingNames"/>
+                                <queries:Names initialCapacity="3">
+                                    <queries:Name value="name"/>
+                                    <queries:Name value="names"/>
+                                    <queries:Name value="collisions"/>
+                                </queries:Names>
+                                <queries:Block initialCapacity="2">
+                                    <queries:Path initialCapacity="2">
+                                        <queries:Choose initialCapacity="2">
+                                        <queries:If>
+                                        <queries:Singleton>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="names"/>
+                                        <queries:Call>
+                                        <queries:Name value="setContains"/>
+                                        <queries:Expressions initialCapacity="1">
+                                        <queries:VariableRefStep value="name"/>
+                                        </queries:Expressions>
+                                        </queries:Call>
+                                        </queries:Path>
+                                        </queries:Singleton>
+                                        <queries:VariableRefStep value="collisions"/>
+                                        </queries:If>
+                                        <queries:Do>
+                                        <queries:VariableRefStep value="names"/>
+                                        </queries:Do>
+                                        </queries:Choose>
+                                        <queries:Call>
+                                        <queries:Name value="setAdd"/>
+                                        <queries:Expressions initialCapacity="1">
+                                        <queries:VariableRefStep value="name"/>
+                                        </queries:Expressions>
+                                        </queries:Call>
+                                    </queries:Path>
+                                    <queries:SelfStep/>
+                                </queries:Block>
+                            </queries:QueryDeclaration>
+                            <queries:QueryDeclaration>
+                                <queries:Name value="updateWithFreshEntityName"/>
+                                <queries:Names initialCapacity="4">
+                                    <queries:Name value="name"/>
+                                    <queries:Name value="fng"/>
+                                    <queries:Name value="names"/>
+                                    <queries:Name value="collisions"/>
+                                </queries:Names>
+                                <queries:Block initialCapacity="2">
+                                    <queries:PointwiseUpdate>
+                                        <queries:SelfStep/>
+                                        <queries:Choose initialCapacity="2">
+                                        <queries:If>
+                                        <queries:Singleton>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="collisions"/>
+                                        <queries:Call>
+                                        <queries:Name value="setContains"/>
+                                        <queries:Expressions initialCapacity="1">
+                                        <queries:VariableRefStep value="name"/>
+                                        </queries:Expressions>
+                                        </queries:Call>
+                                        </queries:Path>
+                                        </queries:Singleton>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="fng"/>
+                                        <queries:Call>
+                                        <queries:Name value="fngNext"/>
+                                        <queries:Expressions initialCapacity="1">
+                                        <queries:VariableRefStep value="name"/>
+                                        </queries:Expressions>
+                                        </queries:Call>
+                                        </queries:Path>
+                                        </queries:If>
+                                        <queries:Do>
+                                        <queries:VariableRefStep value="name"/>
+                                        </queries:Do>
+                                        </queries:Choose>
+                                    </queries:PointwiseUpdate>
+                                    <queries:SelfStep/>
+                                </queries:Block>
+                            </queries:QueryDeclaration>
+                            <queries:QueryDeclaration>
+                                <queries:Name value="updateDatatypesMap"/>
+                                <queries:Names initialCapacity="5">
+                                    <queries:Name value="name"/>
+                                    <queries:Name value="fng"/>
+                                    <queries:Name value="names"/>
+                                    <queries:Name value="datatypesMap"/>
+                                    <queries:Name value="entityName"/>
+                                </queries:Names>
+                                <queries:Block initialCapacity="2">
+                                    <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="datatypesMap"/>
+                                        <queries:Call>
+                                        <queries:Name value="mapPut"/>
+                                        <queries:Expressions initialCapacity="2">
+                                        <queries:VariableRefStep value="name"/>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="fng"/>
+                                        <queries:Call>
+                                        <queries:Name value="fngNext"/>
+                                        <queries:Expressions initialCapacity="1">
+                                        <queries:VariableRefStep value="name"/>
+                                        </queries:Expressions>
+                                        </queries:Call>
+                                        </queries:Path>
+                                        </queries:Expressions>
+                                        </queries:Call>
+                                    </queries:Path>
+                                    <queries:SelfStep/>
+                                </queries:Block>
+                            </queries:QueryDeclaration>
+                            <queries:QueryDeclaration>
+                                <queries:Name value="updateTablesMapping"/>
+                                <queries:Names initialCapacity="7">
+                                    <queries:Name value="entityNames"/>
+                                    <queries:Name value="entityNameCollisions"/>
+                                    <queries:Name value="initialEntityNames"/>
+                                    <queries:Name value="fng"/>
+                                    <queries:Name value="tableName"/>
+                                    <queries:Name value="featureNames"/>
+                                    <queries:Name value="columnName"/>
+                                </queries:Names>
+                                <queries:Block initialCapacity="9">
+                                    <queries:Filter>
+                                        <queries:Call>
+                                        <queries:Name value="setCreate"/>
+                                        <queries:Expressions initialCapacity="1">
+                                        <queries:Union>
+                                        <queries:Expressions initialCapacity="2">
+                                        <queries:Path initialCapacity="3">
+                                        <queries:FeatureStep value="tables"/>
+                                        <queries:ChildStep/>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="entityName"/>
+                                        <queries:KindTest value="DATA"/>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        <queries:Path initialCapacity="5">
+                                        <queries:FeatureStep value="tables"/>
+                                        <queries:ChildStep/>
+                                        <queries:FeatureStep value="columns"/>
+                                        <queries:ChildStep/>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="featureType"/>
+                                        <queries:KindTest value="DATA"/>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        </queries:Expressions>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Union>
+                                        </queries:Expressions>
+                                        </queries:Call>
+                                        <queries:VariableTest value="entityNames"/>
+                                    </queries:Filter>
+                                    <queries:Filter>
+                                        <queries:Call>
+                                        <queries:Name value="setCreate"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Call>
+                                        <queries:VariableTest value="entityNameCollisions"/>
+                                    </queries:Filter>
+                                    <queries:Filter>
+                                        <queries:Call>
+                                        <queries:Name value="setClone"/>
+                                        <queries:Expressions initialCapacity="1">
+                                        <queries:VariableRefStep value="entityNames"/>
+                                        </queries:Expressions>
+                                        </queries:Call>
+                                        <queries:VariableTest value="initialEntityNames"/>
+                                    </queries:Filter>
+                                    <queries:Path initialCapacity="4">
+                                        <queries:FeatureStep value="tables"/>
+                                        <queries:ChildStep/>
+                                        <queries:FeatureStep value="name"/>
+                                        <queries:Call>
+                                        <queries:Name value="updateCollidingNames"/>
+                                        <queries:Expressions initialCapacity="3">
+                                        <queries:Call>
+                                        <queries:Name value="toEntityName"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Call>
+                                        <queries:VariableRefStep value="initialEntityNames"/>
+                                        <queries:VariableRefStep value="entityNameCollisions"/>
+                                        </queries:Expressions>
+                                        </queries:Call>
+                                    </queries:Path>
+                                    <queries:Filter>
+                                        <queries:Call>
+                                        <queries:Name value="mapCreate"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Call>
+                                        <queries:VariableTest value="datatypesMap"/>
+                                    </queries:Filter>
+                                    <queries:Filter>
+                                        <queries:Call>
+                                        <queries:Name value="fngCreate"/>
+                                        <queries:Expressions initialCapacity="1">
+                                        <queries:VariableRefStep value="entityNames"/>
+                                        </queries:Expressions>
+                                        </queries:Call>
+                                        <queries:VariableTest value="fng"/>
+                                    </queries:Filter>
+                                    <queries:Path initialCapacity="6">
+                                        <queries:FeatureStep value="tables"/>
+                                        <queries:ChildStep/>
+                                        <queries:FeatureStep value="columns"/>
+                                        <queries:ChildStep/>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="type"/>
+                                        <queries:DistinctTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:DistinctTest>
+                                        </queries:Filter>
+                                        <queries:Call>
+                                        <queries:Name value="updateDatatypesMap"/>
+                                        <queries:Expressions initialCapacity="4">
+                                        <queries:Call>
+                                        <queries:Name value="toDataEntityName"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Call>
+                                        <queries:VariableRefStep value="fng"/>
+                                        <queries:VariableRefStep value="entityNames"/>
+                                        <queries:VariableRefStep value="datatypesMap"/>
+                                        </queries:Expressions>
+                                        </queries:Call>
+                                    </queries:Path>
+                                    <queries:Path initialCapacity="3">
+                                        <queries:FeatureStep value="tables"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:Some>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="name"/>
+                                        <queries:VariableTest value="tableName"/>
+                                        </queries:Filter>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
+                                        </queries:Filter>
+                                        <queries:Sequence initialCapacity="3">
+                                        <queries:Filter>
+                                        <queries:Call>
+                                        <queries:Name value="fngCreate"/>
+                                        <queries:Expressions initialCapacity="1">
+                                        <queries:Call>
+                                        <queries:Name value="setCreate"/>
+                                        <queries:Expressions initialCapacity="1">
+                                        <queries:Union>
+                                        <queries:Expressions initialCapacity="1">
+                                        <queries:Path initialCapacity="3">
+                                        <queries:FeatureStep value="columns"/>
+                                        <queries:ChildStep/>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="featureName"/>
+                                        <queries:KindTest value="DATA"/>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        </queries:Expressions>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Union>
+                                        </queries:Expressions>
+                                        </queries:Call>
+                                        </queries:Expressions>
+                                        </queries:Call>
+                                        <queries:VariableTest value="featuresFng"/>
+                                        </queries:Filter>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="entityName"/>
+                                        <queries:KindTest value="RESOLVER"/>
+                                        </queries:Filter>
+                                        <queries:Call>
+                                        <queries:Name value="updateWithFreshEntityName"/>
+                                        <queries:Expressions initialCapacity="4">
+                                        <queries:Call>
+                                        <queries:Name value="toEntityName"/>
+                                        <queries:Expressions initialCapacity="1">
+                                        <queries:VariableRefStep value="tableName"/>
+                                        </queries:Expressions>
+                                        </queries:Call>
+                                        <queries:VariableRefStep value="fng"/>
+                                        <queries:VariableRefStep value="entityNames"/>
+                                        <queries:VariableRefStep value="entityNameCollisions"/>
+                                        </queries:Expressions>
+                                        </queries:Call>
+                                        </queries:Path>
+                                        <queries:Path initialCapacity="3">
+                                        <queries:FeatureStep value="columns"/>
+                                        <queries:ChildStep/>
+                                        <queries:Sequence initialCapacity="4">
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="name"/>
+                                        <queries:VariableTest value="columnName"/>
+                                        </queries:Filter>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="type"/>
+                                        <queries:VariableTest value="columnType"/>
+                                        </queries:Filter>
+                                        <queries:PointwiseUpdate>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="featureName"/>
+                                        <queries:KindTest value="RESOLVER"/>
+                                        </queries:Filter>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="featuresFng"/>
+                                        <queries:Call>
+                                        <queries:Name value="fngNext"/>
+                                        <queries:Expressions initialCapacity="1">
+                                        <queries:Call>
+                                        <queries:Name value="toFeatureName"/>
+                                        <queries:Expressions initialCapacity="1">
+                                        <queries:VariableRefStep value="columnName"/>
+                                        </queries:Expressions>
+                                        </queries:Call>
+                                        </queries:Expressions>
+                                        </queries:Call>
+                                        </queries:Path>
+                                        </queries:PointwiseUpdate>
+                                        <queries:PointwiseUpdate>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="featureType"/>
+                                        <queries:KindTest value="RESOLVER"/>
+                                        </queries:Filter>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="datatypesMap"/>
+                                        <queries:Call>
+                                        <queries:Name value="mapGet"/>
+                                        <queries:Expressions initialCapacity="1">
+                                        <queries:Call>
+                                        <queries:Name value="toDataEntityName"/>
+                                        <queries:Expressions initialCapacity="1">
+                                        <queries:VariableRefStep value="columnType"/>
+                                        </queries:Expressions>
+                                        </queries:Call>
+                                        </queries:Expressions>
+                                        </queries:Call>
+                                        </queries:Path>
+                                        </queries:PointwiseUpdate>
+                                        </queries:Sequence>
+                                        </queries:Path>
+                                        </queries:Sequence>
+                                    </queries:Path>
+                                    <queries:SelfStep/>
+                                </queries:Block>
+                            </queries:QueryDeclaration>
+                            <commons:SameStageFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <workflows:InvokeOperation xmlns:workflows="http://lang.whole.org/Workflows">
+                                    <workflows:Text value="normalize"/>
+                                    <workflows:Variable value="self"/>
+                                    <workflows:Operation value="NORMALIZER"/>
+                                    <commons:Resolver/>
+                                </workflows:InvokeOperation>
+                            </commons:SameStageFragment>
+                            <queries:Filter>
+                                <queries:Call>
+                                    <queries:Name value="setCreate"/>
+                                    <queries:Expressions initialCapacity="1">
+                                        <queries:Union>
+                                        <queries:Expressions initialCapacity="1">
+                                        <queries:Path initialCapacity="3">
+                                        <queries:FeatureStep value="schemas"/>
+                                        <queries:ChildStep/>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="modelName"/>
+                                        <queries:KindTest value="DATA"/>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        </queries:Expressions>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Union>
+                                    </queries:Expressions>
+                                </queries:Call>
+                                <queries:VariableTest value="modelNames"/>
+                            </queries:Filter>
+                            <queries:Filter>
+                                <queries:Call>
+                                    <queries:Name value="setCreate"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </queries:Call>
+                                <queries:VariableTest value="modelNameCollisions"/>
+                            </queries:Filter>
+                            <queries:Filter>
+                                <queries:Call>
+                                    <queries:Name value="setClone"/>
+                                    <queries:Expressions initialCapacity="1">
+                                        <queries:VariableRefStep value="modelNames"/>
+                                    </queries:Expressions>
+                                </queries:Call>
+                                <queries:VariableTest value="initialModelNames"/>
+                            </queries:Filter>
+                            <queries:Path initialCapacity="3">
+                                <queries:FeatureStep value="schemas"/>
+                                <queries:ChildStep/>
+                                <queries:Sequence initialCapacity="2">
+                                    <queries:Path initialCapacity="2">
+                                        <queries:FeatureStep value="name"/>
+                                        <queries:Call>
+                                        <queries:Name value="updateCollidingNames"/>
+                                        <queries:Expressions initialCapacity="3">
+                                        <queries:Call>
+                                        <queries:Name value="toEntityName"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Call>
+                                        <queries:VariableRefStep value="initialModelNames"/>
+                                        <queries:VariableRefStep value="modelNameCollisions"/>
+                                        </queries:Expressions>
+                                        </queries:Call>
+                                    </queries:Path>
+                                    <queries:Call>
+                                        <queries:Name value="updateTablesMapping"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </queries:Call>
+                                </queries:Sequence>
+                            </queries:Path>
+                            <queries:Path initialCapacity="4">
+                                <queries:FeatureStep value="schemas"/>
+                                <queries:Filter>
+                                    <queries:ChildStep/>
+                                    <queries:And initialCapacity="2">
+                                        <queries:Some>
+                                        <queries:Filter>
+                                        <queries:Call>
+                                        <queries:Name value="fngCreate"/>
+                                        <queries:Expressions initialCapacity="1">
+                                        <queries:VariableRefStep value="modelNames"/>
+                                        </queries:Expressions>
+                                        </queries:Call>
+                                        <queries:VariableTest value="fng"/>
+                                        </queries:Filter>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
+                                        <queries:Some>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="name"/>
+                                        <queries:VariableTest value="schemaName"/>
+                                        </queries:Filter>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
+                                    </queries:And>
+                                </queries:Filter>
+                                <queries:Filter>
+                                    <queries:FeatureStep value="modelName"/>
+                                    <queries:KindTest value="RESOLVER"/>
+                                </queries:Filter>
+                                <queries:Call>
+                                    <queries:Name value="updateWithFreshEntityName"/>
+                                    <queries:Expressions initialCapacity="4">
+                                        <queries:VariableRefStep value="schemaName"/>
+                                        <queries:VariableRefStep value="fng"/>
+                                        <queries:VariableRefStep value="modelNames"/>
+                                        <queries:VariableRefStep value="modelNameCollisions"/>
+                                    </queries:Expressions>
+                                </queries:Call>
+                            </queries:Path>
+                            <queries:SelfStep/>
+                        </queries:Block>
+                    </queries:Scope>
+                </queries:Path>
+                <queries:Some xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:VariableRefStep value="primarySelectedEntity"/>
+                    <queries:TypeTest value="http://lang.whole.org/RDB#Database"/>
+                </queries:Some>
+            </actions:GuardedAction>
+        </actions:MenuActions>
+        <actions:MenuActions initialCapacity="0"/>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    </actions:ContextMenuActions>
+</actions:LanguageActionFactory>

@@ -1,0 +1,177 @@
+<?xml version="1.0"?>
+<rdb:Database xmlns:rdb="http://lang.whole.org/RDB">
+    <rdb:URI value="http://rdb.lang.whole.org"/>
+    <rdb:Namespace value="org.whole.lang.rdb"/>
+    <rdb:Schemas initialCapacity="1">
+        <rdb:Schema>
+            <rdb:StringData value="AllTypesDB"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <rdb:Tables initialCapacity="1">
+                <rdb:Table>
+                    <rdb:StringData value="DataTable"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <rdb:Columns initialCapacity="14">
+                        <rdb:Column>
+                            <rdb:StringData value="array_col"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:Type value="ARRAY"/>
+                            <rdb:IntData value="16"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:BooleanData value="false"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </rdb:Column>
+                        <rdb:Column>
+                            <rdb:StringData value="boolean_col"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:Type value="BOOLEAN"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:BooleanData value="false"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </rdb:Column>
+                        <rdb:Column>
+                            <rdb:StringData value="tinyint_col"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:Type value="TINYINT"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:BooleanData value="false"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </rdb:Column>
+                        <rdb:Column>
+                            <rdb:StringData value="smallint_col"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:Type value="SMALLINT"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:BooleanData value="false"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </rdb:Column>
+                        <rdb:Column>
+                            <rdb:StringData value="int_col"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:Type value="INTEGER"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:BooleanData value="false"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </rdb:Column>
+                        <rdb:Column>
+                            <rdb:StringData value="bigint_col"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:Type value="BIGINT"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:BooleanData value="false"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </rdb:Column>
+                        <rdb:Column>
+                            <rdb:StringData value="double_col"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:Type value="DOUBLE"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:BooleanData value="false"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </rdb:Column>
+                        <rdb:Column>
+                            <rdb:StringData value="real_col"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:Type value="REAL"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:BooleanData value="false"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </rdb:Column>
+                        <rdb:Column>
+                            <rdb:StringData value="decimal_col"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:Type value="DECIMAL"/>
+                            <rdb:IntData value="32"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:BooleanData value="false"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </rdb:Column>
+                        <rdb:Column>
+                            <rdb:StringData value="string_col"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:Type value="VARCHAR"/>
+                            <rdb:IntData value="128"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:BooleanData value="false"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </rdb:Column>
+                        <rdb:Column>
+                            <rdb:StringData value="binary_col"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:Type value="VARBINARY"/>
+                            <rdb:IntData value="128"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:BooleanData value="false"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </rdb:Column>
+                        <rdb:Column>
+                            <rdb:StringData value="date_col"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:Type value="DATE"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:BooleanData value="false"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </rdb:Column>
+                        <rdb:Column>
+                            <rdb:StringData value="time_col"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:Type value="TIME"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:BooleanData value="false"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </rdb:Column>
+                        <rdb:Column>
+                            <rdb:StringData value="timestamp_col"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:Type value="TIMESTAMP"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <rdb:BooleanData value="false"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </rdb:Column>
+                    </rdb:Columns>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </rdb:Table>
+            </rdb:Tables>
+        </rdb:Schema>
+    </rdb:Schemas>
+</rdb:Database>

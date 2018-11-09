@@ -17,16 +17,22 @@
  */
 package org.whole.langs.db.op;
 
+import org.whole.lang.codebase.ClasspathPersistenceProvider;
 import org.whole.lang.operations.InterpreterOperation;
-import org.whole.lang.rdb.RDBActions;
 import org.whole.lang.reflect.AbstractContributionDeployer;
 import org.whole.lang.reflect.ReflectionFactory;
+import org.whole.lang.xml.codebase.XmlBuilderPersistenceKit;
 
 /**
  * @author Enrico Persiani
  */
 public class DBContributionsDeployer extends AbstractContributionDeployer {
 	public void deploy(ReflectionFactory platform) {
-		InterpreterOperation.interpret(new RDBActions().create());
+		try {
+			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
+					new ClasspathPersistenceProvider("org/whole/lang/rdb/RDBActions.xwl")));
+		} catch (Exception e) {
+			throw new IllegalStateException(e);
+		}
 	}
 }
