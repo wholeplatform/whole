@@ -29,7 +29,7 @@ import org.whole.lang.sql.reflect.SQLLanguageKit;
 public class DBMetaModelsDeployer extends AbstractLanguageExtensionDeployer {
 	public void deploy(ReflectionFactory platform) {
 		platform.setMetaModelTemplate(DBCFGLanguageKit.URI, "org.whole.lang.models.codebase.DBCFGModel");
-		platform.setMetaModelTemplate(RDBLanguageKit.URI, "org.whole.lang.models.codebase.RDBModel");
+		platform.setMetaModelTemplate(RDBLanguageKit.URI, "RDB model", "org/whole/lang/rdb/RDBModel.xwl");
 		platform.setMetaModelTemplate(SQLLanguageKit.URI, "org.whole.lang.models.codebase.SQLModel");
 	}
 
