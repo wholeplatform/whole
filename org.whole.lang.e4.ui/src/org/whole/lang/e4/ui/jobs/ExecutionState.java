@@ -18,8 +18,6 @@
 package org.whole.lang.e4.ui.jobs;
 
 import java.util.Set;
-import java.util.concurrent.BrokenBarrierException;
-import java.util.concurrent.CyclicBarrier;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
@@ -36,7 +34,7 @@ public class ExecutionState {
 	protected IEntity sourceEntity;
 	protected IBindingManager bindings;
 	protected Set<String> includeNames;
-	protected CyclicBarrier barrier;
+	protected boolean forceTermination;
 
 	public ExecutionState(SuspensionKind suspensionKind, Throwable throwable, 
 			IEntity sourceEntity, IBindingManager bindings, Set<String> includeNames) {
@@ -45,7 +43,7 @@ public class ExecutionState {
 		this.sourceEntity = sourceEntity;
 		this.bindings = bindings;
 		this.includeNames = includeNames;
-		this.barrier = new CyclicBarrier(2);
+		this.forceTermination = false;
 	}
 
 	public SuspensionKind getSuspensionKind() {
@@ -60,29 +58,26 @@ public class ExecutionState {
 		return throwable;
 	}
 	
-	public ExecutionState pause() {
+	public synchronized ExecutionState pause() {
 		try {
-			barrier.await();
+			wait();
+			if (this.forceTermination)
+				throw new OperationCanceledException();
+			else
+				return this;
 		} catch (InterruptedException e) {
 			throw new IllegalStateException(e);
-		} catch (BrokenBarrierException e) {	
-			// execution terminated
-			if (getSuspensionKind().isRecoverable())
-				throw new OperationCanceledException();
 		}
+	}
+
+	public synchronized ExecutionState resume() {
+		notify();
 		return this;
 	}
 
-	public ExecutionState resume() {
-		try {
-			barrier.await();
-		} catch (Exception e) { 
-		}
-		return this;
-	}
-
-	public ExecutionState terminate() {
-		barrier.reset();
+	public synchronized ExecutionState terminate() {
+		this.forceTermination = true;
+		notify();
 		return this;
 	}
 
