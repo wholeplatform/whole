@@ -18,17 +18,24 @@
 package org.whole.lang.reflect;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.whole.lang.testentities.reflect.TestEntitiesLanguageDeployer;
 import org.whole.lang.testentities.reflect.TestEntitiesLanguageKit;
-import org.whole.test.KnownFailingTests;
 
 /**
  * @author Riccardo Solmi
  */
 public class LanguageRequestHandlerTest {
-	@Category(KnownFailingTests.class)
+	@Before
+	public void cleanup() {
+		ILanguageRequestHandler handler = ReflectionFactory.getLanguageRequestHandler();
+		while (handler != NullLanguageRequestHandler.instance) {
+			ReflectionFactory.removeLanguageRequestHandler(handler);
+			handler = ReflectionFactory.getLanguageRequestHandler();
+		};
+	}
+
 	@Test
 	public void testAddLanguageRequestHandler() {
 		ILanguageRequestHandler handler = ReflectionFactory.getLanguageRequestHandler();
@@ -91,21 +98,21 @@ public class LanguageRequestHandlerTest {
 		};
 
 		try {
-			ReflectionFactory.getLanguageKit("notExistantURI");
+			ReflectionFactory.getLanguageKit("notExistantURI", true, null);
 			Assert.fail();
 		} catch (IllegalArgumentException e) {
 		}
 
 		ReflectionFactory.addLanguageRequestHandler(fakeHandler);
 		try {
-			ReflectionFactory.getLanguageKit("fakeLanguage");
+			ReflectionFactory.getLanguageKit("fakeLanguage", true, null);
 			Assert.fail();
 		} catch (IllegalArgumentException e) {
 		}
 
 		ReflectionFactory.undeploy(TestEntitiesLanguageDeployer.class);
 		ReflectionFactory.addLanguageRequestHandler(testHandler);
-		Assert.assertNotNull(ReflectionFactory.getLanguageKit(TestEntitiesLanguageKit.URI));
+		Assert.assertNotNull(ReflectionFactory.getLanguageKit(TestEntitiesLanguageKit.URI, true, null));
 		ReflectionFactory.removeLanguageRequestHandler(testHandler);
 
 		ReflectionFactory.undeploy(TestEntitiesLanguageDeployer.class);
@@ -113,6 +120,6 @@ public class LanguageRequestHandlerTest {
 				new TestEntitiesLanguageDeployer(),
 				"http://lang.whole.org/TestEntities",
 				"TestEntities"));
-		Assert.assertNotNull(ReflectionFactory.getLanguageKit("http://lang.whole.org/TestEntities"));
+		Assert.assertNotNull(ReflectionFactory.getLanguageKit("http://lang.whole.org/TestEntities", true, null));
 	}
 }
