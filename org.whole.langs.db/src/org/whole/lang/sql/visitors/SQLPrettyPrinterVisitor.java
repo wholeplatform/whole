@@ -24,7 +24,85 @@ import java.sql.SQLException;
 import org.whole.lang.model.adapters.IEntityAdapter;
 import org.whole.lang.operations.IPrettyPrintWriter;
 import org.whole.lang.operations.PrettyPrinterOperation;
-import org.whole.lang.sql.model.*;
+import org.whole.lang.sql.model.AddAction;
+import org.whole.lang.sql.model.Alias;
+import org.whole.lang.sql.model.AlterTable;
+import org.whole.lang.sql.model.ArrayValue;
+import org.whole.lang.sql.model.Between;
+import org.whole.lang.sql.model.BigIntValue;
+import org.whole.lang.sql.model.BinaryExpression;
+import org.whole.lang.sql.model.BinaryOperator;
+import org.whole.lang.sql.model.BinaryValue;
+import org.whole.lang.sql.model.BlobValue;
+import org.whole.lang.sql.model.BooleanBinaryExpression;
+import org.whole.lang.sql.model.BooleanOperator;
+import org.whole.lang.sql.model.BooleanValue;
+import org.whole.lang.sql.model.CaseExpression;
+import org.whole.lang.sql.model.ClobValue;
+import org.whole.lang.sql.model.ColumnDeclaration;
+import org.whole.lang.sql.model.ColumnExpression;
+import org.whole.lang.sql.model.ColumnExpressions;
+import org.whole.lang.sql.model.ColumnName;
+import org.whole.lang.sql.model.ColumnNames;
+import org.whole.lang.sql.model.ColumnType;
+import org.whole.lang.sql.model.ConstraintName;
+import org.whole.lang.sql.model.Create;
+import org.whole.lang.sql.model.DateValue;
+import org.whole.lang.sql.model.DecimalValue;
+import org.whole.lang.sql.model.DeclarationOrConstraints;
+import org.whole.lang.sql.model.Delete;
+import org.whole.lang.sql.model.DoubleValue;
+import org.whole.lang.sql.model.Drop;
+import org.whole.lang.sql.model.ForeignKeyColumnConstraint;
+import org.whole.lang.sql.model.ForeignKeyTableConstraint;
+import org.whole.lang.sql.model.FromClause;
+import org.whole.lang.sql.model.FromClauses;
+import org.whole.lang.sql.model.FunctionExpression;
+import org.whole.lang.sql.model.FunctionName;
+import org.whole.lang.sql.model.ISQLEntity;
+import org.whole.lang.sql.model.In;
+import org.whole.lang.sql.model.InValueList;
+import org.whole.lang.sql.model.IndexName;
+import org.whole.lang.sql.model.InnerJoinFromClause;
+import org.whole.lang.sql.model.Insert;
+import org.whole.lang.sql.model.InsertFromSelect;
+import org.whole.lang.sql.model.IntValue;
+import org.whole.lang.sql.model.Is;
+import org.whole.lang.sql.model.IsType;
+import org.whole.lang.sql.model.LeftOuterJoinFromClause;
+import org.whole.lang.sql.model.NotBetween;
+import org.whole.lang.sql.model.NotIn;
+import org.whole.lang.sql.model.NullValue;
+import org.whole.lang.sql.model.OrderByColumnExpression;
+import org.whole.lang.sql.model.OrderByColumnExpressions;
+import org.whole.lang.sql.model.OrderType;
+import org.whole.lang.sql.model.ParenthesizedExpression;
+import org.whole.lang.sql.model.PrimaryKeyTableConstraint;
+import org.whole.lang.sql.model.RawValue;
+import org.whole.lang.sql.model.RealValue;
+import org.whole.lang.sql.model.RightOuterJoinFromClause;
+import org.whole.lang.sql.model.SQLExpression;
+import org.whole.lang.sql.model.SQLExpressions;
+import org.whole.lang.sql.model.SQLStatement;
+import org.whole.lang.sql.model.SQLStatements;
+import org.whole.lang.sql.model.Select;
+import org.whole.lang.sql.model.SelectType;
+import org.whole.lang.sql.model.SetClause;
+import org.whole.lang.sql.model.SetClauses;
+import org.whole.lang.sql.model.SimpleColumnConstraint;
+import org.whole.lang.sql.model.SimpleFromClause;
+import org.whole.lang.sql.model.SmallIntValue;
+import org.whole.lang.sql.model.StringValue;
+import org.whole.lang.sql.model.Subquery;
+import org.whole.lang.sql.model.TableName;
+import org.whole.lang.sql.model.TimeValue;
+import org.whole.lang.sql.model.TimestampValue;
+import org.whole.lang.sql.model.TinyIntValue;
+import org.whole.lang.sql.model.Truncate;
+import org.whole.lang.sql.model.UnionSelect;
+import org.whole.lang.sql.model.Update;
+import org.whole.lang.sql.model.Values;
+import org.whole.lang.sql.model.WhenClause;
 import org.whole.lang.sql.parsers.SQLDataTypeParser;
 import org.whole.lang.sql.reflect.OperatorGroupEnum;
 import org.whole.lang.sql.reflect.SQLEntityDescriptorEnum;
@@ -83,7 +161,15 @@ public class SQLPrettyPrinterVisitor extends SQLTraverseAllVisitor {
 			out.print(')');
 		}
 	}
-	
+
+	public void visit(IndexName entity) {
+		out.printRaw(entity.getValue());
+	}
+
+	public void visit(ConstraintName entity) {
+		out.printRaw(entity.getValue());
+	}
+
 	public void visit(Values entity) {
 		for (int i = 0; i < entity.wSize(); i++) {
 			if (i > 0)
@@ -579,12 +665,22 @@ public class SQLPrettyPrinterVisitor extends SQLTraverseAllVisitor {
 	}
 
 	public void visit(PrimaryKeyTableConstraint entity) {
-		out.printRaw("PRIMARY KEY ");
+		ConstraintName constraintName = entity.getConstraintName();
+		if (EntityUtils.isImpl(constraintName)) {
+			out.printRaw("CONSTRAINT ");
+			constraintName.accept(this);
+		}
+		out.printRaw(" PRIMARY KEY ");
 		entity.getColumnNames().accept(this);
 	}
 
 	public void visit(ForeignKeyTableConstraint entity) {
-		out.printRaw("FOREIGN KEY ");
+		ConstraintName constraintName = entity.getConstraintName();
+		if (EntityUtils.isImpl(constraintName)) {
+			out.printRaw("CONSTRAINT ");
+			constraintName.accept(this);
+		}
+		out.printRaw(" FOREIGN KEY ");
 		entity.getColumnNames().accept(this);
 		out.printRaw(" REFERENCES ");
 		entity.getForeignTableName().accept(this);
