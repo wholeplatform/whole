@@ -17,7 +17,6 @@
  */
 package org.whole.lang.evaluators;
 
-import org.whole.lang.bindings.BindingManager;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
@@ -29,6 +28,7 @@ import org.whole.lang.model.IEntity;
  * @author Riccardo Solmi
  */
 public class BlockEvaluator<E extends IEntity> extends AbstractDelegatingNestedEvaluator<E> {
+	protected IBindingScope accumulatedScope;
 	protected IBindingScope selfEntityScope;
 
 	@SuppressWarnings("unchecked")
@@ -43,9 +43,11 @@ public class BlockEvaluator<E extends IEntity> extends AbstractDelegatingNestedE
 
 	@Override
 	protected IBindingManager executorScope() {
-		if (executorScope == null)
+		if (executorScope == null) {
 			executorScope = BindingManagerFactory.instance.createBindingManager(
-					selfEntityScope = BindingManagerFactory.instance.createSimpleScope(), getBindings().wGetEnvironmentManager());
+					accumulatedScope = BindingManagerFactory.instance.createSimpleScope(), getBindings().wGetEnvironmentManager());
+			((IBindingManager) executorScope).wEnterScope(selfEntityScope = BindingManagerFactory.instance.createSimpleScope(), true);
+		}
 
 		return (IBindingManager) executorScope;
 	}
@@ -53,7 +55,14 @@ public class BlockEvaluator<E extends IEntity> extends AbstractDelegatingNestedE
 	@Override
 	protected void clearExecutorScope() {
 		if (executorScope != null) {
-			((BindingManager) executorScope).wSetTargetScope(selfEntityScope = BindingManagerFactory.instance.createSimpleScope());
+			accumulatedScope.wClear();
+			selfEntityScope.wClear();
+		}
+	}
+	@Override
+	protected void clearProducerScope() {
+		if (executorScope != null) {
+			selfEntityScope.wClear();
 		}
 	}
 
@@ -75,17 +84,15 @@ public class BlockEvaluator<E extends IEntity> extends AbstractDelegatingNestedE
 		try {
 			getBindings().wEnterScope(executorScope(), true);
 
-			while (isValidProducer()) {
-				if (isNotLastProducer())
-					result = getProducer().evaluateRemaining();
-				else {
-					result = getProducer().evaluateNext();
-					break;
-				}
-
-				executorScope().wEnterScope(selfEntityScope = BindingManagerFactory.instance.createSimpleScope(), true);
+			while (isNotLastProducer()) {
+				getProducer().evaluateRemaining();
 				selectFollowingProducer();
 			}
+
+			accumulatedScope.wAddAll(selfEntityScope);
+			selfEntityScope.wClear();
+			
+			result = getProducer().evaluateNext();
 		} finally {
 //TODO ? alternate semantics with effects of all producers
 //			getBindings().wExitScope(needMergeExecutorScope() && result != null);
@@ -108,15 +115,15 @@ public class BlockEvaluator<E extends IEntity> extends AbstractDelegatingNestedE
 		try {
 			getBindings().wEnterScope(executorScope(), true);
 
-			while (isValidProducer()) {
-				result = getProducer().evaluateRemaining();
-
-				if (isLastProducer())
-					break;
-
-				executorScope().wEnterScope(selfEntityScope = BindingManagerFactory.instance.createSimpleScope(), true);
+			while (isNotLastProducer()) {
+				getProducer().evaluateRemaining();
 				selectFollowingProducer();
 			}
+
+			accumulatedScope.wAddAll(selfEntityScope);
+			selfEntityScope.wClear();
+			
+			result = getProducer().evaluateRemaining();
 		} finally {
 			getBindings().wExitScope();
 			if (needMergeExecutorScope() && result != null) {
