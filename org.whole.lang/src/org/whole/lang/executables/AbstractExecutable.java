@@ -114,17 +114,17 @@ public abstract class AbstractExecutable<E extends IEntity> implements IExecutab
 	public E evaluateRemaining() {
 		E result = null;
 		IBindingManager bm = getBindings();
-		ITransactionScope resettableScope = BindingManagerFactory.instance.createTransactionScope();
-		bm.wEnterScope(resettableScope);
+		ITransactionScope transactionScope = BindingManagerFactory.instance.createTransactionScope();
+		bm.wEnterScope(transactionScope);
 		try {
 			E next;
 			while ((next = evaluateNext()) != null) {
 				result = next;
 				bm.setResult(result);
-				resettableScope.commit();
+				transactionScope.commit();
 			}
 		} finally {
-			resettableScope.rollback();
+			transactionScope.rollback();
 			bm.wExitScope();
 		}
 		return result;
@@ -133,17 +133,17 @@ public abstract class AbstractExecutable<E extends IEntity> implements IExecutab
 	public E evaluateSingleton() {
 		E result = null;
 		IBindingManager bm = getBindings();
-		ITransactionScope resettableScope = BindingManagerFactory.instance.createTransactionScope();
-		bm.wEnterScope(resettableScope);
+		ITransactionScope transactionScope = BindingManagerFactory.instance.createTransactionScope();
+		bm.wEnterScope(transactionScope);
 		try {
 			if ((result = evaluateNext()) != null) {
 				bm.setResult(result);
-				resettableScope.commit();
+				transactionScope.commit();
 			}
 			if (result == null || evaluateNext() != null)
 				throw new IllegalArgumentException("The result is not a singleton");
 		} finally {
-			resettableScope.rollback();
+			transactionScope.rollback();
 			bm.wExitScope();
 		}
 		return result;

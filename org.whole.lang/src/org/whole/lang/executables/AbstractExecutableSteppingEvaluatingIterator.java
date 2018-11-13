@@ -88,8 +88,8 @@ public abstract class AbstractExecutableSteppingEvaluatingIterator<E extends IEn
 	}
 	protected void clearLookaheadScope() {
 		if (lookaheadScope != null) {
-			for (String name : lookaheadScope.wLocalNames())
-				getBindings().wUnset(name);
+//			for (String name : lookaheadScope.wLocalNames())
+//				getBindings().wUnset(name);
 			lookaheadScope.wClear();
 		}
 	}

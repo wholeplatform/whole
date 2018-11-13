@@ -28,19 +28,12 @@ import org.whole.lang.model.IEntity;
 /**
  * @author Riccardo Solmi
  */
-public class SequenceEvaluator<E extends IEntity> extends AbstractDelegatingNestedEvaluator<E> {
+public class BlockEvaluator<E extends IEntity> extends AbstractDelegatingNestedEvaluator<E> {
 	protected IBindingScope selfEntityScope;
-	protected IBindingScope lastEntityScope;
 
 	@SuppressWarnings("unchecked")
-	public SequenceEvaluator(IExecutable<IEntity>... executables) {
+	public BlockEvaluator(IExecutable<IEntity>... executables) {
 		super(executables);
-	}
-
-	@Override
-	public void reset(IEntity entity) {
-		super.reset(entity);
-		lastEntityScope = null;
 	}
 
 	@Override
@@ -76,24 +69,21 @@ public class SequenceEvaluator<E extends IEntity> extends AbstractDelegatingNest
 	public E evaluateNext() {
 		IEntity result = null;
 
-		if (lastEntity != null) {
-			lastEntityScope = selfEntityScope.clone();
+		if (lastEntity != null)
 			selfEntityScope.wClear();
-		}
 
 		try {
 			getBindings().wEnterScope(executorScope(), true);
 
 			while (isValidProducer()) {
-				result = getProducer().evaluateNext();
-
-				if (result != null) {
+				if (isNotLastProducer())
+					result = getProducer().evaluateRemaining();
+				else {
+					result = getProducer().evaluateNext();
 					break;
-				} else if (isNotLastProducer()) {
-					if (lastEntityScope != null)
-						selfEntityScope.wAddAll(lastEntityScope);
-					executorScope().wEnterScope(selfEntityScope = BindingManagerFactory.instance.createSimpleScope(), true);
 				}
+
+				executorScope().wEnterScope(selfEntityScope = BindingManagerFactory.instance.createSimpleScope(), true);
 				selectFollowingProducer();
 			}
 		} finally {

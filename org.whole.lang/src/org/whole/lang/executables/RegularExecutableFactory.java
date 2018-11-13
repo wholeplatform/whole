@@ -38,6 +38,7 @@ import org.whole.lang.evaluators.AncestorEvaluator;
 import org.whole.lang.evaluators.AncestorOrSelfReverseEvaluator;
 import org.whole.lang.evaluators.AncestorReverseEvaluator;
 import org.whole.lang.evaluators.AspectEvaluator;
+import org.whole.lang.evaluators.BlockEvaluator;
 import org.whole.lang.evaluators.CallEvaluator;
 import org.whole.lang.evaluators.CartesianInsertEvaluator;
 import org.whole.lang.evaluators.CartesianProductEvaluator;
@@ -83,6 +84,7 @@ import org.whole.lang.evaluators.PrecedingEvaluator;
 import org.whole.lang.evaluators.PrecedingSiblingEvaluator;
 import org.whole.lang.evaluators.ReachableEvaluator;
 import org.whole.lang.evaluators.RecursiveFunctionApplicationEvaluator;
+import org.whole.lang.evaluators.SequenceEvaluator;
 import org.whole.lang.evaluators.SingleValuedRunnableEvaluator;
 import org.whole.lang.evaluators.SingleValuedRunnableSupplierEvaluator;
 import org.whole.lang.evaluators.SortEvaluator;
@@ -91,13 +93,10 @@ import org.whole.lang.evaluators.TupleFactoryEvaluator;
 import org.whole.lang.evaluators.UnionAllEvaluator;
 import org.whole.lang.evaluators.UnionEvaluator;
 import org.whole.lang.evaluators.VariableEvaluator;
-import org.whole.lang.iterators.BlockIterator;
 import org.whole.lang.iterators.DistinctScope;
 import org.whole.lang.iterators.ExecutableFactory;
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.Placement;
 import org.whole.lang.iterators.SelectIterator;
-import org.whole.lang.iterators.SequenceIterator;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.CompositeKinds;
@@ -116,16 +115,6 @@ import org.whole.lang.util.ResourceUtils;
  * @author Riccardo Solmi
  */
 public class RegularExecutableFactory implements ExecutableFactory {
-	@Deprecated
-	public static <E extends IEntity> IEntityIterator<E>[] toIterators(@SuppressWarnings("unchecked") IExecutable<E>... executables) {
-		@SuppressWarnings("unchecked")
-		IEntityIterator<E>[] iterators = new IEntityIterator[executables.length];
-		for (int i=0; i<executables.length; i++)
-			iterators[i] = executables[i].iterator();
-
-		return iterators;
-	}
-
 	public <E extends IEntity> IExecutable<E> createEmpty() {
 		return new EmptyExecutable<E>();
 	}
@@ -450,16 +439,14 @@ public class RegularExecutableFactory implements ExecutableFactory {
 		return (IExecutable<E>) new ChooseByTypeEvaluator(languageKit);
 	}
 
-	@Deprecated
+	@SuppressWarnings("unchecked")
 	public <E extends IEntity> IExecutable<E> createSequence(IExecutable<? extends E>... executableChain) {
-		return new SequenceIterator<E>(toIterators(executableChain));
-//FIXME
-//		return new SequenceEvaluator<>(executableChain);
+		return new SequenceEvaluator<E>((IExecutable<IEntity>[]) executableChain);
 	}
 
-	@Deprecated
+	@SuppressWarnings("unchecked")
 	public <E extends IEntity> IExecutable<E> createBlock(IExecutable<? extends E>... executableChain) {
-		return new BlockIterator<E>(toIterators(executableChain));
+		return new BlockEvaluator<E>((IExecutable<IEntity>[]) executableChain);
 	}
 
 	public <E extends IEntity> IExecutable<E> createFilterByIndex(IExecutable<IEntity> executable, int index) {

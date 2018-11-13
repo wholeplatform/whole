@@ -57,7 +57,7 @@ public class LanguageRequestHandlerTest {
 				return 10;
 			}
 		};
-		
+
 		ReflectionFactory.addLanguageRequestHandler(handler0);
 		Assert.assertSame(handler0, ReflectionFactory.getLanguageRequestHandler());
 
@@ -69,10 +69,6 @@ public class LanguageRequestHandlerTest {
 
 		ReflectionFactory.addLanguageRequestHandler(handler0);
 		Assert.assertSame(handler10, ReflectionFactory.getLanguageRequestHandler());
-
-		ReflectionFactory.addLanguageRequestHandler(
-				LoggerLanguageRequestHandler.instance());
-		Assert.assertSame(LoggerLanguageRequestHandler.instance(), ReflectionFactory.getLanguageRequestHandler());
 	}
 
 	@Test
