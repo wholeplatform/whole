@@ -10,7 +10,7 @@
         <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
             <repository location="file:../../whole-java-libs/org.whole.product.ef.releng/whole-ef-updates/"/>
             <unit id="org.eclipse.e4.core.tools.feature.feature.group" version="0.0.0"/>
-           <unit id="org.apache.batik.bridge.feature.group" version="0.0.0"/>
+            <unit id="org.apache.batik.bridge.feature.group" version="0.0.0"/>
             <unit id="org.apache.batik.css.feature.group" version="0.0.0"/>
             <unit id="org.apache.batik.dom.feature.group" version="0.0.0"/>
             <unit id="org.apache.batik.dom.svg.feature.group" version="0.0.0"/>
