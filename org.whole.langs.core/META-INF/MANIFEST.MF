@@ -7,8 +7,8 @@ Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Export-Package: org.whole.lang.actions.builders,
+ org.whole.lang.actions.evaluators,
  org.whole.lang.actions.factories,
- org.whole.lang.actions.iterators,
  org.whole.lang.actions.model,
  org.whole.lang.actions.reflect,
  org.whole.lang.actions.resources,

@@ -17,7 +17,7 @@
  */
 package org.whole.lang.semantics.visitors;
 
-import org.whole.lang.actions.iterators.ActionCallIterator;
+import org.whole.lang.actions.evaluators.ActionCallEvaluator;
 import org.whole.lang.evaluators.SelfEvaluator;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.matchers.Matcher;
@@ -70,7 +70,7 @@ public class SemanticsDynamicCompilerVisitor extends SemanticsIdentityDefaultVis
     		return;
     	}
 
-    	IExecutable<?> ac = new ActionCallIterator(
+    	IExecutable<?> ac = new ActionCallEvaluator(
     			"whole:org.whole.lang.semantics:SemanticsActions:1.0.0#Translate Normalized Function to Query", null);
     	stagedVisit(ac.evaluate(entity, getBindings()));
 		IExecutable<?> functionBehavior = getExecutableResult();

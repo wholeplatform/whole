@@ -17,7 +17,31 @@
  */
 package org.whole.lang.e4.ui.handler;
 
-import static org.whole.lang.e4.ui.actions.IE4UIConstants.*;
+import static org.whole.lang.e4.ui.actions.IE4UIConstants.ACTION_CALL_COMMAND_ID;
+import static org.whole.lang.e4.ui.actions.IE4UIConstants.ADD_COMMAND_ID;
+import static org.whole.lang.e4.ui.actions.IE4UIConstants.ADD_FRAGMENT_COMMAND_ID;
+import static org.whole.lang.e4.ui.actions.IE4UIConstants.COPY_AS_IMAGE_COMMAND_ID;
+import static org.whole.lang.e4.ui.actions.IE4UIConstants.COPY_ENTITY_PATH_COMMAND_ID;
+import static org.whole.lang.e4.ui.actions.IE4UIConstants.EDIT_COPY;
+import static org.whole.lang.e4.ui.actions.IE4UIConstants.EDIT_CUT;
+import static org.whole.lang.e4.ui.actions.IE4UIConstants.EDIT_DELETE;
+import static org.whole.lang.e4.ui.actions.IE4UIConstants.EDIT_FIND_AND_REPLACE;
+import static org.whole.lang.e4.ui.actions.IE4UIConstants.EDIT_PASTE;
+import static org.whole.lang.e4.ui.actions.IE4UIConstants.EDIT_SELECT_ALL;
+import static org.whole.lang.e4.ui.actions.IE4UIConstants.FILE_REVERT;
+import static org.whole.lang.e4.ui.actions.IE4UIConstants.GENERATEARTIFACTS_COMMAND_ID;
+import static org.whole.lang.e4.ui.actions.IE4UIConstants.GENERATEJAVA_COMMAND_ID;
+import static org.whole.lang.e4.ui.actions.IE4UIConstants.IMPORT_COMMAND_ID;
+import static org.whole.lang.e4.ui.actions.IE4UIConstants.INTERPRET_MODEL_COMMAND_ID;
+import static org.whole.lang.e4.ui.actions.IE4UIConstants.NORMALIZE_MODEL_COMMAND_ID;
+import static org.whole.lang.e4.ui.actions.IE4UIConstants.PASTE_AS_COMMAND_ID;
+import static org.whole.lang.e4.ui.actions.IE4UIConstants.PERFORM_COMMAND_ID;
+import static org.whole.lang.e4.ui.actions.IE4UIConstants.PRETTYPRINT_MODEL_COMMAND_ID;
+import static org.whole.lang.e4.ui.actions.IE4UIConstants.REPLACE_COMMAND_ID;
+import static org.whole.lang.e4.ui.actions.IE4UIConstants.REPLACE_FRAGMENT_COMMAND_ID;
+import static org.whole.lang.e4.ui.actions.IE4UIConstants.REPLACE_WITH_DEFAULT_COMMAND_ID;
+import static org.whole.lang.e4.ui.actions.IE4UIConstants.SELECT_NOTATION_COMMAND_ID;
+import static org.whole.lang.e4.ui.actions.IE4UIConstants.VALIDATE_MODEL_COMMAND_ID;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -29,7 +53,7 @@ import org.eclipse.e4.core.commands.EHandlerService;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Shell;
-import org.whole.lang.actions.iterators.ActionCallIterator;
+import org.whole.lang.actions.evaluators.ActionCallEvaluator;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.ITransactionScope;
@@ -591,21 +615,21 @@ public class HandlersBehavior {
 			bm.wSet("focusEntity", EntityUtils.mapEntity(bm.wGet("focusEntity"), model));
 		}
 
-		IExecutable<?> iterator = new ActionCallIterator(bm.wStringValue("functionUri"));
+		IExecutable<?> executable = new ActionCallEvaluator(bm.wStringValue("functionUri"));
 
 		if (analyzing) {
-			iterator.setBindings(bm);
-			iterator.reset(model);
+			executable.setBindings(bm);
+			executable.reset(model);
 
 			IEntity results = MiscEntityFactory.instance.createMisc();
-			for (IEntity result : iterator) {
+			for (IEntity result : executable) {
 				results.wAdd(EntityUtils.cloneIfParented(result));//TODO substitute with a no containment fragment
 
 				((IOperationProgressMonitor) bm.wGetValue("progressMonitor")).worked(1);
 			}
 			bm.setResult(results);
 		} else
-			iterator.evaluate(model, bm);
+			executable.evaluate(model, bm);
 	}
 
 	public static boolean canPerform(IBindingManager bm) {

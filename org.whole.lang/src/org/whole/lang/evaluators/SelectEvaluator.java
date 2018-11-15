@@ -123,7 +123,7 @@ public class SelectEvaluator extends AbstractDelegatingNestedEvaluator<IEntity> 
 
 		fromScope.wAddAll(whereScope);
 		whereScope.wClear();
-		
+
 		getProducer(1).reset(fromEntity);
 
 		selectEntity = getProducer(1).evaluateNext(); //FIXME ? evaluateRemaining
@@ -132,9 +132,9 @@ public class SelectEvaluator extends AbstractDelegatingNestedEvaluator<IEntity> 
 
 		selectScope.wAddAll(whereScope);
 		whereScope.wClear();
-		
+
 		applyWhereClause(selectEntity, fromEntity, bm);
-		
+
 		bm.wExitScope();
 		if (needMergeExecutorScope() && selectEntity != null)
 			bm.wAddAll(selectScope);

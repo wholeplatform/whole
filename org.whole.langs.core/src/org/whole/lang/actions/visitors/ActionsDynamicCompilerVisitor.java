@@ -17,7 +17,7 @@
  */
 package org.whole.lang.actions.visitors;
 
-import org.whole.lang.actions.iterators.ActionCallIterator;
+import org.whole.lang.actions.evaluators.ActionCallEvaluator;
 import org.whole.lang.actions.model.ActionCall;
 import org.whole.lang.actions.model.GuardedAction;
 import org.whole.lang.actions.model.IActionsEntity;
@@ -27,7 +27,6 @@ import org.whole.lang.actions.model.SimpleAction;
 import org.whole.lang.actions.reflect.ActionsEntityDescriptorEnum;
 import org.whole.lang.actions.resources.ActionsRegistry;
 import org.whole.lang.executables.IExecutable;
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.model.adapters.IEntityAdapter;
@@ -77,16 +76,16 @@ public class ActionsDynamicCompilerVisitor extends ActionsIdentityDefaultVisitor
 	@Override
 	public void visit(ActionCall entity) {
     	SelectedEntities selectedEntitiesFeature = entity.getSelectedEntities();
-    	IExecutable<?>[] argumentsIterators = null;
+    	IExecutable<IEntity>[] argumentsExecutables = null;
     	if (EntityUtils.isNotResolver(selectedEntitiesFeature)) {
 			selectedEntitiesFeature.accept(this);
-			IExecutable<?> executableResult = getExecutableResult();
+			IExecutable<IEntity> executableResult = getExecutableResult();
 
-        	argumentsIterators = new IEntityIterator<?>[1];
-        	argumentsIterators[0] = executableResult;
+        	argumentsExecutables = new IExecutable[1];
+        	argumentsExecutables[0] = executableResult;
 		}
 
-    	setExecutableResult(new ActionCallIterator(
-    			entity.getName().getValue(), argumentsIterators).withSourceEntity(entity));
+    	setExecutableResult(new ActionCallEvaluator(
+    			entity.getName().getValue(), argumentsExecutables).withSourceEntity(entity));
 	}
 }
