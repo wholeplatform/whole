@@ -28,7 +28,7 @@ import org.whole.lang.executables.IExecutable;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.InterpreterOperation;
-import org.whole.lang.sql.iterators.ResultSetIterator;
+import org.whole.lang.sql.evaluators.ResultSetEvaluator;
 import org.whole.lang.sql.model.ISQLEntity;
 import org.whole.lang.sql.model.SQLStatement;
 import org.whole.lang.sql.model.SQLStatements;
@@ -134,7 +134,7 @@ public class SQLInterpreterVisitor extends SQLIdentityDefaultVisitor {
 //				}
 
 				if (statement.execute(sql))
-					setExecutableResult(new ResultSetIterator(statement.getResultSet(), names));
+					setExecutableResult(new ResultSetEvaluator(statement.getResultSet(), names));
 				else {
 					setResult(null);
 					statement.close();

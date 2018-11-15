@@ -15,53 +15,50 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.sql.iterators;
+package org.whole.lang.sql.evaluators;
 
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.util.NoSuchElementException;
 
 import org.whole.lang.bindings.BindingManagerFactory;
-import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.commons.factories.CommonsEntityFactory;
-import org.whole.lang.executables.AbstractExecutableIteratingEvaluatingStepper;
+import org.whole.lang.executables.AbstractExecutableEvaluatingStepperIterator;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.sql.factories.SQLEntityFactory;
 
 /**
  * @author Riccardo Solmi
  */
-public class ResultSetIterator extends AbstractExecutableIteratingEvaluatingStepper<IEntity> {
+public class ResultSetEvaluator extends AbstractExecutableEvaluatingStepperIterator<IEntity> {
 	private ResultSet resultSet;
-	private IEntity nextEntity = null;
 	private String[] labels;
 
-	public ResultSetIterator(ResultSet resultSet, String... labels) {
+	public ResultSetEvaluator(ResultSet resultSet, String... labels) {
 		this.resultSet = resultSet;
 		this.labels = labels;
 	}
 
-	public boolean hasNext() {
-		return lookahead() != null;
+	public void reset(IEntity entity) {
+		super.reset(entity);
+
+		try {
+			resultSet.beforeFirst();
+		} catch (SQLException e) {
+		}
 	}
 
-	public IEntity next() {
-		IEntity result = lookahead();
-		if (result == null)
-			throw new NoSuchElementException();
-		
-		getBindings().wAddAll(lookaheadScope());
-		nextEntity = null;
+	@Override
+	protected IEntity scopedEvaluateNext(boolean merge) {
+		mergeLookaheadScope = merge;
+		IEntity result = evaluateNext();
+		mergeLookaheadScope = true;
 		return result;
 	}
 
-	public IEntity lookahead() {
-		if (nextEntity != null)
-			return nextEntity;
-		
-		clearLookaheadScope();
+	public IEntity evaluateNext() {
+		clearExecutorScope();
 
 		try {
 			if (!resultSet.next()) {
@@ -76,10 +73,10 @@ public class ResultSetIterator extends AbstractExecutableIteratingEvaluatingStep
 		SQLEntityFactory ef = SQLEntityFactory.instance;
 
 		try {
-			getBindings().wEnterScope(lookaheadScope(), true);
+			getBindings().wEnterScope(executorScope(), true);
 
 			ResultSetMetaData metaData = resultSet.getMetaData();
-			nextEntity = factory.createTuple();
+			lastEntity = factory.createTuple();
 			for (int i=1; i<=metaData.getColumnCount(); i++) {
 				IEntity value;
 				switch (metaData.getColumnType(i)) {
@@ -151,37 +148,15 @@ public class ResultSetIterator extends AbstractExecutableIteratingEvaluatingStep
 				
 				String label = i <= labels.length && labels[i-1] != null ? labels[i-1] : metaData.getColumnLabel(i);
 				getBindings().wDef(label, value);
-				nextEntity.wAdd(value);
+				lastEntity.wAdd(value);
 			}
 			
-			getBindings().wExitScope();
+			getBindings().wExitScope(mergeLookaheadScope && lastEntity != null);
 
 		} catch (SQLException e) {
 			throw new IllegalStateException();
 		}
-		return nextEntity;
-	}
-
-	public void reset(IEntity entity) {
-		clearLookaheadScope();
-		try {
-			resultSet.beforeFirst();
-		} catch (SQLException e) {
-		}
-	}
-
-	private IBindingScope lookaheadScope;
-	public IBindingScope lookaheadScope() {
-		if (lookaheadScope == null)
-			lookaheadScope = BindingManagerFactory.instance.createSimpleScope();
-		return lookaheadScope;
-	}
-	protected void clearLookaheadScope() {
-		if (lookaheadScope != null) {
-			for (String name : lookaheadScope.wTargetNames())
-				getBindings().wUnset(name);
-			lookaheadScope.wClear();
-		}
+		return lastEntity;
 	}
 
 	public void prune() {
@@ -210,6 +185,6 @@ public class ResultSetIterator extends AbstractExecutableIteratingEvaluatingStep
 
 	@Override
 	public void toString(StringBuilder sb) {
-		sb.append("ResultSet iterator");
+		sb.append("ResultSet");
     }
 }
