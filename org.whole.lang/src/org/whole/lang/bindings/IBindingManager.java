@@ -40,6 +40,7 @@ public interface IBindingManager extends IBindingScope, ICloneable {
 	public static final String FIND_SKIPTO = "findReplace#skipTo";
 	public static final String FIND_PATTERN = "findReplace#pattern";
 
+	public static final String GRAMMARS_LOCALE = "grammars#locale";
 
 	public IBindingManager withSourceEntity(IEntity entity);
 

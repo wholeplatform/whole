@@ -17,6 +17,8 @@
  */
 package org.whole.lang.grammars.visitors;
 
+import java.util.Locale;
+
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.grammars.codebase.GrammarsRegistry;
 import org.whole.lang.grammars.model.Grammar;
@@ -82,7 +84,10 @@ public class GrammarsInterpreterVisitor extends GrammarsIdentityDefaultVisitor {
 
 		if (languageKit.isDynamic()) {
 			DynamicLanguageKit dynamicLanguageKit = (DynamicLanguageKit) languageKit;
-			GrammarBasedDataTypeParser dataTypeParser = new GrammarBasedDataTypeParser(grammar.getUri().getValue());
+			String grammarUri = grammar.getUri().getValue();
+			GrammarBasedDataTypeParser dataTypeParser = bm.wIsSet(IBindingManager.GRAMMARS_LOCALE) ?
+					new GrammarBasedDataTypeParser(grammarUri, Locale.forLanguageTag(bm.wStringValue(IBindingManager.GRAMMARS_LOCALE))) :
+						new GrammarBasedDataTypeParser(grammarUri);
 			dynamicLanguageKit.setDataTypeParser(DataTypeParsers.PERSISTENCE, dataTypeParser);
 			dynamicLanguageKit.setDataTypeParser(DataTypeParsers.PRESENTATION, dataTypeParser);
 		}

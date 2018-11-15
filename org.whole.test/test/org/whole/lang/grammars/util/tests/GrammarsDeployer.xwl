@@ -4,7 +4,11 @@
     <workflows:FlowObjects initialCapacity="11">
         <workflows:AssignActivity>
             <workflows:Text value="init grammars variables"/>
-            <workflows:Assignments initialCapacity="9">
+            <workflows:Assignments initialCapacity="10">
+                <workflows:Assign>
+                    <workflows:Variable value="grammars#locale"/>
+                    <workflows:StringLiteral value="it-IT"/>
+                </workflows:Assign>
                 <workflows:Assign>
                     <workflows:Variable value="dataTypesGrammar"/>
                     <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
