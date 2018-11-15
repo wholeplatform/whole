@@ -84,6 +84,7 @@ import org.whole.lang.evaluators.PrecedingEvaluator;
 import org.whole.lang.evaluators.PrecedingSiblingEvaluator;
 import org.whole.lang.evaluators.ReachableEvaluator;
 import org.whole.lang.evaluators.RecursiveFunctionApplicationEvaluator;
+import org.whole.lang.evaluators.SelectEvaluator;
 import org.whole.lang.evaluators.SequenceEvaluator;
 import org.whole.lang.evaluators.SingleValuedRunnableEvaluator;
 import org.whole.lang.evaluators.SingleValuedRunnableSupplierEvaluator;
@@ -96,7 +97,6 @@ import org.whole.lang.evaluators.VariableEvaluator;
 import org.whole.lang.iterators.DistinctScope;
 import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.iterators.Placement;
-import org.whole.lang.iterators.SelectIterator;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.CompositeKinds;
@@ -1208,9 +1208,9 @@ public class RegularExecutableFactory implements ExecutableFactory {
 		};
 	}
 
-	@Deprecated
+	@SuppressWarnings("unchecked")
 	public <E extends IEntity> IExecutable<E> createSelect(IExecutable<E> selectExecutable, IExecutable<? extends IEntity> fromExecutable, IExecutable<? extends IEntity> whereExecutable) {
-		return new SelectIterator<E>(selectExecutable.iterator(), fromExecutable.iterator(), whereExecutable.iterator());
+		return (IExecutable<E>) new SelectEvaluator((IExecutable<IEntity>) selectExecutable, (IExecutable<IEntity>) fromExecutable, (IExecutable<IEntity>) whereExecutable);
 	}
 
 	@SuppressWarnings("unchecked")

@@ -37,6 +37,7 @@ import org.whole.lang.evaluators.AbstractDelegatingNestedTrySupplierEvaluator;
 import org.whole.lang.evaluators.ChooseByTypeEvaluator;
 import org.whole.lang.evaluators.FilterByIndexRangeEvaluator;
 import org.whole.lang.evaluators.FilterEvaluator;
+import org.whole.lang.evaluators.SelectEvaluator;
 import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.executables.EmptyExecutable;
 import org.whole.lang.executables.IExecutable;
@@ -721,7 +722,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		entity.getClearClause().accept(this);
 
 		IExecutable<?> si = executableFactory().createSelect(selectIterator, fromIterator, whereIterator);
-		((SelectIterator<?>) si.undecoratedExecutable()).withNamesToBind(namesExp).withNamesComplement(useNamesComplement);
+		((SelectEvaluator) si.undecoratedExecutable()).withNamesToBind(namesExp).withNamesComplement(useNamesComplement);
 		setExecutableResult(si.withSourceEntity(entity));
 
 		declaredNames = oldDeclaredNames;

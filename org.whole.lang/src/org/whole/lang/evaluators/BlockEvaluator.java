@@ -97,9 +97,8 @@ public class BlockEvaluator<E extends IEntity> extends AbstractDelegatingNestedE
 //TODO ? alternate semantics with effects of all producers
 //			getBindings().wExitScope(needMergeExecutorScope() && result != null);
 			getBindings().wExitScope();
-			if (needMergeExecutorScope() && result != null) {
+			if (needMergeExecutorScope() && result != null)
 				getBindings().wAddAll(selfEntityScope);
-			}
 		}
 
 		return lastEntity = (E) result;
@@ -122,13 +121,12 @@ public class BlockEvaluator<E extends IEntity> extends AbstractDelegatingNestedE
 
 			accumulatedScope.wAddAll(selfEntityScope);
 			selfEntityScope.wClear();
-			
+
 			result = getProducer().evaluateRemaining();
 		} finally {
 			getBindings().wExitScope();
-			if (needMergeExecutorScope() && result != null) {
+			if (needMergeExecutorScope() && result != null)
 				getBindings().wAddAll(selfEntityScope);
-			}
 		}
 
 		return lastEntity = (E) result;

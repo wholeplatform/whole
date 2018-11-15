@@ -30,39 +30,39 @@ import org.whole.lang.operations.ICloneContext;
  * @author Riccardo Solmi
  */
 public class SortEvaluator<E extends IEntity> extends CollectionEvaluator<E> {
-	protected IExecutable<? extends E> iterator;
+	protected IExecutable<? extends E> executable;
 	protected IEntityComparator<? super E> comparator;
 
 	@SuppressWarnings("unchecked")
-	public SortEvaluator(IExecutable<? extends E> iterator) {
-		this(iterator, (IEntityComparator<E>) BusinessIdentityComparator.instance);
+	public SortEvaluator(IExecutable<? extends E> executable) {
+		this(executable, (IEntityComparator<E>) BusinessIdentityComparator.instance);
 	}
-	public SortEvaluator(IExecutable<? extends E> iterator, IEntityComparator<E> comparator) {
-		this.iterator = iterator;
+	public SortEvaluator(IExecutable<? extends E> executable, IEntityComparator<E> comparator) {
+		this.executable = executable;
 		this.comparator = comparator;
 	}
 
 	@Override
 	public IExecutable<E> clone(ICloneContext cc) {
 		SortEvaluator<E> iterator = (SortEvaluator<E>) super.clone(cc);
-		iterator.iterator = cc.clone(this.iterator);
+		iterator.executable = cc.clone(this.executable);
 		iterator.comparator = cc.clone(comparator);
 		return iterator;
 	}
 
 	@Override
 	protected Iterable<?> getCollectionIterable(IEntity entity) {
-		iterator.reset(entity);
+		executable.reset(entity);
 
 		TreeSet<E> treeSet = new TreeSet<E>(comparator);
-		for (E e : iterator)
+		for (E e : executable)
 			treeSet.add(e);
 		return treeSet;
 	}
 
 	protected void setProducersBindings(IBindingManager bindings) {
 		super.setProducersBindings(bindings);
-		iterator.setBindings(bindings);
+		executable.setBindings(bindings);
 		comparator.setBindings(bindings);
 	}
 }

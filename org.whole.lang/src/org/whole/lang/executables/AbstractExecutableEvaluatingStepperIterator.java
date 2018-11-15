@@ -57,7 +57,11 @@ public abstract class AbstractExecutableEvaluatingStepperIterator<E extends IEnt
 	}
 
 	public final boolean hasNext() {
-		return cachedEvaluateNext(false) != null;
+		try {
+			return cachedEvaluateNext(false) != null;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 	public final E next() {
