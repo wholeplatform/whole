@@ -23,7 +23,7 @@ import java.util.List;
 
 import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
-import org.whole.lang.iterators.ExecutableFactory;
+import org.whole.lang.executables.ExecutableFactory;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.queries.factories.QueriesEntityFactory;

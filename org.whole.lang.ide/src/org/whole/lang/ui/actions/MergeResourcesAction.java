@@ -47,7 +47,7 @@ import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.comparators.IdentityIteratorComparator;
 import org.whole.lang.e4.ui.actions.AbstractE4Action;
 import org.whole.lang.e4.ui.handler.HandlersBehavior;
-import org.whole.lang.iterators.ExecutableFactory;
+import org.whole.lang.executables.ExecutableFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.model.NullEntity;

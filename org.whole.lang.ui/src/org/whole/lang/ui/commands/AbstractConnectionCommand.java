@@ -18,8 +18,8 @@
 package org.whole.lang.ui.commands;
 
 import org.eclipse.gef.commands.Command;
+import org.whole.lang.executables.ExecutableFactory;
 import org.whole.lang.executables.IExecutable;
-import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.reflect.FeatureDescriptorEnum;

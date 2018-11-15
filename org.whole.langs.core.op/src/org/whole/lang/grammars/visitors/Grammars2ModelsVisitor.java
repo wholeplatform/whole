@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
+import org.whole.lang.executables.ExecutableFactory;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.factories.IEntityBuilder;
 import org.whole.lang.grammars.model.As;
@@ -37,7 +38,6 @@ import org.whole.lang.grammars.model.Template;
 import org.whole.lang.grammars.model.When;
 import org.whole.lang.grammars.reflect.GrammarsEntityDescriptorEnum;
 import org.whole.lang.grammars.util.GrammarsUtils;
-import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;

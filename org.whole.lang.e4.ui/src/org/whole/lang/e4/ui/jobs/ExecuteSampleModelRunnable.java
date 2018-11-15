@@ -32,7 +32,7 @@ import org.whole.lang.e4.ui.actions.IE4UIConstants;
 import org.whole.lang.environment.factories.EnvironmentEntityFactory;
 import org.whole.lang.environment.model.Name;
 import org.whole.lang.environment.reflect.EnvironmentEntityDescriptorEnum;
-import org.whole.lang.iterators.ConstantIterator;
+import org.whole.lang.evaluators.ConstantEvaluator;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.misc.factories.MiscEntityFactory;
@@ -88,7 +88,7 @@ public class ExecuteSampleModelRunnable extends AbstractRunnableWithProgress {
 			iterator.setBindings(selfBindings);
 			iterator.reset(selfEntity);
 
-			if (iterator.getClass().equals(ConstantIterator.class)) {
+			if (iterator.undecoratedExecutable().getClass().equals(ConstantEvaluator.class)) {
 				IEntity result = iterator.next();
 				if (result == null || !EntityUtils.isData(result))
 					derivedModel = result;

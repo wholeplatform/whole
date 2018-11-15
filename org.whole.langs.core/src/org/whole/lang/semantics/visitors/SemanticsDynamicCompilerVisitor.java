@@ -18,8 +18,8 @@
 package org.whole.lang.semantics.visitors;
 
 import org.whole.lang.actions.iterators.ActionCallIterator;
+import org.whole.lang.evaluators.SelfEvaluator;
 import org.whole.lang.executables.IExecutable;
-import org.whole.lang.iterators.SelfIterator;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.model.adapters.IEntityAdapter;
@@ -103,7 +103,7 @@ public class SemanticsDynamicCompilerVisitor extends SemanticsIdentityDefaultVis
     		arguments.accept(this);
     		IExecutable<IEntity> argumentsIterator = getExecutableResult();
 
-    		if (!argumentsIterator.getClass().equals(SelfIterator.class))
+    		if (!argumentsIterator.undecoratedExecutable().getClass().equals(SelfEvaluator.class))
     			executableResult = executableFactory().createCompose(executableResult, argumentsIterator).withSourceEntity(entity);
     	}
 		setExecutableResult(executableResult);
@@ -123,7 +123,7 @@ public class SemanticsDynamicCompilerVisitor extends SemanticsIdentityDefaultVis
     		expression.accept(this);
     		IExecutable<?> expressionIterator = getExecutableResult();
 
-    		if (!expressionIterator.getClass().equals(SelfIterator.class))
+    		if (!expressionIterator.undecoratedExecutable().getClass().equals(SelfEvaluator.class))
     			executableResult = executableFactory().createFor(expressionIterator, executableResult).withSourceEntity(entity);
     	}
 		setExecutableResult(executableResult);

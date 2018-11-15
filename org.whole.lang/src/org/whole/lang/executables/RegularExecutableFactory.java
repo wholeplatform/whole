@@ -85,6 +85,7 @@ import org.whole.lang.evaluators.PrecedingSiblingEvaluator;
 import org.whole.lang.evaluators.ReachableEvaluator;
 import org.whole.lang.evaluators.RecursiveFunctionApplicationEvaluator;
 import org.whole.lang.evaluators.SelectEvaluator;
+import org.whole.lang.evaluators.SelfEvaluator;
 import org.whole.lang.evaluators.SequenceEvaluator;
 import org.whole.lang.evaluators.SingleValuedRunnableEvaluator;
 import org.whole.lang.evaluators.SingleValuedRunnableSupplierEvaluator;
@@ -94,9 +95,6 @@ import org.whole.lang.evaluators.TupleFactoryEvaluator;
 import org.whole.lang.evaluators.UnionAllEvaluator;
 import org.whole.lang.evaluators.UnionEvaluator;
 import org.whole.lang.evaluators.VariableEvaluator;
-import org.whole.lang.iterators.DistinctScope;
-import org.whole.lang.iterators.ExecutableFactory;
-import org.whole.lang.iterators.Placement;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.CompositeKinds;
@@ -178,17 +176,7 @@ public class RegularExecutableFactory implements ExecutableFactory {
 	}
 
 	public <E extends IEntity> IExecutable<E> createSelf() {
-		return new AbstractPureConditionalSupplierEvaluator<E>() {
-			@SuppressWarnings("unchecked")
-			public E get() {
-				return (E) selfEntity;
-			}
-
-		    @Override
-			public void toString(StringBuilder sb) {
-				sb.append("self()");
-		    }
-		};
+		return new SelfEvaluator<E>();
 	}
 
 	public <E extends IEntity> IExecutable<E> createRepeatedSelf() {

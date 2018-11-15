@@ -22,8 +22,8 @@ import java.util.function.Consumer;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.bindings.ITransactionScope;
-import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.CloneContext;
 import org.whole.lang.operations.ICloneContext;
@@ -114,6 +114,24 @@ public abstract class AbstractExecutable<E extends IEntity> implements IExecutab
 	public E evaluateRemaining() {
 		E result = null;
 		IBindingManager bm = getBindings();
+
+//TODO test and replace
+//		IBindingScope selfEntityScope = BindingManagerFactory.instance.createSimpleScope();
+//		IBindingScope resultScope = null;
+//
+//		try {
+//			bm.wEnterScope(selfEntityScope, true);
+//			E next;
+//			while ((next = evaluateNext()) != null) {
+//				result = next;
+//				resultScope = selfEntityScope.clone();
+//				selfEntityScope.wClear();
+//			}
+//		} finally {
+//			bm.wExitScope();
+//			bm.wAddAll(resultScope);
+//		}
+
 		ITransactionScope transactionScope = BindingManagerFactory.instance.createTransactionScope();
 		bm.wEnterScope(transactionScope);
 		try {

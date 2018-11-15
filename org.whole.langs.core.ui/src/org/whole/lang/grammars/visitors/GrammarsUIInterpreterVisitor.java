@@ -21,12 +21,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.executables.ExecutableFactory;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.grammarbased.GrammarsToGrammarBasedQuery;
 import org.whole.lang.grammarbased.ui.editparts.GrammarBasedPartFactory;
 import org.whole.lang.grammars.codebase.GrammarsRegistry;
 import org.whole.lang.grammars.model.Grammar;
-import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.NormalizerOperation;
 import org.whole.lang.queries.model.PathExpression;

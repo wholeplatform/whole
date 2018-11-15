@@ -15,35 +15,21 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.iterators;
+package org.whole.lang.evaluators;
 
 import org.whole.lang.model.IEntity;
 
 /**
- * Iterator that returns all immediate adjacents of a given IEntity in order.
- * 
  * @author Riccardo Solmi
  */
-public class AdjacentIterator<E extends IEntity> extends AbstractByIndexIterator<E> {
-    protected AdjacentIterator(boolean forward) {
-    	super(forward);
-    }
-    protected AdjacentIterator(boolean forward, int relativeFirstIndex) {
-        super(forward, relativeFirstIndex);
-    }
-    
-    @Override
-    protected final int startIndex() {
-    	return selfEntity.wSize();
-    }
-    @Override
-    protected final int endIndex() {
-    	return selfEntity.wSize()+selfEntity.wAdjacentSize()-1;
-    }
+public class SelfEvaluator<E extends IEntity> extends AbstractPureConditionalSupplierEvaluator<E> {
+	@SuppressWarnings("unchecked")
+	public E get() {
+		return (E) selfEntity;
+	}
 
-    @Override
+	@Override
 	public void toString(StringBuilder sb) {
-    	sb.append("adjacent()");
-		sb.append(forward ? "()" : "-reverse()");
-    }
+		sb.append("self()");
+	}
 }

@@ -22,10 +22,10 @@ import java.util.Collection;
 import java.util.function.Predicate;
 
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.executables.ExecutableFactory;
 import org.whole.lang.executables.IExecutable;
-import org.whole.lang.iterators.ExecutableFactory;
+import org.whole.lang.executables.Placement;
 import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.Placement;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.CloneOperationOld;
 import org.whole.lang.operations.IOperation;

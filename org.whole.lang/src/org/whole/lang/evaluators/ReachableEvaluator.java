@@ -17,8 +17,8 @@
  */
 package org.whole.lang.evaluators;
 
+import org.whole.lang.executables.DistinctScope;
 import org.whole.lang.executables.IExecutable;
-import org.whole.lang.iterators.DistinctScope;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 

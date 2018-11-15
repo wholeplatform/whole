@@ -17,8 +17,8 @@
  */
 package org.whole.lang.grammarbased.ui.figures;
 
+import org.whole.lang.executables.ExecutableFactory;
 import org.whole.lang.executables.IExecutable;
-import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.EntityDescriptorEnum;

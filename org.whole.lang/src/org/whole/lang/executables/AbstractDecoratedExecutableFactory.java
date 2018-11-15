@@ -21,9 +21,6 @@ import java.util.Map;
 import java.util.Set;
 
 import org.whole.lang.comparators.IEntityComparator;
-import org.whole.lang.iterators.DistinctScope;
-import org.whole.lang.iterators.ExecutableFactory;
-import org.whole.lang.iterators.Placement;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.CompositeKinds;
 import org.whole.lang.reflect.DataKinds;

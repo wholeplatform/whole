@@ -15,26 +15,18 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.iterators;
+package org.whole.lang.executables;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
+import org.whole.lang.comparators.IEntityComparator;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.operations.ICloneable;
 
 /**
  * @author Riccardo Solmi
  */
-public class AncestorReverseIterator extends CollectionIterator<IEntity> {
-	@Override
-	protected Iterable<?> getCollectionIterable(IEntity entity) {
-        List<IEntity> ancestors = new ArrayList<IEntity>();
-        IEntityIterator<IEntity> i = executableFactory().createAncestor().iterator();
-        i.reset(entity);
-		for (IEntity parent : i)
-        	ancestors.add(parent);
-		Collections.reverse(ancestors);
-		return ancestors;
-	}
+public interface DistinctScope<E extends IEntity> extends ICloneable {
+	public DistinctScope<E> withComparator(IEntityComparator<IEntity> comparator);
+	public IExecutable<E> withExecutable(IExecutable<E> iterator);
+
+	public IExecutable<IEntity> distinctExecutable();
 }

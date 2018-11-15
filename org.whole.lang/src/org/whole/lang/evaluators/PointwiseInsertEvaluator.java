@@ -19,7 +19,7 @@ package org.whole.lang.evaluators;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.executables.IExecutable;
-import org.whole.lang.iterators.Placement;
+import org.whole.lang.executables.Placement;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.util.EntityUtils;

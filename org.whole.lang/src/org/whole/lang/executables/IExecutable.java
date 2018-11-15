@@ -22,7 +22,6 @@ import java.util.Spliterator;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.evaluators.IEvaluator;
 import org.whole.lang.exceptions.IWholeRuntimeException;
-import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;

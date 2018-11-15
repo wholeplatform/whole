@@ -26,7 +26,7 @@ import org.junit.Test;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.builders.ModelBuilderOperation;
-import org.whole.lang.iterators.ExecutableFactory;
+import org.whole.lang.executables.ExecutableFactory;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;

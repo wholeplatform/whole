@@ -39,6 +39,7 @@ import org.whole.lang.codebase.ClasspathPersistenceProvider;
 import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
 import org.whole.lang.commons.factories.CommonsEntityFactory;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
+import org.whole.lang.executables.ExecutableFactory;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.executables.RegularExecutableFactory;
 import org.whole.lang.factories.RegistryConfigurations;

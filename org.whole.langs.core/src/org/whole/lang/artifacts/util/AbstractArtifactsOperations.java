@@ -17,7 +17,7 @@
  */
 package org.whole.lang.artifacts.util;
 
-import org.whole.lang.iterators.ExecutableFactory;
+import org.whole.lang.executables.ExecutableFactory;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.matchers.GenericMatcherFactory;
 import org.whole.lang.model.IEntity;

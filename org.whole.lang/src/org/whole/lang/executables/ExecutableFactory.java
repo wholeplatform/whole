@@ -15,16 +15,13 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.iterators;
+package org.whole.lang.executables;
 
 import java.util.Map;
 import java.util.Set;
 
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.comparators.IEntityComparator;
-import org.whole.lang.executables.IExecutable;
-import org.whole.lang.executables.InstrumentedExecutableFactory;
-import org.whole.lang.executables.RegularExecutableFactory;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.CompositeKinds;
 import org.whole.lang.reflect.DataKinds;

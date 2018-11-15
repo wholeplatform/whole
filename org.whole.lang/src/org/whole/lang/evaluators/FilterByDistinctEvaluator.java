@@ -26,8 +26,8 @@ import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.comparators.BusinessIdentityComparator;
 import org.whole.lang.comparators.IEntityComparator;
+import org.whole.lang.executables.DistinctScope;
 import org.whole.lang.executables.IExecutable;
-import org.whole.lang.iterators.DistinctScope;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 

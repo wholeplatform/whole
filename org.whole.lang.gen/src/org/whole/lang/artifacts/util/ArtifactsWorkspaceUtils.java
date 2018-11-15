@@ -61,9 +61,9 @@ import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
 import org.whole.lang.commons.factories.CommonsEntityFactory;
 import org.whole.lang.commons.model.Resolver;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
+import org.whole.lang.evaluators.CollectionEvaluator;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.factories.RegistryConfigurations;
-import org.whole.lang.iterators.CollectionIterator;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
@@ -102,7 +102,7 @@ public class ArtifactsWorkspaceUtils {
 				!Matcher.match(ArtifactsEntityDescriptorEnum.Project, artifact))
 			throw new IllegalArgumentException("Wrong path ending with: "+artifact.toString());
 
-		IEntityIterator<IEntity> pathIterator = new AncestorOrSelfInSameLanguageReverseIterator();
+		IEntityIterator<IEntity> pathIterator = new AncestorOrSelfInSameLanguageReverseEvaluator();
 		pathIterator.reset(artifact);
 
 		if (!pathIterator.hasNext())
@@ -498,15 +498,15 @@ public class ArtifactsWorkspaceUtils {
 		visitor.visit(rootArtifact);
 	}
 
-	public static class AncestorOrSelfInSameLanguageReverseIterator extends CollectionIterator<IEntity> {
+	public static class AncestorOrSelfInSameLanguageReverseEvaluator extends CollectionEvaluator<IEntity> {
 		@Override
 		protected Iterable<?> getCollectionIterable(IEntity entity) {
 			List<IEntity> ancestors = new ArrayList<IEntity>();
 			ILanguageKit languageKit = entity.wGetLanguageKit();
 
-	        IExecutable<?> iterator = executableFactory().createAncestorOrSelf();
-	        iterator.reset(entity);
-			for (IEntity parent : iterator) {
+	        IExecutable<?> executable = executableFactory().createAncestorOrSelf();
+	        executable.reset(entity);
+			for (IEntity parent : executable) {
 	        	if (languageKit.equals(parent.wGetLanguageKit()))
 	        		ancestors.add(parent);
 	        	else

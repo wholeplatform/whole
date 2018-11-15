@@ -25,6 +25,7 @@ import java.util.Set;
 
 import org.whole.lang.builders.IBuilder;
 import org.whole.lang.builders.IBuilderOperation;
+import org.whole.lang.executables.ExecutableFactory;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.grammars.factories.GrammarsEntityFactory;
 import org.whole.lang.grammars.model.As;
@@ -39,7 +40,6 @@ import org.whole.lang.grammars.reflect.GrammarsEntityDescriptorEnum;
 import org.whole.lang.grammars.reflect.GrammarsFeatureDescriptorEnum;
 import org.whole.lang.grammars.reflect.GrammarsLanguageKit;
 import org.whole.lang.grammars.util.GrammarsUtils;
-import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.NormalizerOperation;
 import org.whole.lang.parsers.Lexer;

@@ -31,7 +31,6 @@ import org.junit.Test;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.evaluators.FilterEvaluator;
-import org.whole.lang.iterators.ExecutableFactory;
 import org.whole.lang.math.factories.MathEntityFactory;
 import org.whole.lang.math.model.Identifier;
 import org.whole.lang.model.IEntity;
