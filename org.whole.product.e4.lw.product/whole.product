@@ -11,7 +11,8 @@
    </configIni>
 
    <launcherArgs>
-      <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgsMac>
+      <vmArgs>-Xms512m -Xmx1024m --add-modules=ALL-SYSTEM</vmArgs>
+      <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts --add-modules=ALL-SYSTEM</vmArgsMac>
    </launcherArgs>
 
    <windowImages/>
