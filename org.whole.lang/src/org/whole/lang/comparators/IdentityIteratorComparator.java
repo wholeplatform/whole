@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 
@@ -29,27 +29,27 @@ import org.whole.lang.operations.ICloneContext;
  * @author Riccardo Solmi
  */
 public class IdentityIteratorComparator<T extends IEntity> extends AbstractEqualityComparator<T> {
-	protected IEntityIterator<? extends T> iterator;
+	protected IExecutable<? extends T> executable;
 	protected IEntityComparator<? super T> comparator;
 
-	public IdentityIteratorComparator(IEntityIterator<T> iterator) {
-		this(iterator, BusinessIdentityComparator.instance);
+	public IdentityIteratorComparator(IExecutable<T> executable) {
+		this(executable, BusinessIdentityComparator.instance);
 	}
-	public IdentityIteratorComparator(IEntityIterator<? extends T> iterator, IEntityComparator<? super T> collector) {
-		this.iterator = iterator;
+	public IdentityIteratorComparator(IExecutable<? extends T> executable, IEntityComparator<? super T> collector) {
+		this.executable = executable;
 		this.comparator = collector;
 	}
 
 	@Override
 	public IEntityComparator<T> clone(ICloneContext cc) {
 		IdentityIteratorComparator<T> comparator = (IdentityIteratorComparator<T>) super.clone(cc);
-		comparator.iterator = cc.clone(this.iterator);
+		comparator.executable = cc.clone(this.executable);
 		comparator.comparator = cc.clone(this.comparator);
 		return comparator;
 	}
 
 	public void setBindings(IBindingManager bm) {
-		iterator.setBindings(bm);
+		executable.setBindings(bm);
 		comparator.setBindings(bm);
 	}
 
@@ -59,18 +59,18 @@ public class IdentityIteratorComparator<T extends IEntity> extends AbstractEqual
 	protected List<T> identityOf(T e) {
 		List<T> identityList = new ArrayList<T>();
 		
-		iterator.reset(e);
-		while (iterator.hasNext())
-			identityList.add(iterator.next());
+		executable.reset(e);
+		while ((e = executable.evaluateNext()) != null)
+			identityList.add(e);
 
 		return identityList;
 	}
 	protected <R extends IEntity> boolean hasIdentity(IEntity e, List<? extends T> identity) {
-		iterator.reset(e);
+		executable.reset(e);
 		for (int i=0, size=identity.size(); i<size; i++)
-			if (!iterator.hasNext() || !comparator.equals(identity.get(i), iterator.next()))
+			if ((e = executable.evaluateNext()) == null || !comparator.equals(identity.get(i), (T) e))
 				return false;
-		return !iterator.hasNext();
+		return executable.evaluateNext() == null;
 	}
 
 	public boolean contains(IEntity container, T e) {

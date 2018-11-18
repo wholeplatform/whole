@@ -167,6 +167,6 @@ public class MergeResourcesAction extends AbstractE4Action {
 
 	protected IdentityIteratorComparator<IEntity> createEntityComparator() {
 		return new IdentityIteratorComparator<IEntity>(
-				ExecutableFactory.instance.createFeatureByName(ArtifactsFeatureDescriptorEnum.name).iterator());
+				ExecutableFactory.instance.createFeatureByName(ArtifactsFeatureDescriptorEnum.name));
 	}
 }

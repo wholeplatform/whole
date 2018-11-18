@@ -37,15 +37,12 @@ import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
 import org.whole.lang.commons.model.QuantifierEnum;
 import org.whole.lang.executables.ExecutableFactory;
 import org.whole.lang.executables.IExecutable;
-import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.matchers.GenericMatcherFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ArtifactsGeneratorOperation;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.EntityKinds;
 import org.whole.lang.util.EntityUtils;
-import org.whole.lang.visitors.GenericTraversalFactory;
 import org.whole.lang.visitors.VisitException;
 
 /**
@@ -120,21 +117,24 @@ public class ArtifactsSynchronizerVisitor<T> extends ArtifactsResourceVisitor<T>
 
 	private IEntity createBasePath(IArtifactsEntity entity) {
 		ExecutableFactory ef = executableFactory();
-		IEntityIterator<IEntity> iterator = ef.createFilter(
+		IExecutable<IEntity> executable = ef.createFilter(
 				ef.createAncestor(),
-				ef.createSome(ef.createIsFragment(), ef.createHasKind(EntityKinds.COMPOSITE))).iterator();
+				ef.createSome(ef.createIsFragment(), ef.createHasKind(EntityKinds.COMPOSITE)));
 
-		iterator.reset(entity);
+		executable.reset(entity);
 
 		// build the ancestors path
 		IEntity patternPath = null;
-		if (iterator.hasNext()) {
+		IEntity e = executable.evaluateNext();
+		if (e != null) {
 			EntityDescriptor<?> ed = getChildren(entity).wGetEntityDescriptor(0);
 			patternPath = cloneArtifact(entity, CommonsEntityAdapterFactory.createVariable(
 					ed, SUB_TREE_ROOT, ed, QuantifierEnum.ONE_OR_MORE_GREEDY));
 		}
-		while (iterator.hasNext())
-			patternPath = cloneArtifact(iterator.next(), patternPath);
+		while (e != null) {
+			patternPath = cloneArtifact(e, patternPath);
+			 e = executable.evaluateNext();
+		};
 
 		return patternPath;
 	}
@@ -177,15 +177,14 @@ public class ArtifactsSynchronizerVisitor<T> extends ArtifactsResourceVisitor<T>
 	private void synchronize(IEntity children, IEntity compareToChildren) {
 		// perform delete missing resources
 		if (synchronize.isRemoving()) {
-			IEntityIterator<IEntity> iterator = executableFactory().createChild().iterator();
-			iterator.reset(compareToChildren);
-			while (iterator.hasNext()) {
-				IEntity child = iterator.next();
+			IExecutable<IEntity> executable = executableFactory().createChild();
+			executable.reset(compareToChildren);
+			for (IEntity child = executable.evaluateNext(); child != null; child = executable.evaluateNext()) {
 				if (hasChild(children, child))
 					continue;
 
 				if (isLoading)
-					iterator.remove();
+					executable.remove();
 				else
 					getArtifactsOperations().deleteChild(getResource(), child);
 			}
@@ -193,12 +192,11 @@ public class ArtifactsSynchronizerVisitor<T> extends ArtifactsResourceVisitor<T>
 
 		// perform remove additions
 		if (synchronize.isUpdateOnly()) {
-			IEntityIterator<IEntity> iterator = executableFactory().createChild().iterator();
-			iterator.reset(children);
-			while (iterator.hasNext()) {
-				IEntity child = iterator.next();
+			IExecutable<IEntity> executable = executableFactory().createChild();
+			executable.reset(children);
+			for (IEntity child = executable.evaluateNext(); child != null; child = executable.evaluateNext()) {
 				if (!hasChild(compareToChildren, child))
-					iterator.remove();
+					executable.remove();
 			}
 		}
 	}

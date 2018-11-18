@@ -17,7 +17,7 @@
  */
 package org.whole.lang.visitors;
 
-import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.resources.CompoundResourceRegistry;
@@ -28,7 +28,7 @@ import org.whole.lang.resources.CompoundResourceRegistry;
 public abstract class AbstractDynamicVisitor extends AbstractVisitor {
 	protected CompoundResourceRegistry<?> registry;
 	protected String functionUri;
-	protected IEntityIterator<?> functionIterator;
+	protected IExecutable<?> functionExecutable;
 
 	public AbstractDynamicVisitor(CompoundResourceRegistry<?> registry, String functionUri) {
 		this.registry = registry;
@@ -38,23 +38,23 @@ public abstract class AbstractDynamicVisitor extends AbstractVisitor {
 	@Override
 	public IVisitor clone(ICloneContext cc) {
 		AbstractDynamicVisitor visitor = (AbstractDynamicVisitor) super.clone(cc);
-		visitor.functionIterator = cc.clone(functionIterator);
+		visitor.functionExecutable = cc.clone(functionExecutable);
 		return visitor;
 	}
 
-	protected IEntityIterator<?> functionIterator() {
-		if (functionIterator == null) {
-			functionIterator = registry.getFunctionCode(functionUri, true, getBindings());
+	protected IExecutable<?> functionExecutable() {
+		if (functionExecutable == null) {
+			functionExecutable = registry.getFunctionCode(functionUri, true, getBindings());
 		}
-		return functionIterator;
+		return functionExecutable;
 	}
 
 	public void visit(IEntity entity) {
-		IEntityIterator<?> iterator = functionIterator();
+		IExecutable<?> iterator = functionExecutable();
 		iterator.setBindings(getBindings());
 		iterator.reset(entity);
 		apply(iterator);
 	}
 
-	protected abstract void apply(IEntityIterator<?> iterator);
+	protected abstract void apply(IExecutable<?> iterator);
 }

@@ -54,7 +54,6 @@ import org.whole.lang.grammars.reflect.GrammarsFeatureDescriptorEnum;
 import org.whole.lang.grammars.reflect.GrammarsLanguageKit;
 import org.whole.lang.grammars.visitors.GrammarsIdentityVisitor;
 import org.whole.lang.grammars.visitors.GrammarsTraverseAllVisitor;
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.EnumType;
 import org.whole.lang.parsers.Lexer;
@@ -384,26 +383,26 @@ public class GenericPredictiveParser extends AbstractPredictiveParser {
 		}
 
 		protected void evaluate(Predicate predicate) {
-			IEntityIterator<Predicate> iterator;
+			IExecutable<Predicate> executable;
 
 			switch (predicate.wGetEntityOrd()) {
 			case GrammarsEntityDescriptorEnum.And_ord:
-				iterator = ExecutableFactory.instance.<Predicate>createChild().iterator();
-				iterator.reset(predicate);
-				while (iterator.hasNext()) {
+				executable = ExecutableFactory.instance.<Predicate>createChild();
+				executable.reset(predicate);
+				for (Predicate entity = executable.evaluateNext(); entity != null; entity = executable.evaluateNext()) {
 					Lexer.Memento memento = mark();
-					evaluate(iterator.next());
+					evaluate(entity);
 					reset(memento);
 				}
 				break;
 
 			case GrammarsEntityDescriptorEnum.Or_ord:
-				iterator = ExecutableFactory.instance.<Predicate>createChild().iterator();
-				iterator.reset(predicate);
-				while (iterator.hasNext()) {
+				executable = ExecutableFactory.instance.<Predicate>createChild();
+				executable.reset(predicate);
+				for (Predicate entity = executable.evaluateNext(); entity != null; entity = executable.evaluateNext()) {
 					Lexer.Memento memento = mark();
 					try {
-						evaluate(iterator.next());
+						evaluate(entity);
 						return;
 					} catch (Exception e) {
 						reset(memento);

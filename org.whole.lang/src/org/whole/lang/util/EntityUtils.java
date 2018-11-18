@@ -26,8 +26,8 @@ import java.util.stream.Collectors;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.comparators.IEntityComparator;
 import org.whole.lang.executables.ExecutableFactory;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.factories.GenericEntityFactory;
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.EnumValue;
 import org.whole.lang.model.IEntity;
@@ -402,10 +402,9 @@ public class EntityUtils {
 				while (j<mergee.wSize())
 					merger.wAdd(cloneIfParented(mergee.wGet(j++).wGetAdaptee(false)));
 			} else {
-				IEntityIterator<IEntity> mergeeIterator = ExecutableFactory.instance.createChild().iterator();
-				mergeeIterator.reset(mergee);
-				while (mergeeIterator.hasNext()) {
-					IEntity mergeeChild = mergeeIterator.next();
+				IExecutable<IEntity> mergeeExecutable = ExecutableFactory.instance.createChild();
+				mergeeExecutable.reset(mergee);
+				for (IEntity mergeeChild = mergeeExecutable.evaluateNext(); mergeeChild != null; mergeeChild = mergeeExecutable.evaluateNext()) {
 					if (comparator.contains(merger, mergeeChild)) {
 						IEntity mergerChild = comparator.get(merger, mergeeChild);
 						merger.wSet(mergeeChild, merge(mergerChild, mergeeChild, comparator, orderAware));
@@ -472,11 +471,13 @@ public class EntityUtils {
 		StringBuffer path = new StringBuffer();
 		if (entity != null) {
 			IEntity parent = null;
-			IEntityIterator<IEntity> i = ExecutableFactory.instance.createAncestorOrSelfReverse().iterator();
-			i.reset(entity);
-			if (CommonsEntityDescriptorEnum.RootFragment.equals(i.lookahead().wGetEntityDescriptor()))
-				i.next();
-			for (IEntity child : i) {
+			IExecutable<IEntity> executable = ExecutableFactory.instance.createAncestorOrSelfReverse();
+			executable.reset(entity);
+
+			IEntity firstEntity = executable.evaluateNext();
+			if (CommonsEntityDescriptorEnum.RootFragment.equals(firstEntity.wGetEntityDescriptor()))
+				firstEntity = executable.evaluateNext();
+			for (IEntity child = firstEntity; child != null; child = executable.evaluateNext()) {
 				if (parent != null) {
 					path.append('/');
 					if (EntityUtils.isSimple(parent))

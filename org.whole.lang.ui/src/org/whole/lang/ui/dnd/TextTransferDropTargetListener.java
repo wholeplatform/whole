@@ -39,7 +39,7 @@ import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.codebase.IPersistenceKit;
 import org.whole.lang.codebase.StringPersistenceProvider;
 import org.whole.lang.executables.ExecutableFactory;
-import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.ui.dialogs.IImportAsModelDialog;
@@ -107,23 +107,24 @@ public class TextTransferDropTargetListener extends AbstractTransferDropTargetLi
 				bm.wDef("syntheticRoot", entity);
 			boolean hasSyntheticRoot = bm.wIsSet("syntheticRoot");
 
-			IEntityIterator<IEntity> iterator;
+			IExecutable<IEntity> executable;
 			boolean needsCompositeTarget = false;
 			if (hasSyntheticRoot) {
 				IEntity syntheticRoot = bm.wGet("syntheticRoot");
-				iterator = ExecutableFactory.instance.createChild().iterator();
-				iterator.reset(syntheticRoot);
+				executable = ExecutableFactory.instance.createChild();
+				executable.reset(syntheticRoot);
 				needsCompositeTarget = syntheticRoot.wSize() > 1;
 			} else {
-				iterator = ExecutableFactory.instance.createSelf().iterator();
-				iterator.reset(entity);
+				executable = ExecutableFactory.instance.createSelf();
+				executable.reset(entity);
 			}
 
 			List<IEntityPart> editParts = new ArrayList<IEntityPart>();
-			while (iterator.hasNext()) {
-				IEntity stageEntity = EntityUtils.clone(iterator.next());
-				stageEntity = ClipboardUtils.conditionalStageAdd(getTargetEditPart(), stage, stageEntity, needsCompositeTarget);
-				editParts.add(ClipboardUtils.createEditPart(getViewer().getEditPartFactory(), stageEntity));
+			IEntity stageEntity;
+			while ((stageEntity = executable.evaluateNext()) != null) {
+				IEntity stageEntityClone = EntityUtils.clone(stageEntity);
+				stageEntityClone = ClipboardUtils.conditionalStageAdd(getTargetEditPart(), stage, stageEntityClone, needsCompositeTarget);
+				editParts.add(ClipboardUtils.createEditPart(getViewer().getEditPartFactory(), stageEntityClone));
 			}
 
 			ChangeBoundsRequest request = (ChangeBoundsRequest) getTargetRequest();

@@ -22,7 +22,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 /**
- * Runs: 478
+ * Runs: 477
  * Errors: 2
  * Failures: 8
  *

@@ -69,7 +69,6 @@ import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.executables.ExecutableFactory;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.factories.GenericEntityFactory;
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.misc.factories.MiscEntityFactory;
 import org.whole.lang.model.IEntity;
@@ -140,11 +139,10 @@ public class HandlersBehavior {
 		if (selectionTuple.wSize() == 0 || (single && selectionTuple.wSize() > 1))
 			return false;
 		
-		IEntityIterator<IEntity> iterator = ExecutableFactory.instance.createChild().iterator();
-		iterator.getBindings().enforceSelfBinding(selectionTuple);
-		iterator.reset(selectionTuple);
-		while (iterator.hasNext()) {
-			IEntity entity = iterator.next();
+		IExecutable<IEntity> executable = ExecutableFactory.instance.createChild();
+		executable.getBindings().enforceSelfBinding(selectionTuple);
+		executable.reset(selectionTuple);
+		for (IEntity entity = executable.evaluateNext(); entity != null; entity = executable.evaluateNext()) {
 			if (Matcher.match(CommonsEntityDescriptorEnum.RootFragment, entity))
 				return false;
 		}
@@ -224,19 +222,22 @@ public class HandlersBehavior {
 		if (clipboardTuple == null)
 			return false;
 
-		IEntityIterator<IEntity> iterator = ExecutableFactory.instance.createChild().iterator();
+		IExecutable<IEntity> iterator = ExecutableFactory.instance.createChild();
 		iterator.getBindings().enforceSelfBinding(clipboardTuple);
 		iterator.reset(clipboardTuple);
 
 		IEntity focusEntity = bm.wGet("focusEntity");
-		if (focusEntity != null && iterator.hasNext()) {
-			IEntity clipboardEntity = iterator.next();
+		IEntity clipboardEntity = iterator.evaluateNext();
+		if (focusEntity != null && clipboardEntity != null) {
 			boolean addable = EntityUtils.isAddable(focusEntity, clipboardEntity);
-			if (!addable && !iterator.hasNext())
+			clipboardEntity = iterator.evaluateNext();
+			if (!addable && clipboardEntity == null)
 				return EntityUtils.isReplaceable(focusEntity, clipboardEntity);
 			else {
-				while (addable && iterator.hasNext())
-					addable = EntityUtils.isAddable(focusEntity, iterator.next());
+				while (addable && clipboardEntity != null) {
+					addable = EntityUtils.isAddable(focusEntity, clipboardEntity);
+					clipboardEntity = iterator.evaluateNext();
+				}
 				return addable;
 			}
 		}
@@ -249,23 +250,27 @@ public class HandlersBehavior {
 
 		IEntity clipboardContent = runnable.get();
 		if (clipboardContent != null) {
-			IEntityIterator<IEntity> iterator = ExecutableFactory.instance.createChildReverse().iterator();
+			IExecutable<IEntity> iterator = ExecutableFactory.instance.createChildReverse();
 			iterator.getBindings().enforceSelfBinding(clipboardContent);
 			iterator.reset(clipboardContent);
 	
 			IEntity focusEntity = bm.wGet("focusEntity");
-			while (iterator.hasNext()) {
-				IEntity clipboardEntity = EntityUtils.clone(iterator.next());
-				boolean addable = EntityUtils.isAddable(focusEntity, clipboardEntity);
-				if (!addable && !iterator.hasNext()) {
+			IEntity clipboardEntity = iterator.evaluateNext();
+			while (clipboardEntity != null) {
+				IEntity clipboardEntityClone = EntityUtils.clone(clipboardEntity);
+				boolean isAddable = EntityUtils.isAddable(focusEntity, clipboardEntityClone);
+				IEntity nextClipboardEntity = iterator.evaluateNext();
+				if (!isAddable && nextClipboardEntity == null) {
 					IEntity parent = focusEntity.wGetParent();
-					parent.wSet(focusEntity, clipboardEntity);
+					parent.wSet(focusEntity, clipboardEntityClone);
 					break;
-				} else
+				} else {
 					if (bm.wIsSet("hilightPosition"))
-						focusEntity.wAdd(bm.wIntValue("hilightPosition"), clipboardEntity);
+						focusEntity.wAdd(bm.wIntValue("hilightPosition"), clipboardEntityClone);
 					else
-						focusEntity.wAdd(clipboardEntity);
+						focusEntity.wAdd(clipboardEntityClone);
+				}
+				clipboardEntity = nextClipboardEntity;
 			}
 		}
 	}
@@ -307,41 +312,42 @@ public class HandlersBehavior {
 		IEntity entity = E4Utils.syncExec(bm, entityRunnable).get();
 
 		boolean adding = dialog.isForceAdding();
-		IEntityIterator<IEntity> iterator;
+		IExecutable<IEntity> iterator;
 		if (bm.wIsSet("syntheticRoot")) {
 			IEntity syntheticRoot = bm.wGet("syntheticRoot");
 			adding |= syntheticRoot.wSize() > 1;
 			if (adding && !EntityUtils.isComposite(focusEntity)) {
 				adding = false;
-				iterator = ExecutableFactory.instance.createSelf().iterator();
+				iterator = ExecutableFactory.instance.createSelf();
 			} else
-				iterator = ExecutableFactory.instance.createChildReverse().iterator();
+				iterator = ExecutableFactory.instance.createChildReverse();
 			iterator.getBindings().enforceSelfBinding(syntheticRoot);
 			iterator.reset(syntheticRoot);
 		} else {
-			iterator = ExecutableFactory.instance.createSelf().iterator();
+			iterator = ExecutableFactory.instance.createSelf();
 			iterator.getBindings().enforceSelfBinding(entity);
 			iterator.reset(entity);
 		}
 
 		EntityDescriptor<?> stage = dialog.getStage();
-		while (iterator.hasNext()) {
-			IEntity clipboardEntity = EntityUtils.clone(iterator.next());
+		IEntity clipboardEntity;
+		while ((clipboardEntity = iterator.evaluateNext()) != null) {
+			IEntity clipboardEntityClone = EntityUtils.clone(clipboardEntity);
 			if (!adding) {
 				if (!CommonsEntityDescriptorEnum.SameStageFragment.equals(stage) ||
-						!EntityUtils.isReplaceable(focusEntity, clipboardEntity))
-					clipboardEntity = CommonsEntityFactory.instance.create(stage, clipboardEntity);
+						!EntityUtils.isReplaceable(focusEntity, clipboardEntityClone))
+					clipboardEntityClone = CommonsEntityFactory.instance.create(stage, clipboardEntityClone);
 				IEntity parent = focusEntity.wGetParent();
-				parent.wSet(focusEntity, clipboardEntity);
+				parent.wSet(focusEntity, clipboardEntityClone);
 				break;
 			} else {
 				if (!CommonsEntityDescriptorEnum.SameStageFragment.equals(stage) ||
-						!EntityUtils.isAddable(focusEntity, clipboardEntity))
-					clipboardEntity = CommonsEntityFactory.instance.create(stage, clipboardEntity);
+						!EntityUtils.isAddable(focusEntity, clipboardEntityClone))
+					clipboardEntityClone = CommonsEntityFactory.instance.create(stage, clipboardEntityClone);
 				if (bm.wIsSet("hilightPosition"))
-					focusEntity.wAdd(bm.wIntValue("hilightPosition"), clipboardEntity);
+					focusEntity.wAdd(bm.wIntValue("hilightPosition"), clipboardEntityClone);
 				else
-					focusEntity.wAdd(clipboardEntity);
+					focusEntity.wAdd(clipboardEntityClone);
 			}
 		}
 	}
@@ -353,12 +359,10 @@ public class HandlersBehavior {
 		IEntity selectedEntities = bm.wGet("selectedEntities");
 		List<IEntity> rootEntities = new ArrayList<IEntity>();
 
-		IEntityIterator<IEntity> iterator = ExecutableFactory.instance.createChild().iterator();
+		IExecutable<IEntity> iterator = ExecutableFactory.instance.createChild();
 		iterator.getBindings().enforceSelfBinding(selectedEntities);
 		iterator.reset(selectedEntities);
-		while (iterator.hasNext()) {
-			IEntity entity = iterator.next();
-
+		for (IEntity entity = iterator.evaluateNext(); entity != null; entity = iterator.evaluateNext()) {
 			boolean rootCandidate = true;
 			IEntity parent = entity.wGetParent();
 			while (rootCandidate && !EntityUtils.isNull(parent)) {

@@ -38,7 +38,6 @@ import org.whole.lang.grammars.model.Production;
 import org.whole.lang.grammars.model.Productions;
 import org.whole.lang.grammars.reflect.GrammarsEntityDescriptorEnum;
 import org.whole.lang.grammars.util.TestXmlGrammar;
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.java.model.FieldDeclaration;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
@@ -175,17 +174,19 @@ public class PathExpressionsQueriesTest {
 		Grammar g = new TestXmlGrammar().create();
 		NonTerminal prologNt = ((Production) ((Production) g.getPhraseStructure().wGet(0)).getRule().wGet(0)).getName();
 
-		IEntityIterator<NonTerminal> nti = BehaviorUtils.<NonTerminal>compileAndLazyEvaluate((PathExpression) tm.create("path1"), g).iterator();
+		IExecutable<NonTerminal> nti = BehaviorUtils.<NonTerminal>compileAndLazyEvaluate((PathExpression) tm.create("path1"), g);
 
-		Assert.assertTrue(nti.hasNext());
-		Assert.assertSame(prologNt, nti.next());
+		IEntity e = nti.evaluateNext();
+		Assert.assertNotNull(e);
+		Assert.assertSame(prologNt, e);
 
 		nti.reset(g.getPhraseStructure());
-		Assert.assertFalse(nti.hasNext());
+		Assert.assertNull(nti.evaluateNext());
 
 		nti.reset(g);
-		Assert.assertTrue(nti.hasNext());
-		Assert.assertSame(prologNt, nti.next());		
+		e = nti.evaluateNext();
+		Assert.assertNotNull(e);
+		Assert.assertSame(prologNt, e);		
 	} 
 
 	@Test
@@ -193,25 +194,29 @@ public class PathExpressionsQueriesTest {
 		ITemplateManager tm = PathExpressionsQueriesTemplateManager.instance();
 		Grammar g = new TestXmlGrammar().create();
 
-		IEntityIterator<Production> pi = BehaviorUtils.<Production>compileAndLazyEvaluate((PathExpression) tm.create("path1a"), g).iterator();
-		Assert.assertTrue(pi.hasNext());
-		Assert.assertSame(g.getPhraseStructure().wGet(2), pi.next());
-		Assert.assertFalse(pi.hasNext());
+		IExecutable<Production> pi = BehaviorUtils.<Production>compileAndLazyEvaluate((PathExpression) tm.create("path1a"), g);
+		IEntity e = pi.evaluateNext();
+		Assert.assertNotNull(e);
+		Assert.assertSame(g.getPhraseStructure().wGet(2), e);
+		Assert.assertNull(pi.evaluateNext());
 
-		pi = BehaviorUtils.<Production>compileAndLazyEvaluate((PathExpression) tm.create("path1b"), g).iterator();
-		Assert.assertTrue(pi.hasNext());
-		Assert.assertSame(g.getPhraseStructure().wGet(2), pi.next());
-		Assert.assertFalse(pi.hasNext());
+		pi = BehaviorUtils.<Production>compileAndLazyEvaluate((PathExpression) tm.create("path1b"), g);
+		e = pi.evaluateNext();
+		Assert.assertNotNull(e);
+		Assert.assertSame(g.getPhraseStructure().wGet(2), e);
+		Assert.assertNull(pi.evaluateNext());
 
-		pi = BehaviorUtils.<Production>compileAndLazyEvaluate((PathExpression) tm.create("path1c"), g).iterator();
-		Assert.assertTrue(pi.hasNext());
-		Assert.assertSame(g.getPhraseStructure().wGet(3), pi.next());
-		Assert.assertFalse(pi.hasNext());
+		pi = BehaviorUtils.<Production>compileAndLazyEvaluate((PathExpression) tm.create("path1c"), g);
+		e = pi.evaluateNext();
+		Assert.assertNotNull(e);
+		Assert.assertSame(g.getPhraseStructure().wGet(3), e);
+		Assert.assertNull(pi.evaluateNext());
 
-		pi = BehaviorUtils.<Production>compileAndLazyEvaluate((PathExpression) tm.create("path1d"), g).iterator();
-		Assert.assertTrue(pi.hasNext());
-		Assert.assertSame(g.getPhraseStructure().wGet(3), pi.next());
-		Assert.assertFalse(pi.hasNext());
+		pi = BehaviorUtils.<Production>compileAndLazyEvaluate((PathExpression) tm.create("path1d"), g);
+		e = pi.evaluateNext();
+		Assert.assertNotNull(e);
+		Assert.assertSame(g.getPhraseStructure().wGet(3), e);
+		Assert.assertNull(pi.evaluateNext());
 	}
 
 	@Test
@@ -266,14 +271,14 @@ public class PathExpressionsQueriesTest {
 	@Test
 	public void testPathWithTuple() {
 		ITemplateManager tm = PathExpressionsQueriesTemplateManager.instance();
-		IEntityIterator<IEntity> i = DynamicCompilerOperation.compile(
+		IExecutable<IEntity> i = DynamicCompilerOperation.compile(
 				tm.create("pathWithTuple"),
-				BindingManagerFactory.instance.createArguments()).getExecutableResult().iterator();
+				BindingManagerFactory.instance.createArguments()).getExecutableResult();
 		
 		i.reset(BindingManagerFactory.instance.createNull());
-		Assert.assertTrue(i.hasNext());
-		IEntity e0 = i.next();
-		Assert.assertFalse(i.hasNext());
+		IEntity e0 = i.evaluateNext();
+		Assert.assertNotNull(e0);
+		Assert.assertNull(i.evaluateNext());
 	}
 
 	@Test
@@ -404,38 +409,12 @@ public class PathExpressionsQueriesTest {
 		PathExpression pe2 = (PathExpression) tm.create("bindNonTerminalOccurrences");
 		IBindingManager bm = BindingManagerFactory.instance.createArguments();
 
-		IEntityIterator<NonTerminal> i1 = BehaviorUtils.<NonTerminal>compileAndLazyEvaluate(pe1, g).iterator();
+		IExecutable<NonTerminal> i1 = BehaviorUtils.<NonTerminal>compileAndLazyEvaluate(pe1, g);
 		for (NonTerminal nt : BehaviorUtils.<NonTerminal>compileAndLazyEvaluate(pe2, g, bm)) {
-			Assert.assertSame(nt, i1.next());
+			Assert.assertSame(nt, i1.evaluateNext());
 			Assert.assertEquals(nt.getValue(), bm.wStringValue("nt"));
 		}
-		Assert.assertFalse(i1.hasNext());
-	}
-
-	@Test
-	public void testLookaheadScope() {
-		ITemplateManager tm = PathExpressionsQueriesTemplateManager.instance();
-		Grammar g = new TestXmlGrammar().create();
-
-		String[] templates = {
-				"findNonTerminalOccurrences", "findProduction",
-				"bindNonTerminalOccurrences", "recursiveProduction2",
-				"testProduct1", "testProduct2", "testProduct3"};
-		for (String template : templates) {
-			PathExpression pe1 = (PathExpression) tm.create(template);
-			IBindingManager bm = BindingManagerFactory.instance.createArguments();
-			IEntityIterator<IEntity> i1 = BehaviorUtils.<IEntity>compileAndLazyEvaluate(pe1, g, bm).iterator();
-			IEntity p1 = null;
-			while ((p1 = i1.lookahead()) != null) {
-				Set<String> s1 = i1.lookaheadScope().wNames();
-				IEntity p2 = i1.next();
-				Assert.assertSame(p1, p2);
-				//FIXME workaround unset outer self binding
-				Assert.assertEquals(bm.wNames().size() - (bm.wIsSet(IBindingManager.SELF) ? 1 : 0), s1.size());
-				for(String name : s1)
-					Assert.assertTrue(bm.wIsSet(name));
-			}
-		}
+		Assert.assertNull(i1.evaluateNext());
 	}
 
 	@Test
@@ -512,17 +491,17 @@ public class PathExpressionsQueriesTest {
 
 		PathExpression pe1 = (PathExpression) tm.create("unusedProduction");
 
-		IEntityIterator<Production> iterator = BehaviorUtils.<Production>compileAndLazyEvaluate(pe1, g).iterator();
-		Assert.assertTrue(iterator.hasNext());
-		Production p = iterator.next();
+		IExecutable<Production> executable = BehaviorUtils.<Production>compileAndLazyEvaluate(pe1, g);
+		Production p = executable.evaluateNext();
+		Assert.assertNotNull(p);
 		Assert.assertEquals("Statement", p.getName().getValue());
-		Assert.assertTrue(iterator.hasNext());
-		p = iterator.next();
+		p = executable.evaluateNext();
+		Assert.assertNotNull(p);
 		Assert.assertEquals("Declaration", p.getName().getValue());
-		Assert.assertTrue(iterator.hasNext());
-		p = iterator.next();
+		p = executable.evaluateNext();
+		Assert.assertNotNull(p);
 		Assert.assertEquals("Index", p.getName().getValue());
-		Assert.assertFalse(iterator.hasNext());
+		Assert.assertNull(executable.evaluateNext());
 	}
 
 	@Test
@@ -533,11 +512,11 @@ public class PathExpressionsQueriesTest {
 		PathExpression pe1 = (PathExpression) tm.create("exactlyOneDefUse");
 		IBindingManager bm = BindingManagerFactory.instance.createArguments();
 
-		IEntityIterator<Production> iterator = BehaviorUtils.<Production>compileAndLazyEvaluate(pe1, g, bm).iterator();
-		Assert.assertTrue(iterator.hasNext());
-		Production p = iterator.next();
+		IExecutable<Production> executable = BehaviorUtils.<Production>compileAndLazyEvaluate(pe1, g, bm);
+		Production p = executable.evaluateNext();
+		Assert.assertNotNull(p);
 		Assert.assertEquals("IName", p.getName().getValue());
-		Assert.assertFalse(iterator.hasNext());
+		Assert.assertNull(executable.evaluateNext());
 	}
 
 	@Test
@@ -547,22 +526,22 @@ public class PathExpressionsQueriesTest {
 
 		PathExpression pe1 = (PathExpression) tm.create("recursiveProduction6");
 		IBindingManager bm = BindingManagerFactory.instance.createArguments();
-		IEntityIterator<Production> iterator = BehaviorUtils.<Production>compileAndLazyEvaluate(pe1, g, bm).iterator();
-		iterator.next();
+		IExecutable<Production> executable = BehaviorUtils.<Production>compileAndLazyEvaluate(pe1, g, bm);
+		executable.evaluateNext();
 		Assert.assertTrue(bm.wIsSet("pname"));
 		Assert.assertTrue(bm.wIsSet("nt"));
 
 		pe1 = (PathExpression) tm.create("exactlyOneDefUse");
 		bm = BindingManagerFactory.instance.createArguments();
-		iterator = BehaviorUtils.<Production>compileAndLazyEvaluate(pe1, g, bm).iterator();
-		iterator.next();
+		executable = BehaviorUtils.<Production>compileAndLazyEvaluate(pe1, g, bm);
+		executable.evaluateNext();
 		Assert.assertTrue(bm.wIsSet("pname"));
 		Assert.assertTrue(bm.wIsSet("nt"));
 
 		pe1 = (PathExpression) tm.create("unusedProduction");
 		bm = BindingManagerFactory.instance.createArguments();
-		iterator = BehaviorUtils.<Production>compileAndLazyEvaluate(pe1, g, bm).iterator();
-		iterator.next();
+		executable = BehaviorUtils.<Production>compileAndLazyEvaluate(pe1, g, bm);
+		executable.evaluateNext();
 		Assert.assertTrue(bm.wIsSet("pname"));
 		Assert.assertTrue(bm.wIsSet("nt"));
 	}
@@ -684,19 +663,19 @@ public class PathExpressionsQueriesTest {
 		IBindingManager bm = BindingManagerFactory.instance.createArguments();
 		bm.wDefValue("ftype", "firstName");
 
-		IEntityIterator<?> iterator = BehaviorUtils.<FieldDeclaration>compileAndLazyEvaluate(query, m, bm).iterator();
-		Assert.assertTrue(iterator.hasNext());
-		IEntity result = iterator.next();
+		IExecutable<?> executable = BehaviorUtils.<FieldDeclaration>compileAndLazyEvaluate(query, m, bm);
+		IEntity result = executable.evaluateNext();
+		Assert.assertNotNull(result);
 		IEntity as = bm.wGet("jtype");
 		Assert.assertEquals("FirstName", result.wStringValue());
 		Assert.assertEquals("FirstName", as.wStringValue());
 
-		Assert.assertFalse(iterator.hasNext());
-		iterator.reset(m);
+		Assert.assertNull(executable.evaluateNext());
+		executable.reset(m);
 
 		bm.wDefValue("ftype", "secondName");
-		Assert.assertTrue(iterator.hasNext());
-		IEntity result2 = iterator.next();
+		IEntity result2 = executable.evaluateNext();
+		Assert.assertNotNull(result2);
 		IEntity as2 = bm.wGet("jtype");
 		Assert.assertEquals("SecondName", result2.wStringValue());
 		Assert.assertEquals("SecondName", as2.wStringValue());

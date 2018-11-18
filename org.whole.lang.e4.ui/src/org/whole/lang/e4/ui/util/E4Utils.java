@@ -81,7 +81,7 @@ import org.whole.lang.exceptions.IWholeFrameworkException;
 import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.exceptions.WholeRuntimeException;
 import org.whole.lang.executables.ExecutableFactory;
-import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.InterpreterOperation;
@@ -228,10 +228,10 @@ public class E4Utils {
 			bm.wDef("focusEntity", focusEntityPart.getModelEntity());
 		}
 		bm.wDef("selectedEntities", selectedEntities);
-		IEntityIterator<IEntity> iterator = ExecutableFactory.instance.createChild().iterator();
-		iterator.reset(selectedEntities);
-		if (iterator.hasNext()) {
-			IEntity focusEntity = iterator.next();
+		IExecutable<IEntity> executable = ExecutableFactory.instance.createChild();
+		executable.reset(selectedEntities);
+		IEntity focusEntity = executable.evaluateNext();
+		if (focusEntity != null) {
 			bm.wDef("primarySelectedEntity", focusEntity);
 			if (!bm.wIsSet("focusEntity"))
 				bm.wDef("focusEntity", focusEntity);

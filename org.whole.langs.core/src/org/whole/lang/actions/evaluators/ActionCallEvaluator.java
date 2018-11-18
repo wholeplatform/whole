@@ -110,10 +110,7 @@ public class ActionCallEvaluator extends AbstractDelegatingNestedEvaluator<IEnti
 		if (functionExecutable == null && selfEntity == null)
 			return null;
 
-		IBindingScope laScope = lookaheadScope();
-		for (String name : laScope.wLocalNames())
-			getBindings().wUnset(name);
-
+		clearExecutorScope();
 		getBindings().wEnterScope(executorScope(), true);
 		lastEntity = functionExecutable().evaluateNext();
 		getBindings().wExitScope(needMergeExecutorScope() && lastEntity != null);

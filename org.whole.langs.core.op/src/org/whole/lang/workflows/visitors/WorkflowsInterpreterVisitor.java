@@ -57,7 +57,6 @@ import org.whole.lang.factories.IEntityRegistryProvider;
 import org.whole.lang.factories.RegistryConfigurations;
 import org.whole.lang.grammars.model.Grammar;
 import org.whole.lang.grammars.util.GrammarsUtils;
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.java.codebase.JavaClassTemplateFactory;
 import org.whole.lang.java.model.CompilationUnit;
 import org.whole.lang.java.util.JavaReflectUtils;
@@ -232,19 +231,19 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 	public void visit(ForeachLoop entity) {
 		evaluate(entity.getCompositeVariable());
 
-		IEntityIterator<?> iterator = null;
+		IExecutable<?> i = null;
 		if (isExecutableResult()) {
-			iterator = getExecutableResult().iterator();
+			i = getExecutableResult();
 			setExecutableResult(null);
-			resetIterator(iterator);
+			resetIterator(i);
 		} else {
 			IEntity result = getResult();
 			if (result == null)
 				return;
 			
-			iterator = executableFactory().createChild().iterator();
-			iterator.setBindings(getBindings());
-			iterator.reset(result);
+			i = executableFactory().createChild();
+			i.setBindings(getBindings());
+			i.reset(result);
 		}
 
 		Variable elementVariable = entity.getElementVariable();
@@ -255,13 +254,14 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 				indexVariable.wStringValue() : null;
 
 		int index = 0;
-		while (iterator.hasNext()) {
+		IEntity e;
+		while ((e = i.evaluateNext()) != null) {
 			handleCancelRequest();
 
 			if (indexVar != null)
 				getBindings().wDefValue(indexVar, index++); 
 			if (elementVar != null)
-				getBindings().wDef(elementVar, iterator.next());
+				getBindings().wDef(elementVar, e);
 			entity.getFlowObject().accept(this);
 		}
 	}
@@ -270,12 +270,13 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 	public void visit(SwitchControl entity) {
 		boolean isExclusive = entity.getSwitchType().wContainsValue(SwitchTypeEnum.exclusive);
 
-		IEntityIterator<ConditionalCase> i = executableFactory().<ConditionalCase>createChild().iterator();
+		IExecutable<ConditionalCase> i = executableFactory().<ConditionalCase>createChild();
 		i.reset(entity.getConditionalCases());
 
 		boolean executed = false;
-		while ((!isExclusive || !executed) && i.hasNext()) {
-			i.next().accept(this);
+		ConditionalCase e;
+		while ((!isExclusive || !executed) && (e = i.evaluateNext()) != null) {
+			e.accept(this);
 			executed |= getResult().wBooleanValue();
 		}
 
@@ -377,17 +378,18 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 		evaluate(entity.getExpression());
 		
 		if (isExecutableResult()) {
-			IEntityIterator<?> iterator = getExecutableResult().iterator();
+			IExecutable<?> i = getExecutableResult();
 			setExecutableResult(null);
-			resetIterator(iterator);
-			if (iterator.hasNext()) {
-				IEntity first = iterator.next();
-				if (iterator.hasNext()) {
+			resetIterator(i);
+			IEntity first = i.evaluateNext();
+			if (first != null) {
+				IEntity e;
+				if ((e = i.evaluateNext()) != null) {
 					final IEntity values = BindingManagerFactory.instance.createTuple();
 					values.wAdd(first);
 					do {
-						values.wAdd(iterator.next());
-					} while (iterator.hasNext());
+						values.wAdd(e);
+					} while ((e = i.evaluateNext()) != null);
 					bm.wDef(name, values);
 				} else
 					bm.wDef(name, first);
@@ -477,11 +479,10 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 		} else
 			define(args, (Assignments) arguments);
 
-		IEntityIterator<?> iterator = executableFactory().createCall(queryName.getValue(), argsIterators).iterator();
-		iterator.setBindings(args);
-		resetIterator(iterator);
-		while (iterator.hasNext())
-			iterator.next();
+		IExecutable<?> i = executableFactory().createCall(queryName.getValue(), argsIterators);
+		i.setBindings(args);
+		resetIterator(i);
+		i.evaluateRemaining();
 	}
 
 	@Override
@@ -564,10 +565,10 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 		IEntity model = getResult();
 		//TODO remove ?
 		if (Matcher.matchImpl(WorkflowsEntityDescriptorEnum.Name, entity.getTemplate())) {
-			IEntityIterator<IEntity> tii = executableFactory().createTemplateInterpreter(getResult()).iterator();
+			IExecutable<IEntity> tii = executableFactory().createTemplateInterpreter(getResult());
 			tii.setBindings(getBindings());
 			tii.reset(entity);
-			model = tii.next();
+			model = tii.evaluateNext();
 		}
 
 		resettableScope.rollback();

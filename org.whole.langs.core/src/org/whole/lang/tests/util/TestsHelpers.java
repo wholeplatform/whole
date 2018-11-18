@@ -18,7 +18,6 @@ import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.executables.ExecutableFactory;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.factories.GenericEntityFactory;
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.matchers.GenericMatcher;
 import org.whole.lang.matchers.MatchException;
 import org.whole.lang.model.IEntity;
@@ -104,11 +103,11 @@ public class TestsHelpers {
 		IBindingScope bs = InterpreterOperation.lazyInterpretOnSelfBinding(EntityUtils.isFragment(filter) ? filter.wGetRoot() : filter, bm, false);
 
 		if (bs.isExecutableResult()) {
-			IEntityIterator<?> iterator = bs.getExecutableResult().iterator();
+			IExecutable<?> executable = bs.getExecutableResult();
 			bs.setExecutableResult(null);
-			iterator.reset(subject);
-			while (iterator.hasNext())
-				iterator.next();
+			executable.reset(subject);
+			while (executable.evaluateNext() != null)
+				;
 			return subject;
 		} else {
 			IEntity result = bs.getResult();

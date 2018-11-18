@@ -19,6 +19,8 @@ package org.whole.lang.queries.util;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -38,7 +40,6 @@ import org.whole.lang.grammars.model.NonTerminal;
 import org.whole.lang.grammars.model.Production;
 import org.whole.lang.grammars.model.Rule;
 import org.whole.lang.grammars.util.TestXmlGrammar;
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.java.factories.JavaEntityFactory;
 import org.whole.lang.java.model.Assignment;
 import org.whole.lang.java.model.BodyDeclarations;
@@ -200,10 +201,11 @@ public class SelectQueriesTest {
 		PathExpression pe1 = (PathExpression) tm.create("selectTemplateWithNestedRelativeQuery");
 		PathExpression pe2 = (PathExpression) tm.create("selectTemplateWithNestedQuery");
 
-		IEntityIterator<ClassDeclaration> i2 = BehaviorUtils.<ClassDeclaration>compileAndLazyEvaluate(pe2, m).iterator();
+		IExecutable<ClassDeclaration> i2 = BehaviorUtils.<ClassDeclaration>compileAndLazyEvaluate(pe2, m);
 		for (ClassDeclaration t : BehaviorUtils.<ClassDeclaration>compileAndLazyEvaluate(pe1, m)) {
-			assertTrue(i2.hasNext());
-			assertTrue(Matcher.match(i2.next(), t));
+			IEntity e = i2.evaluateNext();
+			assertNotNull(e);
+			assertTrue(Matcher.match(e, t));
 		}
 	}
 
@@ -528,16 +530,17 @@ public class SelectQueriesTest {
 
 	@Test
     public void testDeclaredNamesBinding() {
-		IEntityIterator<IEntity> iterator = DynamicCompilerOperation.compile(
+		IExecutable<IEntity> executable = DynamicCompilerOperation.compile(
 				SelectQueriesTemplateManager.instance().create("selectDeclaredNamesBinding"),
-				BindingManagerFactory.instance.createArguments()).getExecutableResult().iterator();
+				BindingManagerFactory.instance.createArguments()).getExecutableResult();
 		
-		iterator.reset(BindingManagerFactory.instance.createNull());
+		executable.reset(BindingManagerFactory.instance.createNull());
 		
-		assertTrue(iterator.hasNext());
-		IEntity entity = iterator.next();
+		IEntity entity = executable.evaluateNext();
+		assertNotNull(entity);
 
-		assertFalse(iterator.hasNext());
+		assertNull(executable.evaluateNext());
+
 		assertTrue(Matcher.match(TextEntityFactory.instance.createDocument(0), entity));
 	}
 

@@ -23,7 +23,7 @@ import java.util.Map;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.ITransactionScope;
-import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.model.InternalIEntity;
 import org.whole.lang.reflect.FeatureDescriptor;
@@ -76,20 +76,21 @@ public class GenericCloneVisitor extends AbstractVisitor {
 			index += (nextResultSize - resultSize);
 			
 			if (isExecutableResult()) {
-				IEntityIterator<?> iterator = getExecutableResult().iterator();
+				IExecutable<?> executable = getExecutableResult();
 				setExecutableResult(null);
 				IEntity selfEntity = getBindings().wGet(IBindingManager.SELF);
 	        	if (selfEntity != oldSelfEntity2)
 	        		getBindings().wDef(IBindingManager.SELF, selfEntity = oldSelfEntity2);
-				iterator.reset(selfEntity);
+				executable.reset(selfEntity);
 				FeatureDescriptor resultChildDescriptor = entityClone.wGetFeatureDescriptor(index);
 				if (EntityUtils.isComposite(entityClone)) {
 					entityClone.wRemove(index--);
-    				if (iterator.hasNext()) {
+					IEntity first = executable.evaluateNext();
+    				if (first != null) {
     					ITransactionScope resettableScope = BindingManagerFactory.instance.createTransactionScope();
     					getBindings().wEnterScope(resettableScope);
     					resultSize = entityClone.wSize();
-	    				for (IEntity value : iterator) {
+    					for (IEntity value = first; value != null; value = executable.evaluateNext()) {
 	    					nextResultSize = entityClone.wSize();
 	    					index += (nextResultSize - resultSize);
 	    					if (BindingManagerFactory.instance.isVoid(value))
@@ -105,10 +106,11 @@ public class GenericCloneVisitor extends AbstractVisitor {
     				}
 				} else {
 					IEntity value = null;
-    				if (iterator.hasNext()) {
+					IEntity first = executable.evaluateNext();
+    				if (first != null) {
     					ITransactionScope resettableScope = BindingManagerFactory.instance.createTransactionScope();
     					getBindings().wEnterScope(resettableScope);
-	    				for (IEntity r : iterator) {
+    					for (IEntity r = first; r != null; r = executable.evaluateNext()) {
 	    					if (!BindingManagerFactory.instance.isVoid(r))
 		    					value = r;
 	    					resettableScope.commit();
@@ -140,18 +142,19 @@ public class GenericCloneVisitor extends AbstractVisitor {
 				stagedVisitIfNeeded(entityClone.wGet(fd));
 //was			applyIfNeeded(entity.wGet(fd));
 				if (isExecutableResult()) {
-					IEntityIterator<?> iterator = getExecutableResult().iterator();
+					IExecutable<?> executable = getExecutableResult();
 					setExecutableResult(null);
 					IEntity selfEntity = getBindings().wGet(IBindingManager.SELF);
 		        	if (selfEntity != oldSelfEntity2)
 		        		getBindings().wDef(IBindingManager.SELF, selfEntity = oldSelfEntity2);
-					iterator.reset(selfEntity);
-					if (iterator.hasNext()) {
+					executable.reset(selfEntity);
+					IEntity first = executable.evaluateNext();
+					if (first != null) {
 						IEntity value = null;
 
 						ITransactionScope resettableScope = BindingManagerFactory.instance.createTransactionScope();
 						getBindings().wEnterScope(resettableScope);
-	    				for (IEntity r : iterator) {
+	    				for (IEntity r = first; r != null; r = executable.evaluateNext()) {
 	    					if (!BindingManagerFactory.instance.isVoid(r))
 		    					value = r;
 	    					resettableScope.commit();

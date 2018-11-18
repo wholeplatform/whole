@@ -18,7 +18,8 @@
 package org.whole.lang.sql;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.lang.reflect.Array;
@@ -34,7 +35,6 @@ import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.codebase.ClasspathPersistenceProvider;
 import org.whole.lang.codebase.IPersistenceProvider;
 import org.whole.lang.executables.IExecutable;
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.DynamicCompilerOperation;
@@ -182,13 +182,13 @@ public class SQLInterpreterTest {
 
 		IEntity map = DBMappingTemplateManager.instance().create("selectDatatypesDB");
 		IEntity results = DBMappingTemplateManager.instance().create("selectDatatypesDBResults");
-		IEntityIterator<IEntity> resultsIterator = DynamicCompilerOperation.compile(results, bm).getExecutableResult().iterator();
-		resultsIterator.reset(BindingManagerFactory.instance.createNull());
-		IExecutable<IEntity> mapIterator = DynamicCompilerOperation.compile(map, bm).getExecutableResult();
-		mapIterator.reset(BindingManagerFactory.instance.createNull());
-		for (IEntity result : mapIterator) {
-			assertTrue(resultsIterator.hasNext());
-			IEntity expectedResult = resultsIterator.next();
+		IExecutable<IEntity> resultsExecutable = DynamicCompilerOperation.compile(results, bm).getExecutableResult();
+		resultsExecutable.reset(BindingManagerFactory.instance.createNull());
+		IExecutable<IEntity> mapExecutable = DynamicCompilerOperation.compile(map, bm).getExecutableResult();
+		mapExecutable.reset(BindingManagerFactory.instance.createNull());
+		for (IEntity result : mapExecutable) {
+			IEntity expectedResult = resultsExecutable.evaluateNext();
+			assertNotNull(expectedResult);
 			assertEquals(expectedResult.wSize(), result.wSize());
 			for (int i=0; i<expectedResult.wSize(); i++) {
 				IEntity expectedValue = expectedResult.wGet(i);
@@ -210,6 +210,6 @@ public class SQLInterpreterTest {
 				}
 			}
 		}
-		assertFalse(resultsIterator.hasNext());
+		assertNull(resultsExecutable.evaluateNext());
 	}
 }

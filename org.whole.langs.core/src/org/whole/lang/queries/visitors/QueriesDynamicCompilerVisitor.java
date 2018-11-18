@@ -1173,7 +1173,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 	@Override
 	public void visit(IdentityComparator entity) {
 		entity.getIdentity().accept(this);
-		comparator = new IdentityIteratorComparator<IEntity>(getExecutableResult().iterator());
+		comparator = new IdentityIteratorComparator<IEntity>(getExecutableResult());
 	}
 
 	protected IEntityComparator<IEntity> comparator;

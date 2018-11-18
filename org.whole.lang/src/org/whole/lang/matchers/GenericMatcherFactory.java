@@ -27,9 +27,7 @@ import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.commons.model.QuantifierEnum;
 import org.whole.lang.commons.model.Variable;
 import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.EntityKinds;
 import org.whole.lang.reflect.FeatureDescriptor;
@@ -353,42 +351,6 @@ public class GenericMatcherFactory {
 				sb.append(")");
 			}
 		};
-	}
-
-	public IVisitor matchInScope(final IEntityIterator<?> patternIterator) {
-		return new MatchPatternVisitor(patternIterator);
-	}
-	public static class MatchPatternVisitor extends AbstractVisitor {
-		private IEntityIterator<?> patternIterator;
-
-		public MatchPatternVisitor(IEntityIterator<?> patternIterator) {
-			this.patternIterator = patternIterator;
-		}
-
-		public IVisitor clone(ICloneContext cc) {
-			MatchPatternVisitor visitor = (MatchPatternVisitor) super.clone(cc);
-			visitor.patternIterator = cc.clone(patternIterator);
-			return visitor;
-		}
-
-		public void visit(IEntity entity) {
-			IEntity pattern = (IEntity) patternIterator.evaluate(entity, getBindings());
-
-			if (pattern == null || !Matcher.match(pattern, entity, getBindings()))
-				throw new VisitException();
-		}
-
-		@Override
-		public void setBindings(IBindingManager bm) {
-			super.setBindings(bm);
-			patternIterator.setBindings(bm);
-		}
-
-		public void toString(StringBuilder sb) {
-			sb.append("match(");
-			sb.append(patternIterator);
-			sb.append(")");
-		}
 	}
 
 	public IVisitor rename(final Map<String, String> nameMap) {

@@ -26,7 +26,6 @@ import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
 import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.executables.IExecutable;
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.model.adapters.IEntityAdapter;
@@ -205,8 +204,8 @@ public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisit
 
 		Reusable original = CommonsEntityAdapterFactory.createResolver(Reusable);
 
-		IEntityIterator<IEntity> contentIterator = null;
-		IExecutable<IEntity> adapterIterator = null;
+		IExecutable<IEntity> contentExecutable = null;
+		IExecutable<IEntity> adapterExecutable = null;
 		if (EntityUtils.isResolver(reusable)) {
 			try {
 				getBindings().wEnterScope();
@@ -215,30 +214,33 @@ public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisit
 				reusable =  entity.getOriginal();
 	
 				if (EntityUtils.isResolver(reusable)) {
-					contentIterator = (IEntityIterator<IEntity>) readResource(entity.getResource()).iterator();
-					contentIterator.setBindings(getBindings());
-					contentIterator.reset(entity);
-					if (contentIterator.hasNext())
-						original = EntityUtils.clone(contentIterator.next()).wGetAdapter(Reusable);
-					if (contentIterator.hasNext()) {
+					contentExecutable = (IExecutable<IEntity>) readResource(entity.getResource());
+					contentExecutable.setBindings(getBindings());
+					contentExecutable.reset(entity);
+					IEntity e = contentExecutable.evaluateNext();
+					if (e != null)
+						original = EntityUtils.clone(e).wGetAdapter(Reusable);
+					e = contentExecutable.evaluateNext();
+					if (e != null) {
 						original = ReusablesEntityFactory.instance.createReusables(original);
 						do {
-							original.wAdd(EntityUtils.clone(contentIterator.next()).wGetAdapter(Reusable));
-						} while (contentIterator.hasNext());
+							original.wAdd(EntityUtils.clone(e).wGetAdapter(Reusable));
+							e = contentExecutable.evaluateNext();
+						} while (e != null);
 					}
 					entity.setOriginal(original);
 				}
 				if (EntityUtils.isNotResolver(entity.getAdapter())) {
 					entity.getAdapter().accept(this);
-					adapterIterator = getExecutableResult();
+					adapterExecutable = getExecutableResult();
 				}
 			} finally {
 				getBindings().wExitScope();
 			}
 		}
 
-		if (contentIterator == null)
-			contentIterator = executableFactory().createConstant(reusable, false).iterator();
+		if (contentExecutable == null)
+			contentExecutable = executableFactory().createConstant(reusable, false).iterator();
 
 		boolean updateAdapted = EntityUtils.isResolver(entity.getAdapted());
 		IExecutable<IEntity> evaluateIterator = executableFactory().createSingleValuedRunnable(
@@ -263,9 +265,9 @@ public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisit
 			}
 		);
 
-		setExecutableResult(adapterIterator != null ? 
-				executableFactory().createCompose(evaluateIterator, adapterIterator, contentIterator) :
-					executableFactory().createCompose(evaluateIterator, contentIterator));
+		setExecutableResult(adapterExecutable != null ? 
+				executableFactory().createCompose(evaluateIterator, adapterExecutable, contentExecutable) :
+					executableFactory().createCompose(evaluateIterator, contentExecutable));
 	}
 
 	@Override

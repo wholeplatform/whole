@@ -46,7 +46,6 @@ import org.whole.lang.executables.IExecutable;
 import org.whole.lang.factories.GenericEntityFactory;
 import org.whole.lang.factories.IEntityFactory;
 import org.whole.lang.factories.RegistryConfigurations;
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.EntityDescriptor;
@@ -152,13 +151,13 @@ public class ArtifactsUtils {
 	public static IPersistenceKit calculateInheritedPersistence(IEntity model, IPersistenceKit defaultPersistenceKit) {
 		if (model != null) {
 			ExecutableFactory ef = ExecutableFactory.instance;
-			IEntityIterator<IEntity> iterator = ef.createFilter(
+			IExecutable<IEntity> executable = ef.createFilter(
 					ef.createAncestorOrSelf(),
-					ef.createSome(ef.createIsFragment(), ef.createHasKind(EntityKinds.COMPOSITE))).iterator();
-			iterator.getBindings().enforceSelfBinding(model);
-			iterator.reset(model);
-			while (iterator.hasNext()) {
-				String persistenceKitId = getPersistenceKitId(iterator.next());
+					ef.createSome(ef.createIsFragment(), ef.createHasKind(EntityKinds.COMPOSITE)));
+			executable.getBindings().enforceSelfBinding(model);
+			executable.reset(model);
+			for (IEntity e = executable.evaluateNext(); e != null; e = executable.evaluateNext()) {
+				String persistenceKitId = getPersistenceKitId(e);
 				if (persistenceKitId != null)
 					return ReflectionFactory.getPersistenceKit(persistenceKitId);
 			}

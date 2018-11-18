@@ -26,7 +26,6 @@ import org.whole.lang.commons.reflect.CommonsLanguageKit;
 import org.whole.lang.commons.visitors.CommonsInterpreterVisitor;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.factories.GenericEntityFactory;
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.model.InternalIEntity;
 import org.whole.lang.reflect.EntityDescriptor;
@@ -114,20 +113,21 @@ public class GenericTemplateInterpreterVisitor extends AbstractVisitor {
 			index += (nextResultSize - resultSize);
 
 			if (isExecutableResult()) {
-				IEntityIterator<?> iterator = getExecutableResult().iterator();
+				IExecutable<?> executable = getExecutableResult();
 				setExecutableResult(null);
 				IEntity selfEntity = getBindings().wGet(IBindingManager.SELF);
 	        	if (selfEntity != oldSelfEntity2)
 	        		getBindings().wDef(IBindingManager.SELF, selfEntity = oldSelfEntity2);
-				iterator.reset(selfEntity);
+				executable.reset(selfEntity);
 				FeatureDescriptor childFeatureDescriptor = entityClone.wGetFeatureDescriptor(index);
 				if (EntityUtils.isComposite(entityClone)) {
     				entityClone.wRemove(index--);
-    				if (iterator.hasNext()) {
+    				IEntity first = executable.evaluateNext();
+					if (first != null) {
     					ITransactionScope resettableScope = BindingManagerFactory.instance.createTransactionScope();
     					getBindings().wEnterScope(resettableScope);
     					resultSize = entityClone.wSize();
-	    				for (IEntity e : iterator) {
+    					for (IEntity e = first; e != null; e = executable.evaluateNext()) {
 	    					nextResultSize = entityClone.wSize();
 	    					index += (nextResultSize - resultSize);
 	    					if (BindingManagerFactory.instance.isVoid(e))
@@ -143,10 +143,11 @@ public class GenericTemplateInterpreterVisitor extends AbstractVisitor {
     				}
 				} else {
 					IEntity e = null;
-    				if (iterator.hasNext()) {
+					IEntity first = executable.evaluateNext();
+					if (first != null) {
     					ITransactionScope resettableScope = BindingManagerFactory.instance.createTransactionScope();
     					getBindings().wEnterScope(resettableScope);
-	    				for (IEntity r : iterator) {
+    					for (IEntity r = first; r != null; r = executable.evaluateNext()) {
 	    					if (!BindingManagerFactory.instance.isVoid(r))
 		    					e = r;
 	    					resettableScope.commit();

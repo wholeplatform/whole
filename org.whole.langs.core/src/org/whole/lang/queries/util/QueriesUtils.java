@@ -24,7 +24,7 @@ import java.util.List;
 import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.executables.ExecutableFactory;
-import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.queries.factories.QueriesEntityFactory;
 import org.whole.lang.queries.model.Path;
@@ -41,12 +41,13 @@ public class QueriesUtils {
 		QueriesEntityFactory qef = QueriesEntityFactory.instance;
 		Path path = qef.createPath(0);
 		IEntity parent = null;
-		IEntityIterator<IEntity> iterator = ExecutableFactory.instance.createAncestorOrSelfReverse().iterator();
-		iterator.reset(entity);
-		
-		if (CommonsEntityDescriptorEnum.RootFragment.equals(iterator.lookahead().wGetEntityDescriptor()))
-			iterator.next();
-		for (IEntity child : iterator) {
+		IExecutable<IEntity> executable = ExecutableFactory.instance.createAncestorOrSelfReverse();
+		executable.reset(entity);
+
+		IEntity firstChild = executable.evaluateNext();
+		if (firstChild != null && CommonsEntityDescriptorEnum.RootFragment.equals(firstChild.wGetEntityDescriptor()))
+			firstChild = executable.evaluateNext();
+		for (IEntity child = firstChild; child != null; child = executable.evaluateNext()) {
 			if (parent != null)
 				path.wAdd(EntityUtils.isSimple(parent) ?
 						qef.createFeatureStep(CommonsDataTypePersistenceParser.unparseFeatureDescriptor(parent.wGetFeatureDescriptor(child))) :

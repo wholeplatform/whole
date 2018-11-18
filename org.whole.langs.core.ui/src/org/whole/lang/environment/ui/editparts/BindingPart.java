@@ -29,7 +29,7 @@ import org.whole.lang.environment.model.Value;
 import org.whole.lang.environment.reflect.EnvironmentEntityDescriptorEnum;
 import org.whole.lang.environment.ui.figures.BidingFigure;
 import org.whole.lang.executables.ExecutableFactory;
-import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.models.factories.ModelsEntityFactory;
@@ -82,14 +82,14 @@ public class BindingPart extends AbstractContentPanePart {
 			if (value.wSize() > COMPOSITE_SIZE_LIMIT)
 				break;
 		default:
-			IEntityIterator<IEntity> iterator = ExecutableFactory.instance.createDescendant().iterator();
-			iterator.reset(value);
+			IExecutable<IEntity> executable = ExecutableFactory.instance.createDescendant();
+			executable.reset(value);
 			for (int i = 0; i < DESCENDANTS_COUNT_LIMIT; i++) {
-				if (!iterator.hasNext()) {
+				IEntity e = executable.evaluateNext();
+				if (e == null) {
 					showValue = true;
 					break;
-				} else
-					iterator.next();
+				}
 			}
 			break;
 		}

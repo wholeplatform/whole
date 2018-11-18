@@ -20,7 +20,7 @@ package org.whole.lang.visitors;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.ITransactionScope;
-import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.IOperation;
 import org.whole.lang.resources.CompoundResourceRegistry;
@@ -43,11 +43,11 @@ public class DynamicInterpreterVisitor extends AbstractDynamicVisitor {
 		};
 	}
 
-	protected void apply(IEntityIterator<?> iterator) {
+	protected void apply(IExecutable<?> executable) {
 		IBindingManager bm = getBindings();
 		ITransactionScope resettableScope = BindingManagerFactory.instance.createTransactionScope();
 		bm.wEnterScope(resettableScope);
-		for (IEntity e : iterator) {
+		for (IEntity e : executable) {
 			bm.setResult(e);
 			resettableScope.commit();
 		}

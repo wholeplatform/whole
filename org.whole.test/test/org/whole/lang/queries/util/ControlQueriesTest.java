@@ -17,18 +17,23 @@
  */
 package org.whole.lang.queries.util;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.grammars.model.Grammar;
 import org.whole.lang.grammars.model.Production;
 import org.whole.lang.grammars.reflect.GrammarsEntityDescriptorEnum;
 import org.whole.lang.grammars.util.TestXmlGrammar;
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.java.factories.JavaEntityFactory;
 import org.whole.lang.java.model.ClassDeclaration;
 import org.whole.lang.java.model.InfixOperatorEnum;
@@ -77,10 +82,11 @@ public class ControlQueriesTest {
 
 		assertFalse(BehaviorUtils.compileAndLazyEvaluate(query, model.getDeclarations()).iterator().hasNext());
 
-		IEntityIterator<IEntity> iterator = BehaviorUtils.compileAndLazyEvaluate(query, model).iterator();
-		assertTrue(iterator.hasNext());
-		assertEquals(model.getName().getValue(), iterator.next().wStringValue());
-		assertFalse(iterator.hasNext());
+		IExecutable<IEntity> executable = BehaviorUtils.compileAndLazyEvaluate(query, model);
+		IEntity e = executable.evaluateNext();
+		Assert.assertNotNull(e);
+		assertEquals(model.getName().getValue(), e.wStringValue());
+		Assert.assertNull(executable.evaluateNext());
 	}
 
     @Test
@@ -116,25 +122,25 @@ public class ControlQueriesTest {
 		IEntity queryExp1 = qef.createDivision(qef.createIntLiteral(10), qef.createIntLiteral(8));
 
 		IBindingManager bm = BindingManagerFactory.instance.createBindingManager();
-		IEntityIterator<IEntity> iterator = BehaviorUtils.compileAndLazyEvaluate(query, queryExp1, bm).iterator();
+		IExecutable<IEntity> executable = BehaviorUtils.compileAndLazyEvaluate(query, queryExp1, bm);
 		
-		assertTrue(iterator.hasNext());
-		IEntity exp1 = iterator.next();
+		IEntity exp1 = executable.evaluateNext();
+		Assert.assertNotNull(exp1);
 		assertSame(queryExp1.wGet(0), exp1);
 		assertTrue(bm.wIsSet("a"));
 		assertFalse(bm.wIsSet("b"));
 		assertTrue(bm.wIsSet("exp1"));
 		assertTrue(bm.wIsSet("exp2"));
 
-		assertTrue(iterator.hasNext());
-		IEntity exp2 = iterator.next();
+		IEntity exp2 = executable.evaluateNext();
+		Assert.assertNotNull(exp2);
 		assertSame(queryExp1.wGet(1), exp2);
 		assertFalse(bm.wIsSet("a"));		
 		assertTrue(bm.wIsSet("b"));
 		assertTrue(bm.wIsSet("exp1"));
 		assertTrue(bm.wIsSet("exp2"));
 
-		assertFalse(iterator.hasNext());
+		Assert.assertNull(executable.evaluateNext());
 	}
 
     @Test
@@ -215,19 +221,21 @@ public class ControlQueriesTest {
 			i++;
 		CompositeEntity compositeEntity = (CompositeEntity) decls.wGet(i);
 		
-		IEntityIterator<IEntity> iterator = BehaviorUtils.compileAndLazyEvaluate(query, compositeEntity).iterator();
-		assertTrue(iterator.hasNext());
-		assertEquals(compositeEntity.getComponentType().wStringValue(), iterator.next().wStringValue());
-		assertFalse(iterator.hasNext());
+		IExecutable<IEntity> executable = BehaviorUtils.compileAndLazyEvaluate(query, compositeEntity);
+		IEntity e = executable.evaluateNext();
+		Assert.assertNotNull(e);
+		assertEquals(compositeEntity.getComponentType().wStringValue(), e.wStringValue());
+		Assert.assertNull(executable.evaluateNext());
 
 		while (!Matcher.match(ModelsEntityDescriptorEnum.EnumEntity, decls.wGet(i)))
 			i++;
 		EnumEntity enumEntity = (EnumEntity) decls.wGet(i);
 		
-		iterator = BehaviorUtils.compileAndLazyEvaluate(query, enumEntity).iterator();
-		assertTrue(iterator.hasNext());
-		assertTrue(iterator.next() instanceof EnumValues);
-		assertFalse(iterator.hasNext());
+		executable = BehaviorUtils.compileAndLazyEvaluate(query, enumEntity).iterator();
+		e = executable.evaluateNext();
+		Assert.assertNotNull(e);
+		assertTrue(e instanceof EnumValues);
+		Assert.assertNull(executable.evaluateNext());
 	}
 
     @Test
@@ -239,30 +247,31 @@ public class ControlQueriesTest {
 		PathExpression query = (PathExpression) tm.create("choose2");
 
 		int i=0;
-		IEntityIterator<IEntity> iterator = BehaviorUtils.compileAndLazyEvaluate(query, model).iterator();
-		while (iterator.hasNext()) {
-			IEntity result;
-
+		IExecutable<IEntity> executable = BehaviorUtils.compileAndLazyEvaluate(query, model);
+		IEntity result;
+		while (i < decls.wSize()) {
 			IEntity decl = decls.wGet(i++);
 			switch (decl.wGetEntityOrd()) {
 			case ModelsEntityDescriptorEnum.SimpleEntity_ord:
 				IEntity features = ((SimpleEntity) decl).getFeatures();
 				for (int j=0; j<features.wSize(); j++) {
-					result = iterator.next();
+					if ((result = executable.evaluateNext()) == null) return;
 					assertEquals(
 							((Feature) features.wGet(j)).getName().wStringValue(),
 							result.wStringValue());
 				}
 				break;
 			case ModelsEntityDescriptorEnum.CompositeEntity_ord:
-				result = iterator.next();
+				if ((result = executable.evaluateNext()) == null) return;
 				CompositeEntity compositeEntity = (CompositeEntity) decl;
+				if (!compositeEntity.getComponentType().wStringValue().equals(result.wStringValue()))
+					break;
 				assertEquals(
 						compositeEntity.getComponentType().wStringValue(),
 						result.wStringValue());
 				break;
 			case ModelsEntityDescriptorEnum.DataEntity_ord:
-				result = iterator.next();
+				if ((result = executable.evaluateNext()) == null) return;
 				DataEntity dataEntity = (DataEntity) decl;
 				assertEquals(
 						dataEntity.getDataType().wStringValue(),
@@ -270,14 +279,16 @@ public class ControlQueriesTest {
 				break;
 			case ModelsEntityDescriptorEnum.EnumEntity_ord:
 				EnumValues enumValues = ((EnumEntity) decl).getValues();
-				if (enumValues.wIsEmpty())
-					iterator.next();
-				else
+
+				if (enumValues.wIsEmpty()) {
+					if (executable.evaluateNext() == null) return;
+				} else {
 					for (int j=0; j<enumValues.wSize(); j++) {
-						result = iterator.next();
+						if ((result = executable.evaluateNext()) == null) return;
 						assertEquals(enumValues.wGet(j).wStringValue(),
 								result.wStringValue());
 					}
+				}
 				break;
 			}
 		}
@@ -292,10 +303,8 @@ public class ControlQueriesTest {
 		PathExpression query = (PathExpression) tm.create("choose3");
 
 		int i=0;
-		IEntityIterator<IEntity> iterator = BehaviorUtils.compileAndLazyEvaluate(query, model).iterator();
-		while (iterator.hasNext()) {
-			IEntity result = iterator.next();
-
+		IExecutable<IEntity> executable = BehaviorUtils.compileAndLazyEvaluate(query, model);
+		for (IEntity result = executable.evaluateNext(); result != null; result = executable.evaluateNext()) {
 			IEntity decl = decls.wGet(i++);
 			switch (decl.wGetEntityOrd()) {
 			case ModelsEntityDescriptorEnum.SimpleEntity_ord:
@@ -336,9 +345,8 @@ public class ControlQueriesTest {
 		PathExpression query = (PathExpression) tm.create("choose4");
 
 		int i=0;
-		IEntityIterator<IEntity> iterator = BehaviorUtils.compileAndLazyEvaluate(query, model, bm).iterator();
-		while (iterator.hasNext()) {
-			IEntity result = iterator.next();
+		IExecutable<IEntity> executable = BehaviorUtils.compileAndLazyEvaluate(query, model, bm);
+		for (IEntity result = executable.evaluateNext(); result != null; result = executable.evaluateNext()) {
 			assertSame(result, bm.wGet("type"));
 			assertTrue(result instanceof ClassDeclaration);
 			ClassDeclaration classDecl = (ClassDeclaration) result;			

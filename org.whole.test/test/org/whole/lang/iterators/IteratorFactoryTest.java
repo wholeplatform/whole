@@ -23,7 +23,6 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -31,6 +30,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.whole.lang.bindings.BindingManagerFactory;
@@ -87,19 +87,15 @@ public class IteratorFactoryTest {
     public void testChildByNameAndByIndexIterators() {
 		Grammar g = new TestXmlGrammar().create();
 	
-		IEntityIterator<IEntity> i1 = f.createFeatureByName("phraseStructure").iterator();
+		IExecutable<IEntity> i1 = f.createFeatureByName("phraseStructure");
 		i1.reset(g);
-		assertTrue(i1.hasNext());
-		assertSame(g.getPhraseStructure(), i1.next());
-		assertFalse(i1.hasNext());
-		assertNull(i1.lookahead());
+		assertSame(g.getPhraseStructure(), i1.evaluateNext());
+		Assert.assertNull(i1.evaluateNext());
 
-		IEntityIterator<IEntity> i2 = f.createFeatureByIndex(0).iterator();
+		IExecutable<IEntity> i2 = f.createFeatureByIndex(0);
 		i2.reset(g);
-		assertTrue(i2.hasNext());
-		assertSame(g.wGet(0), i2.next());
-		assertFalse(i2.hasNext());
-		assertNull(i2.lookahead());
+		assertSame(g.wGet(0), i2.evaluateNext());
+		Assert.assertNull(i2.evaluateNext());
 	}
 
     @Test
@@ -108,10 +104,9 @@ public class IteratorFactoryTest {
 		Productions productions = g.getPhraseStructure();
 
 		int index = 0;
-		IEntityIterator<Production> ci = f.<Production>createChild().iterator();
+		IExecutable<Production> ci = f.<Production>createChild();
 		ci.reset(productions);
-		while (ci.hasNext()) {
-			Production p = ci.next();
+		for (Production p = ci.evaluateNext(); p != null; p = ci.evaluateNext()) {
 			assertSame(productions.wGet(index++), p);
 		}
 	}
@@ -122,11 +117,10 @@ public class IteratorFactoryTest {
 		Productions productions = g.getPhraseStructure();
 
 		int index = 0;
-		IEntityIterator<Production> ci = f.<Production>createChild().iterator();
+		IExecutable<Production> ci = f.<Production>createChild();
 		ci.reset(productions);
-		while (ci.hasNext()) {
-			Production p = ci.next();
-			IExecutable<Production> fi = f.<Production>createFollowingSibling().iterator();
+		for (Production p = ci.evaluateNext(); p != null; p = ci.evaluateNext()) {
+			IExecutable<Production> fi = f.<Production>createFollowingSibling();
 			fi.reset(p);
 			int findex = ++index;
 			for (Production fp : fi)
@@ -134,17 +128,17 @@ public class IteratorFactoryTest {
 		}
 		
 		for (int i=0; i<g.wSize(); i++) {
-			IEntityIterator<IEntity> fi = f.<IEntity>createFollowingSibling().iterator();
+			IExecutable<IEntity> fi = f.<IEntity>createFollowingSibling();
 			fi.reset(g.wGet(i));
 			for (int j=i+1; j<g.wSize(); j++)
-				assertSame(g.wGet(j), fi.next());
+				assertSame(g.wGet(j), fi.evaluateNext());
 		}
 
 		for (int i=0; i<productions.wSize(); i++) {
-			IEntityIterator<Production> fi = f.<Production>createFollowingSibling().iterator();
+			IExecutable<Production> fi = f.<Production>createFollowingSibling();
 			fi.reset(productions.wGet(i));
 			for (int j=i+1; j<productions.wSize(); j++)
-				assertSame(productions.wGet(j), fi.next());
+				assertSame(productions.wGet(j), fi.evaluateNext());
 		}
 	}
 
@@ -154,11 +148,10 @@ public class IteratorFactoryTest {
 		Productions productions = g.getPhraseStructure();
 
 		int index = 0;
-		IEntityIterator<Production> ci = f.<Production>createChild().iterator();
+		IExecutable<Production> ci = f.<Production>createChild();
 		ci.reset(productions);
-		while (ci.hasNext()) {
-			Production p = ci.next();
-			IExecutable<Production> fi = f.<Production>createPrecedingSibling().iterator();
+		for (Production p = ci.evaluateNext(); p != null; p = ci.evaluateNext()) {
+			IExecutable<Production> fi = f.<Production>createPrecedingSibling();
 			fi.reset(p);
 			int findex = index++;
 			for (Production fp : fi)
@@ -166,17 +159,17 @@ public class IteratorFactoryTest {
 		}
 		
 		for (int i=g.wSize()-1; i>=0; i--) {
-			IEntityIterator<IEntity> fi = f.<IEntity>createPrecedingSibling().iterator();
+			IExecutable<IEntity> fi = f.<IEntity>createPrecedingSibling();
 			fi.reset(g.wGet(i));
 			for (int j=i-1; j>=0; j--)
-				assertSame(g.wGet(j), fi.next());
+				assertSame(g.wGet(j), fi.evaluateNext());
 		}
 
 		for (int i=productions.wSize()-1; i>=0; i--) {
-			IEntityIterator<Production> fi = f.<Production>createPrecedingSibling().iterator();
+			IExecutable<Production> fi = f.<Production>createPrecedingSibling();
 			fi.reset(productions.wGet(i));
 			for (int j=i-1; j>=0; j--)
-				assertSame(productions.wGet(j), fi.next());
+				assertSame(productions.wGet(j), fi.evaluateNext());
 		}
 	}
 
@@ -185,10 +178,9 @@ public class IteratorFactoryTest {
 		Grammar g = new TestXmlGrammar().create();
 
 		Productions productions = EntityUtils.clone(g.getPhraseStructure());
-		IEntityIterator<Production> ci = f.<Production>createChild().iterator();
+		IExecutable<Production> ci = f.<Production>createChild();
 		ci.reset(productions);
-		while (ci.hasNext()) {
-			Production p = ci.next();
+		for (Production p = ci.evaluateNext(); p != null; p = ci.evaluateNext()) {
 			assertSame(productions.wGet(0), p);
 			ci.remove();
 		}
@@ -201,10 +193,9 @@ public class IteratorFactoryTest {
 		Productions productions = g.getPhraseStructure();
 
 		int index = productions.wSize();
-		IEntityIterator<Production> ci = f.<Production>createChildReverse().iterator();
+		IExecutable<Production> ci = f.<Production>createChildReverse();
 		ci.reset(productions);
-		while (ci.hasNext()) {
-			Production p = ci.next();
+		for (Production p = ci.evaluateNext(); p != null; p = ci.evaluateNext()) {
 			assertSame(productions.wGet(--index), p);
 		}
 	}
@@ -214,10 +205,9 @@ public class IteratorFactoryTest {
 		Grammar g = new TestXmlGrammar().create();
 
 		Productions productions = EntityUtils.clone(g.getPhraseStructure());
-		IEntityIterator<Production> ci = f.<Production>createChildReverse().iterator();
+		IExecutable<Production> ci = f.<Production>createChildReverse();
 		ci.reset(productions);
-		while (ci.hasNext()) {
-			Production p = ci.next();
+		for (Production p = ci.evaluateNext(); p != null; p = ci.evaluateNext()) {
 			assertSame(productions.wGet(productions.wSize()-1), p);
 			ci.remove();
 		}
@@ -229,14 +219,11 @@ public class IteratorFactoryTest {
 		Grammar g = new TestXmlGrammar().create();
 		final Productions productions = g.getPhraseStructure();
 
-		final IEntityIterator<IEntity> ci = f.<IEntity>createDescendantOrSelf().iterator();
+		final IExecutable<IEntity> ci = f.<IEntity>createDescendantOrSelf();
 		ci.reset(productions);
 		IVisitor v = GenericTraversalFactory.instance.topDown(new GenericIdentityVisitor() {
 			public void visit(IEntity entity) {
-				if (ci.hasNext())
-					assertSame(entity, ci.next());
-				else
-					fail();
+				assertSame(entity, ci.evaluateNext());
 			}
 		}, false);
 		v.visit(productions);
@@ -246,20 +233,19 @@ public class IteratorFactoryTest {
     public void testDescendantAndDescendantOrSelfIterators() {
 		Grammar g = new TestXmlGrammar().create();
 
-		IEntityIterator<IEntity> dsi = f.<IEntity>createDescendantOrSelf().iterator();
+		IExecutable<IEntity> dsi = f.<IEntity>createDescendantOrSelf();
 		dsi.reset(g);
-		IEntityIterator<IEntity> di = f.<IEntity>createDescendant().iterator();
+		IExecutable<IEntity> di = f.<IEntity>createDescendant();
 		di.reset(g);
 
-		assertSame(g, dsi.next());
-		assertSame(dsi.hasNext(), di.hasNext());
+		assertSame(g, dsi.evaluateNext());
+		assertSame(dsi.evaluateNext(), di.evaluateNext());
 		
-		boolean hasNext;
+		IEntity next;
 		do {
-			assertSame(dsi.lookahead(), di.lookahead());
-			assertSame(dsi.next(), di.next());
-			assertSame(hasNext = dsi.hasNext(), di.hasNext());
-		} while (hasNext);
+			assertSame(dsi.evaluateNext(), di.evaluateNext());
+			assertSame(next = dsi.evaluateNext(), di.evaluateNext());
+		} while (next != null);
 	}
 
     @Test
@@ -270,15 +256,13 @@ public class IteratorFactoryTest {
 		CompilationUnit cu = Matcher.find(JavaEntityDescriptorEnum.CompilationUnit, e, false);
 		ImportModifier im = Matcher.find(JavaEntityDescriptorEnum.ImportModifier, e, false);
 
-		IEntityIterator<IEntity> i1 = f.createRoot().iterator();
+		IExecutable<IEntity> i1 = f.createRoot();
 		i1.reset(im);
-		assertTrue(i1.hasNext());
-		assertSame(e, i1.next());
+		assertSame(e, i1.evaluateNext());
 
-		IEntityIterator<IEntity> i2 = f.createFragmentRoot().iterator();
+		IExecutable<IEntity> i2 = f.createFragmentRoot();
 		i2.reset(im);
-		assertTrue(i2.hasNext());
-		assertSame(cu, i2.next());
+		assertSame(cu, i2.evaluateNext());
 	}
 
     @Test
@@ -286,67 +270,64 @@ public class IteratorFactoryTest {
 		Grammar g = new TestXmlGrammar().create();
 		NonTerminal prologNt = ((Production) ((Production) g.getPhraseStructure().wGet(0)).getRule().wGet(0)).getName();
 
-		IEntityIterator<IEntity> i = f.createRoot().iterator();
+		IExecutable<IEntity> i = f.createRoot();
 		i.reset(prologNt);
-		IEntityIterator<IEntity> i2 = i.clone().iterator();
-		assertTrue(i.hasNext());
-		assertSame(g, i.next());
-		assertFalse(i.hasNext());
+		IExecutable<IEntity> i2 = i.clone();
+		assertSame(g, i.evaluateNext());
+		Assert.assertNull(i.evaluateNext());
 
-		assertTrue(i2.hasNext());
-		assertSame(g, i2.next());
+		assertSame(g, i2.evaluateNext());
 	}
 
 	@Test
     public void testSelfIteratorMarkReset() {
 		Grammar g = new TestXmlGrammar().create();
 		
-		IEntityIterator<Grammar> si = f.<Grammar>createSelf().iterator();
+		IExecutable<Grammar> si = f.<Grammar>createSelf();
 		si.reset(g);
-		IEntityIterator<Grammar> si2 = si.clone().iterator();
-		assertSame(g, si.next());
-		assertFalse(si.hasNext());
+		IExecutable<Grammar> si2 = si.clone();
+		assertSame(g, si.evaluateNext());
+		Assert.assertNull(si.evaluateNext());
 
-		assertTrue(si2.hasNext());
-		assertSame(g, si2.next());
+		assertSame(g, si2.evaluateNext());
 	}
 
 	@Test
     public void testChildIteratorMarkReset() {
 		Grammar g =  new TestXmlGrammar().create();
 		
-		IEntityIterator<IEntity> i = f.<IEntity>createChild().iterator();
+		IExecutable<IEntity> i = f.<IEntity>createChild();
 		i.reset(g);
-		i.next();
-		i.next();
-		IEntityIterator<IEntity> i2 = i.clone().iterator();
-		IEntityIterator<IEntity> i3 = i.clone().iterator();
-		IEntity e1 = i.next();
-		IEntity e2 = i.next();
+		i.evaluateNext();
+		i.evaluateNext();
+		IExecutable<IEntity> i2 = i.clone();
+		IExecutable<IEntity> i3 = i.clone();
+		IEntity e1 = i.evaluateNext();
+		IEntity e2 = i.evaluateNext();
 
-		assertSame(e1, i2.next());
+		assertSame(e1, i2.evaluateNext());
 
-		assertSame(e1, i3.next());
-		assertSame(e2, i3.next());
+		assertSame(e1, i3.evaluateNext());
+		assertSame(e2, i3.evaluateNext());
 	}
 
 	@Test
     public void testChildReverseIteratorMarkReset() {
 		Grammar g = new TestXmlGrammar().create();
 		
-		IEntityIterator<IEntity> i = f.<IEntity>createChildReverse().iterator();
+		IExecutable<IEntity> i = f.<IEntity>createChildReverse();
 		i.reset(g);
-		i.next();
-		i.next();
-		IEntityIterator<IEntity> i2 = i.clone().iterator();
-		IEntityIterator<IEntity> i3 = i.clone().iterator();
-		IEntity e1 = i.next();
-		IEntity e2 = i.next();
+		i.evaluateNext();
+		i.evaluateNext();
+		IExecutable<IEntity> i2 = i.clone();
+		IExecutable<IEntity> i3 = i.clone();
+		IEntity e1 = i.evaluateNext();
+		IEntity e2 = i.evaluateNext();
 
-		assertSame(e1, i2.next());
+		assertSame(e1, i2.evaluateNext());
 
-		assertSame(e1, i3.next());
-		assertSame(e2, i3.next());
+		assertSame(e1, i3.evaluateNext());
+		assertSame(e2, i3.evaluateNext());
 	}
 
 	@Test
@@ -354,15 +335,13 @@ public class IteratorFactoryTest {
 		Grammar g = new TestXmlGrammar().create();
 		Rule r = Matcher.find(GrammarsEntityDescriptorEnum.As, g, false);
 
-		IEntityIterator<IEntity> i = f.createParent().iterator();
+		IExecutable<IEntity> i = f.createParent();
 		i.reset(r);
-		IEntityIterator<IEntity> i2 = i.clone().iterator();
-		assertTrue(i.hasNext());
-		IEntity e1 = i.next();
+		IExecutable<IEntity> i2 = i.clone();
+		IEntity e1 = i.evaluateNext();
 		assertSame(r.wGetParent(), e1);
 
-		assertTrue(i2.hasNext());
-		assertSame(r.wGetParent(), i2.next());
+		assertSame(r.wGetParent(), i2.evaluateNext());
 	}
 
 	@Test
@@ -370,19 +349,19 @@ public class IteratorFactoryTest {
 		Grammar g = new TestXmlGrammar().create();
 		Rule r = Matcher.find(GrammarsEntityDescriptorEnum.As, g, false);
 
-		IEntityIterator<IEntity> i = f.createAncestor().iterator();
+		IExecutable<IEntity> i = f.createAncestor();
 		i.reset(r);
-		i.next();
-		i.next();
-		IEntityIterator<IEntity> i2 = i.clone().iterator();
-		IEntityIterator<IEntity> i3 = i.clone().iterator();
-		IEntity e1 = i.next();
-		IEntity e2 = i.next();
+		i.evaluateNext();
+		i.evaluateNext();
+		IExecutable<IEntity> i2 = i.clone();
+		IExecutable<IEntity> i3 = i.clone();
+		IEntity e1 = i.evaluateNext();
+		IEntity e2 = i.evaluateNext();
 
-		assertSame(e1, i2.next());
+		assertSame(e1, i2.evaluateNext());
 
-		assertSame(e1, i3.next());
-		assertSame(e2, i3.next());
+		assertSame(e1, i3.evaluateNext());
+		assertSame(e2, i3.evaluateNext());
 	}
 
 	@Test
@@ -390,21 +369,21 @@ public class IteratorFactoryTest {
 		Grammar g = new TestXmlGrammar().create();
 		Rule r = Matcher.find(GrammarsEntityDescriptorEnum.As, g, false);
 
-		IEntityIterator<IEntity> i = f.createAncestorOrSelf().iterator();
+		IExecutable<IEntity> i = f.createAncestorOrSelf();
 		i.reset(r);
-		IEntity e1 = i.next();
+		IEntity e1 = i.evaluateNext();
 		assertSame(r, e1);
-		e1 = i.next();
+		e1 = i.evaluateNext();
 		assertSame(r.wGetParent(), e1);
-		IEntityIterator<IEntity> i2 = i.clone().iterator();
-		IEntityIterator<IEntity> i3 = i.clone().iterator();
-		e1 = i.next();
-		IEntity e2 = i.next();
+		IExecutable<IEntity> i2 = i.clone();
+		IExecutable<IEntity> i3 = i.clone();
+		e1 = i.evaluateNext();
+		IEntity e2 = i.evaluateNext();
 
-		assertSame(e1, i2.next());
+		assertSame(e1, i2.evaluateNext());
 
-		assertSame(e1, i3.next());
-		assertSame(e2, i3.next());
+		assertSame(e1, i3.evaluateNext());
+		assertSame(e2, i3.evaluateNext());
 	}
 
 
@@ -420,12 +399,11 @@ public class IteratorFactoryTest {
 
 		Rule r = Matcher.find(GrammarsEntityDescriptorEnum.As, outerMisc, false);
 
-		IEntityIterator<IEntity> i = f.createAncestorOrSelf().iterator();
+		IExecutable<IEntity> i = f.createAncestorOrSelf();
 		i.reset(r);
 
-		IEntity next = null;
-		while (i.hasNext()) {
-			next = i.next();
+		IEntity next;
+		for (next = i.evaluateNext(); next != null; next = i.evaluateNext()) {
 			if (Matcher.match(MiscEntityDescriptorEnum.Misc, next))
 				break;
 		}
@@ -440,14 +418,6 @@ public class IteratorFactoryTest {
 
 		i.remove();
 		assertEquals(0, outerMisc.wSize());
-		
-		i.reset(r2);
-		while (i.hasNext()) {
-			next = i.next();
-			if (i.hasNext())
-				i.remove();
-		}
-		assertFalse(EntityUtils.hasParent(next));
 	}
 
 	@Test
@@ -455,41 +425,36 @@ public class IteratorFactoryTest {
 		Grammar g = new TestXmlGrammar().create();
 
 		IBindingManager bindings = BindingManagerFactory.instance.createBindingManager();
-		IEntityIterator<IEntity> i = f.createVariable("testVar").iterator();
+		IExecutable<IEntity> i = f.createVariable("testVar");
 		i.setBindings(bindings);
 		i.reset(g);
-		assertFalse(i.hasNext());
+		Assert.assertNull(i.evaluateNext());
 		bindings.wDef("testVar", g);
-		assertTrue(i.hasNext());
-		IEntity g1 = i.next();
+		IEntity g1 = i.evaluateNext();
 		assertSame(g, g1);
-		assertFalse(i.hasNext());
+		Assert.assertNull(i.evaluateNext());
 		i.reset(g);
-		assertTrue(i.hasNext());
-		g1 = i.next();
+		g1 = i.evaluateNext();
 		assertSame(g, g1);
-		assertFalse(i.hasNext());
+		Assert.assertNull(i.evaluateNext());
 
 		bindings = BindingManagerFactory.instance.createBindingManager();
 		bindings.wDef("testVar", g);
-		i = f.createVariable("testVar").iterator();
+		i = f.createVariable("testVar");
 		i.setBindings(bindings);
 		i.reset(BindingManagerFactory.instance.createNull());
-		assertTrue(i.hasNext());
-		g1 = i.next();
+		g1 = i.evaluateNext();
 		assertSame(g, g1);
-		assertFalse(i.hasNext());
+		Assert.assertNull(i.evaluateNext());
 		i.reset(g);
-		IEntityIterator<IEntity> i2 = i.clone().iterator();
-		assertTrue(i.hasNext());
-		g1 = i.next();
+		IExecutable<IEntity> i2 = i.clone();
+		g1 = i.evaluateNext();
 		assertSame(g, g1);
-		assertFalse(i.hasNext());
+		Assert.assertNull(i.evaluateNext());
 
-		assertTrue(i2.hasNext());
-		g1 = i2.next();
+		g1 = i2.evaluateNext();
 		assertSame(g, g1);
-		assertFalse(i2.hasNext());
+		Assert.assertNull(i2.evaluateNext());
 	}
 
 	@Test
@@ -499,159 +464,132 @@ public class IteratorFactoryTest {
 				g.wGetAdapter(CommonsEntityDescriptorEnum.Any));
 		IEntity gParent = g.wGetParent(); //rootParent
 
-		IEntityIterator<IEntity> i = f.createRoot().iterator();
+		IExecutable<IEntity> i = f.createRoot();
 		i.reset(g);
-		assertTrue(i.hasNext());
-		IEntity e1 = i.next();
+		IEntity e1 = i.evaluateNext();
 		assertSame(g, e1);
 		
-		i = f.createRoot().iterator();
+		i = f.createRoot();
 		i.reset(gParent);
-		assertTrue(i.hasNext());
-		e1 = i.next();
+		e1 = i.evaluateNext();
 		assertSame(g, e1);
 		
-		i = f.createFragmentRoot().iterator();
+		i = f.createFragmentRoot();
 		i.reset(gParent);
-		assertTrue(i.hasNext());
-		e1 = i.next();
+		e1 = i.evaluateNext();
 		assertSame(g, e1);
 		
-		i = f.createParent().iterator();
+		i = f.createParent();
 		i.reset(g);
-		assertTrue(i.hasNext());
-		e1 = i.next();
+		e1 = i.evaluateNext();
 		assertSame(g.wGetParent(), e1);
 
-		i = f.createParent().iterator();
+		i = f.createParent();
 		i.reset(gParent);
-		assertFalse(i.hasNext());
-		assertNull(i.lookahead());
+		assertNull(i.evaluateNext());
 
-		i = f.createAncestor().iterator();
+		i = f.createAncestor();
 		i.reset(g);
-		assertTrue(i.hasNext());
-		e1 = i.next();
+		e1 = i.evaluateNext();
 		assertSame(g.wGetParent(), e1);
 
-		i = f.createAncestor().iterator();
+		i = f.createAncestor();
 		i.reset(gParent);
-		assertFalse(i.hasNext());
-		assertNull(i.lookahead());
+		assertNull(i.evaluateNext());
 
-		i = f.createAncestorOrSelf().iterator();
+		i = f.createAncestorOrSelf();
 		i.reset(g);
-		assertTrue(i.hasNext());
-		e1 = i.next();
+		e1 = i.evaluateNext();
 		assertSame(g, e1);
-		assertTrue(i.hasNext());
-		e1 = i.next();
+		e1 = i.evaluateNext();
 		assertSame(g.wGetParent(), e1);
 
-		i = f.createAncestorOrSelf().iterator();
+		i = f.createAncestorOrSelf();
 		i.reset(gParent);
-		assertTrue(i.hasNext());
-		e1 = i.next();
+		e1 = i.evaluateNext();
 		assertSame(g.wGetParent(), e1);
-		assertFalse(i.hasNext());
-		assertNull(i.lookahead());
+		assertNull(i.evaluateNext());
 
-		IEntityIterator<Grammar> i2 = f.<Grammar>createSelf().iterator();
+		IExecutable<Grammar> i2 = f.<Grammar>createSelf();
 		i2.reset(g);
-		assertTrue(i2.hasNext());
-		e1 = i2.next();
+		e1 = i2.evaluateNext();
 		assertSame(g, e1);
-		assertFalse(i2.hasNext());
-		assertNull(i2.lookahead());
+		assertNull(i2.evaluateNext());
 
-		i = f.createSelf().iterator();
+		i = f.createSelf();
 		i.reset(gParent);
-		assertTrue(i.hasNext());
-		e1 = i.next();
+		e1 = i.evaluateNext();
 		assertSame(gParent, e1);
-		assertFalse(i.hasNext());
-		assertNull(i.lookahead());
+		assertNull(i.evaluateNext());
 
 
 		g = GrammarsEntityFactory.instance.createGrammar();
 
 		gParent = g.wGetParent(); //nullEntity
 
-		i = f.createRoot().iterator();
+		i = f.createRoot();
 		i.reset(g);
-		assertTrue(i.hasNext());
-		e1 = i.next();
+		e1 = i.evaluateNext();
 		assertSame(g, e1);
 		
-		i = f.createRoot().iterator();
+		i = f.createRoot();
 		i.reset(gParent);
-		assertFalse(i.hasNext());
-		assertNull(i.lookahead());
+		assertNull(i.evaluateNext());
 		
-		i = f.createParent().iterator();
+		i = f.createParent();
 		i.reset(g);
-		assertFalse(i.hasNext());
-		assertNull(i.lookahead());
-		i = f.createParent().iterator();
+		assertNull(i.evaluateNext());
+		i = f.createParent();
 		i.reset(gParent);
-		assertFalse(i.hasNext());
-		assertNull(i.lookahead());
+		assertNull(i.evaluateNext());
 
-		i = f.createAncestor().iterator();
+		i = f.createAncestor();
 		i.reset(g);
-		assertFalse(i.hasNext());
-		assertNull(i.lookahead());
-		i = f.createAncestor().iterator();
+		assertNull(i.evaluateNext());
+		i = f.createAncestor();
 		i.reset(gParent);
-		assertFalse(i.hasNext());
-		assertNull(i.lookahead());
+		assertNull(i.evaluateNext());
 
-		i = f.createAncestorOrSelf().iterator();
+		i = f.createAncestorOrSelf();
 		i.reset(g);
-		assertTrue(i.hasNext());
-		e1 = i.next();
+		e1 = i.evaluateNext();
 		assertSame(g, e1);
-		assertFalse(i.hasNext());
-		assertNull(i.lookahead());
+		assertNull(i.evaluateNext());
 
-		i = f.createAncestorOrSelf().iterator();
+		i = f.createAncestorOrSelf();
 		i.reset(gParent);
-		assertFalse(i.hasNext());
-		assertNull(i.lookahead());
+		assertNull(i.evaluateNext());
 
-		i2 = f.<Grammar>createSelf().iterator();
+		i2 = f.<Grammar>createSelf();
 		i2.reset(g);
-		assertTrue(i2.hasNext());
-		e1 = i2.next();
+		e1 = i2.evaluateNext();
 		assertSame(g, e1);
-		assertFalse(i2.hasNext());
-		assertNull(i2.lookahead());
+		assertNull(i2.evaluateNext());
 
-		i = f.createSelf().iterator();
+		i = f.createSelf();
 		i.reset(gParent);
-		assertFalse(i.hasNext());
-		assertNull(i.lookahead());		
+		assertNull(i.evaluateNext());
 	}
 
 	@Test
     public void testTopDownIteratorMarkReset() {
 		Grammar g = new TestXmlGrammar().create();
 
-		IEntityIterator<IEntity> i = f.<IEntity>createDescendantOrSelf().iterator();
+		IExecutable<IEntity> i = f.<IEntity>createDescendantOrSelf();
 		i.reset(g);
 		for (int j=0; j<15; j++)
-			i.next();
-		IEntityIterator<IEntity> i2 = i.clone().iterator();
-		IEntityIterator<IEntity> i3 = i.clone().iterator();
-		IEntity e1 = i.next();
-		IEntity e2 = i.next();
+			i.evaluateNext();
+		IExecutable<IEntity> i2 = i.clone();
+		IExecutable<IEntity> i3 = i.clone();
+		IEntity e1 = i.evaluateNext();
+		IEntity e2 = i.evaluateNext();
 		for (int j=0; j<7; j++)
-			i.next();
+			i.evaluateNext();
 
-		assertSame(e1, i2.next());
+		assertSame(e1, i2.evaluateNext());
 
-		assertSame(e1, i3.next());
-		assertSame(e2, i3.next());
+		assertSame(e1, i3.evaluateNext());
+		assertSame(e2, i3.evaluateNext());
 	}
 
 	@Test
@@ -664,10 +602,10 @@ public class IteratorFactoryTest {
 		Production pAdded1 = null;
 		Production pAdded2 = null;
 		
-		IEntityIterator<Production> i = f.<Production>createChild().iterator();
+		IExecutable<Production> i = f.<Production>createChild();
 		i.reset(productions);
-		while (i.hasNext()) {
-			Production p = i.next();
+		Production p;
+		while ((p = i.evaluateNext()) != null) {
 			assertNotSame(pAdded1, p);
 			assertNotSame(pAdded2, p);
 
@@ -695,10 +633,10 @@ public class IteratorFactoryTest {
 		Production pAdded1 = null;
 		Production pAdded2 = null;
 		
-		IEntityIterator<Production> i = f.<Production>createChildReverse().iterator();
+		IExecutable<Production> i = f.<Production>createChildReverse();
 		i.reset(productions);
-		while (i.hasNext()) {
-			Production p = i.next();
+		Production p;
+		while ((p = i.evaluateNext()) != null) {
 			assertNotSame(pAdded1, p);
 			assertNotSame(pAdded2, p);
 
@@ -727,12 +665,12 @@ public class IteratorFactoryTest {
 		Rule rAdded1 = null;
 		Rule rAdded2 = null;
 		
-		IEntityIterator<IEntity> i = f.<IEntity>createDescendantOrSelf().iterator();
+		IExecutable<IEntity> i = f.<IEntity>createDescendantOrSelf();
 		i.reset(production);
-		i.next();
-		i.next();
-		while (i.hasNext()) {
-			IEntity r = i.next();
+		i.evaluateNext();
+		i.evaluateNext();
+		IEntity r;
+		while ((r = i.evaluateNext()) != null) {
 			assertNotSame(rAdded1, r);
 			assertNotSame(rAdded2, r);
 
@@ -761,11 +699,11 @@ public class IteratorFactoryTest {
 		ExecutableFactory f = ExecutableFactory.instance;
 		
 		List<Production> p3 = new ArrayList<Production>();
-		IExecutable<Production> i11 = f.<Production>createChild().iterator();
+		IExecutable<Production> i11 = f.<Production>createChild();
 		i11.reset(p1);
 		for (Production p : i11)
 			p3.add(p);
-		IExecutable<Production> i12 = f.<Production>createChild().iterator();
+		IExecutable<Production> i12 = f.<Production>createChild();
 		i12.reset(p2);
 		for (Production p : i12)
 			p3.add(p);
@@ -800,52 +738,50 @@ public class IteratorFactoryTest {
 		NonTerminal prologNt = ((Production) ((Production) g.getPhraseStructure().wGet(0)).getRule().wGet(0)).getName();
 
 		//query: g/phraseStructure/0/rule/0/name
-		IEntityIterator<? extends IEntity> nti = f.createCompose(
+		IExecutable<? extends IEntity> nti = f.createCompose(
 				f.createFeatureByName("name"),
 				f.createFeatureByIndex(0),
 				f.createFeatureByName("rule"),
 				f.createFeatureByIndex(0),
-				f.createFeatureByName("phraseStructure")).iterator();
+				f.createFeatureByName("phraseStructure"));
 		nti.reset(g);
 
-		assertTrue(nti.hasNext());
-		assertSame(prologNt, nti.next());
+		assertSame(prologNt, nti.evaluateNext());
 		
 		nti.reset(g.getPhraseStructure());
-		assertFalse(nti.hasNext());
+		assertNull(nti.evaluateNext());
 
 		nti.reset(g);
-		assertTrue(nti.hasNext());
-		assertSame(prologNt, nti.next());		
+		assertSame(prologNt, nti.evaluateNext());		
 	}
 
 	@Test
     public void testPrune() {
 		Grammar g = new TestXmlGrammar().create();
 
-		IEntityIterator<IEntity> i1 = f.<IEntity>createDescendantOrSelf().iterator();
+		IExecutable<IEntity> i1 = f.<IEntity>createDescendantOrSelf();
 		i1.reset(g);
-		IEntityIterator<IEntity> i2 = f.<IEntity>createDescendantOrSelf().iterator();
+		IExecutable<IEntity> i2 = f.<IEntity>createDescendantOrSelf();
 		i2.reset(g);
 		for (IEntity e : i1) {
-			assertSame(e, i2.next());
+			assertSame(e, i2.evaluateNext());
 			
-			IEntityIterator<IEntity> i12 = i1.clone().iterator();
+			IExecutable<IEntity> i12 = i1.clone();
 			i12.prune();
 		}
-		assertSame(i1.hasNext(), i2.hasNext());
+		assertSame(i1.evaluateNext() != null, i2.evaluateNext() != null);
 		
-		i1 = f.<IEntity>createDescendantOrSelf().iterator();
+		i1 = f.<IEntity>createDescendantOrSelf();
 		i1.reset(g);
 		for (IEntity e : i1) {
-			IEntityIterator<IEntity> i3 = f.<IEntity>createFollowingSibling().iterator();
+			IExecutable<IEntity> i3 = f.<IEntity>createFollowingSibling();
 			i3.reset(e);
-			if (i3.hasNext()) {
-				IEntityIterator<IEntity> i12 = i1.clone().iterator();
+			IEntity e2 = i3.evaluateNext();
+			if (e2 != null) {
+				IExecutable<IEntity> i12 = i1.clone();
 				i12.prune();
 
-				IEntity e1 = i12.next();
-				IEntity e2 = i3.next();
+				IEntity e1 = i12.evaluateNext();
 				assertSame(e1, e2);
 			}
 		}
@@ -855,22 +791,20 @@ public class IteratorFactoryTest {
     public void testFollowingIterator() {
 		Grammar g = new TestXmlGrammar().create();
 
-		IExecutable<IEntity> tdi = f.<IEntity>createDescendantOrSelf().iterator();
+		IExecutable<IEntity> tdi = f.<IEntity>createDescendantOrSelf();
 		tdi.reset(g);
 
 		for (IEntity e : tdi) {
-			IEntityIterator<IEntity> fi = f.<IEntity>createFollowing().iterator();
+			IExecutable<IEntity> fi = f.<IEntity>createFollowing();
 			fi.reset(e);
 			
-			if (fi.hasNext()) {
-				IEntityIterator<IEntity> tdi2 = tdi.clone().iterator();
+			IEntity fe = fi.evaluateNext();
+			if (fe != null) {
+				IExecutable<IEntity> tdi2 = tdi.clone();
 				tdi2.prune();
-
-				assertSame(tdi2.hasNext(), fi.hasNext());
-				assertSame(tdi2.lookahead(), fi.lookahead());
 				
-				for (IEntity fe : fi) {
-					IEntity e1 = tdi2.next();
+				for (; fe != null; fe = fi.evaluateNext()) {
+					IEntity e1 = tdi2.evaluateNext();
 					assertSame(e1, fe);
 				}
 			}
@@ -881,23 +815,20 @@ public class IteratorFactoryTest {
     public void testPrecedingIterator() {
 		Grammar g = new TestXmlGrammar().create();
 
-		IExecutable<IEntity> tdi = f.<IEntity>createDescendantOrSelfReverse().iterator();
+		IExecutable<IEntity> tdi = f.<IEntity>createDescendantOrSelfReverse();
 		tdi.reset(g);
 
 		for (IEntity e : tdi) {
-			IEntityIterator<IEntity> fi = f.<IEntity>createPreceding().iterator();
+			IExecutable<IEntity> fi = f.<IEntity>createPreceding();
 			fi.reset(e);
 			
-			if (fi.hasNext()) {
-				IEntityIterator<IEntity> tdi2 = tdi.clone().iterator();
+			IEntity fe = fi.evaluateNext();
+			if (fe != null) {
+				IExecutable<IEntity> tdi2 = tdi.clone();
 				tdi2.prune();
 				
-					
-				assertSame(tdi2.hasNext(), fi.hasNext());
-				assertSame(tdi2.lookahead(), fi.lookahead());
-				
-				for (IEntity fe : fi) {
-					IEntity e1 = tdi2.next();
+				for (; fe != null; fe = fi.evaluateNext()) {
+					IEntity e1 = tdi2.evaluateNext();
 					assertSame(e1, fe);
 				}
 			}
@@ -908,26 +839,26 @@ public class IteratorFactoryTest {
     public void testAxesPartitionInvariant() {
 		Grammar g = new TestXmlGrammar().create();
 
-		IExecutable<IEntity> i = f.<IEntity>createDescendantOrSelf().iterator();
+		IExecutable<IEntity> i = f.<IEntity>createDescendantOrSelf();
 		i.reset(g);
 		Set<IEntity> s = entities(i);
 
-		IExecutable<IEntity> i2 = f.<IEntity>createDescendantOrSelf().iterator();
+		IExecutable<IEntity> i2 = f.<IEntity>createDescendantOrSelf();
 		i2.reset(g);
 		for (IEntity e : i2) {
-			IExecutable<IEntity> i1 = f.<IEntity>createAncestor().iterator();
+			IExecutable<IEntity> i1 = f.<IEntity>createAncestor();
 			i1.reset(e);
 			Set<IEntity> s1 = entities(i1);
-			IExecutable<IEntity> i22 = f.createSelf().iterator();
+			IExecutable<IEntity> i22 = f.createSelf();
 			i22.reset(e);
 			Set<IEntity> s2 = entities(i22);
-			IExecutable<IEntity> i3 = f.<IEntity>createDescendant().iterator();
+			IExecutable<IEntity> i3 = f.<IEntity>createDescendant();
 			i3.reset(e);
 			Set<IEntity> s3 = entities(i3);
-			IExecutable<IEntity> i4 = f.<IEntity>createPreceding().iterator();
+			IExecutable<IEntity> i4 = f.<IEntity>createPreceding();
 			i4.reset(e);
 			Set<IEntity> s4 = entities(i4);
-			IExecutable<IEntity> i5 = f.<IEntity>createFollowing().iterator();
+			IExecutable<IEntity> i5 = f.<IEntity>createFollowing();
 			i5.reset(e);
 			Set<IEntity> s5 = entities(i5);
 		
@@ -964,39 +895,33 @@ public class IteratorFactoryTest {
 		Productions productions = g.getPhraseStructure();
 		Production p = (Production) productions.wGet(1);
 		
-		IEntityIterator<?> i = f.createFilterByIndex(
-				f.createFollowingSibling(), 0).iterator();
+		IExecutable<?> i = f.createFilterByIndex(
+				f.createFollowingSibling(), 0);
 		i.reset(p);
 		assertSingleton(i, productions.wGet(2));
 		
 		i = f.createFilterByIndex(
-				f.createFollowingSibling(), 1).iterator();
+				f.createFollowingSibling(), 1);
 		i.reset(p);
 		assertSingleton(i, productions.wGet(3));
 		
 		i = f.createFilterByIndex(
-				f.createAncestorOrSelf(), 2).iterator();
+				f.createAncestorOrSelf(), 2);
 		i.reset(p);
 		assertSingleton(i, productions.wGetParent());
 		
 		i = f.createFilterByIndex(
-				f.createDescendantOrSelf(), 1).iterator();
+				f.createDescendantOrSelf(), 1);
 		i.reset(p);
 		assertSingleton(i, p.getName());
 	}
 
-	private void assertSingleton(IEntityIterator<?> i, IEntity e) {
-		IEntityIterator<?> i2 = i.clone().iterator();
-		assertTrue(i.hasNext());
-		assertSame(e, i.lookahead());
-		assertSame(e, i.next());
-		assertFalse(i.hasNext());
-		assertNull(i.lookahead());
+	private void assertSingleton(IExecutable<?> i, IEntity e) {
+		IExecutable<?> i2 = i.clone();
+		assertSame(e, i.evaluateNext());
+		assertNull(i.evaluateNext());
 
-		assertTrue(i2.hasNext());
-		assertSame(e, i2.lookahead());
-		assertSame(e, i2.next());
-		assertFalse(i2.hasNext());
-		assertNull(i2.lookahead());		
+		assertSame(e, i2.evaluateNext());
+		assertNull(i2.evaluateNext());
 	}
 }

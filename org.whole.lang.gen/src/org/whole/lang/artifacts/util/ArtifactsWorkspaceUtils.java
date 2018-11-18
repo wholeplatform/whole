@@ -64,7 +64,6 @@ import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.evaluators.CollectionEvaluator;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.factories.RegistryConfigurations;
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.model.NullEntity;
@@ -102,23 +101,21 @@ public class ArtifactsWorkspaceUtils {
 				!Matcher.match(ArtifactsEntityDescriptorEnum.Project, artifact))
 			throw new IllegalArgumentException("Wrong path ending with: "+artifact.toString());
 
-		IEntityIterator<IEntity> pathIterator = new AncestorOrSelfInSameLanguageReverseEvaluator();
-		pathIterator.reset(artifact);
+		IExecutable<IEntity> pathExecutable = new AncestorOrSelfInSameLanguageReverseEvaluator();
+		pathExecutable.reset(artifact);
 
-		if (!pathIterator.hasNext())
+		IEntity rootEntity = pathExecutable.evaluateNext();
+		if (rootEntity == null)
 			throw new IllegalArgumentException("Empty model");
+		if (CommonsEntityDescriptorEnum.RootFragment.equals(rootEntity.wGetEntityDescriptor()))
+			rootEntity = pathExecutable.evaluateNext();
 
-		if (CommonsEntityDescriptorEnum.RootFragment.equals(pathIterator.lookahead().wGetEntityDescriptor()))
-			pathIterator.next();
-
-		IEntity rootEntity = pathIterator.next();
 		if (!Matcher.matchImpl(ArtifactsEntityDescriptorEnum.Workspace, rootEntity))
 			throw new IllegalArgumentException("Missing Workspace root entity");
 
 		bindMetadata(((Workspace) rootEntity).getMetadata(), bindings);
 
-		while (pathIterator.hasNext()) {
-			IEntity pathFragment = pathIterator.next();
+		for (IEntity pathFragment = rootEntity; pathFragment != null; pathFragment = pathExecutable.evaluateNext()) {
 			if (EntityUtils.isNotResolver(pathFragment) && !EntityUtils.isComposite(pathFragment)) {
 				switch (pathFragment.wGetEntityOrd()) {
 				case ArtifactsEntityDescriptorEnum.Project_ord:

@@ -21,7 +21,6 @@ import static org.whole.lang.xml.reflect.XmlEntityDescriptorEnum.Content;
 
 import org.whole.lang.executables.ExecutableFactory;
 import org.whole.lang.executables.IExecutable;
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.EntityKinds;
@@ -43,12 +42,12 @@ public class XmlNormalizerVisitor extends XmlTraverseAllVisitor {
 	public void visit(CDataSect entity) {
 		// pack children
 		if (entity.wSize() > 1) {
-			IEntityIterator<IEntity> i = executableFactory().createChild().iterator();
+			IExecutable<IEntity> i = executableFactory().createChild();
 			i.reset(entity);
-			IEntity first = i.next();
+			IEntity first = i.evaluateNext();
 			StringBuilder sb = getStringBuilder().append(first.wStringValue());
-			while (i.hasNext()) {
-				sb.append(i.next().wStringValue());
+			for (IEntity c = i.evaluateNext(); c != null; c = i.evaluateNext()) {
+				sb.append(c.wStringValue());
 				i.remove();
 			}
 			first.wSetValue(sb.toString());

@@ -22,7 +22,7 @@ import java.util.List;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ContentAssistOperation;
 import org.whole.lang.operations.IOperation;
@@ -55,10 +55,11 @@ public class DynamicContentAssistVisitor extends AbstractDynamicVisitor {
 	}
 
 	@Override
-	protected void apply(IEntityIterator<?> iterator) {
+	protected void apply(IExecutable<?> executable) {
 		List<IEntity> values = new ArrayList<IEntity>();
-		while (iterator.hasNext())
-			values.add(iterator.next());
+		IEntity value;
+		while ((value = executable.evaluateNext()) != null)
+			values.add(value);
 
 		((ContentAssistOperation) super.getOperation())
 				.setResult(values.toArray(new IEntity[values.size()]));

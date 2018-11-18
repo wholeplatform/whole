@@ -35,7 +35,6 @@ import org.whole.lang.executables.ExecutableFactory;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.factories.GenericEntityFactory;
 import org.whole.lang.factories.RegistryConfigurations;
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.EnumValue;
 import org.whole.lang.model.IEntity;
@@ -234,13 +233,12 @@ public class PojoUtils {
 		}
 
 		// translate declared properties
-		IEntityIterator<Property> iterator = ExecutableFactory.instance.<Property>createChild().iterator();
-		iterator.reset(pojoDeclaration.getProperties());
+		IExecutable<Property> executable = ExecutableFactory.instance.<Property>createChild();
+		executable.reset(pojoDeclaration.getProperties());
 		EntityDescriptor<?> ed = toIEntity.wGetEntityDescriptor();
 		Property property = null;
 		try {
-			while (iterator.hasNext()) {
-				property = iterator.next();
+			for (property = executable.evaluateNext(); property != null; property = executable.evaluateNext()) {
 				Type type = property.getType();
 				Name template = property.getTemplate();
 				FeatureDescriptor fd = ed.getFeatureDescriptorEnum().valueOf(template.wStringValue());
@@ -270,13 +268,12 @@ public class PojoUtils {
 		}
 
 		// translate declared properties
-		IEntityIterator<Property> iterator = ExecutableFactory.instance.<Property>createChild().iterator();
-		iterator.reset(pojoDeclaration.getProperties());
+		IExecutable<Property> executable = ExecutableFactory.instance.<Property>createChild();
+		executable.reset(pojoDeclaration.getProperties());
 		EntityDescriptor<?> ed = fromEntity.wGetEntityDescriptor();
 		Property property = null;
 		try {
-			while (iterator.hasNext()) {
-				property = iterator.next();
+			for (property = executable.evaluateNext(); property != null; property = executable.evaluateNext()) {
 				if (isReadOnly(property))
 					continue;
 				Type type = property.getType();
@@ -510,10 +507,9 @@ public class PojoUtils {
 		int[] supportedFields = new int[constructors.size()];
 
 		Expression findAllReadOnlyFields = (Expression) PojoTemplateManager.instance().create("findAllReadOnlyFields");
-		IEntityIterator<Name> iterator = BehaviorUtils.<Name>compileAndLazyEvaluate(findAllReadOnlyFields, pojoDeclaration, bindings).iterator();
+		IExecutable<Name> executable = BehaviorUtils.<Name>compileAndLazyEvaluate(findAllReadOnlyFields, pojoDeclaration, bindings);
 		int readOnlyFieldCount = 0;
-		while (iterator.hasNext()) {
-			iterator.next();
+		while (executable.evaluateNext() != null) {
 			for (int i=0; i<supportedFields.length; i++)
 				if (BehaviorUtils.evaluateFirstResult(findParameterByTemplate, constructors.get(i), bindings) != null)
 					supportedFields[i]++;
@@ -538,9 +534,8 @@ public class PojoUtils {
 		IBindingManager bindings = BindingManagerFactory.instance.createArguments();
 		Expression findPropertyByTemplate = (Expression) PojoTemplateManager.instance().create("findPropertyByTemplate");
 		Expression findParameterByTemplate = (Expression) PojoTemplateManager.instance().create("findParameterByTemplate");
-		IEntityIterator<Parameter> iterator = BehaviorUtils.<Parameter>compileAndLazyEvaluate(findParameterByTemplate, constructor, bindings).iterator();
-		while (iterator.hasNext()) {
-			iterator.next();
+		IExecutable<Parameter> executable = BehaviorUtils.<Parameter>compileAndLazyEvaluate(findParameterByTemplate, constructor, bindings);
+		while (executable.evaluateNext() != null) {
 			Property property = BehaviorUtils.<Property>evaluateFirstResult(findPropertyByTemplate, pojoDeclaration, bindings);
 			Type type = property.getType();
 			Name template = property.getTemplate();

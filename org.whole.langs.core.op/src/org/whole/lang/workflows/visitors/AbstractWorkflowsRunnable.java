@@ -23,7 +23,6 @@ import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.executables.IExecutable;
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.util.DataTypeUtils;
 import org.whole.lang.util.EntityUtils;
@@ -40,7 +39,7 @@ public abstract class AbstractWorkflowsRunnable implements IRunnable {
     	bm.setResult(model);
     }
     protected static void setResult(IBindingManager bm, Variable variable, Object resultValue, Class<?> resultType) {
-		if (resultValue instanceof IEntityIterator) {
+		if (resultValue instanceof IExecutable) {
 			bm.setExecutableResult((IExecutable<?>) resultValue);
 		} else if (Void.TYPE.equals(resultType)) {
 			if (EntityUtils.isNotResolver(variable))

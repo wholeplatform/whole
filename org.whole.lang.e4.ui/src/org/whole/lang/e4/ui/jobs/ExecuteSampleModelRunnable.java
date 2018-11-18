@@ -33,7 +33,7 @@ import org.whole.lang.environment.factories.EnvironmentEntityFactory;
 import org.whole.lang.environment.model.Name;
 import org.whole.lang.environment.reflect.EnvironmentEntityDescriptorEnum;
 import org.whole.lang.evaluators.ConstantEvaluator;
-import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.misc.factories.MiscEntityFactory;
 import org.whole.lang.model.IEntity;
@@ -84,12 +84,12 @@ public class ExecuteSampleModelRunnable extends AbstractRunnableWithProgress {
 
 		IEntity derivedModel = null;
 		try {
-			IEntityIterator<?> iterator = BehaviorUtils.lazyEvaluateOnSelfBinding(behaviorModel, 0, bm).iterator();
-			iterator.setBindings(selfBindings);
-			iterator.reset(selfEntity);
+			IExecutable<?> executable = BehaviorUtils.lazyEvaluateOnSelfBinding(behaviorModel, 0, bm);
+			executable.setBindings(selfBindings);
+			executable.reset(selfEntity);
 
-			if (iterator.undecoratedExecutable().getClass().equals(ConstantEvaluator.class)) {
-				IEntity result = iterator.next();
+			IEntity result = executable.evaluateNext();
+			if (executable.undecoratedExecutable().getClass().equals(ConstantEvaluator.class)) {
 				if (result == null || !EntityUtils.isData(result))
 					derivedModel = result;
 				else {
@@ -97,16 +97,17 @@ public class ExecuteSampleModelRunnable extends AbstractRunnableWithProgress {
 					derivedModel = IVisitor.class.isInstance(resultValue) ?
 							BindingManagerFactory.instance.createValue(Matcher.match((IVisitor) resultValue, selfEntity)) : result;
 				}
-			} else if (iterator.hasNext()) {
+			} else if (result != null) {
 				derivedModel = MiscEntityFactory.instance.createMisc(0);
 	
 				ITransactionScope transactionScope = BindingManagerFactory.instance.createTransactionScope();
 				bm.wEnterScope(transactionScope);
 				try {
-					for (IEntity result : iterator) {
+					do {
 						transactionScope.commit();
 						derivedModel.wAdd(EntityUtils.clone(result));//TODO substitute with a no containment fragment
-					}
+						result = executable.evaluateNext();
+					} while (result != null);
 				} finally {
 					transactionScope.rollback();
 					bm.wExitScope();

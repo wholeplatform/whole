@@ -17,7 +17,8 @@
  */
 package org.whole.lang.xml.builders;
 
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -27,7 +28,7 @@ import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.builders.ModelBuilderOperation;
 import org.whole.lang.executables.ExecutableFactory;
-import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.NormalizerOperation;
@@ -58,16 +59,16 @@ public class XmlNormalizerBuilderTest {
 			Document xmlDocument = sampleXmlModelTemplate.create();
 
 			// has nested Content
-			IEntityIterator<IEntity> iterator = BehaviorUtils.compileAndLazyEvaluate(findNestedContent, xmlDocument).iterator();
-			assertTrue(iterator.hasNext());
+			IExecutable<IEntity> executable = BehaviorUtils.compileAndLazyEvaluate(findNestedContent, xmlDocument);
+			assertNotNull(executable.evaluateNext());
 
 			// has nested implied Content
-			iterator = BehaviorUtils.compileAndLazyEvaluate(findMissingContentEntities, xmlDocument).iterator();
-			assertTrue(iterator.hasNext());
+			executable = BehaviorUtils.compileAndLazyEvaluate(findMissingContentEntities, xmlDocument);
+			assertNotNull(executable.evaluateNext());
 
 			// has consecutive CharData or consecutive CDataSect
-			iterator = BehaviorUtils.compileAndLazyEvaluate(findConsecutiveCharDataOrCDataSect, xmlDocument).iterator();
-			assertTrue(iterator.hasNext());
+			executable = BehaviorUtils.compileAndLazyEvaluate(findConsecutiveCharDataOrCDataSect, xmlDocument);
+			assertNotNull(executable.evaluateNext());
 
 			// create normalized sample xml model
 			ModelBuilderOperation mop = new ModelBuilderOperation();
@@ -76,16 +77,16 @@ public class XmlNormalizerBuilderTest {
 			Document normalizedXmlDocument = (Document) mop.wGetResult();
 
 			// no nested Content
-			iterator = BehaviorUtils.compileAndLazyEvaluate(findNestedContent, normalizedXmlDocument).iterator();
-			assertFalse(iterator.hasNext());
+			executable = BehaviorUtils.compileAndLazyEvaluate(findNestedContent, normalizedXmlDocument);
+			assertNull(executable.evaluateNext());
 
 			// no nested implied Content
-			iterator = BehaviorUtils.compileAndLazyEvaluate(findMissingContentEntities, normalizedXmlDocument).iterator();
-			assertFalse(iterator.hasNext());
+			executable = BehaviorUtils.compileAndLazyEvaluate(findMissingContentEntities, normalizedXmlDocument);
+			assertNull(executable.evaluateNext());
 
 			// no consecutive CharData or consecutive CDataSect
-			iterator = BehaviorUtils.compileAndLazyEvaluate(findConsecutiveCharDataOrCDataSect, normalizedXmlDocument).iterator();
-			assertFalse(iterator.hasNext());
+			executable = BehaviorUtils.compileAndLazyEvaluate(findConsecutiveCharDataOrCDataSect, normalizedXmlDocument);
+			assertNull(executable.evaluateNext());
 
 			// both normalization strategies must yield the same result
 			assertTrue(Matcher.match(normalizedXmlDocument, NormalizerOperation.normalize(xmlDocument)));
@@ -114,22 +115,22 @@ public class XmlNormalizerBuilderTest {
 			Document normalizedXmlDocument = (Document) mop.wGetResult();
 
 			// no nested Content
-			IEntityIterator<IEntity> iterator = BehaviorUtils.compileAndLazyEvaluate(findNestedContent, normalizedXmlDocument).iterator();
-			assertFalse(iterator.hasNext());
+			IExecutable<IEntity> executable = BehaviorUtils.compileAndLazyEvaluate(findNestedContent, normalizedXmlDocument);
+			assertNull(executable.evaluateNext());
 
 			// no nested implied Content
-			iterator = BehaviorUtils.compileAndLazyEvaluate(findMissingContentEntities, normalizedXmlDocument).iterator();
-			assertFalse(iterator.hasNext());
+			executable = BehaviorUtils.compileAndLazyEvaluate(findMissingContentEntities, normalizedXmlDocument);
+			assertNull(executable.evaluateNext());
 
 			// no consecutive CharData
-			iterator = BehaviorUtils.compileAndLazyEvaluate(findConsecutiveCharDataOrCDataSect, normalizedXmlDocument).iterator();
-			assertFalse(iterator.hasNext());
+			executable = BehaviorUtils.compileAndLazyEvaluate(findConsecutiveCharDataOrCDataSect, normalizedXmlDocument);
+			assertNull(executable.evaluateNext());
 
 			// no CDataSect at all
 			ExecutableFactory f = ExecutableFactory.instance;
-			iterator = f.createFilter(f.createDescendantOrSelf(), f.createHasType(XmlEntityDescriptorEnum.CDataSect.getURI())).iterator();
-			iterator.reset(normalizedXmlDocument);
-			assertFalse(iterator.evaluateNext() != null);
+			executable = f.createFilter(f.createDescendantOrSelf(), f.createHasType(XmlEntityDescriptorEnum.CDataSect.getURI()));
+			executable.reset(normalizedXmlDocument);
+			assertNull(executable.evaluateNext());
 
 			// both normalization strategies must yield the same result
 			assertTrue(Matcher.match(normalizedXmlDocument, NormalizerOperation.normalize(xmlDocument, parameters)));

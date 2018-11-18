@@ -38,7 +38,6 @@ import org.whole.lang.grammars.model.Template;
 import org.whole.lang.grammars.model.When;
 import org.whole.lang.grammars.reflect.GrammarsEntityDescriptorEnum;
 import org.whole.lang.grammars.util.GrammarsUtils;
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.models.factories.ModelsEntityFactory;
@@ -146,10 +145,11 @@ public class Grammars2ModelsVisitor extends GrammarsTraverseAllVisitor {
 		Rule rule = entity.getRule();
 		
 		IExecutable<IEntity> traversal = f.createDescendantOrSelf();
-		IEntityIterator<IEntity> ruleIterator = f.createFilter(traversal, f.createIsLanguageSubtypeOf(GrammarsEntityDescriptorEnum.Rule.getURI())).iterator();
-		ruleIterator.reset(rule);
-		for (rule = (Rule) ruleIterator.evaluateNext(); rule != null;
-			 rule = (Rule) ruleIterator.evaluateNext()) {
+		IExecutable<IEntity> ruleExecutable = f.createFilter(traversal, f.createIsLanguageSubtypeOf(GrammarsEntityDescriptorEnum.Rule.getURI()));
+		ruleExecutable.reset(rule);
+		IEntity nextEntity = null;
+		for (rule = (Rule) ruleExecutable.evaluateNext(); rule != null; rule = (Rule) (nextEntity != null ? nextEntity : ruleExecutable.evaluateNext())) {
+			nextEntity = null;
 
 			switch (rule.wGetEntityOrd()) {
 			// map productions with a single lexical non-terminal as data entities
@@ -170,9 +170,9 @@ public class Grammars2ModelsVisitor extends GrammarsTraverseAllVisitor {
 			case GrammarsEntityDescriptorEnum.Choose_ord:
 
 				boolean isPolymorphic = false;
-				IExecutable<NonTerminal> ruleIterator2 = f.createFilter(f.createDescendantOrSelf(), f.createHasType(GrammarsEntityDescriptorEnum.NonTerminal.getURI()));
-				ruleIterator2.reset(rule);
-				for (NonTerminal nt2 : ruleIterator2)
+				IExecutable<NonTerminal> ruleExecutable2 = f.createFilter(f.createDescendantOrSelf(), f.createHasType(GrammarsEntityDescriptorEnum.NonTerminal.getURI()));
+				ruleExecutable2.reset(rule);
+				for (NonTerminal nt2 : ruleExecutable2)
 					if (!isLexicalNonTerminal(nt2)) {
 						ensureType(getModelDeclaration(getMappedEntityName(nt2)).getTypes(), eName);
 						isPolymorphic = true;
@@ -198,19 +198,25 @@ public class Grammars2ModelsVisitor extends GrammarsTraverseAllVisitor {
 //				}
 				break;
 			case GrammarsEntityDescriptorEnum.Repeat_ord:
-				if (traversal.iterator().skipTo(GrammarsEntityDescriptorEnum.NonTerminal)) {
+				do {
+					nextEntity = traversal.evaluateNext();
+				} while (nextEntity != null && !Matcher.isAssignableAsIsFrom(GrammarsEntityDescriptorEnum.NonTerminal, nextEntity));
+
+				if (nextEntity != null) {
 
 					//FIXME wrongly assumes that the separator, if present, is a lexical token
 					if (!EntityUtils.isResolver(((Repeat) rule).getSeparator())) {//if (Matcher.matchImpl(GrammarsEntityDescriptorEnum.NonTerminal, ((Repeat) rule).getSeparator())) {
-						ruleIterator.evaluateNext();
-						traversal.iterator().skipTo(GrammarsEntityDescriptorEnum.NonTerminal);
+						ruleExecutable.evaluateNext();
+						do {
+							nextEntity = traversal.evaluateNext();
+						} while (nextEntity != null && !Matcher.isAssignableAsIsFrom(GrammarsEntityDescriptorEnum.NonTerminal, nextEntity));
 					}
 
 					NonTerminal nt = null;
 					f = executableFactory();
-					IExecutable<NonTerminal> ruleIterator4 = f.createFilter(f.createDescendantOrSelf(), f.createHasType(GrammarsEntityDescriptorEnum.NonTerminal.getURI()));
-					ruleIterator4.reset(rule);
-					for (NonTerminal nt2 : ruleIterator4)
+					IExecutable<NonTerminal> ruleExecutable4 = f.createFilter(f.createDescendantOrSelf(), f.createHasType(GrammarsEntityDescriptorEnum.NonTerminal.getURI()));
+					ruleExecutable4.reset(rule);
+					for (NonTerminal nt2 : ruleExecutable4)
 						if (!isLexicalNonTerminal(nt2)) {
 							nt = nt2;
 							break;
@@ -250,15 +256,15 @@ public class Grammars2ModelsVisitor extends GrammarsTraverseAllVisitor {
 					SimpleEntity se = getModelDeclaration(eName, ModelsEntityDescriptorEnum.SimpleEntity);
 					Features features = se.getFeatures();
 					
-					ensureFeature(features, ruleIterator, asRule);
+					ensureFeature(features, ruleExecutable, asRule);
 					
-					for (rule = (Rule) ruleIterator.evaluateNext(); rule != null;
-							 rule = (Rule) ruleIterator.evaluateNext()) {
+					for (rule = (Rule) ruleExecutable.evaluateNext(); rule != null;
+							 rule = (Rule) ruleExecutable.evaluateNext()) {
 						
 						switch (rule.wGetEntityOrd()) {
 						case GrammarsEntityDescriptorEnum.As_ord:
 							asRule = (As) rule;
-							ensureFeature(features, ruleIterator, asRule);
+							ensureFeature(features, ruleExecutable, asRule);
 							break;
 // normalization invariants assure that this branch is unreachable (choose rules nested into as rules always become fresh productions)
 //						case GrammarsEntityDescriptorEnum.Choose_ord:
@@ -299,7 +305,7 @@ public class Grammars2ModelsVisitor extends GrammarsTraverseAllVisitor {
 		types.wAdd(ModelsEntityFactory.instance.createSimpleName(typeName));
 	}
 
-	protected void ensureFeature(Features features, IEntityIterator<IEntity> ruleIterator, As asRule) {
+	protected void ensureFeature(Features features, IExecutable<IEntity> ruleIterator, As asRule) {
 		String featureName = getMappedName(asRule);
 		ExecutableFactory ef = executableFactory();
 		IExecutable<Feature> i = ef.createFilter(ef.createChild(), ef.createHasType(ModelsEntityDescriptorEnum.Feature.getURI()));
@@ -310,13 +316,14 @@ public class Grammars2ModelsVisitor extends GrammarsTraverseAllVisitor {
 		features.wAdd(createFeature(ruleIterator, featureName));
 	}
 
-	protected Feature createFeature(IEntityIterator<IEntity> ruleIterator, String featureName) {
+	protected Feature createFeature(IExecutable<IEntity> ruleExecutable, String featureName) {
 		ModelsEntityFactory mf = ModelsEntityFactory.instance;
 		IEntityBuilder<Feature> fb = mf.buildFeature();
 		fb.set(ModelsFeatureDescriptorEnum.name, featureName);
-		for (Rule rule = (Rule) ruleIterator.evaluateNext(); rule != null;
-				  rule = (Rule) ruleIterator.evaluateNext()) {
-			
+		IEntity nextEntity = null;
+		for (Rule rule = (Rule) ruleExecutable.evaluateNext(); rule != null; rule = (Rule) (nextEntity != null ? nextEntity : ruleExecutable.evaluateNext())) {
+			nextEntity = null;
+
 			switch (rule.wGetEntityOrd()) {
 //			case GrammarsEntityDescriptorEnum.Optional_ord:
 //				fb.set(ModelsFeatureDescriptorEnum.modifiers,
@@ -324,8 +331,11 @@ public class Grammars2ModelsVisitor extends GrammarsTraverseAllVisitor {
 //								mf.createFeatureModifier(FeatureModifierEnum.optional)));
 //				break;
 			case GrammarsEntityDescriptorEnum.When_ord:
-				When when = (When) rule;
-				ruleIterator.skipTo(when.getRule());
+				IEntity whenRule = ((When) rule).getRule();
+				do {
+					nextEntity = ruleExecutable.evaluateNext();
+				} while (nextEntity != null && nextEntity != whenRule);
+
 				break;
 			case GrammarsEntityDescriptorEnum.NonTerminal_ord:
 				if (isLexicalNonTerminal((NonTerminal) rule) &&
@@ -335,15 +345,14 @@ public class Grammars2ModelsVisitor extends GrammarsTraverseAllVisitor {
 
 				fb.set(ModelsFeatureDescriptorEnum.type,
 						mf.createSimpleName(getMappedEntityName((NonTerminal) rule)));
-				
+
 				IEntity ancestor = null;
-				IEntityIterator<IEntity> iterator = executableFactory().createAncestor().iterator();
-				iterator.reset(Matcher.findAncestor(GrammarsEntityDescriptorEnum.As, rule));
-				while (iterator.hasNext() && !Matcher.match(GrammarsEntityDescriptorEnum.Production, ancestor = iterator.next()))
+				IExecutable<IEntity> executable = executableFactory().createAncestor();
+				executable.reset(Matcher.findAncestor(GrammarsEntityDescriptorEnum.As, rule));
+				while ((ancestor = executable.evaluateNext()) != null && !Matcher.match(GrammarsEntityDescriptorEnum.Production, ancestor))
 					if (Matcher.match(GrammarsEntityDescriptorEnum.Optional, ancestor))
 						fb.set(ModelsFeatureDescriptorEnum.modifiers,
-								mf.createFeatureModifiers(
-										mf.createFeatureModifier(FeatureModifierEnum.optional)));
+								mf.createFeatureModifiers(mf.createFeatureModifier(FeatureModifierEnum.optional)));
 
 				return fb.getResult();
 			}

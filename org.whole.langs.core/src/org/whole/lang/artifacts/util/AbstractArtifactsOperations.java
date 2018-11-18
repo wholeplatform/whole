@@ -18,12 +18,10 @@
 package org.whole.lang.artifacts.util;
 
 import org.whole.lang.executables.ExecutableFactory;
-import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.matchers.GenericMatcherFactory;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.EntityKinds;
 import org.whole.lang.util.EntityUtils;
-import org.whole.lang.visitors.GenericTraversalFactory;
 
 /**
  * @author Enrico Persiani
@@ -34,14 +32,14 @@ public abstract class AbstractArtifactsOperations<T> implements IArtifactsOperat
 			return resource;
 
 		ExecutableFactory ef = ExecutableFactory.instance;
-		IEntityIterator<IEntity> iterator = ef.createFilter(
+		IExecutable<IEntity> executable = ef.createFilter(
 				ef.createAncestorOrSelfReverse(),
-				ef.createSome(ef.createIsFragment(), ef.createHasKind(EntityKinds.COMPOSITE))).iterator();
+				ef.createSome(ef.createIsFragment(), ef.createHasKind(EntityKinds.COMPOSITE)));
 
 		T parentContext = getParent(resource);
-		iterator.reset(descendant);
-		while (iterator.hasNext())
-			parentContext = getChild(parentContext, iterator.next());
+		executable.reset(descendant);
+		for (IEntity e = executable.evaluateNext(); e != null; e = executable.evaluateNext())
+			parentContext = getChild(parentContext, e);
 		
 		return parentContext;
 	}

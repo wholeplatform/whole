@@ -18,7 +18,6 @@
 package org.whole.lang.visitors;
 
 import org.whole.lang.executables.IExecutable;
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.IOperation;
 import org.whole.lang.reflect.EntityDescriptor;
@@ -41,10 +40,9 @@ public class DynamicGeneratorVisitor extends AbstractDynamicVisitor {
 	}
 
 	@Override
-	protected void apply(IEntityIterator<?> iterator) {
-		if (iterator.hasNext()) {
-			IEntity result = iterator.next();
-
+	protected void apply(IExecutable<?> executable) {
+		IEntity result = executable.evaluateNext();
+		if (result != null) {
 			//TODO workaround for old style artifact generator actions
 			if ("http://lang.whole.org/Artifacts".equals(result.wGetLanguageKit().getURI())) {
 				EntityDescriptor<?> resultEd = result.wGetEntityDescriptor();
