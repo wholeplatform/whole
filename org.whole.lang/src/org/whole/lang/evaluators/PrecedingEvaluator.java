@@ -28,7 +28,7 @@ public class PrecedingEvaluator<E extends IEntity> extends FollowingEvaluator<E>
 		super(includeSelf);
 	}
 
-	protected IExecutable<E> createRelationIterator() {
+	protected IExecutable<E> createRelationExecutable() {
 		return executableFactory().<E>createChildReverse();
 	}
 

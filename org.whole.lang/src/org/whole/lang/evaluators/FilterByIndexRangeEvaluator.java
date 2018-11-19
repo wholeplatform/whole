@@ -108,7 +108,6 @@ public class FilterByIndexRangeEvaluator<E extends IEntity> extends AbstractDele
 	}
 
 	protected boolean inRange() {
-		
 		while (lookaheadIndex < startIndex && super.hasNext()) {
 			super.next();
         	lookaheadIndex++;
@@ -130,7 +129,7 @@ public class FilterByIndexRangeEvaluator<E extends IEntity> extends AbstractDele
 		} else
 			lastEntity = null;
 
-		getBindings().wExitScope(mergeLookaheadScope && lastEntity != null);
+		getBindings().wExitScope(lastEntity != null);
 
 		return lastEntity;
 	}

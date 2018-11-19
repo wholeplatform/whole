@@ -19,8 +19,6 @@ package org.whole.lang.evaluators;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.bindings.IBindingScope;
-import org.whole.lang.bindings.NullScope;
 import org.whole.lang.comparators.BusinessIdentityComparator;
 import org.whole.lang.comparators.IEntityComparator;
 import org.whole.lang.executables.IExecutable;
@@ -59,10 +57,6 @@ public abstract class AbstractCollectEvaluator extends AbstractDelegatingNestedS
 	protected void setProducersBindings(IBindingManager bindings) {
 		super.setProducersBindings(bindings);
 		comparator.setBindings(bindings);
-	}
-
-	public IBindingScope lookaheadScope() {
-		return NullScope.instance;
 	}
 
 	protected IEntity createResult() {

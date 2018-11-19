@@ -77,14 +77,6 @@ public class FunctionApplicationEvaluator extends AbstractDelegatingNestedEvalua
 		}
 	}
 
-	@Override
-	protected IEntity scopedEvaluateNext(boolean merge) {
-		mergeLookaheadScope = merge;
-		IEntity result = evaluateNext();
-		mergeLookaheadScope = true;
-		return result;
-	}
-
 	public IEntity evaluateNext() {
 		return lastEntity = scopedEvaluateNext();
 	}

@@ -39,14 +39,6 @@ public class FilterEvaluator extends AbstractDelegatingNestedEvaluator<IEntity> 
 			p.reset(selfEntity);
 	}
 
-	@Override
-	protected IEntity scopedEvaluateNext(boolean merge) {
-		mergeLookaheadScope = merge;
-		IEntity result = evaluateNext();
-		mergeLookaheadScope = true;
-		return result;
-	}
-
 	public IEntity evaluateNext() {
 		if (lastEntity != null)
 			for (String name : executorScope.wTargetNames())
@@ -70,7 +62,7 @@ public class FilterEvaluator extends AbstractDelegatingNestedEvaluator<IEntity> 
 				}
 			}
 		} finally {
-			getBindings().wExitScope(mergeLookaheadScope && lastEntity != null);
+			getBindings().wExitScope(lastEntity != null);
 		}
 	}
 

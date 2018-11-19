@@ -24,7 +24,6 @@ import java.util.stream.Collectors;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.bindings.INestableScope;
 import org.whole.lang.commons.parsers.CommonsDataTypePresentationParser;
 import org.whole.lang.executables.instrumentation.AbstractInstrumentationData;
@@ -32,7 +31,6 @@ import org.whole.lang.executables.instrumentation.CompositeInstrumentation;
 import org.whole.lang.executables.instrumentation.DiagnosticData;
 import org.whole.lang.executables.instrumentation.DiagnosticInstrumentation;
 import org.whole.lang.executables.instrumentation.IExecutableInstrumentation;
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.util.BehaviorUtils;
@@ -40,7 +38,7 @@ import org.whole.lang.util.BehaviorUtils;
 /**
  * @author Riccardo Solmi
  */
-public class InstrumentingExecutable<E extends IEntity> extends AbstractExecutable<E> implements IEntityIterator<E> {
+public class InstrumentingExecutable<E extends IEntity> extends AbstractExecutable<E> {
 	public static IExecutableInstrumentation instrumentation = CompositeInstrumentation.instance;
 
 	public static final IEntity MISSING_SOURCE_ENTITY = BindingManagerFactory.instance.createNull();
@@ -182,27 +180,11 @@ public class InstrumentingExecutable<E extends IEntity> extends AbstractExecutab
 	}
 
 	@Override
-	public IEntityIterator<E> iterator() {
-		return this;
-	}
-
-	@Override
 	public boolean hasNext() {
 		instrumentation.beforeHasNext(this);
 		boolean result = getExecutable().iterator().hasNext();
 		instrumentation.afterHasNext(this, result);
 		return result;
-	}
-	@Override
-	public E lookahead() {
-		instrumentation.beforeLookahead(this);
-		E result = getExecutable().iterator().lookahead();
-		instrumentation.afterLookahead(this, result);
-		return result;
-	}
-	@Override
-	public IBindingScope lookaheadScope() {
-		return getExecutable().iterator().lookaheadScope();
 	}
 	@Override
 	public E next() {

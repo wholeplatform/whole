@@ -33,7 +33,7 @@ public class AncestorEvaluator<E extends IEntity> extends AbstractTransitiveClos
 		return EntityUtils.hasParent(entity);
 	}
 
-	protected IExecutable<E> createRelationIterator() {
+	protected IExecutable<E> createRelationExecutable() {
     	return executableFactory().createParent();
     }
 

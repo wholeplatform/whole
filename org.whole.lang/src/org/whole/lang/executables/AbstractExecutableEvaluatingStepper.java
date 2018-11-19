@@ -17,12 +17,46 @@
  */
 package org.whole.lang.executables;
 
+import org.whole.lang.bindings.BindingManagerFactory;
+import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.operations.ICloneContext;
 
 /**
  * @author Riccardo Solmi
  */
 public abstract class AbstractExecutableEvaluatingStepper<E extends IEntity> extends AbstractExecutable<E> {
+	protected IBindingScope executorScope;
+
+	@Override
+    public IExecutable<E> clone(ICloneContext cc) {
+		AbstractExecutableEvaluatingStepper<E> executor = (AbstractExecutableEvaluatingStepper<E>) super.clone(cc);
+		executor.executorScope = executorScope != null ? executorScope.clone() : null;
+		return executor;
+    }
+
+    public void reset(IEntity entity) {
+		super.reset(entity);
+		clearExecutorScope();
+   }
+
+	protected IBindingScope executorScope() {
+		if (executorScope == null)
+			executorScope = BindingManagerFactory.instance.createSimpleScope();
+		return executorScope;
+	}
+	protected void clearExecutorScope() {
+		if (executorScope != null) {
+//			if (lastEntity != null)
+//				for (String name : executorScope.wTargetNames())
+//					getBindings().wUnset(name);
+			executorScope.wClear();
+		}
+	}
+	protected void clearProducerScope() {
+		clearExecutorScope();
+	}
+
 	public void callNext() {
 		IEntity entity = null;
 		if ((entity = evaluateNext()) != null) {

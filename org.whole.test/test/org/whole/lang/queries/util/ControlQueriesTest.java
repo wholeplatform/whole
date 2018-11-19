@@ -231,7 +231,7 @@ public class ControlQueriesTest {
 			i++;
 		EnumEntity enumEntity = (EnumEntity) decls.wGet(i);
 		
-		executable = BehaviorUtils.compileAndLazyEvaluate(query, enumEntity).iterator();
+		executable = BehaviorUtils.compileAndLazyEvaluate(query, enumEntity);
 		e = executable.evaluateNext();
 		Assert.assertNotNull(e);
 		assertTrue(e instanceof EnumValues);

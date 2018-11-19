@@ -82,14 +82,6 @@ public class CallEvaluator extends AbstractDelegatingNestedEvaluator<IEntity> {
 		}
 	}
 
-	@Override
-	protected IEntity scopedEvaluateNext(boolean merge) {
-		mergeLookaheadScope = merge;
-		IEntity result = evaluateNext();
-		mergeLookaheadScope = true;
-		return result;
-	}
-
 	protected IExecutable<IEntity> queryExecutable() {
 		ResourceUtils.handleCancelRequest(getBindings());
 
@@ -152,7 +144,7 @@ public class CallEvaluator extends AbstractDelegatingNestedEvaluator<IEntity> {
 
 			return lastEntity = qe.evaluateNext();
 		} finally {
-			getBindings().wExitScope(needMergeExecutorScope() && lastEntity != null);
+			getBindings().wExitScope(lastEntity != null);
 			getBindings().wExitScope();
 		}
 	}
@@ -168,7 +160,7 @@ public class CallEvaluator extends AbstractDelegatingNestedEvaluator<IEntity> {
 	
 			return lastEntity = qe.evaluateRemaining();
 		} finally {
-			getBindings().wExitScope(needMergeExecutorScope() && lastEntity != null);
+			getBindings().wExitScope(lastEntity != null);
 			getBindings().wExitScope();
 		}
 	}

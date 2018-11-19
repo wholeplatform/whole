@@ -18,23 +18,17 @@
 package org.whole.lang.executables;
 
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.bindings.IBindingScope;
-import org.whole.lang.bindings.NullScope;
 import org.whole.lang.exceptions.IWholeRuntimeException;
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
 
 /**
  * @author Riccardo Solmi
  */
-public class FailureExecutable<E extends IEntity> extends AbstractExecutableEvaluatingStepper<E> implements IEntityIterator<E> {
+public class FailureExecutable<E extends IEntity> extends AbstractExecutableEvaluatingStepper<E>  {
 	protected final Throwable failure;
 
 	public FailureExecutable(Throwable failure) {
 		this.failure = failure;
-	}
-
-	public void reset(IEntity entity) {
 	}
 
     public E evaluateNext() {
@@ -57,24 +51,12 @@ public class FailureExecutable<E extends IEntity> extends AbstractExecutableEval
 		throw IWholeRuntimeException.asWholeException(failure, getSourceEntity(), null);
 	}
 
-
-	public IEntityIterator<E> iterator() {
-		return this;
-	}
-
 	public boolean hasNext() {
 		return true;
 	}
 	public E next() {
 		throw IWholeRuntimeException.asWholeException(failure, getSourceEntity(), null);
 	}
-	public E lookahead() {
-		throw IWholeRuntimeException.asWholeException(failure, getSourceEntity(), null);
-	}
-	public IBindingScope lookaheadScope() {
-		return NullScope.instance;
-	}
-
 	public void prune() {
 	}
 

@@ -46,7 +46,7 @@ public class InverseReachableEvaluator extends AbstractTransitiveClosureEvaluato
 		return entity.wInverseAdjacentSize() > 0;
 	}
 
-    protected IExecutable<IEntity> createRelationIterator() {
+    protected IExecutable<IEntity> createRelationExecutable() {
     	return executableFactory().createFilter(executableFactory().createInverseAdjacent(), distinctScope.distinctExecutable());
     }
 

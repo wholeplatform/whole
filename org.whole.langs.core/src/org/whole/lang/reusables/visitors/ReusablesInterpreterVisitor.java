@@ -240,7 +240,7 @@ public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisit
 		}
 
 		if (contentExecutable == null)
-			contentExecutable = executableFactory().createConstant(reusable, false).iterator();
+			contentExecutable = executableFactory().createConstant(reusable, false);
 
 		boolean updateAdapted = EntityUtils.isResolver(entity.getAdapted());
 		IExecutable<IEntity> evaluateIterator = executableFactory().createSingleValuedRunnable(

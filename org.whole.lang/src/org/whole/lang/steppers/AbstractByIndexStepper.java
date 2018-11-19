@@ -19,10 +19,7 @@ package org.whole.lang.steppers;
 
 import java.util.NoSuchElementException;
 
-import org.whole.lang.bindings.IBindingScope;
-import org.whole.lang.bindings.NullScope;
 import org.whole.lang.executables.AbstractExecutableSteppingEvaluator;
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.util.EntityUtils;
 
@@ -31,7 +28,7 @@ import org.whole.lang.util.EntityUtils;
  * 
  * @author Riccardo Solmi
  */
-public abstract class AbstractByIndexStepper<E extends IEntity> extends AbstractExecutableSteppingEvaluator<E> implements IEntityIterator<E> {
+public abstract class AbstractByIndexStepper<E extends IEntity> extends AbstractExecutableSteppingEvaluator<E> {
 	protected IEntity selfEntity; //parent
 	protected int nextIndex;
 	protected int lastIndex = -1;
@@ -57,6 +54,7 @@ public abstract class AbstractByIndexStepper<E extends IEntity> extends Abstract
 	}
 
 	public void reset(IEntity entity) {
+		super.reset(entity);
 		this.selfEntity = entity;
 		nextIndex = entity != null ? firstIndexSupplier.firstIndex(this) : -1;
 		lastIndex = -1;
@@ -64,10 +62,6 @@ public abstract class AbstractByIndexStepper<E extends IEntity> extends Abstract
 
 	protected abstract int startIndex();
 	protected abstract int endIndex();
-
-	public IEntityIterator<E> iterator() {
-		return this;
-	}
 
 	public boolean hasNext() {
 		return selfEntity != null && (forward ? startIndex() + nextIndex <= endIndex() : nextIndex >= 0);
@@ -84,14 +78,6 @@ public abstract class AbstractByIndexStepper<E extends IEntity> extends Abstract
 			throw new NoSuchElementException();
 
 		return nextEntity;
-	}
-
-	public E lookahead() {
-		return hasNext() ? get() : null;
-	}
-
-	public IBindingScope lookaheadScope() {
-		return NullScope.instance;
 	}
 
 //	@Override

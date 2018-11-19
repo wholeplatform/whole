@@ -23,7 +23,6 @@ import java.util.Set;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
-import org.whole.lang.bindings.NullScope;
 import org.whole.lang.exceptions.WholeIllegalStateException;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.matchers.Matcher;
@@ -68,11 +67,6 @@ public class SelectEvaluator extends AbstractDelegatingNestedEvaluator<IEntity> 
 	}
 
 	@Override
-	public IBindingScope lookaheadScope() {
-		return selectScope != null ? selectScope : NullScope.instance;
-	}
-
-	@Override
 	protected IBindingManager executorScope() {
 		if (executorScope == null) {
 			selectScope = BindingManagerFactory.instance.createSimpleScope();
@@ -96,14 +90,6 @@ public class SelectEvaluator extends AbstractDelegatingNestedEvaluator<IEntity> 
 			selectScope.wClear();
 			whereScope.wClear();
 		}
-	}
-
-	@Override
-	protected IEntity scopedEvaluateNext(boolean merge) {
-		mergeLookaheadScope = merge;
-		IEntity result = evaluateNext();
-		mergeLookaheadScope = true;
-		return result;
 	}
 
 	public IEntity evaluateNext() {
@@ -136,7 +122,7 @@ public class SelectEvaluator extends AbstractDelegatingNestedEvaluator<IEntity> 
 		applyWhereClause(selectEntity, fromEntity, bm);
 
 		bm.wExitScope();
-		if (needMergeExecutorScope() && selectEntity != null)
+		if (selectEntity != null)
 			bm.wAddAll(selectScope);
 
 		if (!Matcher.removeVars(selectEntity, namesToBind(), withNamesComplement())) {

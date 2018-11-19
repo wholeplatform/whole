@@ -19,9 +19,7 @@ package org.whole.lang.evaluators;
 
 import java.util.Iterator;
 
-import org.whole.lang.bindings.IBindingScope;
-import org.whole.lang.bindings.NullScope;
-import org.whole.lang.executables.AbstractExecutableEvaluatingStepperIterator;
+import org.whole.lang.executables.AbstractExecutableEvaluatingStepper;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
@@ -30,7 +28,7 @@ import org.whole.lang.reflect.FeatureDescriptor;
 /**
  * @author Riccardo Solmi
  */
-public class AspectEvaluator extends AbstractExecutableEvaluatingStepperIterator<IEntity> {
+public class AspectEvaluator extends AbstractExecutableEvaluatingStepper<IEntity> {
 	protected IEntity selfEntity;
 	protected Iterator<FeatureDescriptor> aspectualFeatureDescriptorIterator;
     protected FeatureDescriptor lastFeatureDescriptor;
@@ -51,10 +49,6 @@ public class AspectEvaluator extends AbstractExecutableEvaluatingStepperIterator
 		aspectualFeatureDescriptorIterator = entity.wGetAspectualFeatureDescriptors().iterator();
     	lastFeatureDescriptor = null;
     }
-
-	public IBindingScope lookaheadScope() {
-		return NullScope.instance;
-	}
 
 	@Override
 	public IEntity evaluateNext() {

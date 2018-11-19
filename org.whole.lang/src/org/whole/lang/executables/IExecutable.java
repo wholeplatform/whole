@@ -17,12 +17,11 @@
  */
 package org.whole.lang.executables;
 
-import java.util.Spliterator;
+import java.util.Iterator;
 
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.evaluators.IEvaluator;
 import org.whole.lang.exceptions.IWholeRuntimeException;
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.operations.ICloneable;
@@ -33,7 +32,7 @@ import org.whole.lang.steppers.IFlowStepper;
 /**
  * @author Riccardo Solmi
  */
-public interface IExecutable<E extends IEntity> extends IFlowStepper, IEvaluator<E>, ICloneable, ISourceable, Iterable<E>, Spliterator<E> {
+public interface IExecutable<E extends IEntity> extends IFlowStepper, IEvaluator<E>, ICloneable, ISourceable, Iterable<E> {
 	public IExecutable<E> withConsumer(IDataFlowConsumer consumer);
 	public IDataFlowConsumer getConsumer();
 //	public IExecutable<E> withProducers(IControlFlowProducer... producers);
@@ -58,7 +57,7 @@ public interface IExecutable<E extends IEntity> extends IFlowStepper, IEvaluator
 
 	public void toString(StringBuilder sb);
 
-	public IEntityIterator<E> iterator();
+	public Iterator<E> iterator();
 
 	public ExecutableFactory executableFactory();
 

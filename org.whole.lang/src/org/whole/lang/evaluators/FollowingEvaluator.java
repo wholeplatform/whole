@@ -30,13 +30,13 @@ public class FollowingEvaluator<E extends IEntity> extends AbstractTransitiveClo
 	}
 
 	@Override
-	protected void pushInitialIterators(IEntity entity) {
+	protected void pushInitialExecutables(IEntity entity) {
 		if (entity == null || !EntityUtils.hasParent(entity))
-			pushIterator(executableFactory().<E>createEmpty(), entity);
+			pushExecutable(executableFactory().<E>createEmpty(), entity);
 		else {
 			IEntity parent = entity.wGetParent();
-			pushInitialIterators(parent);
-			pushIterator(createChildIterator(), entity);
+			pushInitialExecutables(parent);
+			pushExecutable(createChildIterator(), entity);
 		}
 	}
 
@@ -49,7 +49,7 @@ public class FollowingEvaluator<E extends IEntity> extends AbstractTransitiveClo
 		return entity.wSize() > 0;
 	}
 
-    protected IExecutable<E> createRelationIterator() {
+    protected IExecutable<E> createRelationExecutable() {
     	return executableFactory().<E>createChild();
     }
 

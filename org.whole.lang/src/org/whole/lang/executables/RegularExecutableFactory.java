@@ -542,10 +542,9 @@ public class RegularExecutableFactory implements ExecutableFactory {
 				getBindings().wExitScope();
 
 				boolean result = (le == null && re == null);
-				if (result) {
-					if (mergeLookaheadScope)
-						getBindings().wAddAll(executorScope());
-				} else
+				if (result)
+					getBindings().wAddAll(executorScope());
+				else
 					executorScope().wClear();
 
 				return BindingManagerFactory.instance.createValue(result);
@@ -738,8 +737,7 @@ public class RegularExecutableFactory implements ExecutableFactory {
 						return BindingManagerFactory.instance.createValue(false);
 					}
 
-				if (mergeLookaheadScope)
-					getBindings().wAddAll(executorScope());
+				getBindings().wAddAll(executorScope());
 				return BindingManagerFactory.instance.createValue(true);
 			}
 
@@ -809,8 +807,7 @@ public class RegularExecutableFactory implements ExecutableFactory {
 					return BindingManagerFactory.instance.createValue(false);
 				else {
 					executorScope = oneScope;
-					if (mergeLookaheadScope)
-						getBindings().wAddAll(executorScope());
+					getBindings().wAddAll(executorScope());
 					return BindingManagerFactory.instance.createValue(true);
 				}
 			}
@@ -853,8 +850,7 @@ public class RegularExecutableFactory implements ExecutableFactory {
 				while ((fromEntity = scopedEvaluateNext(0, executorScope())) != null) {
 					getProducer(1).reset(fromEntity);
 					if (scopedEvaluateAsBooleanOrFail(1, executorScope())) {
-						if (mergeLookaheadScope)
-							getBindings().wAddAll(executorScope());
+						getBindings().wAddAll(executorScope());
 						return BindingManagerFactory.instance.createValue(true);
 					}
 					executorScope().wClear();
@@ -898,8 +894,7 @@ public class RegularExecutableFactory implements ExecutableFactory {
 					return BindingManagerFactory.instance.createValue(false);
 				else {
 					executorScope = everyScope;
-					if (mergeLookaheadScope)
-						getBindings().wAddAll(executorScope());
+					getBindings().wAddAll(executorScope());
 					return BindingManagerFactory.instance.createValue(true);
 				}
 			}

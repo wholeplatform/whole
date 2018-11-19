@@ -96,12 +96,11 @@ public abstract class AbstractDelegatingNestedEvaluator<E extends IEntity> exten
 	protected IEntity scopedEvaluateNext() {
 		IEntity result = null;
 		try {
-			if (needClearExecutorScope())
-				clearProducerScope();
+			clearProducerScope();
 			getBindings().wEnterScope(executorScope(), true);
 			return result = getProducer().evaluateNext();
 		} finally {
-			getBindings().wExitScope(needMergeExecutorScope() && result != null);
+			getBindings().wExitScope(result != null);
 		}
 	}
 	protected IEntity scopedEvaluateRemaining(IBindingScope scope) {
@@ -115,12 +114,11 @@ public abstract class AbstractDelegatingNestedEvaluator<E extends IEntity> exten
 	protected IEntity scopedEvaluateRemaining() {
 		IEntity result = null;
 		try {
-			if (needClearExecutorScope())
-				clearProducerScope();
+			clearProducerScope();
 			getBindings().wEnterScope(executorScope(), true);
 			return result = getProducer().evaluateRemaining();
 		} finally {
-			getBindings().wExitScope(needMergeExecutorScope() && result != null);
+			getBindings().wExitScope(result != null);
 		}
 	}
 	protected boolean scopedEvaluateAsBooleanOrFail(IBindingScope scope) {
@@ -137,7 +135,7 @@ public abstract class AbstractDelegatingNestedEvaluator<E extends IEntity> exten
 			getBindings().wEnterScope(executorScope(), true);
 			return result = getProducer().evaluateAsBooleanOrFail();
 		} finally {
-			getBindings().wExitScope(needMergeExecutorScope() && result);
+			getBindings().wExitScope(result);
 		}
 	}
 

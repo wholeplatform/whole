@@ -40,14 +40,6 @@ public abstract class AbstractDelegatingNestedSupplierEvaluator extends Abstract
     }
 
 	@Override
-	protected IEntity scopedEvaluateNext(boolean merge) {
-		mergeLookaheadScope = merge;
-		IEntity result = evaluateNext();
-		mergeLookaheadScope = true;
-		return result;
-	}
-
-	@Override
 	public IEntity evaluateNext() {
 		if (isEvaluated) {
 			if (executorScope != null)

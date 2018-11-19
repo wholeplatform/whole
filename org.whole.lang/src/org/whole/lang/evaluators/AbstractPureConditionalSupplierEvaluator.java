@@ -20,30 +20,22 @@ package org.whole.lang.evaluators;
 import java.util.NoSuchElementException;
 import java.util.function.Supplier;
 
-import org.whole.lang.bindings.IBindingScope;
-import org.whole.lang.bindings.NullScope;
 import org.whole.lang.executables.AbstractExecutableEvaluatingStepper;
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractPureConditionalSupplierEvaluator<E extends IEntity> extends AbstractExecutableEvaluatingStepper<E> implements Supplier<E>, IEntityIterator<E> {
+public abstract class AbstractPureConditionalSupplierEvaluator<E extends IEntity> extends AbstractExecutableEvaluatingStepper<E> implements Supplier<E> {
     protected boolean isEvaluated;
 	protected IEntity selfEntity;
-    protected E lastEntity;
 
 	public void reset(IEntity entity) {
+		super.reset(entity);
 		isEvaluated = false;
         selfEntity = entity;
-		lastEntity = null;
     }
-
-	public IEntityIterator<E> iterator() {
-		return this;
-	}
 
 	public boolean hasNext() {
 		return !(isEvaluated || EntityUtils.isNull(selfEntity));
@@ -55,13 +47,6 @@ public abstract class AbstractPureConditionalSupplierEvaluator<E extends IEntity
 			throw new NoSuchElementException();
 
 		return nextEntity;
-	}
-
-	public E lookahead() {
-		return hasNext() ? get() : null;
-	}
-	public IBindingScope lookaheadScope() {
-		return NullScope.instance;
 	}
 
 	public E evaluateNext() {

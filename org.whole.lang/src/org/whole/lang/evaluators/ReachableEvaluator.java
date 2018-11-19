@@ -45,7 +45,7 @@ public class ReachableEvaluator<E extends IEntity> extends AbstractTransitiveClo
 		return entity.wAdjacentSize() > 0;
 	}
     
-    protected IExecutable<E> createRelationIterator() {
+    protected IExecutable<E> createRelationExecutable() {
     	return executableFactory().createFilter(executableFactory().<E>createAdjacent(), distinctScope.distinctExecutable());
     }
 

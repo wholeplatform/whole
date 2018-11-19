@@ -20,9 +20,7 @@ package org.whole.lang.evaluators;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.whole.lang.bindings.IBindingScope;
-import org.whole.lang.bindings.NullScope;
-import org.whole.lang.executables.AbstractExecutableEvaluatingStepperIterator;
+import org.whole.lang.executables.AbstractExecutableEvaluatingStepper;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
@@ -30,9 +28,9 @@ import org.whole.lang.operations.ICloneContext;
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractTransitiveClosureEvaluator<E extends IEntity> extends AbstractExecutableEvaluatingStepperIterator<E> {
-	protected List<IExecutable<E>> iteratorStack = new ArrayList<IExecutable<E>>(16);
-	protected IExecutable<E> lastIterator;
+public abstract class AbstractTransitiveClosureEvaluator<E extends IEntity> extends AbstractExecutableEvaluatingStepper<E> {
+	protected List<IExecutable<E>> executableStack = new ArrayList<IExecutable<E>>(16);
+	protected IExecutable<E> lastExecutable;
 	protected boolean includeSelf;
 
 	protected AbstractTransitiveClosureEvaluator(boolean includeSelf) {
@@ -42,59 +40,55 @@ public abstract class AbstractTransitiveClosureEvaluator<E extends IEntity> exte
 	@Override
 	public IExecutable<E> clone(ICloneContext cc) {
 		AbstractTransitiveClosureEvaluator<E> iterator = (AbstractTransitiveClosureEvaluator<E>) super.clone(cc);
-		if (iteratorStack != null) {
-			iterator.iteratorStack = new ArrayList<IExecutable<E>>(iteratorStack.size());
-			for (int i=0,size=iteratorStack.size(); i<size; i++) {
-				IExecutable<E> isClone = cc.clone(iteratorStack.get(i));
-				iterator.iteratorStack.add(isClone);
-				if (iteratorStack.get(i) == lastIterator)
-					iterator.lastIterator = isClone;
+		if (executableStack != null) {
+			iterator.executableStack = new ArrayList<IExecutable<E>>(executableStack.size());
+			for (int i=0,size=executableStack.size(); i<size; i++) {
+				IExecutable<E> isClone = cc.clone(executableStack.get(i));
+				iterator.executableStack.add(isClone);
+				if (executableStack.get(i) == lastExecutable)
+					iterator.lastExecutable = isClone;
 			}
 		}
 		return iterator;
 	}
 
-    protected IExecutable<E> peekIterator() {
-    	return iteratorStack.get(iteratorStack.size()-1);
+    protected IExecutable<E> peekExecutable() {
+    	return executableStack.get(executableStack.size()-1);
     }
-    protected final void pushIterator(IExecutable<E> iterator, IEntity entity) {
-    	iterator.setBindings(getBindings());
-    	iterator.reset(entity);
-    	iteratorStack.add(iterator);
+    protected final void pushExecutable(IExecutable<E> executable, IEntity entity) {
+    	executable.setBindings(getBindings());
+    	executable.reset(entity);
+    	executableStack.add(executable);
     }
-    protected final IExecutable<E> popIterator() {
-    	return iteratorStack.remove(iteratorStack.size()-1);
+    protected final IExecutable<E> popExecutable() {
+    	return executableStack.remove(executableStack.size()-1);
     }
 
-	protected void pushInitialIterators(IEntity entity) {
-    	pushIterator(includeSelf ? executableFactory().<E>createSelf() : createRelationIterator(), entity);		
+	protected void pushInitialExecutables(IEntity entity) {
+    	pushExecutable(includeSelf ? executableFactory().<E>createSelf() : createRelationExecutable(), entity);		
 	}
 
 	protected abstract boolean isRelationNotEmpty(IEntity entity);
-    protected abstract IExecutable<E> createRelationIterator();
+    protected abstract IExecutable<E> createRelationExecutable();
 
-
-    public IBindingScope lookaheadScope() {
-		return NullScope.instance;
-	}
 
 	public void reset(IEntity entity) {
 		super.reset(entity);
-		lastIterator = null;
-    	iteratorStack.clear();
-    	pushInitialIterators(entity);
+		lastExecutable = null;
+    	executableStack.clear();
+    	pushInitialExecutables(entity);
     }
 
 	@Override
 	public E evaluateNext() {
     	E entity;
-		while ((entity = (lastIterator = peekIterator()).evaluateNext()) == null && iteratorStack.size()>1)
-			popIterator();
+		while ((entity = (lastExecutable = peekExecutable()).evaluateNext()) == null && executableStack.size()>1)
+			popExecutable();
 
 		if (entity != null) {
 			lastEntity = entity;
 			if (isRelationNotEmpty(entity))
-				pushIterator(createRelationIterator(), entity);
+				pushExecutable(createRelationExecutable(), entity);
 		}
 
 		return entity;
@@ -108,10 +102,10 @@ public abstract class AbstractTransitiveClosureEvaluator<E extends IEntity> exte
 //	}
 
 	public void prune() {
-		for (int i=iteratorStack.size()-1; i>=0; i--)
-			if (iteratorStack.get(i) == lastIterator) {
-				while (iteratorStack.size()-1 > i)
-					popIterator();
+		for (int i=executableStack.size()-1; i>=0; i--)
+			if (executableStack.get(i) == lastExecutable) {
+				while (executableStack.size()-1 > i)
+					popExecutable();
 				return;
 			}
 	}
@@ -120,10 +114,10 @@ public abstract class AbstractTransitiveClosureEvaluator<E extends IEntity> exte
     	if (lastEntity == null)
     		throw new IllegalStateException();
     	
-    	lastIterator.set(value);
+    	lastExecutable.set(value);
 	}
 	public void add(E value) {
-		lastIterator.add(value);
+		lastExecutable.add(value);
 	}
 	public void remove() {
     	if (lastEntity == null)
@@ -131,10 +125,10 @@ public abstract class AbstractTransitiveClosureEvaluator<E extends IEntity> exte
 
     	prune();
 
-    	lastIterator.remove();
+    	lastExecutable.remove();
 
     	lastEntity = null;
-    	lastIterator = null;
+    	lastExecutable = null;
 	}
 
 	public abstract void toString(StringBuilder sb);

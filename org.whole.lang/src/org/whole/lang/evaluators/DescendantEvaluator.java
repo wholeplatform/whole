@@ -32,7 +32,7 @@ public class DescendantEvaluator<E extends IEntity> extends AbstractTransitiveCl
 		return entity.wSize() > 0;
 	}
 
-    protected IExecutable<E> createRelationIterator() {
+    protected IExecutable<E> createRelationExecutable() {
     	return executableFactory().<E>createChild();
     }
 

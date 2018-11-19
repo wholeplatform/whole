@@ -60,11 +60,11 @@ public class BehaviorUtils {
 		return compileAndLazyEvaluate(behavior, self, BindingManagerFactory.instance.createArguments());
 	}
 	public static <E extends IEntity> IExecutable<E> compileAndLazyEvaluate(IEntity behavior, IEntity self, IBindingManager bm) {
-		IExecutable<E> iterator = DynamicCompilerOperation.compile(behavior, bm).getExecutableResult();
-		iterator.setBindings(bm);
+		IExecutable<E> executable = DynamicCompilerOperation.compile(behavior, bm).getExecutableResult();
+		executable.setBindings(bm);
 		bm.enforceSelfBinding(self);
-		iterator.reset(self);
-		return iterator.iterator();
+		executable.reset(self);
+		return executable;
 	}
 
 	public static IExecutable<?> lazyEvaluateOnSelfBinding(IEntity behavior, int relativeStage, IBindingManager bm) {

@@ -20,18 +20,12 @@ package org.whole.lang.executables;
 import java.util.NoSuchElementException;
 
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.bindings.IBindingScope;
-import org.whole.lang.bindings.NullScope;
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
 
 /**
  * @author Riccardo Solmi
  */
-public class EmptyExecutable<E extends IEntity> extends AbstractExecutableEvaluatingStepper<E> implements IEntityIterator<E> {
-    public void reset(IEntity entity) {
-    }
-
+public class EmptyExecutable<E extends IEntity> extends AbstractExecutableEvaluatingStepper<E> {
     public E evaluateNext() {
 		return null;
 	}
@@ -52,23 +46,11 @@ public class EmptyExecutable<E extends IEntity> extends AbstractExecutableEvalua
 		throw new IllegalArgumentException("The result is not a singleton");
 	}
 	
-
-	public IEntityIterator<E> iterator() {
-		return this;
-	}
-
 	public boolean hasNext() {
         return false;
     }
 	public E next() {
        	throw new NoSuchElementException();
-	}
-
-    public E lookahead() {
-       	return null;
-    }
-	public IBindingScope lookaheadScope() {
-		return NullScope.instance;
 	}
 
 	public void prune() {

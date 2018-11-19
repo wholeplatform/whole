@@ -79,16 +79,6 @@ public class IfEvaluator extends AbstractDelegatingNestedEvaluator<IEntity> {
 		return isLastProducer();
 	}
 
-	@Override
-	protected IEntity scopedEvaluateNext(boolean merge) {
-		mergeLookaheadScope = merge;
-		IEntity result = evaluateNext();
-		if (result == null && !executorScope.wNames().isEmpty())
-			((BindingManager) executorScope).wSetTargetScope(BindingManagerFactory.instance.createSimpleScope());
-		mergeLookaheadScope = true;
-		return result;
-	}
-
 	public IEntity evaluateNext() {
 		if (isFirstProducer()) {
 			conditionValue = scopedEvaluateAsBooleanOrFail();

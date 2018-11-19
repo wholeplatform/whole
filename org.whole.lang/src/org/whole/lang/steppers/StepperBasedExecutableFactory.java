@@ -19,7 +19,6 @@ package org.whole.lang.steppers;
 
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.executables.RegularExecutableFactory;
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
 
 /**
@@ -30,7 +29,7 @@ public class StepperBasedExecutableFactory extends RegularExecutableFactory {
 		return new ConstantChildStepper<E>(true, constant);
 	}
 	public <E extends IEntity> IExecutable<E> createConstantCompose(IEntity constant, IExecutable<IEntity> executable) {
-		return new ConstantComposeStepper<E>(constant, (IEntityIterator<E>) executable);
+		return new ConstantComposeStepper<E>(constant, (IExecutable<E>) executable);
 	}
 
 	public <E extends IEntity> IExecutable<E> createChild() {

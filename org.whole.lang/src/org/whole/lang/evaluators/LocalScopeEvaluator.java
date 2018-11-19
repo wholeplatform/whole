@@ -22,8 +22,6 @@ import java.util.Set;
 
 import org.whole.lang.bindings.AbstractFilterScope;
 import org.whole.lang.bindings.BindingManagerFactory;
-import org.whole.lang.bindings.IBindingScope;
-import org.whole.lang.bindings.INestableScope;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 
@@ -87,26 +85,17 @@ public class LocalScopeEvaluator extends AbstractDelegatingNestedEvaluator<IEnti
 	}
 
 	@Override
-	protected IEntity scopedEvaluateNext(boolean merge) {
-		mergeLookaheadScope = merge;
-		IEntity result = evaluateNext();
-		mergeLookaheadScope = true;
-		return result;
-	}
-
-	@Override
 	protected IEntity scopedEvaluateNext() {
 		IEntity result = null;
 		try {
-			if (needClearExecutorScope())
-				clearProducerScope();
+			clearProducerScope();
 			getBindings().wEnterScope(filterScope());
 			getBindings().wEnterScope(executorScope(), true);
 //			getBindings().wEnterScope((INestableScope) executorScope());
 
 			return result = getProducer().evaluateNext();
 		} finally {
-			getBindings().wExitScope(needMergeExecutorScope() && result != null);
+			getBindings().wExitScope(result != null);
 			getBindings().wExitScope();
 		}
 	}
@@ -114,15 +103,14 @@ public class LocalScopeEvaluator extends AbstractDelegatingNestedEvaluator<IEnti
 	protected IEntity scopedEvaluateRemaining() {
 		IEntity result = null;
 		try {
-			if (needClearExecutorScope())
-				clearProducerScope();
+			clearProducerScope();
 			getBindings().wEnterScope(filterScope());
 			getBindings().wEnterScope(executorScope(), true);
 //			getBindings().wEnterScope((INestableScope) executorScope());
 
 			return result = getProducer().evaluateRemaining();
 		} finally {
-			getBindings().wExitScope(needMergeExecutorScope() && result != null);
+			getBindings().wExitScope(result != null);
 			getBindings().wExitScope();
 		}
 	}

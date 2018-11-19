@@ -63,9 +63,9 @@ public class SequenceEvaluator<E extends IEntity> extends BlockEvaluator<E> {
 			}
 		} finally {
 //TODO ? alternate semantics with effects of all producers
-//			getBindings().wExitScope(needMergeExecutorScope() && result != null);
+//			getBindings().wExitScope(result != null);
 			getBindings().wExitScope();
-			if (needMergeExecutorScope() && result != null)
+			if (result != null)
 				getBindings().wAddAll(selfEntityScope);
 		}
 

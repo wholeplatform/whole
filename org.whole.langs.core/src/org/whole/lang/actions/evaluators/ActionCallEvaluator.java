@@ -19,8 +19,6 @@ package org.whole.lang.actions.evaluators;
 
 import org.whole.lang.actions.resources.ActionsRegistry;
 import org.whole.lang.bindings.BindingManagerFactory;
-import org.whole.lang.bindings.IBindingScope;
-import org.whole.lang.bindings.NullScope;
 import org.whole.lang.evaluators.AbstractDelegatingNestedEvaluator;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
@@ -61,10 +59,6 @@ public class ActionCallEvaluator extends AbstractDelegatingNestedEvaluator<IEnti
 		functionExecutableNeedInit = true;
 	}
 
-	public IBindingScope lookaheadScope() {
-		return functionExecutable != null ? functionExecutable().iterator().lookaheadScope() : NullScope.instance;
-	}
-
 	protected IExecutable<IEntity> functionExecutable() {
 		if (functionExecutable == null) {
 			functionExecutable = ActionsRegistry.instance().getFunctionCode(functionUri, true, getBindings());
@@ -98,14 +92,6 @@ public class ActionCallEvaluator extends AbstractDelegatingNestedEvaluator<IEnti
 		getBindings().enforceSelfBinding(selfEntity);
 	}
 
-	@Override
-	protected IEntity scopedEvaluateNext(boolean merge) {
-		mergeLookaheadScope = merge;
-		IEntity result = evaluateNext();
-		mergeLookaheadScope = true;
-		return result;
-	}
-
 	public IEntity evaluateNext() {
 		if (functionExecutable == null && selfEntity == null)
 			return null;
@@ -113,7 +99,7 @@ public class ActionCallEvaluator extends AbstractDelegatingNestedEvaluator<IEnti
 		clearExecutorScope();
 		getBindings().wEnterScope(executorScope(), true);
 		lastEntity = functionExecutable().evaluateNext();
-		getBindings().wExitScope(needMergeExecutorScope() && lastEntity != null);
+		getBindings().wExitScope(lastEntity != null);
 		return lastEntity;
 	}
 

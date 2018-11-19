@@ -17,12 +17,12 @@
  */
 package org.whole.lang.executables;
 
+import java.util.Iterator;
 import java.util.Spliterator;
 import java.util.function.Consumer;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.bindings.ITransactionScope;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.CloneContext;
@@ -32,7 +32,9 @@ import org.whole.lang.steppers.IDataFlowConsumer;
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractExecutable<E extends IEntity> implements IExecutable<E> {
+public abstract class AbstractExecutable<E extends IEntity> implements IExecutable<E>, Iterator<E>, Spliterator<E> {
+    protected E lastEntity;
+
 	private IEntity sourceEntity;
 	public IExecutable<E> withSourceEntity(IEntity entity) {
 		sourceEntity = entity;
@@ -97,19 +99,9 @@ public abstract class AbstractExecutable<E extends IEntity> implements IExecutab
 		return hasBindings() ? ExecutableFactory.instance(getBindings()) : ExecutableFactory.instance;
 	}
 
-//	public IEntityIterator<E> iterator() {
-////	public IJavaIterator<E> iterator() {
-//		return this;
-//	}
-	
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		toString(sb);
-		return sb.toString();
-	}
-	public void toString(StringBuilder sb) {
-	}
-
+    public void reset(IEntity entity) {
+		lastEntity = null;
+    }
 
 	public E evaluateRemaining() {
 		E result = null;
@@ -168,6 +160,32 @@ public abstract class AbstractExecutable<E extends IEntity> implements IExecutab
 	}
 
 
+	public Iterator<E> iterator() {
+		return this;
+	}
+
+	private E lookaheadEntity;
+	public boolean hasNext() {
+		if (lookaheadEntity == null)
+			lookaheadEntity = evaluateNext();
+		return lookaheadEntity != null;
+	}
+
+	public E next() {
+		if (lookaheadEntity == null)
+			lookaheadEntity = evaluateNext();
+
+		E result = lookaheadEntity;
+		lookaheadEntity = null;
+		return result;
+	}
+
+	//TODO workaround to avoid conflict with the default method inherited
+	public void remove() {
+        throw new UnsupportedOperationException("remove");
+    }
+
+
 	public Spliterator<E> spliterator() {
 		return this;
 	}
@@ -210,5 +228,14 @@ public abstract class AbstractExecutable<E extends IEntity> implements IExecutab
 
 	public int characteristics() {
 		return NONNULL;
+	}
+
+
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		toString(sb);
+		return sb.toString();
+	}
+	public void toString(StringBuilder sb) {
 	}
 }

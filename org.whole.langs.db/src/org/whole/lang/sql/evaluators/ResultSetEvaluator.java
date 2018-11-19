@@ -24,14 +24,14 @@ import java.sql.Types;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.commons.factories.CommonsEntityFactory;
-import org.whole.lang.executables.AbstractExecutableEvaluatingStepperIterator;
+import org.whole.lang.executables.AbstractExecutableEvaluatingStepper;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.sql.factories.SQLEntityFactory;
 
 /**
  * @author Riccardo Solmi
  */
-public class ResultSetEvaluator extends AbstractExecutableEvaluatingStepperIterator<IEntity> {
+public class ResultSetEvaluator extends AbstractExecutableEvaluatingStepper<IEntity> {
 	private ResultSet resultSet;
 	private String[] labels;
 
@@ -47,14 +47,6 @@ public class ResultSetEvaluator extends AbstractExecutableEvaluatingStepperItera
 			resultSet.beforeFirst();
 		} catch (SQLException e) {
 		}
-	}
-
-	@Override
-	protected IEntity scopedEvaluateNext(boolean merge) {
-		mergeLookaheadScope = merge;
-		IEntity result = evaluateNext();
-		mergeLookaheadScope = true;
-		return result;
 	}
 
 	public IEntity evaluateNext() {
@@ -151,7 +143,7 @@ public class ResultSetEvaluator extends AbstractExecutableEvaluatingStepperItera
 				lastEntity.wAdd(value);
 			}
 			
-			getBindings().wExitScope(mergeLookaheadScope && lastEntity != null);
+			getBindings().wExitScope(lastEntity != null);
 
 		} catch (SQLException e) {
 			throw new IllegalStateException();

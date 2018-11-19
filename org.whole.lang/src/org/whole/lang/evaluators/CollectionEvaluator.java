@@ -19,9 +19,7 @@ package org.whole.lang.evaluators;
 
 import java.util.Iterator;
 
-import org.whole.lang.bindings.IBindingScope;
-import org.whole.lang.bindings.NullScope;
-import org.whole.lang.executables.AbstractExecutableEvaluatingStepperIterator;
+import org.whole.lang.executables.AbstractExecutableEvaluatingStepper;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
@@ -30,7 +28,7 @@ import org.whole.lang.util.IDataTypeWrapper;
 /**
  * @author Riccardo Solmi
  */
-public class CollectionEvaluator<E extends IEntity> extends AbstractExecutableEvaluatingStepperIterator<E> {
+public class CollectionEvaluator<E extends IEntity> extends AbstractExecutableEvaluatingStepper<E> {
 	protected Iterable<?> collectionIterable;
 	protected Iterator<?> collectionIterator;
 	protected IDataTypeWrapper elementWrapper;
@@ -64,11 +62,8 @@ public class CollectionEvaluator<E extends IEntity> extends AbstractExecutableEv
 		return collectionIterable;
 	}
 
-	public IBindingScope lookaheadScope() {
-		return NullScope.instance;
-	}
-
 	public void reset(IEntity entity) {
+		super.reset(entity);
 		resetCollectionIterable(entity);
     }
 

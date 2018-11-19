@@ -21,7 +21,7 @@ import java.util.BitSet;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingScope;
-import org.whole.lang.executables.AbstractExecutableSteppingEvaluatingIterator;
+import org.whole.lang.executables.AbstractExecutableSteppingEvaluator;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
@@ -31,7 +31,7 @@ import org.whole.lang.util.EntityUtils;
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractNestedStepper<E extends IEntity> extends AbstractExecutableSteppingEvaluatingIterator<E> {
+public abstract class AbstractNestedStepper<E extends IEntity> extends AbstractExecutableSteppingEvaluator<E> {
 	protected ICloneContext cloneContext = IdentityCloneContext.instance;
 	protected IEntity selfEntity;
 	protected IExecutable<?>[] producers;

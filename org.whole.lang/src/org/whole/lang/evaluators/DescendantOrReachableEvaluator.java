@@ -45,7 +45,7 @@ public class DescendantOrReachableEvaluator<E extends IEntity> extends AbstractT
 		return entity.wSize()+entity.wAdjacentSize() > 0;
 	}
     
-    protected IExecutable<E> createRelationIterator() {
+    protected IExecutable<E> createRelationExecutable() {
     	return executableFactory().createFilter(executableFactory().<E>createChildOrAdjacent(), distinctScope.distinctExecutable());
     }
 

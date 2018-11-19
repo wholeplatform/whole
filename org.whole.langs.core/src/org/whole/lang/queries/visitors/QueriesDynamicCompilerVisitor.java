@@ -248,7 +248,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 					Set<String> oldDeclaredNames = declaredNames;
 
 					entry.getValue().accept(this);
-					chooseIterator.setCase(entry.getKey(), getExecutableResult().iterator());
+					chooseIterator.setCase(entry.getKey(), getExecutableResult());
 
 					declaredNames = oldDeclaredNames;
 				}
@@ -1284,7 +1284,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 
 	protected IExecutable<IEntity> compile(Expression entity) {
 		entity.accept(this);
-		return getExecutableResult().iterator();
+		return getExecutableResult();
 	}
 
 	@Override

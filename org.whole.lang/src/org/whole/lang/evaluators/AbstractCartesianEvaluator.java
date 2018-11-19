@@ -80,14 +80,6 @@ public abstract class AbstractCartesianEvaluator extends AbstractDelegatingNeste
 		}
 	}
 
-	@Override
-	protected IEntity scopedEvaluateNext(boolean merge) {
-		mergeLookaheadScope = merge;
-		IEntity result = evaluateNext();
-		mergeLookaheadScope = true;
-		return result;
-	}
-
 	public IEntity evaluateNext() {
 		if (lastEntity != null)
 			clearProducerScope();
@@ -114,7 +106,7 @@ public abstract class AbstractCartesianEvaluator extends AbstractDelegatingNeste
 
 			return lastEntity = evaluateNestedResults();
 		} finally {
-			getBindings().wExitScope(mergeLookaheadScope && lastEntity != null);
+			getBindings().wExitScope(lastEntity != null);
 		}
 	}
 	protected abstract IEntity evaluateNestedResults();

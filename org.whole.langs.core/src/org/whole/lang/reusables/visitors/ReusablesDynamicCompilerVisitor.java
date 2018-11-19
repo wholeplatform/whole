@@ -29,7 +29,6 @@ import org.whole.lang.codebase.IPersistenceProvider;
 import org.whole.lang.codebase.URLPersistenceProvider;
 import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.executables.IExecutable;
-import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.model.adapters.IEntityAdapter;
 import org.whole.lang.reflect.ReflectionFactory;

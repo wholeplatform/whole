@@ -73,14 +73,6 @@ public class RecursiveFunctionApplicationEvaluator extends AbstractDelegatingNes
 		}
 	}
 
-	@Override
-	protected IEntity scopedEvaluateNext(boolean merge) {
-		mergeLookaheadScope = merge;
-		IEntity result = evaluateNext();
-		mergeLookaheadScope = true;
-		return result;
-	}
-
 	public IEntity evaluateNext() {
 		return lastEntity = scopedEvaluateNext();
 	}

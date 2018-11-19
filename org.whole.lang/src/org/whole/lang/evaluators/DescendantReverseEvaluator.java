@@ -32,7 +32,7 @@ public class DescendantReverseEvaluator<E extends IEntity> extends AbstractTrans
 		return entity.wSize() > 0;
 	}
 
-	protected IExecutable<E> createRelationIterator() {
+	protected IExecutable<E> createRelationExecutable() {
     	return executableFactory().<E>createChildReverse();
     }
 

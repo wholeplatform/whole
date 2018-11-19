@@ -32,14 +32,6 @@ public abstract class AbstractPointwiseEvaluator extends AbstractDelegatingNeste
 		super(executables);
 	}
 
-	@Override
-	protected IEntity scopedEvaluateNext(boolean merge) {
-		mergeLookaheadScope = merge;
-		IEntity result = evaluateNext();
-		mergeLookaheadScope = true;
-		return result;
-	}
-
 	public IEntity evaluateNext() {
 		try {
 			executorScope().wClear();
@@ -58,7 +50,7 @@ public abstract class AbstractPointwiseEvaluator extends AbstractDelegatingNeste
 		} catch(Exception e) {
 			throw IWholeRuntimeException.asWholeException(e, getSourceEntity(), getBindings());
 		} finally {
-			getBindings().wExitScope(mergeLookaheadScope && lastEntity != null);
+			getBindings().wExitScope(lastEntity != null);
 		}
 	}
 	protected boolean stopOnNullNestedResult(int i) {

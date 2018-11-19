@@ -20,7 +20,6 @@ package org.whole.lang.evaluators;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
-import org.whole.lang.bindings.NullScope;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 
@@ -34,11 +33,6 @@ public class BlockEvaluator<E extends IEntity> extends AbstractDelegatingNestedE
 	@SuppressWarnings("unchecked")
 	public BlockEvaluator(IExecutable<IEntity>... executables) {
 		super(executables);
-	}
-
-	@Override
-	public IBindingScope lookaheadScope() {
-		return selfEntityScope != null ? selfEntityScope : NullScope.instance;
 	}
 
 	@Override
@@ -66,14 +60,6 @@ public class BlockEvaluator<E extends IEntity> extends AbstractDelegatingNestedE
 		}
 	}
 
-	@Override
-	protected E scopedEvaluateNext(boolean merge) {
-		mergeLookaheadScope = merge;
-		E result = evaluateNext();
-		mergeLookaheadScope = true;
-		return result;
-	}
-
 	@SuppressWarnings("unchecked")
 	public E evaluateNext() {
 		IEntity result = null;
@@ -95,9 +81,9 @@ public class BlockEvaluator<E extends IEntity> extends AbstractDelegatingNestedE
 			result = getProducer().evaluateNext();
 		} finally {
 //TODO ? alternate semantics with effects of all producers
-//			getBindings().wExitScope(needMergeExecutorScope() && result != null);
+//			getBindings().wExitScope(result != null);
 			getBindings().wExitScope();
-			if (needMergeExecutorScope() && result != null)
+			if (result != null)
 				getBindings().wAddAll(selfEntityScope);
 		}
 
@@ -125,7 +111,7 @@ public class BlockEvaluator<E extends IEntity> extends AbstractDelegatingNestedE
 			result = getProducer().evaluateRemaining();
 		} finally {
 			getBindings().wExitScope();
-			if (needMergeExecutorScope() && result != null)
+			if (result != null)
 				getBindings().wAddAll(selfEntityScope);
 		}
 
