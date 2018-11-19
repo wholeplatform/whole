@@ -45,10 +45,10 @@ public class CollectionEvaluator<E extends IEntity> extends AbstractExecutableEv
 
 	@Override
 	public IExecutable<E> clone(ICloneContext cc) {
-		CollectionEvaluator<E> iterator = (CollectionEvaluator<E>) super.clone(cc);
+		CollectionEvaluator<E> evaluator = (CollectionEvaluator<E>) super.clone(cc);
 		if (collectionIterator != null)
-			iterator.collectionIterator = collectionIterable.iterator();
-		return iterator;
+			evaluator.collectionIterator = collectionIterable.iterator();
+		return evaluator;
 	}
 
 	protected void resetCollectionIterable(IEntity entity) {

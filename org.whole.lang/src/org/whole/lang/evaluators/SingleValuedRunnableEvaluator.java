@@ -28,12 +28,12 @@ import org.whole.lang.util.IRunnable;
 public class SingleValuedRunnableEvaluator<E extends IEntity> extends AbstractNestedSupplierEvaluator<E> {
 	protected IRunnable runnable;
 
-	public SingleValuedRunnableEvaluator(IRunnable runnable, IExecutable<?>... argsIterators) {
-		super(argsIterators);
+	public SingleValuedRunnableEvaluator(IRunnable runnable, IExecutable<?>... argsExecutables) {
+		super(argsExecutables);
 		this.runnable = runnable;
 	}
-	public SingleValuedRunnableEvaluator(IRunnable runnable, int[] optionalArgsIndexes, IExecutable<?>... argsIterators) {
-		super(optionalArgsIndexes, argsIterators);
+	public SingleValuedRunnableEvaluator(IRunnable runnable, int[] optionalArgsIndexes, IExecutable<?>... argsExecutables) {
+		super(optionalArgsIndexes, argsExecutables);
 		this.runnable = runnable;
 	}
 

@@ -179,12 +179,12 @@ public class WizardPojoModelImportPage1 extends AbstractWizardWholeModelImportPa
 				List<String> memberNames = map.get(compilationUnitName);
 				BodyDeclarations bodyDeclarations = compilationUnit.getTypes().get(0).getBodyDeclarations();
 				ExecutableFactory ef = ExecutableFactory.instance;
-				IExecutable<TypeDeclaration> entityIterator = ef.createFilter(ef.createChild(), ef.createIsLanguageSubtypeOf(JavaEntityDescriptorEnum.TypeDeclaration.getURI()));
-				entityIterator.reset(bodyDeclarations);
+				IExecutable<TypeDeclaration> entityExecutable = ef.createFilter(ef.createChild(), ef.createIsLanguageSubtypeOf(JavaEntityDescriptorEnum.TypeDeclaration.getURI()));
+				entityExecutable.reset(bodyDeclarations);
 				TypeDeclaration td;
-				while ((td = entityIterator.evaluateNext()) != null) 
+				while ((td = entityExecutable.evaluateNext()) != null) 
 					if (!memberNames.contains(td.getName().getValue()))
-						entityIterator.remove();
+						entityExecutable.remove();
 			}
 			misc.wAdd(compilationUnit);
 		}

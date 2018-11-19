@@ -54,10 +54,10 @@ import org.whole.lang.util.ResourceUtils;
  */
 public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisitor {
     @Override
-	public void setExecutableResult(IExecutable<?> iterator) {
-		if (iterator != null)
-			iterator.setBindings(getBindings());
-		super.setExecutableResult(iterator);
+	public void setExecutableResult(IExecutable<?> executable) {
+		if (executable != null)
+			executable.setBindings(getBindings());
+		super.setExecutableResult(executable);
 	}
 
     protected EvaluateCloneOperation evaluateCloneOperation;
@@ -142,22 +142,22 @@ public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisit
 	public void visit(Adapt entity) {
 		Reusable reusable = entity.getAdapted();
 
-		IExecutable<IEntity> contentIterator = null;
-		IExecutable<IEntity> adapterIterator = null;
+		IExecutable<IEntity> contentExecutable = null;
+		IExecutable<IEntity> adapterExecutable = null;
 		if (EntityUtils.isResolver(reusable)) {
-			contentIterator = executableFactory().createConstant(entity.getOriginal(), false);
+			contentExecutable = executableFactory().createConstant(entity.getOriginal(), false);
 
 			if (EntityUtils.isNotResolver(entity.getAdapter())) {
 				entity.getAdapter().accept(this);
-				adapterIterator = getExecutableResult();
+				adapterExecutable = getExecutableResult();
 			}
 		}
 
-		if (contentIterator == null)
-			contentIterator = executableFactory().createConstant(reusable, false);
+		if (contentExecutable == null)
+			contentExecutable = executableFactory().createConstant(reusable, false);
 
 		boolean updateAdapted = EntityUtils.isResolver(entity.getAdapted());
-		IExecutable<IEntity> evaluateIterator = executableFactory().createSingleValuedRunnable(
+		IExecutable<IEntity> evaluateExecutable = executableFactory().createSingleValuedRunnable(
 			(selfEntity, bm, arguments) -> {
 				try {
 					getBindings().wEnterScope();
@@ -179,11 +179,11 @@ public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisit
 			}
 		);
 
-		IExecutable<? extends IEntity> expandIterator = adapterIterator != null ? 
-				executableFactory().createCompose(evaluateIterator, adapterIterator, contentIterator) :
-					executableFactory().createCompose(evaluateIterator, contentIterator);
+		IExecutable<? extends IEntity> expandExecutable = adapterExecutable != null ? 
+				executableFactory().createCompose(evaluateExecutable, adapterExecutable, contentExecutable) :
+					executableFactory().createCompose(evaluateExecutable, contentExecutable);
 
-		for (IEntity result : expandIterator) {
+		for (IEntity result : expandExecutable) {
 			stagedVisit(result.wGetAdaptee(false));
 			setResult(result);
 		}
@@ -191,11 +191,11 @@ public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisit
 
 	@Override
 	public void visit(Include entity) {
-		IExecutable<IEntity> contentIterator = (IExecutable<IEntity>) readResource(entity.getResource());
+		IExecutable<IEntity> contentExecutable = (IExecutable<IEntity>) readResource(entity.getResource());
 
-		IExecutable<IEntity> evaluateIterator = executableFactory().createSingleValuedRunnable(
+		IExecutable<IEntity> evaluateExecutable = executableFactory().createSingleValuedRunnable(
 				(selfEntity, bm, arguments) -> evaluateAndClone(selfEntity, bm));
-		setExecutableResult(executableFactory().createCompose(evaluateIterator, contentIterator));
+		setExecutableResult(executableFactory().createCompose(evaluateExecutable, contentExecutable));
 	}
 
 	@Override
@@ -243,7 +243,7 @@ public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisit
 			contentExecutable = executableFactory().createConstant(reusable, false);
 
 		boolean updateAdapted = EntityUtils.isResolver(entity.getAdapted());
-		IExecutable<IEntity> evaluateIterator = executableFactory().createSingleValuedRunnable(
+		IExecutable<IEntity> evaluateExecutable = executableFactory().createSingleValuedRunnable(
 			(selfEntity, bm, arguments) -> {
 				try {
 					getBindings().wEnterScope();
@@ -266,8 +266,8 @@ public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisit
 		);
 
 		setExecutableResult(adapterExecutable != null ? 
-				executableFactory().createCompose(evaluateIterator, adapterExecutable, contentExecutable) :
-					executableFactory().createCompose(evaluateIterator, contentExecutable));
+				executableFactory().createCompose(evaluateExecutable, adapterExecutable, contentExecutable) :
+					executableFactory().createCompose(evaluateExecutable, contentExecutable));
 	}
 
 	@Override

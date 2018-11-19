@@ -27,10 +27,10 @@ public class ConstantComposeStepper<E extends IEntity> extends AbstractDelegatin
 	protected IEntity constant;
 
 	@SuppressWarnings("unchecked")
-	public ConstantComposeStepper(IEntity constant, IExecutable<E> iterator) {
-		super(iterator);
+	public ConstantComposeStepper(IEntity constant, IExecutable<E> executable) {
+		super(executable);
 		this.constant = constant;
-		iterator.reset(constant);
+		executable.reset(constant);
 	}
 
 	@Override

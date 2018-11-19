@@ -51,7 +51,7 @@ public class ExecutableFactoryTest {
     	ReflectionFactory.deployWholePlatform();
 
 //TODO switch comment to test a specific factory
-//  	f = IteratorFactory.instance;
+//  	f = ExecutableFactory.instance;
     	f = new RegularExecutableFactory();
 
     	bmf = BindingManagerFactory.instance;
@@ -257,10 +257,7 @@ public class ExecutableFactoryTest {
     	p.callNext();
     	assertSame(VALUES[0], bm.wGet("v0"));
     	p.callNext();
-//    	if (p instanceof FilterIterator)
-    		assertFalse(bm.wIsSet("v0")); // bindings effects are cleared when hasNext is false (iterator semantics)
-//    	else
-//        	assertTrue(bm.wIsSet("v0")); // last bindings effects are in place when evaluateNext is null (evaluator semantics)
+    	assertFalse(bm.wIsSet("v0"));
 
     	bm.wDef("v0", VALUES[2]);
     	c.clear();
@@ -541,8 +538,7 @@ public class ExecutableFactoryTest {
 
     	bm.wClear();
     	i.reset(addition);
-    	assertTrue(i.iterator().hasNext());
-    	assertTrue(i.iterator().next().wBooleanValue());
+    	assertTrue(i.evaluateNext().wBooleanValue());
     	assertSame(id, bm.wGet("exp"));
 
     	addition = mf.createAddition(mf.createInteger(0), mf.createIdentifier("v1"), mf.createInteger(1), mf.createIdentifier("v2"), mf.createInteger(2));
@@ -554,8 +550,7 @@ public class ExecutableFactoryTest {
 
     	bm.wClear();
     	i.reset(addition);
-    	assertTrue(i.iterator().hasNext());
-    	assertFalse(i.iterator().next().wBooleanValue());
+    	assertFalse(i.evaluateNext().wBooleanValue());
     	assertFalse(bm.wIsSet("exp"));
     }
 

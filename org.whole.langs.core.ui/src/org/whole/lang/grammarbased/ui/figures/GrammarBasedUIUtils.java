@@ -146,10 +146,10 @@ public class GrammarBasedUIUtils {
 
 		StringBuilder sb = new StringBuilder();
 		ExecutableFactory f = ExecutableFactory.instance;
-		IExecutable<IEntity> iterator = f.createFilter(f.createDescendantOrSelf(), f.createHasType(edEnum.valueOf("Literal").getURI()));
-		iterator.reset(entity);
-		for (IEntity e = iterator.evaluateNext(); e != null;
-				     e = iterator.evaluateNext())
+		IExecutable<IEntity> executable = f.createFilter(f.createDescendantOrSelf(), f.createHasType(edEnum.valueOf("Literal").getURI()));
+		executable.reset(entity);
+		for (IEntity e = executable.evaluateNext(); e != null;
+				     e = executable.evaluateNext())
 			sb.append(EntityUtils.safeStringValue(e, ""));
 		String separatorText = sb.toString();
 		return separatorText.trim();

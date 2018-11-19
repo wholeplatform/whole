@@ -201,11 +201,11 @@ public class WorkflowsInterpreterVisitorTest {
 
 		// the only difference is the content on the file artifact
 		ExecutableFactory f = ExecutableFactory.instance;
-		IExecutable<IEntity> iterator = f.createFilter(f.createDescendantOrSelf(), f.createAtFeature(ArtifactsFeatureDescriptorEnum.content.getURI()));
+		IExecutable<IEntity> executable = f.createFilter(f.createDescendantOrSelf(), f.createAtFeature(ArtifactsFeatureDescriptorEnum.content.getURI()));
 
-		iterator.reset(deepFileResult);
-		while (iterator.evaluateNext() != null)
-			iterator.remove();
+		executable.reset(deepFileResult);
+		while (executable.evaluateNext() != null)
+			executable.remove();
 
 		Assert.assertTrue(OrderedMatcher.match(deepDirectoryResult, deepFileResult, comparatorsMap));
 	}
@@ -241,11 +241,11 @@ public class WorkflowsInterpreterVisitorTest {
 
 		// the only difference is the content on the file artifact
 		ExecutableFactory f = ExecutableFactory.instance;
-		IExecutable<IEntity> iterator = f.createFilter(f.createDescendantOrSelf(), f.createAtFeature(ArtifactsFeatureDescriptorEnum.content.getURI()));
+		IExecutable<IEntity> executable = f.createFilter(f.createDescendantOrSelf(), f.createAtFeature(ArtifactsFeatureDescriptorEnum.content.getURI()));
 
-		iterator.reset(deepResult);
-		while (iterator.evaluateNext() != null)
-			iterator.remove();
+		executable.reset(deepResult);
+		while (executable.evaluateNext() != null)
+			executable.remove();
 		Assert.assertTrue(Matcher.match(deepDirectoryResult, deepResult));
 	}
 

@@ -101,11 +101,11 @@ public class ArtifactsSynchronizerVisitor<T> extends ArtifactsResourceVisitor<T>
 			IEntity fsModel = getArtifactsOperations().toArtifactsModel(parentContext);
 			if (append && artifact != basePath) {
 				IBindingManager bindings = BindingManagerFactory.instance.createBindingManager();
-				IExecutable<?> iterator = executableFactory().createChild();
-				iterator.reset(getChildren(fsModel));
-				for (IEntity child : iterator) {
+				IExecutable<?> executable = executableFactory().createChild();
+				executable.reset(getChildren(fsModel));
+				for (IEntity child : executable) {
 					bindings.wDef(SUB_TREE_ROOT, child);
-					iterator.remove();
+					executable.remove();
 					Matcher.substitute(basePath, bindings, false);
 				}
 				Matcher.removeVars(basePath, true);

@@ -340,11 +340,11 @@ public class SelectQueriesTest {
 		PathExpression pe1 = (PathExpression) tm.create("selectTemplateFromPathWithPattern");
 
 		ExecutableFactory f = ExecutableFactory.instance;
-		IExecutable<IEntity> featureIterator = f.createFilter(f.createDescendantOrSelf(), f.createHasType(ModelsEntityDescriptorEnum.Feature.getURI()));
-		featureIterator.reset(m);
+		IExecutable<IEntity> featureExecutable = f.createFilter(f.createDescendantOrSelf(), f.createHasType(ModelsEntityDescriptorEnum.Feature.getURI()));
+		featureExecutable.reset(m);
 
 		for (FieldDeclaration field : BehaviorUtils.<FieldDeclaration>compileAndLazyEvaluate(pe1, m)) {
-			Feature feature = (Feature) featureIterator.evaluateNext();
+			Feature feature = (Feature) featureExecutable.evaluateNext();
 			assertEquals(feature.getType().wStringValue(), field.getType().wStringValue());
 			assertEquals(feature.getName().wStringValue(), field.getFragments().wGet(0).wGet(0).wStringValue());
 		}

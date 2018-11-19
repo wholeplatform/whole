@@ -142,19 +142,19 @@ public class WorkflowsDynamicCompilerVisitor extends WorkflowsIdentityDefaultVis
 
 		Expressions arguments = entity.getArguments();
 		int size= arguments.wSize();
-    	IExecutable<?>[] runnableIterators = new IExecutable<?>[3+size];
+    	IExecutable<?>[] runnableExecutables = new IExecutable<?>[3+size];
 
     	entity.getClassName().accept(this);
-		runnableIterators[0] = getExecutableResult();
+		runnableExecutables[0] = getExecutableResult();
 
 		entity.getConstructor().accept(this);
-		runnableIterators[1] = getExecutableResult();
+		runnableExecutables[1] = getExecutableResult();
 
-		runnableIterators[2] = executableFactory().createConstant(BindingManagerFactory.instance.createVoid(), false);
+		runnableExecutables[2] = executableFactory().createConstant(BindingManagerFactory.instance.createVoid(), false);
 
     	for (int i=0; i<size; i++) {
 			arguments.get(i).accept(this);
-			runnableIterators[3+i] = getExecutableResult();
+			runnableExecutables[3+i] = getExecutableResult();
 		}
 
     	setExecutableResult(executableFactory().createSingleValuedRunnable(new AbstractWorkflowsRunnable() {
@@ -174,7 +174,7 @@ public class WorkflowsDynamicCompilerVisitor extends WorkflowsIdentityDefaultVis
 
 				setResult(bm, resultVariable, resultValue, constructor.getDeclaringClass());
 			}
-    	}, runnableIterators).withSourceEntity(entity));
+    	}, runnableExecutables).withSourceEntity(entity));
 	}
 
 	@Override
@@ -183,19 +183,19 @@ public class WorkflowsDynamicCompilerVisitor extends WorkflowsIdentityDefaultVis
 
 		Expressions arguments = entity.getArguments();
 		int size= arguments.wSize();
-    	IExecutable<IEntity>[] runnableIterators = new IExecutable[3+size];
+    	IExecutable<IEntity>[] runnableExecutables = new IExecutable[3+size];
 
     	entity.getClassName().accept(this);
-		runnableIterators[0] = getExecutableResult();
+		runnableExecutables[0] = getExecutableResult();
 
 		entity.getMethod().accept(this);
-		runnableIterators[1] = getExecutableResult();
+		runnableExecutables[1] = getExecutableResult();
 		
-		runnableIterators[2] = executableFactory().createConstant(BindingManagerFactory.instance.createVoid(), false);
+		runnableExecutables[2] = executableFactory().createConstant(BindingManagerFactory.instance.createVoid(), false);
 
     	for (int i=0; i<size; i++) {
 			arguments.get(i).accept(this);
-			runnableIterators[3+i] = getExecutableResult();
+			runnableExecutables[3+i] = getExecutableResult();
 		}
 
     	setExecutableResult(executableFactory().createMultiValuedRunnable(new AbstractWorkflowsRunnable() {
@@ -215,7 +215,7 @@ public class WorkflowsDynamicCompilerVisitor extends WorkflowsIdentityDefaultVis
 
 				setResult(bm, resultVariable, resultValue, method.getReturnType());
 			}
-    	}, runnableIterators).withSourceEntity(entity));
+    	}, runnableExecutables).withSourceEntity(entity));
 	}
 
 	@Override
@@ -224,20 +224,20 @@ public class WorkflowsDynamicCompilerVisitor extends WorkflowsIdentityDefaultVis
 
 		Expressions arguments = entity.getArguments();
 		int size= arguments.wSize();
-    	IExecutable<IEntity>[] runnableIterators = new IExecutable[3+size];
+    	IExecutable<IEntity>[] runnableExecutables = new IExecutable[3+size];
 
     	entity.getClassName().accept(this);
-		runnableIterators[0] = getExecutableResult();
+		runnableExecutables[0] = getExecutableResult();
 
 		entity.getMethod().accept(this);
-		runnableIterators[1] = getExecutableResult();
+		runnableExecutables[1] = getExecutableResult();
 
 		entity.getObject().accept(this);
-		runnableIterators[2] = getExecutableResult();
+		runnableExecutables[2] = getExecutableResult();
 
 		for (int i=0; i<size; i++) {
 			arguments.get(i).accept(this);
-			runnableIterators[3+i] = getExecutableResult();
+			runnableExecutables[3+i] = getExecutableResult();
 		}
 
     	setExecutableResult(executableFactory().createMultiValuedRunnable(new AbstractWorkflowsRunnable() {
@@ -259,7 +259,7 @@ public class WorkflowsDynamicCompilerVisitor extends WorkflowsIdentityDefaultVis
 
 				setResult(bm, resultVariable, resultValue, method.getReturnType());
 			}
-    	}, runnableIterators).withSourceEntity(entity));
+    	}, runnableExecutables).withSourceEntity(entity));
 	}
 
 	@Override

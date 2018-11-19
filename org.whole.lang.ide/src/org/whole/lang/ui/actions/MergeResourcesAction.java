@@ -44,7 +44,7 @@ import org.whole.lang.artifacts.reflect.ArtifactsFeatureDescriptorEnum;
 import org.whole.lang.artifacts.util.ArtifactsWorkspaceUtils;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.comparators.IdentityIteratorComparator;
+import org.whole.lang.comparators.IdentityExecutableComparator;
 import org.whole.lang.e4.ui.actions.AbstractE4Action;
 import org.whole.lang.e4.ui.handler.HandlersBehavior;
 import org.whole.lang.executables.ExecutableFactory;
@@ -165,8 +165,8 @@ public class MergeResourcesAction extends AbstractE4Action {
 		return tree;
 	}
 
-	protected IdentityIteratorComparator<IEntity> createEntityComparator() {
-		return new IdentityIteratorComparator<IEntity>(
+	protected IdentityExecutableComparator<IEntity> createEntityComparator() {
+		return new IdentityExecutableComparator<IEntity>(
 				ExecutableFactory.instance.createFeatureByName(ArtifactsFeatureDescriptorEnum.name));
 	}
 }

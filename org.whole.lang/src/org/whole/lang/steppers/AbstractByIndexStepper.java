@@ -37,7 +37,7 @@ public abstract class AbstractByIndexStepper<E extends IEntity> extends Abstract
 
 	@FunctionalInterface
 	public interface FirstIndexSupplier {
-	    int firstIndex(AbstractByIndexStepper<?> iterator);
+	    int firstIndex(AbstractByIndexStepper<?> stepper);
 	}
 
 	public AbstractByIndexStepper(boolean forward) {

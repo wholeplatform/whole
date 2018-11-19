@@ -39,17 +39,17 @@ public abstract class AbstractTransitiveClosureEvaluator<E extends IEntity> exte
 
 	@Override
 	public IExecutable<E> clone(ICloneContext cc) {
-		AbstractTransitiveClosureEvaluator<E> iterator = (AbstractTransitiveClosureEvaluator<E>) super.clone(cc);
+		AbstractTransitiveClosureEvaluator<E> evaluator = (AbstractTransitiveClosureEvaluator<E>) super.clone(cc);
 		if (executableStack != null) {
-			iterator.executableStack = new ArrayList<IExecutable<E>>(executableStack.size());
+			evaluator.executableStack = new ArrayList<IExecutable<E>>(executableStack.size());
 			for (int i=0,size=executableStack.size(); i<size; i++) {
 				IExecutable<E> isClone = cc.clone(executableStack.get(i));
-				iterator.executableStack.add(isClone);
+				evaluator.executableStack.add(isClone);
 				if (executableStack.get(i) == lastExecutable)
-					iterator.lastExecutable = isClone;
+					evaluator.lastExecutable = isClone;
 			}
 		}
-		return iterator;
+		return evaluator;
 	}
 
     protected IExecutable<E> peekExecutable() {

@@ -51,9 +51,9 @@ public abstract class AbstractExecutable<E extends IEntity> implements IExecutab
 	@SuppressWarnings("unchecked")
 	public IExecutable<E> clone(ICloneContext cc) {
 		try {
-			AbstractExecutable<E> iterator = (AbstractExecutable<E>) super.clone();
-			cc.putClone(this, iterator);
-			return iterator;
+			AbstractExecutable<E> executable = (AbstractExecutable<E>) super.clone();
+			cc.putClone(this, executable);
+			return executable;
 		} catch (CloneNotSupportedException e) {
 			throw new InternalError();
 		}

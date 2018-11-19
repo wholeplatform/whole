@@ -101,10 +101,10 @@ public class SemanticsDynamicCompilerVisitor extends SemanticsIdentityDefaultVis
     	Expression arguments = entity.getArguments();
 		if (!EntityUtils.isResolver(arguments)) {
     		arguments.accept(this);
-    		IExecutable<IEntity> argumentsIterator = getExecutableResult();
+    		IExecutable<IEntity> argumentsExecutable = getExecutableResult();
 
-    		if (!argumentsIterator.undecoratedExecutable().getClass().equals(SelfEvaluator.class))
-    			executableResult = executableFactory().createCompose(executableResult, argumentsIterator).withSourceEntity(entity);
+    		if (!argumentsExecutable.undecoratedExecutable().getClass().equals(SelfEvaluator.class))
+    			executableResult = executableFactory().createCompose(executableResult, argumentsExecutable).withSourceEntity(entity);
     	}
 		setExecutableResult(executableResult);
   	}
@@ -114,17 +114,17 @@ public class SemanticsDynamicCompilerVisitor extends SemanticsIdentityDefaultVis
 		IExecutable<?> executableResult;
 		CastType type = entity.getType();
 		if (Matcher.matchImpl(SemanticsEntityDescriptorEnum.EnvType, type))
-			executableResult = SemanticsUtils.typeCastIterator().withSourceEntity(entity);
+			executableResult = SemanticsUtils.typeCastExecutable().withSourceEntity(entity);
 		else
-			executableResult = SemanticsUtils.typeCastIterator(type.wStringValue()).withSourceEntity(entity);
+			executableResult = SemanticsUtils.typeCastExecutable(type.wStringValue()).withSourceEntity(entity);
 
 		Term expression = entity.getExpression();
 		if (!EntityUtils.isResolver(expression)) {
     		expression.accept(this);
-    		IExecutable<?> expressionIterator = getExecutableResult();
+    		IExecutable<?> expressionExecutable = getExecutableResult();
 
-    		if (!expressionIterator.undecoratedExecutable().getClass().equals(SelfEvaluator.class))
-    			executableResult = executableFactory().createFor(expressionIterator, executableResult).withSourceEntity(entity);
+    		if (!expressionExecutable.undecoratedExecutable().getClass().equals(SelfEvaluator.class))
+    			executableResult = executableFactory().createFor(expressionExecutable, executableResult).withSourceEntity(entity);
     	}
 		setExecutableResult(executableResult);
 	}

@@ -86,16 +86,16 @@ public abstract class AbstractConnectionCommand extends Command implements ILega
 
 	protected boolean connectionExists(IEntity sourceTransistion, IEntity targetTransistion) {
 		if (EntityUtils.isNotResolver(sourceTransistion) && EntityUtils.isNotResolver(targetTransistion)) {
-			IExecutable<?> sourceChildrenIterator = EntityUtils.isComposite(sourceTransistion) ?
+			IExecutable<?> sourceChildrenExecutable = EntityUtils.isComposite(sourceTransistion) ?
 					ExecutableFactory.instance.createChild() : ExecutableFactory.instance.createSelf();
-			sourceChildrenIterator.reset(sourceTransistion);
+			sourceChildrenExecutable.reset(sourceTransistion);
 			
-			IExecutable<?> targetChildrenIterator = EntityUtils.isComposite(targetTransistion) ?
+			IExecutable<?> targetChildrenExecutable = EntityUtils.isComposite(targetTransistion) ?
 					ExecutableFactory.instance.createChild() : ExecutableFactory.instance.createSelf();
-			targetChildrenIterator.reset(targetTransistion);
+			targetChildrenExecutable.reset(targetTransistion);
 			
-			for (IEntity sourceEntity : sourceChildrenIterator) {
-				for (IEntity targetEntity : targetChildrenIterator)
+			for (IEntity sourceEntity : sourceChildrenExecutable) {
+				for (IEntity targetEntity : targetChildrenExecutable)
 					if (sourceEntity.equals(targetEntity))
 						return true;
 			}

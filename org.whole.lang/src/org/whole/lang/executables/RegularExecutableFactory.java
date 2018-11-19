@@ -1274,7 +1274,7 @@ public class RegularExecutableFactory implements ExecutableFactory {
 		return new MultiValuedRunnableEvaluator<IEntity>( (selfEntity, bm, args) -> {
 				IExecutable<?> fragmentExecutable = fragmentExecutableMap.getOrDefault(selfEntity, createEmpty());
 				
-				//TODO clone iterator
+				//TODO clone executable
 
 //				IEntity outerSelfEntity = bm.wGet(OUTER_SELF_NAME);
 //				bm.wDef(IBindingManager.SELF, outerSelfEntity);

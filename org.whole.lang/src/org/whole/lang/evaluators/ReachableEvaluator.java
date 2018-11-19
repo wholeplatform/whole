@@ -36,9 +36,9 @@ public class ReachableEvaluator<E extends IEntity> extends AbstractTransitiveClo
 
 	@Override
 	public IExecutable<E> clone(ICloneContext cc) {
-		ReachableEvaluator<E> iterator = (ReachableEvaluator<E>) super.clone(cc);
-		iterator.distinctScope = cc.clone(distinctScope);
-		return iterator;
+		ReachableEvaluator<E> evaluator = (ReachableEvaluator<E>) super.clone(cc);
+		evaluator.distinctScope = cc.clone(distinctScope);
+		return evaluator;
 	}
 
     protected boolean isRelationNotEmpty(IEntity entity) {

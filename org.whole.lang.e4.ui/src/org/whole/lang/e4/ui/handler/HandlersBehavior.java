@@ -222,21 +222,21 @@ public class HandlersBehavior {
 		if (clipboardTuple == null)
 			return false;
 
-		IExecutable<IEntity> iterator = ExecutableFactory.instance.createChild();
-		iterator.getBindings().enforceSelfBinding(clipboardTuple);
-		iterator.reset(clipboardTuple);
+		IExecutable<IEntity> executable = ExecutableFactory.instance.createChild();
+		executable.getBindings().enforceSelfBinding(clipboardTuple);
+		executable.reset(clipboardTuple);
 
 		IEntity focusEntity = bm.wGet("focusEntity");
-		IEntity clipboardEntity = iterator.evaluateNext();
+		IEntity clipboardEntity = executable.evaluateNext();
 		if (focusEntity != null && clipboardEntity != null) {
 			boolean addable = EntityUtils.isAddable(focusEntity, clipboardEntity);
-			clipboardEntity = iterator.evaluateNext();
+			clipboardEntity = executable.evaluateNext();
 			if (!addable && clipboardEntity == null)
 				return EntityUtils.isReplaceable(focusEntity, clipboardEntity);
 			else {
 				while (addable && clipboardEntity != null) {
 					addable = EntityUtils.isAddable(focusEntity, clipboardEntity);
-					clipboardEntity = iterator.evaluateNext();
+					clipboardEntity = executable.evaluateNext();
 				}
 				return addable;
 			}
@@ -250,16 +250,16 @@ public class HandlersBehavior {
 
 		IEntity clipboardContent = runnable.get();
 		if (clipboardContent != null) {
-			IExecutable<IEntity> iterator = ExecutableFactory.instance.createChildReverse();
-			iterator.getBindings().enforceSelfBinding(clipboardContent);
-			iterator.reset(clipboardContent);
+			IExecutable<IEntity> executable = ExecutableFactory.instance.createChildReverse();
+			executable.getBindings().enforceSelfBinding(clipboardContent);
+			executable.reset(clipboardContent);
 	
 			IEntity focusEntity = bm.wGet("focusEntity");
-			IEntity clipboardEntity = iterator.evaluateNext();
+			IEntity clipboardEntity = executable.evaluateNext();
 			while (clipboardEntity != null) {
 				IEntity clipboardEntityClone = EntityUtils.clone(clipboardEntity);
 				boolean isAddable = EntityUtils.isAddable(focusEntity, clipboardEntityClone);
-				IEntity nextClipboardEntity = iterator.evaluateNext();
+				IEntity nextClipboardEntity = executable.evaluateNext();
 				if (!isAddable && nextClipboardEntity == null) {
 					IEntity parent = focusEntity.wGetParent();
 					parent.wSet(focusEntity, clipboardEntityClone);
@@ -312,26 +312,26 @@ public class HandlersBehavior {
 		IEntity entity = E4Utils.syncExec(bm, entityRunnable).get();
 
 		boolean adding = dialog.isForceAdding();
-		IExecutable<IEntity> iterator;
+		IExecutable<IEntity> executable;
 		if (bm.wIsSet("syntheticRoot")) {
 			IEntity syntheticRoot = bm.wGet("syntheticRoot");
 			adding |= syntheticRoot.wSize() > 1;
 			if (adding && !EntityUtils.isComposite(focusEntity)) {
 				adding = false;
-				iterator = ExecutableFactory.instance.createSelf();
+				executable = ExecutableFactory.instance.createSelf();
 			} else
-				iterator = ExecutableFactory.instance.createChildReverse();
-			iterator.getBindings().enforceSelfBinding(syntheticRoot);
-			iterator.reset(syntheticRoot);
+				executable = ExecutableFactory.instance.createChildReverse();
+			executable.getBindings().enforceSelfBinding(syntheticRoot);
+			executable.reset(syntheticRoot);
 		} else {
-			iterator = ExecutableFactory.instance.createSelf();
-			iterator.getBindings().enforceSelfBinding(entity);
-			iterator.reset(entity);
+			executable = ExecutableFactory.instance.createSelf();
+			executable.getBindings().enforceSelfBinding(entity);
+			executable.reset(entity);
 		}
 
 		EntityDescriptor<?> stage = dialog.getStage();
 		IEntity clipboardEntity;
-		while ((clipboardEntity = iterator.evaluateNext()) != null) {
+		while ((clipboardEntity = executable.evaluateNext()) != null) {
 			IEntity clipboardEntityClone = EntityUtils.clone(clipboardEntity);
 			if (!adding) {
 				if (!CommonsEntityDescriptorEnum.SameStageFragment.equals(stage) ||
@@ -359,10 +359,10 @@ public class HandlersBehavior {
 		IEntity selectedEntities = bm.wGet("selectedEntities");
 		List<IEntity> rootEntities = new ArrayList<IEntity>();
 
-		IExecutable<IEntity> iterator = ExecutableFactory.instance.createChild();
-		iterator.getBindings().enforceSelfBinding(selectedEntities);
-		iterator.reset(selectedEntities);
-		for (IEntity entity = iterator.evaluateNext(); entity != null; entity = iterator.evaluateNext()) {
+		IExecutable<IEntity> executable = ExecutableFactory.instance.createChild();
+		executable.getBindings().enforceSelfBinding(selectedEntities);
+		executable.reset(selectedEntities);
+		for (IEntity entity = executable.evaluateNext(); entity != null; entity = executable.evaluateNext()) {
 			boolean rootCandidate = true;
 			IEntity parent = entity.wGetParent();
 			while (rootCandidate && !EntityUtils.isNull(parent)) {

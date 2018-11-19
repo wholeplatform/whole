@@ -63,9 +63,9 @@ public class XmlNormalizerVisitor extends XmlTraverseAllVisitor {
 	public void visit(Content entity) {
 		// recursively normalize nested composite entities
 		ExecutableFactory f = ExecutableFactory.instance;
-		IExecutable<IEntity> iterator = f.createFilter(f.createChild(), f.createHasKind(EntityKinds.COMPOSITE));
-		iterator.reset(entity);
-		for (IEntity composite = iterator.evaluateNext(); composite != null; composite = iterator.evaluateNext()) {
+		IExecutable<IEntity> executable = f.createFilter(f.createChild(), f.createHasKind(EntityKinds.COMPOSITE));
+		executable.reset(entity);
+		for (IEntity composite = executable.evaluateNext(); composite != null; composite = executable.evaluateNext()) {
 			((IXmlEntity) composite).accept(this);
 
 			// move Content's children in place of Content entity
@@ -73,9 +73,9 @@ public class XmlNormalizerVisitor extends XmlTraverseAllVisitor {
 				for (int i=composite.wSize()-1; i>=0; i--) {
 					IEntity child = composite.wGet(i);
 					composite.wRemove(i);
-					iterator.add(child);
+					executable.add(child);
 				}
-				iterator.remove();
+				executable.remove();
 			}
 		}
 

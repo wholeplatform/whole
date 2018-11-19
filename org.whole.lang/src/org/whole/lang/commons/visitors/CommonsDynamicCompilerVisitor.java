@@ -117,7 +117,7 @@ public class CommonsDynamicCompilerVisitor extends CommonsIdentityDefaultVisitor
 			}
 		}, rootEntity, fragments, false);
 
-		Map<IEntity, IExecutable<?>> fragmentIteratorMap = new HashMap<>();
+		Map<IEntity, IExecutable<?>> fragmentExecutableMap = new HashMap<>();
 		IEntity oldSelfEntity = getBindings().wGet(IBindingManager.SELF);
 		int stage = getStage();
 
@@ -125,31 +125,31 @@ public class CommonsDynamicCompilerVisitor extends CommonsIdentityDefaultVisitor
 			getBindings().enforceSelfBinding(oldSelfEntity);
 
 			setResult(null);
-			IExecutable<?> fragmentIterator = null;
+			IExecutable<?> fragmentExecutable = null;
 			if (Matcher.matchAnyImpl(f, CommonsEntityDescriptorEnum.StageDownFragment)) {
 				stagedVisit(f.wGetRoot(), -stage);
-				fragmentIterator = getExecutableResult();
+				fragmentExecutable = getExecutableResult();
 			} else
-				setExecutableResult(fragmentIterator = 
+				setExecutableResult(fragmentExecutable = 
 						executableFactory().createTemplateInterpreter(f).withSourceEntity(sourceEntity));
 
-			fragmentIteratorMap.put(f, getExecutableResult());
+			fragmentExecutableMap.put(f, getExecutableResult());
 		});
 
 		ExecutableFactory f = executableFactory();
-		IExecutable<?> compiledIterator = f.createChoose(
+		IExecutable<?> compiledExecutable = f.createChoose(
 			f.createIf(
 					f.createAtStage(0),
 					f.createCompose(
 							f.createChoose(
 									f.createIf(
-											f.createIsFragment(), f.createNestedFragment(fragmentIteratorMap)),
+											f.createIsFragment(), f.createNestedFragment(fragmentExecutableMap)),
 									f.createIf(
 											f.createIsVariable(), f.createNestedVariable()),
 									f.createCloneReplacing(
 											f.createChoose(
 													f.createIf(
-															f.createIsFragment(), f.createNestedFragment(fragmentIteratorMap)),
+															f.createIsFragment(), f.createNestedFragment(fragmentExecutableMap)),
 													f.createIf(
 															f.createIsVariable(), f.createNestedVariable())
 											), Set.of(
@@ -158,18 +158,18 @@ public class CommonsDynamicCompilerVisitor extends CommonsIdentityDefaultVisitor
 											CommonsEntityDescriptorEnum.Variable.getURI(),
 											CommonsEntityDescriptorEnum.InlineVariable.getURI()))),
 							f.createConstant(rootEntity, false))),
-			f.createTemplateInterpreter(fragment).withSourceEntity(sourceEntity)//TODO f.constantIterator(fragment, true)
+			f.createTemplateInterpreter(fragment).withSourceEntity(sourceEntity)//TODO f.createConstant(fragment, true)
 		).withSourceEntity(sourceEntity);
 
 		if (!nested) {
 			String outerSelfName = IBindingManager.OUTER_SELF;
-			compiledIterator = f.createScope(
+			compiledExecutable = f.createScope(
 				f.createBlock(
 						f.createFilter(f.createSelf(), f.createAsVariable(outerSelfName)),
-						compiledIterator
+						compiledExecutable
 				), null, Set.of(outerSelfName), true).withSourceEntity(sourceEntity);
 		}
 
-		setExecutableResult(compiledIterator);
+		setExecutableResult(compiledExecutable);
 	}
 }

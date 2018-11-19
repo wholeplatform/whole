@@ -17,8 +17,6 @@
  */
 package org.whole.lang.executables;
 
-import java.util.Iterator;
-
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.evaluators.IEvaluator;
 import org.whole.lang.exceptions.IWholeRuntimeException;
@@ -56,8 +54,6 @@ public interface IExecutable<E extends IEntity> extends IFlowStepper, IEvaluator
 	public void remove();
 
 	public void toString(StringBuilder sb);
-
-	public Iterator<E> iterator();
 
 	public ExecutableFactory executableFactory();
 

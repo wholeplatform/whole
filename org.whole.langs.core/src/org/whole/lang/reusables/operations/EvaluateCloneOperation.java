@@ -61,23 +61,23 @@ public class EvaluateCloneOperation extends CloneOperationOld {
 		IEntity child = entityClone.wGet(index);
 		if (shouldEvaluate.test(child)) {
 			IEntity selfEntity = getBindings().wGet(IBindingManager.SELF);
-			IExecutable<IEntity> iterator = (IExecutable<IEntity>) BehaviorUtils.lazyEvaluateOnSelfBinding(child, 0, getBindings());
-//			IExecutable<?> iterator = DynamicCompilerOperation.compile(child, getBindings()).getExecutableResult();
+			IExecutable<IEntity> executable = (IExecutable<IEntity>) BehaviorUtils.lazyEvaluateOnSelfBinding(child, 0, getBindings());
+//			IExecutable<?> executable = DynamicCompilerOperation.compile(child, getBindings()).getExecutableResult();
 			if (EntityUtils.isSimple(entityClone)) {
-				iterator = ExecutableFactory.instance.createCompose(ExecutableFactory.instance.createSingleValuedRunnable(
+				executable = ExecutableFactory.instance.createCompose(ExecutableFactory.instance.createSingleValuedRunnable(
 						(self, bm, arguments) -> entityClone.wSet(index, self)
-				),	iterator);
+				),	executable);
 			} else {
 				if (index == entityClone.wSize()-1)
-					iterator = ExecutableFactory.instance.createCartesianInsert(ExecutableFactory.instance.createSelf(), 
-							iterator, Placement.INTO);
+					executable = ExecutableFactory.instance.createCartesianInsert(ExecutableFactory.instance.createSelf(), 
+							executable, Placement.INTO);
 				else
-					iterator = ExecutableFactory.instance.createCartesianInsert(ExecutableFactory.instance.createChild(index+1), 
-							iterator, Placement.BEFORE);
+					executable = ExecutableFactory.instance.createCartesianInsert(ExecutableFactory.instance.createChild(index+1), 
+							executable, Placement.BEFORE);
 			}
 			if (EntityUtils.isSimple(entityClone))
 				entityClone.wRemove(index);
-			iterator.evaluate(entityClone, getBindings());
+			executable.evaluate(entityClone, getBindings());
 			if (EntityUtils.isComposite(entityClone))
 				entityClone.wRemove(index);
 			resetSelfEntity(selfEntity);
@@ -89,13 +89,13 @@ public class EvaluateCloneOperation extends CloneOperationOld {
 		IEntity child = entityClone.wGet(fd);
 		if (shouldEvaluate.test(child)) {
 			IEntity selfEntity = getBindings().wGet(IBindingManager.SELF);
-			IExecutable<IEntity> iterator = (IExecutable<IEntity>) BehaviorUtils.lazyEvaluateOnSelfBinding(child, 0, getBindings());
-//			IExecutable<?> iterator = DynamicCompilerOperation.compile(child, getBindings()).getExecutableResult();
-			iterator = ExecutableFactory.instance.createCompose(ExecutableFactory.instance.createSingleValuedRunnable(
+			IExecutable<IEntity> executable = (IExecutable<IEntity>) BehaviorUtils.lazyEvaluateOnSelfBinding(child, 0, getBindings());
+//			IExecutable<?> executable = DynamicCompilerOperation.compile(child, getBindings()).getExecutableResult();
+			executable = ExecutableFactory.instance.createCompose(ExecutableFactory.instance.createSingleValuedRunnable(
 					(self, bm, arguments) -> entityClone.wSet(fd, self)
-			),	iterator);
+			),	executable);
 			entityClone.wRemove(fd);
-			iterator.evaluate(entityClone, getBindings());
+			executable.evaluate(entityClone, getBindings());
 			resetSelfEntity(selfEntity);
 		} else
 			super.cloneAndUpdate(entityClone, fd);

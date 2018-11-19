@@ -93,9 +93,9 @@ public class Grammars2ModelsVisitor extends GrammarsTraverseAllVisitor {
 	public void visit(Grammar entity) {
 		entity = normalize(entity);
 
-		IExecutable<Production> lexiconIiterator = executableFactory().<Production>createChild();
-		lexiconIiterator.reset(entity.getLexicalStructure());
-		for (Production p : lexiconIiterator)
+		IExecutable<Production> lexiconExecutable = executableFactory().<Production>createChild();
+		lexiconExecutable.reset(entity.getLexicalStructure());
+		for (Production p : lexiconExecutable)
 			lexiconMap.put(p.getName().getValue(), p);
 
 		LanguageDescriptor ld = (LanguageDescriptor) entity.getTargetLanguage();
@@ -185,9 +185,9 @@ public class Grammars2ModelsVisitor extends GrammarsTraverseAllVisitor {
 				} else if (!rule.wIsEmpty() && Matcher.match(GrammarsEntityDescriptorEnum.As, rule.wGet(0))) {
 					EnumEntity ee = getModelDeclaration(eName, ModelsEntityDescriptorEnum.EnumEntity);
 					EnumValues enumValues = ModelsEntityFactory.instance.createEnumValues(0);
-					IExecutable<As> ruleIterator3 = f.createFilter(f.createDescendantOrSelf(), f.createHasType(GrammarsEntityDescriptorEnum.As.getURI()));
-					ruleIterator3.reset(rule);
-					for (As as : ruleIterator3)
+					IExecutable<As> ruleExecutable3 = f.createFilter(f.createDescendantOrSelf(), f.createHasType(GrammarsEntityDescriptorEnum.As.getURI()));
+					ruleExecutable3.reset(rule);
+					for (As as : ruleExecutable3)
 						enumValues.wAdd(ModelsEntityFactory.instance.createEnumValue(as.getName().getValue()));
 					ee.setValues(enumValues);
 					return;

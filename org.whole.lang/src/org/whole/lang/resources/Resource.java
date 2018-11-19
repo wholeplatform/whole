@@ -125,10 +125,10 @@ public class Resource implements IResource {
 		return apply(this.<IEntity>getEntity(uriFragment), query, bindings);//FIXME workaround for Java 8 compiler
 	}
 	protected <E extends IEntity> IExecutable<E> apply(IEntity entity, IEntity query, IBindingManager bindings) {
-		IExecutable<E> iterator = ExecutableFactory.instance(bindings).createTemplateInterpreter(query);
-		iterator.setBindings(bindings);
-		iterator.reset(entity);
-		return iterator;
+		IExecutable<E> executable = ExecutableFactory.instance(bindings).createTemplateInterpreter(query);
+		executable.setBindings(bindings);
+		executable.reset(entity);
+		return executable;
 	}
 
 	public void apply(IBuilderOperation operation) {

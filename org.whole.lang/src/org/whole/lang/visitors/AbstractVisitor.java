@@ -94,8 +94,8 @@ public abstract class AbstractVisitor implements IVisitor {
 	public <E extends IEntity> IExecutable<E> getExecutableResult() {
 		return getBindings().getExecutableResult();
 	}
-	public void setExecutableResult(IExecutable<?> entityIterator) {
-		getBindings().setExecutableResult(entityIterator);
+	public void setExecutableResult(IExecutable<?> executable) {
+		getBindings().setExecutableResult(executable);
 	}
 	public IEntity getResult() {
 		return getBindings().getResult();

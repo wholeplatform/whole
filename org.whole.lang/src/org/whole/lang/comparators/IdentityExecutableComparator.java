@@ -28,21 +28,21 @@ import org.whole.lang.operations.ICloneContext;
 /**
  * @author Riccardo Solmi
  */
-public class IdentityIteratorComparator<T extends IEntity> extends AbstractEqualityComparator<T> {
+public class IdentityExecutableComparator<T extends IEntity> extends AbstractEqualityComparator<T> {
 	protected IExecutable<? extends T> executable;
 	protected IEntityComparator<? super T> comparator;
 
-	public IdentityIteratorComparator(IExecutable<T> executable) {
+	public IdentityExecutableComparator(IExecutable<T> executable) {
 		this(executable, BusinessIdentityComparator.instance);
 	}
-	public IdentityIteratorComparator(IExecutable<? extends T> executable, IEntityComparator<? super T> collector) {
+	public IdentityExecutableComparator(IExecutable<? extends T> executable, IEntityComparator<? super T> collector) {
 		this.executable = executable;
 		this.comparator = collector;
 	}
 
 	@Override
 	public IEntityComparator<T> clone(ICloneContext cc) {
-		IdentityIteratorComparator<T> comparator = (IdentityIteratorComparator<T>) super.clone(cc);
+		IdentityExecutableComparator<T> comparator = (IdentityExecutableComparator<T>) super.clone(cc);
 		comparator.executable = cc.clone(this.executable);
 		comparator.comparator = cc.clone(this.comparator);
 		return comparator;

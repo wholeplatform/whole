@@ -31,16 +31,16 @@ public class ReusablesUIDynamicCompilerVisitor extends ReusablesDynamicCompilerV
 	@Override
 	public void visit(Workspace entity) {
 		entity.getPersistence().accept(this);
-		IExecutable<?> persistenceIterator = getExecutableResult();
+		IExecutable<?> persistenceExecutable = getExecutableResult();
 		
 		entity.getContent().accept(this);
-		IExecutable<IEntity> contentIterator = getExecutableResult();
+		IExecutable<IEntity> contentExecutable = getExecutableResult();
 
 		setExecutableResult(executableFactory().createCompose(
 				executableFactory().createSingleValuedRunnable(new ResourcePersistenceRunnable() {
 					protected IPersistenceProvider getPersistenceProvider(String path, IBindingManager bm) {
 						return E4Utils.createWorkspaceProvider(bm, path);
 					}
-				}, new int[] { 0 }, persistenceIterator).withSourceEntity(entity), contentIterator));
+				}, new int[] { 0 }, persistenceExecutable).withSourceEntity(entity), contentExecutable));
 	}
 }

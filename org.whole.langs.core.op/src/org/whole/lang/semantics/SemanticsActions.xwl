@@ -2707,11 +2707,11 @@
                                 </queries:Filter>
                                 <queries:Filter>
                                     <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                                        <workflows:Text value="semanticsTheoriesIterator"/>
+                                        <workflows:Text value="semanticsTheoriesExecutable"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <workflows:StringLiteral value="org.whole.lang.semantics.util.SemanticsUtils"/>
-                                        <workflows:StringLiteral value="semanticsTheoriesIterator()"/>
+                                        <workflows:StringLiteral value="semanticsTheoriesExecutable()"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                     </workflows:InvokeJavaClassMethod>
                                     <queries:And initialCapacity="2">

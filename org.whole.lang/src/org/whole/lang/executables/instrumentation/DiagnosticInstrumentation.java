@@ -133,27 +133,25 @@ public class DiagnosticInstrumentation implements IExecutableInstrumentation {
 		}
 	}
 
-	private static Set<String> readyIterators;
-	private static Set<String> readyIterators() {
-		if (readyIterators == null) {
-			readyIterators = new HashSet<String>();
-			readyIterators.addAll(Arrays.<String>asList(new String[] {
-					"ConstantEvaluator", "ConstantChildStepper", "EmptyExecutable",
-					"CollectionEvaluator", "FailureExecutable",
-					"ConstantIterator", "ConstantChildIterator", "EmptyIterator",
-					"CollectionIterator", "FailureIterator"
+	private static Set<String> readyExecutables;
+	private static Set<String> readyExecutables() {
+		if (readyExecutables == null) {
+			readyExecutables = new HashSet<String>();
+			readyExecutables.addAll(Arrays.<String>asList(new String[] {
+					"ConstantEvaluator", "ConstantChildEvaluator", "EmptyExecutable",
+					"CollectionEvaluator", "FailureExecutable"
 			}));
 		}
-		return readyIterators;
+		return readyExecutables;
 	}
-	public static boolean isReadyIterator(String iteratorClassName) {
-		return readyIterators().contains(iteratorClassName);
+	public static boolean isReadyExecutable(String executableClassName) {
+		return readyExecutables().contains(executableClassName);
 	}
 
 	public void illegalState(InstrumentingExecutable<?> ii, InstrumentedMethod method, DiagnosticData data) {
 		data.message = "Illegal state: <"+data.state+", "+method+">";
 
-		if (isReadyIterator(ii.getSourceCodeClassName()))
+		if (isReadyExecutable(ii.getSourceCodeClassName()))
 			data.severity = Severity.INFO;
 		else {
 			data.severity = Severity.ERROR;

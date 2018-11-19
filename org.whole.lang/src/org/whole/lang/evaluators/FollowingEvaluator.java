@@ -36,11 +36,11 @@ public class FollowingEvaluator<E extends IEntity> extends AbstractTransitiveClo
 		else {
 			IEntity parent = entity.wGetParent();
 			pushInitialExecutables(parent);
-			pushExecutable(createChildIterator(), entity);
+			pushExecutable(createChildExecutable(), entity);
 		}
 	}
 
-	protected IExecutable<E> createChildIterator() {
+	protected IExecutable<E> createChildExecutable() {
 		return includeSelf ? executableFactory().<E>createFollowingSiblingOrSelf() :
 			executableFactory().<E>createFollowingSibling();
 	}

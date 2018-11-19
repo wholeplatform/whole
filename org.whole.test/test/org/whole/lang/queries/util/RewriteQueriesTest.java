@@ -66,7 +66,7 @@ public class RewriteQueriesTest {
 		for (DataEntity dataEntity : BehaviorUtils.<DataEntity>compileAndLazyEvaluate(query, model))
 			assertTrue(Matcher.match(ModelsEntityDescriptorEnum.DataEntity, dataEntity));
 
-		assertFalse(BehaviorUtils.compileAndLazyEvaluate(query, model).iterator().hasNext());
+		assertNull(BehaviorUtils.compileAndLazyEvaluate(query, model).evaluateNext());
 	}
 
     @Test

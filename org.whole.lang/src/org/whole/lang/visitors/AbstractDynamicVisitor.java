@@ -50,11 +50,11 @@ public abstract class AbstractDynamicVisitor extends AbstractVisitor {
 	}
 
 	public void visit(IEntity entity) {
-		IExecutable<?> iterator = functionExecutable();
-		iterator.setBindings(getBindings());
-		iterator.reset(entity);
-		apply(iterator);
+		IExecutable<?> executable = functionExecutable();
+		executable.setBindings(getBindings());
+		executable.reset(entity);
+		apply(executable);
 	}
 
-	protected abstract void apply(IExecutable<?> iterator);
+	protected abstract void apply(IExecutable<?> executable);
 }

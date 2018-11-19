@@ -73,15 +73,15 @@ public class TestsInterpreterVisitorTest {
 
 		// remove timestamps from both the models
 		ExecutableFactory f = ExecutableFactory.instance;
-		IExecutable<IEntity> iterator = f.createFilter(f.createDescendantOrSelf(), f.createHasType(JavaEntityDescriptorEnum.LongLiteral.getURI()));
-		iterator.reset(testSuiteToComplete);
-		while (iterator.evaluateNext() != null)
-			iterator.remove();
+		IExecutable<IEntity> executable = f.createFilter(f.createDescendantOrSelf(), f.createHasType(JavaEntityDescriptorEnum.LongLiteral.getURI()));
+		executable.reset(testSuiteToComplete);
+		while (executable.evaluateNext() != null)
+			executable.remove();
 
-		iterator = f.createFilter(f.createDescendantOrSelf(), f.createHasType(JavaEntityDescriptorEnum.LongLiteral.getURI()));
-		iterator.reset(testSuiteCompleted);
-		while (iterator.evaluateNext() != null)
-			iterator.remove();
+		executable = f.createFilter(f.createDescendantOrSelf(), f.createHasType(JavaEntityDescriptorEnum.LongLiteral.getURI()));
+		executable.reset(testSuiteCompleted);
+		while (executable.evaluateNext() != null)
+			executable.remove();
 
 		Assert.assertTrue(Matcher.match(testSuiteCompleted, testSuiteToComplete));
 	}

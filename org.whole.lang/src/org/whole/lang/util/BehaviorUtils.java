@@ -133,8 +133,8 @@ public class BehaviorUtils {
 		return evaluateFirstResult(behavior, self, BindingManagerFactory.instance.createArguments());
 	}
 	public static <E extends IEntity> E evaluateFirstResult(IEntity behavior, IEntity self, IBindingManager bm) {
-		IExecutable<E> iterator = compileAndLazyEvaluate(behavior, self, bm);
-		return iterator.evaluateNext();
+		IExecutable<E> executable = compileAndLazyEvaluate(behavior, self, bm);
+		return executable.evaluateNext();
 	}
 
 	//TODO ? fail on not boolean; != Queries predicate

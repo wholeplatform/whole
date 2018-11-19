@@ -31,14 +31,14 @@ public class MiscDynamicCompilerVisitor extends MiscOperationVisitor {
     	if (size == 1)
     		entity.get(0).accept(this);
     	else {
-    		IExecutable<? extends IEntity>[] iteratorChain = new IExecutable<?>[size];
+    		IExecutable<? extends IEntity>[] executableChain = new IExecutable<?>[size];
 			
 	    	for (int i=0; i<size; i++) {
 				entity.get(i).accept(this);
-				iteratorChain[i] = getExecutableResult();
+				executableChain[i] = getExecutableResult();
 			}
 
-	    	setExecutableResult(executableFactory().createSequence(iteratorChain).withSourceEntity(entity));
+	    	setExecutableResult(executableFactory().createSequence(executableChain).withSourceEntity(entity));
     	}
 	}
 }

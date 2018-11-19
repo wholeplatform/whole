@@ -50,12 +50,12 @@ public abstract class AbstractNestedStepper<E extends IEntity> extends AbstractE
 		cloneContext = cc.getPrototypeCloneContext();
 		producersNeedClone.set(0, producersSize(), true);
 
-		AbstractNestedStepper<E> iterator = (AbstractNestedStepper<E>) super.clone(cc);
-		iterator.cloneContext = cc;
-		iterator.producers = producers.clone();
-		iterator.producersNeedClone = (BitSet) producersNeedClone.clone();
-		iterator.producersNeedInit = (BitSet) producersNeedInit.clone();
-		return iterator;
+		AbstractNestedStepper<E> stepper = (AbstractNestedStepper<E>) super.clone(cc);
+		stepper.cloneContext = cc;
+		stepper.producers = producers.clone();
+		stepper.producersNeedClone = (BitSet) producersNeedClone.clone();
+		stepper.producersNeedInit = (BitSet) producersNeedInit.clone();
+		return stepper;
 	}
 
 	public void reset(IEntity entity) {

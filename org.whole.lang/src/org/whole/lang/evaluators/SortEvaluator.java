@@ -44,10 +44,10 @@ public class SortEvaluator<E extends IEntity> extends CollectionEvaluator<E> {
 
 	@Override
 	public IExecutable<E> clone(ICloneContext cc) {
-		SortEvaluator<E> iterator = (SortEvaluator<E>) super.clone(cc);
-		iterator.executable = cc.clone(this.executable);
-		iterator.comparator = cc.clone(comparator);
-		return iterator;
+		SortEvaluator<E> evaluator = (SortEvaluator<E>) super.clone(cc);
+		evaluator.executable = cc.clone(this.executable);
+		evaluator.comparator = cc.clone(comparator);
+		return evaluator;
 	}
 
 	@Override

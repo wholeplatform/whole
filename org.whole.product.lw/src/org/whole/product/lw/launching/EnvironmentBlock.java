@@ -229,7 +229,7 @@ public class EnvironmentBlock  extends AbstractBlock {
 			Object[][] elements = new Object[size][2];
 
 			int index = 0;
-			Iterator<String> iterator = localNames.iterator();;
+			Iterator<String> iterator = localNames.iterator();
 			while (iterator.hasNext()) {
 				String name = iterator.next();
 				elements[index][0] = name;

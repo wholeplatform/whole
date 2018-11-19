@@ -49,11 +49,11 @@ public class FilterByDistinctEvaluator<E extends IEntity> extends AbstractDelega
 
 	@Override
 	public IExecutable<E> clone(ICloneContext cc) {
-		FilterByDistinctEvaluator<E> iterator = (FilterByDistinctEvaluator<E>) super.clone(cc);
+		FilterByDistinctEvaluator<E> evaluator = (FilterByDistinctEvaluator<E>) super.clone(cc);
 		if (distinctSetMap != null)
-			iterator.distinctSetMap = new HashMap<Object, Set<IEntity>>(distinctSetMap);
-		iterator.comparator = cc.clone(iterator.comparator);			
-		return iterator;
+			evaluator.distinctSetMap = new HashMap<Object, Set<IEntity>>(distinctSetMap);
+		evaluator.comparator = cc.clone(evaluator.comparator);			
+		return evaluator;
 	}
 
 	public DistinctScope<E> withComparator(IEntityComparator<IEntity> comparator) {

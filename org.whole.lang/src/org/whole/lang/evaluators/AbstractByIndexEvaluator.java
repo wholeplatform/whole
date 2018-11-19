@@ -37,7 +37,7 @@ public abstract class AbstractByIndexEvaluator<E extends IEntity> extends Abstra
 
 	@FunctionalInterface
 	public interface FirstIndexSupplier {
-	    int firstIndex(AbstractByIndexEvaluator<?> iterator);
+	    int firstIndex(AbstractByIndexEvaluator<?> evaluator);
 	}
 
 	public AbstractByIndexEvaluator(boolean forward) {

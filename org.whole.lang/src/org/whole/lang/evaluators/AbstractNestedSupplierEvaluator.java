@@ -46,13 +46,13 @@ public abstract class AbstractNestedSupplierEvaluator<E extends IEntity> extends
 	}
 
 	public IExecutable<E> clone(ICloneContext cc) {
-		AbstractNestedSupplierEvaluator<E> iterator = (AbstractNestedSupplierEvaluator<E>) super.clone(cc);
+		AbstractNestedSupplierEvaluator<E> evaluator = (AbstractNestedSupplierEvaluator<E>) super.clone(cc);
 		if (producers != null) {
-			iterator.producers = producers.clone();
+			evaluator.producers = producers.clone();
 			for (int i=0; i<producersSize(); i++)
-				iterator.producers[i] = cc.clone(producers[i]);
+				evaluator.producers[i] = cc.clone(producers[i]);
 		}
-		return iterator;
+		return evaluator;
 	}
 
 	public int producersSize() {

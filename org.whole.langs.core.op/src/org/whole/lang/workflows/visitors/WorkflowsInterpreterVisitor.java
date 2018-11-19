@@ -135,10 +135,10 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 	}
 
     @Override
-	public void setExecutableResult(IExecutable<?> iterator) {
-		if (iterator != null)
-			iterator.setBindings(getBindings());
-		super.setExecutableResult(iterator);
+	public void setExecutableResult(IExecutable<?> executable) {
+		if (executable != null)
+			executable.setBindings(getBindings());
+		super.setExecutableResult(executable);
 	}
 
     protected void setResult(Variable variable, IEntity model) {
@@ -222,9 +222,9 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 		}
 	}
 
-	protected void resetIterator(IExecutable<?> iterator) {
+	protected void resetIterator(IExecutable<?> executable) {
 		IEntity selfEntity = getBindings().wGet(IBindingManager.SELF);
-		iterator.reset(selfEntity != null ? selfEntity : NullEntity.instance);
+		executable.reset(selfEntity != null ? selfEntity : NullEntity.instance);
 	}
 
 	@Override
@@ -456,7 +456,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 		Variable queryName = entity.getQueryName();
 		Arguments arguments = entity.getArguments();
 
-		IExecutable<? extends IEntity>[] argsIterators = new IExecutable<?>[0];
+		IExecutable<? extends IEntity>[] argsExecutables = new IExecutable<?>[0];
 
 		Set<String> filterNames = getOperation().getResultsScope().wNames();
 		IBindingManager args = BindingManagerFactory.instance.createBindingManager(
@@ -464,22 +464,22 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 						getBindings().wGetEnvironmentManager());
 
 		if (!EntityUtils.isNotResolver(arguments)) {
-			setResultValue(argsIterators);
+			setResultValue(argsExecutables);
 			arguments.accept(this);
-			argsIterators = (IExecutable<?>[]) getResultValue();
+			argsExecutables = (IExecutable<?>[]) getResultValue();
 		} else if (Matcher.match(WorkflowsEntityDescriptorEnum.Expressions, arguments)) {
 			IEntity selfEntity = getBindings().wGet(IBindingManager.SELF);
-			argsIterators = new IExecutable<?>[arguments.wSize()];
-			for (int i = 0; i < argsIterators.length; i++) {
+			argsExecutables = new IExecutable<?>[arguments.wSize()];
+			for (int i = 0; i < argsExecutables.length; i++) {
 				((Expressions) arguments).get(i).accept(this);
-				argsIterators[i] = getExecutableResult();
+				argsExecutables[i] = getExecutableResult();
 				setExecutableResult(null);
 				resetSelfEntity(selfEntity);
 			}
 		} else
 			define(args, (Assignments) arguments);
 
-		IExecutable<?> i = executableFactory().createCall(queryName.getValue(), argsIterators);
+		IExecutable<?> i = executableFactory().createCall(queryName.getValue(), argsExecutables);
 		i.setBindings(args);
 		resetIterator(i);
 		i.evaluateRemaining();

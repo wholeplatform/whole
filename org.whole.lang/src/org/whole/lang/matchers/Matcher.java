@@ -331,16 +331,16 @@ public class Matcher {
 		boolean allVarsAreOptional = true;
 
 		ExecutableFactory f = ExecutableFactory.instance;
-		IExecutable<IEntity> variableIterator = f.createFilter(f.createDescendantOrSelf(), f.createIsVariable());
-		variableIterator.reset(pattern);
-		for (IEntity variableAdapter : variableIterator) {
+		IExecutable<IEntity> variableExecutable = f.createFilter(f.createDescendantOrSelf(), f.createIsVariable());
+		variableExecutable.reset(pattern);
+		for (IEntity variableAdapter : variableExecutable) {
 			Variable variable = (Variable) variableAdapter.wGetAdaptee(false);
 			
 			boolean isOptional = variable.getQuantifier().getValue().isOptional();
 			allVarsAreOptional &= isOptional;
 			
 			if (force || isOptional)
-				variableIterator.remove();
+				variableExecutable.remove();
 		}
 		
 		return allVarsAreOptional;
@@ -352,16 +352,16 @@ public class Matcher {
 		boolean allVarsAreOptional = true;
 
 		ExecutableFactory f = ExecutableFactory.instance;
-		IExecutable<IEntity> variableIterator = f.createFilter(f.createDescendantOrSelf(), f.createIsVariable());
-		variableIterator.reset(pattern);
-		for (IEntity variableAdapter : variableIterator) {
+		IExecutable<IEntity> variableExecutable = f.createFilter(f.createDescendantOrSelf(), f.createIsVariable());
+		variableExecutable.reset(pattern);
+		for (IEntity variableAdapter : variableExecutable) {
 			Variable variable = (Variable) variableAdapter.wGetAdaptee(false);
 			if (names.contains(variable.getVarName().getValue()) ^ useNamesComplement) {
 				boolean isOptional = variable.getQuantifier().getValue().isOptional();
 				allVarsAreOptional &= isOptional;
 
 				if (isOptional)
-					variableIterator.remove();
+					variableExecutable.remove();
 			}
 		}
 		return allVarsAreOptional;
@@ -370,9 +370,9 @@ public class Matcher {
 		Set<String> names = new HashSet<String>();
 
 		ExecutableFactory f = ExecutableFactory.instance;
-		IExecutable<IEntity> variableIterator = f.createFilter(f.createDescendantOrSelf(), f.createIsVariable());
-		variableIterator.reset(pattern);
-		for (IEntity variableAdapter : variableIterator) {
+		IExecutable<IEntity> variableExecutable = f.createFilter(f.createDescendantOrSelf(), f.createIsVariable());
+		variableExecutable.reset(pattern);
+		for (IEntity variableAdapter : variableExecutable) {
 			Variable variable = (Variable) variableAdapter.wGetAdaptee(false);
 			if (includeOptionals || !variable.getQuantifier().getValue().isOptional())
 				names.add(variable.getVarName().getValue());

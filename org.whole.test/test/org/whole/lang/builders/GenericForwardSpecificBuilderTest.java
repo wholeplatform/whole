@@ -55,13 +55,13 @@ public class GenericForwardSpecificBuilderTest {
 
 		// to match variables fill variables with defaults
 		ExecutableFactory f = ExecutableFactory.instance;
-		IExecutable<IEntity> variableIterator = f.createFilter(f.createDescendantOrSelf(), f.createIsVariable());
-		variableIterator.reset(entity);
-		IExecutable<IEntity> newVariableIterator = f.createFilter(f.createDescendantOrSelf(), f.createIsVariable());
-		newVariableIterator.reset(newEntity);
+		IExecutable<IEntity> variableExecutable = f.createFilter(f.createDescendantOrSelf(), f.createIsVariable());
+		variableExecutable.reset(entity);
+		IExecutable<IEntity> newVariableExecutable = f.createFilter(f.createDescendantOrSelf(), f.createIsVariable());
+		newVariableExecutable.reset(newEntity);
 		
-		for (IEntity e1 = variableIterator.evaluateNext(), e2 = newVariableIterator.evaluateNext(); e1 != null;
-				e1 = variableIterator.evaluateNext(), e2 = newVariableIterator.evaluateNext()) {
+		for (IEntity e1 = variableExecutable.evaluateNext(), e2 = newVariableExecutable.evaluateNext(); e1 != null;
+				e1 = variableExecutable.evaluateNext(), e2 = newVariableExecutable.evaluateNext()) {
 			assertTrue(e2 != null);
 
 			Variable variable = (Variable) e1.wGetAdaptee(false);
@@ -76,8 +76,8 @@ public class GenericForwardSpecificBuilderTest {
 			assertEquals(name, newName);
 
 			IEntity replacement = GenericEntityFactory.instance.create(ed);
-			variableIterator.set(replacement);
-			newVariableIterator.set(EntityUtils.clone(replacement));
+			variableExecutable.set(replacement);
+			newVariableExecutable.set(EntityUtils.clone(replacement));
 		}
 
 		assertTrue(Matcher.match(entity, newEntity));

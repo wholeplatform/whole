@@ -20,6 +20,7 @@ package org.whole.lang.queries.util;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
@@ -80,7 +81,7 @@ public class ControlQueriesTest {
 		ITemplateManager tm = ControlQueriesTemplateManager.instance();
 		PathExpression query = (PathExpression) tm.create("if1");
 
-		assertFalse(BehaviorUtils.compileAndLazyEvaluate(query, model.getDeclarations()).iterator().hasNext());
+		assertNull(BehaviorUtils.compileAndLazyEvaluate(query, model.getDeclarations()).evaluateNext());
 
 		IExecutable<IEntity> executable = BehaviorUtils.compileAndLazyEvaluate(query, model);
 		IEntity e = executable.evaluateNext();
@@ -201,7 +202,7 @@ public class ControlQueriesTest {
 		ITemplateManager tm = ControlQueriesTemplateManager.instance();
 		PathExpression query = (PathExpression) tm.create("choose1");
 
-		assertFalse(BehaviorUtils.compileAndLazyEvaluate(query, model).iterator().hasNext());
+		assertNull(BehaviorUtils.compileAndLazyEvaluate(query, model).evaluateNext());
 
 		int i=0;
 		while (!Matcher.match(ModelsEntityDescriptorEnum.SimpleEntity, decls.wGet(i)))

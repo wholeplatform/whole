@@ -128,10 +128,10 @@ public class GenericGrammarBasedValidatorVisitor extends GenericIdentityVisitor 
 		calculateDataTerminals(grammar);
 
 		ExecutableFactory f = executableFactory();
-		IExecutable<IEntity> iterator = f.createFilter(f.createDescendantOrSelf(), f.createHasKind(EntityKinds.DATA));
-		iterator.reset(entity);
-		for (IEntity e = iterator.evaluateNext(); e != null;
-					 e = iterator.evaluateNext())
+		IExecutable<IEntity> executable = f.createFilter(f.createDescendantOrSelf(), f.createHasKind(EntityKinds.DATA));
+		executable.reset(entity);
+		for (IEntity e = executable.evaluateNext(); e != null;
+					 e = executable.evaluateNext())
 			validateDataTerminal(e);
 	}
 }

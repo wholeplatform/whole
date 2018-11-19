@@ -172,10 +172,10 @@ public class ArtifactsUtils {
 			if (projectsPoint == null)
 				throw new IllegalArgumentException("projectsPoint is undefined");
 
-			IExecutable<Project> projectIterator = ExecutableFactory.instance.createChild();
-			projectIterator.reset(((Workspace) artifacts).getProjects());
-			for (Project project : projectIterator) {
-				projectIterator.remove();
+			IExecutable<Project> projectExecutable = ExecutableFactory.instance.createChild();
+			projectExecutable.reset(((Workspace) artifacts).getProjects());
+			for (Project project : projectExecutable) {
+				projectExecutable.remove();
 				projectsPoint.add(project);
 			}
 			break;
@@ -184,10 +184,10 @@ public class ArtifactsUtils {
 			if (packagesPoint == null)
 				throw new IllegalArgumentException("packagesPoint is undefined");
 
-			IExecutable<Artifact> artifactIterator = ExecutableFactory.instance.createChild();
-			artifactIterator.reset(artifacts);
-			for (Artifact artifact : artifactIterator) {
-				artifactIterator.remove();
+			IExecutable<Artifact> artifactExecutable = ExecutableFactory.instance.createChild();
+			artifactExecutable.reset(artifacts);
+			for (Artifact artifact : artifactExecutable) {
+				artifactExecutable.remove();
 				packagesPoint.add(artifact);
 			}
 			break;

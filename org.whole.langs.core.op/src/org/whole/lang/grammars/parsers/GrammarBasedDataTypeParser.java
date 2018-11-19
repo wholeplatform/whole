@@ -95,11 +95,11 @@ public class GrammarBasedDataTypeParser extends ForwardStrategyDataTypeParser {
 					for (int i=0, size=production.wSize(); i<size; i++) {
 						As as = EntityUtils.clone((As) production.wGet(i));
 						ExecutableFactory f = ExecutableFactory.instance;
-						IExecutable<Rule> iterator = f.createFilter(f.createDescendantOrSelf(), f.createHasType(GrammarsEntityDescriptorEnum.NonTerminal.getURI()));
-						iterator.reset(as);
-						for (NonTerminal nt = (NonTerminal) iterator.evaluateNext(); nt != null;
-								nt = (NonTerminal) iterator.evaluateNext()) {
-							iterator.set(EntityUtils.clone(lexicon.get(nt.getValue())));
+						IExecutable<Rule> executable = f.createFilter(f.createDescendantOrSelf(), f.createHasType(GrammarsEntityDescriptorEnum.NonTerminal.getURI()));
+						executable.reset(as);
+						for (NonTerminal nt = (NonTerminal) executable.evaluateNext(); nt != null;
+								nt = (NonTerminal) executable.evaluateNext()) {
+							executable.set(EntityUtils.clone(lexicon.get(nt.getValue())));
 						}
 						enumRules.put(ed.getDataEnumType().valueOf(as.getName().getValue()), as.getRule());
 					}

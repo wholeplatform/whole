@@ -108,8 +108,8 @@ public abstract class AbstractReusablesSemanticsVisitor extends ReusablesIdentit
 		return
 //		return Matcher.isAssignableAsIsFrom(
 //				QueriesEntityDescriptorEnum.Expression, resource.wGetAdaptee(false)) ?
-//						iteratorFactory().constantComposeIterator(resource.wGetParent(), getExecutableResult()) :
-//							iteratorFactory().composeIterator(
+//						executableFactory().constantComposeIterator(resource.wGetParent(), getExecutableResult()) :
+//							executableFactory().composeIterator(
 									executableFactory().createSingleValuedRunnable((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
 										if (!BindingManagerFactory.instance.isVoid(selfEntity)) {
 											writeModel(selfEntity, arguments[0]);

@@ -91,9 +91,9 @@ public class ResourceTemplateTest {
 
 		FolderArtifact compareTo = null;
 		ExecutableFactory ef = ExecutableFactory.instance;
-		IExecutable<FolderArtifact> iterator = ef.createFilter(ef.createChild(), ef.createHasType(ArtifactsEntityDescriptorEnum.FolderArtifact.getURI()));
-		iterator.reset(testFolder.wGet(ArtifactsFeatureDescriptorEnum.artifacts));
-		for (FolderArtifact folder = iterator.evaluateNext(); folder != null; folder = iterator.evaluateNext()) {
+		IExecutable<FolderArtifact> executable = ef.createFilter(ef.createChild(), ef.createHasType(ArtifactsEntityDescriptorEnum.FolderArtifact.getURI()));
+		executable.reset(testFolder.wGet(ArtifactsFeatureDescriptorEnum.artifacts));
+		for (FolderArtifact folder = executable.evaluateNext(); folder != null; folder = executable.evaluateNext()) {
 			if (folder.getName().wEquals(testSubFolder.wGet(ArtifactsFeatureDescriptorEnum.name))) {
 				compareTo = folder;
 				break;

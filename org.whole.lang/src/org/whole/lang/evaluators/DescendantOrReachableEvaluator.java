@@ -36,9 +36,9 @@ public class DescendantOrReachableEvaluator<E extends IEntity> extends AbstractT
 
 	@Override
 	public IExecutable<E> clone(ICloneContext cc) {
-		DescendantOrReachableEvaluator<E> iterator = (DescendantOrReachableEvaluator<E>) super.clone(cc);
-		iterator.distinctScope = cc.clone(distinctScope);
-		return iterator;
+		DescendantOrReachableEvaluator<E> evaluator = (DescendantOrReachableEvaluator<E>) super.clone(cc);
+		evaluator.distinctScope = cc.clone(distinctScope);
+		return evaluator;
 	}
 
     protected boolean isRelationNotEmpty(IEntity entity) {

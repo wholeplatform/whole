@@ -134,12 +134,12 @@ public class ActionsUIEntityFactory extends ActionsEntityFactory {
 				ed.equals(WorkflowsEntityDescriptorEnum.Variable));
 	}
 
-	public GroupAction createVariablesGroupAction(ActionKindEnum.Value kind, Set<String> excludeSet, EntityDescriptor<?> resultEd, IExecutable<?> variableIterator) {
+	public GroupAction createVariablesGroupAction(ActionKindEnum.Value kind, Set<String> excludeSet, EntityDescriptor<?> resultEd, IExecutable<?> variableExecutable) {
 		GroupAction groupAction = createHierarchicalGroupAction(resultEd.getLanguageKit().getName()+".languages");
 
 		Actions actions = createActions(0);
 		SortedSet<String> names = new TreeSet<String>();
-		for (IEntity variable : variableIterator) {
+		for (IEntity variable : variableExecutable) {
 			String name = variable.wStringValue();
 			if (!excludeSet.contains(name))
 				names.add(name);

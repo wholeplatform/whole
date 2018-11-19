@@ -39,21 +39,21 @@ public class MultiValuedRunnableEvaluator<E extends IEntity> extends AbstractNes
 	protected IExecutable<E> executableResult;
 	protected IRunnable runnable;
 
-	public MultiValuedRunnableEvaluator(IRunnable runnable, IExecutable<IEntity>... argsIterators) {
-		super(argsIterators);
+	public MultiValuedRunnableEvaluator(IRunnable runnable, IExecutable<IEntity>... argsExecutables) {
+		super(argsExecutables);
 		optionalProducersIndexSet = Collections.emptySet();
 		this.runnable = runnable;
 	}
-	public MultiValuedRunnableEvaluator(IRunnable runnable, int[] optionalArgsIndexes, IExecutable<IEntity>... argsIterators) {
-		super(argsIterators);
+	public MultiValuedRunnableEvaluator(IRunnable runnable, int[] optionalArgsIndexes, IExecutable<IEntity>... argsExecutables) {
+		super(argsExecutables);
 		optionalProducersIndexSet = Arrays.stream(optionalArgsIndexes).boxed().collect(Collectors.toSet());
 		this.runnable = runnable;
 	}
 
 	public IExecutable<E> clone(ICloneContext cc) {
-		MultiValuedRunnableEvaluator<E> iterator = (MultiValuedRunnableEvaluator<E>) super.clone(cc);
-		iterator.executableResult = cc.clone(executableResult);
-		return iterator;
+		MultiValuedRunnableEvaluator<E> evaluator = (MultiValuedRunnableEvaluator<E>) super.clone(cc);
+		evaluator.executableResult = cc.clone(executableResult);
+		return evaluator;
 	}
 
 	public void reset(IEntity entity) {

@@ -32,7 +32,7 @@ public class PrecedingEvaluator<E extends IEntity> extends FollowingEvaluator<E>
 		return executableFactory().<E>createChildReverse();
 	}
 
-	protected IExecutable<E> createChildIterator() {
+	protected IExecutable<E> createChildExecutable() {
 		return includeSelf ? executableFactory().<E>createPrecedingSiblingOrSelf() :
 			executableFactory().<E>createPrecedingSibling();
 	}

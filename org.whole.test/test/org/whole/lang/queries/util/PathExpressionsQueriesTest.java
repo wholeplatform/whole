@@ -586,9 +586,9 @@ public class PathExpressionsQueriesTest {
 
 		StringBuilder names = new StringBuilder();
 		IBindingManager bm = BindingManagerFactory.instance.createArguments();
-		IExecutable<Production> iterator = BehaviorUtils.<Production>compileAndLazyEvaluate(
+		IExecutable<Production> executable = BehaviorUtils.<Production>compileAndLazyEvaluate(
 				(PathExpression) tm.create("path8"), g, bm);
-		for (Production p : iterator) {
+		for (Production p : executable) {
 			Assert.assertEquals(bm.wStringValue("name"), p.getName().getValue());
 			names.append(p.getName().getValue());
 		}
