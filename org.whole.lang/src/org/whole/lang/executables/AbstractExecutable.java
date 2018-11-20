@@ -100,6 +100,7 @@ public abstract class AbstractExecutable<E extends IEntity> implements IExecutab
 	}
 
     public void reset(IEntity entity) {
+    	lookaheadEntity = null;
 		lastEntity = null;
     }
 
