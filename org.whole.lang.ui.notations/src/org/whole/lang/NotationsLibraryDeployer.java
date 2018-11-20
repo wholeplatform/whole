@@ -114,7 +114,7 @@ public class NotationsLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		protected void setResult(IBindingManager bm, IEntityPart entityPart) {
 			bm.setExecutableResult(getPropertyIterator((IEntityPartViewer) bm.wGetValue("viewer"), entityPart));
 		}
-		protected abstract IExecutable<?> getPropertyIterator(IEntityPartViewer viewer, IEntityPart entityPart);
+		protected abstract IExecutable getPropertyIterator(IEntityPartViewer viewer, IEntityPart entityPart);
 	}
 	protected abstract static class TextualEntityPartSingleValuedPropertyRunnable extends EntityPartPropertyRunnable {
 		protected void setResult(IBindingManager bm, IEntityPart entityPart) {
@@ -154,7 +154,7 @@ public class NotationsLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		protected void setResult(IBindingManager bm, IEntityFigure entityFigure) {
 			bm.setExecutableResult(getPropertyIterator((IEntityPartViewer) bm.wGetValue("viewer"), entityFigure));
 		}
-		protected abstract IExecutable<?> getPropertyIterator(IEntityPartViewer viewer, IEntityFigure entityFigure);
+		protected abstract IExecutable getPropertyIterator(IEntityPartViewer viewer, IEntityFigure entityFigure);
 	}
 
 	protected abstract static class EntityFigureBoundsPropertyRunnable implements IRunnable {
@@ -184,7 +184,7 @@ public class NotationsLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		protected abstract IEntity getProperty(IEntityPartViewer viewer, Rectangle bounds);
 	}
 
-	public static IExecutable<IEntity> entityPartIterator() {
+	public static IExecutable entityPartIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new EntityPartSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(IEntityPartViewer viewer, IEntityPart entityPart) {
 				return BindingManagerFactory.instance.createValue(entityPart);
@@ -192,7 +192,7 @@ public class NotationsLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		});
 	}
 
-	public static IExecutable<IEntity> entityPartIsGraphicalIterator() {
+	public static IExecutable entityPartIsGraphicalIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new EntityPartSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(IEntityPartViewer viewer, IEntityPart entityPart) {
 				return BindingManagerFactory.instance.createValue(entityPart instanceof IGraphicalEntityPart);
@@ -200,7 +200,7 @@ public class NotationsLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		});
 	}
 
-	public static IExecutable<IEntity> entityPartIsTextualIterator() {
+	public static IExecutable entityPartIsTextualIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new EntityPartSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(IEntityPartViewer viewer, IEntityPart entityPart) {
 				return BindingManagerFactory.instance.createValue(entityPart instanceof ITextualEntityPart);
@@ -208,7 +208,7 @@ public class NotationsLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		});
 	}
 
-	public static IExecutable<IEntity> entityPartParentIterator() {
+	public static IExecutable entityPartParentIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new EntityPartSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(IEntityPartViewer viewer, IEntityPart entityPart) {
 				IEntityPart parent = (IEntityPart) entityPart.getParent();
@@ -217,9 +217,9 @@ public class NotationsLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		});
 	}
 
-	public static IExecutable<IEntity> entityPartChildrenIterator() {
+	public static IExecutable entityPartChildrenIterator() {
 		return ExecutableFactory.instance.createMultiValuedRunnable(new EntityPartMultiValuedPropertyRunnable() {
-			protected IExecutable<?> getPropertyIterator(IEntityPartViewer viewer, IEntityPart entityPart) {
+			protected IExecutable getPropertyIterator(IEntityPartViewer viewer, IEntityPart entityPart) {
 				return ExecutableFactory.instance.createCollection(
 						entityPart.getChildren(),
 						IDataTypeWrapper.envObjectValue);
@@ -227,7 +227,7 @@ public class NotationsLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		});
 	}
 
-	public static IExecutable<IEntity> entityPartClosestAboveIterator() {
+	public static IExecutable entityPartClosestAboveIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new EntityPartSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(IEntityPartViewer viewer, IEntityPart entityPart) {
 				return entityPart instanceof IGraphicalEntityPart ?
@@ -237,7 +237,7 @@ public class NotationsLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		});
 	}
 
-	public static IExecutable<IEntity> entityPartClosestBelowIterator() {
+	public static IExecutable entityPartClosestBelowIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new EntityPartSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(IEntityPartViewer viewer, IEntityPart entityPart) {
 				return entityPart instanceof IGraphicalEntityPart ?
@@ -247,7 +247,7 @@ public class NotationsLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		});
 	}
 
-	public static IExecutable<IEntity> entityPartNorthwardsIterator() {
+	public static IExecutable entityPartNorthwardsIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new EntityPartSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(IEntityPartViewer viewer, IEntityPart entityPart) {
 				return entityPart instanceof IGraphicalEntityPart ?
@@ -257,7 +257,7 @@ public class NotationsLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		});
 	}
 
-	public static IExecutable<IEntity> entityPartSouthwardsIterator() {
+	public static IExecutable entityPartSouthwardsIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new EntityPartSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(IEntityPartViewer viewer, IEntityPart entityPart) {
 				return entityPart instanceof IGraphicalEntityPart ?
@@ -267,7 +267,7 @@ public class NotationsLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		});
 	}
 
-	public static IExecutable<IEntity> entityPartWestwardsIterator() {
+	public static IExecutable entityPartWestwardsIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new EntityPartSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(IEntityPartViewer viewer, IEntityPart entityPart) {
 				return entityPart instanceof IGraphicalEntityPart ?
@@ -277,7 +277,7 @@ public class NotationsLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		});
 	}
 
-	public static IExecutable<IEntity> entityPartEastwardsIterator() {
+	public static IExecutable entityPartEastwardsIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new EntityPartSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(IEntityPartViewer viewer, IEntityPart entityPart) {
 				return entityPart instanceof IGraphicalEntityPart ?
@@ -287,7 +287,7 @@ public class NotationsLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		});
 	}
 
-	public static IExecutable<IEntity> modelEntityIterator() {
+	public static IExecutable modelEntityIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new EntityPartSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(IEntityPartViewer viewer, IEntityPart entityPart) {
 				return entityPart.getModelEntity();
@@ -295,7 +295,7 @@ public class NotationsLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		});
 	}
 
-	public static IExecutable<IEntity> parentModelEntityIterator() {
+	public static IExecutable parentModelEntityIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new EntityPartSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(IEntityPartViewer viewer, IEntityPart entityPart) {
 				return entityPart.getParentModelEntity();
@@ -303,7 +303,7 @@ public class NotationsLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		});
 	}
 
-	public static IExecutable<IEntity> caretLeftTextIterator() {
+	public static IExecutable caretLeftTextIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new TextualEntityPartSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(IEntityPartViewer viewer, ITextualEntityPart entityPart) {
 				String textToSplit = DataTypeUtils.getAsPresentationString(entityPart.getModelEntity());
@@ -316,7 +316,7 @@ public class NotationsLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		});
 	}
 
-	public static IExecutable<IEntity> caretSelectedTextIterator() {
+	public static IExecutable caretSelectedTextIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new TextualEntityPartSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(IEntityPartViewer viewer, ITextualEntityPart entityPart) {
 				String textToSplit = DataTypeUtils.getAsPresentationString(entityPart.getModelEntity());
@@ -330,7 +330,7 @@ public class NotationsLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		});
 	}
 
-	public static IExecutable<IEntity> caretRightTextIterator() {
+	public static IExecutable caretRightTextIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new TextualEntityPartSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(IEntityPartViewer viewer, ITextualEntityPart entityPart) {
 				String textToSplit = DataTypeUtils.getAsPresentationString(entityPart.getModelEntity());
@@ -343,7 +343,7 @@ public class NotationsLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		});
 	}
 
-	public static IExecutable<IEntity> caretPositionsIterator() {
+	public static IExecutable caretPositionsIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new TextualEntityPartSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(IEntityPartViewer viewer, ITextualEntityPart entityPart) {
 				return BindingManagerFactory.instance.createValue(entityPart.getCaretPositions());
@@ -351,7 +351,7 @@ public class NotationsLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		});
 	}
 
-	public static IExecutable<IEntity> caretPositionIterator() {
+	public static IExecutable caretPositionIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new TextualEntityPartSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(IEntityPartViewer viewer, ITextualEntityPart entityPart) {
 				return BindingManagerFactory.instance.createValue(entityPart.getCaretPosition());
@@ -359,7 +359,7 @@ public class NotationsLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		});
 	}
 
-	public static IExecutable<IEntity> caretPositionStartIterator() {
+	public static IExecutable caretPositionStartIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new TextualEntityPartSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(IEntityPartViewer viewer, ITextualEntityPart entityPart) {
 				int selectionStart = entityPart.getSelectionStart();
@@ -370,7 +370,7 @@ public class NotationsLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		});
 	}
 
-	public static IExecutable<IEntity> caretPositionEndIterator() {
+	public static IExecutable caretPositionEndIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new TextualEntityPartSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(IEntityPartViewer viewer, ITextualEntityPart entityPart) {
 				int selectionEnd = entityPart.getSelectionEnd();
@@ -381,7 +381,7 @@ public class NotationsLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		});
 	}
 
-	public static IExecutable<IEntity> entityFigureIterator() {
+	public static IExecutable entityFigureIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new EntityFigureSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(IEntityPartViewer viewer, IEntityFigure entityFigure) {
 				return BindingManagerFactory.instance.createValue(entityFigure);
@@ -389,7 +389,7 @@ public class NotationsLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		});
 	}
 
-	public static IExecutable<IEntity> entityFigureParentIterator() {
+	public static IExecutable entityFigureParentIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new EntityFigureSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(IEntityPartViewer viewer, IEntityFigure entityFigure) {
 				IEntityFigure parent = (IEntityFigure) entityFigure.getParent();
@@ -398,9 +398,9 @@ public class NotationsLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		});
 	}
 
-	public static IExecutable<IEntity> entityFigureChildrenIterator() {
+	public static IExecutable entityFigureChildrenIterator() {
 		return ExecutableFactory.instance.createMultiValuedRunnable(new EntityFigureMultiValuedPropertyRunnable() {
-			protected IExecutable<?> getPropertyIterator(IEntityPartViewer viewer, IEntityFigure entityFigure) {
+			protected IExecutable getPropertyIterator(IEntityPartViewer viewer, IEntityFigure entityFigure) {
 				return ExecutableFactory.instance.createCollection(
 						entityFigure.getChildren(),
 						IDataTypeWrapper.envObjectValue);
@@ -408,7 +408,7 @@ public class NotationsLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		});
 	}
 
-	public static IExecutable<IEntity> entityFigureIsVisibleIterator() {
+	public static IExecutable entityFigureIsVisibleIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new EntityFigureSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(IEntityPartViewer viewer, IEntityFigure entityFigure) {
 				return BindingManagerFactory.instance.createValue(entityFigure.isVisible());
@@ -416,7 +416,7 @@ public class NotationsLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		});
 	}
 
-	public static IExecutable<IEntity> entityFigureIsShowingIterator() {
+	public static IExecutable entityFigureIsShowingIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new EntityFigureSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(IEntityPartViewer viewer, IEntityFigure entityFigure) {
 				return BindingManagerFactory.instance.createValue(entityFigure.isShowing());
@@ -424,7 +424,7 @@ public class NotationsLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		});
 	}
 
-	public static IExecutable<IEntity> entityFigureClosestAboveIterator() {
+	public static IExecutable entityFigureClosestAboveIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new EntityFigureSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(IEntityPartViewer viewer, IEntityFigure entityFigure) {
 				return BindingManagerFactory.instance.createValue(FigureUtils.getClosestAbove(viewer, entityFigure));
@@ -432,7 +432,7 @@ public class NotationsLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		});
 	}
 
-	public static IExecutable<IEntity> entityFigureClosestBelowIterator() {
+	public static IExecutable entityFigureClosestBelowIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new EntityFigureSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(IEntityPartViewer viewer, IEntityFigure entityFigure) {
 				return BindingManagerFactory.instance.createValue(FigureUtils.getClosestBelow(viewer, entityFigure));
@@ -440,7 +440,7 @@ public class NotationsLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		});
 	}
 
-	public static IExecutable<IEntity> entityFigureBoundsIterator() {
+	public static IExecutable entityFigureBoundsIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new EntityFigureBoundsSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(IEntityPartViewer viewer, Rectangle bounds) {
 				return BindingManagerFactory.instance.createValue(bounds);
@@ -448,7 +448,7 @@ public class NotationsLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		});
 	}
 
-	public static IExecutable<IEntity> entityFigureBoundsClosestAboveIterator() {
+	public static IExecutable entityFigureBoundsClosestAboveIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new EntityFigureBoundsSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(IEntityPartViewer viewer, Rectangle bounds) {
 				return BindingManagerFactory.instance.createValue(FigureUtils.getClosestAbove(viewer, bounds));
@@ -456,7 +456,7 @@ public class NotationsLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		});
 	}
 
-	public static IExecutable<IEntity> entityFigureBoundsClosestBelowIterator() {
+	public static IExecutable entityFigureBoundsClosestBelowIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new EntityFigureBoundsSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(IEntityPartViewer viewer, Rectangle bounds) {
 				return BindingManagerFactory.instance.createValue(FigureUtils.getClosestBelow(viewer, bounds));

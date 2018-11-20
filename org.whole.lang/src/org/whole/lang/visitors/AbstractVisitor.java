@@ -91,10 +91,10 @@ public abstract class AbstractVisitor implements IVisitor {
 	public boolean isExecutableResult() {
 		return getBindings().isExecutableResult();
 	}
-	public <E extends IEntity> IExecutable<E> getExecutableResult() {
+	public IExecutable getExecutableResult() {
 		return getBindings().getExecutableResult();
 	}
-	public void setExecutableResult(IExecutable<?> executable) {
+	public void setExecutableResult(IExecutable executable) {
 		getBindings().setExecutableResult(executable);
 	}
 	public IEntity getResult() {

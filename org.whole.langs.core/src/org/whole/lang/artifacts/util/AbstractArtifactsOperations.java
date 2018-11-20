@@ -32,7 +32,7 @@ public abstract class AbstractArtifactsOperations<T> implements IArtifactsOperat
 			return resource;
 
 		ExecutableFactory ef = ExecutableFactory.instance;
-		IExecutable<IEntity> executable = ef.createFilter(
+		IExecutable executable = ef.createFilter(
 				ef.createAncestorOrSelfReverse(),
 				ef.createSome(ef.createIsFragment(), ef.createHasKind(EntityKinds.COMPOSITE)));
 

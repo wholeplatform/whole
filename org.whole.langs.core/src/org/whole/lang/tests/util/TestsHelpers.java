@@ -17,6 +17,7 @@ import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.executables.ExecutableFactory;
 import org.whole.lang.executables.IExecutable;
+import org.whole.lang.executables.IExecutableClient;
 import org.whole.lang.factories.GenericEntityFactory;
 import org.whole.lang.matchers.GenericMatcher;
 import org.whole.lang.matchers.MatchException;
@@ -103,7 +104,7 @@ public class TestsHelpers {
 		IBindingScope bs = InterpreterOperation.lazyInterpretOnSelfBinding(EntityUtils.isFragment(filter) ? filter.wGetRoot() : filter, bm, false);
 
 		if (bs.isExecutableResult()) {
-			IExecutable<?> executable = bs.getExecutableResult();
+			IExecutable executable = bs.getExecutableResult();
 			bs.setExecutableResult(null);
 			executable.reset(subject);
 			while (executable.evaluateNext() != null)
@@ -117,10 +118,10 @@ public class TestsHelpers {
 
 	public static Map<String, FilterRule> createFilterRulesMap(TestSuite testSuite) {
 		Map<String, FilterRule> filterRulesMap = new HashMap<String, FilterRule>();
-		IExecutable<FilterFamily> filterFamilies = ExecutableFactory.instance.createChild();
+		IExecutableClient<FilterFamily> filterFamilies = ExecutableFactory.instance.createChild().client();
 		filterFamilies.reset(testSuite.getFilterFamilies());
 		for (FilterFamily filterFamily : filterFamilies) {
-			IExecutable<FilterRule> filterRules = ExecutableFactory.instance.createChild();
+			IExecutableClient<FilterRule> filterRules = ExecutableFactory.instance.createChild().client();
 			filterRules.reset(filterFamily.getFilterRules());
 			for (FilterRule filterRule : filterRules) {
 				String name = filterFamily.getName().getValue()+'.'+filterRule.getName().getValue();

@@ -24,40 +24,40 @@ import org.whole.lang.model.IEntity;
  * @author Riccardo Solmi
  */
 public interface IExecutableInstrumentation {
-	public void beforeClone(InstrumentingExecutable<?> ii);
-	public void afterClone(InstrumentingExecutable<?> ii, InstrumentingExecutable<?> result);
+	public void beforeClone(InstrumentingExecutable ii);
+	public void afterClone(InstrumentingExecutable ii, InstrumentingExecutable result);
 
-	public void beforeSetBindings(InstrumentingExecutable<?> ii);
-	public void afterSetBindings(InstrumentingExecutable<?> ii);
+	public void beforeSetBindings(InstrumentingExecutable ii);
+	public void afterSetBindings(InstrumentingExecutable ii);
 
-	public void beforeReset(InstrumentingExecutable<?> ii);
-	public void afterReset(InstrumentingExecutable<?> ii);
+	public void beforeReset(InstrumentingExecutable ii);
+	public void afterReset(InstrumentingExecutable ii);
 
-	public void beforeEvaluateNext(InstrumentingExecutable<?> ii);
-	public void afterEvaluateNext(InstrumentingExecutable<?> ii, IEntity result);
+	public void beforeEvaluateNext(InstrumentingExecutable ii);
+	public void afterEvaluateNext(InstrumentingExecutable ii, IEntity result);
 
-	public void beforeEvaluateRemaining(InstrumentingExecutable<?> ii);
-	public void afterEvaluateRemaining(InstrumentingExecutable<?> ii, IEntity result);
+	public void beforeEvaluateRemaining(InstrumentingExecutable ii);
+	public void afterEvaluateRemaining(InstrumentingExecutable ii, IEntity result);
 
-	public void beforeCallNext(InstrumentingExecutable<?> ii);
-	public void afterCallNext(InstrumentingExecutable<?> ii);
+	public void beforeCallNext(InstrumentingExecutable ii);
+	public void afterCallNext(InstrumentingExecutable ii);
 
-	public void beforeCallRemaining(InstrumentingExecutable<?> ii);
-	public void afterCallRemaining(InstrumentingExecutable<?> ii);
+	public void beforeCallRemaining(InstrumentingExecutable ii);
+	public void afterCallRemaining(InstrumentingExecutable ii);
 
-	public void beforeDoNext(InstrumentingExecutable<?> ii, IEntity result);
-	public void afterDoNext(InstrumentingExecutable<?> ii);
+	public void beforeDoNext(InstrumentingExecutable ii, IEntity result);
+	public void afterDoNext(InstrumentingExecutable ii);
 
-	public void beforeDoEnd(InstrumentingExecutable<?> ii);
-	public void afterDoEnd(InstrumentingExecutable<?> ii);
+	public void beforeDoEnd(InstrumentingExecutable ii);
+	public void afterDoEnd(InstrumentingExecutable ii);
 
 
-	public void beforeHasNext(InstrumentingExecutable<?> ii);
-	public void afterHasNext(InstrumentingExecutable<?> ii, boolean result);
+	public void beforeHasNext(InstrumentingExecutable ii);
+	public void afterHasNext(InstrumentingExecutable ii, boolean result);
 
-	public void beforeLookahead(InstrumentingExecutable<?> ii);
-	public void afterLookahead(InstrumentingExecutable<?> ii, IEntity result);
+	public void beforeLookahead(InstrumentingExecutable ii);
+	public void afterLookahead(InstrumentingExecutable ii, IEntity result);
 
-	public void beforeNext(InstrumentingExecutable<?> ii);
-	public void afterNext(InstrumentingExecutable<?> ii, IEntity result);
+	public void beforeNext(InstrumentingExecutable ii);
+	public void afterNext(InstrumentingExecutable ii, IEntity result);
 }

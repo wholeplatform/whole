@@ -27,7 +27,7 @@ import org.whole.lang.operations.ICloneContext;
 /**
  * @author Riccardo Solmi
  */
-public class FilterByIndexRangeEvaluator<E extends IEntity> extends AbstractDelegatingNestedEvaluator<E> {
+public class FilterByIndexRangeEvaluator extends AbstractDelegatingNestedEvaluator {
 	protected Map<Object, IndexPair> indexMap;
 	protected int startIndex;
 	protected int endIndex;
@@ -44,39 +44,39 @@ public class FilterByIndexRangeEvaluator<E extends IEntity> extends AbstractDele
 	}
 
 	public FilterByIndexRangeEvaluator() {
-		this((IExecutable<IEntity>) null);
+		this((IExecutable) null);
 	}
-	public FilterByIndexRangeEvaluator(IExecutable<IEntity> executable) {
+	public FilterByIndexRangeEvaluator(IExecutable executable) {
 		this(executable, 0, Integer.MAX_VALUE);
 	}
 	public FilterByIndexRangeEvaluator(int startIndex, int endIndex) {
 		this(null, startIndex, endIndex);
 	}
-	public FilterByIndexRangeEvaluator(IExecutable<IEntity> executable, int startIndex, int endIndex) {
+	public FilterByIndexRangeEvaluator(IExecutable executable, int startIndex, int endIndex) {
 		super(executable);
 		this.startIndex = startIndex;
 		this.endIndex = endIndex;
 	}
 
 	@Override
-	public IExecutable<E> clone(ICloneContext cc) {
-		FilterByIndexRangeEvaluator<E> executable = (FilterByIndexRangeEvaluator<E>) super.clone(cc);
+	public IExecutable clone(ICloneContext cc) {
+		FilterByIndexRangeEvaluator executable = (FilterByIndexRangeEvaluator) super.clone(cc);
 		if (indexMap != null)
 			executable.indexMap = new HashMap<Object, IndexPair>(indexMap);
 		return executable;
 	}
 
-	public FilterByIndexRangeEvaluator<E> withExecutable(IExecutable<IEntity> executable) {
+	public FilterByIndexRangeEvaluator withExecutable(IExecutable executable) {
 		producers[0] = executable;
 		return this;
 	}
 
-	public FilterByIndexRangeEvaluator<E> withStartIndex(int startIndex) {
+	public FilterByIndexRangeEvaluator withStartIndex(int startIndex) {
 		this.startIndex = startIndex;
 		return this;
 	}
 
-	public FilterByIndexRangeEvaluator<E> withEndIndex(int endIndex) {
+	public FilterByIndexRangeEvaluator withEndIndex(int endIndex) {
 		this.endIndex = endIndex;
 		return this;
 	}
@@ -116,7 +116,7 @@ public class FilterByIndexRangeEvaluator<E extends IEntity> extends AbstractDele
 		return startIndex <= lookaheadIndex && lookaheadIndex <= endIndex;
 	}
 
-	public E evaluateNext() {
+	public IEntity evaluateNext() {
 		getBindings().wEnterScope(executorScope(), true);
 
 		while (lookaheadIndex < startIndex && getProducer(0).evaluateNext() != null) {
@@ -125,7 +125,7 @@ public class FilterByIndexRangeEvaluator<E extends IEntity> extends AbstractDele
 		}
 		if (lookaheadIndex <= endIndex) {
 			lookaheadIndex++;
-			lastEntity = (E) getProducer(0).evaluateNext();
+			lastEntity = getProducer(0).evaluateNext();
 		} else
 			lastEntity = null;
 

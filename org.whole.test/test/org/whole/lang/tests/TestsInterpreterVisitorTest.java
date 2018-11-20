@@ -73,7 +73,7 @@ public class TestsInterpreterVisitorTest {
 
 		// remove timestamps from both the models
 		ExecutableFactory f = ExecutableFactory.instance;
-		IExecutable<IEntity> executable = f.createFilter(f.createDescendantOrSelf(), f.createHasType(JavaEntityDescriptorEnum.LongLiteral.getURI()));
+		IExecutable executable = f.createFilter(f.createDescendantOrSelf(), f.createHasType(JavaEntityDescriptorEnum.LongLiteral.getURI()));
 		executable.reset(testSuiteToComplete);
 		while (executable.evaluateNext() != null)
 			executable.remove();

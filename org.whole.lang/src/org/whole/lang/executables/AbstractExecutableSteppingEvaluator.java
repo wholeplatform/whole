@@ -22,17 +22,16 @@ import org.whole.lang.model.IEntity;
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractExecutableSteppingEvaluator<E extends IEntity> extends AbstractExecutable<E> {
-	protected E nextEntity;
+public abstract class AbstractExecutableSteppingEvaluator extends AbstractExecutable {
+	protected IEntity nextEntity;
 
-	public final E evaluateNext() {
+	public final IEntity evaluateNext() {
 		callNext();
 		return nextEntity;
 	}
 
-	@SuppressWarnings("unchecked")
 	public void accept(IEntity entity) {
-		nextEntity = (E) entity;
+		nextEntity = entity;
 		super.accept(entity);
 	}
 	public void done() {

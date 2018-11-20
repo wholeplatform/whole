@@ -140,7 +140,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 	}
 
 
-	public static IExecutable<IEntity> languagesIterator() {
+	public static IExecutable languagesIterator() {
 		return ExecutableFactory.instance.createMultiValuedRunnable(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				bm.setExecutableResult(ExecutableFactory.instance.createCollection(
@@ -151,42 +151,42 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 	}
 
 
-	public static IExecutable<IEntity> languageURIIterator() {
+	public static IExecutable languageURIIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new LanguageSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(ILanguageKit languageKit) {
 				return BindingManagerFactory.instance.createValue(languageKit.getURI());
 			}
 		});
 	}
-	public static IExecutable<IEntity> languageNamespaceIterator() {
+	public static IExecutable languageNamespaceIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new LanguageSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(ILanguageKit languageKit) {
 				return BindingManagerFactory.instance.createValue(languageKit.getNamespace());
 			}
 		});
 	}
-	public static IExecutable<IEntity> languageNameIterator() {
+	public static IExecutable languageNameIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new LanguageSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(ILanguageKit languageKit) {
 				return BindingManagerFactory.instance.createValue(languageKit.getName());
 			}
 		});
 	}
-	public static IExecutable<IEntity> languageSimpleNameIterator() {
+	public static IExecutable languageSimpleNameIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new LanguageSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(ILanguageKit languageKit) {
 				return BindingManagerFactory.instance.createValue(ResourceUtils.getSimpleName(languageKit));
 			}
 		});
 	}
-	public static IExecutable<IEntity> languageQualifiedNameIterator() {
+	public static IExecutable languageQualifiedNameIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new LanguageSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(ILanguageKit languageKit) {
 				return BindingManagerFactory.instance.createValue(ResourceUtils.getQualifiedName(languageKit));
 			}
 		});
 	}
-	public static IExecutable<IEntity> languageVersionIterator() {
+	public static IExecutable languageVersionIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new LanguageSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(ILanguageKit languageKit) {
 				return //TODO ? languageKit.getVersion().equals("") ? CommonsEntityFactory.instance.createResolver() :
@@ -194,32 +194,32 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 			}
 		});
 	}
-	public static IExecutable<IEntity> languageIsDynamicIterator() {
+	public static IExecutable languageIsDynamicIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new LanguageSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(ILanguageKit languageKit) {
 				return BindingManagerFactory.instance.createValue(languageKit.isDynamic());
 			}
 		});
 	}
-	public static IExecutable<IEntity> languageMetamodelIterator() {
+	public static IExecutable languageMetamodelIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new LanguageSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(ILanguageKit languageKit) {
 				return languageKit.getMetaModel();
 			}
 		});
 	}
-	public static IExecutable<IEntity> languageEntitiesIterator() {
+	public static IExecutable languageEntitiesIterator() {
 		return ExecutableFactory.instance.createMultiValuedRunnable(new LanguageMultiValuedPropertyRunnable() {
-			protected IExecutable<?> getPropertyIterator(ILanguageKit languageKit) {
+			protected IExecutable getPropertyIterator(ILanguageKit languageKit) {
 				return ExecutableFactory.instance.createCollection(
 						languageKit.getEntityDescriptorEnum(),
 						IDataTypeWrapper.envEnumValue);
 			}
 		});
 	}
-	public static IExecutable<IEntity> languageFeaturesIterator() {
+	public static IExecutable languageFeaturesIterator() {
 		return ExecutableFactory.instance.createMultiValuedRunnable(new LanguageMultiValuedPropertyRunnable() {
-			protected IExecutable<?> getPropertyIterator(ILanguageKit languageKit) {
+			protected IExecutable getPropertyIterator(ILanguageKit languageKit) {
 				return ExecutableFactory.instance.createCollection(
 						languageKit.getFeatureDescriptorEnum(),
 						IDataTypeWrapper.envEnumValue);
@@ -259,67 +259,67 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		protected void setResult(IBindingManager bm, ILanguageKit languageKit) {
 			bm.setExecutableResult(getPropertyIterator(languageKit));
 		}
-		protected abstract IExecutable<?> getPropertyIterator(ILanguageKit languageKit);
+		protected abstract IExecutable getPropertyIterator(ILanguageKit languageKit);
 	}
 
 
-	public static IExecutable<IEntity> entityLanguageIterator() {
+	public static IExecutable entityLanguageIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new EntitySingleValuedPropertyRunnable() {
 			protected IEntity getProperty(EntityDescriptor<?> ed) {
 				return BindingManagerFactory.instance.createValue(ed.getLanguageKit());
 			}
 		});
 	}
-	public static IExecutable<IEntity> entityUriIterator() {
+	public static IExecutable entityUriIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new EntitySingleValuedPropertyRunnable() {
 			protected IEntity getProperty(EntityDescriptor<?> ed) {
 				return BindingManagerFactory.instance.createValue(ed.getURI());
 			}
 		});
 	}
-	public static IExecutable<IEntity> entityOrdinalIterator() {
+	public static IExecutable entityOrdinalIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new EntitySingleValuedPropertyRunnable() {
 			protected IEntity getProperty(EntityDescriptor<?> ed) {
 				return BindingManagerFactory.instance.createValue(ed.getOrdinal());
 			}
 		});
 	}
-	public static IExecutable<IEntity> entityNameIterator() {
+	public static IExecutable entityNameIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new EntitySingleValuedPropertyRunnable() {
 			protected IEntity getProperty(EntityDescriptor<?> ed) {
 				return BindingManagerFactory.instance.createValue(ed.getName());
 			}
 		});
 	}
-	public static IExecutable<IEntity> entityImplNameIterator() {
+	public static IExecutable entityImplNameIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new EntitySingleValuedPropertyRunnable() {
 			protected IEntity getProperty(EntityDescriptor<?> ed) {
 				return BindingManagerFactory.instance.createValue(ed.getImplName());
 			}
 		});
 	}
-	public static IExecutable<IEntity> entityIsAbstractIterator() {
+	public static IExecutable entityIsAbstractIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new EntitySingleValuedPropertyRunnable() {
 			protected IEntity getProperty(EntityDescriptor<?> ed) {
 				return BindingManagerFactory.instance.createValue(ed.isAbstract());
 			}
 		});
 	}
-	public static IExecutable<IEntity> entityIsRelationshipIterator() {
+	public static IExecutable entityIsRelationshipIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new EntitySingleValuedPropertyRunnable() {
 			protected IEntity getProperty(EntityDescriptor<?> ed) {
 				return BindingManagerFactory.instance.createValue(ed.isRelationship());
 			}
 		});
 	}
-	public static IExecutable<IEntity> entityIsToManyRelationshipIterator() {
+	public static IExecutable entityIsToManyRelationshipIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new EntitySingleValuedPropertyRunnable() {
 			protected IEntity getProperty(EntityDescriptor<?> ed) {
 				return BindingManagerFactory.instance.createValue(ed.isToManyRelationship());
 			}
 		});
 	}
-	public static IExecutable<IEntity> entityKindIterator() {
+	public static IExecutable entityKindIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new EntitySingleValuedPropertyRunnable() {
 			protected IEntity getProperty(EntityDescriptor<?> ed) {
 				EntityDescriptor<?> kindEd = CommonsDataTypePersistenceParser.getEntityDescriptor(KIND_ED, false, null);
@@ -328,7 +328,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 			}
 		});
 	}
-	public static IExecutable<IEntity> entityCompositeKindIterator() {
+	public static IExecutable entityCompositeKindIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new EntitySingleValuedPropertyRunnable() {
 			protected IEntity getProperty(EntityDescriptor<?> ed) {
 				EntityDescriptor<?> kindEd = CommonsDataTypePersistenceParser.getEntityDescriptor(COMPOSITE_KIND_ED, false, null);
@@ -337,7 +337,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 			}
 		});
 	}
-	public static IExecutable<IEntity> entityDataKindIterator() {
+	public static IExecutable entityDataKindIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new EntitySingleValuedPropertyRunnable() {
 			protected IEntity getProperty(EntityDescriptor<?> ed) {
 				EntityDescriptor<?> kindEd = CommonsDataTypePersistenceParser.getEntityDescriptor(DATA_KIND_ED, false, null);
@@ -346,28 +346,28 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 			}
 		});
 	}
-	public static IExecutable<IEntity> entitySizeIterator() {
+	public static IExecutable entitySizeIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new EntitySingleValuedPropertyRunnable() {
 			protected IEntity getProperty(EntityDescriptor<?> ed) {
 				return BindingManagerFactory.instance.createValue(ed.featureSize());
 			}
 		});
 	}
-	public static IExecutable<IEntity> entityChildSizeIterator() {
+	public static IExecutable entityChildSizeIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new EntitySingleValuedPropertyRunnable() {
 			protected IEntity getProperty(EntityDescriptor<?> ed) {
 				return BindingManagerFactory.instance.createValue(ed.childFeatureSize());
 			}
 		});
 	}
-	public static IExecutable<IEntity> entityAdjacentSizeIterator() {
+	public static IExecutable entityAdjacentSizeIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new EntitySingleValuedPropertyRunnable() {
 			protected IEntity getProperty(EntityDescriptor<?> ed) {
 				return BindingManagerFactory.instance.createValue(ed.adjacentFeatureSize());
 			}
 		});
 	}
-	public static IExecutable<IEntity> entityFeatureIterator() {
+	public static IExecutable entityFeatureIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new EntityPropertyRunnable() {
 			protected void setResult(IBindingManager bm, EntityDescriptor<?> ed) {
 				setFeatureDescriptorResult(bm, ed);
@@ -397,32 +397,32 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		
 		bm.setResult(efd != null ? BindingManagerFactory.instance.createValue(efd) : null);
 	}
-	public static IExecutable<IEntity> entityFeaturesIterator() {
+	public static IExecutable entityFeaturesIterator() {
 		return ExecutableFactory.instance.createMultiValuedRunnable(new EntityMultiValuedPropertyRunnable() {
-			protected IExecutable<?> getPropertyIterator(EntityDescriptor<?> ed) {
+			protected IExecutable getPropertyIterator(EntityDescriptor<?> ed) {
 				return ExecutableFactory.instance.createCollection(
 						ed.getEntityFeatureDescriptors(),
 						IDataTypeWrapper.envEnumValue);
 			}
 		});
 	}
-	public static IExecutable<IEntity> entitySupertypesIterator() {
+	public static IExecutable entitySupertypesIterator() {
 		return ExecutableFactory.instance.createMultiValuedRunnable(new EntityMultiValuedPropertyRunnable() {
-			protected IExecutable<?> getPropertyIterator(EntityDescriptor<?> ed) {
+			protected IExecutable getPropertyIterator(EntityDescriptor<?> ed) {
 				return supertypesIterator(ed);
 			}
 		});
 	}
-	public static IExecutable<IEntity> entitySubtypesIterator() {
+	public static IExecutable entitySubtypesIterator() {
 		return ExecutableFactory.instance.createMultiValuedRunnable(new EntityMultiValuedPropertyRunnable() {
-			protected IExecutable<?> getPropertyIterator(EntityDescriptor<?> ed) {
+			protected IExecutable getPropertyIterator(EntityDescriptor<?> ed) {
 				return subtypesIterator(ed);
 			}
 		});
 	}
-	public static IExecutable<IEntity> entityExtendedConcreteSubtypesIterator() {
+	public static IExecutable entityExtendedConcreteSubtypesIterator() {
 		return ExecutableFactory.instance.createMultiValuedRunnable(new EntityMultiValuedPropertyRunnable() {
-			protected IExecutable<?> getPropertyIterator(EntityDescriptor<?> ed) {
+			protected IExecutable getPropertyIterator(EntityDescriptor<?> ed) {
 				return extendedConcreteSubtypesIterator(ed);
 			}
 		});
@@ -463,46 +463,46 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		protected void setResult(IBindingManager bm, EntityDescriptor<?> ed) {
 			bm.setExecutableResult(getPropertyIterator(ed));
 		}
-		protected abstract IExecutable<?> getPropertyIterator(EntityDescriptor<?> ed);
+		protected abstract IExecutable getPropertyIterator(EntityDescriptor<?> ed);
 	}
 
 
-	public static IExecutable<IEntity> featureLanguageIterator() {
+	public static IExecutable featureLanguageIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new FeatureSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(FeatureDescriptor fd) {
 				return BindingManagerFactory.instance.createValue(fd.getLanguageKit());
 			}
 		});
 	}
-	public static IExecutable<IEntity> featureUriIterator() {
+	public static IExecutable featureUriIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new FeatureSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(FeatureDescriptor fd) {
 				return BindingManagerFactory.instance.createValue(fd.getURI());
 			}
 		});
 	}
-	public static IExecutable<IEntity> featureOrdinalIterator() {
+	public static IExecutable featureOrdinalIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new FeatureSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(FeatureDescriptor fd) {
 				return BindingManagerFactory.instance.createValue(fd.getOrdinal());
 			}
 		});
 	}
-	public static IExecutable<IEntity> featureNameIterator() {
+	public static IExecutable featureNameIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new FeatureSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(FeatureDescriptor fd) {
 				return BindingManagerFactory.instance.createValue(fd.getName());
 			}
 		});
 	}
-	public static IExecutable<IEntity> featureImplNameIterator() {
+	public static IExecutable featureImplNameIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new FeatureSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(FeatureDescriptor fd) {
 				return BindingManagerFactory.instance.createValue(fd.getImplName());
 			}
 		});
 	}
-	public static IExecutable<IEntity> featureIsOptionalIterator() {
+	public static IExecutable featureIsOptionalIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new FeatureSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(FeatureDescriptor fd) {
 				try {
@@ -513,7 +513,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 			}
 		});
 	}
-	public static IExecutable<IEntity> featureIsIdIterator() {
+	public static IExecutable featureIsIdIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new FeatureSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(FeatureDescriptor fd) {
 				try {
@@ -524,7 +524,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 			}
 		});
 	}
-	public static IExecutable<IEntity> featureIsReferenceIterator() {
+	public static IExecutable featureIsReferenceIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new FeatureSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(FeatureDescriptor fd) {
 				try {
@@ -535,7 +535,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 			}
 		});
 	}
-	public static IExecutable<IEntity> featureIsDerivedIterator() {
+	public static IExecutable featureIsDerivedIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new FeatureSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(FeatureDescriptor fd) {
 				try {
@@ -546,7 +546,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 			}
 		});
 	}
-	public static IExecutable<IEntity> featureIsSharedIterator() {
+	public static IExecutable featureIsSharedIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new FeatureSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(FeatureDescriptor fd) {
 				try {
@@ -557,7 +557,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 			}
 		});
 	}
-	public static IExecutable<IEntity> featureIsToManyIterator() {
+	public static IExecutable featureIsToManyIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new FeatureSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(FeatureDescriptor fd) {
 				try {
@@ -568,7 +568,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 			}
 		});
 	}
-	public static IExecutable<IEntity> featureParentTypeIterator() {
+	public static IExecutable featureParentTypeIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new FeatureSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(FeatureDescriptor fd) {
 				try {
@@ -579,7 +579,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 			}
 		});
 	}
-	public static IExecutable<IEntity> featureOppositeIterator() {
+	public static IExecutable featureOppositeIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new FeatureSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(FeatureDescriptor fd) {
 				try {
@@ -590,7 +590,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 			}
 		});
 	}
-	public static IExecutable<IEntity> featureTypeIterator() {
+	public static IExecutable featureTypeIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new FeatureSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(FeatureDescriptor fd) {
 				try {
@@ -627,7 +627,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		return fd;
 	}
 
-	public static IExecutable<IEntity> instanceLanguageIterator() {
+	public static IExecutable instanceLanguageIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				bm.setResult(BindingManagerFactory.instance.createValue(
@@ -636,7 +636,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		});
 	}
 
-	public static IExecutable<IEntity> instanceKindIterator() {
+	public static IExecutable instanceKindIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.getEntityDescriptor(KIND_ED, false, null);
@@ -645,7 +645,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 			}
 		});
 	}
-	public static IExecutable<IEntity> instanceCompositeKindIterator() {
+	public static IExecutable instanceCompositeKindIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.getEntityDescriptor(COMPOSITE_KIND_ED, false, null);
@@ -654,7 +654,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 			}
 		});
 	}
-	public static IExecutable<IEntity> instanceDataKindIterator() {
+	public static IExecutable instanceDataKindIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.getEntityDescriptor(DATA_KIND_ED, false, null);
@@ -664,7 +664,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		});
 	}
 
-	public static IExecutable<IEntity> instanceTypeIterator() {
+	public static IExecutable instanceTypeIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				bm.setResult(BindingManagerFactory.instance.createValue(
@@ -673,7 +673,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		});
 	}
 
-	public static IExecutable<IEntity> instanceAtTypeIterator() {
+	public static IExecutable instanceAtTypeIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				bm.setResult(EntityUtils.hasParent(selfEntity) ? 
@@ -681,7 +681,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 			}
 		});
 	}
-	public static IExecutable<IEntity> instanceAtFeatureIterator() {
+	public static IExecutable instanceAtFeatureIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				bm.setResult(EntityUtils.hasParent(selfEntity) ?
@@ -689,7 +689,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 			}
 		});
 	}
-	public static IExecutable<IEntity> instanceAtIndexIterator() {
+	public static IExecutable instanceAtIndexIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				bm.setResult(EntityUtils.hasParent(selfEntity) ?
@@ -698,46 +698,46 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		});
 	}
 
-	public static IExecutable<IEntity> instanceSupertypesIterator() {
+	public static IExecutable instanceSupertypesIterator() {
 		return ExecutableFactory.instance.createMultiValuedRunnable(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				bm.setExecutableResult(supertypesIterator(selfEntity.wGetEntityDescriptor()));
 			}
 		});
 	}
-	public static IExecutable<IEntity> supertypesIterator(EntityDescriptor<?> ed) {
+	public static IExecutable supertypesIterator(EntityDescriptor<?> ed) {
 		return ExecutableFactory.instance.createCollection(
 				ed.languageSupertypesIterable(),
 				IDataTypeWrapper.envEnumValue);
 	}
 
-	public static IExecutable<IEntity> instanceSubtypesIterator() {
+	public static IExecutable instanceSubtypesIterator() {
 		return ExecutableFactory.instance.createMultiValuedRunnable(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				bm.setExecutableResult(subtypesIterator(selfEntity.wGetEntityDescriptor()));
 			}
 		});
 	}
-	public static IExecutable<IEntity> subtypesIterator(EntityDescriptor<?> ed) {
+	public static IExecutable subtypesIterator(EntityDescriptor<?> ed) {
 		return ExecutableFactory.instance.createCollection(
 				ed.languageSubtypesIterable(),
 				IDataTypeWrapper.envEnumValue);
 	}
 
-	public static IExecutable<IEntity> instanceExtendedConcreteSubtypesIterator() {
+	public static IExecutable instanceExtendedConcreteSubtypesIterator() {
 		return ExecutableFactory.instance.createMultiValuedRunnable(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				bm.setExecutableResult(extendedConcreteSubtypesIterator(selfEntity.wGetEntityDescriptor()));
 			}
 		});
 	}
-	public static IExecutable<IEntity> extendedConcreteSubtypesIterator(EntityDescriptor<?> ed) {
+	public static IExecutable extendedConcreteSubtypesIterator(EntityDescriptor<?> ed) {
 		return ExecutableFactory.instance.createCollection(
 				ed.getEntityDescriptorEnum().getExtendedLanguageConcreteSubtypesOf(ed),
 				IDataTypeWrapper.envEnumValue);
 	}
 
-	public static IExecutable<IEntity> instanceFeatureStepIterator() {
+	public static IExecutable instanceFeatureStepIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				EntityDescriptor<?> ed = selfEntity.wGetEntityDescriptor();
@@ -764,7 +764,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		});
 	}
 
-	public static IExecutable<IEntity> instanceFeatureIterator() {
+	public static IExecutable instanceFeatureIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				setFeatureDescriptorResult(bm, selfEntity.wGetEntityDescriptor());
@@ -772,19 +772,19 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		});
 	}
 
-	public static IExecutable<IEntity> instanceFeaturesIterator() {
+	public static IExecutable instanceFeaturesIterator() {
 		return ExecutableFactory.instance.createMultiValuedRunnable(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				bm.setExecutableResult(featuresIterator(selfEntity.wGetEntityDescriptor()));
 			}
 		});
 	}
-	public static IExecutable<IEntity> featuresIterator(EntityDescriptor<?> ed) {
+	public static IExecutable featuresIterator(EntityDescriptor<?> ed) {
 		return ExecutableFactory.instance.createCollection(
 				ed.getEntityFeatureDescriptors(),
 				IDataTypeWrapper.envEnumValue);
 	}
-	public static IExecutable<IEntity> instanceAspectualFeaturesIterator() {
+	public static IExecutable instanceAspectualFeaturesIterator() {
 		return ExecutableFactory.instance.createMultiValuedRunnable(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				bm.setExecutableResult(ExecutableFactory.instance.createCollection(
@@ -794,7 +794,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		});
 	}
 
-	public static IExecutable<IEntity> instanceChildSizeIterator() {
+	public static IExecutable instanceChildSizeIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				bm.setResult(BindingManagerFactory.instance.createValue(selfEntity.wSize()));
@@ -802,7 +802,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		});
 	}
 
-	public static IExecutable<IEntity> instanceAdjacentSizeIterator() {
+	public static IExecutable instanceAdjacentSizeIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				bm.setResult(BindingManagerFactory.instance.createValue(selfEntity.wAdjacentSize()));
@@ -810,7 +810,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		});
 	}
 
-	public static IExecutable<IEntity> instanceInverseAdjacentSizeIterator() {
+	public static IExecutable instanceInverseAdjacentSizeIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				bm.setResult(BindingManagerFactory.instance.createValue(selfEntity.wInverseAdjacentSize()));
@@ -818,7 +818,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		});
 	}
 
-	public static IExecutable<IEntity> uriLanguageIterator() {
+	public static IExecutable uriLanguageIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				IEntity result = null;
@@ -834,7 +834,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 			}
 		});
 	}
-	public static IExecutable<IEntity> uriEntityIterator() {
+	public static IExecutable uriEntityIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				IEntity result = null;
@@ -850,7 +850,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 			}
 		});
 	}
-	public static IExecutable<IEntity> uriFeatureIterator() {
+	public static IExecutable uriFeatureIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				IEntity result = null;
@@ -866,7 +866,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 			}
 		});
 	}
-	public static IExecutable<IEntity> uriResourcePartIterator() {
+	public static IExecutable uriResourcePartIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				IEntity result = null;
@@ -881,7 +881,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 			}
 		});
 	}
-	public static IExecutable<IEntity> uriFragmentPartIterator() {
+	public static IExecutable uriFragmentPartIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				IEntity result = null;
@@ -897,7 +897,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		});
 	}
 
-	public static IExecutable<IEntity> uriIsWholeSchemeIterator() {
+	public static IExecutable uriIsWholeSchemeIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				bm.setResult(BindingManagerFactory.instance.createValue(
@@ -907,7 +907,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		});
 	}
 
-	public static IExecutable<IEntity> uriWithNamespaceNameVersionIterator() {
+	public static IExecutable uriWithNamespaceNameVersionIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				IEntity result = null;
@@ -922,7 +922,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 			}
 		});
 	}
-	public static IExecutable<IEntity> uriNamespaceIterator() {
+	public static IExecutable uriNamespaceIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				IEntity result = null;
@@ -937,7 +937,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 			}
 		});
 	}
-	public static IExecutable<IEntity> uriWithNamespaceIterator() {
+	public static IExecutable uriWithNamespaceIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				IEntity result = null;
@@ -955,7 +955,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 			}
 		});
 	}
-	public static IExecutable<IEntity> uriWithNamespaceSuffixIterator() {
+	public static IExecutable uriWithNamespaceSuffixIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				IEntity result = null;
@@ -972,7 +972,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 			}
 		});
 	}
-	public static IExecutable<IEntity> uriNameIterator() {
+	public static IExecutable uriNameIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				IEntity result = null;
@@ -987,7 +987,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 			}
 		});
 	}
-	public static IExecutable<IEntity> uriWithNameIterator() {
+	public static IExecutable uriWithNameIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				IEntity result = null;
@@ -1005,7 +1005,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 			}
 		});
 	}
-	public static IExecutable<IEntity> uriWithNameSuffixIterator() {
+	public static IExecutable uriWithNameSuffixIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				IEntity result = null;
@@ -1019,7 +1019,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 			}
 		});
 	}
-	public static IExecutable<IEntity> uriVersionIterator() {
+	public static IExecutable uriVersionIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				IEntity result = null;
@@ -1031,7 +1031,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 			}
 		});
 	}
-	public static IExecutable<IEntity> uriWithVersionIterator() {
+	public static IExecutable uriWithVersionIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				IEntity result = null;

@@ -56,18 +56,18 @@ public class BehaviorUtils {
 		return ExecutableFactory.instance(bm).createFunctionApplication(functionUri).evaluateFirst(self, bm);
 	}
 
-	public static <E extends IEntity> IExecutable<E> compileAndLazyEvaluate(IEntity behavior, IEntity self) {
+	public static IExecutable compileAndLazyEvaluate(IEntity behavior, IEntity self) {
 		return compileAndLazyEvaluate(behavior, self, BindingManagerFactory.instance.createArguments());
 	}
-	public static <E extends IEntity> IExecutable<E> compileAndLazyEvaluate(IEntity behavior, IEntity self, IBindingManager bm) {
-		IExecutable<E> executable = DynamicCompilerOperation.compile(behavior, bm).getExecutableResult();
+	public static IExecutable compileAndLazyEvaluate(IEntity behavior, IEntity self, IBindingManager bm) {
+		IExecutable executable = DynamicCompilerOperation.compile(behavior, bm).getExecutableResult();
 		executable.setBindings(bm);
 		bm.enforceSelfBinding(self);
 		executable.reset(self);
 		return executable;
 	}
 
-	public static IExecutable<?> lazyEvaluateOnSelfBinding(IEntity behavior, int relativeStage, IBindingManager bm) {
+	public static IExecutable lazyEvaluateOnSelfBinding(IEntity behavior, int relativeStage, IBindingManager bm) {
 		InterpreterOperation.lazyInterpretOnSelfBinding(behavior, bm, relativeStage);
 		return bm.getExecutableResult();
 	}
@@ -89,7 +89,7 @@ public class BehaviorUtils {
 	}
 	public static final IEntity evaluateResult(IBindingManager bm) {
 		if (bm.isExecutableResult()) {
-			IExecutable<?> executableResult = bm.getExecutableResult();
+			IExecutable executableResult = bm.getExecutableResult();
 			bm.setExecutableResult(null);
 			executableResult.setBindings(bm);
 			IEntity selfEntity = bm.wGet(IBindingManager.SELF);
@@ -108,7 +108,7 @@ public class BehaviorUtils {
 	}
 	public static final IEntity evaluateSingletonResult(IBindingManager bm) {
 		if (bm.isExecutableResult()) {
-			IExecutable<?> executableResult = bm.getExecutableResult();
+			IExecutable executableResult = bm.getExecutableResult();
 			bm.setExecutableResult(null);
 			IEntity selfEntity = bm.wGet(IBindingManager.SELF);
 
@@ -132,9 +132,10 @@ public class BehaviorUtils {
 	public static <E extends IEntity> E evaluateFirstResult(IEntity behavior, IEntity self) {
 		return evaluateFirstResult(behavior, self, BindingManagerFactory.instance.createArguments());
 	}
+	@SuppressWarnings("unchecked")
 	public static <E extends IEntity> E evaluateFirstResult(IEntity behavior, IEntity self, IBindingManager bm) {
-		IExecutable<E> executable = compileAndLazyEvaluate(behavior, self, bm);
-		return executable.evaluateNext();
+		IExecutable executable = compileAndLazyEvaluate(behavior, self, bm);
+		return (E) executable.evaluateNext();
 	}
 
 	//TODO ? fail on not boolean; != Queries predicate

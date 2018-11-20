@@ -22,7 +22,7 @@ import org.whole.lang.model.IEntity;
 /**
  * @author Riccardo Solmi
  */
-public class ConstantChildEvaluator<E extends IEntity> extends ChildEvaluator<E> {
+public class ConstantChildEvaluator extends ChildEvaluator {
 	public ConstantChildEvaluator(boolean forward, IEntity entity) {
 		super(forward);
 		super.reset(entity);

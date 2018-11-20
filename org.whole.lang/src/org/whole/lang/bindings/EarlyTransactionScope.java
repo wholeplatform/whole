@@ -38,7 +38,7 @@ public class EarlyTransactionScope extends AbstractDelegatingScope implements IT
 	public static enum CachedResult { NONE, VALUE, ITERATOR };
 	protected CachedResult cachedResult = CachedResult.NONE;
 	protected IEntity result = null;
-	protected IExecutable<?> executableResult = null;
+	protected IExecutable executableResult = null;
 
 	protected EarlyTransactionScope() {
 		this(new HashMap<String, IEntity>());
@@ -269,7 +269,7 @@ public class EarlyTransactionScope extends AbstractDelegatingScope implements IT
 		super.wSetResultScope(scope != this ? scope : scope.wEnclosingScope());
 	}
 
-	public void setExecutableResult(IExecutable<?> executableResult) {
+	public void setExecutableResult(IExecutable executableResult) {
 		cacheResult();
 		super.setExecutableResult(executableResult);
 	}

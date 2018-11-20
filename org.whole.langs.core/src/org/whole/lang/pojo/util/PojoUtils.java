@@ -33,6 +33,7 @@ import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.executables.ExecutableFactory;
 import org.whole.lang.executables.IExecutable;
+import org.whole.lang.executables.IExecutableClient;
 import org.whole.lang.factories.GenericEntityFactory;
 import org.whole.lang.factories.RegistryConfigurations;
 import org.whole.lang.matchers.Matcher;
@@ -225,15 +226,15 @@ public class PojoUtils {
 
 	public static void translate(Object fromObject, IEntity toIEntity, PojoDeclaration pojoDeclaration, Library library) {
 		// translate inherited properties
-		IExecutable<ReferenceType> superPojosIterator = ExecutableFactory.instance.<ReferenceType>createChild();
-		superPojosIterator.reset(pojoDeclaration.getTypes());
-		for (ReferenceType superType : superPojosIterator) {
+		IExecutableClient<ReferenceType> superPojosExecutable = ExecutableFactory.instance.createChild().client();
+		superPojosExecutable.reset(pojoDeclaration.getTypes());
+		for (ReferenceType superType : superPojosExecutable) {
 			PojoDeclaration superDeclaration = (PojoDeclaration) findProductDeclaration(superType, library);
 			translate(fromObject, toIEntity, superDeclaration, library);
 		}
 
 		// translate declared properties
-		IExecutable<Property> executable = ExecutableFactory.instance.<Property>createChild();
+		IExecutableClient<Property> executable = ExecutableFactory.instance.createChild().client();
 		executable.reset(pojoDeclaration.getProperties());
 		EntityDescriptor<?> ed = toIEntity.wGetEntityDescriptor();
 		Property property = null;
@@ -260,15 +261,15 @@ public class PojoUtils {
 
 	public static void translate(IEntity fromEntity, Object toObject, PojoDeclaration pojoDeclaration, Library library) {
 		// translate inherited properties
-		IExecutable<ReferenceType> superPojosIterator = ExecutableFactory.instance.<ReferenceType>createChild();
-		superPojosIterator.reset(pojoDeclaration.getTypes());
-		for (ReferenceType superType : superPojosIterator) {
+		IExecutableClient<ReferenceType> superPojosExecutable = ExecutableFactory.instance.createChild().client();
+		superPojosExecutable.reset(pojoDeclaration.getTypes());
+		for (ReferenceType superType : superPojosExecutable) {
 			PojoDeclaration superDeclaration = (PojoDeclaration) findProductDeclaration(superType, library);
 			translate(fromEntity, toObject, superDeclaration, library);
 		}
 
 		// translate declared properties
-		IExecutable<Property> executable = ExecutableFactory.instance.<Property>createChild();
+		IExecutableClient<Property> executable = ExecutableFactory.instance.createChild().client();
 		executable.reset(pojoDeclaration.getProperties());
 		EntityDescriptor<?> ed = fromEntity.wGetEntityDescriptor();
 		Property property = null;
@@ -421,7 +422,7 @@ public class PojoUtils {
 			case CollectionType_ord:
 				Collection<Object> toCollection = ((CollectionType) type).getCollectionInterface().getValue().equals(CollectionInterfaceEnum.Set) ?
 						new HashSet<Object>() : new ArrayList<Object>();
-				IExecutable<?> ci = ExecutableFactory.instance.createChild();
+				IExecutable ci = ExecutableFactory.instance.createChild();
 				ci.reset(fromEntity);
 				for (IEntity feature : ci)
 					toCollection.add(create(feature, library));
@@ -479,7 +480,7 @@ public class PojoUtils {
 		Set<Name> readOnlyFields = new HashSet<Name>();
 		IBindingManager bindings = BindingManagerFactory.instance.createArguments();
 		Expression findAllReadOnlyFields = (Expression) PojoTemplateManager.instance().create("findAllReadOnlyFields");
-		for (Name readOnlyField : BehaviorUtils.<Name>compileAndLazyEvaluate(findAllReadOnlyFields, pojoDeclaration, bindings))
+		for (Name readOnlyField : BehaviorUtils.compileAndLazyEvaluate(findAllReadOnlyFields, pojoDeclaration, bindings).<Name>client())
 			readOnlyFields.add(readOnlyField);
 		return readOnlyFields;
 	}
@@ -487,7 +488,7 @@ public class PojoUtils {
 	public static List<Constructor> getConstructors(PojoDeclaration pojoDeclaration) {
 		Constructors constructors = pojoDeclaration.getConstructors();
 		List<Constructor> constructorsList = new ArrayList<Constructor>(constructors.wSize());
-		IExecutable<Constructor> i = ExecutableFactory.instance.<Constructor>createChild();
+		IExecutableClient<Constructor> i = ExecutableFactory.instance.createChild().client();
 		i.reset(constructors);
 		for (Constructor constructor : i)
 			constructorsList.add(constructor);
@@ -507,7 +508,7 @@ public class PojoUtils {
 		int[] supportedFields = new int[constructors.size()];
 
 		Expression findAllReadOnlyFields = (Expression) PojoTemplateManager.instance().create("findAllReadOnlyFields");
-		IExecutable<Name> executable = BehaviorUtils.<Name>compileAndLazyEvaluate(findAllReadOnlyFields, pojoDeclaration, bindings);
+		IExecutableClient<Name> executable = BehaviorUtils.compileAndLazyEvaluate(findAllReadOnlyFields, pojoDeclaration, bindings).client();
 		int readOnlyFieldCount = 0;
 		while (executable.evaluateNext() != null) {
 			for (int i=0; i<supportedFields.length; i++)
@@ -534,7 +535,7 @@ public class PojoUtils {
 		IBindingManager bindings = BindingManagerFactory.instance.createArguments();
 		Expression findPropertyByTemplate = (Expression) PojoTemplateManager.instance().create("findPropertyByTemplate");
 		Expression findParameterByTemplate = (Expression) PojoTemplateManager.instance().create("findParameterByTemplate");
-		IExecutable<Parameter> executable = BehaviorUtils.<Parameter>compileAndLazyEvaluate(findParameterByTemplate, constructor, bindings);
+		IExecutableClient<Parameter> executable = BehaviorUtils.compileAndLazyEvaluate(findParameterByTemplate, constructor, bindings).client();
 		while (executable.evaluateNext() != null) {
 			Property property = BehaviorUtils.<Property>evaluateFirstResult(findPropertyByTemplate, pojoDeclaration, bindings);
 			Type type = property.getType();

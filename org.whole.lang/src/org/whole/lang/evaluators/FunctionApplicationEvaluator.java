@@ -26,17 +26,17 @@ import org.whole.lang.resources.FunctionLibraryRegistry;
 /**
  * @author Riccardo Solmi
  */
-public class FunctionApplicationEvaluator extends AbstractDelegatingNestedEvaluator<IEntity> {
+public class FunctionApplicationEvaluator extends AbstractDelegatingNestedEvaluator {
 	protected String functionUri;
 
 	@SuppressWarnings("unchecked")
 	public FunctionApplicationEvaluator(String functionUri) {
-		super((IExecutable<IEntity>) null);
+		super((IExecutable) null);
 		this.functionUri = functionUri;
 	}
 
 	@Override
-	public IExecutable<IEntity> clone(ICloneContext cc) {
+	public IExecutable clone(ICloneContext cc) {
 		FunctionApplicationEvaluator result = (FunctionApplicationEvaluator) super.clone(cc);
 
 		//FIXME workaround
@@ -59,7 +59,7 @@ public class FunctionApplicationEvaluator extends AbstractDelegatingNestedEvalua
 	}
 
 	@Override
-	public IExecutable<IEntity> getProducer(int index) {
+	public IExecutable getProducer(int index) {
 		if (producers[0] == null)
 			try {
 				producers[0] = FunctionLibraryRegistry.instance().getFunctionCode(functionUri, true, getBindings());

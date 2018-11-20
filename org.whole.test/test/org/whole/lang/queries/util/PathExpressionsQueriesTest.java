@@ -29,6 +29,7 @@ import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.codebase.ClasspathPersistenceProvider;
 import org.whole.lang.executables.IExecutable;
+import org.whole.lang.executables.IExecutableClient;
 import org.whole.lang.grammars.codebase.QueriesGrammar;
 import org.whole.lang.grammars.factories.GrammarsEntityFactory;
 import org.whole.lang.grammars.model.As;
@@ -164,7 +165,7 @@ public class PathExpressionsQueriesTest {
 	public void testVisitorTest() {
 		Grammar g = new TestXmlGrammar().create();
 
-		for (Production p : BehaviorUtils.<Production>compileAndLazyEvaluate(buildPath9(QueriesEntityFactory.instance), g))
+		for (Production p : BehaviorUtils.compileAndLazyEvaluate(buildPath9(QueriesEntityFactory.instance), g).<Production>client())
 			Assert.assertTrue(p.getName().getValue().startsWith("I"));
 	}
 
@@ -174,7 +175,7 @@ public class PathExpressionsQueriesTest {
 		Grammar g = new TestXmlGrammar().create();
 		NonTerminal prologNt = ((Production) ((Production) g.getPhraseStructure().wGet(0)).getRule().wGet(0)).getName();
 
-		IExecutable<NonTerminal> nti = BehaviorUtils.<NonTerminal>compileAndLazyEvaluate((PathExpression) tm.create("path1"), g);
+		IExecutableClient<NonTerminal> nti = BehaviorUtils.compileAndLazyEvaluate((PathExpression) tm.create("path1"), g).client();
 
 		IEntity e = nti.evaluateNext();
 		Assert.assertNotNull(e);
@@ -194,25 +195,25 @@ public class PathExpressionsQueriesTest {
 		ITemplateManager tm = PathExpressionsQueriesTemplateManager.instance();
 		Grammar g = new TestXmlGrammar().create();
 
-		IExecutable<Production> pi = BehaviorUtils.<Production>compileAndLazyEvaluate((PathExpression) tm.create("path1a"), g);
+		IExecutableClient<Production> pi = BehaviorUtils.compileAndLazyEvaluate((PathExpression) tm.create("path1a"), g).client();
 		IEntity e = pi.evaluateNext();
 		Assert.assertNotNull(e);
 		Assert.assertSame(g.getPhraseStructure().wGet(2), e);
 		Assert.assertNull(pi.evaluateNext());
 
-		pi = BehaviorUtils.<Production>compileAndLazyEvaluate((PathExpression) tm.create("path1b"), g);
+		pi = BehaviorUtils.compileAndLazyEvaluate((PathExpression) tm.create("path1b"), g).client();
 		e = pi.evaluateNext();
 		Assert.assertNotNull(e);
 		Assert.assertSame(g.getPhraseStructure().wGet(2), e);
 		Assert.assertNull(pi.evaluateNext());
 
-		pi = BehaviorUtils.<Production>compileAndLazyEvaluate((PathExpression) tm.create("path1c"), g);
+		pi = BehaviorUtils.compileAndLazyEvaluate((PathExpression) tm.create("path1c"), g).client();
 		e = pi.evaluateNext();
 		Assert.assertNotNull(e);
 		Assert.assertSame(g.getPhraseStructure().wGet(3), e);
 		Assert.assertNull(pi.evaluateNext());
 
-		pi = BehaviorUtils.<Production>compileAndLazyEvaluate((PathExpression) tm.create("path1d"), g);
+		pi = BehaviorUtils.compileAndLazyEvaluate((PathExpression) tm.create("path1d"), g).client();
 		e = pi.evaluateNext();
 		Assert.assertNotNull(e);
 		Assert.assertSame(g.getPhraseStructure().wGet(3), e);
@@ -222,7 +223,6 @@ public class PathExpressionsQueriesTest {
 	@Test
 	public void testPathWithKindAndLogicFiltersIterator() {
 		ITemplateManager tm = PathExpressionsQueriesTemplateManager.instance();
-		QueriesEntityFactory ef = QueriesEntityFactory.instance;
 
 		for (IEntity p : BehaviorUtils.compileAndLazyEvaluate((PathExpression) tm.create("path2"), new TestXmlGrammar().create()))
 			Assert.assertTrue(p.wGetEntityKind().equals(EntityKinds.SIMPLE) || p.wGetEntityKind().equals(EntityKinds.DATA));
@@ -236,7 +236,7 @@ public class PathExpressionsQueriesTest {
 		ITemplateManager tm = PathExpressionsQueriesTemplateManager.instance();
 		Grammar g = new TestXmlGrammar().create();
 		Set<String> l = new HashSet<String>();
-		for (Production p : BehaviorUtils.<Production>compileAndLazyEvaluate((PathExpression) tm.create("path4"), g))
+		for (Production p : BehaviorUtils.compileAndLazyEvaluate((PathExpression) tm.create("path4"), g).<Production>client())
 			l.add(p.getName().getValue());
 
 		Assert.assertEquals(16, l.size());
@@ -247,7 +247,7 @@ public class PathExpressionsQueriesTest {
 		ITemplateManager tm = PathExpressionsQueriesTemplateManager.instance();
 		Grammar g = new TestXmlGrammar().create();
 		Set<String> l = new HashSet<String>();
-		for (Production p : BehaviorUtils.<Production>compileAndLazyEvaluate((PathExpression) tm.create("path5"), g))
+		for (Production p : BehaviorUtils.compileAndLazyEvaluate((PathExpression) tm.create("path5"), g).<Production>client())
 			l.add(p.getName().getValue());
 
 		Assert.assertEquals(2, l.size());
@@ -261,7 +261,7 @@ public class PathExpressionsQueriesTest {
 		PathExpression pe1 = (PathExpression) tm.create("nonTerminalSet");
 
 		Set<String> set = new HashSet<String>();
-		for (NonTerminal nt : BehaviorUtils.<NonTerminal>compileAndLazyEvaluate(pe1, g))
+		for (NonTerminal nt : BehaviorUtils.compileAndLazyEvaluate(pe1, g).<NonTerminal>client())
 			if (!set.add(nt.getValue()))
 				Assert.fail();
 
@@ -271,7 +271,7 @@ public class PathExpressionsQueriesTest {
 	@Test
 	public void testPathWithTuple() {
 		ITemplateManager tm = PathExpressionsQueriesTemplateManager.instance();
-		IExecutable<IEntity> i = DynamicCompilerOperation.compile(
+		IExecutable i = DynamicCompilerOperation.compile(
 				tm.create("pathWithTuple"),
 				BindingManagerFactory.instance.createArguments()).getExecutableResult();
 		
@@ -395,7 +395,7 @@ public class PathExpressionsQueriesTest {
 		//FIXME bm.wDefValue("pname", "Element");
 		bm.wDef("pname", GrammarsEntityFactory.instance.createNonTerminal("IName"));
 		int count = 0;
-		for (NonTerminal nt : BehaviorUtils.<NonTerminal>compileAndLazyEvaluate(pe1, g, bm))
+		for (NonTerminal nt : BehaviorUtils.compileAndLazyEvaluate(pe1, g, bm).<NonTerminal>client())
 			count++;
 		Assert.assertEquals(4, count);
 	}
@@ -409,8 +409,8 @@ public class PathExpressionsQueriesTest {
 		PathExpression pe2 = (PathExpression) tm.create("bindNonTerminalOccurrences");
 		IBindingManager bm = BindingManagerFactory.instance.createArguments();
 
-		IExecutable<NonTerminal> i1 = BehaviorUtils.<NonTerminal>compileAndLazyEvaluate(pe1, g);
-		for (NonTerminal nt : BehaviorUtils.<NonTerminal>compileAndLazyEvaluate(pe2, g, bm)) {
+		IExecutableClient<NonTerminal> i1 = BehaviorUtils.compileAndLazyEvaluate(pe1, g).client();
+		for (NonTerminal nt : BehaviorUtils.compileAndLazyEvaluate(pe2, g, bm).<NonTerminal>client()) {
 			Assert.assertSame(nt, i1.evaluateNext());
 			Assert.assertEquals(nt.getValue(), bm.wStringValue("nt"));
 		}
@@ -425,7 +425,7 @@ public class PathExpressionsQueriesTest {
 		PathExpression pe1 = (PathExpression) tm.create("recursiveProduction2");
 
 		StringBuilder names = new StringBuilder();
-		for (Production p : BehaviorUtils.<Production>compileAndLazyEvaluate(pe1, g))
+		for (Production p : BehaviorUtils.compileAndLazyEvaluate(pe1, g).<Production>client())
 			names.append(p.getName().getValue());
 
 		Assert.assertEquals("ExpressionPathExpressionStepExpressionPredicate", names.toString());
@@ -438,7 +438,7 @@ public class PathExpressionsQueriesTest {
 		PathExpression pe1 = (PathExpression) tm.create("recursiveProduction3");
 
 		StringBuilder names = new StringBuilder();
-		for (Production p : BehaviorUtils.<Production>compileAndLazyEvaluate(pe1, g))
+		for (Production p : BehaviorUtils.compileAndLazyEvaluate(pe1, g).<Production>client())
 			names.append(p.getName().getValue());
 
 		Assert.assertEquals("ExpressionPathExpressionStepExpressionPredicate", names.toString());
@@ -451,7 +451,7 @@ public class PathExpressionsQueriesTest {
 		PathExpression pe1 = (PathExpression) tm.create("recursiveProduction4");
 
 		StringBuilder names = new StringBuilder();
-		for (Production p : BehaviorUtils.<Production>compileAndLazyEvaluate(pe1, g))
+		for (Production p : BehaviorUtils.compileAndLazyEvaluate(pe1, g).<Production>client())
 			names.append(p.getName().getValue());
 
 		Assert.assertEquals("ExpressionPathExpressionStepExpressionPredicate", names.toString());
@@ -464,7 +464,7 @@ public class PathExpressionsQueriesTest {
 		PathExpression pe1 = (PathExpression) tm.create("recursiveProduction5");
 
 		StringBuilder names = new StringBuilder();
-		for (Production p : BehaviorUtils.<Production>compileAndLazyEvaluate(pe1, g))
+		for (Production p : BehaviorUtils.compileAndLazyEvaluate(pe1, g).<Production>client())
 			names.append(p.getName().getValue());
 
 		Assert.assertEquals("ExpressionPathExpressionStepExpressionPredicate", names.toString());
@@ -478,7 +478,7 @@ public class PathExpressionsQueriesTest {
 		PathExpression pe1 = (PathExpression) tm.create("recursiveProduction6");
 
 		StringBuilder names = new StringBuilder();
-		for (Production p : BehaviorUtils.<Production>compileAndLazyEvaluate(pe1, g))
+		for (Production p : BehaviorUtils.compileAndLazyEvaluate(pe1, g).<Production>client())
 			names.append(p.getName().getValue());
 
 		Assert.assertEquals("ExpressionPathExpressionStepExpressionPredicate", names.toString());
@@ -491,7 +491,7 @@ public class PathExpressionsQueriesTest {
 
 		PathExpression pe1 = (PathExpression) tm.create("unusedProduction");
 
-		IExecutable<Production> executable = BehaviorUtils.<Production>compileAndLazyEvaluate(pe1, g);
+		IExecutableClient<Production> executable = BehaviorUtils.compileAndLazyEvaluate(pe1, g).client();
 		Production p = executable.evaluateNext();
 		Assert.assertNotNull(p);
 		Assert.assertEquals("Statement", p.getName().getValue());
@@ -512,7 +512,7 @@ public class PathExpressionsQueriesTest {
 		PathExpression pe1 = (PathExpression) tm.create("exactlyOneDefUse");
 		IBindingManager bm = BindingManagerFactory.instance.createArguments();
 
-		IExecutable<Production> executable = BehaviorUtils.<Production>compileAndLazyEvaluate(pe1, g, bm);
+		IExecutableClient<Production> executable = BehaviorUtils.compileAndLazyEvaluate(pe1, g, bm).client();
 		Production p = executable.evaluateNext();
 		Assert.assertNotNull(p);
 		Assert.assertEquals("IName", p.getName().getValue());
@@ -526,21 +526,21 @@ public class PathExpressionsQueriesTest {
 
 		PathExpression pe1 = (PathExpression) tm.create("recursiveProduction6");
 		IBindingManager bm = BindingManagerFactory.instance.createArguments();
-		IExecutable<Production> executable = BehaviorUtils.<Production>compileAndLazyEvaluate(pe1, g, bm);
+		IExecutableClient<Production> executable = BehaviorUtils.compileAndLazyEvaluate(pe1, g, bm).client();
 		executable.evaluateNext();
 		Assert.assertTrue(bm.wIsSet("pname"));
 		Assert.assertTrue(bm.wIsSet("nt"));
 
 		pe1 = (PathExpression) tm.create("exactlyOneDefUse");
 		bm = BindingManagerFactory.instance.createArguments();
-		executable = BehaviorUtils.<Production>compileAndLazyEvaluate(pe1, g, bm);
+		executable = BehaviorUtils.compileAndLazyEvaluate(pe1, g, bm).client();
 		executable.evaluateNext();
 		Assert.assertTrue(bm.wIsSet("pname"));
 		Assert.assertTrue(bm.wIsSet("nt"));
 
 		pe1 = (PathExpression) tm.create("unusedProduction");
 		bm = BindingManagerFactory.instance.createArguments();
-		executable = BehaviorUtils.<Production>compileAndLazyEvaluate(pe1, g, bm);
+		executable = BehaviorUtils.compileAndLazyEvaluate(pe1, g, bm).client();
 		executable.evaluateNext();
 		Assert.assertTrue(bm.wIsSet("pname"));
 		Assert.assertTrue(bm.wIsSet("nt"));
@@ -555,12 +555,12 @@ public class PathExpressionsQueriesTest {
 		bm.wDef("pname", GrammarsEntityFactory.instance.createNonTerminal("Element"));
 
 		int count = 0;
-		for (Production p : BehaviorUtils.<Production>compileAndLazyEvaluate((PathExpression) tm.create("findProduction"), g, bm))
+		for (Production p : BehaviorUtils.compileAndLazyEvaluate((PathExpression) tm.create("findProduction"), g, bm).<Production>client())
 			count++;
 		Assert.assertEquals(1, count);
 
 		count = 0;
-		for (Production p : BehaviorUtils.<Production>compileAndLazyEvaluate((PathExpression) tm.create("findProduction"), g))
+		for (Production p : BehaviorUtils.compileAndLazyEvaluate((PathExpression) tm.create("findProduction"), g).<Production>client())
 			count++;
 		Assert.assertEquals(6, count);		
 	}
@@ -571,7 +571,7 @@ public class PathExpressionsQueriesTest {
 		Grammar g = new TestXmlGrammar().create();
 
 		int count = 0;
-		for (As as : BehaviorUtils.<As>compileAndLazyEvaluate((PathExpression) tm.create("path7"), g)) {
+		for (As as : BehaviorUtils.compileAndLazyEvaluate((PathExpression) tm.create("path7"), g).<As>client()) {
 			Assert.assertEquals("tag", as.getName().wStringValue());
 			count++;
 		}
@@ -586,9 +586,8 @@ public class PathExpressionsQueriesTest {
 
 		StringBuilder names = new StringBuilder();
 		IBindingManager bm = BindingManagerFactory.instance.createArguments();
-		IExecutable<Production> executable = BehaviorUtils.<Production>compileAndLazyEvaluate(
-				(PathExpression) tm.create("path8"), g, bm);
-		for (Production p : executable) {
+		for (Production p :  BehaviorUtils.compileAndLazyEvaluate(
+				(PathExpression) tm.create("path8"), g, bm).<Production>client()) {
 			Assert.assertEquals(bm.wStringValue("name"), p.getName().getValue());
 			names.append(p.getName().getValue());
 		}
@@ -602,8 +601,8 @@ public class PathExpressionsQueriesTest {
 		Grammar g = new TestXmlGrammar().create();
 
 		int count = 0;
-		for (Production p : BehaviorUtils.<Production>compileAndLazyEvaluate(
-				(PathExpression) tm.create("path6"), g)) {
+		for (Production p : BehaviorUtils.compileAndLazyEvaluate(
+				(PathExpression) tm.create("path6"), g).<Production>client()) {
 			Assert.assertTrue(g.getPhraseStructure().wIndexOf(p) >= 2);
 			count++;
 		}
@@ -663,7 +662,7 @@ public class PathExpressionsQueriesTest {
 		IBindingManager bm = BindingManagerFactory.instance.createArguments();
 		bm.wDefValue("ftype", "firstName");
 
-		IExecutable<?> executable = BehaviorUtils.<FieldDeclaration>compileAndLazyEvaluate(query, m, bm);
+		IExecutableClient<FieldDeclaration> executable = BehaviorUtils.compileAndLazyEvaluate(query, m, bm).client();
 		IEntity result = executable.evaluateNext();
 		Assert.assertNotNull(result);
 		IEntity as = bm.wGet("jtype");

@@ -22,7 +22,7 @@ import org.whole.lang.model.IEntity;
 /**
  * @author Riccardo Solmi
  */
-public class ChildRangeStepper<E extends IEntity> extends AbstractByIndexStepper<E> {
+public class ChildRangeStepper extends AbstractByIndexStepper {
     private int relativeStartIndex;
     private int relativeEndIndex;
 

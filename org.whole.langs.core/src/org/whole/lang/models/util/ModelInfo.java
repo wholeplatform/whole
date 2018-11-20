@@ -28,6 +28,7 @@ import java.util.Set;
 
 import org.whole.lang.executables.ExecutableFactory;
 import org.whole.lang.executables.IExecutable;
+import org.whole.lang.executables.IExecutableClient;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.models.factories.ModelsEntityFactory;
@@ -83,7 +84,7 @@ public class ModelInfo {
 		FreshNameGenerator featureNameGen = new FreshNameGenerator();
 
 		ExecutableFactory ef = ExecutableFactory.instance;
-		IExecutable<ModelDeclaration> i = ef.createFilter(ef.createChild(), ef.createIsImpl());
+		IExecutableClient<ModelDeclaration> i = ef.createFilter(ef.createChild(), ef.createIsImpl()).client();
 		i.reset(model.getDeclarations());
 		for (ModelDeclaration md : i) {
 			SimpleName simpleName;
@@ -100,7 +101,7 @@ public class ModelInfo {
 			if (md.getModifiers().wContainsValue(EntityModifierEnum._abstract))
 				abstractTypes.add(entityName);
 
-			IExecutable<SimpleName> i3 = ef.createFilter(ef.createChild(), ef.createHasType(ModelsEntityDescriptorEnum.SimpleName.getURI()));
+			IExecutableClient<Type> i3 = ef.createFilter(ef.createChild(), ef.createHasType(ModelsEntityDescriptorEnum.SimpleName.getURI())).client();
 			i3.reset(md.getTypes());
 			for (Type type : i3) {
 				String typeName = type.wStringValue();
@@ -117,7 +118,7 @@ public class ModelInfo {
 					markerTypes.add(entityName);
 
 				Set<String> featureNameSet = new HashSet<String>();
-				IExecutable<Feature> i2 = ExecutableFactory.instance.<Feature>createChild();
+				IExecutableClient<Feature> i2 = ef.createChild().client();
 				i2.reset(se.getFeatures());
 				for (Feature feature : i2) {
 					SimpleName featureName = feature.getName();
@@ -280,14 +281,14 @@ public class ModelInfo {
 	}
 	protected void addInheritedFeatures(SimpleEntity entity, Types types, Set<String> entityTypes, Map<String, Set<String>> entityFeatures) {
 		ExecutableFactory ef = ExecutableFactory.instance;
-		IExecutable<IEntity> i = ef.createFilter(ef.createChildReverse(), ef.createIsImpl());
+		IExecutable i = ef.createFilter(ef.createChildReverse(), ef.createIsImpl());
 		i.reset(types);
 		for (IEntity type : i) {
 			String typeName = type.wStringValue();
 			entityTypes.remove(typeName);
 			SimpleEntity declaration = (SimpleEntity) nameEntityMap.get(typeName);
 			if (declaration != null) {
-				IExecutable<Feature> i2 = ef.createFilter(ef.createChildReverse(), ef.createIsImpl());
+				IExecutableClient<Feature> i2 = ef.createFilter(ef.createChildReverse(), ef.createIsImpl()).client();
 				i2.reset(declaration.getFeatures());
 				for (Feature feature : i2) {
 					if (entityFeatures.get(entity.getName().wStringValue()).add(feature.getName().wStringValue()))

@@ -25,24 +25,23 @@ import org.whole.lang.util.IRunnable;
 /**
  * @author Riccardo Solmi
  */
-public class SingleValuedRunnableEvaluator<E extends IEntity> extends AbstractNestedSupplierEvaluator<E> {
+public class SingleValuedRunnableEvaluator extends AbstractNestedSupplierEvaluator {
 	protected IRunnable runnable;
 
-	public SingleValuedRunnableEvaluator(IRunnable runnable, IExecutable<?>... argsExecutables) {
+	public SingleValuedRunnableEvaluator(IRunnable runnable, IExecutable... argsExecutables) {
 		super(argsExecutables);
 		this.runnable = runnable;
 	}
-	public SingleValuedRunnableEvaluator(IRunnable runnable, int[] optionalArgsIndexes, IExecutable<?>... argsExecutables) {
+	public SingleValuedRunnableEvaluator(IRunnable runnable, int[] optionalArgsIndexes, IExecutable... argsExecutables) {
 		super(optionalArgsIndexes, argsExecutables);
 		this.runnable = runnable;
 	}
 
-	@SuppressWarnings("unchecked")
-	public E get() {
+	public IEntity get() {
 		IBindingManager bm = getBindings();
 		bm.setResult(null);
 		runnable.run(selfEntity, bm, evaluateProducers());
-		return (E) bm.getResult();
+		return bm.getResult();
 	}
 
 	@Override

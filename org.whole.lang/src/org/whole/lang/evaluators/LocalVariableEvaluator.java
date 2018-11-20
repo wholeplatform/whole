@@ -22,7 +22,7 @@ import org.whole.lang.model.IEntity;
 /**
  * @author Riccardo Solmi
  */
-public class LocalVariableEvaluator<E extends IEntity> extends AbstractVariableEvaluator<E> {
+public class LocalVariableEvaluator extends AbstractVariableEvaluator {
 	public LocalVariableEvaluator(String varName) {
 		super(varName);
 	}
@@ -31,12 +31,11 @@ public class LocalVariableEvaluator<E extends IEntity> extends AbstractVariableE
 		return getBindings().wIsSet(varName);
 	}
 
-	@SuppressWarnings("unchecked")
-	protected E getVariable() {
-		return (E) getBindings().wGet(varName);
+	protected IEntity getVariable() {
+		return getBindings().wGet(varName);
 	}
 	
-	protected void setVariable(E entity) {
+	protected void setVariable(IEntity entity) {
 		getBindings().wSet(varName, entity);
 	}
 }

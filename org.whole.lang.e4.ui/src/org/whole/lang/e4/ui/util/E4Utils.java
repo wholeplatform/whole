@@ -228,7 +228,7 @@ public class E4Utils {
 			bm.wDef("focusEntity", focusEntityPart.getModelEntity());
 		}
 		bm.wDef("selectedEntities", selectedEntities);
-		IExecutable<IEntity> executable = ExecutableFactory.instance.createChild();
+		IExecutable executable = ExecutableFactory.instance.createChild();
 		executable.reset(selectedEntities);
 		IEntity focusEntity = executable.evaluateNext();
 		if (focusEntity != null) {

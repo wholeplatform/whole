@@ -18,57 +18,43 @@
 package org.whole.lang.executables;
 
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.evaluators.IEvaluator;
 import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
-import org.whole.lang.operations.ICloneable;
-import org.whole.lang.reflect.ISourceable;
 import org.whole.lang.steppers.IDataFlowConsumer;
-import org.whole.lang.steppers.IFlowStepper;
 
 /**
  * @author Riccardo Solmi
  */
-public interface IExecutable<E extends IEntity> extends IFlowStepper, IEvaluator<E>, ICloneable, ISourceable, Iterable<E> {
-	public IExecutable<E> withConsumer(IDataFlowConsumer consumer);
+public interface IExecutable extends IExecutableClient<IEntity> {
+	public IExecutable withConsumer(IDataFlowConsumer consumer);
 	public IDataFlowConsumer getConsumer();
-//	public IExecutable<E> withProducers(IControlFlowProducer... producers);
-//	public IExecutable<E> withProducer(int index, IControlFlowProducer producer);
+//	public IExecutable withProducers(IControlFlowProducer... producers);
+//	public IExecutable withProducer(int index, IControlFlowProducer producer);
 //	public int producersSize();
-//	public IExecutable<IEntity> getProducer(int index);
+//	public IExecutable getProducer(int index);
 
-	public IExecutable<E> withSourceEntity(IEntity entity);
+	public IExecutable withSourceEntity(IEntity entity);
 
-	public IExecutable<E> clone();
-	public IExecutable<E> clone(ICloneContext cc);
+	public IExecutable clone();
+	public IExecutable clone(ICloneContext cc);
 
-	public IBindingManager getBindings();
-	public void setBindings(IBindingManager bindings);
-	public void reset(IEntity entity);
-
-	public void prune();
-
-	public void set(E entity);
-	public void add(E entity);
-	public void remove();
-
-	public void toString(StringBuilder sb);
-
-	public ExecutableFactory executableFactory();
-
-	public default IExecutable<E> undecoratedExecutable() {
-		return this instanceof InstrumentingExecutable ? ((InstrumentingExecutable<E>) this).getExecutable() : this;
+	public default <E extends IEntity> IExecutableClient<E> client() {
+		return new ExecutableClient<E>(this);
 	}
 
-	public default E evaluate(IEntity self, IBindingManager bm) {
+	public default IExecutable undecoratedExecutable() {
+		return this instanceof InstrumentingExecutable ? ((InstrumentingExecutable) this).getExecutable() : this;
+	}
+
+	public default IEntity evaluate(IEntity self, IBindingManager bm) {
 		IEntity oldSelfEntity = bm.wGet(IBindingManager.SELF);
 
 		bm.wDef(IBindingManager.SELF, self);
 		setBindings(bm);
 		reset(self);
 
-		E result = evaluateRemaining();
+		IEntity result = evaluateRemaining();
 
 		if (oldSelfEntity == null && bm.wGet(IBindingManager.SELF) == self)
 			bm.wUnset(IBindingManager.SELF);
@@ -76,14 +62,14 @@ public interface IExecutable<E extends IEntity> extends IFlowStepper, IEvaluator
 		return result;
 	}
 
-	public default E evaluateFirst(IEntity self, IBindingManager bm) {
+	public default IEntity evaluateFirst(IEntity self, IBindingManager bm) {
 		IEntity oldSelfEntity = bm.wGet(IBindingManager.SELF);
     	
 		bm.wDef(IBindingManager.SELF, self);
 		setBindings(bm);
 		reset(self);
 
-		E result = evaluateNext();
+		IEntity result = evaluateNext();
 
 		if (oldSelfEntity == null && bm.wGet(IBindingManager.SELF) == self)
 			bm.wUnset(IBindingManager.SELF);

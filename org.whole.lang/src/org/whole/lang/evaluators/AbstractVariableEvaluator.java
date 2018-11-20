@@ -23,7 +23,7 @@ import org.whole.lang.visitors.MissingVariableException;
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractVariableEvaluator<E extends IEntity> extends AbstractPureConditionalSupplierEvaluator<E> {
+public abstract class AbstractVariableEvaluator extends AbstractPureConditionalSupplierEvaluator {
 	protected String varName;
 
 	protected AbstractVariableEvaluator(String varName) {
@@ -31,11 +31,11 @@ public abstract class AbstractVariableEvaluator<E extends IEntity> extends Abstr
 	}
 
 	protected abstract boolean isSetVariable();
-	protected abstract E getVariable();
-	protected abstract void setVariable(E entity);
+	protected abstract IEntity getVariable();
+	protected abstract void setVariable(IEntity entity);
 
-	public E get() {
-		E value = getVariable();
+	public IEntity get() {
+		IEntity value = getVariable();
 		if (value == null)
 			throw new MissingVariableException(varName).withSourceEntity(getSourceEntity()).withBindings(getBindings());
 		return value;
@@ -47,7 +47,7 @@ public abstract class AbstractVariableEvaluator<E extends IEntity> extends Abstr
 	}
 
 	@Override
-	public void set(E entity) {
+	public void set(IEntity entity) {
 		super.set(entity);
 		setVariable(entity);
 	}

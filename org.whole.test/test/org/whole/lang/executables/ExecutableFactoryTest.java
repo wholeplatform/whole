@@ -125,7 +125,7 @@ public class ExecutableFactoryTest {
     @Test
     public void testEmptyStepper() {
     	TesterDataFlowConsumer c = new TesterDataFlowConsumer();
-    	IExecutable<?> p = f.createEmpty();
+    	IExecutable p = f.createEmpty();
 		p.withConsumer(c);
     	p.setBindings(bmf.createBindingManager());
     	p.reset(VALUES[0]);
@@ -142,7 +142,7 @@ public class ExecutableFactoryTest {
     @Test
     public void testConstantStepper() {
     	TesterDataFlowConsumer c = new TesterDataFlowConsumer();
-    	IExecutable<?> p = f.createConstant(VALUES[0], false);
+    	IExecutable p = f.createConstant(VALUES[0], false);
 		p.withConsumer(c);
     	p.setBindings(bmf.createBindingManager());
 
@@ -181,7 +181,7 @@ public class ExecutableFactoryTest {
     public void testAsVariableStepper() {
     	IBindingManager bm = bmf.createBindingManager();
     	TesterDataFlowConsumer c = new TesterDataFlowConsumer();
-    	IExecutable<?> p = f.createAsVariable("v0");
+    	IExecutable p = f.createAsVariable("v0");
 		p.withConsumer(c);
     	p.setBindings(bm);
 
@@ -219,7 +219,7 @@ public class ExecutableFactoryTest {
     	IBindingManager bm = bmf.createBindingManager();
     	bm.wDef("v0", VALUES[0]);
     	TesterDataFlowConsumer c = new TesterDataFlowConsumer();
-    	IExecutable<?> p = f.createVariable("v0");
+    	IExecutable p = f.createVariable("v0");
 		p.withConsumer(c);
     	p.setBindings(bm);
 
@@ -245,7 +245,7 @@ public class ExecutableFactoryTest {
  
     	IBindingManager bm = bmf.createBindingManager();
     	TesterDataFlowConsumer c = new TesterDataFlowConsumer();
-    	IExecutable<?> p = f.createFilter(f.createConstant(VALUES[0], false), f.createAsVariable("v0"));
+    	IExecutable p = f.createFilter(f.createConstant(VALUES[0], false), f.createAsVariable("v0"));
 		p.withConsumer(c);
     	p.setBindings(bm);
 
@@ -271,8 +271,7 @@ public class ExecutableFactoryTest {
     @Test
     public void testSequenceStepper() {
     	TesterDataFlowConsumer c = new TesterDataFlowConsumer();
-    	@SuppressWarnings("unchecked")
-		IExecutable<?> p = f.createSequence(
+    	IExecutable p = f.createSequence(
     			f.createConstant(VALUES[0], false),
     			f.createConstant(VALUES[1], false),
     			f.createConstant(VALUES[2], false),
@@ -313,8 +312,7 @@ public class ExecutableFactoryTest {
     public void testSequenceWithBindingsStepper() {
     	IBindingManager bm = bmf.createBindingManager();
     	TesterDataFlowConsumer c = new TesterDataFlowConsumer();
-		@SuppressWarnings("unchecked")
-		IExecutable<?> p = f.createSequence(
+		IExecutable p = f.createSequence(
 				f.createFilter(f.createConstant(VALUES[0], false), f.createAsVariable("v0")),
 				f.createFilter(f.createConstant(VALUES[1], false), f.createAsVariable("v1")),
 				f.createFilter(f.createVariable("v0"), f.createAsVariable("v2")),
@@ -368,8 +366,7 @@ public class ExecutableFactoryTest {
     public void testIfWithBindingsStepper() {
     	IBindingManager bm = bmf.createBindingManager();
     	TesterDataFlowConsumer c = new TesterDataFlowConsumer();
-		@SuppressWarnings("unchecked")
-		IExecutable<?> p = f.createSequence(
+		IExecutable p = f.createSequence(
 				f.createFilter(f.createConstant(VALUES[0], false), f.createAsVariable("v0")),
     			f.createIf(
     					f.createFilter(f.createConstant(TRUE_VALUE, false), f.createAsVariable("v1")),
@@ -413,7 +410,7 @@ public class ExecutableFactoryTest {
 
     @Test
     public void testEmptyEvaluator() {
-    	IExecutable<?> i = f.createEmpty();
+    	IExecutable i = f.createEmpty();
     	i.setBindings(bmf.createBindingManager());
     	i.reset(VALUES[0]);
 
@@ -432,7 +429,7 @@ public class ExecutableFactoryTest {
 
     @Test
     public void testConstantEvaluator() {
-    	IExecutable<?> i = f.createConstant(VALUES[0], false);
+    	IExecutable i = f.createConstant(VALUES[0], false);
     	i.setBindings(bmf.createBindingManager());
     	i.reset(VALUES[1]);
 
@@ -454,8 +451,7 @@ public class ExecutableFactoryTest {
 
     @Test
     public void testSequenceEvaluator() {
-    	@SuppressWarnings("unchecked")
-		IExecutable<?> i = f.createSequence(
+    	IExecutable i = f.createSequence(
     			f.createConstant(VALUES[0], false),
     			f.createConstant(VALUES[1], false),
     			f.createConstant(VALUES[2], false),
@@ -490,8 +486,7 @@ public class ExecutableFactoryTest {
 
     @Test
     public void testChooseByOrderEvaluator() {
-    	@SuppressWarnings("unchecked")
-		IExecutable<?> i = f.createChoose(
+    	IExecutable i = f.createChoose(
     			f.createEmpty(),
     			f.createEmpty(),
     			f.createSequence(
@@ -525,7 +520,7 @@ public class ExecutableFactoryTest {
     @Test
     public void testOneEvaluator() {
     	IBindingManager bm = bmf.createBindingManager();
-    	IExecutable<IEntity> i = f.createOne(f.createChild(), f.createAnd(f.createHasType("Identifier"), f.createAsVariable("exp")));
+    	IExecutable i = f.createOne(f.createChild(), f.createAnd(f.createHasType("Identifier"), f.createAsVariable("exp")));
 
     	MathEntityFactory mf = MathEntityFactory.instance;
        	Identifier id = mf.createIdentifier("v");
@@ -560,7 +555,7 @@ public class ExecutableFactoryTest {
     	bm.wDef("v0", VALUES[0]);
     	bm.wDef("v1", VALUES[1]);
 
-		IExecutable<?> i = f.createFilter(
+		IExecutable i = f.createFilter(
 				new TestEvaluator((index, bm0) -> {
 					switch (index) {
 					case 0:
@@ -596,8 +591,7 @@ public class ExecutableFactoryTest {
     	bm.wDef("v0", VALUES[0]);
     	bm.wDef("v1", VALUES[1]);
 
-    	@SuppressWarnings("unchecked")
-		IExecutable<?> i = f.createScope(
+    	IExecutable i = f.createScope(
 //				new TestEvaluator((index, bm0) -> {
 //					switch (index) {
 //					case 0:
@@ -644,15 +638,15 @@ public class ExecutableFactoryTest {
     }
 
     @FunctionalInterface
-    public static interface NextEvaluator<E extends IEntity> {
-    	public E evaluateNext(int index, IBindingManager bm);
+    public static interface NextEvaluator {
+    	public IEntity evaluateNext(int index, IBindingManager bm);
     }
     //FIXME add executor scope?
-    public static class TestEvaluator extends AbstractExecutableEvaluatingStepper<IEntity> {
+    public static class TestEvaluator extends AbstractExecutableEvaluatingStepper {
     	protected int resultIndex = 0;
-    	protected NextEvaluator<?> nextEvaluator;
+    	protected NextEvaluator nextEvaluator;
 
-    	public TestEvaluator(NextEvaluator<?> nextEvaluator) {
+    	public TestEvaluator(NextEvaluator nextEvaluator) {
     		this.nextEvaluator = nextEvaluator;
     	}
 

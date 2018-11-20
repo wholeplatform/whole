@@ -24,7 +24,7 @@ import org.whole.lang.util.EntityUtils;
 /**
  * @author Riccardo Solmi
  */
-public class AncestorEvaluator<E extends IEntity> extends AbstractTransitiveClosureEvaluator<E> {
+public class AncestorEvaluator extends AbstractTransitiveClosureEvaluator {
 	public AncestorEvaluator(boolean includeSelf) {
 		super(includeSelf);
 	}
@@ -33,7 +33,7 @@ public class AncestorEvaluator<E extends IEntity> extends AbstractTransitiveClos
 		return EntityUtils.hasParent(entity);
 	}
 
-	protected IExecutable<E> createRelationExecutable() {
+	protected IExecutable createRelationExecutable() {
     	return executableFactory().createParent();
     }
 

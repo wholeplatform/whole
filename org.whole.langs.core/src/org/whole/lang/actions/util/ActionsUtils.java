@@ -29,7 +29,7 @@ import org.whole.lang.util.ResourceUtils;
  * @author Riccardo Solmi
  */
 public class ActionsUtils {
-	public static IExecutable<?> actionsModulesIterator() {
+	public static IExecutable actionsModulesIterator() {
 		return ExecutableFactory.instance.createJavaCollection(
 				ActionsRegistry.instance().getResources(false, ResourceUtils.SIMPLE_COMPARATOR));
 	}

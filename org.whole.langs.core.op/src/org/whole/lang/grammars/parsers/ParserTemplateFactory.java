@@ -26,7 +26,7 @@ import java.util.Set;
 import org.whole.lang.builders.IBuilder;
 import org.whole.lang.builders.IBuilderOperation;
 import org.whole.lang.executables.ExecutableFactory;
-import org.whole.lang.executables.IExecutable;
+import org.whole.lang.executables.IExecutableClient;
 import org.whole.lang.grammars.factories.GrammarsEntityFactory;
 import org.whole.lang.grammars.model.As;
 import org.whole.lang.grammars.model.Concatenate;
@@ -183,12 +183,12 @@ public class ParserTemplateFactory<E extends IEntity> extends AbstractTemplateFa
 	}
 	protected Production getProduction(NonTerminal nt) {
 		//TODO cache in a map
-		IExecutable<Production> pi = ExecutableFactory.instance.<Production>createChild();
+		IExecutableClient<Production> pi = ExecutableFactory.instance.createChild().client();
 		pi.reset(grammar.getPhraseStructure());
 		for (Production p : pi)
 			if (p.getName().wEquals(nt))
 				return p;
-		IExecutable<Production> li = ExecutableFactory.instance.<Production>createChild();
+		IExecutableClient<Production> li = ExecutableFactory.instance.createChild().client();
 		li.reset(grammar.getLexicalStructure());
 		for (Production p : li)
 			if (p.getName().wEquals(nt))

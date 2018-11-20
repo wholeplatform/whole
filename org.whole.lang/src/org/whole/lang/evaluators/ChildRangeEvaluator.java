@@ -22,7 +22,7 @@ import org.whole.lang.model.IEntity;
 /**
  * @author Riccardo Solmi
  */
-public class ChildRangeEvaluator<E extends IEntity> extends AbstractByIndexEvaluator<E> {
+public class ChildRangeEvaluator extends AbstractByIndexEvaluator {
     private int relativeStartIndex;
     private int relativeEndIndex;
 

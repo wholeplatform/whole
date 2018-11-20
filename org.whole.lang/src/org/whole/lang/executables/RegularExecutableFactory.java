@@ -113,78 +113,77 @@ import org.whole.lang.util.ResourceUtils;
  * @author Riccardo Solmi
  */
 public class RegularExecutableFactory implements ExecutableFactory {
-	public <E extends IEntity> IExecutable<E> createEmpty() {
-		return new EmptyExecutable<E>();
+	public IExecutable createEmpty() {
+		return new EmptyExecutable();
 	}
 
-	public <E extends IEntity> IExecutable<E> createFailure(Throwable failure) {
-		return new FailureExecutable<E>(failure);
+	public IExecutable createFailure(Throwable failure) {
+		return new FailureExecutable(failure);
 	}
 
-	public <E extends IEntity> IExecutable<E> createVariable(String varName) {
-		return BindingUtils.hasEnvironmentPart(varName) ? new VariableEvaluator<E>(varName) : new LocalVariableEvaluator<E>(varName);
+	public IExecutable createVariable(String varName) {
+		return BindingUtils.hasEnvironmentPart(varName) ? new VariableEvaluator(varName) : new LocalVariableEvaluator(varName);
 	}
-	public <E extends IEntity> IExecutable<E> createOuterVariable(String varName) {
-		return BindingUtils.hasEnvironmentPart(varName) ? new OuterVariableEvaluator<E>(varName) : new OuterLocalVariableEvaluator<E>(varName);
+	public IExecutable createOuterVariable(String varName) {
+		return BindingUtils.hasEnvironmentPart(varName) ? new OuterVariableEvaluator(varName) : new OuterLocalVariableEvaluator(varName);
 	}
 
-	public <E extends IEntity> IExecutable<E> createConstant(IEntity constant, boolean useClone) {
-		return new ConstantEvaluator<E>((E) constant, useClone);
+	public IExecutable createConstant(IEntity constant, boolean useClone) {
+		return new ConstantEvaluator(constant, useClone);
 	}
-	public <E extends IEntity> IExecutable<E> createConstantSubstitute(E constant, boolean useClone) {
-		return new ConstantEvaluator<E>(constant, useClone) {
+	public IExecutable createConstantSubstitute(IEntity constant, boolean useClone) {
+		return new ConstantEvaluator(constant, useClone) {
 			@Override
-			public E evaluateNext() {
-				E pattern = super.evaluateNext();
+			public IEntity evaluateNext() {
+				IEntity pattern = super.evaluateNext();
 				if (pattern != null)
 					Matcher.substitute(pattern, getBindings(), true);
 				return pattern;
 			}
 		};
 	}
-	public <E extends IEntity> IExecutable<E> createConstantChild(IEntity constant) {
-		return new ConstantChildEvaluator<E>(true, constant);
+	public IExecutable createConstantChild(IEntity constant) {
+		return new ConstantChildEvaluator(true, constant);
 	}
-	public <E extends IEntity> IExecutable<E> createConstantCompose(IEntity constant, IExecutable<IEntity> executable) {
-		return (IExecutable<E>) new ConstantComposeEvaluator(constant, executable);
+	public IExecutable createConstantCompose(IEntity constant, IExecutable executable) {
+		return (IExecutable) new ConstantComposeEvaluator(constant, executable);
 	}
 
-	public <E extends IEntity> IExecutable<E> createEntityCollection(Iterable<E> entityCollectionIterable) {
+	public IExecutable createEntityCollection(Iterable<? extends IEntity> entityCollectionIterable) {
 		return createCollection(entityCollectionIterable, IDataTypeWrapper.identity);
 	}
-	public <E extends IEntity> IExecutable<E> createJavaCollection(Iterable<?> collectionIterable) {
+	public IExecutable createJavaCollection(Iterable<?> collectionIterable) {
 		return createCollection(collectionIterable, IDataTypeWrapper.envSpecificValue);
 	}
-	public <E extends IEntity> IExecutable<E> createCollection(Iterable<?> collectionIterable, IDataTypeWrapper elementWrapper) {
-		return new CollectionEvaluator<E>(elementWrapper, collectionIterable);
+	public IExecutable createCollection(Iterable<?> collectionIterable, IDataTypeWrapper elementWrapper) {
+		return new CollectionEvaluator(elementWrapper, collectionIterable);
 	}
 
-	public <E extends IEntity> IExecutable<E> createSingleValuedRunnable(IRunnable runnable) {
-		return new SingleValuedRunnableSupplierEvaluator<E>(runnable);
+	public IExecutable createSingleValuedRunnable(IRunnable runnable) {
+		return new SingleValuedRunnableSupplierEvaluator(runnable);
 	}
-	public <E extends IEntity> IExecutable<E> createSingleValuedRunnable(IRunnable runnable, IExecutable<?>... argsExecutables) {
-		return new SingleValuedRunnableEvaluator<E>(runnable, argsExecutables);
+	public IExecutable createSingleValuedRunnable(IRunnable runnable, IExecutable... argsExecutables) {
+		return new SingleValuedRunnableEvaluator(runnable, argsExecutables);
 	}
-	public <E extends IEntity> IExecutable<E> createSingleValuedRunnable(IRunnable runnable, int[] optionalArgsIndexes, IExecutable<?>... argsExecutables) {
-		return new SingleValuedRunnableEvaluator<E>(runnable, optionalArgsIndexes, argsExecutables);
+	public IExecutable createSingleValuedRunnable(IRunnable runnable, int[] optionalArgsIndexes, IExecutable... argsExecutables) {
+		return new SingleValuedRunnableEvaluator(runnable, optionalArgsIndexes, argsExecutables);
 	}
-	public <E extends IEntity> IExecutable<E> createMultiValuedRunnable(IRunnable runnable, IExecutable<IEntity>... argsExecutables) {
-		return new MultiValuedRunnableEvaluator<E>(runnable, argsExecutables);
+	public IExecutable createMultiValuedRunnable(IRunnable runnable, IExecutable... argsExecutables) {
+		return new MultiValuedRunnableEvaluator(runnable, argsExecutables);
 	}
-	public <E extends IEntity> IExecutable<E> createMultiValuedRunnable(IRunnable runnable, int[] optionalArgsIndexes, IExecutable<IEntity>... argsExecutables) {
-		return new MultiValuedRunnableEvaluator<E>(runnable, optionalArgsIndexes, argsExecutables);
-	}
-
-	public <E extends IEntity> IExecutable<E> createSelf() {
-		return new SelfEvaluator<E>();
+	public IExecutable createMultiValuedRunnable(IRunnable runnable, int[] optionalArgsIndexes, IExecutable... argsExecutables) {
+		return new MultiValuedRunnableEvaluator(runnable, optionalArgsIndexes, argsExecutables);
 	}
 
-	public <E extends IEntity> IExecutable<E> createRepeatedSelf() {
-		return new AbstractPureConditionalSupplierEvaluator<E>() {
-			@SuppressWarnings("unchecked")
-			public E get() {
+	public IExecutable createSelf() {
+		return new SelfEvaluator();
+	}
+
+	public IExecutable createRepeatedSelf() {
+		return new AbstractPureConditionalSupplierEvaluator() {
+			public IEntity get() {
 				isEvaluated = false;
-				return (E) selfEntity;
+				return selfEntity;
 			}
 
 		    @Override
@@ -194,8 +193,8 @@ public class RegularExecutableFactory implements ExecutableFactory {
 		};
 	}
 
-	public IExecutable<IEntity> createRoot() {
-		return new AbstractPureConditionalSupplierEvaluator<IEntity>() {
+	public IExecutable createRoot() {
+		return new AbstractPureConditionalSupplierEvaluator() {
 			public IEntity get() {
 				return EntityUtils.getCompoundRoot(selfEntity);
 			}
@@ -206,8 +205,8 @@ public class RegularExecutableFactory implements ExecutableFactory {
 		    }
 		};
 	}
-	public IExecutable<IEntity> createFragmentRoot() {
-		return new AbstractPureConditionalSupplierEvaluator<IEntity>() {
+	public IExecutable createFragmentRoot() {
+		return new AbstractPureConditionalSupplierEvaluator() {
 			public IEntity get() {
 				return EntityUtils.getFragmentRoot(selfEntity);
 			}
@@ -219,15 +218,14 @@ public class RegularExecutableFactory implements ExecutableFactory {
 		};
 	}
 
-	public <E extends IEntity> IExecutable<E> createParent() {
-		return new AbstractPureConditionalSupplierEvaluator<E>() {
+	public IExecutable createParent() {
+		return new AbstractPureConditionalSupplierEvaluator() {
 		    @Override
 		    public boolean hasNext() {
 		    	return super.hasNext() && EntityUtils.hasParent(selfEntity);
 		    }
-			@SuppressWarnings("unchecked")
-			public E get() {
-				return (E) selfEntity.wGetParent();
+			public IEntity get() {
+				return selfEntity.wGetParent();
 			}
 
 		    @Override
@@ -237,152 +235,152 @@ public class RegularExecutableFactory implements ExecutableFactory {
 		};
 	}
 
-	public <E extends IEntity> IExecutable<E> createAncestor() {
-		return new AncestorEvaluator<E>(false);
+	public IExecutable createAncestor() {
+		return new AncestorEvaluator(false);
 	}
-	public <E extends IEntity> IExecutable<E> createAncestorOrSelf() {
-		return new AncestorEvaluator<E>(true);
+	public IExecutable createAncestorOrSelf() {
+		return new AncestorEvaluator(true);
 	}
-	public IExecutable<IEntity> createAncestorReverse() {
+	public IExecutable createAncestorReverse() {
 		return new AncestorReverseEvaluator();
 	}
-	public IExecutable<IEntity> createAncestorOrSelfReverse() {
+	public IExecutable createAncestorOrSelfReverse() {
 		return new AncestorOrSelfReverseEvaluator();
 	}
 
-	public IExecutable<IEntity> createInverseAdjacent() {
+	public IExecutable createInverseAdjacent() {
 		return new InverseAdjacentEvaluator();
 	}
-	public IExecutable<IEntity> createInverseReachable(boolean includeSelf) {
-		DistinctScope<IEntity> distinctScope = createDistinctScope(ObjectIdentityComparator.instance);
+	public IExecutable createInverseReachable(boolean includeSelf) {
+		DistinctScope distinctScope = createDistinctScope(ObjectIdentityComparator.instance);
 		return distinctScope.withExecutable(createInverseReachable(includeSelf, distinctScope));
 	}
-	public IExecutable<IEntity> createInverseReachable(boolean includeSelf, DistinctScope<IEntity> distinctScope) {
+	public IExecutable createInverseReachable(boolean includeSelf, DistinctScope distinctScope) {
 		return new InverseReachableEvaluator(includeSelf, distinctScope);
 	}
 
-	public IExecutable<IEntity> createFeatureByName(String fdUri) {
+	public IExecutable createFeatureByName(String fdUri) {
 		return new FeatureByNameEvaluator(fdUri);
 	}
-	public IExecutable<IEntity> createFeatureByName(FeatureDescriptor fd) {
+	public IExecutable createFeatureByName(FeatureDescriptor fd) {
 		return new FeatureByNameEvaluator(fd);
 	}
 
-	public IExecutable<IEntity> createFeatureByIndex(int relativeIndex) {
+	public IExecutable createFeatureByIndex(int relativeIndex) {
 		return new FeatureByIndexEvaluator(relativeIndex);
 	}
 
-	public IExecutable<IEntity> createAspect() {
+	public IExecutable createAspect() {
 		return new AspectEvaluator();
 	}
 
-	public <E extends IEntity> IExecutable<E> createChild() {
-		return new ChildEvaluator<E>(true);
+	public IExecutable createChild() {
+		return new ChildEvaluator(true);
 	}
-	public <E extends IEntity> IExecutable<E> createChild(int relativeFirstIndex) {
-		return new ChildEvaluator<E>(true, relativeFirstIndex);
+	public IExecutable createChild(int relativeFirstIndex) {
+		return new ChildEvaluator(true, relativeFirstIndex);
 	}
-	public <E extends IEntity> IExecutable<E> createChildReverse() {
-		return new ChildEvaluator<E>(false);
+	public IExecutable createChildReverse() {
+		return new ChildEvaluator(false);
 	}
-	public <E extends IEntity> IExecutable<E> createChildReverse(int relativeFirstIndex) {
-		return new ChildEvaluator<E>(false, relativeFirstIndex);
+	public IExecutable createChildReverse(int relativeFirstIndex) {
+		return new ChildEvaluator(false, relativeFirstIndex);
 	}
-	public <E extends IEntity> IExecutable<E> createChildRange(int relativeStartIndex, int relativeEndIndex) {
-		return new ChildRangeEvaluator<E>(true, relativeStartIndex, relativeEndIndex);
-	}
-
-	public <E extends IEntity> IExecutable<E> createDescendant() {
-		return new DescendantEvaluator<E>(false);
-	}
-	public <E extends IEntity> IExecutable<E> createDescendantOrSelf() {
-		return new DescendantEvaluator<E>(true);
-	}
-	public <E extends IEntity> IExecutable<E> createDescendantReverse() {
-		return new DescendantReverseEvaluator<E>(false);
-	}
-	public <E extends IEntity> IExecutable<E> createDescendantOrSelfReverse() {
-		return new DescendantReverseEvaluator<E>(true);
+	public IExecutable createChildRange(int relativeStartIndex, int relativeEndIndex) {
+		return new ChildRangeEvaluator(true, relativeStartIndex, relativeEndIndex);
 	}
 
-	public <E extends IEntity> IExecutable<E> createFollowingSibling() {
-		return new FollowingSiblingEvaluator<E>(true, false);
+	public IExecutable createDescendant() {
+		return new DescendantEvaluator(false);
 	}
-	public <E extends IEntity> IExecutable<E> createFollowingSiblingReverse() {
-		return new FollowingSiblingEvaluator<E>(false, false);
+	public IExecutable createDescendantOrSelf() {
+		return new DescendantEvaluator(true);
 	}
-	public <E extends IEntity> IExecutable<E> createPrecedingSibling() {
-		return new PrecedingSiblingEvaluator<E>(false, false);
+	public IExecutable createDescendantReverse() {
+		return new DescendantReverseEvaluator(false);
 	}
-	public <E extends IEntity> IExecutable<E> createPrecedingSiblingReverse() {
-		return new PrecedingSiblingEvaluator<E>(true, false);
-	}
-
-	public <E extends IEntity> IExecutable<E> createFollowingSiblingOrSelf() {
-		return new FollowingSiblingEvaluator<E>(true, true);
-	}
-	public <E extends IEntity> IExecutable<E> createFollowingSiblingOrSelfReverse() {
-		return new FollowingSiblingEvaluator<E>(false, true);
-	}
-	public <E extends IEntity> IExecutable<E> createPrecedingSiblingOrSelf() {
-		return new PrecedingSiblingEvaluator<E>(false, true);
-	}
-	public <E extends IEntity> IExecutable<E> createPrecedingSiblingOrSelfReverse() {
-		return new PrecedingSiblingEvaluator<E>(true, true);
+	public IExecutable createDescendantOrSelfReverse() {
+		return new DescendantReverseEvaluator(true);
 	}
 
-	public <E extends IEntity> IExecutable<E> createFollowing() {
-		return new FollowingEvaluator<E>(false);
+	public IExecutable createFollowingSibling() {
+		return new FollowingSiblingEvaluator(true, false);
 	}
-	public <E extends IEntity> IExecutable<E> createFollowingOrSelf() {
-		return new FollowingEvaluator<E>(true);
+	public IExecutable createFollowingSiblingReverse() {
+		return new FollowingSiblingEvaluator(false, false);
 	}
-	public <E extends IEntity> IExecutable<E> createPreceding() {
-		return new PrecedingEvaluator<E>(false);
+	public IExecutable createPrecedingSibling() {
+		return new PrecedingSiblingEvaluator(false, false);
 	}
-	public <E extends IEntity> IExecutable<E> createPrecedingOrSelf() {
-		return new PrecedingEvaluator<E>(true);
-	}
-
-	public <E extends IEntity> IExecutable<E> createAdjacent() {
-		return new AdjacentEvaluator<E>(true);
-	}
-	public <E extends IEntity> IExecutable<E> createAdjacent(int relativeFirstIndex) {
-		return new AdjacentEvaluator<E>(true, relativeFirstIndex);
-	}
-	public <E extends IEntity> IExecutable<E> createAdjacentReverse() {
-		return new AdjacentEvaluator<E>(false);
+	public IExecutable createPrecedingSiblingReverse() {
+		return new PrecedingSiblingEvaluator(true, false);
 	}
 
-	public <E extends IEntity> IExecutable<E> createChildOrAdjacent() {
-		return new ChildOrAdjacentEvaluator<E>(true);
+	public IExecutable createFollowingSiblingOrSelf() {
+		return new FollowingSiblingEvaluator(true, true);
 	}
-	public <E extends IEntity> IExecutable<E> createChildOrAdjacent(int relativeFirstIndex) {
-		return new ChildOrAdjacentEvaluator<E>(true, relativeFirstIndex);
+	public IExecutable createFollowingSiblingOrSelfReverse() {
+		return new FollowingSiblingEvaluator(false, true);
+	}
+	public IExecutable createPrecedingSiblingOrSelf() {
+		return new PrecedingSiblingEvaluator(false, true);
+	}
+	public IExecutable createPrecedingSiblingOrSelfReverse() {
+		return new PrecedingSiblingEvaluator(true, true);
 	}
 
-	public <E extends IEntity> IExecutable<E> createReachable(boolean includeSelf) {
-		DistinctScope<E> distinctScope = createDistinctScope(ObjectIdentityComparator.instance);
+	public IExecutable createFollowing() {
+		return new FollowingEvaluator(false);
+	}
+	public IExecutable createFollowingOrSelf() {
+		return new FollowingEvaluator(true);
+	}
+	public IExecutable createPreceding() {
+		return new PrecedingEvaluator(false);
+	}
+	public IExecutable createPrecedingOrSelf() {
+		return new PrecedingEvaluator(true);
+	}
+
+	public IExecutable createAdjacent() {
+		return new AdjacentEvaluator(true);
+	}
+	public IExecutable createAdjacent(int relativeFirstIndex) {
+		return new AdjacentEvaluator(true, relativeFirstIndex);
+	}
+	public IExecutable createAdjacentReverse() {
+		return new AdjacentEvaluator(false);
+	}
+
+	public IExecutable createChildOrAdjacent() {
+		return new ChildOrAdjacentEvaluator(true);
+	}
+	public IExecutable createChildOrAdjacent(int relativeFirstIndex) {
+		return new ChildOrAdjacentEvaluator(true, relativeFirstIndex);
+	}
+
+	public IExecutable createReachable(boolean includeSelf) {
+		DistinctScope distinctScope = createDistinctScope(ObjectIdentityComparator.instance);
 		return distinctScope.withExecutable(createReachable(includeSelf, distinctScope));
 	}
-	public <E extends IEntity> IExecutable<E> createReachable(boolean includeSelf, DistinctScope<E> distinctScope) {
-		return new ReachableEvaluator<E>(includeSelf, distinctScope);
+	public IExecutable createReachable(boolean includeSelf, DistinctScope distinctScope) {
+		return new ReachableEvaluator(includeSelf, distinctScope);
 	}
 
-	public <E extends IEntity> IExecutable<E> createDescendantOrReachable() {
-		DistinctScope<E> distinctScope = createDistinctScope(ObjectIdentityComparator.instance);
+	public IExecutable createDescendantOrReachable() {
+		DistinctScope distinctScope = createDistinctScope(ObjectIdentityComparator.instance);
 		return distinctScope.withExecutable(createDescendantOrReachable(false, distinctScope));
 	}
-	public <E extends IEntity> IExecutable<E> createDescendantOrReachable(boolean includeSelf, DistinctScope<E> distinctScope) {
-		return new DescendantOrReachableEvaluator<E>(includeSelf, distinctScope);
+	public IExecutable createDescendantOrReachable(boolean includeSelf, DistinctScope distinctScope) {
+		return new DescendantOrReachableEvaluator(includeSelf, distinctScope);
 	}
 
-	public <E extends IEntity> IExecutable<E> createFilter(IExecutable<E> executable, IExecutable<? extends IEntity> filterExecutable) {
-		return (IExecutable<E>) new FilterEvaluator((IExecutable<IEntity>) executable, (IExecutable<IEntity>) filterExecutable);
+	public IExecutable createFilter(IExecutable executable, IExecutable filterExecutable) {
+		return (IExecutable) new FilterEvaluator((IExecutable) executable, (IExecutable) filterExecutable);
 	}
 
-	public IExecutable<IEntity> createMatchInScope(IExecutable<IEntity> patternExecutable) {
-		return new AbstractNestedSupplierEvaluator<IEntity>(patternExecutable) {
+	public IExecutable createMatchInScope(IExecutable patternExecutable) {
+		return new AbstractNestedSupplierEvaluator(patternExecutable) {
 			public IEntity get() {
 				IEntity pattern = getProducer(0).evaluateNext();
 				return BindingManagerFactory.instance.createValue(
@@ -397,63 +395,56 @@ public class RegularExecutableFactory implements ExecutableFactory {
 		};
 	}
 
-	@SuppressWarnings("unchecked")
-	public <E extends IEntity> IExecutable<E> createIf(IExecutable<? extends IEntity> conditionExecutable, IExecutable<E> doExecutable) {
-		return (IExecutable<E>) new IfEvaluator((IExecutable<IEntity>) conditionExecutable, (IExecutable<IEntity>) doExecutable);
+	public IExecutable createIf(IExecutable conditionExecutable, IExecutable doExecutable) {
+		return (IExecutable) new IfEvaluator((IExecutable) conditionExecutable, (IExecutable) doExecutable);
 	}
 
-	@SuppressWarnings("unchecked")
-	public <E extends IEntity> IExecutable<E> createFor(IExecutable<? extends IEntity> forExecutable, IExecutable<E> doExecutable) {
-		return (IExecutable<E>) new ForEvaluator((IExecutable<IEntity>) forExecutable, (IExecutable<IEntity>) doExecutable);
+	public IExecutable createFor(IExecutable forExecutable, IExecutable doExecutable) {
+		return (IExecutable) new ForEvaluator((IExecutable) forExecutable, (IExecutable) doExecutable);
 	}
 
-	@SuppressWarnings("unchecked")
-	public <E extends IEntity> IExecutable<E> createCompose(IExecutable<IEntity> innerExecutable, IExecutable<IEntity>... outerExecutables) {
+	public IExecutable createCompose(IExecutable innerExecutable, IExecutable... outerExecutables) {
 		int index = outerExecutables.length;
-		IExecutable<IEntity>[] nestedExecutables = new IExecutable[outerExecutables.length+1];
+		IExecutable[] nestedExecutables = new IExecutable[outerExecutables.length+1];
 		nestedExecutables[index--] = innerExecutable;
-		for (IExecutable<IEntity> e : outerExecutables)
+		for (IExecutable e : outerExecutables)
 			nestedExecutables[index--] = e;
 
-		return (IExecutable<E>) new PathEvaluator(nestedExecutables);
+		return (IExecutable) new PathEvaluator(nestedExecutables);
 	}
 
-	@SuppressWarnings("unchecked")
-	public <E extends IEntity> IExecutable<E> createChoose(IExecutable<? extends E>... executableChain) {
-		return (IExecutable<E>) new ChooseByOrderEvaluator((IExecutable<IEntity>[]) executableChain);
+	public IExecutable createChoose(IExecutable... executableChain) {
+		return (IExecutable) new ChooseByOrderEvaluator((IExecutable[]) executableChain);
 	}
-	@SuppressWarnings("unchecked")
-	public <E extends IEntity> IExecutable<E> createChoose(ILanguageKit languageKit) {
-		return (IExecutable<E>) new ChooseByTypeEvaluator(languageKit);
+	public IExecutable createChoose(ILanguageKit languageKit) {
+		return (IExecutable) new ChooseByTypeEvaluator(languageKit);
 	}
 
-	@SuppressWarnings("unchecked")
-	public <E extends IEntity> IExecutable<E> createSequence(IExecutable<? extends E>... executableChain) {
-		return new SequenceEvaluator<E>((IExecutable<IEntity>[]) executableChain);
+	public IExecutable createSequence(IExecutable... executableChain) {
+		return new SequenceEvaluator((IExecutable[]) executableChain);
 	}
 
-	@SuppressWarnings("unchecked")
-	public <E extends IEntity> IExecutable<E> createBlock(IExecutable<? extends E>... executableChain) {
-		return new BlockEvaluator<E>((IExecutable<IEntity>[]) executableChain);
+	public IExecutable createBlock(IExecutable... executableChain) {
+		return new BlockEvaluator((IExecutable[]) executableChain);
 	}
 
-	public <E extends IEntity> IExecutable<E> createFilterByIndex(IExecutable<IEntity> executable, int index) {
-		return new FilterByIndexRangeEvaluator<E>(executable, index, index);
+	public IExecutable createFilterByIndex(IExecutable executable, int index) {
+		return new FilterByIndexRangeEvaluator(executable, index, index);
 	}
-	public <E extends IEntity> IExecutable<E> createFilterByIndexRange(IExecutable<IEntity> executable, int startIndex, int endIndex) {
-		return new FilterByIndexRangeEvaluator<E>(executable, startIndex, endIndex);
+	public IExecutable createFilterByIndexRange(IExecutable executable, int startIndex, int endIndex) {
+		return new FilterByIndexRangeEvaluator(executable, startIndex, endIndex);
 	}
-	public <E extends IEntity> IExecutable<E> createFilterByIndexRange() {
-		return new FilterByIndexRangeEvaluator<E>();
+	public IExecutable createFilterByIndexRange() {
+		return new FilterByIndexRangeEvaluator();
 	}
 
-	public IExecutable<IEntity> createIterationIndexVariable(IExecutable<?> indexExecutable, String name) {
+	public IExecutable createIterationIndexVariable(IExecutable indexExecutable, String name) {
 		final boolean hasEnvironmentPart = BindingUtils.hasEnvironmentPart(name);
 		final int index = name.indexOf('#');
 		final String envName = hasEnvironmentPart ? name.substring(BindingUtils.ENVIRONMENT_URI_PREFIX.length(), index) : null;
 		final String varName = hasEnvironmentPart ? name.substring(index+1) : name;
 
-		return new AbstractNestedSupplierEvaluator<IEntity>(indexExecutable) {
+		return new AbstractNestedSupplierEvaluator(indexExecutable) {
 			@Override
 			protected void resetProducers(IEntity entity) {
 			}
@@ -463,7 +454,7 @@ public class RegularExecutableFactory implements ExecutableFactory {
 
 			public IEntity get() {
 				IBindingManager bm = hasEnvironmentPart ? getBindings().wGetEnvironmentManager().getEnvironment(envName) : getBindings();
-				int iterationIndex = ((FilterByIndexRangeEvaluator<?>) getProducer(0).undecoratedExecutable()).predicateIndex(this);
+				int iterationIndex = ((FilterByIndexRangeEvaluator) getProducer(0).undecoratedExecutable()).predicateIndex(this);
 
 				if (bm.wIsSet(varName)) {
 					return BindingManagerFactory.instance.createValue(iterationIndex == bm.wIntValue(varName));
@@ -480,8 +471,8 @@ public class RegularExecutableFactory implements ExecutableFactory {
 			}
 		};
 	}
-	public IExecutable<IEntity> createIterationIndex(IExecutable<?> indexExecutable, int index) {
-		return new AbstractNestedSupplierEvaluator<IEntity>(indexExecutable) {
+	public IExecutable createIterationIndex(IExecutable indexExecutable, int index) {
+		return new AbstractNestedSupplierEvaluator(indexExecutable) {
 			@Override
 			protected void resetProducers(IEntity entity) {
 			}
@@ -490,7 +481,7 @@ public class RegularExecutableFactory implements ExecutableFactory {
 			}
 
 			public IEntity get() {
-				int iterationIndex = ((FilterByIndexRangeEvaluator<?>) getProducer(0).undecoratedExecutable()).predicateIndex(this);
+				int iterationIndex = ((FilterByIndexRangeEvaluator) getProducer(0).undecoratedExecutable()).predicateIndex(this);
 
 				return BindingManagerFactory.instance.createValue(iterationIndex == index);
 			}
@@ -502,8 +493,8 @@ public class RegularExecutableFactory implements ExecutableFactory {
 			}
 		};
 	}
-	public IExecutable<IEntity> createIterationIndexRange(IExecutable<?> indexExecutable, int startIndex, int endIndex) {
-		return new AbstractNestedSupplierEvaluator<IEntity>(indexExecutable) {
+	public IExecutable createIterationIndexRange(IExecutable indexExecutable, int startIndex, int endIndex) {
+		return new AbstractNestedSupplierEvaluator(indexExecutable) {
 			@Override
 			protected void resetProducers(IEntity entity) {
 			}
@@ -512,7 +503,7 @@ public class RegularExecutableFactory implements ExecutableFactory {
 			}
 
 			public IEntity get() {
-				int iterationIndex = ((FilterByIndexRangeEvaluator<?>) getProducer(0).undecoratedExecutable()).predicateIndex(this);
+				int iterationIndex = ((FilterByIndexRangeEvaluator) getProducer(0).undecoratedExecutable()).predicateIndex(this);
 
 				return BindingManagerFactory.instance.createValue(startIndex <= iterationIndex && iterationIndex <= endIndex);
 			}
@@ -527,8 +518,7 @@ public class RegularExecutableFactory implements ExecutableFactory {
 		};
 	}
 
-	@SuppressWarnings("unchecked")
-	public IExecutable<IEntity> createPointwiseEquals(IExecutable<IEntity> leftOperand, IExecutable<IEntity> rightOperand) {
+	public IExecutable createPointwiseEquals(IExecutable leftOperand, IExecutable rightOperand) {
 		return new AbstractDelegatingNestedSupplierEvaluator(leftOperand, rightOperand) {
 			public IEntity get() {
 				getBindings().wEnterScope(executorScope(), true);
@@ -560,21 +550,20 @@ public class RegularExecutableFactory implements ExecutableFactory {
 		};
 	}
 
-	@SuppressWarnings("unchecked")
-	public <E extends IEntity> IExecutable<E> createScope(IExecutable<E> scopeExecutable, String environmentName, Set<String> names, boolean asFreshNames) {
-		return (IExecutable<E>) new LocalScopeEvaluator((IExecutable<IEntity>) scopeExecutable, names, asFreshNames);
+	public IExecutable createScope(IExecutable scopeExecutable, String environmentName, Set<String> names, boolean asFreshNames) {
+		return new LocalScopeEvaluator(scopeExecutable, names, asFreshNames);
     }
 
 	
-	public <E extends IEntity> IExecutable<E> createSort(IExecutable<E> executable) {
-		return new SortEvaluator<E>(executable);
+	public IExecutable createSort(IExecutable executable) {
+		return new SortEvaluator(executable);
 	}
-	public <E extends IEntity> IExecutable<E> createSort(IExecutable<E> executable, IEntityComparator<E> comparator) {
-		return new SortEvaluator<E>(executable, comparator);
+	public IExecutable createSort(IExecutable executable, IEntityComparator<? super IEntity> comparator) {
+		return new SortEvaluator(executable, comparator);
 	}
 
-	public IExecutable<IEntity> createAtStage(int stage) {
-		return new AbstractPureConditionalSupplierEvaluator<IEntity>() {
+	public IExecutable createAtStage(int stage) {
+		return new AbstractPureConditionalSupplierEvaluator() {
 			public IEntity get() {
 				return BindingManagerFactory.instance.createValue(
 						getBindings().wGetEnvironmentManager().getCurrentOperation().getStage() == stage);
@@ -587,8 +576,8 @@ public class RegularExecutableFactory implements ExecutableFactory {
 			}
 		};
 	}
-	public IExecutable<IEntity> createAtHostStage() {
-		return new AbstractPureConditionalSupplierEvaluator<IEntity>() {
+	public IExecutable createAtHostStage() {
+		return new AbstractPureConditionalSupplierEvaluator() {
 			public IEntity get() {
 				return BindingManagerFactory.instance.createValue(
 						getBindings().wGetEnvironmentManager().getCurrentOperation().getStage() <= 0);
@@ -599,8 +588,8 @@ public class RegularExecutableFactory implements ExecutableFactory {
 			}
 		};
 	}
-	public IExecutable<IEntity> createAtTemplateStage() {
-		return new AbstractPureConditionalSupplierEvaluator<IEntity>() {
+	public IExecutable createAtTemplateStage() {
+		return new AbstractPureConditionalSupplierEvaluator() {
 			public IEntity get() {
 				return BindingManagerFactory.instance.createValue(
 						getBindings().wGetEnvironmentManager().getCurrentOperation().getStage() > 0);
@@ -612,8 +601,8 @@ public class RegularExecutableFactory implements ExecutableFactory {
 		};
 	}
 
-	public IExecutable<IEntity> createHasKind(EntityKinds kind) {
-		return new AbstractPureConditionalSupplierEvaluator<IEntity>() {
+	public IExecutable createHasKind(EntityKinds kind) {
+		return new AbstractPureConditionalSupplierEvaluator() {
 			public IEntity get() {
 				return BindingManagerFactory.instance.createValue(
 						kind.equals(selfEntity.wGetEntityKind()));
@@ -626,8 +615,8 @@ public class RegularExecutableFactory implements ExecutableFactory {
 			}
 		};
 	}
-	public IExecutable<IEntity> createHasCompositeKind(CompositeKinds kind) {
-		return new AbstractPureConditionalSupplierEvaluator<IEntity>() {
+	public IExecutable createHasCompositeKind(CompositeKinds kind) {
+		return new AbstractPureConditionalSupplierEvaluator() {
 			public IEntity get() {
 				return BindingManagerFactory.instance.createValue(
 						kind.equals(selfEntity.wGetEntityDescriptor().getCompositeKind()));
@@ -640,8 +629,8 @@ public class RegularExecutableFactory implements ExecutableFactory {
 			}
 		};
 	}
-	public IExecutable<IEntity> createHasDataKind(DataKinds kind) {
-		return new AbstractPureConditionalSupplierEvaluator<IEntity>() {
+	public IExecutable createHasDataKind(DataKinds kind) {
+		return new AbstractPureConditionalSupplierEvaluator() {
 			public IEntity get() {
 				return BindingManagerFactory.instance.createValue(
 						kind.equals(selfEntity.wGetEntityDescriptor().getDataKind()));
@@ -654,8 +643,8 @@ public class RegularExecutableFactory implements ExecutableFactory {
 			}
 		};
 	}
-	public IExecutable<IEntity> createIsFragment() {
-		return new AbstractPureConditionalSupplierEvaluator<IEntity>() {
+	public IExecutable createIsFragment() {
+		return new AbstractPureConditionalSupplierEvaluator() {
 			public IEntity get() {
 				return BindingManagerFactory.instance.createValue(
 						EntityUtils.isFragment(selfEntity));
@@ -666,8 +655,8 @@ public class RegularExecutableFactory implements ExecutableFactory {
 			}
 		};
 	}
-	public IExecutable<IEntity> createIsVariable() {
-		return new AbstractPureConditionalSupplierEvaluator<IEntity>() {
+	public IExecutable createIsVariable() {
+		return new AbstractPureConditionalSupplierEvaluator() {
 			public IEntity get() {
 				return BindingManagerFactory.instance.createValue(
 						EntityUtils.isVariable(selfEntity));
@@ -678,8 +667,8 @@ public class RegularExecutableFactory implements ExecutableFactory {
 			}
 		};
 	}
-	public IExecutable<IEntity> createIsResolver() {
-		return new AbstractPureConditionalSupplierEvaluator<IEntity>() {
+	public IExecutable createIsResolver() {
+		return new AbstractPureConditionalSupplierEvaluator() {
 			public IEntity get() {
 				return BindingManagerFactory.instance.createValue(
 						EntityUtils.isResolver(selfEntity));
@@ -690,8 +679,8 @@ public class RegularExecutableFactory implements ExecutableFactory {
 			}
 		};
 	}
-	public IExecutable<IEntity> createIsImpl() {
-		return new AbstractPureConditionalSupplierEvaluator<IEntity>() {
+	public IExecutable createIsImpl() {
+		return new AbstractPureConditionalSupplierEvaluator() {
 			public IEntity get() {
 				return BindingManagerFactory.instance.createValue(
 						EntityUtils.isNotResolver(selfEntity));
@@ -703,32 +692,28 @@ public class RegularExecutableFactory implements ExecutableFactory {
 		};
 	}
 
-	public <E extends IEntity> DistinctScope<E> createDistinctScope() {
-		return new FilterByDistinctEvaluator<E>();
+	public DistinctScope createDistinctScope() {
+		return new FilterByDistinctEvaluator();
 	}
-	public <E extends IEntity> DistinctScope<E> createDistinctScope(IEntityComparator<IEntity> comparator) {
-		return new FilterByDistinctEvaluator<E>(comparator);
+	public DistinctScope createDistinctScope(IEntityComparator<? super IEntity> comparator) {
+		return new FilterByDistinctEvaluator(comparator);
 	}
 
-	@SuppressWarnings("unchecked")
-	public IExecutable<IEntity> createUnionAll(IExecutable<IEntity>... executables) {
+	public IExecutable createUnionAll(IExecutable... executables) {
 		return new UnionAllEvaluator(executables);
 	}
-	@SuppressWarnings("unchecked")
-	public IExecutable<IEntity> createUnion(IEntityComparator<IEntity> comparator, IExecutable<IEntity>... executables) {
+	public IExecutable createUnion(IEntityComparator<IEntity> comparator, IExecutable... executables) {
 		return new UnionEvaluator(comparator, executables);
 	}
-	@SuppressWarnings("unchecked")
-	public IExecutable<IEntity> createIntersect(IEntityComparator<IEntity> comparator, IExecutable<IEntity>... executables) {
+	public IExecutable createIntersect(IEntityComparator<IEntity> comparator, IExecutable... executables) {
 		return new IntersectEvaluator(comparator, executables);
 	}
-	@SuppressWarnings("unchecked")
-	public IExecutable<IEntity> createExcept(IEntityComparator<IEntity> comparator, IExecutable<IEntity>... executables) {
+	public IExecutable createExcept(IEntityComparator<IEntity> comparator, IExecutable... executables) {
 		return new ExceptEvaluator(comparator, executables);
 	}
 
 
-	public IExecutable<IEntity> createAnd(IExecutable<IEntity>... argsExecutables) {
+	public IExecutable createAnd(IExecutable... argsExecutables) {
 		return new AbstractDelegatingNestedSupplierEvaluator(argsExecutables) {
 			public IEntity get() {
 				for (int i=0; i<producersSize(); i++)
@@ -747,8 +732,8 @@ public class RegularExecutableFactory implements ExecutableFactory {
 			}
 		};
 	}
-	public IExecutable<IEntity> createOr(IExecutable<IEntity>... argsExecutables) {
-		return new AbstractNestedSupplierEvaluator<IEntity>(argsExecutables) {
+	public IExecutable createOr(IExecutable... argsExecutables) {
+		return new AbstractNestedSupplierEvaluator(argsExecutables) {
 			public IEntity get() {
 				for (int i=0; i<producersSize(); i++)
 					if (getProducer(i).evaluateAsBooleanOrFail())
@@ -763,8 +748,8 @@ public class RegularExecutableFactory implements ExecutableFactory {
 			}
 		};
 	}
-	public IExecutable<IEntity> createNot(IExecutable<IEntity> argExecutable) {
-		return new AbstractNestedSupplierEvaluator<IEntity>(argExecutable) {
+	public IExecutable createNot(IExecutable argExecutable) {
+		return new AbstractNestedSupplierEvaluator(argExecutable) {
 			public IEntity get() {
 				return BindingManagerFactory.instance.createValue(
 						!getProducer(0).evaluateAsBooleanOrFail());
@@ -777,11 +762,10 @@ public class RegularExecutableFactory implements ExecutableFactory {
 		};
 	}
 
-	@SuppressWarnings("unchecked")
-	public IExecutable<IEntity> createOne(IExecutable<IEntity> fromClause, IExecutable<IEntity> satisfiesClause) {
+	public IExecutable createOne(IExecutable fromClause, IExecutable satisfiesClause) {
 		return new AbstractDelegatingNestedSupplierEvaluator(fromClause, satisfiesClause) {
 			@Override
-			protected void initProducer(IExecutable<?> p, int index) {
+			protected void initProducer(IExecutable p, int index) {
 				p.setBindings(getBindings());
 				if (index == 0)
 					p.reset(selfEntity);
@@ -820,8 +804,8 @@ public class RegularExecutableFactory implements ExecutableFactory {
 			}
 		};
 	}
-	public IExecutable<IEntity> createSome(IExecutable<IEntity> fromClause) {
-		return new AbstractNestedSupplierEvaluator<IEntity>(fromClause) {
+	public IExecutable createSome(IExecutable fromClause) {
+		return new AbstractNestedSupplierEvaluator(fromClause) {
 			public IEntity get() {
 				return BindingManagerFactory.instance.createValue(
 							getProducer(0).evaluateNext() != null);
@@ -834,11 +818,10 @@ public class RegularExecutableFactory implements ExecutableFactory {
 			}
 		};
 	}
-	@SuppressWarnings("unchecked")
-	public IExecutable<IEntity> createSome(IExecutable<IEntity> fromClause, IExecutable<IEntity> satisfiesClause) {
+	public IExecutable createSome(IExecutable fromClause, IExecutable satisfiesClause) {
 		return new AbstractDelegatingNestedSupplierEvaluator(fromClause, satisfiesClause) {
 			@Override
-			protected void initProducer(IExecutable<?> p, int index) {
+			protected void initProducer(IExecutable p, int index) {
 				p.setBindings(getBindings());
 				if (index == 0)
 					p.reset(selfEntity);
@@ -867,11 +850,10 @@ public class RegularExecutableFactory implements ExecutableFactory {
 			}
 		};
 	}
-	@SuppressWarnings("unchecked")
-	public IExecutable<IEntity> createEvery(IExecutable<IEntity> fromClause, IExecutable<IEntity> satisfiesClause) {
+	public IExecutable createEvery(IExecutable fromClause, IExecutable satisfiesClause) {
 		return new AbstractDelegatingNestedSupplierEvaluator(fromClause, satisfiesClause) {
 			@Override
-			protected void initProducer(IExecutable<?> p, int index) {
+			protected void initProducer(IExecutable p, int index) {
 				p.setBindings(getBindings());
 				if (index == 0)
 					p.reset(selfEntity);
@@ -908,8 +890,8 @@ public class RegularExecutableFactory implements ExecutableFactory {
 		};
 	}
 
-	public IExecutable<IEntity> createIsLanguage(String languageURI) {
-		return new AbstractPureConditionalSupplierEvaluator<IEntity>() {
+	public IExecutable createIsLanguage(String languageURI) {
+		return new AbstractPureConditionalSupplierEvaluator() {
 			public IEntity get() {
 				return BindingManagerFactory.instance.createValue(
 						languageURI.equals(selfEntity.wGetLanguageKit().getURI()));
@@ -923,7 +905,7 @@ public class RegularExecutableFactory implements ExecutableFactory {
 		};
 	}
 
-	public IExecutable<IEntity> createHasType(String typeUri) {
+	public IExecutable createHasType(String typeUri) {
 		return new AbstractTypeRelationEvaluator(typeUri) {
 			protected boolean test(EntityDescriptor<?> typeEd, EntityDescriptor<?> selfEd) {
 				return typeEd != null && selfEd.equals(typeEd);
@@ -933,7 +915,7 @@ public class RegularExecutableFactory implements ExecutableFactory {
 			}
 		};
 	}
-	public IExecutable<IEntity> createIsLanguageSubtypeOf(String typeUri) {
+	public IExecutable createIsLanguageSubtypeOf(String typeUri) {
 		return new AbstractTypeRelationEvaluator(typeUri) {
 			protected boolean test(EntityDescriptor<?> typeEd, EntityDescriptor<?> selfEd) {
 				return typeEd != null && typeEd.isLanguageSupertypeOf(selfEd);
@@ -943,7 +925,7 @@ public class RegularExecutableFactory implements ExecutableFactory {
 			}
 		};
 	}
-	public IExecutable<IEntity> createIsLanguageSupertypeOf(String typeUri) {
+	public IExecutable createIsLanguageSupertypeOf(String typeUri) {
 		return new AbstractTypeRelationEvaluator(typeUri) {
 			protected boolean test(EntityDescriptor<?> typeEd, EntityDescriptor<?> selfEd) {
 				return typeEd != null && selfEd.isLanguageSupertypeOf(typeEd);
@@ -953,7 +935,7 @@ public class RegularExecutableFactory implements ExecutableFactory {
 			}
 		};
 	}
-	public IExecutable<IEntity> createIsExtendedLanguageSubtypeOf(String typeUri) {
+	public IExecutable createIsExtendedLanguageSubtypeOf(String typeUri) {
 		return new AbstractTypeRelationEvaluator(typeUri) {
 			protected boolean test(EntityDescriptor<?> typeEd, EntityDescriptor<?> selfEd) {
 				return typeEd != null && typeEd.isExtendedLanguageSupertypeOf(selfEd);
@@ -963,7 +945,7 @@ public class RegularExecutableFactory implements ExecutableFactory {
 			}
 		};
 	}
-	public IExecutable<IEntity> createIsExtendedLanguageSupertypeOf(String typeUri) {
+	public IExecutable createIsExtendedLanguageSupertypeOf(String typeUri) {
 		return new AbstractTypeRelationEvaluator(typeUri) {
 			protected boolean test(EntityDescriptor<?> typeEd, EntityDescriptor<?> selfEd) {
 				return typeEd != null && selfEd.isExtendedLanguageSupertypeOf(typeEd);
@@ -973,8 +955,8 @@ public class RegularExecutableFactory implements ExecutableFactory {
 			}
 		};
 	}
-	public IExecutable<IEntity> createAtType(String edUri) {
-		return new AbstractPureConditionalSupplierEvaluator<IEntity>() {
+	public IExecutable createAtType(String edUri) {
+		return new AbstractPureConditionalSupplierEvaluator() {
 			public IEntity get() {
 				IEntity parent = selfEntity.wGetParent();
 				if (EntityUtils.isNull(parent))
@@ -992,8 +974,8 @@ public class RegularExecutableFactory implements ExecutableFactory {
 		};
 	}
 
-	public IExecutable<IEntity> createAtFeature(String fdUri) {
-		return new AbstractPureConditionalSupplierEvaluator<IEntity>() {
+	public IExecutable createAtFeature(String fdUri) {
+		return new AbstractPureConditionalSupplierEvaluator() {
 			public IEntity get() {
 				IEntity parent = selfEntity.wGetParent();
 				if (EntityUtils.isNull(parent))
@@ -1013,8 +995,8 @@ public class RegularExecutableFactory implements ExecutableFactory {
 		};
 	}
 
-	public IExecutable<IEntity> createAtIndex(int index) {
-		return new AbstractPureConditionalSupplierEvaluator<IEntity>() {
+	public IExecutable createAtIndex(int index) {
+		return new AbstractPureConditionalSupplierEvaluator() {
 			public IEntity get() {
 				IEntity parent = selfEntity.wGetParent();
 				if (EntityUtils.isNull(parent))
@@ -1035,7 +1017,7 @@ public class RegularExecutableFactory implements ExecutableFactory {
 		};
 	}
 
-	public IExecutable<IEntity> createAsVariable(String name) {
+	public IExecutable createAsVariable(String name) {
 		return new AbstractVariableTestOrBindEvaluator(name) {
 			public boolean test(IBindingManager bm, String name) {
 				if (bm.wIsSet(name))
@@ -1053,7 +1035,7 @@ public class RegularExecutableFactory implements ExecutableFactory {
 			}
 		};
 	}
-	public IExecutable<IEntity> createAtStageVariable(String name) {
+	public IExecutable createAtStageVariable(String name) {
 		return new AbstractVariableTestOrBindEvaluator(name) {
 			public boolean test(IBindingManager bm, String name) {
 				int selfStage = bm.wGetEnvironmentManager().getCurrentOperation().getStage();
@@ -1072,7 +1054,7 @@ public class RegularExecutableFactory implements ExecutableFactory {
 			}
 		};
 	}
-	public IExecutable<IEntity> createLanguageVariable(String name) {
+	public IExecutable createLanguageVariable(String name) {
 		return new AbstractVariableTestOrBindEvaluator(name) {
 			public boolean test(IBindingManager bm, String name) {
 				String languageUri = selfEntity.wGetLanguageKit().getURI();
@@ -1091,7 +1073,7 @@ public class RegularExecutableFactory implements ExecutableFactory {
 			}
 		};
 	}
-	public IExecutable<IEntity> createTypeVariable(String name) {
+	public IExecutable createTypeVariable(String name) {
 		return new AbstractVariableTestOrBindEvaluator(name) {
 			public boolean test(IBindingManager bm, String name) {
 				String entityUri = selfEntity.wGetEntityDescriptor().getURI();
@@ -1110,7 +1092,7 @@ public class RegularExecutableFactory implements ExecutableFactory {
 			}
 		};
 	}
-	public IExecutable<IEntity> createLanguageSubtypeOfVariable(String name) {
+	public IExecutable createLanguageSubtypeOfVariable(String name) {
 		return new AbstractVariableTestOrBindEvaluator(name) {
 			public boolean test(IBindingManager bm, String name) {
 				EntityDescriptor<?> selfEd = selfEntity.wGetEntityDescriptor();
@@ -1130,7 +1112,7 @@ public class RegularExecutableFactory implements ExecutableFactory {
 			}
 		};
 	}
-	public IExecutable<IEntity> createLanguageSupertypeOfVariable(String name) {
+	public IExecutable createLanguageSupertypeOfVariable(String name) {
 		return new AbstractVariableTestOrBindEvaluator(name) {
 			public boolean test(IBindingManager bm, String name) {
 				EntityDescriptor<?> selfEd = selfEntity.wGetEntityDescriptor();
@@ -1150,7 +1132,7 @@ public class RegularExecutableFactory implements ExecutableFactory {
 			}
 		};
 	}
-	public IExecutable<IEntity> createExtendedLanguageSubtypeOfVariable(String name) {
+	public IExecutable createExtendedLanguageSubtypeOfVariable(String name) {
 		return new AbstractVariableTestOrBindEvaluator(name) {
 			public boolean test(IBindingManager bm, String name) {
 				EntityDescriptor<?> selfEd = selfEntity.wGetEntityDescriptor();
@@ -1170,7 +1152,7 @@ public class RegularExecutableFactory implements ExecutableFactory {
 			}
 		};
 	}
-	public IExecutable<IEntity> createExtendedLanguageSupertypeOfVariable(String name) {
+	public IExecutable createExtendedLanguageSupertypeOfVariable(String name) {
 		return new AbstractVariableTestOrBindEvaluator(name) {
 			public boolean test(IBindingManager bm, String name) {
 				EntityDescriptor<?> selfEd = selfEntity.wGetEntityDescriptor();
@@ -1191,66 +1173,55 @@ public class RegularExecutableFactory implements ExecutableFactory {
 		};
 	}
 
-	@SuppressWarnings("unchecked")
-	public <E extends IEntity> IExecutable<E> createSelect(IExecutable<E> selectExecutable, IExecutable<? extends IEntity> fromExecutable, IExecutable<? extends IEntity> whereExecutable) {
-		return (IExecutable<E>) new SelectEvaluator((IExecutable<IEntity>) selectExecutable, (IExecutable<IEntity>) fromExecutable, (IExecutable<IEntity>) whereExecutable);
+	public IExecutable createSelect(IExecutable selectExecutable, IExecutable fromExecutable, IExecutable whereExecutable) {
+		return (IExecutable) new SelectEvaluator((IExecutable) selectExecutable, (IExecutable) fromExecutable, (IExecutable) whereExecutable);
 	}
 
-	@SuppressWarnings("unchecked")
-	public IExecutable<?> createTupleFactory(IExecutable<?>... executables) {
-		return (IExecutable<?>) new TupleFactoryEvaluator((IExecutable<IEntity>[]) executables);
+	public IExecutable createTupleFactory(IExecutable... executables) {
+		return (IExecutable) new TupleFactoryEvaluator((IExecutable[]) executables);
 	}
-	@SuppressWarnings("unchecked")
-	public IExecutable<IEntity> createPointwiseProduct(IExecutable<? extends IEntity>... executables) {
-		return new PointwiseProductEvaluator((IExecutable<IEntity>[]) executables);
+	public IExecutable createPointwiseProduct(IExecutable... executables) {
+		return new PointwiseProductEvaluator((IExecutable[]) executables);
 	}
-	@SuppressWarnings("unchecked")
-	public IExecutable<IEntity> createCartesianProduct(IExecutable<? extends IEntity>... executables) {
-		return new CartesianProductEvaluator((IExecutable<IEntity>[]) executables);
+	public IExecutable createCartesianProduct(IExecutable... executables) {
+		return new CartesianProductEvaluator((IExecutable[]) executables);
 	}
 
-	@SuppressWarnings("unchecked")
-	public <E extends IEntity> IExecutable<E> createPointwiseUpdate(IExecutable<? super E> toExecutable, IExecutable<E> valuesExecutable) {
-		return (IExecutable<E>) new PointwiseUpdateEvaluator((IExecutable<IEntity>) toExecutable, (IExecutable<IEntity>) valuesExecutable);
+	public IExecutable createPointwiseUpdate(IExecutable toExecutable, IExecutable valuesExecutable) {
+		return (IExecutable) new PointwiseUpdateEvaluator((IExecutable) toExecutable, (IExecutable) valuesExecutable);
 	}
-	@SuppressWarnings("unchecked")
-	public <E extends IEntity> IExecutable<E> createCartesianUpdate(IExecutable<E> toExecutable, IExecutable<? extends E> valuesExecutable) {
-		return (IExecutable<E>) new CartesianUpdateEvaluator((IExecutable<IEntity>) toExecutable, (IExecutable<IEntity>) valuesExecutable);
+	public IExecutable createCartesianUpdate(IExecutable toExecutable, IExecutable valuesExecutable) {
+		return (IExecutable) new CartesianUpdateEvaluator((IExecutable) toExecutable, (IExecutable) valuesExecutable);
 	}
 
-	@SuppressWarnings("unchecked")
-	public <E extends IEntity> IExecutable<E> createPointwiseInsert(IExecutable<? super E> toExecutable, IExecutable<E> valuesExecutable, Placement placement) {
-		return (IExecutable<E>) new PointwiseInsertEvaluator((IExecutable<IEntity>) toExecutable, (IExecutable<IEntity>) valuesExecutable, placement);
+	public IExecutable createPointwiseInsert(IExecutable toExecutable, IExecutable valuesExecutable, Placement placement) {
+		return (IExecutable) new PointwiseInsertEvaluator((IExecutable) toExecutable, (IExecutable) valuesExecutable, placement);
 	}
-	@SuppressWarnings("unchecked")
-	public <E extends IEntity> IExecutable<E> createCartesianInsert(IExecutable<E> toExecutable, IExecutable<? extends E> valuesExecutable, Placement placement) {
-		return (IExecutable<E>) new CartesianInsertEvaluator((IExecutable<IEntity>) toExecutable, (IExecutable<IEntity>) valuesExecutable, placement);
+	public IExecutable createCartesianInsert(IExecutable toExecutable, IExecutable valuesExecutable, Placement placement) {
+		return (IExecutable) new CartesianInsertEvaluator((IExecutable) toExecutable, (IExecutable) valuesExecutable, placement);
 	}
 
-	public <E extends IEntity> IExecutable<E> createDelete(IExecutable<IEntity> valuesExecutable) {
-		return new DeleteEvaluator<E>(valuesExecutable);
+	public IExecutable createDelete(IExecutable valuesExecutable) {
+		return new DeleteEvaluator(valuesExecutable);
 	}
 
-	public IExecutable<IEntity> createFunctionApplication(String functionUri) {
+	public IExecutable createFunctionApplication(String functionUri) {
 		return new FunctionApplicationEvaluator(functionUri);
 	}
-	public IExecutable<IEntity> createRecursiveFunctionApplication() {
+	public IExecutable createRecursiveFunctionApplication() {
 		return new RecursiveFunctionApplicationEvaluator();
 	}
 
-	@SuppressWarnings("unchecked")
-	public <E extends IEntity> IExecutable<E> createCall(String name, IExecutable<? extends E>... argsExecutables) {
-    	return (IExecutable<E>) new CallEvaluator(name, (IExecutable<IEntity>[]) argsExecutables);
+	public IExecutable createCall(String name, IExecutable... argsExecutables) {
+    	return (IExecutable) new CallEvaluator(name, (IExecutable[]) argsExecutables);
     }
 
-	@SuppressWarnings("unchecked")
-	public <E extends IEntity> IExecutable<E> createTemplateInterpreter(IEntity template) {
-		return (IExecutable<E>) new TemplateInterpreterEvaluator(template);
+	public IExecutable createTemplateInterpreter(IEntity template) {
+		return (IExecutable) new TemplateInterpreterEvaluator(template);
 	}
 
-	@SuppressWarnings("unchecked")
-	public IExecutable<?> createNestedVariable() {
-		return new MultiValuedRunnableEvaluator<IEntity>( (selfEntity, bm, args) -> {
+	public IExecutable createNestedVariable() {
+		return new MultiValuedRunnableEvaluator( (selfEntity, bm, args) -> {
 					IEntity outerSelfEntity = bm.wGet(IBindingManager.OUTER_SELF);
 					bm.wDef(IBindingManager.SELF, outerSelfEntity);
 					Variable variable = (Variable) selfEntity;
@@ -1269,10 +1240,9 @@ public class RegularExecutableFactory implements ExecutableFactory {
 		};
 	}
 
-	@SuppressWarnings("unchecked")
-	public IExecutable<?> createNestedFragment(Map<IEntity, IExecutable<?>> fragmentExecutableMap) {
-		return new MultiValuedRunnableEvaluator<IEntity>( (selfEntity, bm, args) -> {
-				IExecutable<?> fragmentExecutable = fragmentExecutableMap.getOrDefault(selfEntity, createEmpty());
+	public IExecutable createNestedFragment(Map<IEntity, IExecutable> fragmentExecutableMap) {
+		return new MultiValuedRunnableEvaluator( (selfEntity, bm, args) -> {
+				IExecutable fragmentExecutable = fragmentExecutableMap.getOrDefault(selfEntity, createEmpty());
 				
 				//TODO clone executable
 
@@ -1283,7 +1253,7 @@ public class RegularExecutableFactory implements ExecutableFactory {
 				bm.setExecutableResult(fragmentExecutable);
 		}) {
 			@Override
-			protected void resetExecutableResult(IExecutable<IEntity> executableResult, IEntity selfEntity, IBindingManager bm) {
+			protected void resetExecutableResult(IExecutable executableResult, IEntity selfEntity, IBindingManager bm) {
 				IEntity outerSelfEntity = bm.wGet(IBindingManager.OUTER_SELF);
 				bm.wDef(IBindingManager.SELF, outerSelfEntity);
 				executableResult.setBindings(bm);
@@ -1297,12 +1267,12 @@ public class RegularExecutableFactory implements ExecutableFactory {
 		};
 	}
 
-	public IExecutable<?> createCloneReplacing(IExecutable<?> childMappingExecutable) {
+	public IExecutable createCloneReplacing(IExecutable childMappingExecutable) {
 		return createCloneReplacing(childMappingExecutable, null);
 	}
-	public IExecutable<?> createCloneReplacing(IExecutable<?> childMappingExecutable, Set<String> shallowUriSet) {
+	public IExecutable createCloneReplacing(IExecutable childMappingExecutable, Set<String> shallowUriSet) {
 		if (childMappingExecutable.undecoratedExecutable() instanceof EmptyExecutable) {
-			return new AbstractPureConditionalSupplierEvaluator<IEntity>() {
+			return new AbstractPureConditionalSupplierEvaluator() {
 				public IEntity get() {
 					return EntityUtils.clone(selfEntity);
 				}

@@ -63,7 +63,7 @@ public class RewriteQueriesTest {
 		ITemplateManager tm = RewriteQueriesTemplateManager.instance();
 		PathExpression query = (PathExpression) tm.create("delete1");
 
-		for (DataEntity dataEntity : BehaviorUtils.<DataEntity>compileAndLazyEvaluate(query, model))
+		for (DataEntity dataEntity : BehaviorUtils.compileAndLazyEvaluate(query, model).<DataEntity>client())
 			assertTrue(Matcher.match(ModelsEntityDescriptorEnum.DataEntity, dataEntity));
 
 		assertNull(BehaviorUtils.compileAndLazyEvaluate(query, model).evaluateNext());
@@ -76,7 +76,7 @@ public class RewriteQueriesTest {
 		ITemplateManager tm = RewriteQueriesTemplateManager.instance();
 		PathExpression query = (PathExpression) tm.create("delete2");
 
-		for (Name name : BehaviorUtils.<Name>compileAndLazyEvaluate(query, model))
+		for (Name name : BehaviorUtils.compileAndLazyEvaluate(query, model).<Name>client())
 			assertTrue(Matcher.match(GrammarsEntityDescriptorEnum.Name, name));
 
 		for (IEntity name : BehaviorUtils.compileAndLazyEvaluate(query, model))

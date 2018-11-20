@@ -128,7 +128,7 @@ public class GrammarsUtils {
 
 	public static void ensureCompiledPatterns(Grammar grammar) {
 		ExecutableFactory f = ExecutableFactory.instance;
-		IExecutable<IEntity> i = f.createFilter(f.createDescendantOrSelf(), f.createHasType(GrammarsEntityDescriptorEnum.RegExp.getURI()));
+		IExecutable i = f.createFilter(f.createDescendantOrSelf(), f.createHasType(GrammarsEntityDescriptorEnum.RegExp.getURI()));
 		i.reset(grammar);
 
 		for (IEntity pattern = i.evaluateNext(); pattern != null;

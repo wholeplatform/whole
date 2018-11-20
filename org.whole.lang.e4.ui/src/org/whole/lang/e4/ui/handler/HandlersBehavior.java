@@ -139,7 +139,7 @@ public class HandlersBehavior {
 		if (selectionTuple.wSize() == 0 || (single && selectionTuple.wSize() > 1))
 			return false;
 		
-		IExecutable<IEntity> executable = ExecutableFactory.instance.createChild();
+		IExecutable executable = ExecutableFactory.instance.createChild();
 		executable.getBindings().enforceSelfBinding(selectionTuple);
 		executable.reset(selectionTuple);
 		for (IEntity entity = executable.evaluateNext(); entity != null; entity = executable.evaluateNext()) {
@@ -222,7 +222,7 @@ public class HandlersBehavior {
 		if (clipboardTuple == null)
 			return false;
 
-		IExecutable<IEntity> executable = ExecutableFactory.instance.createChild();
+		IExecutable executable = ExecutableFactory.instance.createChild();
 		executable.getBindings().enforceSelfBinding(clipboardTuple);
 		executable.reset(clipboardTuple);
 
@@ -250,7 +250,7 @@ public class HandlersBehavior {
 
 		IEntity clipboardContent = runnable.get();
 		if (clipboardContent != null) {
-			IExecutable<IEntity> executable = ExecutableFactory.instance.createChildReverse();
+			IExecutable executable = ExecutableFactory.instance.createChildReverse();
 			executable.getBindings().enforceSelfBinding(clipboardContent);
 			executable.reset(clipboardContent);
 	
@@ -312,7 +312,7 @@ public class HandlersBehavior {
 		IEntity entity = E4Utils.syncExec(bm, entityRunnable).get();
 
 		boolean adding = dialog.isForceAdding();
-		IExecutable<IEntity> executable;
+		IExecutable executable;
 		if (bm.wIsSet("syntheticRoot")) {
 			IEntity syntheticRoot = bm.wGet("syntheticRoot");
 			adding |= syntheticRoot.wSize() > 1;
@@ -359,7 +359,7 @@ public class HandlersBehavior {
 		IEntity selectedEntities = bm.wGet("selectedEntities");
 		List<IEntity> rootEntities = new ArrayList<IEntity>();
 
-		IExecutable<IEntity> executable = ExecutableFactory.instance.createChild();
+		IExecutable executable = ExecutableFactory.instance.createChild();
 		executable.getBindings().enforceSelfBinding(selectedEntities);
 		executable.reset(selectedEntities);
 		for (IEntity entity = executable.evaluateNext(); entity != null; entity = executable.evaluateNext()) {
@@ -619,7 +619,7 @@ public class HandlersBehavior {
 			bm.wSet("focusEntity", EntityUtils.mapEntity(bm.wGet("focusEntity"), model));
 		}
 
-		IExecutable<?> executable = new ActionCallEvaluator(bm.wStringValue("functionUri"));
+		IExecutable executable = new ActionCallEvaluator(bm.wStringValue("functionUri"));
 
 		if (analyzing) {
 			executable.setBindings(bm);

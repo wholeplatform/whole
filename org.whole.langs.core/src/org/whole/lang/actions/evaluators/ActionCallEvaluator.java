@@ -27,26 +27,24 @@ import org.whole.lang.operations.ICloneContext;
 /**
  * @author Riccardo Solmi
  */
-public class ActionCallEvaluator extends AbstractDelegatingNestedEvaluator<IEntity>{
+public class ActionCallEvaluator extends AbstractDelegatingNestedEvaluator {
 	protected String functionUri;
-	protected IExecutable<IEntity> functionExecutable;
+	protected IExecutable functionExecutable;
 	protected boolean functionExecutableNeedInit;
 	protected boolean useSelectedEntities;
 
-	@SuppressWarnings("unchecked")
 	public ActionCallEvaluator(String functionUri) {
 		this(functionUri, new IExecutable[0]);
 		useSelectedEntities = true;
 	}
-	@SuppressWarnings("unchecked")
-	public ActionCallEvaluator(String functionUri, IExecutable<IEntity>... optArgsExecutables) {
+	public ActionCallEvaluator(String functionUri, IExecutable... optArgsExecutables) {
 		super(optArgsExecutables != null ? optArgsExecutables : new IExecutable[0]);
 		this.functionUri = functionUri;
 		useSelectedEntities = false;
 	}
 
 	@Override
-	public IExecutable<IEntity> clone(ICloneContext cc) {
+	public IExecutable clone(ICloneContext cc) {
 		ActionCallEvaluator result = (ActionCallEvaluator) super.clone(cc);
 		result.functionExecutable = cc.clone(functionExecutable);
 		result.functionExecutableNeedInit = true;
@@ -59,7 +57,7 @@ public class ActionCallEvaluator extends AbstractDelegatingNestedEvaluator<IEnti
 		functionExecutableNeedInit = true;
 	}
 
-	protected IExecutable<IEntity> functionExecutable() {
+	protected IExecutable functionExecutable() {
 		if (functionExecutable == null) {
 			functionExecutable = ActionsRegistry.instance().getFunctionCode(functionUri, true, getBindings());
 			functionExecutable.setBindings(getBindings());

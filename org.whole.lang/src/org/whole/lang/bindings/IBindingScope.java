@@ -144,8 +144,8 @@ public interface IBindingScope extends ICloneable, ISourceable {
 	public void wSetResultScope(IBindingScope scope);
 
 	public boolean isExecutableResult();
-	public <E extends IEntity> IExecutable<E> getExecutableResult();
-	public void setExecutableResult(IExecutable<?> executableResult);
+	public IExecutable getExecutableResult();
+	public void setExecutableResult(IExecutable executableResult);
 	public IEntity getResult();
 	public void setResult(IEntity value);
 }

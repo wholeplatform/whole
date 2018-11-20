@@ -34,24 +34,24 @@ import org.whole.lang.util.WholeMessages;
 /**
  * @author Riccardo Solmi
  */
-public class MultiValuedRunnableEvaluator<E extends IEntity> extends AbstractNestedEvaluator<E> {
+public class MultiValuedRunnableEvaluator extends AbstractNestedEvaluator {
 	protected Set<Integer> optionalProducersIndexSet;
-	protected IExecutable<E> executableResult;
+	protected IExecutable executableResult;
 	protected IRunnable runnable;
 
-	public MultiValuedRunnableEvaluator(IRunnable runnable, IExecutable<IEntity>... argsExecutables) {
+	public MultiValuedRunnableEvaluator(IRunnable runnable, IExecutable... argsExecutables) {
 		super(argsExecutables);
 		optionalProducersIndexSet = Collections.emptySet();
 		this.runnable = runnable;
 	}
-	public MultiValuedRunnableEvaluator(IRunnable runnable, int[] optionalArgsIndexes, IExecutable<IEntity>... argsExecutables) {
+	public MultiValuedRunnableEvaluator(IRunnable runnable, int[] optionalArgsIndexes, IExecutable... argsExecutables) {
 		super(argsExecutables);
 		optionalProducersIndexSet = Arrays.stream(optionalArgsIndexes).boxed().collect(Collectors.toSet());
 		this.runnable = runnable;
 	}
 
-	public IExecutable<E> clone(ICloneContext cc) {
-		MultiValuedRunnableEvaluator<E> evaluator = (MultiValuedRunnableEvaluator<E>) super.clone(cc);
+	public IExecutable clone(ICloneContext cc) {
+		MultiValuedRunnableEvaluator evaluator = (MultiValuedRunnableEvaluator) super.clone(cc);
 		evaluator.executableResult = cc.clone(executableResult);
 		return evaluator;
 	}
@@ -74,16 +74,16 @@ public class MultiValuedRunnableEvaluator<E extends IEntity> extends AbstractNes
 	}
 
 	@Override
-	public E evaluateNext() {
+	public IEntity evaluateNext() {
 		return lastEntity = getExecutableResult().evaluateNext();
 	}
 
 	@Override
-	public E evaluateRemaining() {
+	public IEntity evaluateRemaining() {
 		return lastEntity = getExecutableResult().evaluateRemaining();
 	}
 
-	protected IExecutable<E> getExecutableResult() {
+	protected IExecutable getExecutableResult() {
 		if (executableResult == null) {
 			try {
 				IBindingManager bm = getBindings();
@@ -107,7 +107,7 @@ public class MultiValuedRunnableEvaluator<E extends IEntity> extends AbstractNes
 		}
 		return executableResult;
 	}
-	protected void resetExecutableResult(IExecutable<E> executableResult, IEntity selfEntity, IBindingManager bm) {
+	protected void resetExecutableResult(IExecutable executableResult, IEntity selfEntity, IBindingManager bm) {
 		executableResult.setBindings(bm);
 		executableResult.reset(selfEntity);
 	}
@@ -116,13 +116,13 @@ public class MultiValuedRunnableEvaluator<E extends IEntity> extends AbstractNes
     	if (executableResult != null)
     		executableResult.prune();
     }
-	public void set(E entity) {
+	public void set(IEntity entity) {
     	if (executableResult == null)
     		throw new IllegalStateException();
 
     	executableResult.set(entity);
 	}
-	public void add(E entity) {
+	public void add(IEntity entity) {
     	if (executableResult == null)
     		throw new IllegalStateException();
 

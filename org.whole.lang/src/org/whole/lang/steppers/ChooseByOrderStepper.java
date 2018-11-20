@@ -23,11 +23,11 @@ import org.whole.lang.model.IEntity;
 /**
  * @author Riccardo Solmi
  */
-public class ChooseByOrderStepper<E extends IEntity> extends AbstractDelegatingNestedStepper<E> {
+public class ChooseByOrderStepper extends AbstractDelegatingNestedStepper {
 	protected boolean choosen;
 
 	@SuppressWarnings("unchecked")
-	public ChooseByOrderStepper(IExecutable<? extends E>... steppers) {
+	public ChooseByOrderStepper(IExecutable... steppers) {
 		super(steppers);
 	}
 

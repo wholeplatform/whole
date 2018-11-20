@@ -59,7 +59,7 @@ public class XmlNormalizerBuilderTest {
 			Document xmlDocument = sampleXmlModelTemplate.create();
 
 			// has nested Content
-			IExecutable<IEntity> executable = BehaviorUtils.compileAndLazyEvaluate(findNestedContent, xmlDocument);
+			IExecutable executable = BehaviorUtils.compileAndLazyEvaluate(findNestedContent, xmlDocument);
 			assertNotNull(executable.evaluateNext());
 
 			// has nested implied Content
@@ -115,7 +115,7 @@ public class XmlNormalizerBuilderTest {
 			Document normalizedXmlDocument = (Document) mop.wGetResult();
 
 			// no nested Content
-			IExecutable<IEntity> executable = BehaviorUtils.compileAndLazyEvaluate(findNestedContent, normalizedXmlDocument);
+			IExecutable executable = BehaviorUtils.compileAndLazyEvaluate(findNestedContent, normalizedXmlDocument);
 			assertNull(executable.evaluateNext());
 
 			// no nested implied Content

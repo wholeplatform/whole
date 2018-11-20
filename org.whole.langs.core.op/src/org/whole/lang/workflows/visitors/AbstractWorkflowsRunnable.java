@@ -40,7 +40,7 @@ public abstract class AbstractWorkflowsRunnable implements IRunnable {
     }
     protected static void setResult(IBindingManager bm, Variable variable, Object resultValue, Class<?> resultType) {
 		if (resultValue instanceof IExecutable) {
-			bm.setExecutableResult((IExecutable<?>) resultValue);
+			bm.setExecutableResult((IExecutable) resultValue);
 		} else if (Void.TYPE.equals(resultType)) {
 			if (EntityUtils.isNotResolver(variable))
 				throw new IllegalArgumentException("cannot bind a void result");

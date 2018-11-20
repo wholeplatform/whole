@@ -24,6 +24,7 @@ import java.util.regex.Pattern;
 
 import org.whole.lang.executables.ExecutableFactory;
 import org.whole.lang.executables.IExecutable;
+import org.whole.lang.executables.IExecutableClient;
 import org.whole.lang.grammars.codebase.GrammarsRegistry;
 import org.whole.lang.grammars.model.CompiledPattern;
 import org.whole.lang.grammars.model.DataTerminal;
@@ -91,13 +92,13 @@ public class GenericGrammarBasedValidatorVisitor extends GenericIdentityVisitor 
 		
 		//TODO ensure grammar normalized
 		Map<String, Rule> productions = new HashMap<String, Rule>();
-		IExecutable<Production> pi = executableFactory().<Production>createChild();
+		IExecutableClient<Production> pi = executableFactory().createChild().client();
 		pi.reset(grammar.getPhraseStructure());
 		for (Production p : pi)
 			productions.put(p.getName().getValue(), p.getRule());
 		
 		Map<String, Rule> lexicon = new HashMap<String, Rule>();
-		IExecutable<Production> li = executableFactory().<Production>createChild();
+		IExecutableClient<Production> li = executableFactory().createChild().client();
 		li.reset(grammar.getLexicalStructure());
 		for (Production p : li)
 			lexicon.put(p.getName().getValue(), p.getRule());
@@ -128,7 +129,7 @@ public class GenericGrammarBasedValidatorVisitor extends GenericIdentityVisitor 
 		calculateDataTerminals(grammar);
 
 		ExecutableFactory f = executableFactory();
-		IExecutable<IEntity> executable = f.createFilter(f.createDescendantOrSelf(), f.createHasKind(EntityKinds.DATA));
+		IExecutable executable = f.createFilter(f.createDescendantOrSelf(), f.createHasKind(EntityKinds.DATA));
 		executable.reset(entity);
 		for (IEntity e = executable.evaluateNext(); e != null;
 					 e = executable.evaluateNext())

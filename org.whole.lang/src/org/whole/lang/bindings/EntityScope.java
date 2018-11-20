@@ -401,11 +401,10 @@ public class EntityScope extends AbstractCloneableScope {
 	public boolean isExecutableResult() {
 		return false;
 	}
-	@SuppressWarnings("unchecked")
-	public <E extends IEntity> IExecutable<E> getExecutableResult() {
-		return BindingManagerFactory.instance.executableResultOf((E) getResult());		
+	public IExecutable getExecutableResult() {
+		return BindingManagerFactory.instance.executableResultOf(getResult());		
 	}
-	public void setExecutableResult(IExecutable<?> executableResult) {
+	public void setExecutableResult(IExecutable executableResult) {
 	}
 	public IEntity getResult() {
 		return null;		

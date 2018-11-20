@@ -23,7 +23,7 @@ import org.whole.lang.util.BindingUtils;
 /**
  * @author Riccardo Solmi
  */
-public class VariableEvaluator<E extends IEntity> extends AbstractVariableEvaluator<E> {
+public class VariableEvaluator extends AbstractVariableEvaluator {
 	public VariableEvaluator(String varName) {
 		super(varName);
 	}
@@ -32,12 +32,11 @@ public class VariableEvaluator<E extends IEntity> extends AbstractVariableEvalua
 		return BindingUtils.wIsSet(getBindings(), varName);
 	}
 
-	@SuppressWarnings("unchecked")
-	protected E getVariable() {
-		return (E) BindingUtils.wGet(getBindings(), varName);
+	protected IEntity getVariable() {
+		return BindingUtils.wGet(getBindings(), varName);
 	}
 	
-	protected void setVariable(E entity) {
+	protected void setVariable(IEntity entity) {
 		BindingUtils.wSet(getBindings(), varName, entity);
 	}
 }

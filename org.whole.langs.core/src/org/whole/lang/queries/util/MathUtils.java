@@ -32,7 +32,7 @@ import org.whole.lang.util.WholeMessages;
  */
 public class MathUtils {
 	@SuppressWarnings("unchecked")
-	public static IExecutable<IEntity> createAdditionStep(IExecutable<IEntity> expression) {
+	public static IExecutable createAdditionStep(IExecutable expression) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
 			public IEntity get() {
 				return addition(selfEntity, getProducer(0).evaluateRemaining());
@@ -43,7 +43,7 @@ public class MathUtils {
 		};
 	}
 	@SuppressWarnings("unchecked")
-	public static IExecutable<IEntity> createSubtractionStep(IExecutable<IEntity> expression) {
+	public static IExecutable createSubtractionStep(IExecutable expression) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
 			public IEntity get() {
 				return subtraction(selfEntity, getProducer(0).evaluateRemaining());
@@ -54,7 +54,7 @@ public class MathUtils {
 		};
 	}
 	@SuppressWarnings("unchecked")
-	public static IExecutable<IEntity> createMultiplicationStep(IExecutable<IEntity> expression) {
+	public static IExecutable createMultiplicationStep(IExecutable expression) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
 			public IEntity get() {
 				return multiplication(selfEntity, getProducer(0).evaluateRemaining());
@@ -65,7 +65,7 @@ public class MathUtils {
 		};
 	}
 	@SuppressWarnings("unchecked")
-	public static IExecutable<IEntity> createDivisionStep(IExecutable<IEntity> expression) {
+	public static IExecutable createDivisionStep(IExecutable expression) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
 			public IEntity get() {
 				return division(selfEntity, getProducer(0).evaluateRemaining());
@@ -76,7 +76,7 @@ public class MathUtils {
 		};
 	}
 	@SuppressWarnings("unchecked")
-	public static IExecutable<IEntity> createRemainderStep(IExecutable<IEntity> expression) {
+	public static IExecutable createRemainderStep(IExecutable expression) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
 			public IEntity get() {
 				return remainder(selfEntity, getProducer(0).evaluateRemaining());
@@ -88,7 +88,7 @@ public class MathUtils {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static IExecutable<IEntity> createEqualsStep(IExecutable<IEntity> expression) {
+	public static IExecutable createEqualsStep(IExecutable expression) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
 			public IEntity get() {
 				return MathUtils.equals(selfEntity, getProducer(0).evaluateRemaining());
@@ -99,7 +99,7 @@ public class MathUtils {
 		};
 	}
 	@SuppressWarnings("unchecked")
-	public static IExecutable<IEntity> createNotEqualsStep(IExecutable<IEntity> expression) {
+	public static IExecutable createNotEqualsStep(IExecutable expression) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
 			public IEntity get() {
 				return notEquals(selfEntity, getProducer(0).evaluateRemaining());
@@ -110,7 +110,7 @@ public class MathUtils {
 		};
 	}
 	@SuppressWarnings("unchecked")
-	public static IExecutable<IEntity> createLessThanStep(IExecutable<IEntity> expression) {
+	public static IExecutable createLessThanStep(IExecutable expression) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
 			public IEntity get() {
 				return lessThan(selfEntity, getProducer(0).evaluateRemaining());
@@ -121,7 +121,7 @@ public class MathUtils {
 		};
 	}
 	@SuppressWarnings("unchecked")
-	public static IExecutable<IEntity> createLessOrEqualsStep(IExecutable<IEntity> expression) {
+	public static IExecutable createLessOrEqualsStep(IExecutable expression) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
 			public IEntity get() {
 				return lessOrEquals(selfEntity, getProducer(0).evaluateRemaining());
@@ -132,7 +132,7 @@ public class MathUtils {
 		};
 	}
 	@SuppressWarnings("unchecked")
-	public static IExecutable<IEntity> createGreaterThanStep(IExecutable<IEntity> expression) {
+	public static IExecutable createGreaterThanStep(IExecutable expression) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
 			public IEntity get() {
 				return greaterThan(selfEntity, getProducer(0).evaluateRemaining());
@@ -143,7 +143,7 @@ public class MathUtils {
 		};
 	}
 	@SuppressWarnings("unchecked")
-	public static IExecutable<IEntity> createGreaterOrEqualsStep(IExecutable<IEntity> expression) {
+	public static IExecutable createGreaterOrEqualsStep(IExecutable expression) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
 			public IEntity get() {
 				return greaterOrEquals(selfEntity, getProducer(0).evaluateRemaining());
@@ -156,7 +156,7 @@ public class MathUtils {
 
 
 	@SuppressWarnings("unchecked")
-	public static IExecutable<IEntity> createAddition(IExecutable<IEntity> exp1, IExecutable<IEntity> exp2) {
+	public static IExecutable createAddition(IExecutable exp1, IExecutable exp2) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(exp1, exp2) {
 			public IEntity get() {
 				return addition(getProducer(0).evaluateRemaining(), getProducer(1).evaluateRemaining());
@@ -167,7 +167,7 @@ public class MathUtils {
 		};
 	}
 	@SuppressWarnings("unchecked")
-	public static IExecutable<IEntity> createSubtraction(IExecutable<IEntity> exp1, IExecutable<IEntity> exp2) {
+	public static IExecutable createSubtraction(IExecutable exp1, IExecutable exp2) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(exp1, exp2) {
 			public IEntity get() {
 				return subtraction(getProducer(0).evaluateRemaining(), getProducer(1).evaluateRemaining());
@@ -178,7 +178,7 @@ public class MathUtils {
 		};
 	}
 	@SuppressWarnings("unchecked")
-	public static IExecutable<IEntity> createMultiplication(IExecutable<IEntity> exp1, IExecutable<IEntity> exp2) {
+	public static IExecutable createMultiplication(IExecutable exp1, IExecutable exp2) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(exp1, exp2) {
 			public IEntity get() {
 				return multiplication(getProducer(0).evaluateRemaining(), getProducer(1).evaluateRemaining());
@@ -189,7 +189,7 @@ public class MathUtils {
 		};
 	}
 	@SuppressWarnings("unchecked")
-	public static IExecutable<IEntity> createDivision(IExecutable<IEntity> exp1, IExecutable<IEntity> exp2) {
+	public static IExecutable createDivision(IExecutable exp1, IExecutable exp2) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(exp1, exp2) {
 			public IEntity get() {
 				return division(getProducer(0).evaluateRemaining(), getProducer(1).evaluateRemaining());
@@ -200,7 +200,7 @@ public class MathUtils {
 		};
 	}
 	@SuppressWarnings("unchecked")
-	public static IExecutable<IEntity> createRemainder(IExecutable<IEntity> exp1, IExecutable<IEntity> exp2) {
+	public static IExecutable createRemainder(IExecutable exp1, IExecutable exp2) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(exp1, exp2) {
 			public IEntity get() {
 				return remainder(getProducer(0).evaluateRemaining(), getProducer(1).evaluateRemaining());
@@ -212,7 +212,7 @@ public class MathUtils {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static IExecutable<IEntity> createEquals(IExecutable<IEntity> exp1, IExecutable<IEntity> exp2) {
+	public static IExecutable createEquals(IExecutable exp1, IExecutable exp2) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(exp1, exp2) {
 			public IEntity get() {
 				return MathUtils.equals(getProducer(0).evaluateRemaining(), getProducer(1).evaluateRemaining());
@@ -223,7 +223,7 @@ public class MathUtils {
 		};
 	}
 	@SuppressWarnings("unchecked")
-	public static IExecutable<IEntity> createNotEquals(IExecutable<IEntity> exp1, IExecutable<IEntity> exp2) {
+	public static IExecutable createNotEquals(IExecutable exp1, IExecutable exp2) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(exp1, exp2) {
 			public IEntity get() {
 				return notEquals(getProducer(0).evaluateRemaining(), getProducer(1).evaluateRemaining());
@@ -234,7 +234,7 @@ public class MathUtils {
 		};
 	}
 	@SuppressWarnings("unchecked")
-	public static IExecutable<IEntity> createLessThan(IExecutable<IEntity> exp1, IExecutable<IEntity> exp2) {
+	public static IExecutable createLessThan(IExecutable exp1, IExecutable exp2) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(exp1, exp2) {
 			public IEntity get() {
 				return lessThan(getProducer(0).evaluateRemaining(), getProducer(1).evaluateRemaining());
@@ -245,7 +245,7 @@ public class MathUtils {
 		};
 	}
 	@SuppressWarnings("unchecked")
-	public static IExecutable<IEntity> createLessOrEquals(IExecutable<IEntity> exp1, IExecutable<IEntity> exp2) {
+	public static IExecutable createLessOrEquals(IExecutable exp1, IExecutable exp2) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(exp1, exp2) {
 			public IEntity get() {
 				return lessOrEquals(getProducer(0).evaluateRemaining(), getProducer(1).evaluateRemaining());
@@ -256,7 +256,7 @@ public class MathUtils {
 		};
 	}
 	@SuppressWarnings("unchecked")
-	public static IExecutable<IEntity> createGreaterThan(IExecutable<IEntity> exp1, IExecutable<IEntity> exp2) {
+	public static IExecutable createGreaterThan(IExecutable exp1, IExecutable exp2) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(exp1, exp2) {
 			public IEntity get() {
 				return greaterThan(getProducer(0).evaluateRemaining(), getProducer(1).evaluateRemaining());
@@ -267,7 +267,7 @@ public class MathUtils {
 		};
 	}
 	@SuppressWarnings("unchecked")
-	public static IExecutable<IEntity> createGreaterOrEquals(IExecutable<IEntity> exp1, IExecutable<IEntity> exp2) {
+	public static IExecutable createGreaterOrEquals(IExecutable exp1, IExecutable exp2) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(exp1, exp2) {
 			public IEntity get() {
 				return greaterOrEquals(getProducer(0).evaluateRemaining(), getProducer(1).evaluateRemaining());

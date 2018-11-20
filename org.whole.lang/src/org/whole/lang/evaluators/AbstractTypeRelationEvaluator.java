@@ -27,7 +27,7 @@ import org.whole.lang.util.ResourceUtils;
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractTypeRelationEvaluator extends AbstractPureConditionalSupplierEvaluator<IEntity> {
+public abstract class AbstractTypeRelationEvaluator extends AbstractPureConditionalSupplierEvaluator {
 	protected final String typeUri;
 
 	public AbstractTypeRelationEvaluator(String typeUri) {

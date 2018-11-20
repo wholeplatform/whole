@@ -22,7 +22,7 @@ import org.whole.lang.model.IEntity;
 /**
  * @author Riccardo Solmi
  */
-public class AdjacentStepper<E extends IEntity> extends AbstractByIndexStepper<E> {
+public class AdjacentStepper extends AbstractByIndexStepper {
 	public AdjacentStepper(boolean forward) {
     	super(forward);
     }

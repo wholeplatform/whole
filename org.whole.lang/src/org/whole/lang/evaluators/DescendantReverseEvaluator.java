@@ -23,7 +23,7 @@ import org.whole.lang.model.IEntity;
 /**
  * @author Riccardo Solmi
  */
-public class DescendantReverseEvaluator<E extends IEntity> extends AbstractTransitiveClosureEvaluator<E> {
+public class DescendantReverseEvaluator extends AbstractTransitiveClosureEvaluator {
 	public DescendantReverseEvaluator(boolean includeSelf) {
     	super(includeSelf);
     }
@@ -32,8 +32,8 @@ public class DescendantReverseEvaluator<E extends IEntity> extends AbstractTrans
 		return entity.wSize() > 0;
 	}
 
-	protected IExecutable<E> createRelationExecutable() {
-    	return executableFactory().<E>createChildReverse();
+	protected IExecutable createRelationExecutable() {
+    	return executableFactory().createChildReverse();
     }
 
     public void toString(StringBuilder sb) {

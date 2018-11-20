@@ -54,7 +54,7 @@ import org.whole.lang.util.ResourceUtils;
  */
 public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisitor {
     @Override
-	public void setExecutableResult(IExecutable<?> executable) {
+	public void setExecutableResult(IExecutable executable) {
 		if (executable != null)
 			executable.setBindings(getBindings());
 		super.setExecutableResult(executable);
@@ -142,8 +142,8 @@ public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisit
 	public void visit(Adapt entity) {
 		Reusable reusable = entity.getAdapted();
 
-		IExecutable<IEntity> contentExecutable = null;
-		IExecutable<IEntity> adapterExecutable = null;
+		IExecutable contentExecutable = null;
+		IExecutable adapterExecutable = null;
 		if (EntityUtils.isResolver(reusable)) {
 			contentExecutable = executableFactory().createConstant(entity.getOriginal(), false);
 
@@ -157,7 +157,7 @@ public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisit
 			contentExecutable = executableFactory().createConstant(reusable, false);
 
 		boolean updateAdapted = EntityUtils.isResolver(entity.getAdapted());
-		IExecutable<IEntity> evaluateExecutable = executableFactory().createSingleValuedRunnable(
+		IExecutable evaluateExecutable = executableFactory().createSingleValuedRunnable(
 			(selfEntity, bm, arguments) -> {
 				try {
 					getBindings().wEnterScope();
@@ -179,7 +179,7 @@ public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisit
 			}
 		);
 
-		IExecutable<? extends IEntity> expandExecutable = adapterExecutable != null ? 
+		IExecutable expandExecutable = adapterExecutable != null ? 
 				executableFactory().createCompose(evaluateExecutable, adapterExecutable, contentExecutable) :
 					executableFactory().createCompose(evaluateExecutable, contentExecutable);
 
@@ -191,9 +191,9 @@ public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisit
 
 	@Override
 	public void visit(Include entity) {
-		IExecutable<IEntity> contentExecutable = (IExecutable<IEntity>) readResource(entity.getResource());
+		IExecutable contentExecutable = (IExecutable) readResource(entity.getResource());
 
-		IExecutable<IEntity> evaluateExecutable = executableFactory().createSingleValuedRunnable(
+		IExecutable evaluateExecutable = executableFactory().createSingleValuedRunnable(
 				(selfEntity, bm, arguments) -> evaluateAndClone(selfEntity, bm));
 		setExecutableResult(executableFactory().createCompose(evaluateExecutable, contentExecutable));
 	}
@@ -204,8 +204,8 @@ public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisit
 
 		Reusable original = CommonsEntityAdapterFactory.createResolver(Reusable);
 
-		IExecutable<IEntity> contentExecutable = null;
-		IExecutable<IEntity> adapterExecutable = null;
+		IExecutable contentExecutable = null;
+		IExecutable adapterExecutable = null;
 		if (EntityUtils.isResolver(reusable)) {
 			try {
 				getBindings().wEnterScope();
@@ -214,7 +214,7 @@ public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisit
 				reusable =  entity.getOriginal();
 	
 				if (EntityUtils.isResolver(reusable)) {
-					contentExecutable = (IExecutable<IEntity>) readResource(entity.getResource());
+					contentExecutable = (IExecutable) readResource(entity.getResource());
 					contentExecutable.setBindings(getBindings());
 					contentExecutable.reset(entity);
 					IEntity e = contentExecutable.evaluateNext();
@@ -243,7 +243,7 @@ public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisit
 			contentExecutable = executableFactory().createConstant(reusable, false);
 
 		boolean updateAdapted = EntityUtils.isResolver(entity.getAdapted());
-		IExecutable<IEntity> evaluateExecutable = executableFactory().createSingleValuedRunnable(
+		IExecutable evaluateExecutable = executableFactory().createSingleValuedRunnable(
 			(selfEntity, bm, arguments) -> {
 				try {
 					getBindings().wEnterScope();

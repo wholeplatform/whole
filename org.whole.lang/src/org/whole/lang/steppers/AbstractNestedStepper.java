@@ -31,14 +31,14 @@ import org.whole.lang.util.EntityUtils;
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractNestedStepper<E extends IEntity> extends AbstractExecutableSteppingEvaluator<E> {
+public abstract class AbstractNestedStepper extends AbstractExecutableSteppingEvaluator {
 	protected ICloneContext cloneContext = IdentityCloneContext.instance;
 	protected IEntity selfEntity;
-	protected IExecutable<?>[] producers;
+	protected IExecutable[] producers;
 	protected BitSet producersNeedClone;
 	protected BitSet producersNeedInit;
 
-	protected AbstractNestedStepper(IExecutable<?>... producers) {
+	protected AbstractNestedStepper(IExecutable... producers) {
 		this.producers = producers;
 		producersNeedClone = new BitSet(producersSize());
 		producersNeedClone.set(0, producersSize(), false);
@@ -46,11 +46,11 @@ public abstract class AbstractNestedStepper<E extends IEntity> extends AbstractE
 		producersNeedInit.set(0, producersSize(), true);
 	}
 
-	public IExecutable<E> clone(ICloneContext cc) {
+	public IExecutable clone(ICloneContext cc) {
 		cloneContext = cc.getPrototypeCloneContext();
 		producersNeedClone.set(0, producersSize(), true);
 
-		AbstractNestedStepper<E> stepper = (AbstractNestedStepper<E>) super.clone(cc);
+		AbstractNestedStepper stepper = (AbstractNestedStepper) super.clone(cc);
 		stepper.cloneContext = cc;
 		stepper.producers = producers.clone();
 		stepper.producersNeedClone = (BitSet) producersNeedClone.clone();
@@ -67,13 +67,13 @@ public abstract class AbstractNestedStepper<E extends IEntity> extends AbstractE
 	public int producersSize() {
 		return producers.length;
 	}
-	public IExecutable<?> getProducer(int index) {
+	public IExecutable getProducer(int index) {
 		if (producersNeedClone.get(index)) {
 			producersNeedClone.clear(index);
 			producers[index] = producers[index].clone(cloneContext);
 		}
 
-		IExecutable<?> producer = producers[index];
+		IExecutable producer = producers[index];
 
 		if (producersNeedInit.get(index)) {
 			producersNeedInit.clear(index);
@@ -82,7 +82,7 @@ public abstract class AbstractNestedStepper<E extends IEntity> extends AbstractE
 
 		return producer;
 	}
-	protected void initProducer(IExecutable<?> p, int index) {
+	protected void initProducer(IExecutable p, int index) {
 		p.setBindings(getBindings());
 		p.reset(selfEntity);
 		p.withConsumer(this);
@@ -141,7 +141,7 @@ public abstract class AbstractNestedStepper<E extends IEntity> extends AbstractE
 
     public void prune() {
     }
-	public void set(E entity) {
+	public void set(IEntity entity) {
     	if (lastEntity == null)
     		throw new IllegalStateException();
 
@@ -149,7 +149,7 @@ public abstract class AbstractNestedStepper<E extends IEntity> extends AbstractE
     		lastEntity.wGetParent().wSet(lastEntity, entity);
     	lastEntity = entity;
 	}
-	public void add(E entity) {
+	public void add(IEntity entity) {
     	if (lastEntity == null)
     		throw new IllegalStateException();
 

@@ -34,6 +34,7 @@ import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.executables.ExecutableFactory;
 import org.whole.lang.executables.IExecutable;
+import org.whole.lang.executables.IExecutableClient;
 import org.whole.lang.grammars.model.As;
 import org.whole.lang.grammars.model.Grammar;
 import org.whole.lang.grammars.model.NonTerminal;
@@ -86,7 +87,7 @@ public class SelectQueriesTest {
 		PathExpression pe1 = (PathExpression) tm.create("selectPath1");
 
 		StringBuilder names = new StringBuilder();
-		for (NonTerminal nt : BehaviorUtils.<NonTerminal>compileAndLazyEvaluate(pe1, g))
+		for (NonTerminal nt : BehaviorUtils.compileAndLazyEvaluate(pe1, g).<NonTerminal>client())
 			names.append(nt.getValue());
 
 		assertEquals("DocumentElementINameIContent", names.toString());
@@ -100,7 +101,7 @@ public class SelectQueriesTest {
 		PathExpression query = (PathExpression) tm.create("selectPath2");
 
 		StringBuilder names = new StringBuilder();
-		for (NonTerminal nt : BehaviorUtils.<NonTerminal>compileAndLazyEvaluate(query, model))
+		for (NonTerminal nt : BehaviorUtils.compileAndLazyEvaluate(query, model).<NonTerminal>client())
 			names.append(nt.getValue());
 
 		assertEquals("DocumentElementINameIContent", names.toString());
@@ -114,7 +115,7 @@ public class SelectQueriesTest {
 		PathExpression pe1 = (PathExpression) tm.create("selectNonTerminalSet");
 
 		Set<String> set = new HashSet<String>();
-		for (NonTerminal nt : BehaviorUtils.<NonTerminal>compileAndLazyEvaluate(pe1, g))
+		for (NonTerminal nt : BehaviorUtils.compileAndLazyEvaluate(pe1, g).<NonTerminal>client())
 			if (!set.add(nt.getValue()))
 				fail();
 
@@ -187,7 +188,7 @@ public class SelectQueriesTest {
 
 		PathExpression pe1 = (PathExpression) tm.create("selectTemplateWithNestedQuery");
 
-		for (ClassDeclaration t : BehaviorUtils.<ClassDeclaration>compileAndLazyEvaluate(pe1, m)) {
+		for (ClassDeclaration t : BehaviorUtils.compileAndLazyEvaluate(pe1, m).<ClassDeclaration>client()) {
 			assertEquals(JavaEntityDescriptorEnum.ClassDeclaration, t.wGetEntityDescriptor());
 			assertTrue(t.getBodyDeclarations().wSize() >= 2);
 		}
@@ -201,8 +202,8 @@ public class SelectQueriesTest {
 		PathExpression pe1 = (PathExpression) tm.create("selectTemplateWithNestedRelativeQuery");
 		PathExpression pe2 = (PathExpression) tm.create("selectTemplateWithNestedQuery");
 
-		IExecutable<ClassDeclaration> i2 = BehaviorUtils.<ClassDeclaration>compileAndLazyEvaluate(pe2, m);
-		for (ClassDeclaration t : BehaviorUtils.<ClassDeclaration>compileAndLazyEvaluate(pe1, m)) {
+		IExecutableClient<ClassDeclaration> i2 = BehaviorUtils.compileAndLazyEvaluate(pe2, m).client();
+		for (ClassDeclaration t : BehaviorUtils.compileAndLazyEvaluate(pe1, m).<ClassDeclaration>client()) {
 			IEntity e = i2.evaluateNext();
 			assertNotNull(e);
 			assertTrue(Matcher.match(e, t));
@@ -216,7 +217,7 @@ public class SelectQueriesTest {
 
 		PathExpression pe1 = (PathExpression) tm.create("selectTemplateWithNestedEmptyQuery");
 
-		for (ClassDeclaration t : BehaviorUtils.<ClassDeclaration>compileAndLazyEvaluate(pe1, m)) {
+		for (ClassDeclaration t : BehaviorUtils.compileAndLazyEvaluate(pe1, m).<ClassDeclaration>client()) {
 			assertEquals(JavaEntityDescriptorEnum.ClassDeclaration, t.wGetEntityDescriptor());
 			assertEquals(2, t.getBodyDeclarations().wSize());
 		}
@@ -229,7 +230,7 @@ public class SelectQueriesTest {
 
 		PathExpression pe1 = (PathExpression) tm.create("selectTemplateWithJavaHelpers");
 
-		for (ClassDeclaration t : BehaviorUtils.<ClassDeclaration>compileAndLazyEvaluate(pe1, m)) {
+		for (ClassDeclaration t : BehaviorUtils.compileAndLazyEvaluate(pe1, m).<ClassDeclaration>client()) {
 			assertEquals(JavaEntityDescriptorEnum.ClassDeclaration, t.wGetEntityDescriptor());
 			String cname = t.getName().wStringValue();
 			assertTrue(Character.isUpperCase(cname.charAt(0)) && cname.endsWith("Impl"));
@@ -248,7 +249,7 @@ public class SelectQueriesTest {
 		PathExpression pe1 = (PathExpression) tm.create("selectTemplateWithFreeVariable");
 
 		IBindingManager bm = BindingManagerFactory.instance.createArguments();
-		for (ClassDeclaration t : BehaviorUtils.<ClassDeclaration>compileAndLazyEvaluate(pe1, m, bm)) {
+		for (ClassDeclaration t : BehaviorUtils.compileAndLazyEvaluate(pe1, m, bm).<ClassDeclaration>client()) {
 			assertEquals(JavaEntityDescriptorEnum.ClassDeclaration, t.wGetEntityDescriptor());
 			if (bm.wIsSet("freeVariable")) {
 				assertEquals(bm.wStringValue("freeVariable"), t.getName().wStringValue());
@@ -267,7 +268,7 @@ public class SelectQueriesTest {
 
 		PathExpression pe1 = (PathExpression) tm.create("selectTemplateWithTwoNestedSimpleQueries");
 
-		for (Feature f : BehaviorUtils.<Feature>compileAndLazyEvaluate(pe1, g)) {
+		for (Feature f : BehaviorUtils.compileAndLazyEvaluate(pe1, g).<Feature>client()) {
 			assertEquals(ModelsEntityDescriptorEnum.Feature, f.wGetEntityDescriptor());
 		}
 	}
@@ -279,7 +280,7 @@ public class SelectQueriesTest {
 
 		PathExpression pe1 = (PathExpression) tm.create("selectTemplateWithTwoNestedSelectQueries");
 
-		for (ClassDeclaration t : BehaviorUtils.<ClassDeclaration>compileAndLazyEvaluate(pe1, m)) {
+		for (ClassDeclaration t : BehaviorUtils.compileAndLazyEvaluate(pe1, m).<ClassDeclaration>client()) {
 			assertEquals(JavaEntityDescriptorEnum.ClassDeclaration, t.wGetEntityDescriptor());
 			BodyDeclarations bodyDeclarations = t.getBodyDeclarations();
 			MethodDeclaration md = (MethodDeclaration) bodyDeclarations.wGet(bodyDeclarations.wSize()-1);
@@ -340,10 +341,10 @@ public class SelectQueriesTest {
 		PathExpression pe1 = (PathExpression) tm.create("selectTemplateFromPathWithPattern");
 
 		ExecutableFactory f = ExecutableFactory.instance;
-		IExecutable<IEntity> featureExecutable = f.createFilter(f.createDescendantOrSelf(), f.createHasType(ModelsEntityDescriptorEnum.Feature.getURI()));
+		IExecutable featureExecutable = f.createFilter(f.createDescendantOrSelf(), f.createHasType(ModelsEntityDescriptorEnum.Feature.getURI()));
 		featureExecutable.reset(m);
 
-		for (FieldDeclaration field : BehaviorUtils.<FieldDeclaration>compileAndLazyEvaluate(pe1, m)) {
+		for (FieldDeclaration field : BehaviorUtils.compileAndLazyEvaluate(pe1, m).<FieldDeclaration>client()) {
 			Feature feature = (Feature) featureExecutable.evaluateNext();
 			assertEquals(feature.getType().wStringValue(), field.getType().wStringValue());
 			assertEquals(feature.getName().wStringValue(), field.getFragments().wGet(0).wGet(0).wStringValue());
@@ -358,7 +359,7 @@ public class SelectQueriesTest {
 		ITemplateManager tm = SelectQueriesTemplateManager.instance();
 		PathExpression pe1 = (PathExpression) tm.create("selectTemplateFromPatternWithWhere");
 
-		for (FieldDeclaration field : BehaviorUtils.<FieldDeclaration>compileAndLazyEvaluate(pe1, feature)) {
+		for (FieldDeclaration field : BehaviorUtils.compileAndLazyEvaluate(pe1, feature).<FieldDeclaration>client()) {
 			assertEquals(feature.getName().wStringValue(), field.getFragments().wGet(0).wGet(0).wStringValue());
 			assertEquals(StringUtils.toUpperCap(feature.getType().wStringValue()), field.getType().wStringValue());
 		}
@@ -420,7 +421,7 @@ public class SelectQueriesTest {
 		ITemplateManager tm = SelectQueriesTemplateManager.instance();
 		PathExpression pe1 = (PathExpression) tm.create("selectTemplateFromWhere");
 
-		for (ClassDeclaration classDecl : BehaviorUtils.<ClassDeclaration>compileAndLazyEvaluate(pe1, simpleEntity)) {
+		for (ClassDeclaration classDecl : BehaviorUtils.compileAndLazyEvaluate(pe1, simpleEntity).<ClassDeclaration>client()) {
 			assertEquals(
 					StringUtils.toUpperCap(simpleEntity.getName().getValue()),
 					classDecl.getName().wStringValue());
@@ -530,7 +531,7 @@ public class SelectQueriesTest {
 
 	@Test
     public void testDeclaredNamesBinding() {
-		IExecutable<IEntity> executable = DynamicCompilerOperation.compile(
+		IExecutable executable = DynamicCompilerOperation.compile(
 				SelectQueriesTemplateManager.instance().create("selectDeclaredNamesBinding"),
 				BindingManagerFactory.instance.createArguments()).getExecutableResult();
 		

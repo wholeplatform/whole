@@ -255,10 +255,10 @@ public class ReflectionFactory {
     public static SortedSet<ILanguageKit> getLanguageKits(boolean includeHidden, Comparator<? super ILanguageKit> comparator) {
     	return languageKitRegistry.getResources(includeHidden, comparator);
     }
-	public static IExecutable<IEntity> languageKitsIterator() {
+	public static IExecutable languageKitsIterator() {
 		return ExecutableFactory.instance.createJavaCollection(getLanguageKits(false, ResourceUtils.SIMPLE_COMPARATOR));
 	}
-	public static IExecutable<IEntity> entityDescriptorIterator(ILanguageKit languageKit) {
+	public static IExecutable entityDescriptorIterator(ILanguageKit languageKit) {
 		if (languageKit == null)
 			return ExecutableFactory.instance.createEmpty();
 		else

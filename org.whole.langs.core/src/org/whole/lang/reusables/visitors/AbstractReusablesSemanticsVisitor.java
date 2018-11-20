@@ -33,7 +33,7 @@ import org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum;
  * @author Riccardo Solmi
  */
 public abstract class AbstractReusablesSemanticsVisitor extends ReusablesIdentityDefaultVisitor {
-	protected IExecutable<?> existsResource(Resource resource) {
+	protected IExecutable existsResource(Resource resource) {
 		resource.accept(this);
 		return Matcher.match(ReusablesEntityDescriptorEnum.Model, resource) ?
 				executableFactory().createSome(executableFactory().createConstantCompose(resource.wGetParent(), getExecutableResult())) :
@@ -51,7 +51,7 @@ public abstract class AbstractReusablesSemanticsVisitor extends ReusablesIdentit
 		return BindingManagerFactory.instance.createValue(pp.exists());
 	}
 
-	protected IExecutable<?> deleteResource(Resource resource) {
+	protected IExecutable deleteResource(Resource resource) {
 		resource.accept(this);
 		return Matcher.match(ReusablesEntityDescriptorEnum.Model, resource) ?
 				executableFactory().createConstantCompose(resource.wGetParent(), executableFactory().createDelete(getExecutableResult())) :
@@ -73,7 +73,7 @@ public abstract class AbstractReusablesSemanticsVisitor extends ReusablesIdentit
 		}
 	}
 
-	protected IExecutable<?> readResource(Resource resource) {
+	protected IExecutable readResource(Resource resource) {
 		resource.accept(this);
 		return Matcher.match(ReusablesEntityDescriptorEnum.Model, resource) ?
 						executableFactory().createConstantCompose(resource.wGetParent(), getExecutableResult()) :
@@ -100,7 +100,7 @@ public abstract class AbstractReusablesSemanticsVisitor extends ReusablesIdentit
 		}
 	}
 
-	protected IExecutable<?> saveResource(Resource resource) {
+	protected IExecutable saveResource(Resource resource) {
 		//TODO add multiple save
 		//FIXME path expression save
 

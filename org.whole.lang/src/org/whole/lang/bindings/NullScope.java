@@ -218,10 +218,10 @@ public class NullScope implements IBindingScope {
 	public boolean isExecutableResult() {
 		return false;
 	}
-	public <E extends IEntity> IExecutable<E> getExecutableResult() {
+	public IExecutable getExecutableResult() {
 		throw new IllegalStateException("NullBindingManager");		
 	}
-	public void setExecutableResult(IExecutable<?> executableResult) {
+	public void setExecutableResult(IExecutable executableResult) {
 		throw new IllegalStateException("NullBindingManager");		
 	}
 	public IEntity getResult() {

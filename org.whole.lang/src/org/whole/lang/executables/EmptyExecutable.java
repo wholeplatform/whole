@@ -25,31 +25,31 @@ import org.whole.lang.model.IEntity;
 /**
  * @author Riccardo Solmi
  */
-public class EmptyExecutable<E extends IEntity> extends AbstractExecutableEvaluatingStepper<E> {
-    public E evaluateNext() {
+public class EmptyExecutable extends AbstractExecutableEvaluatingStepper {
+    public IEntity evaluateNext() {
 		return null;
 	}
 	@Override
-	public E evaluateRemaining() {
+	public IEntity evaluateRemaining() {
 		return null;
 	}
 	@Override
-	public E evaluate(IEntity self, IBindingManager bm) {
+	public IEntity evaluate(IEntity self, IBindingManager bm) {
 		return null;
 	}
 	@Override
-	public E evaluateFirst(IEntity self, IBindingManager bm) {
+	public IEntity evaluateFirst(IEntity self, IBindingManager bm) {
 		return null;
 	}
 	@Override
-	public E evaluateSingleton() {
+	public IEntity evaluateSingleton() {
 		throw new IllegalArgumentException("The result is not a singleton");
 	}
 	
 	public boolean hasNext() {
         return false;
     }
-	public E next() {
+	public IEntity next() {
        	throw new NoSuchElementException();
 	}
 

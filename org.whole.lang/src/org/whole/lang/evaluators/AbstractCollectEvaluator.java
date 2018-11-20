@@ -32,11 +32,11 @@ public abstract class AbstractCollectEvaluator extends AbstractDelegatingNestedS
 	protected IEntityComparator<IEntity> comparator;
 
 	@SuppressWarnings("unchecked")
-	public AbstractCollectEvaluator(IExecutable<IEntity>... executables) {
+	public AbstractCollectEvaluator(IExecutable... executables) {
 		this(BusinessIdentityComparator.instance, executables);
 	}
 	@SuppressWarnings("unchecked")
-	public AbstractCollectEvaluator(IEntityComparator<IEntity> comparator, IExecutable<IEntity>... executables) {
+	public AbstractCollectEvaluator(IEntityComparator<IEntity> comparator, IExecutable... executables) {
 		super(executables);
 		this.comparator = comparator;
 	}
@@ -47,7 +47,7 @@ public abstract class AbstractCollectEvaluator extends AbstractDelegatingNestedS
 	}
 
 	@Override
-	public IExecutable<IEntity> clone(ICloneContext cc) {
+	public IExecutable clone(ICloneContext cc) {
 		AbstractCollectEvaluator evaluator = (AbstractCollectEvaluator) super.clone(cc);
 		evaluator.comparator = cc.clone(comparator);
 		return evaluator;

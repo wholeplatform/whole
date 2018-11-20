@@ -101,7 +101,7 @@ public class ArtifactsSynchronizerVisitor<T> extends ArtifactsResourceVisitor<T>
 			IEntity fsModel = getArtifactsOperations().toArtifactsModel(parentContext);
 			if (append && artifact != basePath) {
 				IBindingManager bindings = BindingManagerFactory.instance.createBindingManager();
-				IExecutable<?> executable = executableFactory().createChild();
+				IExecutable executable = executableFactory().createChild();
 				executable.reset(getChildren(fsModel));
 				for (IEntity child : executable) {
 					bindings.wDef(SUB_TREE_ROOT, child);
@@ -117,7 +117,7 @@ public class ArtifactsSynchronizerVisitor<T> extends ArtifactsResourceVisitor<T>
 
 	private IEntity createBasePath(IArtifactsEntity entity) {
 		ExecutableFactory ef = executableFactory();
-		IExecutable<IEntity> executable = ef.createFilter(
+		IExecutable executable = ef.createFilter(
 				ef.createAncestor(),
 				ef.createSome(ef.createIsFragment(), ef.createHasKind(EntityKinds.COMPOSITE)));
 
@@ -156,7 +156,7 @@ public class ArtifactsSynchronizerVisitor<T> extends ArtifactsResourceVisitor<T>
 			if (basePath != null) {
 				IBindingManager bindings = BindingManagerFactory.instance.createBindingManager();
 				model = EntityUtils.clone(basePath);
-				IExecutable<?> i = executableFactory().createChild();
+				IExecutable i = executableFactory().createChild();
 				i.reset(getChildren(entity));
 				for (IEntity child : i) {
 					bindings.wDef(SUB_TREE_ROOT, EntityUtils.clone(child));
@@ -177,7 +177,7 @@ public class ArtifactsSynchronizerVisitor<T> extends ArtifactsResourceVisitor<T>
 	private void synchronize(IEntity children, IEntity compareToChildren) {
 		// perform delete missing resources
 		if (synchronize.isRemoving()) {
-			IExecutable<IEntity> executable = executableFactory().createChild();
+			IExecutable executable = executableFactory().createChild();
 			executable.reset(compareToChildren);
 			for (IEntity child = executable.evaluateNext(); child != null; child = executable.evaluateNext()) {
 				if (hasChild(children, child))
@@ -192,7 +192,7 @@ public class ArtifactsSynchronizerVisitor<T> extends ArtifactsResourceVisitor<T>
 
 		// perform remove additions
 		if (synchronize.isUpdateOnly()) {
-			IExecutable<IEntity> executable = executableFactory().createChild();
+			IExecutable executable = executableFactory().createChild();
 			executable.reset(children);
 			for (IEntity child = executable.evaluateNext(); child != null; child = executable.evaluateNext()) {
 				if (!hasChild(compareToChildren, child))
@@ -216,7 +216,7 @@ public class ArtifactsSynchronizerVisitor<T> extends ArtifactsResourceVisitor<T>
 		} else {
 			firstPass = false;
 
-			IExecutable<?> i = executableFactory().createChild();
+			IExecutable i = executableFactory().createChild();
 			i.reset(children);
 			for (IEntity child : i) {
 				// first pass, remove all descendants

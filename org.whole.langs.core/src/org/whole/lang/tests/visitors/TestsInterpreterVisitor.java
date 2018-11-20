@@ -18,6 +18,7 @@ import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.executables.ExecutableFactory;
 import org.whole.lang.executables.IExecutable;
+import org.whole.lang.executables.IExecutableClient;
 import org.whole.lang.matchers.GenericMatcherFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
@@ -105,7 +106,7 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 	protected IVisitor getResultVisitor() {
 		return (IVisitor) getResultValue();
 	}
-	protected void resetIterator(IExecutable<?> iterator) {
+	protected void resetIterator(IExecutable iterator) {
 		IEntity selfEntity = getBindings().wGet(IBindingManager.SELF);
 		iterator.reset(selfEntity != null ? selfEntity : NullEntity.instance);
 	}
@@ -165,12 +166,12 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 			getBindings().wDef(IBindingManager.SELF, BindingManagerFactory.instance.createNull());
 
 			ExecutableFactory ef = executableFactory();
-			IExecutable<BeforeTestCase> beforeIterator = ef.createFilter(ef.createChild(), ef.createHasType(BeforeTestCase.getURI()));
-			beforeIterator.setBindings(getBindings());
+			IExecutableClient<BeforeTestCase> beforeExecutable = ef.createFilter(ef.createChild(), ef.createHasType(BeforeTestCase.getURI())).client();
+			beforeExecutable.setBindings(getBindings());
 			Aspects aspects = entity.getAspects();
 			getBindings().enforceSelfBinding(aspects);
-			beforeIterator.reset(aspects);
-			for (BeforeTestCase beforeTestCase : beforeIterator) {
+			beforeExecutable.reset(aspects);
+			for (BeforeTestCase beforeTestCase : beforeExecutable) {
 				beforeTestCase.accept(this);
 				getResult();
 			}
@@ -202,11 +203,11 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 				result.setValue(result.getValue() + 1);
 			}
 
-			IExecutable<AfterTestCase> afterIterator = ef.createFilter(ef.createChild(), ef.createHasType(AfterTestCase.getURI()));
-			afterIterator.setBindings(getBindings());
+			IExecutableClient<AfterTestCase> afterExecutable = ef.createFilter(ef.createChild(), ef.createHasType(AfterTestCase.getURI())).client();
+			afterExecutable.setBindings(getBindings());
 			getBindings().enforceSelfBinding(aspects);
-			afterIterator.reset(aspects);
-			for (AfterTestCase afterTestCase : afterIterator) {
+			afterExecutable.reset(aspects);
+			for (AfterTestCase afterTestCase : afterExecutable) {
 				afterTestCase.accept(this);
 				getResult();
 			}
@@ -239,7 +240,7 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 		StringLiteral cause = CommonsEntityAdapterFactory.createResolver(StringLiteral);
 		Result result = TestsEntityFactory.instance.createResult(outcome, location, cause);
 		try {
-			for (BeforeTest beforeTest : BehaviorUtils.<BeforeTest>compileAndLazyEvaluate(createAspectPath("BeforeTest"), entity)) {
+			for (BeforeTest beforeTest : BehaviorUtils.compileAndLazyEvaluate(createAspectPath("BeforeTest"), entity).<BeforeTest>client()) {
 				beforeTest.accept(this);
 				getResult();
 			}
@@ -249,7 +250,7 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 			entity.getBody().accept(this);
 			getResult();
 
-			for (AfterTest afterTest : BehaviorUtils.<AfterTest>compileAndLazyEvaluate(createAspectPath("AfterTest"), entity)) {
+			for (AfterTest afterTest : BehaviorUtils.compileAndLazyEvaluate(createAspectPath("AfterTest"), entity).<AfterTest>client()) {
 				afterTest.accept(this);
 				getResult();
 			}

@@ -32,21 +32,21 @@ import org.whole.lang.util.WholeMessages;
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractNestedSupplierEvaluator<E extends IEntity> extends AbstractSupplierEvaluator<E> {
-	protected IExecutable<? extends IEntity>[] producers;
+public abstract class AbstractNestedSupplierEvaluator extends AbstractSupplierEvaluator {
+	protected IExecutable[] producers;
 	protected Set<Integer> optionalProducersIndexSet;
 
-	protected AbstractNestedSupplierEvaluator(IExecutable<?>... producers) {
+	protected AbstractNestedSupplierEvaluator(IExecutable... producers) {
 		optionalProducersIndexSet = Collections.emptySet();
 		this.producers = producers;
 	}
-	protected AbstractNestedSupplierEvaluator(int[] optionalArgsIndexes, IExecutable<?>... producers) {
+	protected AbstractNestedSupplierEvaluator(int[] optionalArgsIndexes, IExecutable... producers) {
 		optionalProducersIndexSet = Arrays.stream(optionalArgsIndexes).boxed().collect(Collectors.toSet());
 		this.producers = producers;
 	}
 
-	public IExecutable<E> clone(ICloneContext cc) {
-		AbstractNestedSupplierEvaluator<E> evaluator = (AbstractNestedSupplierEvaluator<E>) super.clone(cc);
+	public IExecutable clone(ICloneContext cc) {
+		AbstractNestedSupplierEvaluator evaluator = (AbstractNestedSupplierEvaluator) super.clone(cc);
 		if (producers != null) {
 			evaluator.producers = producers.clone();
 			for (int i=0; i<producersSize(); i++)
@@ -58,7 +58,7 @@ public abstract class AbstractNestedSupplierEvaluator<E extends IEntity> extends
 	public int producersSize() {
 		return producers.length;
 	}
-	public IExecutable<?> getProducer(int index) {
+	public IExecutable getProducer(int index) {
 		return producers[index];
 	}
 
@@ -68,14 +68,14 @@ public abstract class AbstractNestedSupplierEvaluator<E extends IEntity> extends
     }
 	protected void resetProducers(IEntity entity) {
         if (producers != null)
-    		for (IExecutable<? extends IEntity> i : producers)
+    		for (IExecutable i : producers)
     			i.reset(entity);		
 	}
 
     protected void setProducersBindings(IBindingManager bindings) {
 		super.setProducersBindings(bindings);
 		if (producers != null)
-			for (IExecutable<? extends IEntity> i : producers)
+			for (IExecutable i : producers)
 				i.setBindings(bindings);
 	}
 

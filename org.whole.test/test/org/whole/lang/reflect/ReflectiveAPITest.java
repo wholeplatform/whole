@@ -132,7 +132,7 @@ public class ReflectiveAPITest {
         Model m = model;
 
         List<IEntity> features = new ArrayList<IEntity>();
-        IExecutable<IEntity> i = ExecutableFactory.instance.createChild();
+        IExecutable i = ExecutableFactory.instance.createChild();
         i.reset(m);
 		for (IEntity e : i)
             features.add(e);

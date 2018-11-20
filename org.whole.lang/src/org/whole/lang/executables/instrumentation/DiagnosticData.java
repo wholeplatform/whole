@@ -45,8 +45,8 @@ public class DiagnosticData extends AbstractInstrumentationData {
 	public Severity severity;
 
 	public State stateWhenCloned = null;
-	public InstrumentingExecutable<?> firstPrototype = null;
-	public Set<InstrumentingExecutable<?>> cloneSet = null;
+	public InstrumentingExecutable firstPrototype = null;
+	public Set<InstrumentingExecutable> cloneSet = null;
 
 	@Override
 	public DiagnosticData clone(ICloneContext cc) {
@@ -59,13 +59,13 @@ public class DiagnosticData extends AbstractInstrumentationData {
 	public final int cloneSetSize() {
 		return cloneSet != null ? cloneSet.size() : 0;
 	}
-	public final boolean isFirstPrototype(InstrumentingExecutable<?> ii) {
+	public final boolean isFirstPrototype(InstrumentingExecutable ii) {
 		return firstPrototype == ii;
 	}
 	public final boolean usedWhenCloned() {
 		return stateWhenCloned == State.USED;
 	}
-	public final Set<InstrumentingExecutable<?>> unusedCloneSet() {
+	public final Set<InstrumentingExecutable> unusedCloneSet() {
 		return cloneSet.stream().filter((i) -> DiagnosticInstrumentation.diagnosticData(i).state != State.USED).collect(Collectors.toSet());
 	}
 

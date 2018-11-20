@@ -28,7 +28,7 @@ import org.whole.lang.util.EntityUtils;
  * 
  * @author Riccardo Solmi
  */
-public abstract class AbstractByIndexStepper<E extends IEntity> extends AbstractExecutableSteppingEvaluator<E> {
+public abstract class AbstractByIndexStepper extends AbstractExecutableSteppingEvaluator {
 	protected IEntity selfEntity; //parent
 	protected int nextIndex;
 	protected int lastIndex = -1;
@@ -37,7 +37,7 @@ public abstract class AbstractByIndexStepper<E extends IEntity> extends Abstract
 
 	@FunctionalInterface
 	public interface FirstIndexSupplier {
-	    int firstIndex(AbstractByIndexStepper<?> stepper);
+	    int firstIndex(AbstractByIndexStepper stepper);
 	}
 
 	public AbstractByIndexStepper(boolean forward) {
@@ -67,13 +67,12 @@ public abstract class AbstractByIndexStepper<E extends IEntity> extends Abstract
 		return selfEntity != null && (forward ? startIndex() + nextIndex <= endIndex() : nextIndex >= 0);
 	}
 
-	@SuppressWarnings("unchecked")
-	public final E get() {
-		return (E) selfEntity.wGet(startIndex() + nextIndex);
+	public final IEntity get() {
+		return selfEntity.wGet(startIndex() + nextIndex);
 	}
 
-	public E next() {
-		E nextEntity = evaluateNext();
+	public IEntity next() {
+		IEntity nextEntity = evaluateNext();
 		if (nextEntity == null)
 			throw new NoSuchElementException();
 
@@ -81,7 +80,7 @@ public abstract class AbstractByIndexStepper<E extends IEntity> extends Abstract
 	}
 
 //	@Override
-//	public E evaluateRemaining() {
+//	public IEntity evaluateRemaining() {
 //		E result = null;
 //		E next;
 //		while ((next = evaluateNext()) != null)
@@ -90,9 +89,9 @@ public abstract class AbstractByIndexStepper<E extends IEntity> extends Abstract
 //	}
 
 	@Override
-	public E evaluateSingleton() {
+	public IEntity evaluateSingleton() {
 		if (hasNext()) {
-			E nextEntity = evaluateNext();
+			IEntity nextEntity = evaluateNext();
 			if (!hasNext())
 				return nextEntity;
 		}
@@ -127,21 +126,21 @@ public abstract class AbstractByIndexStepper<E extends IEntity> extends Abstract
 	public int nextIndex() {
 		return nextIndex;
 	}
-	public void set(E value) {
+	public void set(IEntity entity) {
 		if (lastIndex == -1)
 			throw new IllegalStateException();
 
-		selfEntity.wSet(startIndex() + lastIndex, value);
+		selfEntity.wSet(startIndex() + lastIndex, entity);
 	}
-	public void add(E value) {
+	public void add(IEntity entity) {
 		if (lastIndex == -1)
 			throw new IllegalStateException();
 
 		if (forward) {
-			selfEntity.wAdd(startIndex() + lastIndex, value);
+			selfEntity.wAdd(startIndex() + lastIndex, entity);
 			lastIndex = nextIndex++;
 		} else
-			selfEntity.wAdd(startIndex() + lastIndex+1, value);
+			selfEntity.wAdd(startIndex() + lastIndex+1, entity);
 	}
 	public void remove() {
 		if (lastIndex == -1)

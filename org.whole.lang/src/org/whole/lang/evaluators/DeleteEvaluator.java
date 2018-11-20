@@ -23,15 +23,14 @@ import org.whole.lang.model.IEntity;
 /**
  * @author Riccardo Solmi
  */
-public class DeleteEvaluator<E extends IEntity> extends AbstractDelegatingNestedEvaluator<E> {
-	@SuppressWarnings("unchecked")
-	public DeleteEvaluator(IExecutable<IEntity> valuesExecutable) {
+public class DeleteEvaluator extends AbstractDelegatingNestedEvaluator {
+	public DeleteEvaluator(IExecutable valuesExecutable) {
 		super(valuesExecutable);
 	}
 
 	@Override
-	public E evaluateNext() {
-		lastEntity = (E) getProducer().evaluateNext();
+	public IEntity evaluateNext() {
+		lastEntity = getProducer().evaluateNext();
 		if (lastEntity != null)
 			remove();
 		return lastEntity;

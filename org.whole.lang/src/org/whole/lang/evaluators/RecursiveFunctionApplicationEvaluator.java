@@ -24,14 +24,14 @@ import org.whole.lang.operations.ICloneContext;
 /**
  * @author Riccardo Solmi
  */
-public class RecursiveFunctionApplicationEvaluator extends AbstractDelegatingNestedEvaluator<IEntity> {
+public class RecursiveFunctionApplicationEvaluator extends AbstractDelegatingNestedEvaluator {
 	@SuppressWarnings("unchecked")
 	public RecursiveFunctionApplicationEvaluator() {
-		super((IExecutable<IEntity>) null);
+		super((IExecutable) null);
 	}
 
 	@Override
-	public IExecutable<IEntity> clone(ICloneContext cc) {
+	public IExecutable clone(ICloneContext cc) {
 		RecursiveFunctionApplicationEvaluator result = (RecursiveFunctionApplicationEvaluator) super.clone(cc);
 
 		//FIXME workaround
@@ -54,7 +54,7 @@ public class RecursiveFunctionApplicationEvaluator extends AbstractDelegatingNes
 	}
 
 	@Override
-	public IExecutable<IEntity> getProducer(int index) {
+	public IExecutable getProducer(int index) {
 		if (producers[0] == null) {
 //			getBindings().enforceSelfBinding(selfEntity);
 			getBindings().wGetEnvironmentManager().getCurrentOperation().stagedVisit(selfEntity, 0);

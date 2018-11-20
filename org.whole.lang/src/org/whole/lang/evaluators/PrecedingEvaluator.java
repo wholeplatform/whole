@@ -23,18 +23,18 @@ import org.whole.lang.model.IEntity;
 /**
  * @author Riccardo Solmi
  */
-public class PrecedingEvaluator<E extends IEntity> extends FollowingEvaluator<E> {
+public class PrecedingEvaluator extends FollowingEvaluator {
 	public PrecedingEvaluator(boolean includeSelf) {
 		super(includeSelf);
 	}
 
-	protected IExecutable<E> createRelationExecutable() {
-		return executableFactory().<E>createChildReverse();
+	protected IExecutable createRelationExecutable() {
+		return executableFactory().createChildReverse();
 	}
 
-	protected IExecutable<E> createChildExecutable() {
-		return includeSelf ? executableFactory().<E>createPrecedingSiblingOrSelf() :
-			executableFactory().<E>createPrecedingSibling();
+	protected IExecutable createChildExecutable() {
+		return includeSelf ? executableFactory().createPrecedingSiblingOrSelf() :
+			executableFactory().createPrecedingSibling();
 	}
 
 	public void toString(StringBuilder sb) {

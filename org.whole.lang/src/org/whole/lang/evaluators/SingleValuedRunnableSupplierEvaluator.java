@@ -24,19 +24,18 @@ import org.whole.lang.util.IRunnable;
 /**
  * @author Riccardo Solmi
  */
-public class SingleValuedRunnableSupplierEvaluator<E extends IEntity> extends AbstractSupplierEvaluator<E> {
+public class SingleValuedRunnableSupplierEvaluator extends AbstractSupplierEvaluator {
 	protected IRunnable runnable;
 
 	public SingleValuedRunnableSupplierEvaluator(IRunnable runnable) {
 		this.runnable = runnable;
 	}
 
-	@SuppressWarnings("unchecked")
-	public E get() {
+	public IEntity get() {
 		IBindingManager bm = getBindings();
 		bm.setResult(null);
 		runnable.run(selfEntity, bm);
-		return (E) bm.getResult();
+		return bm.getResult();
 	}
 
 	@Override

@@ -24,16 +24,16 @@ import org.whole.lang.util.EntityUtils;
 /**
  * @author Riccardo Solmi
  */
-public class FilterEvaluator extends AbstractDelegatingNestedEvaluator<IEntity> {
+public class FilterEvaluator extends AbstractDelegatingNestedEvaluator {
 	private boolean autoPrune = false;
 	
 	@SuppressWarnings("unchecked")
-	public FilterEvaluator(IExecutable<IEntity> doExecutable, IExecutable<IEntity> filterExecutable) {
+	public FilterEvaluator(IExecutable doExecutable, IExecutable filterExecutable) {
 		super(doExecutable, filterExecutable);
 	}
 
 	@Override
-	protected void initProducer(IExecutable<?> p, int index) {
+	protected void initProducer(IExecutable p, int index) {
 		p.setBindings(getBindings());
 		if (index == 0)
 			p.reset(selfEntity);

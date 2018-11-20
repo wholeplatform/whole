@@ -28,7 +28,7 @@ import org.whole.lang.util.EntityUtils;
  * 
  * @author Riccardo Solmi
  */
-public abstract class AbstractByIndexEvaluator<E extends IEntity> extends AbstractExecutableEvaluatingStepper<E> {
+public abstract class AbstractByIndexEvaluator extends AbstractExecutableEvaluatingStepper {
 	protected IEntity selfEntity; //parent
 	protected int nextIndex;
 	protected int lastIndex = -1;
@@ -37,7 +37,7 @@ public abstract class AbstractByIndexEvaluator<E extends IEntity> extends Abstra
 
 	@FunctionalInterface
 	public interface FirstIndexSupplier {
-	    int firstIndex(AbstractByIndexEvaluator<?> evaluator);
+	    int firstIndex(AbstractByIndexEvaluator evaluator);
 	}
 
 	public AbstractByIndexEvaluator(boolean forward) {
@@ -67,13 +67,12 @@ public abstract class AbstractByIndexEvaluator<E extends IEntity> extends Abstra
 		return selfEntity != null && (forward ? startIndex() + nextIndex <= endIndex() : nextIndex >= 0);
 	}
 
-	@SuppressWarnings("unchecked")
-	public final E get() {
-		return (E) selfEntity.wGet(startIndex() + nextIndex);
+	public final IEntity get() {
+		return selfEntity.wGet(startIndex() + nextIndex);
 	}
 
-	public E next() {
-		E nextEntity = evaluateNext();
+	public IEntity next() {
+		IEntity nextEntity = evaluateNext();
 		if (nextEntity == null)
 			throw new NoSuchElementException();
 
@@ -81,9 +80,9 @@ public abstract class AbstractByIndexEvaluator<E extends IEntity> extends Abstra
 	}
 
 	@Override
-	public E evaluateNext() {
+	public IEntity evaluateNext() {
 		if (hasNext()) {
-			E result = get();
+			IEntity result = get();
 			lastIndex = nextIndex;
 			nextIndex += forward ? +1 : -1;
 			return result;
@@ -92,7 +91,7 @@ public abstract class AbstractByIndexEvaluator<E extends IEntity> extends Abstra
 	}
 
 //	@Override
-//	public E evaluateRemaining() {
+//	public IEntity evaluateRemaining() {
 //		E result = null;
 //		E next;
 //		while ((next = evaluateNext()) != null)
@@ -101,9 +100,9 @@ public abstract class AbstractByIndexEvaluator<E extends IEntity> extends Abstra
 //	}
 
 	@Override
-	public E evaluateSingleton() {
+	public IEntity evaluateSingleton() {
 		if (hasNext()) {
-			E nextEntity = evaluateNext();
+			IEntity nextEntity = evaluateNext();
 			if (!hasNext())
 				return nextEntity;
 		}
@@ -118,21 +117,21 @@ public abstract class AbstractByIndexEvaluator<E extends IEntity> extends Abstra
 	public int nextIndex() {
 		return nextIndex;
 	}
-	public void set(E value) {
+	public void set(IEntity entity) {
 		if (lastIndex == -1)
 			throw new IllegalStateException();
 
-		selfEntity.wSet(startIndex() + lastIndex, value);
+		selfEntity.wSet(startIndex() + lastIndex, entity);
 	}
-	public void add(E value) {
+	public void add(IEntity entity) {
 		if (lastIndex == -1)
 			throw new IllegalStateException();
 
 		if (forward) {
-			selfEntity.wAdd(startIndex() + lastIndex, value);
+			selfEntity.wAdd(startIndex() + lastIndex, entity);
 			lastIndex = nextIndex++;
 		} else
-			selfEntity.wAdd(startIndex() + lastIndex+1, value);
+			selfEntity.wAdd(startIndex() + lastIndex+1, entity);
 	}
 	public void remove() {
 		if (lastIndex == -1)

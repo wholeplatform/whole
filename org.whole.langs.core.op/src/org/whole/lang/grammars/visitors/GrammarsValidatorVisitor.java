@@ -23,7 +23,7 @@ import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 import org.whole.lang.executables.ExecutableFactory;
-import org.whole.lang.executables.IExecutable;
+import org.whole.lang.executables.IExecutableClient;
 import org.whole.lang.grammars.model.Grammar;
 import org.whole.lang.grammars.model.IGrammarsEntity;
 import org.whole.lang.grammars.model.NonTerminal;
@@ -67,7 +67,7 @@ public class GrammarsValidatorVisitor extends GrammarsIdentityDefaultVisitor {
 
 	public void checkPatterns(Grammar entity) {
 		ExecutableFactory f = executableFactory();
-		IExecutable<RegExp> i = f.createFilter(f.createDescendantOrSelf(), f.createHasType(GrammarsEntityDescriptorEnum.RegExp.getURI()));
+		IExecutableClient<RegExp> i = f.createFilter(f.createDescendantOrSelf(), f.createHasType(GrammarsEntityDescriptorEnum.RegExp.getURI())).client();
 		i.reset(entity);
 		for (RegExp regex : i) {
 			try {
@@ -91,7 +91,7 @@ public class GrammarsValidatorVisitor extends GrammarsIdentityDefaultVisitor {
 		Set<NonTerminal> nts = new HashSet<NonTerminal>();
 		
 		ExecutableFactory f = executableFactory();
-		IExecutable<NonTerminal> i = f.createFilter(f.createDescendantOrSelf(), f.createHasType(GrammarsEntityDescriptorEnum.NonTerminal.getURI()));
+		IExecutableClient<NonTerminal> i = f.createFilter(f.createDescendantOrSelf(), f.createHasType(GrammarsEntityDescriptorEnum.NonTerminal.getURI())).client();
 		i.reset(entity);
 		for (NonTerminal nt : i) {
 			IEntity parent = nt.wGetParent();
@@ -113,7 +113,7 @@ public class GrammarsValidatorVisitor extends GrammarsIdentityDefaultVisitor {
 				getDecorationManager().addError(nt, "Production not defined", nt.getValue());//TODO location with production
 
 		ExecutableFactory ef = executableFactory();
-		IExecutable<Production> i2 = ef.createFilter(ef.createChild(), ef.createHasType(GrammarsEntityDescriptorEnum.Production.getURI()));
+		IExecutableClient<Production> i2 = ef.createFilter(ef.createChild(), ef.createHasType(GrammarsEntityDescriptorEnum.Production.getURI())).client();
 		i2.reset(entity.getPhraseStructure());
 		for (Production p : i2)
 			if (!ntUses.contains(p.getName().wGetValue()))

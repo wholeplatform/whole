@@ -146,7 +146,7 @@ public class GrammarBasedUIUtils {
 
 		StringBuilder sb = new StringBuilder();
 		ExecutableFactory f = ExecutableFactory.instance;
-		IExecutable<IEntity> executable = f.createFilter(f.createDescendantOrSelf(), f.createHasType(edEnum.valueOf("Literal").getURI()));
+		IExecutable executable = f.createFilter(f.createDescendantOrSelf(), f.createHasType(edEnum.valueOf("Literal").getURI()));
 		executable.reset(entity);
 		for (IEntity e = executable.evaluateNext(); e != null;
 				     e = executable.evaluateNext())

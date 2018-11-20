@@ -82,7 +82,7 @@ public class BindingPart extends AbstractContentPanePart {
 			if (value.wSize() > COMPOSITE_SIZE_LIMIT)
 				break;
 		default:
-			IExecutable<IEntity> executable = ExecutableFactory.instance.createDescendant();
+			IExecutable executable = ExecutableFactory.instance.createDescendant();
 			executable.reset(value);
 			for (int i = 0; i < DESCENDANTS_COUNT_LIMIT; i++) {
 				IEntity e = executable.evaluateNext();

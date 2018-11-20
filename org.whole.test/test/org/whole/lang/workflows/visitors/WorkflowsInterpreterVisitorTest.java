@@ -201,7 +201,7 @@ public class WorkflowsInterpreterVisitorTest {
 
 		// the only difference is the content on the file artifact
 		ExecutableFactory f = ExecutableFactory.instance;
-		IExecutable<IEntity> executable = f.createFilter(f.createDescendantOrSelf(), f.createAtFeature(ArtifactsFeatureDescriptorEnum.content.getURI()));
+		IExecutable executable = f.createFilter(f.createDescendantOrSelf(), f.createAtFeature(ArtifactsFeatureDescriptorEnum.content.getURI()));
 
 		executable.reset(deepFileResult);
 		while (executable.evaluateNext() != null)
@@ -241,7 +241,7 @@ public class WorkflowsInterpreterVisitorTest {
 
 		// the only difference is the content on the file artifact
 		ExecutableFactory f = ExecutableFactory.instance;
-		IExecutable<IEntity> executable = f.createFilter(f.createDescendantOrSelf(), f.createAtFeature(ArtifactsFeatureDescriptorEnum.content.getURI()));
+		IExecutable executable = f.createFilter(f.createDescendantOrSelf(), f.createAtFeature(ArtifactsFeatureDescriptorEnum.content.getURI()));
 
 		executable.reset(deepResult);
 		while (executable.evaluateNext() != null)

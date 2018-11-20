@@ -29,7 +29,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.whole.lang.executables.ExecutableFactory;
-import org.whole.lang.executables.IExecutable;
+import org.whole.lang.executables.IExecutableClient;
 import org.whole.lang.grammars.model.Grammar;
 import org.whole.lang.grammars.model.Name;
 import org.whole.lang.grammars.model.NonTerminal;
@@ -81,12 +81,12 @@ public class GrammarsContentAssistVisitor extends GrammarsIdentityVisitor {
 							qef.createChildStep(), qef.createFilter(
 									qef.createFeatureStep("name"),
 									qef.createKindTest(KindTestEnum.IMPL)));
-					for (NonTerminal nt : BehaviorUtils.<NonTerminal>compileAndLazyEvaluate(allTokenNames, grammar))
+					for (NonTerminal nt : BehaviorUtils.compileAndLazyEvaluate(allTokenNames, grammar).<NonTerminal>client())
 						names.add(nt.getValue());
 				}
 			} else {
 				ExecutableFactory f = ExecutableFactory.instance;
-				IExecutable<NonTerminal> i = f.createFilter(f.createDescendantOrSelf(), f.createHasType(NonTerminal.getURI()));
+				IExecutableClient<NonTerminal> i = f.createFilter(f.createDescendantOrSelf(), f.createHasType(NonTerminal.getURI())).client();
 				i.reset(grammar);
 				for (NonTerminal nt : i)
 					if (EntityUtils.isNotResolver(nt))

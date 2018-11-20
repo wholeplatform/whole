@@ -24,12 +24,12 @@ import org.whole.lang.model.IEntity;
 /**
  * @author Riccardo Solmi
  */
-public class IfStepper extends AbstractDelegatingNestedStepper<IEntity> {
+public class IfStepper extends AbstractDelegatingNestedStepper {
 	protected boolean conditionValue;
 	protected boolean isFirstValue;
 
 	@SuppressWarnings("unchecked")
-	public IfStepper(IExecutable<IEntity> conditionStepper, IExecutable<IEntity> doStepper) {
+	public IfStepper(IExecutable conditionStepper, IExecutable doStepper) {
 		super(conditionStepper, doStepper);
 	}
 
@@ -40,7 +40,7 @@ public class IfStepper extends AbstractDelegatingNestedStepper<IEntity> {
 	}
 
 	@Override
-	protected void initProducer(IExecutable<?> p, int index) {
+	protected void initProducer(IExecutable p, int index) {
 		if (index == 0) {
 			p.setBindings(getBindings());
 			p.reset(selfEntity);

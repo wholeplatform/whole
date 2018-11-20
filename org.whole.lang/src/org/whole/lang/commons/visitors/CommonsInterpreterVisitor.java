@@ -48,7 +48,7 @@ import org.whole.lang.visitors.VisitException;
  */
 public class CommonsInterpreterVisitor extends CommonsIdentityVisitor {
     @Override
-	public void setExecutableResult(IExecutable<?> executable) {
+	public void setExecutableResult(IExecutable executable) {
 		if (executable != null)
 			executable.setBindings(getBindings());
 		super.setExecutableResult(executable);
@@ -71,7 +71,7 @@ public class CommonsInterpreterVisitor extends CommonsIdentityVisitor {
 		stagedVisit(entity.wGetRoot(), +1);
 
 		if (isExecutableResult()) {
-			IExecutable<IEntity> templateExecutable = getExecutableResult();
+			IExecutable templateExecutable = getExecutableResult();
 			setExecutableResult(executableFactory().createCompose(
 					executableFactory().createSingleValuedRunnable((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
 						if (!BindingManagerFactory.instance.isVoid(selfEntity))

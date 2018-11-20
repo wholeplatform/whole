@@ -50,7 +50,7 @@ public class JDTCommentsMapper {
 		return comments.remove(comment);
 	}
 	public void appendOrphanCommentsToBlock(IEntity block) {
-		IExecutable<?> executable = ExecutableFactory.instance.createChild();
+		IExecutable executable = ExecutableFactory.instance.createChild();
 		executable.reset(orphanComments);
 		for (IEntity child : executable) {
 			block.wAdd(child);

@@ -32,16 +32,16 @@ import org.whole.lang.util.ResourceUtils;
 /**
  * @author Riccardo Solmi
  */
-public class CallEvaluator extends AbstractDelegatingNestedEvaluator<IEntity> {
+public class CallEvaluator extends AbstractDelegatingNestedEvaluator {
 	protected String queryName;
 	protected IEntity queryBody;
 	protected String[] queryParams;
 	protected AbstractFilterScope filterScope;
-	protected IExecutable<IEntity> queryExecutable;
+	protected IExecutable queryExecutable;
 	protected boolean queryExecutableNeedInit;
 
 	@SuppressWarnings("unchecked")
-	public CallEvaluator(String queryName, IExecutable<IEntity>... argsExecutables) {
+	public CallEvaluator(String queryName, IExecutable... argsExecutables) {
 		super(argsExecutables);
 		this.queryName = queryName;
 	}
@@ -82,7 +82,7 @@ public class CallEvaluator extends AbstractDelegatingNestedEvaluator<IEntity> {
 		}
 	}
 
-	protected IExecutable<IEntity> queryExecutable() {
+	protected IExecutable queryExecutable() {
 		ResourceUtils.handleCancelRequest(getBindings());
 
 		if (queryExecutable == null) {
@@ -136,7 +136,7 @@ public class CallEvaluator extends AbstractDelegatingNestedEvaluator<IEntity> {
 	public IEntity evaluateNext() {
 		IEntity lastEntity = null;
 		clearExecutorScope();
-		IExecutable<IEntity> qe = queryExecutable();
+		IExecutable qe = queryExecutable();
 		try {
 			getBindings().wEnterScope(filterScope());
 			getBindings().wEnterScope(executorScope(), true);
@@ -152,7 +152,7 @@ public class CallEvaluator extends AbstractDelegatingNestedEvaluator<IEntity> {
 	public IEntity evaluateRemaining() {
 		IEntity lastEntity = null;
 		clearExecutorScope();
-		IExecutable<IEntity> qe = queryExecutable();
+		IExecutable qe = queryExecutable();
 		try {
 			getBindings().wEnterScope(filterScope());
 			getBindings().wEnterScope(executorScope(), true);

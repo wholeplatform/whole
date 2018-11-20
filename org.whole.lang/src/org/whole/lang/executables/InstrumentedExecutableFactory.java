@@ -23,7 +23,7 @@ import org.whole.lang.model.IEntity;
  * @author Riccardo Solmi
  */
 public class InstrumentedExecutableFactory extends AbstractDecoratedExecutableFactory {
-	protected <E extends IEntity> IExecutable<E> decorate(IExecutable<E> executable) {
-		return new InstrumentingExecutable<E>(executable);
+	protected IExecutable decorate(IExecutable executable) {
+		return new InstrumentingExecutable(executable);
 	}
 }

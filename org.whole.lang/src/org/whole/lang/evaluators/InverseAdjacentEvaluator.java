@@ -22,7 +22,7 @@ import org.whole.lang.model.IEntity;
 /**
  * @author Riccardo Solmi
  */
-public class InverseAdjacentEvaluator extends CollectionEvaluator<IEntity> {
+public class InverseAdjacentEvaluator extends CollectionEvaluator {
 	@Override
 	protected Iterable<?> getCollectionIterable(IEntity entity) {
 		return entity.wInverseAdjacents();

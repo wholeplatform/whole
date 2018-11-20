@@ -28,9 +28,9 @@ import org.whole.lang.operations.ICloneContext;
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractTransitiveClosureEvaluator<E extends IEntity> extends AbstractExecutableEvaluatingStepper<E> {
-	protected List<IExecutable<E>> executableStack = new ArrayList<IExecutable<E>>(16);
-	protected IExecutable<E> lastExecutable;
+public abstract class AbstractTransitiveClosureEvaluator extends AbstractExecutableEvaluatingStepper {
+	protected List<IExecutable> executableStack = new ArrayList<IExecutable>(16);
+	protected IExecutable lastExecutable;
 	protected boolean includeSelf;
 
 	protected AbstractTransitiveClosureEvaluator(boolean includeSelf) {
@@ -38,12 +38,12 @@ public abstract class AbstractTransitiveClosureEvaluator<E extends IEntity> exte
     }
 
 	@Override
-	public IExecutable<E> clone(ICloneContext cc) {
-		AbstractTransitiveClosureEvaluator<E> evaluator = (AbstractTransitiveClosureEvaluator<E>) super.clone(cc);
+	public IExecutable clone(ICloneContext cc) {
+		AbstractTransitiveClosureEvaluator evaluator = (AbstractTransitiveClosureEvaluator) super.clone(cc);
 		if (executableStack != null) {
-			evaluator.executableStack = new ArrayList<IExecutable<E>>(executableStack.size());
+			evaluator.executableStack = new ArrayList<IExecutable>(executableStack.size());
 			for (int i=0,size=executableStack.size(); i<size; i++) {
-				IExecutable<E> isClone = cc.clone(executableStack.get(i));
+				IExecutable isClone = cc.clone(executableStack.get(i));
 				evaluator.executableStack.add(isClone);
 				if (executableStack.get(i) == lastExecutable)
 					evaluator.lastExecutable = isClone;
@@ -52,24 +52,24 @@ public abstract class AbstractTransitiveClosureEvaluator<E extends IEntity> exte
 		return evaluator;
 	}
 
-    protected IExecutable<E> peekExecutable() {
+    protected IExecutable peekExecutable() {
     	return executableStack.get(executableStack.size()-1);
     }
-    protected final void pushExecutable(IExecutable<E> executable, IEntity entity) {
+    protected final void pushExecutable(IExecutable executable, IEntity entity) {
     	executable.setBindings(getBindings());
     	executable.reset(entity);
     	executableStack.add(executable);
     }
-    protected final IExecutable<E> popExecutable() {
+    protected final IExecutable popExecutable() {
     	return executableStack.remove(executableStack.size()-1);
     }
 
 	protected void pushInitialExecutables(IEntity entity) {
-    	pushExecutable(includeSelf ? executableFactory().<E>createSelf() : createRelationExecutable(), entity);		
+    	pushExecutable(includeSelf ? executableFactory().createSelf() : createRelationExecutable(), entity);		
 	}
 
 	protected abstract boolean isRelationNotEmpty(IEntity entity);
-    protected abstract IExecutable<E> createRelationExecutable();
+    protected abstract IExecutable createRelationExecutable();
 
 
 	public void reset(IEntity entity) {
@@ -80,8 +80,8 @@ public abstract class AbstractTransitiveClosureEvaluator<E extends IEntity> exte
     }
 
 	@Override
-	public E evaluateNext() {
-    	E entity;
+	public IEntity evaluateNext() {
+    	IEntity entity;
 		while ((entity = (lastExecutable = peekExecutable()).evaluateNext()) == null && executableStack.size()>1)
 			popExecutable();
 
@@ -95,7 +95,7 @@ public abstract class AbstractTransitiveClosureEvaluator<E extends IEntity> exte
 	}
 
 //	@Override
-//	public E evaluateRemaining() {
+//	public IEntity evaluateRemaining() {
 //		while (evaluateNext() != null)
 //			;
 //		return lastEntity;
@@ -110,14 +110,14 @@ public abstract class AbstractTransitiveClosureEvaluator<E extends IEntity> exte
 			}
 	}
 
-	public void set(E value) {
+	public void set(IEntity entity) {
     	if (lastEntity == null)
     		throw new IllegalStateException();
     	
-    	lastExecutable.set(value);
+    	lastExecutable.set(entity);
 	}
-	public void add(E value) {
-		lastExecutable.add(value);
+	public void add(IEntity entity) {
+		lastExecutable.add(entity);
 	}
 	public void remove() {
     	if (lastEntity == null)

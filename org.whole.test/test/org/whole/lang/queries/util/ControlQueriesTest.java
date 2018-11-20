@@ -83,7 +83,7 @@ public class ControlQueriesTest {
 
 		assertNull(BehaviorUtils.compileAndLazyEvaluate(query, model.getDeclarations()).evaluateNext());
 
-		IExecutable<IEntity> executable = BehaviorUtils.compileAndLazyEvaluate(query, model);
+		IExecutable executable = BehaviorUtils.compileAndLazyEvaluate(query, model);
 		IEntity e = executable.evaluateNext();
 		Assert.assertNotNull(e);
 		assertEquals(model.getName().getValue(), e.wStringValue());
@@ -123,7 +123,7 @@ public class ControlQueriesTest {
 		IEntity queryExp1 = qef.createDivision(qef.createIntLiteral(10), qef.createIntLiteral(8));
 
 		IBindingManager bm = BindingManagerFactory.instance.createBindingManager();
-		IExecutable<IEntity> executable = BehaviorUtils.compileAndLazyEvaluate(query, queryExp1, bm);
+		IExecutable executable = BehaviorUtils.compileAndLazyEvaluate(query, queryExp1, bm);
 		
 		IEntity exp1 = executable.evaluateNext();
 		Assert.assertNotNull(exp1);
@@ -222,7 +222,7 @@ public class ControlQueriesTest {
 			i++;
 		CompositeEntity compositeEntity = (CompositeEntity) decls.wGet(i);
 		
-		IExecutable<IEntity> executable = BehaviorUtils.compileAndLazyEvaluate(query, compositeEntity);
+		IExecutable executable = BehaviorUtils.compileAndLazyEvaluate(query, compositeEntity);
 		IEntity e = executable.evaluateNext();
 		Assert.assertNotNull(e);
 		assertEquals(compositeEntity.getComponentType().wStringValue(), e.wStringValue());
@@ -248,7 +248,7 @@ public class ControlQueriesTest {
 		PathExpression query = (PathExpression) tm.create("choose2");
 
 		int i=0;
-		IExecutable<IEntity> executable = BehaviorUtils.compileAndLazyEvaluate(query, model);
+		IExecutable executable = BehaviorUtils.compileAndLazyEvaluate(query, model);
 		IEntity result;
 		while (i < decls.wSize()) {
 			IEntity decl = decls.wGet(i++);
@@ -304,7 +304,7 @@ public class ControlQueriesTest {
 		PathExpression query = (PathExpression) tm.create("choose3");
 
 		int i=0;
-		IExecutable<IEntity> executable = BehaviorUtils.compileAndLazyEvaluate(query, model);
+		IExecutable executable = BehaviorUtils.compileAndLazyEvaluate(query, model);
 		for (IEntity result = executable.evaluateNext(); result != null; result = executable.evaluateNext()) {
 			IEntity decl = decls.wGet(i++);
 			switch (decl.wGetEntityOrd()) {
@@ -346,7 +346,7 @@ public class ControlQueriesTest {
 		PathExpression query = (PathExpression) tm.create("choose4");
 
 		int i=0;
-		IExecutable<IEntity> executable = BehaviorUtils.compileAndLazyEvaluate(query, model, bm);
+		IExecutable executable = BehaviorUtils.compileAndLazyEvaluate(query, model, bm);
 		for (IEntity result = executable.evaluateNext(); result != null; result = executable.evaluateNext()) {
 			assertSame(result, bm.wGet("type"));
 			assertTrue(result instanceof ClassDeclaration);

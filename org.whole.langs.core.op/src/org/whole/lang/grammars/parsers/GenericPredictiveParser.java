@@ -27,7 +27,7 @@ import org.whole.lang.builders.ModelBuilderOperation;
 import org.whole.lang.commons.builders.ICommonsBuilder;
 import org.whole.lang.commons.reflect.CommonsLanguageKit;
 import org.whole.lang.executables.ExecutableFactory;
-import org.whole.lang.executables.IExecutable;
+import org.whole.lang.executables.IExecutableClient;
 import org.whole.lang.grammars.model.As;
 import org.whole.lang.grammars.model.Bound;
 import org.whole.lang.grammars.model.ByDelimiter;
@@ -91,7 +91,7 @@ public class GenericPredictiveParser extends AbstractPredictiveParser {
 
 		cb = (ICommonsBuilder) op.wGetBuilder(CommonsLanguageKit.URI);
 		ExecutableFactory f = ExecutableFactory.instance;
-		IExecutable<Production> i = f.createFilter(f.createDescendantOrSelf(), f.createIsLanguageSubtypeOf(GrammarsEntityDescriptorEnum.Production.getURI()));
+		IExecutableClient<Production> i = f.createFilter(f.createDescendantOrSelf(), f.createIsLanguageSubtypeOf(GrammarsEntityDescriptorEnum.Production.getURI())).client();
 		i.reset(this.grammar);
 		for (Production production : i)
 			productionsMap.put(production.getName().getValue(), production);
@@ -383,11 +383,11 @@ public class GenericPredictiveParser extends AbstractPredictiveParser {
 		}
 
 		protected void evaluate(Predicate predicate) {
-			IExecutable<Predicate> executable;
+			IExecutableClient<Predicate> executable;
 
 			switch (predicate.wGetEntityOrd()) {
 			case GrammarsEntityDescriptorEnum.And_ord:
-				executable = ExecutableFactory.instance.<Predicate>createChild();
+				executable = ExecutableFactory.instance.createChild().client();
 				executable.reset(predicate);
 				for (Predicate entity = executable.evaluateNext(); entity != null; entity = executable.evaluateNext()) {
 					Lexer.Memento memento = mark();
@@ -397,7 +397,7 @@ public class GenericPredictiveParser extends AbstractPredictiveParser {
 				break;
 
 			case GrammarsEntityDescriptorEnum.Or_ord:
-				executable = ExecutableFactory.instance.<Predicate>createChild();
+				executable = ExecutableFactory.instance.createChild().client();
 				executable.reset(predicate);
 				for (Predicate entity = executable.evaluateNext(); entity != null; entity = executable.evaluateNext()) {
 					Lexer.Memento memento = mark();

@@ -25,90 +25,90 @@ import org.whole.lang.model.IEntity;
  * @author Riccardo Solmi
  */
 public class StepperBasedExecutableFactory extends RegularExecutableFactory {
-	public <E extends IEntity> IExecutable<E> createConstantChild(IEntity constant) {
-		return new ConstantChildStepper<E>(true, constant);
+	public IExecutable createConstantChild(IEntity constant) {
+		return new ConstantChildStepper(true, constant);
 	}
-	public <E extends IEntity> IExecutable<E> createConstantCompose(IEntity constant, IExecutable<IEntity> executable) {
-		return new ConstantComposeStepper<E>(constant, (IExecutable<E>) executable);
-	}
-
-	public <E extends IEntity> IExecutable<E> createChild() {
-		return new ChildStepper<E>(true);
-	}
-	public <E extends IEntity> IExecutable<E> createChild(int relativeFirstIndex) {
-		return new ChildStepper<E>(true, relativeFirstIndex);
-	}
-	public <E extends IEntity> IExecutable<E> createChildReverse() {
-		return new ChildStepper<E>(false);
-	}
-	public <E extends IEntity> IExecutable<E> createChildReverse(int relativeFirstIndex) {
-		return new ChildStepper<E>(false, relativeFirstIndex);
-	}
-	public <E extends IEntity> IExecutable<E> createChildRange(int relativeStartIndex, int relativeEndIndex) {
-		return new ChildRangeStepper<E>(true, relativeStartIndex, relativeEndIndex);
+	public IExecutable createConstantCompose(IEntity constant, IExecutable executable) {
+		return new ConstantComposeStepper(constant, (IExecutable) executable);
 	}
 
-	public <E extends IEntity> IExecutable<E> createFollowingSibling() {
-		return new FollowingSiblingStepper<E>(true, false);
+	public IExecutable createChild() {
+		return new ChildStepper(true);
 	}
-	public <E extends IEntity> IExecutable<E> createFollowingSiblingReverse() {
-		return new FollowingSiblingStepper<E>(false, false);
+	public IExecutable createChild(int relativeFirstIndex) {
+		return new ChildStepper(true, relativeFirstIndex);
 	}
-	public <E extends IEntity> IExecutable<E> createPrecedingSibling() {
-		return new PrecedingSiblingStepper<E>(false, false);
+	public IExecutable createChildReverse() {
+		return new ChildStepper(false);
 	}
-	public <E extends IEntity> IExecutable<E> createPrecedingSiblingReverse() {
-		return new PrecedingSiblingStepper<E>(true, false);
+	public IExecutable createChildReverse(int relativeFirstIndex) {
+		return new ChildStepper(false, relativeFirstIndex);
 	}
-
-	public <E extends IEntity> IExecutable<E> createFollowingSiblingOrSelf() {
-		return new FollowingSiblingStepper<E>(true, true);
-	}
-	public <E extends IEntity> IExecutable<E> createFollowingSiblingOrSelfReverse() {
-		return new FollowingSiblingStepper<E>(false, true);
-	}
-	public <E extends IEntity> IExecutable<E> createPrecedingSiblingOrSelf() {
-		return new PrecedingSiblingStepper<E>(false, true);
-	}
-	public <E extends IEntity> IExecutable<E> createPrecedingSiblingOrSelfReverse() {
-		return new PrecedingSiblingStepper<E>(true, true);
+	public IExecutable createChildRange(int relativeStartIndex, int relativeEndIndex) {
+		return new ChildRangeStepper(true, relativeStartIndex, relativeEndIndex);
 	}
 
-	public <E extends IEntity> IExecutable<E> createAdjacent() {
-		return new AdjacentStepper<E>(true);
+	public IExecutable createFollowingSibling() {
+		return new FollowingSiblingStepper(true, false);
 	}
-	public <E extends IEntity> IExecutable<E> createAdjacent(int relativeFirstIndex) {
-		return new AdjacentStepper<E>(true, relativeFirstIndex);
+	public IExecutable createFollowingSiblingReverse() {
+		return new FollowingSiblingStepper(false, false);
 	}
-	public <E extends IEntity> IExecutable<E> createAdjacentReverse() {
-		return new AdjacentStepper<E>(false);
+	public IExecutable createPrecedingSibling() {
+		return new PrecedingSiblingStepper(false, false);
+	}
+	public IExecutable createPrecedingSiblingReverse() {
+		return new PrecedingSiblingStepper(true, false);
 	}
 
-	public <E extends IEntity> IExecutable<E> createChildOrAdjacent() {
-		return new ChildOrAdjacentStepper<E>(true);
+	public IExecutable createFollowingSiblingOrSelf() {
+		return new FollowingSiblingStepper(true, true);
 	}
-	public <E extends IEntity> IExecutable<E> createChildOrAdjacent(int relativeFirstIndex) {
-		return new ChildOrAdjacentStepper<E>(true, relativeFirstIndex);
+	public IExecutable createFollowingSiblingOrSelfReverse() {
+		return new FollowingSiblingStepper(false, true);
+	}
+	public IExecutable createPrecedingSiblingOrSelf() {
+		return new PrecedingSiblingStepper(false, true);
+	}
+	public IExecutable createPrecedingSiblingOrSelfReverse() {
+		return new PrecedingSiblingStepper(true, true);
+	}
+
+	public IExecutable createAdjacent() {
+		return new AdjacentStepper(true);
+	}
+	public IExecutable createAdjacent(int relativeFirstIndex) {
+		return new AdjacentStepper(true, relativeFirstIndex);
+	}
+	public IExecutable createAdjacentReverse() {
+		return new AdjacentStepper(false);
+	}
+
+	public IExecutable createChildOrAdjacent() {
+		return new ChildOrAdjacentStepper(true);
+	}
+	public IExecutable createChildOrAdjacent(int relativeFirstIndex) {
+		return new ChildOrAdjacentStepper(true, relativeFirstIndex);
 	}
 
 
 	@SuppressWarnings("unchecked")
-	public <E extends IEntity> IExecutable<E> createIf(IExecutable<? extends IEntity> conditionExecutable, IExecutable<E> doExecutable) {
+	public IExecutable createIf(IExecutable conditionExecutable, IExecutable doExecutable) {
 		return super.createIf(conditionExecutable, doExecutable);
 //FIXME
-//		return (IExecutable<E>) new IfStepper((IExecutable<IEntity>) conditionExecutable, (IExecutable<IEntity>) doExecutable);
+//		return (IExecutable) new IfStepper((IExecutable) conditionExecutable, (IExecutable) doExecutable);
 	}
 
 	@SuppressWarnings("unchecked")
-	public <E extends IEntity> IExecutable<E> createChoose(IExecutable<? extends E>... executableChain) {
+	public IExecutable createChoose(IExecutable... executableChain) {
 		return super.createChoose(executableChain);
 //FIXME
-//		return new ChooseByOrderStepper<E>(executableChain);
+//		return new ChooseByOrderStepper(executableChain);
 	}
 
-	public <E extends IEntity> IExecutable<E> createSequence(IExecutable<? extends E>... executableChain) {
+	public IExecutable createSequence(IExecutable... executableChain) {
 		return super.createSequence(executableChain);
 //FIXME
-//		return new SequenceStepper<E>(executableChain);
+//		return new SequenceStepper(executableChain);
 	}
 }

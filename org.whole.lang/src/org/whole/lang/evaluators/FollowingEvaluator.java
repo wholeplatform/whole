@@ -24,7 +24,7 @@ import org.whole.lang.util.EntityUtils;
 /**
  * @author Riccardo Solmi
  */
-public class FollowingEvaluator<E extends IEntity> extends AbstractTransitiveClosureEvaluator<E> {
+public class FollowingEvaluator extends AbstractTransitiveClosureEvaluator {
 	public FollowingEvaluator(boolean includeSelf) {
 		super(includeSelf);
 	}
@@ -32,7 +32,7 @@ public class FollowingEvaluator<E extends IEntity> extends AbstractTransitiveClo
 	@Override
 	protected void pushInitialExecutables(IEntity entity) {
 		if (entity == null || !EntityUtils.hasParent(entity))
-			pushExecutable(executableFactory().<E>createEmpty(), entity);
+			pushExecutable(executableFactory().createEmpty(), entity);
 		else {
 			IEntity parent = entity.wGetParent();
 			pushInitialExecutables(parent);
@@ -40,17 +40,17 @@ public class FollowingEvaluator<E extends IEntity> extends AbstractTransitiveClo
 		}
 	}
 
-	protected IExecutable<E> createChildExecutable() {
-		return includeSelf ? executableFactory().<E>createFollowingSiblingOrSelf() :
-			executableFactory().<E>createFollowingSibling();
+	protected IExecutable createChildExecutable() {
+		return includeSelf ? executableFactory().createFollowingSiblingOrSelf() :
+			executableFactory().createFollowingSibling();
 	}
 
 	protected boolean isRelationNotEmpty(IEntity entity) {
 		return entity.wSize() > 0;
 	}
 
-    protected IExecutable<E> createRelationExecutable() {
-    	return executableFactory().<E>createChild();
+    protected IExecutable createRelationExecutable() {
+    	return executableFactory().createChild();
     }
 
 	public void toString(StringBuilder sb) {

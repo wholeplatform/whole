@@ -28,7 +28,7 @@ import org.whole.lang.util.IDataTypeWrapper;
 /**
  * @author Riccardo Solmi
  */
-public class CollectionEvaluator<E extends IEntity> extends AbstractExecutableEvaluatingStepper<E> {
+public class CollectionEvaluator extends AbstractExecutableEvaluatingStepper {
 	protected Iterable<?> collectionIterable;
 	protected Iterator<?> collectionIterator;
 	protected IDataTypeWrapper elementWrapper;
@@ -44,8 +44,8 @@ public class CollectionEvaluator<E extends IEntity> extends AbstractExecutableEv
     }
 
 	@Override
-	public IExecutable<E> clone(ICloneContext cc) {
-		CollectionEvaluator<E> evaluator = (CollectionEvaluator<E>) super.clone(cc);
+	public IExecutable clone(ICloneContext cc) {
+		CollectionEvaluator evaluator = (CollectionEvaluator) super.clone(cc);
 		if (collectionIterator != null)
 			evaluator.collectionIterator = collectionIterable.iterator();
 		return evaluator;
@@ -68,12 +68,12 @@ public class CollectionEvaluator<E extends IEntity> extends AbstractExecutableEv
     }
 
 	@Override
-	public E evaluateNext() {
+	public IEntity evaluateNext() {
 		return collectionIterator.hasNext() ? lastEntity = elementWrapper.createEntity(collectionIterator.next()) : null;
 	}
 
 	@Override
-	public E evaluateRemaining() {
+	public IEntity evaluateRemaining() {
 		if (collectionIterator.hasNext()) {
 			Object value = null;
 			do {
@@ -87,19 +87,19 @@ public class CollectionEvaluator<E extends IEntity> extends AbstractExecutableEv
 	public void prune() {
 	}
 
-    public void set(E entity) {
+    public void set(IEntity entity) {
     	if (lastEntity == null)
     		throw new IllegalStateException();
 
     	lastEntity.wGetParent().wSet(lastEntity, entity);
     	lastEntity = entity;
     }
-	public void add(E value) {
+	public void add(IEntity entity) {
     	if (lastEntity == null)
     		throw new IllegalStateException();
 
 		IEntity parentEntity = lastEntity.wGetParent();
-		parentEntity.wAdd(parentEntity.wIndexOf(lastEntity), value);        
+		parentEntity.wAdd(parentEntity.wIndexOf(lastEntity), entity);        
 	}
 	public void remove() {
     	if (lastEntity == null)

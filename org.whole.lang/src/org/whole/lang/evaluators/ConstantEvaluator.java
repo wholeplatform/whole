@@ -23,12 +23,12 @@ import org.whole.lang.util.EntityUtils;
 /**
  * @author Riccardo Solmi
  */
-public class ConstantEvaluator<E extends IEntity> extends AbstractPureConditionalSupplierEvaluator<E> {
-	protected E constant;
-    protected E nextConstant;
+public class ConstantEvaluator extends AbstractPureConditionalSupplierEvaluator {
+	protected IEntity constant;
+    protected IEntity nextConstant;
     protected boolean useClone;
 
-	public ConstantEvaluator(E constant, boolean useClone) {
+	public ConstantEvaluator(IEntity constant, boolean useClone) {
 		this.useClone = useClone;
 		this.constant = useClone ? EntityUtils.cloneIfParented(constant) : constant;
 	}
@@ -39,7 +39,7 @@ public class ConstantEvaluator<E extends IEntity> extends AbstractPureConditiona
 		nextConstant = null;
 	}
 
-	public E get() {
+	public IEntity get() {
 		if (nextConstant == null)
 			nextConstant = useClone ? EntityUtils.clone(constant) : constant;
 		return nextConstant;

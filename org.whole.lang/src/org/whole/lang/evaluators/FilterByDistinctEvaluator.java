@@ -34,47 +34,44 @@ import org.whole.lang.operations.ICloneContext;
 /**
  * @author Riccardo Solmi
  */
-public class FilterByDistinctEvaluator<E extends IEntity> extends AbstractDelegatingNestedEvaluator<E> implements DistinctScope<E> {
+public class FilterByDistinctEvaluator extends AbstractDelegatingNestedEvaluator implements DistinctScope {
 	protected Map<Object, Set<IEntity>> distinctSetMap;
-	protected IEntityComparator<IEntity> comparator;
+	protected IEntityComparator<? super IEntity> comparator;
 
 	public FilterByDistinctEvaluator() {
 		this(BusinessIdentityComparator.instance);
 	}
-	@SuppressWarnings("unchecked")
-	public FilterByDistinctEvaluator(IEntityComparator<IEntity> comparator) {
-		super((IExecutable<IEntity>) null);
+	public FilterByDistinctEvaluator(IEntityComparator<? super IEntity> comparator) {
+		super((IExecutable) null);
 		this.comparator = comparator;
 	}
 
 	@Override
-	public IExecutable<E> clone(ICloneContext cc) {
-		FilterByDistinctEvaluator<E> evaluator = (FilterByDistinctEvaluator<E>) super.clone(cc);
+	public IExecutable clone(ICloneContext cc) {
+		FilterByDistinctEvaluator evaluator = (FilterByDistinctEvaluator) super.clone(cc);
 		if (distinctSetMap != null)
 			evaluator.distinctSetMap = new HashMap<Object, Set<IEntity>>(distinctSetMap);
 		evaluator.comparator = cc.clone(evaluator.comparator);			
 		return evaluator;
 	}
 
-	public DistinctScope<E> withComparator(IEntityComparator<IEntity> comparator) {
+	public DistinctScope withComparator(IEntityComparator<IEntity> comparator) {
 		this.comparator = comparator;
 		return this;
 	}
-	public IExecutable<E> withExecutable(IExecutable<E> executable) {
-		producers[0] = (IExecutable<IEntity>) executable;
+	public IExecutable withExecutable(IExecutable executable) {
+		producers[0] = (IExecutable) executable;
 		return this;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public E evaluateNext() {
-		return (E) getProducer().evaluateNext();
+	public IEntity evaluateNext() {
+		return getProducer().evaluateNext();
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public E evaluateRemaining() {
-		return (E) getProducer().evaluateRemaining();
+	public IEntity evaluateRemaining() {
+		return getProducer().evaluateRemaining();
 	}
 
 	protected void setProducersBindings(IBindingManager bindings) {
@@ -82,8 +79,8 @@ public class FilterByDistinctEvaluator<E extends IEntity> extends AbstractDelega
 		comparator.setBindings(bindings);
 	}
 
-	public IExecutable<IEntity> distinctExecutable() {
-		return new AbstractNestedSupplierEvaluator<IEntity>(this) {
+	public IExecutable distinctExecutable() {
+		return new AbstractNestedSupplierEvaluator(this) {
 			@Override
 			protected void resetProducers(IEntity entity) {
 			}
@@ -91,10 +88,9 @@ public class FilterByDistinctEvaluator<E extends IEntity> extends AbstractDelega
 			protected void setProducersBindings(IBindingManager bindings) {
 			}
 
-			@SuppressWarnings("unchecked")
-			public E get() {
-				return (E) BindingManagerFactory.instance.createValue(
-						((FilterByDistinctEvaluator<?>) getProducer(0)).addDistinct(this, selfEntity));
+			public IEntity get() {
+				return BindingManagerFactory.instance.createValue(
+						((FilterByDistinctEvaluator) getProducer(0)).addDistinct(this, selfEntity));
 			}
 
 			public void toString(StringBuilder sb) {

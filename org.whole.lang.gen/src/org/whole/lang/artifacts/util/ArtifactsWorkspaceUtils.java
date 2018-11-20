@@ -101,7 +101,7 @@ public class ArtifactsWorkspaceUtils {
 				!Matcher.match(ArtifactsEntityDescriptorEnum.Project, artifact))
 			throw new IllegalArgumentException("Wrong path ending with: "+artifact.toString());
 
-		IExecutable<IEntity> pathExecutable = new AncestorOrSelfInSameLanguageReverseEvaluator();
+		IExecutable pathExecutable = new AncestorOrSelfInSameLanguageReverseEvaluator();
 		pathExecutable.reset(artifact);
 
 		IEntity rootEntity = pathExecutable.evaluateNext();
@@ -495,13 +495,13 @@ public class ArtifactsWorkspaceUtils {
 		visitor.visit(rootArtifact);
 	}
 
-	public static class AncestorOrSelfInSameLanguageReverseEvaluator extends CollectionEvaluator<IEntity> {
+	public static class AncestorOrSelfInSameLanguageReverseEvaluator extends CollectionEvaluator {
 		@Override
 		protected Iterable<?> getCollectionIterable(IEntity entity) {
 			List<IEntity> ancestors = new ArrayList<IEntity>();
 			ILanguageKit languageKit = entity.wGetLanguageKit();
 
-	        IExecutable<?> executable = executableFactory().createAncestorOrSelf();
+	        IExecutable executable = executableFactory().createAncestorOrSelf();
 	        executable.reset(entity);
 			for (IEntity parent : executable) {
 	        	if (languageKit.equals(parent.wGetLanguageKit()))

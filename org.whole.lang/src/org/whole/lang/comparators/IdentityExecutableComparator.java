@@ -29,13 +29,13 @@ import org.whole.lang.operations.ICloneContext;
  * @author Riccardo Solmi
  */
 public class IdentityExecutableComparator<T extends IEntity> extends AbstractEqualityComparator<T> {
-	protected IExecutable<? extends T> executable;
+	protected IExecutable executable;
 	protected IEntityComparator<? super T> comparator;
 
-	public IdentityExecutableComparator(IExecutable<T> executable) {
+	public IdentityExecutableComparator(IExecutable executable) {
 		this(executable, BusinessIdentityComparator.instance);
 	}
-	public IdentityExecutableComparator(IExecutable<? extends T> executable, IEntityComparator<? super T> collector) {
+	public IdentityExecutableComparator(IExecutable executable, IEntityComparator<? super T> collector) {
 		this.executable = executable;
 		this.comparator = collector;
 	}
@@ -56,15 +56,17 @@ public class IdentityExecutableComparator<T extends IEntity> extends AbstractEqu
 	public boolean equals(T e1, T e2) {
 		return hasIdentity(e2, identityOf(e1));
 	}
+	@SuppressWarnings("unchecked")
 	protected List<T> identityOf(T e) {
 		List<T> identityList = new ArrayList<T>();
 		
 		executable.reset(e);
-		while ((e = executable.evaluateNext()) != null)
+		while ((e = (T) executable.evaluateNext()) != null)
 			identityList.add(e);
 
 		return identityList;
 	}
+	@SuppressWarnings("unchecked")
 	protected <R extends IEntity> boolean hasIdentity(IEntity e, List<? extends T> identity) {
 		executable.reset(e);
 		for (int i=0, size=identity.size(); i<size; i++)

@@ -35,7 +35,7 @@ import org.whole.lang.util.EntityUtils;
  * @author Riccardo Solmi
  */
 public class BreakpointUtils {
-	public static Predicate<InstrumentingExecutable<?>> breakpointPredicate = (ii) -> {
+	public static Predicate<InstrumentingExecutable> breakpointPredicate = (ii) -> {
 		IEntity selfEntity = ii.getResetEntity();
 		if (selfEntity == null || !ii.hasBindings())
 			return false;
@@ -56,7 +56,7 @@ public class BreakpointUtils {
 		return isEnabled;
 	};
 
-	public static Consumer<InstrumentingExecutable<?>> breakpointConsumer = (ii) -> {
+	public static Consumer<InstrumentingExecutable> breakpointConsumer = (ii) -> {
 		if (DebuggerInstrumentation.evaluatingPredicate)
 			return;
 

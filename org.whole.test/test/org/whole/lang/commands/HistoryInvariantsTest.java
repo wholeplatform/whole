@@ -121,7 +121,7 @@ public class HistoryInvariantsTest {
 
     @Test
 	public void testModelNullCommands() {
-        IExecutable<IEntity> i = ExecutableFactory.instance.createDescendantOrSelf();
+        IExecutable i = ExecutableFactory.instance.createDescendantOrSelf();
         i.reset(model);
 		for (IEntity e : i) {
         	Assert.assertEquals(NullCommand.instance, ((InternalIEntity) e).wGetBindingCommand());
@@ -144,7 +144,7 @@ public class HistoryInvariantsTest {
 
     @Test
 	public void testModelCommands() {
-        IExecutable<IEntity> i = ExecutableFactory.instance.createDescendantOrSelf();
+        IExecutable i = ExecutableFactory.instance.createDescendantOrSelf();
         i.reset(model);
 		for (IEntity e : i) {
         	ICommand cmd = ((InternalIEntity) e).wGetBindingCommand();
@@ -175,7 +175,7 @@ public class HistoryInvariantsTest {
         performChanges(model);
         IEntity model2 = EntityUtils.clone(model);
 
-        IExecutable<IEntity> i = ExecutableFactory.instance.createDescendantOrSelf();
+        IExecutable i = ExecutableFactory.instance.createDescendantOrSelf();
         i.reset(model2);
 		for (IEntity e : i) {
         	ICommand cmd = ((InternalIEntity) e).wGetBindingCommand();
@@ -196,7 +196,7 @@ public class HistoryInvariantsTest {
         history.clearHistory();
         Assert.assertTrue(history.getUndoCommands().isEmpty());
 
-        IExecutable<IEntity> i = ExecutableFactory.instance.createDescendantOrSelf();
+        IExecutable i = ExecutableFactory.instance.createDescendantOrSelf();
         i.reset(model);
 		for (IEntity e : i) {
         	ICommand cmd = ((InternalIEntity) e).wGetBindingCommand();
@@ -247,7 +247,7 @@ public class HistoryInvariantsTest {
 	public void testPrevCommandExecutionTimeOrder() {
     	performChanges(model);
 
-        IExecutable<IEntity> i = ExecutableFactory.instance.createDescendantOrSelf();
+        IExecutable i = ExecutableFactory.instance.createDescendantOrSelf();
         i.reset(model);
 		for (IEntity e : i) {
         	ICommand cmd = ((InternalIEntity) e).wGetBindingCommand();

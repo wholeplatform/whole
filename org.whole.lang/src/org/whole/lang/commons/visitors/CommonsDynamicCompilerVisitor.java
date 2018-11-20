@@ -117,7 +117,7 @@ public class CommonsDynamicCompilerVisitor extends CommonsIdentityDefaultVisitor
 			}
 		}, rootEntity, fragments, false);
 
-		Map<IEntity, IExecutable<?>> fragmentExecutableMap = new HashMap<>();
+		Map<IEntity, IExecutable> fragmentExecutableMap = new HashMap<>();
 		IEntity oldSelfEntity = getBindings().wGet(IBindingManager.SELF);
 		int stage = getStage();
 
@@ -125,7 +125,7 @@ public class CommonsDynamicCompilerVisitor extends CommonsIdentityDefaultVisitor
 			getBindings().enforceSelfBinding(oldSelfEntity);
 
 			setResult(null);
-			IExecutable<?> fragmentExecutable = null;
+			IExecutable fragmentExecutable = null;
 			if (Matcher.matchAnyImpl(f, CommonsEntityDescriptorEnum.StageDownFragment)) {
 				stagedVisit(f.wGetRoot(), -stage);
 				fragmentExecutable = getExecutableResult();
@@ -137,7 +137,7 @@ public class CommonsDynamicCompilerVisitor extends CommonsIdentityDefaultVisitor
 		});
 
 		ExecutableFactory f = executableFactory();
-		IExecutable<?> compiledExecutable = f.createChoose(
+		IExecutable compiledExecutable = f.createChoose(
 			f.createIf(
 					f.createAtStage(0),
 					f.createCompose(

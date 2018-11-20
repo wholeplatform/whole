@@ -23,7 +23,7 @@ import org.whole.lang.util.EntityUtils;
 /**
  * @author Riccardo Solmi
  */
-public class FollowingSiblingEvaluator<E extends IEntity> extends AbstractByIndexEvaluator<E> {
+public class FollowingSiblingEvaluator extends AbstractByIndexEvaluator {
 	protected boolean includeSelf;
 
 	public FollowingSiblingEvaluator(boolean forward, boolean includeSelf) {

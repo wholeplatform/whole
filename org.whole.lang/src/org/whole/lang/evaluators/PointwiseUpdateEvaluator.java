@@ -27,7 +27,7 @@ import org.whole.lang.util.EntityUtils;
  */
 public class PointwiseUpdateEvaluator extends AbstractPointwiseEvaluator {
 	@SuppressWarnings("unchecked")
-	public PointwiseUpdateEvaluator(IExecutable<IEntity> toExecutable, IExecutable<IEntity> valuesExecutable) {
+	public PointwiseUpdateEvaluator(IExecutable toExecutable, IExecutable valuesExecutable) {
 		super(toExecutable, valuesExecutable);
 	}
 

@@ -28,7 +28,7 @@ import java.util.regex.Pattern;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.executables.ExecutableFactory;
-import org.whole.lang.executables.IExecutable;
+import org.whole.lang.executables.IExecutableClient;
 import org.whole.lang.grammars.factories.GrammarsEntityFactory;
 import org.whole.lang.grammars.model.DataTypeEnum;
 import org.whole.lang.grammars.model.Format;
@@ -83,7 +83,7 @@ public class GrammarsActionsHelpers {
 		}
 		public TokenSet(IEntity tuple) {
 			this(tuple.wSize()*2);
-			IExecutable<NonTerminal> i = ExecutableFactory.instance.<NonTerminal>createChild();
+			IExecutableClient<NonTerminal> i = ExecutableFactory.instance.<NonTerminal>createChild().client();
 			i.reset(tuple);
 			for (NonTerminal nt : i)
 				add(nt.getValue());

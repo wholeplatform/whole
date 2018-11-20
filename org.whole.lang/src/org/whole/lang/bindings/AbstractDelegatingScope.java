@@ -219,10 +219,10 @@ public abstract class AbstractDelegatingScope extends AbstractCloneableScope {
 	public boolean isExecutableResult() {
 		return delegateScope.isExecutableResult();
 	}
-	public <E extends IEntity> IExecutable<E> getExecutableResult() {
+	public IExecutable getExecutableResult() {
 		return delegateScope.getExecutableResult();
 	}
-	public void setExecutableResult(IExecutable<?> executableResult) {
+	public void setExecutableResult(IExecutable executableResult) {
 		delegateScope.setExecutableResult(executableResult);
 	}
 	public IEntity getResult() {

@@ -102,13 +102,13 @@ public class NestedDynamicSimpleScope extends SimpleScope implements INestableSc
 		else
 			return super.isExecutableResult();
 	}
-	public <E extends IEntity> IExecutable<E> getExecutableResult() {
+	public IExecutable getExecutableResult() {
 		if (wResultScope() != this)
 			return wFilteringEnclosingScope().getExecutableResult();
 		else
 			return super.getExecutableResult();
 	}
-	public void setExecutableResult(IExecutable<?> executableResult) {
+	public void setExecutableResult(IExecutable executableResult) {
 		if (wResultScope() != this)
 			wFilteringEnclosingScope().setExecutableResult(executableResult);
 		else

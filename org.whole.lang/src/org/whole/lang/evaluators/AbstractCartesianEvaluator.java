@@ -27,17 +27,17 @@ import org.whole.lang.operations.ICloneContext;
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractCartesianEvaluator extends AbstractDelegatingNestedEvaluator<IEntity> {
+public abstract class AbstractCartesianEvaluator extends AbstractDelegatingNestedEvaluator {
 	protected IEntity[] nestedResults;
 
 	@SuppressWarnings("unchecked")
-	public AbstractCartesianEvaluator(IExecutable<IEntity>... executables) {
+	public AbstractCartesianEvaluator(IExecutable... executables) {
 		super(executables);
 		nestedResults = new IEntity[executables.length];
 	}
 
 	@Override
-	public IExecutable<IEntity> clone(ICloneContext cc) {
+	public IExecutable clone(ICloneContext cc) {
 		AbstractCartesianEvaluator executor = (AbstractCartesianEvaluator) super.clone(cc);
 		executor.nestedResults = nestedResults.clone();
 		return executor;
@@ -49,7 +49,7 @@ public abstract class AbstractCartesianEvaluator extends AbstractDelegatingNeste
 	}
 
 	@Override
-	protected void initProducer(IExecutable<?> p, int index) {
+	protected void initProducer(IExecutable p, int index) {
 		p.setBindings(getBindings());
 		p.reset(index == 0 ? selfEntity : nestedResults[index-1]);
 	}

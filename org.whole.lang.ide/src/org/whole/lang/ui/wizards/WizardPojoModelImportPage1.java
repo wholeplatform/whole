@@ -45,7 +45,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IWorkbench;
 import org.whole.gen.util.JDTUtils;
 import org.whole.lang.executables.ExecutableFactory;
-import org.whole.lang.executables.IExecutable;
+import org.whole.lang.executables.IExecutableClient;
 import org.whole.lang.java.codebase.JavaSourceTemplateFactory;
 import org.whole.lang.java.model.BodyDeclarations;
 import org.whole.lang.java.model.CompilationUnit;
@@ -179,7 +179,7 @@ public class WizardPojoModelImportPage1 extends AbstractWizardWholeModelImportPa
 				List<String> memberNames = map.get(compilationUnitName);
 				BodyDeclarations bodyDeclarations = compilationUnit.getTypes().get(0).getBodyDeclarations();
 				ExecutableFactory ef = ExecutableFactory.instance;
-				IExecutable<TypeDeclaration> entityExecutable = ef.createFilter(ef.createChild(), ef.createIsLanguageSubtypeOf(JavaEntityDescriptorEnum.TypeDeclaration.getURI()));
+				IExecutableClient<TypeDeclaration> entityExecutable = ef.createFilter(ef.createChild(), ef.createIsLanguageSubtypeOf(JavaEntityDescriptorEnum.TypeDeclaration.getURI())).client();
 				entityExecutable.reset(bodyDeclarations);
 				TypeDeclaration td;
 				while ((td = entityExecutable.evaluateNext()) != null) 

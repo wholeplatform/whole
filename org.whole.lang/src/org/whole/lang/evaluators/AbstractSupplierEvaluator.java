@@ -27,7 +27,7 @@ import org.whole.lang.util.EntityUtils;
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractSupplierEvaluator<E extends IEntity> extends AbstractExecutableEvaluatingStepper<E> implements Supplier<E> {
+public abstract class AbstractSupplierEvaluator extends AbstractExecutableEvaluatingStepper implements Supplier<IEntity> {
     protected boolean isEvaluated;
 	protected IEntity selfEntity;
 
@@ -38,7 +38,7 @@ public abstract class AbstractSupplierEvaluator<E extends IEntity> extends Abstr
         selfEntity = entity;
     }
 
-	public E evaluateNext() {
+	public IEntity evaluateNext() {
 		if (isEvaluated) {
 			if (executorScope != null)
 				executorScope().wClear();
@@ -55,12 +55,12 @@ public abstract class AbstractSupplierEvaluator<E extends IEntity> extends Abstr
 	}
 
 	@Override
-	public E evaluateRemaining() {
+	public IEntity evaluateRemaining() {
 		return evaluateNext();
 	}
 
 	@Override
-	public E evaluateSingleton() {
+	public IEntity evaluateSingleton() {
 		if (isEvaluated)
 			throw new IllegalArgumentException("The result is not a singleton");
 		else
@@ -69,7 +69,7 @@ public abstract class AbstractSupplierEvaluator<E extends IEntity> extends Abstr
 
     public void prune() {
     }
-	public void set(E entity) {
+	public void set(IEntity entity) {
     	if (lastEntity == null)
     		throw new IllegalStateException();
 
@@ -77,7 +77,7 @@ public abstract class AbstractSupplierEvaluator<E extends IEntity> extends Abstr
     		lastEntity.wGetParent().wSet(lastEntity, entity);
     	lastEntity = entity;
 	}
-	public void add(E entity) {
+	public void add(IEntity entity) {
     	if (lastEntity == null)
     		throw new IllegalStateException();
 

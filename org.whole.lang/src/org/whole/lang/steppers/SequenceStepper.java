@@ -25,9 +25,9 @@ import org.whole.lang.model.IEntity;
 /**
  * @author Riccardo Solmi
  */
-public class SequenceStepper<E extends IEntity> extends AbstractDelegatingNestedStepper<E> {
+public class SequenceStepper extends AbstractDelegatingNestedStepper {
 	@SuppressWarnings("unchecked")
-	public SequenceStepper(IExecutable<? extends E>... steppers) {
+	public SequenceStepper(IExecutable... steppers) {
 		super(steppers);
 	}
 

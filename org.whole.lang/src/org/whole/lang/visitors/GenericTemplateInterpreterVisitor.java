@@ -38,7 +38,7 @@ import org.whole.lang.util.EntityUtils;
  */
 public class GenericTemplateInterpreterVisitor extends AbstractVisitor {
     @Override
-	public void setExecutableResult(IExecutable<?> executable) {
+	public void setExecutableResult(IExecutable executable) {
 		if (executable != null)
 			executable.setBindings(getBindings());
 		super.setExecutableResult(executable);
@@ -113,7 +113,7 @@ public class GenericTemplateInterpreterVisitor extends AbstractVisitor {
 			index += (nextResultSize - resultSize);
 
 			if (isExecutableResult()) {
-				IExecutable<?> executable = getExecutableResult();
+				IExecutable executable = getExecutableResult();
 				setExecutableResult(null);
 				IEntity selfEntity = getBindings().wGet(IBindingManager.SELF);
 	        	if (selfEntity != oldSelfEntity2)

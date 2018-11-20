@@ -23,11 +23,11 @@ import org.whole.lang.model.IEntity;
 /**
  * @author Riccardo Solmi
  */
-public class ChooseByOrderEvaluator extends AbstractDelegatingNestedEvaluator<IEntity> {
+public class ChooseByOrderEvaluator extends AbstractDelegatingNestedEvaluator {
 	protected boolean choosen;
 
 	@SuppressWarnings("unchecked")
-	public ChooseByOrderEvaluator(IExecutable<IEntity>... executables) {
+	public ChooseByOrderEvaluator(IExecutable... executables) {
 		super(executables);
 	}
 

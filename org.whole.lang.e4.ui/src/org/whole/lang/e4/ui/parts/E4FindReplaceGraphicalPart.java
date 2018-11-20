@@ -70,7 +70,7 @@ import org.whole.lang.util.EntityUtils;
  * @author Enrico Persiani
  */
 public class E4FindReplaceGraphicalPart extends E4GraphicalPart {
-	protected IExecutable<IEntity> executable;
+	protected IExecutable executable;
 	protected IBindingManager bindings;
 	protected IUpdatableAction[] findReplaceActions;
 	protected IEntityPartViewer replaceViewer;

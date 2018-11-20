@@ -23,6 +23,7 @@ import java.util.Map;
 
 import org.whole.lang.executables.ExecutableFactory;
 import org.whole.lang.executables.IExecutable;
+import org.whole.lang.executables.IExecutableClient;
 import org.whole.lang.grammars.codebase.GrammarsRegistry;
 import org.whole.lang.grammars.model.As;
 import org.whole.lang.grammars.model.DataTerminal;
@@ -75,13 +76,13 @@ public class GrammarBasedDataTypeParser extends ForwardStrategyDataTypeParser {
 		this.enumRules = new HashMap<EnumValue, Rule>();
 
 		Map<String, Rule> productions = new HashMap<String, Rule>();
-		IExecutable<Production> pi = ExecutableFactory.instance.<Production>createChild();
+		IExecutableClient<Production> pi = ExecutableFactory.instance.createChild().client();
 		pi.reset(grammar.getPhraseStructure());
 		for (Production p : pi)
 			productions.put(p.getName().getValue(), p.getRule());
 
 		Map<String, Rule> lexicon = new HashMap<String, Rule>();
-		IExecutable<Production> li = ExecutableFactory.instance.<Production>createChild();
+		IExecutableClient<Production> li = ExecutableFactory.instance.createChild().client();
 		li.reset(grammar.getLexicalStructure());
 		for (Production p : li)
 			lexicon.put(p.getName().getValue(), p.getRule());
@@ -95,7 +96,7 @@ public class GrammarBasedDataTypeParser extends ForwardStrategyDataTypeParser {
 					for (int i=0, size=production.wSize(); i<size; i++) {
 						As as = EntityUtils.clone((As) production.wGet(i));
 						ExecutableFactory f = ExecutableFactory.instance;
-						IExecutable<Rule> executable = f.createFilter(f.createDescendantOrSelf(), f.createHasType(GrammarsEntityDescriptorEnum.NonTerminal.getURI()));
+						IExecutable executable = f.createFilter(f.createDescendantOrSelf(), f.createHasType(GrammarsEntityDescriptorEnum.NonTerminal.getURI()));
 						executable.reset(as);
 						for (NonTerminal nt = (NonTerminal) executable.evaluateNext(); nt != null;
 								nt = (NonTerminal) executable.evaluateNext()) {

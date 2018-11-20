@@ -24,9 +24,9 @@ import org.whole.lang.operations.ICloneable;
 /**
  * @author Riccardo Solmi
  */
-public interface DistinctScope<E extends IEntity> extends ICloneable {
-	public DistinctScope<E> withComparator(IEntityComparator<IEntity> comparator);
-	public IExecutable<E> withExecutable(IExecutable<E> executable);
+public interface DistinctScope extends ICloneable {
+	public DistinctScope withComparator(IEntityComparator<IEntity> comparator);
+	public IExecutable withExecutable(IExecutable executable);
 
-	public IExecutable<IEntity> distinctExecutable();
+	public IExecutable distinctExecutable();
 }

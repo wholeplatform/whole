@@ -40,14 +40,14 @@ public class ViewDerivationLibraryDeployer extends AbstractFunctionLibraryDeploy
 		putFunctionCode("deriveMapViewContents", deriveMapViewContentsIterator());
 	}
 
-	public static IExecutable<?> deriveIndexViewContentsIterator() {
+	public static IExecutable deriveIndexViewContentsIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				bm.setResult(FindDeclarationsOperation.findDeclarations(selfEntity));
 			}
 		});
 	}
-	public static IExecutable<?> deriveMapViewContentsIterator() {
+	public static IExecutable deriveMapViewContentsIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				IEntity result = null;

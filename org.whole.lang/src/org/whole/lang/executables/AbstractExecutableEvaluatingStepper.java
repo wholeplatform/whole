@@ -25,12 +25,12 @@ import org.whole.lang.operations.ICloneContext;
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractExecutableEvaluatingStepper<E extends IEntity> extends AbstractExecutable<E> {
+public abstract class AbstractExecutableEvaluatingStepper extends AbstractExecutable {
 	protected IBindingScope executorScope;
 
 	@Override
-    public IExecutable<E> clone(ICloneContext cc) {
-		AbstractExecutableEvaluatingStepper<E> executor = (AbstractExecutableEvaluatingStepper<E>) super.clone(cc);
+    public IExecutable clone(ICloneContext cc) {
+		AbstractExecutableEvaluatingStepper executor = (AbstractExecutableEvaluatingStepper) super.clone(cc);
 		executor.executorScope = executorScope != null ? executorScope.clone() : null;
 		return executor;
     }

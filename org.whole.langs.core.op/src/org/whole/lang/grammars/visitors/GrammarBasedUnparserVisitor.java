@@ -25,7 +25,7 @@ import java.util.Set;
 
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.executables.ExecutableFactory;
-import org.whole.lang.executables.IExecutable;
+import org.whole.lang.executables.IExecutableClient;
 import org.whole.lang.grammars.model.As;
 import org.whole.lang.grammars.model.BySize;
 import org.whole.lang.grammars.model.Choose;
@@ -135,14 +135,14 @@ public class GrammarBasedUnparserVisitor extends GrammarsTraverseAllVisitor {
 	protected void normalize(Grammar entity) {
 		Grammar g = entity;//FIXME ensure normalized: NormalizerOperation.normalize(entity);
 		ExecutableFactory f = executableFactory();
-		IExecutable<Production> li = f.createFilter(f.createChild(), f.createIsImpl());
+		IExecutableClient<Production> li = f.createFilter(f.createChild(), f.createIsImpl()).client();
 		li.reset(g.getLexicalStructure());
 		for (Production p : li) {
 			String name = p.getName().getValue();
 			nameProductionMap.put(name, p);
 			lexiconSet.add(name);
 		}
-		IExecutable<Production> pi = f.createFilter(f.createChild(), f.createIsImpl());
+		IExecutableClient<Production> pi = f.createFilter(f.createChild(), f.createIsImpl()).client();
 		pi.reset(g.getPhraseStructure());
 		for (Production p : pi)
 			nameProductionMap.put(p.getName().getValue(), p);

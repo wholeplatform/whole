@@ -26,14 +26,14 @@ import org.whole.lang.model.IEntity;
  */
 public class IntersectEvaluator extends AbstractCollectEvaluator {
 	@SuppressWarnings("unchecked")
-	public IntersectEvaluator(IEntityComparator<IEntity> comparator, IExecutable<IEntity>... executables) {
+	public IntersectEvaluator(IEntityComparator<IEntity> comparator, IExecutable... executables) {
 		super(comparator, executables);
 	}
 
 	public IEntity get() {
 		IEntity result = createResult();
 		IEntity e;
-		IExecutable<IEntity> p = getProducer(0);
+		IExecutable p = getProducer(0);
 
 		while ((e = p.evaluateNext()) != null)
 			result.wAdd(e);

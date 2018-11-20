@@ -26,12 +26,12 @@ import org.whole.lang.model.IEntity;
  */
 public class CartesianProductEvaluator extends AbstractCartesianEvaluator {
 	@SuppressWarnings("unchecked")
-	public CartesianProductEvaluator(IExecutable<IEntity>... executables) {
+	public CartesianProductEvaluator(IExecutable... executables) {
 		super(executables);
 	}
 
 	@Override
-	protected void initProducer(IExecutable<?> p, int index) {
+	protected void initProducer(IExecutable p, int index) {
 		p.setBindings(getBindings());
 		p.reset(selfEntity);
 	}
@@ -51,7 +51,7 @@ public class CartesianProductEvaluator extends AbstractCartesianEvaluator {
 		throw new UnsupportedOperationException();
 	}
 	public void remove() {
-		for (IExecutable<IEntity> p : producers)
+		for (IExecutable p : producers)
 			p.remove();
 	}
 

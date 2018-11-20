@@ -36,573 +36,566 @@ import org.whole.lang.util.IRunnable;
 public class AbstractDecoratedExecutableFactory implements ExecutableFactory {
 	ExecutableFactory factory = ExecutableFactory.regularInstance;
 
-	protected <E extends IEntity> IExecutable<E> decorate(IExecutable<E> executable) {
-		return new InstrumentingExecutable<E>(executable);
+	protected IExecutable decorate(IExecutable executable) {
+		return new InstrumentingExecutable(executable);
 	}
 
-	public <E extends IEntity> IExecutable<E> createEmpty() {
+	public IExecutable createEmpty() {
 		return decorate(factory.createEmpty());
 	}
 
-	public <E extends IEntity> IExecutable<E> createFailure(Throwable failure) {
+	public IExecutable createFailure(Throwable failure) {
 		return decorate(factory.createFailure(failure));
 	}
 
-	public <E extends IEntity> IExecutable<E> createVariable(String varName) {
+	public IExecutable createVariable(String varName) {
 		return decorate(factory.createVariable(varName));
 	}
 
-	public <E extends IEntity> IExecutable<E> createOuterVariable(String varName) {
+	public IExecutable createOuterVariable(String varName) {
 		return decorate(factory.createOuterVariable(varName));
 	}
 
-	public <E extends IEntity> IExecutable<E> createConstant(IEntity constant, boolean useClone) {
+	public IExecutable createConstant(IEntity constant, boolean useClone) {
 		return decorate(factory.createConstant(constant, useClone));
 	}
 
-	public <E extends IEntity> IExecutable<E> createConstantChild(IEntity constant) {
+	public IExecutable createConstantChild(IEntity constant) {
 		return decorate(factory.createConstantChild(constant));
 	}
 
-	public <E extends IEntity> IExecutable<E> createConstantCompose(IEntity constant, IExecutable<IEntity> executable) {
+	public IExecutable createConstantCompose(IEntity constant, IExecutable executable) {
 		return decorate(factory.createConstantCompose(constant, executable));
 	}
 
-	public <E extends IEntity> IExecutable<E> createConstantSubstitute(E constant, boolean useClone) {
+	public IExecutable createConstantSubstitute(IEntity constant, boolean useClone) {
 		return decorate(factory.createConstantSubstitute(constant, useClone));
 	}
 
-	public <E extends IEntity> IExecutable<E> createEntityCollection(Iterable<E> entityCollectionIterable) {
+	public IExecutable createEntityCollection(Iterable<? extends IEntity> entityCollectionIterable) {
 		return decorate(factory.createEntityCollection(entityCollectionIterable));
 	}
 
-	public <E extends IEntity> IExecutable<E> createJavaCollection(Iterable<?> collectionIterable) {
+	public IExecutable createJavaCollection(Iterable<?> collectionIterable) {
 		return decorate(factory.createJavaCollection(collectionIterable));
 	}
 
-	public <E extends IEntity> IExecutable<E> createCollection(Iterable<?> collectionIterable,
+	public IExecutable createCollection(Iterable<?> collectionIterable,
 			IDataTypeWrapper elementWrapper) {
 		return decorate(factory.createCollection(collectionIterable, elementWrapper));
 	}
 
-	public <E extends IEntity> IExecutable<E> createSingleValuedRunnable(IRunnable runnable) {
+	public IExecutable createSingleValuedRunnable(IRunnable runnable) {
 		return decorate(factory.createSingleValuedRunnable(runnable));
 	}
 
-	public <E extends IEntity> IExecutable<E> createSingleValuedRunnable(IRunnable runnable,
-			IExecutable<?>... argsExecutables) {
+	public IExecutable createSingleValuedRunnable(IRunnable runnable,
+			IExecutable... argsExecutables) {
 		return decorate(factory.createSingleValuedRunnable(runnable, argsExecutables));
 	}
 
-	public <E extends IEntity> IExecutable<E> createSingleValuedRunnable(IRunnable runnable,
-			int[] optionalArgsIndexes, IExecutable<?>... argsExecutables) {
+	public IExecutable createSingleValuedRunnable(IRunnable runnable,
+			int[] optionalArgsIndexes, IExecutable... argsExecutables) {
 		return decorate(factory.createSingleValuedRunnable(runnable, optionalArgsIndexes, argsExecutables));
 	}
 
-	public <E extends IEntity> IExecutable<E> createMultiValuedRunnable(IRunnable runnable, IExecutable<IEntity>... argsExecutables) {
+	public IExecutable createMultiValuedRunnable(IRunnable runnable, IExecutable... argsExecutables) {
 		return decorate(factory.createMultiValuedRunnable(runnable, argsExecutables));
 	}
 
-	public <E extends IEntity> IExecutable<E> createMultiValuedRunnable(IRunnable runnable, int[] optionalArgsIndexes, IExecutable<IEntity>... argsExecutables) {
+	public IExecutable createMultiValuedRunnable(IRunnable runnable, int[] optionalArgsIndexes, IExecutable... argsExecutables) {
 		return decorate(factory.createMultiValuedRunnable(runnable, optionalArgsIndexes, argsExecutables));
 	}
 
-	public IExecutable<IEntity> createAspect() {
+	public IExecutable createAspect() {
 		return decorate(factory.createAspect());
 	}
 
-	public <E extends IEntity> IExecutable<E> createSelf() {
+	public IExecutable createSelf() {
 		return decorate(factory.createSelf());
 	}
 
-	public <E extends IEntity> IExecutable<E> createRepeatedSelf() {
+	public IExecutable createRepeatedSelf() {
 		return decorate(factory.createRepeatedSelf());
 	}
 
-	public IExecutable<IEntity> createRoot() {
+	public IExecutable createRoot() {
 		return decorate(factory.createRoot());
 	}
 
-	public IExecutable<IEntity> createFragmentRoot() {
+	public IExecutable createFragmentRoot() {
 		return decorate(factory.createFragmentRoot());
 	}
 
-	public <E extends IEntity> IExecutable<E> createParent() {
+	public IExecutable createParent() {
 		return decorate(factory.createParent());
 	}
 
-	public <E extends IEntity> IExecutable<E> createAncestor() {
+	public IExecutable createAncestor() {
 		return decorate(factory.createAncestor());
 	}
 
-	public <E extends IEntity> IExecutable<E> createAncestorOrSelf() {
+	public IExecutable createAncestorOrSelf() {
 		return decorate(factory.createAncestorOrSelf());
 	}
 
-	public IExecutable<IEntity> createAncestorReverse() {
+	public IExecutable createAncestorReverse() {
 		return decorate(factory.createAncestorReverse());
 	}
 
-	public IExecutable<IEntity> createAncestorOrSelfReverse() {
+	public IExecutable createAncestorOrSelfReverse() {
 		return decorate(factory.createAncestorOrSelfReverse());
 	}
 
-	public IExecutable<IEntity> createInverseAdjacent() {
+	public IExecutable createInverseAdjacent() {
 		return decorate(factory.createInverseAdjacent());
 	}
 
-	public IExecutable<IEntity> createInverseReachable(boolean includeSelf) {
+	public IExecutable createInverseReachable(boolean includeSelf) {
 		return decorate(factory.createInverseReachable(includeSelf));
 	}
 
-	public IExecutable<IEntity> createInverseReachable(boolean includeSelf,
-			DistinctScope<IEntity> distinctScope) {
+	public IExecutable createInverseReachable(boolean includeSelf,
+			DistinctScope distinctScope) {
 		return decorate(factory.createInverseReachable(includeSelf, distinctScope));
 	}
 
-	public IExecutable<IEntity> createFeatureByName(String fdUri) {
+	public IExecutable createFeatureByName(String fdUri) {
 		return decorate(factory.createFeatureByName(fdUri));
 	}
 
-	public IExecutable<IEntity> createFeatureByName(FeatureDescriptor fd) {
+	public IExecutable createFeatureByName(FeatureDescriptor fd) {
 		return decorate(factory.createFeatureByName(fd));
 	}
 
-	public IExecutable<IEntity> createFeatureByIndex(int relativeIndex) {
+	public IExecutable createFeatureByIndex(int relativeIndex) {
 		return decorate(factory.createFeatureByIndex(relativeIndex));
 	}
 
-	public <E extends IEntity> IExecutable<E> createChild() {
+	public IExecutable createChild() {
 		return decorate(factory.createChild());
 	}
 
-	public <E extends IEntity> IExecutable<E> createChild(int relativeFirstIndex) {
+	public IExecutable createChild(int relativeFirstIndex) {
 		return decorate(factory.createChild(relativeFirstIndex));
 	}
 
-	public <E extends IEntity> IExecutable<E> createChildReverse() {
+	public IExecutable createChildReverse() {
 		return decorate(factory.createChildReverse());
 	}
 
-	public <E extends IEntity> IExecutable<E> createChildReverse(int relativeFirstIndex) {
+	public IExecutable createChildReverse(int relativeFirstIndex) {
 		return decorate(factory.createChildReverse(relativeFirstIndex));
 	}
 
-	public <E extends IEntity> IExecutable<E> createChildRange(int relativeStartIndex, int relativeEndIndex) {
+	public IExecutable createChildRange(int relativeStartIndex, int relativeEndIndex) {
 		return decorate(factory.createChildRange(relativeStartIndex, relativeEndIndex));
 	}
 
-	public <E extends IEntity> IExecutable<E> createDescendant() {
+	public IExecutable createDescendant() {
 		return decorate(factory.createDescendant());
 	}
 
-	public <E extends IEntity> IExecutable<E> createDescendantReverse() {
+	public IExecutable createDescendantReverse() {
 		return decorate(factory.createDescendantReverse());
 	}
 
-	public <E extends IEntity> IExecutable<E> createDescendantOrSelf() {
+	public IExecutable createDescendantOrSelf() {
 		return decorate(factory.createDescendantOrSelf());
 	}
 
-	public <E extends IEntity> IExecutable<E> createDescendantOrSelfReverse() {
+	public IExecutable createDescendantOrSelfReverse() {
 		return decorate(factory.createDescendantOrSelfReverse());
 	}
 
-	public <E extends IEntity> IExecutable<E> createFollowingSibling() {
+	public IExecutable createFollowingSibling() {
 		return decorate(factory.createFollowingSibling());
 	}
 
-	public <E extends IEntity> IExecutable<E> createFollowingSiblingReverse() {
+	public IExecutable createFollowingSiblingReverse() {
 		return decorate(factory.createFollowingSiblingReverse());
 	}
 
-	public <E extends IEntity> IExecutable<E> createPrecedingSibling() {
+	public IExecutable createPrecedingSibling() {
 		return decorate(factory.createPrecedingSibling());
 	}
 
-	public <E extends IEntity> IExecutable<E> createPrecedingSiblingReverse() {
+	public IExecutable createPrecedingSiblingReverse() {
 		return decorate(factory.createPrecedingSiblingReverse());
 	}
 
-	public <E extends IEntity> IExecutable<E> createFollowingSiblingOrSelf() {
+	public IExecutable createFollowingSiblingOrSelf() {
 		return decorate(factory.createFollowingSiblingOrSelf());
 	}
 
-	public <E extends IEntity> IExecutable<E> createFollowingSiblingOrSelfReverse() {
+	public IExecutable createFollowingSiblingOrSelfReverse() {
 		return decorate(factory.createFollowingSiblingOrSelfReverse());
 	}
 
-	public <E extends IEntity> IExecutable<E> createPrecedingSiblingOrSelf() {
+	public IExecutable createPrecedingSiblingOrSelf() {
 		return decorate(factory.createPrecedingSiblingOrSelf());
 	}
 
-	public <E extends IEntity> IExecutable<E> createPrecedingSiblingOrSelfReverse() {
+	public IExecutable createPrecedingSiblingOrSelfReverse() {
 		return decorate(factory.createPrecedingSiblingOrSelfReverse());
 	}
 
-	public <E extends IEntity> IExecutable<E> createFollowing() {
+	public IExecutable createFollowing() {
 		return decorate(factory.createFollowing());
 	}
 
-	public <E extends IEntity> IExecutable<E> createPreceding() {
+	public IExecutable createPreceding() {
 		return decorate(factory.createPreceding());
 	}
 
-	public <E extends IEntity> IExecutable<E> createFollowingOrSelf() {
+	public IExecutable createFollowingOrSelf() {
 		return decorate(factory.createFollowingOrSelf());
 	}
 
-	public <E extends IEntity> IExecutable<E> createPrecedingOrSelf() {
+	public IExecutable createPrecedingOrSelf() {
 		return decorate(factory.createPrecedingOrSelf());
 	}
 
-	public <E extends IEntity> IExecutable<E> createAdjacent() {
+	public IExecutable createAdjacent() {
 		return decorate(factory.createAdjacent());
 	}
 
-	public <E extends IEntity> IExecutable<E> createAdjacent(int relativeFirstIndex) {
+	public IExecutable createAdjacent(int relativeFirstIndex) {
 		return decorate(factory.createAdjacent(relativeFirstIndex));
 	}
 
-	public <E extends IEntity> IExecutable<E> createAdjacentReverse() {
+	public IExecutable createAdjacentReverse() {
 		return decorate(factory.createAdjacentReverse());
 	}
 
-	public <E extends IEntity> IExecutable<E> createReachable(boolean includeSelf) {
+	public IExecutable createReachable(boolean includeSelf) {
 		return decorate(factory.createReachable(includeSelf));
 	}
 
-	public <E extends IEntity> IExecutable<E> createReachable(boolean includeSelf,
-			DistinctScope<E> distinctScope) {
+	public IExecutable createReachable(boolean includeSelf,
+			DistinctScope distinctScope) {
 		return decorate(factory.createReachable(includeSelf, distinctScope));
 	}
 
-	public <E extends IEntity> IExecutable<E> createChildOrAdjacent() {
+	public IExecutable createChildOrAdjacent() {
 		return decorate(factory.createChildOrAdjacent());
 	}
 
-	public <E extends IEntity> IExecutable<E> createChildOrAdjacent(int relativeFirstIndex) {
+	public IExecutable createChildOrAdjacent(int relativeFirstIndex) {
 		return decorate(factory.createChildOrAdjacent(relativeFirstIndex));
 	}
 
-	public <E extends IEntity> IExecutable<E> createDescendantOrReachable() {
+	public IExecutable createDescendantOrReachable() {
 		return decorate(factory.createDescendantOrReachable());
 	}
 
-	public <E extends IEntity> IExecutable<E> createDescendantOrReachable(boolean includeSelf,
-			DistinctScope<E> distinctScope) {
+	public IExecutable createDescendantOrReachable(boolean includeSelf,
+			DistinctScope distinctScope) {
 		return decorate(factory.createDescendantOrReachable(includeSelf, distinctScope));
 	}
 
-	public <E extends IEntity> IExecutable<E> createFilter(IExecutable<E> executable, IExecutable<? extends IEntity> filterExecutable) {
+	public IExecutable createFilter(IExecutable executable, IExecutable filterExecutable) {
 		return decorate(factory.createFilter(executable, filterExecutable));
 	}
 
-	public IExecutable<IEntity> createMatchInScope(IExecutable<IEntity> patternExecutable) {
+	public IExecutable createMatchInScope(IExecutable patternExecutable) {
 		return decorate(factory.createMatchInScope(patternExecutable));
 	}
 
-	public <E extends IEntity> IExecutable<E> createIf(IExecutable<? extends IEntity> conditionExecutable, IExecutable<E> doExecutable) {
+	public IExecutable createIf(IExecutable conditionExecutable, IExecutable doExecutable) {
 		return decorate(factory.createIf(conditionExecutable, doExecutable));
 	}
 
-	public <E extends IEntity> IExecutable<E> createFor(IExecutable<? extends IEntity> forExecutable, IExecutable<E> doExecutable) {
+	public IExecutable createFor(IExecutable forExecutable, IExecutable doExecutable) {
 		return decorate(factory.createFor(forExecutable, doExecutable));
 	}
 
-	public <E extends IEntity> IExecutable<E> createCompose(IExecutable<IEntity> executable, IExecutable<IEntity>... nestedExecutables) {
+	public IExecutable createCompose(IExecutable executable, IExecutable... nestedExecutables) {
 		return decorate(factory.createCompose(executable, nestedExecutables));
 	}
 
-	public IExecutable<IEntity> createFunctionApplication(String functionUri) {
+	public IExecutable createFunctionApplication(String functionUri) {
 		return decorate(factory.createFunctionApplication(functionUri));
 	}
 
-	public IExecutable<IEntity> createRecursiveFunctionApplication() {
+	public IExecutable createRecursiveFunctionApplication() {
 		return decorate(factory.createRecursiveFunctionApplication());
 	}
 
-	public <E extends IEntity> IExecutable<E> createTemplateInterpreter(IEntity template) {
+	public IExecutable createTemplateInterpreter(IEntity template) {
 		return decorate(factory.createTemplateInterpreter(template));
 	}
 
-	public <E extends IEntity> IExecutable<E> createChoose(IExecutable<? extends E>... executableChain) {
+	public IExecutable createChoose(IExecutable... executableChain) {
 		return decorate(factory.createChoose(executableChain));
 	}
 
-	public <E extends IEntity> IExecutable<E> createChoose(ILanguageKit languageKit) {
+	public IExecutable createChoose(ILanguageKit languageKit) {
 		return decorate(factory.createChoose(languageKit));
 	}
 
-	public <E extends IEntity> IExecutable<E> createBlock(IExecutable<? extends E>... executableChain) {
+	public IExecutable createBlock(IExecutable... executableChain) {
 		return decorate(factory.createBlock(executableChain));
 	}
 
-	public <E extends IEntity> IExecutable<E> createSequence(IExecutable<? extends E>... executableChain) {
+	public IExecutable createSequence(IExecutable... executableChain) {
 		return decorate(factory.createSequence(executableChain));
 	}
 
-	public <E extends IEntity> IExecutable<E> createFilterByIndex(IExecutable<IEntity> executable, int index) {
+	public IExecutable createFilterByIndex(IExecutable executable, int index) {
 		return decorate(factory.createFilterByIndex(executable, index));
 	}
 
-	public <E extends IEntity> IExecutable<E> createFilterByIndexRange(IExecutable<IEntity> executable, int startIndex, int endIndex) {
+	public IExecutable createFilterByIndexRange(IExecutable executable, int startIndex, int endIndex) {
 		return decorate(factory.createFilterByIndexRange(executable, startIndex, endIndex));
 	}
 
-	public <E extends IEntity> IExecutable<E> createFilterByIndexRange() {
+	public IExecutable createFilterByIndexRange() {
 		return decorate(factory.createFilterByIndexRange());
 	}
 
-	public <E extends IEntity> DistinctScope<E> createDistinctScope() {
-		return factory .createDistinctScope();
+	public DistinctScope createDistinctScope() {
+		return factory.createDistinctScope();
 	}
 
-	public <E extends IEntity> DistinctScope<E> createDistinctScope(IEntityComparator<IEntity> comparator) {
-		return factory .createDistinctScope(comparator);
+	public DistinctScope createDistinctScope(IEntityComparator<? super IEntity> comparator) {
+		return factory.createDistinctScope(comparator);
 	}
 
-	public <E extends IEntity> IExecutable<E> createSort(IExecutable<E> executable) {
+	public IExecutable createSort(IExecutable executable) {
 		return decorate(factory.createSort(executable));
 	}
 
-	public <E extends IEntity> IExecutable<E> createSort(IExecutable<E> executable, IEntityComparator<E> comparator) {
+	public IExecutable createSort(IExecutable executable, IEntityComparator<? super IEntity> comparator) {
 		return decorate(factory.createSort(executable, comparator));
 	}
 
-	@SuppressWarnings("unchecked")
-	public IExecutable<IEntity> createUnionAll(IExecutable<IEntity>... executables) {
+	public IExecutable createUnionAll(IExecutable... executables) {
 		return decorate(factory.createUnionAll(executables));
 	}
 
-	@SuppressWarnings("unchecked")
-	public IExecutable<IEntity> createUnion(IEntityComparator<IEntity> comparator, IExecutable<IEntity>... executables) {
+	public IExecutable createUnion(IEntityComparator<IEntity> comparator, IExecutable... executables) {
 		return decorate(factory.createUnion(comparator, executables));
 	}
 
-	@SuppressWarnings("unchecked")
-	public IExecutable<IEntity> createIntersect(IEntityComparator<IEntity> comparator, IExecutable<IEntity>... executables) {
+	public IExecutable createIntersect(IEntityComparator<IEntity> comparator, IExecutable... executables) {
 		return decorate(factory.createIntersect(comparator, executables));
 	}
 
-	@SuppressWarnings("unchecked")
-	public IExecutable<IEntity> createExcept(IEntityComparator<IEntity> comparator, IExecutable<IEntity>... executables) {
+	public IExecutable createExcept(IEntityComparator<IEntity> comparator, IExecutable... executables) {
 		return decorate(factory.createExcept(comparator, executables));
 	}
 
-	public IExecutable<IEntity> createAtStage(int stage) {
+	public IExecutable createAtStage(int stage) {
 		return decorate(factory.createAtStage(stage));
 	}
 
-	public IExecutable<IEntity> createAtHostStage() {
+	public IExecutable createAtHostStage() {
 		return decorate(factory.createAtHostStage());
 	}
 
-	public IExecutable<IEntity> createAtTemplateStage() {
+	public IExecutable createAtTemplateStage() {
 		return decorate(factory.createAtTemplateStage());
 	}
 
-	public IExecutable<IEntity> createHasKind(EntityKinds kind) {
+	public IExecutable createHasKind(EntityKinds kind) {
 		return decorate(factory.createHasKind(kind));
 	}
 
-	public IExecutable<IEntity> createHasCompositeKind(CompositeKinds kind) {
+	public IExecutable createHasCompositeKind(CompositeKinds kind) {
 		return decorate(factory.createHasCompositeKind(kind));
 	}
 
-	public IExecutable<IEntity> createHasDataKind(DataKinds kind) {
+	public IExecutable createHasDataKind(DataKinds kind) {
 		return decorate(factory.createHasDataKind(kind));
 	}
 
-	public IExecutable<IEntity> createIsFragment() {
+	public IExecutable createIsFragment() {
 		return decorate(factory.createIsFragment());
 	}
 
-	public IExecutable<IEntity> createIsVariable() {
+	public IExecutable createIsVariable() {
 		return decorate(factory.createIsVariable());
 	}
 
-	public IExecutable<IEntity> createIsResolver() {
+	public IExecutable createIsResolver() {
 		return decorate(factory.createIsResolver());
 	}
 
-	public IExecutable<IEntity> createIsImpl() {
+	public IExecutable createIsImpl() {
 		return decorate(factory.createIsImpl());
 	}
 
-	public IExecutable<IEntity> createAnd(IExecutable<IEntity>... argsExecutables) {
+	public IExecutable createAnd(IExecutable... argsExecutables) {
 		return decorate(factory.createAnd(argsExecutables));
 	}
 
-	public IExecutable<IEntity> createOr(IExecutable<IEntity>... argsExecutables) {
+	public IExecutable createOr(IExecutable... argsExecutables) {
 		return decorate(factory.createOr(argsExecutables));
 	}
 
-	public IExecutable<IEntity> createNot(IExecutable<IEntity> argExecutable) {
+	public IExecutable createNot(IExecutable argExecutable) {
 		return decorate(factory.createNot(argExecutable));
 	}
 
-	public IExecutable<IEntity> createOne(IExecutable<IEntity> fromClause, IExecutable<IEntity> satisfiesClause) {
+	public IExecutable createOne(IExecutable fromClause, IExecutable satisfiesClause) {
 		return decorate(factory.createOne(fromClause, satisfiesClause));
 	}
 
-	public IExecutable<IEntity> createSome(IExecutable<IEntity> fromClause) {
+	public IExecutable createSome(IExecutable fromClause) {
 		return decorate(factory.createSome(fromClause));
 	}
 
-	public IExecutable<IEntity> createSome(IExecutable<IEntity> fromClause, IExecutable<IEntity> satisfiesClause) {
+	public IExecutable createSome(IExecutable fromClause, IExecutable satisfiesClause) {
 		return decorate(factory.createSome(fromClause, satisfiesClause));
 	}
 
-	public IExecutable<IEntity> createEvery(IExecutable<IEntity> fromClause, IExecutable<IEntity> satisfiesClause) {
+	public IExecutable createEvery(IExecutable fromClause, IExecutable satisfiesClause) {
 		return decorate(factory.createEvery(fromClause, satisfiesClause));
 	}
 
-	public IExecutable<IEntity> createIsLanguage(String languageURI) {
+	public IExecutable createIsLanguage(String languageURI) {
 		return decorate(factory.createIsLanguage(languageURI));
 	}
 
-	public IExecutable<IEntity> createHasType(String typeUri) {
+	public IExecutable createHasType(String typeUri) {
 		return decorate(factory.createHasType(typeUri));
 	}
 
-	public IExecutable<IEntity> createIsLanguageSubtypeOf(String typeUri) {
+	public IExecutable createIsLanguageSubtypeOf(String typeUri) {
 		return decorate(factory.createIsLanguageSubtypeOf(typeUri));
 	}
 
-	public IExecutable<IEntity> createIsLanguageSupertypeOf(String typeUri) {
+	public IExecutable createIsLanguageSupertypeOf(String typeUri) {
 		return decorate(factory.createIsLanguageSupertypeOf(typeUri));
 	}
 
-	public IExecutable<IEntity> createIsExtendedLanguageSubtypeOf(String typeUri) {
+	public IExecutable createIsExtendedLanguageSubtypeOf(String typeUri) {
 		return decorate(factory.createIsExtendedLanguageSubtypeOf(typeUri));
 	}
 
-	public IExecutable<IEntity> createIsExtendedLanguageSupertypeOf(String typeUri) {
+	public IExecutable createIsExtendedLanguageSupertypeOf(String typeUri) {
 		return decorate(factory.createIsExtendedLanguageSupertypeOf(typeUri));
 	}
 
-	public IExecutable<IEntity> createAtType(String edUri) {
+	public IExecutable createAtType(String edUri) {
 		return decorate(factory.createAtType(edUri));
 	}
 
-	public IExecutable<IEntity> createAtFeature(String fdUri) {
+	public IExecutable createAtFeature(String fdUri) {
 		return decorate(factory.createAtFeature(fdUri));
 	}
 
-	public IExecutable<IEntity> createAtIndex(int index) {
+	public IExecutable createAtIndex(int index) {
 		return decorate(factory.createAtIndex(index));
 	}
 
-	public IExecutable<IEntity> createAsVariable(String name) {
+	public IExecutable createAsVariable(String name) {
 		return decorate(factory.createAsVariable(name));
 	}
 
-	public IExecutable<IEntity> createAtStageVariable(String name) {
+	public IExecutable createAtStageVariable(String name) {
 		return decorate(factory.createAtStageVariable(name));
 	}
 
-	public IExecutable<IEntity> createLanguageVariable(String name) {
+	public IExecutable createLanguageVariable(String name) {
 		return decorate(factory.createLanguageVariable(name));
 	}
 
-	public IExecutable<IEntity> createTypeVariable(String name) {
+	public IExecutable createTypeVariable(String name) {
 		return decorate(factory.createTypeVariable(name));
 	}
 
-	public IExecutable<IEntity> createLanguageSubtypeOfVariable(String name) {
+	public IExecutable createLanguageSubtypeOfVariable(String name) {
 		return decorate(factory.createLanguageSubtypeOfVariable(name));
 	}
 
-	public IExecutable<IEntity> createLanguageSupertypeOfVariable(String name) {
+	public IExecutable createLanguageSupertypeOfVariable(String name) {
 		return decorate(factory.createLanguageSupertypeOfVariable(name));
 	}
 
-	public IExecutable<IEntity> createExtendedLanguageSubtypeOfVariable(String name) {
+	public IExecutable createExtendedLanguageSubtypeOfVariable(String name) {
 		return decorate(factory.createExtendedLanguageSubtypeOfVariable(name));
 	}
 
-	public IExecutable<IEntity> createExtendedLanguageSupertypeOfVariable(String name) {
+	public IExecutable createExtendedLanguageSupertypeOfVariable(String name) {
 		return decorate(factory.createExtendedLanguageSupertypeOfVariable(name));
 	}
 
-	public IExecutable<IEntity> createIterationIndexVariable(IExecutable<?> indexExecutable, String name) {
+	public IExecutable createIterationIndexVariable(IExecutable indexExecutable, String name) {
 		return decorate(factory.createIterationIndexVariable(indexExecutable, name));
 	}
 
-	public IExecutable<IEntity> createIterationIndex(IExecutable<?> indexExecutable, int index) {
+	public IExecutable createIterationIndex(IExecutable indexExecutable, int index) {
 		return decorate(factory.createIterationIndex(indexExecutable, index));
 	}
 
-	public IExecutable<IEntity> createIterationIndexRange(IExecutable<?> indexExecutable, int startIndex, int endIndex) {
+	public IExecutable createIterationIndexRange(IExecutable indexExecutable, int startIndex, int endIndex) {
 		return decorate(factory.createIterationIndexRange(indexExecutable, startIndex, endIndex));
 	}
 
-	public IExecutable<IEntity> createPointwiseEquals(IExecutable<IEntity> leftOperand, IExecutable<IEntity> rightOperand) {
+	public IExecutable createPointwiseEquals(IExecutable leftOperand, IExecutable rightOperand) {
 		return decorate(factory.createPointwiseEquals(leftOperand, rightOperand));
 	}
 
-	public <E extends IEntity> IExecutable<E> createScope(IExecutable<E> scopeExecutable,
+	public IExecutable createScope(IExecutable scopeExecutable,
 			String environmentName, Set<String> localNames, boolean withFreshNames) {
 		return decorate(factory.createScope(scopeExecutable, environmentName, localNames, withFreshNames));
 	}
 
-	public IExecutable<?> createTupleFactory(IExecutable<?>... tupleExecutables) {
+	public IExecutable createTupleFactory(IExecutable... tupleExecutables) {
 		return decorate(factory.createTupleFactory(tupleExecutables));
 	}
 
-	public <E extends IEntity> IExecutable<E> createSelect(IExecutable<E> selectExecutable, IExecutable<? extends IEntity> fromExecutable, IExecutable<? extends IEntity> whereExecutable) {
+	public IExecutable createSelect(IExecutable selectExecutable, IExecutable fromExecutable, IExecutable whereExecutable) {
 		return decorate(factory.createSelect(selectExecutable, fromExecutable, whereExecutable));
 	}
 
-	@SuppressWarnings("unchecked")
-	public IExecutable<IEntity> createCartesianProduct(IExecutable<? extends IEntity>... executables) {
+	public IExecutable createCartesianProduct(IExecutable... executables) {
 		return decorate(factory.createCartesianProduct(executables));
 	}
 
-	@SuppressWarnings("unchecked")
-	public IExecutable<IEntity> createPointwiseProduct(IExecutable<? extends IEntity>... executables) {
+	public IExecutable createPointwiseProduct(IExecutable... executables) {
 		return decorate(factory.createPointwiseProduct(executables));
 	}
 
-	public <E extends IEntity> IExecutable<E> createCartesianUpdate(IExecutable<E> toExecutable, IExecutable<? extends E> valuesExecutable) {
+	public IExecutable createCartesianUpdate(IExecutable toExecutable, IExecutable valuesExecutable) {
 		return decorate(factory.createCartesianUpdate(toExecutable, valuesExecutable));
 	}
 
-	public <E extends IEntity> IExecutable<E> createPointwiseUpdate(IExecutable<? super E> toExecutable, IExecutable<E> valuesExecutable) {
+	public IExecutable createPointwiseUpdate(IExecutable toExecutable, IExecutable valuesExecutable) {
 		return decorate(factory.createPointwiseUpdate(toExecutable, valuesExecutable));
 	}
 
-	public <E extends IEntity> IExecutable<E> createCartesianInsert(IExecutable<E> toExecutable, IExecutable<? extends E> valuesExecutable, Placement placement) {
+	public IExecutable createCartesianInsert(IExecutable toExecutable, IExecutable valuesExecutable, Placement placement) {
 		return decorate(factory.createCartesianInsert(toExecutable, valuesExecutable, placement));
 	}
 
-	public <E extends IEntity> IExecutable<E> createPointwiseInsert(IExecutable<? super E> toExecutable, IExecutable<E> valuesExecutable, Placement placement) {
+	public IExecutable createPointwiseInsert(IExecutable toExecutable, IExecutable valuesExecutable, Placement placement) {
 		return decorate(factory.createPointwiseInsert(toExecutable, valuesExecutable, placement));
 	}
 
-	public <E extends IEntity> IExecutable<E> createDelete(IExecutable<IEntity> valuesExecutable) {
+	public IExecutable createDelete(IExecutable valuesExecutable) {
 		return decorate(factory.createDelete(valuesExecutable));
 	}
 
-	@SuppressWarnings("unchecked")
-	public <E extends IEntity> IExecutable<E> createCall(String name, IExecutable<? extends E>... argsExecutables) {
+	public IExecutable createCall(String name, IExecutable... argsExecutables) {
 		return decorate(factory.createCall(name, argsExecutables));
 	}
 
-	public IExecutable<?> createNestedVariable() {
+	public IExecutable createNestedVariable() {
 		return decorate(factory.createNestedVariable());
 	}
 
-	public IExecutable<?> createNestedFragment(Map<IEntity, IExecutable<?>> fragmentExecutableMap) {
+	public IExecutable createNestedFragment(Map<IEntity, IExecutable> fragmentExecutableMap) {
 		return decorate(factory.createNestedFragment(fragmentExecutableMap));
 	}
 
-	public IExecutable<?> createCloneReplacing(IExecutable<?> childMappingExecutable) {
+	public IExecutable createCloneReplacing(IExecutable childMappingExecutable) {
 		return decorate(factory.createCloneReplacing(childMappingExecutable));
 	}
 
-	public IExecutable<?> createCloneReplacing(IExecutable<?> childMappingExecutable, Set<String> shallowUriSet) {
+	public IExecutable createCloneReplacing(IExecutable childMappingExecutable, Set<String> shallowUriSet) {
 		return decorate(factory.createCloneReplacing(childMappingExecutable, shallowUriSet));
 	}
 }

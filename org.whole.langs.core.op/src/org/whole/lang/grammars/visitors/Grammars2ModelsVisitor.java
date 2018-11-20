@@ -23,6 +23,7 @@ import java.util.Map;
 import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
 import org.whole.lang.executables.ExecutableFactory;
 import org.whole.lang.executables.IExecutable;
+import org.whole.lang.executables.IExecutableClient;
 import org.whole.lang.factories.IEntityBuilder;
 import org.whole.lang.grammars.model.As;
 import org.whole.lang.grammars.model.DataType;
@@ -93,7 +94,7 @@ public class Grammars2ModelsVisitor extends GrammarsTraverseAllVisitor {
 	public void visit(Grammar entity) {
 		entity = normalize(entity);
 
-		IExecutable<Production> lexiconExecutable = executableFactory().<Production>createChild();
+		IExecutableClient<Production> lexiconExecutable = executableFactory().createChild().client();
 		lexiconExecutable.reset(entity.getLexicalStructure());
 		for (Production p : lexiconExecutable)
 			lexiconMap.put(p.getName().getValue(), p);
@@ -119,7 +120,7 @@ public class Grammars2ModelsVisitor extends GrammarsTraverseAllVisitor {
 	public void visit(Productions entity) {
 		ModelsEntityFactory mf = ModelsEntityFactory.instance;
 		ExecutableFactory f = executableFactory();
-		IExecutable<Production> i = f.createFilter(f.createChild(), f.createIsImpl());
+		IExecutableClient<Production> i = f.createFilter(f.createChild(), f.createIsImpl()).client();
 		i.reset(entity);
 		for (Production p : i) {
 			String eName = getMappedEntityName(p);
@@ -144,8 +145,8 @@ public class Grammars2ModelsVisitor extends GrammarsTraverseAllVisitor {
 		String eName = getMappedEntityName(entity);
 		Rule rule = entity.getRule();
 		
-		IExecutable<IEntity> traversal = f.createDescendantOrSelf();
-		IExecutable<IEntity> ruleExecutable = f.createFilter(traversal, f.createIsLanguageSubtypeOf(GrammarsEntityDescriptorEnum.Rule.getURI()));
+		IExecutable traversal = f.createDescendantOrSelf();
+		IExecutable ruleExecutable = f.createFilter(traversal, f.createIsLanguageSubtypeOf(GrammarsEntityDescriptorEnum.Rule.getURI()));
 		ruleExecutable.reset(rule);
 		IEntity nextEntity = null;
 		for (rule = (Rule) ruleExecutable.evaluateNext(); rule != null; rule = (Rule) (nextEntity != null ? nextEntity : ruleExecutable.evaluateNext())) {
@@ -170,7 +171,7 @@ public class Grammars2ModelsVisitor extends GrammarsTraverseAllVisitor {
 			case GrammarsEntityDescriptorEnum.Choose_ord:
 
 				boolean isPolymorphic = false;
-				IExecutable<NonTerminal> ruleExecutable2 = f.createFilter(f.createDescendantOrSelf(), f.createHasType(GrammarsEntityDescriptorEnum.NonTerminal.getURI()));
+				IExecutableClient<NonTerminal> ruleExecutable2 = f.createFilter(f.createDescendantOrSelf(), f.createHasType(GrammarsEntityDescriptorEnum.NonTerminal.getURI())).client();
 				ruleExecutable2.reset(rule);
 				for (NonTerminal nt2 : ruleExecutable2)
 					if (!isLexicalNonTerminal(nt2)) {
@@ -185,7 +186,7 @@ public class Grammars2ModelsVisitor extends GrammarsTraverseAllVisitor {
 				} else if (!rule.wIsEmpty() && Matcher.match(GrammarsEntityDescriptorEnum.As, rule.wGet(0))) {
 					EnumEntity ee = getModelDeclaration(eName, ModelsEntityDescriptorEnum.EnumEntity);
 					EnumValues enumValues = ModelsEntityFactory.instance.createEnumValues(0);
-					IExecutable<As> ruleExecutable3 = f.createFilter(f.createDescendantOrSelf(), f.createHasType(GrammarsEntityDescriptorEnum.As.getURI()));
+					IExecutableClient<As> ruleExecutable3 = f.createFilter(f.createDescendantOrSelf(), f.createHasType(GrammarsEntityDescriptorEnum.As.getURI())).client();
 					ruleExecutable3.reset(rule);
 					for (As as : ruleExecutable3)
 						enumValues.wAdd(ModelsEntityFactory.instance.createEnumValue(as.getName().getValue()));
@@ -214,7 +215,7 @@ public class Grammars2ModelsVisitor extends GrammarsTraverseAllVisitor {
 
 					NonTerminal nt = null;
 					f = executableFactory();
-					IExecutable<NonTerminal> ruleExecutable4 = f.createFilter(f.createDescendantOrSelf(), f.createHasType(GrammarsEntityDescriptorEnum.NonTerminal.getURI()));
+					IExecutableClient<NonTerminal> ruleExecutable4 = f.createFilter(f.createDescendantOrSelf(), f.createHasType(GrammarsEntityDescriptorEnum.NonTerminal.getURI())).client();
 					ruleExecutable4.reset(rule);
 					for (NonTerminal nt2 : ruleExecutable4)
 						if (!isLexicalNonTerminal(nt2)) {
@@ -297,7 +298,7 @@ public class Grammars2ModelsVisitor extends GrammarsTraverseAllVisitor {
 
 	protected void ensureType(Types types, String typeName) {
 		ExecutableFactory ef = executableFactory();
-		IExecutable<SimpleName> i = ef.createFilter(ef.createChild(), ef.createHasType(ModelsEntityDescriptorEnum.SimpleName.getURI()));
+		IExecutableClient<SimpleName> i = ef.createFilter(ef.createChild(), ef.createHasType(ModelsEntityDescriptorEnum.SimpleName.getURI())).client();
 		i.reset(types);
 		for (SimpleName type : i)
 			if (typeName.equals(type.getValue()))
@@ -305,10 +306,10 @@ public class Grammars2ModelsVisitor extends GrammarsTraverseAllVisitor {
 		types.wAdd(ModelsEntityFactory.instance.createSimpleName(typeName));
 	}
 
-	protected void ensureFeature(Features features, IExecutable<IEntity> ruleIterator, As asRule) {
+	protected void ensureFeature(Features features, IExecutable ruleIterator, As asRule) {
 		String featureName = getMappedName(asRule);
 		ExecutableFactory ef = executableFactory();
-		IExecutable<Feature> i = ef.createFilter(ef.createChild(), ef.createHasType(ModelsEntityDescriptorEnum.Feature.getURI()));
+		IExecutableClient<Feature> i = ef.createFilter(ef.createChild(), ef.createHasType(ModelsEntityDescriptorEnum.Feature.getURI())).client();
 		i.reset(features);
 		for (Feature feature : i)
 			if (featureName.equals(feature.getName().getValue()))
@@ -316,7 +317,7 @@ public class Grammars2ModelsVisitor extends GrammarsTraverseAllVisitor {
 		features.wAdd(createFeature(ruleIterator, featureName));
 	}
 
-	protected Feature createFeature(IExecutable<IEntity> ruleExecutable, String featureName) {
+	protected Feature createFeature(IExecutable ruleExecutable, String featureName) {
 		ModelsEntityFactory mf = ModelsEntityFactory.instance;
 		IEntityBuilder<Feature> fb = mf.buildFeature();
 		fb.set(ModelsFeatureDescriptorEnum.name, featureName);
@@ -347,7 +348,7 @@ public class Grammars2ModelsVisitor extends GrammarsTraverseAllVisitor {
 						mf.createSimpleName(getMappedEntityName((NonTerminal) rule)));
 
 				IEntity ancestor = null;
-				IExecutable<IEntity> executable = executableFactory().createAncestor();
+				IExecutable executable = executableFactory().createAncestor();
 				executable.reset(Matcher.findAncestor(GrammarsEntityDescriptorEnum.As, rule));
 				while ((ancestor = executable.evaluateNext()) != null && !Matcher.match(GrammarsEntityDescriptorEnum.Production, ancestor))
 					if (Matcher.match(GrammarsEntityDescriptorEnum.Optional, ancestor))

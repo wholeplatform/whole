@@ -321,13 +321,13 @@ public class BindingManagerFactory {
 		return Matcher.match(getNullEd(), entity);
 	}
 
-	public <E extends IEntity> IExecutable<E> executableResultOf(E result) {
+	public IExecutable executableResultOf(IEntity result) {
 		return result != null ?
 				ExecutableFactory.instance.createConstant(result, false) :
 					ExecutableFactory.instance.createEmpty();
 	}
 
-	public IEntity resultOf(IExecutable<?> executableResult) {
+	public IEntity resultOf(IExecutable executableResult) {
 		IBindingManager riBindings = executableResult.getBindings();
 		riBindings.setExecutableResult(executableResult);
 

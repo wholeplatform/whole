@@ -145,7 +145,7 @@ public class ByChildAPITest {
 		for (int i=0; i<entities.wSize(); i++)
 			Assert.assertTrue(composite.wAdd(EntityUtils.clone(entitiesArray[i])));
 
-		IExecutable<IEntity> i = ExecutableFactory.instance.createChild();
+		IExecutable i = ExecutableFactory.instance.createChild();
 		i.reset(composite);
 		for (IEntity child : i)
 			Assert.assertTrue(entities.wContains(child));
@@ -219,7 +219,7 @@ public class ByChildAPITest {
 		composite.wSet(composite.wGet(0), EntityUtils.clone(composite.wGet(1)));
 		Assert.assertSame(oldChild, composite.wGet(0));
 		
-		IExecutable<IEntity> i = ExecutableFactory.instance.createChild();
+		IExecutable i = ExecutableFactory.instance.createChild();
 		i.reset(composite);
 		for (IEntity child : i)
 			Assert.assertTrue(entities.wContains(child));

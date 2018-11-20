@@ -31,7 +31,7 @@ public class PointwiseInsertEvaluator extends AbstractPointwiseEvaluator {
 	protected Placement placement;
 
 	@SuppressWarnings("unchecked")
-	public PointwiseInsertEvaluator(IExecutable<IEntity> toExecutable, IExecutable<IEntity> valuesExecutable, Placement placement) {
+	public PointwiseInsertEvaluator(IExecutable toExecutable, IExecutable valuesExecutable, Placement placement) {
 		super(toExecutable, valuesExecutable);
 		this.placement = placement;
 	}

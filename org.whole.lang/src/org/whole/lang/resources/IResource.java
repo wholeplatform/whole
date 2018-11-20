@@ -45,8 +45,8 @@ public interface IResource extends ITemplate {
 
 	//public void call(IEntity selfModel, IBindingManager bindings);
 
-	public <E extends IEntity> IExecutable<E> apply(IEntity query, IBindingManager bindings);
-	public <E extends IEntity> IExecutable<E> apply(String uriFragment, IEntity query, IBindingManager bindings);
+	public IExecutable apply(IEntity query, IBindingManager bindings);
+	public IExecutable apply(String uriFragment, IEntity query, IBindingManager bindings);
 
 	public void apply(String uriFragment, IBuilderOperation operation);
 

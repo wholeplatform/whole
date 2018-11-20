@@ -26,16 +26,15 @@ import org.whole.lang.operations.InterpreterOperation;
 /**
  * @author Riccardo Solmi
  */
-public class TemplateInterpreterEvaluator extends AbstractDelegatingNestedEvaluator<IEntity> {
+public class TemplateInterpreterEvaluator extends AbstractDelegatingNestedEvaluator {
 	protected IEntity template;
 
-	@SuppressWarnings("unchecked")
 	public TemplateInterpreterEvaluator(IEntity template) {
-		super((IExecutable<IEntity>) null);
+		super((IExecutable) null);
 		this.template = template;
 	}
 
-	public IExecutable<IEntity> clone(ICloneContext cc) {
+	public IExecutable clone(ICloneContext cc) {
 		TemplateInterpreterEvaluator result = (TemplateInterpreterEvaluator) super.clone(cc);
 
 		//FIXME workaround
@@ -58,7 +57,7 @@ public class TemplateInterpreterEvaluator extends AbstractDelegatingNestedEvalua
 	}
 
 	@Override
-	public IExecutable<IEntity> getProducer(int index) {
+	public IExecutable getProducer(int index) {
 		if (producers[0] == null) {
 			getBindings().enforceSelfBinding(selfEntity);
 			IBindingScope results = InterpreterOperation.lazyInterpretOnSelfBinding(template, getBindings(), true);

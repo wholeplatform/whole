@@ -26,12 +26,11 @@ import org.whole.lang.model.IEntity;
 /**
  * @author Riccardo Solmi
  */
-public class BlockEvaluator<E extends IEntity> extends AbstractDelegatingNestedEvaluator<E> {
+public class BlockEvaluator extends AbstractDelegatingNestedEvaluator {
 	protected IBindingScope accumulatedScope;
 	protected IBindingScope selfEntityScope;
 
-	@SuppressWarnings("unchecked")
-	public BlockEvaluator(IExecutable<IEntity>... executables) {
+	public BlockEvaluator(IExecutable... executables) {
 		super(executables);
 	}
 
@@ -60,8 +59,7 @@ public class BlockEvaluator<E extends IEntity> extends AbstractDelegatingNestedE
 		}
 	}
 
-	@SuppressWarnings("unchecked")
-	public E evaluateNext() {
+	public IEntity evaluateNext() {
 		IEntity result = null;
 
 		if (lastEntity != null)
@@ -87,11 +85,10 @@ public class BlockEvaluator<E extends IEntity> extends AbstractDelegatingNestedE
 				getBindings().wAddAll(selfEntityScope);
 		}
 
-		return lastEntity = (E) result;
+		return lastEntity = result;
 	}
 
-	@SuppressWarnings("unchecked")
-	public E evaluateRemaining() {
+	public IEntity evaluateRemaining() {
 		IEntity result = null;
 
 		if (lastEntity != null)
@@ -115,7 +112,7 @@ public class BlockEvaluator<E extends IEntity> extends AbstractDelegatingNestedE
 				getBindings().wAddAll(selfEntityScope);
 		}
 
-		return lastEntity = (E) result;
+		return lastEntity = result;
 	}
 }
 

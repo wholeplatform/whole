@@ -22,7 +22,7 @@ import org.whole.lang.model.IEntity;
 /**
  * @author Riccardo Solmi
  */
-public class AdjacentEvaluator<E extends IEntity> extends AbstractByIndexEvaluator<E> {
+public class AdjacentEvaluator extends AbstractByIndexEvaluator {
 	public AdjacentEvaluator(boolean forward) {
     	super(forward);
     }

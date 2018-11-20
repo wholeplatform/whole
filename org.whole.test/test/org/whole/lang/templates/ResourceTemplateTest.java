@@ -40,7 +40,7 @@ import org.whole.lang.builders.ModelBuilderOperation;
 import org.whole.lang.commons.builders.ICommonsBuilder;
 import org.whole.lang.commons.reflect.CommonsLanguageKit;
 import org.whole.lang.executables.ExecutableFactory;
-import org.whole.lang.executables.IExecutable;
+import org.whole.lang.executables.IExecutableClient;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.rdb.codebase.OrderedMatcher;
@@ -91,7 +91,7 @@ public class ResourceTemplateTest {
 
 		FolderArtifact compareTo = null;
 		ExecutableFactory ef = ExecutableFactory.instance;
-		IExecutable<FolderArtifact> executable = ef.createFilter(ef.createChild(), ef.createHasType(ArtifactsEntityDescriptorEnum.FolderArtifact.getURI()));
+		IExecutableClient<FolderArtifact> executable = ef.createFilter(ef.createChild(), ef.createHasType(ArtifactsEntityDescriptorEnum.FolderArtifact.getURI())).client();
 		executable.reset(testFolder.wGet(ArtifactsFeatureDescriptorEnum.artifacts));
 		for (FolderArtifact folder = executable.evaluateNext(); folder != null; folder = executable.evaluateNext()) {
 			if (folder.getName().wEquals(testSubFolder.wGet(ArtifactsFeatureDescriptorEnum.name))) {

@@ -32,7 +32,7 @@ import org.whole.lang.visitors.MissingVariableException;
 /**
  * @author Riccardo Solmi
  */
-public class SelectEvaluator extends AbstractDelegatingNestedEvaluator<IEntity> {
+public class SelectEvaluator extends AbstractDelegatingNestedEvaluator {
 	private Set<String> namesToBind = Collections.emptySet();
 	private boolean withNamesComplement;
 	protected IBindingScope fromScope;
@@ -40,7 +40,7 @@ public class SelectEvaluator extends AbstractDelegatingNestedEvaluator<IEntity> 
 	protected IBindingScope whereScope;
 
 	@SuppressWarnings("unchecked")
-	public SelectEvaluator(IExecutable<IEntity> selectExecutable, IExecutable<IEntity> fromExecutable, IExecutable<IEntity> whereExecutable) {
+	public SelectEvaluator(IExecutable selectExecutable, IExecutable fromExecutable, IExecutable whereExecutable) {
 		super(fromExecutable, selectExecutable, whereExecutable);
 	}
 
@@ -60,7 +60,7 @@ public class SelectEvaluator extends AbstractDelegatingNestedEvaluator<IEntity> 
 	}
 
 	@Override
-	protected void initProducer(IExecutable<?> p, int index) {
+	protected void initProducer(IExecutable p, int index) {
 		p.setBindings(getBindings());
 		if (index == 0)
 			p.reset(selfEntity);

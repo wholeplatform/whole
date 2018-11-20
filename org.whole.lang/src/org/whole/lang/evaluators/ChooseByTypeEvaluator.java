@@ -26,7 +26,7 @@ import org.whole.lang.reflect.ILanguageKit;
 /**
  * @author Riccardo Solmi
  */
-public class ChooseByTypeEvaluator extends AbstractDelegatingNestedEvaluator<IEntity> {
+public class ChooseByTypeEvaluator extends AbstractDelegatingNestedEvaluator {
 	private ILanguageKit languageKit;
 
 	@SuppressWarnings("unchecked")
@@ -40,7 +40,7 @@ public class ChooseByTypeEvaluator extends AbstractDelegatingNestedEvaluator<IEn
 		producers[producersSize()-1] = executableFactory().createEmpty();
 	}
 
-	public void setCase(EntityDescriptor<?> ed, IExecutable<IEntity> executable) {
+	public void setCase(EntityDescriptor<?> ed, IExecutable executable) {
 		if (!ed.getLanguageKit().equals(languageKit))
 			throw new IllegalArgumentException();
 

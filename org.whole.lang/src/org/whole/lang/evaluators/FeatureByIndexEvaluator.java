@@ -24,7 +24,7 @@ import org.whole.lang.model.IEntity;
 /**
  * @author Riccardo Solmi
  */
-public class FeatureByIndexEvaluator extends AbstractPureConditionalSupplierEvaluator<IEntity> {
+public class FeatureByIndexEvaluator extends AbstractPureConditionalSupplierEvaluator {
 	protected IntSupplier indexSupplier;
 	protected int index;
 

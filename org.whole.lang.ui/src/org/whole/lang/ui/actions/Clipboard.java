@@ -126,7 +126,7 @@ public class Clipboard {
 
 			// create temporary files
 			List<File> files = new ArrayList<File>();
-			IExecutable<IEntity> executable = ExecutableFactory.instance.createChild();
+			IExecutable executable = ExecutableFactory.instance.createChild();
 			executable.set(tuple);
 			for (IEntity entity : executable) {
 				File file = ClipboardUtils.createTempXmlBuilderFile(entity);

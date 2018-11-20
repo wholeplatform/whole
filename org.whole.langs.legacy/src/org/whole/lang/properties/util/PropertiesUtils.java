@@ -26,7 +26,7 @@ import java.util.Enumeration;
 
 import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
 import org.whole.lang.executables.ExecutableFactory;
-import org.whole.lang.executables.IExecutable;
+import org.whole.lang.executables.IExecutableClient;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.properties.factories.PropertiesEntityFactory;
 import org.whole.lang.properties.model.Entries;
@@ -108,7 +108,7 @@ public class PropertiesUtils {
 
 		props.getEntries();
 		ExecutableFactory f = ExecutableFactory.instance;
-		IExecutable<Property> i = f.createFilter(f.createChild(), f.createIsImpl());
+		IExecutableClient<Property> i = f.createFilter(f.createChild(), f.createIsImpl()).client();
 		i.reset(props.getEntries());
 		for (Property p : i)
 			try {

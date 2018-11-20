@@ -186,13 +186,13 @@ public class LazyTransactionScope extends SimpleScope implements ITransactionSco
 		else
 			return super.isExecutableResult();
 	}
-	public <E extends IEntity> IExecutable<E> getExecutableResult() {
+	public IExecutable getExecutableResult() {
 		if (wResultScope() != this)
 			return wEnclosingScope().getExecutableResult();
 		else
 			return super.getExecutableResult();
 	}
-	public void setExecutableResult(IExecutable<?> executableResult) {
+	public void setExecutableResult(IExecutable executableResult) {
 		definedResult = DefinedResult.ITERATOR;
 		super.setExecutableResult(executableResult);
 	}

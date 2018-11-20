@@ -62,14 +62,14 @@ import org.whole.lang.util.StringUtils;
 public class SemanticsUtils {
 	public static final String USE_IDENTIFIER_SEMANTICS = "USE_IDENTIFIER_SEMANTICS";
 
-	public static IExecutable<?> typeCastExecutable() {
+	public static IExecutable typeCastExecutable() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				bm.setResult(BindingManagerFactory.instance.createSpecificValue(selfEntity));
 			}
 		});
 	}
-	public static IExecutable<?> typeCastExecutable(final String entityTypeUri) {
+	public static IExecutable typeCastExecutable(final String entityTypeUri) {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				EntityDescriptor<?> toEd = CommonsDataTypePersistenceParser.parseEntityDescriptor(entityTypeUri);
@@ -78,7 +78,7 @@ public class SemanticsUtils {
 		});
 	}
 
-	public static IExecutable<?> semanticsTheoriesExecutable() {
+	public static IExecutable semanticsTheoriesExecutable() {
 		return ExecutableFactory.instance.createJavaCollection(
 				FunctionLibraryRegistry.instance().getResources(false, ResourceUtils.SIMPLE_COMPARATOR));
 	}

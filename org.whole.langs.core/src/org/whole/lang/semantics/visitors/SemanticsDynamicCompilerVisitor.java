@@ -70,10 +70,10 @@ public class SemanticsDynamicCompilerVisitor extends SemanticsIdentityDefaultVis
     		return;
     	}
 
-    	IExecutable<?> ac = new ActionCallEvaluator(
+    	IExecutable ac = new ActionCallEvaluator(
     			"whole:org.whole.lang.semantics:SemanticsActions:1.0.0#Translate Normalized Function to Query", null);
     	stagedVisit(ac.evaluate(entity, getBindings()));
-		IExecutable<?> functionBehavior = getExecutableResult();
+		IExecutable functionBehavior = getExecutableResult();
 
 		FunctionLibraryRegistry.instance().putFunctionCode(getLibraryUri(entity)+"#"+entity.getName().getValue(), functionBehavior);
 	}
@@ -93,7 +93,7 @@ public class SemanticsDynamicCompilerVisitor extends SemanticsIdentityDefaultVis
 //    	if (functionUri.indexOf("#") == -1)
 //    		functionUri = getLibraryUri(entity)+"#"+functionUri;
 
-    	IExecutable<IEntity> executableResult = executableFactory().createFunctionApplication(functionUri).withSourceEntity(entity);
+    	IExecutable executableResult = executableFactory().createFunctionApplication(functionUri).withSourceEntity(entity);
 
 		if (functionUri.endsWith("#stagedVisit"))
 			executableResult = executableFactory().createRecursiveFunctionApplication().withSourceEntity(entity);
@@ -101,7 +101,7 @@ public class SemanticsDynamicCompilerVisitor extends SemanticsIdentityDefaultVis
     	Expression arguments = entity.getArguments();
 		if (!EntityUtils.isResolver(arguments)) {
     		arguments.accept(this);
-    		IExecutable<IEntity> argumentsExecutable = getExecutableResult();
+    		IExecutable argumentsExecutable = getExecutableResult();
 
     		if (!argumentsExecutable.undecoratedExecutable().getClass().equals(SelfEvaluator.class))
     			executableResult = executableFactory().createCompose(executableResult, argumentsExecutable).withSourceEntity(entity);
@@ -111,7 +111,7 @@ public class SemanticsDynamicCompilerVisitor extends SemanticsIdentityDefaultVis
 
 	@Override
 	public void visit(TypeCast entity) {
-		IExecutable<?> executableResult;
+		IExecutable executableResult;
 		CastType type = entity.getType();
 		if (Matcher.matchImpl(SemanticsEntityDescriptorEnum.EnvType, type))
 			executableResult = SemanticsUtils.typeCastExecutable().withSourceEntity(entity);
@@ -121,7 +121,7 @@ public class SemanticsDynamicCompilerVisitor extends SemanticsIdentityDefaultVis
 		Term expression = entity.getExpression();
 		if (!EntityUtils.isResolver(expression)) {
     		expression.accept(this);
-    		IExecutable<?> expressionExecutable = getExecutableResult();
+    		IExecutable expressionExecutable = getExecutableResult();
 
     		if (!expressionExecutable.undecoratedExecutable().getClass().equals(SelfEvaluator.class))
     			executableResult = executableFactory().createFor(expressionExecutable, executableResult).withSourceEntity(entity);
@@ -131,7 +131,7 @@ public class SemanticsDynamicCompilerVisitor extends SemanticsIdentityDefaultVis
 
 //	@Override
 //	public void visit(Arguments entity) {
-//    	IExecutable<?>[] argumentsIterators = new IExecutable<?>[entity.size()];
+//    	IExecutable[] argumentsIterators = new IExecutable[entity.size()];
 //    	for (int i=0, size=entity.size(); i<size; i++) {
 //    		entity.get(i).accept(this);
 //			argumentsIterators[i] = getExecutableResult();

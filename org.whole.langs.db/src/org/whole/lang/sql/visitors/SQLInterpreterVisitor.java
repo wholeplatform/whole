@@ -54,7 +54,7 @@ public class SQLInterpreterVisitor extends SQLIdentityDefaultVisitor {
 	}
 
     @Override
-	public void setExecutableResult(IExecutable<?> executable) {
+	public void setExecutableResult(IExecutable executable) {
 		if (executable != null)
 			executable.setBindings(getBindings());
 		super.setExecutableResult(executable);

@@ -402,7 +402,7 @@ public class EntityUtils {
 				while (j<mergee.wSize())
 					merger.wAdd(cloneIfParented(mergee.wGet(j++).wGetAdaptee(false)));
 			} else {
-				IExecutable<IEntity> mergeeExecutable = ExecutableFactory.instance.createChild();
+				IExecutable mergeeExecutable = ExecutableFactory.instance.createChild();
 				mergeeExecutable.reset(mergee);
 				for (IEntity mergeeChild = mergeeExecutable.evaluateNext(); mergeeChild != null; mergeeChild = mergeeExecutable.evaluateNext()) {
 					if (comparator.contains(merger, mergeeChild)) {
@@ -471,7 +471,7 @@ public class EntityUtils {
 		StringBuffer path = new StringBuffer();
 		if (entity != null) {
 			IEntity parent = null;
-			IExecutable<IEntity> executable = ExecutableFactory.instance.createAncestorOrSelfReverse();
+			IExecutable executable = ExecutableFactory.instance.createAncestorOrSelfReverse();
 			executable.reset(entity);
 
 			IEntity firstEntity = executable.evaluateNext();

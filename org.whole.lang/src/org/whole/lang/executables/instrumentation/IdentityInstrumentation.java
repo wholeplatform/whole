@@ -27,86 +27,86 @@ public class IdentityInstrumentation implements IExecutableInstrumentation {
 	public static final IExecutableInstrumentation instance = new IdentityInstrumentation();
 
 	@Override
-	public void beforeClone(InstrumentingExecutable<?> ii) {
+	public void beforeClone(InstrumentingExecutable ii) {
 	}
 	@Override
-	public void afterClone(InstrumentingExecutable<?> ii, InstrumentingExecutable<?> result) {
-	}
-
-	@Override
-	public void beforeSetBindings(InstrumentingExecutable<?> ii) {
-	}
-	@Override
-	public void afterSetBindings(InstrumentingExecutable<?> ii) {
+	public void afterClone(InstrumentingExecutable ii, InstrumentingExecutable result) {
 	}
 
 	@Override
-	public void beforeReset(InstrumentingExecutable<?> ii) {
+	public void beforeSetBindings(InstrumentingExecutable ii) {
 	}
 	@Override
-	public void afterReset(InstrumentingExecutable<?> ii) {
-	}
-
-	@Override
-	public void beforeEvaluateNext(InstrumentingExecutable<?> ii) {
-	}
-	@Override
-	public void afterEvaluateNext(InstrumentingExecutable<?> ii, IEntity result) {
+	public void afterSetBindings(InstrumentingExecutable ii) {
 	}
 
 	@Override
-	public void beforeEvaluateRemaining(InstrumentingExecutable<?> ii) {
+	public void beforeReset(InstrumentingExecutable ii) {
 	}
 	@Override
-	public void afterEvaluateRemaining(InstrumentingExecutable<?> ii, IEntity result) {
-	}
-
-	@Override
-	public void beforeCallNext(InstrumentingExecutable<?> ii) {
-	}
-	@Override
-	public void afterCallNext(InstrumentingExecutable<?> ii) {
+	public void afterReset(InstrumentingExecutable ii) {
 	}
 
 	@Override
-	public void beforeCallRemaining(InstrumentingExecutable<?> ii) {
+	public void beforeEvaluateNext(InstrumentingExecutable ii) {
 	}
 	@Override
-	public void afterCallRemaining(InstrumentingExecutable<?> ii) {
-	}
-
-	@Override
-	public void beforeDoNext(InstrumentingExecutable<?> ii, IEntity result) {
-	}
-	@Override
-	public void afterDoNext(InstrumentingExecutable<?> ii) {
+	public void afterEvaluateNext(InstrumentingExecutable ii, IEntity result) {
 	}
 
 	@Override
-	public void beforeDoEnd(InstrumentingExecutable<?> ii) {
+	public void beforeEvaluateRemaining(InstrumentingExecutable ii) {
 	}
 	@Override
-	public void afterDoEnd(InstrumentingExecutable<?> ii) {
-	}
-
-	@Override
-	public void beforeHasNext(InstrumentingExecutable<?> ii) {
-	}
-	@Override
-	public void afterHasNext(InstrumentingExecutable<?> ii, boolean result) {
+	public void afterEvaluateRemaining(InstrumentingExecutable ii, IEntity result) {
 	}
 
 	@Override
-	public void beforeLookahead(InstrumentingExecutable<?> ii) {
+	public void beforeCallNext(InstrumentingExecutable ii) {
 	}
 	@Override
-	public void afterLookahead(InstrumentingExecutable<?> ii, IEntity result) {
+	public void afterCallNext(InstrumentingExecutable ii) {
 	}
 
 	@Override
-	public void beforeNext(InstrumentingExecutable<?> ii) {
+	public void beforeCallRemaining(InstrumentingExecutable ii) {
 	}
 	@Override
-	public void afterNext(InstrumentingExecutable<?> ii, IEntity result) {
+	public void afterCallRemaining(InstrumentingExecutable ii) {
+	}
+
+	@Override
+	public void beforeDoNext(InstrumentingExecutable ii, IEntity result) {
+	}
+	@Override
+	public void afterDoNext(InstrumentingExecutable ii) {
+	}
+
+	@Override
+	public void beforeDoEnd(InstrumentingExecutable ii) {
+	}
+	@Override
+	public void afterDoEnd(InstrumentingExecutable ii) {
+	}
+
+	@Override
+	public void beforeHasNext(InstrumentingExecutable ii) {
+	}
+	@Override
+	public void afterHasNext(InstrumentingExecutable ii, boolean result) {
+	}
+
+	@Override
+	public void beforeLookahead(InstrumentingExecutable ii) {
+	}
+	@Override
+	public void afterLookahead(InstrumentingExecutable ii, IEntity result) {
+	}
+
+	@Override
+	public void beforeNext(InstrumentingExecutable ii) {
+	}
+	@Override
+	public void afterNext(InstrumentingExecutable ii, IEntity result) {
 	}
 }

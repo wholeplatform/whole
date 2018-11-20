@@ -55,9 +55,9 @@ public class GenericForwardSpecificBuilderTest {
 
 		// to match variables fill variables with defaults
 		ExecutableFactory f = ExecutableFactory.instance;
-		IExecutable<IEntity> variableExecutable = f.createFilter(f.createDescendantOrSelf(), f.createIsVariable());
+		IExecutable variableExecutable = f.createFilter(f.createDescendantOrSelf(), f.createIsVariable());
 		variableExecutable.reset(entity);
-		IExecutable<IEntity> newVariableExecutable = f.createFilter(f.createDescendantOrSelf(), f.createIsVariable());
+		IExecutable newVariableExecutable = f.createFilter(f.createDescendantOrSelf(), f.createIsVariable());
 		newVariableExecutable.reset(newEntity);
 		
 		for (IEntity e1 = variableExecutable.evaluateNext(), e2 = newVariableExecutable.evaluateNext(); e1 != null;

@@ -27,7 +27,7 @@ import org.whole.lang.util.EntityUtils;
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractPureConditionalSupplierEvaluator<E extends IEntity> extends AbstractExecutableEvaluatingStepper<E> implements Supplier<E> {
+public abstract class AbstractPureConditionalSupplierEvaluator extends AbstractExecutableEvaluatingStepper implements Supplier<IEntity> {
     protected boolean isEvaluated;
 	protected IEntity selfEntity;
 
@@ -41,15 +41,15 @@ public abstract class AbstractPureConditionalSupplierEvaluator<E extends IEntity
 		return !(isEvaluated || EntityUtils.isNull(selfEntity));
 	}
 
-	public E next() {
-		E nextEntity = evaluateNext();
+	public IEntity next() {
+		IEntity nextEntity = evaluateNext();
 		if (nextEntity == null)
 			throw new NoSuchElementException();
 
 		return nextEntity;
 	}
 
-	public E evaluateNext() {
+	public IEntity evaluateNext() {
 		if (hasNext()) {
 			isEvaluated = true;
 
@@ -59,12 +59,12 @@ public abstract class AbstractPureConditionalSupplierEvaluator<E extends IEntity
 	}
 
 	@Override
-	public E evaluateRemaining() {
+	public IEntity evaluateRemaining() {
 		return evaluateNext();
 	}
 
 	@Override
-	public E evaluateSingleton() {
+	public IEntity evaluateSingleton() {
 		if (hasNext())
 			return evaluateNext();
 		else
@@ -75,7 +75,7 @@ public abstract class AbstractPureConditionalSupplierEvaluator<E extends IEntity
     public void prune() {
     }
 
-    public void set(E entity) {
+    public void set(IEntity entity) {
     	if (lastEntity == null)
     		throw new IllegalStateException();
     	
@@ -83,13 +83,13 @@ public abstract class AbstractPureConditionalSupplierEvaluator<E extends IEntity
     		lastEntity.wGetParent().wSet(lastEntity, entity);
     	lastEntity = entity;
     }
-	public void add(E value) {
+	public void add(IEntity entity) {
     	if (lastEntity == null)
     		throw new IllegalStateException();
     	
     	if (EntityUtils.hasParent(lastEntity)) {
     		IEntity lastEntityParent = lastEntity.wGetParent();
-    		lastEntityParent.wAdd(lastEntityParent.wIndexOf(lastEntity), value);
+    		lastEntityParent.wAdd(lastEntityParent.wIndexOf(lastEntity), entity);
     	}
 	}
 	public void remove() {

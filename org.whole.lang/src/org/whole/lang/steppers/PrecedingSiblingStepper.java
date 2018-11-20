@@ -23,7 +23,7 @@ import org.whole.lang.util.EntityUtils;
 /**
  * @author Riccardo Solmi
  */
-public class PrecedingSiblingStepper<E extends IEntity> extends AbstractByIndexStepper<E> {
+public class PrecedingSiblingStepper extends AbstractByIndexStepper {
 	protected boolean includeSelf;
 
 	public PrecedingSiblingStepper(boolean forward, boolean includeSelf) {

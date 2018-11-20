@@ -76,7 +76,7 @@ public class GenericCloneVisitor extends AbstractVisitor {
 			index += (nextResultSize - resultSize);
 			
 			if (isExecutableResult()) {
-				IExecutable<?> executable = getExecutableResult();
+				IExecutable executable = getExecutableResult();
 				setExecutableResult(null);
 				IEntity selfEntity = getBindings().wGet(IBindingManager.SELF);
 	        	if (selfEntity != oldSelfEntity2)
@@ -142,7 +142,7 @@ public class GenericCloneVisitor extends AbstractVisitor {
 				stagedVisitIfNeeded(entityClone.wGet(fd));
 //was			applyIfNeeded(entity.wGet(fd));
 				if (isExecutableResult()) {
-					IExecutable<?> executable = getExecutableResult();
+					IExecutable executable = getExecutableResult();
 					setExecutableResult(null);
 					IEntity selfEntity = getBindings().wGet(IBindingManager.SELF);
 		        	if (selfEntity != oldSelfEntity2)

@@ -45,7 +45,7 @@ public class ArtifactsResourceVisitor<T> extends ArtifactsIdentityDefaultVisitor
 	}
 
 	protected void acceptChildren(IEntity entity) {
-		IExecutable<?> i = executableFactory().createChild();
+		IExecutable i = executableFactory().createChild();
 		i.reset(getChildren(entity));
 		for (IEntity child : i)
 			acceptChild(child, getArtifactsOperations().getChild(

@@ -22,7 +22,7 @@ import org.whole.lang.model.IEntity;
 /**
  * @author Riccardo Solmi
  */
-public class ChildStepper<E extends IEntity> extends AbstractByIndexStepper<E> {
+public class ChildStepper extends AbstractByIndexStepper {
 	public ChildStepper(boolean forward) {
     	super(forward);
     }

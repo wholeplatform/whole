@@ -28,7 +28,7 @@ import org.whole.lang.resources.CompoundResourceRegistry;
 public abstract class AbstractDynamicVisitor extends AbstractVisitor {
 	protected CompoundResourceRegistry<?> registry;
 	protected String functionUri;
-	protected IExecutable<?> functionExecutable;
+	protected IExecutable functionExecutable;
 
 	public AbstractDynamicVisitor(CompoundResourceRegistry<?> registry, String functionUri) {
 		this.registry = registry;
@@ -42,7 +42,7 @@ public abstract class AbstractDynamicVisitor extends AbstractVisitor {
 		return visitor;
 	}
 
-	protected IExecutable<?> functionExecutable() {
+	protected IExecutable functionExecutable() {
 		if (functionExecutable == null) {
 			functionExecutable = registry.getFunctionCode(functionUri, true, getBindings());
 		}
@@ -50,11 +50,11 @@ public abstract class AbstractDynamicVisitor extends AbstractVisitor {
 	}
 
 	public void visit(IEntity entity) {
-		IExecutable<?> executable = functionExecutable();
+		IExecutable executable = functionExecutable();
 		executable.setBindings(getBindings());
 		executable.reset(entity);
 		apply(executable);
 	}
 
-	protected abstract void apply(IExecutable<?> executable);
+	protected abstract void apply(IExecutable executable);
 }

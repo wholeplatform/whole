@@ -23,6 +23,7 @@ import java.util.Set;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.executables.ExecutableFactory;
 import org.whole.lang.executables.IExecutable;
+import org.whole.lang.executables.IExecutableClient;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.models.model.ComponentModifier;
@@ -163,7 +164,7 @@ public class ModelsValidatorVisitor extends ModelsTraverseAllVisitor {
 	@Override
 	public void visit(Types entity) {
 		ExecutableFactory ef = executableFactory();
-		IExecutable<SimpleName> i = ef.createFilter(ef.createChild(), ef.createHasType(ModelsEntityDescriptorEnum.SimpleName.getURI()));
+		IExecutableClient<SimpleName> i = ef.createFilter(ef.createChild(), ef.createHasType(ModelsEntityDescriptorEnum.SimpleName.getURI())).client();
 		i.reset(entity);
 		for (SimpleName t : i) {
 			String typeName = t.getValue();
@@ -274,7 +275,7 @@ public class ModelsValidatorVisitor extends ModelsTraverseAllVisitor {
 	protected String location(IEntity entity) {
 		String result = "";
 		
-		IExecutable<?> i = executableFactory().createAncestorReverse();
+		IExecutable i = executableFactory().createAncestorReverse();
 		i.reset(entity);
 		for (IEntity e : i) {
 			if (e.wContains(ModelsFeatureDescriptorEnum.name)

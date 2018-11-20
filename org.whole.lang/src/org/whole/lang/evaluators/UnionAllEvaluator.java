@@ -25,14 +25,14 @@ import org.whole.lang.model.IEntity;
  */
 public class UnionAllEvaluator extends AbstractCollectEvaluator {
 	@SuppressWarnings("unchecked")
-	public UnionAllEvaluator(IExecutable<IEntity>... executables) {
+	public UnionAllEvaluator(IExecutable... executables) {
 		super(executables);
 	}
 
 	public IEntity get() {
 		IEntity result = createResult();
 		IEntity e;
-		IExecutable<IEntity> p;
+		IExecutable p;
 
 		for (int i=0; i<producersSize(); i++) {
 			p = getProducer(i);

@@ -43,6 +43,7 @@ import org.whole.lang.codebase.IPersistenceKit;
 import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
 import org.whole.lang.executables.ExecutableFactory;
 import org.whole.lang.executables.IExecutable;
+import org.whole.lang.executables.IExecutableClient;
 import org.whole.lang.factories.GenericEntityFactory;
 import org.whole.lang.factories.IEntityFactory;
 import org.whole.lang.factories.RegistryConfigurations;
@@ -151,7 +152,7 @@ public class ArtifactsUtils {
 	public static IPersistenceKit calculateInheritedPersistence(IEntity model, IPersistenceKit defaultPersistenceKit) {
 		if (model != null) {
 			ExecutableFactory ef = ExecutableFactory.instance;
-			IExecutable<IEntity> executable = ef.createFilter(
+			IExecutable executable = ef.createFilter(
 					ef.createAncestorOrSelf(),
 					ef.createSome(ef.createIsFragment(), ef.createHasKind(EntityKinds.COMPOSITE)));
 			executable.getBindings().enforceSelfBinding(model);
@@ -172,7 +173,7 @@ public class ArtifactsUtils {
 			if (projectsPoint == null)
 				throw new IllegalArgumentException("projectsPoint is undefined");
 
-			IExecutable<Project> projectExecutable = ExecutableFactory.instance.createChild();
+			IExecutableClient<Project> projectExecutable = ExecutableFactory.instance.createChild().client();
 			projectExecutable.reset(((Workspace) artifacts).getProjects());
 			for (Project project : projectExecutable) {
 				projectExecutable.remove();
@@ -184,7 +185,7 @@ public class ArtifactsUtils {
 			if (packagesPoint == null)
 				throw new IllegalArgumentException("packagesPoint is undefined");
 
-			IExecutable<Artifact> artifactExecutable = ExecutableFactory.instance.createChild();
+			IExecutableClient<Artifact> artifactExecutable = ExecutableFactory.instance.createChild().client();
 			artifactExecutable.reset(artifacts);
 			for (Artifact artifact : artifactExecutable) {
 				artifactExecutable.remove();

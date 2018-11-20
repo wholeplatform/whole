@@ -28,7 +28,7 @@ public class ForEvaluator extends AbstractCartesianEvaluator {
 	protected boolean isFirstValue = true;
 
 	@SuppressWarnings("unchecked")
-	public ForEvaluator(IExecutable<IEntity> forExecutable, IExecutable<IEntity> doExecutable) {
+	public ForEvaluator(IExecutable forExecutable, IExecutable doExecutable) {
 		super(forExecutable, doExecutable);
 	}
 

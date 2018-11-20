@@ -23,11 +23,11 @@ import org.whole.lang.model.IEntity;
 /**
  * @author Riccardo Solmi
  */
-public class ConstantComposeStepper<E extends IEntity> extends AbstractDelegatingNestedStepper<E> {
+public class ConstantComposeStepper extends AbstractDelegatingNestedStepper {
 	protected IEntity constant;
 
 	@SuppressWarnings("unchecked")
-	public ConstantComposeStepper(IEntity constant, IExecutable<E> executable) {
+	public ConstantComposeStepper(IEntity constant, IExecutable executable) {
 		super(executable);
 		this.constant = constant;
 		executable.reset(constant);

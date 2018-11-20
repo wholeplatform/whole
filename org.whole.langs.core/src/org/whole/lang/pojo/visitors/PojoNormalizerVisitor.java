@@ -63,7 +63,7 @@ public class PojoNormalizerVisitor extends PojoIdentityDefaultVisitor {
 	public static  void resolveTemplateNameCollisionsInDeclarations(Library entity, IBindingManager bindings, FreshNameGenerator entityNameGenerator) {
 		Path findAllProductDeclarationsWithTemplateName = (Path) PojoTemplateManager.instance().create("findAllProductDeclarationsWithTemplateName");
 		bindings.wEnterScope();
-		for (ProductDeclaration declaration : BehaviorUtils.<ProductDeclaration>compileAndLazyEvaluate(findAllProductDeclarationsWithTemplateName, entity, bindings)) {
+		for (ProductDeclaration declaration : BehaviorUtils.compileAndLazyEvaluate(findAllProductDeclarationsWithTemplateName, entity, bindings).<ProductDeclaration>client()) {
 			Template template = declaration.getTemplate();
 			template.wSetValue(entityNameGenerator.nextFreshName(StringUtils.toSimpleName(template.wStringValue())));
 		}
@@ -74,7 +74,7 @@ public class PojoNormalizerVisitor extends PojoIdentityDefaultVisitor {
 		PojoEntityFactory pef = PojoEntityFactory.instance;
 		Path findAllProductDeclarationsWithEmptyTemplate = (Path) PojoTemplateManager.instance().create("findAllProductDeclarationsWithEmptyTemplate");
 		bindings.wEnterScope();
-		for (ProductDeclaration declaration : BehaviorUtils.<ProductDeclaration>compileAndLazyEvaluate(findAllProductDeclarationsWithEmptyTemplate, entity, bindings)) {
+		for (ProductDeclaration declaration : BehaviorUtils.compileAndLazyEvaluate(findAllProductDeclarationsWithEmptyTemplate, entity, bindings).<ProductDeclaration>client()) {
 			String name = StringUtils.toSimpleName(bindings.wStringValue("name"));
 			declaration.setTemplate(pef.createName(entityNameGenerator.nextFreshName(name)));
 		}
@@ -84,7 +84,7 @@ public class PojoNormalizerVisitor extends PojoIdentityDefaultVisitor {
 	public static void createDefaultTemplateInProperties(Library entity, IBindingManager bindings) {
 		Path findAllPropertiesWithoutTemplate = (Path) PojoTemplateManager.instance().create("findAllPropertiesWithoutTemplate");
 		bindings.wEnterScope();
-		for (Property property : BehaviorUtils.<Property>compileAndLazyEvaluate(findAllPropertiesWithoutTemplate, entity, bindings))
+		for (Property property : BehaviorUtils.compileAndLazyEvaluate(findAllPropertiesWithoutTemplate, entity, bindings).<Property>client())
 			property.setTemplate((Name) EntityUtils.clone(bindings.wGet("name")));
 		bindings.wExitScope();
 	}
@@ -93,7 +93,7 @@ public class PojoNormalizerVisitor extends PojoIdentityDefaultVisitor {
 		Path findAllParametersWithoutType = (Path) PojoTemplateManager.instance().create("findAllParametersWithoutType");
 		Path findParameterType = (Path) PojoTemplateManager.instance().create("findPropertyType");
 		bindings.wEnterScope();
-		for (Parameter parameter : BehaviorUtils.<Parameter>compileAndLazyEvaluate(findAllParametersWithoutType, entity, bindings)) {
+		for (Parameter parameter : BehaviorUtils.compileAndLazyEvaluate(findAllParametersWithoutType, entity, bindings).<Parameter>client()) {
 			PojoDeclaration pojo = (PojoDeclaration) bindings.wGet("pojo");
 			Type type = BehaviorUtils.<Type>evaluateFirstResult(findParameterType, pojo, bindings);
 			if (type != null)
@@ -109,7 +109,7 @@ public class PojoNormalizerVisitor extends PojoIdentityDefaultVisitor {
 		Path findAllParametersWithoutTemlate = (Path) PojoTemplateManager.instance().create("findAllParametersWithoutTemlate");
 		Path findParameterTemplate = (Path) PojoTemplateManager.instance().create("findPropertyTemplate");
 		bindings.wEnterScope();
-		for (Parameter parameter : BehaviorUtils.<Parameter>compileAndLazyEvaluate(findAllParametersWithoutTemlate, entity, bindings)) {
+		for (Parameter parameter : BehaviorUtils.compileAndLazyEvaluate(findAllParametersWithoutTemlate, entity, bindings).<Parameter>client()) {
 			PojoDeclaration pojo = (PojoDeclaration) bindings.wGet("pojo");
 			Name name = BehaviorUtils.<Name>evaluateFirstResult(findParameterTemplate, pojo, bindings);
 			if (name != null)
@@ -121,7 +121,7 @@ public class PojoNormalizerVisitor extends PojoIdentityDefaultVisitor {
 	public static void addMappingDataTypes(Library entity, IBindingManager bindings, FreshNameGenerator entityNameGenerator) {
 		Path findNonPrimitiveTypes = (Path) PojoTemplateManager.instance().create("findAllPropertyTypes");
 		bindings.wEnterScope();
-		for (Type type : BehaviorUtils.<Type>compileAndLazyEvaluate(findNonPrimitiveTypes, entity, bindings))
+		for (Type type : BehaviorUtils.compileAndLazyEvaluate(findNonPrimitiveTypes, entity, bindings).<Type>client())
 			addMappingDataType(type, entity, bindings, entityNameGenerator);
 		bindings.wExitScope();
 	}

@@ -26,17 +26,17 @@ import org.whole.lang.operations.ICloneContext;
 /**
  * @author Riccardo Solmi
  */
-public class InverseReachableEvaluator extends AbstractTransitiveClosureEvaluator<IEntity> {
-	protected DistinctScope<IEntity> distinctScope;
+public class InverseReachableEvaluator extends AbstractTransitiveClosureEvaluator {
+	protected DistinctScope distinctScope;
 
-	public InverseReachableEvaluator(boolean includeSelf, DistinctScope<IEntity> distinctScope) {
+	public InverseReachableEvaluator(boolean includeSelf, DistinctScope distinctScope) {
 		super(includeSelf);
 
 		this.distinctScope = distinctScope;
 	}
 
 	@Override
-	public IExecutable<IEntity> clone(ICloneContext cc) {
+	public IExecutable clone(ICloneContext cc) {
 		InverseReachableEvaluator evaluator = (InverseReachableEvaluator) super.clone(cc);
 		evaluator.distinctScope = cc.clone(distinctScope);
 		return evaluator;
@@ -46,7 +46,7 @@ public class InverseReachableEvaluator extends AbstractTransitiveClosureEvaluato
 		return entity.wInverseAdjacentSize() > 0;
 	}
 
-    protected IExecutable<IEntity> createRelationExecutable() {
+    protected IExecutable createRelationExecutable() {
     	return executableFactory().createFilter(executableFactory().createInverseAdjacent(), distinctScope.distinctExecutable());
     }
 

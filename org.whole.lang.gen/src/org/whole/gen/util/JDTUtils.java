@@ -173,7 +173,7 @@ public class JDTUtils {
 		packageFragment.createCompilationUnit(typeName+".java", asFormattedString(cu), true, monitor);
 	}
 
-	public static IExecutable<?> generateJavaSystemSoftware() {
+	public static IExecutable generateJavaSystemSoftware() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				final List<CompilationUnit> cuList = JavaCompilerOperation.compile(selfEntity, bm);

@@ -25,18 +25,18 @@ import org.whole.lang.operations.ICloneContext;
 /**
  * @author Riccardo Solmi
  */
-public class DescendantOrReachableEvaluator<E extends IEntity> extends AbstractTransitiveClosureEvaluator<E> {
-	protected DistinctScope<E> distinctScope;
+public class DescendantOrReachableEvaluator extends AbstractTransitiveClosureEvaluator {
+	protected DistinctScope distinctScope;
 
-	public DescendantOrReachableEvaluator(boolean includeSelf, DistinctScope<E> distinctScope) {
+	public DescendantOrReachableEvaluator(boolean includeSelf, DistinctScope distinctScope) {
 		super(includeSelf);
 
 		this.distinctScope = distinctScope;
 	}
 
 	@Override
-	public IExecutable<E> clone(ICloneContext cc) {
-		DescendantOrReachableEvaluator<E> evaluator = (DescendantOrReachableEvaluator<E>) super.clone(cc);
+	public IExecutable clone(ICloneContext cc) {
+		DescendantOrReachableEvaluator evaluator = (DescendantOrReachableEvaluator) super.clone(cc);
 		evaluator.distinctScope = cc.clone(distinctScope);
 		return evaluator;
 	}
@@ -45,8 +45,8 @@ public class DescendantOrReachableEvaluator<E extends IEntity> extends AbstractT
 		return entity.wSize()+entity.wAdjacentSize() > 0;
 	}
     
-    protected IExecutable<E> createRelationExecutable() {
-    	return executableFactory().createFilter(executableFactory().<E>createChildOrAdjacent(), distinctScope.distinctExecutable());
+    protected IExecutable createRelationExecutable() {
+    	return executableFactory().createFilter(executableFactory().createChildOrAdjacent(), distinctScope.distinctExecutable());
     }
 
     public void toString(StringBuilder sb) {

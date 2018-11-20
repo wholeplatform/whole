@@ -74,10 +74,10 @@ public class NestedStaticScope extends AbstractDelegatingScope implements INesta
 	public boolean isExecutableResult() {
 		return resultScopeDelegate().isExecutableResult();
 	}
-	public <E extends IEntity> IExecutable<E> getExecutableResult() {
+	public IExecutable getExecutableResult() {
 		return resultScopeDelegate().getExecutableResult();
 	}
-	public void setExecutableResult(IExecutable<?> executableResult) {
+	public void setExecutableResult(IExecutable executableResult) {
 		resultScopeDelegate().setExecutableResult(executableResult);
 	}
 	public IEntity getResult() {

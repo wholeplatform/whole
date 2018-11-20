@@ -22,10 +22,9 @@ import org.whole.lang.model.IEntity;
 /**
  * @author Riccardo Solmi
  */
-public class SelfEvaluator<E extends IEntity> extends AbstractPureConditionalSupplierEvaluator<E> {
-	@SuppressWarnings("unchecked")
-	public E get() {
-		return (E) selfEntity;
+public class SelfEvaluator extends AbstractPureConditionalSupplierEvaluator {
+	public IEntity get() {
+		return selfEntity;
 	}
 
 	@Override

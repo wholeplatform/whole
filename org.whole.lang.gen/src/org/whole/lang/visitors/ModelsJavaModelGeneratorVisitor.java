@@ -34,7 +34,7 @@ import org.whole.gen.lang.model.SimpleEntityInterfaceBuilder;
 import org.whole.gen.lang.model.adapters.EntityAdapterBuilder;
 import org.whole.gen.lang.model.impl.SimpleEntityImplBuilder;
 import org.whole.lang.executables.ExecutableFactory;
-import org.whole.lang.executables.IExecutable;
+import org.whole.lang.executables.IExecutableClient;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.AbstractBagCompositeEntity;
 import org.whole.lang.model.AbstractCollectionCompositeEntity;
@@ -110,7 +110,7 @@ public class ModelsJavaModelGeneratorVisitor extends ModelsIdentityVisitor {
 	}
 
 	private String findFirstConcreteEntity(ModelDeclarations declarations) {
-		IExecutable<ModelDeclaration> i = executableFactory().<ModelDeclaration>createChild();
+		IExecutableClient<ModelDeclaration> i = executableFactory().createChild().client();
 		i.reset(declarations);
 		for (ModelDeclaration declaration : i) {
 			String name = declaration.getName().wStringValue();
@@ -242,7 +242,7 @@ public class ModelsJavaModelGeneratorVisitor extends ModelsIdentityVisitor {
 
 	public void visit(Types types) {
 		ExecutableFactory ef = executableFactory();
-		IExecutable<SimpleName> i = ef.createFilter(ef.createChild(), ef.createHasType(ModelsEntityDescriptorEnum.SimpleName.getURI()));
+		IExecutableClient<SimpleName> i = ef.createFilter(ef.createChild(), ef.createHasType(ModelsEntityDescriptorEnum.SimpleName.getURI())).client();
 		i.reset(types);
 		for (SimpleName name : i) {
 			String typeName = name.wStringValue();
@@ -573,7 +573,7 @@ public class ModelsJavaModelGeneratorVisitor extends ModelsIdentityVisitor {
     public void visit(SupertypesOf entity) {
     	List<String> types = new ArrayList<String>();
     	ExecutableFactory ef = executableFactory();
-		IExecutable<SimpleName> i = ef.createFilter(ef.createChild(), ef.createHasType(ModelsEntityDescriptorEnum.SimpleName.getURI()));
+    	IExecutableClient<SimpleName> i = ef.createFilter(ef.createChild(), ef.createHasType(ModelsEntityDescriptorEnum.SimpleName.getURI())).client();
 		i.reset(entity.getTypes());
 		for (SimpleName name : i)
 			types.add(name.wStringValue());
@@ -588,7 +588,7 @@ public class ModelsJavaModelGeneratorVisitor extends ModelsIdentityVisitor {
     public void visit(SubtypesOf entity) {
     	List<String> types = new ArrayList<String>();
     	ExecutableFactory ef = executableFactory();
-		IExecutable<SimpleName> i = ef.createFilter(ef.createChild(), ef.createHasType(ModelsEntityDescriptorEnum.SimpleName.getURI()));
+    	IExecutableClient<SimpleName> i = ef.createFilter(ef.createChild(), ef.createHasType(ModelsEntityDescriptorEnum.SimpleName.getURI())).client();
 		i.reset(entity.getTypes());
 		for (SimpleName name : i)
 			types.add(name.wStringValue());

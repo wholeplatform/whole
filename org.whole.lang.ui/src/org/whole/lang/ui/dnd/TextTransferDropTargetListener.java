@@ -107,7 +107,7 @@ public class TextTransferDropTargetListener extends AbstractTransferDropTargetLi
 				bm.wDef("syntheticRoot", entity);
 			boolean hasSyntheticRoot = bm.wIsSet("syntheticRoot");
 
-			IExecutable<IEntity> executable;
+			IExecutable executable;
 			boolean needsCompositeTarget = false;
 			if (hasSyntheticRoot) {
 				IEntity syntheticRoot = bm.wGet("syntheticRoot");

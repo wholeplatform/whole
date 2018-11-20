@@ -46,7 +46,7 @@ public class GenericNormalizer {
 
 	protected static void beforeRemovingResolvers(IEntity entity) {
 		if (EntityUtils.isComposite(entity)) {
-			IExecutable<?> i = ExecutableFactory.instance.createChild();
+			IExecutable i = ExecutableFactory.instance.createChild();
 			i.reset(entity);
 			for (IEntity child : i)
 				if (EntityUtils.isResolver(child))

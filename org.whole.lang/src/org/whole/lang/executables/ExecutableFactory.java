@@ -49,292 +49,279 @@ public interface ExecutableFactory {
 	}
 
 
-	<E extends IEntity> IExecutable<E> createEmpty();
+	IExecutable createEmpty();
 
-	<E extends IEntity> IExecutable<E> createFailure(Throwable failure);
+	IExecutable createFailure(Throwable failure);
 
-	<E extends IEntity> IExecutable<E> createVariable(String varName);
+	IExecutable createVariable(String varName);
 
-	<E extends IEntity> IExecutable<E> createOuterVariable(String varName);
+	IExecutable createOuterVariable(String varName);
 
-	<E extends IEntity> IExecutable<E> createConstant(IEntity constant, boolean useClone);
+	IExecutable createConstant(IEntity constant, boolean useClone);
 
-	<E extends IEntity> IExecutable<E> createConstantChild(IEntity constant);
+	IExecutable createConstantChild(IEntity constant);
 
-	<E extends IEntity> IExecutable<E> createConstantCompose(IEntity constant, IExecutable<IEntity> executable);
+	IExecutable createConstantCompose(IEntity constant, IExecutable executable);
 
-	<E extends IEntity> IExecutable<E> createConstantSubstitute(E constant, boolean useClone);
+	IExecutable createConstantSubstitute(IEntity constant, boolean useClone);
 
-	<E extends IEntity> IExecutable<E> createEntityCollection(Iterable<E> entityCollectionIterable);
+	IExecutable createEntityCollection(Iterable<? extends IEntity> entityCollectionIterable);
 
-	<E extends IEntity> IExecutable<E> createJavaCollection(Iterable<?> collectionIterable);
+	IExecutable createJavaCollection(Iterable<?> collectionIterable);
 
-	<E extends IEntity> IExecutable<E> createCollection(Iterable<?> collectionIterable, IDataTypeWrapper elementWrapper);
+	IExecutable createCollection(Iterable<?> collectionIterable, IDataTypeWrapper elementWrapper);
 
-	<E extends IEntity> IExecutable<E> createSingleValuedRunnable(IRunnable runnable);
+	IExecutable createSingleValuedRunnable(IRunnable runnable);
 
-	<E extends IEntity> IExecutable<E> createSingleValuedRunnable(IRunnable runnable, IExecutable<?>... argsExecutables);
+	IExecutable createSingleValuedRunnable(IRunnable runnable, IExecutable... argsExecutables);
 
-	<E extends IEntity> IExecutable<E> createSingleValuedRunnable(IRunnable runnable, int[] optionalArgsIndexes, IExecutable<?>... argsExecutables);
+	IExecutable createSingleValuedRunnable(IRunnable runnable, int[] optionalArgsIndexes, IExecutable... argsExecutables);
 
-	<E extends IEntity> IExecutable<E> createMultiValuedRunnable(IRunnable runnable, IExecutable<IEntity>... argsExecutables);
+	IExecutable createMultiValuedRunnable(IRunnable runnable, IExecutable... argsExecutables);
 
-	<E extends IEntity> IExecutable<E> createMultiValuedRunnable(IRunnable runnable, int[] optionalArgsIndexes, IExecutable<IEntity>... argsExecutables);
+	IExecutable createMultiValuedRunnable(IRunnable runnable, int[] optionalArgsIndexes, IExecutable... argsExecutables);
 
-	IExecutable<IEntity> createAspect();
+	IExecutable createAspect();
 
-	<E extends IEntity> IExecutable<E> createSelf();
+	IExecutable createSelf();
 
-	<E extends IEntity> IExecutable<E> createRepeatedSelf();
+	IExecutable createRepeatedSelf();
 
-	IExecutable<IEntity> createRoot();
+	IExecutable createRoot();
 
-	IExecutable<IEntity> createFragmentRoot();
+	IExecutable createFragmentRoot();
 
-	<E extends IEntity> IExecutable<E> createParent();
+	IExecutable createParent();
 
-	<E extends IEntity> IExecutable<E> createAncestor();
+	IExecutable createAncestor();
 
-	<E extends IEntity> IExecutable<E> createAncestorOrSelf();
+	IExecutable createAncestorOrSelf();
 
-	IExecutable<IEntity> createAncestorReverse();
+	IExecutable createAncestorReverse();
 
-	IExecutable<IEntity> createAncestorOrSelfReverse();
+	IExecutable createAncestorOrSelfReverse();
 
-	IExecutable<IEntity> createInverseAdjacent();
+	IExecutable createInverseAdjacent();
 
-	IExecutable<IEntity> createInverseReachable(boolean includeSelf);
+	IExecutable createInverseReachable(boolean includeSelf);
 
-	IExecutable<IEntity> createInverseReachable(boolean includeSelf, DistinctScope<IEntity> distinctScope);
+	IExecutable createInverseReachable(boolean includeSelf, DistinctScope distinctScope);
 
-	IExecutable<IEntity> createFeatureByName(String fdUri);
+	IExecutable createFeatureByName(String fdUri);
 
-	IExecutable<IEntity> createFeatureByName(FeatureDescriptor fd);
+	IExecutable createFeatureByName(FeatureDescriptor fd);
 
-	IExecutable<IEntity> createFeatureByIndex(int relativeIndex);
+	IExecutable createFeatureByIndex(int relativeIndex);
 
-	<E extends IEntity> IExecutable<E> createChild();
+	IExecutable createChild();
 
-	<E extends IEntity> IExecutable<E> createChild(int relativeFirstIndex);
+	IExecutable createChild(int relativeFirstIndex);
 
-	<E extends IEntity> IExecutable<E> createChildReverse();
+	IExecutable createChildReverse();
 
-	<E extends IEntity> IExecutable<E> createChildReverse(int relativeFirstIndex);
+	IExecutable createChildReverse(int relativeFirstIndex);
 
-	<E extends IEntity> IExecutable<E> createChildRange(int relativeStartIndex, int relativeEndIndex);
+	IExecutable createChildRange(int relativeStartIndex, int relativeEndIndex);
 
-	<E extends IEntity> IExecutable<E> createDescendant();
+	IExecutable createDescendant();
 
-	<E extends IEntity> IExecutable<E> createDescendantReverse();
+	IExecutable createDescendantReverse();
 
-	<E extends IEntity> IExecutable<E> createDescendantOrSelf();
+	IExecutable createDescendantOrSelf();
 
-	<E extends IEntity> IExecutable<E> createDescendantOrSelfReverse();
+	IExecutable createDescendantOrSelfReverse();
 
-	<E extends IEntity> IExecutable<E> createFollowingSibling();
+	IExecutable createFollowingSibling();
 
-	<E extends IEntity> IExecutable<E> createFollowingSiblingReverse();
+	IExecutable createFollowingSiblingReverse();
 
-	<E extends IEntity> IExecutable<E> createPrecedingSibling();
+	IExecutable createPrecedingSibling();
 
-	<E extends IEntity> IExecutable<E> createPrecedingSiblingReverse();
+	IExecutable createPrecedingSiblingReverse();
 
-	<E extends IEntity> IExecutable<E> createFollowingSiblingOrSelf();
+	IExecutable createFollowingSiblingOrSelf();
 
-	<E extends IEntity> IExecutable<E> createFollowingSiblingOrSelfReverse();
+	IExecutable createFollowingSiblingOrSelfReverse();
 
-	<E extends IEntity> IExecutable<E> createPrecedingSiblingOrSelf();
+	IExecutable createPrecedingSiblingOrSelf();
 
-	<E extends IEntity> IExecutable<E> createPrecedingSiblingOrSelfReverse();
+	IExecutable createPrecedingSiblingOrSelfReverse();
 
-	<E extends IEntity> IExecutable<E> createFollowing();
+	IExecutable createFollowing();
 
-	<E extends IEntity> IExecutable<E> createPreceding();
+	IExecutable createPreceding();
 
-	<E extends IEntity> IExecutable<E> createFollowingOrSelf();
+	IExecutable createFollowingOrSelf();
 
-	<E extends IEntity> IExecutable<E> createPrecedingOrSelf();
+	IExecutable createPrecedingOrSelf();
 
-	<E extends IEntity> IExecutable<E> createAdjacent();
+	IExecutable createAdjacent();
 
-	<E extends IEntity> IExecutable<E> createAdjacent(int relativeFirstIndex);
+	IExecutable createAdjacent(int relativeFirstIndex);
 
-	<E extends IEntity> IExecutable<E> createAdjacentReverse();
+	IExecutable createAdjacentReverse();
 
-	<E extends IEntity> IExecutable<E> createReachable(boolean includeSelf);
+	IExecutable createReachable(boolean includeSelf);
 
-	<E extends IEntity> IExecutable<E> createReachable(boolean includeSelf, DistinctScope<E> distinctScope);
+	IExecutable createReachable(boolean includeSelf, DistinctScope distinctScope);
 
-	<E extends IEntity> IExecutable<E> createChildOrAdjacent();
+	IExecutable createChildOrAdjacent();
 
-	<E extends IEntity> IExecutable<E> createChildOrAdjacent(int relativeFirstIndex);
+	IExecutable createChildOrAdjacent(int relativeFirstIndex);
 
-	<E extends IEntity> IExecutable<E> createDescendantOrReachable();
+	IExecutable createDescendantOrReachable();
 
-	<E extends IEntity> IExecutable<E> createDescendantOrReachable(boolean includeSelf, DistinctScope<E> distinctScope);
+	IExecutable createDescendantOrReachable(boolean includeSelf, DistinctScope distinctScope);
 
-	<E extends IEntity> IExecutable<E> createFilter(IExecutable<E> executable, IExecutable<? extends IEntity> filterExecutable);
+	IExecutable createFilter(IExecutable executable, IExecutable filterExecutable);
 
-	IExecutable<IEntity> createMatchInScope(IExecutable<IEntity> patternExecutable);
+	IExecutable createMatchInScope(IExecutable patternExecutable);
 
-	<E extends IEntity> IExecutable<E> createIf(IExecutable<? extends IEntity> conditionExecutable, IExecutable<E> doExecutable);
+	IExecutable createIf(IExecutable conditionExecutable, IExecutable doExecutable);
 
-	<E extends IEntity> IExecutable<E> createFor(IExecutable<? extends IEntity> forExecutable, IExecutable<E> doExecutable);
+	IExecutable createFor(IExecutable forExecutable, IExecutable doExecutable);
 
-	@SuppressWarnings("unchecked")
-	<E extends IEntity> IExecutable<E> createCompose(IExecutable<IEntity> executable, IExecutable<IEntity>... nestedExecutables);
+	IExecutable createCompose(IExecutable executable, IExecutable... nestedExecutables);
 
-	IExecutable<IEntity> createFunctionApplication(String functionUri);
+	IExecutable createFunctionApplication(String functionUri);
 
-	IExecutable<IEntity> createRecursiveFunctionApplication();
+	IExecutable createRecursiveFunctionApplication();
 
-	<E extends IEntity> IExecutable<E> createTemplateInterpreter(IEntity template);
+	IExecutable createTemplateInterpreter(IEntity template);
 
-	@SuppressWarnings("unchecked")
-	<E extends IEntity> IExecutable<E> createChoose(IExecutable<? extends E>... executableChain);
+	IExecutable createChoose(IExecutable... executableChain);
 
-	<E extends IEntity> IExecutable<E> createChoose(ILanguageKit languageKit);
+	IExecutable createChoose(ILanguageKit languageKit);
 
-	@SuppressWarnings("unchecked")
-	<E extends IEntity> IExecutable<E> createBlock(IExecutable<? extends E>... executableChain);
+	IExecutable createBlock(IExecutable... executableChain);
 
-	@SuppressWarnings("unchecked")
-	<E extends IEntity> IExecutable<E> createSequence(IExecutable<? extends E>... executableChain);
+	IExecutable createSequence(IExecutable... executableChain);
 
-	<E extends IEntity> IExecutable<E> createFilterByIndex(IExecutable<IEntity> executable, int index);
+	IExecutable createFilterByIndex(IExecutable executable, int index);
 
-	<E extends IEntity> IExecutable<E> createFilterByIndexRange(IExecutable<IEntity> executable, int startIndex, int endIndex);
+	IExecutable createFilterByIndexRange(IExecutable executable, int startIndex, int endIndex);
 
-	<E extends IEntity> IExecutable<E> createFilterByIndexRange();
+	IExecutable createFilterByIndexRange();
 
-	<E extends IEntity> DistinctScope<E> createDistinctScope();
+	DistinctScope createDistinctScope();
 
-	<E extends IEntity> DistinctScope<E> createDistinctScope(IEntityComparator<IEntity> comparator);
+	DistinctScope createDistinctScope(IEntityComparator<? super IEntity> comparator);
 
-	<E extends IEntity> IExecutable<E> createSort(IExecutable<E> executable);
+	IExecutable createSort(IExecutable executable);
 
-	<E extends IEntity> IExecutable<E> createSort(IExecutable<E> executable, IEntityComparator<E> comparator);
+	IExecutable createSort(IExecutable executable, IEntityComparator<? super IEntity> comparator);
 
-	@SuppressWarnings("unchecked")
-	IExecutable<IEntity> createUnionAll(IExecutable<IEntity>... executables);
+	IExecutable createUnionAll(IExecutable... executables);
 
-	@SuppressWarnings("unchecked")
-	IExecutable<IEntity> createUnion(IEntityComparator<IEntity> comparator, IExecutable<IEntity>... executables);
+	IExecutable createUnion(IEntityComparator<IEntity> comparator, IExecutable... executables);
 
-	@SuppressWarnings("unchecked")
-	IExecutable<IEntity> createIntersect(IEntityComparator<IEntity> comparator, IExecutable<IEntity>... executables);
+	IExecutable createIntersect(IEntityComparator<IEntity> comparator, IExecutable... executables);
 
-	@SuppressWarnings("unchecked")
-	IExecutable<IEntity> createExcept(IEntityComparator<IEntity> comparator, IExecutable<IEntity>... executables);
+	IExecutable createExcept(IEntityComparator<IEntity> comparator, IExecutable... executables);
 
-	IExecutable<IEntity> createAtStage(int stage);
+	IExecutable createAtStage(int stage);
 
-	IExecutable<IEntity> createAtHostStage();
+	IExecutable createAtHostStage();
 
-	IExecutable<IEntity> createAtTemplateStage();
+	IExecutable createAtTemplateStage();
 
-	IExecutable<IEntity> createHasKind(EntityKinds kind);
+	IExecutable createHasKind(EntityKinds kind);
 
-	IExecutable<IEntity> createHasCompositeKind(CompositeKinds kind);
+	IExecutable createHasCompositeKind(CompositeKinds kind);
 
-	IExecutable<IEntity> createHasDataKind(DataKinds kind);
+	IExecutable createHasDataKind(DataKinds kind);
 
-	IExecutable<IEntity> createIsFragment();
+	IExecutable createIsFragment();
 
-	IExecutable<IEntity> createIsVariable();
+	IExecutable createIsVariable();
 
-	IExecutable<IEntity> createIsResolver();
+	IExecutable createIsResolver();
 
-	IExecutable<IEntity> createIsImpl();
+	IExecutable createIsImpl();
 
-	@SuppressWarnings("unchecked")
-	IExecutable<IEntity> createAnd(IExecutable<IEntity>... argsExecutables);
+	IExecutable createAnd(IExecutable... argsExecutables);
 
-	@SuppressWarnings("unchecked")
-	IExecutable<IEntity> createOr(IExecutable<IEntity>... argsExecutables);
+	IExecutable createOr(IExecutable... argsExecutables);
 
-	IExecutable<IEntity> createNot(IExecutable<IEntity> argExecutable);
+	IExecutable createNot(IExecutable argExecutable);
 
-	IExecutable<IEntity> createOne(IExecutable<IEntity> fromClause, IExecutable<IEntity> satisfiesClause);
+	IExecutable createOne(IExecutable fromClause, IExecutable satisfiesClause);
 
-	IExecutable<IEntity> createSome(IExecutable<IEntity> fromClause);
+	IExecutable createSome(IExecutable fromClause);
 
-	IExecutable<IEntity> createSome(IExecutable<IEntity> fromClause, IExecutable<IEntity> satisfiesClause);
+	IExecutable createSome(IExecutable fromClause, IExecutable satisfiesClause);
 
-	IExecutable<IEntity> createEvery(IExecutable<IEntity> fromClause, IExecutable<IEntity> satisfiesClause);
+	IExecutable createEvery(IExecutable fromClause, IExecutable satisfiesClause);
 
-	IExecutable<IEntity> createIsLanguage(String languageURI);
+	IExecutable createIsLanguage(String languageURI);
 
-	IExecutable<IEntity> createHasType(String typeUri);
+	IExecutable createHasType(String typeUri);
 
-	IExecutable<IEntity> createIsLanguageSubtypeOf(String typeUri);
+	IExecutable createIsLanguageSubtypeOf(String typeUri);
 
-	IExecutable<IEntity> createIsLanguageSupertypeOf(String typeUri);
+	IExecutable createIsLanguageSupertypeOf(String typeUri);
 
-	IExecutable<IEntity> createIsExtendedLanguageSubtypeOf(String typeUri);
+	IExecutable createIsExtendedLanguageSubtypeOf(String typeUri);
 
-	IExecutable<IEntity> createIsExtendedLanguageSupertypeOf(String typeUri);
+	IExecutable createIsExtendedLanguageSupertypeOf(String typeUri);
 
-	IExecutable<IEntity> createAtType(String edUri);
+	IExecutable createAtType(String edUri);
 
-	IExecutable<IEntity> createAtFeature(String fdUri);
+	IExecutable createAtFeature(String fdUri);
 
-	IExecutable<IEntity> createAtIndex(int index);
+	IExecutable createAtIndex(int index);
 
-	IExecutable<IEntity> createAsVariable(String name);
+	IExecutable createAsVariable(String name);
 
-	IExecutable<IEntity> createAtStageVariable(String name);
+	IExecutable createAtStageVariable(String name);
 
-	IExecutable<IEntity> createLanguageVariable(String name);
+	IExecutable createLanguageVariable(String name);
 
-	IExecutable<IEntity> createTypeVariable(String name);
+	IExecutable createTypeVariable(String name);
 
-	IExecutable<IEntity> createLanguageSubtypeOfVariable(String name);
+	IExecutable createLanguageSubtypeOfVariable(String name);
 
-	IExecutable<IEntity> createLanguageSupertypeOfVariable(String name);
+	IExecutable createLanguageSupertypeOfVariable(String name);
 
-	IExecutable<IEntity> createExtendedLanguageSubtypeOfVariable(String name);
+	IExecutable createExtendedLanguageSubtypeOfVariable(String name);
 
-	IExecutable<IEntity> createExtendedLanguageSupertypeOfVariable(String name);
+	IExecutable createExtendedLanguageSupertypeOfVariable(String name);
 
-	IExecutable<IEntity> createIterationIndexVariable(IExecutable<?> indexExecutable, String name);
+	IExecutable createIterationIndexVariable(IExecutable indexExecutable, String name);
 
-	IExecutable<IEntity> createIterationIndex(IExecutable<?> indexExecutable, int index);
+	IExecutable createIterationIndex(IExecutable indexExecutable, int index);
 
-	IExecutable<IEntity> createIterationIndexRange(IExecutable<?> indexExecutable, int startIndex, int endIndex);
+	IExecutable createIterationIndexRange(IExecutable indexExecutable, int startIndex, int endIndex);
 
-	IExecutable<IEntity> createPointwiseEquals(IExecutable<IEntity> leftOperand, IExecutable<IEntity> rightOperand);
+	IExecutable createPointwiseEquals(IExecutable leftOperand, IExecutable rightOperand);
 
-	<E extends IEntity> IExecutable<E> createScope(IExecutable<E> scopeExecutable, String environmentName, Set<String> names, boolean asFreshNames);
+	IExecutable createScope(IExecutable scopeExecutable, String environmentName, Set<String> names, boolean asFreshNames);
 
-	IExecutable<?> createTupleFactory(IExecutable<?>... tupleExecutables);
+	IExecutable createTupleFactory(IExecutable... tupleExecutables);
 
-	<E extends IEntity> IExecutable<E> createSelect(IExecutable<E> selectExecutable, IExecutable<? extends IEntity> fromExecutable, IExecutable<? extends IEntity> whereExecutable);
+	IExecutable createSelect(IExecutable selectExecutable, IExecutable fromExecutable, IExecutable whereExecutable);
 
-	@SuppressWarnings("unchecked")
-	IExecutable<IEntity> createCartesianProduct(IExecutable<? extends IEntity>... executables);
+	IExecutable createCartesianProduct(IExecutable... executables);
 
-	@SuppressWarnings("unchecked")
-	IExecutable<IEntity> createPointwiseProduct(IExecutable<? extends IEntity>... executables);
+	IExecutable createPointwiseProduct(IExecutable... executables);
 
-	<E extends IEntity> IExecutable<E> createCartesianUpdate(IExecutable<E> toExecutable, IExecutable<? extends E> valuesExecutable);
+	IExecutable createCartesianUpdate(IExecutable toExecutable, IExecutable valuesExecutable);
 
-	<E extends IEntity> IExecutable<E> createPointwiseUpdate(IExecutable<? super E> toExecutable, IExecutable<E> valuesExecutable);
+	IExecutable createPointwiseUpdate(IExecutable toExecutable, IExecutable valuesExecutable);
 
-	<E extends IEntity> IExecutable<E> createCartesianInsert(IExecutable<E> toExecutable, IExecutable<? extends E> valuesExecutable, Placement placement);
+	IExecutable createCartesianInsert(IExecutable toExecutable, IExecutable valuesExecutable, Placement placement);
 
-	<E extends IEntity> IExecutable<E> createPointwiseInsert(IExecutable<? super E> toExecutable, IExecutable<E> valuesExecutable, Placement placement);
+	IExecutable createPointwiseInsert(IExecutable toExecutable, IExecutable valuesExecutable, Placement placement);
 
-	<E extends IEntity> IExecutable<E> createDelete(IExecutable<IEntity> valuesExecutable);
+	IExecutable createDelete(IExecutable valuesExecutable);
 
-	@SuppressWarnings("unchecked")
-	public <E extends IEntity> IExecutable<E> createCall(String name, IExecutable<? extends E>... argsExecutables);
+	IExecutable createCall(String name, IExecutable... argsExecutables);
 
-	IExecutable<?> createNestedVariable();
+	IExecutable createNestedVariable();
 
-	IExecutable<?> createNestedFragment(Map<IEntity, IExecutable<?>> fragmentExecutableMap);
+	IExecutable createNestedFragment(Map<IEntity, IExecutable> fragmentExecutableMap);
 
-	IExecutable<?> createCloneReplacing(IExecutable<?> childMappingExecutable);
+	IExecutable createCloneReplacing(IExecutable childMappingExecutable);
 
-	IExecutable<?> createCloneReplacing(IExecutable<?> childMappingExecutable, Set<String> shallowUriSet);
+	IExecutable createCloneReplacing(IExecutable childMappingExecutable, Set<String> shallowUriSet);
 }

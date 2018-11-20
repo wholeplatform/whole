@@ -39,7 +39,7 @@ public class JavaReflectLibraryDeployer extends AbstractFunctionLibraryDeployer 
 		putFunctionCode("compilationUnit", compilationUnitIterator());
 	}
 
-	public static IExecutable<?> compilationUnitIterator() {
+	public static IExecutable compilationUnitIterator() {
 		return ExecutableFactory.instance.createSingleValuedRunnable(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				try {

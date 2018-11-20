@@ -121,7 +121,7 @@ public class ActionsUIEntityFactory extends ActionsEntityFactory {
 
 	public GroupAction createAllVariablesGroupAction(ActionKindEnum.Value kind, Set<String> excludeSet, EntityDescriptor<?> resultEd, IEntity model) {
 		ExecutableFactory f = ExecutableFactory.instance;
-		IExecutable<NonTerminal> i = f.createFilter(f.createDescendantOrSelf(), f.createIsVariable());
+		IExecutable i = f.createFilter(f.createDescendantOrSelf(), f.createIsVariable());
 		i.reset(EntityUtils.safeGetRootEntity(model));
 		return createVariablesGroupAction(kind, excludeSet, resultEd, i);
 	}
@@ -134,7 +134,7 @@ public class ActionsUIEntityFactory extends ActionsEntityFactory {
 				ed.equals(WorkflowsEntityDescriptorEnum.Variable));
 	}
 
-	public GroupAction createVariablesGroupAction(ActionKindEnum.Value kind, Set<String> excludeSet, EntityDescriptor<?> resultEd, IExecutable<?> variableExecutable) {
+	public GroupAction createVariablesGroupAction(ActionKindEnum.Value kind, Set<String> excludeSet, EntityDescriptor<?> resultEd, IExecutable variableExecutable) {
 		GroupAction groupAction = createHierarchicalGroupAction(resultEd.getLanguageKit().getName()+".languages");
 
 		Actions actions = createActions(0);

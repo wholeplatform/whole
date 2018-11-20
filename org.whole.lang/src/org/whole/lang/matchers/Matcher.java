@@ -85,9 +85,9 @@ public class Matcher {
 	public static <E extends IEntity> E findAncestor(EntityDescriptor<E> descriptor, IEntity model) {
 		return (E) findAncestor(ExecutableFactory.instance.createHasType(descriptor.getURI()), model);
 	}
-	public static IEntity findAncestor(IExecutable<IEntity> predicate, IEntity model) {
+	public static IEntity findAncestor(IExecutable predicate, IEntity model) {
 		ExecutableFactory f = ExecutableFactory.instance;
-		IExecutable<IEntity> i = f.createFilter(f.createAncestor(), predicate);
+		IExecutable i = f.createFilter(f.createAncestor(), predicate);
 		i.reset(model);
 		for (IEntity e : i)
 			return e;
@@ -98,9 +98,9 @@ public class Matcher {
 	public static <E extends IEntity> E findAncestorOrSelf(EntityDescriptor<E> descriptor, IEntity model) {
 		return (E) findAncestorOrSelf(ExecutableFactory.instance.createHasType(descriptor.getURI()), model);
 	}
-	public static IEntity findAncestorOrSelf(IExecutable<IEntity> predicate, IEntity model) {
+	public static IEntity findAncestorOrSelf(IExecutable predicate, IEntity model) {
 		ExecutableFactory f = ExecutableFactory.instance;
-		IExecutable<IEntity> i = f.createFilter(f.createAncestorOrSelf(), predicate);
+		IExecutable i = f.createFilter(f.createAncestorOrSelf(), predicate);
 		i.reset(model);
 		for (IEntity e : i)
 			return e;
@@ -116,12 +116,12 @@ public class Matcher {
 		ExecutableFactory f = ExecutableFactory.instance;
 		return (E) findChild(f.createMatchInScope(f.createConstant(pattern, false)), model);
 	}
-	public static IEntity findChild(IExecutable<IEntity> predicate, IEntity model) {
+	public static IEntity findChild(IExecutable predicate, IEntity model) {
 		return findChild(predicate, model, BindingManagerFactory.instance.createBindingManager());
 	}
-	public static IEntity findChild(IExecutable<IEntity> predicate, IEntity model, IBindingManager bm) {
+	public static IEntity findChild(IExecutable predicate, IEntity model, IBindingManager bm) {
 		ExecutableFactory f = ExecutableFactory.instance(bm);
-		IExecutable<IEntity> i = f.createFilter(f.createChild(), predicate);
+		IExecutable i = f.createFilter(f.createChild(), predicate);
 		i.setBindings(bm);
 		i.reset(model);
 		for (IEntity e : i)
@@ -331,7 +331,7 @@ public class Matcher {
 		boolean allVarsAreOptional = true;
 
 		ExecutableFactory f = ExecutableFactory.instance;
-		IExecutable<IEntity> variableExecutable = f.createFilter(f.createDescendantOrSelf(), f.createIsVariable());
+		IExecutable variableExecutable = f.createFilter(f.createDescendantOrSelf(), f.createIsVariable());
 		variableExecutable.reset(pattern);
 		for (IEntity variableAdapter : variableExecutable) {
 			Variable variable = (Variable) variableAdapter.wGetAdaptee(false);
@@ -352,7 +352,7 @@ public class Matcher {
 		boolean allVarsAreOptional = true;
 
 		ExecutableFactory f = ExecutableFactory.instance;
-		IExecutable<IEntity> variableExecutable = f.createFilter(f.createDescendantOrSelf(), f.createIsVariable());
+		IExecutable variableExecutable = f.createFilter(f.createDescendantOrSelf(), f.createIsVariable());
 		variableExecutable.reset(pattern);
 		for (IEntity variableAdapter : variableExecutable) {
 			Variable variable = (Variable) variableAdapter.wGetAdaptee(false);
@@ -370,7 +370,7 @@ public class Matcher {
 		Set<String> names = new HashSet<String>();
 
 		ExecutableFactory f = ExecutableFactory.instance;
-		IExecutable<IEntity> variableExecutable = f.createFilter(f.createDescendantOrSelf(), f.createIsVariable());
+		IExecutable variableExecutable = f.createFilter(f.createDescendantOrSelf(), f.createIsVariable());
 		variableExecutable.reset(pattern);
 		for (IEntity variableAdapter : variableExecutable) {
 			Variable variable = (Variable) variableAdapter.wGetAdaptee(false);

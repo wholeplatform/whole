@@ -27,11 +27,11 @@ import org.whole.lang.model.IEntity;
 /**
  * @author Riccardo Solmi
  */
-public class AncestorOrSelfReverseEvaluator extends CollectionEvaluator<IEntity> {
+public class AncestorOrSelfReverseEvaluator extends CollectionEvaluator {
 	@Override
 	protected Iterable<?> getCollectionIterable(IEntity entity) {
         List<IEntity> ancestors = new ArrayList<IEntity>();
-        IExecutable<IEntity> i = executableFactory().createAncestorOrSelf();
+        IExecutable i = executableFactory().createAncestorOrSelf();
         i.reset(entity);
 		for (IEntity parent : i)
         	ancestors.add(parent);

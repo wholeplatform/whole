@@ -29,22 +29,21 @@ import org.whole.lang.operations.ICloneContext;
 /**
  * @author Riccardo Solmi
  */
-public class SortEvaluator<E extends IEntity> extends CollectionEvaluator<E> {
-	protected IExecutable<? extends E> executable;
-	protected IEntityComparator<? super E> comparator;
+public class SortEvaluator extends CollectionEvaluator {
+	protected IExecutable executable;
+	protected IEntityComparator<? super IEntity> comparator;
 
-	@SuppressWarnings("unchecked")
-	public SortEvaluator(IExecutable<? extends E> executable) {
-		this(executable, (IEntityComparator<E>) BusinessIdentityComparator.instance);
+	public SortEvaluator(IExecutable executable) {
+		this(executable, BusinessIdentityComparator.instance);
 	}
-	public SortEvaluator(IExecutable<? extends E> executable, IEntityComparator<E> comparator) {
+	public SortEvaluator(IExecutable executable, IEntityComparator<? super IEntity> comparator) {
 		this.executable = executable;
 		this.comparator = comparator;
 	}
 
 	@Override
-	public IExecutable<E> clone(ICloneContext cc) {
-		SortEvaluator<E> evaluator = (SortEvaluator<E>) super.clone(cc);
+	public IExecutable clone(ICloneContext cc) {
+		SortEvaluator evaluator = (SortEvaluator) super.clone(cc);
 		evaluator.executable = cc.clone(this.executable);
 		evaluator.comparator = cc.clone(comparator);
 		return evaluator;
@@ -54,8 +53,8 @@ public class SortEvaluator<E extends IEntity> extends CollectionEvaluator<E> {
 	protected Iterable<?> getCollectionIterable(IEntity entity) {
 		executable.reset(entity);
 
-		TreeSet<E> treeSet = new TreeSet<E>(comparator);
-		for (E e : executable)
+		TreeSet<IEntity> treeSet = new TreeSet<IEntity>(comparator);
+		for (IEntity e : executable)
 			treeSet.add(e);
 		return treeSet;
 	}

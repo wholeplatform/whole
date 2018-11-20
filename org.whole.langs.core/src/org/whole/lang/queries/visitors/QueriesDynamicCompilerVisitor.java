@@ -72,8 +72,8 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 	private Set<String> templateNames = new HashSet<String>();
 	private Set<String> namesExp = new HashSet<String>();
 	private boolean useNamesComplement;
-	private DistinctScope<IEntity> distinctScope;
-	private IExecutable<IEntity> filterByIndexExecutable;
+	private DistinctScope distinctScope;
+	private IExecutable filterByIndexExecutable;
 	private boolean canFilterByIndex;
 	private int startIndex;
 	private int endIndex;
@@ -132,7 +132,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 	public void visit(Call entity) {
 		Expressions arguments = entity.getArguments();
 
-		IExecutable<? extends IEntity>[] argsExecutables = new IExecutable<?>[arguments.wSize()];
+		IExecutable[] argsExecutables = new IExecutable[arguments.wSize()];
 		for (int i = 0, size = arguments.wSize(); i < size; i++) {
 			arguments.get(i).accept(this);
 			argsExecutables[i] = getExecutableResult();
@@ -156,11 +156,11 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 
 	@Override
 	public void visit(Path entity) {
-		DistinctScope<IEntity> oldDistinctScope = distinctScope;
+		DistinctScope oldDistinctScope = distinctScope;
 		distinctScope = null;
 
 		int nestedIndex = entity.wSize() - 1;
-		IExecutable<IEntity>[] nestedExecutables = new IExecutable[nestedIndex >= 0 ? nestedIndex : 0];
+		IExecutable[] nestedExecutables = new IExecutable[nestedIndex >= 0 ? nestedIndex : 0];
 		nestedIndex--;
 		for (int i = 0; i < entity.wSize() - 1; i++) {
 			entity.get(i).accept(this);
@@ -241,7 +241,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 			getBindings().wExitScope();
 
 			if (canOptimize && languageKit != null) {
-				IExecutable<?> ri = executableFactory().createChoose(languageKit);
+				IExecutable ri = executableFactory().createChoose(languageKit);
 				ChooseByTypeEvaluator chooseEvaluator = (ChooseByTypeEvaluator) ri.undecoratedExecutable();
 
 				for (Entry<EntityDescriptor<?>, Expression> entry : typeMap.entrySet()) {
@@ -256,7 +256,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 				setExecutableResult(ri.withSourceEntity(entity));
 
 			} else {
-				IExecutable<? extends IEntity>[] executableChain = new IExecutable<?>[size];
+				IExecutable[] executableChain = new IExecutable[size];
 
 				for (int i = 0; i < size; i++) {
 					entity.get(i).accept(this);
@@ -274,7 +274,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		if (size == 1)
 			entity.get(0).accept(this);
 		else {
-			IExecutable<? extends IEntity>[] executableChain = new IExecutable<?>[size];
+			IExecutable[] executableChain = new IExecutable[size];
 
 			for (int i = 0; i < size; i++) {
 				entity.get(i).accept(this);
@@ -291,7 +291,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		if (size == 1)
 			entity.get(0).accept(this);// FIXME nested scope is exposed
 		else {
-			IExecutable<? extends IEntity>[] executableChain = new IExecutable<?>[size];
+			IExecutable[] executableChain = new IExecutable[size];
 
 			for (int i = 0; i < size; i++) {
 				entity.get(i).accept(this);
@@ -309,9 +309,9 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 
 	@Override
 	public void visit(Filter entity) {
-		IExecutable<IEntity> oldFilterByIndexExecutable = filterByIndexExecutable;
+		IExecutable oldFilterByIndexExecutable = filterByIndexExecutable;
 		filterByIndexExecutable = null;
-		DistinctScope<IEntity> oldDistinctScope = distinctScope;
+		DistinctScope oldDistinctScope = distinctScope;
 		distinctScope = null;
 
 		PruneOrPredicate predicate = entity.getPredicate();
@@ -352,21 +352,21 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		if (!optimizeIndexTest) {
 			setResult(null);
 			predicate.accept(this);
-			IExecutable<IEntity> queryPredicateExecutable = getExecutableResult();
+			IExecutable queryPredicateExecutable = getExecutableResult();
 
 			expression.accept(this);
 			if (getExecutableResult().undecoratedExecutable() instanceof EmptyExecutable)
 				setExecutableResult(executableFactory().createSelf().withSourceEntity(entity));
 
 			if (filterByIndexExecutable != null) {
-				IExecutable<?> fiUndecorated = filterByIndexExecutable.undecoratedExecutable();
+				IExecutable fiUndecorated = filterByIndexExecutable.undecoratedExecutable();
 
-				((FilterByIndexRangeEvaluator<IEntity>) fiUndecorated).withExecutable(getExecutableResult());
+				((FilterByIndexRangeEvaluator) fiUndecorated).withExecutable(getExecutableResult());
 				setExecutableResult(filterByIndexExecutable);
 
 				if (canFilterByIndex) {
-					// ((FilterByIndexRangeEvaluator<?>) fiUndecorated).withStartIndex(startIndex);
-					((FilterByIndexRangeEvaluator<?>) fiUndecorated).withEndIndex(endIndex);
+					// ((FilterByIndexRangeEvaluator) fiUndecorated).withStartIndex(startIndex);
+					((FilterByIndexRangeEvaluator) fiUndecorated).withEndIndex(endIndex);
 				}
 			}
 
@@ -375,9 +375,9 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 				setExecutableResult(distinctScope.withExecutable(getExecutableResult()));
 
 			if (!(queryPredicateExecutable.undecoratedExecutable() instanceof EmptyExecutable)) {
-				IExecutable<?> ri = executableFactory().createFilter(getExecutableResult(), queryPredicateExecutable);
+				IExecutable ri = executableFactory().createFilter(getExecutableResult(), queryPredicateExecutable);
 				if (usePruneFilter) {
-					IExecutable<?> riUndecorated = ri.undecoratedExecutable();
+					IExecutable riUndecorated = ri.undecoratedExecutable();
 					((FilterEvaluator) riUndecorated).withAutoPrune(usePruneFilter);
 				}
 				setExecutableResult(ri.withSourceEntity(entity));
@@ -520,7 +520,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 	public void visit(Reverse entity) {
 		ReversibleStep step = entity.getExpression();
 
-		IExecutable<?> executable = null;
+		IExecutable executable = null;
 
 		if (step.wGetLanguageKit().getURI().equals(QueriesLanguageKit.URI)) {
 			switch (step.wGetEntityOrd()) {
@@ -580,7 +580,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 
 	@Override
 	public void visit(CartesianProduct entity) {
-		IExecutable<?>[] executables = new IExecutable<?>[entity.wSize()];
+		IExecutable[] executables = new IExecutable[entity.wSize()];
 		for (int i = 0; i < entity.wSize(); i++) {
 			entity.get(i).accept(this);
 			executables[i] = getExecutableResult();
@@ -591,7 +591,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 
 	@Override
 	public void visit(PointwiseProduct entity) {
-		IExecutable<?>[] executables = new IExecutable<?>[entity.wSize()];
+		IExecutable[] executables = new IExecutable[entity.wSize()];
 
 		for (int i = 0; i < entity.wSize(); i++) {
 			entity.get(i).accept(this);
@@ -604,7 +604,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 	@Override
 	public void visit(Clone entity) {
 		entity.getFromClause().accept(this);
-		IExecutable<? extends IEntity> fromExecutable = getExecutableResult();
+		IExecutable fromExecutable = getExecutableResult();
 
 		setExecutableResult(executableFactory().createCloneReplacing(fromExecutable).withSourceEntity(entity));
 	}
@@ -612,7 +612,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 	@Override
 	public void visit(Delete entity) {
 		entity.getFromClause().accept(this);
-		IExecutable<IEntity> fromExecutable = getExecutableResult();
+		IExecutable fromExecutable = getExecutableResult();
 
 		setExecutableResult(executableFactory().createDelete(fromExecutable).withSourceEntity(entity));
 	}
@@ -620,7 +620,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 	@Override
 	public void visit(Update entity) {
 		entity.getFromClause().accept(this);
-		IExecutable<IEntity> fromExecutable = getExecutableResult();
+		IExecutable fromExecutable = getExecutableResult();
 
 		setExecutableResult(executableFactory().createPointwiseUpdate(
 				fromExecutable, executableFactory().createRepeatedSelf().withSourceEntity(entity))
@@ -630,11 +630,11 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 	@Override
 	public void visit(CartesianUpdate entity) {
 		entity.getFromClause().accept(this);
-		IExecutable<IEntity> fromExecutable = getExecutableResult();
+		IExecutable fromExecutable = getExecutableResult();
 
 		setExecutableResult(executableFactory().createEmpty().withSourceEntity(entity));
 		entity.getValuesClause().accept(this);
-		IExecutable<? extends IEntity> valuesExecutable = getExecutableResult();
+		IExecutable valuesExecutable = getExecutableResult();
 
 		setExecutableResult(executableFactory().createCartesianUpdate(
 				fromExecutable, valuesExecutable).withSourceEntity(entity));
@@ -643,11 +643,11 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 	@Override
 	public void visit(PointwiseUpdate entity) {
 		entity.getFromClause().accept(this);
-		IExecutable<IEntity> fromExecutable = getExecutableResult();
+		IExecutable fromExecutable = getExecutableResult();
 
 		setExecutableResult(executableFactory().createEmpty().withSourceEntity(entity));
 		entity.getValuesClause().accept(this);
-		IExecutable<? extends IEntity> valuesExecutable = getExecutableResult();
+		IExecutable valuesExecutable = getExecutableResult();
 
 		setExecutableResult(executableFactory().createPointwiseUpdate(
 				fromExecutable, valuesExecutable).withSourceEntity(entity));
@@ -656,7 +656,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 	@Override
 	public void visit(Insert entity) {
 		entity.getFromClause().accept(this);
-		IExecutable<IEntity> fromExecutable = getExecutableResult();
+		IExecutable fromExecutable = getExecutableResult();
 
 		Placement placement = Placement.valueOf(entity.getPlacement().getValue().getName());
 		setExecutableResult(executableFactory().createPointwiseInsert(
@@ -668,11 +668,11 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 	@Override
 	public void visit(CartesianInsert entity) {
 		entity.getFromClause().accept(this);
-		IExecutable<IEntity> fromExecutable = getExecutableResult();
+		IExecutable fromExecutable = getExecutableResult();
 
 		setExecutableResult(executableFactory().createEmpty().withSourceEntity(entity));
 		entity.getValuesClause().accept(this);
-		IExecutable<? extends IEntity> valuesExecutable = getExecutableResult();
+		IExecutable valuesExecutable = getExecutableResult();
 
 		Placement placement = Placement.valueOf(entity.getPlacement().getValue().getName());
 		setExecutableResult(executableFactory().createCartesianInsert(
@@ -683,11 +683,11 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 	@Override
 	public void visit(PointwiseInsert entity) {
 		entity.getFromClause().accept(this);
-		IExecutable<IEntity> fromExecutable = getExecutableResult();
+		IExecutable fromExecutable = getExecutableResult();
 
 		setExecutableResult(executableFactory().createEmpty().withSourceEntity(entity));
 		entity.getValuesClause().accept(this);
-		IExecutable<? extends IEntity> valuesExecutable = getExecutableResult();
+		IExecutable valuesExecutable = getExecutableResult();
 
 		Placement placement = Placement.valueOf(entity.getPlacement().getValue().getName());
 		setExecutableResult(executableFactory().createPointwiseInsert(
@@ -702,23 +702,23 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 
 		setResult(null);
 		entity.getFromClause().accept(this);
-		IExecutable<? extends IEntity> fromExecutable = getExecutableResult();
+		IExecutable fromExecutable = getExecutableResult();
 
 		setExecutableResult(executableFactory().createEmpty().withSourceEntity(entity));
 		entity.getWhereClause().accept(this);
-		IExecutable<? extends IEntity> whereExecutable = getExecutableResult();
+		IExecutable whereExecutable = getExecutableResult();
 
 		declaredNames = oldDeclaredNames;
 
 		entity.getSelectClause().accept(this);
-		IExecutable<? extends IEntity> selectExecutable = getExecutableResult();
+		IExecutable selectExecutable = getExecutableResult();
 
 		templateNames = Matcher.vars(entity.getSelectClause(), true);
 		namesExp = declaredNames = namesToBound;
 		useNamesComplement = false;
 		entity.getClearClause().accept(this);
 
-		IExecutable<?> si = executableFactory().createSelect(selectExecutable, fromExecutable, whereExecutable);
+		IExecutable si = executableFactory().createSelect(selectExecutable, fromExecutable, whereExecutable);
 		((SelectEvaluator) si.undecoratedExecutable()).withNamesToBind(namesExp).withNamesComplement(useNamesComplement);
 		setExecutableResult(si.withSourceEntity(entity));
 
@@ -786,12 +786,12 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		Set<String> namesToBound = declaredNames = new HashSet<String>();
 
 		entity.getFromClause().accept(this);
-		IExecutable<? extends IEntity> fromExecutable = getExecutableResult();
+		IExecutable fromExecutable = getExecutableResult();
 
 		declaredNames = oldDeclaredNames;
 
 		entity.getExpression().accept(this);
-		IExecutable<? extends IEntity> selectExecutable = getExecutableResult();
+		IExecutable selectExecutable = getExecutableResult();
 
 		declaredNames = namesToBound;
 
@@ -807,14 +807,14 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 
 		setResult(null);
 		entity.getPredicate().accept(this);
-		IExecutable<? extends IEntity> conditionExecutable = getExecutableResult();
+		IExecutable conditionExecutable = getExecutableResult();
 
 		declaredNames = oldDeclaredNames;
 
 		entity.getExpression().accept(this);
 		
 		if (!(conditionExecutable.undecoratedExecutable() instanceof EmptyExecutable)) {
-			IExecutable<? extends IEntity> selectExecutable = getExecutableResult();
+			IExecutable selectExecutable = getExecutableResult();
 	
 			declaredNames = namesToBound;
 	
@@ -833,7 +833,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 
 	@Override
 	public void visit(Tuple entity) {
-		IExecutable<?>[] tupleExecutables = new IExecutable<?>[entity.wSize()];
+		IExecutable[] tupleExecutables = new IExecutable[entity.wSize()];
 		for (int i = 0; i < entity.wSize(); i++) {
 			entity.get(i).accept(this);
 			tupleExecutables[i] = getExecutableResult();
@@ -844,20 +844,20 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 	@Override
 	public void visit(One entity) {
 		entity.getFromClause().accept(this);
-		IExecutable<IEntity> fromClause = getExecutableResult();
+		IExecutable fromClause = getExecutableResult();
 		entity.getWhereClause().accept(this);
 
-		IExecutable<IEntity> satisfiesClause = getExecutableResult();
+		IExecutable satisfiesClause = getExecutableResult();
 		setExecutableResult(executableFactory().createOne(fromClause, satisfiesClause).withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(Some entity) {
 		entity.getFromClause().accept(this);
-		IExecutable<IEntity> fromClause = getExecutableResult();
+		IExecutable fromClause = getExecutableResult();
 		entity.getWhereClause().accept(this);
 
-		IExecutable<IEntity> satisfiesClause = getExecutableResult();
+		IExecutable satisfiesClause = getExecutableResult();
 		if (satisfiesClause.undecoratedExecutable() instanceof EmptyExecutable)
 			setExecutableResult(executableFactory().createSome(fromClause).withSourceEntity(entity));			
 		else
@@ -867,10 +867,10 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 	@Override
 	public void visit(Every entity) {
 		entity.getFromClause().accept(this);
-		IExecutable<IEntity> fromClause = getExecutableResult();
+		IExecutable fromClause = getExecutableResult();
 		entity.getWhereClause().accept(this);
 
-		IExecutable<IEntity> satisfiesClause = getExecutableResult();
+		IExecutable satisfiesClause = getExecutableResult();
 		setExecutableResult(executableFactory().createEvery(fromClause, satisfiesClause).withSourceEntity(entity));
 	}
 
@@ -1000,7 +1000,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 	@Override
 	public void visit(PointwiseEquals entity) {
 		entity.getPexp1().accept(this);
-		IExecutable<IEntity> exp1Executable = getExecutableResult();
+		IExecutable exp1Executable = getExecutableResult();
 		entity.getPexp2().accept(this);
 		
 		setExecutableResult(executableFactory().createPointwiseEquals(exp1Executable, getExecutableResult()).withSourceEntity(entity));
@@ -1092,7 +1092,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		}
 
 		@Override
-		public IExecutable<IEntity> clone(ICloneContext cc) {
+		public IExecutable clone(ICloneContext cc) {
 			PredicateWrapperEvaluator clone = (PredicateWrapperEvaluator) super.clone(cc);
 			clone.queryPredicate = cc.clone(queryPredicate);
 			return clone;
@@ -1137,7 +1137,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 
 	private void visitFrom(And entity, int from) {
 		int size = entity.wSize() - from;
-		IExecutable<IEntity>[] argsExecutables = new IExecutable[size];
+		IExecutable[] argsExecutables = new IExecutable[size];
 		for (int i = from; i < size; i++) {
 			entity.get(i).accept(this);
 			argsExecutables[i] = getExecutableResult();
@@ -1151,7 +1151,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		boolean canFilterByIndexResult = canFilterByIndex;
 
 		int size = entity.wSize();
-		IExecutable<IEntity>[] argsExecutables = new IExecutable[size];
+		IExecutable[] argsExecutables = new IExecutable[size];
 		for (int i = 0; i < size; i++) {
 			canFilterByIndex = false;
 			entity.get(i).accept(this);
@@ -1180,7 +1180,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 
 	@Override
 	public void visit(Expressions entity) {
-		IExecutable<IEntity>[] executableChain = new IExecutable[entity.wSize()];
+		IExecutable[] executableChain = new IExecutable[entity.wSize()];
 		for (int i = 0; i < entity.wSize(); i++) {
 			entity.get(i).accept(this);
 			executableChain[i] = getExecutableResult();
@@ -1188,7 +1188,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		this.executableChain = executableChain;
 	}
 
-	protected IExecutable<IEntity>[] executableChain;
+	protected IExecutable[] executableChain;
 
 	@Override
 	public void visit(UnionAll entity) {
@@ -1206,7 +1206,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		IEntityComparator<IEntity> oldComparator = comparator;
 		comparator = BusinessIdentityComparator.instance;
 		visitCollectByExpression(entity);
-		IExecutable<?> ri = executableFactory().createUnion(comparator, executableChain);
+		IExecutable ri = executableFactory().createUnion(comparator, executableChain);
 		setExecutableResult(ri.withSourceEntity(entity));
 		comparator = oldComparator;
 	}
@@ -1216,7 +1216,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		IEntityComparator<IEntity> oldComparator = comparator;
 		comparator = BusinessIdentityComparator.instance;
 		visitCollectByExpression(entity);
-		IExecutable<?> ri = executableFactory().createIntersect(comparator, executableChain);
+		IExecutable ri = executableFactory().createIntersect(comparator, executableChain);
 		setExecutableResult(ri.withSourceEntity(entity));
 		comparator = oldComparator;
 	}
@@ -1226,7 +1226,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		IEntityComparator<IEntity> oldComparator = comparator;
 		comparator = BusinessIdentityComparator.instance;
 		visitCollectByExpression(entity);
-		IExecutable<?> ri = executableFactory().createExcept(comparator, executableChain);
+		IExecutable ri = executableFactory().createExcept(comparator, executableChain);
 		setExecutableResult(ri.withSourceEntity(entity));
 		comparator = oldComparator;
 	}
@@ -1282,7 +1282,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 				.withSourceEntity(entity));
 	}
 
-	protected IExecutable<IEntity> compile(Expression entity) {
+	protected IExecutable compile(Expression entity) {
 		entity.accept(this);
 		return getExecutableResult();
 	}

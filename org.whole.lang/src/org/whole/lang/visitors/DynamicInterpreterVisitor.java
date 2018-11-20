@@ -43,7 +43,7 @@ public class DynamicInterpreterVisitor extends AbstractDynamicVisitor {
 		};
 	}
 
-	protected void apply(IExecutable<?> executable) {
+	protected void apply(IExecutable executable) {
 		IBindingManager bm = getBindings();
 		ITransactionScope resettableScope = BindingManagerFactory.instance.createTransactionScope();
 		bm.wEnterScope(resettableScope);

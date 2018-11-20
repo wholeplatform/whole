@@ -59,7 +59,7 @@ public class ActionsDynamicCompilerVisitor extends ActionsIdentityDefaultVisitor
     @Override
     public void visit(SimpleAction entity) {
     	stagedVisit(entity.getTransformation().wGetAdaptee(false));
-    	IExecutable<?> functionBehavior = getExecutableResult();
+    	IExecutable functionBehavior = getExecutableResult();
 
     	ActionsRegistry.instance().putFunctionCode(getActionsUri(entity)+"#"+entity.getName().getValue(), functionBehavior);
     }
@@ -68,7 +68,7 @@ public class ActionsDynamicCompilerVisitor extends ActionsIdentityDefaultVisitor
     public void visit(GuardedAction entity) {
     	//TODO add condition test
     	stagedVisit(entity.getTransformation().wGetAdaptee(false));
-    	IExecutable<?> functionBehavior = getExecutableResult();
+    	IExecutable functionBehavior = getExecutableResult();
 
     	ActionsRegistry.instance().putFunctionCode(getActionsUri(entity)+"#"+entity.getName().getValue(), functionBehavior);
     }
@@ -76,10 +76,10 @@ public class ActionsDynamicCompilerVisitor extends ActionsIdentityDefaultVisitor
 	@Override
 	public void visit(ActionCall entity) {
     	SelectedEntities selectedEntitiesFeature = entity.getSelectedEntities();
-    	IExecutable<IEntity>[] argumentsExecutables = null;
+    	IExecutable[] argumentsExecutables = null;
     	if (EntityUtils.isNotResolver(selectedEntitiesFeature)) {
 			selectedEntitiesFeature.accept(this);
-			IExecutable<IEntity> executableResult = getExecutableResult();
+			IExecutable executableResult = getExecutableResult();
 
         	argumentsExecutables = new IExecutable[1];
         	argumentsExecutables[0] = executableResult;

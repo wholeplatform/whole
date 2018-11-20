@@ -28,7 +28,7 @@ import org.whole.lang.reflect.FeatureDescriptor;
 /**
  * @author Riccardo Solmi
  */
-public class AspectEvaluator extends AbstractExecutableEvaluatingStepper<IEntity> {
+public class AspectEvaluator extends AbstractExecutableEvaluatingStepper {
 	protected IEntity selfEntity;
 	protected Iterator<FeatureDescriptor> aspectualFeatureDescriptorIterator;
     protected FeatureDescriptor lastFeatureDescriptor;
@@ -37,7 +37,7 @@ public class AspectEvaluator extends AbstractExecutableEvaluatingStepper<IEntity
     }
 
 	@Override
-	public IExecutable<IEntity> clone(ICloneContext cc) {
+	public IExecutable clone(ICloneContext cc) {
 		AspectEvaluator evaluator = (AspectEvaluator) super.clone(cc);
 		evaluator.aspectualFeatureDescriptorIterator = null;
 		evaluator.lastFeatureDescriptor = null;

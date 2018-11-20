@@ -38,22 +38,22 @@ import org.whole.lang.util.BehaviorUtils;
 /**
  * @author Riccardo Solmi
  */
-public class InstrumentingExecutable<E extends IEntity> extends AbstractExecutable<E> {
+public class InstrumentingExecutable extends AbstractExecutable {
 	public static IExecutableInstrumentation instrumentation = CompositeInstrumentation.instance;
 
 	public static final IEntity MISSING_SOURCE_ENTITY = BindingManagerFactory.instance.createNull();
 
-	protected IExecutable<E> executable;
+	protected IExecutable executable;
 
-	public InstrumentingExecutable(IExecutable<E> executable) {
+	public InstrumentingExecutable(IExecutable executable) {
 		this.executable = executable;
 	}
 
-	public IExecutable<E> getExecutable() {
+	public IExecutable getExecutable() {
 		return executable;
 	}
 
-	public IExecutable<E> getSourceCode() {
+	public IExecutable getSourceCode() {
 		return getExecutable();
 	}
 
@@ -62,7 +62,7 @@ public class InstrumentingExecutable<E extends IEntity> extends AbstractExecutab
 	}
 
 	@Override
-	public IExecutable<E> withSourceEntity(IEntity entity) {
+	public IExecutable withSourceEntity(IEntity entity) {
 		getExecutable().withSourceEntity(entity);
 		return super.withSourceEntity(entity);
 	}
@@ -111,9 +111,9 @@ public class InstrumentingExecutable<E extends IEntity> extends AbstractExecutab
 
 	
 	@Override
-	public IExecutable<E> clone(ICloneContext cc) {
+	public IExecutable clone(ICloneContext cc) {
 		instrumentation.beforeClone(this);
-		InstrumentingExecutable<E> result = (InstrumentingExecutable<E>) super.clone(cc);
+		InstrumentingExecutable result = (InstrumentingExecutable) super.clone(cc);
 		result.executable = executable.clone(cc);
 		result.instrumentationDataMap = instrumentationDataMap.entrySet().stream()
 				.collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue().clone(cc)));
@@ -139,16 +139,16 @@ public class InstrumentingExecutable<E extends IEntity> extends AbstractExecutab
 	}
 
 	@Override
-	public E evaluateNext() {
+	public IEntity evaluateNext() {
 		instrumentation.beforeEvaluateNext(this);
-		E result = getExecutable().evaluateNext();
+		IEntity result = getExecutable().evaluateNext();
 		instrumentation.afterEvaluateNext(this, result);
 		return result;
 	}
 	@Override
-	public E evaluateRemaining() {
+	public IEntity evaluateRemaining() {
 		instrumentation.beforeEvaluateRemaining(this);
-		E result = getExecutable().evaluateRemaining();
+		IEntity result = getExecutable().evaluateRemaining();
 		instrumentation.afterEvaluateRemaining(this, result);
 		return result;
 	}
@@ -187,9 +187,9 @@ public class InstrumentingExecutable<E extends IEntity> extends AbstractExecutab
 		return result;
 	}
 	@Override
-	public E next() {
+	public IEntity next() {
 		instrumentation.beforeNext(this);
-		E result = getExecutable().iterator().next();
+		IEntity result = getExecutable().iterator().next();
 		instrumentation.afterNext(this, result);
 		return result;
 	}
@@ -200,12 +200,12 @@ public class InstrumentingExecutable<E extends IEntity> extends AbstractExecutab
 	}
 
 	@Override
-	public void set(E entity) {
+	public void set(IEntity entity) {
 		getExecutable().set(entity);
 	}
 
 	@Override
-	public void add(E entity) {
+	public void add(IEntity entity) {
 		getExecutable().add(entity);
 	}
 

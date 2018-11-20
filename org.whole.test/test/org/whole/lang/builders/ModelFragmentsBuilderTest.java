@@ -53,7 +53,7 @@ public class ModelFragmentsBuilderTest {
 		int count = 0;
 		Model model = modelsModel.create();
 		ExecutableFactory f = ExecutableFactory.instance;
-		IExecutable<IEntity> i = f.createFilter(f.createDescendantOrSelf(), f.createHasType(ModelsEntityDescriptorEnum.Feature.getURI()));
+		IExecutable i = f.createFilter(f.createDescendantOrSelf(), f.createHasType(ModelsEntityDescriptorEnum.Feature.getURI()));
 		i.reset(model);
 		for (Feature feature = (Feature) i.evaluateNext(); feature != null;
 					 feature = (Feature) i.evaluateNext())
@@ -74,7 +74,7 @@ public class ModelFragmentsBuilderTest {
 		int count = 0;
 		Model model = modelsModel.create();
 		ExecutableFactory f = ExecutableFactory.instance;
-		IExecutable<IEntity> i = f.createFilter(f.createDescendantOrSelf(), f.createHasType(ModelsEntityDescriptorEnum.Feature.getURI()));
+		IExecutable i = f.createFilter(f.createDescendantOrSelf(), f.createHasType(ModelsEntityDescriptorEnum.Feature.getURI()));
 		i.reset(model);
 		for (Feature feature = (Feature) i.evaluateNext(); feature != null;
 				 feature = (Feature) i.evaluateNext())

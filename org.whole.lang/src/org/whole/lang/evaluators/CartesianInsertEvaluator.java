@@ -31,7 +31,7 @@ public class CartesianInsertEvaluator extends AbstractCartesianEvaluator {
 	protected Placement placement;
 
 	@SuppressWarnings("unchecked")
-	public CartesianInsertEvaluator(IExecutable<IEntity> toExecutable, IExecutable<IEntity> valuesExecutable, Placement placement) {
+	public CartesianInsertEvaluator(IExecutable toExecutable, IExecutable valuesExecutable, Placement placement) {
 		super(toExecutable, valuesExecutable);
 		this.placement = placement;
 	}

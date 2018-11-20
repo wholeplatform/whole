@@ -26,7 +26,7 @@ import org.whole.lang.model.IEntity;
  */
 public class PointwiseProductEvaluator extends AbstractPointwiseEvaluator {
 	@SuppressWarnings("unchecked")
-	public PointwiseProductEvaluator(IExecutable<IEntity>... executables) {
+	public PointwiseProductEvaluator(IExecutable... executables) {
 		super(executables);
 	}
 
@@ -45,7 +45,7 @@ public class PointwiseProductEvaluator extends AbstractPointwiseEvaluator {
 		throw new UnsupportedOperationException();
 	}
 	public void remove() {
-		for (IExecutable<IEntity> p : producers)
+		for (IExecutable p : producers)
 			p.remove();
 	}
 

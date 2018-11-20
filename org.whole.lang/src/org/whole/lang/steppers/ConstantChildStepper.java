@@ -22,7 +22,7 @@ import org.whole.lang.model.IEntity;
 /**
  * @author Riccardo Solmi
  */
-public class ConstantChildStepper<E extends IEntity> extends ChildStepper<E> {
+public class ConstantChildStepper extends ChildStepper {
 	public ConstantChildStepper(boolean forward, IEntity entity) {
 		super(forward);
 		super.reset(entity);

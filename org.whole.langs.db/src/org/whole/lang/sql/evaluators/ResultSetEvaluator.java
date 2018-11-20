@@ -31,7 +31,7 @@ import org.whole.lang.sql.factories.SQLEntityFactory;
 /**
  * @author Riccardo Solmi
  */
-public class ResultSetEvaluator extends AbstractExecutableEvaluatingStepper<IEntity> {
+public class ResultSetEvaluator extends AbstractExecutableEvaluatingStepper {
 	private ResultSet resultSet;
 	private String[] labels;
 

@@ -28,7 +28,7 @@ import org.whole.lang.util.EntityUtils;
  */
 public class TupleFactoryEvaluator extends AbstractPointwiseEvaluator {
 	@SuppressWarnings("unchecked")
-	public TupleFactoryEvaluator(IExecutable<IEntity>... executables) {
+	public TupleFactoryEvaluator(IExecutable... executables) {
 		super(executables);
 	}
 

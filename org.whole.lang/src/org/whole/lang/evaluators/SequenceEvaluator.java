@@ -24,11 +24,10 @@ import org.whole.lang.model.IEntity;
 /**
  * @author Riccardo Solmi
  */
-public class SequenceEvaluator<E extends IEntity> extends BlockEvaluator<E> {
+public class SequenceEvaluator extends BlockEvaluator {
 	protected IBindingScope lastEntityScope;
 
-	@SuppressWarnings("unchecked")
-	public SequenceEvaluator(IExecutable<IEntity>... executables) {
+	public SequenceEvaluator(IExecutable... executables) {
 		super(executables);
 	}
 
@@ -38,8 +37,7 @@ public class SequenceEvaluator<E extends IEntity> extends BlockEvaluator<E> {
 		lastEntityScope = null;
 	}
 
-	@SuppressWarnings("unchecked")
-	public E evaluateNext() {
+	public IEntity evaluateNext() {
 		IEntity result = null;
 
 		if (lastEntity != null) {
@@ -69,7 +67,7 @@ public class SequenceEvaluator<E extends IEntity> extends BlockEvaluator<E> {
 				getBindings().wAddAll(selfEntityScope);
 		}
 
-		return lastEntity = (E) result;
+		return lastEntity = result;
 	}
 }
 

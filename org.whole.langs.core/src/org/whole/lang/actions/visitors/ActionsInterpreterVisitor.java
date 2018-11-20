@@ -59,7 +59,7 @@ public class ActionsInterpreterVisitor extends ActionsTraverseAllVisitor {
 	public enum WholeAction {VALUE_ASSIST, VALIDATOR, NORMALIZER, PRETTY_PRINTER, INTERPRETER, GENERATOR};
 	protected WholeAction wholeAction;
 
-	protected IExecutable<?> lazyEvaluate(IActionsEntity entity) {
+	protected IExecutable lazyEvaluate(IActionsEntity entity) {
 		setResult(null);
 		entity.accept(this);
 		return getExecutableResult();

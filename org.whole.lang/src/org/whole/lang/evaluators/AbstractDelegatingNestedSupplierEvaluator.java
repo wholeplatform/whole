@@ -25,11 +25,11 @@ import org.whole.lang.model.IEntity;
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractDelegatingNestedSupplierEvaluator extends AbstractDelegatingNestedEvaluator<IEntity> implements Supplier<IEntity> {
+public abstract class AbstractDelegatingNestedSupplierEvaluator extends AbstractDelegatingNestedEvaluator implements Supplier<IEntity> {
     protected boolean isEvaluated;
 
     @SuppressWarnings("unchecked")
-	public AbstractDelegatingNestedSupplierEvaluator(IExecutable<IEntity>... executables) {
+	public AbstractDelegatingNestedSupplierEvaluator(IExecutable... executables) {
 		super(executables);
 	}
 

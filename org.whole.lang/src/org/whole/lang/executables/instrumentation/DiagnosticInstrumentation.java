@@ -34,7 +34,7 @@ public class DiagnosticInstrumentation implements IExecutableInstrumentation {
 	public static final IExecutableInstrumentation instance = new DiagnosticInstrumentation();
 
 	public static String ID = DiagnosticInstrumentation.class.getName();
-	public static DiagnosticData diagnosticData(InstrumentingExecutable<?> ii) {
+	public static DiagnosticData diagnosticData(InstrumentingExecutable ii) {
 		return ii.instrumentationData(ID, i -> new DiagnosticData());
 	}
 
@@ -48,10 +48,10 @@ public class DiagnosticInstrumentation implements IExecutableInstrumentation {
 		INFO, WARNING, ERROR
 	}
 
-	public void performDiagnostics(InstrumentingExecutable<?> ii, InstrumentedMethod method, boolean before) {
+	public void performDiagnostics(InstrumentingExecutable ii, InstrumentedMethod method, boolean before) {
 		performDiagnostics(ii, method, before, diagnosticData(ii));
 	}
-	public void performDiagnostics(InstrumentingExecutable<?> ii, InstrumentedMethod method, boolean before, DiagnosticData data) {
+	public void performDiagnostics(InstrumentingExecutable ii, InstrumentedMethod method, boolean before, DiagnosticData data) {
 		if (before) {
 			if (data.callHistory.size() >= DiagnosticData.HISTORY_SIZE)
 				data.callHistory.removeFirst();
@@ -72,7 +72,7 @@ public class DiagnosticInstrumentation implements IExecutableInstrumentation {
 		testSelf(ii, method, before, data);
 	}
 
-	public void testLifecycle(InstrumentingExecutable<?> ii, InstrumentedMethod method, boolean before, DiagnosticData data) {
+	public void testLifecycle(InstrumentingExecutable ii, InstrumentedMethod method, boolean before, DiagnosticData data) {
 		if (!before)
 			return;
 
@@ -148,7 +148,7 @@ public class DiagnosticInstrumentation implements IExecutableInstrumentation {
 		return readyExecutables().contains(executableClassName);
 	}
 
-	public void illegalState(InstrumentingExecutable<?> ii, InstrumentedMethod method, DiagnosticData data) {
+	public void illegalState(InstrumentingExecutable ii, InstrumentedMethod method, DiagnosticData data) {
 		data.message = "Illegal state: <"+data.state+", "+method+">";
 
 		if (isReadyExecutable(ii.getSourceCodeClassName()))
@@ -159,7 +159,7 @@ public class DiagnosticInstrumentation implements IExecutableInstrumentation {
 		}
 	}
 
-	public void testSelf(InstrumentingExecutable<?> ii, InstrumentedMethod method, boolean before, DiagnosticData data) {
+	public void testSelf(InstrumentingExecutable ii, InstrumentedMethod method, boolean before, DiagnosticData data) {
 		if (!before)
 			return;
 
@@ -189,33 +189,33 @@ public class DiagnosticInstrumentation implements IExecutableInstrumentation {
 		}
 	}
 
-	public void nullSelfEntityAndBinding(InstrumentingExecutable<?> ii, InstrumentedMethod method, DiagnosticData data) {
+	public void nullSelfEntityAndBinding(InstrumentingExecutable ii, InstrumentedMethod method, DiagnosticData data) {
 		data.message = "null SelfEntity and self binding";
 		data.severity = Severity.ERROR;
 		DebuggerInstrumentation.breakpointConsumer.accept(ii);
 	}
-	public void nullSelfEntity(InstrumentingExecutable<?> ii, InstrumentedMethod method, DiagnosticData data) {
+	public void nullSelfEntity(InstrumentingExecutable ii, InstrumentedMethod method, DiagnosticData data) {
 		data.message = "null SelfEntity";
 		data.severity = Severity.ERROR;
 		DebuggerInstrumentation.breakpointConsumer.accept(ii);
 	}
-	public void nullSelfBinding(InstrumentingExecutable<?> ii, InstrumentedMethod method, DiagnosticData data) {
+	public void nullSelfBinding(InstrumentingExecutable ii, InstrumentedMethod method, DiagnosticData data) {
 		data.message = "null self binding";
 		data.severity = Severity.INFO;
 //		DebuggerInstrumentation.breakpointConsumer.accept(ii);
 	}
-	public void notEqualsSelfEntityAndBinding(InstrumentingExecutable<?> ii, InstrumentedMethod method, DiagnosticData data) {
+	public void notEqualsSelfEntityAndBinding(InstrumentingExecutable ii, InstrumentedMethod method, DiagnosticData data) {
 		data.message = "SelfEntity not equals self binding";
 		data.severity = Severity.INFO;
 //		DebuggerInstrumentation.breakpointConsumer.accept(ii);
 	}
 
 	@Override
-	public void beforeClone(InstrumentingExecutable<?> ii) {
+	public void beforeClone(InstrumentingExecutable ii) {
 		performDiagnostics(ii, InstrumentedMethod.CLONE, true);
 	}
 	@Override
-	public void afterClone(InstrumentingExecutable<?> ii, InstrumentingExecutable<?> clone) {
+	public void afterClone(InstrumentingExecutable ii, InstrumentingExecutable clone) {
 		DiagnosticData data = diagnosticData(ii);
 		data.stateWhenCloned = data.state;
 
@@ -235,103 +235,103 @@ public class DiagnosticInstrumentation implements IExecutableInstrumentation {
 	}
 
 	@Override
-	public void beforeSetBindings(InstrumentingExecutable<?> ii) {
+	public void beforeSetBindings(InstrumentingExecutable ii) {
 		performDiagnostics(ii, InstrumentedMethod.SET_BINDINGS, true);
 	}
 	@Override
-	public void afterSetBindings(InstrumentingExecutable<?> ii) {
+	public void afterSetBindings(InstrumentingExecutable ii) {
 		performDiagnostics(ii, InstrumentedMethod.SET_BINDINGS, false);
 	}
 
 	@Override
-	public void beforeReset(InstrumentingExecutable<?> ii) {
+	public void beforeReset(InstrumentingExecutable ii) {
 		performDiagnostics(ii, InstrumentedMethod.RESET, true);
 	}
 	@Override
-	public void afterReset(InstrumentingExecutable<?> ii) {
+	public void afterReset(InstrumentingExecutable ii) {
 		DiagnosticData data = diagnosticData(ii);
 		data.selfEntity = ii.getResetEntity();
 		performDiagnostics(ii, InstrumentedMethod.RESET, false, data);
 	}
 
 	@Override
-	public void beforeEvaluateNext(InstrumentingExecutable<?> ii) {
+	public void beforeEvaluateNext(InstrumentingExecutable ii) {
 		performDiagnostics(ii, InstrumentedMethod.EVALUATE_NEXT, true);
 	}
 	@Override
-	public void afterEvaluateNext(InstrumentingExecutable<?> ii, IEntity result) {
+	public void afterEvaluateNext(InstrumentingExecutable ii, IEntity result) {
 		performDiagnostics(ii, InstrumentedMethod.EVALUATE_NEXT, false);
 	}
 
 	@Override
-	public void beforeEvaluateRemaining(InstrumentingExecutable<?> ii) {
+	public void beforeEvaluateRemaining(InstrumentingExecutable ii) {
 		performDiagnostics(ii, InstrumentedMethod.EVALUATE_REMAINING, true);
 	}
 	@Override
-	public void afterEvaluateRemaining(InstrumentingExecutable<?> ii, IEntity result) {
+	public void afterEvaluateRemaining(InstrumentingExecutable ii, IEntity result) {
 		performDiagnostics(ii, InstrumentedMethod.EVALUATE_REMAINING, false);
 	}
 
 	@Override
-	public void beforeCallNext(InstrumentingExecutable<?> ii) {
+	public void beforeCallNext(InstrumentingExecutable ii) {
 		performDiagnostics(ii, InstrumentedMethod.CALL_NEXT, true);
 	}
 	@Override
-	public void afterCallNext(InstrumentingExecutable<?> ii) {
+	public void afterCallNext(InstrumentingExecutable ii) {
 		performDiagnostics(ii, InstrumentedMethod.CALL_NEXT, false);
 	}
 
 	@Override
-	public void beforeCallRemaining(InstrumentingExecutable<?> ii) {
+	public void beforeCallRemaining(InstrumentingExecutable ii) {
 		performDiagnostics(ii, InstrumentedMethod.CALL_REMAINING, true);
 	}
 	@Override
-	public void afterCallRemaining(InstrumentingExecutable<?> ii) {
+	public void afterCallRemaining(InstrumentingExecutable ii) {
 		performDiagnostics(ii, InstrumentedMethod.CALL_REMAINING, false);
 	}
 
 	@Override
-	public void beforeDoNext(InstrumentingExecutable<?> ii, IEntity result) {
+	public void beforeDoNext(InstrumentingExecutable ii, IEntity result) {
 		performDiagnostics(ii, InstrumentedMethod.DO_NEXT, true);
 	}
 	@Override
-	public void afterDoNext(InstrumentingExecutable<?> ii) {
+	public void afterDoNext(InstrumentingExecutable ii) {
 		performDiagnostics(ii, InstrumentedMethod.DO_NEXT, false);
 	}
 
 	@Override
-	public void beforeDoEnd(InstrumentingExecutable<?> ii) {
+	public void beforeDoEnd(InstrumentingExecutable ii) {
 		performDiagnostics(ii, InstrumentedMethod.DO_END, true);
 	}
 	@Override
-	public void afterDoEnd(InstrumentingExecutable<?> ii) {
+	public void afterDoEnd(InstrumentingExecutable ii) {
 		performDiagnostics(ii, InstrumentedMethod.DO_END, false);
 	}
 
 	@Override
-	public void beforeHasNext(InstrumentingExecutable<?> ii) {
+	public void beforeHasNext(InstrumentingExecutable ii) {
 		performDiagnostics(ii, InstrumentedMethod.HAS_NEXT, true);
 	}
 	@Override
-	public void afterHasNext(InstrumentingExecutable<?> ii, boolean result) {
+	public void afterHasNext(InstrumentingExecutable ii, boolean result) {
 		performDiagnostics(ii, InstrumentedMethod.HAS_NEXT, false);
 	}
 
 	@Override
-	public void beforeLookahead(InstrumentingExecutable<?> ii) {
+	public void beforeLookahead(InstrumentingExecutable ii) {
 		performDiagnostics(ii, InstrumentedMethod.LOOKAHEAD, true);
 	}
 	@Override
-	public void afterLookahead(InstrumentingExecutable<?> ii, IEntity result) {
+	public void afterLookahead(InstrumentingExecutable ii, IEntity result) {
 		performDiagnostics(ii, InstrumentedMethod.LOOKAHEAD, false);
 	}
 
 	@Override
-	public void beforeNext(InstrumentingExecutable<?> ii) {
+	public void beforeNext(InstrumentingExecutable ii) {
 		performDiagnostics(ii, InstrumentedMethod.NEXT, true);
 	}
 	@Override
-	public void afterNext(InstrumentingExecutable<?> ii, IEntity result) {
+	public void afterNext(InstrumentingExecutable ii, IEntity result) {
 		performDiagnostics(ii, InstrumentedMethod.NEXT, false);
 	}
 }

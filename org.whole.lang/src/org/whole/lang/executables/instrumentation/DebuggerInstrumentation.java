@@ -30,11 +30,11 @@ public class DebuggerInstrumentation extends IdentityInstrumentation {
 	public static final IExecutableInstrumentation instance = new DebuggerInstrumentation();
 
 	public static boolean evaluatingPredicate = false;
-	public static Predicate<InstrumentingExecutable<?>> breakpointPredicate = (ii) -> {
+	public static Predicate<InstrumentingExecutable> breakpointPredicate = (ii) -> {
 		//TODO replace with a framework level predicate
 		return false;
 	};
-	public static Consumer<InstrumentingExecutable<?>> breakpointConsumer = (ii) -> {
+	public static Consumer<InstrumentingExecutable> breakpointConsumer = (ii) -> {
 		//TODO place a breakpoint here to stop at the framework level
 		return;
 	};
@@ -42,7 +42,7 @@ public class DebuggerInstrumentation extends IdentityInstrumentation {
 	protected static IEntity lastSourceEntity;
 	public static boolean sourceEntityChanged;
 
-	protected void beforeBehavior(InstrumentingExecutable<?> ii) {
+	protected void beforeBehavior(InstrumentingExecutable ii) {
 		IEntity sourceEntity = ii.getSourceEntity();
 		sourceEntityChanged = sourceEntity != lastSourceEntity && lastSourceEntity != InstrumentingExecutable.MISSING_SOURCE_ENTITY;
 		lastSourceEntity = sourceEntity;
@@ -53,25 +53,25 @@ public class DebuggerInstrumentation extends IdentityInstrumentation {
 	}
 
 	@Override
-	public void beforeEvaluateNext(InstrumentingExecutable<?> ii) {
+	public void beforeEvaluateNext(InstrumentingExecutable ii) {
 		beforeBehavior(ii);
 	}
 	@Override
-	public void beforeEvaluateRemaining(InstrumentingExecutable<?> ii) {
-		beforeBehavior(ii);
-	}
-
-	@Override
-	public void beforeCallNext(InstrumentingExecutable<?> ii) {
-		beforeBehavior(ii);
-	}
-	@Override
-	public void beforeCallRemaining(InstrumentingExecutable<?> ii) {
+	public void beforeEvaluateRemaining(InstrumentingExecutable ii) {
 		beforeBehavior(ii);
 	}
 
 	@Override
-	public void beforeNext(InstrumentingExecutable<?> ii) {
+	public void beforeCallNext(InstrumentingExecutable ii) {
+		beforeBehavior(ii);
+	}
+	@Override
+	public void beforeCallRemaining(InstrumentingExecutable ii) {
+		beforeBehavior(ii);
+	}
+
+	@Override
+	public void beforeNext(InstrumentingExecutable ii) {
 		beforeBehavior(ii);
 	}
 }

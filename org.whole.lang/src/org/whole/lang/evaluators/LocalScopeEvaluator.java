@@ -28,14 +28,13 @@ import org.whole.lang.model.IEntity;
 /**
  * @author Riccardo Solmi
  */
-public class LocalScopeEvaluator extends AbstractDelegatingNestedEvaluator<IEntity> {
+public class LocalScopeEvaluator extends AbstractDelegatingNestedEvaluator {
 //	TODO remove
 	private Set<String> names;
 	private boolean asFreshNames;
 	private AbstractFilterScope filterScope;
 
-	@SuppressWarnings("unchecked")
-	public LocalScopeEvaluator(IExecutable<IEntity> scopeExecutable, Set<String> names, boolean asFreshNames) {
+	public LocalScopeEvaluator(IExecutable scopeExecutable, Set<String> names, boolean asFreshNames) {
 		super(scopeExecutable);
 //		executorScope = BindingManagerFactory.instance.createNestedDynamicSimpleFilterScope(names, asFreshNames);
 		this.names = names;

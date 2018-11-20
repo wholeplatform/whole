@@ -114,10 +114,10 @@ public class ReusablesDynamicCompilerVisitor extends AbstractReusablesSemanticsV
 	@Override
 	public void visit(Classpath entity) {
 		entity.getPersistence().accept(this);
-		IExecutable<?> persistenceExecutable = getExecutableResult();
+		IExecutable persistenceExecutable = getExecutableResult();
 		
 		entity.getContent().accept(this);
-		IExecutable<IEntity> contentExecutable = getExecutableResult();
+		IExecutable contentExecutable = getExecutableResult();
 
 		setExecutableResult(executableFactory().createCompose(
 					executableFactory().createSingleValuedRunnable(new ResourcePersistenceRunnable() {
@@ -130,10 +130,10 @@ public class ReusablesDynamicCompilerVisitor extends AbstractReusablesSemanticsV
 	@Override
 	public void visit(FileSystem entity) {
 		entity.getPersistence().accept(this);
-		IExecutable<?> persistenceExecutable = getExecutableResult();
+		IExecutable persistenceExecutable = getExecutableResult();
 		
 		entity.getContent().accept(this);
-		IExecutable<IEntity> contentExecutable = getExecutableResult();
+		IExecutable contentExecutable = getExecutableResult();
 
 		setExecutableResult(executableFactory().createCompose(
 				executableFactory().createSingleValuedRunnable(new ResourcePersistenceRunnable() {
@@ -151,10 +151,10 @@ public class ReusablesDynamicCompilerVisitor extends AbstractReusablesSemanticsV
 	@Override
 	public void visit(URL entity) {
 		entity.getPersistence().accept(this);
-		IExecutable<?> persistenceExecutable = getExecutableResult();
+		IExecutable persistenceExecutable = getExecutableResult();
 		
 		entity.getContent().accept(this);
-		IExecutable<IEntity> contentExecutable = getExecutableResult();
+		IExecutable contentExecutable = getExecutableResult();
 
 		setExecutableResult(executableFactory().createCompose(
 				executableFactory().createSingleValuedRunnable(new ResourcePersistenceRunnable() {
@@ -174,7 +174,7 @@ public class ReusablesDynamicCompilerVisitor extends AbstractReusablesSemanticsV
     	if (size == 1)
     		entity.get(0).accept(this);
     	else {
-			IExecutable<? extends IEntity>[] contentExecutables = new IExecutable<?>[size];
+			IExecutable[] contentExecutables = new IExecutable[size];
 
 	    	for (int i=0; i<size; i++) {
 				entity.get(i).accept(this);
@@ -188,12 +188,12 @@ public class ReusablesDynamicCompilerVisitor extends AbstractReusablesSemanticsV
 	@Override
 	public void visit(Folder entity) {
 		entity.getPath().accept(this);
-		IExecutable<?> pathExecutable = getExecutableResult();
+		IExecutable pathExecutable = getExecutableResult();
 
 //TODO		entity.getPersistence();
 
 		entity.getContent().accept(this);
-		IExecutable<IEntity> contentExecutable = getExecutableResult();
+		IExecutable contentExecutable = getExecutableResult();
 
 		setExecutableResult(executableFactory().createCompose(
 				executableFactory().createSingleValuedRunnable((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
@@ -209,7 +209,7 @@ public class ReusablesDynamicCompilerVisitor extends AbstractReusablesSemanticsV
 	@Override
 	public void visit(org.whole.lang.reusables.model.File entity) {
 		entity.getPath().accept(this);
-		IExecutable<?> pathExecutable = getExecutableResult();
+		IExecutable pathExecutable = getExecutableResult();
 
 //TODO		entity.getPersistence();
 
@@ -227,7 +227,7 @@ public class ReusablesDynamicCompilerVisitor extends AbstractReusablesSemanticsV
     	if (size == 1)
     		entity.get(0).accept(this);
     	else {
-			IExecutable<? extends IEntity>[] segmentExecutables = new IExecutable<?>[size];
+			IExecutable[] segmentExecutables = new IExecutable[size];
 
 	    	for (int i=0; i<size; i++) {
 				entity.get(i).accept(this);
@@ -250,10 +250,10 @@ public class ReusablesDynamicCompilerVisitor extends AbstractReusablesSemanticsV
 	@Override
 	public void visit(PathWithExtension entity) {
 		entity.getPath().accept(this);
-		IExecutable<?> pathExecutable = getExecutableResult();
+		IExecutable pathExecutable = getExecutableResult();
 
 		entity.getExtension().accept(this);
-		IExecutable<?> extensionExecutable = getExecutableResult();
+		IExecutable extensionExecutable = getExecutableResult();
 
 		setExecutableResult(executableFactory().createSingleValuedRunnable((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
 			if (!BindingManagerFactory.instance.isVoid(selfEntity)) {

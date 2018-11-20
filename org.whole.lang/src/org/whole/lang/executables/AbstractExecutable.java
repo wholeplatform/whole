@@ -32,11 +32,11 @@ import org.whole.lang.steppers.IDataFlowConsumer;
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractExecutable<E extends IEntity> implements IExecutable<E>, Iterator<E>, Spliterator<E> {
-    protected E lastEntity;
+public abstract class AbstractExecutable implements IExecutable, Iterator<IEntity>, Spliterator<IEntity> {
+    protected IEntity lastEntity;
 
 	private IEntity sourceEntity;
-	public IExecutable<E> withSourceEntity(IEntity entity) {
+	public IExecutable withSourceEntity(IEntity entity) {
 		sourceEntity = entity;
 		return this;
 	}
@@ -44,14 +44,13 @@ public abstract class AbstractExecutable<E extends IEntity> implements IExecutab
 		return sourceEntity;
 	}
 
-	public IExecutable<E> clone() {
+	public IExecutable clone() {
 		return clone(new CloneContext());
 	}
 
-	@SuppressWarnings("unchecked")
-	public IExecutable<E> clone(ICloneContext cc) {
+	public IExecutable clone(ICloneContext cc) {
 		try {
-			AbstractExecutable<E> executable = (AbstractExecutable<E>) super.clone();
+			AbstractExecutable executable = (AbstractExecutable) super.clone();
 			cc.putClone(this, executable);
 			return executable;
 		} catch (CloneNotSupportedException e) {
@@ -60,7 +59,7 @@ public abstract class AbstractExecutable<E extends IEntity> implements IExecutab
 	}
 
 	protected IDataFlowConsumer consumer = IDataFlowConsumer.IDENTITY;
-	public IExecutable<E> withConsumer(IDataFlowConsumer consumer) {
+	public IExecutable withConsumer(IDataFlowConsumer consumer) {
 		this.consumer = consumer;
 		return this;
 	}
@@ -104,8 +103,8 @@ public abstract class AbstractExecutable<E extends IEntity> implements IExecutab
 		lastEntity = null;
     }
 
-	public E evaluateRemaining() {
-		E result = null;
+	public IEntity evaluateRemaining() {
+		IEntity result = null;
 		IBindingManager bm = getBindings();
 
 //TODO test and replace
@@ -128,7 +127,7 @@ public abstract class AbstractExecutable<E extends IEntity> implements IExecutab
 		ITransactionScope transactionScope = BindingManagerFactory.instance.createTransactionScope();
 		bm.wEnterScope(transactionScope);
 		try {
-			E next;
+			IEntity next;
 			while ((next = evaluateNext()) != null) {
 				result = next;
 				bm.setResult(result);
@@ -141,8 +140,8 @@ public abstract class AbstractExecutable<E extends IEntity> implements IExecutab
 		return result;
 	}
 
-	public E evaluateSingleton() {
-		E result = null;
+	public IEntity evaluateSingleton() {
+		IEntity result = null;
 		IBindingManager bm = getBindings();
 		ITransactionScope transactionScope = BindingManagerFactory.instance.createTransactionScope();
 		bm.wEnterScope(transactionScope);
@@ -161,22 +160,22 @@ public abstract class AbstractExecutable<E extends IEntity> implements IExecutab
 	}
 
 
-	public Iterator<E> iterator() {
+	public Iterator<IEntity> iterator() {
 		return this;
 	}
 
-	private E lookaheadEntity;
+	private IEntity lookaheadEntity;
 	public boolean hasNext() {
 		if (lookaheadEntity == null)
 			lookaheadEntity = evaluateNext();
 		return lookaheadEntity != null;
 	}
 
-	public E next() {
+	public IEntity next() {
 		if (lookaheadEntity == null)
 			lookaheadEntity = evaluateNext();
 
-		E result = lookaheadEntity;
+		IEntity result = lookaheadEntity;
 		lookaheadEntity = null;
 		return result;
 	}
@@ -187,29 +186,28 @@ public abstract class AbstractExecutable<E extends IEntity> implements IExecutab
     }
 
 
-	public Spliterator<E> spliterator() {
+	public Spliterator<IEntity> spliterator() {
 		return this;
 	}
 
-	public boolean tryAdvance(Consumer<? super E> action) {
-		final E nextValue = evaluateNext();
+	public boolean tryAdvance(Consumer<? super IEntity> action) {
+		final IEntity nextValue = evaluateNext();
 		final boolean hasNext = nextValue != null;
 
-		if (hasNext) action.accept((E) nextValue);
+		if (hasNext) action.accept(nextValue);
 
 		return hasNext;
 	}
 
-	public void forEach(Consumer<? super E> action) {
+	public void forEach(Consumer<? super IEntity> action) {
 		forEachRemaining(action);
 	}
-	public void forEachRemaining(Consumer<? super E> action) {
+	public void forEachRemaining(Consumer<? super IEntity> action) {
 		IDataFlowConsumer oldConsumer = getConsumer();
 
 		withConsumer(new IDataFlowConsumer() {
-			@SuppressWarnings("unchecked")
 			public void accept(IEntity entity) {
-				action.accept((E) entity);
+				action.accept(entity);
 			}
 			public void done() {
 			}
@@ -219,7 +217,7 @@ public abstract class AbstractExecutable<E extends IEntity> implements IExecutab
 		withConsumer(oldConsumer);
 	}
 
-	public Spliterator<E> trySplit() {
+	public Spliterator<IEntity> trySplit() {
 		return null;
 	}
 

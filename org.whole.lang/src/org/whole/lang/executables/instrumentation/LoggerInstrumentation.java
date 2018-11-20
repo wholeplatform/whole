@@ -27,144 +27,144 @@ import org.whole.lang.model.IEntity;
  * @author Riccardo Solmi
  */
 public class LoggerInstrumentation extends IdentityInstrumentation {
-	public static Predicate<InstrumentingExecutable<?>> loggerPredicate = (ii) -> {
+	public static Predicate<InstrumentingExecutable> loggerPredicate = (ii) -> {
 		//TODO framework level logger enabler
 		return false;
 	};
-	public static Consumer<InstrumentingExecutable<?>> loggerConsumer = (ii) -> {
+	public static Consumer<InstrumentingExecutable> loggerConsumer = (ii) -> {
 		//TODO framework level logger
 		return;
 	};
 
 	@Override
-	public void beforeClone(InstrumentingExecutable<?> ii) {
+	public void beforeClone(InstrumentingExecutable ii) {
 		if (loggerPredicate.test(ii))
 			loggerConsumer.accept(ii);
 	}
 	@Override
-	public void afterClone(InstrumentingExecutable<?> ii, InstrumentingExecutable<?> result) {
-		if (loggerPredicate.test(ii))
-			loggerConsumer.accept(ii);
-	}
-
-	@Override
-	public void beforeSetBindings(InstrumentingExecutable<?> ii) {
-		if (loggerPredicate.test(ii))
-			loggerConsumer.accept(ii);
-	}
-	@Override
-	public void afterSetBindings(InstrumentingExecutable<?> ii) {
+	public void afterClone(InstrumentingExecutable ii, InstrumentingExecutable result) {
 		if (loggerPredicate.test(ii))
 			loggerConsumer.accept(ii);
 	}
 
 	@Override
-	public void beforeReset(InstrumentingExecutable<?> ii) {
+	public void beforeSetBindings(InstrumentingExecutable ii) {
 		if (loggerPredicate.test(ii))
 			loggerConsumer.accept(ii);
 	}
 	@Override
-	public void afterReset(InstrumentingExecutable<?> ii) {
+	public void afterSetBindings(InstrumentingExecutable ii) {
+		if (loggerPredicate.test(ii))
+			loggerConsumer.accept(ii);
+	}
+
+	@Override
+	public void beforeReset(InstrumentingExecutable ii) {
+		if (loggerPredicate.test(ii))
+			loggerConsumer.accept(ii);
+	}
+	@Override
+	public void afterReset(InstrumentingExecutable ii) {
 		if (loggerPredicate.test(ii))
 			loggerConsumer.accept(ii);
 	}
 
 
 	@Override
-	public void beforeEvaluateNext(InstrumentingExecutable<?> ii) {
+	public void beforeEvaluateNext(InstrumentingExecutable ii) {
 		if (loggerPredicate.test(ii))
 			loggerConsumer.accept(ii);
 	}
 	@Override
-	public void afterEvaluateNext(InstrumentingExecutable<?> ii, IEntity result) {
-		if (loggerPredicate.test(ii))
-			loggerConsumer.accept(ii);
-	}
-
-	@Override
-	public void beforeEvaluateRemaining(InstrumentingExecutable<?> ii) {
-		if (loggerPredicate.test(ii))
-			loggerConsumer.accept(ii);
-	}
-	@Override
-	public void afterEvaluateRemaining(InstrumentingExecutable<?> ii, IEntity result) {
+	public void afterEvaluateNext(InstrumentingExecutable ii, IEntity result) {
 		if (loggerPredicate.test(ii))
 			loggerConsumer.accept(ii);
 	}
 
 	@Override
-	public void beforeCallNext(InstrumentingExecutable<?> ii) {
+	public void beforeEvaluateRemaining(InstrumentingExecutable ii) {
 		if (loggerPredicate.test(ii))
 			loggerConsumer.accept(ii);
 	}
 	@Override
-	public void afterCallNext(InstrumentingExecutable<?> ii) {
-		if (loggerPredicate.test(ii))
-			loggerConsumer.accept(ii);
-	}
-
-	@Override
-	public void beforeCallRemaining(InstrumentingExecutable<?> ii) {
-		if (loggerPredicate.test(ii))
-			loggerConsumer.accept(ii);
-	}
-	@Override
-	public void afterCallRemaining(InstrumentingExecutable<?> ii) {
+	public void afterEvaluateRemaining(InstrumentingExecutable ii, IEntity result) {
 		if (loggerPredicate.test(ii))
 			loggerConsumer.accept(ii);
 	}
 
 	@Override
-	public void beforeDoNext(InstrumentingExecutable<?> ii, IEntity result) {
+	public void beforeCallNext(InstrumentingExecutable ii) {
 		if (loggerPredicate.test(ii))
 			loggerConsumer.accept(ii);
 	}
 	@Override
-	public void afterDoNext(InstrumentingExecutable<?> ii) {
-		if (loggerPredicate.test(ii))
-			loggerConsumer.accept(ii);
-	}
-
-	@Override
-	public void beforeDoEnd(InstrumentingExecutable<?> ii) {
-		if (loggerPredicate.test(ii))
-			loggerConsumer.accept(ii);
-	}
-	@Override
-	public void afterDoEnd(InstrumentingExecutable<?> ii) {
+	public void afterCallNext(InstrumentingExecutable ii) {
 		if (loggerPredicate.test(ii))
 			loggerConsumer.accept(ii);
 	}
 
 	@Override
-	public void beforeHasNext(InstrumentingExecutable<?> ii) {
+	public void beforeCallRemaining(InstrumentingExecutable ii) {
 		if (loggerPredicate.test(ii))
 			loggerConsumer.accept(ii);
 	}
 	@Override
-	public void afterHasNext(InstrumentingExecutable<?> ii, boolean result) {
-		if (loggerPredicate.test(ii))
-			loggerConsumer.accept(ii);
-	}
-
-	@Override
-	public void beforeLookahead(InstrumentingExecutable<?> ii) {
-		if (loggerPredicate.test(ii))
-			loggerConsumer.accept(ii);
-	}
-	@Override
-	public void afterLookahead(InstrumentingExecutable<?> ii, IEntity result) {
+	public void afterCallRemaining(InstrumentingExecutable ii) {
 		if (loggerPredicate.test(ii))
 			loggerConsumer.accept(ii);
 	}
 
 	@Override
-	public void beforeNext(InstrumentingExecutable<?> ii) {
+	public void beforeDoNext(InstrumentingExecutable ii, IEntity result) {
 		if (loggerPredicate.test(ii))
 			loggerConsumer.accept(ii);
 	}
 	@Override
-	public void afterNext(InstrumentingExecutable<?> ii, IEntity result) {
+	public void afterDoNext(InstrumentingExecutable ii) {
+		if (loggerPredicate.test(ii))
+			loggerConsumer.accept(ii);
+	}
+
+	@Override
+	public void beforeDoEnd(InstrumentingExecutable ii) {
+		if (loggerPredicate.test(ii))
+			loggerConsumer.accept(ii);
+	}
+	@Override
+	public void afterDoEnd(InstrumentingExecutable ii) {
+		if (loggerPredicate.test(ii))
+			loggerConsumer.accept(ii);
+	}
+
+	@Override
+	public void beforeHasNext(InstrumentingExecutable ii) {
+		if (loggerPredicate.test(ii))
+			loggerConsumer.accept(ii);
+	}
+	@Override
+	public void afterHasNext(InstrumentingExecutable ii, boolean result) {
+		if (loggerPredicate.test(ii))
+			loggerConsumer.accept(ii);
+	}
+
+	@Override
+	public void beforeLookahead(InstrumentingExecutable ii) {
+		if (loggerPredicate.test(ii))
+			loggerConsumer.accept(ii);
+	}
+	@Override
+	public void afterLookahead(InstrumentingExecutable ii, IEntity result) {
+		if (loggerPredicate.test(ii))
+			loggerConsumer.accept(ii);
+	}
+
+	@Override
+	public void beforeNext(InstrumentingExecutable ii) {
+		if (loggerPredicate.test(ii))
+			loggerConsumer.accept(ii);
+	}
+	@Override
+	public void afterNext(InstrumentingExecutable ii, IEntity result) {
 		if (loggerPredicate.test(ii))
 			loggerConsumer.accept(ii);
 	}

@@ -66,7 +66,7 @@ public abstract class AbstractConnectionCommand extends Command implements ILega
 
 	protected FeatureDescriptor getConnectionConnectedFeature(IEntity node) {
 		FeatureDescriptor fd = null;
-		IExecutable<?> i = ExecutableFactory.instance.createChild();
+		IExecutable i = ExecutableFactory.instance.createChild();
 		i.reset(node);
 		for (IEntity child : i)
 			if ((EntityUtils.isComposite(child) && child.wContains(getConnection())) ||
@@ -86,11 +86,11 @@ public abstract class AbstractConnectionCommand extends Command implements ILega
 
 	protected boolean connectionExists(IEntity sourceTransistion, IEntity targetTransistion) {
 		if (EntityUtils.isNotResolver(sourceTransistion) && EntityUtils.isNotResolver(targetTransistion)) {
-			IExecutable<?> sourceChildrenExecutable = EntityUtils.isComposite(sourceTransistion) ?
+			IExecutable sourceChildrenExecutable = EntityUtils.isComposite(sourceTransistion) ?
 					ExecutableFactory.instance.createChild() : ExecutableFactory.instance.createSelf();
 			sourceChildrenExecutable.reset(sourceTransistion);
 			
-			IExecutable<?> targetChildrenExecutable = EntityUtils.isComposite(targetTransistion) ?
+			IExecutable targetChildrenExecutable = EntityUtils.isComposite(targetTransistion) ?
 					ExecutableFactory.instance.createChild() : ExecutableFactory.instance.createSelf();
 			targetChildrenExecutable.reset(targetTransistion);
 			

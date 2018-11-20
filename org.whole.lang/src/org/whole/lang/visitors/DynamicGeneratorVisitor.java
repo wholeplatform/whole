@@ -40,7 +40,7 @@ public class DynamicGeneratorVisitor extends AbstractDynamicVisitor {
 	}
 
 	@Override
-	protected void apply(IExecutable<?> executable) {
+	protected void apply(IExecutable executable) {
 		IEntity result = executable.evaluateNext();
 		if (result != null) {
 			//TODO workaround for old style artifact generator actions
@@ -54,7 +54,7 @@ public class DynamicGeneratorVisitor extends AbstractDynamicVisitor {
 				if (projectsPoint == null)
 					throw new IllegalArgumentException("projectsPoint is undefined");
 
-				IExecutable<?> projectExecutable = executableFactory().createChild();
+				IExecutable projectExecutable = executableFactory().createChild();
 				projectExecutable.reset(result.wGet(resultEd.getFeatureDescriptorEnum().valueOf("projects")));
 				for (IEntity project : projectExecutable) {
 					projectExecutable.remove();

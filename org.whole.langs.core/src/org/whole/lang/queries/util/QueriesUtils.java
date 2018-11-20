@@ -41,7 +41,7 @@ public class QueriesUtils {
 		QueriesEntityFactory qef = QueriesEntityFactory.instance;
 		Path path = qef.createPath(0);
 		IEntity parent = null;
-		IExecutable<IEntity> executable = ExecutableFactory.instance.createAncestorOrSelfReverse();
+		IExecutable executable = ExecutableFactory.instance.createAncestorOrSelfReverse();
 		executable.reset(entity);
 
 		IEntity firstChild = executable.evaluateNext();

@@ -34,7 +34,7 @@ import org.whole.lang.operations.ICloneContext;
 public class SimpleScope extends AbstractScope {
 	protected Map<String, IEntity> map;
     protected IEntity result;
-    protected IExecutable<?> executableResult;
+    protected IExecutable executableResult;
 
 	protected SimpleScope() {
 		this(new HashMap<String, IEntity>());
@@ -118,17 +118,16 @@ public class SimpleScope extends AbstractScope {
 	public boolean isExecutableResult() {
 		return executableResult != null;
 	}
-	@SuppressWarnings("unchecked")
-	public <E extends IEntity> IExecutable<E> getExecutableResult() {
+	public IExecutable getExecutableResult() {
 		return isExecutableResult() ?
-				(IExecutable<E>) executableResult : BindingManagerFactory.instance.executableResultOf((E) result);
+				executableResult : BindingManagerFactory.instance.executableResultOf(result);
 	}
 	public IEntity getResult() {
 		return isExecutableResult() ?
 				BindingManagerFactory.instance.resultOf(executableResult) : result;
 	}
 
-	public void setExecutableResult(IExecutable<?> executableResult) {
+	public void setExecutableResult(IExecutable executableResult) {
 		this.result = null;
 		this.executableResult = executableResult;
 	}

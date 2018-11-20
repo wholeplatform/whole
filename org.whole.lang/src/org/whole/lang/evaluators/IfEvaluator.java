@@ -26,12 +26,12 @@ import org.whole.lang.model.IEntity;
 /**
  * @author Riccardo Solmi
  */
-public class IfEvaluator extends AbstractDelegatingNestedEvaluator<IEntity> {
+public class IfEvaluator extends AbstractDelegatingNestedEvaluator {
 	protected boolean conditionValue;
 	protected boolean isFirstValue;
 
 	@SuppressWarnings("unchecked")
-	public IfEvaluator(IExecutable<IEntity> conditionExecutable, IExecutable<IEntity> doExecutable) {
+	public IfEvaluator(IExecutable conditionExecutable, IExecutable doExecutable) {
 		super(conditionExecutable, doExecutable);
 	}
 

@@ -26,7 +26,7 @@ import org.whole.lang.model.IEntity;
  */
 public abstract class AbstractDelegatingNestedTrySupplierEvaluator extends AbstractDelegatingNestedSupplierEvaluator {
     @SuppressWarnings("unchecked")
-	public AbstractDelegatingNestedTrySupplierEvaluator(IExecutable<IEntity>... executables) {
+	public AbstractDelegatingNestedTrySupplierEvaluator(IExecutable... executables) {
 		super(executables);
 	}
 	@Override

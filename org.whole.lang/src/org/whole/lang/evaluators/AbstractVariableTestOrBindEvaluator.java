@@ -25,7 +25,7 @@ import org.whole.lang.util.BindingUtils;
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractVariableTestOrBindEvaluator extends AbstractSupplierEvaluator<IEntity> {
+public abstract class AbstractVariableTestOrBindEvaluator extends AbstractSupplierEvaluator {
 	final boolean hasEnvironmentPart;
 	final int index;
 	final String envName;

@@ -51,6 +51,7 @@ import org.whole.lang.commons.visitors.CommonsInterpreterVisitor;
 import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.executables.IExecutable;
+import org.whole.lang.executables.IExecutableClient;
 import org.whole.lang.factories.GenericEntityFactory;
 import org.whole.lang.factories.IEntityFactory;
 import org.whole.lang.factories.IEntityRegistryProvider;
@@ -135,7 +136,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 	}
 
     @Override
-	public void setExecutableResult(IExecutable<?> executable) {
+	public void setExecutableResult(IExecutable executable) {
 		if (executable != null)
 			executable.setBindings(getBindings());
 		super.setExecutableResult(executable);
@@ -148,7 +149,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
     }
     protected void setResult(Variable variable, Object resultValue, Class<?> resultType) {
 		if (resultValue instanceof IExecutable) {
-			setExecutableResult((IExecutable<?>) resultValue);
+			setExecutableResult((IExecutable) resultValue);
 		} else if (Void.TYPE.equals(resultType)) {
 			if (EntityUtils.isNotResolver(variable))
 				throw new IllegalArgumentException("cannot bind a void result");
@@ -222,7 +223,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 		}
 	}
 
-	protected void resetIterator(IExecutable<?> executable) {
+	protected void resetIterator(IExecutable executable) {
 		IEntity selfEntity = getBindings().wGet(IBindingManager.SELF);
 		executable.reset(selfEntity != null ? selfEntity : NullEntity.instance);
 	}
@@ -231,7 +232,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 	public void visit(ForeachLoop entity) {
 		evaluate(entity.getCompositeVariable());
 
-		IExecutable<?> i = null;
+		IExecutable i = null;
 		if (isExecutableResult()) {
 			i = getExecutableResult();
 			setExecutableResult(null);
@@ -270,7 +271,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 	public void visit(SwitchControl entity) {
 		boolean isExclusive = entity.getSwitchType().wContainsValue(SwitchTypeEnum.exclusive);
 
-		IExecutable<ConditionalCase> i = executableFactory().<ConditionalCase>createChild();
+		IExecutableClient<ConditionalCase> i = executableFactory().createChild().client();
 		i.reset(entity.getConditionalCases());
 
 		boolean executed = false;
@@ -378,7 +379,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 		evaluate(entity.getExpression());
 		
 		if (isExecutableResult()) {
-			IExecutable<?> i = getExecutableResult();
+			IExecutable i = getExecutableResult();
 			setExecutableResult(null);
 			resetIterator(i);
 			IEntity first = i.evaluateNext();
@@ -456,7 +457,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 		Variable queryName = entity.getQueryName();
 		Arguments arguments = entity.getArguments();
 
-		IExecutable<? extends IEntity>[] argsExecutables = new IExecutable<?>[0];
+		IExecutable[] argsExecutables = new IExecutable[0];
 
 		Set<String> filterNames = getOperation().getResultsScope().wNames();
 		IBindingManager args = BindingManagerFactory.instance.createBindingManager(
@@ -466,10 +467,10 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 		if (!EntityUtils.isNotResolver(arguments)) {
 			setResultValue(argsExecutables);
 			arguments.accept(this);
-			argsExecutables = (IExecutable<?>[]) getResultValue();
+			argsExecutables = (IExecutable[]) getResultValue();
 		} else if (Matcher.match(WorkflowsEntityDescriptorEnum.Expressions, arguments)) {
 			IEntity selfEntity = getBindings().wGet(IBindingManager.SELF);
-			argsExecutables = new IExecutable<?>[arguments.wSize()];
+			argsExecutables = new IExecutable[arguments.wSize()];
 			for (int i = 0; i < argsExecutables.length; i++) {
 				((Expressions) arguments).get(i).accept(this);
 				argsExecutables[i] = getExecutableResult();
@@ -479,7 +480,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 		} else
 			define(args, (Assignments) arguments);
 
-		IExecutable<?> i = executableFactory().createCall(queryName.getValue(), argsExecutables);
+		IExecutable i = executableFactory().createCall(queryName.getValue(), argsExecutables);
 		i.setBindings(args);
 		resetIterator(i);
 		i.evaluateRemaining();
@@ -565,7 +566,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 		IEntity model = getResult();
 		//TODO remove ?
 		if (Matcher.matchImpl(WorkflowsEntityDescriptorEnum.Name, entity.getTemplate())) {
-			IExecutable<IEntity> tii = executableFactory().createTemplateInterpreter(getResult());
+			IExecutable tii = executableFactory().createTemplateInterpreter(getResult());
 			tii.setBindings(getBindings());
 			tii.reset(entity);
 			model = tii.evaluateNext();

@@ -55,7 +55,7 @@ public class DynamicContentAssistVisitor extends AbstractDynamicVisitor {
 	}
 
 	@Override
-	protected void apply(IExecutable<?> executable) {
+	protected void apply(IExecutable executable) {
 		List<IEntity> values = new ArrayList<IEntity>();
 		IEntity value;
 		while ((value = executable.evaluateNext()) != null)

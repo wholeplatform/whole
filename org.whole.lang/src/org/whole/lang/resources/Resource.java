@@ -118,14 +118,14 @@ public class Resource implements IResource {
 		return EntityUtils.getLocation(entity);
 	}
 
-	public <E extends IEntity> IExecutable<E> apply(IEntity query, IBindingManager bindings) {
+	public IExecutable apply(IEntity query, IBindingManager bindings) {
 		return apply(this.<IEntity>getEntity(), query, bindings);//FIXME workaround for Java 8 compiler
 	}
-	public <E extends IEntity> IExecutable<E> apply(String uriFragment, IEntity query, IBindingManager bindings) {
+	public IExecutable apply(String uriFragment, IEntity query, IBindingManager bindings) {
 		return apply(this.<IEntity>getEntity(uriFragment), query, bindings);//FIXME workaround for Java 8 compiler
 	}
-	protected <E extends IEntity> IExecutable<E> apply(IEntity entity, IEntity query, IBindingManager bindings) {
-		IExecutable<E> executable = ExecutableFactory.instance(bindings).createTemplateInterpreter(query);
+	protected IExecutable apply(IEntity entity, IEntity query, IBindingManager bindings) {
+		IExecutable executable = ExecutableFactory.instance(bindings).createTemplateInterpreter(query);
 		executable.setBindings(bindings);
 		executable.reset(entity);
 		return executable;

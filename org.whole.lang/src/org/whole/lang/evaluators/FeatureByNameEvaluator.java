@@ -25,7 +25,7 @@ import org.whole.lang.util.ResourceUtils;
 /**
  * @author Riccardo Solmi
  */
-public class FeatureByNameEvaluator extends AbstractPureConditionalSupplierEvaluator<IEntity> {
+public class FeatureByNameEvaluator extends AbstractPureConditionalSupplierEvaluator {
 	protected String featureName;
 	protected FeatureDescriptor featureDescriptor;
 

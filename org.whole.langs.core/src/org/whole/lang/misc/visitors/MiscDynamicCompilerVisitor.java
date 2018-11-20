@@ -31,7 +31,7 @@ public class MiscDynamicCompilerVisitor extends MiscOperationVisitor {
     	if (size == 1)
     		entity.get(0).accept(this);
     	else {
-    		IExecutable<? extends IEntity>[] executableChain = new IExecutable<?>[size];
+    		IExecutable[] executableChain = new IExecutable[size];
 			
 	    	for (int i=0; i<size; i++) {
 				entity.get(i).accept(this);

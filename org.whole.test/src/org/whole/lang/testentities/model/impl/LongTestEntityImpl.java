@@ -39,7 +39,7 @@ public class LongTestEntityImpl extends AbstractDataEntity implements
 	}
 
 	public Object wGetValue() {
-		return new Long(getValue());
+		return Long.valueOf(getValue());
 	}
 
 	public void wSetValue(Object value) {

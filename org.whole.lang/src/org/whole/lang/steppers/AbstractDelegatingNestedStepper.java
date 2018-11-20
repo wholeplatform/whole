@@ -27,12 +27,12 @@ import org.whole.lang.model.IEntity;
  * 
  * TODO keep same code in the two classes except declaration line
  */
-//public abstract class AbstractDelegatingNestedEvaluator<E extends IEntity> extends AbstractNestedEvaluator<E> {
-public abstract class AbstractDelegatingNestedStepper<E extends IEntity> extends AbstractNestedStepper<E> {
+//public abstract class AbstractDelegatingNestedEvaluator extends AbstractNestedEvaluator {
+public abstract class AbstractDelegatingNestedStepper extends AbstractNestedStepper {
 	protected int producerIndex = 0;
 
 	@SuppressWarnings("unchecked")
-	public AbstractDelegatingNestedStepper(IExecutable<? extends E>... executables) {
+	public AbstractDelegatingNestedStepper(IExecutable... executables) {
 		super(executables);
 	}
 
@@ -57,7 +57,7 @@ public abstract class AbstractDelegatingNestedStepper<E extends IEntity> extends
 	protected boolean isValidProducer() {
 		return producerIndex < producersSize();
 	}
-	protected IExecutable<?> getProducer() {
+	protected IExecutable getProducer() {
 		return getProducer(producerIndex);
 	}
 
@@ -118,18 +118,18 @@ public abstract class AbstractDelegatingNestedStepper<E extends IEntity> extends
 	}
 
 	@SuppressWarnings("unchecked")
-	public void set(E entity) {
+	public void set(IEntity entity) {
     	if (!isValidProducer())
     		throw new IllegalStateException();
 
-    	((IExecutable<? super E>) getProducer()).set(entity);
+    	((IExecutable) getProducer()).set(entity);
 	}
 	@SuppressWarnings("unchecked")
-	public void add(E entity) {
+	public void add(IEntity entity) {
     	if (!isValidProducer())
     		throw new IllegalStateException();
 
-		((IExecutable<? super E>) getProducer()).add(entity);
+		((IExecutable) getProducer()).add(entity);
 	}
 
 	public void remove() {

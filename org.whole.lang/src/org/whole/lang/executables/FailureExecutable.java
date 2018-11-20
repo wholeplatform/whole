@@ -24,46 +24,46 @@ import org.whole.lang.model.IEntity;
 /**
  * @author Riccardo Solmi
  */
-public class FailureExecutable<E extends IEntity> extends AbstractExecutableEvaluatingStepper<E>  {
+public class FailureExecutable extends AbstractExecutableEvaluatingStepper  {
 	protected final Throwable failure;
 
 	public FailureExecutable(Throwable failure) {
 		this.failure = failure;
 	}
 
-    public E evaluateNext() {
+    public IEntity evaluateNext() {
 		throw IWholeRuntimeException.asWholeException(failure, getSourceEntity(), null);
 	}
 	@Override
-	public E evaluateRemaining() {
+	public IEntity evaluateRemaining() {
 		throw IWholeRuntimeException.asWholeException(failure, getSourceEntity(), null);
 	}
 	@Override
-	public E evaluate(IEntity self, IBindingManager bm) {
+	public IEntity evaluate(IEntity self, IBindingManager bm) {
 		throw IWholeRuntimeException.asWholeException(failure, getSourceEntity(), null);
 	}
 	@Override
-	public E evaluateFirst(IEntity self, IBindingManager bm) {
+	public IEntity evaluateFirst(IEntity self, IBindingManager bm) {
 		throw IWholeRuntimeException.asWholeException(failure, getSourceEntity(), null);
 	}
 	@Override
-	public E evaluateSingleton() {
+	public IEntity evaluateSingleton() {
 		throw IWholeRuntimeException.asWholeException(failure, getSourceEntity(), null);
 	}
 
 	public boolean hasNext() {
 		return true;
 	}
-	public E next() {
+	public IEntity next() {
 		throw IWholeRuntimeException.asWholeException(failure, getSourceEntity(), null);
 	}
 	public void prune() {
 	}
 
-	public void set(E entity) {
+	public void set(IEntity entity) {
 		throw new IllegalStateException(failure);
 	}
-	public void add(E entity) {
+	public void add(IEntity entity) {
 		throw new IllegalStateException(failure);
 	}
 	public void remove() {

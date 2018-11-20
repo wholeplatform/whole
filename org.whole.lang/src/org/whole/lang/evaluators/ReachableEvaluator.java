@@ -25,18 +25,18 @@ import org.whole.lang.operations.ICloneContext;
 /**
  * @author Riccardo Solmi
  */
-public class ReachableEvaluator<E extends IEntity> extends AbstractTransitiveClosureEvaluator<E> {
-	protected DistinctScope<E> distinctScope;
+public class ReachableEvaluator extends AbstractTransitiveClosureEvaluator {
+	protected DistinctScope distinctScope;
 
-	public ReachableEvaluator(boolean includeSelf, DistinctScope<E> distinctScope) {
+	public ReachableEvaluator(boolean includeSelf, DistinctScope distinctScope) {
 		super(includeSelf);
 
 		this.distinctScope = distinctScope;
 	}
 
 	@Override
-	public IExecutable<E> clone(ICloneContext cc) {
-		ReachableEvaluator<E> evaluator = (ReachableEvaluator<E>) super.clone(cc);
+	public IExecutable clone(ICloneContext cc) {
+		ReachableEvaluator evaluator = (ReachableEvaluator) super.clone(cc);
 		evaluator.distinctScope = cc.clone(distinctScope);
 		return evaluator;
 	}
@@ -45,8 +45,8 @@ public class ReachableEvaluator<E extends IEntity> extends AbstractTransitiveClo
 		return entity.wAdjacentSize() > 0;
 	}
     
-    protected IExecutable<E> createRelationExecutable() {
-    	return executableFactory().createFilter(executableFactory().<E>createAdjacent(), distinctScope.distinctExecutable());
+    protected IExecutable createRelationExecutable() {
+    	return executableFactory().createFilter(executableFactory().createAdjacent(), distinctScope.distinctExecutable());
     }
 
     public void toString(StringBuilder sb) {
