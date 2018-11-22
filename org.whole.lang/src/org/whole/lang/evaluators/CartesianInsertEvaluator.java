@@ -30,7 +30,6 @@ import org.whole.lang.util.EntityUtils;
 public class CartesianInsertEvaluator extends AbstractCartesianEvaluator {
 	protected Placement placement;
 
-	@SuppressWarnings("unchecked")
 	public CartesianInsertEvaluator(IExecutable toExecutable, IExecutable valuesExecutable, Placement placement) {
 		super(toExecutable, valuesExecutable);
 		this.placement = placement;

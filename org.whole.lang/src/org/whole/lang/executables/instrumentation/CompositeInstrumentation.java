@@ -108,32 +108,4 @@ public class CompositeInstrumentation implements IExecutableInstrumentation {
 	public void afterDoEnd(InstrumentingExecutable ii) {
 		instrumentations.forEach((i) -> i.afterDoEnd(ii));
 	}
-
-
-	@Override
-	public void beforeHasNext(InstrumentingExecutable ii) {
-		instrumentations.forEach((i) -> i.beforeHasNext(ii));
-	}
-	@Override
-	public void afterHasNext(InstrumentingExecutable ii, boolean result) {
-		instrumentations.forEach((i) -> i.afterHasNext(ii, result));
-	}
-
-	@Override
-	public void beforeLookahead(InstrumentingExecutable ii) {
-		instrumentations.forEach((i) -> i.beforeLookahead(ii));
-	}
-	@Override
-	public void afterLookahead(InstrumentingExecutable ii, IEntity result) {
-		instrumentations.forEach((i) -> i.afterLookahead(ii, result));
-	}
-
-	@Override
-	public void beforeNext(InstrumentingExecutable ii) {
-		instrumentations.forEach((i) -> i.beforeNext(ii));
-	}
-	@Override
-	public void afterNext(InstrumentingExecutable ii, IEntity result) {
-		instrumentations.forEach((i) -> i.afterNext(ii, result));
-	}
 }

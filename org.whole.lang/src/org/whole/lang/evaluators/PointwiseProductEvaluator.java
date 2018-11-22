@@ -25,7 +25,6 @@ import org.whole.lang.model.IEntity;
  * @author Riccardo Solmi
  */
 public class PointwiseProductEvaluator extends AbstractPointwiseEvaluator {
-	@SuppressWarnings("unchecked")
 	public PointwiseProductEvaluator(IExecutable... executables) {
 		super(executables);
 	}

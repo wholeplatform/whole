@@ -24,7 +24,6 @@ import org.whole.lang.model.IEntity;
  * @author Riccardo Solmi
  */
 public class PathEvaluator extends AbstractCartesianEvaluator {
-	@SuppressWarnings("unchecked")
 	public PathEvaluator(IExecutable... executables) {
 		super(executables);
 	}

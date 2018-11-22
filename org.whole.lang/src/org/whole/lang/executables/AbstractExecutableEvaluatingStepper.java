@@ -47,9 +47,6 @@ public abstract class AbstractExecutableEvaluatingStepper extends AbstractExecut
 	}
 	protected void clearExecutorScope() {
 		if (executorScope != null) {
-//			if (lastEntity != null)
-//				for (String name : executorScope.wTargetNames())
-//					getBindings().wUnset(name);
 			executorScope.wClear();
 		}
 	}

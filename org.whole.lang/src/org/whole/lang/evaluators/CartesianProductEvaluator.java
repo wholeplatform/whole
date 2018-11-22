@@ -25,7 +25,6 @@ import org.whole.lang.model.IEntity;
  * @author Riccardo Solmi
  */
 public class CartesianProductEvaluator extends AbstractCartesianEvaluator {
-	@SuppressWarnings("unchecked")
 	public CartesianProductEvaluator(IExecutable... executables) {
 		super(executables);
 	}

@@ -27,7 +27,6 @@ import org.whole.lang.model.IEntity;
 public abstract class AbstractPointwiseEvaluator extends AbstractDelegatingNestedEvaluator {
 	protected IEntity[] nestedResults;
 
-	@SuppressWarnings("unchecked")
 	public AbstractPointwiseEvaluator(IExecutable... executables) {
 		super(executables);
 	}

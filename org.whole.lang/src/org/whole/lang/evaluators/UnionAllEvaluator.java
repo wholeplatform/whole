@@ -24,7 +24,6 @@ import org.whole.lang.model.IEntity;
  * @author Riccardo Solmi
  */
 public class UnionAllEvaluator extends AbstractCollectEvaluator {
-	@SuppressWarnings("unchecked")
 	public UnionAllEvaluator(IExecutable... executables) {
 		super(executables);
 	}

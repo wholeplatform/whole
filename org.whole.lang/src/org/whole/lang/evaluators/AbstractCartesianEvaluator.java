@@ -30,7 +30,6 @@ import org.whole.lang.operations.ICloneContext;
 public abstract class AbstractCartesianEvaluator extends AbstractDelegatingNestedEvaluator {
 	protected IEntity[] nestedResults;
 
-	@SuppressWarnings("unchecked")
 	public AbstractCartesianEvaluator(IExecutable... executables) {
 		super(executables);
 		nestedResults = new IEntity[executables.length];

@@ -29,7 +29,6 @@ import org.whole.lang.resources.FunctionLibraryRegistry;
 public class FunctionApplicationEvaluator extends AbstractDelegatingNestedEvaluator {
 	protected String functionUri;
 
-	@SuppressWarnings("unchecked")
 	public FunctionApplicationEvaluator(String functionUri) {
 		super((IExecutable) null);
 		this.functionUri = functionUri;

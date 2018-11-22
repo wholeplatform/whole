@@ -26,7 +26,6 @@ import org.whole.lang.model.IEntity;
 public class ConstantComposeEvaluator extends AbstractDelegatingNestedEvaluator {
 	protected IEntity constant;
 
-	@SuppressWarnings("unchecked")
 	public ConstantComposeEvaluator(IEntity constant, IExecutable executable) {
 		super(executable);
 		this.constant = constant;

@@ -25,7 +25,6 @@ import org.whole.lang.operations.ICloneContext;
  * @author Riccardo Solmi
  */
 public class RecursiveFunctionApplicationEvaluator extends AbstractDelegatingNestedEvaluator {
-	@SuppressWarnings("unchecked")
 	public RecursiveFunctionApplicationEvaluator() {
 		super((IExecutable) null);
 	}

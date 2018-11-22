@@ -31,11 +31,9 @@ import org.whole.lang.operations.ICloneContext;
 public abstract class AbstractCollectEvaluator extends AbstractDelegatingNestedSupplierEvaluator {
 	protected IEntityComparator<IEntity> comparator;
 
-	@SuppressWarnings("unchecked")
 	public AbstractCollectEvaluator(IExecutable... executables) {
 		this(BusinessIdentityComparator.instance, executables);
 	}
-	@SuppressWarnings("unchecked")
 	public AbstractCollectEvaluator(IEntityComparator<IEntity> comparator, IExecutable... executables) {
 		super(executables);
 		this.comparator = comparator;

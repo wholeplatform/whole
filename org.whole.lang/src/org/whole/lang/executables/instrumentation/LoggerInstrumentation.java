@@ -135,37 +135,4 @@ public class LoggerInstrumentation extends IdentityInstrumentation {
 		if (loggerPredicate.test(ii))
 			loggerConsumer.accept(ii);
 	}
-
-	@Override
-	public void beforeHasNext(InstrumentingExecutable ii) {
-		if (loggerPredicate.test(ii))
-			loggerConsumer.accept(ii);
-	}
-	@Override
-	public void afterHasNext(InstrumentingExecutable ii, boolean result) {
-		if (loggerPredicate.test(ii))
-			loggerConsumer.accept(ii);
-	}
-
-	@Override
-	public void beforeLookahead(InstrumentingExecutable ii) {
-		if (loggerPredicate.test(ii))
-			loggerConsumer.accept(ii);
-	}
-	@Override
-	public void afterLookahead(InstrumentingExecutable ii, IEntity result) {
-		if (loggerPredicate.test(ii))
-			loggerConsumer.accept(ii);
-	}
-
-	@Override
-	public void beforeNext(InstrumentingExecutable ii) {
-		if (loggerPredicate.test(ii))
-			loggerConsumer.accept(ii);
-	}
-	@Override
-	public void afterNext(InstrumentingExecutable ii, IEntity result) {
-		if (loggerPredicate.test(ii))
-			loggerConsumer.accept(ii);
-	}
 }

@@ -42,7 +42,7 @@ public class DiagnosticInstrumentation implements IExecutableInstrumentation {
 		NOT_INITIALIZED, WITHOUT_SELF, READY, USED
 	}
 	public static enum InstrumentedMethod {
-		CLONE, SET_BINDINGS, RESET, EVALUATE_NEXT, EVALUATE_REMAINING, CALL_NEXT, CALL_REMAINING, DO_NEXT, DO_END, HAS_NEXT, LOOKAHEAD, NEXT
+		CLONE, SET_BINDINGS, RESET, EVALUATE_NEXT, EVALUATE_REMAINING, CALL_NEXT, CALL_REMAINING, DO_NEXT, DO_END
 	}
 	public static enum Severity {
 		INFO, WARNING, ERROR
@@ -57,7 +57,7 @@ public class DiagnosticInstrumentation implements IExecutableInstrumentation {
 				data.callHistory.removeFirst();
 			data.callHistory.addLast(method);
 
-			if (method == InstrumentedMethod.NEXT) {
+			if (method == InstrumentedMethod.EVALUATE_NEXT) {
 				if (data.state == State.READY)
 					data.steps = 0;
 				if (data.state == State.USED)
@@ -122,8 +122,6 @@ public class DiagnosticInstrumentation implements IExecutableInstrumentation {
 			case EVALUATE_REMAINING:
 			case CALL_NEXT:
 			case CALL_REMAINING:
-			case LOOKAHEAD:
-			case NEXT:
 				data.state = State.USED;
 				break;
 			case CLONE:
@@ -168,9 +166,6 @@ public class DiagnosticInstrumentation implements IExecutableInstrumentation {
 		case EVALUATE_REMAINING:
 		case CALL_NEXT:
 		case CALL_REMAINING:
-		case HAS_NEXT:
-		case LOOKAHEAD:
-		case NEXT:
 			if (data.state == State.READY || data.state == State.USED) {
 				IEntity selfBinding = ii.getBindings().wGet(IBindingManager.SELF);
 				IEntity selfEntity = data.selfEntity;
@@ -306,32 +301,5 @@ public class DiagnosticInstrumentation implements IExecutableInstrumentation {
 	@Override
 	public void afterDoEnd(InstrumentingExecutable ii) {
 		performDiagnostics(ii, InstrumentedMethod.DO_END, false);
-	}
-
-	@Override
-	public void beforeHasNext(InstrumentingExecutable ii) {
-		performDiagnostics(ii, InstrumentedMethod.HAS_NEXT, true);
-	}
-	@Override
-	public void afterHasNext(InstrumentingExecutable ii, boolean result) {
-		performDiagnostics(ii, InstrumentedMethod.HAS_NEXT, false);
-	}
-
-	@Override
-	public void beforeLookahead(InstrumentingExecutable ii) {
-		performDiagnostics(ii, InstrumentedMethod.LOOKAHEAD, true);
-	}
-	@Override
-	public void afterLookahead(InstrumentingExecutable ii, IEntity result) {
-		performDiagnostics(ii, InstrumentedMethod.LOOKAHEAD, false);
-	}
-
-	@Override
-	public void beforeNext(InstrumentingExecutable ii) {
-		performDiagnostics(ii, InstrumentedMethod.NEXT, true);
-	}
-	@Override
-	public void afterNext(InstrumentingExecutable ii, IEntity result) {
-		performDiagnostics(ii, InstrumentedMethod.NEXT, false);
 	}
 }

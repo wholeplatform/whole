@@ -29,7 +29,6 @@ import org.whole.lang.reflect.ILanguageKit;
 public class ChooseByTypeEvaluator extends AbstractDelegatingNestedEvaluator {
 	private ILanguageKit languageKit;
 
-	@SuppressWarnings("unchecked")
 	public ChooseByTypeEvaluator(ILanguageKit languageKit) {
 		super(new IExecutable[languageKit.getEntityDescriptorEnum().size()+1]);
 		this.languageKit = languageKit;

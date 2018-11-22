@@ -25,7 +25,6 @@ import org.whole.lang.model.IEntity;
  * @author Riccardo Solmi
  */
 public class ExceptEvaluator extends AbstractCollectEvaluator {
-	@SuppressWarnings("unchecked")
 	public ExceptEvaluator(IEntityComparator<IEntity> comparator, IExecutable... executables) {
 		super(comparator, executables);
 	}

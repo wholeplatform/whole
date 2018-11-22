@@ -25,7 +25,6 @@ import org.whole.lang.model.IEntity;
  * @author Riccardo Solmi
  */
 public class IntersectEvaluator extends AbstractCollectEvaluator {
-	@SuppressWarnings("unchecked")
 	public IntersectEvaluator(IEntityComparator<IEntity> comparator, IExecutable... executables) {
 		super(comparator, executables);
 	}

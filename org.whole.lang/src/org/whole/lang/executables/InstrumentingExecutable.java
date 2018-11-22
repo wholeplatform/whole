@@ -18,7 +18,9 @@
 package org.whole.lang.executables;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Spliterator;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -180,18 +182,13 @@ public class InstrumentingExecutable extends AbstractExecutable {
 	}
 
 	@Override
-	public boolean hasNext() {
-		instrumentation.beforeHasNext(this);
-		boolean result = getExecutable().iterator().hasNext();
-		instrumentation.afterHasNext(this, result);
-		return result;
+	public Iterator<IEntity> iterator() {
+		return getExecutable().iterator();
 	}
+
 	@Override
-	public IEntity next() {
-		instrumentation.beforeNext(this);
-		IEntity result = getExecutable().iterator().next();
-		instrumentation.afterNext(this, result);
-		return result;
+	public Spliterator<IEntity> spliterator() {
+		return getExecutable().spliterator();
 	}
 
 	@Override

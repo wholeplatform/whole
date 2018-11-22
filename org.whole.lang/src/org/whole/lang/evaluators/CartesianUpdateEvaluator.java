@@ -26,7 +26,6 @@ import org.whole.lang.util.EntityUtils;
  * @author Riccardo Solmi
  */
 public class CartesianUpdateEvaluator extends AbstractCartesianEvaluator {
-	@SuppressWarnings("unchecked")
 	public CartesianUpdateEvaluator(IExecutable toExecutable, IExecutable valuesExecutable) {
 		super(toExecutable, valuesExecutable);
 	}

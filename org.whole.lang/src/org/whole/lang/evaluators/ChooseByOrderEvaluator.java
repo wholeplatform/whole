@@ -26,7 +26,6 @@ import org.whole.lang.model.IEntity;
 public class ChooseByOrderEvaluator extends AbstractDelegatingNestedEvaluator {
 	protected boolean choosen;
 
-	@SuppressWarnings("unchecked")
 	public ChooseByOrderEvaluator(IExecutable... executables) {
 		super(executables);
 	}

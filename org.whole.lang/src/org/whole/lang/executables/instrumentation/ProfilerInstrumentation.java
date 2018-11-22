@@ -149,44 +149,4 @@ public class ProfilerInstrumentation implements IExecutableInstrumentation {
 		ProfilerData pd = profilerData(ii);
 		pd.doEndDuration = pd.doEndDuration.plus(pd.endTimer());
 	}
-
-
-	@Override
-	public void beforeHasNext(InstrumentingExecutable ii) {
-		globalProfilerData.hasNextCalls++;
-		ProfilerData pd = profilerData(ii);
-		pd.hasNextCalls++;
-		pd.startTimer();
-	}
-	@Override
-	public void afterHasNext(InstrumentingExecutable ii, boolean result) {
-		ProfilerData pd = profilerData(ii);
-		pd.hasNextDuration = pd.hasNextDuration.plus(pd.endTimer());
-	}
-
-	@Override
-	public void beforeLookahead(InstrumentingExecutable ii) {
-		globalProfilerData.lookaheadCalls++;
-		ProfilerData pd = profilerData(ii);
-		pd.lookaheadCalls++;
-		pd.startTimer();
-	}
-	@Override
-	public void afterLookahead(InstrumentingExecutable ii, IEntity result) {
-		ProfilerData pd = profilerData(ii);
-		pd.lookaheadDuration = pd.lookaheadDuration.plus(pd.endTimer());
-	}
-
-	@Override
-	public void beforeNext(InstrumentingExecutable ii) {
-		globalProfilerData.nextCalls++;
-		ProfilerData pd = profilerData(ii);
-		pd.nextCalls++;
-		pd.startTimer();
-	}
-	@Override
-	public void afterNext(InstrumentingExecutable ii, IEntity result) {
-		ProfilerData pd = profilerData(ii);
-		pd.nextDuration = pd.nextDuration.plus(pd.endTimer());
-	}
 }

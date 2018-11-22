@@ -16,10 +16,6 @@ public class ProfilerData extends AbstractInstrumentationData {
 	public int doNextCalls;
 	public int doEndCalls;
 	
-	public int hasNextCalls;
-	public int lookaheadCalls;
-	public int nextCalls;
-
 	public Duration cloneDuration = Duration.ZERO;
 	public Duration setBindingsDuration = Duration.ZERO;
 	public Duration resetDuration = Duration.ZERO;
@@ -29,10 +25,6 @@ public class ProfilerData extends AbstractInstrumentationData {
 	public Duration callRemainingDuration = Duration.ZERO;
 	public Duration doNextDuration = Duration.ZERO;
 	public Duration doEndDuration = Duration.ZERO;
-
-	public Duration hasNextDuration = Duration.ZERO;
-	public Duration lookaheadDuration = Duration.ZERO;
-	public Duration nextDuration = Duration.ZERO;
 
 	@Override
 	public ProfilerData clone(ICloneContext cc) {
@@ -47,9 +39,6 @@ public class ProfilerData extends AbstractInstrumentationData {
 		data.doNextDuration = Duration.from(doNextDuration);
 		data.doEndDuration = Duration.from(doEndDuration);
 
-		data.hasNextDuration = Duration.from(hasNextDuration);
-		data.lookaheadDuration = Duration.from(lookaheadDuration);
-		data.nextDuration = Duration.from(nextDuration);
 		data.startInstant = Instant.from(startInstant);
 		return data;
 	}
@@ -109,21 +98,6 @@ public class ProfilerData extends AbstractInstrumentationData {
 		sb.append(doEndCalls);
 		sb.append("  ");
 		sb.append(doEndDuration);
-
-		sb.append("\nhasNext          :");
-		sb.append(hasNextCalls);
-		sb.append("  ");
-		sb.append(hasNextDuration);
-
-		sb.append("\nlookahead        :");
-		sb.append(lookaheadCalls);
-		sb.append("  ");
-		sb.append(lookaheadDuration);
-
-		sb.append("\nnext             :");
-		sb.append(nextCalls);
-		sb.append("  ");
-		sb.append(nextDuration);
 		return sb.toString();
 	}
 }

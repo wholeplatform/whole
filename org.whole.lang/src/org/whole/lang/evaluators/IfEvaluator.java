@@ -51,9 +51,6 @@ public class IfEvaluator extends AbstractDelegatingNestedEvaluator {
 	@Override
 	protected void clearExecutorScope() {
 		if (executorScope != null) {
-//			if (lastEntity != null)
-//				for (String name : executorScope.wTargetNames())
-//					getBindings().wUnset(name);
 			((BindingManager) executorScope).wSetTargetScope(BindingManagerFactory.instance.createSimpleScope());
 		}
 	}

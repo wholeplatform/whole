@@ -40,7 +40,6 @@ public class CallEvaluator extends AbstractDelegatingNestedEvaluator {
 	protected IExecutable queryExecutable;
 	protected boolean queryExecutableNeedInit;
 
-	@SuppressWarnings("unchecked")
 	public CallEvaluator(String queryName, IExecutable... argsExecutables) {
 		super(argsExecutables);
 		this.queryName = queryName;

@@ -69,9 +69,4 @@ public class DebuggerInstrumentation extends IdentityInstrumentation {
 	public void beforeCallRemaining(InstrumentingExecutable ii) {
 		beforeBehavior(ii);
 	}
-
-	@Override
-	public void beforeNext(InstrumentingExecutable ii) {
-		beforeBehavior(ii);
-	}
 }

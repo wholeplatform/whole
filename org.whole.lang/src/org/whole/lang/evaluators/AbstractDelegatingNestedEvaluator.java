@@ -30,7 +30,6 @@ public abstract class AbstractDelegatingNestedEvaluator extends AbstractNestedEv
 //public abstract class AbstractDelegatingNestedStepper extends AbstractNestedStepper {
 	protected int producerIndex = 0;
 
-	@SuppressWarnings("unchecked")
 	public AbstractDelegatingNestedEvaluator(IExecutable... executables) {
 		super(executables);
 	}

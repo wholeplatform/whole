@@ -88,25 +88,4 @@ public class IdentityInstrumentation implements IExecutableInstrumentation {
 	@Override
 	public void afterDoEnd(InstrumentingExecutable ii) {
 	}
-
-	@Override
-	public void beforeHasNext(InstrumentingExecutable ii) {
-	}
-	@Override
-	public void afterHasNext(InstrumentingExecutable ii, boolean result) {
-	}
-
-	@Override
-	public void beforeLookahead(InstrumentingExecutable ii) {
-	}
-	@Override
-	public void afterLookahead(InstrumentingExecutable ii, IEntity result) {
-	}
-
-	@Override
-	public void beforeNext(InstrumentingExecutable ii) {
-	}
-	@Override
-	public void afterNext(InstrumentingExecutable ii, IEntity result) {
-	}
 }

@@ -50,14 +50,4 @@ public interface IExecutableInstrumentation {
 
 	public void beforeDoEnd(InstrumentingExecutable ii);
 	public void afterDoEnd(InstrumentingExecutable ii);
-
-
-	public void beforeHasNext(InstrumentingExecutable ii);
-	public void afterHasNext(InstrumentingExecutable ii, boolean result);
-
-	public void beforeLookahead(InstrumentingExecutable ii);
-	public void afterLookahead(InstrumentingExecutable ii, IEntity result);
-
-	public void beforeNext(InstrumentingExecutable ii);
-	public void afterNext(InstrumentingExecutable ii, IEntity result);
 }
