@@ -18,10 +18,13 @@
 package org.whole.lang.executables;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.Spliterator;
 import java.util.function.Consumer;
 
+import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.CloneContext;
 import org.whole.lang.operations.ICloneContext;
@@ -30,8 +33,12 @@ import org.whole.lang.steppers.IDataFlowConsumer;
 /**
  * @author Riccardo Solmi
  */
-class ExecutableClient<E extends IEntity> implements IExecutableClient<E> {
-	IExecutable executable;
+class ExecutableClient<E extends IEntity> implements IExecutableClient<E>, Iterator<E> {
+	protected E lastEntity;
+	protected boolean hasCachedEntity;
+	protected boolean needMergeScope = true;
+	protected IBindingScope executorScope;
+	protected IExecutable executable;
 
 	protected ExecutableClient(IExecutable executable) {
 		this.executable = executable;
@@ -45,6 +52,7 @@ class ExecutableClient<E extends IEntity> implements IExecutableClient<E> {
 			@SuppressWarnings("unchecked")
 			ExecutableClient<E> result = (ExecutableClient<E>) super.clone();
 			cc.putClone(this, result);
+			result.executorScope = executorScope != null ? executorScope.clone() : null;
 			result.executable = executable.clone(cc);
 			return result;
 		} catch (CloneNotSupportedException e) {
@@ -77,15 +85,42 @@ class ExecutableClient<E extends IEntity> implements IExecutableClient<E> {
 
 	public void reset(IEntity entity) {
 		executable.reset(entity);
+		lastEntity = null;
+	}
+
+	protected IBindingScope executorScope() {
+		if (executorScope == null)
+			executorScope = BindingManagerFactory.instance.createSimpleScope();
+		return executorScope;
+	}
+	protected void clearExecutorScope() {
+		if (executorScope != null) {
+			if (lastEntity != null)
+				for (String name : executorScope.wTargetNames())
+					getBindings().wUnset(name);
+			executorScope.wClear();
+		}
 	}
 
 	@SuppressWarnings("unchecked")
 	public E evaluateNext() {
-		return (E) executable.evaluateNext();
+		clearExecutorScope();
+		try {
+			getBindings().wEnterScope(executorScope(), true);
+			return lastEntity = (E) executable.evaluateNext();
+		} finally {
+			getBindings().wExitScope(lastEntity != null && needMergeScope);
+		}
 	}
 	@SuppressWarnings("unchecked")
 	public E evaluateRemaining() {
-		return (E) executable.evaluateRemaining();
+		clearExecutorScope();
+		try {
+			getBindings().wEnterScope(executorScope(), true);
+			return lastEntity = (E) executable.evaluateRemaining();
+		} finally {
+			getBindings().wExitScope(lastEntity != null && needMergeScope);
+		}	
 	}
 
 	@SuppressWarnings("unchecked")
@@ -130,9 +165,36 @@ class ExecutableClient<E extends IEntity> implements IExecutableClient<E> {
 	}
 
 
-	@SuppressWarnings("unchecked")
 	public Iterator<E> iterator() {
-		return (Iterator<E>) executable.iterator();
+		return this;
+	}
+	public boolean hasNext() {
+//		try {
+			return cachingEvaluateNext(false) != null;
+//		} catch (Exception e) {
+//			return false;
+//		}
+	}
+	public final E next() {
+		E nextEntity = cachingEvaluateNext(true);
+		if (nextEntity == null)
+			throw new NoSuchElementException();
+
+    	hasCachedEntity = false;
+		return nextEntity;
+	}
+	protected final E cachingEvaluateNext(boolean merge) {
+		if (!hasCachedEntity) {
+			hasCachedEntity = true;
+
+			needMergeScope = merge;
+			evaluateNext();
+			needMergeScope = true;
+
+		} else if (merge && lastEntity != null)
+			getBindings().wAddAll(executorScope());
+
+		return lastEntity;
 	}
 
 	@SuppressWarnings("unchecked")

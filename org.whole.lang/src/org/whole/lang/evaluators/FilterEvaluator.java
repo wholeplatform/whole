@@ -27,7 +27,6 @@ import org.whole.lang.util.EntityUtils;
 public class FilterEvaluator extends AbstractDelegatingNestedEvaluator {
 	private boolean autoPrune = false;
 	
-	@SuppressWarnings("unchecked")
 	public FilterEvaluator(IExecutable doExecutable, IExecutable filterExecutable) {
 		super(doExecutable, filterExecutable);
 	}

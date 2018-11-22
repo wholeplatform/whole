@@ -30,7 +30,6 @@ public class IfEvaluator extends AbstractDelegatingNestedEvaluator {
 	protected boolean conditionValue;
 	protected boolean isFirstValue;
 
-	@SuppressWarnings("unchecked")
 	public IfEvaluator(IExecutable conditionExecutable, IExecutable doExecutable) {
 		super(conditionExecutable, doExecutable);
 	}
@@ -61,8 +60,6 @@ public class IfEvaluator extends AbstractDelegatingNestedEvaluator {
 	@Override
 	protected void clearProducerScope() {
 		if (executorScope != null) {
-//			for (String name : executorScope.wTargetScope().wLocalNames())
-//				getBindings().wUnset(name);
 			executorScope.wClear();
 		}
 	}

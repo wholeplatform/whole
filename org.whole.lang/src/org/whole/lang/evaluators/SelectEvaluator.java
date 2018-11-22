@@ -39,7 +39,6 @@ public class SelectEvaluator extends AbstractDelegatingNestedEvaluator {
 	protected IBindingScope selectScope;
 	protected IBindingScope whereScope;
 
-	@SuppressWarnings("unchecked")
 	public SelectEvaluator(IExecutable selectExecutable, IExecutable fromExecutable, IExecutable whereExecutable) {
 		super(fromExecutable, selectExecutable, whereExecutable);
 	}
