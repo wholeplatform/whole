@@ -31,7 +31,6 @@ import org.whole.lang.util.WholeMessages;
  * @author Riccardo Solmi
  */
 public class MathUtils {
-	@SuppressWarnings("unchecked")
 	public static IExecutable createAdditionStep(IExecutable expression) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
 			public IEntity get() {
@@ -42,7 +41,6 @@ public class MathUtils {
 			}
 		};
 	}
-	@SuppressWarnings("unchecked")
 	public static IExecutable createSubtractionStep(IExecutable expression) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
 			public IEntity get() {
@@ -53,7 +51,6 @@ public class MathUtils {
 			}
 		};
 	}
-	@SuppressWarnings("unchecked")
 	public static IExecutable createMultiplicationStep(IExecutable expression) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
 			public IEntity get() {
@@ -64,7 +61,6 @@ public class MathUtils {
 			}
 		};
 	}
-	@SuppressWarnings("unchecked")
 	public static IExecutable createDivisionStep(IExecutable expression) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
 			public IEntity get() {
@@ -75,7 +71,6 @@ public class MathUtils {
 			}
 		};
 	}
-	@SuppressWarnings("unchecked")
 	public static IExecutable createRemainderStep(IExecutable expression) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
 			public IEntity get() {
@@ -87,7 +82,6 @@ public class MathUtils {
 		};
 	}
 
-	@SuppressWarnings("unchecked")
 	public static IExecutable createEqualsStep(IExecutable expression) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
 			public IEntity get() {
@@ -98,7 +92,6 @@ public class MathUtils {
 			}
 		};
 	}
-	@SuppressWarnings("unchecked")
 	public static IExecutable createNotEqualsStep(IExecutable expression) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
 			public IEntity get() {
@@ -109,7 +102,6 @@ public class MathUtils {
 			}
 		};
 	}
-	@SuppressWarnings("unchecked")
 	public static IExecutable createLessThanStep(IExecutable expression) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
 			public IEntity get() {
@@ -120,7 +112,6 @@ public class MathUtils {
 			}
 		};
 	}
-	@SuppressWarnings("unchecked")
 	public static IExecutable createLessOrEqualsStep(IExecutable expression) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
 			public IEntity get() {
@@ -131,7 +122,6 @@ public class MathUtils {
 			}
 		};
 	}
-	@SuppressWarnings("unchecked")
 	public static IExecutable createGreaterThanStep(IExecutable expression) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
 			public IEntity get() {
@@ -142,7 +132,6 @@ public class MathUtils {
 			}
 		};
 	}
-	@SuppressWarnings("unchecked")
 	public static IExecutable createGreaterOrEqualsStep(IExecutable expression) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
 			public IEntity get() {
@@ -155,7 +144,6 @@ public class MathUtils {
 	}
 
 
-	@SuppressWarnings("unchecked")
 	public static IExecutable createAddition(IExecutable exp1, IExecutable exp2) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(exp1, exp2) {
 			public IEntity get() {
@@ -166,7 +154,6 @@ public class MathUtils {
 			}
 		};
 	}
-	@SuppressWarnings("unchecked")
 	public static IExecutable createSubtraction(IExecutable exp1, IExecutable exp2) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(exp1, exp2) {
 			public IEntity get() {
@@ -177,7 +164,6 @@ public class MathUtils {
 			}
 		};
 	}
-	@SuppressWarnings("unchecked")
 	public static IExecutable createMultiplication(IExecutable exp1, IExecutable exp2) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(exp1, exp2) {
 			public IEntity get() {
@@ -188,7 +174,6 @@ public class MathUtils {
 			}
 		};
 	}
-	@SuppressWarnings("unchecked")
 	public static IExecutable createDivision(IExecutable exp1, IExecutable exp2) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(exp1, exp2) {
 			public IEntity get() {
@@ -199,7 +184,6 @@ public class MathUtils {
 			}
 		};
 	}
-	@SuppressWarnings("unchecked")
 	public static IExecutable createRemainder(IExecutable exp1, IExecutable exp2) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(exp1, exp2) {
 			public IEntity get() {
@@ -211,7 +195,6 @@ public class MathUtils {
 		};
 	}
 
-	@SuppressWarnings("unchecked")
 	public static IExecutable createEquals(IExecutable exp1, IExecutable exp2) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(exp1, exp2) {
 			public IEntity get() {
@@ -222,7 +205,6 @@ public class MathUtils {
 			}
 		};
 	}
-	@SuppressWarnings("unchecked")
 	public static IExecutable createNotEquals(IExecutable exp1, IExecutable exp2) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(exp1, exp2) {
 			public IEntity get() {
@@ -233,7 +215,6 @@ public class MathUtils {
 			}
 		};
 	}
-	@SuppressWarnings("unchecked")
 	public static IExecutable createLessThan(IExecutable exp1, IExecutable exp2) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(exp1, exp2) {
 			public IEntity get() {
@@ -244,7 +225,6 @@ public class MathUtils {
 			}
 		};
 	}
-	@SuppressWarnings("unchecked")
 	public static IExecutable createLessOrEquals(IExecutable exp1, IExecutable exp2) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(exp1, exp2) {
 			public IEntity get() {
@@ -255,7 +235,6 @@ public class MathUtils {
 			}
 		};
 	}
-	@SuppressWarnings("unchecked")
 	public static IExecutable createGreaterThan(IExecutable exp1, IExecutable exp2) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(exp1, exp2) {
 			public IEntity get() {
@@ -266,7 +245,6 @@ public class MathUtils {
 			}
 		};
 	}
-	@SuppressWarnings("unchecked")
 	public static IExecutable createGreaterOrEquals(IExecutable exp1, IExecutable exp2) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(exp1, exp2) {
 			public IEntity get() {

@@ -23,7 +23,7 @@ import java.util.function.Consumer;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.bindings.ITransactionScope;
+import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.CloneContext;
 import org.whole.lang.operations.ICloneContext;
@@ -107,35 +107,21 @@ public abstract class AbstractExecutable implements IExecutable, Iterator<IEntit
 		IEntity result = null;
 		IBindingManager bm = getBindings();
 
-//TODO test and replace
-//		IBindingScope selfEntityScope = BindingManagerFactory.instance.createSimpleScope();
-//		IBindingScope resultScope = null;
-//
-//		try {
-//			bm.wEnterScope(selfEntityScope, true);
-//			E next;
-//			while ((next = evaluateNext()) != null) {
-//				result = next;
-//				resultScope = selfEntityScope.clone();
-//				selfEntityScope.wClear();
-//			}
-//		} finally {
-//			bm.wExitScope();
-//			bm.wAddAll(resultScope);
-//		}
+		IBindingScope nextScope = BindingManagerFactory.instance.createSimpleScope();
+		IBindingScope resultScope = null;
 
-		ITransactionScope transactionScope = BindingManagerFactory.instance.createTransactionScope();
-		bm.wEnterScope(transactionScope);
 		try {
+			bm.wEnterScope(nextScope, true);
 			IEntity next;
 			while ((next = evaluateNext()) != null) {
 				result = next;
-				bm.setResult(result);
-				transactionScope.commit();
+				resultScope = nextScope.clone();
+				nextScope.wClear();
 			}
 		} finally {
-			transactionScope.rollback();
 			bm.wExitScope();
+			if (resultScope != null)
+				bm.wAddAll(resultScope);
 		}
 		return result;
 	}
@@ -143,18 +129,22 @@ public abstract class AbstractExecutable implements IExecutable, Iterator<IEntit
 	public IEntity evaluateSingleton() {
 		IEntity result = null;
 		IBindingManager bm = getBindings();
-		ITransactionScope transactionScope = BindingManagerFactory.instance.createTransactionScope();
-		bm.wEnterScope(transactionScope);
+
+		IBindingScope nextScope = BindingManagerFactory.instance.createSimpleScope();
+		IBindingScope resultScope = null;
+
 		try {
+			bm.wEnterScope(nextScope, true);
 			if ((result = evaluateNext()) != null) {
-				bm.setResult(result);
-				transactionScope.commit();
+				resultScope = nextScope.clone();
+				nextScope.wClear();
 			}
 			if (result == null || evaluateNext() != null)
 				throw new IllegalArgumentException("The result is not a singleton");
 		} finally {
-			transactionScope.rollback();
 			bm.wExitScope();
+			if (resultScope != null)
+				bm.wAddAll(resultScope);
 		}
 		return result;
 	}

@@ -122,9 +122,42 @@ public class GenericTemplateInterpreterVisitor extends AbstractVisitor {
 				FeatureDescriptor childFeatureDescriptor = entityClone.wGetFeatureDescriptor(index);
 				if (EntityUtils.isComposite(entityClone)) {
     				entityClone.wRemove(index--);
+ 
+//TODO test and replace
+//					IBindingScope nextScope = BindingManagerFactory.instance.createSimpleScope();
+//					IBindingScope resultScope = null;
+//
+//					try {
+//						getBindings().wEnterScope(nextScope, true);
+//
+//	    				IEntity first = executable.evaluateNext();
+//						if (first != null) {
+//	    					resultScope = nextScope.clone();
+//	    					nextScope.wClear();
+//
+//	    					resultSize = entityClone.wSize();
+//	    					for (IEntity e = first; e != null; e = executable.evaluateNext()) {
+//		    					nextResultSize = entityClone.wSize();
+//		    					index += (nextResultSize - resultSize);
+//		    					if (BindingManagerFactory.instance.isVoid(e))
+//		    						resultSize = nextResultSize;
+//		    					else {
+//			    					entityClone.wAdd(++index, EntityUtils.convertCloneIfReparenting(e, childFeatureDescriptor));
+//			    					resultSize = entityClone.wSize();
+//		    					}
+//		    					resultScope = nextScope.clone();
+//		    					nextScope.wClear();
+//		    				}
+//						}
+//					} finally {
+//	    				getBindings().wExitScope();
+//	    				if (resultScope != null)
+//	    					getBindings().wAddAll(resultScope);
+//					}
+
     				IEntity first = executable.evaluateNext();
 					if (first != null) {
-    					ITransactionScope resettableScope = BindingManagerFactory.instance.createTransactionScope();
+						ITransactionScope resettableScope = BindingManagerFactory.instance.createTransactionScope();
     					getBindings().wEnterScope(resettableScope);
     					resultSize = entityClone.wSize();
     					for (IEntity e = first; e != null; e = executable.evaluateNext()) {

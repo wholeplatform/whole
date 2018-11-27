@@ -27,6 +27,7 @@ import org.whole.lang.exceptions.WholeIllegalStateException;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.visitors.MissingVariableException;
 
 /**
@@ -42,6 +43,15 @@ public class SelectEvaluator extends AbstractDelegatingNestedEvaluator {
 	public SelectEvaluator(IExecutable selectExecutable, IExecutable fromExecutable, IExecutable whereExecutable) {
 		super(fromExecutable, selectExecutable, whereExecutable);
 	}
+
+	@Override
+    public IExecutable clone(ICloneContext cc) {
+		SelectEvaluator executor = (SelectEvaluator) super.clone(cc);
+		executor.fromScope = fromScope != null ? fromScope.clone() : null;
+		executor.selectScope = selectScope != null ? selectScope.clone() : null;
+		executor.whereScope = whereScope != null ? whereScope.clone() : null;
+		return executor;
+    }
 
 	public Set<String> namesToBind() {
 		return namesToBind;
@@ -83,7 +93,7 @@ public class SelectEvaluator extends AbstractDelegatingNestedEvaluator {
 	protected void clearExecutorScope() {
 		if (executorScope != null) {
 			for (String name : selectScope.wTargetNames())
-					getBindings().wUnset(name);
+				getBindings().wUnset(name);
 
 			fromScope.wClear();
 			selectScope.wClear();

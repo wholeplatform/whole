@@ -169,11 +169,7 @@ class ExecutableClient<E extends IEntity> implements IExecutableClient<E>, Itera
 		return this;
 	}
 	public boolean hasNext() {
-//		try {
-			return cachingEvaluateNext(false) != null;
-//		} catch (Exception e) {
-//			return false;
-//		}
+		return cachingEvaluateNext(false) != null;
 	}
 	public final E next() {
 		E nextEntity = cachingEvaluateNext(true);
