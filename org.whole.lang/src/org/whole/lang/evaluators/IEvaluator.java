@@ -34,4 +34,3 @@ public interface IEvaluator<E extends IEntity> {
 	public boolean evaluateAsBooleanOrFail();
 	public E evaluateSingleton();
 }
-

@@ -17,8 +17,6 @@
  */
 package org.whole.lang.steppers;
 
-import org.whole.lang.model.IEntity;
-
 /**
  * @author Riccardo Solmi
  */

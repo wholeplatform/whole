@@ -92,14 +92,12 @@ public class StepperBasedExecutableFactory extends RegularExecutableFactory {
 	}
 
 
-	@SuppressWarnings("unchecked")
 	public IExecutable createIf(IExecutable conditionExecutable, IExecutable doExecutable) {
 		return super.createIf(conditionExecutable, doExecutable);
 //FIXME
 //		return (IExecutable) new IfStepper((IExecutable) conditionExecutable, (IExecutable) doExecutable);
 	}
 
-	@SuppressWarnings("unchecked")
 	public IExecutable createChoose(IExecutable... executableChain) {
 		return super.createChoose(executableChain);
 //FIXME

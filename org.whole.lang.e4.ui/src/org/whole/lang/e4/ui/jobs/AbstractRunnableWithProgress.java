@@ -61,8 +61,9 @@ public abstract class AbstractRunnableWithProgress implements ISynchronizableRun
 			E4Utils.suspendOrReportException(context, SuspensionKind.ERROR, "Model operation error", "Error while executing "+label+" operation", e, bm);
 		} finally {
 			monitor.done();
-			if (isTransactional())
-				context.get(UISynchronize.class).syncExec(() -> viewer.getEditDomain().setDisabled(false));
+			UISynchronize uiSynchronize = context.get(UISynchronize.class);
+			if (uiSynchronize != null && isTransactional())
+				uiSynchronize.syncExec(() -> viewer.getEditDomain().setDisabled(false));
 		}
 		return;
 	}

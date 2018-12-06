@@ -28,7 +28,6 @@ public class IfStepper extends AbstractDelegatingNestedStepper {
 	protected boolean conditionValue;
 	protected boolean isFirstValue;
 
-	@SuppressWarnings("unchecked")
 	public IfStepper(IExecutable conditionStepper, IExecutable doStepper) {
 		super(conditionStepper, doStepper);
 	}

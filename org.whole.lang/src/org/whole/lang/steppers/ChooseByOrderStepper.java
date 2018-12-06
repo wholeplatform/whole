@@ -26,7 +26,6 @@ import org.whole.lang.model.IEntity;
 public class ChooseByOrderStepper extends AbstractDelegatingNestedStepper {
 	protected boolean choosen;
 
-	@SuppressWarnings("unchecked")
 	public ChooseByOrderStepper(IExecutable... steppers) {
 		super(steppers);
 	}

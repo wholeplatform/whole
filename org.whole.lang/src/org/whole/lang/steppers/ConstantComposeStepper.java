@@ -26,7 +26,6 @@ import org.whole.lang.model.IEntity;
 public class ConstantComposeStepper extends AbstractDelegatingNestedStepper {
 	protected IEntity constant;
 
-	@SuppressWarnings("unchecked")
 	public ConstantComposeStepper(IEntity constant, IExecutable executable) {
 		super(executable);
 		this.constant = constant;

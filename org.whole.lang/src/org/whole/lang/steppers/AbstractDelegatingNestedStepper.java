@@ -31,7 +31,6 @@ import org.whole.lang.model.IEntity;
 public abstract class AbstractDelegatingNestedStepper extends AbstractNestedStepper {
 	protected int producerIndex = 0;
 
-	@SuppressWarnings("unchecked")
 	public AbstractDelegatingNestedStepper(IExecutable... executables) {
 		super(executables);
 	}
@@ -117,14 +116,12 @@ public abstract class AbstractDelegatingNestedStepper extends AbstractNestedStep
 			getProducer().prune();
 	}
 
-	@SuppressWarnings("unchecked")
 	public void set(IEntity entity) {
     	if (!isValidProducer())
     		throw new IllegalStateException();
 
     	((IExecutable) getProducer()).set(entity);
 	}
-	@SuppressWarnings("unchecked")
 	public void add(IEntity entity) {
     	if (!isValidProducer())
     		throw new IllegalStateException();
