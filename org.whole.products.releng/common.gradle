@@ -42,8 +42,10 @@ ext {
 
 	sourceExcludes = ".git/**, */bin/**, */builds/**, */target/**, **/.DS_Store, */.gradle/**"
 
-	gitClone = { String repoUri, String repoDir ->
+	gitClone = { String repoUri, String repoDir, String patchPath=null ->
 		Git.cloneRepository().setURI(repoUri).setDirectory(new File(repoDir)).call()
+		if (patchPath != null)
+			ant.patch(patchfile: patchPath, strip: 1, dir: repoDir)
 	}
 	gitCheckout = { String repoDir, String checkoutCommit, String branchName = '' ->
 		def repo = new FileRepositoryBuilder().setWorkTree(new File(repoDir)).build()

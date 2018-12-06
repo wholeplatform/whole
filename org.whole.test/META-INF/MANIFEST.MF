@@ -37,4 +37,5 @@ Require-Bundle: org.junit,
  org.h2
 Bundle-ActivationPolicy: lazy
 Eclipse-RegisterBuddy: org.whole.lang
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-9
+Automatic-Module-Name: org.whole.test

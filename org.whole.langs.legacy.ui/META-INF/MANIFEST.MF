@@ -40,4 +40,5 @@ Require-Bundle: org.eclipse.core.runtime,
  org.whole.lang.ui.notations
 Bundle-ActivationPolicy: lazy
 Eclipse-RegisterBuddy: org.whole.lang
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-9
+Automatic-Module-Name: org.whole.langs.legacy.ui

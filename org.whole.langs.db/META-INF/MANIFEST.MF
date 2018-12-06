@@ -28,4 +28,5 @@ Export-Package: org.whole.lang.dbcfg.builders,
 Require-Bundle: org.whole.lang
 Bundle-ActivationPolicy: lazy
 Eclipse-RegisterBuddy: org.whole.lang
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-9
+Automatic-Module-Name: org.whole.langs.db

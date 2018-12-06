@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.whole.lang.e4.ui;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-9
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Export-Package: org.whole.lang.e4.actions,
@@ -49,3 +49,4 @@ Require-Bundle: javax.annotation,
 Service-Component: OSGI-INF/*.xml
 Bundle-ActivationPolicy: lazy
 Eclipse-RegisterBuddy: org.whole.lang
+Automatic-Module-Name: org.whole.lang.e4.ui

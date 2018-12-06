@@ -5,4 +5,5 @@ Bundle-SymbolicName: org.whole.standalone
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-9
+Automatic-Module-Name: org.whole.standalone

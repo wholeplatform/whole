@@ -100,4 +100,5 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.e4.ui.di
 Bundle-ActivationPolicy: lazy
 Eclipse-RegisterBuddy: org.whole.lang
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-9
+Automatic-Module-Name: org.whole.langs.core.ui

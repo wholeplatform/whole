@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-9
 Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: %providerName
@@ -44,3 +44,4 @@ Export-Package: org.whole.lang,
 Bundle-ActivationPolicy: lazy
 Eclipse-BuddyPolicy: registered
 Require-Bundle: org.eclipse.core.runtime;bundle-version="3.9.0"
+Automatic-Module-Name: org.whole.lang
