@@ -26,4 +26,8 @@ public interface IControlFlowProducer {
 	public void reset(IEntity entity);
 	public void callNext();
 	public void callRemaining();
+	
+	public default void callNextAsynch() {
+		callNext();
+	}
 }
