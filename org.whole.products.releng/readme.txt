@@ -8,7 +8,7 @@ Installation Notes
 The recommended way to install the Whole Platform is to download the
 Whole Language Workbench executable for your platform.
 Simply, unpack and run the application.
-(NB A 64 bit version of the Java SE 8 or newer is required)
+(NB A 64 bit version of the Java SE 9 or newer is required)
 
 To add the Whole Platform to an existing Eclipse installation
 use the Update site or the Update site Archive.
