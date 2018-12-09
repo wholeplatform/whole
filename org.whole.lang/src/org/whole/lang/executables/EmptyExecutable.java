@@ -20,12 +20,13 @@ package org.whole.lang.executables;
 import java.util.NoSuchElementException;
 
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.evaluators.AbstractEvaluator;
 import org.whole.lang.model.IEntity;
 
 /**
  * @author Riccardo Solmi
  */
-public class EmptyExecutable extends AbstractExecutableEvaluatingStepper {
+public class EmptyExecutable extends AbstractEvaluator {
     public IEntity evaluateNext() {
 		return null;
 	}

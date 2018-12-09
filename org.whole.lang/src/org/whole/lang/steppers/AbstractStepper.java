@@ -15,35 +15,36 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.executables;
+package org.whole.lang.steppers;
 
+import org.whole.lang.evaluators.AbstractNestedEvaluator;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
-import org.whole.lang.steppers.AbstractNestedStepper;
-import org.whole.lang.steppers.IDataFlowConsumer;
 
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractExecutableAsynchStepperEvaluator extends AbstractNestedStepper {
+public abstract class AbstractStepper extends AbstractNestedEvaluator {
+	protected StepperState state = StepperState.IDLE;
 	protected ArgumentDataFlowConsumer[] arguments;
 
-	protected AbstractExecutableAsynchStepperEvaluator(IExecutable... producers) {
+	protected AbstractStepper(IExecutable... producers) {
 		super(producers);
 		arguments = new ArgumentDataFlowConsumer[producersSize()];
 	}
 
 	@Override
 	public IExecutable clone(ICloneContext cc) {
+		AbstractStepper stepper = (AbstractStepper) super.clone(cc);
 		// TODO add lazy clone of arguments
-		arguments = new ArgumentDataFlowConsumer[producersSize()];
-		return super.clone(cc);
+		stepper.arguments = new ArgumentDataFlowConsumer[arguments.length];
+		return stepper;
 	}
 
 	@Override
 	protected void initProducer(IExecutable p, int index) {
-		p.setBindings(getBindings());
-		p.reset(selfEntity);
+		super.initProducer(p, index);
 		p.withConsumer(getArgument(index));
 	}
 
@@ -53,6 +54,7 @@ public abstract class AbstractExecutableAsynchStepperEvaluator extends AbstractN
 
 		return arguments[index];
 	}
+
 	public boolean areAllArgumentsAvailable() {
 		for (int i=0; i<arguments.length; i++)
 			if (arguments[i] == null || arguments[i].entity == null)
@@ -60,47 +62,82 @@ public abstract class AbstractExecutableAsynchStepperEvaluator extends AbstractN
 		return true;
 	}
 
-	public synchronized final void callNext() {
-		callNextAsynch();
+	public synchronized /*final*/ IEntity evaluateNext() {
+		callNext();
 		try {
-			//TODO add while (!doneNext)
-			wait();
+			while (state != StepperState.ACTION)
+				wait();
 		} catch (InterruptedException e) {
-			nextEntity = null;
+			lastEntity = null;
+			getConsumer().done();
+		}
+		return lastEntity;
+	}
+	public synchronized /*final*/ IEntity evaluateRemaining() {
+		callRemaining();
+		try {
+			while (state != StepperState.ACTION)
+				wait();
+		} catch (InterruptedException e) {
+			lastEntity = null;
+		}
+		return lastEntity;
+	}
+
+	public synchronized void callNext() {
+		switch (state) {
+		case IDLE:
+		case ACTION:
+			state = StepperState.CALL;
+			for (int i=0; i<producersSize(); i++)
+				getProducer(i).callNext();//TODO ? callRemaining
+			break;
+		case DATA:
+			doNextAction();
+		default:
+		}
+	}
+	public synchronized void callRemaining() {
+		switch (state) {
+		case IDLE:
+		case ACTION:
+			state = StepperState.CALL;
+			for (int i=0; i<producersSize(); i++)
+				getProducer(i).callRemaining();
+			break;
+		case DATA:
+			doNextAction();
+		default:
 		}
 	}
 
-	public void callNextAsynch() {
-		for (int i=0; i<producersSize(); i++)
-			getProducer(i).callNextAsynch();//TODO ? callRemainingAsynch
-	}
+	protected synchronized void doNextAction() {
+		state = StepperState.ACTION;
+		lastEntity = doEvaluateNext();
+		if (lastEntity != null)
+			getConsumer().accept(lastEntity);
+		else
+			getConsumer().done();
+		notify();
+	};
+	public abstract IEntity doEvaluateNext();
+
 
 	public class ArgumentDataFlowConsumer implements IDataFlowConsumer {
 		public IEntity entity;
 
 		public void accept(IEntity entity) {
 			this.entity = entity;
-			if (areAllArgumentsAvailable()) {
+			if (areAllArgumentsAvailable())
 				doNextAction();
-				synchronized (AbstractExecutableAsynchStepperEvaluator.this) {
-					AbstractExecutableAsynchStepperEvaluator.this.notify();
-				}
-			}
 		}
+
 		public void done() {
 			this.entity = null;
 		}
 	}
 
-	public abstract void doNextAction();
-
-//TODO remove
-	public void accept(IEntity entity) {
-		nextEntity = entity;
-		super.accept(entity);
-	}
-	public void done() {
-		nextEntity = null;
-		super.done();
+	public static enum StepperState {
+		IDLE, CALL, DATA, ACTION
 	}
 }

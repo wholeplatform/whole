@@ -18,13 +18,14 @@
 package org.whole.lang.executables;
 
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.evaluators.AbstractEvaluator;
 import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.model.IEntity;
 
 /**
  * @author Riccardo Solmi
  */
-public class FailureExecutable extends AbstractExecutableEvaluatingStepper  {
+public class FailureExecutable extends AbstractEvaluator  {
 	protected final Throwable failure;
 
 	public FailureExecutable(Throwable failure) {

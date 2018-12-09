@@ -23,6 +23,6 @@ import org.whole.lang.reflect.ISourceable;
 /**
  * @author Riccardo Solmi
  */
-public interface IFlowStepper extends IControlFlowProducer, IDataFlowConsumer, ICloneable, ISourceable {
+public interface IFlowStepper extends IControlFlowProducer, ICloneable, ISourceable {
 }
 

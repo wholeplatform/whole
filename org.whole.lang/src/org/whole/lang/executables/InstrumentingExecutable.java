@@ -35,12 +35,13 @@ import org.whole.lang.executables.instrumentation.DiagnosticInstrumentation;
 import org.whole.lang.executables.instrumentation.IExecutableInstrumentation;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
+import org.whole.lang.steppers.IDataFlowConsumer;
 import org.whole.lang.util.BehaviorUtils;
 
 /**
  * @author Riccardo Solmi
  */
-public class InstrumentingExecutable extends AbstractExecutable {
+public class InstrumentingExecutable extends AbstractExecutable implements IDataFlowConsumer {
 	public static IExecutableInstrumentation instrumentation = CompositeInstrumentation.instance;
 
 	public static final IEntity MISSING_SOURCE_ENTITY = BindingManagerFactory.instance.createNull();
@@ -49,6 +50,7 @@ public class InstrumentingExecutable extends AbstractExecutable {
 
 	public InstrumentingExecutable(IExecutable executable) {
 		this.executable = executable;
+		executable.withConsumer(this);
 	}
 
 	public IExecutable getExecutable() {
@@ -171,13 +173,13 @@ public class InstrumentingExecutable extends AbstractExecutable {
 	@Override
 	public void accept(IEntity entity) {
 		instrumentation.beforeDoNext(this, entity);
-		getExecutable().accept(entity);
+		getConsumer().accept(entity);
 		instrumentation.afterDoNext(this);
 	}
 	@Override
 	public void done() {
 		instrumentation.beforeDoEnd(this);
-		getExecutable().done();
+		getConsumer().done();
 		instrumentation.afterDoEnd(this);
 	}
 

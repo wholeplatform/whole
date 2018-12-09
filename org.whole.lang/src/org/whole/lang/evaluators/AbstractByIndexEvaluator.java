@@ -19,7 +19,6 @@ package org.whole.lang.evaluators;
 
 import java.util.NoSuchElementException;
 
-import org.whole.lang.executables.AbstractExecutableEvaluatingStepper;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.util.EntityUtils;
 
@@ -28,7 +27,7 @@ import org.whole.lang.util.EntityUtils;
  * 
  * @author Riccardo Solmi
  */
-public abstract class AbstractByIndexEvaluator extends AbstractExecutableEvaluatingStepper {
+public abstract class AbstractByIndexEvaluator extends AbstractEvaluator {
 	protected IEntity selfEntity; //parent
 	protected int nextIndex;
 	protected int lastIndex = -1;

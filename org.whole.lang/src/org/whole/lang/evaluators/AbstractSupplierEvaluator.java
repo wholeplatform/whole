@@ -20,14 +20,13 @@ package org.whole.lang.evaluators;
 import java.util.function.Supplier;
 
 import org.whole.lang.exceptions.IWholeRuntimeException;
-import org.whole.lang.executables.AbstractExecutableEvaluatingStepper;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractSupplierEvaluator extends AbstractExecutableEvaluatingStepper implements Supplier<IEntity> {
+public abstract class AbstractSupplierEvaluator extends AbstractEvaluator implements Supplier<IEntity> {
     protected boolean isEvaluated;
 	protected IEntity selfEntity;
 

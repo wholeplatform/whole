@@ -46,11 +46,11 @@ public abstract class AbstractDelegatingNestedEvaluator extends AbstractNestedEv
 	protected boolean isNotFirstProducer() {
 		return producerIndex > 0;
 	}
-	protected boolean isNotLastProducer() {
-		return producerIndex < producersSize()-1;
-	}
 	protected boolean isLastProducer() {
 		return producerIndex == producersSize()-1;
+	}
+	protected boolean isNotLastProducer() {
+		return producerIndex < producersSize()-1;
 	}
 	protected boolean isValidProducer() {
 		return producerIndex < producersSize();
@@ -58,6 +58,7 @@ public abstract class AbstractDelegatingNestedEvaluator extends AbstractNestedEv
 	protected boolean isValidResultProducer() {
 		return isValidProducer();
 	}
+
 	protected IExecutable getProducer() {
 		return getProducer(producerIndex);
 	}

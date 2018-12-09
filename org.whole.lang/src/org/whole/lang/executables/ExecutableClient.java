@@ -148,12 +148,6 @@ class ExecutableClient<E extends IEntity> implements IExecutableClient<E>, Itera
 	public void callRemaining() {
 		executable.callRemaining();
 	}
-	public void accept(IEntity entity) {
-		executable.accept(entity);
-	}
-	public void done() {
-		executable.done();
-	}
 
 
 	public ExecutableFactory executableFactory() {

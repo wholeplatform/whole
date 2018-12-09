@@ -19,7 +19,6 @@ package org.whole.lang.evaluators;
 
 import java.util.Iterator;
 
-import org.whole.lang.executables.AbstractExecutableEvaluatingStepper;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
@@ -28,7 +27,7 @@ import org.whole.lang.util.IDataTypeWrapper;
 /**
  * @author Riccardo Solmi
  */
-public class CollectionEvaluator extends AbstractExecutableEvaluatingStepper {
+public class CollectionEvaluator extends AbstractEvaluator {
 	protected Iterable<?> collectionIterable;
 	protected Iterator<?> collectionIterator;
 	protected IDataTypeWrapper elementWrapper;

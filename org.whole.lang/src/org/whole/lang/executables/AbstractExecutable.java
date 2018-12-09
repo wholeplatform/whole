@@ -66,12 +66,6 @@ public abstract class AbstractExecutable implements IExecutable, Iterator<IEntit
 	public IDataFlowConsumer getConsumer() {
 		return consumer;
 	}
-	public void accept(IEntity entity) {
-		getConsumer().accept(entity);
-	}
-	public void done() {
-		getConsumer().done();
-	}
 
 	private IBindingManager bindings;
 	public final boolean hasBindings() {

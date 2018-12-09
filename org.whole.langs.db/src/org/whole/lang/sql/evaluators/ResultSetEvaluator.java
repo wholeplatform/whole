@@ -24,14 +24,14 @@ import java.sql.Types;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.commons.factories.CommonsEntityFactory;
-import org.whole.lang.executables.AbstractExecutableEvaluatingStepper;
+import org.whole.lang.evaluators.AbstractEvaluator;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.sql.factories.SQLEntityFactory;
 
 /**
  * @author Riccardo Solmi
  */
-public class ResultSetEvaluator extends AbstractExecutableEvaluatingStepper {
+public class ResultSetEvaluator extends AbstractEvaluator {
 	private ResultSet resultSet;
 	private String[] labels;
 

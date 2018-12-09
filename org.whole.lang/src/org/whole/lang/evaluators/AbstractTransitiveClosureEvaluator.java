@@ -20,7 +20,6 @@ package org.whole.lang.evaluators;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.whole.lang.executables.AbstractExecutableEvaluatingStepper;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
@@ -28,7 +27,7 @@ import org.whole.lang.operations.ICloneContext;
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractTransitiveClosureEvaluator extends AbstractExecutableEvaluatingStepper {
+public abstract class AbstractTransitiveClosureEvaluator extends AbstractEvaluator {
 	protected List<IExecutable> executableStack = new ArrayList<IExecutable>(16);
 	protected IExecutable lastExecutable;
 	protected boolean includeSelf;

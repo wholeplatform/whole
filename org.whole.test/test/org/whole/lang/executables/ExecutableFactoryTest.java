@@ -30,6 +30,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.evaluators.AbstractEvaluator;
 import org.whole.lang.math.factories.MathEntityFactory;
 import org.whole.lang.math.model.Identifier;
 import org.whole.lang.model.IEntity;
@@ -642,7 +643,7 @@ public class ExecutableFactoryTest {
     	public IEntity evaluateNext(int index, IBindingManager bm);
     }
     //FIXME add executor scope?
-    public static class TestEvaluator extends AbstractExecutableEvaluatingStepper {
+    public static class TestEvaluator extends AbstractEvaluator {
     	protected int resultIndex = 0;
     	protected NextEvaluator nextEvaluator;
 

@@ -15,22 +15,24 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.executables;
+package org.whole.lang.evaluators;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingScope;
+import org.whole.lang.executables.AbstractExecutable;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractExecutableEvaluatingStepper extends AbstractExecutable {
+public abstract class AbstractEvaluator extends AbstractExecutable {
 	protected IBindingScope executorScope;
 
 	@Override
     public IExecutable clone(ICloneContext cc) {
-		AbstractExecutableEvaluatingStepper executor = (AbstractExecutableEvaluatingStepper) super.clone(cc);
+		AbstractEvaluator executor = (AbstractEvaluator) super.clone(cc);
 		executor.executorScope = executorScope != null ? executorScope.clone() : null;
 		return executor;
     }
