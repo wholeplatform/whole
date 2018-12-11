@@ -30,36 +30,63 @@ public abstract class AbstractStepper extends AbstractNestedEvaluator {
 	protected ArgumentDataFlowConsumer[] arguments;
 
 	protected AbstractStepper(IExecutable... producers) {
+		this(producers.length, producers);
+	}
+	protected AbstractStepper(int argumentsSize, IExecutable... producers) {
 		super(producers);
-		arguments = new ArgumentDataFlowConsumer[producersSize()];
+		arguments = new ArgumentDataFlowConsumer[argumentsSize];
 	}
 
 	@Override
 	public IExecutable clone(ICloneContext cc) {
 		AbstractStepper stepper = (AbstractStepper) super.clone(cc);
 		// TODO add lazy clone of arguments
-		stepper.arguments = new ArgumentDataFlowConsumer[arguments.length];
+		stepper.arguments = new ArgumentDataFlowConsumer[argumentsSize()];
 		return stepper;
 	}
 
 	@Override
-	protected void initProducer(IExecutable p, int index) {
-		super.initProducer(p, index);
-		p.withConsumer(getArgument(index));
+	public void reset(IEntity entity) {
+		super.reset(entity);
+		state = StepperState.IDLE;
+		resetArguments();
 	}
 
-	public IDataFlowConsumer getArgument(int index) {
+	public void resetArguments() {
+		for (int i=0; i<argumentsSize(); i++)
+			if (arguments[i] != null)
+				arguments[i].entity = null;
+	}
+
+	public int argumentsSize() {
+		return arguments.length;
+	}
+
+	public ArgumentDataFlowConsumer getArgumentConsumer(int index) {
 		if (arguments[index] == null)
 			arguments[index] = new ArgumentDataFlowConsumer();
 
 		return arguments[index];
 	}
+	public IEntity getArgument(int index) {
+		return getArgumentConsumer(index).entity;
+	}
 
 	public boolean areAllArgumentsAvailable() {
-		for (int i=0; i<arguments.length; i++)
+		for (int i=0; i<argumentsSize(); i++)
 			if (arguments[i] == null || arguments[i].entity == null)
 				return false;
 		return true;
+	}	
+
+	@Override
+	protected void initProducer(IExecutable p, int index) {
+		super.initProducer(p, index);
+		p.withConsumer(getArgumentConsumer(index));
+	}
+
+	public StepperState getState() {
+		return state;
 	}
 
 	public synchronized /*final*/ IEntity evaluateNext() {
@@ -86,12 +113,18 @@ public abstract class AbstractStepper extends AbstractNestedEvaluator {
 
 	public synchronized void callNext() {
 		switch (state) {
-		case IDLE:
 		case ACTION:
+			state = StepperState.IDLE;
+			resetArguments();
+		case IDLE:
 			state = StepperState.CALL;
-			for (int i=0; i<producersSize(); i++)
-				getProducer(i).callNext();//TODO ? callRemaining
-			break;
+			if (producersSize() > 0) {
+				for (int i=0; i<producersSize(); i++)
+					getProducer(i).callNext();//TODO ? callRemaining
+				break;
+			}
+			if (!areAllArgumentsAvailable())
+				break;
 		case DATA:
 			doNextAction();
 		default:
@@ -99,12 +132,18 @@ public abstract class AbstractStepper extends AbstractNestedEvaluator {
 	}
 	public synchronized void callRemaining() {
 		switch (state) {
-		case IDLE:
 		case ACTION:
+			state = StepperState.IDLE;
+			resetArguments();
+		case IDLE:
 			state = StepperState.CALL;
-			for (int i=0; i<producersSize(); i++)
-				getProducer(i).callRemaining();
-			break;
+			if (producersSize() > 0) {
+				for (int i=0; i<producersSize(); i++)
+					getProducer(i).callRemaining();
+				break;
+			}
+			if (!areAllArgumentsAvailable())
+				break;
 		case DATA:
 			doNextAction();
 		default:

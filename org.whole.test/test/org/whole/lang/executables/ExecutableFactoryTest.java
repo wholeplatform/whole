@@ -22,8 +22,6 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 import org.junit.BeforeClass;
@@ -35,7 +33,8 @@ import org.whole.lang.math.factories.MathEntityFactory;
 import org.whole.lang.math.model.Identifier;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.ReflectionFactory;
-import org.whole.lang.steppers.IDataFlowConsumer;
+import org.whole.lang.steppers.TesterDataFlowConsumer;
+import org.whole.lang.steppers.TesterDataFlowConsumer.Event;
 
 /**
  * @author Riccardo Solmi
@@ -64,64 +63,6 @@ public class ExecutableFactoryTest {
     	FALSE_VALUE = bmf.createValue(false);
     }
 
-	public static enum Event {
-		NEXT, DONE
-	}
-
-    public static class TesterDataFlowConsumer implements IDataFlowConsumer {
-    	public List<Event> events = new ArrayList<>();
-    	public List<IEntity> values = new ArrayList<>();
-    	protected Event[] expectedEvents;
-    	protected IEntity[] expectedValues;
-       	protected boolean same;
-
-    	public void clear() {
-    		events.clear();
-    		values.clear();
-    	}
-
-    	public void setExpectedEvents(Event... events) {
-			this.expectedEvents = events;
-		}
-
-    	public void setExpectedValues(IEntity... values) {
-			this.expectedValues = values;
-		}
-    	public void useSameComparator(boolean value) {
-			this.same = value;
-		}
-
-    	protected void addValue(IEntity e) {
-    		values.add(e);
-
-    		if (expectedValues != null) {
-    			if (expectedValues.length < values.size())
-    				throw new IllegalStateException("Received extra: "+e);
-    			if ((same && expectedValues[values.size()-1] != e) || (!same && !expectedValues[values.size()-1].wEquals(e)))
-    				throw new IllegalStateException(values.size()+"th value expected: "+expectedValues[values.size()-1]+"\n\nReceived: "+e);
-    		}
-    	}
-
-    	protected void addEvent(Event e) {
-    		events.add(e);
-
-    		if (expectedEvents != null) {
-    			if (expectedEvents.length < events.size())
-    				throw new IllegalStateException("Received extra: "+e);
-    			if (expectedEvents[events.size()-1] != e)
-    				throw new IllegalStateException(events.size()+"th event expected: "+expectedEvents[events.size()-1]+" received: "+e);
-    		}
-    	}
-
-		public void accept(IEntity entity) {
-			addEvent(Event.NEXT);
-			addValue(entity);
-		}
-
-		public void done() {
-			addEvent(Event.DONE);
-		}
-    }
 
     @Test
     public void testEmptyStepper() {
