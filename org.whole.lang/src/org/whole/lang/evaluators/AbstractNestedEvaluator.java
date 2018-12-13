@@ -37,11 +37,23 @@ public abstract class AbstractNestedEvaluator extends AbstractEvaluator {
 	protected BitSet producersNeedInit;
 
 	protected AbstractNestedEvaluator(IExecutable... producers) {
+		withProducers(producers);
+	}
+	protected AbstractNestedEvaluator(int producersSize) {
+		withProducers(new IExecutable[producersSize]);
+	}
+
+	public AbstractNestedEvaluator withProducers(IExecutable... producers) {
 		this.producers = producers;
 		producersNeedClone = new BitSet(producersSize());
 		producersNeedClone.set(0, producersSize(), false);
 		producersNeedInit = new BitSet(producersSize());
 		producersNeedInit.set(0, producersSize(), true);
+		return this;
+	};
+	public AbstractNestedEvaluator withProducer(int index, IExecutable producer) {
+		producers[index] = producer;
+		return this;
 	}
 
 	public IExecutable clone(ICloneContext cc) {

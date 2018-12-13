@@ -30,23 +30,41 @@ public abstract class AbstractStepper extends AbstractNestedEvaluator {
 	protected ArgumentDataFlowConsumer[] arguments;
 
 	protected AbstractStepper(IExecutable... producers) {
-		this(producers.length, producers);
-	}
-	protected AbstractStepper(int argumentsSize, IExecutable... producers) {
 		super(producers);
+		withArgumentProducers(producersSize());
+	}
+	protected AbstractStepper(int argumentsSize) {
+		super(0);
 		arguments = new ArgumentDataFlowConsumer[argumentsSize];
 	}
+
+	public AbstractStepper withArgumentProducers(IExecutable... producers) {
+		withProducers(producers);
+		withArgumentProducers(producersSize());
+
+		return this;
+	};
+	public AbstractStepper withArgumentProducers(int producersSize) {
+		arguments = new ArgumentDataFlowConsumer[producersSize];
+		for (int i=0; i<argumentsSize(); i++)
+			getProducer(i).withConsumer(getArgumentConsumer(i)); 
+
+		return this;
+	};
 
 	@Override
 	public IExecutable clone(ICloneContext cc) {
 		AbstractStepper stepper = (AbstractStepper) super.clone(cc);
-		// TODO add lazy clone of arguments
+		// FIXME add lazy clone of arguments
 		stepper.arguments = new ArgumentDataFlowConsumer[argumentsSize()];
 		return stepper;
 	}
 
 	@Override
 	public void reset(IEntity entity) {
+		//FIXME workaround for circular reset loop
+		if (selfEntity == entity)
+			return;
 		super.reset(entity);
 		state = StepperState.IDLE;
 		resetArguments();
@@ -78,12 +96,6 @@ public abstract class AbstractStepper extends AbstractNestedEvaluator {
 				return false;
 		return true;
 	}	
-
-	@Override
-	protected void initProducer(IExecutable p, int index) {
-		super.initProducer(p, index);
-		p.withConsumer(getArgumentConsumer(index));
-	}
 
 	public StepperState getState() {
 		return state;
@@ -167,7 +179,7 @@ public abstract class AbstractStepper extends AbstractNestedEvaluator {
 
 		public void accept(IEntity entity) {
 			this.entity = entity;
-			if (areAllArgumentsAvailable())
+			if (state == StepperState.CALL && areAllArgumentsAvailable())
 				doNextAction();
 		}
 

@@ -17,7 +17,16 @@
  */
 package org.whole.lang.executables;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -137,7 +146,6 @@ public class SteppersTest {
 		addStepper.setBindings(bmf.createBindingManager());
 		addStepper.reset(VALUES[0]);
 
-		c.clear();
 		c.setExpectedValues(VALUES[3]);
     	c.setExpectedEvents(Event.NEXT);
     	addStepper.callNext();
@@ -145,13 +153,118 @@ public class SteppersTest {
 
 		arg1Stepper.getArgumentConsumer(0).accept(VALUES[2]);
 		assertSame(StepperState.ACTION, addStepper.getState());
-
-//TODO run asynch
-//		c.clear();
-//		c.setExpectedValues(VALUES[3]);
-//    	c.setExpectedEvents(Event.NEXT);
-//    	addStepper.evaluateNext();
 	}
 
+	@Test
+	public void testStepperWithExternalInputArgumentAsync() {
+		TesterDataFlowConsumer c = new TesterDataFlowConsumer();
+ 		
+		AbstractStepper arg0Stepper = new AbstractStepper() {
+			public IEntity doEvaluateNext() {
+				return VALUES[1];
+			}
+		};
+		AbstractStepper arg1Stepper = new AbstractStepper(1) {
+			public IEntity doEvaluateNext() {
+				return getArgument(0);
+			}
+		};
+		AbstractStepper addStepper = new AbstractStepper(arg0Stepper, arg1Stepper) {
+			public IEntity doEvaluateNext() {
+				return bmf.createValue(getArgument(0).wIntValue() + getArgument(1).wIntValue());
+			}
+		};
+		addStepper.withConsumer(c);
+		addStepper.setBindings(bmf.createBindingManager());
+		addStepper.reset(VALUES[0]);
+		
+		c.setExpectedValues(VALUES[3]);
+    	c.setExpectedEvents(Event.NEXT);
+
+		ExecutorService executorService = Executors.newFixedThreadPool(2);
+		Future<IEntity> nextEntity = executorService.submit(() -> {
+			return addStepper.evaluateNext();
+		});
+		Future<?> dataInput = executorService.submit(() -> {
+			arg1Stepper.getArgumentConsumer(0).accept(VALUES[2]);
+		});
+
+		try {
+			assertEquals(3, nextEntity.get().wIntValue());
+			assertTrue(dataInput.isDone());
+		} catch (InterruptedException | ExecutionException e) {
+			fail();
+		}
+
+		executorService.shutdown();
+		try {
+		    if (!executorService.awaitTermination(800, TimeUnit.MILLISECONDS)) {
+		        executorService.shutdownNow();
+		    }
+		} catch (InterruptedException e) {
+		    executorService.shutdownNow();
+		}
+	}
+
+
+	@Test
+	public void testStepperWithCircularArgumentsAsync() {
+		TesterDataFlowConsumer c = new TesterDataFlowConsumer();
+
+		AbstractStepper baseStepper = new AbstractStepper(2) {
+			public IEntity doEvaluateNext() {
+				return bmf.createValue(getArgument(0).wIntValue() / getArgument(1).wIntValue());
+			}
+		};
+		AbstractStepper heightStepper = new AbstractStepper(2) {
+			public IEntity doEvaluateNext() {
+				return bmf.createValue(getArgument(0).wIntValue() / getArgument(1).wIntValue());
+			}
+		};
+		AbstractStepper areaStepper = new AbstractStepper(baseStepper, heightStepper) {
+			public IEntity doEvaluateNext() {
+				return bmf.createValue(getArgument(0).wIntValue() * getArgument(1).wIntValue());
+			}
+		};
+		baseStepper.withArgumentProducers(areaStepper, heightStepper);
+		heightStepper.withArgumentProducers(areaStepper, baseStepper);
+		//FIXME workaround for missing multiple consumers
+		baseStepper.withConsumer(areaStepper.getArgumentConsumer(0));
+		heightStepper.withConsumer(areaStepper.getArgumentConsumer(1));
+
+		areaStepper.withConsumer(c);
+		areaStepper.setBindings(bmf.createBindingManager());
+		areaStepper.reset(VALUES[0]);
+
+		c.setExpectedValues(VALUES[6]);
+    	c.setExpectedEvents(Event.NEXT);
+
+		ExecutorService executorService = Executors.newFixedThreadPool(3);
+		Future<IEntity> nextEntity = executorService.submit(() -> {
+			return areaStepper.evaluateNext();
+		});
+		Future<?> dataInput0 = executorService.submit(() -> {
+			baseStepper.getConsumer().accept(VALUES[2]);
+		});
+		Future<?> dataInput1 = executorService.submit(() -> {
+			heightStepper.getConsumer().accept(VALUES[3]);
+		});
+
+		try {
+			assertEquals(6, nextEntity.get().wIntValue());
+			assertTrue(dataInput0.isDone() && dataInput1.isDone());
+		} catch (InterruptedException | ExecutionException e) {
+			fail();
+		}
+
+		executorService.shutdown();
+		try {
+		    if (!executorService.awaitTermination(800, TimeUnit.MILLISECONDS)) {
+		        executorService.shutdownNow();
+		    }
+		} catch (InterruptedException e) {
+		    executorService.shutdownNow();
+		}
+	}
 }
 
