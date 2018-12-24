@@ -36,9 +36,9 @@
 							<artifacts>
 								<artifact>
 									<!-- note: the file name must be ${classifier}.target -->
-									<file>OXYGEN.target</file>
+									<file>ECLIPSE.target</file>
 									<type>target</type>
-									<classifier>OXYGEN</classifier>
+									<classifier>ECLIPSE</classifier>
 								</artifact>
 							</artifacts>
 						</configuration>

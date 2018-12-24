@@ -172,7 +172,7 @@
 							<groupId>com.wholeplatform</groupId>
 							<artifactId>org.whole.product.lw.target</artifactId>
 							<version>1.0.0-SNAPSHOT</version>
-							<classifier>OXYGEN</classifier>
+							<classifier>ECLIPSE</classifier>
 						</artifact>
 					</target>
 					<environments>
@@ -208,19 +208,26 @@
 
 		<compiler-version>2.4</compiler-version>
 		<wagon-ssh-version>2.2</wagon-ssh-version>
-		<tycho-version>1.2.0</tycho-version>
+		<tycho-version>1.3.0-SNAPSHOT</tycho-version>
 		<assembly-version>2.3</assembly-version>
 		<source-version>2.1.2</source-version>
 		<resources-version>2.5</resources-version>
 		<jar-version>2.4</jar-version>
 	</properties>
 
-	<!-- update according to org.whole.product.lw.target/OXYGEN.target -->
+	<pluginRepositories>
+		<pluginRepository>
+			<id>tycho-snapshots</id>
+			<url>https://repo.eclipse.org/content/repositories/tycho-snapshots/</url>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<!-- update according to org.whole.product.lw.target/ECLIPSE.target -->
 	<repositories>
 		<repository>
 			<id>eclipse-oxygen-updates</id>
 			<layout>p2</layout>
-			<url>http://download.eclipse.org/eclipse/updates/4.7</url>
+			<url>http://download.eclipse.org/eclipse/updates/4.10</url>
 		</repository>
 	</repositories>
 </project>
