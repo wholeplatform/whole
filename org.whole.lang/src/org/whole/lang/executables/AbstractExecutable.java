@@ -27,6 +27,7 @@ import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.CloneContext;
 import org.whole.lang.operations.ICloneContext;
+import org.whole.lang.steppers.AbstractDataFlowConsumer;
 import org.whole.lang.steppers.IDataFlowConsumer;
 
 /**
@@ -61,6 +62,10 @@ public abstract class AbstractExecutable implements IExecutable, Iterator<IEntit
 	protected IDataFlowConsumer consumer = IDataFlowConsumer.IDENTITY;
 	public IExecutable withConsumer(IDataFlowConsumer consumer) {
 		this.consumer = consumer;
+		return this;
+	}
+	public IExecutable withAdditionalConsumer(IDataFlowConsumer consumer) {
+		this.consumer = this.consumer.withAdditionOf(consumer);
 		return this;
 	}
 	public IDataFlowConsumer getConsumer() {
@@ -189,7 +194,7 @@ public abstract class AbstractExecutable implements IExecutable, Iterator<IEntit
 	public void forEachRemaining(Consumer<? super IEntity> action) {
 		IDataFlowConsumer oldConsumer = getConsumer();
 
-		withConsumer(new IDataFlowConsumer() {
+		withConsumer(new AbstractDataFlowConsumer() {
 			public void accept(IEntity entity) {
 				action.accept(entity);
 			}

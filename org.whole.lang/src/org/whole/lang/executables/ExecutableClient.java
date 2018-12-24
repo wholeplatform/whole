@@ -64,6 +64,10 @@ class ExecutableClient<E extends IEntity> implements IExecutableClient<E>, Itera
 		executable.withConsumer(consumer);
 		return this;
 	}
+	public IExecutableClient<E> withAdditionalConsumer(IDataFlowConsumer consumer) {
+		executable.withAdditionalConsumer(consumer);
+		return this;
+	}
 	public IDataFlowConsumer getConsumer() {
 		return executable.getConsumer();
 	}

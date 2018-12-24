@@ -228,9 +228,6 @@ public class SteppersTest {
 		};
 		baseStepper.withArgumentProducers(areaStepper, heightStepper);
 		heightStepper.withArgumentProducers(areaStepper, baseStepper);
-		//FIXME workaround for missing multiple consumers
-		baseStepper.withConsumer(areaStepper.getArgumentConsumer(0));
-		heightStepper.withConsumer(areaStepper.getArgumentConsumer(1));
 
 		areaStepper.withConsumer(c);
 		areaStepper.setBindings(bmf.createBindingManager());

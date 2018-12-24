@@ -25,7 +25,7 @@ import org.whole.lang.model.IEntity;
 /**
  * @author Riccardo Solmi
  */
-public class TesterDataFlowConsumer implements IDataFlowConsumer {
+public class TesterDataFlowConsumer extends AbstractDataFlowConsumer {
 	public List<Event> events = new ArrayList<>();
 	public List<IEntity> values = new ArrayList<>();
 	protected Event[] expectedEvents;

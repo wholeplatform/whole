@@ -17,10 +17,16 @@
  */
 package org.whole.lang.operations;
 
+import java.util.List;
+
 /**
  * @author Riccardo Solmi
  */
 public interface ICloneContext {
+//TODO
+//	public List<ICloneContext> getCloneHistory();
+//	public ICloneContext getNextCloneContext();
+//	public ICloneContext getLastCloneContext();
 	public ICloneContext getPrototypeCloneContext();
 
 	public <T extends ICloneable> T clone(T prototype);

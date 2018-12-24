@@ -17,39 +17,37 @@
  */
 package org.whole.lang.steppers;
 
-import org.whole.lang.model.IEntity;
+import org.whole.lang.operations.CloneContext;
 import org.whole.lang.operations.ICloneContext;
-import org.whole.lang.operations.ICloneable;
+import org.whole.lang.steppers.AbstractStepper.CompositeDataFlowConsumer;
 
 /**
  * @author Riccardo Solmi
  */
-public interface IDataFlowConsumer extends ICloneable {
-	public static final IDataFlowConsumer IDENTITY = new IDataFlowConsumer() {
-		public IDataFlowConsumer withAdditionOf(IDataFlowConsumer consumer) {
+public abstract class AbstractDataFlowConsumer implements IDataFlowConsumer {
+	protected ICloneContext cloneContext;
+
+	public /*I*/CloneContext getCloneContext() {
+		//FIXME lazy init
+		return (CloneContext) cloneContext;
+	}
+
+	public IDataFlowConsumer withAdditionOf(IDataFlowConsumer consumer) {
+		return new CompositeDataFlowConsumer(this, consumer);
+	}
+
+	public IDataFlowConsumer clone() {
+		return clone(new CloneContext());
+	}
+
+	public IDataFlowConsumer clone(ICloneContext cc) {
+		try {
+			AbstractDataFlowConsumer consumer = (AbstractDataFlowConsumer) super.clone();
+			cc.putClone(this, consumer);
+			consumer.cloneContext = cc;
 			return consumer;
+		} catch (CloneNotSupportedException e) {
+			throw new InternalError();
 		}
-
-		public IDataFlowConsumer clone() {
-			return this;
-		}
-		public IDataFlowConsumer clone(ICloneContext cc) {
-			return this;
-		}
-
-		public void accept(IEntity entity) {
-		}
-
-		public void done() {
-		}		
-	};
-
-	public IDataFlowConsumer withAdditionOf(IDataFlowConsumer consumer);
-
-	public IDataFlowConsumer clone();
-	public IDataFlowConsumer clone(ICloneContext cc);
-
-	public void accept(IEntity entity);
-	public void done();
+	}
 }
-

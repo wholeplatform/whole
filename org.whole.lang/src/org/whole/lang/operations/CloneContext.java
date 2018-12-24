@@ -17,21 +17,51 @@
  */
 package org.whole.lang.operations;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * @author Riccardo Solmi
  */
 public class CloneContext implements ICloneContext {
+	protected List<ICloneContext> contextHistory;
+	protected int contextIndex;
 	private ICloneContext prototypeCloneContext;
 	protected Map<ICloneable, ICloneable> cloneMap = new HashMap<>(1024);
 
+	public CloneContext() {	
+	}
+	protected CloneContext(List<ICloneContext> contextHistory, int contextIndex) {
+		this.contextHistory = contextHistory;
+		this.contextIndex = contextIndex;
+	}
+
+	public List<ICloneContext> getCloneHistory() {
+		if (contextHistory == null) {
+			contextHistory = new ArrayList<ICloneContext>();
+			contextHistory.add(this);
+			contextIndex = 0;
+		}
+		return contextHistory;
+	}
+
+	public ICloneContext getNextCloneContext() {
+		List<ICloneContext> history = getCloneHistory();
+		int nextIndex = contextIndex+1;
+		if (nextIndex == history.size())
+			history.add(new CloneContext(history, nextIndex));
+		return history.get(nextIndex);
+	}
+	public ICloneContext getLastCloneContext() {
+		List<ICloneContext> history = getCloneHistory();
+		return history.get(history.size()-1);
+	}
+
 	public ICloneContext getPrototypeCloneContext() {
 		if (this.prototypeCloneContext == null)
-			this.prototypeCloneContext = new CloneContext();
+			this.prototypeCloneContext = new CloneContext();//FIXME init
 		return this.prototypeCloneContext;
 	}
 

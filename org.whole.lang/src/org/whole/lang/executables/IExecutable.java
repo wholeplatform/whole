@@ -28,6 +28,7 @@ import org.whole.lang.steppers.IDataFlowConsumer;
  */
 public interface IExecutable extends IExecutableClient<IEntity> {
 	public IExecutable withConsumer(IDataFlowConsumer consumer);
+	public IExecutable withAdditionalConsumer(IDataFlowConsumer consumer);
 	public IDataFlowConsumer getConsumer();
 //	public IExecutable withProducers(IControlFlowProducer... producers);
 //	public IExecutable withProducer(int index, IControlFlowProducer producer);
