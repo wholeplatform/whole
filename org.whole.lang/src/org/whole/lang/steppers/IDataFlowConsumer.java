@@ -26,7 +26,7 @@ import org.whole.lang.operations.ICloneable;
  */
 public interface IDataFlowConsumer extends ICloneable {
 	public static final IDataFlowConsumer IDENTITY = new IDataFlowConsumer() {
-		public IDataFlowConsumer withAdditionOf(IDataFlowConsumer consumer) {
+		public IDataFlowConsumer getAdded(IDataFlowConsumer consumer) {
 			return consumer;
 		}
 
@@ -37,6 +37,10 @@ public interface IDataFlowConsumer extends ICloneable {
 			return this;
 		}
 
+		public IDifferentiatingContext getCloneContext() {
+			return null;
+		}
+
 		public void accept(IEntity entity) {
 		}
 
@@ -44,10 +48,11 @@ public interface IDataFlowConsumer extends ICloneable {
 		}		
 	};
 
-	public IDataFlowConsumer withAdditionOf(IDataFlowConsumer consumer);
+	public IDataFlowConsumer getAdded(IDataFlowConsumer consumer);
 
 	public IDataFlowConsumer clone();
 	public IDataFlowConsumer clone(ICloneContext cc);
+	public IDifferentiatingContext getCloneContext();
 
 	public void accept(IEntity entity);
 	public void done();

@@ -17,36 +17,16 @@
  */
 package org.whole.lang.steppers;
 
-import org.whole.lang.operations.CloneContext;
+import java.util.List;
+
 import org.whole.lang.operations.ICloneContext;
 
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractDataFlowConsumer implements IDataFlowConsumer {
-	protected ICloneContext cloneContext;
-
-	public IDifferentiatingContext getCloneContext() {
-		//FIXME lazy init
-		return (IDifferentiatingContext) cloneContext;
-	}
-
-	public IDataFlowConsumer getAdded(IDataFlowConsumer consumer) {
-		return new CompositeDataFlowConsumer(this, consumer);
-	}
-
-	public IDataFlowConsumer clone() {
-		return clone(new CloneContext());
-	}
-
-	public IDataFlowConsumer clone(ICloneContext cc) {
-		try {
-			AbstractDataFlowConsumer consumer = (AbstractDataFlowConsumer) super.clone();
-			cc.putClone(this, consumer);
-			consumer.cloneContext = cc;
-			return consumer;
-		} catch (CloneNotSupportedException e) {
-			throw new InternalError();
-		}
-	}
+public interface IDifferentiatingContext extends ICloneContext {
+	public List<ICloneContext> getCloneHistory();
+	public ICloneContext getNextCloneContext();
+	public ICloneContext getLastCloneContext();
 }
+

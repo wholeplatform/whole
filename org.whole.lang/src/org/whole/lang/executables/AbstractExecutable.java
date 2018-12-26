@@ -29,6 +29,7 @@ import org.whole.lang.operations.CloneContext;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.steppers.AbstractDataFlowConsumer;
 import org.whole.lang.steppers.IDataFlowConsumer;
+import org.whole.lang.steppers.IDifferentiatingContext;
 
 /**
  * @author Riccardo Solmi
@@ -59,13 +60,17 @@ public abstract class AbstractExecutable implements IExecutable, Iterator<IEntit
 		}
 	}
 
+	public IDifferentiatingContext getCloneContext() {
+		return null;
+	}
+
 	protected IDataFlowConsumer consumer = IDataFlowConsumer.IDENTITY;
 	public IExecutable withConsumer(IDataFlowConsumer consumer) {
 		this.consumer = consumer;
 		return this;
 	}
 	public IExecutable withAdditionalConsumer(IDataFlowConsumer consumer) {
-		this.consumer = this.consumer.withAdditionOf(consumer);
+		this.consumer = this.consumer.getAdded(consumer);
 		return this;
 	}
 	public IDataFlowConsumer getConsumer() {

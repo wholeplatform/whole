@@ -22,10 +22,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.whole.lang.steppers.IDifferentiatingContext;
+
 /**
  * @author Riccardo Solmi
  */
-public class CloneContext implements ICloneContext {
+public class CloneContext implements IDifferentiatingContext {
 	protected List<ICloneContext> contextHistory;
 	protected int contextIndex;
 	private ICloneContext prototypeCloneContext;

@@ -17,13 +17,11 @@
  */
 package org.whole.lang.steppers;
 
-import java.util.Arrays;
 import java.util.BitSet;
 
 import org.whole.lang.evaluators.AbstractNestedEvaluator;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.operations.CloneContext;
 import org.whole.lang.operations.ICloneContext;
 
 /**
@@ -78,9 +76,9 @@ public abstract class AbstractStepper extends AbstractNestedEvaluator {
 		return stepper;
 	}
 
-	public /*I*/CloneContext getCloneContext() {
+	public IDifferentiatingContext getCloneContext() {
 		//FIXME lazy init
-		return (CloneContext) cloneContext;
+		return (IDifferentiatingContext) cloneContext;
 	}
 
 	@Override
@@ -231,54 +229,7 @@ public abstract class AbstractStepper extends AbstractNestedEvaluator {
 			if (this.entity == null)
 				super.accept(entity);
 			else
-				clone(((CloneContext) cloneContext).getNextCloneContext()).accept(entity); //FIXME API
-		}
-	}
-
-	public static class CompositeDataFlowConsumer extends AbstractDataFlowConsumer {
-		protected IDataFlowConsumer[] consumers;
-		protected BitSet consumersNeedClone;
-
-		public CompositeDataFlowConsumer(IDataFlowConsumer... consumers) {
-			this.consumers = consumers;
-			consumersNeedClone = new BitSet(consumers.length);
-			consumersNeedClone.set(0, consumers.length, false);
-		}
-
-		public IDataFlowConsumer withAdditionOf(IDataFlowConsumer consumer) {
-			IDataFlowConsumer[] newConsumers = Arrays.copyOf(consumers, consumers.length+1);
-			newConsumers[consumers.length] = consumer;
-			return new CompositeDataFlowConsumer(newConsumers);
-		}
-
-		@Override
-		public IDataFlowConsumer clone(ICloneContext cc) {
-			cloneContext = cc.getPrototypeCloneContext();
-			consumersNeedClone.set(0, consumersNeedClone.size(), true);
-
-			CompositeDataFlowConsumer consumer = (CompositeDataFlowConsumer) super.clone();
-			consumer.consumers = consumers.clone();
-			consumer.consumersNeedClone = (BitSet) consumersNeedClone.clone();
-			return consumer;
-		}
-
-		public IDataFlowConsumer getConsumer(int index) {
-			if (consumersNeedClone.get(index)) {
-				consumersNeedClone.clear(index);
-				consumers[index] = consumers[index].clone(getCloneContext());
-			}
-
-			return consumers[index];
-		}
-
-		public void accept(IEntity entity) {
-			for (int i=0; i<consumers.length; i++)
-				getConsumer(i).accept(entity);
-		}
-
-		public void done() {
-			for (int i=0; i<consumers.length; i++)
-				getConsumer(i).done();
+				clone(getCloneContext().getNextCloneContext()).accept(entity);
 		}
 	}
 

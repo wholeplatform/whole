@@ -18,11 +18,17 @@
 package org.whole.lang.steppers;
 
 import org.whole.lang.model.IEntity;
+import org.whole.lang.operations.ICloneContext;
+import org.whole.lang.operations.ICloneable;
 
 /**
  * @author Riccardo Solmi
  */
-public interface IControlFlowProducer {
+public interface IControlFlowProducer extends ICloneable {
+	public IControlFlowProducer clone();
+	public IControlFlowProducer clone(ICloneContext cc);
+	public IDifferentiatingContext getCloneContext();
+
 	public void reset(IEntity entity);
 	public void callNext();
 	public void callRemaining();

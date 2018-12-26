@@ -23,7 +23,7 @@ import org.whole.lang.operations.ICloneContext;
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractDataFlowConsumer implements IDataFlowConsumer {
+public abstract class AbstractControlFlowProducer implements IControlFlowProducer {
 	protected ICloneContext cloneContext;
 
 	public IDifferentiatingContext getCloneContext() {
@@ -31,20 +31,20 @@ public abstract class AbstractDataFlowConsumer implements IDataFlowConsumer {
 		return (IDifferentiatingContext) cloneContext;
 	}
 
-	public IDataFlowConsumer getAdded(IDataFlowConsumer consumer) {
-		return new CompositeDataFlowConsumer(this, consumer);
+	public IControlFlowProducer getAdded(IControlFlowProducer producer) {
+		return new CompositeControlFlowProducer(this, producer);
 	}
 
-	public IDataFlowConsumer clone() {
+	public IControlFlowProducer clone() {
 		return clone(new CloneContext());
 	}
 
-	public IDataFlowConsumer clone(ICloneContext cc) {
+	public IControlFlowProducer clone(ICloneContext cc) {
 		try {
-			AbstractDataFlowConsumer consumer = (AbstractDataFlowConsumer) super.clone();
-			cc.putClone(this, consumer);
-			consumer.cloneContext = cc;
-			return consumer;
+			AbstractControlFlowProducer producer = (AbstractControlFlowProducer) super.clone();
+			cc.putClone(this, producer);
+			producer.cloneContext = cc;
+			return producer;
 		} catch (CloneNotSupportedException e) {
 			throw new InternalError();
 		}

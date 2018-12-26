@@ -17,36 +17,29 @@
  */
 package org.whole.lang.steppers;
 
-import org.whole.lang.operations.CloneContext;
+import java.util.function.Consumer;
+
 import org.whole.lang.operations.ICloneContext;
 
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractDataFlowConsumer implements IDataFlowConsumer {
-	protected ICloneContext cloneContext;
-
-	public IDifferentiatingContext getCloneContext() {
-		//FIXME lazy init
-		return (IDifferentiatingContext) cloneContext;
+public class SharingCompositeControlFlowProducer extends AbstractCompositeControlFlowProducer {
+	public SharingCompositeControlFlowProducer(IControlFlowProducer... producers) {
+		super(producers);
 	}
 
-	public IDataFlowConsumer getAdded(IDataFlowConsumer consumer) {
-		return new CompositeDataFlowConsumer(this, consumer);
+	public IControlFlowProducer getAdded(IControlFlowProducer producer) {
+		return new SharingCompositeControlFlowProducer(getAddedArray(producer));
 	}
 
-	public IDataFlowConsumer clone() {
-		return clone(new CloneContext());
-	}
-
-	public IDataFlowConsumer clone(ICloneContext cc) {
-		try {
-			AbstractDataFlowConsumer consumer = (AbstractDataFlowConsumer) super.clone();
-			cc.putClone(this, consumer);
-			consumer.cloneContext = cc;
-			return consumer;
-		} catch (CloneNotSupportedException e) {
-			throw new InternalError();
-		}
+	public void forEach(Consumer<IControlFlowProducer> f) {
+		super.forEach(p -> {
+			do {
+				f.accept(p);
+				ICloneContext cc = p.getCloneContext();
+				p = cc.getClone(p);
+			} while (p != null);
+		});
 	}
 }

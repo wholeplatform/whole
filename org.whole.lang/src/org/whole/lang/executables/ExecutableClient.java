@@ -29,6 +29,7 @@ import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.CloneContext;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.steppers.IDataFlowConsumer;
+import org.whole.lang.steppers.IDifferentiatingContext;
 
 /**
  * @author Riccardo Solmi
@@ -58,6 +59,10 @@ class ExecutableClient<E extends IEntity> implements IExecutableClient<E>, Itera
 		} catch (CloneNotSupportedException e) {
 			throw new InternalError();
 		}
+	}
+
+	public IDifferentiatingContext getCloneContext() {
+		return executable.getCloneContext();
 	}
 
 	public IExecutableClient<E> withConsumer(IDataFlowConsumer consumer) {

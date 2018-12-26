@@ -17,36 +17,41 @@
  */
 package org.whole.lang.steppers;
 
-import org.whole.lang.operations.CloneContext;
+import java.util.BitSet;
+
 import org.whole.lang.operations.ICloneContext;
 
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractDataFlowConsumer implements IDataFlowConsumer {
-	protected ICloneContext cloneContext;
+public class CompositeDataFlowConsumer extends AbstractCompositeDataFlowConsumer {
+	protected BitSet consumersNeedClone;
 
-	public IDifferentiatingContext getCloneContext() {
-		//FIXME lazy init
-		return (IDifferentiatingContext) cloneContext;
+	public CompositeDataFlowConsumer(IDataFlowConsumer... consumers) {
+		super(consumers);
+		consumersNeedClone = new BitSet(consumers.length);
+		consumersNeedClone.set(0, consumers.length, false);
 	}
 
 	public IDataFlowConsumer getAdded(IDataFlowConsumer consumer) {
-		return new CompositeDataFlowConsumer(this, consumer);
+		return new CompositeDataFlowConsumer(getAddedArray(consumer));
 	}
 
-	public IDataFlowConsumer clone() {
-		return clone(new CloneContext());
-	}
-
+	@Override
 	public IDataFlowConsumer clone(ICloneContext cc) {
-		try {
-			AbstractDataFlowConsumer consumer = (AbstractDataFlowConsumer) super.clone();
-			cc.putClone(this, consumer);
-			consumer.cloneContext = cc;
-			return consumer;
-		} catch (CloneNotSupportedException e) {
-			throw new InternalError();
+		consumersNeedClone.set(0, consumersNeedClone.size(), true);
+
+		CompositeDataFlowConsumer consumer = (CompositeDataFlowConsumer) super.clone();
+		consumer.consumersNeedClone = (BitSet) consumersNeedClone.clone();
+		return consumer;
+	}
+
+	public IDataFlowConsumer getConsumer(int index) {
+		if (consumersNeedClone.get(index)) {
+			consumersNeedClone.clear(index);
+			consumers[index] = consumers[index].clone(getCloneContext());
 		}
+
+		return consumers[index];
 	}
 }
