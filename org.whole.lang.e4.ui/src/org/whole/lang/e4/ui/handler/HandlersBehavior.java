@@ -227,12 +227,12 @@ public class HandlersBehavior {
 		executable.reset(clipboardTuple);
 
 		IEntity focusEntity = bm.wGet("focusEntity");
-		IEntity clipboardEntity = executable.evaluateNext();
-		if (focusEntity != null && clipboardEntity != null) {
-			boolean addable = EntityUtils.isAddable(focusEntity, clipboardEntity);
-			clipboardEntity = executable.evaluateNext();
+		IEntity firstClipboardEntity = executable.evaluateNext();
+		if (focusEntity != null && firstClipboardEntity != null) {
+			boolean addable = EntityUtils.isAddable(focusEntity, firstClipboardEntity);
+			IEntity clipboardEntity = executable.evaluateNext();
 			if (!addable && clipboardEntity == null)
-				return EntityUtils.isReplaceable(focusEntity, clipboardEntity);
+				return EntityUtils.isReplaceable(focusEntity, firstClipboardEntity);
 			else {
 				while (addable && clipboardEntity != null) {
 					addable = EntityUtils.isAddable(focusEntity, clipboardEntity);
@@ -241,6 +241,7 @@ public class HandlersBehavior {
 				return addable;
 			}
 		}
+
 		return false;
 	}
 	public static void paste(IBindingManager bm) {
