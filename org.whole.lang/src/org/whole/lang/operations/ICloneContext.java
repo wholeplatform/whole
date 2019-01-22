@@ -23,7 +23,7 @@ package org.whole.lang.operations;
 public interface ICloneContext {
 	public ICloneContext getPrototypeCloneContext();
 
-	public <T extends ICloneable> T clone(T prototype);
+	public <T extends ICloneable> T differentiate(T prototype);
 	public <T extends ICloneable> T getClone(T prototype);
-	public void putClone(ICloneable prototype, ICloneable clone);
+	public void setClone(ICloneable prototype, ICloneable clone);
 }

@@ -34,7 +34,7 @@ public abstract class AbstractEqualityComparator<T extends IEntity> implements I
 	public IEntityComparator<T> clone(ICloneContext cc) {
 		try {
 			AbstractEqualityComparator<T> comparator = (AbstractEqualityComparator<T>) super.clone();
-			cc.putClone(this, comparator);
+			cc.setClone(this, comparator);
 			return comparator;
 		} catch (CloneNotSupportedException e) {
 			throw new InternalError();

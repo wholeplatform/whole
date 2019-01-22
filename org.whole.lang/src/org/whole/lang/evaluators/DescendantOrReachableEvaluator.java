@@ -37,7 +37,7 @@ public class DescendantOrReachableEvaluator extends AbstractTransitiveClosureEva
 	@Override
 	public IExecutable clone(ICloneContext cc) {
 		DescendantOrReachableEvaluator evaluator = (DescendantOrReachableEvaluator) super.clone(cc);
-		evaluator.distinctScope = cc.clone(distinctScope);
+		evaluator.distinctScope = cc.differentiate(distinctScope);
 		return evaluator;
 	}
 

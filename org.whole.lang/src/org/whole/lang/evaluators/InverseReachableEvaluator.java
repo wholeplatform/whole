@@ -38,7 +38,7 @@ public class InverseReachableEvaluator extends AbstractTransitiveClosureEvaluato
 	@Override
 	public IExecutable clone(ICloneContext cc) {
 		InverseReachableEvaluator evaluator = (InverseReachableEvaluator) super.clone(cc);
-		evaluator.distinctScope = cc.clone(distinctScope);
+		evaluator.distinctScope = cc.differentiate(distinctScope);
 		return evaluator;
 	}
 

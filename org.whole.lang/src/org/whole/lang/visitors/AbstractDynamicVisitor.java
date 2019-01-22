@@ -38,7 +38,7 @@ public abstract class AbstractDynamicVisitor extends AbstractVisitor {
 	@Override
 	public IVisitor clone(ICloneContext cc) {
 		AbstractDynamicVisitor visitor = (AbstractDynamicVisitor) super.clone(cc);
-		visitor.functionExecutable = cc.clone(functionExecutable);
+		visitor.functionExecutable = cc.differentiate(functionExecutable);
 		return visitor;
 	}
 

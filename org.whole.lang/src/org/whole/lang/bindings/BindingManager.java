@@ -48,7 +48,7 @@ public class BindingManager extends AbstractDelegatingScope implements IBindingM
 	@Override
 	public IBindingManager clone(ICloneContext cc) {
 		BindingManager bm = (BindingManager) super.clone(cc);
-		bm.environmentManager = cc.clone(environmentManager);
+		bm.environmentManager = cc.differentiate(environmentManager);
 		return bm;
 	}
 

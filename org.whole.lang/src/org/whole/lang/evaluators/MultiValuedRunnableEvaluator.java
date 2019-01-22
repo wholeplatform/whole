@@ -52,7 +52,7 @@ public class MultiValuedRunnableEvaluator extends AbstractNestedEvaluator {
 
 	public IExecutable clone(ICloneContext cc) {
 		MultiValuedRunnableEvaluator evaluator = (MultiValuedRunnableEvaluator) super.clone(cc);
-		evaluator.executableResult = cc.clone(executableResult);
+		evaluator.executableResult = cc.differentiate(executableResult);
 		return evaluator;
 	}
 

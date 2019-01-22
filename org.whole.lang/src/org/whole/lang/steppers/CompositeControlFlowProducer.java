@@ -49,7 +49,7 @@ public class CompositeControlFlowProducer extends AbstractCompositeControlFlowPr
 	public IControlFlowProducer getProducer(int index) {
 		if (producersNeedClone.get(index)) {
 			producersNeedClone.clear(index);
-			producers[index] = producers[index].clone(getCloneContext());
+			producers[index] = producers[index].clone(getDifferentiationContext());
 		}
 
 		return producers[index];

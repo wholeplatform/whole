@@ -46,7 +46,7 @@ public class ActionCallEvaluator extends AbstractDelegatingNestedEvaluator {
 	@Override
 	public IExecutable clone(ICloneContext cc) {
 		ActionCallEvaluator result = (ActionCallEvaluator) super.clone(cc);
-		result.functionExecutable = cc.clone(functionExecutable);
+		result.functionExecutable = cc.differentiate(functionExecutable);
 		result.functionExecutableNeedInit = true;
 		return result;
 	}

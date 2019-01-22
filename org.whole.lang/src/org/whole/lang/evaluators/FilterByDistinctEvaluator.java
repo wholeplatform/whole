@@ -51,7 +51,7 @@ public class FilterByDistinctEvaluator extends AbstractDelegatingNestedEvaluator
 		FilterByDistinctEvaluator evaluator = (FilterByDistinctEvaluator) super.clone(cc);
 		if (distinctSetMap != null)
 			evaluator.distinctSetMap = new HashMap<Object, Set<IEntity>>(distinctSetMap);
-		evaluator.comparator = cc.clone(evaluator.comparator);			
+		evaluator.comparator = cc.differentiate(evaluator.comparator);			
 		return evaluator;
 	}
 

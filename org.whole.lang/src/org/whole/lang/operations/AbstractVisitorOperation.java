@@ -50,7 +50,7 @@ public abstract class AbstractVisitorOperation extends AbstractOperation impleme
 	public IVisitor clone(ICloneContext cc) {
 		try {
 			AbstractVisitorOperation visitor = (AbstractVisitorOperation) super.clone();
-			cc.putClone(this, visitor);
+			cc.setClone(this, visitor);
 			return visitor;
 		} catch (CloneNotSupportedException e) {
 			throw new InternalError();

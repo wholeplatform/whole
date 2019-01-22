@@ -56,7 +56,7 @@ public class GenericForwardStrategyVisitor<V extends IVisitor> extends AbstractL
 
 	public V wGetStrategy(int index) {
 		if (lazyClone.get(index)) {
-			wSetStrategy(index, getCloneContext().clone(strategies.get(index)));
+			wSetStrategy(index, getCloneContext().differentiate(strategies.get(index)));
 			strategies.get(index).setBindings(bindings);
 		}
 		return strategies.get(index);

@@ -43,7 +43,7 @@ public abstract class AbstractCloneableScope implements IBindingScope {
 	public IBindingScope clone(ICloneContext cc) {
 		try {
 			AbstractCloneableScope scope = (AbstractCloneableScope) super.clone();
-			cc.putClone(this, scope);
+			cc.setClone(this, scope);
 			return scope;
 		} catch (CloneNotSupportedException e) {
 			throw new InternalError();

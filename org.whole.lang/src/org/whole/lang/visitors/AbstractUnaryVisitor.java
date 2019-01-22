@@ -47,7 +47,7 @@ public abstract class AbstractUnaryVisitor<V extends IVisitor> extends AbstractL
 
     public V wGetVisitor1() {
 		if (lazyCloneVisitor1) {
-			wSetVisitor1(getCloneContext().clone(visitor1));
+			wSetVisitor1(getCloneContext().differentiate(visitor1));
 			visitor1.setBindings(bindings);
 		}
 		return visitor1;

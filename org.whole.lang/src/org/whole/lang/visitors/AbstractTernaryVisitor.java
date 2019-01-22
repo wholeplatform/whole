@@ -46,7 +46,7 @@ public abstract class AbstractTernaryVisitor<V extends IVisitor> extends Abstrac
 
     protected V wGetVisitor3() {
 		if (lazyCloneVisitor3) {
-			wSetVisitor3(getCloneContext().clone(visitor3));
+			wSetVisitor3(getCloneContext().differentiate(visitor3));
 			visitor3.setBindings(bindings);
 		}
 		return visitor3;

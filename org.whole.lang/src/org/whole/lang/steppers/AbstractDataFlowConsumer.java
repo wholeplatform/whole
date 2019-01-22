@@ -26,9 +26,9 @@ import org.whole.lang.operations.ICloneContext;
 public abstract class AbstractDataFlowConsumer implements IDataFlowConsumer {
 	protected ICloneContext cloneContext;
 
-	public IDifferentiatingContext getCloneContext() {
+	public IDifferentiationContext getCloneContext() {
 		//FIXME lazy init
-		return (IDifferentiatingContext) cloneContext;
+		return (IDifferentiationContext) cloneContext;
 	}
 
 	public IDataFlowConsumer getAdded(IDataFlowConsumer consumer) {
@@ -42,7 +42,7 @@ public abstract class AbstractDataFlowConsumer implements IDataFlowConsumer {
 	public IDataFlowConsumer clone(ICloneContext cc) {
 		try {
 			AbstractDataFlowConsumer consumer = (AbstractDataFlowConsumer) super.clone();
-			cc.putClone(this, consumer);
+			cc.setClone(this, consumer);
 			consumer.cloneContext = cc;
 			return consumer;
 		} catch (CloneNotSupportedException e) {

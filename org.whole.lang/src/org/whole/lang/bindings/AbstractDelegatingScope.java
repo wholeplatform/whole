@@ -38,7 +38,7 @@ public abstract class AbstractDelegatingScope extends AbstractCloneableScope {
 	@Override
 	public IBindingScope clone(ICloneContext cc) {
 		AbstractDelegatingScope scope = (AbstractDelegatingScope) super.clone(cc);
-		scope.delegateScope = cc.clone(delegateScope);
+		scope.delegateScope = cc.differentiate(delegateScope);
 		return scope;
 	}
 

@@ -39,8 +39,8 @@ public class NestedDynamicScope extends AbstractScope implements INestableScope 
 	@Override
 	public IBindingScope clone(ICloneContext cc) {
 		NestedDynamicScope scope = (NestedDynamicScope) super.clone(cc);
-		scope.targetScope = cc.clone(targetScope);
-		scope.enclosingScope = cc.clone(enclosingScope);
+		scope.targetScope = cc.differentiate(targetScope);
+		scope.enclosingScope = cc.differentiate(enclosingScope);
 		scope.resultScope = resultScope == this ? scope : null;
 		return scope;
 	}

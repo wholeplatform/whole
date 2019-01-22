@@ -1094,7 +1094,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		@Override
 		public IExecutable clone(ICloneContext cc) {
 			PredicateWrapperEvaluator clone = (PredicateWrapperEvaluator) super.clone(cc);
-			clone.queryPredicate = cc.clone(queryPredicate);
+			clone.queryPredicate = cc.differentiate(queryPredicate);
 			return clone;
 		}
 

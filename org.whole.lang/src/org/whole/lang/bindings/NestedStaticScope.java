@@ -35,7 +35,7 @@ public class NestedStaticScope extends AbstractDelegatingScope implements INesta
 	@Override
 	public IBindingScope clone(ICloneContext cc) {
 		NestedStaticScope scope = (NestedStaticScope) super.clone(cc);
-		scope.enclosingScope = cc.clone(enclosingScope);
+		scope.enclosingScope = cc.differentiate(enclosingScope);
 		scope.resultScope = resultScope == this ? scope : null;
 		return scope;
 	}

@@ -26,9 +26,9 @@ import org.whole.lang.operations.ICloneContext;
 public abstract class AbstractControlFlowProducer implements IControlFlowProducer {
 	protected ICloneContext cloneContext;
 
-	public IDifferentiatingContext getCloneContext() {
+	public IDifferentiationContext getDifferentiationContext() {
 		//FIXME lazy init
-		return (IDifferentiatingContext) cloneContext;
+		return (IDifferentiationContext) cloneContext;
 	}
 
 	public IControlFlowProducer getAdded(IControlFlowProducer producer) {
@@ -42,7 +42,7 @@ public abstract class AbstractControlFlowProducer implements IControlFlowProduce
 	public IControlFlowProducer clone(ICloneContext cc) {
 		try {
 			AbstractControlFlowProducer producer = (AbstractControlFlowProducer) super.clone();
-			cc.putClone(this, producer);
+			cc.setClone(this, producer);
 			producer.cloneContext = cc;
 			return producer;
 		} catch (CloneNotSupportedException e) {

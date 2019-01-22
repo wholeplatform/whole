@@ -50,7 +50,7 @@ public abstract class AbstractQuantifiedVisitor extends AbstractLazyCloneableVis
 
 	public IVisitor getVisitor(int index) {
 		while (lazyCloneFrom <= index) {
-			visitors[lazyCloneFrom] = getCloneContext().clone(visitors[lazyCloneFrom]);
+			visitors[lazyCloneFrom] = getCloneContext().differentiate(visitors[lazyCloneFrom]);
 			visitors[lazyCloneFrom++].setBindings(bindings);
 		}
 		updateCloneContext();

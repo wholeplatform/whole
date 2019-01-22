@@ -32,7 +32,7 @@ public abstract class AbstractInstrumentationData implements ICloneable {
 	public AbstractInstrumentationData clone(ICloneContext cc) {
 		try {
 			AbstractInstrumentationData data = (AbstractInstrumentationData) super.clone();
-			cc.putClone(this, data);
+			cc.setClone(this, data);
 			return data;
 		} catch (CloneNotSupportedException e) {
 			throw new InternalError();

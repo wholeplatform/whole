@@ -110,7 +110,7 @@ public abstract class AbstractDynamicVariantVisitor extends AbstractVisitor impl
 		public IVisitor clone(ICloneContext cc) {
 			try {
 				BehaviorVisitor visitor = (BehaviorVisitor) super.clone();
-				cc.putClone(this, visitor);
+				cc.setClone(this, visitor);
 				visitor.contextVisitor = null;
 				return visitor;
 			} catch (CloneNotSupportedException e) {

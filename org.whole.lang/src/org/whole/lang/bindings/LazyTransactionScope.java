@@ -53,7 +53,7 @@ public class LazyTransactionScope extends SimpleScope implements ITransactionSco
 		LazyTransactionScope scope = (LazyTransactionScope) super.clone(cc);
 		scope.defNames = new HashSet<String>(defNames);
 		scope.unsetNames = new HashSet<String>(unsetNames);
-		scope.enclosingScope = cc.clone(enclosingScope);
+		scope.enclosingScope = cc.differentiate(enclosingScope);
 		return scope;
 	}
 

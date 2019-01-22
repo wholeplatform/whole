@@ -132,9 +132,9 @@ public class InstrumentingExecutable extends AbstractExecutable {
 	public IExecutable clone(ICloneContext cc) {
 		instrumentation.beforeClone(this);
 		InstrumentingExecutable result = (InstrumentingExecutable) super.clone(cc);
-		result.executable = executable.clone(cc);
+		result.executable = cc.differentiate(executable);
 		result.instrumentationDataMap = instrumentationDataMap.entrySet().stream()
-				.collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue().clone(cc)));
+				.collect(Collectors.toMap(e -> e.getKey(), e -> cc.differentiate(e.getValue())));
 		instrumentation.afterClone(this, result);
 		return result;
 	}

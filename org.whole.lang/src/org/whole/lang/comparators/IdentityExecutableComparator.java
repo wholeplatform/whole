@@ -43,8 +43,8 @@ public class IdentityExecutableComparator<T extends IEntity> extends AbstractEqu
 	@Override
 	public IEntityComparator<T> clone(ICloneContext cc) {
 		IdentityExecutableComparator<T> comparator = (IdentityExecutableComparator<T>) super.clone(cc);
-		comparator.executable = cc.clone(this.executable);
-		comparator.comparator = cc.clone(this.comparator);
+		comparator.executable = cc.differentiate(this.executable);
+		comparator.comparator = cc.differentiate(this.comparator);
 		return comparator;
 	}
 

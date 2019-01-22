@@ -30,7 +30,8 @@ import org.whole.lang.util.EntityUtils;
  * @author Riccardo Solmi
  */
 public abstract class AbstractNestedEvaluator extends AbstractEvaluator {
-	protected ICloneContext cloneContext = IdentityCloneContext.instance;
+	//FIXME API
+	public /*protected*/ ICloneContext cloneContext = IdentityCloneContext.instance;
 	protected IEntity selfEntity;
 	protected IExecutable[] producers;
 	protected BitSet producersNeedClone;
@@ -80,7 +81,7 @@ public abstract class AbstractNestedEvaluator extends AbstractEvaluator {
 	public IExecutable getProducer(int index) {
 		if (producersNeedClone.get(index)) {
 			producersNeedClone.clear(index);
-			producers[index] = producers[index].clone(cloneContext);
+			producers[index] = cloneContext.differentiate(producers[index]);
 		}
 
 		IExecutable producer = producers[index];

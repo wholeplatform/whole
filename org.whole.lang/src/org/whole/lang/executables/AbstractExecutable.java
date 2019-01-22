@@ -29,7 +29,7 @@ import org.whole.lang.operations.CloneContext;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.steppers.AbstractDataFlowConsumer;
 import org.whole.lang.steppers.IDataFlowConsumer;
-import org.whole.lang.steppers.IDifferentiatingContext;
+import org.whole.lang.steppers.IDifferentiationContext;
 
 /**
  * @author Riccardo Solmi
@@ -53,14 +53,14 @@ public abstract class AbstractExecutable implements IExecutable, Iterator<IEntit
 	public IExecutable clone(ICloneContext cc) {
 		try {
 			AbstractExecutable executable = (AbstractExecutable) super.clone();
-			cc.putClone(this, executable);
+			cc.setClone(this, executable);
 			return executable;
 		} catch (CloneNotSupportedException e) {
 			throw new InternalError();
 		}
 	}
 
-	public IDifferentiatingContext getCloneContext() {
+	public IDifferentiationContext getDifferentiationContext() {
 		return null;
 	}
 

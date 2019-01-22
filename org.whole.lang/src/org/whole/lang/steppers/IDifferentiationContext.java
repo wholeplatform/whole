@@ -24,9 +24,9 @@ import org.whole.lang.operations.ICloneContext;
 /**
  * @author Riccardo Solmi
  */
-public interface IDifferentiatingContext extends ICloneContext {
-	public List<ICloneContext> getCloneHistory();
-	public ICloneContext getNextCloneContext();
-	public ICloneContext getLastCloneContext();
+public interface IDifferentiationContext extends ICloneContext {
+	public List<IDifferentiationContext> getDifferentiationHistory();
+	public IDifferentiationContext getNextDifferentiationContext();
+	public IDifferentiationContext getLastDifferentiationContext();
 }
 

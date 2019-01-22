@@ -47,7 +47,7 @@ public abstract class AbstractCollectEvaluator extends AbstractDelegatingNestedS
 	@Override
 	public IExecutable clone(ICloneContext cc) {
 		AbstractCollectEvaluator evaluator = (AbstractCollectEvaluator) super.clone(cc);
-		evaluator.comparator = cc.clone(comparator);
+		evaluator.comparator = cc.differentiate(comparator);
 		return evaluator;
 	}
 

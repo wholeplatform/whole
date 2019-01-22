@@ -42,7 +42,7 @@ public class ComparatorAdapter<T extends IEntity> implements IEntityComparator<T
 	public IEntityComparator<T> clone(ICloneContext cc) {
 		try {
 			ComparatorAdapter<T> comparator = (ComparatorAdapter<T>) super.clone();
-			cc.putClone(this, comparator);
+			cc.setClone(this, comparator);
 			return comparator;
 		} catch (CloneNotSupportedException e) {
 			throw new InternalError();

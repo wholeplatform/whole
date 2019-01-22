@@ -61,7 +61,7 @@ public abstract class AbstractVisitor implements IVisitor {
 	public IVisitor clone(ICloneContext cc) {
 		try {
 			AbstractVisitor visitor = (AbstractVisitor) super.clone();
-			cc.putClone(this, visitor);
+			cc.setClone(this, visitor);
 			visitor.operation = null;
 			return visitor;
 		} catch (CloneNotSupportedException e) {

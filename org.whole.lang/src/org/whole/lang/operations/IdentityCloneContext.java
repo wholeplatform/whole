@@ -30,7 +30,7 @@ public class IdentityCloneContext implements ICloneContext {
 		return this;
 	}
 
-	public <T extends ICloneable> T clone(T prototype) {
+	public <T extends ICloneable> T differentiate(T prototype) {
 		return prototype;
 	}
 
@@ -38,7 +38,7 @@ public class IdentityCloneContext implements ICloneContext {
 		return prototype;
 	}
 
-	public void putClone(ICloneable prototype, ICloneable clone) {
+	public void setClone(ICloneable prototype, ICloneable clone) {
 	}
 }
 

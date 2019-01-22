@@ -50,7 +50,7 @@ public abstract class AbstractNestedSupplierEvaluator extends AbstractSupplierEv
 		if (producers != null) {
 			evaluator.producers = producers.clone();
 			for (int i=0; i<producersSize(); i++)
-				evaluator.producers[i] = cc.clone(producers[i]);
+				evaluator.producers[i] = cc.differentiate(producers[i]);
 		}
 		return evaluator;
 	}

@@ -44,8 +44,8 @@ public class SortEvaluator extends CollectionEvaluator {
 	@Override
 	public IExecutable clone(ICloneContext cc) {
 		SortEvaluator evaluator = (SortEvaluator) super.clone(cc);
-		evaluator.executable = cc.clone(this.executable);
-		evaluator.comparator = cc.clone(comparator);
+		evaluator.executable = cc.differentiate(this.executable);
+		evaluator.comparator = cc.differentiate(comparator);
 		return evaluator;
 	}
 

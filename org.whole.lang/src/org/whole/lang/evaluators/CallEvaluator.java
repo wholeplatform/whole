@@ -48,7 +48,7 @@ public class CallEvaluator extends AbstractDelegatingNestedEvaluator {
 	@Override
 	public CallEvaluator clone(ICloneContext cc) {
 		CallEvaluator result = (CallEvaluator) super.clone(cc);
-		result.queryExecutable = cc.clone(queryExecutable);
+		result.queryExecutable = cc.differentiate(queryExecutable);
 		result.queryExecutableNeedInit = true;
 		return result;
 	}

@@ -29,7 +29,7 @@ import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.CloneContext;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.steppers.IDataFlowConsumer;
-import org.whole.lang.steppers.IDifferentiatingContext;
+import org.whole.lang.steppers.IDifferentiationContext;
 
 /**
  * @author Riccardo Solmi
@@ -52,17 +52,17 @@ class ExecutableClient<E extends IEntity> implements IExecutableClient<E>, Itera
 		try {
 			@SuppressWarnings("unchecked")
 			ExecutableClient<E> result = (ExecutableClient<E>) super.clone();
-			cc.putClone(this, result);
+			cc.setClone(this, result);
 			result.executorScope = executorScope != null ? executorScope.clone() : null;
-			result.executable = executable.clone(cc);
+			result.executable = cc.differentiate(executable);
 			return result;
 		} catch (CloneNotSupportedException e) {
 			throw new InternalError();
 		}
 	}
 
-	public IDifferentiatingContext getCloneContext() {
-		return executable.getCloneContext();
+	public IDifferentiationContext getDifferentiationContext() {
+		return executable.getDifferentiationContext();
 	}
 
 	public IExecutableClient<E> withConsumer(IDataFlowConsumer consumer) {

@@ -18,6 +18,7 @@
 package org.whole.lang.executables;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -32,9 +33,11 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.operations.IdentityCloneContext;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.steppers.AbstractStepper;
 import org.whole.lang.steppers.AbstractStepper.StepperState;
+import org.whole.lang.steppers.IDifferentiationContext;
 import org.whole.lang.steppers.TesterDataFlowConsumer;
 import org.whole.lang.steppers.TesterDataFlowConsumer.Event;
 
@@ -262,6 +265,68 @@ public class SteppersTest {
 		} catch (InterruptedException e) {
 		    executorService.shutdownNow();
 		}
+	}
+
+	@Test
+	public void testCloneContextInit() {
+		AbstractStepper arg0Stepper = new AbstractStepper() {
+			public IEntity doEvaluateNext() {
+				return VALUES[1];
+			}
+		};
+		AbstractStepper arg1Stepper = new AbstractStepper(1) {
+			public IEntity doEvaluateNext() {
+				return getArgument(0);
+			}
+		};
+		AbstractStepper addStepper = new AbstractStepper(arg0Stepper, arg1Stepper) {
+			public IEntity doEvaluateNext() {
+				return bmf.createValue(getArgument(0).wIntValue() + getArgument(1).wIntValue());
+			}
+		};
+
+		assertNotSame(addStepper.getDifferentiationContext(), IdentityCloneContext.instance);
+		assertSame(addStepper.getDifferentiationContext(), arg0Stepper.getDifferentiationContext());
+		assertSame(addStepper.getDifferentiationContext(), arg1Stepper.getDifferentiationContext());
+		//TODO arguments
+	}
+
+	@Test
+	public void testCloneAndApplyFunctionWithArguments() {
+		TesterDataFlowConsumer c = new TesterDataFlowConsumer();
+ 		
+		AbstractStepper arg0Stepper = new AbstractStepper() {
+			public IEntity doEvaluateNext() {
+				return VALUES[1];
+			}
+		};
+		AbstractStepper arg1Stepper = new AbstractStepper(1) {
+			public IEntity doEvaluateNext() {
+				return getArgument(0);
+			}
+		};
+		AbstractStepper addStepper = new AbstractStepper(arg0Stepper, arg1Stepper) {
+			public IEntity doEvaluateNext() {
+				return bmf.createValue(getArgument(0).wIntValue() + getArgument(1).wIntValue());
+			}
+		};
+
+		AbstractStepper addStepper1 = (AbstractStepper) addStepper.clone();
+		IDifferentiationContext dc = addStepper1.getDifferentiationContext();
+		AbstractStepper arg1Stepper1 = dc.differentiate(arg1Stepper);
+//		arg1Stepper1.getArgumentConsumer(0).accept(VALUES[2]);
+
+		addStepper1.withConsumer(c);
+		addStepper1.setBindings(bmf.createBindingManager());
+		addStepper1.reset(VALUES[0]);
+
+		c.setExpectedValues(VALUES[3]);
+    	c.setExpectedEvents(Event.NEXT);
+    	addStepper1.callNext();
+		assertSame(StepperState.CALL, addStepper1.getState());
+
+		arg1Stepper1.getArgumentConsumer(0).accept(VALUES[2]);
+		assertSame(StepperState.ACTION, addStepper1.getState());
 	}
 }
 

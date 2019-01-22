@@ -42,7 +42,7 @@ public abstract class AbstractTransitiveClosureEvaluator extends AbstractEvaluat
 		if (executableStack != null) {
 			evaluator.executableStack = new ArrayList<IExecutable>(executableStack.size());
 			for (int i=0,size=executableStack.size(); i<size; i++) {
-				IExecutable isClone = cc.clone(executableStack.get(i));
+				IExecutable isClone = cc.differentiate(executableStack.get(i));
 				evaluator.executableStack.add(isClone);
 				if (executableStack.get(i) == lastExecutable)
 					evaluator.lastExecutable = isClone;

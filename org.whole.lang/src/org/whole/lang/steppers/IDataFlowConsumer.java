@@ -37,7 +37,7 @@ public interface IDataFlowConsumer extends ICloneable {
 			return this;
 		}
 
-		public IDifferentiatingContext getCloneContext() {
+		public IDifferentiationContext getCloneContext() {
 			return null;
 		}
 
@@ -52,7 +52,7 @@ public interface IDataFlowConsumer extends ICloneable {
 
 	public IDataFlowConsumer clone();
 	public IDataFlowConsumer clone(ICloneContext cc);
-	public IDifferentiatingContext getCloneContext();
+	public IDifferentiationContext getCloneContext();
 
 	public void accept(IEntity entity);
 	public void done();

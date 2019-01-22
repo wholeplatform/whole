@@ -22,7 +22,9 @@ import java.util.BitSet;
 import org.whole.lang.evaluators.AbstractNestedEvaluator;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.operations.CloneContext;
 import org.whole.lang.operations.ICloneContext;
+import org.whole.lang.operations.IdentityCloneContext;
 
 /**
  * @author Riccardo Solmi
@@ -31,6 +33,7 @@ public abstract class AbstractStepper extends AbstractNestedEvaluator {
 	protected StepperState state = StepperState.IDLE;
 	protected MutableArgumentDataFlowConsumer[] arguments;
 	protected BitSet argumentsNeedClone;
+//	protected BitSet argumentsNeedInit;
 
 	protected AbstractStepper(IExecutable... producers) {
 		super(producers);
@@ -41,6 +44,15 @@ public abstract class AbstractStepper extends AbstractNestedEvaluator {
 		withArguments(argumentsSize);
 	}
 
+//	@Override
+//	protected void initProducer(IExecutable p, int index) {
+//		super.initProducer(p, index);
+//
+//		//FIXME API
+//		if (p instanceof AbstractNestedEvaluator)
+//			((AbstractNestedEvaluator) p).cloneContext = getCloneContext();
+//	}
+	
 	public AbstractStepper withArgumentProducers(IExecutable... producers) {
 		withProducers(producers);
 		withArgumentProducers(producersSize());
@@ -53,6 +65,10 @@ public abstract class AbstractStepper extends AbstractNestedEvaluator {
 		for (int i=0; i<argumentsSize() && i<producersSize(); i++)
 			getProducer(i).withAdditionalConsumer(getArgumentConsumer(i)); 
 
+		for (int i=0; i<producersSize(); i++)
+			if (getProducer(i) instanceof AbstractNestedEvaluator)
+				((AbstractNestedEvaluator) getProducer(i)).cloneContext = getDifferentiationContext();
+
 		return this;
 	};
 	public AbstractStepper withArguments(int argumentsSize) {
@@ -62,9 +78,17 @@ public abstract class AbstractStepper extends AbstractNestedEvaluator {
 
 		argumentsNeedClone = new BitSet(argumentsSize);
 		argumentsNeedClone.set(0, argumentsSize, false);
+//		argumentsNeedInit = new BitSet(argumentsSize);
+//		argumentsNeedInit.set(0, producersSize(), true);
 
 		return this;
 	};
+
+	@Override
+	public IExecutable clone() {
+		IDifferentiationContext dc = getDifferentiationContext().getNextDifferentiationContext();
+		return clone(dc);
+	}
 
 	@Override
 	public IExecutable clone(ICloneContext cc) {
@@ -73,12 +97,14 @@ public abstract class AbstractStepper extends AbstractNestedEvaluator {
 		AbstractStepper stepper = (AbstractStepper) super.clone(cc);
 		stepper.arguments = arguments.clone();
 		stepper.argumentsNeedClone = (BitSet) argumentsNeedClone.clone();
+//		stepper.argumentsNeedInit = (BitSet) argumentsNeedInit.clone();
 		return stepper;
 	}
 
-	public IDifferentiatingContext getCloneContext() {
-		//FIXME lazy init
-		return (IDifferentiatingContext) cloneContext;
+	public IDifferentiationContext getDifferentiationContext() {
+		if (cloneContext == IdentityCloneContext.instance)
+			cloneContext = new CloneContext();
+		return (IDifferentiationContext) cloneContext;
 	}
 
 	@Override
@@ -88,6 +114,7 @@ public abstract class AbstractStepper extends AbstractNestedEvaluator {
 			return;
 		super.reset(entity);
 		state = StepperState.IDLE;
+//		argumentsNeedInit.set(0, producersSize(), true);
 		resetArguments();
 	}
 
@@ -104,14 +131,24 @@ public abstract class AbstractStepper extends AbstractNestedEvaluator {
 	public MutableArgumentDataFlowConsumer getArgumentConsumer(int index) {
 		if (argumentsNeedClone.get(index)) {
 			argumentsNeedClone.clear(index);
-			arguments[index] = arguments[index].clone(cloneContext);
+			arguments[index] = cloneContext.differentiate(arguments[index]);
 		}
 
-		return arguments[index];
+		MutableArgumentDataFlowConsumer consumer = arguments[index];
+
+//		if (argumentsNeedInit.get(index)) {
+//			argumentsNeedInit.clear(index);
+//			initConsumer(consumer, index);			
+//		}
+
+		return consumer;
 	}
 	public IEntity getArgument(int index) {
 		return getArgumentConsumer(index).entity;
 	}
+//	protected void initConsumer(MutableArgumentDataFlowConsumer p, int index) {
+//		p.cloneContext = getCloneContext();
+//	}
 
 	public boolean areAllArgumentsAvailable() {
 		for (int i=0; i<argumentsSize(); i++)
@@ -229,7 +266,7 @@ public abstract class AbstractStepper extends AbstractNestedEvaluator {
 			if (this.entity == null)
 				super.accept(entity);
 			else
-				clone(getCloneContext().getNextCloneContext()).accept(entity);
+				clone(getCloneContext().getNextDifferentiationContext()).accept(entity);
 		}
 	}
 

@@ -22,42 +22,42 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.whole.lang.steppers.IDifferentiatingContext;
+import org.whole.lang.steppers.IDifferentiationContext;
 
 /**
  * @author Riccardo Solmi
  */
-public class CloneContext implements IDifferentiatingContext {
-	protected List<ICloneContext> contextHistory;
+public class CloneContext implements IDifferentiationContext {
+	protected List<IDifferentiationContext> contextHistory;
 	protected int contextIndex;
 	private ICloneContext prototypeCloneContext;
 	protected Map<ICloneable, ICloneable> cloneMap = new HashMap<>(1024);
 
 	public CloneContext() {	
 	}
-	protected CloneContext(List<ICloneContext> contextHistory, int contextIndex) {
+	protected CloneContext(List<IDifferentiationContext> contextHistory, int contextIndex) {
 		this.contextHistory = contextHistory;
 		this.contextIndex = contextIndex;
 	}
 
-	public List<ICloneContext> getCloneHistory() {
+	public List<IDifferentiationContext> getDifferentiationHistory() {
 		if (contextHistory == null) {
-			contextHistory = new ArrayList<ICloneContext>();
+			contextHistory = new ArrayList<IDifferentiationContext>();
 			contextHistory.add(this);
 			contextIndex = 0;
 		}
 		return contextHistory;
 	}
 
-	public ICloneContext getNextCloneContext() {
-		List<ICloneContext> history = getCloneHistory();
+	public IDifferentiationContext getNextDifferentiationContext() {
+		List<IDifferentiationContext> history = getDifferentiationHistory();
 		int nextIndex = contextIndex+1;
 		if (nextIndex == history.size())
 			history.add(new CloneContext(history, nextIndex));
 		return history.get(nextIndex);
 	}
-	public ICloneContext getLastCloneContext() {
-		List<ICloneContext> history = getCloneHistory();
+	public IDifferentiationContext getLastDifferentiationContext() {
+		List<IDifferentiationContext> history = getDifferentiationHistory();
 		return history.get(history.size()-1);
 	}
 
@@ -68,7 +68,7 @@ public class CloneContext implements IDifferentiatingContext {
 	}
 
 	@SuppressWarnings("unchecked")
-	public <T extends ICloneable> T clone(T prototype) {
+	public <T extends ICloneable> T differentiate(T prototype) {
 		T clone = null;
 		if (prototype != null) {
 			clone = getClone(prototype);
@@ -83,7 +83,8 @@ public class CloneContext implements IDifferentiatingContext {
 		return (T) cloneMap.get(prototype);
 	}
 
-	public void putClone(ICloneable prototype, ICloneable clone) {
-		cloneMap.put(prototype, clone);
+	public void setClone(ICloneable prototype, ICloneable clone) {
+		if (cloneMap.put(prototype, clone) != null)
+			throw new IllegalStateException();
 	}
 }

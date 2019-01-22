@@ -27,7 +27,7 @@ import org.whole.lang.operations.ICloneable;
 public interface IControlFlowProducer extends ICloneable {
 	public IControlFlowProducer clone();
 	public IControlFlowProducer clone(ICloneContext cc);
-	public IDifferentiatingContext getCloneContext();
+	public IDifferentiationContext getDifferentiationContext();
 
 	public void reset(IEntity entity);
 	public void callNext();

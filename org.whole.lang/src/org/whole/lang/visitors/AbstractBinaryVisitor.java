@@ -47,7 +47,7 @@ public abstract class AbstractBinaryVisitor<V extends IVisitor> extends Abstract
 
     public V wGetVisitor2() {
 		if (lazyCloneVisitor2) {
-			wSetVisitor2(getCloneContext().clone(visitor2));
+			wSetVisitor2(getCloneContext().differentiate(visitor2));
 			visitor2.setBindings(bindings);
 		}
 		return visitor2;

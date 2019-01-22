@@ -37,7 +37,7 @@ public class SharingCompositeControlFlowProducer extends AbstractCompositeContro
 		super.forEach(p -> {
 			do {
 				f.accept(p);
-				ICloneContext cc = p.getCloneContext();
+				ICloneContext cc = p.getDifferentiationContext();
 				p = cc.getClone(p);
 			} while (p != null);
 		});

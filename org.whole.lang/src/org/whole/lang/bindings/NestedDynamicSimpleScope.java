@@ -44,7 +44,7 @@ public class NestedDynamicSimpleScope extends SimpleScope implements INestableSc
 	@Override
 	public IBindingScope clone(ICloneContext cc) {
 		NestedDynamicSimpleScope scope = (NestedDynamicSimpleScope) super.clone(cc);
-		scope.enclosingScope = cc.clone(enclosingScope);
+		scope.enclosingScope = cc.differentiate(enclosingScope);
 		return scope;
 	}
 

@@ -45,13 +45,13 @@ public class EnvironmentManager implements IEnvironmentManager {
 	}
 	public IEnvironmentManager clone(ICloneContext cc) {
 		EnvironmentManager em = new EnvironmentManager();
-		cc.putClone(this, em);
+		cc.setClone(this, em);
 		
 		IBindingManager operationEnvironment = getCurrentOperation().getOperationEnvironment();
 		for (String envName : getEnvironmentNames())
 			em.environments.put(em.freshNameGenerator.nextFreshName(envName),
-					cc.clone(getEnvironment(envName)));
-		em.currentOperation = new AnonymousOperation(cc.clone(operationEnvironment));
+					cc.differentiate(getEnvironment(envName)));
+		em.currentOperation = new AnonymousOperation(cc.differentiate(operationEnvironment));
 		return em;
 	}
 
