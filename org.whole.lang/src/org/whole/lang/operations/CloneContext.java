@@ -41,8 +41,19 @@ public class CloneContext implements IDifferentiationContext {
 		if (identity)
 			cloneMap = null;
 	}
-	public CloneContext(IDifferentiationContext parentContext) {	
+	protected CloneContext(CloneContext prototypeContext) {	
+		cloneMap = prototypeContext.cloneMap;
+		prototypeContext.cloneMap = new HashMap<>(1024);
+
+		parentContext = prototypeContext.parentContext;
+		contextParts = new IDifferentiationContext[2];
+		contextParts[0] = prototypeContext;
+		prototypeContext.parentContext = this;
+		contextParts[1] = new CloneContext(this, prototypeContext);
+	}
+	protected CloneContext(IDifferentiationContext parentContext, IDifferentiationContext prototypeContext) {	
 		this.parentContext = parentContext;
+		this.prototypeCloneContext = prototypeContext;
 	}
 
 	public IDifferentiationContext getParentContext() {
@@ -50,12 +61,10 @@ public class CloneContext implements IDifferentiationContext {
 	}
 
 	public IDifferentiationContext getNextDifferentiationContext() {
-		if (contextParts == null) {
-			contextParts = new IDifferentiationContext[2];
-			contextParts[0] = new CloneContext(this);
-			contextParts[1] = new CloneContext(this);
-		}
-		return contextParts[contextParts.length-1];
+		if (contextParts == null)
+			return new CloneContext(this).getNextDifferentiationContext();
+		else
+			return contextParts[contextParts.length-1];
 	}
 
 	public IDifferentiationContext getLastDifferentiationContext() {
