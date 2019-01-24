@@ -103,7 +103,7 @@ public abstract class AbstractStepper extends AbstractNestedEvaluator {
 
 	public IDifferentiationContext getDifferentiationContext() {
 		if (cloneContext == IdentityCloneContext.instance)
-			cloneContext = new CloneContext();
+			cloneContext = new CloneContext(true);
 		return (IDifferentiationContext) cloneContext;
 	}
 
@@ -155,7 +155,16 @@ public abstract class AbstractStepper extends AbstractNestedEvaluator {
 			if (getArgument(i) == null)
 				return false;
 		return true;
-	}	
+	}
+
+	@Override
+	public IDataFlowConsumer getConsumer() {
+		IDataFlowConsumer consumer = super.getConsumer();
+		IDataFlowConsumer consumerInContext = getDifferentiationContext().differentiate(consumer);
+		if (consumer != consumerInContext)
+			consumer = consumerInContext;
+		return consumer;
+	}
 
 	public StepperState getState() {
 		return state;
@@ -239,7 +248,11 @@ public abstract class AbstractStepper extends AbstractNestedEvaluator {
 
 		@Override
 		public MutableArgumentDataFlowConsumer clone(ICloneContext cc) {
-			return (MutableArgumentDataFlowConsumer) super.clone(cc);
+			MutableArgumentDataFlowConsumer consumer = cc.differentiate(AbstractStepper.this).new MutableArgumentDataFlowConsumer();
+			cc.setClone(this, consumer);
+			consumer.cloneContext = cc;
+			return consumer;
+//WAS			return (MutableArgumentDataFlowConsumer) super.clone(cc);
 		}
 
 		public void accept(IEntity entity) {
@@ -255,8 +268,11 @@ public abstract class AbstractStepper extends AbstractNestedEvaluator {
 
 	public class ImmutableArgumentDataFlowConsumer extends MutableArgumentDataFlowConsumer {
 		@Override
-		public MutableArgumentDataFlowConsumer clone(ICloneContext cc) {
-			MutableArgumentDataFlowConsumer consumer = (MutableArgumentDataFlowConsumer) super.clone();
+		public ImmutableArgumentDataFlowConsumer clone(ICloneContext cc) {
+			ImmutableArgumentDataFlowConsumer consumer = cc.differentiate(AbstractStepper.this).new ImmutableArgumentDataFlowConsumer();
+			cc.setClone(this, consumer);
+			consumer.cloneContext = cc;
+//WAS			MutableArgumentDataFlowConsumer consumer = (MutableArgumentDataFlowConsumer) super.clone();
 			consumer.entity = null;
 			return consumer;
 		}

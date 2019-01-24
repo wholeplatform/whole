@@ -17,9 +17,7 @@
  */
 package org.whole.lang.operations;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.whole.lang.steppers.IDifferentiationContext;
@@ -28,37 +26,40 @@ import org.whole.lang.steppers.IDifferentiationContext;
  * @author Riccardo Solmi
  */
 public class CloneContext implements IDifferentiationContext {
-	protected List<IDifferentiationContext> contextHistory;
-	protected int contextIndex;
+	protected IDifferentiationContext parentContext;
+	protected IDifferentiationContext[] contextParts;
+	
+	@Deprecated
 	private ICloneContext prototypeCloneContext;
+	
 	protected Map<ICloneable, ICloneable> cloneMap = new HashMap<>(1024);
 
-	public CloneContext() {	
+	public CloneContext() {
+		this(false);
 	}
-	protected CloneContext(List<IDifferentiationContext> contextHistory, int contextIndex) {
-		this.contextHistory = contextHistory;
-		this.contextIndex = contextIndex;
+	public CloneContext(boolean identity) {
+		if (identity)
+			cloneMap = null;
+	}
+	public CloneContext(IDifferentiationContext parentContext) {	
+		this.parentContext = parentContext;
 	}
 
-	public List<IDifferentiationContext> getDifferentiationHistory() {
-		if (contextHistory == null) {
-			contextHistory = new ArrayList<IDifferentiationContext>();
-			contextHistory.add(this);
-			contextIndex = 0;
-		}
-		return contextHistory;
+	public IDifferentiationContext getParentContext() {
+		return parentContext == null ? this : parentContext;
 	}
 
 	public IDifferentiationContext getNextDifferentiationContext() {
-		List<IDifferentiationContext> history = getDifferentiationHistory();
-		int nextIndex = contextIndex+1;
-		if (nextIndex == history.size())
-			history.add(new CloneContext(history, nextIndex));
-		return history.get(nextIndex);
+		if (contextParts == null) {
+			contextParts = new IDifferentiationContext[2];
+			contextParts[0] = new CloneContext(this);
+			contextParts[1] = new CloneContext(this);
+		}
+		return contextParts[contextParts.length-1];
 	}
+
 	public IDifferentiationContext getLastDifferentiationContext() {
-		List<IDifferentiationContext> history = getDifferentiationHistory();
-		return history.get(history.size()-1);
+		return contextParts == null ? this : contextParts[contextParts.length-1].getLastDifferentiationContext();
 	}
 
 	public ICloneContext getPrototypeCloneContext() {
@@ -73,14 +74,14 @@ public class CloneContext implements IDifferentiationContext {
 		if (prototype != null) {
 			clone = getClone(prototype);
 			if (clone == null)
-				/*putClone(prototype,*/ clone = (T) prototype.clone(this);//);
+				clone = (T) prototype.clone(this); //assume putClone(prototype, clone) is called
 		}
 		return clone;
 	}
 
 	@SuppressWarnings("unchecked")
 	public <T extends ICloneable> T getClone(T prototype) {
-		return (T) cloneMap.get(prototype);
+		return cloneMap != null ? (T) cloneMap.get(prototype) : prototype;
 	}
 
 	public void setClone(ICloneable prototype, ICloneable clone) {

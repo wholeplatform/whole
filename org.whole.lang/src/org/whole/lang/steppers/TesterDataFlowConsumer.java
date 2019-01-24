@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.whole.lang.model.IEntity;
+import org.whole.lang.operations.ICloneContext;
 
 /**
  * @author Riccardo Solmi
@@ -31,6 +32,12 @@ public class TesterDataFlowConsumer extends AbstractDataFlowConsumer {
 	protected Event[] expectedEvents;
 	protected IEntity[] expectedValues;
    	protected boolean same;
+
+   	@Override
+   	public IDataFlowConsumer clone(ICloneContext cc) {
+   		//FIXME clone state
+   		return super.clone(cc);
+   	}
 
 	public void clear() {
 		events.clear();

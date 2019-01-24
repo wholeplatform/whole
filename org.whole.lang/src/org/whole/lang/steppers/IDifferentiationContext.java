@@ -17,15 +17,12 @@
  */
 package org.whole.lang.steppers;
 
-import java.util.List;
-
 import org.whole.lang.operations.ICloneContext;
 
 /**
  * @author Riccardo Solmi
  */
 public interface IDifferentiationContext extends ICloneContext {
-	public List<IDifferentiationContext> getDifferentiationHistory();
 	public IDifferentiationContext getNextDifferentiationContext();
 	public IDifferentiationContext getLastDifferentiationContext();
 }

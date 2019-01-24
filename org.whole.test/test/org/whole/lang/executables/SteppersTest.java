@@ -209,7 +209,6 @@ public class SteppersTest {
 		}
 	}
 
-
 	@Test
 	public void testStepperWithCircularArgumentsAsync() {
 		TesterDataFlowConsumer c = new TesterDataFlowConsumer();
@@ -294,7 +293,7 @@ public class SteppersTest {
 	@Test
 	public void testCloneAndApplyFunctionWithArguments() {
 		TesterDataFlowConsumer c = new TesterDataFlowConsumer();
- 		
+
 		AbstractStepper arg0Stepper = new AbstractStepper() {
 			public IEntity doEvaluateNext() {
 				return VALUES[1];
