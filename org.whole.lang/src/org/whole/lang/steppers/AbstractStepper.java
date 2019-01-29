@@ -131,9 +131,9 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 		stepper.prototype = this;
 		stepper.producers = new IExecutable[producers.length];
 		stepper.producersNeedInit = (BitSet) producersNeedInit.clone();
-
 		stepper.arguments = new MutableArgumentDataFlowConsumer[arguments.length];
 //		stepper.argumentsNeedInit = (BitSet) argumentsNeedInit.clone();
+		stepper.consumer = null;
 		return stepper;
 	}
 
@@ -198,10 +198,9 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 
 	@Override
 	public IDataFlowConsumer getConsumer() {
-		IDataFlowConsumer consumer = super.getConsumer();
-		IDataFlowConsumer consumerInContext = getDifferentiationContext().differentiate(consumer);
-		if (consumer != consumerInContext)
-			consumer = consumerInContext;
+		if (consumer == null && prototype != null) {
+			consumer = cloneContext.differentiate(prototype.getConsumer());
+		}
 		return consumer;
 	}
 
@@ -317,7 +316,11 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 		for (int i=0; i<producersSize(); i++) {
 			if (i>0)
 				sb.append(toStringSeparator());
-			producers[i].toString(sb);
+			
+			if (producers[i] != null)
+				producers[i].toString(sb);
+			else
+				prototype.getProducer(i).toString(sb);
 		}
 
     	sb.append(toStringSuffix());
