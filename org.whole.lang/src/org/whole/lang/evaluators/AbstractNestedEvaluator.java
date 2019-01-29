@@ -30,8 +30,7 @@ import org.whole.lang.util.EntityUtils;
  * @author Riccardo Solmi
  */
 public abstract class AbstractNestedEvaluator extends AbstractEvaluator {
-	//FIXME API
-	public /*protected*/ ICloneContext cloneContext = IdentityCloneContext.instance;
+	protected ICloneContext cloneContext = IdentityCloneContext.instance;
 	protected IEntity selfEntity;
 	protected IExecutable[] producers;
 	protected BitSet producersNeedClone;

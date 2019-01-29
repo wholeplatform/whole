@@ -19,39 +19,73 @@ package org.whole.lang.steppers;
 
 import java.util.BitSet;
 
-import org.whole.lang.evaluators.AbstractNestedEvaluator;
+import org.whole.lang.evaluators.AbstractEvaluator;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.CloneContext;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.operations.IdentityCloneContext;
+import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractStepper extends AbstractNestedEvaluator {
+public abstract class AbstractStepper extends AbstractEvaluator {
+	protected ICloneContext cloneContext = IdentityCloneContext.instance;
+	protected AbstractStepper prototype;
+	protected IEntity selfEntity;
+	protected IExecutable[] producers;
+	protected BitSet producersNeedInit;
 	protected StepperState state = StepperState.IDLE;
 	protected MutableArgumentDataFlowConsumer[] arguments;
-	protected BitSet argumentsNeedClone;
 //	protected BitSet argumentsNeedInit;
 
 	protected AbstractStepper(IExecutable... producers) {
-		super(producers);
+		withProducers(producers);
 		withArgumentProducers(producersSize());
 	}
 	protected AbstractStepper(int argumentsSize) {
-		super(0);
+		withProducers(new IExecutable[0]);
 		withArguments(argumentsSize);
 	}
 
-//	@Override
-//	protected void initProducer(IExecutable p, int index) {
-//		super.initProducer(p, index);
-//
+    public int producersSize() {
+		return producers.length;
+	}
+	public IExecutable getProducer(int index) {
+		if (producers[index] == null && prototype != null) {
+			producers[index] = cloneContext.differentiate(prototype.getProducer(index));
+		}
+
+		IExecutable producer = producers[index];
+
+		if (producersNeedInit.get(index)) {
+			producersNeedInit.clear(index);
+			initProducer(producer, index);
+		}
+
+		return producer;
+	}
+	protected void initProducer(IExecutable p, int index) {
+		p.setBindings(getBindings());
+		p.reset(selfEntity);
+
 //		//FIXME API
 //		if (p instanceof AbstractNestedEvaluator)
 //			((AbstractNestedEvaluator) p).cloneContext = getCloneContext();
-//	}
+	}
+
+	public AbstractStepper withProducers(IExecutable... producers) {
+		this.producers = producers;
+		producersNeedInit = new BitSet(producersSize());
+		producersNeedInit.set(0, producersSize(), true);
+		return this;
+	};
+	public AbstractStepper withProducer(int index, IExecutable producer) {
+		producers[index] = producer;
+		return this;
+	}
+
 	
 	public AbstractStepper withArgumentProducers(IExecutable... producers) {
 		withProducers(producers);
@@ -66,8 +100,8 @@ public abstract class AbstractStepper extends AbstractNestedEvaluator {
 			getProducer(i).withAdditionalConsumer(getArgumentConsumer(i)); 
 
 		for (int i=0; i<producersSize(); i++)
-			if (getProducer(i) instanceof AbstractNestedEvaluator)
-				((AbstractNestedEvaluator) getProducer(i)).cloneContext = getDifferentiationContext();
+			if (getProducer(i) instanceof AbstractStepper)
+				((AbstractStepper) getProducer(i)).cloneContext = getDifferentiationContext();
 
 		return this;
 	};
@@ -76,8 +110,6 @@ public abstract class AbstractStepper extends AbstractNestedEvaluator {
 		for (int i=0; i<argumentsSize(); i++)
 			arguments[i] = new MutableArgumentDataFlowConsumer();
 
-		argumentsNeedClone = new BitSet(argumentsSize);
-		argumentsNeedClone.set(0, argumentsSize, false);
 //		argumentsNeedInit = new BitSet(argumentsSize);
 //		argumentsNeedInit.set(0, producersSize(), true);
 
@@ -92,11 +124,15 @@ public abstract class AbstractStepper extends AbstractNestedEvaluator {
 
 	@Override
 	public IExecutable clone(ICloneContext cc) {
-		argumentsNeedClone.set(0, argumentsSize(), true);
+		cloneContext = cc.getPrototypeCloneContext();
 
 		AbstractStepper stepper = (AbstractStepper) super.clone(cc);
-		stepper.arguments = arguments.clone();
-		stepper.argumentsNeedClone = (BitSet) argumentsNeedClone.clone();
+		stepper.cloneContext = cc;
+		stepper.prototype = this;
+		stepper.producers = new IExecutable[producers.length];
+		stepper.producersNeedInit = (BitSet) producersNeedInit.clone();
+
+		stepper.arguments = new MutableArgumentDataFlowConsumer[arguments.length];
 //		stepper.argumentsNeedInit = (BitSet) argumentsNeedInit.clone();
 		return stepper;
 	}
@@ -112,7 +148,11 @@ public abstract class AbstractStepper extends AbstractNestedEvaluator {
 		//FIXME workaround for circular reset loop
 		if (selfEntity == entity)
 			return;
+
 		super.reset(entity);
+        selfEntity = entity;
+        producersNeedInit.set(0, producersSize(), true);
+
 		state = StepperState.IDLE;
 //		argumentsNeedInit.set(0, producersSize(), true);
 		resetArguments();
@@ -129,9 +169,8 @@ public abstract class AbstractStepper extends AbstractNestedEvaluator {
 	}
 
 	public MutableArgumentDataFlowConsumer getArgumentConsumer(int index) {
-		if (argumentsNeedClone.get(index)) {
-			argumentsNeedClone.clear(index);
-			arguments[index] = cloneContext.differentiate(arguments[index]);
+		if (arguments[index] == null && prototype != null) {
+			arguments[index] = cloneContext.differentiate(prototype.getArgumentConsumer(index));
 		}
 
 		MutableArgumentDataFlowConsumer consumer = arguments[index];
@@ -243,6 +282,57 @@ public abstract class AbstractStepper extends AbstractNestedEvaluator {
 	public abstract IEntity doEvaluateNext();
 
 
+    public void prune() {
+    }
+	public void set(IEntity entity) {
+    	if (lastEntity == null)
+    		throw new IllegalStateException();
+
+    	if (EntityUtils.hasParent(lastEntity))
+    		lastEntity.wGetParent().wSet(lastEntity, entity);
+    	lastEntity = entity;
+	}
+	public void add(IEntity entity) {
+    	if (lastEntity == null)
+    		throw new IllegalStateException();
+
+    	if (EntityUtils.hasParent(lastEntity)) {
+    		IEntity lastEntityParent = lastEntity.wGetParent();
+    		lastEntityParent.wAdd(lastEntityParent.wIndexOf(lastEntity), entity);
+    	}
+	}
+	public void remove() {
+    	if (lastEntity == null)
+    		throw new IllegalStateException();
+
+    	if (EntityUtils.hasParent(lastEntity))
+    		lastEntity.wGetParent().wRemove(lastEntity);
+    	lastEntity = null;
+	}
+
+	@Override
+	public void toString(StringBuilder sb) {
+		sb.append(toStringPrefix());
+    	
+		for (int i=0; i<producersSize(); i++) {
+			if (i>0)
+				sb.append(toStringSeparator());
+			producers[i].toString(sb);
+		}
+
+    	sb.append(toStringSuffix());
+    }
+	protected String toStringPrefix() {
+		return "(";
+	}
+	protected String toStringSeparator() {
+		return ", ";
+	}
+	protected String toStringSuffix() {
+		return ")";
+	}
+
+	
 	public class MutableArgumentDataFlowConsumer extends AbstractDataFlowConsumer {
 		public IEntity entity;
 
