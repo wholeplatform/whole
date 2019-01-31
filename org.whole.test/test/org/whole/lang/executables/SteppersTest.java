@@ -331,7 +331,7 @@ public class SteppersTest {
 	}
 
 	@Test
-	public void testDataEntityStepper() {
+	public void testEntityStepper() {
 		EntityContext ec = new EntityContext(VALUES[3]);
 		AbstractStepper cg = ec.createConstantGetter();
 		AbstractStepper vg = ec.createVariableGetter();
@@ -346,6 +346,15 @@ public class SteppersTest {
 
 		assertSame(VALUES[2], vg.evaluateNext());
 		assertSame(VALUES[3], cg.evaluateNext());
+		
+		cs.getArgumentConsumer(0).accept(VALUES[4]);
+		assertSame(VALUES[3], cs.evaluateNext());
+
+		assertSame(VALUES[3], cg.evaluateNext());
+		assertSame(VALUES[2], vg.evaluateNext());
+		
+		//TODO clone getter and setters and reapply the test
+		
 	}
 
 	public abstract static class AbstractEntityStepper extends AbstractStepper {
@@ -356,16 +365,16 @@ public class SteppersTest {
 			withProducers(producers);
 			this.context = context;
 		}
-
-		@Override
-		public IEntity doEvaluateNext() {
-			return context.entity;
-		}
 	}
 	
 	public abstract static class AbstractEntityGetter extends AbstractEntityStepper {
 		public AbstractEntityGetter(EntityContext context, IExecutable... producers) {
 			super(context, 0, producers);
+		}
+
+		@Override
+		public IEntity doEvaluateNext() {
+			return context.entity;
 		}
 	}
 	public static class ConstantEntityGetter extends AbstractEntityGetter {
@@ -384,63 +393,74 @@ public class SteppersTest {
 		public AbstractEntitySetter(EntityContext context, IExecutable... producers) {
 			super(context, 1, producers);
 		}
+
+		@Override
+		public IEntity doEvaluateNext() {
+			context.setEntity(getArgument(0));
+			return context.entity;
+		}
 	}
 	public static class ConstantEntitySetter extends AbstractEntitySetter {
 		public ConstantEntitySetter(EntityContext context, IExecutable... producers) {
 			super(context, producers);
-		}
-
-		@Override
-		public IEntity doEvaluateNext() {
-			//TODO differentiate context before
-			context.entity = getArgument(0);
-			return context.entity;
 		}
 	}
 	public static class VariableEntitySetter extends AbstractEntitySetter {
 		public VariableEntitySetter(EntityContext context, IExecutable... producers) {
 			super(context, producers);
 		}
-
-		@Override
-		public IEntity doEvaluateNext() {
-			return context.setEntity(getArgument(0));
-		}
 	}
 
 	public static class EntityContext {
+//		protected EntityContext parentContext;
+//		protected EntityContext[] contextParts;
 		protected IEntity entity;
-		protected Set<AbstractEntityStepper> stepperSet = new HashSet<>();
+		protected Set<AbstractEntityStepper> constantStepperSet = new HashSet<>();
+		protected Set<AbstractEntityStepper> variableStepperSet = new HashSet<>();
 
 		public EntityContext(IEntity entity) {
 			this.entity = entity;
 		}
+//		protected EntityContext(EntityContext prototypeContext) {
+//			
+//		}
 
 		public IEntity setEntity(IEntity entity) {
-			EntityContext oldContext = new EntityContext(this.entity);
-			oldContext.stepperSet = new HashSet<>(stepperSet);
-			stepperSet.forEach((stepper) -> {
-				stepper.context = oldContext;
+			EntityContext context = new EntityContext(entity);
+			context.variableStepperSet = variableStepperSet;
+			variableStepperSet = new HashSet<>(variableStepperSet.size());
+			context.variableStepperSet.forEach((stepper) -> {
+				variableStepperSet.add((AbstractEntityStepper) stepper.clone());
+				stepper.context = context;
 			});
-			this.entity = entity;
+			context.constantStepperSet = new HashSet<>(constantStepperSet.size());
+			constantStepperSet.forEach((stepper) -> {
+				AbstractEntityStepper newStepper = (AbstractEntityStepper) stepper.clone();
+				newStepper.context = context;
+				context.constantStepperSet.add(newStepper);
+			});
 			return entity;
 		}
 
 		public AbstractStepper createConstantGetter() {
 			AbstractEntityStepper stepper = new ConstantEntityGetter(this);
-			stepperSet.add(stepper);
+			constantStepperSet.add(stepper);
 			return stepper;
 		}
 		public AbstractStepper createConstantSetter() {
 			AbstractEntityStepper stepper = new ConstantEntitySetter(this);
-			stepperSet.add(stepper);
+			constantStepperSet.add(stepper);
 			return stepper;
 		}
 		public AbstractStepper createVariableGetter() {
-			return new VariableEntityGetter(this);
+			AbstractEntityStepper stepper = new VariableEntityGetter(this);
+			variableStepperSet.add(stepper);
+			return stepper;
 		}
 		public AbstractStepper createVariableSetter() {
-			return new VariableEntitySetter(this);
+			AbstractEntityStepper stepper = new VariableEntitySetter(this);
+			variableStepperSet.add(stepper);
+			return stepper;
 		}
 	}
 }
