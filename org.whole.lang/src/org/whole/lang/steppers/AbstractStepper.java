@@ -34,9 +34,9 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 	protected ICloneContext cloneContext = IdentityCloneContext.instance;
 	protected AbstractStepper prototype;
 	protected IEntity selfEntity;
+	protected StepperState state = StepperState.IDLE;
 	protected IExecutable[] producers;
 	protected BitSet producersNeedInit;
-	protected StepperState state = StepperState.IDLE;
 	protected MutableArgumentDataFlowConsumer[] arguments;
 //	protected BitSet argumentsNeedInit;
 
