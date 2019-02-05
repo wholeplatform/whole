@@ -42,6 +42,7 @@ import org.whole.lang.steppers.AbstractStepper.StepperState;
 import org.whole.lang.steppers.IDifferentiationContext;
 import org.whole.lang.steppers.TesterDataFlowConsumer;
 import org.whole.lang.steppers.TesterDataFlowConsumer.Event;
+import org.whole.lang.util.CompositeUtils;
 
 /**
  * @author Riccardo Solmi
@@ -357,6 +358,19 @@ public class SteppersTest {
 		
 	}
 
+	@Test
+	public void testVariableScope() {
+		EntityContext aContext = new EntityContext(VALUES[3]);
+		AbstractStepper aGetter = aContext.createConstantGetter();
+		AbstractStepper bAdder = new AbstractStepper(aGetter) {
+			public IEntity doEvaluateNext() {
+				return bmf.createValue(getArgument(0).wIntValue() + 1);
+			}
+		};
+		EntityContext a1Context = aContext.getNextDifferentiationContext();
+
+	}
+
 	public abstract static class AbstractEntityStepper extends AbstractStepper {
 		public EntityContext context;
 
@@ -412,8 +426,8 @@ public class SteppersTest {
 	}
 
 	public static class EntityContext {
-//		protected EntityContext parentContext;
-//		protected EntityContext[] contextParts;
+		protected EntityContext parentContext;
+		protected EntityContext[] contextParts = new EntityContext[0];
 		protected IEntity entity;
 		protected Set<AbstractEntityStepper> constantStepperSet = new HashSet<>();
 		protected Set<AbstractEntityStepper> variableStepperSet = new HashSet<>();
@@ -421,25 +435,34 @@ public class SteppersTest {
 		public EntityContext(IEntity entity) {
 			this.entity = entity;
 		}
-//		protected EntityContext(EntityContext prototypeContext) {
-//			
-//		}
+		protected EntityContext(EntityContext prototypeContext) {
+			this.parentContext = prototypeContext;
+			prototypeContext.addContextPart(this);
+			this.entity = prototypeContext.entity;
+			this.variableStepperSet = prototypeContext.variableStepperSet;
+			prototypeContext.variableStepperSet = new HashSet<>(prototypeContext.variableStepperSet.size());
+			this.variableStepperSet.forEach((stepper) -> {
+				prototypeContext.variableStepperSet.add((AbstractEntityStepper) stepper.clone());
+				stepper.context = this;
+			});
+			this.constantStepperSet = new HashSet<>(prototypeContext.constantStepperSet.size());
+			prototypeContext.constantStepperSet.forEach((stepper) -> {
+				AbstractEntityStepper newStepper = (AbstractEntityStepper) stepper.clone();
+				newStepper.context = this;
+				this.constantStepperSet.add(newStepper);
+			});
+		}
+
+		public EntityContext getNextDifferentiationContext() {
+			return new EntityContext(this);
+		}
+
+		protected void addContextPart(EntityContext part) {
+			contextParts = CompositeUtils.grow(contextParts, contextParts.length+1, part);
+		}
 
 		public IEntity setEntity(IEntity entity) {
-			EntityContext context = new EntityContext(entity);
-			context.variableStepperSet = variableStepperSet;
-			variableStepperSet = new HashSet<>(variableStepperSet.size());
-			context.variableStepperSet.forEach((stepper) -> {
-				variableStepperSet.add((AbstractEntityStepper) stepper.clone());
-				stepper.context = context;
-			});
-			context.constantStepperSet = new HashSet<>(constantStepperSet.size());
-			constantStepperSet.forEach((stepper) -> {
-				AbstractEntityStepper newStepper = (AbstractEntityStepper) stepper.clone();
-				newStepper.context = context;
-				context.constantStepperSet.add(newStepper);
-			});
-			return entity;
+			return getNextDifferentiationContext().entity = entity;
 		}
 
 		public AbstractStepper createConstantGetter() {
