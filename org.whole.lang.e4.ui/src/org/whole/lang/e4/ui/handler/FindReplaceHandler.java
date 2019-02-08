@@ -24,7 +24,6 @@ import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.model.application.MApplication;
-import org.eclipse.e4.ui.model.application.ui.basic.MDialog;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.services.IServiceConstants;
@@ -58,9 +57,9 @@ public class FindReplaceHandler {
 			E4Utils.revealPart(context, IE4UIConstants.FINDREPLACE_PART_ID);
 		} else {
 			MWindow main = (MWindow) modelService.find(IE4UIConstants.MAIN_WINDOW_ID, application);
-			MDialog findReplaceDialog = (MDialog) modelService.cloneSnippet(application, IE4UIConstants.FIND_REPLACE_DIALOG_ID, null);
+			MWindow findReplaceDialog = (MWindow) modelService.cloneSnippet(application, IE4UIConstants.FIND_REPLACE_DIALOG_ID, null);
 
-			MDialog oldDialog = (MDialog) modelService.find(IE4UIConstants.FIND_REPLACE_DIALOG_ID, main);
+			MWindow oldDialog = (MWindow) modelService.find(IE4UIConstants.FIND_REPLACE_DIALOG_ID, main);
 			if (oldDialog != null) {
 				oldDialog.setToBeRendered(false);
 				for (MPart part : modelService.findElements(oldDialog, null, MPart.class, null))

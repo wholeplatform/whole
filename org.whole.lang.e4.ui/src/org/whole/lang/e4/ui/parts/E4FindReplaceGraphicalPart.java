@@ -87,7 +87,6 @@ public class E4FindReplaceGraphicalPart extends E4GraphicalPart {
 		return viewer;
 	}
 
-	@SuppressWarnings("unchecked")
 	@PostConstruct
 	public void createPartControl(Composite parent) {
 		findReplaceActions = new IUpdatableAction[Operation.values().length];
@@ -98,7 +97,6 @@ public class E4FindReplaceGraphicalPart extends E4GraphicalPart {
 			sashForm.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		} else {
 			
-			parent.setLayoutData(new GridData(GridData.FILL_BOTH));
 			parent.setLayout(new GridLayout());
 
 			ToolBarManager toolBarManager = new ToolBarManager(SWT.FLAT);
