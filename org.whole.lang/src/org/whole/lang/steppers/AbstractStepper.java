@@ -40,6 +40,10 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 	protected MutableArgumentDataFlowConsumer[] arguments;
 //	protected BitSet argumentsNeedInit;
 
+	protected AbstractStepper(ICloneContext cloneContext) {
+		this(0);
+		this.cloneContext = cloneContext;
+	}
 	protected AbstractStepper(IExecutable... producers) {
 		withProducers(producers);
 		withArgumentProducers(producersSize());
@@ -129,6 +133,11 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 		AbstractStepper stepper = (AbstractStepper) super.clone(cc);
 		stepper.cloneContext = cc;
 		stepper.prototype = this;
+
+//FIXME state is function of differentiation style of the input connections
+		stepper.state = StepperState.IDLE;
+		stepper.resetArguments();
+
 		stepper.producers = new IExecutable[producers.length];
 		stepper.producersNeedInit = (BitSet) producersNeedInit.clone();
 		stepper.arguments = new MutableArgumentDataFlowConsumer[arguments.length];
@@ -381,5 +390,9 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 
 	public static enum StepperState {
 		IDLE, CALL, DATA, ACTION
+	}
+
+	public static enum ConnectionKind {
+		DIFFERENTIATING, INTEGRATING
 	}
 }

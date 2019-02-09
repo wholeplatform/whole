@@ -23,8 +23,6 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.util.HashSet;
-import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -35,14 +33,15 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.operations.CloneContext;
 import org.whole.lang.operations.IdentityCloneContext;
 import org.whole.lang.reflect.ReflectionFactory;
+import org.whole.lang.steppers.AbstractEntityStepper.EntityScopeStepper;
 import org.whole.lang.steppers.AbstractStepper;
 import org.whole.lang.steppers.AbstractStepper.StepperState;
 import org.whole.lang.steppers.IDifferentiationContext;
 import org.whole.lang.steppers.TesterDataFlowConsumer;
 import org.whole.lang.steppers.TesterDataFlowConsumer.Event;
-import org.whole.lang.util.CompositeUtils;
 
 /**
  * @author Riccardo Solmi
@@ -333,7 +332,7 @@ public class SteppersTest {
 
 	@Test
 	public void testEntityStepper() {
-		EntityContext ec = new EntityContext(VALUES[3]);
+		EntityScopeStepper ec = new EntityScopeStepper(VALUES[3]);
 		AbstractStepper cg = ec.createConstantGetter();
 		AbstractStepper vg = ec.createVariableGetter();
 		AbstractStepper cs = ec.createConstantSetter();
@@ -360,131 +359,93 @@ public class SteppersTest {
 
 	@Test
 	public void testVariableScope() {
-		EntityContext aContext = new EntityContext(VALUES[3]);
+		EntityScopeStepper aContext = new EntityScopeStepper(VALUES[3]);
 		AbstractStepper aGetter = aContext.createConstantGetter();
 		AbstractStepper bAdder = new AbstractStepper(aGetter) {
 			public IEntity doEvaluateNext() {
 				return bmf.createValue(getArgument(0).wIntValue() + 1);
 			}
 		};
-		EntityContext a1Context = aContext.getNextDifferentiationContext();
+		EntityScopeStepper a1Context = aContext.getNextDifferentiationContext();
+		a1Context.entity = VALUES[5];
+		AbstractStepper a1Getter = a1Context.createConstantGetter();
+		AbstractStepper cAdder = new AbstractStepper(a1Getter) {
+			public IEntity doEvaluateNext() {
+				return bmf.createValue(getArgument(0).wIntValue() + 1);
+			}
+		};
+		AbstractStepper aGetter2 = aContext.createConstantGetter();
+		AbstractStepper eAdder = new AbstractStepper(aGetter2) {
+			public IEntity doEvaluateNext() {
+				return bmf.createValue(getArgument(0).wIntValue() + 1);
+			}
+		};
 
+		AbstractStepper caller = new AbstractStepper(bAdder, cAdder, eAdder) {
+			public IEntity doEvaluateNext() {
+				return bmf.createTuple(getArgument(0), getArgument(1), getArgument(2));
+			}
+		};
+
+		IEntity tuple = caller.evaluateNext();
+		assertEquals(4, tuple.wGet(0).wIntValue());
+		assertEquals(6, tuple.wGet(1).wIntValue());
+		assertEquals(4, tuple.wGet(2).wIntValue());
 	}
 
-	public abstract static class AbstractEntityStepper extends AbstractStepper {
-		public EntityContext context;
+	@Test
+	public void testDifferentiatingScope() {
+		EntityScopeStepper aScope = new EntityScopeStepper(VALUES[0]);
+		AbstractStepper aSetter = aScope.createConstantSetter();
+		AbstractStepper aGetter = aScope.createConstantGetter();
+		AbstractStepper bAdder = new AbstractStepper(aGetter) {
+			public IEntity doEvaluateNext() {
+				return bmf.createValue(getArgument(0).wIntValue() + 1);
+			}
+		};
+//		EntityScopeStepper aNestedScope = aScope.getNextDifferentiationContext();
+//		aNestedScope.entity = VALUES[5];
+//		AbstractStepper a1Getter = aNestedScope.createConstantGetter();
+//		AbstractStepper cAdder = new AbstractStepper(a1Getter) {
+//			public IEntity doEvaluateNext() {
+//				return bmf.createValue(getArgument(0).wIntValue() + 1);
+//			}
+//		};
+//		AbstractStepper aGetter2 = aScope.createConstantGetter();
+//		AbstractStepper eAdder = new AbstractStepper(aGetter2) {
+//			public IEntity doEvaluateNext() {
+//				return bmf.createValue(getArgument(0).wIntValue() + 1);
+//			}
+//		};
 
-		public AbstractEntityStepper(EntityContext context, int argumentsSize, IExecutable... producers) {
-			super(argumentsSize);
-			withProducers(producers);
-			this.context = context;
-		}
-	}
-	
-	public abstract static class AbstractEntityGetter extends AbstractEntityStepper {
-		public AbstractEntityGetter(EntityContext context, IExecutable... producers) {
-			super(context, 0, producers);
-		}
+//		AbstractStepper caller = new AbstractStepper(bAdder, cAdder, eAdder, aSetter, aScope, aNestedScope) {
+		AbstractStepper caller = new AbstractStepper(bAdder, aSetter, aScope) {
+			public IEntity doEvaluateNext() {
+				return bmf.createTuple(getArgument(0));
+			}
+		};
+		aSetter.getArgumentConsumer(0).accept(VALUES[3]);
+		
+		IEntity tuple = caller.evaluateNext();
+		assertEquals(1, tuple.wGet(0).wIntValue());
+//		assertEquals(6, tuple.wGet(1).wIntValue());
+//		assertEquals(1, tuple.wGet(2).wIntValue());
 
-		@Override
-		public IEntity doEvaluateNext() {
-			return context.entity;
-		}
-	}
-	public static class ConstantEntityGetter extends AbstractEntityGetter {
-		public ConstantEntityGetter(EntityContext context, IExecutable... producers) {
-			super(context, producers);
-		}
+		//FIXME caller waits for a set on aSetter -> FIX clone state
+		
+		IEntity addition = ((CloneContext) caller.getDifferentiationContext()).getParentContext().getLastDifferentiationContext()
+				.differentiate(bAdder).evaluateNext();
+		assertEquals(4, addition.wIntValue());
 
-	}
-	public static class VariableEntityGetter extends AbstractEntityGetter {
-		public VariableEntityGetter(EntityContext context, IExecutable... producers) {
-			super(context, producers);
-		}
-	}
-
-	public abstract static class AbstractEntitySetter extends AbstractEntityStepper {
-		public AbstractEntitySetter(EntityContext context, IExecutable... producers) {
-			super(context, 1, producers);
-		}
-
-		@Override
-		public IEntity doEvaluateNext() {
-			context.setEntity(getArgument(0));
-			return context.entity;
-		}
-	}
-	public static class ConstantEntitySetter extends AbstractEntitySetter {
-		public ConstantEntitySetter(EntityContext context, IExecutable... producers) {
-			super(context, producers);
-		}
-	}
-	public static class VariableEntitySetter extends AbstractEntitySetter {
-		public VariableEntitySetter(EntityContext context, IExecutable... producers) {
-			super(context, producers);
-		}
-	}
-
-	public static class EntityContext {
-		protected EntityContext parentContext;
-		protected EntityContext[] contextParts = new EntityContext[0];
-		protected IEntity entity;
-		protected Set<AbstractEntityStepper> constantStepperSet = new HashSet<>();
-		protected Set<AbstractEntityStepper> variableStepperSet = new HashSet<>();
-
-		public EntityContext(IEntity entity) {
-			this.entity = entity;
-		}
-		protected EntityContext(EntityContext prototypeContext) {
-			this.parentContext = prototypeContext;
-			prototypeContext.addContextPart(this);
-			this.entity = prototypeContext.entity;
-			this.variableStepperSet = prototypeContext.variableStepperSet;
-			prototypeContext.variableStepperSet = new HashSet<>(prototypeContext.variableStepperSet.size());
-			this.variableStepperSet.forEach((stepper) -> {
-				prototypeContext.variableStepperSet.add((AbstractEntityStepper) stepper.clone());
-				stepper.context = this;
-			});
-			this.constantStepperSet = new HashSet<>(prototypeContext.constantStepperSet.size());
-			prototypeContext.constantStepperSet.forEach((stepper) -> {
-				AbstractEntityStepper newStepper = (AbstractEntityStepper) stepper.clone();
-				newStepper.context = this;
-				this.constantStepperSet.add(newStepper);
-			});
-		}
-
-		public EntityContext getNextDifferentiationContext() {
-			return new EntityContext(this);
-		}
-
-		protected void addContextPart(EntityContext part) {
-			contextParts = CompositeUtils.grow(contextParts, contextParts.length+1, part);
-		}
-
-		public IEntity setEntity(IEntity entity) {
-			return getNextDifferentiationContext().entity = entity;
-		}
-
-		public AbstractStepper createConstantGetter() {
-			AbstractEntityStepper stepper = new ConstantEntityGetter(this);
-			constantStepperSet.add(stepper);
-			return stepper;
-		}
-		public AbstractStepper createConstantSetter() {
-			AbstractEntityStepper stepper = new ConstantEntitySetter(this);
-			constantStepperSet.add(stepper);
-			return stepper;
-		}
-		public AbstractStepper createVariableGetter() {
-			AbstractEntityStepper stepper = new VariableEntityGetter(this);
-			variableStepperSet.add(stepper);
-			return stepper;
-		}
-		public AbstractStepper createVariableSetter() {
-			AbstractEntityStepper stepper = new VariableEntitySetter(this);
-			variableStepperSet.add(stepper);
-			return stepper;
-		}
+		
+//		((CloneContext) caller.getDifferentiationContext()).getParentContext().getLastDifferentiationContext().differentiate(aSetter).getArgumentConsumer(0).accept(VALUES[3]);
+//
+//		//((CloneContext) caller.getDifferentiationContext()).getParentContext().getLastDifferentiationContext().differentiate(caller).callNext();
+//		IEntity tuple1 = ((CloneContext) caller.getDifferentiationContext()).getParentContext().getLastDifferentiationContext()
+//				.differentiate(caller).evaluateNext();
+//		assertEquals(4, tuple1.wGet(0).wIntValue());
+//		assertEquals(6, tuple1.wGet(1).wIntValue());
+//		assertEquals(4, tuple1.wGet(2).wIntValue());
 	}
 }
 
