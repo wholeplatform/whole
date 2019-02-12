@@ -340,13 +340,13 @@ public class SteppersTest {
 
 		assertSame(VALUES[3], cg.evaluateNext());
 		assertSame(VALUES[3], vg.evaluateNext());
-		
+
 		vs.getArgumentConsumer(0).accept(VALUES[2]);
 		assertSame(VALUES[2], vs.evaluateNext());
 
 		assertSame(VALUES[2], vg.evaluateNext());
 		assertSame(VALUES[3], cg.evaluateNext());
-		
+
 		cs.getArgumentConsumer(0).accept(VALUES[4]);
 		assertSame(VALUES[3], cs.evaluateNext());
 
@@ -366,7 +366,7 @@ public class SteppersTest {
 				return bmf.createValue(getArgument(0).wIntValue() + 1);
 			}
 		};
-		EntityScopeStepper a1Context = aContext.getNextDifferentiationContext();
+		EntityScopeStepper a1Context = aContext.getNestedScope();
 		a1Context.entity = VALUES[5];
 		AbstractStepper a1Getter = a1Context.createConstantGetter();
 		AbstractStepper cAdder = new AbstractStepper(a1Getter) {
@@ -403,7 +403,7 @@ public class SteppersTest {
 				return bmf.createValue(getArgument(0).wIntValue() + 1);
 			}
 		};
-//		EntityScopeStepper aNestedScope = aScope.getNextDifferentiationContext();
+//		EntityScopeStepper aNestedScope = aScope.getNestedScope();
 //		aNestedScope.entity = VALUES[5];
 //		AbstractStepper a1Getter = aNestedScope.createConstantGetter();
 //		AbstractStepper cAdder = new AbstractStepper(a1Getter) {
@@ -421,7 +421,7 @@ public class SteppersTest {
 //		AbstractStepper caller = new AbstractStepper(bAdder, cAdder, eAdder, aSetter, aScope, aNestedScope) {
 		AbstractStepper caller = new AbstractStepper(bAdder, aSetter, aScope) {
 			public IEntity doEvaluateNext() {
-				return bmf.createTuple(getArgument(0));
+				return bmf.createTuple(getArgument(0));//, getArgument(1), getArgument(2));
 			}
 		};
 		aSetter.getArgumentConsumer(0).accept(VALUES[3]);
@@ -431,19 +431,9 @@ public class SteppersTest {
 //		assertEquals(6, tuple.wGet(1).wIntValue());
 //		assertEquals(1, tuple.wGet(2).wIntValue());
 
-		//FIXME caller waits for a set on aSetter -> FIX clone state
-		
-		IEntity addition = ((CloneContext) caller.getDifferentiationContext()).getParentContext().getLastDifferentiationContext()
-				.differentiate(bAdder).evaluateNext();
-		assertEquals(4, addition.wIntValue());
-
-		
-//		((CloneContext) caller.getDifferentiationContext()).getParentContext().getLastDifferentiationContext().differentiate(aSetter).getArgumentConsumer(0).accept(VALUES[3]);
-//
-//		//((CloneContext) caller.getDifferentiationContext()).getParentContext().getLastDifferentiationContext().differentiate(caller).callNext();
-//		IEntity tuple1 = ((CloneContext) caller.getDifferentiationContext()).getParentContext().getLastDifferentiationContext()
-//				.differentiate(caller).evaluateNext();
-//		assertEquals(4, tuple1.wGet(0).wIntValue());
+		IEntity tuple1 = ((CloneContext) caller.getDifferentiationContext()).getParentContext().getLastDifferentiationContext()
+				.differentiate(caller).evaluateNext();
+		assertEquals(4, tuple1.wGet(0).wIntValue());
 //		assertEquals(6, tuple1.wGet(1).wIntValue());
 //		assertEquals(4, tuple1.wGet(2).wIntValue());
 	}

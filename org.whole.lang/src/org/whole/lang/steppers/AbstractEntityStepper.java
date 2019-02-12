@@ -39,12 +39,23 @@ public abstract class AbstractEntityStepper extends AbstractStepper {
 
 	@Override
 	public IExecutable clone(ICloneContext cc) {
-		AbstractEntityStepper stepper = (AbstractEntityStepper) super.clone(cc);
-		//TODO ? always same context
-		
-//FIXME cme from new EntityScopeStepper(ec)			context.addClonedAccessor(this, stepper);
-		stepper.entityScope = null;
-		return stepper;
+		AbstractEntityStepper stepper = this;
+		AbstractEntityStepper newStepper = (AbstractEntityStepper) super.clone(cc);
+		newStepper.entityScope = null;
+
+		EntityScopeStepper prototypeScope = stepper.getEntityScope();
+		EntityScopeStepper newScope = newStepper.getEntityScope();
+
+		if (prototypeScope.constantStepperSet.contains(stepper)) {
+			newScope.constantStepperSet.add(newStepper);
+		} else {
+			//TODO test and remove
+			if (!newScope.variableStepperSet.contains(stepper))
+				throw new IllegalStateException();
+
+			prototypeScope.variableStepperSet.add(newStepper);
+		}
+		return newStepper;
 	}
 
 	public EntityScopeStepper getEntityScope() {
@@ -89,7 +100,9 @@ public abstract class AbstractEntityStepper extends AbstractStepper {
 
 		@Override
 		public IEntity doEvaluateNext() {
-			getEntityScope().setEntity(getArgument(0));
+			//use setEntity value of preceding scope
+			if (arguments[0] != null)
+				getEntityScope().setEntity(getArgument(0));
 			return getEntityScope().entity;
 		}
 	}
@@ -115,35 +128,28 @@ public abstract class AbstractEntityStepper extends AbstractStepper {
 			super(0);
 			this.entity = entity;
 		}
-		protected EntityScopeStepper(EntityScopeStepper prototypeContext) {
-			super(0);
-			this.parentContext = prototypeContext;
-			prototypeContext.addContextPart(this);
-			this.entity = null;//prototypeContext.entity;
-			this.variableStepperSet = prototypeContext.variableStepperSet;
-			prototypeContext.variableStepperSet = new HashSet<>(prototypeContext.variableStepperSet.size());
-			this.variableStepperSet.forEach((stepper) -> {
-				prototypeContext.variableStepperSet.add((AbstractEntityStepper) stepper.clone());
-				stepper.entityScope = this;
+
+		@Override
+		public IExecutable clone(ICloneContext cc) {
+			EntityScopeStepper newScope = (EntityScopeStepper) super.clone(cc);
+			newScope.parentContext = this;
+			newScope.contextParts = new EntityScopeStepper[0];
+			addContextPart(newScope);
+			newScope.entity = null;
+			newScope.variableStepperSet = variableStepperSet;
+			variableStepperSet = new HashSet<>(variableStepperSet.size());
+			newScope.constantStepperSet = new HashSet<>(constantStepperSet.size());
+			
+			newScope.variableStepperSet.forEach((stepper) -> {
+				stepper.entityScope = newScope;
 			});
-			this.constantStepperSet = new HashSet<>(prototypeContext.constantStepperSet.size());
-			prototypeContext.constantStepperSet.forEach((stepper) -> {
-				AbstractEntityStepper newStepper = (AbstractEntityStepper) stepper.clone();
-				newStepper.entityScope = this;
-				this.constantStepperSet.add(newStepper);
-			});
+
+			return newScope;
 		}
 
-		//FIXME override clone
-
-		public EntityScopeStepper getNextDifferentiationContext() {
-			EntityScopeStepper ess = new EntityScopeStepper(this);
-			IDifferentiationContext dc = getDifferentiationContext().getNextDifferentiationContext();
-			ess.cloneContext = dc;
-			ess.getDifferentiationContext().setClone(this, ess);
-			return ess;
+		public EntityScopeStepper getNestedScope() {
+			return (EntityScopeStepper) clone();
 		}
-
 
 		@Override
 		public IEntity doEvaluateNext() {
@@ -155,7 +161,7 @@ public abstract class AbstractEntityStepper extends AbstractStepper {
 		}
 
 		public IEntity setEntity(IEntity entity) {
-			return getNextDifferentiationContext().entity = entity;
+			return getNestedScope().entity = entity;
 		}
 
 		public AbstractStepper createConstantGetter() {

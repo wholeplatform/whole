@@ -25,6 +25,7 @@ import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.CloneContext;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.operations.IdentityCloneContext;
+import org.whole.lang.steppers.AbstractEntityStepper.AbstractEntitySetter;
 import org.whole.lang.util.EntityUtils;
 
 /**
@@ -135,8 +136,12 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 		stepper.prototype = this;
 
 //FIXME state is function of differentiation style of the input connections
-		stepper.state = StepperState.IDLE;
-		stepper.resetArguments();
+		if (stepper instanceof AbstractEntitySetter && (stepper.state == StepperState.DATA || stepper.state == StepperState.ACTION)) {
+			stepper.state = StepperState.DATA;
+		} else {
+			stepper.state = StepperState.IDLE;
+			stepper.resetArguments();
+		}
 
 		stepper.producers = new IExecutable[producers.length];
 		stepper.producersNeedInit = (BitSet) producersNeedInit.clone();

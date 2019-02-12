@@ -70,7 +70,7 @@ public abstract class AbstractExecutable implements IExecutable, Iterator<IEntit
 		return this;
 	}
 	public IExecutable withAdditionalConsumer(IDataFlowConsumer consumer) {
-		this.consumer = this.consumer.getAdded(consumer);
+		this.consumer = getConsumer().getAdded(consumer);
 		return this;
 	}
 	public IDataFlowConsumer getConsumer() {

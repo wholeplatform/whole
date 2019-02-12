@@ -83,7 +83,7 @@ public class CloneContext implements IDifferentiationContext {
 		if (prototype != null) {
 			clone = getClone(prototype);
 			if (clone == null) {
-				clone = (T) prototype.clone(this); //assume putClone(prototype, clone) is called
+				clone = (T) prototype.clone(this); //assume setClone(prototype, clone) is called
 			}
 		}
 		return clone;
