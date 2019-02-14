@@ -140,7 +140,8 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 			stepper.state = StepperState.DATA;
 		} else {
 			stepper.state = StepperState.IDLE;
-			stepper.resetArguments();
+			//FIXME not yet cloned reset original arguments
+//			stepper.resetArguments();
 		}
 
 		stepper.producers = new IExecutable[producers.length];
@@ -203,6 +204,10 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 //		p.cloneContext = getCloneContext();
 //	}
 
+	public void setArgument(int index, IEntity entity) {
+		getArgumentConsumer(index).accept(entity);
+	}
+	
 	public boolean areAllArgumentsAvailable() {
 		for (int i=0; i<argumentsSize(); i++)
 			if (getArgument(i) == null)
@@ -358,6 +363,7 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 			MutableArgumentDataFlowConsumer consumer = cc.differentiate(AbstractStepper.this).new MutableArgumentDataFlowConsumer();
 			cc.setClone(this, consumer);
 			consumer.cloneContext = cc;
+			consumer.entity = null;
 			return consumer;
 //WAS			return (MutableArgumentDataFlowConsumer) super.clone(cc);
 		}

@@ -156,7 +156,7 @@ public class SteppersTest {
     	addStepper.callNext();
 		assertSame(StepperState.CALL, addStepper.getState());
 
-		arg1Stepper.getArgumentConsumer(0).accept(VALUES[2]);
+		arg1Stepper.setArgument(0, VALUES[2]);
 		assertSame(StepperState.ACTION, addStepper.getState());
 	}
 
@@ -191,7 +191,7 @@ public class SteppersTest {
 			return addStepper.evaluateNext();
 		});
 		Future<?> dataInput = executorService.submit(() -> {
-			arg1Stepper.getArgumentConsumer(0).accept(VALUES[2]);
+			arg1Stepper.setArgument(0, VALUES[2]);
 		});
 
 		try {
@@ -326,7 +326,7 @@ public class SteppersTest {
     	addStepper1.callNext();
 		assertSame(StepperState.CALL, addStepper1.getState());
 
-		arg1Stepper1.getArgumentConsumer(0).accept(VALUES[2]);
+		arg1Stepper1.setArgument(0, VALUES[2]);
 		assertSame(StepperState.ACTION, addStepper1.getState());
 	}
 
@@ -338,16 +338,18 @@ public class SteppersTest {
 		AbstractStepper cs = ec.createConstantSetter();
 		AbstractStepper vs = ec.createVariableSetter();
 
+		ec.callNext();
+
 		assertSame(VALUES[3], cg.evaluateNext());
 		assertSame(VALUES[3], vg.evaluateNext());
 
-		vs.getArgumentConsumer(0).accept(VALUES[2]);
+		vs.setArgument(0, VALUES[2]);
 		assertSame(VALUES[2], vs.evaluateNext());
 
 		assertSame(VALUES[2], vg.evaluateNext());
 		assertSame(VALUES[3], cg.evaluateNext());
 
-		cs.getArgumentConsumer(0).accept(VALUES[4]);
+		cs.setArgument(0, VALUES[4]);
 		assertSame(VALUES[3], cs.evaluateNext());
 
 		assertSame(VALUES[3], cg.evaluateNext());
@@ -359,29 +361,29 @@ public class SteppersTest {
 
 	@Test
 	public void testVariableScope() {
-		EntityScopeStepper aContext = new EntityScopeStepper(VALUES[3]);
-		AbstractStepper aGetter = aContext.createConstantGetter();
+		EntityScopeStepper aScope = new EntityScopeStepper(VALUES[3]);
+		AbstractStepper aGetter = aScope.createConstantGetter();
 		AbstractStepper bAdder = new AbstractStepper(aGetter) {
 			public IEntity doEvaluateNext() {
 				return bmf.createValue(getArgument(0).wIntValue() + 1);
 			}
 		};
-		EntityScopeStepper a1Context = aContext.getNestedScope();
-		a1Context.entity = VALUES[5];
-		AbstractStepper a1Getter = a1Context.createConstantGetter();
+		EntityScopeStepper a1Scope = aScope.getNestedScope();
+		a1Scope.setArgument(0, VALUES[5]);
+		AbstractStepper a1Getter = a1Scope.createConstantGetter();
 		AbstractStepper cAdder = new AbstractStepper(a1Getter) {
 			public IEntity doEvaluateNext() {
 				return bmf.createValue(getArgument(0).wIntValue() + 1);
 			}
 		};
-		AbstractStepper aGetter2 = aContext.createConstantGetter();
+		AbstractStepper aGetter2 = aScope.createConstantGetter();
 		AbstractStepper eAdder = new AbstractStepper(aGetter2) {
 			public IEntity doEvaluateNext() {
 				return bmf.createValue(getArgument(0).wIntValue() + 1);
 			}
 		};
 
-		AbstractStepper caller = new AbstractStepper(bAdder, cAdder, eAdder) {
+		AbstractStepper caller = new AbstractStepper(bAdder, cAdder, eAdder, aScope, a1Scope) {
 			public IEntity doEvaluateNext() {
 				return bmf.createTuple(getArgument(0), getArgument(1), getArgument(2));
 			}
@@ -395,7 +397,8 @@ public class SteppersTest {
 
 	@Test
 	public void testDifferentiatingScope() {
-		EntityScopeStepper aScope = new EntityScopeStepper(VALUES[0]);
+		EntityScopeStepper aScope = new EntityScopeStepper();
+		aScope.setArgument(0, VALUES[0]);
 		AbstractStepper aSetter = aScope.createConstantSetter();
 		AbstractStepper aGetter = aScope.createConstantGetter();
 		AbstractStepper bAdder = new AbstractStepper(aGetter) {
@@ -404,7 +407,7 @@ public class SteppersTest {
 			}
 		};
 //		EntityScopeStepper aNestedScope = aScope.getNestedScope();
-//		aNestedScope.entity = VALUES[5];
+//		aNestedScope.setArgument(0, VALUES[5]);
 //		AbstractStepper a1Getter = aNestedScope.createConstantGetter();
 //		AbstractStepper cAdder = new AbstractStepper(a1Getter) {
 //			public IEntity doEvaluateNext() {
@@ -424,8 +427,8 @@ public class SteppersTest {
 				return bmf.createTuple(getArgument(0));//, getArgument(1), getArgument(2));
 			}
 		};
-		aSetter.getArgumentConsumer(0).accept(VALUES[3]);
-		
+		aSetter.setArgument(0, VALUES[3]);
+
 		IEntity tuple = caller.evaluateNext();
 		assertEquals(1, tuple.wGet(0).wIntValue());
 //		assertEquals(6, tuple.wGet(1).wIntValue());

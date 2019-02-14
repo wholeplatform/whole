@@ -19,6 +19,7 @@ package org.whole.lang.steppers;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.Consumer;
 
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
@@ -31,10 +32,10 @@ import org.whole.lang.util.CompositeUtils;
 public abstract class AbstractEntityStepper extends AbstractStepper {
 	public EntityScopeStepper entityScope;
 
-	public AbstractEntityStepper(EntityScopeStepper context, int argumentsSize, IExecutable... producers) {
+	public AbstractEntityStepper(EntityScopeStepper scope, int argumentsSize, IExecutable... producers) {
 		super(argumentsSize);
 		withProducers(producers);
-		this.entityScope = context;
+		this.entityScope = scope;
 	}
 
 	@Override
@@ -67,8 +68,8 @@ public abstract class AbstractEntityStepper extends AbstractStepper {
 
 
 	public abstract static class AbstractEntityGetter extends AbstractEntityStepper {
-		public AbstractEntityGetter(EntityScopeStepper context, IExecutable... producers) {
-			super(context, 0, producers);
+		public AbstractEntityGetter(EntityScopeStepper scope, IExecutable... producers) {
+			super(scope, 0, producers);
 		}
 
 		@Override
@@ -82,59 +83,67 @@ public abstract class AbstractEntityStepper extends AbstractStepper {
 		}
 	}
 	public static class ConstantEntityGetter extends AbstractEntityGetter {
-		public ConstantEntityGetter(EntityScopeStepper context, IExecutable... producers) {
-			super(context, producers);
+		public ConstantEntityGetter(EntityScopeStepper scope, IExecutable... producers) {
+			super(scope, producers);
 		}
 
 	}
 	public static class VariableEntityGetter extends AbstractEntityGetter {
-		public VariableEntityGetter(EntityScopeStepper context, IExecutable... producers) {
-			super(context, producers);
+		public VariableEntityGetter(EntityScopeStepper scope, IExecutable... producers) {
+			super(scope, producers);
 		}
 	}
 
 	public abstract static class AbstractEntitySetter extends AbstractEntityStepper {
-		public AbstractEntitySetter(EntityScopeStepper context, IExecutable... producers) {
-			super(context, 1, producers);
+		public AbstractEntitySetter(EntityScopeStepper scope, IExecutable... producers) {
+			super(scope, 1, producers);
 		}
 
 		@Override
 		public IEntity doEvaluateNext() {
 			//use setEntity value of preceding scope
 			if (arguments[0] != null)
-				getEntityScope().setEntity(getArgument(0));
+				getEntityScope().setNestedEntity(getArgument(0));
 			return getEntityScope().entity;
 		}
 	}
 	public static class ConstantEntitySetter extends AbstractEntitySetter {
-		public ConstantEntitySetter(EntityScopeStepper context, IExecutable... producers) {
-			super(context, producers);
+		public ConstantEntitySetter(EntityScopeStepper scope, IExecutable... producers) {
+			super(scope, producers);
+		}
+
+		@Override
+		public boolean areAllArgumentsAvailable() {
+			return super.areAllArgumentsAvailable() && getEntityScope().entity != null;
 		}
 	}
 	public static class VariableEntitySetter extends AbstractEntitySetter {
-		public VariableEntitySetter(EntityScopeStepper context, IExecutable... producers) {
-			super(context, producers);
+		public VariableEntitySetter(EntityScopeStepper scope, IExecutable... producers) {
+			super(scope, producers);
 		}
 	}
 
 	public static class EntityScopeStepper extends AbstractStepper {
-		protected EntityScopeStepper parentContext;
-		protected EntityScopeStepper[] contextParts = new EntityScopeStepper[0];
-		/*protected*/ public IEntity entity;
+		protected EntityScopeStepper outerScope;
+		protected EntityScopeStepper[] innerScopes = new EntityScopeStepper[0];
+		protected IEntity entity;
 		protected Set<AbstractEntityStepper> constantStepperSet = new HashSet<>();
 		protected Set<AbstractEntityStepper> variableStepperSet = new HashSet<>();
 
+		public EntityScopeStepper() {
+			super(1);
+		}
 		public EntityScopeStepper(IEntity entity) {
-			super(0);
-			this.entity = entity;
+			this();
+			setArgument(0, entity);
 		}
 
 		@Override
 		public IExecutable clone(ICloneContext cc) {
 			EntityScopeStepper newScope = (EntityScopeStepper) super.clone(cc);
-			newScope.parentContext = this;
-			newScope.contextParts = new EntityScopeStepper[0];
-			addContextPart(newScope);
+			newScope.outerScope = this;
+			newScope.innerScopes = new EntityScopeStepper[0];
+			addInnerScope(newScope);
 			newScope.entity = null;
 			newScope.variableStepperSet = variableStepperSet;
 			variableStepperSet = new HashSet<>(variableStepperSet.size());
@@ -147,21 +156,45 @@ public abstract class AbstractEntityStepper extends AbstractStepper {
 			return newScope;
 		}
 
+		@Override
+		public boolean areAllArgumentsAvailable() {
+			return entity != null || super.areAllArgumentsAvailable();
+		}
+
 		public EntityScopeStepper getNestedScope() {
 			return (EntityScopeStepper) clone();
 		}
 
 		@Override
 		public IEntity doEvaluateNext() {
+			if (arguments[0] != null)
+				setEntity(getArgument(0));
 			return entity;
 		}
 
-		protected void addContextPart(EntityScopeStepper part) {
-			contextParts = CompositeUtils.grow(contextParts, contextParts.length+1, part);
+		public void doPropagateNext() {
+			Consumer<AbstractEntityStepper> doNextAction = (stepper) -> {
+				if (stepper.getState() == StepperState.CALL)
+					stepper.doNextAction();
+			};
+			variableStepperSet.forEach(doNextAction);
+			constantStepperSet.forEach(doNextAction);
 		}
 
+		protected void addInnerScope(EntityScopeStepper scope) {
+			innerScopes = CompositeUtils.grow(innerScopes, innerScopes.length+1, scope);
+		}
+
+		public IEntity setNestedEntity(IEntity entity) {
+//			if (this.entity == null)
+//				return this.entity = entity;
+//			else
+				return getNestedScope().setEntity(entity);
+		}
 		public IEntity setEntity(IEntity entity) {
-			return getNestedScope().entity = entity;
+			this.entity = entity;
+			doPropagateNext();
+			return entity;
 		}
 
 		public AbstractStepper createConstantGetter() {
