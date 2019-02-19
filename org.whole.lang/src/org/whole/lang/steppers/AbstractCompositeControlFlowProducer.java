@@ -26,7 +26,7 @@ import org.whole.lang.operations.ICloneContext;
 /**
  * @author Riccardo Solmi
  */
-public class AbstractCompositeControlFlowProducer extends AbstractControlFlowProducer {
+public abstract class AbstractCompositeControlFlowProducer extends AbstractControlFlowProducer {
 	protected IControlFlowProducer[] producers;
 
 	public AbstractCompositeControlFlowProducer(IControlFlowProducer... producers) {
@@ -44,12 +44,18 @@ public class AbstractCompositeControlFlowProducer extends AbstractControlFlowPro
 		cloneContext = cc.getPrototypeCloneContext();
 
 		AbstractCompositeControlFlowProducer producer = (AbstractCompositeControlFlowProducer) super.clone();
+		//FIXME lazy clone
 		producer.producers = producers.clone();
 		return producer;
 	}
 
 	public IControlFlowProducer getProducer(int index) {
 		return producers[index];
+	}
+
+	public void forEachExecutableProducer(Consumer<IControlFlowProducer> c) {
+		for (int i=0; i<producers.length; i++)
+			getProducer(i).forEachExecutableProducer(c);
 	}
 
 	public void forEach(Consumer<IControlFlowProducer> f) {
@@ -68,4 +74,32 @@ public class AbstractCompositeControlFlowProducer extends AbstractControlFlowPro
 	public void callRemaining() {
 		forEach(p -> p.callRemaining());
 	}
+
+	@Override
+	public void toString(StringBuilder sb) {
+		sb.append(toStringPrefix());
+    	
+		for (int i=0; i<producers.length; i++) {
+			if (i>0)
+				sb.append(toStringSeparator());
+			
+			if (producers[i] != null)
+				producers[i].toString(sb);
+//FIXME add prototype
+//			else
+//				prototype.getProducer(i).toString(sb);
+		}
+
+    	sb.append(toStringSuffix());
+    }
+	protected String toStringPrefix() {
+		return "(";
+	}
+	protected String toStringSeparator() {
+		return ", ";
+	}
+	protected String toStringSuffix() {
+		return ")";
+	}
+
 }

@@ -17,6 +17,8 @@
  */
 package org.whole.lang.steppers;
 
+import java.util.function.Consumer;
+
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.operations.ICloneable;
@@ -29,7 +31,11 @@ public interface IControlFlowProducer extends ICloneable {
 	public IControlFlowProducer clone(ICloneContext cc);
 	public IDifferentiationContext getDifferentiationContext();
 
+	public void forEachExecutableProducer(Consumer<IControlFlowProducer> c);
+
 	public void reset(IEntity entity);
 	public void callNext();
 	public void callRemaining();
+
+	public void toString(StringBuilder sb);
 }

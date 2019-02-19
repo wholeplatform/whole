@@ -18,6 +18,7 @@
 package org.whole.lang.steppers;
 
 import java.util.BitSet;
+import java.util.function.Consumer;
 
 import org.whole.lang.evaluators.AbstractEvaluator;
 import org.whole.lang.executables.IExecutable;
@@ -36,7 +37,7 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 	protected AbstractStepper prototype;
 	protected IEntity selfEntity;
 	protected StepperState state = StepperState.IDLE;
-	protected IExecutable[] producers;
+	protected IControlFlowProducer[] producers;
 	protected BitSet producersNeedInit;
 	protected MutableArgumentDataFlowConsumer[] arguments;
 //	protected BitSet argumentsNeedInit;
@@ -45,7 +46,7 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 		this(0);
 		this.cloneContext = cloneContext;
 	}
-	protected AbstractStepper(IExecutable... producers) {
+	protected AbstractStepper(IControlFlowProducer... producers) {
 		withProducers(producers);
 		withArgumentProducers(producersSize());
 	}
@@ -57,12 +58,12 @@ public abstract class AbstractStepper extends AbstractEvaluator {
     public int producersSize() {
 		return producers.length;
 	}
-	public IExecutable getProducer(int index) {
+	public IControlFlowProducer getProducer(int index) {
 		if (producers[index] == null && prototype != null) {
 			producers[index] = cloneContext.differentiate(prototype.getProducer(index));
 		}
 
-		IExecutable producer = producers[index];
+		IControlFlowProducer producer = producers[index];
 
 		if (producersNeedInit.get(index)) {
 			producersNeedInit.clear(index);
@@ -71,16 +72,25 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 
 		return producer;
 	}
-	protected void initProducer(IExecutable p, int index) {
-		p.setBindings(getBindings());
-		p.reset(selfEntity);
+
+	public void applyToExecutableProducers(Consumer<IControlFlowProducer> c) {
+		for (int i=0; i<producersSize(); i++)
+			getProducer(i).forEachExecutableProducer(c);
+	}
+
+	protected void initProducer(IControlFlowProducer p, int index) {
+		applyToExecutableProducers((cfp) -> {
+			IExecutable e = (IExecutable) cfp;
+			e.setBindings(getBindings());
+			e.reset(selfEntity);
+		});
 
 //		//FIXME API
 //		if (p instanceof AbstractNestedEvaluator)
 //			((AbstractNestedEvaluator) p).cloneContext = getCloneContext();
 	}
 
-	public AbstractStepper withProducers(IExecutable... producers) {
+	public AbstractStepper withProducers(IControlFlowProducer... producers) {
 		this.producers = producers;
 		producersNeedInit = new BitSet(producersSize());
 		producersNeedInit.set(0, producersSize(), true);
@@ -101,8 +111,14 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 	public AbstractStepper withArgumentProducers(int argumentsSize) {
 		withArguments(argumentsSize);
 
-		for (int i=0; i<argumentsSize() && i<producersSize(); i++)
-			getProducer(i).withAdditionalConsumer(getArgumentConsumer(i)); 
+		for (int i=0; i<argumentsSize() && i<producersSize(); i++) {
+			IDataFlowConsumer dfc = getArgumentConsumer(i);
+			getProducer(i).forEachExecutableProducer((cfp) -> {
+				IExecutable e = (IExecutable) cfp;
+				e.withAdditionalConsumer(dfc);
+			});
+			//getProducer(i).withAdditionalConsumer(getArgumentConsumer(i)); 
+		}
 
 		for (int i=0; i<producersSize(); i++)
 			if (getProducer(i) instanceof AbstractStepper)
@@ -280,8 +296,15 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 					getProducer(i).callRemaining();
 				break;
 			}
-			if (!areAllArgumentsAvailable())
-				break;
+			if (areAllArgumentsAvailable()) {
+				state = StepperState.ACTION;
+				lastEntity = doEvaluateNext();
+				if (lastEntity != null)
+					getConsumer().accept(lastEntity);
+				getConsumer().done();
+				notify();
+			}
+			break;
 		case DATA:
 			doNextAction();
 		default:

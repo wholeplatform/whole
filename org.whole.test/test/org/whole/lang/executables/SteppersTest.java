@@ -36,6 +36,7 @@ import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.CloneContext;
 import org.whole.lang.operations.IdentityCloneContext;
 import org.whole.lang.reflect.ReflectionFactory;
+import org.whole.lang.steppers.AbstractDataFlowConsumer.ConsumerToProducer;
 import org.whole.lang.steppers.AbstractEntityStepper.EntityScopeStepper;
 import org.whole.lang.steppers.AbstractStepper;
 import org.whole.lang.steppers.AbstractStepper.StepperState;
@@ -393,6 +394,32 @@ public class SteppersTest {
 		assertEquals(4, tuple.wGet(0).wIntValue());
 		assertEquals(6, tuple.wGet(1).wIntValue());
 		assertEquals(4, tuple.wGet(2).wIntValue());
+	}
+
+	@Test
+	public void testStepperSequence() {
+		TesterDataFlowConsumer c = new TesterDataFlowConsumer();
+
+		AbstractStepper step0 = new AbstractStepper() {
+			public IEntity doEvaluateNext() {
+				return VALUES[0];
+			}
+		};
+		AbstractStepper step1 = new AbstractStepper() {
+			public IEntity doEvaluateNext() {
+				return VALUES[1];
+			}
+		};
+
+		step0.withConsumer(c);
+		step1.withConsumer(c);
+		
+		step0.withAdditionalConsumer(new ConsumerToProducer(step1));
+
+		c.setExpectedValues(VALUES[0], VALUES[1]);
+		c.setExpectedEvents(Event.NEXT, Event.DONE, Event.NEXT, Event.DONE);
+		step0.evaluateRemaining();
+		c.checkExpectations();
 	}
 
 	@Test

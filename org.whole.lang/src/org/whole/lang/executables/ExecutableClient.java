@@ -28,6 +28,7 @@ import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.CloneContext;
 import org.whole.lang.operations.ICloneContext;
+import org.whole.lang.steppers.IControlFlowProducer;
 import org.whole.lang.steppers.IDataFlowConsumer;
 import org.whole.lang.steppers.IDifferentiationContext;
 
@@ -109,6 +110,10 @@ class ExecutableClient<E extends IEntity> implements IExecutableClient<E>, Itera
 					getBindings().wUnset(name);
 			executorScope.wClear();
 		}
+	}
+
+	public void forEachExecutableProducer(Consumer<IControlFlowProducer> c) {
+		executable.forEachExecutableProducer(c);
 	}
 
 	@SuppressWarnings("unchecked")

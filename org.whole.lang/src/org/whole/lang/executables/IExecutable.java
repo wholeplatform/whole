@@ -17,10 +17,13 @@
  */
 package org.whole.lang.executables;
 
+import java.util.function.Consumer;
+
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
+import org.whole.lang.steppers.IControlFlowProducer;
 import org.whole.lang.steppers.IDataFlowConsumer;
 
 /**
@@ -46,6 +49,10 @@ public interface IExecutable extends IExecutableClient<IEntity> {
 
 	public default IExecutable undecoratedExecutable() {
 		return this instanceof InstrumentingExecutable ? ((InstrumentingExecutable) this).getExecutable() : this;
+	}
+
+	public default void forEachExecutableProducer(Consumer<IControlFlowProducer> c) {
+		c.accept(this);
 	}
 
 	public default IEntity evaluate(IEntity self, IBindingManager bm) {
