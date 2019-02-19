@@ -18,6 +18,7 @@
 package org.whole.lang.steppers;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.whole.lang.model.IEntity;
@@ -78,6 +79,19 @@ public class TesterDataFlowConsumer extends AbstractDataFlowConsumer {
 				throw new IllegalStateException("Received extra: "+e);
 			if (expectedEvents[events.size()-1] != e)
 				throw new IllegalStateException(events.size()+"th event expected: "+expectedEvents[events.size()-1]+" received: "+e);
+		}
+	}
+
+	public void checkExpectations() {
+		boolean missingValues = expectedValues != null && values.size() < expectedValues.length;
+		boolean missingEvents = expectedEvents != null && events.size() < expectedEvents.length;
+		if (missingValues || missingEvents) {
+			StringBuilder msg = new StringBuilder("Expecting additional"); 
+			if (missingValues)
+				msg.append(" values: "+Arrays.toString(Arrays.copyOfRange(expectedValues, values.size(), expectedValues.length)));
+			if (missingEvents)
+				msg.append(" events: "+Arrays.toString(Arrays.copyOfRange(expectedEvents, events.size(), expectedEvents.length)));
+			throw new IllegalStateException(msg.toString());
 		}
 	}
 
