@@ -65,13 +65,17 @@ public abstract class AbstractExecutable implements IExecutable, Iterator<IEntit
 	}
 
 	protected IDataFlowConsumer consumer = IDataFlowConsumer.IDENTITY;
-	public IExecutable withConsumer(IDataFlowConsumer consumer) {
-		this.consumer = consumer;
-		return this;
+	public void addFirstConsumer(IDataFlowConsumer consumer) {
+		if (this.consumer == null)
+			this.consumer = getConsumer();
+		if (this.consumer == IDataFlowConsumer.IDENTITY)
+			this.consumer = consumer;
+		else {
+			this.consumer = consumer.getAdded(this.consumer);
+		}
 	}
-	public IExecutable withAdditionalConsumer(IDataFlowConsumer consumer) {
+	public void addConsumer(IDataFlowConsumer consumer) {
 		this.consumer = getConsumer().getAdded(consumer);
-		return this;
 	}
 	public IDataFlowConsumer getConsumer() {
 		return consumer;
@@ -197,18 +201,18 @@ public abstract class AbstractExecutable implements IExecutable, Iterator<IEntit
 		forEachRemaining(action);
 	}
 	public void forEachRemaining(Consumer<? super IEntity> action) {
-		IDataFlowConsumer oldConsumer = getConsumer();
+		IDataFlowConsumer oldConsumer = this.consumer;
 
-		withConsumer(new AbstractDataFlowConsumer() {
+		this.consumer = new AbstractDataFlowConsumer() {
 			public void accept(IEntity entity) {
 				action.accept(entity);
 			}
 			public void done() {
 			}
-		});
+		};
 		callRemaining();
 
-		withConsumer(oldConsumer);
+		this.consumer = oldConsumer;
 	}
 
 	public Spliterator<IEntity> trySplit() {

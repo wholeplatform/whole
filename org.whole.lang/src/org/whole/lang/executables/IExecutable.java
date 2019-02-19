@@ -24,20 +24,11 @@ import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.steppers.IControlFlowProducer;
-import org.whole.lang.steppers.IDataFlowConsumer;
 
 /**
  * @author Riccardo Solmi
  */
 public interface IExecutable extends IExecutableClient<IEntity> {
-	public IExecutable withConsumer(IDataFlowConsumer consumer);
-	public IExecutable withAdditionalConsumer(IDataFlowConsumer consumer);
-	public IDataFlowConsumer getConsumer();
-//	public IExecutable withProducers(IControlFlowProducer... producers);
-//	public IExecutable withProducer(int index, IControlFlowProducer producer);
-//	public int producersSize();
-//	public IExecutable getProducer(int index);
-
 	public IExecutable withSourceEntity(IEntity entity);
 
 	public IExecutable clone();

@@ -115,7 +115,7 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 			IDataFlowConsumer dfc = getArgumentConsumer(i);
 			getProducer(i).forEachExecutableProducer((cfp) -> {
 				IExecutable e = (IExecutable) cfp;
-				e.withAdditionalConsumer(dfc);
+				e.addConsumer(dfc);
 			});
 			//getProducer(i).withAdditionalConsumer(getArgumentConsumer(i)); 
 		}
@@ -377,7 +377,81 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 		return ")";
 	}
 
-	
+	public void addCallAction(IControlFlowProducer producer) {
+		addConsumer(new CallAction(producer));
+	}
+	public void addDoneAction(IDataFlowConsumer consumer) {
+		addConsumer(new DoneAction(consumer));
+	}
+	public void addDataAction(IDataFlowConsumer consumer) {
+		addConsumer(new DataAction(consumer));
+	}
+	public void addTesterAction(TesterDataFlowConsumer tester) {
+		addFirstConsumer(tester);
+	}
+
+
+	public static class CallAction extends AbstractDataFlowConsumer {
+		public IControlFlowProducer producer;
+
+		public CallAction(IControlFlowProducer producer) {
+			this.producer = producer;
+		}
+
+		@Override
+		public IDataFlowConsumer clone(ICloneContext cc) {
+			CallAction action = (CallAction) super.clone(cc);
+			//TODO lazy clone
+			action.producer = cc.differentiate(producer);
+			return action;
+		}
+
+		@Override
+		public void accept(IEntity entity) {
+		}
+
+		@Override
+		public void done() {
+			producer.callRemaining();
+		}
+	}
+
+	public static class DoneAction extends AbstractDataFlowConsumer {
+		public IDataFlowConsumer consumer;
+
+		public DoneAction(IDataFlowConsumer consumer) {
+			this.consumer = consumer;
+		}
+
+		@Override
+		public IDataFlowConsumer clone(ICloneContext cc) {
+			DoneAction action = (DoneAction) super.clone(cc);
+			//TODO lazy clone
+			action.consumer = cc.differentiate(consumer);
+			return action;
+		}
+
+		@Override
+		public void accept(IEntity entity) {
+		}
+
+		@Override
+		public void done() {
+			consumer.done();
+		}
+	}
+
+	public static class DataAction extends DoneAction {
+		public DataAction(IDataFlowConsumer consumer) {
+			super(consumer);
+		}
+
+		@Override
+		public void accept(IEntity entity) {
+			consumer.accept(entity);
+		}
+	}
+
 	public class MutableArgumentDataFlowConsumer extends AbstractDataFlowConsumer {
 		public IEntity entity;
 

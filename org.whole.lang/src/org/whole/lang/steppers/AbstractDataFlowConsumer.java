@@ -17,7 +17,6 @@
  */
 package org.whole.lang.steppers;
 
-import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.CloneContext;
 import org.whole.lang.operations.ICloneContext;
 
@@ -48,30 +47,6 @@ public abstract class AbstractDataFlowConsumer implements IDataFlowConsumer {
 			return consumer;
 		} catch (CloneNotSupportedException e) {
 			throw new InternalError();
-		}
-	}
-	
-	public static class ConsumerToProducer extends AbstractDataFlowConsumer {
-		public IControlFlowProducer producer;
-
-		public ConsumerToProducer(IControlFlowProducer producer) {
-			this.producer = producer;
-		}
-
-		@Override
-		public IDataFlowConsumer clone(ICloneContext cc) {
-			ConsumerToProducer consumer = (ConsumerToProducer) super.clone(cc);
-			consumer.producer = cc.differentiate(producer);
-			return consumer;
-		}
-
-		@Override
-		public void accept(IEntity entity) {
-		}
-
-		@Override
-		public void done() {
-			producer.callRemaining();
 		}
 	}
 }

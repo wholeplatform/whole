@@ -30,17 +30,18 @@ import org.whole.lang.steppers.IFlowStepper;
  * @author Riccardo Solmi
  */
 public interface IExecutableClient<E extends IEntity> extends IFlowStepper, IEvaluator<E>, ICloneable, ISourceable, Iterable<E> {
-	public IExecutableClient<E> withConsumer(IDataFlowConsumer consumer);
+	public IExecutableClient<E> withSourceEntity(IEntity entity);
+
+	public IExecutableClient<E> clone();
+	public IExecutableClient<E> clone(ICloneContext cc);
+
+	public void addFirstConsumer(IDataFlowConsumer consumer);
+	public void addConsumer(IDataFlowConsumer consumer);
 	public IDataFlowConsumer getConsumer();
 //	public IExecutable withProducers(IControlFlowProducer... producers);
 //	public IExecutable withProducer(int index, IControlFlowProducer producer);
 //	public int producersSize();
 //	public IExecutable getProducer(int index);
-
-	public IExecutableClient<E> withSourceEntity(IEntity entity);
-
-	public IExecutableClient<E> clone();
-	public IExecutableClient<E> clone(ICloneContext cc);
 
 	public IBindingManager getBindings();
 	public void setBindings(IBindingManager bindings);
@@ -51,8 +52,6 @@ public interface IExecutableClient<E extends IEntity> extends IFlowStepper, IEva
 	public void set(E entity);
 	public void add(E entity);
 	public void remove();
-
-	public void toString(StringBuilder sb);
 
 	public ExecutableFactory executableFactory();
 }

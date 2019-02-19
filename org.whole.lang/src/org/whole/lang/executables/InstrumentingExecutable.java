@@ -50,7 +50,7 @@ public class InstrumentingExecutable extends AbstractExecutable {
 
 	public InstrumentingExecutable(IExecutable executable) {
 		this.executable = executable;
-		executable.withConsumer(new InstrumentingDataFlowConsumer());
+		executable.addFirstConsumer(new InstrumentingDataFlowConsumer());
 	}
 
 	public class InstrumentingDataFlowConsumer extends AbstractDataFlowConsumer {
