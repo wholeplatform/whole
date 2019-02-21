@@ -31,10 +31,6 @@ public abstract class AbstractDataFlowConsumer implements IDataFlowConsumer {
 		return (IDifferentiationContext) cloneContext;
 	}
 
-	public IDataFlowConsumer getAdded(IDataFlowConsumer consumer) {
-		return new CompositeDataFlowConsumer(this, consumer);
-	}
-
 	public IDataFlowConsumer clone() {
 		return clone(new CloneContext());
 	}
@@ -48,5 +44,9 @@ public abstract class AbstractDataFlowConsumer implements IDataFlowConsumer {
 		} catch (CloneNotSupportedException e) {
 			throw new InternalError();
 		}
+	}
+
+	public IDataFlowConsumer getAdded(IDataFlowConsumer consumer) {
+		return new CompositeDataFlowConsumer(this, consumer);
 	}
 }

@@ -33,10 +33,6 @@ public class CompositeDataFlowConsumer extends AbstractCompositeDataFlowConsumer
 		consumersNeedClone.set(0, consumers.length, false);
 	}
 
-	public IDataFlowConsumer getAdded(IDataFlowConsumer consumer) {
-		return new CompositeDataFlowConsumer(getAddedArray(consumer));
-	}
-
 	@Override
 	public IDataFlowConsumer clone(ICloneContext cc) {
 		consumersNeedClone.set(0, consumersNeedClone.size(), true);
@@ -44,6 +40,10 @@ public class CompositeDataFlowConsumer extends AbstractCompositeDataFlowConsumer
 		CompositeDataFlowConsumer consumer = (CompositeDataFlowConsumer) super.clone();
 		consumer.consumersNeedClone = (BitSet) consumersNeedClone.clone();
 		return consumer;
+	}
+
+	public IDataFlowConsumer getAdded(IDataFlowConsumer consumer) {
+		return new CompositeDataFlowConsumer(getAddedArray(consumer));
 	}
 
 	public IDataFlowConsumer getConsumer(int index) {

@@ -31,10 +31,6 @@ public abstract class AbstractControlFlowProducer implements IControlFlowProduce
 		return (IDifferentiationContext) cloneContext;
 	}
 
-	public IControlFlowProducer getAdded(IControlFlowProducer producer) {
-		return new CompositeControlFlowProducer(this, producer);
-	}
-
 	public IControlFlowProducer clone() {
 		return clone(new CloneContext());
 	}
@@ -48,5 +44,9 @@ public abstract class AbstractControlFlowProducer implements IControlFlowProduce
 		} catch (CloneNotSupportedException e) {
 			throw new InternalError();
 		}
+	}
+
+	public IControlFlowProducer getAdded(IControlFlowProducer producer) {
+		return new CompositeControlFlowProducer(this, producer);
 	}
 }

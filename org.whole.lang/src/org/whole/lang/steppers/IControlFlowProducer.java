@@ -31,6 +31,10 @@ public interface IControlFlowProducer extends ICloneable {
 	public IControlFlowProducer clone(ICloneContext cc);
 	public IDifferentiationContext getDifferentiationContext();
 
+	public default IControlFlowProducer getAdded(IControlFlowProducer producer) {
+		throw new UnsupportedOperationException();
+	}
+
 	public void forEachExecutableProducer(Consumer<IControlFlowProducer> c);
 
 	public void reset(IEntity entity);

@@ -95,12 +95,7 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 		producersNeedInit.set(0, producersSize(), true);
 		return this;
 	};
-	public AbstractStepper withProducer(int index, IExecutable producer) {
-		producers[index] = producer;
-		return this;
-	}
 
-	
 	public AbstractStepper withArgumentProducers(IExecutable... producers) {
 		withProducers(producers);
 		withArgumentProducers(producersSize());
@@ -135,6 +130,20 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 
 		return this;
 	};
+
+	public void addAlternativeProducer(int index, IControlFlowProducer producer) {
+		producers[index] = getProducer(index).getAdded(producer);
+	}
+	//TODO split and remove
+	public void addAlternativeArgumentProducer(int index, IControlFlowProducer producer) {
+		producers[index] = getProducer(index).getAdded(producer);
+
+		IDataFlowConsumer dfc = getArgumentConsumer(index);
+		producer.forEachExecutableProducer((cfp) -> {
+			IExecutable e = (IExecutable) cfp;
+			e.addAction(dfc);
+		});
+	}
 
 	@Override
 	public IExecutable clone() {

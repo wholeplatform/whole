@@ -33,10 +33,6 @@ public class CompositeControlFlowProducer extends AbstractCompositeControlFlowPr
 		producersNeedClone.set(0, producers.length, false);
 	}
 
-	public IControlFlowProducer getAdded(IControlFlowProducer producer) {
-		return new CompositeControlFlowProducer(getAddedArray(producer));
-	}
-
 	@Override
 	public IControlFlowProducer clone(ICloneContext cc) {
 		producersNeedClone.set(0, producersNeedClone.size(), true);
@@ -44,6 +40,10 @@ public class CompositeControlFlowProducer extends AbstractCompositeControlFlowPr
 		CompositeControlFlowProducer producer = (CompositeControlFlowProducer) super.clone();
 		producer.producersNeedClone = (BitSet) producersNeedClone.clone();
 		return producer;
+	}
+
+	public IControlFlowProducer getAdded(IControlFlowProducer producer) {
+		return new CompositeControlFlowProducer(getAddedArray(producer));
 	}
 
 	public IControlFlowProducer getProducer(int index) {

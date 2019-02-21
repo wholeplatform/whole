@@ -156,43 +156,52 @@ public class EntityGetter extends AbstractStepper {
 
 		public AbstractStepper createConstantPassiveGetter() {
 			EntityGetter stepper = new EntityGetter(this, false);
+			//FIXME addSetters
 			constantGetterSet.add(stepper);
 			return stepper;
 		}
 		public AbstractStepper createVariablePassiveGetter() {
 			EntityGetter stepper = new EntityGetter(this, false);
+			//FIXME addSetters
 			variableGetterSet.add(stepper);
 			return stepper;
 		}
 		public AbstractStepper createConstantActiveGetter() {
 			EntityGetter stepper = new EntityGetter(this, true);
+			//FIXME addSetters
 			constantGetterSet.add(stepper);
 			return stepper;
 		}
 		public AbstractStepper createVariableActiveGetter() {
 			EntityGetter stepper = new EntityGetter(this, true);
+			//FIXME addSetters
 			variableGetterSet.add(stepper);
 			return stepper;
 		}
 
-		protected Set<IDataFlowConsumer> argumentSet = new HashSet<>();
-		protected Set<IDataFlowConsumer> setterSet = new HashSet<>();
+		protected Set<IControlFlowProducer> setterSet = new HashSet<>();
+		protected Set<AbstractStepper> argumentSet = new HashSet<>();
 
 		public void addSetter(AbstractStepper setter) {
-			addSetter(setter, setter);
-		}
-		public void addSetter(IControlFlowProducer setter, AbstractStepper result) {
+			setterSet.add(setter);
+
 			Consumer<EntityGetter> addSetter = (getter) -> {
-				//TODO 
+				getter.addAlternativeArgumentProducer(0, setter);
 			};
 			variableGetterSet.forEach(addSetter);
 			constantGetterSet.forEach(addSetter);
+		}
+		//TODO split and remove
+		public void addSetter(IControlFlowProducer setterEntry, AbstractStepper setterResult) {
+			setterSet.add(setterEntry);
+			argumentSet.add(setterResult);
 
-			argumentSet.forEach((argument) -> {
-				//argument. branch
-				result.addAction(argument);
-			});
-
+			Consumer<EntityGetter> addSetter = (getter) -> {
+				getter.addAlternativeProducer(0, setterEntry);
+				setterResult.addAction(getter.getArgumentConsumer(0));
+			};
+			variableGetterSet.forEach(addSetter);
+			constantGetterSet.forEach(addSetter);
 		}
 	}
 }
