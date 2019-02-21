@@ -59,17 +59,17 @@ public abstract class AbstractEvaluator extends AbstractExecutable {
 	public void callNext() {
 		IEntity entity = null;
 		if ((entity = evaluateNext()) != null) {
-			getConsumer().accept(entity);
+			getAction().accept(entity);
 		} else
-			getConsumer().done();
+			getAction().done();
 	}
 
 	public void callRemaining() {
 		IEntity entity = null;
 		while ((entity = evaluateNext()) != null) {
-			getConsumer().accept(entity);
+			getAction().accept(entity);
 		}
-		getConsumer().done();
+		getAction().done();
 	}
 }
 

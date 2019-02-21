@@ -68,7 +68,7 @@ public class ExecutableFactoryTest {
     public void testEmptyStepper() {
     	TesterDataFlowConsumer c = new TesterDataFlowConsumer();
     	IExecutable p = f.createEmpty();
-		p.addFirstConsumer(c);
+		p.addFirstAction(c);
     	p.setBindings(bmf.createBindingManager());
     	p.reset(VALUES[0]);
 
@@ -85,7 +85,7 @@ public class ExecutableFactoryTest {
     public void testConstantStepper() {
     	TesterDataFlowConsumer c = new TesterDataFlowConsumer();
     	IExecutable p = f.createConstant(VALUES[0], false);
-		p.addFirstConsumer(c);
+		p.addFirstAction(c);
     	p.setBindings(bmf.createBindingManager());
 
     	c.useSameComparator(true);
@@ -124,7 +124,7 @@ public class ExecutableFactoryTest {
     	IBindingManager bm = bmf.createBindingManager();
     	TesterDataFlowConsumer c = new TesterDataFlowConsumer();
     	IExecutable p = f.createAsVariable("v0");
-		p.addFirstConsumer(c);
+		p.addFirstAction(c);
     	p.setBindings(bm);
 
     	c.setExpectedValues(TRUE_VALUE);
@@ -162,7 +162,7 @@ public class ExecutableFactoryTest {
     	bm.wDef("v0", VALUES[0]);
     	TesterDataFlowConsumer c = new TesterDataFlowConsumer();
     	IExecutable p = f.createVariable("v0");
-		p.addFirstConsumer(c);
+		p.addFirstAction(c);
     	p.setBindings(bm);
 
     	p.reset(VALUES[1]);
@@ -188,7 +188,7 @@ public class ExecutableFactoryTest {
     	IBindingManager bm = bmf.createBindingManager();
     	TesterDataFlowConsumer c = new TesterDataFlowConsumer();
     	IExecutable p = f.createFilter(f.createConstant(VALUES[0], false), f.createAsVariable("v0"));
-		p.addFirstConsumer(c);
+		p.addFirstAction(c);
     	p.setBindings(bm);
 
     	p.reset(VALUES[1]);
@@ -225,7 +225,7 @@ public class ExecutableFactoryTest {
     	    			f.createConstant(VALUES[6], false),
     	    			f.createConstant(VALUES[7], false))
     	);
-		p.addFirstConsumer(c);
+		p.addFirstAction(c);
     	p.setBindings(bmf.createBindingManager());
 
 		c.setExpectedValues(
@@ -266,7 +266,7 @@ public class ExecutableFactoryTest {
 				f.createFilter(f.createVariable("v3"), f.createAsVariable("v6")), //not bound: missing v3
     			f.createFilter(f.createConstant(VALUES[4], false), f.createAsVariable("v3"))
     	);
-		p.addFirstConsumer(c);
+		p.addFirstAction(c);
     	p.setBindings(bm);
 
     	c.setExpectedEvents(
@@ -319,7 +319,7 @@ public class ExecutableFactoryTest {
 				f.createFilter(f.createVariable("v1"), f.createAsVariable("v5")),
 				f.createFilter(f.createVariable("v2"), f.createAsVariable("v6")) //not bound
     	);
-		p.addFirstConsumer(c);
+		p.addFirstAction(c);
     	p.setBindings(bm);
 
     	c.setExpectedEvents(

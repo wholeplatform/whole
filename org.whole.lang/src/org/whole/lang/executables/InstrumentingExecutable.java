@@ -50,19 +50,19 @@ public class InstrumentingExecutable extends AbstractExecutable {
 
 	public InstrumentingExecutable(IExecutable executable) {
 		this.executable = executable;
-		executable.addFirstConsumer(new InstrumentingDataFlowConsumer());
+		executable.addFirstAction(new InstrumentingDataFlowConsumer());
 	}
 
 	public class InstrumentingDataFlowConsumer extends AbstractDataFlowConsumer {
 		public void accept(IEntity entity) {
 			instrumentation.beforeDoNext(InstrumentingExecutable.this, entity);
-			getConsumer().accept(entity);
+			getAction().accept(entity);
 			instrumentation.afterDoNext(InstrumentingExecutable.this);
 		}
 
 		public void done() {
 			instrumentation.beforeDoEnd(InstrumentingExecutable.this);
-			getConsumer().done();
+			getAction().done();
 			instrumentation.afterDoEnd(InstrumentingExecutable.this);
 		}
 	}

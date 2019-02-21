@@ -26,7 +26,6 @@ import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.CloneContext;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.operations.IdentityCloneContext;
-import org.whole.lang.steppers.AbstractEntityStepper.AbstractEntitySetter;
 import org.whole.lang.util.EntityUtils;
 
 /**
@@ -115,7 +114,7 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 			IDataFlowConsumer dfc = getArgumentConsumer(i);
 			getProducer(i).forEachExecutableProducer((cfp) -> {
 				IExecutable e = (IExecutable) cfp;
-				e.addConsumer(dfc);
+				e.addAction(dfc);
 			});
 			//getProducer(i).withAdditionalConsumer(getArgumentConsumer(i)); 
 		}
@@ -152,7 +151,7 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 		stepper.prototype = this;
 
 //FIXME state is function of differentiation style of the input connections
-		if (stepper instanceof AbstractEntitySetter && (stepper.state == StepperState.DATA || stepper.state == StepperState.ACTION)) {
+		if (stepper instanceof EntityGetter && (stepper.state == StepperState.DATA || stepper.state == StepperState.ACTION)) {
 			stepper.state = StepperState.DATA;
 		} else {
 			stepper.state = StepperState.IDLE;
@@ -223,7 +222,7 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 	public void setArgument(int index, IEntity entity) {
 		getArgumentConsumer(index).accept(entity);
 	}
-	
+
 	public boolean areAllArgumentsAvailable() {
 		for (int i=0; i<argumentsSize(); i++)
 			if (getArgument(i) == null)
@@ -232,9 +231,9 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 	}
 
 	@Override
-	public IDataFlowConsumer getConsumer() {
+	public IDataFlowConsumer getAction() {
 		if (consumer == null && prototype != null) {
-			consumer = cloneContext.differentiate(prototype.getConsumer());
+			consumer = cloneContext.differentiate(prototype.getAction());
 		}
 		return consumer;
 	}
@@ -250,7 +249,7 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 				wait();
 		} catch (InterruptedException e) {
 			lastEntity = null;
-			getConsumer().done();
+			getAction().done();
 		}
 		return lastEntity;
 	}
@@ -300,8 +299,8 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 				state = StepperState.ACTION;
 				lastEntity = doEvaluateNext();
 				if (lastEntity != null)
-					getConsumer().accept(lastEntity);
-				getConsumer().done();
+					getAction().accept(lastEntity);
+				getAction().done();
 				notify();
 			}
 			break;
@@ -315,9 +314,9 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 		state = StepperState.ACTION;
 		lastEntity = doEvaluateNext();
 		if (lastEntity != null)
-			getConsumer().accept(lastEntity);
+			getAction().accept(lastEntity);
 		else
-			getConsumer().done();
+			getAction().done();
 		notify();
 	};
 	public abstract IEntity doEvaluateNext();
@@ -378,16 +377,16 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 	}
 
 	public void addCallAction(IControlFlowProducer producer) {
-		addConsumer(new CallAction(producer));
+		addAction(new CallAction(producer));
 	}
 	public void addDoneAction(IDataFlowConsumer consumer) {
-		addConsumer(new DoneAction(consumer));
+		addAction(new DoneAction(consumer));
 	}
 	public void addDataAction(IDataFlowConsumer consumer) {
-		addConsumer(new DataAction(consumer));
+		addAction(new DataAction(consumer));
 	}
 	public void addTesterAction(TesterDataFlowConsumer tester) {
-		addFirstConsumer(tester);
+		addFirstAction(tester);
 	}
 
 

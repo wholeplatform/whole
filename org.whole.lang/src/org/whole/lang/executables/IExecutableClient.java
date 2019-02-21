@@ -35,9 +35,9 @@ public interface IExecutableClient<E extends IEntity> extends IFlowStepper, IEva
 	public IExecutableClient<E> clone();
 	public IExecutableClient<E> clone(ICloneContext cc);
 
-	public void addFirstConsumer(IDataFlowConsumer consumer);
-	public void addConsumer(IDataFlowConsumer consumer);
-	public IDataFlowConsumer getConsumer();
+	public void addFirstAction(IDataFlowConsumer consumer);
+	public void addAction(IDataFlowConsumer consumer);
+	public IDataFlowConsumer getAction();
 //	public IExecutable withProducers(IControlFlowProducer... producers);
 //	public IExecutable withProducer(int index, IControlFlowProducer producer);
 //	public int producersSize();

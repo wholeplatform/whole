@@ -36,7 +36,7 @@ import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.CloneContext;
 import org.whole.lang.operations.IdentityCloneContext;
 import org.whole.lang.reflect.ReflectionFactory;
-import org.whole.lang.steppers.AbstractEntityStepper.EntityScopeStepper;
+import org.whole.lang.steppers.EntityGetter.EntityScope;
 import org.whole.lang.steppers.AbstractStepper;
 import org.whole.lang.steppers.AbstractStepper.StepperState;
 import org.whole.lang.steppers.IDifferentiationContext;
@@ -245,10 +245,10 @@ public class SteppersTest {
 			return areaStepper.evaluateNext();
 		});
 		Future<?> dataInput0 = executorService.submit(() -> {
-			baseStepper.getConsumer().accept(VALUES[2]);
+			baseStepper.getAction().accept(VALUES[2]);
 		});
 		Future<?> dataInput1 = executorService.submit(() -> {
-			heightStepper.getConsumer().accept(VALUES[3]);
+			heightStepper.getAction().accept(VALUES[3]);
 		});
 
 		try {
@@ -332,11 +332,11 @@ public class SteppersTest {
 
 	@Test
 	public void testEntityStepper() {
-		EntityScopeStepper ec = new EntityScopeStepper(VALUES[3]);
-		AbstractStepper cg = ec.createConstantGetter();
-		AbstractStepper vg = ec.createVariableGetter();
-		AbstractStepper cs = ec.createConstantSetter();
-		AbstractStepper vs = ec.createVariableSetter();
+		EntityScope ec = new EntityScope(VALUES[3]);
+		AbstractStepper cg = ec.createConstantPassiveGetter();
+		AbstractStepper vg = ec.createVariablePassiveGetter();
+		AbstractStepper cs = ec.createConstantActiveGetter();
+		AbstractStepper vs = ec.createVariableActiveGetter();
 
 		ec.callNext();
 
@@ -361,22 +361,22 @@ public class SteppersTest {
 
 	@Test
 	public void testVariableScope() {
-		EntityScopeStepper aScope = new EntityScopeStepper(VALUES[3]);
-		AbstractStepper aGetter = aScope.createConstantGetter();
+		EntityScope aScope = new EntityScope(VALUES[3]);
+		AbstractStepper aGetter = aScope.createConstantPassiveGetter();
 		AbstractStepper bAdder = new AbstractStepper(aGetter) {
 			public IEntity doEvaluateNext() {
 				return bmf.createValue(getArgument(0).wIntValue() + 1);
 			}
 		};
-		EntityScopeStepper a1Scope = aScope.getNestedScope();
+		EntityScope a1Scope = aScope.getNestedScope();
 		a1Scope.setArgument(0, VALUES[5]);
-		AbstractStepper a1Getter = a1Scope.createConstantGetter();
+		AbstractStepper a1Getter = a1Scope.createConstantPassiveGetter();
 		AbstractStepper cAdder = new AbstractStepper(a1Getter) {
 			public IEntity doEvaluateNext() {
 				return bmf.createValue(getArgument(0).wIntValue() + 1);
 			}
 		};
-		AbstractStepper aGetter2 = aScope.createConstantGetter();
+		AbstractStepper aGetter2 = aScope.createConstantPassiveGetter();
 		AbstractStepper eAdder = new AbstractStepper(aGetter2) {
 			public IEntity doEvaluateNext() {
 				return bmf.createValue(getArgument(0).wIntValue() + 1);
@@ -422,10 +422,10 @@ public class SteppersTest {
 
 	@Test
 	public void testScopeSequence() {
-		EntityScopeStepper aScope = new EntityScopeStepper();
+		EntityScope aScope = new EntityScope();
 		aScope.setArgument(0, VALUES[0]);
-		AbstractStepper aSetter = aScope.createConstantSetter();
-		AbstractStepper aGetter = aScope.createConstantGetter();
+		AbstractStepper aSetter = aScope.createConstantActiveGetter();
+		AbstractStepper aGetter = aScope.createConstantPassiveGetter();
 		AbstractStepper bAdder = new AbstractStepper(aGetter) {
 			public IEntity doEvaluateNext() {
 				return bmf.createValue(getArgument(0).wIntValue() + 1);
@@ -468,10 +468,10 @@ public class SteppersTest {
 
 	@Test
 	public void testDifferentiatingScope() {
-		EntityScopeStepper aScope = new EntityScopeStepper();
+		EntityScope aScope = new EntityScope();
 		aScope.setArgument(0, VALUES[0]);
-		AbstractStepper aSetter = aScope.createConstantSetter();
-		AbstractStepper aGetter = aScope.createConstantGetter();
+		AbstractStepper aSetter = aScope.createConstantActiveGetter();
+		AbstractStepper aGetter = aScope.createConstantPassiveGetter();
 		AbstractStepper bAdder = new AbstractStepper(aGetter) {
 			public IEntity doEvaluateNext() {
 				return bmf.createValue(getArgument(0).wIntValue() + 1);

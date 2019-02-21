@@ -66,14 +66,14 @@ class ExecutableClient<E extends IEntity> implements IExecutableClient<E>, Itera
 		return executable.getDifferentiationContext();
 	}
 
-	public void addFirstConsumer(IDataFlowConsumer consumer) {
-		executable.addFirstConsumer(consumer);
+	public void addFirstAction(IDataFlowConsumer consumer) {
+		executable.addFirstAction(consumer);
 	}
-	public void addConsumer(IDataFlowConsumer consumer) {
-		executable.addConsumer(consumer);
+	public void addAction(IDataFlowConsumer consumer) {
+		executable.addAction(consumer);
 	}
-	public IDataFlowConsumer getConsumer() {
-		return executable.getConsumer();
+	public IDataFlowConsumer getAction() {
+		return executable.getAction();
 	}
 
 	public IExecutableClient<E> withSourceEntity(IEntity entity) {

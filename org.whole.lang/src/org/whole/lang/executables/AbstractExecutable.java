@@ -65,19 +65,19 @@ public abstract class AbstractExecutable implements IExecutable, Iterator<IEntit
 	}
 
 	protected IDataFlowConsumer consumer = IDataFlowConsumer.IDENTITY;
-	public void addFirstConsumer(IDataFlowConsumer consumer) {
+	public void addFirstAction(IDataFlowConsumer consumer) {
 		if (this.consumer == null)
-			this.consumer = getConsumer();
+			this.consumer = getAction();
 		if (this.consumer == IDataFlowConsumer.IDENTITY)
 			this.consumer = consumer;
 		else {
 			this.consumer = consumer.getAdded(this.consumer);
 		}
 	}
-	public void addConsumer(IDataFlowConsumer consumer) {
-		this.consumer = getConsumer().getAdded(consumer);
+	public void addAction(IDataFlowConsumer consumer) {
+		this.consumer = getAction().getAdded(consumer);
 	}
-	public IDataFlowConsumer getConsumer() {
+	public IDataFlowConsumer getAction() {
 		return consumer;
 	}
 
