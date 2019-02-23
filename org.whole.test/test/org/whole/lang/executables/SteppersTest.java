@@ -83,7 +83,7 @@ public class SteppersTest {
 	public void testStepperWithoutArguments() {
 		TesterDataFlowConsumer c = new TesterDataFlowConsumer();
     	TesterStepper s0 = new TesterStepper();
-		s0.addTesterAction(c);
+		s0.addAction(c);
 
     	s0.setBindings(bmf.createBindingManager());
 		s0.reset(VALUES[0]);
@@ -118,7 +118,7 @@ public class SteppersTest {
 				return bmf.createValue(getArgument(0).wIntValue() + getArgument(1).wIntValue());
 			}
 		};
-		addStepper.addTesterAction(c);
+		addStepper.addAction(c);
 		addStepper.setBindings(bmf.createBindingManager());
 		addStepper.reset(VALUES[0]);
 
@@ -147,7 +147,7 @@ public class SteppersTest {
 				return bmf.createValue(getArgument(0).wIntValue() + getArgument(1).wIntValue());
 			}
 		};
-		addStepper.addTesterAction(c);
+		addStepper.addAction(c);
 		addStepper.setBindings(bmf.createBindingManager());
 		addStepper.reset(VALUES[0]);
 
@@ -179,7 +179,7 @@ public class SteppersTest {
 				return bmf.createValue(getArgument(0).wIntValue() + getArgument(1).wIntValue());
 			}
 		};
-		addStepper.addTesterAction(c);
+		addStepper.addAction(c);
 		addStepper.setBindings(bmf.createBindingManager());
 		addStepper.reset(VALUES[0]);
 		
@@ -233,7 +233,7 @@ public class SteppersTest {
 		baseStepper.withArgumentProducers(areaStepper, heightStepper);
 		heightStepper.withArgumentProducers(areaStepper, baseStepper);
 
-		areaStepper.addTesterAction(c);
+		areaStepper.addAction(c);
 		areaStepper.setBindings(bmf.createBindingManager());
 		areaStepper.reset(VALUES[0]);
 
@@ -317,7 +317,7 @@ public class SteppersTest {
 		AbstractStepper arg1Stepper1 = dc.differentiate(arg1Stepper);
 //		arg1Stepper1.getArgumentConsumer(0).accept(VALUES[2]);
 
-		addStepper1.addTesterAction(c);
+		addStepper1.addAction(c);
 		addStepper1.setBindings(bmf.createBindingManager());
 		addStepper1.reset(VALUES[0]);
 
@@ -409,10 +409,10 @@ public class SteppersTest {
 				return VALUES[1];
 			}
 		};
-		step0.addCallAction(step1);
+		step0.addAction(step1);
 
-		step0.addTesterAction(c);
-		step1.addTesterAction(c);
+		step0.addAction(c);
+		step1.addAction(c);
 
 		c.setExpectedValues(VALUES[0], VALUES[1]);
 		c.setExpectedEvents(Event.NEXT, Event.DONE, Event.NEXT, Event.DONE);
@@ -420,6 +420,26 @@ public class SteppersTest {
 		c.checkExpectations();
 	}
 
+	@Test
+	public void testSetter() {
+		AbstractStepper setter = new AbstractStepper() {
+			public IEntity doEvaluateNext() {
+				return VALUES[0];
+			}
+		};
+
+		EntityScope aScope = new EntityScope();
+		AbstractStepper aGetter0 = aScope.createConstantActiveGetter();
+		AbstractStepper aGetter1 = aScope.createConstantActiveGetter();
+		aScope.addSetter(setter);
+		AbstractStepper aGetter2 = aScope.createConstantActiveGetter();
+//		aScope.addSetter(setter2);
+//		AbstractStepper aGetter2 = aScope.createConstantActiveGetter();
+		
+		assertSame(VALUES[0], aGetter0.evaluateNext());
+	}
+
+	
 	@Test
 	public void testScopeSequence() {
 		EntityScope aScope = new EntityScope();

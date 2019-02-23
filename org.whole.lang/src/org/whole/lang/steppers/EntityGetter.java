@@ -32,9 +32,9 @@ import org.whole.lang.util.CompositeUtils;
 public class EntityGetter extends AbstractStepper {
 	public EntityScope entityScope;
 
-	public EntityGetter(EntityScope scope, boolean active, IExecutable... producers) {
+	public EntityGetter(EntityScope scope, boolean active) {
 		super(active ? 1 : 0);
-		withProducers(producers);
+		withProducers(IControlFlowProducer.IDENTITY);
 		this.entityScope = scope;
 	}
 
@@ -155,50 +155,60 @@ public class EntityGetter extends AbstractStepper {
 		}
 
 		public AbstractStepper createConstantPassiveGetter() {
-			EntityGetter stepper = new EntityGetter(this, false);
-			//FIXME addSetters
-			constantGetterSet.add(stepper);
-			return stepper;
+			EntityGetter getter = new EntityGetter(this, false);
+			initSetters(getter);
+			constantGetterSet.add(getter);
+			return getter;
 		}
 		public AbstractStepper createVariablePassiveGetter() {
-			EntityGetter stepper = new EntityGetter(this, false);
-			//FIXME addSetters
-			variableGetterSet.add(stepper);
-			return stepper;
+			EntityGetter getter = new EntityGetter(this, false);
+			initSetters(getter);
+			variableGetterSet.add(getter);
+			return getter;
 		}
 		public AbstractStepper createConstantActiveGetter() {
-			EntityGetter stepper = new EntityGetter(this, true);
-			//FIXME addSetters
-			constantGetterSet.add(stepper);
-			return stepper;
+			EntityGetter getter = new EntityGetter(this, true);
+			initSetters(getter);
+			constantGetterSet.add(getter);
+			return getter;
 		}
 		public AbstractStepper createVariableActiveGetter() {
-			EntityGetter stepper = new EntityGetter(this, true);
-			//FIXME addSetters
-			variableGetterSet.add(stepper);
-			return stepper;
+			EntityGetter getter = new EntityGetter(this, true);
+			initSetters(getter);
+			variableGetterSet.add(getter);
+			return getter;
 		}
 
-		protected Set<IControlFlowProducer> setterSet = new HashSet<>();
-		protected Set<AbstractStepper> argumentSet = new HashSet<>();
+		protected Set<IControlFlowProducer> setterGoalSet = new HashSet<>();
+		protected Set<AbstractStepper> setterActionSet = new HashSet<>();
+
+		protected void initSetters(EntityGetter getter) {
+			setterGoalSet.forEach((setterGoal) -> {
+				getter.addCall(0, setterGoal);
+			});
+			setterActionSet.forEach((setterAction) -> {
+				setterAction.addAction(getter.getArgumentConsumer(0));
+			});
+		}
 
 		public void addSetter(AbstractStepper setter) {
-			setterSet.add(setter);
+			addCall(setter);
+			addArgumentActionTo(setter);
+		}
+		public void addCall(IControlFlowProducer setterGoal) {
+			setterGoalSet.add(setterGoal);
 
 			Consumer<EntityGetter> addSetter = (getter) -> {
-				getter.addAlternativeArgumentProducer(0, setter);
+				getter.addCall(0, setterGoal);
 			};
 			variableGetterSet.forEach(addSetter);
 			constantGetterSet.forEach(addSetter);
 		}
-		//TODO split and remove
-		public void addSetter(IControlFlowProducer setterEntry, AbstractStepper setterResult) {
-			setterSet.add(setterEntry);
-			argumentSet.add(setterResult);
+		public void addArgumentActionTo(AbstractStepper setterAction) {
+			setterActionSet.add(setterAction);
 
 			Consumer<EntityGetter> addSetter = (getter) -> {
-				getter.addAlternativeProducer(0, setterEntry);
-				setterResult.addAction(getter.getArgumentConsumer(0));
+				setterAction.addAction(getter.getArgumentConsumer(0));
 			};
 			variableGetterSet.forEach(addSetter);
 			constantGetterSet.forEach(addSetter);

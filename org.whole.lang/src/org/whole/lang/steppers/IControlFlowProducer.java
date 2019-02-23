@@ -27,6 +27,36 @@ import org.whole.lang.operations.ICloneable;
  * @author Riccardo Solmi
  */
 public interface IControlFlowProducer extends ICloneable {
+	public static final IControlFlowProducer IDENTITY = new IControlFlowProducer() {
+		public IControlFlowProducer clone() {
+			return this;
+		}
+		public IControlFlowProducer clone(ICloneContext cc) {
+			return this;
+		}
+		public IDifferentiationContext getDifferentiationContext() {
+			return null;
+		}
+
+		public IControlFlowProducer getAdded(IControlFlowProducer producer) {
+			return producer;
+		}
+
+		public void forEachExecutableProducer(Consumer<IControlFlowProducer> c) {
+		}
+
+		public void reset(IEntity entity) {
+		}
+
+		public void callNext() {
+		}		
+		public void callRemaining() {
+		}
+
+		public void toString(StringBuilder sb) {
+			// TODO Auto-generated method stub
+		}		
+	};
 	public IControlFlowProducer clone();
 	public IControlFlowProducer clone(ICloneContext cc);
 	public IDifferentiationContext getDifferentiationContext();

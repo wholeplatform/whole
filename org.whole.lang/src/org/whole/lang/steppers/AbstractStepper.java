@@ -131,20 +131,6 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 		return this;
 	};
 
-	public void addAlternativeProducer(int index, IControlFlowProducer producer) {
-		producers[index] = getProducer(index).getAdded(producer);
-	}
-	//TODO split and remove
-	public void addAlternativeArgumentProducer(int index, IControlFlowProducer producer) {
-		producers[index] = getProducer(index).getAdded(producer);
-
-		IDataFlowConsumer dfc = getArgumentConsumer(index);
-		producer.forEachExecutableProducer((cfp) -> {
-			IExecutable e = (IExecutable) cfp;
-			e.addAction(dfc);
-		});
-	}
-
 	@Override
 	public IExecutable clone() {
 		IDifferentiationContext dc = getDifferentiationContext().getNextDifferentiationContext();
@@ -385,30 +371,61 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 		return ")";
 	}
 
-	public void addCallAction(IControlFlowProducer producer) {
-		addAction(new CallAction(producer));
+	public void addCall(int index, IControlFlowProducer producer) {//WAS addGoalCall
+		producers[index] = getProducer(index).getAdded(producer);
+	}
+	public void addCall(int index, IDataFlowConsumer consumer) {//WAS addDoneCall
+		addCall(index, new DoneCall(consumer));
+	}
+
+	public void addAction(IControlFlowProducer producer) {//WAS addGoalAction
+		addAction(new GoalAction(producer));
 	}
 	public void addDoneAction(IDataFlowConsumer consumer) {
 		addAction(new DoneAction(consumer));
 	}
-	public void addDataAction(IDataFlowConsumer consumer) {
-		addAction(new DataAction(consumer));
-	}
-	public void addTesterAction(TesterDataFlowConsumer tester) {
+	public void addAction(TesterDataFlowConsumer tester) {//WAS addTesterAction
 		addFirstAction(tester);
 	}
 
+	
+	public static class DoneCall extends AbstractControlFlowProducer {
+		public IDataFlowConsumer consumer;
 
-	public static class CallAction extends AbstractDataFlowConsumer {
+		public DoneCall(IDataFlowConsumer consumer) {
+			this.consumer = consumer;
+		}
+
+		@Override
+		public void forEachExecutableProducer(Consumer<IControlFlowProducer> c) {
+		}
+
+		public void reset(IEntity entity) {
+		}
+
+		public void callNext() {
+			consumer.done();
+		}
+
+		public void callRemaining() {
+			consumer.done();
+		}
+
+		public void toString(StringBuilder sb) {
+			// TODO Auto-generated method stub
+		}
+	}
+
+	public static class GoalAction extends AbstractDataFlowConsumer {
 		public IControlFlowProducer producer;
 
-		public CallAction(IControlFlowProducer producer) {
+		public GoalAction(IControlFlowProducer producer) {
 			this.producer = producer;
 		}
 
 		@Override
 		public IDataFlowConsumer clone(ICloneContext cc) {
-			CallAction action = (CallAction) super.clone(cc);
+			GoalAction action = (GoalAction) super.clone(cc);
 			//TODO lazy clone
 			action.producer = cc.differentiate(producer);
 			return action;
@@ -446,17 +463,6 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 		@Override
 		public void done() {
 			consumer.done();
-		}
-	}
-
-	public static class DataAction extends DoneAction {
-		public DataAction(IDataFlowConsumer consumer) {
-			super(consumer);
-		}
-
-		@Override
-		public void accept(IEntity entity) {
-			consumer.accept(entity);
 		}
 	}
 
