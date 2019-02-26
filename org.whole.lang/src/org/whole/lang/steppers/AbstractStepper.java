@@ -23,6 +23,7 @@ import java.util.function.Consumer;
 
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.evaluators.AbstractEvaluator;
+import org.whole.lang.evaluators.AbstractPureConditionalSupplierEvaluator;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.CloneContext;
@@ -472,6 +473,39 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 		}
 	}
 
+	public IExecutable getExecutableArgument(int index) {
+		return new ExecutableArgument(index);
+	}
+
+	public class ExecutableArgument extends AbstractPureConditionalSupplierEvaluator {
+		protected int index;
+
+		protected ExecutableArgument() {
+			this(0);
+		}
+		public ExecutableArgument(int index) {
+			this.index = index;
+		}
+
+		@Override
+		public ExecutableArgument clone(ICloneContext cc) {
+			ExecutableArgument executableArgument = cc.differentiate(AbstractStepper.this).new ExecutableArgument();
+			cc.setClone(this, executableArgument);
+			executableArgument.index = index;
+			return executableArgument;
+		}
+
+		public IEntity get() {
+			return getArgument(index);
+		}
+
+		public void toString(StringBuilder sb) {
+			sb.append("getArgument(");
+			sb.append(index);
+			sb.append(")");
+		}
+	}
+
 	public class MutableArgumentDataFlowConsumer extends AbstractDataFlowConsumer {
 		public IEntity entity;
 
@@ -528,17 +562,18 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 	public static class ExecutableStepper extends AbstractStepper {
 		protected IExecutable executable;
 
-		public ExecutableStepper(IExecutable executable, ICloneContext cloneContext) {
+		public ExecutableStepper(ICloneContext cloneContext) {
 			super(cloneContext);
-			this.executable = executable;
 		}
-		public ExecutableStepper(IExecutable executable, IControlFlowProducer... producers) {
+		public ExecutableStepper(IControlFlowProducer... producers) {
 			super(producers);
-			this.executable = executable;
 		}
-		public ExecutableStepper(IExecutable executable, int argumentsSize) {
+		public ExecutableStepper(int argumentsSize) {
 			super(argumentsSize);
+		}
+		public ExecutableStepper withExecutable(IExecutable executable) {
 			this.executable = executable;
+			return this;
 		}
 
 		@Override
