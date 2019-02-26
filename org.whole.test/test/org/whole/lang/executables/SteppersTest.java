@@ -36,9 +36,10 @@ import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.CloneContext;
 import org.whole.lang.operations.IdentityCloneContext;
 import org.whole.lang.reflect.ReflectionFactory;
-import org.whole.lang.steppers.EntityGetter.EntityScope;
 import org.whole.lang.steppers.AbstractStepper;
+import org.whole.lang.steppers.AbstractStepper.ExecutableStepper;
 import org.whole.lang.steppers.AbstractStepper.StepperState;
+import org.whole.lang.steppers.EntityGetter.EntityScope;
 import org.whole.lang.steppers.IDifferentiationContext;
 import org.whole.lang.steppers.TesterDataFlowConsumer;
 import org.whole.lang.steppers.TesterDataFlowConsumer.Event;
@@ -113,6 +114,28 @@ public class SteppersTest {
 				return VALUES[2];
 			}
 		};
+		AbstractStepper addStepper = new AbstractStepper(arg0Stepper, arg1Stepper) {
+			public IEntity doEvaluateNext() {
+				return bmf.createValue(getArgument(0).wIntValue() + getArgument(1).wIntValue());
+			}
+		};
+		addStepper.addAction(c);
+		addStepper.setBindings(bmf.createBindingManager());
+		addStepper.reset(VALUES[0]);
+
+		c.setExpectedValues(VALUES[3]);
+    	c.setExpectedEvents(Event.NEXT);
+    	addStepper.callNext();
+		assertSame(StepperState.ACTION, addStepper.getState());
+	}
+
+	@Test
+	public void testExecutableStepperWithArguments() {
+		TesterDataFlowConsumer c = new TesterDataFlowConsumer();
+ 		
+		AbstractStepper arg0Stepper = new ExecutableStepper(f.createConstant(VALUES[1], false));
+		AbstractStepper arg1Stepper = new ExecutableStepper(f.createConstant(VALUES[2], false));
+
 		AbstractStepper addStepper = new AbstractStepper(arg0Stepper, arg1Stepper) {
 			public IEntity doEvaluateNext() {
 				return bmf.createValue(getArgument(0).wIntValue() + getArgument(1).wIntValue());
@@ -358,6 +381,52 @@ public class SteppersTest {
 		//TODO clone getter and setters and reapply the test
 		
 	}
+//	@Test
+//	public void testEntityStepper() {
+//		AbstractStepper setter = new AbstractStepper() {
+//			public IEntity doEvaluateNext() {
+//				return VALUES[3];
+//			}
+//		};
+//
+//		EntityScope ec = new EntityScope();//VALUES[3]);
+//		AbstractStepper cg = ec.createConstantPassiveGetter();
+//		
+//		ec.addSetter(setter);
+//
+//		AbstractStepper vg = ec.createVariablePassiveGetter();
+//		AbstractStepper cs = ec.createConstantActiveGetter();
+//		AbstractStepper vs = ec.createVariableActiveGetter();
+//
+////		ec.callNext();
+//
+//		cg.callNext();
+//		assertSame(StepperState.CALL, cg.getState());
+//		vg.callNext();
+//		assertSame(StepperState.CALL, vg.getState());
+//
+////		vs.setArgument(0, VALUES[2]);
+//		assertSame(VALUES[3], vs.evaluateNext());
+//		
+//		assertSame(VALUES[3], cg.evaluateNext());
+//		assertSame(VALUES[3], vg.evaluateNext());
+//
+////		vs.setArgument(0, VALUES[2]);
+////		assertSame(VALUES[2], vs.evaluateNext());
+//
+////		assertSame(VALUES[2], vg.evaluateNext());
+////		assertSame(VALUES[3], cg.evaluateNext());
+//
+//		cs.setArgument(0, VALUES[4]);
+//		assertSame(VALUES[3], cs.evaluateNext());
+//
+//		assertSame(VALUES[3], cg.evaluateNext());
+//		assertSame(VALUES[2], vg.evaluateNext());
+//		
+//		//TODO clone getter and setters and reapply the test
+//		
+//	}
+
 
 	@Test
 	public void testVariableScope() {

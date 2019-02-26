@@ -34,7 +34,6 @@ public class EntityGetter extends AbstractStepper {
 
 	public EntityGetter(EntityScope scope, boolean active) {
 		super(active ? 1 : 0);
-		withProducers(IControlFlowProducer.IDENTITY);
 		this.entityScope = scope;
 	}
 
@@ -68,6 +67,7 @@ public class EntityGetter extends AbstractStepper {
 
 	@Override
 	public boolean areAllArgumentsAvailable() {
+//		return getEntityScope().entity != null || (isActive() && super.areAllArgumentsAvailable());
 		return super.areAllArgumentsAvailable() && getEntityScope().entity != null;
 	}
 
@@ -143,9 +143,9 @@ public class EntityGetter extends AbstractStepper {
 		}
 
 		public IEntity setNestedEntity(IEntity entity) {
-//			if (this.entity == null)
-//				return this.entity = entity;
-//			else
+			if (this.entity == null)
+				return setEntity(entity); //FIXME recursive call to the running active getter 
+			else
 				return getNestedScope().setEntity(entity);
 		}
 		public IEntity setEntity(IEntity entity) {

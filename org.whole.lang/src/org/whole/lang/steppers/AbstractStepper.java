@@ -17,9 +17,11 @@
  */
 package org.whole.lang.steppers;
 
+import java.util.Arrays;
 import java.util.BitSet;
 import java.util.function.Consumer;
 
+import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.evaluators.AbstractEvaluator;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
@@ -372,7 +374,11 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 	}
 
 	public void addCall(int index, IControlFlowProducer producer) {//WAS addGoalCall
-		producers[index] = getProducer(index).getAdded(producer);
+		if (index == producersSize()) {
+			producers = Arrays.copyOf(producers, producers.length+1);
+			producers[index] = producer;
+		} else
+			producers[index] = getProducer(index).getAdded(producer);
 	}
 	public void addCall(int index, IDataFlowConsumer consumer) {//WAS addDoneCall
 		addCall(index, new DoneCall(consumer));
@@ -516,5 +522,64 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 
 	public static enum ConnectionKind {
 		DIFFERENTIATING, INTEGRATING
+	}
+
+	
+	public static class ExecutableStepper extends AbstractStepper {
+		protected IExecutable executable;
+
+		public ExecutableStepper(IExecutable executable, ICloneContext cloneContext) {
+			super(cloneContext);
+			this.executable = executable;
+		}
+		public ExecutableStepper(IExecutable executable, IControlFlowProducer... producers) {
+			super(producers);
+			this.executable = executable;
+		}
+		public ExecutableStepper(IExecutable executable, int argumentsSize) {
+			super(argumentsSize);
+			this.executable = executable;
+		}
+
+		@Override
+		public IExecutable clone(ICloneContext cc) {
+			ExecutableStepper stepper = (ExecutableStepper) super.clone(cc);
+			stepper.executable = null;
+			return stepper;
+		}
+
+		@Override
+		public void reset(IEntity entity) {
+			super.reset(entity);
+
+			if (executable != null)
+				executable.reset(selfEntity);
+		}
+
+		@Override
+		protected void setProducersBindings(IBindingManager bindings) {
+			super.setProducersBindings(bindings);
+
+			if (executable != null)
+				executable.setBindings(getBindings());
+		}
+		
+		protected IExecutable getExecutable() {
+			if (executable == null) {
+				executable = cloneContext.differentiate(((ExecutableStepper) prototype).getExecutable());
+				executable.setBindings(getBindings());
+				executable.reset(selfEntity);
+			}
+			return executable;
+		}
+
+		public IEntity doEvaluateNext() {
+			return getExecutable().evaluateNext();
+		}
+
+		//FIXME add call in callRemaining
+		public IEntity doEvaluateRemaining() {
+			return getExecutable().evaluateRemaining();
+		}
 	}
 }
