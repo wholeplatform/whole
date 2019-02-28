@@ -1,0 +1,361 @@
+<?xml version="1.0"?>
+<models:Model xmlns:models="http://lang.whole.org/Models">
+    <models:SimpleName value="Steppers"/>
+    <models:TypeRelations initialCapacity="2">
+        <models:TypeAliasOf>
+            <models:SimpleName value="Expression"/>
+            <models:EntityType value="http://lang.whole.org/Queries#Expression"/>
+        </models:TypeAliasOf>
+        <models:TypeAliasOf>
+            <models:SimpleName value="Declaration"/>
+            <models:EntityType value="whole:org.whole.lang.patterns:PatternsModel#Declaration"/>
+        </models:TypeAliasOf>
+    </models:TypeRelations>
+    <models:ModelDeclarations initialCapacity="23">
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="1">
+                <models:EntityModifier value="abstract"/>
+            </models:EntityModifiers>
+            <models:SimpleName value="Expression"/>
+            <models:Types initialCapacity="0"/>
+            <models:Features initialCapacity="0"/>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="StepperApplication"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Expression"/>
+            </models:Types>
+            <models:Features initialCapacity="2">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="CallFlow"/>
+                    <models:SimpleName value="goals"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="CallFlow"/>
+                    <models:SimpleName value="arguments"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:DataEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="Argument"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Expression"/>
+            </models:Types>
+            <models:DataType value="int"/>
+        </models:DataEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="1">
+                <models:EntityModifier value="abstract"/>
+            </models:EntityModifiers>
+            <models:SimpleName value="Stepper"/>
+            <models:Types initialCapacity="5">
+                <models:SimpleName value="Expression"/>
+                <models:SimpleName value="GoalFlow"/>
+                <models:SimpleName value="CallFlow"/>
+                <models:SimpleName value="ArgumentFlow"/>
+                <models:SimpleName value="ActionFlow"/>
+            </models:Types>
+            <models:Features initialCapacity="0"/>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="1">
+                <models:EntityModifier value="abstract"/>
+            </models:EntityModifiers>
+            <models:SimpleName value="Declaration"/>
+            <models:Types initialCapacity="0"/>
+            <models:Features initialCapacity="0"/>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="StepperDeclaration"/>
+            <models:Types initialCapacity="2">
+                <models:SimpleName value="Stepper"/>
+                <models:SimpleName value="Declaration"/>
+            </models:Types>
+            <models:Features initialCapacity="6">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="Name"/>
+                    <models:SimpleName value="name"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="GoalFlow"/>
+                    <models:SimpleName value="goals"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="CallFlow"/>
+                    <models:SimpleName value="calls"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="ArgumentFlow"/>
+                    <models:SimpleName value="arguments"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="ActionFlow"/>
+                    <models:SimpleName value="actions"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="Expression"/>
+                    <models:SimpleName value="expression"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:DataEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="StepperReference"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Stepper"/>
+            </models:Types>
+            <models:DataType value="String"/>
+        </models:DataEntity>
+        <models:DataEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="Name"/>
+            <models:Types initialCapacity="0"/>
+            <models:DataType value="String"/>
+        </models:DataEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="Target"/>
+            <models:Types initialCapacity="2">
+                <models:SimpleName value="GoalFlow"/>
+                <models:SimpleName value="ArgumentFlow"/>
+            </models:Types>
+            <models:Features initialCapacity="0"/>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="1">
+                <models:EntityModifier value="abstract"/>
+            </models:EntityModifiers>
+            <models:SimpleName value="CallFlow"/>
+            <models:Types initialCapacity="0"/>
+            <models:Features initialCapacity="0"/>
+        </models:SimpleEntity>
+        <models:CompositeEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="Calls"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="CallFlow"/>
+            </models:Types>
+            <models:ComponentModifiers initialCapacity="1">
+                <models:ComponentModifier value="ordered"/>
+            </models:ComponentModifiers>
+            <models:SimpleName value="CallFlow"/>
+        </models:CompositeEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="CallBranch"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="CallFlow"/>
+            </models:Types>
+            <models:Features initialCapacity="2">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="CallFlow"/>
+                    <models:SimpleName value="goals"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="CallFlow"/>
+                    <models:SimpleName value="arguments"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="1">
+                <models:EntityModifier value="abstract"/>
+            </models:EntityModifiers>
+            <models:SimpleName value="ActionFlow"/>
+            <models:Types initialCapacity="0"/>
+            <models:Features initialCapacity="0"/>
+        </models:SimpleEntity>
+        <models:CompositeEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="Actions"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="ActionFlow"/>
+            </models:Types>
+            <models:ComponentModifiers initialCapacity="1">
+                <models:ComponentModifier value="ordered"/>
+            </models:ComponentModifiers>
+            <models:SimpleName value="ActionFlow"/>
+        </models:CompositeEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="ActionBranch"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="ActionFlow"/>
+            </models:Types>
+            <models:Features initialCapacity="2">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="ActionFlow"/>
+                    <models:SimpleName value="goals"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="ActionFlow"/>
+                    <models:SimpleName value="arguments"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="1">
+                <models:EntityModifier value="abstract"/>
+            </models:EntityModifiers>
+            <models:SimpleName value="GoalFlow"/>
+            <models:Types initialCapacity="0"/>
+            <models:Features initialCapacity="0"/>
+        </models:SimpleEntity>
+        <models:CompositeEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="AndGoals"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="GoalFlow"/>
+            </models:Types>
+            <models:ComponentModifiers initialCapacity="1">
+                <models:ComponentModifier value="ordered"/>
+            </models:ComponentModifiers>
+            <models:SimpleName value="GoalFlow"/>
+        </models:CompositeEntity>
+        <models:CompositeEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="OrGoals"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="GoalFlow"/>
+            </models:Types>
+            <models:ComponentModifiers initialCapacity="1">
+                <models:ComponentModifier value="ordered"/>
+            </models:ComponentModifiers>
+            <models:SimpleName value="GoalFlow"/>
+        </models:CompositeEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="GoalBranch"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="GoalFlow"/>
+            </models:Types>
+            <models:Features initialCapacity="2">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="GoalFlow"/>
+                    <models:SimpleName value="calls"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="GoalFlow"/>
+                    <models:SimpleName value="actions"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="1">
+                <models:EntityModifier value="abstract"/>
+            </models:EntityModifiers>
+            <models:SimpleName value="ArgumentFlow"/>
+            <models:Types initialCapacity="0"/>
+            <models:Features initialCapacity="0"/>
+        </models:SimpleEntity>
+        <models:CompositeEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="AndArgument"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="ArgumentFlow"/>
+            </models:Types>
+            <models:ComponentModifiers initialCapacity="1">
+                <models:ComponentModifier value="ordered"/>
+            </models:ComponentModifiers>
+            <models:SimpleName value="ArgumentFlow"/>
+        </models:CompositeEntity>
+        <models:CompositeEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="OrArgument"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="ArgumentFlow"/>
+            </models:Types>
+            <models:ComponentModifiers initialCapacity="1">
+                <models:ComponentModifier value="ordered"/>
+            </models:ComponentModifiers>
+            <models:SimpleName value="ArgumentFlow"/>
+        </models:CompositeEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="ArgumentBranch"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="ArgumentFlow"/>
+            </models:Types>
+            <models:Features initialCapacity="2">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="ArgumentFlow"/>
+                    <models:SimpleName value="calls"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="ArgumentFlow"/>
+                    <models:SimpleName value="actions"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+    </models:ModelDeclarations>
+    <models:Namespace value="org.whole.lang.steppers"/>
+    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    <models:URI value="whole:org.whole.lang.steppers:SteppersModel"/>
+</models:Model>

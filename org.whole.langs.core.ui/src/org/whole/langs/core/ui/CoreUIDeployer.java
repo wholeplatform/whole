@@ -42,6 +42,7 @@ import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.reusables.ui.ReusablesUIDeployer;
 import org.whole.lang.semantics.ui.SemanticsUIDeployer;
 import org.whole.lang.status.ui.StatusUIDeployer;
+import org.whole.lang.steppers.ui.SteppersUIDeployer;
 import org.whole.lang.syntaxtrees.ui.SyntaxTreesEditorKit;
 import org.whole.lang.templates.ui.TemplatesUIDeployer;
 import org.whole.lang.tests.ui.TestsUIDeployer;
@@ -80,6 +81,7 @@ public class CoreUIDeployer extends AbstractSuiteDeployer {
 			ReusablesUIDeployer.class,
 			SemanticsUIDeployer.class,
 			StatusUIDeployer.class,
+			SteppersUIDeployer.class,
 			TemplatesUIDeployer.class,
 			TestsUIDeployer.class,
 			TypesUIDeployer.class,

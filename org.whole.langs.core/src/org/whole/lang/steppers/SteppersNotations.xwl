@@ -1,0 +1,963 @@
+<?xml version="1.0"?>
+<gefnotationspatterns:Notation xmlns:gefnotationspatterns="whole:org.whole.lang.gef:GEFNotationsPatternsModel:2">
+    <models:Namespace xmlns:models="http://lang.whole.org/Models" value="org.whole.lang.steppers.ui"/>
+    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Steppers"/>
+    <models:Namespace xmlns:models="http://lang.whole.org/Models" value="org.whole.lang.steppers"/>
+    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Steppers"/>
+    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Steppers Notations"/>
+    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    <gefnotationspatterns:Parts initialCapacity="16">
+        <gefnotationspatterns:ContentPanePart>
+            <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="StepperApplication"/>
+            <gefnotationspatterns:ContentPaneFigure>
+                <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="StepperApplication"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <gefnotationspatterns:Layout>
+                    <gefnotationspatterns:ColumnLayout>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <gefnotationspatterns:Figures initialCapacity="4">
+                            <gefnotationspatterns:RowLayout>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <java:IntLiteral xmlns:java="http://lang.whole.org/Java" value="4"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <gefnotationspatterns:Figures initialCapacity="2">
+                                    <gefnotationspatterns:Label>
+                                        <gefnotationspatterns:LabelStyle value="Keyword"/>
+                                        <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value="StepperApplication"/>
+                                    </gefnotationspatterns:Label>
+                                    <gefnotationspatterns:Label>
+                                        <gefnotationspatterns:LabelStyle value="ContentLighter"/>
+                                        <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value="{"/>
+                                    </gefnotationspatterns:Label>
+                                </gefnotationspatterns:Figures>
+                            </gefnotationspatterns:RowLayout>
+                            <gefnotationspatterns:RowLayout>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <java:IntLiteral xmlns:java="http://lang.whole.org/Java" value="4"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <gefnotationspatterns:Figures initialCapacity="3">
+                                    <gefnotationspatterns:Label>
+                                        <gefnotationspatterns:LabelStyle value="Content"/>
+                                        <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value="goals"/>
+                                    </gefnotationspatterns:Label>
+                                    <gefnotationspatterns:Label>
+                                        <gefnotationspatterns:LabelStyle value="ContentLight"/>
+                                        <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value=":"/>
+                                    </gefnotationspatterns:Label>
+                                    <gefnotationspatterns:FeaturePlaceholder>
+                                        <java:IntLiteral xmlns:java="http://lang.whole.org/Java" value="0"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </gefnotationspatterns:FeaturePlaceholder>
+                                </gefnotationspatterns:Figures>
+                            </gefnotationspatterns:RowLayout>
+                            <gefnotationspatterns:RowLayout>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <java:IntLiteral xmlns:java="http://lang.whole.org/Java" value="4"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <gefnotationspatterns:Figures initialCapacity="3">
+                                    <gefnotationspatterns:Label>
+                                        <gefnotationspatterns:LabelStyle value="Content"/>
+                                        <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value="arguments"/>
+                                    </gefnotationspatterns:Label>
+                                    <gefnotationspatterns:Label>
+                                        <gefnotationspatterns:LabelStyle value="ContentLight"/>
+                                        <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value=":"/>
+                                    </gefnotationspatterns:Label>
+                                    <gefnotationspatterns:FeaturePlaceholder>
+                                        <java:IntLiteral xmlns:java="http://lang.whole.org/Java" value="1"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </gefnotationspatterns:FeaturePlaceholder>
+                                </gefnotationspatterns:Figures>
+                            </gefnotationspatterns:RowLayout>
+                            <gefnotationspatterns:Label>
+                                <gefnotationspatterns:LabelStyle value="ContentLighter"/>
+                                <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value="}"/>
+                            </gefnotationspatterns:Label>
+                        </gefnotationspatterns:Figures>
+                    </gefnotationspatterns:ColumnLayout>
+                </gefnotationspatterns:Layout>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            </gefnotationspatterns:ContentPaneFigure>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <gefnotationspatterns:Features initialCapacity="2">
+                <gefnotationspatterns:Feature>
+                    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="goals"/>
+                </gefnotationspatterns:Feature>
+                <gefnotationspatterns:Feature>
+                    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="arguments"/>
+                </gefnotationspatterns:Feature>
+            </gefnotationspatterns:Features>
+        </gefnotationspatterns:ContentPanePart>
+        <gefnotationspatterns:DataPart>
+            <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Argument"/>
+            <gefnotationspatterns:EditingStyle value="DATA"/>
+            <gefnotationspatterns:Label>
+                <gefnotationspatterns:LabelStyle value="Content"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            </gefnotationspatterns:Label>
+        </gefnotationspatterns:DataPart>
+        <gefnotationspatterns:ContentPanePart>
+            <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="StepperDeclaration"/>
+            <gefnotationspatterns:ContentPaneFigure>
+                <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="StepperDeclaration"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <gefnotationspatterns:Layout>
+                    <gefnotationspatterns:ColumnLayout>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <gefnotationspatterns:Figures initialCapacity="8">
+                            <gefnotationspatterns:RowLayout>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <java:IntLiteral xmlns:java="http://lang.whole.org/Java" value="4"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <gefnotationspatterns:Figures initialCapacity="2">
+                                    <gefnotationspatterns:Label>
+                                        <gefnotationspatterns:LabelStyle value="Keyword"/>
+                                        <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value="StepperDeclaration"/>
+                                    </gefnotationspatterns:Label>
+                                    <gefnotationspatterns:Label>
+                                        <gefnotationspatterns:LabelStyle value="ContentLighter"/>
+                                        <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value="{"/>
+                                    </gefnotationspatterns:Label>
+                                </gefnotationspatterns:Figures>
+                            </gefnotationspatterns:RowLayout>
+                            <gefnotationspatterns:RowLayout>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <java:IntLiteral xmlns:java="http://lang.whole.org/Java" value="4"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <gefnotationspatterns:Figures initialCapacity="3">
+                                    <gefnotationspatterns:Label>
+                                        <gefnotationspatterns:LabelStyle value="Content"/>
+                                        <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value="name"/>
+                                    </gefnotationspatterns:Label>
+                                    <gefnotationspatterns:Label>
+                                        <gefnotationspatterns:LabelStyle value="ContentLight"/>
+                                        <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value=":"/>
+                                    </gefnotationspatterns:Label>
+                                    <gefnotationspatterns:FeaturePlaceholder>
+                                        <java:IntLiteral xmlns:java="http://lang.whole.org/Java" value="0"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </gefnotationspatterns:FeaturePlaceholder>
+                                </gefnotationspatterns:Figures>
+                            </gefnotationspatterns:RowLayout>
+                            <gefnotationspatterns:RowLayout>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <java:IntLiteral xmlns:java="http://lang.whole.org/Java" value="4"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <gefnotationspatterns:Figures initialCapacity="3">
+                                    <gefnotationspatterns:Label>
+                                        <gefnotationspatterns:LabelStyle value="Content"/>
+                                        <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value="goals"/>
+                                    </gefnotationspatterns:Label>
+                                    <gefnotationspatterns:Label>
+                                        <gefnotationspatterns:LabelStyle value="ContentLight"/>
+                                        <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value=":"/>
+                                    </gefnotationspatterns:Label>
+                                    <gefnotationspatterns:FeaturePlaceholder>
+                                        <java:IntLiteral xmlns:java="http://lang.whole.org/Java" value="1"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </gefnotationspatterns:FeaturePlaceholder>
+                                </gefnotationspatterns:Figures>
+                            </gefnotationspatterns:RowLayout>
+                            <gefnotationspatterns:RowLayout>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <java:IntLiteral xmlns:java="http://lang.whole.org/Java" value="4"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <gefnotationspatterns:Figures initialCapacity="3">
+                                    <gefnotationspatterns:Label>
+                                        <gefnotationspatterns:LabelStyle value="Content"/>
+                                        <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value="calls"/>
+                                    </gefnotationspatterns:Label>
+                                    <gefnotationspatterns:Label>
+                                        <gefnotationspatterns:LabelStyle value="ContentLight"/>
+                                        <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value=":"/>
+                                    </gefnotationspatterns:Label>
+                                    <gefnotationspatterns:FeaturePlaceholder>
+                                        <java:IntLiteral xmlns:java="http://lang.whole.org/Java" value="2"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </gefnotationspatterns:FeaturePlaceholder>
+                                </gefnotationspatterns:Figures>
+                            </gefnotationspatterns:RowLayout>
+                            <gefnotationspatterns:RowLayout>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <java:IntLiteral xmlns:java="http://lang.whole.org/Java" value="4"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <gefnotationspatterns:Figures initialCapacity="3">
+                                    <gefnotationspatterns:Label>
+                                        <gefnotationspatterns:LabelStyle value="Content"/>
+                                        <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value="arguments"/>
+                                    </gefnotationspatterns:Label>
+                                    <gefnotationspatterns:Label>
+                                        <gefnotationspatterns:LabelStyle value="ContentLight"/>
+                                        <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value=":"/>
+                                    </gefnotationspatterns:Label>
+                                    <gefnotationspatterns:FeaturePlaceholder>
+                                        <java:IntLiteral xmlns:java="http://lang.whole.org/Java" value="3"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </gefnotationspatterns:FeaturePlaceholder>
+                                </gefnotationspatterns:Figures>
+                            </gefnotationspatterns:RowLayout>
+                            <gefnotationspatterns:RowLayout>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <java:IntLiteral xmlns:java="http://lang.whole.org/Java" value="4"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <gefnotationspatterns:Figures initialCapacity="3">
+                                    <gefnotationspatterns:Label>
+                                        <gefnotationspatterns:LabelStyle value="Content"/>
+                                        <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value="actions"/>
+                                    </gefnotationspatterns:Label>
+                                    <gefnotationspatterns:Label>
+                                        <gefnotationspatterns:LabelStyle value="ContentLight"/>
+                                        <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value=":"/>
+                                    </gefnotationspatterns:Label>
+                                    <gefnotationspatterns:FeaturePlaceholder>
+                                        <java:IntLiteral xmlns:java="http://lang.whole.org/Java" value="4"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </gefnotationspatterns:FeaturePlaceholder>
+                                </gefnotationspatterns:Figures>
+                            </gefnotationspatterns:RowLayout>
+                            <gefnotationspatterns:RowLayout>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <java:IntLiteral xmlns:java="http://lang.whole.org/Java" value="4"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <gefnotationspatterns:Figures initialCapacity="3">
+                                    <gefnotationspatterns:Label>
+                                        <gefnotationspatterns:LabelStyle value="Content"/>
+                                        <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value="expression"/>
+                                    </gefnotationspatterns:Label>
+                                    <gefnotationspatterns:Label>
+                                        <gefnotationspatterns:LabelStyle value="ContentLight"/>
+                                        <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value=":"/>
+                                    </gefnotationspatterns:Label>
+                                    <gefnotationspatterns:FeaturePlaceholder>
+                                        <java:IntLiteral xmlns:java="http://lang.whole.org/Java" value="5"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </gefnotationspatterns:FeaturePlaceholder>
+                                </gefnotationspatterns:Figures>
+                            </gefnotationspatterns:RowLayout>
+                            <gefnotationspatterns:Label>
+                                <gefnotationspatterns:LabelStyle value="ContentLighter"/>
+                                <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value="}"/>
+                            </gefnotationspatterns:Label>
+                        </gefnotationspatterns:Figures>
+                    </gefnotationspatterns:ColumnLayout>
+                </gefnotationspatterns:Layout>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            </gefnotationspatterns:ContentPaneFigure>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <gefnotationspatterns:Features initialCapacity="6">
+                <gefnotationspatterns:Feature>
+                    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="name"/>
+                </gefnotationspatterns:Feature>
+                <gefnotationspatterns:Feature>
+                    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="goals"/>
+                </gefnotationspatterns:Feature>
+                <gefnotationspatterns:Feature>
+                    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="calls"/>
+                </gefnotationspatterns:Feature>
+                <gefnotationspatterns:Feature>
+                    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="arguments"/>
+                </gefnotationspatterns:Feature>
+                <gefnotationspatterns:Feature>
+                    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="actions"/>
+                </gefnotationspatterns:Feature>
+                <gefnotationspatterns:Feature>
+                    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="expression"/>
+                </gefnotationspatterns:Feature>
+            </gefnotationspatterns:Features>
+        </gefnotationspatterns:ContentPanePart>
+        <gefnotationspatterns:DataPart>
+            <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="StepperReference"/>
+            <gefnotationspatterns:EditingStyle value="TEXT"/>
+            <gefnotationspatterns:Label>
+                <gefnotationspatterns:LabelStyle value="Content"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            </gefnotationspatterns:Label>
+        </gefnotationspatterns:DataPart>
+        <gefnotationspatterns:DataPart>
+            <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Name"/>
+            <gefnotationspatterns:EditingStyle value="TEXT"/>
+            <gefnotationspatterns:Label>
+                <gefnotationspatterns:LabelStyle value="Content"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            </gefnotationspatterns:Label>
+        </gefnotationspatterns:DataPart>
+        <gefnotationspatterns:LabelPart>
+            <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Target"/>
+            <gefnotationspatterns:Label>
+                <gefnotationspatterns:LabelStyle value="Keyword"/>
+                <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value="Target"/>
+            </gefnotationspatterns:Label>
+        </gefnotationspatterns:LabelPart>
+        <gefnotationspatterns:CompositePart>
+            <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Calls"/>
+            <gefnotationspatterns:CompositeFigure>
+                <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Calls"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <java:Block xmlns:java="http://lang.whole.org/Java" initialCapacity="1">
+                    <java:SuperConstructorInvocation>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <java:Types initialCapacity="0"/>
+                        <java:Arguments initialCapacity="1">
+                            <java:BooleanLiteral value="false"/>
+                        </java:Arguments>
+                    </java:SuperConstructorInvocation>
+                </java:Block>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            </gefnotationspatterns:CompositeFigure>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        </gefnotationspatterns:CompositePart>
+        <gefnotationspatterns:ContentPanePart>
+            <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="CallBranch"/>
+            <gefnotationspatterns:ContentPaneFigure>
+                <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="CallBranch"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <gefnotationspatterns:Layout>
+                    <gefnotationspatterns:ColumnLayout>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <gefnotationspatterns:Figures initialCapacity="4">
+                            <gefnotationspatterns:RowLayout>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <java:IntLiteral xmlns:java="http://lang.whole.org/Java" value="4"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <gefnotationspatterns:Figures initialCapacity="2">
+                                    <gefnotationspatterns:Label>
+                                        <gefnotationspatterns:LabelStyle value="Keyword"/>
+                                        <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value="CallBranch"/>
+                                    </gefnotationspatterns:Label>
+                                    <gefnotationspatterns:Label>
+                                        <gefnotationspatterns:LabelStyle value="ContentLighter"/>
+                                        <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value="{"/>
+                                    </gefnotationspatterns:Label>
+                                </gefnotationspatterns:Figures>
+                            </gefnotationspatterns:RowLayout>
+                            <gefnotationspatterns:RowLayout>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <java:IntLiteral xmlns:java="http://lang.whole.org/Java" value="4"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <gefnotationspatterns:Figures initialCapacity="3">
+                                    <gefnotationspatterns:Label>
+                                        <gefnotationspatterns:LabelStyle value="Content"/>
+                                        <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value="goals"/>
+                                    </gefnotationspatterns:Label>
+                                    <gefnotationspatterns:Label>
+                                        <gefnotationspatterns:LabelStyle value="ContentLight"/>
+                                        <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value=":"/>
+                                    </gefnotationspatterns:Label>
+                                    <gefnotationspatterns:FeaturePlaceholder>
+                                        <java:IntLiteral xmlns:java="http://lang.whole.org/Java" value="0"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </gefnotationspatterns:FeaturePlaceholder>
+                                </gefnotationspatterns:Figures>
+                            </gefnotationspatterns:RowLayout>
+                            <gefnotationspatterns:RowLayout>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <java:IntLiteral xmlns:java="http://lang.whole.org/Java" value="4"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <gefnotationspatterns:Figures initialCapacity="3">
+                                    <gefnotationspatterns:Label>
+                                        <gefnotationspatterns:LabelStyle value="Content"/>
+                                        <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value="arguments"/>
+                                    </gefnotationspatterns:Label>
+                                    <gefnotationspatterns:Label>
+                                        <gefnotationspatterns:LabelStyle value="ContentLight"/>
+                                        <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value=":"/>
+                                    </gefnotationspatterns:Label>
+                                    <gefnotationspatterns:FeaturePlaceholder>
+                                        <java:IntLiteral xmlns:java="http://lang.whole.org/Java" value="1"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </gefnotationspatterns:FeaturePlaceholder>
+                                </gefnotationspatterns:Figures>
+                            </gefnotationspatterns:RowLayout>
+                            <gefnotationspatterns:Label>
+                                <gefnotationspatterns:LabelStyle value="ContentLighter"/>
+                                <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value="}"/>
+                            </gefnotationspatterns:Label>
+                        </gefnotationspatterns:Figures>
+                    </gefnotationspatterns:ColumnLayout>
+                </gefnotationspatterns:Layout>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            </gefnotationspatterns:ContentPaneFigure>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <gefnotationspatterns:Features initialCapacity="2">
+                <gefnotationspatterns:Feature>
+                    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="goals"/>
+                </gefnotationspatterns:Feature>
+                <gefnotationspatterns:Feature>
+                    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="arguments"/>
+                </gefnotationspatterns:Feature>
+            </gefnotationspatterns:Features>
+        </gefnotationspatterns:ContentPanePart>
+        <gefnotationspatterns:CompositePart>
+            <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Actions"/>
+            <gefnotationspatterns:CompositeFigure>
+                <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Actions"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <java:Block xmlns:java="http://lang.whole.org/Java" initialCapacity="1">
+                    <java:SuperConstructorInvocation>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <java:Types initialCapacity="0"/>
+                        <java:Arguments initialCapacity="1">
+                            <java:BooleanLiteral value="false"/>
+                        </java:Arguments>
+                    </java:SuperConstructorInvocation>
+                </java:Block>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            </gefnotationspatterns:CompositeFigure>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        </gefnotationspatterns:CompositePart>
+        <gefnotationspatterns:ContentPanePart>
+            <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="ActionBranch"/>
+            <gefnotationspatterns:ContentPaneFigure>
+                <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="ActionBranch"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <gefnotationspatterns:Layout>
+                    <gefnotationspatterns:ColumnLayout>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <gefnotationspatterns:Figures initialCapacity="4">
+                            <gefnotationspatterns:RowLayout>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <java:IntLiteral xmlns:java="http://lang.whole.org/Java" value="4"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <gefnotationspatterns:Figures initialCapacity="2">
+                                    <gefnotationspatterns:Label>
+                                        <gefnotationspatterns:LabelStyle value="Keyword"/>
+                                        <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value="ActionBranch"/>
+                                    </gefnotationspatterns:Label>
+                                    <gefnotationspatterns:Label>
+                                        <gefnotationspatterns:LabelStyle value="ContentLighter"/>
+                                        <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value="{"/>
+                                    </gefnotationspatterns:Label>
+                                </gefnotationspatterns:Figures>
+                            </gefnotationspatterns:RowLayout>
+                            <gefnotationspatterns:RowLayout>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <java:IntLiteral xmlns:java="http://lang.whole.org/Java" value="4"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <gefnotationspatterns:Figures initialCapacity="3">
+                                    <gefnotationspatterns:Label>
+                                        <gefnotationspatterns:LabelStyle value="Content"/>
+                                        <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value="goals"/>
+                                    </gefnotationspatterns:Label>
+                                    <gefnotationspatterns:Label>
+                                        <gefnotationspatterns:LabelStyle value="ContentLight"/>
+                                        <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value=":"/>
+                                    </gefnotationspatterns:Label>
+                                    <gefnotationspatterns:FeaturePlaceholder>
+                                        <java:IntLiteral xmlns:java="http://lang.whole.org/Java" value="0"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </gefnotationspatterns:FeaturePlaceholder>
+                                </gefnotationspatterns:Figures>
+                            </gefnotationspatterns:RowLayout>
+                            <gefnotationspatterns:RowLayout>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <java:IntLiteral xmlns:java="http://lang.whole.org/Java" value="4"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <gefnotationspatterns:Figures initialCapacity="3">
+                                    <gefnotationspatterns:Label>
+                                        <gefnotationspatterns:LabelStyle value="Content"/>
+                                        <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value="arguments"/>
+                                    </gefnotationspatterns:Label>
+                                    <gefnotationspatterns:Label>
+                                        <gefnotationspatterns:LabelStyle value="ContentLight"/>
+                                        <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value=":"/>
+                                    </gefnotationspatterns:Label>
+                                    <gefnotationspatterns:FeaturePlaceholder>
+                                        <java:IntLiteral xmlns:java="http://lang.whole.org/Java" value="1"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </gefnotationspatterns:FeaturePlaceholder>
+                                </gefnotationspatterns:Figures>
+                            </gefnotationspatterns:RowLayout>
+                            <gefnotationspatterns:Label>
+                                <gefnotationspatterns:LabelStyle value="ContentLighter"/>
+                                <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value="}"/>
+                            </gefnotationspatterns:Label>
+                        </gefnotationspatterns:Figures>
+                    </gefnotationspatterns:ColumnLayout>
+                </gefnotationspatterns:Layout>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            </gefnotationspatterns:ContentPaneFigure>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <gefnotationspatterns:Features initialCapacity="2">
+                <gefnotationspatterns:Feature>
+                    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="goals"/>
+                </gefnotationspatterns:Feature>
+                <gefnotationspatterns:Feature>
+                    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="arguments"/>
+                </gefnotationspatterns:Feature>
+            </gefnotationspatterns:Features>
+        </gefnotationspatterns:ContentPanePart>
+        <gefnotationspatterns:CompositePart>
+            <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="AndGoals"/>
+            <gefnotationspatterns:CompositeFigure>
+                <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="AndGoals"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <java:Block xmlns:java="http://lang.whole.org/Java" initialCapacity="1">
+                    <java:SuperConstructorInvocation>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <java:Types initialCapacity="0"/>
+                        <java:Arguments initialCapacity="1">
+                            <java:BooleanLiteral value="false"/>
+                        </java:Arguments>
+                    </java:SuperConstructorInvocation>
+                </java:Block>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            </gefnotationspatterns:CompositeFigure>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        </gefnotationspatterns:CompositePart>
+        <gefnotationspatterns:CompositePart>
+            <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="OrGoals"/>
+            <gefnotationspatterns:CompositeFigure>
+                <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="OrGoals"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <java:Block xmlns:java="http://lang.whole.org/Java" initialCapacity="1">
+                    <java:SuperConstructorInvocation>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <java:Types initialCapacity="0"/>
+                        <java:Arguments initialCapacity="1">
+                            <java:BooleanLiteral value="false"/>
+                        </java:Arguments>
+                    </java:SuperConstructorInvocation>
+                </java:Block>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            </gefnotationspatterns:CompositeFigure>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        </gefnotationspatterns:CompositePart>
+        <gefnotationspatterns:ContentPanePart>
+            <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="GoalBranch"/>
+            <gefnotationspatterns:ContentPaneFigure>
+                <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="GoalBranch"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <gefnotationspatterns:Layout>
+                    <gefnotationspatterns:ColumnLayout>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <gefnotationspatterns:Figures initialCapacity="4">
+                            <gefnotationspatterns:RowLayout>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <java:IntLiteral xmlns:java="http://lang.whole.org/Java" value="4"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <gefnotationspatterns:Figures initialCapacity="2">
+                                    <gefnotationspatterns:Label>
+                                        <gefnotationspatterns:LabelStyle value="Keyword"/>
+                                        <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value="GoalBranch"/>
+                                    </gefnotationspatterns:Label>
+                                    <gefnotationspatterns:Label>
+                                        <gefnotationspatterns:LabelStyle value="ContentLighter"/>
+                                        <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value="{"/>
+                                    </gefnotationspatterns:Label>
+                                </gefnotationspatterns:Figures>
+                            </gefnotationspatterns:RowLayout>
+                            <gefnotationspatterns:RowLayout>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <java:IntLiteral xmlns:java="http://lang.whole.org/Java" value="4"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <gefnotationspatterns:Figures initialCapacity="3">
+                                    <gefnotationspatterns:Label>
+                                        <gefnotationspatterns:LabelStyle value="Content"/>
+                                        <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value="calls"/>
+                                    </gefnotationspatterns:Label>
+                                    <gefnotationspatterns:Label>
+                                        <gefnotationspatterns:LabelStyle value="ContentLight"/>
+                                        <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value=":"/>
+                                    </gefnotationspatterns:Label>
+                                    <gefnotationspatterns:FeaturePlaceholder>
+                                        <java:IntLiteral xmlns:java="http://lang.whole.org/Java" value="0"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </gefnotationspatterns:FeaturePlaceholder>
+                                </gefnotationspatterns:Figures>
+                            </gefnotationspatterns:RowLayout>
+                            <gefnotationspatterns:RowLayout>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <java:IntLiteral xmlns:java="http://lang.whole.org/Java" value="4"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <gefnotationspatterns:Figures initialCapacity="3">
+                                    <gefnotationspatterns:Label>
+                                        <gefnotationspatterns:LabelStyle value="Content"/>
+                                        <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value="actions"/>
+                                    </gefnotationspatterns:Label>
+                                    <gefnotationspatterns:Label>
+                                        <gefnotationspatterns:LabelStyle value="ContentLight"/>
+                                        <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value=":"/>
+                                    </gefnotationspatterns:Label>
+                                    <gefnotationspatterns:FeaturePlaceholder>
+                                        <java:IntLiteral xmlns:java="http://lang.whole.org/Java" value="1"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </gefnotationspatterns:FeaturePlaceholder>
+                                </gefnotationspatterns:Figures>
+                            </gefnotationspatterns:RowLayout>
+                            <gefnotationspatterns:Label>
+                                <gefnotationspatterns:LabelStyle value="ContentLighter"/>
+                                <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value="}"/>
+                            </gefnotationspatterns:Label>
+                        </gefnotationspatterns:Figures>
+                    </gefnotationspatterns:ColumnLayout>
+                </gefnotationspatterns:Layout>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            </gefnotationspatterns:ContentPaneFigure>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <gefnotationspatterns:Features initialCapacity="2">
+                <gefnotationspatterns:Feature>
+                    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="calls"/>
+                </gefnotationspatterns:Feature>
+                <gefnotationspatterns:Feature>
+                    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="actions"/>
+                </gefnotationspatterns:Feature>
+            </gefnotationspatterns:Features>
+        </gefnotationspatterns:ContentPanePart>
+        <gefnotationspatterns:CompositePart>
+            <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="AndArgument"/>
+            <gefnotationspatterns:CompositeFigure>
+                <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="AndArgument"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <java:Block xmlns:java="http://lang.whole.org/Java" initialCapacity="1">
+                    <java:SuperConstructorInvocation>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <java:Types initialCapacity="0"/>
+                        <java:Arguments initialCapacity="1">
+                            <java:BooleanLiteral value="false"/>
+                        </java:Arguments>
+                    </java:SuperConstructorInvocation>
+                </java:Block>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            </gefnotationspatterns:CompositeFigure>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        </gefnotationspatterns:CompositePart>
+        <gefnotationspatterns:CompositePart>
+            <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="OrArgument"/>
+            <gefnotationspatterns:CompositeFigure>
+                <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="OrArgument"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <java:Block xmlns:java="http://lang.whole.org/Java" initialCapacity="1">
+                    <java:SuperConstructorInvocation>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <java:Types initialCapacity="0"/>
+                        <java:Arguments initialCapacity="1">
+                            <java:BooleanLiteral value="false"/>
+                        </java:Arguments>
+                    </java:SuperConstructorInvocation>
+                </java:Block>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            </gefnotationspatterns:CompositeFigure>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        </gefnotationspatterns:CompositePart>
+        <gefnotationspatterns:ContentPanePart>
+            <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="ArgumentBranch"/>
+            <gefnotationspatterns:ContentPaneFigure>
+                <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="ArgumentBranch"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <gefnotationspatterns:Layout>
+                    <gefnotationspatterns:ColumnLayout>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <gefnotationspatterns:Figures initialCapacity="4">
+                            <gefnotationspatterns:RowLayout>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <java:IntLiteral xmlns:java="http://lang.whole.org/Java" value="4"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <gefnotationspatterns:Figures initialCapacity="2">
+                                    <gefnotationspatterns:Label>
+                                        <gefnotationspatterns:LabelStyle value="Keyword"/>
+                                        <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value="ArgumentBranch"/>
+                                    </gefnotationspatterns:Label>
+                                    <gefnotationspatterns:Label>
+                                        <gefnotationspatterns:LabelStyle value="ContentLighter"/>
+                                        <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value="{"/>
+                                    </gefnotationspatterns:Label>
+                                </gefnotationspatterns:Figures>
+                            </gefnotationspatterns:RowLayout>
+                            <gefnotationspatterns:RowLayout>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <java:IntLiteral xmlns:java="http://lang.whole.org/Java" value="4"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <gefnotationspatterns:Figures initialCapacity="3">
+                                    <gefnotationspatterns:Label>
+                                        <gefnotationspatterns:LabelStyle value="Content"/>
+                                        <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value="calls"/>
+                                    </gefnotationspatterns:Label>
+                                    <gefnotationspatterns:Label>
+                                        <gefnotationspatterns:LabelStyle value="ContentLight"/>
+                                        <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value=":"/>
+                                    </gefnotationspatterns:Label>
+                                    <gefnotationspatterns:FeaturePlaceholder>
+                                        <java:IntLiteral xmlns:java="http://lang.whole.org/Java" value="0"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </gefnotationspatterns:FeaturePlaceholder>
+                                </gefnotationspatterns:Figures>
+                            </gefnotationspatterns:RowLayout>
+                            <gefnotationspatterns:RowLayout>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <java:IntLiteral xmlns:java="http://lang.whole.org/Java" value="4"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <gefnotationspatterns:Figures initialCapacity="3">
+                                    <gefnotationspatterns:Label>
+                                        <gefnotationspatterns:LabelStyle value="Content"/>
+                                        <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value="actions"/>
+                                    </gefnotationspatterns:Label>
+                                    <gefnotationspatterns:Label>
+                                        <gefnotationspatterns:LabelStyle value="ContentLight"/>
+                                        <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value=":"/>
+                                    </gefnotationspatterns:Label>
+                                    <gefnotationspatterns:FeaturePlaceholder>
+                                        <java:IntLiteral xmlns:java="http://lang.whole.org/Java" value="1"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </gefnotationspatterns:FeaturePlaceholder>
+                                </gefnotationspatterns:Figures>
+                            </gefnotationspatterns:RowLayout>
+                            <gefnotationspatterns:Label>
+                                <gefnotationspatterns:LabelStyle value="ContentLighter"/>
+                                <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value="}"/>
+                            </gefnotationspatterns:Label>
+                        </gefnotationspatterns:Figures>
+                    </gefnotationspatterns:ColumnLayout>
+                </gefnotationspatterns:Layout>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            </gefnotationspatterns:ContentPaneFigure>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <gefnotationspatterns:Features initialCapacity="2">
+                <gefnotationspatterns:Feature>
+                    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="calls"/>
+                </gefnotationspatterns:Feature>
+                <gefnotationspatterns:Feature>
+                    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="actions"/>
+                </gefnotationspatterns:Feature>
+            </gefnotationspatterns:Features>
+        </gefnotationspatterns:ContentPanePart>
+    </gefnotationspatterns:Parts>
+    <gefnotationspatterns:Figures initialCapacity="0"/>
+</gefnotationspatterns:Notation>
