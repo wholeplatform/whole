@@ -18,6 +18,8 @@
 package org.whole.lang.steppers.ui.figures;
 
 import org.whole.lang.ui.figures.CompositeFigure;
+import org.whole.lang.ui.layout.Alignment;
+import org.whole.lang.ui.layout.UnderColumnLayout;
 
 /**
  *  @generator Whole
@@ -25,6 +27,6 @@ import org.whole.lang.ui.figures.CompositeFigure;
 public class CallsFigure extends CompositeFigure {
 
     public CallsFigure() {
-        super(false);
+        super(new UnderColumnLayout().withMinorAlignment(Alignment.LEADING).withSpacing(8));
     }
 }

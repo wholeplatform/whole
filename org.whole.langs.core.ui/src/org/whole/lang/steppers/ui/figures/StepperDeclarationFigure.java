@@ -17,10 +17,11 @@
  */
 package org.whole.lang.steppers.ui.figures;
 
+import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.geometry.Rectangle;
+import org.whole.lang.steppers.ui.layouts.StepperDeclarationLayout;
 import org.whole.lang.ui.figures.ContentPaneFigure;
-import org.whole.lang.ui.layout.ColumnLayout;
-import org.whole.lang.ui.layout.RowLayout;
-import org.whole.lang.ui.figures.EntityFigure;
 
 /**
  *  @generator Whole
@@ -28,42 +29,46 @@ import org.whole.lang.ui.figures.EntityFigure;
 public class StepperDeclarationFigure extends ContentPaneFigure {
 
     public StepperDeclarationFigure() {
-        initContentPanes(6);
-        setLayoutManager(new ColumnLayout());
-        EntityFigure row = new EntityFigure(new RowLayout().withSpacing(4));
-        row.addKeyword("StepperDeclaration");
-        row.addContentLighter("{");
-        add(row);
-        EntityFigure row1 = new EntityFigure(new RowLayout().withSpacing(4));
-        row1.addContent("name");
-        row1.addContentLight(":");
-        row1.add(createContentPane(0));
-        add(row1);
-        EntityFigure row2 = new EntityFigure(new RowLayout().withSpacing(4));
-        row2.addContent("goals");
-        row2.addContentLight(":");
-        row2.add(createContentPane(1));
-        add(row2);
-        EntityFigure row3 = new EntityFigure(new RowLayout().withSpacing(4));
-        row3.addContent("calls");
-        row3.addContentLight(":");
-        row3.add(createContentPane(2));
-        add(row3);
-        EntityFigure row4 = new EntityFigure(new RowLayout().withSpacing(4));
-        row4.addContent("arguments");
-        row4.addContentLight(":");
-        row4.add(createContentPane(3));
-        add(row4);
-        EntityFigure row5 = new EntityFigure(new RowLayout().withSpacing(4));
-        row5.addContent("actions");
-        row5.addContentLight(":");
-        row5.add(createContentPane(4));
-        add(row5);
-        EntityFigure row6 = new EntityFigure(new RowLayout().withSpacing(4));
-        row6.addContent("expression");
-        row6.addContentLight(":");
-        row6.add(createContentPane(5));
-        add(row6);
-        addContentLighter("}");
+        initContentPanes(4);
+        
+        setLayoutManager(new StepperDeclarationLayout().withMargin(3));
+		add(createContentPane(0));
+		add(createContentPane(1));
+		add(createContentPane(2));
+		add(createContentPane(3));
+    }
+
+    @Override
+	public void paintFigure(Graphics g) {
+        super.paintFigure(g);
+
+        StepperDeclarationLayout lm = (StepperDeclarationLayout) getLayoutManager();
+
+        Rectangle b0 = getContentPane(0).getBounds();
+        Rectangle b1 = getContentPane(1).getBounds();
+        Rectangle b3 = getContentPane(3).getBounds();
+        int x0 = Math.min(b0.x, b1.x);
+        int x1 = Math.min(b0.right(), b1.right());
+        int y0 = b0.y;
+        int ya = y0 + getAscent();
+        int ya0 = ya - 4;
+        int ya1 = ya + 4;
+        int y1 = b3.y -8;
+
+        g.setForegroundColor(ColorConstants.lightGray);
+
+//        g.drawLine(x0 -4, y0, x1 +4, y0);
+        
+        g.drawLine(x0 -4, y0, x0 -4, ya0);
+        g.drawLine(x0 -4, ya0, x0 -8, ya);
+        g.drawLine(x0 -4, ya1, x0 -8, ya);
+        g.drawLine(x0 -4, ya1, x0 -4, y1);
+
+        g.drawLine(x1 +4, y0, x1 +4, ya0);
+        g.drawLine(x1 +4, ya0, x1 +8, ya);
+        g.drawLine(x1 +4, ya1, x1 +8, ya);
+        g.drawLine(x1 +4, ya1, x1 +4, y1);
+
+//        g.drawLine(x0 -4, y1, x1 +4, y1);
     }
 }

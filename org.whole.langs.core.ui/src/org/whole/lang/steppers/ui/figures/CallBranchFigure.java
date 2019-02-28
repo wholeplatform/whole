@@ -17,10 +17,18 @@
  */
 package org.whole.lang.steppers.ui.figures;
 
+import java.util.List;
+
+import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.whole.lang.ui.figures.ContentPaneFigure;
-import org.whole.lang.ui.layout.ColumnLayout;
+import org.whole.lang.ui.figures.FigureConstants;
+import org.whole.lang.ui.layout.Alignment;
+import org.whole.lang.ui.layout.ICompositeEntityLayout;
 import org.whole.lang.ui.layout.RowLayout;
-import org.whole.lang.ui.figures.EntityFigure;
+import org.whole.lang.ui.notations.figures.DrawUtils;
 
 /**
  *  @generator Whole
@@ -29,21 +37,45 @@ public class CallBranchFigure extends ContentPaneFigure {
 
     public CallBranchFigure() {
         initContentPanes(2);
-        setLayoutManager(new ColumnLayout());
-        EntityFigure row = new EntityFigure(new RowLayout().withSpacing(4));
-        row.addKeyword("CallBranch");
-        row.addContentLighter("{");
-        add(row);
-        EntityFigure row1 = new EntityFigure(new RowLayout().withSpacing(4));
-        row1.addContent("goals");
-        row1.addContentLight(":");
-        row1.add(createContentPane(0));
-        add(row1);
-        EntityFigure row2 = new EntityFigure(new RowLayout().withSpacing(4));
-        row2.addContent("arguments");
-        row2.addContentLight(":");
-        row2.add(createContentPane(1));
-        add(row2);
-        addContentLighter("}");
+        setLayoutManager(new RowLayout().withMinorAlignment(Alignment.MATHLINE).withSpacing(24).withMarginLeft(4).withMarginRight(4));
+        add(createContentPane(0));
+        add(createContentPane(1));
     }
+
+	@Override
+	public void paintClientArea(Graphics graphics) {
+		super.paintClientArea(graphics);
+		paintConnections(graphics);
+		graphics.restoreState();
+	}
+
+	@SuppressWarnings("unchecked")
+	protected void paintConnections(Graphics graphics) {
+//		Rectangle toggleBounds = getFoldingToggle(0).getBounds();
+//		Point rootPoint = toggleBounds.getBottom();
+//		rootPoint.y -= 2;
+//
+//		graphics.setForegroundColor(FigureConstants.relationsColor);
+//		graphics.setLineWidth(2);
+//		
+//		int y = toggleBounds.getLeft().y;
+//		graphics.drawLine(toggleBounds.right()+1, y, bounds.right(), y);
+//
+//        List<IFigure> children = compositeFigure.getChildren();
+//		int childrenSize = children.size();
+//		if (childrenSize == 0 || !getContentPane(0).isVisible())
+//			return;
+//
+//		ICompositeEntityLayout layoutManager = compositeFigure.getLayoutManager();
+//		int x = compositeFigure.getBounds().x;
+//		Point[] childrenPoints = new Point[childrenSize];
+//		for (int i=0; i<childrenSize; i++) {
+//			childrenPoints[i] = new Point(x, layoutManager.getBaseline(i)+1);
+//
+////			arrowShape.setLocation(childrenPoints[i]);
+////			arrowShape.paint(graphics);
+//		}
+//
+//		DrawUtils.drawOutline(graphics, rootPoint, childrenPoints);
+	}
 }
