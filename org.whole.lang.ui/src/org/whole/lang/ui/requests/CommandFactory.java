@@ -421,6 +421,10 @@ public class CommandFactory implements ICommandFactory {
 		}
 
 		public final Command create(PartRequest request) {
+			IEntityPart requestPart = request.getPart();
+			if (!(requestPart.getParent() instanceof IEntityPart))
+				return UnexecutableCommand.INSTANCE;
+
 			CompoundCommand compound = new CompoundCommand();
 
 			Iterator<IEntityPart> i = request.iterator();
@@ -428,14 +432,14 @@ public class CommandFactory implements ICommandFactory {
 				IEntityPart part = (IEntityPart)i.next();
 				if (i.hasNext())
 					compound.add(new CompositeAddCommandFactory(featureTransformer).create(new DnDOverCompositeRequest(PartRequest.MOVE_ADD_CHILD,
-							(IEntityPart)request.getPart().getParent(),
+							(IEntityPart) requestPart.getParent(),
 							part,
-							request.getPart())));
+							requestPart)));
 				else {
 					List<IEntityPart> newList = new ArrayList<IEntityPart>(1);
 					newList.add(part);
 					compound.add(new ReplaceChildCommandFactory(featureTransformer).create(new DnDOverPartRequest(PartRequest.MOVE_ADD_CHILD,
-							request.getPart(), newList)));
+							requestPart, newList)));
 				}
 			}
 			return compound.unwrap();
