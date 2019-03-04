@@ -99,9 +99,21 @@ public class JDTUtils {
 		return (CompilationUnit) parseAs(source, JAVA_FRAGMENT.COMPILATION_UNIT);
 	}
 	public static ASTNode parseAs(String source, JAVA_FRAGMENT f) {
-		ASTParser parser = ASTParser.newParser(AST.JLS8);
+		ASTParser parser = ASTParser.newParser(AST.JLS11);
 		parser.setKind(f.kind);
 		parser.setSource(source.toCharArray());
+
+		parser.setEnvironment(null, null, null, true);
+		parser.setResolveBindings(true);
+		parser.setStatementsRecovery(true);
+		parser.setBindingsRecovery(true);
+		parser.setUnitName("module-info.java");
+		Map<String, String> options = JavaCore.getOptions();
+		options.put(JavaCore.COMPILER_COMPLIANCE, JavaCore.VERSION_11);
+		options.put(JavaCore.COMPILER_SOURCE, JavaCore.VERSION_11);
+		options.put(JavaCore.COMPILER_CODEGEN_TARGET_PLATFORM, JavaCore.VERSION_11);
+		parser.setCompilerOptions(options);
+
 		ASTNode astNode = parser.createAST(null);
 		if (f.type.isInstance(astNode) && isValid(astNode))
 			return astNode;
@@ -110,7 +122,7 @@ public class JDTUtils {
 	}
 
 	private static boolean isValid(ASTNode astNode) {
-		return !(astNode instanceof CompilationUnit && ((CompilationUnit) astNode).types().isEmpty()) &&
+		return !(astNode instanceof CompilationUnit && ((CompilationUnit) astNode).types().isEmpty() && ((CompilationUnit) astNode).getModule() == null) &&
 			!(astNode instanceof Block && ((Block) astNode).statements().isEmpty());
 	}
 
@@ -135,7 +147,6 @@ public class JDTUtils {
 	public static Document asFormattedDocument(Expression exp) {
 		return asFormattedDocument(exp, CodeFormatter.K_EXPRESSION);
 	}
-	@SuppressWarnings("unchecked")
 	public static Document asFormattedDocument(ASTNode astNode, int kind) {
 		String source = asString(astNode);
 		Document document = new Document(source);

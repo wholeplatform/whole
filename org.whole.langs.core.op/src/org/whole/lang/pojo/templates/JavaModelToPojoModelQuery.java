@@ -491,7 +491,7 @@ public class JavaModelToPojoModelQuery extends AbstractTemplateFactory<org.whole
         b0.Filter_();
         b0.DescendantStep();
         b0.And_(2);
-        b0.TypeTest("CompilationUnit");
+        b0.TypeTest("OrdinaryCompilationUnit");
         b0.Some_();
         b0.Path_(2);
         b0.FeatureStep("package");
@@ -1300,7 +1300,7 @@ public class JavaModelToPojoModelQuery extends AbstractTemplateFactory<org.whole
         b0.Filter_();
         b0.DescendantStep();
         b0.And_(2);
-        b0.TypeTest("CompilationUnit");
+        b0.TypeTest("OrdinaryCompilationUnit");
         b0.Some_();
         b0.Path_(2);
         b0.FeatureStep("package");

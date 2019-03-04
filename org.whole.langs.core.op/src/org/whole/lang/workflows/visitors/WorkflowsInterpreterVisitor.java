@@ -59,7 +59,7 @@ import org.whole.lang.factories.RegistryConfigurations;
 import org.whole.lang.grammars.model.Grammar;
 import org.whole.lang.grammars.util.GrammarsUtils;
 import org.whole.lang.java.codebase.JavaClassTemplateFactory;
-import org.whole.lang.java.model.CompilationUnit;
+import org.whole.lang.java.model.OrdinaryCompilationUnit;
 import org.whole.lang.java.util.JavaReflectUtils;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
@@ -588,7 +588,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 		}
 	}
 
-	protected ITemplateFactory<CompilationUnit> getJavaTemplateFactory(LoadJavaModel entity) {
+	protected ITemplateFactory<OrdinaryCompilationUnit> getJavaTemplateFactory(LoadJavaModel entity) {
 		entity.getClassName().accept(this);
 		String className = getResultString();
 

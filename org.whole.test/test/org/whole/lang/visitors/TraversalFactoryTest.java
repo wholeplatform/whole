@@ -80,7 +80,7 @@ public class TraversalFactoryTest {
 		IEntity fact = new Factorial().create();
 				
 		Set<IEntity> c = new HashSet<IEntity>();
-		tf.collect(mf.hasTypeMatcher(JavaEntityDescriptorEnum.CompilationUnit), c).visit(fact);
+		tf.collect(mf.hasTypeMatcher(JavaEntityDescriptorEnum.OrdinaryCompilationUnit), c).visit(fact);
 		assertFalse(c.isEmpty());
 	}
 

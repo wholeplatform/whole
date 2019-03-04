@@ -24,7 +24,7 @@ import org.whole.lang.java.reflect.JavaEntityDescriptorEnum;
 import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.java.reflect.JavaFeatureDescriptorEnum;
 import org.whole.lang.model.EnumValue;
-import org.whole.lang.java.model.PrimitiveTypeEnum.Value;
+import org.whole.lang.java.model.ModuleModifierEnum.Value;
 
 /**
  *  @generator Whole
@@ -49,8 +49,11 @@ public class JavaGenericBuilderAdapter extends GenericIdentityBuilder {
             case JavaEntityDescriptorEnum.JavaSystemSoftware_ord :
             specificBuilder.JavaSystemSoftware();
             break;
-            case JavaEntityDescriptorEnum.CompilationUnit_ord :
-            specificBuilder.CompilationUnit();
+            case JavaEntityDescriptorEnum.OrdinaryCompilationUnit_ord :
+            specificBuilder.OrdinaryCompilationUnit();
+            break;
+            case JavaEntityDescriptorEnum.ModularCompilationUnit_ord :
+            specificBuilder.ModularCompilationUnit();
             break;
             case JavaEntityDescriptorEnum.PackageDeclaration_ord :
             specificBuilder.PackageDeclaration();
@@ -136,6 +139,36 @@ public class JavaGenericBuilderAdapter extends GenericIdentityBuilder {
             case JavaEntityDescriptorEnum.InterfaceDeclaration_ord :
             specificBuilder.InterfaceDeclaration();
             break;
+            case JavaEntityDescriptorEnum.ModuleDeclaration_ord :
+            specificBuilder.ModuleDeclaration();
+            break;
+            case JavaEntityDescriptorEnum.ModuleDirectives_ord :
+            specificBuilder.ModuleDirectives();
+            break;
+            case JavaEntityDescriptorEnum.ModulePackageAccess_ord :
+            specificBuilder.ModulePackageAccess();
+            break;
+            case JavaEntityDescriptorEnum.Names_ord :
+            specificBuilder.Names();
+            break;
+            case JavaEntityDescriptorEnum.RequiresDirective_ord :
+            specificBuilder.RequiresDirective();
+            break;
+            case JavaEntityDescriptorEnum.ModuleModifiers_ord :
+            specificBuilder.ModuleModifiers();
+            break;
+            case JavaEntityDescriptorEnum.ExportsDirective_ord :
+            specificBuilder.ExportsDirective();
+            break;
+            case JavaEntityDescriptorEnum.OpensDirective_ord :
+            specificBuilder.OpensDirective();
+            break;
+            case JavaEntityDescriptorEnum.UsesDirective_ord :
+            specificBuilder.UsesDirective();
+            break;
+            case JavaEntityDescriptorEnum.ProvidesDirective_ord :
+            specificBuilder.ProvidesDirective();
+            break;
             case JavaEntityDescriptorEnum.TypeParameters_ord :
             specificBuilder.TypeParameters();
             break;
@@ -186,6 +219,9 @@ public class JavaGenericBuilderAdapter extends GenericIdentityBuilder {
             break;
             case JavaEntityDescriptorEnum.IntersectionType_ord :
             specificBuilder.IntersectionType();
+            break;
+            case JavaEntityDescriptorEnum.VarType_ord :
+            specificBuilder.VarType();
             break;
             case JavaEntityDescriptorEnum.AssertStatement_ord :
             specificBuilder.AssertStatement();
@@ -360,8 +396,11 @@ public class JavaGenericBuilderAdapter extends GenericIdentityBuilder {
             case JavaEntityDescriptorEnum.JavaSystemSoftware_ord :
             specificBuilder.JavaSystemSoftware_();
             break;
-            case JavaEntityDescriptorEnum.CompilationUnit_ord :
-            specificBuilder.CompilationUnit_();
+            case JavaEntityDescriptorEnum.OrdinaryCompilationUnit_ord :
+            specificBuilder.OrdinaryCompilationUnit_();
+            break;
+            case JavaEntityDescriptorEnum.ModularCompilationUnit_ord :
+            specificBuilder.ModularCompilationUnit_();
             break;
             case JavaEntityDescriptorEnum.PackageDeclaration_ord :
             specificBuilder.PackageDeclaration_();
@@ -447,6 +486,36 @@ public class JavaGenericBuilderAdapter extends GenericIdentityBuilder {
             case JavaEntityDescriptorEnum.InterfaceDeclaration_ord :
             specificBuilder.InterfaceDeclaration_();
             break;
+            case JavaEntityDescriptorEnum.ModuleDeclaration_ord :
+            specificBuilder.ModuleDeclaration_();
+            break;
+            case JavaEntityDescriptorEnum.ModuleDirectives_ord :
+            specificBuilder.ModuleDirectives_();
+            break;
+            case JavaEntityDescriptorEnum.ModulePackageAccess_ord :
+            specificBuilder.ModulePackageAccess_();
+            break;
+            case JavaEntityDescriptorEnum.Names_ord :
+            specificBuilder.Names_();
+            break;
+            case JavaEntityDescriptorEnum.RequiresDirective_ord :
+            specificBuilder.RequiresDirective_();
+            break;
+            case JavaEntityDescriptorEnum.ModuleModifiers_ord :
+            specificBuilder.ModuleModifiers_();
+            break;
+            case JavaEntityDescriptorEnum.ExportsDirective_ord :
+            specificBuilder.ExportsDirective_();
+            break;
+            case JavaEntityDescriptorEnum.OpensDirective_ord :
+            specificBuilder.OpensDirective_();
+            break;
+            case JavaEntityDescriptorEnum.UsesDirective_ord :
+            specificBuilder.UsesDirective_();
+            break;
+            case JavaEntityDescriptorEnum.ProvidesDirective_ord :
+            specificBuilder.ProvidesDirective_();
+            break;
             case JavaEntityDescriptorEnum.TypeParameters_ord :
             specificBuilder.TypeParameters_();
             break;
@@ -497,6 +566,9 @@ public class JavaGenericBuilderAdapter extends GenericIdentityBuilder {
             break;
             case JavaEntityDescriptorEnum.IntersectionType_ord :
             specificBuilder.IntersectionType_();
+            break;
+            case JavaEntityDescriptorEnum.VarType_ord :
+            specificBuilder.VarType_();
             break;
             case JavaEntityDescriptorEnum.AssertStatement_ord :
             specificBuilder.AssertStatement_();
@@ -701,6 +773,15 @@ public class JavaGenericBuilderAdapter extends GenericIdentityBuilder {
             case JavaEntityDescriptorEnum.AnonymousClassDeclaration_ord :
             specificBuilder.AnonymousClassDeclaration_(initialCapacity);
             break;
+            case JavaEntityDescriptorEnum.ModuleDirectives_ord :
+            specificBuilder.ModuleDirectives_(initialCapacity);
+            break;
+            case JavaEntityDescriptorEnum.Names_ord :
+            specificBuilder.Names_(initialCapacity);
+            break;
+            case JavaEntityDescriptorEnum.ModuleModifiers_ord :
+            specificBuilder.ModuleModifiers_(initialCapacity);
+            break;
             case JavaEntityDescriptorEnum.TypeParameters_ord :
             specificBuilder.TypeParameters_(initialCapacity);
             break;
@@ -748,8 +829,11 @@ public class JavaGenericBuilderAdapter extends GenericIdentityBuilder {
             case JavaEntityDescriptorEnum.JavaSystemSoftware_ord :
             specificBuilder._JavaSystemSoftware();
             break;
-            case JavaEntityDescriptorEnum.CompilationUnit_ord :
-            specificBuilder._CompilationUnit();
+            case JavaEntityDescriptorEnum.OrdinaryCompilationUnit_ord :
+            specificBuilder._OrdinaryCompilationUnit();
+            break;
+            case JavaEntityDescriptorEnum.ModularCompilationUnit_ord :
+            specificBuilder._ModularCompilationUnit();
             break;
             case JavaEntityDescriptorEnum.PackageDeclaration_ord :
             specificBuilder._PackageDeclaration();
@@ -835,6 +919,36 @@ public class JavaGenericBuilderAdapter extends GenericIdentityBuilder {
             case JavaEntityDescriptorEnum.InterfaceDeclaration_ord :
             specificBuilder._InterfaceDeclaration();
             break;
+            case JavaEntityDescriptorEnum.ModuleDeclaration_ord :
+            specificBuilder._ModuleDeclaration();
+            break;
+            case JavaEntityDescriptorEnum.ModuleDirectives_ord :
+            specificBuilder._ModuleDirectives();
+            break;
+            case JavaEntityDescriptorEnum.ModulePackageAccess_ord :
+            specificBuilder._ModulePackageAccess();
+            break;
+            case JavaEntityDescriptorEnum.Names_ord :
+            specificBuilder._Names();
+            break;
+            case JavaEntityDescriptorEnum.RequiresDirective_ord :
+            specificBuilder._RequiresDirective();
+            break;
+            case JavaEntityDescriptorEnum.ModuleModifiers_ord :
+            specificBuilder._ModuleModifiers();
+            break;
+            case JavaEntityDescriptorEnum.ExportsDirective_ord :
+            specificBuilder._ExportsDirective();
+            break;
+            case JavaEntityDescriptorEnum.OpensDirective_ord :
+            specificBuilder._OpensDirective();
+            break;
+            case JavaEntityDescriptorEnum.UsesDirective_ord :
+            specificBuilder._UsesDirective();
+            break;
+            case JavaEntityDescriptorEnum.ProvidesDirective_ord :
+            specificBuilder._ProvidesDirective();
+            break;
             case JavaEntityDescriptorEnum.TypeParameters_ord :
             specificBuilder._TypeParameters();
             break;
@@ -885,6 +999,9 @@ public class JavaGenericBuilderAdapter extends GenericIdentityBuilder {
             break;
             case JavaEntityDescriptorEnum.IntersectionType_ord :
             specificBuilder._IntersectionType();
+            break;
+            case JavaEntityDescriptorEnum.VarType_ord :
+            specificBuilder._VarType();
             break;
             case JavaEntityDescriptorEnum.AssertStatement_ord :
             specificBuilder._AssertStatement();
@@ -1056,14 +1173,17 @@ public class JavaGenericBuilderAdapter extends GenericIdentityBuilder {
 
     public void wFeature(FeatureDescriptor featureDesc) {
         switch (featureDesc.getOrdinal()) {
-            case JavaFeatureDescriptorEnum._package_ord :
-            specificBuilder._package();
-            break;
             case JavaFeatureDescriptorEnum.imports_ord :
             specificBuilder.imports();
             break;
+            case JavaFeatureDescriptorEnum._package_ord :
+            specificBuilder._package();
+            break;
             case JavaFeatureDescriptorEnum.types_ord :
             specificBuilder.types();
+            break;
+            case JavaFeatureDescriptorEnum.module_ord :
+            specificBuilder.module();
             break;
             case JavaFeatureDescriptorEnum.javadoc_ord :
             specificBuilder.javadoc();
@@ -1139,6 +1259,18 @@ public class JavaGenericBuilderAdapter extends GenericIdentityBuilder {
             break;
             case JavaFeatureDescriptorEnum.superclassType_ord :
             specificBuilder.superclassType();
+            break;
+            case JavaFeatureDescriptorEnum.open_ord :
+            specificBuilder.open();
+            break;
+            case JavaFeatureDescriptorEnum.moduleDirectives_ord :
+            specificBuilder.moduleDirectives();
+            break;
+            case JavaFeatureDescriptorEnum.modules_ord :
+            specificBuilder.modules();
+            break;
+            case JavaFeatureDescriptorEnum.implementations_ord :
+            specificBuilder.implementations();
             break;
             case JavaFeatureDescriptorEnum.typeBounds_ord :
             specificBuilder.typeBounds();
@@ -1285,6 +1417,9 @@ public class JavaGenericBuilderAdapter extends GenericIdentityBuilder {
             case JavaEntityDescriptorEnum.ImportModifier_ord :
             specificBuilder.ImportModifier(value);
             break;
+            case JavaEntityDescriptorEnum.Open_ord :
+            specificBuilder.Open(value);
+            break;
             case JavaEntityDescriptorEnum.Varargs_ord :
             specificBuilder.Varargs(value);
             break;
@@ -1299,8 +1434,11 @@ public class JavaGenericBuilderAdapter extends GenericIdentityBuilder {
 
     public void wEntity(EntityDescriptor<?> entityDesc, EnumValue value) {
         switch (entityDesc.getOrdinal()) {
+            case JavaEntityDescriptorEnum.ModuleModifier_ord :
+            specificBuilder.ModuleModifier((Value) value);
+            break;
             case JavaEntityDescriptorEnum.PrimitiveType_ord :
-            specificBuilder.PrimitiveType((Value) value);
+            specificBuilder.PrimitiveType((org.whole.lang.java.model.PrimitiveTypeEnum.Value) value);
             break;
             case JavaEntityDescriptorEnum.AssignmentOperator_ord :
             specificBuilder.AssignmentOperator((org.whole.lang.java.model.AssignmentOperatorEnum.Value) value);

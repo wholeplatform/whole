@@ -39,7 +39,11 @@ public class JavaForwardGenericVisitor extends AbstractUnaryVisitor<IVisitor> im
         wGetVisitor1().visit(entity);
     }
 
-    public void visit(CompilationUnit entity) {
+    public void visit(OrdinaryCompilationUnit entity) {
+        wGetVisitor1().visit(entity);
+    }
+
+    public void visit(ModularCompilationUnit entity) {
         wGetVisitor1().visit(entity);
     }
 
@@ -167,6 +171,54 @@ public class JavaForwardGenericVisitor extends AbstractUnaryVisitor<IVisitor> im
         wGetVisitor1().visit(entity);
     }
 
+    public void visit(Open entity) {
+        wGetVisitor1().visit(entity);
+    }
+
+    public void visit(ModuleDeclaration entity) {
+        wGetVisitor1().visit(entity);
+    }
+
+    public void visit(ModuleDirectives entity) {
+        wGetVisitor1().visit(entity);
+    }
+
+    public void visit(ModulePackageAccess entity) {
+        wGetVisitor1().visit(entity);
+    }
+
+    public void visit(Names entity) {
+        wGetVisitor1().visit(entity);
+    }
+
+    public void visit(RequiresDirective entity) {
+        wGetVisitor1().visit(entity);
+    }
+
+    public void visit(ModuleModifiers entity) {
+        wGetVisitor1().visit(entity);
+    }
+
+    public void visit(ModuleModifier entity) {
+        wGetVisitor1().visit(entity);
+    }
+
+    public void visit(ExportsDirective entity) {
+        wGetVisitor1().visit(entity);
+    }
+
+    public void visit(OpensDirective entity) {
+        wGetVisitor1().visit(entity);
+    }
+
+    public void visit(UsesDirective entity) {
+        wGetVisitor1().visit(entity);
+    }
+
+    public void visit(ProvidesDirective entity) {
+        wGetVisitor1().visit(entity);
+    }
+
     public void visit(TypeParameters entity) {
         wGetVisitor1().visit(entity);
     }
@@ -252,6 +304,10 @@ public class JavaForwardGenericVisitor extends AbstractUnaryVisitor<IVisitor> im
     }
 
     public void visit(UpperBound entity) {
+        wGetVisitor1().visit(entity);
+    }
+
+    public void visit(VarType entity) {
         wGetVisitor1().visit(entity);
     }
 

@@ -118,7 +118,75 @@ public class JavaPrettyPrinterVisitor extends JavaTraverseAllVisitor {
 		return false;
 	}
 
-	public void visit(CompilationUnit entity) {
+    public void visit(ModuleDeclaration entity) {
+        entity.getJavadoc().accept(wGetVisitor1());
+		Annotations annotations = entity.getAnnotations();
+		annotations.accept(this);
+		if (!EntityUtils.isResolver(annotations))
+			out.println();
+        if (entity.getOpen().isValue())
+        	printKeyword("open ");
+        printKeyword("module ");
+        entity.getName().accept(wGetVisitor1());
+		out.printlnRaw(" {");
+		out.setRelativeIndentation((+1));
+        entity.getModuleDirectives().accept(wGetVisitor1());
+		out.setRelativeIndentation((-1));
+		out.printlnRaw("}");
+    }
+
+	public void visit(RequiresDirective entity) {
+		printKeyword("requires ");
+		entity.getModifiers().accept(wGetVisitor1());
+		entity.getName().accept(wGetVisitor1());
+		out.printlnRaw(";");
+	}
+
+	protected void printModulePackageAccess(ModulePackageAccess entity) {
+		entity.getName().accept(wGetVisitor1());
+		if (entity.getModules().wSize() > 0) {
+			out.printRaw(" to ");
+			entity.getModules().accept(wGetVisitor1());
+		}
+		out.printlnRaw(";");
+	}
+
+	public void visit(ExportsDirective entity) {
+		printKeyword("exports ");
+		printModulePackageAccess(entity);
+	}
+
+	public void visit(OpensDirective entity) {
+		printKeyword("opens ");
+		printModulePackageAccess(entity);
+	}
+
+	public void visit(UsesDirective entity) {
+		printKeyword("uses ");
+		entity.getName().accept(wGetVisitor1());
+		out.printlnRaw(";");
+	}
+
+	public void visit(ProvidesDirective entity) {
+		printKeyword("provides ");
+		entity.getName().accept(wGetVisitor1());
+		out.printRaw(" with ");
+		entity.getImplementations().accept(wGetVisitor1());
+		out.printlnRaw(";");
+	}
+
+	public void visit(ModuleModifiers entity) {
+		for (int i = 0, size = entity.wSize(); i < size; i++) {
+			entity.get(i).accept(this);
+			out.printRaw(" ");
+		}
+	}
+
+	public void visit(ModuleModifier entity) {
+		printKeyword(entity.wEnumValue().getName());
+	}
+
+	public void visit(OrdinaryCompilationUnit entity) {
 		entity.getPackage().accept(this);
 		entity.getImports().accept(this);
 		entity.getTypes().accept(this);
@@ -129,7 +197,10 @@ public class JavaPrettyPrinterVisitor extends JavaTraverseAllVisitor {
 			return;
 		entity.getJavadoc().accept(this);
 		printKeyword("package ");
-		entity.getAnnotations().accept(this);
+		Annotations annotations = entity.getAnnotations();
+		annotations.accept(this);
+		if (!EntityUtils.isResolver(annotations))
+			out.println();
 		entity.getName().accept(this);
 		out.printlnRaw(";");
 		out.println();
@@ -464,6 +535,10 @@ public class JavaPrettyPrinterVisitor extends JavaTraverseAllVisitor {
 		}
 	}
 
+	public void visit(VarType entity) {
+		out.printRaw("var");
+	}
+	
 	public void visit(SimpleType entity) {
 		out.printRaw(entity.getValue());
 	}
@@ -654,6 +729,15 @@ public class JavaPrettyPrinterVisitor extends JavaTraverseAllVisitor {
 		out.printRaw(" ");
 		entity.getFragments().accept(this);
 		out.printlnRaw(";");
+	}
+
+	@Override
+	public void visit(Names entity) {
+		for (int i = 0; i < entity.size(); i++) {
+			if (i>0)
+				out.printRaw(", ");
+			entity.get(i).accept(this);
+		}
 	}
 
 	public void visit(SimpleName entity) {	

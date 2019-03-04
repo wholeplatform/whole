@@ -22,7 +22,7 @@ import org.eclipse.jdt.core.ITypeRoot;
 import org.whole.gen.util.JDTUtils;
 import org.whole.lang.builders.GenericForwardSpecificBuilder;
 import org.whole.lang.builders.IBuilderOperation;
-import org.whole.lang.java.model.CompilationUnit;
+import org.whole.lang.java.model.OrdinaryCompilationUnit;
 import org.whole.lang.java.util.JDTTransformerVisitor;
 import org.whole.lang.templates.ModelTemplate;
 
@@ -30,7 +30,7 @@ import org.whole.lang.templates.ModelTemplate;
  * @author Enrico Persiani
  */
 public class JavaSourceTemplateFactory extends JavaClassTemplateFactory {
-	protected CompilationUnit compilationUnit;
+	protected OrdinaryCompilationUnit compilationUnit;
 
 	public JavaSourceTemplateFactory(String className, IJavaProject javaProject) {
 		init(JDTUtils.findSourceAttachment(JDTUtils.findSourceReference(className, javaProject)), className, javaProject);
@@ -61,7 +61,7 @@ public class JavaSourceTemplateFactory extends JavaClassTemplateFactory {
 	}
 
 	@Override
-	public CompilationUnit create() {
+	public OrdinaryCompilationUnit create() {
 		if (compilationUnit != null)
 			return compilationUnit;
 		else

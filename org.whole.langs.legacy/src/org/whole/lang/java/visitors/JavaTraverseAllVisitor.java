@@ -41,9 +41,18 @@ public class JavaTraverseAllVisitor extends JavaIdentityUnaryVisitor<IJavaVisito
     }
 
     public void visit(CompilationUnit entity) {
+        entity.getImports().accept(wGetVisitor1());
+    }
+
+    public void visit(OrdinaryCompilationUnit entity) {
         entity.getPackage().accept(wGetVisitor1());
         entity.getImports().accept(wGetVisitor1());
         entity.getTypes().accept(wGetVisitor1());
+    }
+
+    public void visit(ModularCompilationUnit entity) {
+        entity.getImports().accept(wGetVisitor1());
+        entity.getModule().accept(wGetVisitor1());
     }
 
     public void visit(PackageDeclaration entity) {
@@ -218,6 +227,62 @@ public class JavaTraverseAllVisitor extends JavaIdentityUnaryVisitor<IJavaVisito
         entity.getTypeParameters().accept(wGetVisitor1());
         entity.getSuperInterfaceTypes().accept(wGetVisitor1());
         entity.getBodyDeclarations().accept(wGetVisitor1());
+    }
+
+    public void visit(ModuleDeclaration entity) {
+        entity.getJavadoc().accept(wGetVisitor1());
+        entity.getAnnotations().accept(wGetVisitor1());
+        entity.getOpen().accept(wGetVisitor1());
+        entity.getName().accept(wGetVisitor1());
+        entity.getModuleDirectives().accept(wGetVisitor1());
+    }
+
+    public void visit(ModuleDirectives entity) {
+        for (int i = 0; i < entity.size(); i++)
+            entity.get(i).accept(wGetVisitor1());
+    }
+
+    public void visit(ModuleDirective entity) {
+        entity.getName().accept(wGetVisitor1());
+    }
+
+    public void visit(ModulePackageAccess entity) {
+        entity.getName().accept(wGetVisitor1());
+        entity.getModules().accept(wGetVisitor1());
+    }
+
+    public void visit(Names entity) {
+        for (int i = 0; i < entity.size(); i++)
+            entity.get(i).accept(wGetVisitor1());
+    }
+
+    public void visit(RequiresDirective entity) {
+        entity.getModifiers().accept(wGetVisitor1());
+        entity.getName().accept(wGetVisitor1());
+    }
+
+    public void visit(ModuleModifiers entity) {
+        for (int i = 0; i < entity.size(); i++)
+            entity.get(i).accept(wGetVisitor1());
+    }
+
+    public void visit(ExportsDirective entity) {
+        entity.getName().accept(wGetVisitor1());
+        entity.getModules().accept(wGetVisitor1());
+    }
+
+    public void visit(OpensDirective entity) {
+        entity.getName().accept(wGetVisitor1());
+        entity.getModules().accept(wGetVisitor1());
+    }
+
+    public void visit(UsesDirective entity) {
+        entity.getName().accept(wGetVisitor1());
+    }
+
+    public void visit(ProvidesDirective entity) {
+        entity.getName().accept(wGetVisitor1());
+        entity.getImplementations().accept(wGetVisitor1());
     }
 
     public void visit(TypeParameters entity) {

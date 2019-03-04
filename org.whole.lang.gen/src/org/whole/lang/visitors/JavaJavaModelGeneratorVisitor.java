@@ -949,7 +949,7 @@ public class JavaJavaModelGeneratorVisitor extends JavaIdentityVisitor {
 			((ImportDeclaration) entity.wGet(i)).accept(this);
 	}
 
-	public void visit(CompilationUnit entity) {
+	public void visit(OrdinaryCompilationUnit entity) {
 		entity.getPackage().accept(this);
 		entity.getImports().accept(this);
 		entity.getTypes().accept(this);

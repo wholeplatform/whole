@@ -9,7 +9,7 @@
             <semantics:Name value="compilationUnit"/>
             <semantics:FunctionType>
                 <semantics:LegacyType value="STRING"/>
-                <semantics:EntityType value="http://lang.whole.org/Java#CompilationUnit"/>
+                <semantics:EntityType value="http://lang.whole.org/Java#OrdinaryCompilationUnit"/>
             </semantics:FunctionType>
             <commons:StageDownFragment xmlns:commons="http://lang.whole.org/Commons">
                 <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">

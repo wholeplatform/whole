@@ -48,7 +48,7 @@ import org.whole.lang.executables.ExecutableFactory;
 import org.whole.lang.executables.IExecutableClient;
 import org.whole.lang.java.codebase.JavaSourceTemplateFactory;
 import org.whole.lang.java.model.BodyDeclarations;
-import org.whole.lang.java.model.CompilationUnit;
+import org.whole.lang.java.model.OrdinaryCompilationUnit;
 import org.whole.lang.java.model.TypeDeclaration;
 import org.whole.lang.java.reflect.JavaEntityDescriptorEnum;
 import org.whole.lang.misc.factories.MiscEntityFactory;
@@ -172,7 +172,7 @@ public class WizardPojoModelImportPage1 extends AbstractWizardWholeModelImportPa
 				}
 			};
 			templateFactory.useCanonicalNames(false);
-			CompilationUnit compilationUnit = templateFactory.create();
+			OrdinaryCompilationUnit compilationUnit = templateFactory.create();
 
 			String compilationUnitName = typeRoot.findPrimaryType().getFullyQualifiedName();
 			if (map.containsKey(compilationUnitName)) {

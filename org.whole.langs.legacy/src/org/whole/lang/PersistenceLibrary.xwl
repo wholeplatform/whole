@@ -36,7 +36,7 @@
             <semantics:Name value="toJavaBuilderCompilationUnit"/>
             <semantics:FunctionType>
                 <semantics:AnyType/>
-                <semantics:EntityType value="http://lang.whole.org/Java#CompilationUnit"/>
+                <semantics:EntityType value="http://lang.whole.org/Java#OrdinaryCompilationUnit"/>
             </semantics:FunctionType>
             <queries:VoidLiteral xmlns:queries="http://lang.whole.org/Queries"/>
         </semantics:SemanticFunction>
@@ -52,7 +52,7 @@
             <semantics:Name value="fromJavaBuilderModel"/>
             <semantics:FunctionType>
                 <semantics:UnionType initialCapacity="2">
-                    <semantics:EntityType value="http://lang.whole.org/Java#CompilationUnit"/>
+                    <semantics:EntityType value="http://lang.whole.org/Java#OrdinaryCompilationUnit"/>
                     <semantics:EntityType value="http://lang.whole.org/Java#Block"/>
                 </semantics:UnionType>
                 <semantics:AnyType/>

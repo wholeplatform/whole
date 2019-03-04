@@ -36,7 +36,7 @@ import org.whole.lang.builders.IBuilderOperation;
 import org.whole.lang.commons.builders.ICommonsBuilder;
 import org.whole.lang.commons.reflect.CommonsLanguageKit;
 import org.whole.lang.java.builders.IJavaBuilder;
-import org.whole.lang.java.model.CompilationUnit;
+import org.whole.lang.java.model.OrdinaryCompilationUnit;
 import org.whole.lang.java.model.ModifierEnum;
 import org.whole.lang.java.reflect.JavaLanguageKit;
 import org.whole.lang.reflect.ReflectionFactory;
@@ -46,7 +46,7 @@ import org.whole.lang.util.UniqueIdGenerator;
 /**
  * @author Enrico Persiani
  */
-public class JavaClassTemplateFactory extends AbstractTemplateFactory<CompilationUnit> {
+public class JavaClassTemplateFactory extends AbstractTemplateFactory<OrdinaryCompilationUnit> {
 	protected Class<?> clazz;
 	protected IJavaBuilder jb;
 	protected ICommonsBuilder cb;
@@ -74,11 +74,11 @@ public class JavaClassTemplateFactory extends AbstractTemplateFactory<Compilatio
 	}
 
 	protected void buildCompilationUnit() {
-		jb.CompilationUnit_();
+		jb.OrdinaryCompilationUnit_();
 		buildPackageDeclaration(clazz);
 		buildImportDeclarations(clazz);
 		buildTypeDeclarations(clazz);
-		jb._CompilationUnit();
+		jb._OrdinaryCompilationUnit();
 	}
 
 	protected void buildPackageDeclaration(Class<?> clazz) {

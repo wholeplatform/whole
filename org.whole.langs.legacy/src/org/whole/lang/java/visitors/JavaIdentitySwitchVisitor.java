@@ -32,8 +32,11 @@ public abstract class JavaIdentitySwitchVisitor extends AbstractVisitor implemen
             case JavaEntityDescriptorEnum.JavaSystemSoftware_ord :
             visit((JavaSystemSoftware) entity);
             break;
-            case JavaEntityDescriptorEnum.CompilationUnit_ord :
-            visit((CompilationUnit) entity);
+            case JavaEntityDescriptorEnum.OrdinaryCompilationUnit_ord :
+            visit((OrdinaryCompilationUnit) entity);
+            break;
+            case JavaEntityDescriptorEnum.ModularCompilationUnit_ord :
+            visit((ModularCompilationUnit) entity);
             break;
             case JavaEntityDescriptorEnum.PackageDeclaration_ord :
             visit((PackageDeclaration) entity);
@@ -128,6 +131,42 @@ public abstract class JavaIdentitySwitchVisitor extends AbstractVisitor implemen
             case JavaEntityDescriptorEnum.InterfaceDeclaration_ord :
             visit((InterfaceDeclaration) entity);
             break;
+            case JavaEntityDescriptorEnum.Open_ord :
+            visit((Open) entity);
+            break;
+            case JavaEntityDescriptorEnum.ModuleDeclaration_ord :
+            visit((ModuleDeclaration) entity);
+            break;
+            case JavaEntityDescriptorEnum.ModuleDirectives_ord :
+            visit((ModuleDirectives) entity);
+            break;
+            case JavaEntityDescriptorEnum.ModulePackageAccess_ord :
+            visit((ModulePackageAccess) entity);
+            break;
+            case JavaEntityDescriptorEnum.Names_ord :
+            visit((Names) entity);
+            break;
+            case JavaEntityDescriptorEnum.RequiresDirective_ord :
+            visit((RequiresDirective) entity);
+            break;
+            case JavaEntityDescriptorEnum.ModuleModifiers_ord :
+            visit((ModuleModifiers) entity);
+            break;
+            case JavaEntityDescriptorEnum.ModuleModifier_ord :
+            visit((ModuleModifier) entity);
+            break;
+            case JavaEntityDescriptorEnum.ExportsDirective_ord :
+            visit((ExportsDirective) entity);
+            break;
+            case JavaEntityDescriptorEnum.OpensDirective_ord :
+            visit((OpensDirective) entity);
+            break;
+            case JavaEntityDescriptorEnum.UsesDirective_ord :
+            visit((UsesDirective) entity);
+            break;
+            case JavaEntityDescriptorEnum.ProvidesDirective_ord :
+            visit((ProvidesDirective) entity);
+            break;
             case JavaEntityDescriptorEnum.TypeParameters_ord :
             visit((TypeParameters) entity);
             break;
@@ -193,6 +232,9 @@ public abstract class JavaIdentitySwitchVisitor extends AbstractVisitor implemen
             break;
             case JavaEntityDescriptorEnum.UpperBound_ord :
             visit((UpperBound) entity);
+            break;
+            case JavaEntityDescriptorEnum.VarType_ord :
+            visit((VarType) entity);
             break;
             case JavaEntityDescriptorEnum.AssertStatement_ord :
             visit((AssertStatement) entity);

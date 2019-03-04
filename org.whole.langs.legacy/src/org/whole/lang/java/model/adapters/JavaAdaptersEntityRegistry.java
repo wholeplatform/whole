@@ -32,6 +32,8 @@ public class JavaAdaptersEntityRegistry extends AbstractEntityRegistry {
     protected void createPrototypes() {
         put(new JavaSystemSoftwareAdapter());
         put(new CompilationUnitAdapter());
+        put(new OrdinaryCompilationUnitAdapter());
+        put(new ModularCompilationUnitAdapter());
         put(new PackageDeclarationAdapter());
         put(new StatementAdapter());
         put(new ExpressionAdapter());
@@ -70,6 +72,19 @@ public class JavaAdaptersEntityRegistry extends AbstractEntityRegistry {
         put(new AnnotationTypeDeclarationAdapter());
         put(new ClassDeclarationAdapter());
         put(new InterfaceDeclarationAdapter());
+        put(new OpenAdapter());
+        put(new ModuleDeclarationAdapter());
+        put(new ModuleDirectivesAdapter());
+        put(new ModuleDirectiveAdapter());
+        put(new ModulePackageAccessAdapter());
+        put(new NamesAdapter());
+        put(new RequiresDirectiveAdapter());
+        put(new ModuleModifiersAdapter());
+        put(new ModuleModifierAdapter());
+        put(new ExportsDirectiveAdapter());
+        put(new OpensDirectiveAdapter());
+        put(new UsesDirectiveAdapter());
+        put(new ProvidesDirectiveAdapter());
         put(new TypeParametersAdapter());
         put(new TypeParameterAdapter());
         put(new TypesAdapter());
@@ -92,6 +107,7 @@ public class JavaAdaptersEntityRegistry extends AbstractEntityRegistry {
         put(new UnionTypeAdapter());
         put(new IntersectionTypeAdapter());
         put(new UpperBoundAdapter());
+        put(new VarTypeAdapter());
         put(new AssertStatementAdapter());
         put(new BlockAdapter());
         put(new BreakStatementAdapter());

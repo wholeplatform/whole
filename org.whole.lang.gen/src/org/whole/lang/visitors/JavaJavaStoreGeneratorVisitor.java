@@ -45,7 +45,7 @@ public class JavaJavaStoreGeneratorVisitor extends JavaIdentityVisitor {
 		builder.addSubtree(parentNestingSize, "JavaSystemSoftware", callExp);
 	}
 
-	public void visit(CompilationUnit entity) {
+	public void visit(OrdinaryCompilationUnit entity) {
 		int parentNestingSize = builder.initNestingSize();
 		org.eclipse.jdt.core.dom.MethodInvocation callExp = builder
 				.newFactoryInvocation(this, "createCompilationUnit");

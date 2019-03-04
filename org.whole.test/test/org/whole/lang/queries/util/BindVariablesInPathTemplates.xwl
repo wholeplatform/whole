@@ -127,7 +127,7 @@
             <templates:SimpleName value="compilationUnit"/>
             <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
             <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
-                <java:CompilationUnit xmlns:java="http://lang.whole.org/Java">
+                <java:OrdinaryCompilationUnit xmlns:java="http://lang.whole.org/Java">
                     <java:PackageDeclaration>
                         <commons:Resolver/>
                         <commons:Resolver/>
@@ -465,7 +465,7 @@
                             </java:BodyDeclarations>
                         </java:ClassDeclaration>
                     </java:TypeDeclarations>
-                </java:CompilationUnit>
+                </java:OrdinaryCompilationUnit>
             </commons:StageUpFragment>
         </templates:TemplateFactory>
     </templates:Templates>

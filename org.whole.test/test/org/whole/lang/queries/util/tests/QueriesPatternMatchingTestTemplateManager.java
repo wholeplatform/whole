@@ -36,7 +36,7 @@ public class QueriesPatternMatchingTestTemplateManager extends AbstractTemplateM
                 org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
                 b1.StageUpFragment_();
                 org.whole.lang.java.builders.IJavaBuilder b2 = (org.whole.lang.java.builders.IJavaBuilder) op.wGetBuilder(org.whole.lang.java.reflect.JavaLanguageKit.URI);
-                b2.CompilationUnit_();
+                b2.OrdinaryCompilationUnit_();
                 b2.PackageDeclaration_();
                 b1.Resolver();
                 b1.Resolver();
@@ -196,7 +196,7 @@ public class QueriesPatternMatchingTestTemplateManager extends AbstractTemplateM
                 b2._BodyDeclarations();
                 b2._ClassDeclaration();
                 b2._TypeDeclarations();
-                b2._CompilationUnit();
+                b2._OrdinaryCompilationUnit();
                 b1._StageUpFragment();
                 b0._Assign();
                 b0._Assignments();

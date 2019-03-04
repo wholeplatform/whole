@@ -30,14 +30,6 @@ public class JavaModelContext extends EntityContext {
         super(root);
     }
 
-    public JavaModelContext get_package() {
-        return (JavaModelContext) wGet(JavaFeatureDescriptorEnum._package);
-    }
-
-    public void set_package(JavaModelContext _package) {
-        wSet(JavaFeatureDescriptorEnum._package, _package);
-    }
-
     public JavaModelContext getImports() {
         return (JavaModelContext) wGet(JavaFeatureDescriptorEnum.imports);
     }
@@ -46,12 +38,28 @@ public class JavaModelContext extends EntityContext {
         wSet(JavaFeatureDescriptorEnum.imports, imports);
     }
 
+    public JavaModelContext getPackage() {
+        return (JavaModelContext) wGet(JavaFeatureDescriptorEnum._package);
+    }
+
+    public void setPackage(JavaModelContext _package) {
+        wSet(JavaFeatureDescriptorEnum._package, _package);
+    }
+
     public JavaModelContext getTypes() {
         return (JavaModelContext) wGet(JavaFeatureDescriptorEnum.types);
     }
 
     public void setTypes(JavaModelContext types) {
         wSet(JavaFeatureDescriptorEnum.types, types);
+    }
+
+    public JavaModelContext getModule() {
+        return (JavaModelContext) wGet(JavaFeatureDescriptorEnum.module);
+    }
+
+    public void setModule(JavaModelContext module) {
+        wSet(JavaFeatureDescriptorEnum.module, module);
     }
 
     public JavaModelContext getJavadoc() {
@@ -182,11 +190,11 @@ public class JavaModelContext extends EntityContext {
         wSet(JavaFeatureDescriptorEnum.onDemand, onDemand);
     }
 
-    public JavaModelContext get_static() {
+    public JavaModelContext getStatic() {
         return (JavaModelContext) wGet(JavaFeatureDescriptorEnum._static);
     }
 
-    public void set_static(JavaModelContext _static) {
+    public void setStatic(JavaModelContext _static) {
         wSet(JavaFeatureDescriptorEnum._static, _static);
     }
 
@@ -254,6 +262,38 @@ public class JavaModelContext extends EntityContext {
         wSet(JavaFeatureDescriptorEnum.superclassType, superclassType);
     }
 
+    public JavaModelContext getOpen() {
+        return (JavaModelContext) wGet(JavaFeatureDescriptorEnum.open);
+    }
+
+    public void setOpen(JavaModelContext open) {
+        wSet(JavaFeatureDescriptorEnum.open, open);
+    }
+
+    public JavaModelContext getModuleDirectives() {
+        return (JavaModelContext) wGet(JavaFeatureDescriptorEnum.moduleDirectives);
+    }
+
+    public void setModuleDirectives(JavaModelContext moduleDirectives) {
+        wSet(JavaFeatureDescriptorEnum.moduleDirectives, moduleDirectives);
+    }
+
+    public JavaModelContext getModules() {
+        return (JavaModelContext) wGet(JavaFeatureDescriptorEnum.modules);
+    }
+
+    public void setModules(JavaModelContext modules) {
+        wSet(JavaFeatureDescriptorEnum.modules, modules);
+    }
+
+    public JavaModelContext getImplementations() {
+        return (JavaModelContext) wGet(JavaFeatureDescriptorEnum.implementations);
+    }
+
+    public void setImplementations(JavaModelContext implementations) {
+        wSet(JavaFeatureDescriptorEnum.implementations, implementations);
+    }
+
     public JavaModelContext getTypeBounds() {
         return (JavaModelContext) wGet(JavaFeatureDescriptorEnum.typeBounds);
     }
@@ -262,11 +302,11 @@ public class JavaModelContext extends EntityContext {
         wSet(JavaFeatureDescriptorEnum.typeBounds, typeBounds);
     }
 
-    public JavaModelContext get_default() {
+    public JavaModelContext getDefault() {
         return (JavaModelContext) wGet(JavaFeatureDescriptorEnum._default);
     }
 
-    public void set_default(JavaModelContext _default) {
+    public void setDefault(JavaModelContext _default) {
         wSet(JavaFeatureDescriptorEnum._default, _default);
     }
 
@@ -430,11 +470,11 @@ public class JavaModelContext extends EntityContext {
         wSet(JavaFeatureDescriptorEnum.catchClauses, catchClauses);
     }
 
-    public JavaModelContext get_finally() {
+    public JavaModelContext getFinally() {
         return (JavaModelContext) wGet(JavaFeatureDescriptorEnum._finally);
     }
 
-    public void set_finally(JavaModelContext _finally) {
+    public void setFinally(JavaModelContext _finally) {
         wSet(JavaFeatureDescriptorEnum._finally, _finally);
     }
 

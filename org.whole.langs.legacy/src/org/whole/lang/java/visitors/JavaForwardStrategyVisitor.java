@@ -42,7 +42,11 @@ public class JavaForwardStrategyVisitor extends GenericForwardStrategyVisitor<IJ
         wGetStrategy().visit(entity);
     }
 
-    public void visit(CompilationUnit entity) {
+    public void visit(OrdinaryCompilationUnit entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(ModularCompilationUnit entity) {
         wGetStrategy().visit(entity);
     }
 
@@ -170,6 +174,54 @@ public class JavaForwardStrategyVisitor extends GenericForwardStrategyVisitor<IJ
         wGetStrategy().visit(entity);
     }
 
+    public void visit(Open entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(ModuleDeclaration entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(ModuleDirectives entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(ModulePackageAccess entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(Names entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(RequiresDirective entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(ModuleModifiers entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(ModuleModifier entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(ExportsDirective entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(OpensDirective entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(UsesDirective entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(ProvidesDirective entity) {
+        wGetStrategy().visit(entity);
+    }
+
     public void visit(TypeParameters entity) {
         wGetStrategy().visit(entity);
     }
@@ -255,6 +307,10 @@ public class JavaForwardStrategyVisitor extends GenericForwardStrategyVisitor<IJ
     }
 
     public void visit(UpperBound entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(VarType entity) {
         wGetStrategy().visit(entity);
     }
 

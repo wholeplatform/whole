@@ -364,7 +364,7 @@ public class EditorsArtifactsGeneratorQuery extends AbstractTemplateFactory<org.
         b2._NameWithExtension();
         b1.Resolver();
         b1.StageUpFragment_();
-        b3.CompilationUnit_();
+        b3.OrdinaryCompilationUnit_();
         b3.PackageDeclaration_();
         b1.Resolver();
         b1.Resolver();
@@ -580,7 +580,7 @@ public class EditorsArtifactsGeneratorQuery extends AbstractTemplateFactory<org.
         b3._BodyDeclarations();
         b3._ClassDeclaration();
         b3._TypeDeclarations();
-        b3._CompilationUnit();
+        b3._OrdinaryCompilationUnit();
         b1._StageUpFragment();
         b2._FileArtifact();
         b1._StageUpFragment();
@@ -599,7 +599,7 @@ public class EditorsArtifactsGeneratorQuery extends AbstractTemplateFactory<org.
         b2._NameWithExtension();
         b1.Resolver();
         b1.StageUpFragment_();
-        b3.CompilationUnit_();
+        b3.OrdinaryCompilationUnit_();
         b3.PackageDeclaration_();
         b1.Resolver();
         b1.Resolver();
@@ -728,7 +728,7 @@ public class EditorsArtifactsGeneratorQuery extends AbstractTemplateFactory<org.
         b3._BodyDeclarations();
         b3._ClassDeclaration();
         b3._TypeDeclarations();
-        b3._CompilationUnit();
+        b3._OrdinaryCompilationUnit();
         b1._StageUpFragment();
         b2._FileArtifact();
         b1._StageUpFragment();
@@ -747,7 +747,7 @@ public class EditorsArtifactsGeneratorQuery extends AbstractTemplateFactory<org.
         b2._NameWithExtension();
         b1.Resolver();
         b1.StageUpFragment_();
-        b3.CompilationUnit_();
+        b3.OrdinaryCompilationUnit_();
         b3.PackageDeclaration_();
         b1.Resolver();
         b1.Resolver();
@@ -1023,7 +1023,7 @@ public class EditorsArtifactsGeneratorQuery extends AbstractTemplateFactory<org.
         b3._BodyDeclarations();
         b3._ClassDeclaration();
         b3._TypeDeclarations();
-        b3._CompilationUnit();
+        b3._OrdinaryCompilationUnit();
         b1._StageUpFragment();
         b2._FileArtifact();
         b1._StageUpFragment();
@@ -1182,7 +1182,7 @@ public class EditorsArtifactsGeneratorQuery extends AbstractTemplateFactory<org.
         b2._NameWithExtension();
         b1.Resolver();
         b1.StageUpFragment_();
-        b3.CompilationUnit_();
+        b3.OrdinaryCompilationUnit_();
         b3.PackageDeclaration_();
         b1.Resolver();
         b1.Resolver();
@@ -1373,7 +1373,7 @@ public class EditorsArtifactsGeneratorQuery extends AbstractTemplateFactory<org.
         b3._BodyDeclarations();
         b3._ClassDeclaration();
         b3._TypeDeclarations();
-        b3._CompilationUnit();
+        b3._OrdinaryCompilationUnit();
         b1._StageUpFragment();
         b2._FileArtifact();
         b1._StageUpFragment();
@@ -1532,7 +1532,7 @@ public class EditorsArtifactsGeneratorQuery extends AbstractTemplateFactory<org.
         b2._NameWithExtension();
         b1.Resolver();
         b1.StageUpFragment_();
-        b3.CompilationUnit_();
+        b3.OrdinaryCompilationUnit_();
         b3.PackageDeclaration_();
         b1.Resolver();
         b1.Resolver();
@@ -1615,7 +1615,7 @@ public class EditorsArtifactsGeneratorQuery extends AbstractTemplateFactory<org.
         b3._BodyDeclarations();
         b3._ClassDeclaration();
         b3._TypeDeclarations();
-        b3._CompilationUnit();
+        b3._OrdinaryCompilationUnit();
         b1._StageUpFragment();
         b2._FileArtifact();
         b1._StageUpFragment();
@@ -1830,7 +1830,7 @@ public class EditorsArtifactsGeneratorQuery extends AbstractTemplateFactory<org.
         b2._NameWithExtension();
         b1.Resolver();
         b1.StageUpFragment_();
-        b3.CompilationUnit_();
+        b3.OrdinaryCompilationUnit_();
         b3.PackageDeclaration_();
         b1.Resolver();
         b1.Resolver();
@@ -1888,7 +1888,7 @@ public class EditorsArtifactsGeneratorQuery extends AbstractTemplateFactory<org.
         b3._BodyDeclarations();
         b3._ClassDeclaration();
         b3._TypeDeclarations();
-        b3._CompilationUnit();
+        b3._OrdinaryCompilationUnit();
         b1._StageUpFragment();
         b2._FileArtifact();
         b1._StageUpFragment();

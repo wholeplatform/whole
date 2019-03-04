@@ -18,6 +18,7 @@
 package org.whole.lang.java.builders;
 
 import org.whole.lang.builders.IBuilder;
+import org.whole.lang.java.model.ModuleModifierEnum;
 import org.whole.lang.java.model.PrimitiveTypeEnum;
 import org.whole.lang.java.model.AssignmentOperatorEnum;
 import org.whole.lang.java.model.InfixOperatorEnum;
@@ -107,6 +108,14 @@ public interface IJavaBuilder extends IBuilder {
 
     public void typeBounds();
 
+    public void implementations();
+
+    public void modules();
+
+    public void moduleDirectives();
+
+    public void open();
+
     public void superclassType();
 
     public void typeParameters();
@@ -157,11 +166,13 @@ public interface IJavaBuilder extends IBuilder {
 
     public void javadoc();
 
+    public void module();
+
     public void types();
 
-    public void imports();
-
     public void _package();
+
+    public void imports();
 
     public void JavaSystemSoftware();
 
@@ -171,11 +182,17 @@ public interface IJavaBuilder extends IBuilder {
 
     public void _JavaSystemSoftware();
 
-    public void CompilationUnit();
+    public void OrdinaryCompilationUnit();
 
-    public void CompilationUnit_();
+    public void OrdinaryCompilationUnit_();
 
-    public void _CompilationUnit();
+    public void _OrdinaryCompilationUnit();
+
+    public void ModularCompilationUnit();
+
+    public void ModularCompilationUnit_();
+
+    public void _ModularCompilationUnit();
 
     public void PackageDeclaration();
 
@@ -377,6 +394,82 @@ public interface IJavaBuilder extends IBuilder {
 
     public void _InterfaceDeclaration();
 
+    public void Open();
+
+    public void Open(boolean value);
+
+    public void ModuleDeclaration();
+
+    public void ModuleDeclaration_();
+
+    public void _ModuleDeclaration();
+
+    public void ModuleDirectives();
+
+    public void ModuleDirectives_();
+
+    public void ModuleDirectives_(int initialCapacity);
+
+    public void _ModuleDirectives();
+
+    public void ModulePackageAccess();
+
+    public void ModulePackageAccess_();
+
+    public void _ModulePackageAccess();
+
+    public void Names();
+
+    public void Names_();
+
+    public void Names_(int initialCapacity);
+
+    public void _Names();
+
+    public void RequiresDirective();
+
+    public void RequiresDirective_();
+
+    public void _RequiresDirective();
+
+    public void ModuleModifiers();
+
+    public void ModuleModifiers_();
+
+    public void ModuleModifiers_(int initialCapacity);
+
+    public void _ModuleModifiers();
+
+    public void ModuleModifier();
+
+    public void ModuleModifier(ModuleModifierEnum.Value value);
+
+    public void ModuleModifier(String value);
+
+    public void ExportsDirective();
+
+    public void ExportsDirective_();
+
+    public void _ExportsDirective();
+
+    public void OpensDirective();
+
+    public void OpensDirective_();
+
+    public void _OpensDirective();
+
+    public void UsesDirective();
+
+    public void UsesDirective_();
+
+    public void _UsesDirective();
+
+    public void ProvidesDirective();
+
+    public void ProvidesDirective_();
+
+    public void _ProvidesDirective();
+
     public void TypeParameters();
 
     public void TypeParameters_();
@@ -512,6 +605,12 @@ public interface IJavaBuilder extends IBuilder {
     public void UpperBound();
 
     public void UpperBound(boolean value);
+
+    public void VarType();
+
+    public void VarType_();
+
+    public void _VarType();
 
     public void AssertStatement();
 

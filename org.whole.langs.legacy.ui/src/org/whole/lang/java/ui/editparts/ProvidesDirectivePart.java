@@ -21,25 +21,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.draw2d.IFigure;
-import org.whole.lang.java.model.CompilationUnit;
-import org.whole.lang.java.ui.figures.CompilationUnitFigure;
+import org.whole.lang.java.model.ProvidesDirective;
+import org.whole.lang.java.ui.figures.ProvidesDirectiveFigure;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
 
 /**
- * @author Riccardo Solmi
+ * @author Enrico Persiani
  */
-public class CompilationUnitPart extends AbstractContentPanePart {
+public class ProvidesDirectivePart extends AbstractContentPanePart {
 	protected IFigure createFigure() {
-		return new CompilationUnitFigure();
+		return new ProvidesDirectiveFigure();
 	}
 
 	protected List<IEntity> getModelSpecificChildren() {
-		CompilationUnit compilationUnit = getModelEntity();
-		List<IEntity> list = new ArrayList<IEntity>(3);
-		list.add(compilationUnit.getPackage());
-		list.add(compilationUnit.getImports());
-		list.add(compilationUnit.getTypes());
+		ProvidesDirective entity = getModelEntity();
+		List<IEntity> list = new ArrayList<IEntity>(2);
+		list.add(entity.getName());
+		list.add(entity.getImplementations());
 		return list;
 	}
 }

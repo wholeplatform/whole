@@ -96,6 +96,10 @@ public class JavaTextualPartFactoryVisitor extends JavaIdentityDefaultVisitor im
 		part = new IfStatementPart();
 	}
 
+	public void visit(Names entity) {
+		part = new CommaSeparatedCompositeFlowPart();
+	}
+
 	@Override
 	public void visit(SimpleName entity) {
 		part = new ContentTextualEntityPart();
@@ -292,6 +296,10 @@ public class JavaTextualPartFactoryVisitor extends JavaIdentityDefaultVisitor im
 		part = new AssignmentPart();
 	}
 
+	public void visit(VarType entity) {
+		part = new VarTypePart();
+	}
+
 	public void visit(WildcardType entity) {
 		part = new WildcardTypePart();
 	}
@@ -366,6 +374,10 @@ public class JavaTextualPartFactoryVisitor extends JavaIdentityDefaultVisitor im
 
 	public void visit(Modifier entity) {
 		part = new KeywordDataEntityPart();
+	}
+
+	public void visit(ModuleModifiers entity) {
+		part = new CompositeRowPart();
 	}
 
 	public void visit(ImportDeclaration entity) {
@@ -483,8 +495,40 @@ public class JavaTextualPartFactoryVisitor extends JavaIdentityDefaultVisitor im
 		part = new ForStatementPart();
 	}
 
-	public void visit(CompilationUnit entity) {
-		part = new CompilationUnitPart();
+	public void visit(ModularCompilationUnit entity) {
+		part = new ModularCompilationUnitPart();
+	}
+	
+	public void visit(ModuleDeclaration entity) {
+		part = new ModuleDeclarationPart();
+	}
+
+	public void visit(ModuleDirectives entity) {
+		part = new CompositeColumnPart();
+	}
+	
+	public void visit(ExportsDirective entity) {
+		part = new ExportsDirectivePart();
+	}
+
+	public void visit(OpensDirective entity) {
+		part = new OpensDirectivePart();
+	}
+
+	public void visit(ProvidesDirective entity) {
+		part = new ProvidesDirectivePart();
+	}
+
+	public void visit(RequiresDirective entity) {
+		part = new RequiresDirectivePart();
+	}
+
+	public void visit(UsesDirective entity) {
+		part = new UsesDirectivePart();
+	}
+
+	public void visit(OrdinaryCompilationUnit entity) {
+		part = new OrdinaryCompilationUnitPart();
 	}
 
 	public void visit(ConditionalExpression entity) {

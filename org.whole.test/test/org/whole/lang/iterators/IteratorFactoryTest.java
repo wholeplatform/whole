@@ -53,8 +53,8 @@ import org.whole.lang.grammars.model.Productions;
 import org.whole.lang.grammars.model.Rule;
 import org.whole.lang.grammars.reflect.GrammarsEntityDescriptorEnum;
 import org.whole.lang.grammars.util.TestXmlGrammar;
-import org.whole.lang.java.model.CompilationUnit;
 import org.whole.lang.java.model.ImportModifier;
+import org.whole.lang.java.model.OrdinaryCompilationUnit;
 import org.whole.lang.java.reflect.JavaEntityDescriptorEnum;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.misc.factories.MiscEntityFactory;
@@ -254,7 +254,7 @@ public class IteratorFactoryTest {
 		IEntity e = XmlBuilderPersistenceKit.instance().readModel(
 				new ClasspathPersistenceProvider("org/whole/lang/templates/codebase/TemplateManagerArtifactsTemplates.xwl"));
 
-		CompilationUnit cu = Matcher.find(JavaEntityDescriptorEnum.CompilationUnit, e, false);
+		OrdinaryCompilationUnit cu = Matcher.find(JavaEntityDescriptorEnum.OrdinaryCompilationUnit, e, false);
 		ImportModifier im = Matcher.find(JavaEntityDescriptorEnum.ImportModifier, e, false);
 
 		IExecutable i1 = f.createRoot();

@@ -25,6 +25,7 @@ import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.junit.Test;
+import org.whole.gen.util.JDTUtils.JAVA_FRAGMENT;
 
 /**
  * 
@@ -64,7 +65,7 @@ public class JDTUtilsTest {
 	@Test
     public void testParseExpression() {
 		try {
-			ASTNode astNode = JDTUtils.parse(JAVA_EXPRESSION);
+			ASTNode astNode = JDTUtils.parseAs(JAVA_EXPRESSION, JAVA_FRAGMENT.EXPRESSION);
 			assertTrue(astNode instanceof Expression);
 		} catch (IllegalArgumentException e) {
 			fail();
@@ -74,7 +75,7 @@ public class JDTUtilsTest {
 	@Test
     public void testParseStatements() {
 		try {
-			ASTNode astNode = JDTUtils.parse(JAVA_STATEMENTS);
+			ASTNode astNode = JDTUtils.parseAs(JAVA_STATEMENTS, JAVA_FRAGMENT.STATEMENTS);
 			assertTrue(astNode instanceof Block);
 		} catch (IllegalArgumentException e) {
 			fail();
@@ -84,7 +85,7 @@ public class JDTUtilsTest {
 	@Test
     public void testParseInitializer() {
 		try {
-			ASTNode astNode = JDTUtils.parse(JAVA_INITIALIZER);
+			ASTNode astNode = JDTUtils.parseAs(JAVA_INITIALIZER, JAVA_FRAGMENT.CLASS_BODY_DECLARATIONS);
 			assertTrue(astNode instanceof TypeDeclaration);
 		} catch (IllegalArgumentException e) {
 			fail();
@@ -94,7 +95,7 @@ public class JDTUtilsTest {
 	@Test
     public void testParseClassBodyDeclarations() {
 		try {
-			ASTNode astNode = JDTUtils.parse(JAVA_CLASS_BODY_DECLARATIONS);
+			ASTNode astNode = JDTUtils.parseAs(JAVA_CLASS_BODY_DECLARATIONS, JAVA_FRAGMENT.CLASS_BODY_DECLARATIONS);
 			assertTrue(astNode instanceof TypeDeclaration);
 		} catch (IllegalArgumentException e) {
 			fail();
@@ -104,7 +105,7 @@ public class JDTUtilsTest {
 	@Test
     public void testParseCompilationUnit() {
 		try {
-			ASTNode astNode = JDTUtils.parse(JAVA_COMPILATION_UNIT);
+			ASTNode astNode = JDTUtils.parseAs(JAVA_COMPILATION_UNIT, JAVA_FRAGMENT.COMPILATION_UNIT);
 			assertTrue(astNode instanceof CompilationUnit);
 		} catch (IllegalArgumentException e) {
 			fail();
@@ -115,7 +116,7 @@ public class JDTUtilsTest {
     public void testParseFail() {
 		try {
 			@SuppressWarnings("unused")
-			ASTNode astNode = JDTUtils.parse(JAVA_UNPARSABLE);
+			ASTNode astNode = JDTUtils.parseAs(JAVA_UNPARSABLE, JAVA_FRAGMENT.COMPILATION_UNIT);
 			fail();
 		} catch (IllegalArgumentException e) {
 		}

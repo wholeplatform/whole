@@ -18,29 +18,28 @@
 package org.whole.lang.java.model.impl;
 
 import org.whole.lang.model.AbstractSimpleEntity;
-import org.whole.lang.java.model.CompilationUnit;
+import org.whole.lang.java.model.ModularCompilationUnit;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.java.reflect.JavaEntityDescriptorEnum;
 import org.whole.lang.java.visitors.IJavaVisitor;
 import org.whole.lang.exceptions.IWholeRuntimeException;
-import org.whole.lang.java.model.PackageDeclaration;
+import org.whole.lang.java.model.ImportDeclarations;
 import org.whole.lang.java.reflect.JavaFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.java.model.ImportDeclarations;
-import org.whole.lang.java.model.TypeDeclarations;
+import org.whole.lang.java.model.ModuleDeclaration;
 
 /**
  *  @generator Whole
  */
-public class CompilationUnitImpl extends AbstractSimpleEntity implements CompilationUnit {
+public class ModularCompilationUnitImpl extends AbstractSimpleEntity implements ModularCompilationUnit {
     private static final long serialVersionUID = 1;
 
-    public EntityDescriptor<CompilationUnit> wGetEntityDescriptor() {
-        return JavaEntityDescriptorEnum.CompilationUnit;
+    public EntityDescriptor<ModularCompilationUnit> wGetEntityDescriptor() {
+        return JavaEntityDescriptorEnum.ModularCompilationUnit;
     }
 
     public int wGetEntityOrd() {
-        return JavaEntityDescriptorEnum.CompilationUnit_ord;
+        return JavaEntityDescriptorEnum.ModularCompilationUnit_ord;
     }
 
     public void accept(IJavaVisitor visitor) {
@@ -49,15 +48,6 @@ public class CompilationUnitImpl extends AbstractSimpleEntity implements Compila
         } catch (Exception e) {
             throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
         }
-    }
-    private PackageDeclaration _package;
-
-    public PackageDeclaration getPackage() {
-        return notifyRequested(JavaFeatureDescriptorEnum._package, _package);
-    }
-
-    public void setPackage(PackageDeclaration _package) {
-        notifyChanged(JavaFeatureDescriptorEnum._package, this._package, this._package = _package);
     }
     private ImportDeclarations imports;
 
@@ -68,24 +58,22 @@ public class CompilationUnitImpl extends AbstractSimpleEntity implements Compila
     public void setImports(ImportDeclarations imports) {
         notifyChanged(JavaFeatureDescriptorEnum.imports, this.imports, this.imports = imports);
     }
-    private TypeDeclarations types;
+    private ModuleDeclaration module;
 
-    public TypeDeclarations getTypes() {
-        return notifyRequested(JavaFeatureDescriptorEnum.types, types);
+    public ModuleDeclaration getModule() {
+        return notifyRequested(JavaFeatureDescriptorEnum.module, module);
     }
 
-    public void setTypes(TypeDeclarations types) {
-        notifyChanged(JavaFeatureDescriptorEnum.types, this.types, this.types = types);
+    public void setModule(ModuleDeclaration module) {
+        notifyChanged(JavaFeatureDescriptorEnum.module, this.module, this.module = module);
     }
 
     public IEntity wGet(int index) {
         switch (index) {
             case 0 :
-            return getPackage().wGetAdaptee(false);
-            case 1 :
             return getImports().wGetAdaptee(false);
-            case 2 :
-            return getTypes().wGetAdaptee(false);
+            case 1 :
+            return getModule().wGetAdaptee(false);
             default :
             throw new IllegalArgumentException();
         }
@@ -94,13 +82,10 @@ public class CompilationUnitImpl extends AbstractSimpleEntity implements Compila
     public void wSet(int index, IEntity value) {
         switch (index) {
             case 0 :
-            setPackage(value.wGetAdapter(JavaEntityDescriptorEnum.PackageDeclaration));
-            break;
-            case 1 :
             setImports(value.wGetAdapter(JavaEntityDescriptorEnum.ImportDeclarations));
             break;
-            case 2 :
-            setTypes(value.wGetAdapter(JavaEntityDescriptorEnum.TypeDeclarations));
+            case 1 :
+            setModule(value.wGetAdapter(JavaEntityDescriptorEnum.ModuleDeclaration));
             break;
             default :
             throw new IllegalArgumentException();
@@ -108,6 +93,6 @@ public class CompilationUnitImpl extends AbstractSimpleEntity implements Compila
     }
 
     public int wSize() {
-        return 3;
+        return 2;
     }
 }

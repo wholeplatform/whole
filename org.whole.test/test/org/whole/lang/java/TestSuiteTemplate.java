@@ -3,11 +3,11 @@ package org.whole.lang.java;
 import org.whole.lang.builders.IBuilderOperation;
 import org.whole.lang.templates.AbstractTemplateFactory;
 
-public class TestSuiteTemplate extends AbstractTemplateFactory<org.whole.lang.java.model.CompilationUnit> {
+public class TestSuiteTemplate extends AbstractTemplateFactory<org.whole.lang.java.model.OrdinaryCompilationUnit> {
 
     public void apply(IBuilderOperation op) {
         org.whole.lang.java.builders.IJavaBuilder b0 = (org.whole.lang.java.builders.IJavaBuilder) op.wGetBuilder(org.whole.lang.java.reflect.JavaLanguageKit.URI);
-        b0.CompilationUnit_();
+        b0.OrdinaryCompilationUnit_();
         b0.PackageDeclaration_();
         b0.Javadoc_();
         b0.Tags_(1);
@@ -167,6 +167,6 @@ public class TestSuiteTemplate extends AbstractTemplateFactory<org.whole.lang.ja
         b0._BodyDeclarations();
         b0._ClassDeclaration();
         b0._TypeDeclarations();
-        b0._CompilationUnit();
+        b0._OrdinaryCompilationUnit();
     }
 }

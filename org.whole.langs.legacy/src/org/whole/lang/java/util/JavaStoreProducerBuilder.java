@@ -81,7 +81,7 @@ public class JavaStoreProducerBuilder implements IBuilder {
 		buildStartCompilationUnit(packageName, className, null);
 	}
 	public void buildStartCompilationUnit(String packageName, String className, String templateClassName) {
-		jb.CompilationUnit_();
+		jb.OrdinaryCompilationUnit_();
 		if (packageName == null || packageName.length()==0)
 			cb.Resolver();
 		else {
@@ -153,7 +153,7 @@ public class JavaStoreProducerBuilder implements IBuilder {
 		jb._ClassDeclaration();
 
 		jb._TypeDeclarations();
-		jb._CompilationUnit();
+		jb._OrdinaryCompilationUnit();
 	}
 
 	public void buildStartBlock() {

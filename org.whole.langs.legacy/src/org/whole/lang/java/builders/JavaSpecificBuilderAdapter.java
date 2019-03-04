@@ -22,6 +22,7 @@ import org.whole.lang.builders.IBuilder;
 import org.whole.lang.contexts.IEntityContext;
 import org.whole.lang.java.reflect.JavaEntityDescriptorEnum;
 import org.whole.lang.java.reflect.JavaFeatureDescriptorEnum;
+import org.whole.lang.java.model.ModuleModifierEnum;
 import org.whole.lang.java.model.PrimitiveTypeEnum;
 import org.whole.lang.java.model.AssignmentOperatorEnum;
 import org.whole.lang.java.model.InfixOperatorEnum;
@@ -190,6 +191,22 @@ public class JavaSpecificBuilderAdapter extends GenericBuilderContext implements
         wFeature(JavaFeatureDescriptorEnum.typeBounds);
     }
 
+    public void implementations() {
+        wFeature(JavaFeatureDescriptorEnum.implementations);
+    }
+
+    public void modules() {
+        wFeature(JavaFeatureDescriptorEnum.modules);
+    }
+
+    public void moduleDirectives() {
+        wFeature(JavaFeatureDescriptorEnum.moduleDirectives);
+    }
+
+    public void open() {
+        wFeature(JavaFeatureDescriptorEnum.open);
+    }
+
     public void superclassType() {
         wFeature(JavaFeatureDescriptorEnum.superclassType);
     }
@@ -290,16 +307,20 @@ public class JavaSpecificBuilderAdapter extends GenericBuilderContext implements
         wFeature(JavaFeatureDescriptorEnum.javadoc);
     }
 
+    public void module() {
+        wFeature(JavaFeatureDescriptorEnum.module);
+    }
+
     public void types() {
         wFeature(JavaFeatureDescriptorEnum.types);
     }
 
-    public void imports() {
-        wFeature(JavaFeatureDescriptorEnum.imports);
-    }
-
     public void _package() {
         wFeature(JavaFeatureDescriptorEnum._package);
+    }
+
+    public void imports() {
+        wFeature(JavaFeatureDescriptorEnum.imports);
     }
 
     public void visit() {
@@ -321,16 +342,28 @@ public class JavaSpecificBuilderAdapter extends GenericBuilderContext implements
         _wEntity(JavaEntityDescriptorEnum.JavaSystemSoftware);
     }
 
-    public void CompilationUnit() {
-        wEntity(JavaEntityDescriptorEnum.CompilationUnit);
+    public void OrdinaryCompilationUnit() {
+        wEntity(JavaEntityDescriptorEnum.OrdinaryCompilationUnit);
     }
 
-    public void CompilationUnit_() {
-        wEntity_(JavaEntityDescriptorEnum.CompilationUnit);
+    public void OrdinaryCompilationUnit_() {
+        wEntity_(JavaEntityDescriptorEnum.OrdinaryCompilationUnit);
     }
 
-    public void _CompilationUnit() {
-        _wEntity(JavaEntityDescriptorEnum.CompilationUnit);
+    public void _OrdinaryCompilationUnit() {
+        _wEntity(JavaEntityDescriptorEnum.OrdinaryCompilationUnit);
+    }
+
+    public void ModularCompilationUnit() {
+        wEntity(JavaEntityDescriptorEnum.ModularCompilationUnit);
+    }
+
+    public void ModularCompilationUnit_() {
+        wEntity_(JavaEntityDescriptorEnum.ModularCompilationUnit);
+    }
+
+    public void _ModularCompilationUnit() {
+        _wEntity(JavaEntityDescriptorEnum.ModularCompilationUnit);
     }
 
     public void PackageDeclaration() {
@@ -733,6 +766,158 @@ public class JavaSpecificBuilderAdapter extends GenericBuilderContext implements
         _wEntity(JavaEntityDescriptorEnum.InterfaceDeclaration);
     }
 
+    public void Open() {
+        wEntity(JavaEntityDescriptorEnum.Open);
+    }
+
+    public void Open(boolean value) {
+        wEntity(JavaEntityDescriptorEnum.Open, value);
+    }
+
+    public void ModuleDeclaration() {
+        wEntity(JavaEntityDescriptorEnum.ModuleDeclaration);
+    }
+
+    public void ModuleDeclaration_() {
+        wEntity_(JavaEntityDescriptorEnum.ModuleDeclaration);
+    }
+
+    public void _ModuleDeclaration() {
+        _wEntity(JavaEntityDescriptorEnum.ModuleDeclaration);
+    }
+
+    public void ModuleDirectives() {
+        wEntity(JavaEntityDescriptorEnum.ModuleDirectives);
+    }
+
+    public void ModuleDirectives_() {
+        wEntity_(JavaEntityDescriptorEnum.ModuleDirectives);
+    }
+
+    public void ModuleDirectives_(int initialCapacity) {
+        wEntity_(JavaEntityDescriptorEnum.ModuleDirectives, initialCapacity);
+    }
+
+    public void _ModuleDirectives() {
+        _wEntity(JavaEntityDescriptorEnum.ModuleDirectives);
+    }
+
+    public void ModulePackageAccess() {
+        wEntity(JavaEntityDescriptorEnum.ModulePackageAccess);
+    }
+
+    public void ModulePackageAccess_() {
+        wEntity_(JavaEntityDescriptorEnum.ModulePackageAccess);
+    }
+
+    public void _ModulePackageAccess() {
+        _wEntity(JavaEntityDescriptorEnum.ModulePackageAccess);
+    }
+
+    public void Names() {
+        wEntity(JavaEntityDescriptorEnum.Names);
+    }
+
+    public void Names_() {
+        wEntity_(JavaEntityDescriptorEnum.Names);
+    }
+
+    public void Names_(int initialCapacity) {
+        wEntity_(JavaEntityDescriptorEnum.Names, initialCapacity);
+    }
+
+    public void _Names() {
+        _wEntity(JavaEntityDescriptorEnum.Names);
+    }
+
+    public void RequiresDirective() {
+        wEntity(JavaEntityDescriptorEnum.RequiresDirective);
+    }
+
+    public void RequiresDirective_() {
+        wEntity_(JavaEntityDescriptorEnum.RequiresDirective);
+    }
+
+    public void _RequiresDirective() {
+        _wEntity(JavaEntityDescriptorEnum.RequiresDirective);
+    }
+
+    public void ModuleModifiers() {
+        wEntity(JavaEntityDescriptorEnum.ModuleModifiers);
+    }
+
+    public void ModuleModifiers_() {
+        wEntity_(JavaEntityDescriptorEnum.ModuleModifiers);
+    }
+
+    public void ModuleModifiers_(int initialCapacity) {
+        wEntity_(JavaEntityDescriptorEnum.ModuleModifiers, initialCapacity);
+    }
+
+    public void _ModuleModifiers() {
+        _wEntity(JavaEntityDescriptorEnum.ModuleModifiers);
+    }
+
+    public void ModuleModifier() {
+        wEntity(JavaEntityDescriptorEnum.ModuleModifier);
+    }
+
+    public void ModuleModifier(ModuleModifierEnum.Value value) {
+        wEntity(JavaEntityDescriptorEnum.ModuleModifier, value);
+    }
+
+    public void ModuleModifier(String value) {
+        wEntity(JavaEntityDescriptorEnum.ModuleModifier, value);
+    }
+
+    public void ExportsDirective() {
+        wEntity(JavaEntityDescriptorEnum.ExportsDirective);
+    }
+
+    public void ExportsDirective_() {
+        wEntity_(JavaEntityDescriptorEnum.ExportsDirective);
+    }
+
+    public void _ExportsDirective() {
+        _wEntity(JavaEntityDescriptorEnum.ExportsDirective);
+    }
+
+    public void OpensDirective() {
+        wEntity(JavaEntityDescriptorEnum.OpensDirective);
+    }
+
+    public void OpensDirective_() {
+        wEntity_(JavaEntityDescriptorEnum.OpensDirective);
+    }
+
+    public void _OpensDirective() {
+        _wEntity(JavaEntityDescriptorEnum.OpensDirective);
+    }
+
+    public void UsesDirective() {
+        wEntity(JavaEntityDescriptorEnum.UsesDirective);
+    }
+
+    public void UsesDirective_() {
+        wEntity_(JavaEntityDescriptorEnum.UsesDirective);
+    }
+
+    public void _UsesDirective() {
+        _wEntity(JavaEntityDescriptorEnum.UsesDirective);
+    }
+
+    public void ProvidesDirective() {
+        wEntity(JavaEntityDescriptorEnum.ProvidesDirective);
+    }
+
+    public void ProvidesDirective_() {
+        wEntity_(JavaEntityDescriptorEnum.ProvidesDirective);
+    }
+
+    public void _ProvidesDirective() {
+        _wEntity(JavaEntityDescriptorEnum.ProvidesDirective);
+    }
+
     public void TypeParameters() {
         wEntity(JavaEntityDescriptorEnum.TypeParameters);
     }
@@ -1003,6 +1188,18 @@ public class JavaSpecificBuilderAdapter extends GenericBuilderContext implements
 
     public void UpperBound(boolean value) {
         wEntity(JavaEntityDescriptorEnum.UpperBound, value);
+    }
+
+    public void VarType() {
+        wEntity(JavaEntityDescriptorEnum.VarType);
+    }
+
+    public void VarType_() {
+        wEntity_(JavaEntityDescriptorEnum.VarType);
+    }
+
+    public void _VarType() {
+        _wEntity(JavaEntityDescriptorEnum.VarType);
     }
 
     public void AssertStatement() {

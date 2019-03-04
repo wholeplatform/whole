@@ -28,7 +28,11 @@ public class JavaForwardStagedVisitor extends JavaIdentityVisitor {
         stagedVisit(entity);
     }
 
-    public void visit(CompilationUnit entity) {
+    public void visit(OrdinaryCompilationUnit entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(ModularCompilationUnit entity) {
         stagedVisit(entity);
     }
 
@@ -156,6 +160,54 @@ public class JavaForwardStagedVisitor extends JavaIdentityVisitor {
         stagedVisit(entity);
     }
 
+    public void visit(Open entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(ModuleDeclaration entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(ModuleDirectives entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(ModulePackageAccess entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(Names entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(RequiresDirective entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(ModuleModifiers entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(ModuleModifier entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(ExportsDirective entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(OpensDirective entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(UsesDirective entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(ProvidesDirective entity) {
+        stagedVisit(entity);
+    }
+
     public void visit(TypeParameters entity) {
         stagedVisit(entity);
     }
@@ -241,6 +293,10 @@ public class JavaForwardStagedVisitor extends JavaIdentityVisitor {
     }
 
     public void visit(UpperBound entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(VarType entity) {
         stagedVisit(entity);
     }
 

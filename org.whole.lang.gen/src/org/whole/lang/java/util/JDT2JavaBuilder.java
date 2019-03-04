@@ -109,11 +109,11 @@ public class JDT2JavaBuilder extends ASTVisitor {
     }
 
 	public boolean visit(CompilationUnit node) {
-		builder.CompilationUnit_();
+		builder.OrdinaryCompilationUnit_();
 		acceptChild(node.getPackage());
 		acceptChildren(node.imports(), JavaEntityDescriptorEnum.ImportDeclarations);
 		acceptChildren(node.types(), JavaEntityDescriptorEnum.TypeDeclarations);
-		builder._CompilationUnit();
+		builder._OrdinaryCompilationUnit();
 		return false;
 	}
 

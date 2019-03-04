@@ -33,7 +33,10 @@ public class JavaIdentityVisitor extends AbstractVisitor implements IJavaVisitor
     public void visit(JavaSystemSoftware entity) {
     }
 
-    public void visit(CompilationUnit entity) {
+    public void visit(OrdinaryCompilationUnit entity) {
+    }
+
+    public void visit(ModularCompilationUnit entity) {
     }
 
     public void visit(PackageDeclaration entity) {
@@ -129,6 +132,42 @@ public class JavaIdentityVisitor extends AbstractVisitor implements IJavaVisitor
     public void visit(InterfaceDeclaration entity) {
     }
 
+    public void visit(Open entity) {
+    }
+
+    public void visit(ModuleDeclaration entity) {
+    }
+
+    public void visit(ModuleDirectives entity) {
+    }
+
+    public void visit(ModulePackageAccess entity) {
+    }
+
+    public void visit(Names entity) {
+    }
+
+    public void visit(RequiresDirective entity) {
+    }
+
+    public void visit(ModuleModifiers entity) {
+    }
+
+    public void visit(ModuleModifier entity) {
+    }
+
+    public void visit(ExportsDirective entity) {
+    }
+
+    public void visit(OpensDirective entity) {
+    }
+
+    public void visit(UsesDirective entity) {
+    }
+
+    public void visit(ProvidesDirective entity) {
+    }
+
     public void visit(TypeParameters entity) {
     }
 
@@ -193,6 +232,9 @@ public class JavaIdentityVisitor extends AbstractVisitor implements IJavaVisitor
     }
 
     public void visit(UpperBound entity) {
+    }
+
+    public void visit(VarType entity) {
     }
 
     public void visit(AssertStatement entity) {

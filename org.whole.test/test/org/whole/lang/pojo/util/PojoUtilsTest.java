@@ -11,7 +11,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.whole.lang.java.codebase.JavaClassTemplateFactory;
 import org.whole.lang.java.codebase.JavaSourceTemplateFactory;
-import org.whole.lang.java.model.CompilationUnit;
+import org.whole.lang.java.model.OrdinaryCompilationUnit;
 import org.whole.lang.misc.factories.MiscEntityFactory;
 import org.whole.lang.misc.model.Misc;
 import org.whole.lang.model.IEntity;
@@ -60,7 +60,7 @@ public class PojoUtilsTest {
 
 		for (int i=0; i<classes.length; i++) {
 			JavaClassTemplateFactory javaSourceTemplateFactory = new JavaClassTemplateFactory(classes[i]);
-			CompilationUnit compilationUnit = javaSourceTemplateFactory.create();
+			OrdinaryCompilationUnit compilationUnit = javaSourceTemplateFactory.create();
 			misc.wAdd(compilationUnit);
 		}
 		return misc;
@@ -72,7 +72,7 @@ public class PojoUtilsTest {
 
 		for (int i=0; i<typeRoots.length; i++) {
 			JavaSourceTemplateFactory javaSourceTemplateFactory = new JavaSourceTemplateFactory(typeRoots[i]);
-			CompilationUnit compilationUnit = javaSourceTemplateFactory.create();
+			OrdinaryCompilationUnit compilationUnit = javaSourceTemplateFactory.create();
 			misc.wAdd(compilationUnit);
 		}
 		return misc;

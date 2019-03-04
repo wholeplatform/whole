@@ -31,7 +31,8 @@ public class JavaImplEntityRegistry extends AbstractEntityRegistry {
 
     protected void createPrototypes() {
         put(new JavaSystemSoftwareImpl());
-        put(new CompilationUnitImpl());
+        put(new OrdinaryCompilationUnitImpl());
+        put(new ModularCompilationUnitImpl());
         put(new PackageDeclarationImpl());
         put(new BlockCommentImpl());
         put(new LineCommentImpl());
@@ -63,6 +64,18 @@ public class JavaImplEntityRegistry extends AbstractEntityRegistry {
         put(new AnnotationTypeDeclarationImpl());
         put(new ClassDeclarationImpl());
         put(new InterfaceDeclarationImpl());
+        put(new OpenImpl());
+        put(new ModuleDeclarationImpl());
+        put(new ModuleDirectivesImpl());
+        put(new ModulePackageAccessImpl());
+        put(new NamesImpl());
+        put(new RequiresDirectiveImpl());
+        put(new ModuleModifiersImpl());
+        put(new ModuleModifierImpl());
+        put(new ExportsDirectiveImpl());
+        put(new OpensDirectiveImpl());
+        put(new UsesDirectiveImpl());
+        put(new ProvidesDirectiveImpl());
         put(new TypeParametersImpl());
         put(new TypeParameterImpl());
         put(new TypesImpl());
@@ -85,6 +98,7 @@ public class JavaImplEntityRegistry extends AbstractEntityRegistry {
         put(new UnionTypeImpl());
         put(new IntersectionTypeImpl());
         put(new UpperBoundImpl());
+        put(new VarTypeImpl());
         put(new AssertStatementImpl());
         put(new BlockImpl());
         put(new BreakStatementImpl());

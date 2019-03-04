@@ -34,7 +34,11 @@ public class JavaFailureVisitor extends JavaIdentityVisitor {
         throw new VisitException();
     }
 
-    public void visit(CompilationUnit entity) {
+    public void visit(OrdinaryCompilationUnit entity) {
+        throw new VisitException();
+    }
+
+    public void visit(ModularCompilationUnit entity) {
         throw new VisitException();
     }
 
@@ -162,6 +166,54 @@ public class JavaFailureVisitor extends JavaIdentityVisitor {
         throw new VisitException();
     }
 
+    public void visit(Open entity) {
+        throw new VisitException();
+    }
+
+    public void visit(ModuleDeclaration entity) {
+        throw new VisitException();
+    }
+
+    public void visit(ModuleDirectives entity) {
+        throw new VisitException();
+    }
+
+    public void visit(ModulePackageAccess entity) {
+        throw new VisitException();
+    }
+
+    public void visit(Names entity) {
+        throw new VisitException();
+    }
+
+    public void visit(RequiresDirective entity) {
+        throw new VisitException();
+    }
+
+    public void visit(ModuleModifiers entity) {
+        throw new VisitException();
+    }
+
+    public void visit(ModuleModifier entity) {
+        throw new VisitException();
+    }
+
+    public void visit(ExportsDirective entity) {
+        throw new VisitException();
+    }
+
+    public void visit(OpensDirective entity) {
+        throw new VisitException();
+    }
+
+    public void visit(UsesDirective entity) {
+        throw new VisitException();
+    }
+
+    public void visit(ProvidesDirective entity) {
+        throw new VisitException();
+    }
+
     public void visit(TypeParameters entity) {
         throw new VisitException();
     }
@@ -247,6 +299,10 @@ public class JavaFailureVisitor extends JavaIdentityVisitor {
     }
 
     public void visit(UpperBound entity) {
+        throw new VisitException();
+    }
+
+    public void visit(VarType entity) {
         throw new VisitException();
     }
 

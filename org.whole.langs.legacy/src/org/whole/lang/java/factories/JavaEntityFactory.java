@@ -52,16 +52,28 @@ public class JavaEntityFactory extends GenericEntityFactory {
         return clone(JavaEntityDescriptorEnum.JavaSystemSoftware, initialSize);
     }
 
-    public CompilationUnit createCompilationUnit() {
-        return create(JavaEntityDescriptorEnum.CompilationUnit);
+    public OrdinaryCompilationUnit createOrdinaryCompilationUnit() {
+        return create(JavaEntityDescriptorEnum.OrdinaryCompilationUnit);
     }
 
-    public CompilationUnit createCompilationUnit(PackageDeclaration _package, ImportDeclarations imports, TypeDeclarations types) {
-        return create(JavaEntityDescriptorEnum.CompilationUnit, _package, imports, types);
+    public OrdinaryCompilationUnit createOrdinaryCompilationUnit(PackageDeclaration _package, ImportDeclarations imports, TypeDeclarations types) {
+        return create(JavaEntityDescriptorEnum.OrdinaryCompilationUnit, _package, imports, types);
     }
 
-    public IEntityBuilder<CompilationUnit> buildCompilationUnit() {
-        return new EntityBuilder<CompilationUnit>(create(JavaEntityDescriptorEnum.CompilationUnit));
+    public IEntityBuilder<OrdinaryCompilationUnit> buildOrdinaryCompilationUnit() {
+        return new EntityBuilder<OrdinaryCompilationUnit>(create(JavaEntityDescriptorEnum.OrdinaryCompilationUnit));
+    }
+
+    public ModularCompilationUnit createModularCompilationUnit() {
+        return create(JavaEntityDescriptorEnum.ModularCompilationUnit);
+    }
+
+    public ModularCompilationUnit createModularCompilationUnit(ImportDeclarations imports, ModuleDeclaration module) {
+        return create(JavaEntityDescriptorEnum.ModularCompilationUnit, imports, module);
+    }
+
+    public IEntityBuilder<ModularCompilationUnit> buildModularCompilationUnit() {
+        return new EntityBuilder<ModularCompilationUnit>(create(JavaEntityDescriptorEnum.ModularCompilationUnit));
     }
 
     public PackageDeclaration createPackageDeclaration() {
@@ -408,6 +420,138 @@ public class JavaEntityFactory extends GenericEntityFactory {
         return new EntityBuilder<InterfaceDeclaration>(create(JavaEntityDescriptorEnum.InterfaceDeclaration));
     }
 
+    public Open createOpen() {
+        return create(JavaEntityDescriptorEnum.Open);
+    }
+
+    public Open createOpen(boolean value) {
+        return create(JavaEntityDescriptorEnum.Open, value);
+    }
+
+    public ModuleDeclaration createModuleDeclaration() {
+        return create(JavaEntityDescriptorEnum.ModuleDeclaration);
+    }
+
+    public ModuleDeclaration createModuleDeclaration(Javadoc javadoc, Annotations annotations, Open open, Name name, ModuleDirectives moduleDirectives) {
+        return create(JavaEntityDescriptorEnum.ModuleDeclaration, javadoc, annotations, open, name, moduleDirectives);
+    }
+
+    public IEntityBuilder<ModuleDeclaration> buildModuleDeclaration() {
+        return new EntityBuilder<ModuleDeclaration>(create(JavaEntityDescriptorEnum.ModuleDeclaration));
+    }
+
+    public ModuleDirectives createModuleDirectives() {
+        return create(JavaEntityDescriptorEnum.ModuleDirectives);
+    }
+
+    public ModuleDirectives createModuleDirectives(ModuleDirective... entities) {
+        return create(JavaEntityDescriptorEnum.ModuleDirectives, (IEntity[]) entities);
+    }
+
+    public ModuleDirectives createModuleDirectives(int initialSize) {
+        return clone(JavaEntityDescriptorEnum.ModuleDirectives, initialSize);
+    }
+
+    public ModulePackageAccess createModulePackageAccess() {
+        return create(JavaEntityDescriptorEnum.ModulePackageAccess);
+    }
+
+    public ModulePackageAccess createModulePackageAccess(Name name, Names modules) {
+        return create(JavaEntityDescriptorEnum.ModulePackageAccess, name, modules);
+    }
+
+    public IEntityBuilder<ModulePackageAccess> buildModulePackageAccess() {
+        return new EntityBuilder<ModulePackageAccess>(create(JavaEntityDescriptorEnum.ModulePackageAccess));
+    }
+
+    public Names createNames() {
+        return create(JavaEntityDescriptorEnum.Names);
+    }
+
+    public Names createNames(Name... entities) {
+        return create(JavaEntityDescriptorEnum.Names, (IEntity[]) entities);
+    }
+
+    public Names createNames(int initialSize) {
+        return clone(JavaEntityDescriptorEnum.Names, initialSize);
+    }
+
+    public RequiresDirective createRequiresDirective() {
+        return create(JavaEntityDescriptorEnum.RequiresDirective);
+    }
+
+    public RequiresDirective createRequiresDirective(ModuleModifiers modifiers, Name name) {
+        return create(JavaEntityDescriptorEnum.RequiresDirective, modifiers, name);
+    }
+
+    public IEntityBuilder<RequiresDirective> buildRequiresDirective() {
+        return new EntityBuilder<RequiresDirective>(create(JavaEntityDescriptorEnum.RequiresDirective));
+    }
+
+    public ModuleModifiers createModuleModifiers() {
+        return create(JavaEntityDescriptorEnum.ModuleModifiers);
+    }
+
+    public ModuleModifiers createModuleModifiers(ModuleModifier... entities) {
+        return create(JavaEntityDescriptorEnum.ModuleModifiers, (IEntity[]) entities);
+    }
+
+    public ModuleModifiers createModuleModifiers(int initialSize) {
+        return clone(JavaEntityDescriptorEnum.ModuleModifiers, initialSize);
+    }
+
+    public ModuleModifier createModuleModifier() {
+        return create(JavaEntityDescriptorEnum.ModuleModifier);
+    }
+
+    public ModuleModifier createModuleModifier(ModuleModifierEnum.Value value) {
+        return create(JavaEntityDescriptorEnum.ModuleModifier, value);
+    }
+
+    public ExportsDirective createExportsDirective() {
+        return create(JavaEntityDescriptorEnum.ExportsDirective);
+    }
+
+    public ExportsDirective createExportsDirective(Name name, Names modules) {
+        return create(JavaEntityDescriptorEnum.ExportsDirective, name, modules);
+    }
+
+    public IEntityBuilder<ExportsDirective> buildExportsDirective() {
+        return new EntityBuilder<ExportsDirective>(create(JavaEntityDescriptorEnum.ExportsDirective));
+    }
+
+    public OpensDirective createOpensDirective() {
+        return create(JavaEntityDescriptorEnum.OpensDirective);
+    }
+
+    public OpensDirective createOpensDirective(Name name, Names modules) {
+        return create(JavaEntityDescriptorEnum.OpensDirective, name, modules);
+    }
+
+    public IEntityBuilder<OpensDirective> buildOpensDirective() {
+        return new EntityBuilder<OpensDirective>(create(JavaEntityDescriptorEnum.OpensDirective));
+    }
+
+    public UsesDirective createUsesDirective() {
+        return create(JavaEntityDescriptorEnum.UsesDirective);
+    }
+
+    public UsesDirective createUsesDirective(Name name) {
+        return create(JavaEntityDescriptorEnum.UsesDirective, name);
+    }
+
+    public ProvidesDirective createProvidesDirective() {
+        return create(JavaEntityDescriptorEnum.ProvidesDirective);
+    }
+
+    public ProvidesDirective createProvidesDirective(Name name, Names implementations) {
+        return create(JavaEntityDescriptorEnum.ProvidesDirective, name, implementations);
+    }
+
+    public IEntityBuilder<ProvidesDirective> buildProvidesDirective() {
+        return new EntityBuilder<ProvidesDirective>(create(JavaEntityDescriptorEnum.ProvidesDirective));
+    }
+
     public TypeParameters createTypeParameters() {
         return create(JavaEntityDescriptorEnum.TypeParameters);
     }
@@ -646,6 +790,10 @@ public class JavaEntityFactory extends GenericEntityFactory {
 
     public UpperBound createUpperBound(boolean value) {
         return create(JavaEntityDescriptorEnum.UpperBound, value);
+    }
+
+    public VarType createVarType() {
+        return create(JavaEntityDescriptorEnum.VarType);
     }
 
     public AssertStatement createAssertStatement() {

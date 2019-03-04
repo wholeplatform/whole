@@ -23,104 +23,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import org.eclipse.jdt.core.dom.ASTNode;
-import org.eclipse.jdt.core.dom.ASTVisitor;
-import org.eclipse.jdt.core.dom.Annotation;
-import org.eclipse.jdt.core.dom.AnnotationTypeDeclaration;
-import org.eclipse.jdt.core.dom.AnnotationTypeMemberDeclaration;
-import org.eclipse.jdt.core.dom.AnonymousClassDeclaration;
-import org.eclipse.jdt.core.dom.ArrayAccess;
-import org.eclipse.jdt.core.dom.ArrayCreation;
-import org.eclipse.jdt.core.dom.ArrayInitializer;
-import org.eclipse.jdt.core.dom.ArrayType;
-import org.eclipse.jdt.core.dom.AssertStatement;
-import org.eclipse.jdt.core.dom.Assignment;
-import org.eclipse.jdt.core.dom.Block;
-import org.eclipse.jdt.core.dom.BlockComment;
-import org.eclipse.jdt.core.dom.BodyDeclaration;
-import org.eclipse.jdt.core.dom.BooleanLiteral;
-import org.eclipse.jdt.core.dom.BreakStatement;
-import org.eclipse.jdt.core.dom.CastExpression;
-import org.eclipse.jdt.core.dom.CatchClause;
-import org.eclipse.jdt.core.dom.CharacterLiteral;
-import org.eclipse.jdt.core.dom.ClassInstanceCreation;
-import org.eclipse.jdt.core.dom.Comment;
-import org.eclipse.jdt.core.dom.CompilationUnit;
-import org.eclipse.jdt.core.dom.ConditionalExpression;
-import org.eclipse.jdt.core.dom.ConstructorInvocation;
-import org.eclipse.jdt.core.dom.ContinueStatement;
-import org.eclipse.jdt.core.dom.CreationReference;
-import org.eclipse.jdt.core.dom.DoStatement;
-import org.eclipse.jdt.core.dom.EmptyStatement;
-import org.eclipse.jdt.core.dom.EnhancedForStatement;
-import org.eclipse.jdt.core.dom.EnumConstantDeclaration;
-import org.eclipse.jdt.core.dom.EnumDeclaration;
-import org.eclipse.jdt.core.dom.Expression;
-import org.eclipse.jdt.core.dom.ExpressionMethodReference;
-import org.eclipse.jdt.core.dom.ExpressionStatement;
-import org.eclipse.jdt.core.dom.FieldAccess;
-import org.eclipse.jdt.core.dom.FieldDeclaration;
-import org.eclipse.jdt.core.dom.ForStatement;
-import org.eclipse.jdt.core.dom.IExtendedModifier;
-import org.eclipse.jdt.core.dom.IfStatement;
-import org.eclipse.jdt.core.dom.ImportDeclaration;
-import org.eclipse.jdt.core.dom.InfixExpression;
-import org.eclipse.jdt.core.dom.Initializer;
-import org.eclipse.jdt.core.dom.InstanceofExpression;
-import org.eclipse.jdt.core.dom.IntersectionType;
-import org.eclipse.jdt.core.dom.Javadoc;
-import org.eclipse.jdt.core.dom.LambdaExpression;
-import org.eclipse.jdt.core.dom.LineComment;
-import org.eclipse.jdt.core.dom.MarkerAnnotation;
-import org.eclipse.jdt.core.dom.MemberRef;
-import org.eclipse.jdt.core.dom.MemberValuePair;
-import org.eclipse.jdt.core.dom.MethodDeclaration;
-import org.eclipse.jdt.core.dom.MethodInvocation;
-import org.eclipse.jdt.core.dom.MethodRef;
-import org.eclipse.jdt.core.dom.MethodRefParameter;
-import org.eclipse.jdt.core.dom.Modifier;
-import org.eclipse.jdt.core.dom.NameQualifiedType;
-import org.eclipse.jdt.core.dom.SuperMethodReference;
-import org.eclipse.jdt.core.dom.TypeMethodReference;
-import org.eclipse.jdt.core.dom.UnionType;
+import org.eclipse.jdt.core.dom.*;
 import org.eclipse.jdt.core.dom.Modifier.ModifierKeyword;
-import org.eclipse.jdt.core.dom.NormalAnnotation;
-import org.eclipse.jdt.core.dom.NullLiteral;
-import org.eclipse.jdt.core.dom.NumberLiteral;
-import org.eclipse.jdt.core.dom.PackageDeclaration;
-import org.eclipse.jdt.core.dom.ParameterizedType;
-import org.eclipse.jdt.core.dom.ParenthesizedExpression;
-import org.eclipse.jdt.core.dom.PostfixExpression;
-import org.eclipse.jdt.core.dom.PrefixExpression;
-import org.eclipse.jdt.core.dom.PrimitiveType;
-import org.eclipse.jdt.core.dom.QualifiedName;
-import org.eclipse.jdt.core.dom.ReturnStatement;
-import org.eclipse.jdt.core.dom.SimpleName;
-import org.eclipse.jdt.core.dom.SimpleType;
-import org.eclipse.jdt.core.dom.SingleMemberAnnotation;
-import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
-import org.eclipse.jdt.core.dom.Statement;
-import org.eclipse.jdt.core.dom.StringLiteral;
-import org.eclipse.jdt.core.dom.SuperConstructorInvocation;
-import org.eclipse.jdt.core.dom.SuperFieldAccess;
-import org.eclipse.jdt.core.dom.SuperMethodInvocation;
-import org.eclipse.jdt.core.dom.SwitchCase;
-import org.eclipse.jdt.core.dom.SwitchStatement;
-import org.eclipse.jdt.core.dom.SynchronizedStatement;
-import org.eclipse.jdt.core.dom.TagElement;
-import org.eclipse.jdt.core.dom.TextElement;
-import org.eclipse.jdt.core.dom.ThisExpression;
-import org.eclipse.jdt.core.dom.ThrowStatement;
-import org.eclipse.jdt.core.dom.TryStatement;
-import org.eclipse.jdt.core.dom.TypeDeclaration;
-import org.eclipse.jdt.core.dom.TypeDeclarationStatement;
-import org.eclipse.jdt.core.dom.TypeLiteral;
-import org.eclipse.jdt.core.dom.TypeParameter;
-import org.eclipse.jdt.core.dom.VariableDeclarationExpression;
-import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
-import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
-import org.eclipse.jdt.core.dom.WhileStatement;
-import org.eclipse.jdt.core.dom.WildcardType;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.java.factories.JavaEntityFactory;
@@ -135,6 +39,10 @@ import org.whole.lang.java.model.IJavaEntity;
 import org.whole.lang.java.model.InterfaceDeclaration;
 import org.whole.lang.java.model.MethodRefParameters;
 import org.whole.lang.java.model.ModifierEnum;
+import org.whole.lang.java.model.ModularCompilationUnit;
+import org.whole.lang.java.model.ModuleModifierEnum;
+import org.whole.lang.java.model.ModuleModifiers;
+import org.whole.lang.java.model.OrdinaryCompilationUnit;
 import org.whole.lang.java.model.PrimitiveTypeEnum;
 import org.whole.lang.java.model.TagName;
 import org.whole.lang.java.model.Tags;
@@ -159,6 +67,7 @@ public class JDTTransformerVisitor extends ASTVisitor {
 
 	private org.whole.lang.java.model.CompilationUnit cu;
 	private IBindingManager bindings;
+	private org.whole.lang.java.model.ModuleDirective moduleDirective;
 	private org.whole.lang.java.model.Type type;
 	private org.whole.lang.java.model.Javadoc javadoc;
 	private org.whole.lang.java.model.DocElement docElement;
@@ -271,29 +180,144 @@ public class JDTTransformerVisitor extends ASTVisitor {
 	}
 
 	public boolean visit(CompilationUnit node) {
-		cu = lf.createCompilationUnit(
-				createResolver(JavaEntityDescriptorEnum.PackageDeclaration),
-				lf.create(JavaEntityDescriptorEnum.ImportDeclarations),
-				lf.create(JavaEntityDescriptorEnum.TypeDeclarations));
-
-		env().wDef("typeDeclarationsContainer", cu.getTypes());
+		if (node.getModule() != null) {
+			ModularCompilationUnit mcu = lf.createModularCompilationUnit(
+					lf.create(JavaEntityDescriptorEnum.ImportDeclarations),
+					lf.create(JavaEntityDescriptorEnum.ModuleDeclaration));
+			env().wDef("moduleDeclaration", mcu.getModule());
+			cu = mcu;
+		} else {
+			OrdinaryCompilationUnit ocu = lf.createOrdinaryCompilationUnit(
+					createResolver(JavaEntityDescriptorEnum.PackageDeclaration),
+					lf.create(JavaEntityDescriptorEnum.ImportDeclarations),
+					lf.create(JavaEntityDescriptorEnum.TypeDeclarations));
+			env().wDef("typeDeclarationsContainer", ocu.getTypes());
+			cu = ocu;
+		}
 		return true;
+	}
+
+	public boolean visit(ModuleDeclaration node) {
+		org.whole.lang.java.model.ModuleDeclaration moduleDeclaration = ((ModularCompilationUnit) cu).getModule();
+
+		if (acceptChild(commentsMapper.getPackageJavadoc()))
+			moduleDeclaration.setJavadoc(javadoc);
+
+		setAnnotations(moduleDeclaration.getAnnotations(), node.annotations());
+
+		moduleDeclaration.getOpen().setValue(node.isOpen());
+
+		acceptChild(node.getName());
+		moduleDeclaration.setName(name);
+
+		Iterator<?> i = node.moduleStatements().iterator();
+		while (i.hasNext()) {
+			((ASTNode) i.next()).accept(this);
+			moduleDeclaration.getModuleDirectives().wAdd(moduleDirective);
+		}
+
+		return false;
+	}
+
+	public boolean visit(RequiresDirective node) {
+		org.whole.lang.java.model.ModuleModifiers modifiers = lf.createModuleModifiers(0);
+
+		setModuleModifiers(modifiers, node.modifiers());
+
+		acceptChild(node.getName());
+
+		moduleDirective = lf.createRequiresDirective(modifiers, name);
+		return false;
+	}
+
+	private void setModuleModifiers(ModuleModifiers modifiers, List<?> jdtModifiers) {
+		for (Iterator<?> i = jdtModifiers.iterator(); i.hasNext();) {
+			ModuleModifier mm = (ModuleModifier) i.next();
+			if (mm.isStatic())
+				modifiers.wAdd(lf.createModuleModifier(ModuleModifierEnum._static));
+			else if (mm.isTransitive())
+				modifiers.wAdd(lf.createModuleModifier(ModuleModifierEnum.transitive));
+			else
+				throw new IllegalArgumentException("unsupported module modifier");
+		}
+	}
+	public boolean visit(ModuleModifier node) {
+		// TODO Auto-generated method stub
+		return super.visit(node);
+	}
+
+	public boolean visit(ExportsDirective node) {
+		org.whole.lang.java.model.Names modules = lf.createNames(0);
+
+		Iterator<?> i = node.modules().iterator();
+		while (i.hasNext()) {
+			((ASTNode) i.next()).accept(this);
+			modules.wAdd(name);
+		}
+
+		acceptChild(node.getName());
+
+		moduleDirective = lf.createExportsDirective(name, modules);
+		return false;
+	}
+
+	public boolean visit(OpensDirective node) {
+		org.whole.lang.java.model.Names modules = lf.createNames(0);
+
+		Iterator<?> i = node.modules().iterator();
+		while (i.hasNext()) {
+			((ASTNode) i.next()).accept(this);
+			modules.wAdd(name);
+		}
+
+		acceptChild(node.getName());
+
+		moduleDirective = lf.createOpensDirective(name, modules);
+		return false;
+	}
+
+	public boolean visit(UsesDirective node) {
+
+		acceptChild(node.getName());
+
+		moduleDirective = lf.createUsesDirective(name);
+		return false;
+	}
+
+	public boolean visit(ProvidesDirective node) {
+		org.whole.lang.java.model.Names implementations = lf.createNames(0);
+
+		Iterator<?> i = node.implementations().iterator();
+		while (i.hasNext()) {
+			((ASTNode) i.next()).accept(this);
+			implementations.wAdd(name);
+		}
+
+		acceptChild(node.getName());
+
+		moduleDirective = lf.createProvidesDirective(name, implementations);
+		return false;
 	}
 
 	public boolean visit(PackageDeclaration node) {
 		org.whole.lang.java.model.PackageDeclaration packageDeclaration = lf.createPackageDeclaration();
 
-		acceptChild(node.getName());
-		packageDeclaration.setName(name);
-
 		if (acceptChild(commentsMapper.getPackageJavadoc()))
 			packageDeclaration.setJavadoc(javadoc);
 
-		cu.setPackage(packageDeclaration);
+		setAnnotations(packageDeclaration.getAnnotations(), node.annotations());
+
+		acceptChild(node.getName());
+		packageDeclaration.setName(name);
+
+		((OrdinaryCompilationUnit) cu).setPackage(packageDeclaration);
 		return false;
 	}
 
 	public boolean visit(SimpleName node) {
+		if (node.isVar())
+			throw new UnsupportedOperationException("not implemented yet");
+
 		name = lf.createSimpleName(node.getIdentifier());
 		exp = name;
 		docElement = name;
@@ -356,13 +380,17 @@ public class JDTTransformerVisitor extends ASTVisitor {
 		return false;
 	}
 	public boolean visit(SimpleType node) {
-		String name = node.getName().getFullyQualifiedName();
-		if (StringUtils.isQualified(name))
-			type = conditionalWrapWithAnnotatedType(lf.createQualifiedType(name),
-					node.annotations());
-		else
-			type = conditionalWrapWithAnnotatedType(lf.createSimpleType(name),
-					node.annotations());
+		if (node.isVar())
+			type = lf.createVarType();
+		else {
+			String name = node.getName().getFullyQualifiedName();
+			if (StringUtils.isQualified(name))
+				type = conditionalWrapWithAnnotatedType(lf.createQualifiedType(name),
+						node.annotations());
+			else
+				type = conditionalWrapWithAnnotatedType(lf.createSimpleType(name),
+						node.annotations());
+		}
 		return false;
 	}
 	public boolean visit(PrimitiveType node) {

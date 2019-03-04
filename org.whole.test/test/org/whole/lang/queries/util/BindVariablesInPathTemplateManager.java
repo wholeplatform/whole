@@ -169,7 +169,7 @@ public class BindVariablesInPathTemplateManager extends AbstractTemplateManager 
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
                 org.whole.lang.java.builders.IJavaBuilder b0 = (org.whole.lang.java.builders.IJavaBuilder) op.wGetBuilder(org.whole.lang.java.reflect.JavaLanguageKit.URI);
-                b0.CompilationUnit_();
+                b0.OrdinaryCompilationUnit_();
                 b0.PackageDeclaration_();
                 org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
                 b1.Resolver();
@@ -527,7 +527,7 @@ public class BindVariablesInPathTemplateManager extends AbstractTemplateManager 
                 b0._BodyDeclarations();
                 b0._ClassDeclaration();
                 b0._TypeDeclarations();
-                b0._CompilationUnit();
+                b0._OrdinaryCompilationUnit();
             }
         };
     }

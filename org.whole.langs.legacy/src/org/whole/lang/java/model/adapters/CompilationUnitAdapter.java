@@ -47,27 +47,11 @@ public class CompilationUnitAdapter extends AbstractEntityAdapter implements Com
         return JavaEntityDescriptorEnum.CompilationUnit;
     }
 
-    public PackageDeclaration getPackage() {
-        return wGet(JavaFeatureDescriptorEnum._package).wGetAdapter(JavaEntityDescriptorEnum.PackageDeclaration);
-    }
-
-    public void setPackage(PackageDeclaration _package) {
-        wSet(JavaFeatureDescriptorEnum._package, _package);
-    }
-
     public ImportDeclarations getImports() {
         return wGet(JavaFeatureDescriptorEnum.imports).wGetAdapter(JavaEntityDescriptorEnum.ImportDeclarations);
     }
 
     public void setImports(ImportDeclarations imports) {
         wSet(JavaFeatureDescriptorEnum.imports, imports);
-    }
-
-    public TypeDeclarations getTypes() {
-        return wGet(JavaFeatureDescriptorEnum.types).wGetAdapter(JavaEntityDescriptorEnum.TypeDeclarations);
-    }
-
-    public void setTypes(TypeDeclarations types) {
-        wSet(JavaFeatureDescriptorEnum.types, types);
     }
 }

@@ -36,7 +36,7 @@ import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.codebase.IPersistenceProvider;
 import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.java.codebase.JavaSourceTemplateFactory;
-import org.whole.lang.java.model.CompilationUnit;
+import org.whole.lang.java.model.OrdinaryCompilationUnit;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.OperationCanceledException;
@@ -170,7 +170,7 @@ public class WorkflowsIDEInterpreterVisitor extends WorkflowsInterpreterVisitor 
 	}
 
 	@Override
-	protected ITemplateFactory<CompilationUnit> getJavaTemplateFactory(LoadJavaModel entity) {
+	protected ITemplateFactory<OrdinaryCompilationUnit> getJavaTemplateFactory(LoadJavaModel entity) {
 
 		ClassProvider classProvider = entity.getClassProvider();
 		EntityDescriptor<?> ed = classProvider.wGetEntityDescriptor();

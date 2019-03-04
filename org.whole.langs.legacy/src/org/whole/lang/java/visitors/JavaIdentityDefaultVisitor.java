@@ -32,7 +32,16 @@ public class JavaIdentityDefaultVisitor extends JavaIdentityVisitor {
     }
 
     public void visit(CompilationUnit entity) {
+    }
+
+    public void visit(OrdinaryCompilationUnit entity) {
         visit((IJavaEntity) entity);
+        visit((CompilationUnit) entity);
+    }
+
+    public void visit(ModularCompilationUnit entity) {
+        visit((IJavaEntity) entity);
+        visit((CompilationUnit) entity);
     }
 
     public void visit(PackageDeclaration entity) {
@@ -212,6 +221,63 @@ public class JavaIdentityDefaultVisitor extends JavaIdentityVisitor {
         visit((TypeDeclaration) entity);
     }
 
+    public void visit(Open entity) {
+        visit((IJavaEntity) entity);
+    }
+
+    public void visit(ModuleDeclaration entity) {
+        visit((IJavaEntity) entity);
+    }
+
+    public void visit(ModuleDirectives entity) {
+        visit((IJavaEntity) entity);
+    }
+
+    public void visit(ModuleDirective entity) {
+    }
+
+    public void visit(ModulePackageAccess entity) {
+        visit((IJavaEntity) entity);
+        visit((ModuleDirective) entity);
+    }
+
+    public void visit(Names entity) {
+        visit((IJavaEntity) entity);
+    }
+
+    public void visit(RequiresDirective entity) {
+        visit((IJavaEntity) entity);
+        visit((ModuleDirective) entity);
+    }
+
+    public void visit(ModuleModifiers entity) {
+        visit((IJavaEntity) entity);
+    }
+
+    public void visit(ModuleModifier entity) {
+        visit((IJavaEntity) entity);
+    }
+
+    public void visit(ExportsDirective entity) {
+        visit((IJavaEntity) entity);
+        visit((ModulePackageAccess) entity);
+    }
+
+    public void visit(OpensDirective entity) {
+        visit((IJavaEntity) entity);
+        visit((ModulePackageAccess) entity);
+    }
+
+    public void visit(UsesDirective entity) {
+        visit((IJavaEntity) entity);
+        visit((ModuleDirective) entity);
+    }
+
+    public void visit(ProvidesDirective entity) {
+        visit((IJavaEntity) entity);
+        visit((ModuleDirective) entity);
+    }
+
     public void visit(TypeParameters entity) {
         visit((IJavaEntity) entity);
     }
@@ -323,6 +389,11 @@ public class JavaIdentityDefaultVisitor extends JavaIdentityVisitor {
 
     public void visit(UpperBound entity) {
         visit((IJavaEntity) entity);
+    }
+
+    public void visit(VarType entity) {
+        visit((IJavaEntity) entity);
+        visit((Type) entity);
     }
 
     public void visit(AssertStatement entity) {

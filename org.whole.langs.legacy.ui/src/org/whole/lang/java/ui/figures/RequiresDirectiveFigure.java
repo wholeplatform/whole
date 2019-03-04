@@ -18,18 +18,19 @@
 package org.whole.lang.java.ui.figures;
 
 import org.whole.lang.ui.figures.ContentPaneFigure;
-import org.whole.lang.ui.layout.ColumnLayout;
+import org.whole.lang.ui.layout.RowLayout;
 
 /**
- *  @author Riccardo Solmi
+ *  @author Enrico Persiani
  */
-public class CompilationUnitFigure extends ContentPaneFigure {
+public class RequiresDirectiveFigure extends ContentPaneFigure {
 
-	public CompilationUnitFigure() {
-		super(new ColumnLayout());
-		initContentPanes(3);
+	public RequiresDirectiveFigure() {
+		super(new RowLayout().withSpacing(4));
+		initContentPanes(2);
+		addKeyword("requires");
 		add(createContentPane(0));
 		add(createContentPane(1));
-		add(createContentPane(2));
+		addContentLighter(";");
 	}
 }
