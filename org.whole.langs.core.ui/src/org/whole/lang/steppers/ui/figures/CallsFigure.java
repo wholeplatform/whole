@@ -17,6 +17,7 @@
  */
 package org.whole.lang.steppers.ui.figures;
 
+import org.whole.lang.steppers.ui.layouts.StepperDeclarationLayout;
 import org.whole.lang.ui.figures.CompositeFigure;
 import org.whole.lang.ui.layout.Alignment;
 import org.whole.lang.ui.layout.UnderColumnLayout;
@@ -27,6 +28,6 @@ import org.whole.lang.ui.layout.UnderColumnLayout;
 public class CallsFigure extends CompositeFigure {
 
     public CallsFigure() {
-        super(new UnderColumnLayout().withMinorAlignment(Alignment.LEADING).withSpacing(8));
+        super(new UnderColumnLayout().withMinorAlignment(Alignment.LEADING).withSpacing(StepperDeclarationLayout.CHILDREN_SPACING.height));
     }
 }

@@ -17,6 +17,8 @@
  */
 package org.whole.lang.steppers.ui.layouts;
 
+import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.whole.lang.ui.layout.AbstractEntityLayout;
 
@@ -24,6 +26,10 @@ import org.whole.lang.ui.layout.AbstractEntityLayout;
  * @author Riccardo Solmi
  */
 public class StepperDeclarationLayout extends AbstractEntityLayout {
+	public static final Insets SHAPE_INSETS = new Insets(4);
+	public static final Dimension TREE_SPACING = new Dimension(8, 8);
+	public static final Dimension CHILDREN_SPACING = new Dimension(8, 8);
+
 	protected int figIndent;
 
 	@Override
@@ -33,7 +39,7 @@ public class StepperDeclarationLayout extends AbstractEntityLayout {
 
 	protected void setAscentDescentWidth(int wHint, int hHint) {
 		figAscent = Math.max(childSize[0].height + ascent(1), ascent(2));
-		figDescent = Math.max(descent(1), descent(2)) + 8 + childSize[3].height;
+		figDescent = Math.max(descent(1), descent(2)) + TREE_SPACING.height + childSize[3].height;
 		figIndent = Math.max(8, indent(3));
 		figWidth = 8 + Math.max(childSize[0].width, childSize[1].width) + 8 + childSize[2].width;
 	}
