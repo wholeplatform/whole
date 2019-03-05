@@ -56,9 +56,8 @@ public class SteppersDynamicCompilerVisitor extends SteppersIdentityDefaultVisit
 
 	protected IExecutable compile(ISteppersEntity entity, Supplier<IExecutable> supplier) {
 		setResult(null);
-    	entity.accept(this);
-    	IEntity result = getResult();
-    	return result != null ? getExecutableResult() : supplier.get();
+		entity.accept(this);
+		return getBindings().isExecutableResult() ? getExecutableResult() : supplier.get();
 	}
 
 	@Override
@@ -77,7 +76,9 @@ public class SteppersDynamicCompilerVisitor extends SteppersIdentityDefaultVisit
 		String name = stringValue(entity.getName());
 		ExecutableStepper stepper = getStepper(name);
 		stepper.withExecutable(compile(entity.getExpression(), () -> ExecutableFactory.instance.createSelf()));
-		setExecutableResult(stepper.withSourceEntity(entity));
+		stepper.withSourceEntity(entity);
+		setResult(BindingManagerFactory.instance.createVoid());
+//		setExecutableResult(stepper.withSourceEntity(entity));
 	}
 
 	@Override
@@ -93,8 +94,16 @@ public class SteppersDynamicCompilerVisitor extends SteppersIdentityDefaultVisit
 
 	@Override
 	public void visit(StepperApplication entity) {
-		// TODO Auto-generated method stub
-		super.visit(entity);
+		entity.getGoals().accept(this);
+//		IEntity stepperR = getResult();
+		//TODO test only
+//		if (stepperR instanceof ExecutableStepper) {
+//		ExecutableStepper stepper = (ExecutableStepper) getResult();
+//    	if (stepper != null) {
+//    		IEntity result = stepper.evaluateRemaining();
+//    		setResult(result);
+//    	}
+//		}
 	}
 }
 

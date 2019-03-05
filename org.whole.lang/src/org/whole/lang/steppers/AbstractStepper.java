@@ -149,8 +149,8 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 		stepper.prototype = this;
 
 //FIXME state is function of differentiation style of the input connections
-		if (stepper instanceof EntityGetter && (stepper.state == StepperState.DATA || stepper.state == StepperState.ACTION)) {
-			stepper.state = StepperState.DATA;
+		if (stepper instanceof EntityGetter && stepper.state.isAction()) {
+			stepper.state = StepperState.NEXT_ACTION;
 		} else {
 			stepper.state = StepperState.IDLE;
 			//FIXME not yet cloned reset original arguments
@@ -243,7 +243,7 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 	public synchronized /*final*/ IEntity evaluateNext() {
 		callNext();
 		try {
-			while (state != StepperState.ACTION)
+			while (!state.isAction())
 				wait();
 		} catch (InterruptedException e) {
 			lastEntity = null;
@@ -254,70 +254,86 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 	public synchronized /*final*/ IEntity evaluateRemaining() {
 		callRemaining();
 		try {
-			while (state != StepperState.ACTION)
+			while (state != StepperState.DONE_ACTION)
 				wait();
 		} catch (InterruptedException e) {
 			lastEntity = null;
 		}
-		return lastEntity;
+		IEntity result = lastEntity;
+		lastEntity = null;
+		return result;
 	}
 
 	public synchronized void callNext() {
 		switch (state) {
-		case ACTION:
+		case DONE_ACTION:
 			state = StepperState.IDLE;
 			resetArguments();
 		case IDLE:
-			state = StepperState.CALL;
+			state = StepperState.CALL_NEXT;
 			if (producersSize() > 0) {
 				for (int i=0; i<producersSize(); i++)
-					getProducer(i).callNext();//TODO ? callRemaining
+					getProducer(i).callNext();//TODO ? or callRemaining
 				break;
 			}
 			if (!areAllArgumentsAvailable())
 				break;
-		case DATA:
+		case NEXT_ACTION:
 			doNextAction();
 		default:
 		}
 	}
 	public synchronized void callRemaining() {
 		switch (state) {
-		case ACTION:
+		case DONE_ACTION:
 			state = StepperState.IDLE;
 			resetArguments();
 		case IDLE:
-			state = StepperState.CALL;
+			state = StepperState.CALL_REMAINING;
 			if (producersSize() > 0) {
 				for (int i=0; i<producersSize(); i++)
-					getProducer(i).callRemaining();
+					getProducer(i).callRemaining();//TODO ? or iterated callNext
 				break;
 			}
-			if (areAllArgumentsAvailable()) {
-				state = StepperState.ACTION;
-				lastEntity = doEvaluateNext();
-				if (lastEntity != null)
-					getAction().accept(lastEntity);
-				getAction().done();
-				notify();
-			}
-			break;
-		case DATA:
-			doNextAction();
+			if (!areAllArgumentsAvailable())
+				break;
+		case NEXT_ACTION:
+			doRemainingAction();
 		default:
 		}
 	}
 
+	protected synchronized void doAction() {
+		if (state == StepperState.CALL_NEXT)
+			doNextAction();
+		else if (state == StepperState.CALL_REMAINING)
+			doRemainingAction();
+	}
+
 	protected synchronized void doNextAction() {
-		state = StepperState.ACTION;
+		state = StepperState.NEXT_ACTION;
 		lastEntity = doEvaluateNext();
-		if (lastEntity != null)
+		if (lastEntity != null) 
 			getAction().accept(lastEntity);
-		else
+		else {
+			state = StepperState.DONE_ACTION;
 			getAction().done();
+		}
 		notify();
 	};
 	public abstract IEntity doEvaluateNext();
+
+	protected synchronized void doRemainingAction() {
+		IEntity result = null;
+		while (state != StepperState.DONE_ACTION) {
+			doNextAction();
+			if (lastEntity == null) {
+				lastEntity = result;
+				return;
+			}
+			result = lastEntity;
+		}
+	}
 
 
     public void prune() {
@@ -521,8 +537,8 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 
 		public void accept(IEntity entity) {
 			this.entity = entity;
-			if (state == StepperState.CALL && areAllArgumentsAvailable())
-				doNextAction();
+			if (state.isCall() && areAllArgumentsAvailable())
+				doAction();
 		}
 
 		public void done() {
@@ -551,7 +567,27 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 	}
 
 	public static enum StepperState {
-		IDLE, CALL, DATA, ACTION
+		IDLE, CALL_NEXT, CALL_REMAINING, NEXT_ACTION, DONE_ACTION; //TODO add DATA
+
+		public boolean isCall() {
+			switch (this) {
+			case CALL_NEXT:
+			case CALL_REMAINING:
+				return true;
+			default:
+				return false;
+			}
+		}
+
+		public boolean isAction() {
+			switch (this) {
+			case NEXT_ACTION:
+			case DONE_ACTION:
+				return true;
+			default:
+				return false;
+			}
+		}
 	}
 
 	public static enum ConnectionKind {
@@ -612,7 +648,7 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 			return getExecutable().evaluateNext();
 		}
 
-		//FIXME add call in callRemaining
+		//FIXME add actions to the executable
 		public IEntity doEvaluateRemaining() {
 			return getExecutable().evaluateRemaining();
 		}

@@ -131,8 +131,8 @@ public class EntityGetter extends AbstractStepper {
 
 		public void doPropagateNext() {
 			Consumer<EntityGetter> doNextAction = (getter) -> {
-				if (getter.getState() == StepperState.CALL)
-					getter.doNextAction();
+				if (getter.getState().isCall())
+					getter.doAction();
 			};
 			variableGetterSet.forEach(doNextAction);
 			constantGetterSet.forEach(doNextAction);

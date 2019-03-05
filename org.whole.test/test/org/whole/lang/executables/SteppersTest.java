@@ -94,7 +94,7 @@ public class SteppersTest {
 
 		c.setExpectedEvents(Event.NEXT);
     	s0.callNext();
-		assertSame(StepperState.ACTION, s0.getState());
+		assertSame(StepperState.NEXT_ACTION, s0.getState());
 
 		c.clear();
 		c.setExpectedEvents(Event.NEXT);
@@ -122,7 +122,7 @@ public class SteppersTest {
     	c.setExpectedEvents(Event.NEXT);
 
     	addStepper.callNext();
-		assertSame(StepperState.ACTION, addStepper.getState());
+		assertSame(StepperState.NEXT_ACTION, addStepper.getState());
 
 		c.checkExpectations();
 	}
@@ -149,10 +149,10 @@ public class SteppersTest {
     	c.setExpectedEvents(Event.NEXT);
 
     	addStepper.callNext();
-		assertSame(StepperState.CALL, addStepper.getState());
+		assertSame(StepperState.CALL_NEXT, addStepper.getState());
 
 		arg1Stepper.setArgument(0, VALUES[2]);
-		assertSame(StepperState.ACTION, addStepper.getState());
+		assertSame(StepperState.NEXT_ACTION, addStepper.getState());
 
 		c.checkExpectations();
 	}
@@ -310,10 +310,10 @@ public class SteppersTest {
 		c.setExpectedValues(VALUES[3]);
     	c.setExpectedEvents(Event.NEXT);
     	addStepper1.callNext();
-		assertSame(StepperState.CALL, addStepper1.getState());
+		assertSame(StepperState.CALL_NEXT, addStepper1.getState());
 
 		arg1Stepper1.setArgument(0, VALUES[2]);
-		assertSame(StepperState.ACTION, addStepper1.getState());
+		assertSame(StepperState.NEXT_ACTION, addStepper1.getState());
 
 		c.checkExpectations();
 	}
