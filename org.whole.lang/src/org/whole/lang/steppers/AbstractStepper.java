@@ -306,7 +306,7 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 			state = StepperState.CALL_REMAINING;
 			if (producersSize() > 0) {
 				for (int i=0; i<producersSize(); i++)
-					getProducer(i).callRemaining();//TODO ? or iterated callNext
+					getProducer(i).callNext();//TODO ? was callRemaining
 				break;
 			}
 			if (!areAllArgumentsAvailable())

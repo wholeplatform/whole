@@ -24,11 +24,13 @@ import org.whole.lang.builders.SpecificBuilderAdapterOperation;
 import org.whole.lang.contexts.IEntityContext;
 import org.whole.lang.operations.DynamicCompilerOperation;
 import org.whole.lang.operations.IOperation;
+import org.whole.lang.operations.InterpreterOperation;
 import org.whole.lang.reflect.AbstractLanguageDeployer;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.steppers.builders.ISteppersBuilder;
 import org.whole.lang.steppers.builders.SteppersGenericBuilderAdapter;
 import org.whole.lang.steppers.builders.SteppersSpecificBuilderAdapter;
+import org.whole.lang.steppers.visitors.SteppersInterpreterVisitor;
 import org.whole.lang.steppers.visitors.SteppersDynamicCompilerVisitor;
 import org.whole.lang.visitors.IVisitor;
 import org.whole.lang.visitors.IVisitorFactory;
@@ -52,6 +54,15 @@ public class SteppersLanguageDeployer extends AbstractLanguageDeployer {
                 return new SteppersSpecificBuilderAdapter(strategy, entityContext);
             }
         });
+		platform.addOperationFactory(SteppersLanguageKit.URI, InterpreterOperation.ID,
+				new IVisitorFactory() {
+			public IVisitor create(IOperation operation, int stage) {
+				if (stage == 0)
+					return new SteppersInterpreterVisitor();
+				else
+					return null;
+			}
+		});
 		platform.addOperationFactory(SteppersLanguageKit.URI, DynamicCompilerOperation.ID,
 				new IVisitorFactory() {
 			public IVisitor create(IOperation operation, int stage) {
