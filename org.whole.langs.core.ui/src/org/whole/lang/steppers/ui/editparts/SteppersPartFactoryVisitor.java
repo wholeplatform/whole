@@ -37,6 +37,7 @@ import org.whole.lang.steppers.model.StepperReference;
 import org.whole.lang.steppers.model.Target;
 import org.whole.lang.steppers.visitors.SteppersIdentityDefaultVisitor;
 import org.whole.lang.ui.editparts.ContentDataEntityPart;
+import org.whole.lang.ui.editparts.ContentLightTextualEntityPart;
 import org.whole.lang.ui.editparts.IEditPartFactory;
 import org.whole.lang.ui.editparts.IdentifierTextualEntityPart;
 import org.whole.lang.ui.notations.table.editparts.TablePartFactory;
@@ -79,7 +80,7 @@ public class SteppersPartFactoryVisitor extends SteppersIdentityDefaultVisitor i
 
     @Override
     public void visit(Name entity) {
-        part = new IdentifierTextualEntityPart();
+        part = new ContentLightTextualEntityPart();
     }
 
     @Override

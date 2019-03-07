@@ -107,8 +107,10 @@ public class StepperDeclarationFigure extends NodeFigure {
         g.drawLine(x0, b1.bottom(), x1, b1.bottom());
         g.setAlpha(oldAlpha);
 
-        g.setForegroundColor(ColorConstants.gray);
-        g.setBackgroundColor(ColorConstants.gray);
+        g.setForegroundColor(ColorConstants.lightGray);
+        g.setBackgroundColor(ColorConstants.lightGray);
+        //g.setLineWidth(3);
+        //g.setLineDash(new int[] {4, 2});
         g.drawRectangle(x0, y0, x1-x0, y1-y0);
         g.fillOval(x0-r, y0-r, d, d);
         g.fillOval(x1-r, y0-r, d, d);

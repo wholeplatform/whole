@@ -19,6 +19,8 @@ package org.whole.lang.steppers.visitors;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 import org.whole.lang.bindings.BindingManagerFactory;
@@ -28,6 +30,8 @@ import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.model.adapters.IEntityAdapter;
 import org.whole.lang.steppers.AbstractStepper.ExecutableStepper;
+import org.whole.lang.steppers.model.Argument;
+import org.whole.lang.steppers.model.CallBranch;
 import org.whole.lang.steppers.model.ISteppersEntity;
 import org.whole.lang.steppers.model.Name;
 import org.whole.lang.steppers.model.StepperApplication;
@@ -38,7 +42,7 @@ import org.whole.lang.util.WholeMessages;
 /**
  * @author Riccardo Solmi
  */
-public class SteppersDynamicCompilerVisitor extends SteppersIdentityDefaultVisitor {
+public class SteppersDynamicCompilerVisitor extends SteppersTraverseAllChildrenVisitor {
 	protected Map<String, ExecutableStepper> nameStepperMap = new HashMap<>();
 
 	protected ExecutableStepper getStepper(String name) {
@@ -66,31 +70,11 @@ public class SteppersDynamicCompilerVisitor extends SteppersIdentityDefaultVisit
 		return false;
 	}
 	
-	@Override
-	public void visit(ISteppersEntity entity) {
-		stagedDefaultVisit(entity, 0);
-	}
+//	@Override
+//	public void visit(ISteppersEntity entity) {
+//		stagedDefaultVisit(entity, 0);
+//	}
 
-	@Override
-	public void visit(StepperDeclaration entity) {
-		String name = stringValue(entity.getName());
-		ExecutableStepper stepper = getStepper(name);
-		stepper.withExecutable(compile(entity.getExpression(), () -> ExecutableFactory.instance.createSelf()));
-		stepper.withSourceEntity(entity);
-		setResult(BindingManagerFactory.instance.createVoid());
-//		setExecutableResult(stepper.withSourceEntity(entity));
-	}
-
-	@Override
-	public void visit(StepperReference entity) {
-		ExecutableStepper stepper = getStepper(entity.wStringValue());
-		setExecutableResult(stepper.withSourceEntity(entity));
-	}
-
-	@Override
-	public void visit(Name entity) {
-		setResult(BindingManagerFactory.instance.createValue(entity.getValue()));
-	}
 
 	@Override
 	public void visit(StepperApplication entity) {
@@ -104,6 +88,77 @@ public class SteppersDynamicCompilerVisitor extends SteppersIdentityDefaultVisit
 //    		setResult(result);
 //    	}
 //		}
+	}
+
+	protected Consumer<ExecutableStepper> stepperWeaver = (s) -> {};
+	protected Consumer<ExecutableStepper> stepperGoalWeaver = (s) -> {};
+	protected Consumer<ExecutableStepper> stepperArgumentWeaver = (s) -> {};
+	protected Function<Integer, IExecutable> argumentWeaver = (i) -> null;
+	
+	@Override
+	public void visit(StepperDeclaration entity) {
+		Consumer<ExecutableStepper> outerStepperWeaver = stepperWeaver;
+		
+		//getBindings().wGet("stepperWeaver");
+		String name = stringValue(entity.getName());
+		ExecutableStepper stepper = getStepper(name);
+		stepperWeaver.accept(stepper);
+
+		argumentWeaver = (i) -> {
+			return stepper.getExecutableArgument(i);
+		};
+		stepper.withExecutable(compile(entity.getExpression(), () -> ExecutableFactory.instance.createSelf()));
+		stepper.withSourceEntity(entity);
+
+		stepperWeaver = stepperGoalWeaver = (s) -> {
+			stepper.addCall(s);
+		};
+		stepperArgumentWeaver = (s) -> {
+			//FIXME ensure argument size
+			stepper.addCall(s.getArgumentConsumer(0));
+		};
+		entity.getCalls().accept(this);
+
+		setResult(BindingManagerFactory.instance.createVoid());
+//		setExecutableResult(stepper.withSourceEntity(entity));
+		
+		stepperWeaver = outerStepperWeaver;
+	}
+
+	@Override
+	public void visit(StepperReference entity) {
+		ExecutableStepper stepper = getStepper(entity.wStringValue());
+		setExecutableResult(stepper.withSourceEntity(entity));
+	}
+
+	@Override
+	public void visit(Name entity) {
+		setResult(BindingManagerFactory.instance.createValue(entity.getValue()));
+	}
+
+//	@Override
+//	public void visit(Calls entity) {
+//		// TODO Auto-generated method stub
+//		super.visit(entity);
+//	}
+
+	@Override
+	public void visit(CallBranch entity) {
+		Consumer<ExecutableStepper> outerStepperWeaver = stepperWeaver;
+
+        stepperWeaver = stepperGoalWeaver;
+		entity.getGoals().accept(this);
+		stepperWeaver = stepperArgumentWeaver;
+        entity.getArguments().accept(this);
+
+		stepperWeaver = outerStepperWeaver;
+	}
+
+	@Override
+	public void visit(Argument entity) {
+		int index = entity.getValue();
+
+		setExecutableResult(argumentWeaver.apply(index).withSourceEntity(entity));
 	}
 }
 

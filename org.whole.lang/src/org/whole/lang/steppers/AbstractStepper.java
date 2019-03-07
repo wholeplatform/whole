@@ -243,8 +243,10 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 	public synchronized /*final*/ IEntity evaluateNext() {
 		callNext();
 		try {
-			while (!state.isAction())
-				wait();
+			while (!state.isAction()) {
+				wait(1000);
+				handleCanceled();
+			}
 		} catch (InterruptedException e) {
 			lastEntity = null;
 			getAction().done();
@@ -254,8 +256,10 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 	public synchronized /*final*/ IEntity evaluateRemaining() {
 		callRemaining();
 		try {
-			while (state != StepperState.DONE_ACTION)
-				wait();
+			while (state != StepperState.DONE_ACTION) {
+				wait(1000);
+				handleCanceled();
+			}
 		} catch (InterruptedException e) {
 			lastEntity = null;
 		}
@@ -270,6 +274,11 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 			state = StepperState.IDLE;
 			resetArguments();
 		case IDLE:
+			//TODO READY state behavior
+			if (areAllArgumentsAvailable()) {
+				doNextAction();
+				break;
+			}
 			state = StepperState.CALL_NEXT;
 			if (producersSize() > 0) {
 				for (int i=0; i<producersSize(); i++)
@@ -289,6 +298,11 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 			state = StepperState.IDLE;
 			resetArguments();
 		case IDLE:
+			//TODO READY state behavior
+			if (areAllArgumentsAvailable()) {
+				doRemainingAction();
+				break;
+			}
 			state = StepperState.CALL_REMAINING;
 			if (producersSize() > 0) {
 				for (int i=0; i<producersSize(); i++)
@@ -397,8 +411,15 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 		} else
 			producers[index] = getProducer(index).getAdded(producer);
 	}
+	public void addCall(IControlFlowProducer producer) {
+		addCall(producersSize(), producer);
+	}
 	public void addCall(int index, IDataFlowConsumer consumer) {//WAS addDoneCall
 		addCall(index, new DoneCall(consumer));
+	}
+	public void addCall(IDataFlowConsumer consumer) {
+		//FIXME 
+		addCall(producersSize(), consumer);
 	}
 
 	public void addAction(IControlFlowProducer producer) {//WAS addGoalAction
@@ -567,7 +588,7 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 	}
 
 	public static enum StepperState {
-		IDLE, CALL_NEXT, CALL_REMAINING, NEXT_ACTION, DONE_ACTION; //TODO add DATA
+		IDLE, CALL_NEXT, CALL_REMAINING, NEXT_ACTION, DONE_ACTION; //TODO add DATA/READY
 
 		public boolean isCall() {
 			switch (this) {

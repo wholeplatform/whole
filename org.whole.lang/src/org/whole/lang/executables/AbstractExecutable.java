@@ -27,6 +27,8 @@ import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.CloneContext;
 import org.whole.lang.operations.ICloneContext;
+import org.whole.lang.operations.IOperationProgressMonitor;
+import org.whole.lang.operations.OperationCanceledException;
 import org.whole.lang.steppers.AbstractDataFlowConsumer;
 import org.whole.lang.steppers.IDataFlowConsumer;
 import org.whole.lang.steppers.IDifferentiationContext;
@@ -225,6 +227,11 @@ public abstract class AbstractExecutable implements IExecutable, Iterator<IEntit
 
 	public int characteristics() {
 		return NONNULL;
+	}
+
+	public void handleCanceled() {
+		if (getBindings().wIsSet("progressMonitor") && ((IOperationProgressMonitor) getBindings().wGetValue("progressMonitor")).isCanceled())
+			throw new OperationCanceledException();
 	}
 
 
