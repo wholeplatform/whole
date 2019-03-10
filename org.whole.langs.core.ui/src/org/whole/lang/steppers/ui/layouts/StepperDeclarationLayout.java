@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2016 Riccardo Solmi. All rights reserved.
+ * Copyright 2004-2019 Riccardo Solmi. All rights reserved.
  * This file is part of the Whole Platform.
  *
  * The Whole Platform is free software: you can redistribute it and/or modify
@@ -41,7 +41,7 @@ public class StepperDeclarationLayout extends AbstractEntityLayout {
 		figAscent = Math.max(childSize[0].height + ascent(1), ascent(2));
 		figDescent = Math.max(descent(1), descent(2)) + TREE_SPACING.height + childSize[3].height;
 		figIndent = Math.max(8, indent(3));
-		figWidth = 8 + Math.max(childSize[0].width, childSize[1].width) + 8 + childSize[2].width;
+		figWidth = 8 + Math.max(Math.max(childSize[0].width, childSize[1].width) + 8 + childSize[2].width, childSize[3].width);
 	}
 
 	protected void setLocation(Rectangle area, int[] x, int[] y) {

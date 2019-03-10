@@ -26,10 +26,11 @@ import org.eclipse.draw2d.geometry.PrecisionPoint;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.whole.lang.steppers.ui.layouts.StepperDeclarationLayout;
 import org.whole.lang.ui.figures.AnchorFactory;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.NodeFigure;
 
 /**
- *  @generator Whole
+ *  @author Riccardo Solmi
  */
 public class StepperDeclarationFigure extends NodeFigure {
 
@@ -56,7 +57,7 @@ public class StepperDeclarationFigure extends NodeFigure {
     protected ConnectionAnchor[] createTargetAnchors() {
 //    	return super.createTargetAnchors();
 		return new ConnectionAnchor[] {
-				AnchorFactory.createFixedAnchor(this, 8-3, StepperDeclarationLayout.SHAPE_INSETS.top, true, true),
+				AnchorFactory.createFixedAnchor(this, 8-3, StepperDeclarationLayout.SHAPE_INSETS.top -1, true, true),
 //				AnchorFactory.createFixedAnchor(getContentPane(1), -StepperDeclarationLayout.SHAPE_INSETS.right-3, -2, false, false),
 				new AbstractConnectionAnchor(this) {
 					public Point getLocation(Point reference) {
@@ -65,7 +66,7 @@ public class StepperDeclarationFigure extends NodeFigure {
 				        Rectangle b1 = getContentPane(1).getBounds();
 				        Rectangle b3 = getContentPane(3).getBounds();
 				        
-						int x = Math.max(b0.right(), b1.right()) + StepperDeclarationLayout.SHAPE_INSETS.right +3;
+						int x = Math.max(b0.right(), b1.right()) + StepperDeclarationLayout.SHAPE_INSETS.right +2;
 						int y = b3.y - StepperDeclarationLayout.CHILDREN_SPACING.height;
 
 						Point p = new PrecisionPoint(x, y);
@@ -112,28 +113,10 @@ public class StepperDeclarationFigure extends NodeFigure {
         //g.setLineWidth(3);
         //g.setLineDash(new int[] {4, 2});
         g.drawRectangle(x0, y0, x1-x0, y1-y0);
-        g.fillOval(x0-r, y0-r, d, d);
-        g.fillOval(x1-r, y0-r, d, d);
-        g.fillOval(x0-r, y1-r, d, d);
-        g.fillOval(x1-r, y1-r, d, d);
-
-
-// diamond shape
-//      int ya = y0 + getAscent();
-//      int ya0 = ya - 4;
-//      int ya1 = ya + 4;
-//        g.drawLine(x0, y0, x1, y0);
-//        
-//        g.drawLine(x0, y0, x0, ya0);
-//        g.drawLine(x0, ya0, x0 -4, ya);
-//        g.drawLine(x0, ya1, x0 -4, ya);
-//        g.drawLine(x0, ya1, x0, y1);
-//
-//        g.drawLine(x1, y0, x1, ya0);
-//        g.drawLine(x1, ya0, x1 +4, ya);
-//        g.drawLine(x1, ya1, x1 +4, ya);
-//        g.drawLine(x1, ya1, x1, y1);
-//
-//        g.drawLine(x0, y1, x1, y1);
+//        g.setBackgroundColor(FigureConstants.relationsColor);
+//        g.fillOval(x0-r, y0-r, d, d);
+//        g.fillOval(x1-r, y0-r, d, d);
+//        g.fillOval(x0-r, y1-r, d, d);
+//        g.fillOval(x1-r, y1-r, d, d);
     }
 }

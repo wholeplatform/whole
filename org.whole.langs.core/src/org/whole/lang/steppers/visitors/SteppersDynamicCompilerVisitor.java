@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2016 Riccardo Solmi. All rights reserved.
+ * Copyright 2004-2019 Riccardo Solmi. All rights reserved.
  * This file is part of the Whole Platform.
  *
  * The Whole Platform is free software: you can redistribute it and/or modify
@@ -30,13 +30,18 @@ import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.model.adapters.IEntityAdapter;
 import org.whole.lang.steppers.AbstractStepper.ExecutableStepper;
+import org.whole.lang.steppers.model.ActionBranch;
+import org.whole.lang.steppers.model.AndArgument;
 import org.whole.lang.steppers.model.Argument;
+import org.whole.lang.steppers.model.ArgumentBranch;
 import org.whole.lang.steppers.model.CallBranch;
 import org.whole.lang.steppers.model.ISteppersEntity;
 import org.whole.lang.steppers.model.Name;
+import org.whole.lang.steppers.model.OrArgument;
 import org.whole.lang.steppers.model.StepperApplication;
 import org.whole.lang.steppers.model.StepperDeclaration;
 import org.whole.lang.steppers.model.StepperReference;
+import org.whole.lang.steppers.model.Target;
 import org.whole.lang.util.EntityUtils;
 
 /**
@@ -109,10 +114,11 @@ public class SteppersDynamicCompilerVisitor extends SteppersTraverseAllChildrenV
 		ExecutableStepper stepper = getStepper(name);
 		stepperWeaver.accept(stepper);
 
+		//FIXME get stepper from cloneContext
 		argumentWeaver = (i) -> {
 			return stepper.getExecutableArgument(i);
 		};
-		
+
 		ExecutableFactory f = ExecutableFactory.instance;
 		IExecutable compiledExpression = f.createScope(
 						f.createBlock(
@@ -131,10 +137,24 @@ public class SteppersDynamicCompilerVisitor extends SteppersTraverseAllChildrenV
 		};
 		entity.getCalls().accept(this);
 
+		stepperWeaver = stepperGoalWeaver = (s) -> {
+			stepper.addAction(s);
+		};
+		stepperArgumentWeaver = (s) -> {
+			//FIXME ensure argument size
+			stepper.addAction(s.getArgumentConsumer(0));
+		};
+		entity.getActions().accept(this);
+		
 		if (EntityUtils.isResolver(entity.getArguments()) && stepper.producersSize()>0) {
 			//TODO && executable contains Argument
 			stepper.withArgumentProducers(stepper.producersSize());
 		}
+		
+		stepperWeaver = (s) -> {
+			stepper.addArgumentConsumer(s);
+		};
+		entity.getArguments().accept(this);
 
 		setResult(BindingManagerFactory.instance.createVoid());
 //		setExecutableResult(stepper.withSourceEntity(entity));
@@ -157,14 +177,20 @@ public class SteppersDynamicCompilerVisitor extends SteppersTraverseAllChildrenV
 		setResult(BindingManagerFactory.instance.createValue(entity.getValue()));
 	}
 
-//	@Override
-//	public void visit(Calls entity) {
-//		// TODO Auto-generated method stub
-//		super.visit(entity);
-//	}
-
 	@Override
 	public void visit(CallBranch entity) {
+		Consumer<ExecutableStepper> outerStepperWeaver = stepperWeaver;
+
+        stepperWeaver = stepperGoalWeaver;
+		entity.getGoals().accept(this);
+		stepperWeaver = stepperArgumentWeaver;
+        entity.getArguments().accept(this);
+
+		stepperWeaver = outerStepperWeaver;
+	}
+
+	@Override
+	public void visit(ActionBranch entity) {
 		Consumer<ExecutableStepper> outerStepperWeaver = stepperWeaver;
 
         stepperWeaver = stepperGoalWeaver;
@@ -180,6 +206,30 @@ public class SteppersDynamicCompilerVisitor extends SteppersTraverseAllChildrenV
 		int index = entity.getValue();
 
 		setExecutableResult(argumentWeaver.apply(index).withSourceEntity(entity));
+	}
+
+	@Override
+	public void visit(AndArgument entity) {
+		// TODO Auto-generated method stub
+		super.visit(entity);
+	}
+
+	@Override
+	public void visit(OrArgument entity) {
+		// TODO Auto-generated method stub
+		super.visit(entity);
+	}
+
+	@Override
+	public void visit(ArgumentBranch entity) {
+		// TODO Auto-generated method stub
+		super.visit(entity);
+	}
+
+	@Override
+	public void visit(Target entity) {
+		// TODO Auto-generated method stub
+		super.visit(entity);
 	}
 }
 

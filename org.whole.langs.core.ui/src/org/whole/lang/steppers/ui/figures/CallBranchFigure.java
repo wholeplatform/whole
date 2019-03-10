@@ -18,20 +18,23 @@
 package org.whole.lang.steppers.ui.figures;
 
 import java.util.List;
+import java.util.function.Function;
 
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.LayoutManager;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.INodeFigure;
 import org.whole.lang.ui.layout.Alignment;
+import org.whole.lang.ui.layout.ICompositeEntityLayout;
 import org.whole.lang.ui.layout.RowLayout;
 import org.whole.lang.ui.notations.figures.DrawUtils;
 
 /**
- *  @generator Whole
+ *  @author Riccardo Solmi
  */
 public class CallBranchFigure extends ContentPaneFigure {
 
@@ -43,63 +46,49 @@ public class CallBranchFigure extends ContentPaneFigure {
     }
 
 	@Override
-	public void paintClientArea(Graphics graphics) {
-		super.paintClientArea(graphics);
-		paintConnections(graphics);
-		graphics.restoreState();
+	public void paintClientArea(Graphics g) {
+		super.paintClientArea(g);
+		paintConnections(g);
+		g.restoreState();
+	}
+
+	protected void paintConnections(Graphics g) {
+		g.setForegroundColor(FigureConstants.relationsColor);
+
+        IFigure c0 = (IFigure) getContentPane(0).getChildren().get(0);
+		DrawUtils.drawOutline(g, new Point(getBounds().x+4, getBounds().y),
+				getTargetPoints(c0, 0, (r) -> r.getTopLeft()));	        	
+
+        c0 = (IFigure) getContentPane(1).getChildren().get(0);
+		DrawUtils.drawOutline(g, new Point(getBounds().right()-2, getBounds().y),
+				getTargetPoints(c0, 1, (r) -> r.getBottomRight()));
+
+		g.drawLine(getBounds().x-5, getBounds().y, getBounds().right()-2, getBounds().y);
 	}
 
 	@SuppressWarnings("unchecked")
-	protected void paintConnections(Graphics graphics) {
-		graphics.setForegroundColor(FigureConstants.relationsColor);
-		graphics.setLineWidth(2);
-		
-		Rectangle b0 = getContentPane(0).getBounds();
-        
-        IFigure c0 = (IFigure) getContentPane(0).getChildren().get(0);
+	public Point[] getTargetPoints(IFigure f, int anchorIndex, Function<Rectangle, Point> target) {
+		Point[] childrenPoints;
 
-		List<IFigure> children = c0.getChildren();
-		int childrenSize = children.size();
-		if (childrenSize == 0 || !c0.isVisible())
-			return;
+        LayoutManager layout = f.getLayoutManager();
+		List<IFigure> children = f.getChildren();
+    	int childrenSize = children.size();
+		if (layout instanceof ICompositeEntityLayout && childrenSize > 0) {
+			childrenPoints = new Point[childrenSize];
+			for (int i=0; i<childrenSize; i++)
+				childrenPoints[i] = getTargetPoint(children.get(i), anchorIndex, target);
+        } else
+        	childrenPoints = new Point[] { getTargetPoint(f, anchorIndex, target) };
 
-		Point[] childrenPoints = new Point[childrenSize];
-		for (int i=0; i<childrenSize; i++) {
-			IFigure f = children.get(i);
-			if (f instanceof INodeFigure) {
-				Point targetLocation = ((INodeFigure) f).getTargetAnchor(0).getLocation(null);
-				childrenPoints[i] = targetLocation;
-			} else
-				childrenPoints[i] = new Point(b0.x, f.getBounds().y);
-		}
+		return childrenPoints;
+	}
 
-		Point rootPoint = new Point(getBounds().x+4, getBounds().y);
-
-		DrawUtils.drawOutline(graphics, rootPoint, childrenPoints);
-
-        Rectangle b1 = getContentPane(1).getBounds();
-        
-        c0 = (IFigure) getContentPane(1).getChildren().get(0);
-
-		children = c0.getChildren();
-		childrenSize = children.size();
-		if (childrenSize == 0 || !c0.isVisible())
-			return;
-
-		childrenPoints = new Point[childrenSize];
-		for (int i=0; i<childrenSize; i++) {
-			IFigure f = children.get(i);
-			if (f instanceof INodeFigure) {
-				Point targetLocation = ((INodeFigure) f).getTargetAnchor(1).getLocation(null);
-				childrenPoints[i] = targetLocation;
-			} else
-				childrenPoints[i] = new Point(b1.right(), f.getBounds().bottom());
-		}
-
-		rootPoint = new Point(getBounds().right()-2, getBounds().y);
-
-		DrawUtils.drawOutline(graphics, rootPoint, childrenPoints);
-
-		graphics.drawLine(getBounds().x-5, getBounds().y+1, getBounds().right()-2, getBounds().y+1);
+	public Point getTargetPoint(IFigure f, int anchorIndex, Function<Rectangle, Point> target) {
+		if (f instanceof INodeFigure) {
+			Point targetLocation = ((INodeFigure) f).getTargetAnchor(anchorIndex).getLocation(null);
+			translateToRelative(targetLocation);
+			return targetLocation;
+		} else
+			return target.apply(f.getBounds());
 	}
 }

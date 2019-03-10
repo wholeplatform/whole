@@ -432,6 +432,14 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 		addFirstAction(tester);
 	}
 
+	public void addArgumentConsumer(IExecutable stepper) {
+		int index = arguments.length;
+		arguments = Arrays.copyOf(arguments, index+1);
+		arguments[index] = new MutableArgumentDataFlowConsumer();
+		
+		stepper.addAction(arguments[index]);
+	}
+
 	
 	public static class DoneCall extends AbstractControlFlowProducer {
 		public IDataFlowConsumer consumer;
