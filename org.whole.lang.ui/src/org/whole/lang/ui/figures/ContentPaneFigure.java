@@ -20,6 +20,7 @@ package org.whole.lang.ui.figures;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Function;
 
 import org.eclipse.draw2d.ActionEvent;
 import org.eclipse.draw2d.ActionListener;
@@ -29,6 +30,9 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LayoutAnimator;
 import org.eclipse.draw2d.LayoutManager;
 import org.eclipse.draw2d.Toggle;
+import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
+import org.whole.lang.ui.layout.ICompositeEntityLayout;
 import org.whole.lang.ui.layout.ITabularLayoutClient;
 import org.whole.lang.ui.layout.ITabularLayoutServer;
 import org.whole.lang.ui.layout.MonoLayout;
@@ -224,5 +228,31 @@ public class ContentPaneFigure extends EntityFigure implements IFoldableFigure {
         add(stackedFigure);
 
         return child;
+	}
+
+	@SuppressWarnings("unchecked")
+	public Point[] getTargetPoints(IFigure f, int anchorIndex, Function<Rectangle, Point> target) {
+		Point[] childrenPoints;
+
+        LayoutManager layout = f.getLayoutManager();
+		List<IFigure> children = f.getChildren();
+    	int childrenSize = children.size();
+		if (layout instanceof ICompositeEntityLayout && childrenSize > 0) {
+			childrenPoints = new Point[childrenSize];
+			for (int i=0; i<childrenSize; i++)
+				childrenPoints[i] = getTargetPoint(children.get(i), anchorIndex, target);
+        } else
+        	childrenPoints = new Point[] { getTargetPoint(f, anchorIndex, target) };
+
+		return childrenPoints;
+	}
+
+	public Point getTargetPoint(IFigure f, int anchorIndex, Function<Rectangle, Point> target) {
+		if (f instanceof INodeFigure) {
+			Point targetLocation = ((INodeFigure) f).getTargetAnchor(anchorIndex).getLocation(null);
+			translateToRelative(targetLocation);
+			return targetLocation;
+		} else
+			return target.apply(f.getBounds());
 	}
 }

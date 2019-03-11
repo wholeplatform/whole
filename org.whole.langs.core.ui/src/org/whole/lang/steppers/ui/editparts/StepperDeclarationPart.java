@@ -36,13 +36,13 @@ public class StepperDeclarationPart extends AbstractContentPanePart {
 
     protected List<IEntity> getModelSpecificChildren() {
         StepperDeclaration entity = getModelEntity();
-        List<IEntity> children = new ArrayList<IEntity>(4);
+        List<IEntity> children = new ArrayList<IEntity>(5);
         children.add(entity.getName());
         children.add(entity.getExpression());
         children.add(entity.getCalls());
+        children.add(entity.getArguments());
         children.add(entity.getActions());
-//       children.add(entity.getGoals());
-//       children.add(entity.getArguments());
+//      children.add(entity.getGoals());
         return children;
     }
 }

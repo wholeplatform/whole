@@ -17,19 +17,12 @@
  */
 package org.whole.lang.steppers.ui.figures;
 
-import java.util.List;
-import java.util.function.Function;
-
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.LayoutManager;
 import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.FigureConstants;
-import org.whole.lang.ui.figures.INodeFigure;
 import org.whole.lang.ui.layout.Alignment;
-import org.whole.lang.ui.layout.ICompositeEntityLayout;
 import org.whole.lang.ui.layout.RowLayout;
 import org.whole.lang.ui.notations.figures.DrawUtils;
 
@@ -64,31 +57,5 @@ public class CallBranchFigure extends ContentPaneFigure {
 				getTargetPoints(c0, 1, (r) -> r.getBottomRight()));
 
 		g.drawLine(getBounds().x-5, getBounds().y, getBounds().right()-2, getBounds().y);
-	}
-
-	@SuppressWarnings("unchecked")
-	public Point[] getTargetPoints(IFigure f, int anchorIndex, Function<Rectangle, Point> target) {
-		Point[] childrenPoints;
-
-        LayoutManager layout = f.getLayoutManager();
-		List<IFigure> children = f.getChildren();
-    	int childrenSize = children.size();
-		if (layout instanceof ICompositeEntityLayout && childrenSize > 0) {
-			childrenPoints = new Point[childrenSize];
-			for (int i=0; i<childrenSize; i++)
-				childrenPoints[i] = getTargetPoint(children.get(i), anchorIndex, target);
-        } else
-        	childrenPoints = new Point[] { getTargetPoint(f, anchorIndex, target) };
-
-		return childrenPoints;
-	}
-
-	public Point getTargetPoint(IFigure f, int anchorIndex, Function<Rectangle, Point> target) {
-		if (f instanceof INodeFigure) {
-			Point targetLocation = ((INodeFigure) f).getTargetAnchor(anchorIndex).getLocation(null);
-			translateToRelative(targetLocation);
-			return targetLocation;
-		} else
-			return target.apply(f.getBounds());
 	}
 }
