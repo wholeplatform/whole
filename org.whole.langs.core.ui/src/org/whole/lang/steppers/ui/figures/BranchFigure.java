@@ -32,10 +32,14 @@ import org.whole.lang.ui.notations.figures.DrawUtils;
  *  @author Riccardo Solmi
  */
 public class BranchFigure extends NodeFigure {
-
     public BranchFigure() {
         initContentPanes(2);
-        setLayoutManager(new RowLayout().withMinorAlignment(Alignment.MATHLINE).withSpacing(24).withMarginLeft(4).withMarginRight(4).withMarginTop(4));
+        setLayoutManager(new RowLayout() {
+        	@Override
+        	public int getIndent() {
+        		return getContentPane(0).getIndent();
+        	}
+        }.withMinorAlignment(Alignment.MATHLINE).withSpacing(24).withMarginLeft(4).withMarginRight(4).withMarginTop(4));
         add(createContentPane(0));
         add(createContentPane(1));
     }
@@ -45,7 +49,10 @@ public class BranchFigure extends NodeFigure {
 		return new ConnectionAnchor[] {
 				new AbstractConnectionAnchor(this) {
 					public Point getLocation(Point reference) {
-						Point p = getBounds().getTopLeft();
+						IFigure c0 = (IFigure) getContentPane(0).getChildren().get(0);
+				        Point tp = getTargetPoint(c0, 0, (r) -> r.getTopLeft());
+				        Point p = new Point(tp.x, getBounds().y);
+						//Point p = new Point(getBounds().x+getIndent()-4, getBounds().y);
 						getOwner().translateToAbsolute(p);
 						return p;
 					}
@@ -87,6 +94,7 @@ public class BranchFigure extends NodeFigure {
 		DrawUtils.drawOutline(g, new Point(getBounds().right()-2, getBounds().y),
 				getTargetPoints(c0, 1, (r) -> r.getBottomRight()));
 
-		g.drawLine(getBounds().x-5, getBounds().y, getBounds().right()-2, getBounds().y);
+		g.drawLine(tp.x, getBounds().y, getBounds().right()-2, getBounds().y);
+//		g.drawLine(getBounds().x-5, getBounds().y, getBounds().right()-2, getBounds().y);
 	}
 }

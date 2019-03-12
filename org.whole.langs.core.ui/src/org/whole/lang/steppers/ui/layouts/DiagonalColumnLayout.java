@@ -24,10 +24,11 @@ import org.whole.lang.ui.layout.AbstractCompositeEntityLayout;
  * @author Riccardo Solmi
  */
 public class DiagonalColumnLayout extends AbstractCompositeEntityLayout {
-	protected int tabSize = 32;
+	protected int[] xi;
+	protected double tilt = 0.3;
 
-	public DiagonalColumnLayout withTabSize(int size) {
-		tabSize = size;
+	public DiagonalColumnLayout withTilt(int tilt) {
+		this.tilt = tilt;
 		return this;
 	}
 
@@ -40,10 +41,23 @@ public class DiagonalColumnLayout extends AbstractCompositeEntityLayout {
 	protected void setAscentDescentWidth(int wHint, int hHint) {
 		figWidth = 0;
 		int figHeight = 0;
-		for (int i=0; i<childSize.length; i++) {
-			figWidth = Math.max(figWidth, tabSize*(childSize.length-1 -i) + childSize[i].width);
-			figHeight += childSize[i].height + getSpacingBefore(i+1);
+
+		xi = new int[childSize.length];
+		if (childSize.length > 0) {
+			xi[childSize.length-1] = 0;
+			figWidth = childSize[childSize.length-1].width;
+			figHeight = childSize[childSize.length-1].height;
+
+			for (int i=childSize.length-2; i>=0; i--) {
+				int yDelta = childSize[i].height + getSpacingBefore(i+1);
+				xi[i] = (int)(yDelta * tilt) + xi[i+1];
+				figWidth = Math.max(figWidth, xi[i] + childSize[i].width);
+				figHeight += yDelta;
+			}
 		}
+
+//		figDescent = childSize.length > 0 ? childSize[childSize.length-1].getDescent() : 0;
+//		figAscent = figHeight - figDescent;
 		figAscent = figHeight / 2;
 		figDescent = figHeight - figAscent;
 	}
@@ -53,7 +67,7 @@ public class DiagonalColumnLayout extends AbstractCompositeEntityLayout {
 		int yi = area.y;
 
 		for (int i=0; i<childSize.length; i++) {
-			x[i] = area.x + tabSize*(childSize.length-1 -i);
+			x[i] = area.x + xi[i];
 			y[i] = yi;
 			yi += childSize[i].height + getSpacingBefore(i+1);
 		}

@@ -53,13 +53,13 @@ public class DiagonalTreeFigure extends CompositeNodeFigure {
 						if (size > 1) {
 							IFigure f1 = (IFigure) getChildren().get(0);
 							IFigure f2 = (IFigure) getChildren().get(size-1);
-				        	int x1 = f1.getBounds().x;
-				        	int x2 = f2.getBounds().x;
+//				        	int x1 = f1.getBounds().x;
+//				        	int x2 = f2.getBounds().x;
 				        	Point t1 = getTargetPoint(f1, 0, (r) -> r.getTopLeft());
 							Point t2 = getTargetPoint(f2, 0, (r) -> r.getTopLeft());
 							int y1 = t1.y;
 				        	int y2 = t2.y;
-				        	int xm = (x2-x1)/2 + x1;
+//				        	int xm = (x2-x1)/2 + x1;
 				        	int ym = y1 + (y2-y1)/2;
 				        	p = new Point(t2.x, ym);
 						} else //FIXME size =1
