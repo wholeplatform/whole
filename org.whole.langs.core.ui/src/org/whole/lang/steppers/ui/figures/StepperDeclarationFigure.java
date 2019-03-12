@@ -17,8 +17,6 @@
  */
 package org.whole.lang.steppers.ui.figures;
 
-import java.util.function.Function;
-
 import org.eclipse.draw2d.AbstractConnectionAnchor;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.ConnectionAnchor;
@@ -27,20 +25,25 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.whole.lang.steppers.ui.layouts.StepperDeclarationLayout;
+import org.whole.lang.ui.figures.EntityFigure;
 import org.whole.lang.ui.figures.FigureConstants;
-import org.whole.lang.ui.figures.INodeFigure;
+import org.whole.lang.ui.figures.IEntityFigure;
 import org.whole.lang.ui.figures.NodeFigure;
+import org.whole.lang.ui.layout.StackLayout;
 import org.whole.lang.ui.notations.figures.DrawUtils;
 
 /**
  *  @author Riccardo Solmi
  */
 public class StepperDeclarationFigure extends NodeFigure {
+	protected IEntityFigure shapeBorder;
 
     public StepperDeclarationFigure() {
         initContentPanes(5);
         
         setLayoutManager(new StepperDeclarationLayout().withMargin(3));
+		add(shapeBorder = new EntityFigure(new StackLayout()));
+		shapeBorder.setOpaque(false);
 		add(createContentPane(0));
 		add(createContentPane(1));
 		add(createContentPane(2));
@@ -53,9 +56,7 @@ public class StepperDeclarationFigure extends NodeFigure {
 		return new ConnectionAnchor[] {
 				new AbstractConnectionAnchor(this) {
 					public Point getLocation(Point reference) {
-						StepperDeclarationLayout l = (StepperDeclarationLayout) getOwner().getLayoutManager();
-						
-						Point p = new Point(l.shapeBorderBounds_x+l.shapeBorderBounds_width, l.shapeBorderBounds_y);
+						Point p = shapeBorder.getBounds().getTopRight();
 						getOwner().translateToAbsolute(p);
 						return p;
 					}
@@ -65,9 +66,7 @@ public class StepperDeclarationFigure extends NodeFigure {
 				},
 				new AbstractConnectionAnchor(this) {
 					public Point getLocation(Point reference) {
-						StepperDeclarationLayout l = (StepperDeclarationLayout) getOwner().getLayoutManager();
-						
-						Point p = new Point(l.shapeBorderBounds_x, l.shapeBorderBounds_y+l.shapeBorderBounds_height);
+						Point p = shapeBorder.getBounds().getBottomLeft();
 						getOwner().translateToAbsolute(p);
 						return p;
 					}
@@ -83,9 +82,7 @@ public class StepperDeclarationFigure extends NodeFigure {
 		return new ConnectionAnchor[] {
 				new AbstractConnectionAnchor(this) {
 					public Point getLocation(Point reference) {
-						StepperDeclarationLayout l = (StepperDeclarationLayout) getOwner().getLayoutManager();
-						
-						Point p = new Point(l.shapeBorderBounds_x, l.shapeBorderBounds_y);
+						Point p = shapeBorder.getBounds().getTopLeft();
 						getOwner().translateToAbsolute(p);
 						return p;
 					}
@@ -95,9 +92,7 @@ public class StepperDeclarationFigure extends NodeFigure {
 				},
 				new AbstractConnectionAnchor(this) {
 					public Point getLocation(Point reference) {
-						StepperDeclarationLayout l = (StepperDeclarationLayout) getOwner().getLayoutManager();
-						
-						Point p = new Point(l.shapeBorderBounds_x+l.shapeBorderBounds_width, l.shapeBorderBounds_y+l.shapeBorderBounds_height);//.translate(getContentPane(3).getBounds().width, 0);
+						Point p = shapeBorder.getBounds().getBottomRight();
 						getOwner().translateToAbsolute(p);
 						return p;
 					}
@@ -113,7 +108,7 @@ public class StepperDeclarationFigure extends NodeFigure {
         super.paintFigure(g);
 
         StepperDeclarationLayout l = (StepperDeclarationLayout) getLayoutManager();
-        Rectangle shapeBounds = new Rectangle(l.shapeBorderBounds_x, l.shapeBorderBounds_y, l.shapeBorderBounds_width, l.shapeBorderBounds_height);
+        Rectangle shapeBounds = shapeBorder.getBounds();
         Rectangle expressionBounds = getContentPane(1).getBounds();
 
         g.setForegroundColor(ColorConstants.lightGray);
@@ -131,9 +126,10 @@ public class StepperDeclarationFigure extends NodeFigure {
 		g.setForegroundColor(FigureConstants.relationsColor);
 
         IFigure callsFigure = (IFigure) getContentPane(2).getChildren().get(0);
-		DrawUtils.drawHorizontalEdge(g, shapeBounds.getTopRight(), getTargetPoint(callsFigure, 0, (r) -> r.getTopLeft()), StepperDeclarationLayout.SHAPE_MARGIN.right+StepperDeclarationLayout.TREE_SPACING.width);
+		DrawUtils.drawHorizontalEdge(g, getTargetPoint(callsFigure, 0, (r) -> r.getTopLeft()), shapeBounds.getTopRight(), 0);
 
         IFigure actionsFigure = (IFigure) getContentPane(4).getChildren().get(0);
+//		DrawUtils.drawHorizontalEdge(g, shapeBounds.getBottomLeft(), new Point(shapeBounds.x, actionsFigure.getBounds().y), 0);//getTargetPoint(actionsFigure, 0, (r) -> r.getTopLeft()), 0);
 		DrawUtils.drawHorizontalEdge(g, shapeBounds.getBottomLeft(), getTargetPoint(actionsFigure, 0, (r) -> r.getTopLeft()), 0);
     }
 }

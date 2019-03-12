@@ -17,11 +17,13 @@
  */
 package org.whole.lang.steppers.ui.figures;
 
+import org.eclipse.draw2d.AbstractConnectionAnchor;
+import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
-import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.FigureConstants;
+import org.whole.lang.ui.figures.NodeFigure;
 import org.whole.lang.ui.layout.Alignment;
 import org.whole.lang.ui.layout.RowLayout;
 import org.whole.lang.ui.notations.figures.DrawUtils;
@@ -29,13 +31,39 @@ import org.whole.lang.ui.notations.figures.DrawUtils;
 /**
  *  @author Riccardo Solmi
  */
-public class CallBranchFigure extends ContentPaneFigure {
+public class BranchFigure extends NodeFigure {
 
-    public CallBranchFigure() {
+    public BranchFigure() {
         initContentPanes(2);
         setLayoutManager(new RowLayout().withMinorAlignment(Alignment.MATHLINE).withSpacing(24).withMarginLeft(4).withMarginRight(4).withMarginTop(4));
         add(createContentPane(0));
         add(createContentPane(1));
+    }
+
+    @Override
+    protected ConnectionAnchor[] createTargetAnchors() {
+		return new ConnectionAnchor[] {
+				new AbstractConnectionAnchor(this) {
+					public Point getLocation(Point reference) {
+						Point p = getBounds().getTopLeft();
+						getOwner().translateToAbsolute(p);
+						return p;
+					}
+					public Point getReferencePoint() {
+						return getLocation(null);
+					}
+				},
+				new AbstractConnectionAnchor(this) {
+					public Point getLocation(Point reference) {
+						Point p = getBounds().getBottomRight();
+						getOwner().translateToAbsolute(p);
+						return p;
+					}
+					public Point getReferencePoint() {
+						return getLocation(null);
+					}
+				}
+			};
     }
 
 	@Override
@@ -49,8 +77,11 @@ public class CallBranchFigure extends ContentPaneFigure {
 		g.setForegroundColor(FigureConstants.relationsColor);
 
         IFigure c0 = (IFigure) getContentPane(0).getChildren().get(0);
-		DrawUtils.drawOutline(g, new Point(getBounds().x+4, getBounds().y),
-				getTargetPoints(c0, 0, (r) -> r.getTopLeft()));	        	
+        Point tp = getTargetPoint(c0, 0, (r) -> r.getTopLeft());
+        g.drawLine(tp.x, getBounds().y, tp.x, tp.y);//c0.getBounds().y);
+
+//		DrawUtils.drawOutline(g, new Point(getBounds().x+4, getBounds().y),
+//				getTargetPoints(c0, 0, (r) -> r.getTopLeft()));	        	
 
         c0 = (IFigure) getContentPane(1).getChildren().get(0);
 		DrawUtils.drawOutline(g, new Point(getBounds().right()-2, getBounds().y),

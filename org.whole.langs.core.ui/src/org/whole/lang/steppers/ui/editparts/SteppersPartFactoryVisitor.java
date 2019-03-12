@@ -90,19 +90,17 @@ public class SteppersPartFactoryVisitor extends SteppersIdentityDefaultVisitor i
 
     @Override
     public void visit(Calls entity) {
-        part = new CallsPart();
+        part = new DiagonalTreePart();
+    }
+    @Override
+    public void visit(Actions entity) {
+        part = new DiagonalTreePart();
     }
 
     @Override
     public void visit(CallBranch entity) {
         part = new CallBranchPart();
     }
-
-    @Override
-    public void visit(Actions entity) {
-        part = new ActionsPart();
-    }
-
     @Override
     public void visit(ActionBranch entity) {
         part = new ActionBranchPart();

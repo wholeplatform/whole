@@ -15,19 +15,18 @@
  *  You should have received a copy of the GNU Lesser General Public License
  *  along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.steppers.ui.figures;
+package org.whole.lang.steppers.ui.editparts;
 
-import org.whole.lang.steppers.ui.layouts.StepperDeclarationLayout;
-import org.whole.lang.ui.figures.CompositeFigure;
-import org.whole.lang.ui.layout.Alignment;
-import org.whole.lang.ui.layout.UnderColumnLayout;
+import org.eclipse.draw2d.IFigure;
+import org.whole.lang.ui.editparts.AbstractCompositePart;
+import org.whole.lang.steppers.ui.figures.DiagonalTreeFigure;
 
 /**
  *  @generator Whole
  */
-public class ActionsFigure extends CompositeFigure {
+public class DiagonalTreePart extends AbstractCompositePart {
 
-    public ActionsFigure() {
-        super(new UnderColumnLayout().withMinorAlignment(Alignment.LEADING).withSpacing(StepperDeclarationLayout.CHILDREN_SPACING.height));
+    protected IFigure createFigure() {
+        return new DiagonalTreeFigure();
     }
 }

@@ -485,11 +485,13 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 
 		@Override
 		public void accept(IEntity entity) {
+			//TODO reset(entity)
+			producer.callNext();
 		}
 
 		@Override
 		public void done() {
-			producer.callRemaining();
+			producer.callRemaining();//FIXME ? callNext();
 		}
 	}
 

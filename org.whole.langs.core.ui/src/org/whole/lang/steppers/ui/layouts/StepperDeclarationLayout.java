@@ -31,10 +31,6 @@ public class StepperDeclarationLayout extends AbstractEntityLayout {
 	public static final Dimension TREE_SPACING = new Dimension(8, 8);
 	public static final Dimension CHILDREN_SPACING = new Dimension(8, 8);
 
-	public int shapeBorderBounds_x;
-	public int shapeBorderBounds_y;
-	public int shapeBorderBounds_width;
-	public int shapeBorderBounds_height;
 	protected int shapeWidth;
 	protected int figIndent;
 
@@ -44,31 +40,31 @@ public class StepperDeclarationLayout extends AbstractEntityLayout {
 	}
 
 	protected void setAscentDescentWidth(int wHint, int hHint) {
-		shapeWidth = Math.max(childSize[0].width, childSize[1].width);
-		int shapeDescent = Math.max(descent(1) + SHAPE_PADDING.bottom, descent(2) + childSize[3].height);
+		shapeWidth = Math.max(childSize[1].width, childSize[2].width);
+		int shapeDescent = Math.max(descent(2) + SHAPE_PADDING.bottom, descent(3) + childSize[4].height);
 
-		figAscent = Math.max(SHAPE_MARGIN.top + SHAPE_PADDING.top + childSize[0].height + ascent(1), ascent(2));
-		figDescent = shapeDescent + SHAPE_MARGIN.bottom + TREE_SPACING.height + childSize[4].height;
-		figIndent = Math.max(SHAPE_MARGIN.left + SHAPE_PADDING.left, indent(4));
-		figWidth = Math.max(SHAPE_MARGIN.getWidth() + SHAPE_PADDING.getWidth() + shapeWidth + Math.max(TREE_SPACING.width + childSize[2].width, childSize[3].width), childSize[4].width);
+		figAscent = Math.max(SHAPE_MARGIN.top + SHAPE_PADDING.top + childSize[1].height + ascent(2), ascent(3));
+		figDescent = shapeDescent + SHAPE_MARGIN.bottom + TREE_SPACING.height + childSize[5].height;
+		figIndent = Math.max(SHAPE_MARGIN.left + SHAPE_PADDING.left, indent(5));
+		figWidth = Math.max(SHAPE_MARGIN.getWidth() + SHAPE_PADDING.getWidth() + shapeWidth + Math.max(TREE_SPACING.width + childSize[3].width, childSize[4].width), childSize[5].width);
 
-		shapeBorderBounds_width = shapeWidth + SHAPE_PADDING.getWidth();
-		shapeBorderBounds_height = figAscent - SHAPE_MARGIN.top + shapeDescent;
+		childSize[0].width = shapeWidth + SHAPE_PADDING.getWidth();
+		childSize[0].height = figAscent - SHAPE_MARGIN.top + shapeDescent;
 	}
 
 	protected void setLocation(Rectangle area, int[] x, int[] y) {
-		shapeBorderBounds_x = area.x + figIndent - SHAPE_PADDING.left;
-		shapeBorderBounds_y = area.y + SHAPE_MARGIN.top;
-		x[0] = area.x + figIndent + (shapeWidth - childSize[0].width)/2;
-		y[0] = shapeBorderBounds_y + SHAPE_PADDING.top;
+		x[0] = area.x + figIndent - SHAPE_PADDING.left;
+		y[0] = area.y + SHAPE_MARGIN.top;
 		x[1] = area.x + figIndent + (shapeWidth - childSize[1].width)/2;
-		y[1] = area.y + figAscent - ascent(1);
-		x[2] = area.x + SHAPE_MARGIN.getWidth() + SHAPE_PADDING.getWidth() + shapeWidth + TREE_SPACING.width;
+		y[1] = y[0] + SHAPE_PADDING.top;
+		x[2] = area.x + figIndent + (shapeWidth - childSize[2].width)/2;
 		y[2] = area.y + figAscent - ascent(2);
-		x[3] = area.x + SHAPE_MARGIN.getWidth() + SHAPE_PADDING.getWidth() + shapeWidth;
-		y[3] = area.y + SHAPE_MARGIN.top + shapeBorderBounds_height - childSize[3].height;
-		x[4] = area.x + figIndent - indent(4);
-		y[4] = area.y + figAscent + figDescent - childSize[4].height;
+		x[3] = area.x + SHAPE_MARGIN.getWidth() + SHAPE_PADDING.getWidth() + shapeWidth + TREE_SPACING.width;
+		y[3] = area.y + figAscent - ascent(3);
+		x[4] = area.x + SHAPE_MARGIN.getWidth() + SHAPE_PADDING.getWidth() + shapeWidth;
+		y[4] = area.y + SHAPE_MARGIN.top + childSize[0].height - childSize[4].height;
+		x[5] = area.x + figIndent - indent(5);
+		y[5] = area.y + figAscent + figDescent - childSize[5].height;
 	}
 }
 

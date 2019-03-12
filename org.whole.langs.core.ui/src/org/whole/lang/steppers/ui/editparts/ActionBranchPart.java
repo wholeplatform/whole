@@ -23,7 +23,7 @@ import java.util.List;
 import org.eclipse.draw2d.IFigure;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.steppers.model.ActionBranch;
-import org.whole.lang.steppers.ui.figures.CallBranchFigure;
+import org.whole.lang.steppers.ui.figures.BranchFigure;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
 
 /**
@@ -32,7 +32,7 @@ import org.whole.lang.ui.editparts.AbstractContentPanePart;
 public class ActionBranchPart extends AbstractContentPanePart {
 
     protected IFigure createFigure() {
-        return new CallBranchFigure();//ActionBranchFigure();
+        return new BranchFigure();
     }
 
     protected List<IEntity> getModelSpecificChildren() {

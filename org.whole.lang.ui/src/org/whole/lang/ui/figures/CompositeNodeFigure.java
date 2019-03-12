@@ -17,39 +17,35 @@
  */
 package org.whole.lang.ui.figures;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.draw2d.ConnectionAnchor;
-import org.eclipse.draw2d.LayoutManager;
 import org.eclipse.draw2d.geometry.Point;
-import org.whole.lang.ui.layout.IEntityLayout;
-import org.whole.lang.ui.layout.MonoLayout;
+import org.whole.lang.ui.layout.ICompositeEntityLayout;
 
 /**
  * @author Riccardo Solmi
  * 
- *  TODO Keep in sync with CompositeNodeFigure
+ * TODO Keep in sync with NodeFigure
  */
-public class NodeFigure extends ContentPaneFigure implements INodeFigure {
+public class CompositeNodeFigure extends CompositeFigure implements INodeFigure {
 	protected static final ConnectionAnchor[] NO_ANCHORS = new ConnectionAnchor[0];
 	private ConnectionAnchor[] sourceAnchors;
 	private ConnectionAnchor[] targetAnchors;
 
-	protected NodeFigure() {
+	protected CompositeNodeFigure() {
 	}
-	public NodeFigure(LayoutManager layout) {
+	public CompositeNodeFigure(boolean isHorizontal) {
+		super(isHorizontal);
+	}
+	public CompositeNodeFigure(boolean isHorizontal, boolean withPlaceholder) {
+		super(isHorizontal, withPlaceholder);
+	}
+	public CompositeNodeFigure(ICompositeEntityLayout layout) {
 		super(layout);
 	}
-
-	@Override
-	public IEntityLayout getLayoutManager() {
-		IEntityLayout layoutManager = super.getLayoutManager();
-		if (layoutManager == null) {
-			setLayoutManager(new MonoLayout());
-			layoutManager = super.getLayoutManager();
-		}
-		return layoutManager;
+	public CompositeNodeFigure(ICompositeEntityLayout layout, boolean withPlaceholder) {
+		super(layout, withPlaceholder);
 	}
 
 	protected ConnectionAnchor[] getSourceAnchors() {
@@ -115,76 +111,30 @@ public class NodeFigure extends ContentPaneFigure implements INodeFigure {
 	}
 
 	public ConnectionAnchor getClosestSourceAnchor(Point p, DistanceMetric metric) {
-        return getClosestDistanceAnchor(p, getSourceAnchors(), metric);
+        return NodeFigure.getClosestDistanceAnchor(p, getSourceAnchors(), metric);
     }
 	public ConnectionAnchor getClosestTargetAnchor(Point p, DistanceMetric metric) {
-        return getClosestDistanceAnchor(p, getTargetAnchors(), metric);
+        return NodeFigure.getClosestDistanceAnchor(p, getTargetAnchors(), metric);
     }
 
 	public ConnectionAnchor getSourceAnchorAt(Point p) {
-        return getClosestDistanceAnchor(p, getSourceAnchors());
+        return NodeFigure.getClosestDistanceAnchor(p, getSourceAnchors());
     }
 	public ConnectionAnchor getTargetAnchorAt(Point p) {
-        return getClosestDistanceAnchor(p, getTargetAnchors());
+        return NodeFigure.getClosestDistanceAnchor(p, getTargetAnchors());
     }
 
     public int getSourceAnchorIndexAt(Point p) {
-        return getClosestDistanceAnchorIndex(p, getSourceAnchors());
+        return NodeFigure.getClosestDistanceAnchorIndex(p, getSourceAnchors());
     }
 	public int getTargetAnchorIndexAt(Point p) {
-        return getClosestDistanceAnchorIndex(p, getTargetAnchors());
+        return NodeFigure.getClosestDistanceAnchorIndex(p, getTargetAnchors());
     }
 
 	public List<Point> getSourceAnchorLocations(Point reference) {
-        return getAnchorLocations(getSourceAnchors(), reference);
+        return NodeFigure.getAnchorLocations(getSourceAnchors(), reference);
 	}
 	public List<Point> getTargetAnchorLocations(Point reference) {
-        return getAnchorLocations(getTargetAnchors(), reference);
-	}
-
-	public static ConnectionAnchor getClosestDistanceAnchor(Point p, ConnectionAnchor[] anchors, DistanceMetric metric) {
-        ConnectionAnchor closestAnchor = null;
-        long min = Long.MAX_VALUE;
-
-        if (anchors != null)
-	        for (int i=0; i<anchors.length; i++) {
-	        	long d = metric.calculate(p, anchors[i].getLocation(p));
-	        	if (d < min) {
-	        		min = d;
-	        		closestAnchor = anchors[i];
-	        	}
-	        }
-        
-        return closestAnchor;
-    }
-    public static ConnectionAnchor getClosestDistanceAnchor(Point p, ConnectionAnchor[] anchors) {
-        return getClosestDistanceAnchor(p, anchors, DistanceMetric.Diagonal2);
-    }
-    public static int getClosestDistanceAnchorIndex(Point p, ConnectionAnchor[] anchors, DistanceMetric metric) {
-        int closestAnchorIndex = -1;
-        long min = Long.MAX_VALUE;
-
-        if (anchors != null)
-	        for (int i=0; i<anchors.length; i++) {
-	        	long d = metric.calculate(p, anchors[i].getLocation(p));
-	        	if (d < min) {
-	        		min = d;
-	        		closestAnchorIndex = i;
-	        	}
-	        }
-        
-        return closestAnchorIndex;
-    }
-    public static int getClosestDistanceAnchorIndex(Point p, ConnectionAnchor[] anchors) {
-        return getClosestDistanceAnchorIndex(p, anchors, DistanceMetric.Diagonal2);
-    }
-
-    public static List<Point> getAnchorLocations(ConnectionAnchor[] anchors, Point reference) {
-		List<Point> list = new ArrayList<Point>(anchors.length);
-
-		for (int i=0; i<anchors.length; i++)
-        	list.add(anchors[i].getLocation(reference));
-
-		return list;
+        return NodeFigure.getAnchorLocations(getTargetAnchors(), reference);
 	}
 }

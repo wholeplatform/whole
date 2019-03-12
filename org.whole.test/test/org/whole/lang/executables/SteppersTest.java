@@ -431,7 +431,8 @@ public class SteppersTest {
 		step1.addAction(c);
 
 		c.setExpectedValues(VALUES[0], VALUES[1]);
-		c.setExpectedEvents(Event.NEXT, Event.DONE, Event.NEXT, Event.DONE);
+//		c.setExpectedEvents(Event.NEXT, Event.DONE, Event.NEXT, Event.DONE);
+		c.setExpectedEvents(Event.NEXT, Event.NEXT, Event.DONE, Event.DONE);
 		step0.evaluateRemaining();
 		c.checkExpectations();
 	}
