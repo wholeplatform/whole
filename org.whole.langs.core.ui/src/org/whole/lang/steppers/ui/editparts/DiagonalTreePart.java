@@ -25,8 +25,13 @@ import org.whole.lang.steppers.ui.figures.DiagonalTreeFigure;
  *  @generator Whole
  */
 public class DiagonalTreePart extends AbstractCompositePart {
+	protected boolean showArgumentsTree;
 
-    protected IFigure createFigure() {
-        return new DiagonalTreeFigure();
+    public DiagonalTreePart(boolean showArgumentsTree) {
+		this.showArgumentsTree = showArgumentsTree;
+	}
+
+	protected IFigure createFigure() {
+        return new DiagonalTreeFigure(showArgumentsTree);
     }
 }

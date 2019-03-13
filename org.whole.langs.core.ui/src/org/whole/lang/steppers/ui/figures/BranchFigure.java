@@ -26,7 +26,6 @@ import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.NodeFigure;
 import org.whole.lang.ui.layout.Alignment;
 import org.whole.lang.ui.layout.RowLayout;
-import org.whole.lang.ui.notations.figures.DrawUtils;
 
 /**
  *  @author Riccardo Solmi
@@ -39,7 +38,7 @@ public class BranchFigure extends NodeFigure {
         	public int getIndent() {
         		return getContentPane(0).getIndent();
         	}
-        }.withMinorAlignment(Alignment.MATHLINE).withSpacing(24).withMarginLeft(4).withMarginRight(4).withMarginTop(4));
+        }.withMinorAlignment(Alignment.MATHLINE).withSpacing(24).withMarginLeft(4).withMarginRight(8).withMarginTop(4));
         add(createContentPane(0));
         add(createContentPane(1));
     }
@@ -83,18 +82,17 @@ public class BranchFigure extends NodeFigure {
 	protected void paintConnections(Graphics g) {
 		g.setForegroundColor(FigureConstants.relationsColor);
 
-        IFigure c0 = (IFigure) getContentPane(0).getChildren().get(0);
-        Point tp = getTargetPoint(c0, 0, (r) -> r.getTopLeft());
-        g.drawLine(tp.x, getBounds().y, tp.x, tp.y);//c0.getBounds().y);
+		int x2 = getBounds().right()-1;
 
-//		DrawUtils.drawOutline(g, new Point(getBounds().x+4, getBounds().y),
-//				getTargetPoints(c0, 0, (r) -> r.getTopLeft()));	        	
+		IFigure c0 = (IFigure) getContentPane(1).getChildren().get(0);
+		Point tp = getTargetPoint(c0, 1, (r) -> r.getBottomRight());
+        g.drawLine(x2, getBounds().y, x2, tp.y);
+        g.drawLine(tp.x-1, tp.y, x2, tp.y);
 
-        c0 = (IFigure) getContentPane(1).getChildren().get(0);
-		DrawUtils.drawOutline(g, new Point(getBounds().right()-2, getBounds().y),
-				getTargetPoints(c0, 1, (r) -> r.getBottomRight()));
+        c0 = (IFigure) getContentPane(0).getChildren().get(0);
+        tp = getTargetPoint(c0, 0, (r) -> r.getTopLeft());
+        g.drawLine(tp.x, getBounds().y, tp.x, tp.y);
 
-		g.drawLine(tp.x, getBounds().y, getBounds().right()-2, getBounds().y);
-//		g.drawLine(getBounds().x-5, getBounds().y, getBounds().right()-2, getBounds().y);
+		g.drawLine(tp.x, getBounds().y, x2, getBounds().y);
 	}
 }

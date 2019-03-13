@@ -32,15 +32,17 @@ import org.whole.lang.steppers.ui.layouts.StepperDeclarationLayout;
 import org.whole.lang.ui.figures.CompositeNodeFigure;
 import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.INodeFigure;
+import org.whole.lang.ui.layout.Alignment;
 import org.whole.lang.ui.layout.ICompositeEntityLayout;
 
 /**
  *  @author Riccardo Solmi
  */
 public class DiagonalTreeFigure extends CompositeNodeFigure {
-
-    public DiagonalTreeFigure() {
-        super(new DiagonalColumnLayout().withSpacing(StepperDeclarationLayout.CHILDREN_SPACING.height));
+    public DiagonalTreeFigure(boolean trailing) {
+        super(new DiagonalColumnLayout()
+        		.withMinorAlignment(trailing ? Alignment.TRAILING : Alignment.LEADING)
+        		.withSpacing(StepperDeclarationLayout.CHILDREN_SPACING.height));
     }
 
     @Override
@@ -53,17 +55,15 @@ public class DiagonalTreeFigure extends CompositeNodeFigure {
 						if (size > 1) {
 							IFigure f1 = (IFigure) getChildren().get(0);
 							IFigure f2 = (IFigure) getChildren().get(size-1);
-//				        	int x1 = f1.getBounds().x;
-//				        	int x2 = f2.getBounds().x;
 				        	Point t1 = getTargetPoint(f1, 0, (r) -> r.getTopLeft());
 							Point t2 = getTargetPoint(f2, 0, (r) -> r.getTopLeft());
-							int y1 = t1.y;
-				        	int y2 = t2.y;
-//				        	int xm = (x2-x1)/2 + x1;
-				        	int ym = y1 + (y2-y1)/2;
-				        	p = new Point(t2.x, ym);
-						} else //FIXME size =1
-							p = new Point(size > 0 ? getTargetPoint(((IFigure) getChildren().get(size-1)), 0, (r) -> r.getTopLeft()).x: getBounds().x, getBounds().y);
+
+							p = new Point(t2.x, t1.y + (t2.y-t1.y)/2);
+						} else if (size == 1)
+							p = getTargetPoint(((IFigure) getChildren().get(0)), 0, (r) -> r.getTopLeft());
+						else
+							p = getBounds().getTopLeft();
+
 						getOwner().translateToAbsolute(p);
 						return p;
 					}
@@ -73,7 +73,20 @@ public class DiagonalTreeFigure extends CompositeNodeFigure {
 				},
 				new AbstractConnectionAnchor(this) {
 					public Point getLocation(Point reference) {
-						Point p = getBounds().getBottomRight();
+						int size = getChildren().size();
+						Point p;
+						if (size > 1) {
+							IFigure f1 = (IFigure) getChildren().get(0);
+							IFigure f2 = (IFigure) getChildren().get(size-1);
+				        	Point t1 = getTargetPoint(f1, 1, (r) -> r.getBottomRight());
+							Point t2 = getTargetPoint(f2, 1, (r) -> r.getBottomRight());
+
+							p = new Point(getBounds().right(), t1.y + (t2.y-t1.y)/2);
+						} else if (size == 1)
+							p = getTargetPoint(((IFigure) getChildren().get(0)), 1, (r) -> r.getBottomRight());
+						else
+							p = getBounds().getBottomRight();
+
 						getOwner().translateToAbsolute(p);
 						return p;
 					}
@@ -94,28 +107,41 @@ public class DiagonalTreeFigure extends CompositeNodeFigure {
 	protected void paintConnections(Graphics g) {
         int size = getChildren().size();
         if (size > 1) {
-    		Point[] targetPoints = getTargetPoints((IFigure) this, 0, (r) -> r.getTopLeft());
+    		Rectangle[] childrenBounds = new Rectangle[size];
+    		for (int i=0; i<size; i++)
+    			childrenBounds[i] = ((IFigure) getChildren().get(i)).getBounds();
 
-        	int x1 = ((IFigure) getChildren().get(0)).getBounds().x;
-        	int x2 = ((IFigure) getChildren().get(size-1)).getBounds().x;
-        	int y1 = targetPoints[0].y;
-        	int y2 = targetPoints[size-1].y;
-        	int xm = (x2-x1)/2 + x1;
-        	int ym = y1 + (y2-y1)/2;
-//        	float d = (x2-x1)/(y2-y1);
-        	int indent = targetPoints[size-1].x;
-        	
-    		g.setForegroundColor(FigureConstants.relationsColor);
+       		g.setForegroundColor(FigureConstants.relationsColor);
 
-//    		g.drawLine(indent, getBounds().y, indent, ym);
-    		g.drawLine(indent, ym, xm, ym);
-    		
-    		g.drawLine(x1, y1, x2, y2);
+       		Point[] targetPoints;
+       		if (getLayoutManager().getMinorAlignment().equals(Alignment.LEADING)) {
+        		targetPoints = getTargetPoints((IFigure) this, 0, (r) -> r.getTopLeft());
 
-    		for (int i=0; i<targetPoints.length; i++) {
-    			int xi = ((IFigure) getChildren().get(i)).getBounds().x;
-    			g.drawLine(xi, targetPoints[i].y, targetPoints[i].x, targetPoints[i].y);
-    		}
+            	int x1 = childrenBounds[0].x;
+            	int y1 = targetPoints[0].y;
+            	int x2 = childrenBounds[size-1].x;
+            	int y2 = targetPoints[size-1].y;
+            	int xm = (x2-x1)/2 + x1;
+            	int ym = y1 + (y2-y1)/2;
+
+        		g.drawLine(targetPoints[size-1].x, ym, xm, ym);
+        		g.drawLine(x1, y1, x2, y2);
+        		for (int i=0; i<targetPoints.length; i++)
+        			g.drawLine(childrenBounds[i].x, targetPoints[i].y, targetPoints[i].x, targetPoints[i].y);
+        	} else {
+        		targetPoints = getTargetPoints((IFigure) this, 1, (r) -> r.getBottomRight());
+        		int x1 = childrenBounds[0].right() -1;
+        		int y1 = targetPoints[0].y;
+        		int x2 = childrenBounds[size-1].right() -1;
+        		int y2 = targetPoints[size-1].y;
+        		int xm = (x2-x1)/2 + x1;
+        		int ym = y1 + (y2-y1)/2;
+            	
+        		g.drawLine(xm, ym, getBounds().right(), ym);
+        		g.drawLine(x1, y1, x2, y2);
+        		for (int i=0; i<targetPoints.length; i++)
+        			g.drawLine(childrenBounds[i].right() -1, targetPoints[i].y, targetPoints[i].x, targetPoints[i].y);
+        	}
         }
     }
     

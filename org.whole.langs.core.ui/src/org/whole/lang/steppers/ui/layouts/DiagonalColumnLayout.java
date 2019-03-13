@@ -19,6 +19,7 @@ package org.whole.lang.steppers.ui.layouts;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.whole.lang.ui.layout.AbstractCompositeEntityLayout;
+import org.whole.lang.ui.layout.Alignment;
 
 /**
  * @author Riccardo Solmi
@@ -34,25 +35,38 @@ public class DiagonalColumnLayout extends AbstractCompositeEntityLayout {
 
 	@Override
 	protected int getIndent() {
-		return childSize.length > 0 ? childSize[childSize.length-1].getIndent() : 0;
+		return childSize.length > 0 ? getMinorAlignment().equals(Alignment.LEADING) ? childSize[childSize.length-1].getIndent() : childSize[0].getIndent() : 0;
 	}
 
 	@Override
 	protected void setAscentDescentWidth(int wHint, int hHint) {
 		figWidth = 0;
 		int figHeight = 0;
-
+		
 		xi = new int[childSize.length];
 		if (childSize.length > 0) {
-			xi[childSize.length-1] = 0;
-			figWidth = childSize[childSize.length-1].width;
-			figHeight = childSize[childSize.length-1].height;
-
-			for (int i=childSize.length-2; i>=0; i--) {
-				int yDelta = childSize[i].height + getSpacingBefore(i+1);
-				xi[i] = (int)(yDelta * tilt) + xi[i+1];
-				figWidth = Math.max(figWidth, xi[i] + childSize[i].width);
-				figHeight += yDelta;
+			if (getMinorAlignment().equals(Alignment.LEADING)) {
+				xi[childSize.length-1] = 0;
+				figWidth = childSize[childSize.length-1].width;
+				figHeight = childSize[childSize.length-1].height;
+	
+				for (int i=childSize.length-2; i>=0; i--) {
+					int yDelta = childSize[i].height + getSpacingBefore(i+1);
+					xi[i] = (int)(yDelta * tilt) + xi[i+1];
+					figWidth = Math.max(figWidth, xi[i] + childSize[i].width);
+					figHeight += yDelta;
+				}
+			} else {
+				xi[0] = 0;
+				figWidth = childSize[0].width;
+				figHeight = childSize[0].height;
+	
+				for (int i=1; i<childSize.length; i++) {
+					int yDelta = childSize[i].height + getSpacingBefore(i);
+					xi[i] = (int)(yDelta * tilt) + xi[i-1];
+					figWidth = Math.max(figWidth, xi[i] + childSize[i].width);
+					figHeight += yDelta;
+				}
 			}
 		}
 
@@ -67,7 +81,7 @@ public class DiagonalColumnLayout extends AbstractCompositeEntityLayout {
 		int yi = area.y;
 
 		for (int i=0; i<childSize.length; i++) {
-			x[i] = area.x + xi[i];
+			x[i] = getMinorAlignment().equals(Alignment.LEADING) ? area.x + xi[i] : area.x + figWidth - xi[i] - childSize[i].width;
 			y[i] = yi;
 			yi += childSize[i].height + getSpacingBefore(i+1);
 		}

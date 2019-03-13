@@ -107,7 +107,6 @@ public class StepperDeclarationFigure extends NodeFigure {
 	public void paintFigure(Graphics g) {
         super.paintFigure(g);
 
-        StepperDeclarationLayout l = (StepperDeclarationLayout) getLayoutManager();
         Rectangle shapeBounds = shapeBorder.getBounds();
         Rectangle expressionBounds = getContentPane(1).getBounds();
 

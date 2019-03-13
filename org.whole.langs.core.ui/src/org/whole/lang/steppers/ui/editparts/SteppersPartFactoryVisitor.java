@@ -18,6 +18,8 @@
 package org.whole.lang.steppers.ui.editparts;
 
 import org.eclipse.gef.EditPart;
+import org.whole.lang.matchers.Matcher;
+import org.whole.lang.model.IEntity;
 import org.whole.lang.steppers.model.ActionBranch;
 import org.whole.lang.steppers.model.Actions;
 import org.whole.lang.steppers.model.AndArgument;
@@ -35,12 +37,15 @@ import org.whole.lang.steppers.model.StepperApplication;
 import org.whole.lang.steppers.model.StepperDeclaration;
 import org.whole.lang.steppers.model.StepperReference;
 import org.whole.lang.steppers.model.Target;
+import org.whole.lang.steppers.reflect.SteppersEntityDescriptorEnum;
+import org.whole.lang.steppers.reflect.SteppersFeatureDescriptorEnum;
 import org.whole.lang.steppers.visitors.SteppersIdentityDefaultVisitor;
 import org.whole.lang.ui.editparts.ContentDataEntityPart;
 import org.whole.lang.ui.editparts.ContentLightTextualEntityPart;
 import org.whole.lang.ui.editparts.IEditPartFactory;
 import org.whole.lang.ui.editparts.IdentifierTextualEntityPart;
 import org.whole.lang.ui.notations.table.editparts.TablePartFactory;
+import org.whole.lang.util.EntityUtils;
 
 /**
  *  @generator Whole
@@ -90,11 +95,13 @@ public class SteppersPartFactoryVisitor extends SteppersIdentityDefaultVisitor i
 
     @Override
     public void visit(Calls entity) {
-        part = new DiagonalTreePart();
+    	IEntity parent = entity.wGetParent();
+        part = new DiagonalTreePart(!EntityUtils.isNull(parent) && Matcher.matchAtEntityFeature(SteppersEntityDescriptorEnum.CallBranch, SteppersFeatureDescriptorEnum.arguments, entity));
     }
     @Override
     public void visit(Actions entity) {
-        part = new DiagonalTreePart();
+    	IEntity parent = entity.wGetParent();
+        part = new DiagonalTreePart(!EntityUtils.isNull(parent) && Matcher.matchAtEntityFeature(SteppersEntityDescriptorEnum.ActionBranch, SteppersFeatureDescriptorEnum.arguments, entity));
     }
 
     @Override
