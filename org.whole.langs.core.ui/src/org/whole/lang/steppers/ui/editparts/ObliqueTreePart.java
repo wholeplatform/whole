@@ -17,28 +17,21 @@
  */
 package org.whole.lang.steppers.ui.editparts;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.eclipse.draw2d.IFigure;
-import org.whole.lang.steppers.model.CallBranch;
-import org.whole.lang.model.IEntity;
-import org.whole.lang.ui.editparts.AbstractContentPanePart;
-import org.whole.lang.steppers.ui.figures.BranchFigure;
+import org.whole.lang.ui.editparts.AbstractCompositePart;
+import org.whole.lang.steppers.ui.figures.ObliqueTreeFigure;
 
 /**
  *  @generator Whole
  */
-public class CallBranchPart extends AbstractContentPanePart {
+public class ObliqueTreePart extends AbstractCompositePart {
+	protected boolean showArgumentsTree;
 
-    protected IFigure createFigure() {
-        return new BranchFigure();
-    }
+    public ObliqueTreePart(boolean showArgumentsTree) {
+		this.showArgumentsTree = showArgumentsTree;
+	}
 
-    protected List<IEntity> getModelSpecificChildren() {
-        CallBranch entity = getModelEntity();
-        List<IEntity> children = new ArrayList<IEntity>(2);
-        children.add(entity.getGoals());
-        children.add(entity.getArguments());
-        return children;
+	protected IFigure createFigure() {
+        return new ObliqueTreeFigure(showArgumentsTree);
     }
 }

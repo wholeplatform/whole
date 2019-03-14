@@ -24,12 +24,12 @@ import org.whole.lang.ui.layout.Alignment;
 /**
  * @author Riccardo Solmi
  */
-public class DiagonalColumnLayout extends AbstractCompositeEntityLayout {
+public class ObliqueLayout extends AbstractCompositeEntityLayout {
 	protected int[] xi;
-	protected double tilt = 0.3;
+	protected double escapeAngle = 0.4;
 
-	public DiagonalColumnLayout withTilt(int tilt) {
-		this.tilt = tilt;
+	public ObliqueLayout withEscapeAngle(double angle) {
+		this.escapeAngle = angle;
 		return this;
 	}
 
@@ -52,7 +52,7 @@ public class DiagonalColumnLayout extends AbstractCompositeEntityLayout {
 	
 				for (int i=childSize.length-2; i>=0; i--) {
 					int yDelta = childSize[i].height + getSpacingBefore(i+1);
-					xi[i] = (int)(yDelta * tilt) + xi[i+1];
+					xi[i] = (int)(yDelta * escapeAngle) + xi[i+1];
 					figWidth = Math.max(figWidth, xi[i] + childSize[i].width);
 					figHeight += yDelta;
 				}
@@ -63,15 +63,13 @@ public class DiagonalColumnLayout extends AbstractCompositeEntityLayout {
 	
 				for (int i=1; i<childSize.length; i++) {
 					int yDelta = childSize[i].height + getSpacingBefore(i);
-					xi[i] = (int)(yDelta * tilt) + xi[i-1];
+					xi[i] = (int)(yDelta * escapeAngle) + xi[i-1];
 					figWidth = Math.max(figWidth, xi[i] + childSize[i].width);
 					figHeight += yDelta;
 				}
 			}
 		}
 
-//		figDescent = childSize.length > 0 ? childSize[childSize.length-1].getDescent() : 0;
-//		figAscent = figHeight - figDescent;
 		figAscent = figHeight / 2;
 		figDescent = figHeight - figAscent;
 	}

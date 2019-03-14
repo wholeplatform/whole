@@ -17,21 +17,29 @@
  */
 package org.whole.lang.steppers.ui.editparts;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.draw2d.IFigure;
-import org.whole.lang.ui.editparts.AbstractCompositePart;
-import org.whole.lang.steppers.ui.figures.DiagonalTreeFigure;
+import org.whole.lang.model.IEntity;
+import org.whole.lang.steppers.model.ActionBranch;
+import org.whole.lang.steppers.ui.figures.GoalsWithArgumentsFigure;
+import org.whole.lang.ui.editparts.AbstractContentPanePart;
 
 /**
  *  @generator Whole
  */
-public class DiagonalTreePart extends AbstractCompositePart {
-	protected boolean showArgumentsTree;
+public class ActionGoalsWithArgumentsPart extends AbstractContentPanePart {
 
-    public DiagonalTreePart(boolean showArgumentsTree) {
-		this.showArgumentsTree = showArgumentsTree;
-	}
+    protected IFigure createFigure() {
+        return new GoalsWithArgumentsFigure();
+    }
 
-	protected IFigure createFigure() {
-        return new DiagonalTreeFigure(showArgumentsTree);
+    protected List<IEntity> getModelSpecificChildren() {
+        ActionBranch entity = getModelEntity();
+        List<IEntity> children = new ArrayList<IEntity>(2);
+        children.add(entity.getGoals());
+        children.add(entity.getArguments());
+        return children;
     }
 }

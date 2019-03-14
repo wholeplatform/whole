@@ -19,24 +19,23 @@ package org.whole.lang.steppers.ui.editparts;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.eclipse.draw2d.IFigure;
+import org.whole.lang.steppers.model.CallBranch;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.steppers.model.ActionBranch;
-import org.whole.lang.steppers.ui.figures.BranchFigure;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
+import org.whole.lang.steppers.ui.figures.GoalsWithArgumentsFigure;
 
 /**
  *  @generator Whole
  */
-public class ActionBranchPart extends AbstractContentPanePart {
+public class CallGoalsWithArgumentsPart extends AbstractContentPanePart {
 
     protected IFigure createFigure() {
-        return new BranchFigure();
+        return new GoalsWithArgumentsFigure();
     }
 
     protected List<IEntity> getModelSpecificChildren() {
-        ActionBranch entity = getModelEntity();
+        CallBranch entity = getModelEntity();
         List<IEntity> children = new ArrayList<IEntity>(2);
         children.add(entity.getGoals());
         children.add(entity.getArguments());

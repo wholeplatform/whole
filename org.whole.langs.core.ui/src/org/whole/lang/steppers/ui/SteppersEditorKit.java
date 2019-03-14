@@ -17,11 +17,13 @@
  */
 package org.whole.lang.steppers.ui;
 
-import org.whole.lang.steppers.reflect.SteppersLanguageKit;
 import org.whole.lang.reflect.ILanguageKit;
-import org.whole.lang.ui.editor.AbstractEditorKit;
-import org.whole.lang.ui.editparts.IEditPartFactory;
+import org.whole.lang.steppers.reflect.SteppersLanguageKit;
+import org.whole.lang.steppers.ui.actions.SteppersActionFactory;
 import org.whole.lang.steppers.ui.editparts.SteppersPartFactoryVisitor;
+import org.whole.lang.ui.editor.AbstractEditorKit;
+import org.whole.lang.ui.editor.IActionFactory;
+import org.whole.lang.ui.editparts.IEditPartFactory;
 
 /**
  *  @generator Whole
@@ -49,4 +51,8 @@ public class SteppersEditorKit extends AbstractEditorKit {
     public boolean canApply(ILanguageKit languageKit) {
         return languageKit.getURI().equals(SteppersLanguageKit.URI) && isStaticAndCurrent(languageKit);
     }
+
+	public IActionFactory getActionFactory() {
+		return SteppersActionFactory.instance();
+	}
 }

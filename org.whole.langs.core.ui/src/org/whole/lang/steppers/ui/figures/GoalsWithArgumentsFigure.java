@@ -22,6 +22,7 @@ import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
+import org.whole.lang.steppers.ui.layouts.StepperDeclarationLayout;
 import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.NodeFigure;
 import org.whole.lang.ui.layout.Alignment;
@@ -30,15 +31,15 @@ import org.whole.lang.ui.layout.RowLayout;
 /**
  *  @author Riccardo Solmi
  */
-public class BranchFigure extends NodeFigure {
-    public BranchFigure() {
+public class GoalsWithArgumentsFigure extends NodeFigure {
+    public GoalsWithArgumentsFigure() {
         initContentPanes(2);
         setLayoutManager(new RowLayout() {
         	@Override
         	public int getIndent() {
         		return getContentPane(0).getIndent();
         	}
-        }.withMinorAlignment(Alignment.MATHLINE).withSpacing(24).withMarginLeft(4).withMarginRight(8).withMarginTop(4));
+        }.withMinorAlignment(Alignment.MATHLINE).withSpacing(64).withMarginLeft(4).withMarginRight(8).withMarginTop(8));
         add(createContentPane(0));
         add(createContentPane(1));
     }
@@ -50,8 +51,7 @@ public class BranchFigure extends NodeFigure {
 					public Point getLocation(Point reference) {
 						IFigure c0 = (IFigure) getContentPane(0).getChildren().get(0);
 				        Point tp = getTargetPoint(c0, 0, (r) -> r.getTopLeft());
-				        Point p = new Point(tp.x, getBounds().y);
-						//Point p = new Point(getBounds().x+getIndent()-4, getBounds().y);
+				        Point p = new Point(tp.x, getBounds().y + StepperDeclarationLayout.SHAPE_MARGIN.top);
 						getOwner().translateToAbsolute(p);
 						return p;
 					}
@@ -82,17 +82,18 @@ public class BranchFigure extends NodeFigure {
 	protected void paintConnections(Graphics g) {
 		g.setForegroundColor(FigureConstants.relationsColor);
 
+		int y1 = getBounds().y + StepperDeclarationLayout.SHAPE_MARGIN.top;
 		int x2 = getBounds().right()-1;
 
 		IFigure c0 = (IFigure) getContentPane(1).getChildren().get(0);
-		Point tp = getTargetPoint(c0, 1, (r) -> r.getBottomRight());
-        g.drawLine(x2, getBounds().y, x2, tp.y);
+		Point tp = getTargetPoint(c0, 1, (r) -> r.getRight());
+        g.drawLine(x2, y1, x2, tp.y);
         g.drawLine(tp.x-1, tp.y, x2, tp.y);
 
         c0 = (IFigure) getContentPane(0).getChildren().get(0);
-        tp = getTargetPoint(c0, 0, (r) -> r.getTopLeft());
-        g.drawLine(tp.x, getBounds().y, tp.x, tp.y);
+        tp = getTargetPoint(c0, 0, (r) -> r.getTop());
+        g.drawLine(tp.x, y1, tp.x, tp.y);
 
-		g.drawLine(tp.x, getBounds().y, x2, getBounds().y);
+		g.drawLine(tp.x, y1, x2, y1);
 	}
 }

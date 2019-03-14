@@ -59,9 +59,9 @@ public class StepperDeclarationLayout extends AbstractEntityLayout {
 		y[1] = y[0] + SHAPE_PADDING.top;
 		x[2] = area.x + figIndent + (shapeWidth - childSize[2].width)/2;
 		y[2] = area.y + figAscent - ascent(2);
-		x[3] = area.x + SHAPE_MARGIN.getWidth() + SHAPE_PADDING.getWidth() + shapeWidth + TREE_SPACING.width;
+		x[3] = x[0] + SHAPE_MARGIN.right + SHAPE_PADDING.right + shapeWidth + TREE_SPACING.width;
 		y[3] = area.y + figAscent - ascent(3);
-		x[4] = area.x + SHAPE_MARGIN.getWidth() + SHAPE_PADDING.getWidth() + shapeWidth;
+		x[4] = x[3];
 		y[4] = area.y + SHAPE_MARGIN.top + childSize[0].height - childSize[4].height;
 		x[5] = area.x + figIndent - indent(5);
 		y[5] = area.y + figAscent + figDescent - childSize[5].height;

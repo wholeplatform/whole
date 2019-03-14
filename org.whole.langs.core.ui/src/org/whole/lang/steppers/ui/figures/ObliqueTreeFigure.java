@@ -27,7 +27,7 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LayoutManager;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.whole.lang.steppers.ui.layouts.DiagonalColumnLayout;
+import org.whole.lang.steppers.ui.layouts.ObliqueLayout;
 import org.whole.lang.steppers.ui.layouts.StepperDeclarationLayout;
 import org.whole.lang.ui.figures.CompositeNodeFigure;
 import org.whole.lang.ui.figures.FigureConstants;
@@ -38,9 +38,9 @@ import org.whole.lang.ui.layout.ICompositeEntityLayout;
 /**
  *  @author Riccardo Solmi
  */
-public class DiagonalTreeFigure extends CompositeNodeFigure {
-    public DiagonalTreeFigure(boolean trailing) {
-        super(new DiagonalColumnLayout()
+public class ObliqueTreeFigure extends CompositeNodeFigure {
+    public ObliqueTreeFigure(boolean trailing) {
+        super(new ObliqueLayout()
         		.withMinorAlignment(trailing ? Alignment.TRAILING : Alignment.LEADING)
         		.withSpacing(StepperDeclarationLayout.CHILDREN_SPACING.height));
     }

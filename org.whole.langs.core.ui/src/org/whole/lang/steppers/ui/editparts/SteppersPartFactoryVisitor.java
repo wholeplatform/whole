@@ -96,21 +96,21 @@ public class SteppersPartFactoryVisitor extends SteppersIdentityDefaultVisitor i
     @Override
     public void visit(Calls entity) {
     	IEntity parent = entity.wGetParent();
-        part = new DiagonalTreePart(!EntityUtils.isNull(parent) && Matcher.matchAtEntityFeature(SteppersEntityDescriptorEnum.CallBranch, SteppersFeatureDescriptorEnum.arguments, entity));
+        part = new ObliqueTreePart(!EntityUtils.isNull(parent) && Matcher.matchAtEntityFeature(SteppersEntityDescriptorEnum.CallBranch, SteppersFeatureDescriptorEnum.arguments, entity));
     }
     @Override
     public void visit(Actions entity) {
     	IEntity parent = entity.wGetParent();
-        part = new DiagonalTreePart(!EntityUtils.isNull(parent) && Matcher.matchAtEntityFeature(SteppersEntityDescriptorEnum.ActionBranch, SteppersFeatureDescriptorEnum.arguments, entity));
+        part = new ObliqueTreePart(!EntityUtils.isNull(parent) && Matcher.matchAtEntityFeature(SteppersEntityDescriptorEnum.ActionBranch, SteppersFeatureDescriptorEnum.arguments, entity));
     }
 
     @Override
     public void visit(CallBranch entity) {
-        part = new CallBranchPart();
+        part = new CallGoalsWithArgumentsPart();
     }
     @Override
     public void visit(ActionBranch entity) {
-        part = new ActionBranchPart();
+        part = new ActionGoalsWithArgumentsPart();
     }
 
     @Override

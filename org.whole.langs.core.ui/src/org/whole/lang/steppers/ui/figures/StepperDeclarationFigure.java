@@ -18,7 +18,6 @@
 package org.whole.lang.steppers.ui.figures;
 
 import org.eclipse.draw2d.AbstractConnectionAnchor;
-import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
@@ -41,7 +40,7 @@ public class StepperDeclarationFigure extends NodeFigure {
     public StepperDeclarationFigure() {
         initContentPanes(5);
         
-        setLayoutManager(new StepperDeclarationLayout().withMargin(3));
+        setLayoutManager(new StepperDeclarationLayout().withMargin(3).withMarginTop(0));
 		add(shapeBorder = new EntityFigure(new StackLayout()));
 		shapeBorder.setOpaque(false);
 		add(createContentPane(0));
@@ -110,8 +109,8 @@ public class StepperDeclarationFigure extends NodeFigure {
         Rectangle shapeBounds = shapeBorder.getBounds();
         Rectangle expressionBounds = getContentPane(1).getBounds();
 
-        g.setForegroundColor(ColorConstants.lightGray);
-        g.setBackgroundColor(ColorConstants.lightGray);
+        g.setForegroundColor(FigureConstants.contentLighterColor);
+        g.setBackgroundColor(FigureConstants.contentLighterColor);
 		int oldAlpha = g.getAlpha();
 		g.setAlpha(40);
         g.fillRectangle(shapeBounds.x, shapeBounds.y, shapeBounds.width, expressionBounds.y-shapeBounds.y);
@@ -125,10 +124,12 @@ public class StepperDeclarationFigure extends NodeFigure {
 		g.setForegroundColor(FigureConstants.relationsColor);
 
         IFigure callsFigure = (IFigure) getContentPane(2).getChildren().get(0);
-		DrawUtils.drawHorizontalEdge(g, getTargetPoint(callsFigure, 0, (r) -> r.getTopLeft()), shapeBounds.getTopRight(), 0);
+		DrawUtils.drawHorizontalEdge(g, getTargetPoint(callsFigure, 0, (r) -> r.getTop()), shapeBounds.getTopRight(), 0);
+
+        IFigure argumentsFigure = (IFigure) getContentPane(3).getChildren().get(0);
+		DrawUtils.drawHorizontalEdge(g, shapeBounds.getBottomRight(), getTargetPoint(argumentsFigure, 0, (r) -> r.getBottom()), 0);
 
         IFigure actionsFigure = (IFigure) getContentPane(4).getChildren().get(0);
-//		DrawUtils.drawHorizontalEdge(g, shapeBounds.getBottomLeft(), new Point(shapeBounds.x, actionsFigure.getBounds().y), 0);//getTargetPoint(actionsFigure, 0, (r) -> r.getTopLeft()), 0);
-		DrawUtils.drawHorizontalEdge(g, shapeBounds.getBottomLeft(), getTargetPoint(actionsFigure, 0, (r) -> r.getTopLeft()), 0);
+		DrawUtils.drawHorizontalEdge(g, shapeBounds.getBottomLeft(), getTargetPoint(actionsFigure, 0, (r) -> r.getLeft()), 0);
     }
 }

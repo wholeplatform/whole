@@ -18,6 +18,7 @@
 package org.whole.lang.steppers.ui.figures;
 
 import org.whole.lang.ui.figures.CompositeFigure;
+import org.whole.lang.ui.layout.RowLayout;
 
 /**
  *  @generator Whole
@@ -25,6 +26,6 @@ import org.whole.lang.ui.figures.CompositeFigure;
 public class OrArgumentFigure extends CompositeFigure {
 
     public OrArgumentFigure() {
-        super(false);
+        super(new RowLayout().withMarginBottom(4).withMarginLeft(4).withMarginRight(4).withSpacing(5));
     }
 }
