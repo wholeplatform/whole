@@ -17,23 +17,16 @@
  */
 package org.whole.lang.steppers.ui.figures;
 
-import java.util.List;
-import java.util.function.Function;
-
 import org.eclipse.draw2d.AbstractConnectionAnchor;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.Graphics;
-import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.LayoutManager;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.whole.lang.steppers.ui.layouts.ObliqueLayout;
 import org.whole.lang.steppers.ui.layouts.StepperDeclarationLayout;
 import org.whole.lang.ui.figures.CompositeNodeFigure;
 import org.whole.lang.ui.figures.FigureConstants;
-import org.whole.lang.ui.figures.INodeFigure;
 import org.whole.lang.ui.layout.Alignment;
-import org.whole.lang.ui.layout.ICompositeEntityLayout;
 
 /**
  *  @author Riccardo Solmi
@@ -53,16 +46,14 @@ public class ObliqueTreeFigure extends CompositeNodeFigure {
 						int size = getChildren().size();
 						Point p;
 						if (size > 1) {
-							IFigure f1 = (IFigure) getChildren().get(0);
-							IFigure f2 = (IFigure) getChildren().get(size-1);
-				        	Point t1 = getTargetPoint(f1, 0, (r) -> r.getTopLeft());
-							Point t2 = getTargetPoint(f2, 0, (r) -> r.getTopLeft());
+							Point t1 = getChildTargetPoint(0, 0, (r) -> r.getLeft());
+							Point t2 = getChildTargetPoint(size-1, 0, (r) -> r.getLeft());
 
 							p = new Point(t2.x, t1.y + (t2.y-t1.y)/2);
 						} else if (size == 1)
-							p = getTargetPoint(((IFigure) getChildren().get(0)), 0, (r) -> r.getTopLeft());
+							p = getChildTargetPoint(0, 0, (r) -> r.getLeft());
 						else
-							p = getBounds().getTopLeft();
+							p = getBounds().getLeft();
 
 						getOwner().translateToAbsolute(p);
 						return p;
@@ -76,16 +67,14 @@ public class ObliqueTreeFigure extends CompositeNodeFigure {
 						int size = getChildren().size();
 						Point p;
 						if (size > 1) {
-							IFigure f1 = (IFigure) getChildren().get(0);
-							IFigure f2 = (IFigure) getChildren().get(size-1);
-				        	Point t1 = getTargetPoint(f1, 1, (r) -> r.getBottomRight());
-							Point t2 = getTargetPoint(f2, 1, (r) -> r.getBottomRight());
+							Point t1 = getChildTargetPoint(0, 1, (r) -> r.getRight());
+							Point t2 = getChildTargetPoint(size-1, 1, (r) -> r.getRight());
 
 							p = new Point(getBounds().right(), t1.y + (t2.y-t1.y)/2);
 						} else if (size == 1)
-							p = getTargetPoint(((IFigure) getChildren().get(0)), 1, (r) -> r.getBottomRight());
+							p = getChildTargetPoint(0, 1, (r) -> r.getRight());
 						else
-							p = getBounds().getBottomRight();
+							p = getBounds().getRight();
 
 						getOwner().translateToAbsolute(p);
 						return p;
@@ -107,15 +96,12 @@ public class ObliqueTreeFigure extends CompositeNodeFigure {
 	protected void paintConnections(Graphics g) {
         int size = getChildren().size();
         if (size > 1) {
-    		Rectangle[] childrenBounds = new Rectangle[size];
-    		for (int i=0; i<size; i++)
-    			childrenBounds[i] = ((IFigure) getChildren().get(i)).getBounds();
-
        		g.setForegroundColor(FigureConstants.relationsColor);
 
+    		Rectangle[] childrenBounds = getChildrenBounds();
        		Point[] targetPoints;
        		if (getLayoutManager().getMinorAlignment().equals(Alignment.LEADING)) {
-        		targetPoints = getTargetPoints((IFigure) this, 0, (r) -> r.getTopLeft());
+        		targetPoints = getChildrenTargetPoints(0, (r) -> r.getLeft());
 
             	int x1 = childrenBounds[0].x;
             	int y1 = targetPoints[0].y;
@@ -129,7 +115,7 @@ public class ObliqueTreeFigure extends CompositeNodeFigure {
         		for (int i=0; i<targetPoints.length; i++)
         			g.drawLine(childrenBounds[i].x, targetPoints[i].y, targetPoints[i].x, targetPoints[i].y);
         	} else {
-        		targetPoints = getTargetPoints((IFigure) this, 1, (r) -> r.getBottomRight());
+        		targetPoints = getChildrenTargetPoints(1, (r) -> r.getRight());
         		int x1 = childrenBounds[0].right() -1;
         		int y1 = targetPoints[0].y;
         		int x2 = childrenBounds[size-1].right() -1;
@@ -144,31 +130,4 @@ public class ObliqueTreeFigure extends CompositeNodeFigure {
         	}
         }
     }
-    
-
-	@SuppressWarnings("unchecked")
-	public Point[] getTargetPoints(IFigure f, int anchorIndex, Function<Rectangle, Point> target) {
-		Point[] childrenPoints;
-
-        LayoutManager layout = f.getLayoutManager();
-		List<IFigure> children = f.getChildren();
-    	int childrenSize = children.size();
-		if (layout instanceof ICompositeEntityLayout && childrenSize > 0) {
-			childrenPoints = new Point[childrenSize];
-			for (int i=0; i<childrenSize; i++)
-				childrenPoints[i] = getTargetPoint(children.get(i), anchorIndex, target);
-        } else
-        	childrenPoints = new Point[] { getTargetPoint(f, anchorIndex, target) };
-
-		return childrenPoints;
-	}
-
-	public Point getTargetPoint(IFigure f, int anchorIndex, Function<Rectangle, Point> target) {
-		if (f instanceof INodeFigure) {
-			Point targetLocation = ((INodeFigure) f).getTargetAnchor(anchorIndex).getLocation(null);
-			translateToRelative(targetLocation);
-			return targetLocation;
-		} else
-			return target.apply(f.getBounds());
-	}
 }

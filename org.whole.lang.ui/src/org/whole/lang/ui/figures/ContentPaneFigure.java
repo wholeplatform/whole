@@ -216,8 +216,13 @@ public class ContentPaneFigure extends EntityFigure implements IFoldableFigure {
 	public int getContentPanesSize() {
 		return contentPanes != null ? contentPanes.length : 1;
 	}
+
 	public IEntityFigure getContentPane(int paneIndex) {
 		return contentPanes != null ? contentPanes[paneIndex] : this;
+	}
+
+	public Point getContentPaneTargetPoint(int paneIndex, int anchorIndex, Function<Rectangle, Point> toTarget) {
+		return getTargetPoint((IFigure) getContentPane(paneIndex).getChildren().get(0), anchorIndex, toTarget);
 	}
 
 	public <F extends IEntityFigure> F addWithPlaceHolder(F child) {
@@ -227,14 +232,5 @@ public class ContentPaneFigure extends EntityFigure implements IFoldableFigure {
         add(stackedFigure);
 
         return child;
-	}
-
-	public Point getTargetPoint(IFigure f, int anchorIndex, Function<Rectangle, Point> target) {
-		if (f instanceof INodeFigure) {
-			Point targetLocation = ((INodeFigure) f).getTargetAnchor(anchorIndex).getLocation(null);
-			translateToRelative(targetLocation);
-			return targetLocation;
-		} else
-			return target.apply(f.getBounds());
 	}
 }

@@ -20,7 +20,6 @@ package org.whole.lang.steppers.ui.figures;
 import org.eclipse.draw2d.AbstractConnectionAnchor;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.Graphics;
-import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.whole.lang.steppers.ui.layouts.StepperDeclarationLayout;
@@ -117,19 +116,29 @@ public class StepperDeclarationFigure extends NodeFigure {
         g.fillRectangle(shapeBounds.x, expressionBounds.bottom(), shapeBounds.width, shapeBounds.bottom()-expressionBounds.bottom());
         g.drawLine(shapeBounds.x, expressionBounds.y-1, shapeBounds.right(), expressionBounds.y-1);
         g.drawLine(shapeBounds.x, expressionBounds.bottom(), shapeBounds.right(), expressionBounds.bottom());
-        g.setAlpha(oldAlpha);
 
+        g.drawLine(shapeBounds.x+3, shapeBounds.y-3, shapeBounds.right()+3, shapeBounds.y-3);
+        g.drawLine(shapeBounds.x+2, shapeBounds.y-2, shapeBounds.right()+2, shapeBounds.y-2);
+        g.drawLine(shapeBounds.right()+2, shapeBounds.y-2, shapeBounds.right()+2, shapeBounds.bottom()-2);
+		g.drawLine(shapeBounds.x+1, shapeBounds.y-1, shapeBounds.right()+1, shapeBounds.y-1);
+        g.drawLine(shapeBounds.right()+1, shapeBounds.y-1, shapeBounds.right()+1, shapeBounds.bottom()-1);
+       
+        g.setForegroundColor(FigureConstants.contentColor);
+        g.drawLine(shapeBounds.x+3, shapeBounds.y-4, shapeBounds.x, shapeBounds.y);
+        g.drawLine(shapeBounds.x+3, shapeBounds.y-4, shapeBounds.right()+3, shapeBounds.y-4);
+        g.drawLine(shapeBounds.right()+3, shapeBounds.y-4, shapeBounds.right()+3, shapeBounds.bottom()-7);
+        g.drawLine(shapeBounds.right()+3, shapeBounds.y-4, shapeBounds.right(), shapeBounds.y);
+        g.drawLine(shapeBounds.right(), shapeBounds.bottom(), shapeBounds.right()+3, shapeBounds.bottom()-7);
+        g.setForegroundColor(FigureConstants.contentLighterColor);
+ 
+        g.setAlpha(oldAlpha);
+        
         g.drawRectangle(shapeBounds);
 
 		g.setForegroundColor(FigureConstants.relationsColor);
 
-        IFigure callsFigure = (IFigure) getContentPane(2).getChildren().get(0);
-		DrawUtils.drawHorizontalEdge(g, getTargetPoint(callsFigure, 0, (r) -> r.getTop()), shapeBounds.getTopRight(), 0);
-
-        IFigure argumentsFigure = (IFigure) getContentPane(3).getChildren().get(0);
-		DrawUtils.drawHorizontalEdge(g, shapeBounds.getBottomRight(), getTargetPoint(argumentsFigure, 0, (r) -> r.getBottom()), 0);
-
-        IFigure actionsFigure = (IFigure) getContentPane(4).getChildren().get(0);
-		DrawUtils.drawHorizontalEdge(g, shapeBounds.getBottomLeft(), getTargetPoint(actionsFigure, 0, (r) -> r.getLeft()), 0);
+        DrawUtils.drawHorizontalEdge(g, getContentPaneTargetPoint(2, 0, (r) -> r.getTop()), shapeBounds.getTopRight(), 0);
+        DrawUtils.drawHorizontalEdge(g, shapeBounds.getBottomRight(), getContentPaneTargetPoint(3, 0, (r) -> r.getBottom()), 0);
+        DrawUtils.drawHorizontalEdge(g, shapeBounds.getBottomLeft(), getContentPaneTargetPoint(4, 0, (r) -> r.getLeft()), 0);
     }
 }

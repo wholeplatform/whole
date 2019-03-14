@@ -17,15 +17,35 @@
  */
 package org.whole.lang.steppers.ui.figures;
 
+import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.geometry.Point;
 import org.whole.lang.ui.figures.CompositeFigure;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.layout.RowLayout;
+import org.whole.lang.ui.notations.figures.DrawUtils;
 
 /**
- *  @generator Whole
+ *  @author Riccardo Solmi
  */
 public class OrArgumentFigure extends CompositeFigure {
-
     public OrArgumentFigure() {
         super(new RowLayout().withMarginBottom(4).withMarginLeft(4).withMarginRight(4).withSpacing(5));
     }
+
+	@Override
+	public void paintClientArea(Graphics g) {
+		super.paintClientArea(g);
+		paintConnections(g);
+		g.restoreState();
+	}
+
+	protected void paintConnections(Graphics g) {
+        int size = getChildren().size();
+        if (size > 1) {
+        	g.setForegroundColor(FigureConstants.relationsColor);
+
+        	Point[] targetPoints = getChildrenTargetPoints(0, (r) -> r.getBottom()); //TODO SourcePoints
+        	DrawUtils.drawVerticalTree(g, getBounds().getBottom(), 4, targetPoints);
+        }
+	}
 }

@@ -20,7 +20,6 @@ package org.whole.lang.steppers.ui.figures;
 import org.eclipse.draw2d.AbstractConnectionAnchor;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.Graphics;
-import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
 import org.whole.lang.steppers.ui.layouts.StepperDeclarationLayout;
 import org.whole.lang.ui.figures.FigureConstants;
@@ -49,8 +48,7 @@ public class GoalsWithArgumentsFigure extends NodeFigure {
 		return new ConnectionAnchor[] {
 				new AbstractConnectionAnchor(this) {
 					public Point getLocation(Point reference) {
-						IFigure c0 = (IFigure) getContentPane(0).getChildren().get(0);
-				        Point tp = getTargetPoint(c0, 0, (r) -> r.getTopLeft());
+						Point tp = getContentPaneTargetPoint(0, 0, (r) -> r.getTop());
 				        Point p = new Point(tp.x, getBounds().y + StepperDeclarationLayout.SHAPE_MARGIN.top);
 						getOwner().translateToAbsolute(p);
 						return p;
@@ -61,7 +59,7 @@ public class GoalsWithArgumentsFigure extends NodeFigure {
 				},
 				new AbstractConnectionAnchor(this) {
 					public Point getLocation(Point reference) {
-						Point p = getBounds().getBottomRight();
+						Point p = getBounds().getRight();
 						getOwner().translateToAbsolute(p);
 						return p;
 					}
@@ -85,13 +83,11 @@ public class GoalsWithArgumentsFigure extends NodeFigure {
 		int y1 = getBounds().y + StepperDeclarationLayout.SHAPE_MARGIN.top;
 		int x2 = getBounds().right()-1;
 
-		IFigure c0 = (IFigure) getContentPane(1).getChildren().get(0);
-		Point tp = getTargetPoint(c0, 1, (r) -> r.getRight());
+		Point tp = getContentPaneTargetPoint(1, 1, (r) -> r.getRight());
         g.drawLine(x2, y1, x2, tp.y);
         g.drawLine(tp.x-1, tp.y, x2, tp.y);
 
-        c0 = (IFigure) getContentPane(0).getChildren().get(0);
-        tp = getTargetPoint(c0, 0, (r) -> r.getTop());
+        tp = getContentPaneTargetPoint(0, 0, (r) -> r.getTop());
         g.drawLine(tp.x, y1, tp.x, tp.y);
 
 		g.drawLine(tp.x, y1, x2, y1);

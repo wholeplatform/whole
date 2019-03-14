@@ -17,12 +17,17 @@
  */
 package org.whole.lang.ui.figures;
 
+import java.util.List;
+import java.util.function.Function;
+
 import org.eclipse.draw2d.Border;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LayoutManager;
 import org.eclipse.draw2d.TreeSearch;
+import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Image;
 import org.whole.lang.ui.layout.EntityLayoutAdapter;
 import org.whole.lang.ui.layout.IEntityLayout;
@@ -228,5 +233,44 @@ public class EntityFigure extends Figure implements IEntityFigure {
 		public void setBorder(Border border) {
 			if (getBorder() != border)
 				super.setBorder(border);
+		}
+
+		public IFigure getChildFigure(int index) {
+			return (IFigure) getChildren().get(index);
+		}
+
+		@SuppressWarnings("unchecked")
+		public Rectangle[] getChildrenBounds() {
+			List<IFigure> children = getChildren();
+	    	int size = children.size();
+			Rectangle[] childrenBounds = new Rectangle[size];
+			for (int i=0; i<size; i++)
+				childrenBounds[i] = children.get(i).getBounds();
+
+			return childrenBounds;
+		}
+
+		@SuppressWarnings("unchecked")
+		public Point[] getChildrenTargetPoints(int anchorIndex, Function<Rectangle, Point> toTarget) {
+			List<IFigure> children = getChildren();
+	    	int size = children.size();
+			Point[] childrenPoints = new Point[size];
+			for (int i=0; i<size; i++)
+				childrenPoints[i] = getTargetPoint(children.get(i), anchorIndex, toTarget);
+
+			return childrenPoints;
+		}
+
+		public Point getChildTargetPoint(int childIndex, int anchorIndex, Function<Rectangle, Point> toTarget) {
+			return getTargetPoint(getChildFigure(childIndex), anchorIndex, toTarget);
+		}
+
+		public Point getTargetPoint(IFigure f, int anchorIndex, Function<Rectangle, Point> toTarget) {
+			if (f instanceof INodeFigure) {
+				Point targetLocation = ((INodeFigure) f).getTargetAnchor(anchorIndex).getLocation(null);
+				translateToRelative(targetLocation);
+				return targetLocation;
+			} else
+				return toTarget.apply(f.getBounds());
 		}
 }
