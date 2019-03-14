@@ -25,13 +25,11 @@ import org.whole.lang.steppers.ui.figures.ObliqueTreeFigure;
  *  @generator Whole
  */
 public class ObliqueTreePart extends AbstractCompositePart {
-	protected boolean showArgumentsTree;
-
-    public ObliqueTreePart(boolean showArgumentsTree) {
-		this.showArgumentsTree = showArgumentsTree;
+    public ObliqueTreePart(boolean inArgumentsFlow) {
+		setFlag(FLAG_REVERSED, inArgumentsFlow);
 	}
 
 	protected IFigure createFigure() {
-        return new ObliqueTreeFigure(showArgumentsTree);
+        return new ObliqueTreeFigure(isReversed());
     }
 }

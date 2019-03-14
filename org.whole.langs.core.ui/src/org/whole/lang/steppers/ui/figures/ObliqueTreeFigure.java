@@ -98,9 +98,11 @@ public class ObliqueTreeFigure extends CompositeNodeFigure {
         if (size > 1) {
        		g.setForegroundColor(FigureConstants.relationsColor);
 
-    		Rectangle[] childrenBounds = getChildrenBounds();
+       		ObliqueLayout layout = (ObliqueLayout) getLayoutManager();
+       		double escapeAngle = layout.getEscapeAngle();
+       		Rectangle[] childrenBounds = getChildrenBounds();
        		Point[] targetPoints;
-       		if (getLayoutManager().getMinorAlignment().equals(Alignment.LEADING)) {
+       		if (layout.getMinorAlignment().equals(Alignment.LEADING)) {
         		targetPoints = getChildrenTargetPoints(0, (r) -> r.getLeft());
 
             	int x1 = childrenBounds[0].x;
@@ -109,11 +111,13 @@ public class ObliqueTreeFigure extends CompositeNodeFigure {
             	int y2 = targetPoints[size-1].y;
             	int xm = (x2-x1)/2 + x1;
             	int ym = y1 + (y2-y1)/2;
-
+        		
         		g.drawLine(targetPoints[size-1].x, ym, xm, ym);
         		g.drawLine(x1, y1, x2, y2);
-        		for (int i=0; i<targetPoints.length; i++)
-        			g.drawLine(childrenBounds[i].x, targetPoints[i].y, targetPoints[i].x, targetPoints[i].y);
+        		for (int i=0; i<targetPoints.length; i++) {
+        			int xi = (int)(-escapeAngle*(targetPoints[i].y - y1)) + x1;
+        			g.drawLine(xi, targetPoints[i].y, targetPoints[i].x, targetPoints[i].y);
+        		}
         	} else {
         		targetPoints = getChildrenTargetPoints(1, (r) -> r.getRight());
         		int x1 = childrenBounds[0].right() -1;
@@ -122,11 +126,13 @@ public class ObliqueTreeFigure extends CompositeNodeFigure {
         		int y2 = targetPoints[size-1].y;
         		int xm = (x2-x1)/2 + x1;
         		int ym = y1 + (y2-y1)/2;
-            	
+
         		g.drawLine(xm, ym, getBounds().right(), ym);
         		g.drawLine(x1, y1, x2, y2);
-        		for (int i=0; i<targetPoints.length; i++)
-        			g.drawLine(childrenBounds[i].right() -1, targetPoints[i].y, targetPoints[i].x, targetPoints[i].y);
+        		for (int i=0; i<targetPoints.length; i++) {
+        			int xi = (int)(-escapeAngle*(targetPoints[i].y - y1)) + x1;
+        			g.drawLine(xi+1, targetPoints[i].y, targetPoints[i].x, targetPoints[i].y);
+        		}
         	}
         }
     }

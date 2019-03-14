@@ -32,6 +32,9 @@ public class ObliqueLayout extends AbstractCompositeEntityLayout {
 		this.escapeAngle = angle;
 		return this;
 	}
+	public double getEscapeAngle() {
+		return escapeAngle;
+	}
 
 	@Override
 	protected int getIndent() {

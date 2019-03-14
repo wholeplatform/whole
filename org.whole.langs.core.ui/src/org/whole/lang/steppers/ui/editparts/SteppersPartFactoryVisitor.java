@@ -43,6 +43,7 @@ import org.whole.lang.steppers.visitors.SteppersIdentityDefaultVisitor;
 import org.whole.lang.ui.editparts.ContentDataEntityPart;
 import org.whole.lang.ui.editparts.ContentLightTextualEntityPart;
 import org.whole.lang.ui.editparts.IEditPartFactory;
+import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.editparts.IdentifierTextualEntityPart;
 import org.whole.lang.ui.notations.table.editparts.TablePartFactory;
 import org.whole.lang.util.EntityUtils;
@@ -58,6 +59,10 @@ public class SteppersPartFactoryVisitor extends SteppersIdentityDefaultVisitor i
         ((ISteppersEntity) modelEntity).accept(this);
         return part;
     }
+
+	protected boolean inArgumentsFlow() {
+		return ((IEntityPart) context).isReversed();
+	}
 
     public void visit(ISteppersEntity entity) {
         part = TablePartFactory.instance().createEditPart(context, entity);
@@ -96,12 +101,12 @@ public class SteppersPartFactoryVisitor extends SteppersIdentityDefaultVisitor i
     @Override
     public void visit(Calls entity) {
     	IEntity parent = entity.wGetParent();
-        part = new ObliqueTreePart(!EntityUtils.isNull(parent) && Matcher.matchAtEntityFeature(SteppersEntityDescriptorEnum.CallBranch, SteppersFeatureDescriptorEnum.arguments, entity));
+        part = new ObliqueTreePart((!EntityUtils.isNull(parent) && Matcher.matchAtEntityFeature(SteppersEntityDescriptorEnum.CallBranch, SteppersFeatureDescriptorEnum.arguments, entity)) || inArgumentsFlow());
     }
     @Override
     public void visit(Actions entity) {
     	IEntity parent = entity.wGetParent();
-        part = new ObliqueTreePart(!EntityUtils.isNull(parent) && Matcher.matchAtEntityFeature(SteppersEntityDescriptorEnum.ActionBranch, SteppersFeatureDescriptorEnum.arguments, entity));
+        part = new ObliqueTreePart((!EntityUtils.isNull(parent) && Matcher.matchAtEntityFeature(SteppersEntityDescriptorEnum.ActionBranch, SteppersFeatureDescriptorEnum.arguments, entity)) || inArgumentsFlow());
     }
 
     @Override
