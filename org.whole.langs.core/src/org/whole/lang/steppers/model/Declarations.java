@@ -15,32 +15,13 @@
  *  You should have received a copy of the GNU Lesser General Public License
  *  along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.steppers.reflect;
+package org.whole.lang.steppers.model;
 
-import org.whole.lang.templates.AbstractTemplateManager;
-import org.whole.lang.templates.AbstractTemplateFactory;
-import org.whole.lang.steppers.model.Scope;
-import org.whole.lang.factories.GenericEntityFactory;
+import java.util.List;
 
 /**
  *  @generator Whole
  */
-public class SteppersTemplateManager extends AbstractTemplateManager {
+public interface Declarations extends ISteppersEntity, List<Declaration> {
 
-    private static class SingletonHolder {
-        private static final SteppersTemplateManager instance = new SteppersTemplateManager();
-    }
-
-    public static SteppersTemplateManager instance() {
-        return SingletonHolder.instance;
-    }
-
-    private SteppersTemplateManager() {
-        put("empty", new AbstractTemplateFactory<Scope>() {
-
-            public Scope create() {
-                return GenericEntityFactory.instance.create(SteppersEntityDescriptorEnum.Scope);
-            }
-        });
-    }
 }

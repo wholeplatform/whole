@@ -24,11 +24,23 @@ import org.whole.lang.steppers.model.*;
  */
 public class SteppersForwardStagedVisitor extends SteppersIdentityVisitor {
 
+    public void visit(Scope entity) {
+        stagedVisit(entity);
+    }
+
     public void visit(StepperApplication entity) {
         stagedVisit(entity);
     }
 
+    public void visit(ResultAction entity) {
+        stagedVisit(entity);
+    }
+
     public void visit(Argument entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(Declarations entity) {
         stagedVisit(entity);
     }
 

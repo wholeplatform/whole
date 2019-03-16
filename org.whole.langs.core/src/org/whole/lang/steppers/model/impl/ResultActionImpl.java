@@ -18,28 +18,28 @@
 package org.whole.lang.steppers.model.impl;
 
 import org.whole.lang.model.AbstractSimpleEntity;
-import org.whole.lang.steppers.model.StepperApplication;
+import org.whole.lang.steppers.model.ResultAction;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.steppers.reflect.SteppersEntityDescriptorEnum;
 import org.whole.lang.steppers.visitors.ISteppersVisitor;
 import org.whole.lang.exceptions.IWholeRuntimeException;
-import org.whole.lang.steppers.model.CallFlow;
+import org.whole.lang.steppers.model.Expression;
 import org.whole.lang.steppers.reflect.SteppersFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.steppers.model.ArgumentFlow;
+import org.whole.lang.steppers.model.ActionFlow;
 
 /**
  *  @generator Whole
  */
-public class StepperApplicationImpl extends AbstractSimpleEntity implements StepperApplication {
+public class ResultActionImpl extends AbstractSimpleEntity implements ResultAction {
     private static final long serialVersionUID = 1;
 
-    public EntityDescriptor<StepperApplication> wGetEntityDescriptor() {
-        return SteppersEntityDescriptorEnum.StepperApplication;
+    public EntityDescriptor<ResultAction> wGetEntityDescriptor() {
+        return SteppersEntityDescriptorEnum.ResultAction;
     }
 
     public int wGetEntityOrd() {
-        return SteppersEntityDescriptorEnum.StepperApplication_ord;
+        return SteppersEntityDescriptorEnum.ResultAction_ord;
     }
 
     public void accept(ISteppersVisitor visitor) {
@@ -49,31 +49,31 @@ public class StepperApplicationImpl extends AbstractSimpleEntity implements Step
             throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
         }
     }
-    private CallFlow goals;
+    private Expression expression;
 
-    public CallFlow getGoals() {
-        return notifyRequested(SteppersFeatureDescriptorEnum.goals, goals);
+    public Expression getExpression() {
+        return notifyRequested(SteppersFeatureDescriptorEnum.expression, expression);
     }
 
-    public void setGoals(CallFlow goals) {
-        notifyChanged(SteppersFeatureDescriptorEnum.goals, this.goals, this.goals = goals);
+    public void setExpression(Expression expression) {
+        notifyChanged(SteppersFeatureDescriptorEnum.expression, this.expression, this.expression = expression);
     }
-    private ArgumentFlow results;
+    private ActionFlow actions;
 
-    public ArgumentFlow getResults() {
-        return notifyRequested(SteppersFeatureDescriptorEnum.results, results);
+    public ActionFlow getActions() {
+        return notifyRequested(SteppersFeatureDescriptorEnum.actions, actions);
     }
 
-    public void setResults(ArgumentFlow results) {
-        notifyChanged(SteppersFeatureDescriptorEnum.results, this.results, this.results = results);
+    public void setActions(ActionFlow actions) {
+        notifyChanged(SteppersFeatureDescriptorEnum.actions, this.actions, this.actions = actions);
     }
 
     public IEntity wGet(int index) {
         switch (index) {
             case 0 :
-            return getGoals().wGetAdaptee(false);
+            return getExpression().wGetAdaptee(false);
             case 1 :
-            return getResults().wGetAdaptee(false);
+            return getActions().wGetAdaptee(false);
             default :
             throw new IllegalArgumentException();
         }
@@ -82,10 +82,10 @@ public class StepperApplicationImpl extends AbstractSimpleEntity implements Step
     public void wSet(int index, IEntity value) {
         switch (index) {
             case 0 :
-            setGoals(value.wGetAdapter(SteppersEntityDescriptorEnum.CallFlow));
+            setExpression(value.wGetAdapter(SteppersEntityDescriptorEnum.Expression));
             break;
             case 1 :
-            setResults(value.wGetAdapter(SteppersEntityDescriptorEnum.ArgumentFlow));
+            setActions(value.wGetAdapter(SteppersEntityDescriptorEnum.ActionFlow));
             break;
             default :
             throw new IllegalArgumentException();

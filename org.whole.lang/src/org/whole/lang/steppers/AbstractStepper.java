@@ -306,7 +306,7 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 			state = StepperState.CALL_REMAINING;
 			if (producersSize() > 0) {
 				for (int i=0; i<producersSize(); i++)
-					getProducer(i).callNext();//TODO ? was callRemaining
+					getProducer(i).callNext();//TODO ? or callRemaining
 				break;
 			}
 			if (!areAllArgumentsAvailable())
@@ -404,7 +404,7 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 		return ")";
 	}
 
-	public void addCall(int index, IControlFlowProducer producer) {//WAS addGoalCall
+	public void addCall(int index, IControlFlowProducer producer) {
 		if (index == producersSize()) {
 			producers = Arrays.copyOf(producers, producers.length+1);
 			producers[index] = producer;
@@ -414,7 +414,7 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 	public void addCall(IControlFlowProducer producer) {
 		addCall(producersSize(), producer);
 	}
-	public void addCall(int index, IDataFlowConsumer consumer) {//WAS addDoneCall
+	public void addCall(int index, IDataFlowConsumer consumer) {
 		addCall(index, new DoneCall(consumer));
 	}
 	public void addCall(IDataFlowConsumer consumer) {
@@ -422,13 +422,13 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 		addCall(producersSize(), consumer);
 	}
 
-	public void addAction(IControlFlowProducer producer) {//WAS addGoalAction
+	public void addAction(IControlFlowProducer producer) {
 		addAction(new GoalAction(producer));
 	}
 	public void addDoneAction(IDataFlowConsumer consumer) {
 		addAction(new DoneAction(consumer));
 	}
-	public void addAction(TesterDataFlowConsumer tester) {//WAS addTesterAction
+	public void addAction(TesterDataFlowConsumer tester) {
 		addFirstAction(tester);
 	}
 

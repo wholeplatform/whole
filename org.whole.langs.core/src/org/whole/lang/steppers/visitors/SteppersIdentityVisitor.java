@@ -30,10 +30,19 @@ public class SteppersIdentityVisitor extends AbstractVisitor implements IStepper
         ((ISteppersEntity) entity).accept(this);
     }
 
+    public void visit(Scope entity) {
+    }
+
     public void visit(StepperApplication entity) {
     }
 
+    public void visit(ResultAction entity) {
+    }
+
     public void visit(Argument entity) {
+    }
+
+    public void visit(Declarations entity) {
     }
 
     public void visit(StepperDeclaration entity) {

@@ -24,27 +24,33 @@ import org.whole.lang.reflect.FeatureDescriptor;
  *  @generator Whole
  */
 public class SteppersFeatureDescriptorEnum extends FeatureDescriptorEnum {
-    public static final int goals_ord = 0;
-    public static final int arguments_ord = 1;
-    public static final int name_ord = 2;
-    public static final int calls_ord = 3;
+    public static final int declarations_ord = 0;
+    public static final int expression_ord = 1;
+    public static final int goals_ord = 2;
+    public static final int results_ord = 3;
     public static final int actions_ord = 4;
-    public static final int expression_ord = 5;
+    public static final int name_ord = 5;
+    public static final int calls_ord = 6;
+    public static final int arguments_ord = 7;
     public static final SteppersFeatureDescriptorEnum instance = new SteppersFeatureDescriptorEnum();
+    public static final FeatureDescriptor declarations = instance.valueOf(declarations_ord);
+    public static final FeatureDescriptor expression = instance.valueOf(expression_ord);
     public static final FeatureDescriptor goals = instance.valueOf(goals_ord);
-    public static final FeatureDescriptor arguments = instance.valueOf(arguments_ord);
+    public static final FeatureDescriptor results = instance.valueOf(results_ord);
+    public static final FeatureDescriptor actions = instance.valueOf(actions_ord);
     public static final FeatureDescriptor name = instance.valueOf(name_ord);
     public static final FeatureDescriptor calls = instance.valueOf(calls_ord);
-    public static final FeatureDescriptor actions = instance.valueOf(actions_ord);
-    public static final FeatureDescriptor expression = instance.valueOf(expression_ord);
+    public static final FeatureDescriptor arguments = instance.valueOf(arguments_ord);
 
     private SteppersFeatureDescriptorEnum() {
+        putFeatureDescriptor(declarations_ord, "declarations");
+        putFeatureDescriptor(expression_ord, "expression");
         putFeatureDescriptor(goals_ord, "goals");
-        putFeatureDescriptor(arguments_ord, "arguments");
+        putFeatureDescriptor(results_ord, "results");
+        putFeatureDescriptor(actions_ord, "actions");
         putFeatureDescriptor(name_ord, "name");
         putFeatureDescriptor(calls_ord, "calls");
-        putFeatureDescriptor(actions_ord, "actions");
-        putFeatureDescriptor(expression_ord, "expression");
+        putFeatureDescriptor(arguments_ord, "arguments");
     }
     private static final long serialVersionUID = 1;
 }

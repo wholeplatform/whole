@@ -30,6 +30,22 @@ public class SteppersModelContext extends EntityContext {
         super(root);
     }
 
+    public SteppersModelContext getDeclarations() {
+        return (SteppersModelContext) wGet(SteppersFeatureDescriptorEnum.declarations);
+    }
+
+    public void setDeclarations(SteppersModelContext declarations) {
+        wSet(SteppersFeatureDescriptorEnum.declarations, declarations);
+    }
+
+    public SteppersModelContext getExpression() {
+        return (SteppersModelContext) wGet(SteppersFeatureDescriptorEnum.expression);
+    }
+
+    public void setExpression(SteppersModelContext expression) {
+        wSet(SteppersFeatureDescriptorEnum.expression, expression);
+    }
+
     public SteppersModelContext getGoals() {
         return (SteppersModelContext) wGet(SteppersFeatureDescriptorEnum.goals);
     }
@@ -38,12 +54,20 @@ public class SteppersModelContext extends EntityContext {
         wSet(SteppersFeatureDescriptorEnum.goals, goals);
     }
 
-    public SteppersModelContext getArguments() {
-        return (SteppersModelContext) wGet(SteppersFeatureDescriptorEnum.arguments);
+    public SteppersModelContext getResults() {
+        return (SteppersModelContext) wGet(SteppersFeatureDescriptorEnum.results);
     }
 
-    public void setArguments(SteppersModelContext arguments) {
-        wSet(SteppersFeatureDescriptorEnum.arguments, arguments);
+    public void setResults(SteppersModelContext results) {
+        wSet(SteppersFeatureDescriptorEnum.results, results);
+    }
+
+    public SteppersModelContext getActions() {
+        return (SteppersModelContext) wGet(SteppersFeatureDescriptorEnum.actions);
+    }
+
+    public void setActions(SteppersModelContext actions) {
+        wSet(SteppersFeatureDescriptorEnum.actions, actions);
     }
 
     public SteppersModelContext getName() {
@@ -62,19 +86,11 @@ public class SteppersModelContext extends EntityContext {
         wSet(SteppersFeatureDescriptorEnum.calls, calls);
     }
 
-    public SteppersModelContext getActions() {
-        return (SteppersModelContext) wGet(SteppersFeatureDescriptorEnum.actions);
+    public SteppersModelContext getArguments() {
+        return (SteppersModelContext) wGet(SteppersFeatureDescriptorEnum.arguments);
     }
 
-    public void setActions(SteppersModelContext actions) {
-        wSet(SteppersFeatureDescriptorEnum.actions, actions);
-    }
-
-    public SteppersModelContext getExpression() {
-        return (SteppersModelContext) wGet(SteppersFeatureDescriptorEnum.expression);
-    }
-
-    public void setExpression(SteppersModelContext expression) {
-        wSet(SteppersFeatureDescriptorEnum.expression, expression);
+    public void setArguments(SteppersModelContext arguments) {
+        wSet(SteppersFeatureDescriptorEnum.arguments, arguments);
     }
 }

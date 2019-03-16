@@ -19,6 +19,7 @@ package org.whole.lang.executables;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -82,6 +83,100 @@ public class SteppersTest {
 
 
 	@Test
+	public void testEvaluateOnDone1() {
+		TesterDataFlowConsumer c = new TesterDataFlowConsumer();
+
+		IExecutable e0 = f.createConstant(VALUES[1], false);
+		e0.addAction(c);
+
+		c.setExpectedValues();
+    	c.setExpectedEvents();
+
+    	e0.setBindings(bmf.createBindingManager());
+		e0.reset(VALUES[0]);
+
+		assertSame(VALUES[1], e0.evaluateNext());
+		assertNull(e0.evaluateNext());
+		assertNull(e0.evaluateNext());
+		assertNull(e0.evaluateNext());
+		assertNull(e0.evaluateNext());
+		assertNull(e0.evaluateNext());
+		
+		//no events / actions on evaluateNext
+		c.checkExpectations();
+	}
+
+	@Test
+	public void testEvaluateOnDone2() {
+		TesterDataFlowConsumer c = new TesterDataFlowConsumer();
+
+		IExecutable e0 = f.createConstant(VALUES[1], false);
+		e0.addAction(c);
+
+		c.setExpectedValues(VALUES[1]);
+    	c.setExpectedEvents(Event.NEXT, Event.DONE, Event.DONE, Event.DONE, Event.DONE, Event.DONE);
+
+    	e0.setBindings(bmf.createBindingManager());
+		e0.reset(VALUES[0]);
+
+		e0.callNext();
+		e0.callNext();
+		e0.callNext();
+		e0.callNext();
+		e0.callNext();
+		e0.callNext();
+
+		c.checkExpectations();
+	}
+
+	@Test
+	public void testEvaluateOnDone3() {
+		TesterDataFlowConsumer c = new TesterDataFlowConsumer();
+
+		AbstractStepper e0 = new ExecutableStepper().withExecutable(f.createConstant(VALUES[1], false));
+		e0.addAction(c);
+
+		c.setExpectedValues(VALUES[1]);
+    	c.setExpectedEvents(Event.NEXT, Event.DONE, Event.DONE, Event.DONE, Event.DONE, Event.DONE);
+
+    	e0.setBindings(bmf.createBindingManager());
+		e0.reset(VALUES[0]);
+
+		assertSame(VALUES[1], e0.evaluateNext());
+		assertNull(e0.evaluateNext());
+		assertNull(e0.evaluateNext());
+		assertNull(e0.evaluateNext());
+		assertNull(e0.evaluateNext());
+		assertNull(e0.evaluateNext());
+
+		//events / actions on evaluateNext for steppers
+		c.checkExpectations();
+	}
+
+	@Test
+	public void testEvaluateOnDone4() {
+		TesterDataFlowConsumer c = new TesterDataFlowConsumer();
+
+		AbstractStepper e0 = new ExecutableStepper().withExecutable(f.createConstant(VALUES[1], false));
+		e0.addAction(c);
+
+		c.setExpectedValues(VALUES[1]);
+    	c.setExpectedEvents(Event.NEXT, Event.DONE, Event.DONE, Event.DONE, Event.DONE, Event.DONE);
+
+    	e0.setBindings(bmf.createBindingManager());
+		e0.reset(VALUES[0]);
+
+		e0.callNext();
+		e0.callNext();
+		e0.callNext();
+		e0.callNext();
+		e0.callNext();
+		e0.callNext();
+
+		c.checkExpectations();
+	}
+
+	@Test
 	public void testStepperWithoutArguments() {
 		TesterDataFlowConsumer c = new TesterDataFlowConsumer();
     	TesterStepper s0 = new TesterStepper();
@@ -104,7 +199,7 @@ public class SteppersTest {
 	@Test
 	public void testExecutableStepperWithArguments() {
 		TesterDataFlowConsumer c = new TesterDataFlowConsumer();
- 		
+
 		AbstractStepper arg0Stepper = new ExecutableStepper().withExecutable(f.createConstant(VALUES[1], false));
 		AbstractStepper arg1Stepper = new ExecutableStepper().withExecutable(f.createConstant(VALUES[2], false));
 

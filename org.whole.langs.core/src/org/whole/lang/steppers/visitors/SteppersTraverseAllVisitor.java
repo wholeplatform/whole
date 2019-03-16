@@ -35,9 +35,24 @@ public class SteppersTraverseAllVisitor extends SteppersIdentityUnaryVisitor<ISt
         super(visitor1);
     }
 
+    public void visit(Scope entity) {
+        entity.getDeclarations().accept(wGetVisitor1());
+        entity.getExpression().accept(wGetVisitor1());
+    }
+
     public void visit(StepperApplication entity) {
         entity.getGoals().accept(wGetVisitor1());
-        entity.getArguments().accept(wGetVisitor1());
+        entity.getResults().accept(wGetVisitor1());
+    }
+
+    public void visit(ResultAction entity) {
+        entity.getExpression().accept(wGetVisitor1());
+        entity.getActions().accept(wGetVisitor1());
+    }
+
+    public void visit(Declarations entity) {
+        for (int i = 0; i < entity.size(); i++)
+            entity.get(i).accept(wGetVisitor1());
     }
 
     public void visit(StepperDeclaration entity) {

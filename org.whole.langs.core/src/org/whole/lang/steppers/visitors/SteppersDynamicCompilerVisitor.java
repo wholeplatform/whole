@@ -27,6 +27,7 @@ import java.util.function.Supplier;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.executables.ExecutableFactory;
 import org.whole.lang.executables.IExecutable;
+import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.model.adapters.IEntityAdapter;
 import org.whole.lang.steppers.AbstractStepper.ExecutableStepper;
@@ -38,10 +39,13 @@ import org.whole.lang.steppers.model.CallBranch;
 import org.whole.lang.steppers.model.ISteppersEntity;
 import org.whole.lang.steppers.model.Name;
 import org.whole.lang.steppers.model.OrArgument;
+import org.whole.lang.steppers.model.ResultAction;
+import org.whole.lang.steppers.model.Scope;
 import org.whole.lang.steppers.model.StepperApplication;
 import org.whole.lang.steppers.model.StepperDeclaration;
 import org.whole.lang.steppers.model.StepperReference;
 import org.whole.lang.steppers.model.Target;
+import org.whole.lang.steppers.reflect.SteppersEntityDescriptorEnum;
 import org.whole.lang.util.EntityUtils;
 
 /**
@@ -80,6 +84,12 @@ public class SteppersDynamicCompilerVisitor extends SteppersTraverseAllChildrenV
 
 
 	@Override
+	public void visit(Scope entity) {
+		// TODO Auto-generated method stub
+		super.visit(entity);
+	}
+
+	@Override
 	public void visit(StepperApplication entity) {
 		entity.getGoals().accept(this);
 //		IEntity stepperR = getResult();
@@ -99,7 +109,7 @@ public class SteppersDynamicCompilerVisitor extends SteppersTraverseAllChildrenV
 	protected Function<Integer, IExecutable> argumentWeaver = (i) -> null;
 	
 	public static final String ARGUMENT_WEAVER_NAME = "enclosingStepper#argumentWeaver";
-	
+
 	@Override
 	public void visit(StepperDeclaration entity) {
 		//FIXME use binding scope
@@ -156,8 +166,10 @@ public class SteppersDynamicCompilerVisitor extends SteppersTraverseAllChildrenV
 		};
 		entity.getArguments().accept(this);
 
-		setResult(BindingManagerFactory.instance.createVoid());
-//		setExecutableResult(stepper.withSourceEntity(entity));
+		if (Matcher.match(SteppersEntityDescriptorEnum.Declarations, entity.wGetParent()))
+			setResult(BindingManagerFactory.instance.createVoid());
+		else
+			setExecutableResult(stepper.withSourceEntity(entity));
 		
 		stepperWeaver = outerStepperWeaver;
 		stepperGoalWeaver = outerStepperGoalWeaver;
@@ -170,6 +182,12 @@ public class SteppersDynamicCompilerVisitor extends SteppersTraverseAllChildrenV
 		ExecutableStepper stepper = getStepper(entity.wStringValue());
 		stepperWeaver.accept(stepper);
 		setExecutableResult(stepper);//FIXME overwrites declaration source entity .withSourceEntity(entity)
+	}
+
+	@Override
+	public void visit(ResultAction entity) {
+		// TODO Auto-generated method stub
+		super.visit(entity);
 	}
 
 	@Override
@@ -210,7 +228,9 @@ public class SteppersDynamicCompilerVisitor extends SteppersTraverseAllChildrenV
 
 	@Override
 	public void visit(AndArgument entity) {
-		// TODO Auto-generated method stub
+		if (!Matcher.match(SteppersEntityDescriptorEnum.StepperDeclaration, entity.wGetParent())) {
+//FIXME			stepperWeaver.accept(t);
+		}
 		super.visit(entity);
 	}
 

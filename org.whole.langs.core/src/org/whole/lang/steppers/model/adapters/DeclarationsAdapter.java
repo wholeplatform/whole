@@ -15,30 +15,34 @@
  *  You should have received a copy of the GNU Lesser General Public License
  *  along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.steppers.ui.editparts;
+package org.whole.lang.steppers.model.adapters;
 
-import java.util.ArrayList;
-import java.util.List;
-import org.eclipse.draw2d.IFigure;
-import org.whole.lang.steppers.model.StepperApplication;
+import org.whole.lang.model.adapters.AbstractListEntityAdapter;
+import org.whole.lang.steppers.model.*;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.ui.editparts.AbstractContentPanePart;
-import org.whole.lang.steppers.ui.figures.StepperApplicationFigure;
+import org.whole.lang.steppers.visitors.ISteppersVisitor;
+import org.whole.lang.reflect.EntityDescriptor;
+import org.whole.lang.steppers.reflect.SteppersEntityDescriptorEnum;
 
 /**
  *  @generator Whole
  */
-public class StepperApplicationPart extends AbstractContentPanePart {
+public class DeclarationsAdapter extends AbstractListEntityAdapter<Declaration> implements Declarations {
+    private static final long serialVersionUID = 1;
 
-    protected IFigure createFigure() {
-        return new StepperApplicationFigure();
+    public DeclarationsAdapter(IEntity implementor) {
+        super(implementor);
     }
 
-    protected List<IEntity> getModelSpecificChildren() {
-        StepperApplication entity = getModelEntity();
-        List<IEntity> children = new ArrayList<IEntity>(2);
-        children.add(entity.getGoals());
-        children.add(entity.getResults());
-        return children;
+    public DeclarationsAdapter() {
+    }
+
+    public void accept(ISteppersVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
+
+    public EntityDescriptor<Declarations> wGetEntityDescriptor() {
+        return SteppersEntityDescriptorEnum.Declarations;
     }
 }

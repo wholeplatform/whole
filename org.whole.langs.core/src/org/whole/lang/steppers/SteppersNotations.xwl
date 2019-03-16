@@ -4,7 +4,7 @@
     <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Steppers"/>
     <models:Namespace xmlns:models="http://lang.whole.org/Models" value="org.whole.lang.steppers"/>
     <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Steppers"/>
-    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Steppers Notations"/>
+    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Steppers"/>
     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
     <gefnotationspatterns:Parts initialCapacity="16">
         <gefnotationspatterns:ContentPanePart>

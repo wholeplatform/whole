@@ -29,11 +29,20 @@ public abstract class SteppersIdentitySwitchVisitor extends AbstractVisitor impl
 
     public void visit(IEntity entity) {
         switch (entity.wGetEntityOrd()) {
+            case SteppersEntityDescriptorEnum.Scope_ord :
+            visit((Scope) entity);
+            break;
             case SteppersEntityDescriptorEnum.StepperApplication_ord :
             visit((StepperApplication) entity);
             break;
+            case SteppersEntityDescriptorEnum.ResultAction_ord :
+            visit((ResultAction) entity);
+            break;
             case SteppersEntityDescriptorEnum.Argument_ord :
             visit((Argument) entity);
+            break;
+            case SteppersEntityDescriptorEnum.Declarations_ord :
+            visit((Declarations) entity);
             break;
             case SteppersEntityDescriptorEnum.StepperDeclaration_ord :
             visit((StepperDeclaration) entity);

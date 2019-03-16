@@ -27,34 +27,40 @@ import org.whole.lang.steppers.model.*;
 @SuppressWarnings("unchecked")
 public class SteppersEntityDescriptorEnum extends EntityDescriptorEnum {
     public static final int Expression_ord = 0;
-    public static final int StepperApplication_ord = 1;
-    public static final int Argument_ord = 2;
-    public static final int Stepper_ord = 3;
-    public static final int Declaration_ord = 4;
-    public static final int StepperDeclaration_ord = 5;
-    public static final int StepperReference_ord = 6;
-    public static final int Name_ord = 7;
-    public static final int Target_ord = 8;
-    public static final int CallFlow_ord = 9;
-    public static final int Calls_ord = 10;
-    public static final int CallBranch_ord = 11;
-    public static final int ActionFlow_ord = 12;
-    public static final int Actions_ord = 13;
-    public static final int ActionBranch_ord = 14;
-    public static final int GoalFlow_ord = 15;
-    public static final int AndGoals_ord = 16;
-    public static final int OrGoals_ord = 17;
-    public static final int GoalBranch_ord = 18;
-    public static final int ArgumentFlow_ord = 19;
-    public static final int AndArgument_ord = 20;
-    public static final int OrArgument_ord = 21;
-    public static final int ArgumentBranch_ord = 22;
+    public static final int Scope_ord = 1;
+    public static final int StepperApplication_ord = 2;
+    public static final int ResultAction_ord = 3;
+    public static final int Argument_ord = 4;
+    public static final int Declarations_ord = 5;
+    public static final int Declaration_ord = 6;
+    public static final int Stepper_ord = 7;
+    public static final int StepperDeclaration_ord = 8;
+    public static final int StepperReference_ord = 9;
+    public static final int Name_ord = 10;
+    public static final int Target_ord = 11;
+    public static final int CallFlow_ord = 12;
+    public static final int Calls_ord = 13;
+    public static final int CallBranch_ord = 14;
+    public static final int ActionFlow_ord = 15;
+    public static final int Actions_ord = 16;
+    public static final int ActionBranch_ord = 17;
+    public static final int GoalFlow_ord = 18;
+    public static final int AndGoals_ord = 19;
+    public static final int OrGoals_ord = 20;
+    public static final int GoalBranch_ord = 21;
+    public static final int ArgumentFlow_ord = 22;
+    public static final int AndArgument_ord = 23;
+    public static final int OrArgument_ord = 24;
+    public static final int ArgumentBranch_ord = 25;
     public static final SteppersEntityDescriptorEnum instance = new SteppersEntityDescriptorEnum();
     public static final EntityDescriptor<Expression> Expression = (EntityDescriptor<Expression>) instance.valueOf(Expression_ord);
+    public static final EntityDescriptor<Scope> Scope = (EntityDescriptor<Scope>) instance.valueOf(Scope_ord);
     public static final EntityDescriptor<StepperApplication> StepperApplication = (EntityDescriptor<StepperApplication>) instance.valueOf(StepperApplication_ord);
+    public static final EntityDescriptor<ResultAction> ResultAction = (EntityDescriptor<ResultAction>) instance.valueOf(ResultAction_ord);
     public static final EntityDescriptor<Argument> Argument = (EntityDescriptor<Argument>) instance.valueOf(Argument_ord);
-    public static final EntityDescriptor<Stepper> Stepper = (EntityDescriptor<Stepper>) instance.valueOf(Stepper_ord);
+    public static final EntityDescriptor<Declarations> Declarations = (EntityDescriptor<Declarations>) instance.valueOf(Declarations_ord);
     public static final EntityDescriptor<Declaration> Declaration = (EntityDescriptor<Declaration>) instance.valueOf(Declaration_ord);
+    public static final EntityDescriptor<Stepper> Stepper = (EntityDescriptor<Stepper>) instance.valueOf(Stepper_ord);
     public static final EntityDescriptor<StepperDeclaration> StepperDeclaration = (EntityDescriptor<StepperDeclaration>) instance.valueOf(StepperDeclaration_ord);
     public static final EntityDescriptor<StepperReference> StepperReference = (EntityDescriptor<StepperReference>) instance.valueOf(StepperReference_ord);
     public static final EntityDescriptor<Name> Name = (EntityDescriptor<Name>) instance.valueOf(Name_ord);
@@ -79,11 +85,14 @@ public class SteppersEntityDescriptorEnum extends EntityDescriptorEnum {
     private static final long serialVersionUID = 1;
 
     protected void initEntityDescriptors() {
-        putSimpleEntity(Expression_ord, "Expression", Expression.class, true, Stepper_ord, Argument_ord, StepperApplication_ord, StepperReference_ord, StepperDeclaration_ord);
-        putSimpleEntity(StepperApplication_ord, "StepperApplication", StepperApplication.class, false).withFeature(SteppersFeatureDescriptorEnum.goals, CallFlow_ord, true, false, false, false, false).withFeature(SteppersFeatureDescriptorEnum.arguments, CallFlow_ord, true, false, false, false, false);
+        putSimpleEntity(Expression_ord, "Expression", Expression.class, true, Scope_ord, Argument_ord, StepperReference_ord, Stepper_ord, StepperApplication_ord, ResultAction_ord, StepperDeclaration_ord);
+        putSimpleEntity(Scope_ord, "Scope", Scope.class, false).withFeature(SteppersFeatureDescriptorEnum.declarations, Declarations_ord).withFeature(SteppersFeatureDescriptorEnum.expression, Expression_ord);
+        putSimpleEntity(StepperApplication_ord, "StepperApplication", StepperApplication.class, false).withFeature(SteppersFeatureDescriptorEnum.goals, CallFlow_ord, true, false, false, false, false).withFeature(SteppersFeatureDescriptorEnum.results, ArgumentFlow_ord, true, false, false, false, false);
+        putSimpleEntity(ResultAction_ord, "ResultAction", ResultAction.class, false).withFeature(SteppersFeatureDescriptorEnum.expression, Expression_ord).withFeature(SteppersFeatureDescriptorEnum.actions, ActionFlow_ord);
         putDataEntity(Argument_ord, "Argument", Argument.class, false, int.class);
-        putSimpleEntity(Stepper_ord, "Stepper", Stepper.class, true, StepperReference_ord, StepperDeclaration_ord);
+        putCompositeEntity(Declarations_ord, "Declarations", Declarations.class, false, Declaration_ord, true, false);
         putSimpleEntity(Declaration_ord, "Declaration", Declaration.class, true, StepperDeclaration_ord);
+        putSimpleEntity(Stepper_ord, "Stepper", Stepper.class, true, StepperReference_ord, StepperDeclaration_ord);
         putSimpleEntity(StepperDeclaration_ord, "StepperDeclaration", StepperDeclaration.class, false).withFeature(SteppersFeatureDescriptorEnum.name, Name_ord, true, false, false, false, false).withFeature(SteppersFeatureDescriptorEnum.goals, GoalFlow_ord, true, false, false, false, false).withFeature(SteppersFeatureDescriptorEnum.calls, CallFlow_ord, true, false, false, false, false).withFeature(SteppersFeatureDescriptorEnum.arguments, ArgumentFlow_ord, true, false, false, false, false).withFeature(SteppersFeatureDescriptorEnum.actions, ActionFlow_ord, true, false, false, false, false).withFeature(SteppersFeatureDescriptorEnum.expression, Expression_ord, true, false, false, false, false);
         putDataEntity(StepperReference_ord, "StepperReference", StepperReference.class, false, String.class);
         putDataEntity(Name_ord, "Name", Name.class, false, String.class);
@@ -106,6 +115,5 @@ public class SteppersEntityDescriptorEnum extends EntityDescriptorEnum {
 
     protected void initForeignTypeRelations() {
         setAliasOf(true, "http://lang.whole.org/Queries#Expression", Expression_ord);
-        setAliasOf(true, "whole:org.whole.lang.patterns:PatternsModel#Declaration", Declaration_ord);
     }
 }

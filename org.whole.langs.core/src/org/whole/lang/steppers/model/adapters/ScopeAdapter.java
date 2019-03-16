@@ -28,14 +28,14 @@ import org.whole.lang.steppers.reflect.SteppersFeatureDescriptorEnum;
 /**
  *  @generator Whole
  */
-public class StepperApplicationAdapter extends AbstractEntityAdapter implements StepperApplication {
+public class ScopeAdapter extends AbstractEntityAdapter implements Scope {
     private static final long serialVersionUID = 1;
 
-    public StepperApplicationAdapter(IEntity implementor) {
+    public ScopeAdapter(IEntity implementor) {
         super(implementor);
     }
 
-    public StepperApplicationAdapter() {
+    public ScopeAdapter() {
     }
 
     public void accept(ISteppersVisitor visitor) {
@@ -43,23 +43,23 @@ public class StepperApplicationAdapter extends AbstractEntityAdapter implements 
             visitor.visit(this);
     }
 
-    public EntityDescriptor<StepperApplication> wGetEntityDescriptor() {
-        return SteppersEntityDescriptorEnum.StepperApplication;
+    public EntityDescriptor<Scope> wGetEntityDescriptor() {
+        return SteppersEntityDescriptorEnum.Scope;
     }
 
-    public CallFlow getGoals() {
-        return wGet(SteppersFeatureDescriptorEnum.goals).wGetAdapter(SteppersEntityDescriptorEnum.CallFlow);
+    public Declarations getDeclarations() {
+        return wGet(SteppersFeatureDescriptorEnum.declarations).wGetAdapter(SteppersEntityDescriptorEnum.Declarations);
     }
 
-    public void setGoals(CallFlow goals) {
-        wSet(SteppersFeatureDescriptorEnum.goals, goals);
+    public void setDeclarations(Declarations declarations) {
+        wSet(SteppersFeatureDescriptorEnum.declarations, declarations);
     }
 
-    public ArgumentFlow getResults() {
-        return wGet(SteppersFeatureDescriptorEnum.results).wGetAdapter(SteppersEntityDescriptorEnum.ArgumentFlow);
+    public Expression getExpression() {
+        return wGet(SteppersFeatureDescriptorEnum.expression).wGetAdapter(SteppersEntityDescriptorEnum.Expression);
     }
 
-    public void setResults(ArgumentFlow results) {
-        wSet(SteppersFeatureDescriptorEnum.results, results);
+    public void setExpression(Expression expression) {
+        wSet(SteppersFeatureDescriptorEnum.expression, expression);
     }
 }

@@ -17,37 +17,32 @@
  */
 package org.whole.lang.steppers.model.impl;
 
-import org.whole.lang.factories.AbstractEntityRegistry;
+import org.whole.lang.model.AbstractListCompositeEntity;
+import org.whole.lang.steppers.model.*;
+import org.whole.lang.steppers.visitors.ISteppersVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.steppers.reflect.SteppersEntityDescriptorEnum;
+import org.whole.lang.reflect.EntityDescriptor;
 
 /**
  *  @generator Whole
  */
-public class SteppersImplEntityRegistry extends AbstractEntityRegistry {
+public class DeclarationsImpl extends AbstractListCompositeEntity<Declaration> implements Declarations {
+    private static final long serialVersionUID = 1;
 
-    public SteppersImplEntityRegistry() {
-        super(SteppersEntityDescriptorEnum.instance);
+    public void accept(ISteppersVisitor visitor) {
+        try {
+            visitor.visit(this);
+        } catch (Exception e) {
+            throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+        }
     }
 
-    protected void createPrototypes() {
-        put(new ScopeImpl());
-        put(new StepperApplicationImpl());
-        put(new ResultActionImpl());
-        put(new ArgumentImpl());
-        put(new DeclarationsImpl());
-        put(new StepperDeclarationImpl());
-        put(new StepperReferenceImpl());
-        put(new NameImpl());
-        put(new TargetImpl());
-        put(new CallsImpl());
-        put(new CallBranchImpl());
-        put(new ActionsImpl());
-        put(new ActionBranchImpl());
-        put(new AndGoalsImpl());
-        put(new OrGoalsImpl());
-        put(new GoalBranchImpl());
-        put(new AndArgumentImpl());
-        put(new OrArgumentImpl());
-        put(new ArgumentBranchImpl());
+    public int wGetEntityOrd() {
+        return SteppersEntityDescriptorEnum.Declarations_ord;
+    }
+
+    public EntityDescriptor<Declarations> wGetEntityDescriptor() {
+        return SteppersEntityDescriptorEnum.Declarations;
     }
 }

@@ -36,12 +36,8 @@ public class SteppersSpecificBuilderAdapter extends GenericBuilderContext implem
         super(strategy, entityContext);
     }
 
-    public void expression() {
-        wFeature(SteppersFeatureDescriptorEnum.expression);
-    }
-
-    public void actions() {
-        wFeature(SteppersFeatureDescriptorEnum.actions);
+    public void arguments() {
+        wFeature(SteppersFeatureDescriptorEnum.arguments);
     }
 
     public void calls() {
@@ -52,15 +48,39 @@ public class SteppersSpecificBuilderAdapter extends GenericBuilderContext implem
         wFeature(SteppersFeatureDescriptorEnum.name);
     }
 
-    public void arguments() {
-        wFeature(SteppersFeatureDescriptorEnum.arguments);
+    public void actions() {
+        wFeature(SteppersFeatureDescriptorEnum.actions);
+    }
+
+    public void results() {
+        wFeature(SteppersFeatureDescriptorEnum.results);
     }
 
     public void goals() {
         wFeature(SteppersFeatureDescriptorEnum.goals);
     }
 
+    public void expression() {
+        wFeature(SteppersFeatureDescriptorEnum.expression);
+    }
+
+    public void declarations() {
+        wFeature(SteppersFeatureDescriptorEnum.declarations);
+    }
+
     public void visit() {
+    }
+
+    public void Scope() {
+        wEntity(SteppersEntityDescriptorEnum.Scope);
+    }
+
+    public void Scope_() {
+        wEntity_(SteppersEntityDescriptorEnum.Scope);
+    }
+
+    public void _Scope() {
+        _wEntity(SteppersEntityDescriptorEnum.Scope);
     }
 
     public void StepperApplication() {
@@ -75,12 +95,40 @@ public class SteppersSpecificBuilderAdapter extends GenericBuilderContext implem
         _wEntity(SteppersEntityDescriptorEnum.StepperApplication);
     }
 
+    public void ResultAction() {
+        wEntity(SteppersEntityDescriptorEnum.ResultAction);
+    }
+
+    public void ResultAction_() {
+        wEntity_(SteppersEntityDescriptorEnum.ResultAction);
+    }
+
+    public void _ResultAction() {
+        _wEntity(SteppersEntityDescriptorEnum.ResultAction);
+    }
+
     public void Argument() {
         wEntity(SteppersEntityDescriptorEnum.Argument);
     }
 
     public void Argument(int value) {
         wEntity(SteppersEntityDescriptorEnum.Argument, value);
+    }
+
+    public void Declarations() {
+        wEntity(SteppersEntityDescriptorEnum.Declarations);
+    }
+
+    public void Declarations_() {
+        wEntity_(SteppersEntityDescriptorEnum.Declarations);
+    }
+
+    public void Declarations_(int initialCapacity) {
+        wEntity_(SteppersEntityDescriptorEnum.Declarations, initialCapacity);
+    }
+
+    public void _Declarations() {
+        _wEntity(SteppersEntityDescriptorEnum.Declarations);
     }
 
     public void StepperDeclaration() {

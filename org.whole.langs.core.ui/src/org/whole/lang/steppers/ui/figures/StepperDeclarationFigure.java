@@ -20,6 +20,7 @@ package org.whole.lang.steppers.ui.figures;
 import org.eclipse.draw2d.AbstractConnectionAnchor;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.whole.lang.steppers.ui.layouts.StepperDeclarationLayout;
@@ -42,8 +43,8 @@ public class StepperDeclarationFigure extends NodeFigure {
         setLayoutManager(new StepperDeclarationLayout().withMargin(3).withMarginTop(0));
 		add(shapeBorder = new EntityFigure(new StackLayout()));
 		shapeBorder.setOpaque(false);
-		add(createContentPane(0));
-		add(createContentPane(1));
+		add(createContentPane(0, new MarginBorder(0, 0, 1, 0)));
+		add(createContentPane(1, new MarginBorder(1, 0, 1, 0)));
 		add(createContentPane(2));
 		add(createContentPane(3));
 		add(createContentPane(4));

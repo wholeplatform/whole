@@ -44,11 +44,20 @@ public class SteppersGenericBuilderAdapter extends GenericIdentityBuilder {
 
     public void wFeature(FeatureDescriptor featureDesc) {
         switch (featureDesc.getOrdinal()) {
+            case SteppersFeatureDescriptorEnum.declarations_ord :
+            specificBuilder.declarations();
+            break;
+            case SteppersFeatureDescriptorEnum.expression_ord :
+            specificBuilder.expression();
+            break;
             case SteppersFeatureDescriptorEnum.goals_ord :
             specificBuilder.goals();
             break;
-            case SteppersFeatureDescriptorEnum.arguments_ord :
-            specificBuilder.arguments();
+            case SteppersFeatureDescriptorEnum.results_ord :
+            specificBuilder.results();
+            break;
+            case SteppersFeatureDescriptorEnum.actions_ord :
+            specificBuilder.actions();
             break;
             case SteppersFeatureDescriptorEnum.name_ord :
             specificBuilder.name();
@@ -56,19 +65,25 @@ public class SteppersGenericBuilderAdapter extends GenericIdentityBuilder {
             case SteppersFeatureDescriptorEnum.calls_ord :
             specificBuilder.calls();
             break;
-            case SteppersFeatureDescriptorEnum.actions_ord :
-            specificBuilder.actions();
-            break;
-            case SteppersFeatureDescriptorEnum.expression_ord :
-            specificBuilder.expression();
+            case SteppersFeatureDescriptorEnum.arguments_ord :
+            specificBuilder.arguments();
             break;
         }
     }
 
     public void wEntity(EntityDescriptor<?> entityDesc) {
         switch (entityDesc.getOrdinal()) {
+            case SteppersEntityDescriptorEnum.Scope_ord :
+            specificBuilder.Scope();
+            break;
             case SteppersEntityDescriptorEnum.StepperApplication_ord :
             specificBuilder.StepperApplication();
+            break;
+            case SteppersEntityDescriptorEnum.ResultAction_ord :
+            specificBuilder.ResultAction();
+            break;
+            case SteppersEntityDescriptorEnum.Declarations_ord :
+            specificBuilder.Declarations();
             break;
             case SteppersEntityDescriptorEnum.StepperDeclaration_ord :
             specificBuilder.StepperDeclaration();
@@ -111,8 +126,17 @@ public class SteppersGenericBuilderAdapter extends GenericIdentityBuilder {
 
     public void wEntity_(EntityDescriptor<?> entityDesc) {
         switch (entityDesc.getOrdinal()) {
+            case SteppersEntityDescriptorEnum.Scope_ord :
+            specificBuilder.Scope_();
+            break;
             case SteppersEntityDescriptorEnum.StepperApplication_ord :
             specificBuilder.StepperApplication_();
+            break;
+            case SteppersEntityDescriptorEnum.ResultAction_ord :
+            specificBuilder.ResultAction_();
+            break;
+            case SteppersEntityDescriptorEnum.Declarations_ord :
+            specificBuilder.Declarations_();
             break;
             case SteppersEntityDescriptorEnum.StepperDeclaration_ord :
             specificBuilder.StepperDeclaration_();
@@ -155,8 +179,17 @@ public class SteppersGenericBuilderAdapter extends GenericIdentityBuilder {
 
     public void _wEntity(EntityDescriptor<?> entityDesc) {
         switch (entityDesc.getOrdinal()) {
+            case SteppersEntityDescriptorEnum.Scope_ord :
+            specificBuilder._Scope();
+            break;
             case SteppersEntityDescriptorEnum.StepperApplication_ord :
             specificBuilder._StepperApplication();
+            break;
+            case SteppersEntityDescriptorEnum.ResultAction_ord :
+            specificBuilder._ResultAction();
+            break;
+            case SteppersEntityDescriptorEnum.Declarations_ord :
+            specificBuilder._Declarations();
             break;
             case SteppersEntityDescriptorEnum.StepperDeclaration_ord :
             specificBuilder._StepperDeclaration();
@@ -205,19 +238,11 @@ public class SteppersGenericBuilderAdapter extends GenericIdentityBuilder {
         }
     }
 
-    public void wEntity(EntityDescriptor<?> entityDesc, String value) {
-        switch (entityDesc.getOrdinal()) {
-            case SteppersEntityDescriptorEnum.StepperReference_ord :
-            specificBuilder.StepperReference(value);
-            break;
-            case SteppersEntityDescriptorEnum.Name_ord :
-            specificBuilder.Name(value);
-            break;
-        }
-    }
-
     public void wEntity_(EntityDescriptor<?> entityDesc, int initialCapacity) {
         switch (entityDesc.getOrdinal()) {
+            case SteppersEntityDescriptorEnum.Declarations_ord :
+            specificBuilder.Declarations_(initialCapacity);
+            break;
             case SteppersEntityDescriptorEnum.Calls_ord :
             specificBuilder.Calls_(initialCapacity);
             break;
@@ -235,6 +260,17 @@ public class SteppersGenericBuilderAdapter extends GenericIdentityBuilder {
             break;
             case SteppersEntityDescriptorEnum.OrArgument_ord :
             specificBuilder.OrArgument_(initialCapacity);
+            break;
+        }
+    }
+
+    public void wEntity(EntityDescriptor<?> entityDesc, String value) {
+        switch (entityDesc.getOrdinal()) {
+            case SteppersEntityDescriptorEnum.StepperReference_ord :
+            specificBuilder.StepperReference(value);
+            break;
+            case SteppersEntityDescriptorEnum.Name_ord :
+            specificBuilder.Name(value);
             break;
         }
     }

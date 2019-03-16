@@ -38,11 +38,23 @@ public class SteppersForwardStrategyVisitor extends GenericForwardStrategyVisito
         ((ISteppersEntity) entity).accept(this);
     }
 
+    public void visit(Scope entity) {
+        wGetStrategy().visit(entity);
+    }
+
     public void visit(StepperApplication entity) {
         wGetStrategy().visit(entity);
     }
 
+    public void visit(ResultAction entity) {
+        wGetStrategy().visit(entity);
+    }
+
     public void visit(Argument entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(Declarations entity) {
         wGetStrategy().visit(entity);
     }
 

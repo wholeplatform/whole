@@ -28,14 +28,14 @@ import org.whole.lang.steppers.reflect.SteppersFeatureDescriptorEnum;
 /**
  *  @generator Whole
  */
-public class StepperApplicationAdapter extends AbstractEntityAdapter implements StepperApplication {
+public class ResultActionAdapter extends AbstractEntityAdapter implements ResultAction {
     private static final long serialVersionUID = 1;
 
-    public StepperApplicationAdapter(IEntity implementor) {
+    public ResultActionAdapter(IEntity implementor) {
         super(implementor);
     }
 
-    public StepperApplicationAdapter() {
+    public ResultActionAdapter() {
     }
 
     public void accept(ISteppersVisitor visitor) {
@@ -43,23 +43,23 @@ public class StepperApplicationAdapter extends AbstractEntityAdapter implements 
             visitor.visit(this);
     }
 
-    public EntityDescriptor<StepperApplication> wGetEntityDescriptor() {
-        return SteppersEntityDescriptorEnum.StepperApplication;
+    public EntityDescriptor<ResultAction> wGetEntityDescriptor() {
+        return SteppersEntityDescriptorEnum.ResultAction;
     }
 
-    public CallFlow getGoals() {
-        return wGet(SteppersFeatureDescriptorEnum.goals).wGetAdapter(SteppersEntityDescriptorEnum.CallFlow);
+    public Expression getExpression() {
+        return wGet(SteppersFeatureDescriptorEnum.expression).wGetAdapter(SteppersEntityDescriptorEnum.Expression);
     }
 
-    public void setGoals(CallFlow goals) {
-        wSet(SteppersFeatureDescriptorEnum.goals, goals);
+    public void setExpression(Expression expression) {
+        wSet(SteppersFeatureDescriptorEnum.expression, expression);
     }
 
-    public ArgumentFlow getResults() {
-        return wGet(SteppersFeatureDescriptorEnum.results).wGetAdapter(SteppersEntityDescriptorEnum.ArgumentFlow);
+    public ActionFlow getActions() {
+        return wGet(SteppersFeatureDescriptorEnum.actions).wGetAdapter(SteppersEntityDescriptorEnum.ActionFlow);
     }
 
-    public void setResults(ArgumentFlow results) {
-        wSet(SteppersFeatureDescriptorEnum.results, results);
+    public void setActions(ActionFlow actions) {
+        wSet(SteppersFeatureDescriptorEnum.actions, actions);
     }
 }

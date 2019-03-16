@@ -30,11 +30,23 @@ public class SteppersFailureVisitor extends SteppersIdentityVisitor {
         throw new VisitException();
     }
 
+    public void visit(Scope entity) {
+        throw new VisitException();
+    }
+
     public void visit(StepperApplication entity) {
         throw new VisitException();
     }
 
+    public void visit(ResultAction entity) {
+        throw new VisitException();
+    }
+
     public void visit(Argument entity) {
+        throw new VisitException();
+    }
+
+    public void visit(Declarations entity) {
         throw new VisitException();
     }
 

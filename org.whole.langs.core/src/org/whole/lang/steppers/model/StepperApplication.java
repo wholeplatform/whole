@@ -28,7 +28,7 @@ public interface StepperApplication extends ISteppersEntity, Expression {
 
     public void setGoals(CallFlow goals);
 
-    public CallFlow getArguments();
+    public ArgumentFlow getResults();
 
-    public void setArguments(CallFlow arguments);
+    public void setResults(ArgumentFlow results);
 }

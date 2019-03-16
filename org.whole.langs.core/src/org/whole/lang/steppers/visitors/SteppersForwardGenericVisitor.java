@@ -35,11 +35,23 @@ public class SteppersForwardGenericVisitor extends AbstractUnaryVisitor<IVisitor
         wGetVisitor1().visit(entity);
     }
 
+    public void visit(Scope entity) {
+        wGetVisitor1().visit(entity);
+    }
+
     public void visit(StepperApplication entity) {
         wGetVisitor1().visit(entity);
     }
 
+    public void visit(ResultAction entity) {
+        wGetVisitor1().visit(entity);
+    }
+
     public void visit(Argument entity) {
+        wGetVisitor1().visit(entity);
+    }
+
+    public void visit(Declarations entity) {
         wGetVisitor1().visit(entity);
     }
 

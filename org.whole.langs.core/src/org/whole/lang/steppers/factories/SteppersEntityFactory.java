@@ -40,16 +40,40 @@ public class SteppersEntityFactory extends GenericEntityFactory {
         super(provider);
     }
 
+    public Scope createScope() {
+        return create(SteppersEntityDescriptorEnum.Scope);
+    }
+
+    public Scope createScope(Declarations declarations, Expression expression) {
+        return create(SteppersEntityDescriptorEnum.Scope, declarations, expression);
+    }
+
+    public IEntityBuilder<Scope> buildScope() {
+        return new EntityBuilder<Scope>(create(SteppersEntityDescriptorEnum.Scope));
+    }
+
     public StepperApplication createStepperApplication() {
         return create(SteppersEntityDescriptorEnum.StepperApplication);
     }
 
-    public StepperApplication createStepperApplication(CallFlow goals, CallFlow arguments) {
-        return create(SteppersEntityDescriptorEnum.StepperApplication, goals, arguments);
+    public StepperApplication createStepperApplication(CallFlow goals, ArgumentFlow results) {
+        return create(SteppersEntityDescriptorEnum.StepperApplication, goals, results);
     }
 
     public IEntityBuilder<StepperApplication> buildStepperApplication() {
         return new EntityBuilder<StepperApplication>(create(SteppersEntityDescriptorEnum.StepperApplication));
+    }
+
+    public ResultAction createResultAction() {
+        return create(SteppersEntityDescriptorEnum.ResultAction);
+    }
+
+    public ResultAction createResultAction(Expression expression, ActionFlow actions) {
+        return create(SteppersEntityDescriptorEnum.ResultAction, expression, actions);
+    }
+
+    public IEntityBuilder<ResultAction> buildResultAction() {
+        return new EntityBuilder<ResultAction>(create(SteppersEntityDescriptorEnum.ResultAction));
     }
 
     public Argument createArgument() {
@@ -58,6 +82,18 @@ public class SteppersEntityFactory extends GenericEntityFactory {
 
     public Argument createArgument(int value) {
         return create(SteppersEntityDescriptorEnum.Argument, value);
+    }
+
+    public Declarations createDeclarations() {
+        return create(SteppersEntityDescriptorEnum.Declarations);
+    }
+
+    public Declarations createDeclarations(Declaration... entities) {
+        return create(SteppersEntityDescriptorEnum.Declarations, (IEntity[]) entities);
+    }
+
+    public Declarations createDeclarations(int initialSize) {
+        return clone(SteppersEntityDescriptorEnum.Declarations, initialSize);
     }
 
     public StepperDeclaration createStepperDeclaration() {

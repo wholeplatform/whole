@@ -28,11 +28,14 @@ import org.whole.lang.steppers.model.Argument;
 import org.whole.lang.steppers.model.ArgumentBranch;
 import org.whole.lang.steppers.model.CallBranch;
 import org.whole.lang.steppers.model.Calls;
+import org.whole.lang.steppers.model.Declarations;
 import org.whole.lang.steppers.model.GoalBranch;
 import org.whole.lang.steppers.model.ISteppersEntity;
 import org.whole.lang.steppers.model.Name;
 import org.whole.lang.steppers.model.OrArgument;
 import org.whole.lang.steppers.model.OrGoals;
+import org.whole.lang.steppers.model.ResultAction;
+import org.whole.lang.steppers.model.Scope;
 import org.whole.lang.steppers.model.StepperApplication;
 import org.whole.lang.steppers.model.StepperDeclaration;
 import org.whole.lang.steppers.model.StepperReference;
@@ -69,6 +72,18 @@ public class SteppersPartFactoryVisitor extends SteppersIdentityDefaultVisitor i
     }
 
     @Override
+    public void visit(Scope entity) {
+    	// TODO Auto-generated method stub
+    	super.visit(entity);
+    }
+
+    @Override
+    public void visit(Declarations entity) {
+    	// TODO Auto-generated method stub
+    	super.visit(entity);
+    }
+
+    @Override
     public void visit(StepperApplication entity) {
         part = new StepperApplicationPart();
     }
@@ -86,6 +101,12 @@ public class SteppersPartFactoryVisitor extends SteppersIdentityDefaultVisitor i
     @Override
     public void visit(StepperReference entity) {
         part = new IdentifierTextualEntityPart();
+    }
+
+    @Override
+    public void visit(ResultAction entity) {
+    	// TODO Auto-generated method stub
+    	super.visit(entity);
     }
 
     @Override
