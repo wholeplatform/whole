@@ -52,18 +52,6 @@ public class SteppersEntityFactory extends GenericEntityFactory {
         return new EntityBuilder<Scope>(create(SteppersEntityDescriptorEnum.Scope));
     }
 
-    public StepperApplication createStepperApplication() {
-        return create(SteppersEntityDescriptorEnum.StepperApplication);
-    }
-
-    public StepperApplication createStepperApplication(CallFlow goals, ArgumentFlow results) {
-        return create(SteppersEntityDescriptorEnum.StepperApplication, goals, results);
-    }
-
-    public IEntityBuilder<StepperApplication> buildStepperApplication() {
-        return new EntityBuilder<StepperApplication>(create(SteppersEntityDescriptorEnum.StepperApplication));
-    }
-
     public ResultAction createResultAction() {
         return create(SteppersEntityDescriptorEnum.ResultAction);
     }

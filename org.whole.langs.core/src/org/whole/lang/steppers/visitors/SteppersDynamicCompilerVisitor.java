@@ -89,20 +89,6 @@ public class SteppersDynamicCompilerVisitor extends SteppersTraverseAllChildrenV
 		super.visit(entity);
 	}
 
-	@Override
-	public void visit(StepperApplication entity) {
-		entity.getGoals().accept(this);
-//		IEntity stepperR = getResult();
-		//TODO test only
-//		if (stepperR instanceof ExecutableStepper) {
-//		ExecutableStepper stepper = (ExecutableStepper) getResult();
-//    	if (stepper != null) {
-//    		IEntity result = stepper.evaluateRemaining();
-//    		setResult(result);
-//    	}
-//		}
-	}
-
 	protected Consumer<ExecutableStepper> stepperWeaver = (s) -> {};
 	protected Consumer<ExecutableStepper> stepperGoalWeaver = (s) -> {};
 	protected Consumer<ExecutableStepper> stepperArgumentWeaver = (s) -> {};

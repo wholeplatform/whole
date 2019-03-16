@@ -35,11 +35,6 @@ public class SteppersIdentityDefaultVisitor extends SteppersIdentityVisitor {
         visit((Expression) entity);
     }
 
-    public void visit(StepperApplication entity) {
-        visit((ISteppersEntity) entity);
-        visit((Expression) entity);
-    }
-
     public void visit(ResultAction entity) {
         visit((ISteppersEntity) entity);
         visit((Expression) entity);

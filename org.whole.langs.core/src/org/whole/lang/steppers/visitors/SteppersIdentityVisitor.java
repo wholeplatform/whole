@@ -33,9 +33,6 @@ public class SteppersIdentityVisitor extends AbstractVisitor implements IStepper
     public void visit(Scope entity) {
     }
 
-    public void visit(StepperApplication entity) {
-    }
-
     public void visit(ResultAction entity) {
     }
 

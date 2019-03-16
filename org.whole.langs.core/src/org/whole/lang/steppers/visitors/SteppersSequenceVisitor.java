@@ -42,11 +42,6 @@ public class SteppersSequenceVisitor extends AbstractBinaryVisitor<ISteppersVisi
         wGetVisitor2().visit(entity);
     }
 
-    public void visit(StepperApplication entity) {
-        wGetVisitor1().visit(entity);
-        wGetVisitor2().visit(entity);
-    }
-
     public void visit(ResultAction entity) {
         wGetVisitor1().visit(entity);
         wGetVisitor2().visit(entity);

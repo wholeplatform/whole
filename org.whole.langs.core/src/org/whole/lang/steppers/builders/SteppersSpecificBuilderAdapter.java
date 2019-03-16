@@ -44,20 +44,16 @@ public class SteppersSpecificBuilderAdapter extends GenericBuilderContext implem
         wFeature(SteppersFeatureDescriptorEnum.calls);
     }
 
+    public void goals() {
+        wFeature(SteppersFeatureDescriptorEnum.goals);
+    }
+
     public void name() {
         wFeature(SteppersFeatureDescriptorEnum.name);
     }
 
     public void actions() {
         wFeature(SteppersFeatureDescriptorEnum.actions);
-    }
-
-    public void results() {
-        wFeature(SteppersFeatureDescriptorEnum.results);
-    }
-
-    public void goals() {
-        wFeature(SteppersFeatureDescriptorEnum.goals);
     }
 
     public void expression() {
@@ -81,18 +77,6 @@ public class SteppersSpecificBuilderAdapter extends GenericBuilderContext implem
 
     public void _Scope() {
         _wEntity(SteppersEntityDescriptorEnum.Scope);
-    }
-
-    public void StepperApplication() {
-        wEntity(SteppersEntityDescriptorEnum.StepperApplication);
-    }
-
-    public void StepperApplication_() {
-        wEntity_(SteppersEntityDescriptorEnum.StepperApplication);
-    }
-
-    public void _StepperApplication() {
-        _wEntity(SteppersEntityDescriptorEnum.StepperApplication);
     }
 
     public void ResultAction() {

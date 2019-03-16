@@ -28,8 +28,6 @@ public interface ISteppersVisitor extends IVisitor {
 
     public void visit(Scope entity);
 
-    public void visit(StepperApplication entity);
-
     public void visit(ResultAction entity);
 
     public void visit(Argument entity);

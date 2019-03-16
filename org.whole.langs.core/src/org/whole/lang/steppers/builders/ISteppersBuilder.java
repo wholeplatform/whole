@@ -31,13 +31,11 @@ public interface ISteppersBuilder extends IBuilder {
 
     public void calls();
 
+    public void goals();
+
     public void name();
 
     public void actions();
-
-    public void results();
-
-    public void goals();
 
     public void expression();
 
@@ -48,12 +46,6 @@ public interface ISteppersBuilder extends IBuilder {
     public void Scope_();
 
     public void _Scope();
-
-    public void StepperApplication();
-
-    public void StepperApplication_();
-
-    public void _StepperApplication();
 
     public void ResultAction();
 

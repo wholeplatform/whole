@@ -46,22 +46,6 @@ public class SteppersModelContext extends EntityContext {
         wSet(SteppersFeatureDescriptorEnum.expression, expression);
     }
 
-    public SteppersModelContext getGoals() {
-        return (SteppersModelContext) wGet(SteppersFeatureDescriptorEnum.goals);
-    }
-
-    public void setGoals(SteppersModelContext goals) {
-        wSet(SteppersFeatureDescriptorEnum.goals, goals);
-    }
-
-    public SteppersModelContext getResults() {
-        return (SteppersModelContext) wGet(SteppersFeatureDescriptorEnum.results);
-    }
-
-    public void setResults(SteppersModelContext results) {
-        wSet(SteppersFeatureDescriptorEnum.results, results);
-    }
-
     public SteppersModelContext getActions() {
         return (SteppersModelContext) wGet(SteppersFeatureDescriptorEnum.actions);
     }
@@ -76,6 +60,14 @@ public class SteppersModelContext extends EntityContext {
 
     public void setName(SteppersModelContext name) {
         wSet(SteppersFeatureDescriptorEnum.name, name);
+    }
+
+    public SteppersModelContext getGoals() {
+        return (SteppersModelContext) wGet(SteppersFeatureDescriptorEnum.goals);
+    }
+
+    public void setGoals(SteppersModelContext goals) {
+        wSet(SteppersFeatureDescriptorEnum.goals, goals);
     }
 
     public SteppersModelContext getCalls() {

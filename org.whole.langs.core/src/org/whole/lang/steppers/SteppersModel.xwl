@@ -7,7 +7,7 @@
             <models:EntityType value="http://lang.whole.org/Queries#Expression"/>
         </models:TypeAliasOf>
     </models:TypeRelations>
-    <models:ModelDeclarations initialCapacity="26">
+    <models:ModelDeclarations initialCapacity="25">
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="1">
                 <models:EntityModifier value="abstract"/>
@@ -33,31 +33,6 @@
                     <models:FeatureModifiers initialCapacity="0"/>
                     <models:SimpleName value="Expression"/>
                     <models:SimpleName value="expression"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                </models:Feature>
-            </models:Features>
-        </models:SimpleEntity>
-        <models:SimpleEntity>
-            <models:EntityModifiers initialCapacity="0"/>
-            <models:SimpleName value="StepperApplication"/>
-            <models:Types initialCapacity="1">
-                <models:SimpleName value="Expression"/>
-            </models:Types>
-            <models:Features initialCapacity="2">
-                <models:Feature>
-                    <models:FeatureModifiers initialCapacity="1">
-                        <models:FeatureModifier value="optional"/>
-                    </models:FeatureModifiers>
-                    <models:SimpleName value="CallFlow"/>
-                    <models:SimpleName value="goals"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                </models:Feature>
-                <models:Feature>
-                    <models:FeatureModifiers initialCapacity="1">
-                        <models:FeatureModifier value="optional"/>
-                    </models:FeatureModifiers>
-                    <models:SimpleName value="ArgumentFlow"/>
-                    <models:SimpleName value="results"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
             </models:Features>

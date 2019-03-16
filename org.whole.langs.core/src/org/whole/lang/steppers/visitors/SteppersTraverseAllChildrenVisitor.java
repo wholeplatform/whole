@@ -40,11 +40,6 @@ public class SteppersTraverseAllChildrenVisitor extends SteppersIdentityUnaryVis
         entity.getExpression().accept(wGetVisitor1());
     }
 
-    public void visit(StepperApplication entity) {
-        entity.getGoals().accept(wGetVisitor1());
-        entity.getResults().accept(wGetVisitor1());
-    }
-
     public void visit(ResultAction entity) {
         entity.getExpression().accept(wGetVisitor1());
         entity.getActions().accept(wGetVisitor1());

@@ -50,17 +50,14 @@ public class SteppersGenericBuilderAdapter extends GenericIdentityBuilder {
             case SteppersFeatureDescriptorEnum.expression_ord :
             specificBuilder.expression();
             break;
-            case SteppersFeatureDescriptorEnum.goals_ord :
-            specificBuilder.goals();
-            break;
-            case SteppersFeatureDescriptorEnum.results_ord :
-            specificBuilder.results();
-            break;
             case SteppersFeatureDescriptorEnum.actions_ord :
             specificBuilder.actions();
             break;
             case SteppersFeatureDescriptorEnum.name_ord :
             specificBuilder.name();
+            break;
+            case SteppersFeatureDescriptorEnum.goals_ord :
+            specificBuilder.goals();
             break;
             case SteppersFeatureDescriptorEnum.calls_ord :
             specificBuilder.calls();
@@ -75,9 +72,6 @@ public class SteppersGenericBuilderAdapter extends GenericIdentityBuilder {
         switch (entityDesc.getOrdinal()) {
             case SteppersEntityDescriptorEnum.Scope_ord :
             specificBuilder.Scope();
-            break;
-            case SteppersEntityDescriptorEnum.StepperApplication_ord :
-            specificBuilder.StepperApplication();
             break;
             case SteppersEntityDescriptorEnum.ResultAction_ord :
             specificBuilder.ResultAction();
@@ -129,9 +123,6 @@ public class SteppersGenericBuilderAdapter extends GenericIdentityBuilder {
             case SteppersEntityDescriptorEnum.Scope_ord :
             specificBuilder.Scope_();
             break;
-            case SteppersEntityDescriptorEnum.StepperApplication_ord :
-            specificBuilder.StepperApplication_();
-            break;
             case SteppersEntityDescriptorEnum.ResultAction_ord :
             specificBuilder.ResultAction_();
             break;
@@ -181,9 +172,6 @@ public class SteppersGenericBuilderAdapter extends GenericIdentityBuilder {
         switch (entityDesc.getOrdinal()) {
             case SteppersEntityDescriptorEnum.Scope_ord :
             specificBuilder._Scope();
-            break;
-            case SteppersEntityDescriptorEnum.StepperApplication_ord :
-            specificBuilder._StepperApplication();
             break;
             case SteppersEntityDescriptorEnum.ResultAction_ord :
             specificBuilder._ResultAction();

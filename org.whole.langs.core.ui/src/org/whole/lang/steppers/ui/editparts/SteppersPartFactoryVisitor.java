@@ -73,19 +73,7 @@ public class SteppersPartFactoryVisitor extends SteppersIdentityDefaultVisitor i
 
     @Override
     public void visit(Scope entity) {
-    	// TODO Auto-generated method stub
-    	super.visit(entity);
-    }
-
-    @Override
-    public void visit(Declarations entity) {
-    	// TODO Auto-generated method stub
-    	super.visit(entity);
-    }
-
-    @Override
-    public void visit(StepperApplication entity) {
-        part = new StepperApplicationPart();
+    	part = new ScopePart();
     }
 
     @Override
