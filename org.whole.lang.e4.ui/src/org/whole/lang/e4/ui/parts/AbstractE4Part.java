@@ -60,6 +60,7 @@ import org.eclipse.swt.events.FocusAdapter;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.codebase.IFilePersistenceProvider;
@@ -272,12 +273,15 @@ public abstract class AbstractE4Part {
 	public void setFocus() {
 		final Display display = viewer.getControl().getDisplay();
 		//FIXME workaround to a race condition in EPartService caused by BasicPartList.gotoSelectedElement()
-		display.timerExec(500, () -> {
-			display.asyncExec(() -> {
-				viewer.getControl().setFocus();
-				updateSelection(E4Utils.createSelectionBindings(viewer.getSelectedEditParts(), viewer, context));
-			});
-		});
+//		display.timerExec(500, () -> {
+//			display.asyncExec(() -> {
+//				Control control = viewer.getControl();
+//				if (control != null) {
+//					control.setFocus();
+//					updateSelection(E4Utils.createSelectionBindings(viewer.getSelectedEditParts(), viewer, context));
+//				}
+//			});
+//		});
 	}
 	
 	@Inject
