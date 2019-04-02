@@ -88,7 +88,7 @@ public class SteppersPartFactoryVisitor extends SteppersIdentityDefaultVisitor i
 
     @Override
     public void visit(StepperReference entity) {
-        part = new IdentifierTextualEntityPart();
+        part = new FlowReferencePart();
     }
 
     @Override

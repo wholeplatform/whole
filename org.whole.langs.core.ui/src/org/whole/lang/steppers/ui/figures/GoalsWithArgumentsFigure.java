@@ -81,7 +81,7 @@ public class GoalsWithArgumentsFigure extends NodeFigure {
 		g.setForegroundColor(FigureConstants.relationsColor);
 
 		int y1 = getBounds().y + StepperDeclarationLayout.SHAPE_MARGIN.top;
-		int x2 = getBounds().right()-1;
+		int x2 = getContentPane(1).getBounds().right()-1;
 
 		Point tp = getContentPaneTargetPoint(1, 1, (r) -> r.getRight());
         g.drawLine(x2, y1, x2, tp.y);
@@ -89,7 +89,6 @@ public class GoalsWithArgumentsFigure extends NodeFigure {
 
         tp = getContentPaneTargetPoint(0, 0, (r) -> r.getTop());
         g.drawLine(tp.x, y1, tp.x, tp.y);
-
 		g.drawLine(tp.x, y1, x2, y1);
 	}
 }

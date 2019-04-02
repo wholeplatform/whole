@@ -34,9 +34,9 @@ public class OrArgumentFigure extends CompositeFigure {
 
 	@Override
 	public void paintClientArea(Graphics g) {
-		super.paintClientArea(g);
 		paintConnections(g);
 		g.restoreState();
+		super.paintClientArea(g);
 	}
 
 	protected void paintConnections(Graphics g) {

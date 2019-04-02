@@ -109,11 +109,15 @@ public class StepperDeclarationFigure extends NodeFigure {
         Rectangle shapeBounds = shapeBorder.getBounds();
         Rectangle expressionBounds = getContentPane(1).getBounds();
 
+//      g.setBackgroundColor(ColorConstants.white);
+//		g.fillRectangle(shapeBounds.x, expressionBounds.y, shapeBounds.width, expressionBounds.height);
+
         g.setForegroundColor(FigureConstants.contentLighterColor);
         g.setBackgroundColor(FigureConstants.contentLighterColor);
 		int oldAlpha = g.getAlpha();
 		g.setAlpha(40);
-        g.fillRectangle(shapeBounds.x, shapeBounds.y, shapeBounds.width, expressionBounds.y-shapeBounds.y);
+
+		g.fillRectangle(shapeBounds.x, shapeBounds.y, shapeBounds.width, expressionBounds.y-shapeBounds.y);
         g.fillRectangle(shapeBounds.x, expressionBounds.bottom(), shapeBounds.width, shapeBounds.bottom()-expressionBounds.bottom());
         g.drawLine(shapeBounds.x, expressionBounds.y-1, shapeBounds.right(), expressionBounds.y-1);
         g.drawLine(shapeBounds.x, expressionBounds.bottom(), shapeBounds.right(), expressionBounds.bottom());

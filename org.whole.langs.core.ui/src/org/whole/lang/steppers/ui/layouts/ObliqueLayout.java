@@ -38,7 +38,7 @@ public class ObliqueLayout extends AbstractCompositeEntityLayout {
 
 	@Override
 	protected int getIndent() {
-		return childSize.length > 0 ? getMinorAlignment().equals(Alignment.LEADING) ? childSize[childSize.length-1].getIndent() : childSize[0].getIndent() : 0;
+		return childSize.length > 0 ? getMinorAlignment().equals(Alignment.LEADING) ? childSize[0].getIndent() : childSize[childSize.length-1].getIndent() : 0;
 	}
 
 	@Override
@@ -73,7 +73,7 @@ public class ObliqueLayout extends AbstractCompositeEntityLayout {
 			}
 		}
 
-		figAscent = figHeight / 2;
+		figAscent = childSize.length > 0 ? ascent(0) : figHeight / 2;		
 		figDescent = figHeight - figAscent;
 	}
 

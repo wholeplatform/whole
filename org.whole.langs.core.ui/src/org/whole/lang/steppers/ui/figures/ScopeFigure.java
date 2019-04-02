@@ -38,6 +38,19 @@ public class ScopeFigure extends ContentPaneFigure {
         }.withMinorAlignment(Alignment.LEADING));
         initContentPanes(2);
         add(createContentPane(0));
+//        , new AbstractBackground() {
+//        	@Override
+//        	public void paintBackground(IFigure figure, Graphics graphics, Insets insets) {
+//        		getPaintRectangle(figure, insets);
+//        		graphics.setBackgroundColor(FigureConstants.contentDarkColor);
+//        		graphics.fillRectangle(tempRect);
+//        	}
+//        	
+//        	@Override
+//        	public boolean isOpaque() {
+//        		return true;
+//        	}
+//        }));
         add(createContentPane(1, new MarginBorder(4, 0, 4, 0)));
         setBorder(new ScopeBracketsBorder(1, 1, 2, 1) {
         	protected Color getDelimiterColor() {
