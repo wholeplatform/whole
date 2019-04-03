@@ -271,17 +271,7 @@ public abstract class AbstractE4Part {
 	@SuppressWarnings("unchecked")
 	@Focus
 	public void setFocus() {
-		final Display display = viewer.getControl().getDisplay();
-		//FIXME workaround to a race condition in EPartService caused by BasicPartList.gotoSelectedElement()
-//		display.timerExec(500, () -> {
-//			display.asyncExec(() -> {
-//				Control control = viewer.getControl();
-//				if (control != null) {
-//					control.setFocus();
-//					updateSelection(E4Utils.createSelectionBindings(viewer.getSelectedEditParts(), viewer, context));
-//				}
-//			});
-//		});
+		updateSelection(E4Utils.createSelectionBindings(viewer.getSelectedEditParts(), viewer, context));
 	}
 	
 	@Inject
