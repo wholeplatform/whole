@@ -67,7 +67,6 @@ public class PlatformLibraryClasspathContainer implements IClasspathContainer {
 		bundles.add("org.apache.httpcomponents.httpcore");
 		bundles.add("org.beanshell.bsh");
 		bundles.add("org.eclipse.jgit");
-		bundles.add("org.gradle.toolingapi");
 		bundles.add("org.h2");
 		bundles.add("org.mozilla.rhino");
 		bundles.add("org.objectweb.asm");
