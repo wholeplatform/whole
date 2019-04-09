@@ -29,7 +29,7 @@ import org.whole.lang.ui.layout.RowLayout;
 /**
  * @author Riccardo Solmi
  */
-public class VariableTestFigure extends ContentPaneFigure implements IQualifiedFigure{
+public class VariableTestFigure extends ContentPaneFigure implements IQualifiedFigure {
 	private EntityLabel environmentLabel;
 
 	public VariableTestFigure(boolean showBrackets) {
