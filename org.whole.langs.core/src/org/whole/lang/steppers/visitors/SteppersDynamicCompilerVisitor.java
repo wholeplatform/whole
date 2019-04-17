@@ -110,19 +110,19 @@ public class SteppersDynamicCompilerVisitor extends SteppersTraverseAllChildrenV
 		ExecutableStepper stepper = getStepper(name);
 		stepperWeaver.accept(stepper);
 
-		//FIXME get stepper from cloneContext
-		argumentWeaver = (i) -> {
-			return stepper.getExecutableArgument(i);
-		};
-
-		ExecutableFactory f = ExecutableFactory.instance;
-		IExecutable compiledExpression = f.createScope(
-						f.createBlock(
-								f.createFilter(f.createConstant(BindingManagerFactory.instance.createValue(argumentWeaver), false), f.createAsVariable(ARGUMENT_WEAVER_NAME)),
-								compile(entity.getExpression(), () -> ExecutableFactory.instance.createSelf())
-						), null, Set.of(ARGUMENT_WEAVER_NAME), true);
-		stepper.withExecutable(compiledExpression);
-		stepper.withSourceEntity(entity);
+//		//FIXME get stepper from cloneContext
+//		argumentWeaver = (i) -> {
+//			return stepper.getExecutableArgument(i);
+//		};
+//
+//		ExecutableFactory f = ExecutableFactory.instance;
+//		IExecutable compiledExpression = f.createScope(
+//						f.createBlock(
+//								f.createFilter(f.createConstant(BindingManagerFactory.instance.createValue(argumentWeaver), false), f.createAsVariable(ARGUMENT_WEAVER_NAME)),
+//								compile(entity.getExpression(), () -> ExecutableFactory.instance.createSelf())
+//						), null, Set.of(ARGUMENT_WEAVER_NAME), true);
+//		stepper.withExecutable(compiledExpression);
+//		stepper.withSourceEntity(entity);
 
 		stepperWeaver = stepperGoalWeaver = (s) -> {
 			stepper.addCall(s);
@@ -152,6 +152,20 @@ public class SteppersDynamicCompilerVisitor extends SteppersTraverseAllChildrenV
 		};
 		entity.getArguments().accept(this);
 
+		//FIXME get stepper from cloneContext
+		argumentWeaver = (i) -> {
+			return stepper.getExecutableArgument(i);
+		};
+
+		ExecutableFactory f = ExecutableFactory.instance;
+		IExecutable compiledExpression = f.createScope(
+						f.createBlock(
+								f.createFilter(f.createConstant(BindingManagerFactory.instance.createValue(argumentWeaver), false), f.createAsVariable(ARGUMENT_WEAVER_NAME)),
+								compile(entity.getExpression(), () -> ExecutableFactory.instance.createSelf())
+						), null, Set.of(ARGUMENT_WEAVER_NAME), true);
+		stepper.withExecutable(compiledExpression);
+		stepper.withSourceEntity(entity);
+		
 		if (Matcher.match(SteppersEntityDescriptorEnum.Declarations, entity.wGetParent()))
 			setResult(BindingManagerFactory.instance.createVoid());
 		else

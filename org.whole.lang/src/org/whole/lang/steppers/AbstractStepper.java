@@ -21,20 +21,25 @@ import java.util.Arrays;
 import java.util.BitSet;
 import java.util.function.Consumer;
 
+import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.evaluators.AbstractEvaluator;
+import org.whole.lang.commons.model.Variable;
+import org.whole.lang.commons.visitors.CommonsInterpreterVisitor;
 import org.whole.lang.evaluators.AbstractPureConditionalSupplierEvaluator;
+import org.whole.lang.evaluators.MultiValuedRunnableEvaluator;
+import org.whole.lang.executables.AbstractExecutable;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.CloneContext;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.operations.IdentityCloneContext;
+import org.whole.lang.util.BindingUtils;
 import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractStepper extends AbstractEvaluator {
+public abstract class AbstractStepper extends AbstractExecutable {
 	protected ICloneContext cloneContext = IdentityCloneContext.instance;
 	protected AbstractStepper prototype;
 	protected IEntity selfEntity;
@@ -521,7 +526,20 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 	}
 
 	public IExecutable getExecutableArgument(int index) {
-		return new ExecutableArgument(index);
+		return new MultiValuedRunnableEvaluator( (selfEntity, bm, args) -> {
+			IEntity argument = getArgument(index);
+			if (argument.wGetEntityDescriptor().getDataKind().isObject() && argument.wGetValue() instanceof IExecutable)
+				bm.setExecutableResult((IExecutable) argument.wGetValue());
+			else
+				bm.setResult(EntityUtils.cloneIfParented(argument));
+			}) {
+		
+			public void toString(StringBuilder sb) {
+				sb.append("executableArgument");
+				super.toString(sb);
+			}
+		};
+//		return new ExecutableArgument(index);
 	}
 
 	public class ExecutableArgument extends AbstractPureConditionalSupplierEvaluator {
@@ -628,6 +646,7 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 	
 	public static class ExecutableStepper extends AbstractStepper {
 		protected IExecutable executable;
+		protected IExecutable evaluator;
 
 		public ExecutableStepper(ICloneContext cloneContext) {
 			super(cloneContext);
@@ -647,6 +666,7 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 		public IExecutable clone(ICloneContext cc) {
 			ExecutableStepper stepper = (ExecutableStepper) super.clone(cc);
 			stepper.executable = null;
+			stepper.evaluator = null;
 			return stepper;
 		}
 
@@ -654,6 +674,7 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 		public void reset(IEntity entity) {
 			super.reset(entity);
 
+			evaluator = null;
 			if (executable != null)
 				executable.reset(selfEntity);
 		}
@@ -675,13 +696,67 @@ public abstract class AbstractStepper extends AbstractEvaluator {
 			return executable;
 		}
 
+		protected boolean isLazy = true;
+
+		@Override
+		protected synchronized void doNextAction() {
+			if (isLazy)
+				state = StepperState.DONE_ACTION;
+			else
+				state = StepperState.NEXT_ACTION;
+			lastEntity = doEvaluateNext();
+			if (lastEntity != null) 
+				getAction().accept(lastEntity);
+			else {
+				state = StepperState.DONE_ACTION;
+				getAction().done();
+			}
+			notify();
+		};
 		public IEntity doEvaluateNext() {
-			return getExecutable().evaluateNext();
+			if (isLazy)
+				return BindingManagerFactory.instance.createValue(getExecutable());
+			else
+				return getExecutable().evaluateNext();
 		}
 
+		@Override
+		protected synchronized void doRemainingAction() {
+			if (isLazy)
+				doNextAction();
+			else
+				super.doRemainingAction();
+		}
 		//FIXME add actions to the executable
 		public IEntity doEvaluateRemaining() {
-			return getExecutable().evaluateRemaining();
+			if (isLazy)
+				return BindingManagerFactory.instance.createValue(getExecutable());
+			else
+				return getExecutable().evaluateRemaining();
+		}
+
+		@Override
+		public synchronized IEntity evaluateNext() {
+			if (evaluator == null) {
+				IEntity result = super.evaluateNext();
+				if (!(result.wGetEntityDescriptor().getDataKind().isObject() && result.wGetValue() instanceof IExecutable))
+					return result;
+				evaluator = (IExecutable) result.wGetValue();
+			}
+
+			return evaluator.evaluateNext();
+		}
+
+		@Override
+		public synchronized IEntity evaluateRemaining() {
+			if (evaluator == null) {
+				IEntity result = super.evaluateRemaining();
+				if (!(result.wGetEntityDescriptor().getDataKind().isObject() && result.wGetValue() instanceof IExecutable))
+					return result;
+				evaluator = (IExecutable) result.wGetValue();
+			}
+
+			return evaluator.evaluateRemaining();
 		}
 	}
 }
