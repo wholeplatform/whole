@@ -72,15 +72,7 @@ public abstract class AbstractDelegatingNestedEvaluator extends AbstractNestedEv
 	protected void scopedCallNext(IBindingScope scope) {
 		try {
 			getBindings().wEnterScope(scope, true);
-			getProducer().callNext();
-		} finally {
-			getBindings().wExitScope();
-		}
-	}
-	protected void scopedCallRemaining(IBindingScope scope) {
-		try {
-			getBindings().wEnterScope(scope, true);
-			getProducer().callRemaining();
+			getProducer().call();
 		} finally {
 			getBindings().wExitScope();
 		}

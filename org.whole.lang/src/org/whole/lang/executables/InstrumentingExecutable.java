@@ -54,16 +54,10 @@ public class InstrumentingExecutable extends AbstractExecutable {
 	}
 
 	public class InstrumentingDataFlowConsumer extends AbstractDataFlowConsumer {
-		public void accept(IEntity entity) {
-			instrumentation.beforeDoNext(InstrumentingExecutable.this, entity);
-			getAction().accept(entity);
-			instrumentation.afterDoNext(InstrumentingExecutable.this);
-		}
-
-		public void done() {
-			instrumentation.beforeDoEnd(InstrumentingExecutable.this);
-			getAction().done();
-			instrumentation.afterDoEnd(InstrumentingExecutable.this);
+		public void accept(IExecutable executable) {
+			instrumentation.beforeAccept(InstrumentingExecutable.this, executable);
+			getAction().accept(executable);
+			instrumentation.afterAccept(InstrumentingExecutable.this);
 		}
 	}
 
@@ -172,16 +166,10 @@ public class InstrumentingExecutable extends AbstractExecutable {
 	}
 
 	@Override
-	public void callNext() {
-		instrumentation.beforeCallNext(this);
-		getExecutable().callNext();
-		instrumentation.afterCallNext(this);
-	}
-	@Override
-	public void callRemaining() {
-		instrumentation.beforeCallRemaining(this);
-		getExecutable().callRemaining();
-		instrumentation.afterCallRemaining(this);
+	public void call() {
+		instrumentation.beforeCall(this);
+		getExecutable().call();
+		instrumentation.afterCall(this);
 	}
 
 	@Override

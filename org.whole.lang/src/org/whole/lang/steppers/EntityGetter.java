@@ -21,6 +21,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Consumer;
 
+import org.whole.lang.executables.ExecutableFactory;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
@@ -72,11 +73,11 @@ public class EntityGetter extends AbstractStepper {
 	}
 
 	@Override
-	public IEntity doEvaluateNext() {
+	protected IExecutable getExecutableAction() {
 		//use setEntity value of preceding scope
 		if (isActive() && arguments[0] != null)
-			getEntityScope().setNestedEntity(getArgument(0));
-		return getEntityScope().entity;
+			getEntityScope().setNestedEntity(getArgumentExecutable(0).evaluateRemaining());
+		return ExecutableFactory.instance.createConstant(getEntityScope().entity, false);
 	}
 
 
@@ -123,15 +124,15 @@ public class EntityGetter extends AbstractStepper {
 		}
 
 		@Override
-		public IEntity doEvaluateNext() {
+		protected IExecutable getExecutableAction() {
 			if (arguments[0] != null)
-				setEntity(getArgument(0));
-			return entity;
+				setEntity(getArgumentExecutable(0).evaluateRemaining());
+			return ExecutableFactory.instance.createConstant(entity, false);
 		}
 
 		public void doPropagateNext() {
 			Consumer<EntityGetter> doNextAction = (getter) -> {
-				if (getter.getState().isCall())
+				if (getter.getState().equals(StepperState.CALL))
 					getter.doAction();
 			};
 			variableGetterSet.forEach(doNextAction);

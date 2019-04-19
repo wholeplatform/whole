@@ -67,13 +67,10 @@ public abstract class AbstractCompositeControlFlowProducer extends AbstractContr
 		forEach(p -> p.reset(entity));
 	}
 
-	public void callNext() {
-		forEach(p -> p.callNext());
+	public void call() {
+		forEach(p -> p.call());
 	}
 
-	public void callRemaining() {
-		forEach(p -> p.callRemaining());
-	}
 
 	@Override
 	public void toString(StringBuilder sb) {

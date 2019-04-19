@@ -11,20 +11,16 @@ public class ProfilerData extends AbstractInstrumentationData {
 	public int resetCalls;
 	public int evaluateNextCalls;
 	public int evaluateRemainingCalls;
-	public int callNextCalls;
-	public int callRemainingCalls;
-	public int doNextCalls;
-	public int doEndCalls;
+	public int callCalls;
+	public int acceptCalls;
 	
 	public Duration cloneDuration = Duration.ZERO;
 	public Duration setBindingsDuration = Duration.ZERO;
 	public Duration resetDuration = Duration.ZERO;
 	public Duration evaluateNextDuration = Duration.ZERO;
 	public Duration evaluateRemainingDuration = Duration.ZERO;
-	public Duration callNextDuration = Duration.ZERO;
-	public Duration callRemainingDuration = Duration.ZERO;
-	public Duration doNextDuration = Duration.ZERO;
-	public Duration doEndDuration = Duration.ZERO;
+	public Duration callDuration = Duration.ZERO;
+	public Duration acceptDuration = Duration.ZERO;
 
 	@Override
 	public ProfilerData clone(ICloneContext cc) {
@@ -34,10 +30,8 @@ public class ProfilerData extends AbstractInstrumentationData {
 		data.resetDuration = Duration.from(resetDuration);
 		data.evaluateNextDuration = Duration.from(evaluateNextDuration);
 		data.evaluateRemainingDuration = Duration.from(evaluateRemainingDuration);
-		data.callNextDuration = Duration.from(callNextDuration);
-		data.callRemainingDuration = Duration.from(callRemainingDuration);
-		data.doNextDuration = Duration.from(doNextDuration);
-		data.doEndDuration = Duration.from(doEndDuration);
+		data.callDuration = Duration.from(callDuration);
+		data.acceptDuration = Duration.from(acceptDuration);
 
 		data.startInstant = Instant.from(startInstant);
 		return data;
@@ -79,25 +73,15 @@ public class ProfilerData extends AbstractInstrumentationData {
 		sb.append("  ");
 		sb.append(evaluateRemainingDuration);
 
-		sb.append("\ncallNext         :");
-		sb.append(callNextCalls);
+		sb.append("\ncall         :");
+		sb.append(callCalls);
 		sb.append("  ");
-		sb.append(callNextDuration);
+		sb.append(callDuration);
 
-		sb.append("\ncallRemaining    :");
-		sb.append(callRemainingCalls);
+		sb.append("\naccept           :");
+		sb.append(acceptCalls);
 		sb.append("  ");
-		sb.append(callRemainingDuration);
-
-		sb.append("\ndoNext           :");
-		sb.append(doNextCalls);
-		sb.append("  ");
-		sb.append(doNextDuration);
-
-		sb.append("\ndoEnd            :");
-		sb.append(doEndCalls);
-		sb.append("  ");
-		sb.append(doEndDuration);
+		sb.append(acceptDuration);
 		return sb.toString();
 	}
 }

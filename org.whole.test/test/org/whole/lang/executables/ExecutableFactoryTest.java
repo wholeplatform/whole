@@ -72,13 +72,13 @@ public class ExecutableFactoryTest {
     	p.setBindings(bmf.createBindingManager());
     	p.reset(VALUES[0]);
 
-    	c.setExpectedEvents(Event.DONE);
-    	p.callNext();
+    	c.setExpectedEvents(Event.ACCEPT);
+    	p.call();
 
     	c.clear();
-    	c.setExpectedEvents(Event.DONE, Event.DONE);
-    	p.callNext();
-    	p.callNext();
+    	c.setExpectedEvents(Event.ACCEPT, Event.ACCEPT);
+    	p.call();
+    	p.call();
     }
 
     @Test
@@ -90,33 +90,33 @@ public class ExecutableFactoryTest {
 
     	c.useSameComparator(true);
     	c.setExpectedValues(VALUES[0]);
-    	c.setExpectedEvents(Event.NEXT, Event.DONE);
+    	c.setExpectedEvents(Event.ACCEPT, Event.ACCEPT);
     	p.reset(VALUES[1]);
-    	p.callNext();
-    	p.callRemaining();
+    	p.call();
+    	p.call();
 
     	c.clear();
      	p.reset(VALUES[1]);
-    	p.callRemaining();
+    	p.call();
 
     	c.clear();
     	p.reset(VALUES[1]);
-    	p.callNext();
-    	p.callNext();
+    	p.call();
+    	p.call();
 
-    	c.setExpectedEvents(Event.NEXT, Event.DONE, Event.DONE, Event.DONE);
+    	c.setExpectedEvents(Event.ACCEPT, Event.ACCEPT, Event.ACCEPT, Event.ACCEPT);
     	c.clear();
     	p.reset(VALUES[1]);
-    	p.callNext();
-    	p.callNext();
-    	p.callNext();
-    	p.callNext();
+    	p.call();
+    	p.call();
+    	p.call();
+    	p.call();
  
     	c.clear();
     	p.reset(VALUES[1]);
-    	p.callRemaining();
-    	p.callRemaining();
-    	p.callRemaining();
+    	p.call();
+    	p.call();
+    	p.call();
     }
 
     @Test
@@ -128,31 +128,31 @@ public class ExecutableFactoryTest {
     	p.setBindings(bm);
 
     	c.setExpectedValues(TRUE_VALUE);
-    	c.setExpectedEvents(Event.NEXT, Event.DONE, Event.DONE);
+    	c.setExpectedEvents(Event.ACCEPT, Event.ACCEPT, Event.ACCEPT);
     	p.reset(VALUES[0]);
     	assertFalse(bm.wIsSet("v0"));
-    	p.callNext();
+    	p.call();
     	assertSame(VALUES[0], bm.wGet("v0"));
-    	p.callNext();
-    	p.callNext();
+    	p.call();
+    	p.call();
     	assertSame(VALUES[0], bm.wGet("v0"));    	
 
     	c.clear();
     	c.setExpectedValues(TRUE_VALUE);
     	p.reset(VALUES[0]); //same value
     	assertSame(VALUES[0], bm.wGet("v0"));
-    	p.callRemaining();
+    	p.call();
     	assertSame(VALUES[0], bm.wGet("v0"));
-    	p.callNext();
+    	p.call();
     	assertSame(VALUES[0], bm.wGet("v0"));
 
     	c.clear();
     	c.setExpectedValues(FALSE_VALUE);
     	p.reset(VALUES[1]); //different value
     	assertSame(VALUES[0], bm.wGet("v0"));
-    	p.callRemaining();
+    	p.call();
     	assertSame(VALUES[0], bm.wGet("v0"));
-    	p.callNext();
+    	p.call();
     	assertSame(VALUES[0], bm.wGet("v0"));
     }
 
@@ -166,18 +166,18 @@ public class ExecutableFactoryTest {
     	p.setBindings(bm);
 
     	p.reset(VALUES[1]);
-    	c.setExpectedEvents(Event.NEXT);
+    	c.setExpectedEvents(Event.ACCEPT);
     	c.setExpectedValues(VALUES[0]);
     	c.useSameComparator(true);
-    	p.callNext();
+    	p.call();
     	assertSame(VALUES[0], bm.wGet("v0"));
 
     	bm.wUnset("v0");
     	c.clear();
     	p.reset(VALUES[1]);
-    	c.setExpectedEvents(Event.DONE);
+    	c.setExpectedEvents(Event.ACCEPT);
     	assertFalse(bm.wIsSet("v0"));
-    	p.callNext();
+    	p.call();
     	assertFalse(bm.wIsSet("v0"));
     }
 
@@ -192,21 +192,21 @@ public class ExecutableFactoryTest {
     	p.setBindings(bm);
 
     	p.reset(VALUES[1]);
-    	c.setExpectedEvents(Event.NEXT, Event.DONE);
+    	c.setExpectedEvents(Event.ACCEPT, Event.ACCEPT);
     	c.setExpectedValues(VALUES[0]);
     	c.useSameComparator(true);
     	assertFalse(bm.wIsSet("v0"));
-    	p.callNext();
+    	p.call();
     	assertSame(VALUES[0], bm.wGet("v0"));
-    	p.callNext();
-    	assertFalse(bm.wIsSet("v0"));
+    	p.call();
+    	assertSame(VALUES[0], bm.wGet("v0"));
 
     	bm.wDef("v0", VALUES[2]);
     	c.clear();
-    	c.setExpectedEvents(Event.DONE);
+    	c.setExpectedEvents(Event.ACCEPT);
     	p.reset(VALUES[1]);
     	assertSame(VALUES[2], bm.wGet("v0"));
-    	p.callRemaining();
+    	p.call();
     	assertSame(VALUES[2], bm.wGet("v0"));
     }
 
@@ -231,123 +231,22 @@ public class ExecutableFactoryTest {
 		c.setExpectedValues(
     			VALUES[0], VALUES[1], VALUES[2], VALUES[3], VALUES[4], VALUES[5], VALUES[6], VALUES[7]);
     	c.setExpectedEvents(
-    			Event.NEXT, Event.NEXT, Event.NEXT, Event.NEXT, Event.NEXT, Event.NEXT, Event.NEXT, Event.NEXT, Event.DONE);
+    			Event.ACCEPT, Event.ACCEPT, Event.ACCEPT, Event.ACCEPT, Event.ACCEPT, Event.ACCEPT, Event.ACCEPT, Event.ACCEPT, Event.ACCEPT);
 
     	p.reset(VALUES[0]);
-    	p.callNext();
-    	p.callNext();
-    	p.callNext();
-    	p.callNext();
-    	p.callNext();
-    	p.callNext();
-    	p.callNext();
-    	p.callNext();
-    	p.callNext();
+    	p.call();
+    	p.call();
+    	p.call();
+    	p.call();
+    	p.call();
+    	p.call();
+    	p.call();
+    	p.call();
+    	p.call();
  
     	c.clear();
     	p.reset(VALUES[0]);
-    	p.callRemaining();
-    }
-
-
-    @Test
-    public void testSequenceWithBindingsStepper() {
-    	IBindingManager bm = bmf.createBindingManager();
-    	TesterDataFlowConsumer c = new TesterDataFlowConsumer();
-		IExecutable p = f.createSequence(
-				f.createFilter(f.createConstant(VALUES[0], false), f.createAsVariable("v0")),
-				f.createFilter(f.createConstant(VALUES[1], false), f.createAsVariable("v1")),
-				f.createFilter(f.createVariable("v0"), f.createAsVariable("v2")),
-    			f.createSequence(
-    					f.createFilter(f.createConstant(VALUES[2], false), f.createAsVariable("v0")), //not bound
-    					f.createFilter(f.createConstant(VALUES[3], false), f.createAsVariable("v3")),
-    					f.createFilter(f.createVariable("v1"), f.createAsVariable("v4"))),
-				f.createFilter(f.createVariable("v0"), f.createAsVariable("v5")),
-				f.createFilter(f.createVariable("v3"), f.createAsVariable("v6")), //not bound: missing v3
-    			f.createFilter(f.createConstant(VALUES[4], false), f.createAsVariable("v3"))
-    	);
-		p.addFirstAction(c);
-    	p.setBindings(bm);
-
-    	c.setExpectedEvents(
-    			Event.NEXT, Event.NEXT, Event.NEXT, Event.NEXT, Event.NEXT, Event.NEXT, Event.NEXT, Event.DONE);
-		c.setExpectedValues(
-    			VALUES[0], VALUES[1], VALUES[0], VALUES[3], VALUES[1], VALUES[0], VALUES[4]);
-    	c.useSameComparator(true);
-    	p.reset(VALUES[5]);
-    	p.callNext();
-    	assertSame(VALUES[0], bm.wGet("v0"));
-    	p.callNext();
-    	assertFalse(bm.wIsSet("v0"));
-    	assertSame(VALUES[1], bm.wGet("v1"));
-    	p.callNext();
-    	assertFalse(bm.wIsSet("v0") || bm.wIsSet("v1"));
-    	assertSame(VALUES[0], bm.wGet("v2"));
-    	p.callNext();
-    	assertFalse(bm.wIsSet("v0") || bm.wIsSet("v1") || bm.wIsSet("v2"));
-    	assertSame(VALUES[3], bm.wGet("v3"));
-    	p.callNext();
-    	assertFalse(bm.wIsSet("v0") || bm.wIsSet("v1") || bm.wIsSet("v2") || bm.wIsSet("v3"));
-    	assertSame(VALUES[1], bm.wGet("v4"));    	
-    	p.callNext();
-    	assertFalse(bm.wIsSet("v0") || bm.wIsSet("v1") || bm.wIsSet("v2") || bm.wIsSet("v3") || bm.wIsSet("v4"));
-    	assertSame(VALUES[0], bm.wGet("v5"));    	
-    	p.callNext();
-    	assertFalse(bm.wIsSet("v0") || bm.wIsSet("v1") || bm.wIsSet("v2") || bm.wIsSet("v4") || bm.wIsSet("v5"));
-    	assertSame(VALUES[4], bm.wGet("v3"));    	
-    	p.callNext();
-    	assertFalse(bm.wIsSet("v0") || bm.wIsSet("v1") || bm.wIsSet("v2") || bm.wIsSet("v3") || bm.wIsSet("v4") || bm.wIsSet("v5"));
-
-    	//TODO
-//    	c.clear();
-//    	p.reset(values[0]);
-//    	p.callRemaining();
-    }
-
-    @Test
-    public void testIfWithBindingsStepper() {
-    	IBindingManager bm = bmf.createBindingManager();
-    	TesterDataFlowConsumer c = new TesterDataFlowConsumer();
-		IExecutable p = f.createSequence(
-				f.createFilter(f.createConstant(VALUES[0], false), f.createAsVariable("v0")),
-    			f.createIf(
-    					f.createFilter(f.createConstant(TRUE_VALUE, false), f.createAsVariable("v1")),
-    	    			f.createSequence(
-    	    					f.createFilter(f.createVariable("v1"), f.createAsVariable("v2")),
-    	    					f.createFilter(f.createConstant(VALUES[3], false), f.createAsVariable("v3")))),
-				f.createFilter(f.createVariable("v0"), f.createAsVariable("v4")),
-				f.createFilter(f.createVariable("v1"), f.createAsVariable("v5")),
-				f.createFilter(f.createVariable("v2"), f.createAsVariable("v6")) //not bound
-    	);
-		p.addFirstAction(c);
-    	p.setBindings(bm);
-
-    	c.setExpectedEvents(
-    			Event.NEXT, Event.NEXT, Event.NEXT, Event.NEXT, Event.NEXT, Event.DONE);
-		c.setExpectedValues(
-    			VALUES[0], TRUE_VALUE, VALUES[3], VALUES[0], TRUE_VALUE);
-    	p.reset(VALUES[5]);
-    	p.callNext();
-    	assertSame(VALUES[0], bm.wGet("v0"));
-    	p.callNext();
-    	assertFalse(bm.wIsSet("v0"));
-    	assertSame(TRUE_VALUE, bm.wGet("v1"));
-    	assertSame(TRUE_VALUE, bm.wGet("v2"));
-    	p.callNext();
-    	assertFalse(bm.wIsSet("v0") || bm.wIsSet("v2"));
-    	assertSame(TRUE_VALUE, bm.wGet("v1"));
-    	assertSame(VALUES[3], bm.wGet("v3"));
-    	p.callNext();
-    	assertFalse(bm.wIsSet("v0") || bm.wIsSet("v2") || bm.wIsSet("v3"));
-    	assertSame(TRUE_VALUE, bm.wGet("v1")); //TODO unset condition semantics
-    	assertSame(VALUES[0], bm.wGet("v4"));
-    	p.callNext();
-    	assertFalse(bm.wIsSet("v0") || bm.wIsSet("v2") || bm.wIsSet("v3") || bm.wIsSet("v4"));
-    	assertSame(TRUE_VALUE, bm.wGet("v1")); //TODO unset condition semantics
-    	assertSame(TRUE_VALUE, bm.wGet("v5"));
-    	p.callNext();
-    	assertFalse(bm.wIsSet("v0") || bm.wIsSet("v2") || bm.wIsSet("v3") || bm.wIsSet("v4") || bm.wIsSet("v5"));
-    	assertSame(TRUE_VALUE, bm.wGet("v1")); //TODO unset condition semantics
+    	p.call();
     }
 
     @Test

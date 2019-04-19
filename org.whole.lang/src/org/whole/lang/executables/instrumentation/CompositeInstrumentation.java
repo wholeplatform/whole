@@ -20,6 +20,7 @@ package org.whole.lang.executables.instrumentation;
 import java.util.Arrays;
 import java.util.List;
 
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.executables.InstrumentingExecutable;
 import org.whole.lang.model.IEntity;
 
@@ -81,31 +82,17 @@ public class CompositeInstrumentation implements IExecutableInstrumentation {
 		instrumentations.forEach((i) -> i.afterEvaluateRemaining(ii, result));
 	}
 
-	public void beforeCallNext(InstrumentingExecutable ii) {
-		instrumentations.forEach((i) -> i.beforeCallNext(ii));
+	public void beforeCall(InstrumentingExecutable ii) {
+		instrumentations.forEach((i) -> i.beforeCall(ii));
 	}
-	public void afterCallNext(InstrumentingExecutable ii) {
-		instrumentations.forEach((i) -> i.afterCallNext(ii));
-	}
-
-	public void beforeCallRemaining(InstrumentingExecutable ii) {
-		instrumentations.forEach((i) -> i.beforeCallRemaining(ii));
-	}
-	public void afterCallRemaining(InstrumentingExecutable ii) {
-		instrumentations.forEach((i) -> i.afterCallRemaining(ii));
+	public void afterCall(InstrumentingExecutable ii) {
+		instrumentations.forEach((i) -> i.afterCall(ii));
 	}
 
-	public void beforeDoNext(InstrumentingExecutable ii, IEntity result) {
-		instrumentations.forEach((i) -> i.beforeDoNext(ii, result));
+	public void beforeAccept(InstrumentingExecutable ii, IExecutable executable) {
+		instrumentations.forEach((i) -> i.beforeAccept(ii, executable));
 	}
-	public void afterDoNext(InstrumentingExecutable ii) {
-		instrumentations.forEach((i) -> i.afterDoNext(ii));
-	}
-
-	public void beforeDoEnd(InstrumentingExecutable ii) {
-		instrumentations.forEach((i) -> i.beforeDoEnd(ii));
-	}
-	public void afterDoEnd(InstrumentingExecutable ii) {
-		instrumentations.forEach((i) -> i.afterDoEnd(ii));
+	public void afterAccept(InstrumentingExecutable ii) {
+		instrumentations.forEach((i) -> i.afterAccept(ii));
 	}
 }

@@ -24,6 +24,7 @@ import java.util.Set;
 import java.util.WeakHashMap;
 
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.executables.InstrumentingExecutable;
 import org.whole.lang.model.IEntity;
 
@@ -42,7 +43,7 @@ public class DiagnosticInstrumentation implements IExecutableInstrumentation {
 		NOT_INITIALIZED, WITHOUT_SELF, READY, USED
 	}
 	public static enum InstrumentedMethod {
-		CLONE, SET_BINDINGS, RESET, EVALUATE_NEXT, EVALUATE_REMAINING, CALL_NEXT, CALL_REMAINING, DO_NEXT, DO_END
+		CLONE, SET_BINDINGS, RESET, EVALUATE_NEXT, EVALUATE_REMAINING, CALL, ACCEPT
 	}
 	public static enum Severity {
 		INFO, WARNING, ERROR
@@ -120,8 +121,7 @@ public class DiagnosticInstrumentation implements IExecutableInstrumentation {
 				break;
 			case EVALUATE_NEXT:
 			case EVALUATE_REMAINING:
-			case CALL_NEXT:
-			case CALL_REMAINING:
+			case CALL:
 				data.state = State.USED;
 				break;
 			case CLONE:
@@ -164,8 +164,7 @@ public class DiagnosticInstrumentation implements IExecutableInstrumentation {
 		switch (method) {
 		case EVALUATE_NEXT:
 		case EVALUATE_REMAINING:
-		case CALL_NEXT:
-		case CALL_REMAINING:
+		case CALL:
 			if (data.state == State.READY || data.state == State.USED) {
 				IEntity selfBinding = ii.getBindings().wGet(IBindingManager.SELF);
 				IEntity selfEntity = data.selfEntity;
@@ -268,38 +267,20 @@ public class DiagnosticInstrumentation implements IExecutableInstrumentation {
 	}
 
 	@Override
-	public void beforeCallNext(InstrumentingExecutable ii) {
-		performDiagnostics(ii, InstrumentedMethod.CALL_NEXT, true);
+	public void beforeCall(InstrumentingExecutable ii) {
+		performDiagnostics(ii, InstrumentedMethod.CALL, true);
 	}
 	@Override
-	public void afterCallNext(InstrumentingExecutable ii) {
-		performDiagnostics(ii, InstrumentedMethod.CALL_NEXT, false);
-	}
-
-	@Override
-	public void beforeCallRemaining(InstrumentingExecutable ii) {
-		performDiagnostics(ii, InstrumentedMethod.CALL_REMAINING, true);
-	}
-	@Override
-	public void afterCallRemaining(InstrumentingExecutable ii) {
-		performDiagnostics(ii, InstrumentedMethod.CALL_REMAINING, false);
+	public void afterCall(InstrumentingExecutable ii) {
+		performDiagnostics(ii, InstrumentedMethod.CALL, false);
 	}
 
 	@Override
-	public void beforeDoNext(InstrumentingExecutable ii, IEntity result) {
-		performDiagnostics(ii, InstrumentedMethod.DO_NEXT, true);
+	public void beforeAccept(InstrumentingExecutable ii, IExecutable executable) {
+		performDiagnostics(ii, InstrumentedMethod.ACCEPT, true);
 	}
 	@Override
-	public void afterDoNext(InstrumentingExecutable ii) {
-		performDiagnostics(ii, InstrumentedMethod.DO_NEXT, false);
-	}
-
-	@Override
-	public void beforeDoEnd(InstrumentingExecutable ii) {
-		performDiagnostics(ii, InstrumentedMethod.DO_END, true);
-	}
-	@Override
-	public void afterDoEnd(InstrumentingExecutable ii) {
-		performDiagnostics(ii, InstrumentedMethod.DO_END, false);
+	public void afterAccept(InstrumentingExecutable ii) {
+		performDiagnostics(ii, InstrumentedMethod.ACCEPT, false);
 	}
 }

@@ -21,19 +21,14 @@ import java.util.Arrays;
 import java.util.BitSet;
 import java.util.function.Consumer;
 
-import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.commons.model.Variable;
-import org.whole.lang.commons.visitors.CommonsInterpreterVisitor;
-import org.whole.lang.evaluators.AbstractPureConditionalSupplierEvaluator;
-import org.whole.lang.evaluators.MultiValuedRunnableEvaluator;
 import org.whole.lang.executables.AbstractExecutable;
+import org.whole.lang.executables.ExecutableFactory;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.CloneContext;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.operations.IdentityCloneContext;
-import org.whole.lang.util.BindingUtils;
 import org.whole.lang.util.EntityUtils;
 
 /**
@@ -154,8 +149,8 @@ public abstract class AbstractStepper extends AbstractExecutable {
 		stepper.prototype = this;
 
 //FIXME state is function of differentiation style of the input connections
-		if (stepper instanceof EntityGetter && stepper.state.isAction()) {
-			stepper.state = StepperState.NEXT_ACTION;
+		if (stepper instanceof EntityGetter && StepperState.ACTION.equals(stepper.state)) {
+			stepper.state = StepperState.ACTION;
 		} else {
 			stepper.state = StepperState.IDLE;
 			//FIXME not yet cloned reset original arguments
@@ -194,7 +189,7 @@ public abstract class AbstractStepper extends AbstractExecutable {
 	public void resetArguments() {
 		for (int i=0; i<argumentsSize(); i++)
 			if (arguments[i] != null)
-				arguments[i].entity = null;
+				arguments[i].executable = null;
 	}
 
 	public int argumentsSize() {
@@ -215,20 +210,22 @@ public abstract class AbstractStepper extends AbstractExecutable {
 
 		return consumer;
 	}
-	public IEntity getArgument(int index) {
-		return getArgumentConsumer(index).entity;
+
+	public IExecutable getArgumentExecutable(int index) {
+		return getArgumentConsumer(index).executable;
 	}
+
 //	protected void initConsumer(MutableArgumentDataFlowConsumer p, int index) {
 //		p.cloneContext = getCloneContext();
 //	}
 
 	public void setArgument(int index, IEntity entity) {
-		getArgumentConsumer(index).accept(entity);
+		getArgumentConsumer(index).accept(ExecutableFactory.instance.createConstant(entity, false));
 	}
 
 	public boolean areAllArgumentsAvailable() {
 		for (int i=0; i<argumentsSize(); i++)
-			if (getArgument(i) == null)
+			if (getArgumentExecutable(i) == null)
 				return false;
 		return true;
 	}
@@ -246,22 +243,21 @@ public abstract class AbstractStepper extends AbstractExecutable {
 	}
 
 	public synchronized /*final*/ IEntity evaluateNext() {
-		callNext();
+		call();
 		try {
-			while (!state.isAction()) {
+			while (state != StepperState.ACTION) {
 				wait(1000);
 				handleCanceled();
 			}
 		} catch (InterruptedException e) {
 			lastEntity = null;
-			getAction().done();
 		}
 		return lastEntity;
 	}
 	public synchronized /*final*/ IEntity evaluateRemaining() {
-		callRemaining();
+		call();
 		try {
-			while (state != StepperState.DONE_ACTION) {
+			while (state != StepperState.ACTION) {
 				wait(1000);
 				handleCanceled();
 			}
@@ -273,85 +269,39 @@ public abstract class AbstractStepper extends AbstractExecutable {
 		return result;
 	}
 
-	public synchronized void callNext() {
+	public synchronized void call() {
 		switch (state) {
-		case DONE_ACTION:
+		case ACTION:
 			state = StepperState.IDLE;
 			resetArguments();
 		case IDLE:
 			//TODO READY state behavior
 			if (areAllArgumentsAvailable()) {
-				doNextAction();
+				doAction();
 				break;
 			}
-			state = StepperState.CALL_NEXT;
+			state = StepperState.CALL;
 			if (producersSize() > 0) {
 				for (int i=0; i<producersSize(); i++)
-					getProducer(i).callNext();//TODO ? or callRemaining
+					getProducer(i).call();
 				break;
 			}
 			if (!areAllArgumentsAvailable())
 				break;
-		case NEXT_ACTION:
-			doNextAction();
-		default:
-		}
-	}
-	public synchronized void callRemaining() {
-		switch (state) {
-		case DONE_ACTION:
-			state = StepperState.IDLE;
-			resetArguments();
-		case IDLE:
-			//TODO READY state behavior
-			if (areAllArgumentsAvailable()) {
-				doRemainingAction();
-				break;
-			}
-			state = StepperState.CALL_REMAINING;
-			if (producersSize() > 0) {
-				for (int i=0; i<producersSize(); i++)
-					getProducer(i).callNext();//TODO ? or callRemaining
-				break;
-			}
-			if (!areAllArgumentsAvailable())
-				break;
-		case NEXT_ACTION:
-			doRemainingAction();
+//		case ACTION:
+			doAction();
 		default:
 		}
 	}
 
 	protected synchronized void doAction() {
-		if (state == StepperState.CALL_NEXT)
-			doNextAction();
-		else if (state == StepperState.CALL_REMAINING)
-			doRemainingAction();
+		state = StepperState.ACTION;
+		getAction().accept(getExecutableAction());
+		notify();
 	}
 
-	protected synchronized void doNextAction() {
-		state = StepperState.NEXT_ACTION;
-		lastEntity = doEvaluateNext();
-		if (lastEntity != null) 
-			getAction().accept(lastEntity);
-		else {
-			state = StepperState.DONE_ACTION;
-			getAction().done();
-		}
-		notify();
-	};
-	public abstract IEntity doEvaluateNext();
-
-	protected synchronized void doRemainingAction() {
-		IEntity result = null;
-		while (state != StepperState.DONE_ACTION) {
-			doNextAction();
-			if (lastEntity == null) {
-				lastEntity = result;
-				return;
-			}
-			result = lastEntity;
-		}
+	protected IExecutable getExecutableAction() {
+		return ExecutableFactory.instance.createEmpty();
 	}
 
 
@@ -460,12 +410,8 @@ public abstract class AbstractStepper extends AbstractExecutable {
 		public void reset(IEntity entity) {
 		}
 
-		public void callNext() {
-			consumer.done();
-		}
-
-		public void callRemaining() {
-			consumer.done();
+		public void call() {
+			consumer.accept(ExecutableFactory.instance.createEmpty());
 		}
 
 		public void toString(StringBuilder sb) {
@@ -489,14 +435,9 @@ public abstract class AbstractStepper extends AbstractExecutable {
 		}
 
 		@Override
-		public void accept(IEntity entity) {
+		public void accept(IExecutable executable) {
 			//TODO reset(entity)
-			producer.callNext();
-		}
-
-		@Override
-		public void done() {
-			producer.callRemaining();//FIXME ? callNext();
+			producer.call();
 		}
 	}
 
@@ -516,82 +457,27 @@ public abstract class AbstractStepper extends AbstractExecutable {
 		}
 
 		@Override
-		public void accept(IEntity entity) {
-		}
-
-		@Override
-		public void done() {
-			consumer.done();
-		}
-	}
-
-	public IExecutable getExecutableArgument(int index) {
-		return new MultiValuedRunnableEvaluator( (selfEntity, bm, args) -> {
-			IEntity argument = getArgument(index);
-			if (argument.wGetEntityDescriptor().getDataKind().isObject() && argument.wGetValue() instanceof IExecutable)
-				bm.setExecutableResult((IExecutable) argument.wGetValue());
-			else
-				bm.setResult(EntityUtils.cloneIfParented(argument));
-			}) {
-		
-			public void toString(StringBuilder sb) {
-				sb.append("executableArgument");
-				super.toString(sb);
-			}
-		};
-//		return new ExecutableArgument(index);
-	}
-
-	public class ExecutableArgument extends AbstractPureConditionalSupplierEvaluator {
-		protected int index;
-
-		protected ExecutableArgument() {
-			this(0);
-		}
-		public ExecutableArgument(int index) {
-			this.index = index;
-		}
-
-		@Override
-		public ExecutableArgument clone(ICloneContext cc) {
-			ExecutableArgument executableArgument = cc.differentiate(AbstractStepper.this).new ExecutableArgument();
-			cc.setClone(this, executableArgument);
-			executableArgument.index = index;
-			return executableArgument;
-		}
-
-		public IEntity get() {
-			return getArgument(index);
-		}
-
-		public void toString(StringBuilder sb) {
-			sb.append("getArgument(");
-			sb.append(index);
-			sb.append(")");
+		public void accept(IExecutable executable) {
 		}
 	}
 
 	public class MutableArgumentDataFlowConsumer extends AbstractDataFlowConsumer {
-		public IEntity entity;
+		public IExecutable executable;
 
 		@Override
 		public MutableArgumentDataFlowConsumer clone(ICloneContext cc) {
 			MutableArgumentDataFlowConsumer consumer = cc.differentiate(AbstractStepper.this).new MutableArgumentDataFlowConsumer();
 			cc.setClone(this, consumer);
 			consumer.cloneContext = cc;
-			consumer.entity = null;
+			consumer.executable = null;
 			return consumer;
 //WAS			return (MutableArgumentDataFlowConsumer) super.clone(cc);
 		}
 
-		public void accept(IEntity entity) {
-			this.entity = entity;
-			if (state.isCall() && areAllArgumentsAvailable())
+		public void accept(IExecutable executable) {
+			this.executable = executable;
+			if (state.equals(StepperState.CALL) && areAllArgumentsAvailable())
 				doAction();
-		}
-
-		public void done() {
-			this.entity = null;
 		}
 	}
 
@@ -602,41 +488,21 @@ public abstract class AbstractStepper extends AbstractExecutable {
 			cc.setClone(this, consumer);
 			consumer.cloneContext = cc;
 //WAS			MutableArgumentDataFlowConsumer consumer = (MutableArgumentDataFlowConsumer) super.clone();
-			consumer.entity = null;
+			consumer.executable = null;
 			return consumer;
 		}
 
 		@Override
-		public void accept(IEntity entity) {
-			if (this.entity == null)
-				super.accept(entity);
+		public void accept(IExecutable executable) {
+			if (this.executable == null)
+				super.accept(executable);
 			else
-				clone(getCloneContext().getNextDifferentiationContext()).accept(entity);
+				clone(getCloneContext().getNextDifferentiationContext()).accept(executable);
 		}
 	}
 
 	public static enum StepperState {
-		IDLE, CALL_NEXT, CALL_REMAINING, NEXT_ACTION, DONE_ACTION; //TODO add DATA/READY
-
-		public boolean isCall() {
-			switch (this) {
-			case CALL_NEXT:
-			case CALL_REMAINING:
-				return true;
-			default:
-				return false;
-			}
-		}
-
-		public boolean isAction() {
-			switch (this) {
-			case NEXT_ACTION:
-			case DONE_ACTION:
-				return true;
-			default:
-				return false;
-			}
-		}
+		IDLE, CALL, ACTION; //TODO add READY
 	}
 
 	public static enum ConnectionKind {
@@ -699,61 +565,46 @@ public abstract class AbstractStepper extends AbstractExecutable {
 		protected boolean isLazy = true;
 
 		@Override
-		protected synchronized void doNextAction() {
+		protected IExecutable getExecutableAction() {
 			if (isLazy)
-				state = StepperState.DONE_ACTION;
-			else
-				state = StepperState.NEXT_ACTION;
-			lastEntity = doEvaluateNext();
-			if (lastEntity != null) 
-				getAction().accept(lastEntity);
+				return getExecutable();
 			else {
-				state = StepperState.DONE_ACTION;
-				getAction().done();
+				getExecutable().evaluateRemaining();
+				return ExecutableFactory.instance.createEmpty();
 			}
-			notify();
-		};
-		public IEntity doEvaluateNext() {
-			if (isLazy)
-				return BindingManagerFactory.instance.createValue(getExecutable());
-			else
-				return getExecutable().evaluateNext();
-		}
-
-		@Override
-		protected synchronized void doRemainingAction() {
-			if (isLazy)
-				doNextAction();
-			else
-				super.doRemainingAction();
-		}
-		//FIXME add actions to the executable
-		public IEntity doEvaluateRemaining() {
-			if (isLazy)
-				return BindingManagerFactory.instance.createValue(getExecutable());
-			else
-				return getExecutable().evaluateRemaining();
 		}
 
 		@Override
 		public synchronized IEntity evaluateNext() {
 			if (evaluator == null) {
-				IEntity result = super.evaluateNext();
-				if (!(result.wGetEntityDescriptor().getDataKind().isObject() && result.wGetValue() instanceof IExecutable))
-					return result;
-				evaluator = (IExecutable) result.wGetValue();
+				call();
+				try {
+					while (state != StepperState.ACTION) {
+						wait(1000);
+						handleCanceled();
+					}
+					evaluator = getExecutableAction();
+				} catch (InterruptedException e) {
+					return lastEntity = null;
+				}
 			}
-
-			return evaluator.evaluateNext();
+			return lastEntity = evaluator.evaluateNext();
 		}
 
 		@Override
 		public synchronized IEntity evaluateRemaining() {
 			if (evaluator == null) {
-				IEntity result = super.evaluateRemaining();
-				if (!(result.wGetEntityDescriptor().getDataKind().isObject() && result.wGetValue() instanceof IExecutable))
-					return result;
-				evaluator = (IExecutable) result.wGetValue();
+				call();
+				try {
+					while (state != StepperState.ACTION) {
+						wait(1000);
+						handleCanceled();
+					}
+					evaluator = getExecutableAction();
+				} catch (InterruptedException e) {
+					return lastEntity = null;
+				}
+				lastEntity = null;
 			}
 
 			return evaluator.evaluateRemaining();

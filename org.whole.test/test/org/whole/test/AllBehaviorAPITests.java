@@ -45,7 +45,7 @@ import org.whole.lang.util.StringUtilsTest;
 import org.whole.lang.visitors.TraversalFactoryTest;
 
 /**
- * Runs: 126
+ * Runs: 124
  * Errors: 0
  * Failures: 0
  * 

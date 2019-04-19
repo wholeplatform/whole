@@ -17,7 +17,7 @@
  */
 package org.whole.lang.steppers;
 
-import org.whole.lang.model.IEntity;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.operations.ICloneable;
 
@@ -41,11 +41,8 @@ public interface IDataFlowConsumer extends ICloneable {
 			return null;
 		}
 
-		public void accept(IEntity entity) {
+		public void accept(IExecutable executable) {
 		}
-
-		public void done() {
-		}		
 	};
 
 	public IDataFlowConsumer clone();
@@ -54,7 +51,6 @@ public interface IDataFlowConsumer extends ICloneable {
 
 	public IDataFlowConsumer getAdded(IDataFlowConsumer consumer);
 
-	public void accept(IEntity entity);
-	public void done();
+	public void accept(IExecutable executable);
 }
 

@@ -17,6 +17,7 @@
  */
 package org.whole.lang.executables.instrumentation;
 
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.executables.InstrumentingExecutable;
 import org.whole.lang.model.IEntity;
 
@@ -62,30 +63,16 @@ public class IdentityInstrumentation implements IExecutableInstrumentation {
 	}
 
 	@Override
-	public void beforeCallNext(InstrumentingExecutable ii) {
+	public void beforeCall(InstrumentingExecutable ii) {
 	}
 	@Override
-	public void afterCallNext(InstrumentingExecutable ii) {
-	}
-
-	@Override
-	public void beforeCallRemaining(InstrumentingExecutable ii) {
-	}
-	@Override
-	public void afterCallRemaining(InstrumentingExecutable ii) {
+	public void afterCall(InstrumentingExecutable ii) {
 	}
 
 	@Override
-	public void beforeDoNext(InstrumentingExecutable ii, IEntity result) {
+	public void beforeAccept(InstrumentingExecutable ii, IExecutable executable) {
 	}
 	@Override
-	public void afterDoNext(InstrumentingExecutable ii) {
-	}
-
-	@Override
-	public void beforeDoEnd(InstrumentingExecutable ii) {
-	}
-	@Override
-	public void afterDoEnd(InstrumentingExecutable ii) {
+	public void afterAccept(InstrumentingExecutable ii) {
 	}
 }

@@ -154,11 +154,8 @@ class ExecutableClient<E extends IEntity> implements IExecutableClient<E>, Itera
 		return executable.evaluateAsBooleanOrFail();
 	}
 
-	public void callNext() {
-		executable.callNext();
-	}
-	public void callRemaining() {
-		executable.callRemaining();
+	public void call() {
+		executable.call();
 	}
 
 

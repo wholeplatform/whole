@@ -20,6 +20,7 @@ package org.whole.lang.evaluators;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.executables.AbstractExecutable;
+import org.whole.lang.executables.ExecutableFactory;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
@@ -56,20 +57,9 @@ public abstract class AbstractEvaluator extends AbstractExecutable {
 		clearExecutorScope();
 	}
 
-	public void callNext() {
-		IEntity entity = null;
-		if ((entity = evaluateNext()) != null) {
-			getAction().accept(entity);
-		} else
-			getAction().done();
-	}
-
-	public void callRemaining() {
-		IEntity entity = null;
-		while ((entity = evaluateNext()) != null) {
-			getAction().accept(entity);
-		}
-		getAction().done();
+	public void call() {
+		if (evaluateRemaining() != null)
+			getAction().accept(ExecutableFactory.instance.createEmpty());
 	}
 }
 

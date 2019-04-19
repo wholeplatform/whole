@@ -48,10 +48,8 @@ public interface IControlFlowProducer extends ICloneable {
 		public void reset(IEntity entity) {
 		}
 
-		public void callNext() {
+		public void call() {
 		}		
-		public void callRemaining() {
-		}
 
 		public void toString(StringBuilder sb) {
 			// TODO Auto-generated method stub
@@ -68,8 +66,7 @@ public interface IControlFlowProducer extends ICloneable {
 	public void forEachExecutableProducer(Consumer<IControlFlowProducer> c);
 
 	public void reset(IEntity entity);
-	public void callNext();
-	public void callRemaining();
+	public void call();
 
 	public void toString(StringBuilder sb);
 }

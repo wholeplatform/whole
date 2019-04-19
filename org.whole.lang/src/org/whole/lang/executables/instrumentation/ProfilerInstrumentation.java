@@ -17,6 +17,7 @@
  */
 package org.whole.lang.executables.instrumentation;
 
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.executables.InstrumentingExecutable;
 import org.whole.lang.model.IEntity;
 
@@ -99,54 +100,28 @@ public class ProfilerInstrumentation implements IExecutableInstrumentation {
 	}
 
 	@Override
-	public void beforeCallNext(InstrumentingExecutable ii) {
-		globalProfilerData.callNextCalls++;
+	public void beforeCall(InstrumentingExecutable ii) {
+		globalProfilerData.callCalls++;
 		ProfilerData pd = profilerData(ii);
-		pd.callNextCalls++;
+		pd.callCalls++;
 		pd.startTimer();
 	}
 	@Override
-	public void afterCallNext(InstrumentingExecutable ii) {
+	public void afterCall(InstrumentingExecutable ii) {
 		ProfilerData pd = profilerData(ii);
-		pd.callNextDuration = pd.callNextDuration.plus(pd.endTimer());
+		pd.callDuration = pd.callDuration.plus(pd.endTimer());
 	}
 
 	@Override
-	public void beforeCallRemaining(InstrumentingExecutable ii) {
-		globalProfilerData.callRemainingCalls++;
+	public void beforeAccept(InstrumentingExecutable ii, IExecutable executable) {
+		globalProfilerData.acceptCalls++;
 		ProfilerData pd = profilerData(ii);
-		pd.callRemainingCalls++;
+		pd.acceptCalls++;
 		pd.startTimer();
 	}
 	@Override
-	public void afterCallRemaining(InstrumentingExecutable ii) {
+	public void afterAccept(InstrumentingExecutable ii) {
 		ProfilerData pd = profilerData(ii);
-		pd.callRemainingDuration = pd.callRemainingDuration.plus(pd.endTimer());
-	}
-
-	@Override
-	public void beforeDoNext(InstrumentingExecutable ii, IEntity result) {
-		globalProfilerData.doNextCalls++;
-		ProfilerData pd = profilerData(ii);
-		pd.doNextCalls++;
-		pd.startTimer();
-	}
-	@Override
-	public void afterDoNext(InstrumentingExecutable ii) {
-		ProfilerData pd = profilerData(ii);
-		pd.doNextDuration = pd.doNextDuration.plus(pd.endTimer());
-	}
-
-	@Override
-	public void beforeDoEnd(InstrumentingExecutable ii) {
-		globalProfilerData.doEndCalls++;
-		ProfilerData pd = profilerData(ii);
-		pd.doEndCalls++;
-		pd.startTimer();
-	}
-	@Override
-	public void afterDoEnd(InstrumentingExecutable ii) {
-		ProfilerData pd = profilerData(ii);
-		pd.doEndDuration = pd.doEndDuration.plus(pd.endTimer());
+		pd.acceptDuration = pd.acceptDuration.plus(pd.endTimer());
 	}
 }

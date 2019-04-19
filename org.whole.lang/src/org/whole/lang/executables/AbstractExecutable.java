@@ -206,13 +206,11 @@ public abstract class AbstractExecutable implements IExecutable, Iterator<IEntit
 		IDataFlowConsumer oldConsumer = this.consumer;
 
 		this.consumer = new AbstractDataFlowConsumer() {
-			public void accept(IEntity entity) {
-				action.accept(entity);
-			}
-			public void done() {
+			public void accept(IExecutable executable) {
+				executable.forEach(e -> action.accept(e));
 			}
 		};
-		callRemaining();
+		call();
 
 		this.consumer = oldConsumer;
 	}

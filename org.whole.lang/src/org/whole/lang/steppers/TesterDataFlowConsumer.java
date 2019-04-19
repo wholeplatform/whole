@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 
@@ -46,7 +47,7 @@ public class TesterDataFlowConsumer extends AbstractDataFlowConsumer {
 	}
 
 	public static enum Event {
-		NEXT, DONE
+		ACCEPT
 	}
 
 	public void setExpectedEvents(Event... events) {
@@ -95,12 +96,8 @@ public class TesterDataFlowConsumer extends AbstractDataFlowConsumer {
 		}
 	}
 
-	public void accept(IEntity entity) {
-		addEvent(Event.NEXT);
-		addValue(entity);
-	}
-
-	public void done() {
-		addEvent(Event.DONE);
+	public void accept(IExecutable executable) {
+		addEvent(Event.ACCEPT);
+		executable.forEach(e -> addValue(e));
 	}
 }

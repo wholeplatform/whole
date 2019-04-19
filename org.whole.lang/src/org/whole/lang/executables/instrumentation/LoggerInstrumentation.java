@@ -20,6 +20,7 @@ package org.whole.lang.executables.instrumentation;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.executables.InstrumentingExecutable;
 import org.whole.lang.model.IEntity;
 
@@ -93,45 +94,23 @@ public class LoggerInstrumentation extends IdentityInstrumentation {
 	}
 
 	@Override
-	public void beforeCallNext(InstrumentingExecutable ii) {
+	public void beforeCall(InstrumentingExecutable ii) {
 		if (loggerPredicate.test(ii))
 			loggerConsumer.accept(ii);
 	}
 	@Override
-	public void afterCallNext(InstrumentingExecutable ii) {
-		if (loggerPredicate.test(ii))
-			loggerConsumer.accept(ii);
-	}
-
-	@Override
-	public void beforeCallRemaining(InstrumentingExecutable ii) {
-		if (loggerPredicate.test(ii))
-			loggerConsumer.accept(ii);
-	}
-	@Override
-	public void afterCallRemaining(InstrumentingExecutable ii) {
+	public void afterCall(InstrumentingExecutable ii) {
 		if (loggerPredicate.test(ii))
 			loggerConsumer.accept(ii);
 	}
 
 	@Override
-	public void beforeDoNext(InstrumentingExecutable ii, IEntity result) {
+	public void beforeAccept(InstrumentingExecutable ii, IExecutable executable) {
 		if (loggerPredicate.test(ii))
 			loggerConsumer.accept(ii);
 	}
 	@Override
-	public void afterDoNext(InstrumentingExecutable ii) {
-		if (loggerPredicate.test(ii))
-			loggerConsumer.accept(ii);
-	}
-
-	@Override
-	public void beforeDoEnd(InstrumentingExecutable ii) {
-		if (loggerPredicate.test(ii))
-			loggerConsumer.accept(ii);
-	}
-	@Override
-	public void afterDoEnd(InstrumentingExecutable ii) {
+	public void afterAccept(InstrumentingExecutable ii) {
 		if (loggerPredicate.test(ii))
 			loggerConsumer.accept(ii);
 	}

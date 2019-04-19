@@ -17,6 +17,7 @@
  */
 package org.whole.lang.executables.instrumentation;
 
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.executables.InstrumentingExecutable;
 import org.whole.lang.model.IEntity;
 
@@ -39,15 +40,9 @@ public interface IExecutableInstrumentation {
 	public void beforeEvaluateRemaining(InstrumentingExecutable ii);
 	public void afterEvaluateRemaining(InstrumentingExecutable ii, IEntity result);
 
-	public void beforeCallNext(InstrumentingExecutable ii);
-	public void afterCallNext(InstrumentingExecutable ii);
+	public void beforeCall(InstrumentingExecutable ii);
+	public void afterCall(InstrumentingExecutable ii);
 
-	public void beforeCallRemaining(InstrumentingExecutable ii);
-	public void afterCallRemaining(InstrumentingExecutable ii);
-
-	public void beforeDoNext(InstrumentingExecutable ii, IEntity result);
-	public void afterDoNext(InstrumentingExecutable ii);
-
-	public void beforeDoEnd(InstrumentingExecutable ii);
-	public void afterDoEnd(InstrumentingExecutable ii);
+	public void beforeAccept(InstrumentingExecutable ii, IExecutable executable);
+	public void afterAccept(InstrumentingExecutable ii);
 }

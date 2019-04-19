@@ -20,7 +20,7 @@ package org.whole.lang.steppers;
 import java.util.Arrays;
 import java.util.function.Consumer;
 
-import org.whole.lang.model.IEntity;
+import org.whole.lang.executables.IExecutable;
 import org.whole.lang.operations.ICloneContext;
 
 /**
@@ -57,11 +57,7 @@ public abstract class AbstractCompositeDataFlowConsumer extends AbstractDataFlow
 			f.accept(getConsumer(i));
 	}
 
-	public void accept(IEntity entity) {
-		forEach(c -> c.accept(entity));
-	}
-
-	public void done() {
-		forEach(c -> c.done());
+	public void accept(IExecutable executable) {
+		forEach(c -> c.accept(executable));
 	}
 }
