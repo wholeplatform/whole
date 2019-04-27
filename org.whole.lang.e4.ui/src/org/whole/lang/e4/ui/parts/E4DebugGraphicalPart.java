@@ -28,7 +28,6 @@ import javax.inject.Named;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.services.events.IEventBroker;
-import org.eclipse.e4.ui.di.UIEventTopic;
 import org.eclipse.e4.ui.di.UISynchronize;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.jface.action.IAction;
@@ -41,6 +40,7 @@ import org.whole.lang.e4.ui.actions.ResumeAction;
 import org.whole.lang.e4.ui.actions.TerminateAction;
 import org.whole.lang.e4.ui.jobs.ExecutionState;
 import org.whole.lang.e4.ui.jobs.IExecutionListener;
+import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.actions.IUpdatableAction;
 import org.whole.lang.ui.editparts.IEntityPart;
@@ -54,11 +54,11 @@ import org.whole.lang.util.EntityUtils;
  */
 public class E4DebugGraphicalPart extends E4GraphicalPart {
 	protected IExecutionListener executionListener = new IExecutionListener() {
-		public void executionPushed(ExecutionState execution) {
-			updateUI();
+		public void executionAdded(ExecutionState execution) {
+			E4Utils.asyncExec(context, () -> updateUI());
 		}
-		public void executionPopped(ExecutionState execution) {
-			updateUI();
+		public void executionRemoved(ExecutionState execution) {
+			E4Utils.asyncExec(context, () -> updateUI());
 		}
 	};
 
@@ -107,13 +107,6 @@ public class E4DebugGraphicalPart extends E4GraphicalPart {
 		}
 	}
 
-	protected void pushExecution(ExecutionState execution) {
-		debugService.pushExecution(execution);
-	}
-	protected ExecutionState popExecution() {
-		return debugService.popExecution();
-	}
-
 	@Override
 	protected IEntityPartViewer createEntityViewer(Composite parent) {
 		IEntityPartViewer viewer = super.createEntityViewer(parent);
@@ -127,12 +120,6 @@ public class E4DebugGraphicalPart extends E4GraphicalPart {
 			return;
 
 		//TODO
-	}
-
-	@Inject
-	@Optional
-	private void getNotified(@UIEventTopic(IE4UIConstants.TOPIC_UPDATE_DEBUG) ExecutionState execution) {
-		pushExecution(execution);
 	}
 
 	protected Set<IUpdatableAction> actions = new HashSet<IUpdatableAction>();

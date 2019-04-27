@@ -21,8 +21,8 @@ package org.whole.lang.e4.ui.jobs;
  * @author Enrico Persiani
  */
 public interface IExecutionListener {
-	public default void executionAboutToPush(ExecutionState execution) {}
-	public default void executionPushed(ExecutionState execution) {}
-	public default void executionAboutToPop(ExecutionState execution) {}
-	public default void executionPopped(ExecutionState execution) {}
+	public default void executionAboutToAdd(ExecutionState execution) {}
+	public default void executionAdded(ExecutionState execution) {}
+	public default void executionAboutToRemove(ExecutionState execution) {}
+	public default void executionRemoved(ExecutionState execution) {}
 }

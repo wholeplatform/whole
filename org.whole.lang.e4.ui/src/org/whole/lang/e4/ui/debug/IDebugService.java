@@ -40,13 +40,15 @@ public interface IDebugService {
 	public Throwable peekThrowable();
 	public IEntity peekVariablesModel();
 
+	public boolean containsExecution(ExecutionState execution);
+	public ExecutionState peekExecution();
 	public void pushExecution(ExecutionState execution);
-	public ExecutionState popExecution();
+	public void removeExecution(ExecutionState execution);
 
 	public default void doResume() {
-		popExecution().resume();
+		peekExecution().resume();
 	}
 	public default void doTerminate() {
-		popExecution().terminate();
+		peekExecution().terminate();
 	}
 }
