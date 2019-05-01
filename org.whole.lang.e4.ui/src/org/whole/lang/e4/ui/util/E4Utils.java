@@ -74,6 +74,7 @@ import org.whole.lang.e4.ui.actions.DeleteAction;
 import org.whole.lang.e4.ui.actions.IE4UIConstants;
 import org.whole.lang.e4.ui.actions.NewlineAction;
 import org.whole.lang.e4.ui.actions.SplitOnCaretAction;
+import org.whole.lang.e4.ui.debug.IDebugService;
 import org.whole.lang.e4.ui.jobs.ExecutionState;
 import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
 import org.whole.lang.events.IdentityRequestEventHandler;
@@ -491,9 +492,8 @@ public class E4Utils {
 			}
 		});
 		
-		IEventBroker eventBroker = context.get(IEventBroker.class);
-		ExecutionState execution = new ExecutionState(kind, throwable, sourceEntity, bindings, includeNames);
-		eventBroker.post(IE4UIConstants.TOPIC_UPDATE_DEBUG, execution);
+		IDebugService debugService = context.get(IDebugService.class);
+		ExecutionState execution = new ExecutionState(kind, throwable, sourceEntity, bindings, includeNames, debugService);
 		execution.pause();
 	}
 
@@ -510,11 +510,17 @@ public class E4Utils {
 
 	public static <R extends Runnable> R syncExec(IBindingManager bindings, R runnable) {
 		IEclipseContext context = (IEclipseContext) bindings.wGetValue(IBindingManager.ECLIPSE_CONTEXT);
+		return syncExec(context, runnable);
+	}
+	public static <R extends Runnable> R syncExec(IEclipseContext context, R runnable) {
 		context.get(UISynchronize.class).syncExec(runnable);
 		return runnable;
 	}
 	public static <R extends Runnable> R asyncExec(IBindingManager bindings, R runnable) {
 		IEclipseContext context = (IEclipseContext) bindings.wGetValue(IBindingManager.ECLIPSE_CONTEXT);
+		return asyncExec(context, runnable);
+	}
+	public static <R extends Runnable> R asyncExec(IEclipseContext context, R runnable) {
 		context.get(UISynchronize.class).asyncExec(runnable);
 		return runnable;
 	}

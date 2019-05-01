@@ -21,7 +21,9 @@ import java.util.Set;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.e4.ui.debug.IDebugService;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.operations.IOperationProgressMonitor;
 import org.whole.lang.operations.OperationCanceledException;
 import org.whole.lang.ui.util.SuspensionKind;
 
@@ -34,16 +36,19 @@ public class ExecutionState {
 	protected IEntity sourceEntity;
 	protected IBindingManager bindings;
 	protected Set<String> includeNames;
-	protected boolean forceTermination;
+	protected IDebugService debugService;
+	protected boolean resumed;
 
 	public ExecutionState(SuspensionKind suspensionKind, Throwable throwable, 
-			IEntity sourceEntity, IBindingManager bindings, Set<String> includeNames) {
+			IEntity sourceEntity, IBindingManager bindings, Set<String> includeNames,
+			IDebugService debugService) {
 		this.suspensionKind = suspensionKind;
 		this.throwable = throwable;
 		this.sourceEntity = sourceEntity;
 		this.bindings = bindings;
 		this.includeNames = includeNames;
-		this.forceTermination = false;
+		this.debugService = debugService;
+		this.debugService.pushExecution(this);
 	}
 
 	public SuspensionKind getSuspensionKind() {
@@ -60,10 +65,15 @@ public class ExecutionState {
 	
 	public synchronized ExecutionState pause() {
 		try {
-			wait();
-			if (this.forceTermination)
+			while (!isCanceled() && !resumed)
+				wait(1000);
+
+			if (debugService.containsExecution(this))
+				debugService.removeExecution(this);
+
+			if (isCanceled()) {
 				throw new OperationCanceledException();
-			else
+			} else
 				return this;
 		} catch (InterruptedException e) {
 			throw new IllegalStateException(e);
@@ -71,15 +81,25 @@ public class ExecutionState {
 	}
 
 	public synchronized ExecutionState resume() {
-		notify();
+		this.resumed = true;
+		notifyAll();
 		return this;
 	}
 
 	public synchronized ExecutionState terminate() {
-		this.forceTermination = true;
-		notify();
+		setCanceled(true);
+		notifyAll();
 		return this;
 	}
+
+	protected boolean isCanceled() {
+		return bindings.wIsSet("progressMonitor") && ((IOperationProgressMonitor) bindings.wGetValue("progressMonitor")).isCanceled();
+	}
+	protected void setCanceled(boolean canceled) {
+		if (bindings.wIsSet("progressMonitor"))
+			((IOperationProgressMonitor) bindings.wGetValue("progressMonitor")).setCanceled(canceled);
+	}
+	
 
 	protected IEntity variablesModel;
 	public IEntity getVariablesModel() {

@@ -60,25 +60,25 @@ public class DebugService implements IDebugService {
 		return ConfigurationScope.INSTANCE.getNode(IE4UIConstants.BUNDLE_ID);
 	}
 
-	protected void fireExecutionAboutToPush(ExecutionState execution) {
+	protected void fireExecutionAboutToAdd(ExecutionState execution) {
 		Object[] listenersArray = listeners.getListeners(); 
 		for (int i = 0; i < listenersArray.length; i++)
-			((IExecutionListener) listenersArray[i]).executionAboutToPush(execution); 
+			((IExecutionListener) listenersArray[i]).executionAboutToAdd(execution); 
 	}
-	protected void fireExecutionPushed(ExecutionState execution) {
+	protected void fireExecutionAdded(ExecutionState execution) {
 		Object[] listenersArray = listeners.getListeners(); 
 		for (int i = 0; i < listenersArray.length; i++)
-			((IExecutionListener) listenersArray[i]).executionPushed(execution); 
+			((IExecutionListener) listenersArray[i]).executionAdded(execution); 
 	}
-	protected void fireExecutionAboutToPop(ExecutionState execution) {
+	protected void fireExecutionAboutToRemove(ExecutionState execution) {
 		Object[] listenersArray = listeners.getListeners(); 
 		for (int i = 0; i < listenersArray.length; i++)
-			((IExecutionListener) listenersArray[i]).executionAboutToPop(execution); 
+			((IExecutionListener) listenersArray[i]).executionAboutToRemove(execution); 
 	}
-	protected void fireExecutionPopped(ExecutionState execution) {
+	protected void fireExecutionRemoved(ExecutionState execution) {
 		Object[] listenersArray = listeners.getListeners(); 
 		for (int i = 0; i < listenersArray.length; i++)
-			((IExecutionListener) listenersArray[i]).executionPopped(execution); 
+			((IExecutionListener) listenersArray[i]).executionRemoved(execution); 
 	}
 	
 	public void addExecutionListener(IExecutionListener listener) {
@@ -131,18 +131,24 @@ public class DebugService implements IDebugService {
 		return executions.peek().getVariablesModel();
 	}
 
-	public synchronized void pushExecution(ExecutionState execution) {
-		fireExecutionAboutToPush(execution);
-		executions.push(execution);
-		fireExecutionPushed(execution);
+	public boolean containsExecution(ExecutionState execution) {
+		return executions.contains(execution);
 	}
-	public synchronized ExecutionState popExecution() {
-		ExecutionState execution = executions.peek();
-		fireExecutionAboutToPop(execution);
+	public synchronized ExecutionState peekExecution() {
+		return executions.peek();
+	}
+	public synchronized void pushExecution(ExecutionState execution) {
+		fireExecutionAboutToAdd(execution);
+		executions.push(execution);
+		fireExecutionAdded(execution);
+	}
+	public synchronized void removeExecution(ExecutionState execution) {
+		fireExecutionAboutToRemove(execution);
 		try {
-			return executions.removeFirst();
+			if (!executions.remove(execution))
+				throw new IllegalArgumentException("unknown execution");
 		} finally {
-			fireExecutionPopped(execution);
+			fireExecutionRemoved(execution);
 		}
 	}
 }
