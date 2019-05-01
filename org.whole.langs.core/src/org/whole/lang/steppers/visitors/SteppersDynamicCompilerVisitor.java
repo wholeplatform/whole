@@ -136,7 +136,8 @@ public class SteppersDynamicCompilerVisitor extends SteppersTraverseAllChildrenV
 		
 		if (EntityUtils.isResolver(entity.getArguments()) && stepper.producersSize()>0) {
 			//TODO && executable contains Argument
-			stepper.withArgumentProducers(stepper.producersSize());
+			stepper.withArguments(stepper.producersSize());
+			stepper.connectProducersWithArguments();
 		}
 		
 		stepperWeaver = (s) -> {

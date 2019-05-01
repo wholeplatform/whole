@@ -34,7 +34,8 @@ public class EntityGetter extends AbstractStepper {
 	public EntityScope entityScope;
 
 	public EntityGetter(EntityScope scope, boolean active) {
-		super(active ? 1 : 0);
+		if (active)
+			withArguments(1);
 		this.entityScope = scope;
 	}
 
@@ -89,7 +90,7 @@ public class EntityGetter extends AbstractStepper {
 		protected Set<EntityGetter> variableGetterSet = new HashSet<>();
 
 		public EntityScope() {
-			super(1);
+			withArguments(1);
 		}
 		public EntityScope(IEntity entity) {
 			this();

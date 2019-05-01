@@ -44,70 +44,43 @@ public abstract class AbstractStepper extends AbstractExecutable {
 	protected MutableArgumentDataFlowConsumer[] arguments;
 //	protected BitSet argumentsNeedInit;
 
-	protected AbstractStepper(ICloneContext cloneContext) {
-		this(0);
-		this.cloneContext = cloneContext;
+	protected static IExecutable[] EMPTY_PRODUCERS = new IExecutable[0];
+	protected static MutableArgumentDataFlowConsumer[] EMPTY_ARGUMENTS = new MutableArgumentDataFlowConsumer[0];
+
+	protected AbstractStepper() {
+		withProducers(EMPTY_PRODUCERS);
+		withArguments(EMPTY_ARGUMENTS);
 	}
-	protected AbstractStepper(IControlFlowProducer... producers) {
+
+	public AbstractStepper withProducersConnectedToArguments(IControlFlowProducer... producers) {
 		withProducers(producers);
-		withArgumentProducers(producersSize());
-	}
-	protected AbstractStepper(int argumentsSize) {
-		withProducers(new IExecutable[0]);
-		withArguments(argumentsSize);
-	}
+		withArguments(producersSize());
+		connectProducersWithArguments();
 
-    public int producersSize() {
-		return producers.length;
-	}
-	public IControlFlowProducer getProducer(int index) {
-		if (producers[index] == null && prototype != null) {
-			producers[index] = cloneContext.differentiate(prototype.getProducer(index));
-		}
-
-		IControlFlowProducer producer = producers[index];
-
-		if (producersNeedInit.get(index)) {
-			producersNeedInit.clear(index);
-			initProducer(producer, index);
-		}
-
-		return producer;
-	}
-
-	public void applyToExecutableProducers(Consumer<IControlFlowProducer> c) {
-		for (int i=0; i<producersSize(); i++)
-			getProducer(i).forEachExecutableProducer(c);
-	}
-
-	protected void initProducer(IControlFlowProducer p, int index) {
-		applyToExecutableProducers((cfp) -> {
-			IExecutable e = (IExecutable) cfp;
-			e.setBindings(getBindings());
-			e.reset(selfEntity);
-		});
-
-//		//FIXME API
-//		if (p instanceof AbstractNestedEvaluator)
-//			((AbstractNestedEvaluator) p).cloneContext = getCloneContext();
-	}
-
+		return this;
+	};
 	public AbstractStepper withProducers(IControlFlowProducer... producers) {
 		this.producers = producers;
 		producersNeedInit = new BitSet(producersSize());
 		producersNeedInit.set(0, producersSize(), true);
 		return this;
 	};
+	public AbstractStepper withArguments(MutableArgumentDataFlowConsumer... arguments) {
+		this.arguments = arguments;
+//		argumentsNeedInit = new BitSet(argumentsSize);
+//		argumentsNeedInit.set(0, producersSize(), true);
+		return this;
+	};
+	public AbstractStepper withArguments(int argumentsSize) {
+		withArguments(new MutableArgumentDataFlowConsumer[argumentsSize]);
 
-	public AbstractStepper withArgumentProducers(IExecutable... producers) {
-		withProducers(producers);
-		withArgumentProducers(producersSize());
+		for (int i=0; i<argumentsSize(); i++)
+			arguments[i] = new MutableArgumentDataFlowConsumer();
 
 		return this;
 	};
-	public AbstractStepper withArgumentProducers(int argumentsSize) {
-		withArguments(argumentsSize);
 
+	public void connectProducersWithArguments() {
 		for (int i=0; i<argumentsSize() && i<producersSize(); i++) {
 			IDataFlowConsumer dfc = getArgumentConsumer(i);
 			getProducer(i).forEachExecutableProducer((cfp) -> {
@@ -120,19 +93,8 @@ public abstract class AbstractStepper extends AbstractExecutable {
 		for (int i=0; i<producersSize(); i++)
 			if (getProducer(i) instanceof AbstractStepper)
 				((AbstractStepper) getProducer(i)).cloneContext = getDifferentiationContext();
-
-		return this;
 	};
-	public AbstractStepper withArguments(int argumentsSize) {
-		arguments = new MutableArgumentDataFlowConsumer[argumentsSize];
-		for (int i=0; i<argumentsSize(); i++)
-			arguments[i] = new MutableArgumentDataFlowConsumer();
 
-//		argumentsNeedInit = new BitSet(argumentsSize);
-//		argumentsNeedInit.set(0, producersSize(), true);
-
-		return this;
-	};
 
 	@Override
 	public IExecutable clone() {
@@ -190,6 +152,41 @@ public abstract class AbstractStepper extends AbstractExecutable {
 		for (int i=0; i<argumentsSize(); i++)
 			if (arguments[i] != null)
 				arguments[i].executable = null;
+	}
+
+	public void applyToExecutableProducers(Consumer<IControlFlowProducer> c) {
+		for (int i=0; i<producersSize(); i++)
+			getProducer(i).forEachExecutableProducer(c);
+	}
+
+    public int producersSize() {
+		return producers.length;
+	}
+
+	public IControlFlowProducer getProducer(int index) {
+		if (producers[index] == null && prototype != null) {
+			producers[index] = cloneContext.differentiate(prototype.getProducer(index));
+		}
+
+		IControlFlowProducer producer = producers[index];
+
+		if (producersNeedInit.get(index)) {
+			producersNeedInit.clear(index);
+			initProducer(producer, index);
+		}
+
+		return producer;
+	}
+	protected void initProducer(IControlFlowProducer p, int index) {
+		applyToExecutableProducers((cfp) -> {
+			IExecutable e = (IExecutable) cfp;
+			e.setBindings(getBindings());
+			e.reset(selfEntity);
+		});
+
+//		//FIXME API
+//		if (p instanceof AbstractNestedEvaluator)
+//			((AbstractNestedEvaluator) p).cloneContext = getCloneContext();
 	}
 
 	public int argumentsSize() {
@@ -514,15 +511,18 @@ public abstract class AbstractStepper extends AbstractExecutable {
 		protected IExecutable executable;
 		protected IExecutable evaluator;
 
-		public ExecutableStepper(ICloneContext cloneContext) {
-			super(cloneContext);
-		}
-		public ExecutableStepper(IControlFlowProducer... producers) {
-			super(producers);
-		}
-		public ExecutableStepper(int argumentsSize) {
-			super(argumentsSize);
-		}
+		@Override
+		public ExecutableStepper withArguments(int argumentsSize) {
+			super.withArguments(argumentsSize);
+			return this;
+		};
+
+		@Override
+		public ExecutableStepper withProducersConnectedToArguments(IControlFlowProducer... producers) {
+			super.withProducersConnectedToArguments(producers);
+			return this;
+		};
+
 		public ExecutableStepper withExecutable(IExecutable executable) {
 			this.executable = executable;
 			return this;

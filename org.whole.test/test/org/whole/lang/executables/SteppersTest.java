@@ -72,9 +72,9 @@ public class SteppersTest {
     }
 
 	public static class TesterStepper extends AbstractStepper {
-		public TesterStepper(IExecutable... producers) {
-			super(producers);
-		}
+//		public TesterStepper() {
+//			super();
+//		}
 
 		@Override
 		protected IExecutable getExecutableAction() {
@@ -204,7 +204,7 @@ public class SteppersTest {
 		AbstractStepper arg0Stepper = new ExecutableStepper().withExecutable(f.createConstant(VALUES[1], false));
 		AbstractStepper arg1Stepper = new ExecutableStepper().withExecutable(f.createConstant(VALUES[2], false));
 
-		ExecutableStepper addStepper = new ExecutableStepper(arg0Stepper, arg1Stepper);
+		ExecutableStepper addStepper = new ExecutableStepper().withProducersConnectedToArguments(arg0Stepper, arg1Stepper);
 		addStepper.withExecutable(
 				MathUtils.createAddition(
 						addStepper.getArgumentExecutable(0),
@@ -228,10 +228,10 @@ public class SteppersTest {
 		TesterDataFlowConsumer c = new TesterDataFlowConsumer();
  		
 		AbstractStepper arg0Stepper = new ExecutableStepper().withExecutable(f.createConstant(VALUES[1], false));
-		ExecutableStepper arg1Stepper = new ExecutableStepper(1);
+		ExecutableStepper arg1Stepper = new ExecutableStepper().withArguments(1);
 		arg1Stepper.withExecutable(arg1Stepper.getArgumentExecutable(0));
 
-		ExecutableStepper addStepper = new ExecutableStepper(arg0Stepper, arg1Stepper);
+		ExecutableStepper addStepper = new ExecutableStepper().withProducersConnectedToArguments(arg0Stepper, arg1Stepper);
 		addStepper.withExecutable(
 				MathUtils.createAddition(
 						addStepper.getArgumentExecutable(0),
@@ -258,9 +258,9 @@ public class SteppersTest {
 		TesterDataFlowConsumer c = new TesterDataFlowConsumer();
  		
 		AbstractStepper arg0Stepper = new ExecutableStepper().withExecutable(f.createConstant(VALUES[1], false));
-		ExecutableStepper arg1Stepper = new ExecutableStepper(1);
+		ExecutableStepper arg1Stepper = new ExecutableStepper().withArguments(1);
 		arg1Stepper.withExecutable(arg1Stepper.getArgumentExecutable(0));
-		ExecutableStepper addStepper = new ExecutableStepper(arg0Stepper, arg1Stepper);
+		ExecutableStepper addStepper = new ExecutableStepper().withProducersConnectedToArguments(arg0Stepper, arg1Stepper);
 		addStepper.withExecutable(
 				MathUtils.createAddition(
 						addStepper.getArgumentExecutable(0),
@@ -304,25 +304,25 @@ public class SteppersTest {
 	public void testStepperWithCircularArgumentsAsync() {
 		TesterDataFlowConsumer c = new TesterDataFlowConsumer();
 
-		ExecutableStepper baseStepper = new ExecutableStepper(2);
+		ExecutableStepper baseStepper = new ExecutableStepper().withArguments(2);
 		baseStepper.withExecutable(
 				MathUtils.createDivision(
 						baseStepper.getArgumentExecutable(0),
 						baseStepper.getArgumentExecutable(1)));
-		ExecutableStepper heightStepper = new ExecutableStepper(2);
+		ExecutableStepper heightStepper = new ExecutableStepper().withArguments(2);
 		heightStepper.withExecutable(
 				MathUtils.createDivision(
 						heightStepper.getArgumentExecutable(0),
 						heightStepper.getArgumentExecutable(1)));
-		ExecutableStepper areaStepper = new ExecutableStepper(baseStepper, heightStepper);
+		ExecutableStepper areaStepper = new ExecutableStepper().withProducersConnectedToArguments(baseStepper, heightStepper);
 		areaStepper.withExecutable(
 				MathUtils.createMultiplication(
 						areaStepper.getArgumentExecutable(0),
 						areaStepper.getArgumentExecutable(1)));
 
 		//TODO replace with addCall + addAction
-		baseStepper.withArgumentProducers(areaStepper, heightStepper);
-		heightStepper.withArgumentProducers(areaStepper, baseStepper);
+		baseStepper.withProducersConnectedToArguments(areaStepper, heightStepper);
+		heightStepper.withProducersConnectedToArguments(areaStepper, baseStepper);
 
 		areaStepper.addAction(c);
 		areaStepper.setBindings(bmf.createBindingManager());
@@ -365,10 +365,10 @@ public class SteppersTest {
 	@Test
 	public void testCloneContextInit() {
 		AbstractStepper arg0Stepper = new ExecutableStepper().withExecutable(f.createConstant(VALUES[1], false));
-		ExecutableStepper arg1Stepper = new ExecutableStepper(1);
+		ExecutableStepper arg1Stepper = new ExecutableStepper().withArguments(1);
 		arg1Stepper.withExecutable(arg1Stepper.getArgumentExecutable(0));
 
-		ExecutableStepper addStepper = new ExecutableStepper(arg0Stepper, arg1Stepper);
+		ExecutableStepper addStepper = new ExecutableStepper().withProducersConnectedToArguments(arg0Stepper, arg1Stepper);
 		addStepper.withExecutable(
 				MathUtils.createAddition(
 						addStepper.getArgumentExecutable(0),
@@ -385,10 +385,10 @@ public class SteppersTest {
 		TesterDataFlowConsumer c = new TesterDataFlowConsumer();
 
 		AbstractStepper arg0Stepper = new ExecutableStepper().withExecutable(f.createConstant(VALUES[1], false));
-		ExecutableStepper arg1Stepper = new ExecutableStepper(1);
+		ExecutableStepper arg1Stepper = new ExecutableStepper().withArguments(1);
 		arg1Stepper.withExecutable(arg1Stepper.getArgumentExecutable(0));
 
-		ExecutableStepper addStepper = new ExecutableStepper(arg0Stepper, arg1Stepper);
+		ExecutableStepper addStepper = new ExecutableStepper().withProducersConnectedToArguments(arg0Stepper, arg1Stepper);
 		addStepper.withExecutable(
 				MathUtils.createAddition(
 						addStepper.getArgumentExecutable(0),
@@ -493,20 +493,20 @@ public class SteppersTest {
 	public void testVariableScope() {
 		EntityScope aScope = new EntityScope(VALUES[3]);
 		AbstractStepper aGetter = aScope.createConstantPassiveGetter();
-		ExecutableStepper bAdder = new ExecutableStepper(aGetter);
+		ExecutableStepper bAdder = new ExecutableStepper().withProducersConnectedToArguments(aGetter);
 		bAdder.withExecutable(MathUtils.createAddition(bAdder.getArgumentExecutable(0), f.createConstant(VALUES[1], false)));
 
 		EntityScope a1Scope = aScope.getNestedScope();
 		a1Scope.setArgument(0, VALUES[5]);
 		AbstractStepper a1Getter = a1Scope.createConstantPassiveGetter();
-		ExecutableStepper cAdder = new ExecutableStepper(a1Getter);
+		ExecutableStepper cAdder = new ExecutableStepper().withProducersConnectedToArguments(a1Getter);
 		cAdder.withExecutable(MathUtils.createAddition(cAdder.getArgumentExecutable(0), f.createConstant(VALUES[1], false)));
 
 		AbstractStepper aGetter2 = aScope.createConstantPassiveGetter();
-		ExecutableStepper eAdder = new ExecutableStepper(aGetter2);
+		ExecutableStepper eAdder = new ExecutableStepper().withProducersConnectedToArguments(aGetter2);
 		eAdder.withExecutable(MathUtils.createAddition(eAdder.getArgumentExecutable(0), f.createConstant(VALUES[1], false)));
 
-		ExecutableStepper caller = new ExecutableStepper(bAdder, cAdder, eAdder, aScope, a1Scope); //FIXME scopes are not nested
+		ExecutableStepper caller = new ExecutableStepper().withProducersConnectedToArguments(bAdder, cAdder, eAdder, aScope, a1Scope); //FIXME scopes are not nested
 		caller.withExecutable(f.createTupleFactory(caller.getArgumentExecutable(0), caller.getArgumentExecutable(1), caller.getArgumentExecutable(2)));
 
 		IEntity tuple = caller.evaluateNext();
@@ -558,7 +558,7 @@ public class SteppersTest {
 		aScope.setArgument(0, VALUES[0]);
 		AbstractStepper aSetter = aScope.createConstantActiveGetter();
 		AbstractStepper aGetter = aScope.createConstantPassiveGetter();
-		ExecutableStepper bAdder = new ExecutableStepper(aGetter);
+		ExecutableStepper bAdder = new ExecutableStepper().withProducersConnectedToArguments(aGetter);
 		bAdder.withExecutable(MathUtils.createAddition(bAdder.getArgumentExecutable(0), f.createConstant(VALUES[1], false)));
 
 //		EntityScopeStepper aNestedScope = aScope.getNestedScope();
@@ -577,7 +577,7 @@ public class SteppersTest {
 //		};
 
 //		AbstractStepper caller = new AbstractStepper(bAdder, cAdder, eAdder, aSetter, aScope, aNestedScope) {
-		ExecutableStepper caller = new ExecutableStepper(bAdder, aSetter, aScope);
+		ExecutableStepper caller = new ExecutableStepper().withProducersConnectedToArguments(bAdder, aSetter, aScope);
 		caller.withExecutable(f.createTupleFactory(caller.getArgumentExecutable(0)));//, caller.getExecutableArgument(1), caller.getExecutableArgument(2)));
 		aSetter.setArgument(0, VALUES[3]);
 
@@ -599,7 +599,7 @@ public class SteppersTest {
 		aScope.setArgument(0, VALUES[0]);
 		AbstractStepper aSetter = aScope.createConstantActiveGetter();
 		AbstractStepper aGetter = aScope.createConstantPassiveGetter();
-		ExecutableStepper bAdder = new ExecutableStepper(aGetter);
+		ExecutableStepper bAdder = new ExecutableStepper().withProducersConnectedToArguments(aGetter);
 		bAdder.withExecutable(MathUtils.createAddition(bAdder.getArgumentExecutable(0), f.createConstant(VALUES[1], false)));
 
 //		EntityScopeStepper aNestedScope = aScope.getNestedScope();
@@ -618,7 +618,7 @@ public class SteppersTest {
 //		};
 
 //		AbstractStepper caller = new AbstractStepper(bAdder, cAdder, eAdder, aSetter, aScope, aNestedScope) {
-		ExecutableStepper caller = new ExecutableStepper(bAdder, aSetter, aScope);
+		ExecutableStepper caller = new ExecutableStepper().withProducersConnectedToArguments(bAdder, aSetter, aScope);
 		caller.withExecutable(f.createTupleFactory(caller.getArgumentExecutable(0)));//, caller.getExecutableArgument(1), caller.getExecutableArgument(2)));
 		aSetter.setArgument(0, VALUES[3]);
 
