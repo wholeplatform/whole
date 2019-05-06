@@ -23,6 +23,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
@@ -59,10 +60,25 @@ public class JDTResourceBindingsContributor implements IResourceBindingsContribu
 
 					addSourceFolderBindings(bm, packageFragment.getParent().getCorrespondingResource());
 				} else {
-					for (IPackageFragmentRoot packageFragmentRoot : javaProject.getAllPackageFragmentRoots()) {
-						if (packageFragmentRoot.getKind() == IPackageFragmentRoot.K_SOURCE) {
-							addSourceFolderBindings(bm, packageFragmentRoot.getCorrespondingResource());
+					IContainer sourceFolder = folder.getParent();
+					while (sourceFolder != null) {
+						IJavaElement javaElement = JavaCore.create(sourceFolder);
+						if (javaElement != null && javaElement.getElementType() == IJavaElement.PACKAGE_FRAGMENT_ROOT)
 							break;
+						sourceFolder = sourceFolder.getParent();
+					}
+
+					if (sourceFolder != null) {
+						IPath relativeSourceFolderPath = folder.getFullPath().makeRelativeTo(sourceFolder.getFullPath());
+						if (!relativeSourceFolderPath.isAbsolute())
+							bm.wDefValue("packageName", StringUtils.packageName(relativeSourceFolderPath.toOSString()));
+						addSourceFolderBindings(bm, sourceFolder);
+					} else {
+						for (IPackageFragmentRoot packageFragmentRoot : javaProject.getAllPackageFragmentRoots()) {
+							if (packageFragmentRoot.getKind() == IPackageFragmentRoot.K_SOURCE) {
+								addSourceFolderBindings(bm, packageFragmentRoot.getCorrespondingResource());
+								break;
+							}
 						}
 					}
 				}
