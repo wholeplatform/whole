@@ -34,7 +34,9 @@ public interface ISteppersVisitor extends IVisitor {
 
     public void visit(Declarations entity);
 
-    public void visit(StepperDeclaration entity);
+    public void visit(Step entity);
+
+    public void visit(Choose entity);
 
     public void visit(StepperReference entity);
 

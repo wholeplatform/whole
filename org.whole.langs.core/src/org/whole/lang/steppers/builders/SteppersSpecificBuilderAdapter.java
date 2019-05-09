@@ -115,16 +115,28 @@ public class SteppersSpecificBuilderAdapter extends GenericBuilderContext implem
         _wEntity(SteppersEntityDescriptorEnum.Declarations);
     }
 
-    public void StepperDeclaration() {
-        wEntity(SteppersEntityDescriptorEnum.StepperDeclaration);
+    public void Step() {
+        wEntity(SteppersEntityDescriptorEnum.Step);
     }
 
-    public void StepperDeclaration_() {
-        wEntity_(SteppersEntityDescriptorEnum.StepperDeclaration);
+    public void Step_() {
+        wEntity_(SteppersEntityDescriptorEnum.Step);
     }
 
-    public void _StepperDeclaration() {
-        _wEntity(SteppersEntityDescriptorEnum.StepperDeclaration);
+    public void _Step() {
+        _wEntity(SteppersEntityDescriptorEnum.Step);
+    }
+
+    public void Choose() {
+        wEntity(SteppersEntityDescriptorEnum.Choose);
+    }
+
+    public void Choose_() {
+        wEntity_(SteppersEntityDescriptorEnum.Choose);
+    }
+
+    public void _Choose() {
+        _wEntity(SteppersEntityDescriptorEnum.Choose);
     }
 
     public void StepperReference() {

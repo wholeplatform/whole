@@ -28,6 +28,7 @@ import org.whole.lang.steppers.model.Argument;
 import org.whole.lang.steppers.model.ArgumentBranch;
 import org.whole.lang.steppers.model.CallBranch;
 import org.whole.lang.steppers.model.Calls;
+import org.whole.lang.steppers.model.Choose;
 import org.whole.lang.steppers.model.GoalBranch;
 import org.whole.lang.steppers.model.ISteppersEntity;
 import org.whole.lang.steppers.model.Name;
@@ -35,7 +36,7 @@ import org.whole.lang.steppers.model.OrArgument;
 import org.whole.lang.steppers.model.OrGoals;
 import org.whole.lang.steppers.model.ResultAction;
 import org.whole.lang.steppers.model.Scope;
-import org.whole.lang.steppers.model.StepperDeclaration;
+import org.whole.lang.steppers.model.Step;
 import org.whole.lang.steppers.model.StepperReference;
 import org.whole.lang.steppers.model.Target;
 import org.whole.lang.steppers.reflect.SteppersEntityDescriptorEnum;
@@ -78,8 +79,13 @@ public class SteppersPartFactoryVisitor extends SteppersIdentityDefaultVisitor i
     }
 
     @Override
-    public void visit(StepperDeclaration entity) {
-        part = new StepperDeclarationPart();
+    public void visit(Step entity) {
+        part = new StepPart();
+    }
+
+    @Override
+    public void visit(Choose entity) {
+        part = new ChoosePart();
     }
 
     @Override

@@ -18,7 +18,7 @@
 package org.whole.lang.steppers.model.impl;
 
 import org.whole.lang.model.AbstractSimpleEntity;
-import org.whole.lang.steppers.model.StepperDeclaration;
+import org.whole.lang.steppers.model.Step;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.steppers.reflect.SteppersEntityDescriptorEnum;
 import org.whole.lang.steppers.visitors.ISteppersVisitor;
@@ -35,15 +35,15 @@ import org.whole.lang.steppers.model.Expression;
 /**
  *  @generator Whole
  */
-public class StepperDeclarationImpl extends AbstractSimpleEntity implements StepperDeclaration {
+public class StepImpl extends AbstractSimpleEntity implements Step {
     private static final long serialVersionUID = 1;
 
-    public EntityDescriptor<StepperDeclaration> wGetEntityDescriptor() {
-        return SteppersEntityDescriptorEnum.StepperDeclaration;
+    public EntityDescriptor<Step> wGetEntityDescriptor() {
+        return SteppersEntityDescriptorEnum.Step;
     }
 
     public int wGetEntityOrd() {
-        return SteppersEntityDescriptorEnum.StepperDeclaration_ord;
+        return SteppersEntityDescriptorEnum.Step_ord;
     }
 
     public void accept(ISteppersVisitor visitor) {

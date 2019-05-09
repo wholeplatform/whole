@@ -49,6 +49,8 @@ public interface ExecutableFactory {
 	}
 
 
+	IExecutable createDone();
+
 	IExecutable createEmpty();
 
 	IExecutable createFailure(Throwable failure);

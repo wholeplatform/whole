@@ -79,8 +79,11 @@ public class SteppersGenericBuilderAdapter extends GenericIdentityBuilder {
             case SteppersEntityDescriptorEnum.Declarations_ord :
             specificBuilder.Declarations();
             break;
-            case SteppersEntityDescriptorEnum.StepperDeclaration_ord :
-            specificBuilder.StepperDeclaration();
+            case SteppersEntityDescriptorEnum.Step_ord :
+            specificBuilder.Step();
+            break;
+            case SteppersEntityDescriptorEnum.Choose_ord :
+            specificBuilder.Choose();
             break;
             case SteppersEntityDescriptorEnum.Target_ord :
             specificBuilder.Target();
@@ -129,8 +132,11 @@ public class SteppersGenericBuilderAdapter extends GenericIdentityBuilder {
             case SteppersEntityDescriptorEnum.Declarations_ord :
             specificBuilder.Declarations_();
             break;
-            case SteppersEntityDescriptorEnum.StepperDeclaration_ord :
-            specificBuilder.StepperDeclaration_();
+            case SteppersEntityDescriptorEnum.Step_ord :
+            specificBuilder.Step_();
+            break;
+            case SteppersEntityDescriptorEnum.Choose_ord :
+            specificBuilder.Choose_();
             break;
             case SteppersEntityDescriptorEnum.Target_ord :
             specificBuilder.Target_();
@@ -179,8 +185,11 @@ public class SteppersGenericBuilderAdapter extends GenericIdentityBuilder {
             case SteppersEntityDescriptorEnum.Declarations_ord :
             specificBuilder._Declarations();
             break;
-            case SteppersEntityDescriptorEnum.StepperDeclaration_ord :
-            specificBuilder._StepperDeclaration();
+            case SteppersEntityDescriptorEnum.Step_ord :
+            specificBuilder._Step();
+            break;
+            case SteppersEntityDescriptorEnum.Choose_ord :
+            specificBuilder._Choose();
             break;
             case SteppersEntityDescriptorEnum.Target_ord :
             specificBuilder._Target();

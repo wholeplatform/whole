@@ -28,14 +28,14 @@ import org.whole.lang.steppers.reflect.SteppersFeatureDescriptorEnum;
 /**
  *  @generator Whole
  */
-public class StepperDeclarationAdapter extends AbstractEntityAdapter implements StepperDeclaration {
+public class ChooseAdapter extends AbstractEntityAdapter implements Choose {
     private static final long serialVersionUID = 1;
 
-    public StepperDeclarationAdapter(IEntity implementor) {
+    public ChooseAdapter(IEntity implementor) {
         super(implementor);
     }
 
-    public StepperDeclarationAdapter() {
+    public ChooseAdapter() {
     }
 
     public void accept(ISteppersVisitor visitor) {
@@ -43,8 +43,8 @@ public class StepperDeclarationAdapter extends AbstractEntityAdapter implements 
             visitor.visit(this);
     }
 
-    public EntityDescriptor<StepperDeclaration> wGetEntityDescriptor() {
-        return SteppersEntityDescriptorEnum.StepperDeclaration;
+    public EntityDescriptor<Choose> wGetEntityDescriptor() {
+        return SteppersEntityDescriptorEnum.Choose;
     }
 
     public Name getName() {
@@ -63,35 +63,11 @@ public class StepperDeclarationAdapter extends AbstractEntityAdapter implements 
         wSet(SteppersFeatureDescriptorEnum.goals, goals);
     }
 
-    public CallFlow getCalls() {
-        return wGet(SteppersFeatureDescriptorEnum.calls).wGetAdapter(SteppersEntityDescriptorEnum.CallFlow);
+    public Calls getCalls() {
+        return wGet(SteppersFeatureDescriptorEnum.calls).wGetAdapter(SteppersEntityDescriptorEnum.Calls);
     }
 
-    public void setCalls(CallFlow calls) {
+    public void setCalls(Calls calls) {
         wSet(SteppersFeatureDescriptorEnum.calls, calls);
-    }
-
-    public ArgumentFlow getArguments() {
-        return wGet(SteppersFeatureDescriptorEnum.arguments).wGetAdapter(SteppersEntityDescriptorEnum.ArgumentFlow);
-    }
-
-    public void setArguments(ArgumentFlow arguments) {
-        wSet(SteppersFeatureDescriptorEnum.arguments, arguments);
-    }
-
-    public ActionFlow getActions() {
-        return wGet(SteppersFeatureDescriptorEnum.actions).wGetAdapter(SteppersEntityDescriptorEnum.ActionFlow);
-    }
-
-    public void setActions(ActionFlow actions) {
-        wSet(SteppersFeatureDescriptorEnum.actions, actions);
-    }
-
-    public Expression getExpression() {
-        return wGet(SteppersFeatureDescriptorEnum.expression).wGetAdapter(SteppersEntityDescriptorEnum.Expression);
-    }
-
-    public void setExpression(Expression expression) {
-        wSet(SteppersFeatureDescriptorEnum.expression, expression);
     }
 }

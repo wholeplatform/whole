@@ -46,7 +46,11 @@ public class SteppersFailureVisitor extends SteppersIdentityVisitor {
         throw new VisitException();
     }
 
-    public void visit(StepperDeclaration entity) {
+    public void visit(Step entity) {
+        throw new VisitException();
+    }
+
+    public void visit(Choose entity) {
         throw new VisitException();
     }
 

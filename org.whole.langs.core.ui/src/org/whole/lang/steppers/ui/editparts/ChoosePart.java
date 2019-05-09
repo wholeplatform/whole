@@ -15,12 +15,32 @@
  *  You should have received a copy of the GNU Lesser General Public License
  *  along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.steppers.model;
+package org.whole.lang.steppers.ui.editparts;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.eclipse.draw2d.IFigure;
+import org.whole.lang.model.IEntity;
+import org.whole.lang.steppers.model.Choose;
+import org.whole.lang.steppers.ui.figures.ChooseFigure;
+import org.whole.lang.ui.editparts.AbstractContentPanePart;
 
 /**
  *  @generator Whole
  */
-public interface Stepper extends ISteppersEntity, Expression, Declaration, GoalFlow, CallFlow, ArgumentFlow, ActionFlow {
+public class ChoosePart extends AbstractContentPanePart {
 
+    protected IFigure createFigure() {
+        return new ChooseFigure();
+    }
+
+    protected List<IEntity> getModelSpecificChildren() {
+        Choose entity = getModelEntity();
+        List<IEntity> children = new ArrayList<IEntity>(2);
+        children.add(entity.getName());
+        children.add(entity.getCalls());
+//		children.add(entity.getGoals());
+        return children;
+    }
 }

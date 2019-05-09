@@ -113,6 +113,10 @@ import org.whole.lang.util.ResourceUtils;
  * @author Riccardo Solmi
  */
 public class RegularExecutableFactory implements ExecutableFactory {
+	public IExecutable createDone() {
+		return new EmptyExecutable();//TODO ? Void constant
+	}
+
 	public IExecutable createEmpty() {
 		return new EmptyExecutable();
 	}

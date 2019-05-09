@@ -25,7 +25,7 @@ import org.whole.lang.ui.layout.AbstractEntityLayout;
 /**
  * @author Riccardo Solmi
  */
-public class StepperDeclarationLayout extends AbstractEntityLayout {
+public class StepLayout extends AbstractEntityLayout {
 	public static final Insets SHAPE_MARGIN = new Insets(4);
 	public static final Insets SHAPE_PADDING = new Insets(4);
 	public static final Dimension TREE_SPACING = new Dimension(8, 8);

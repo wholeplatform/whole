@@ -40,6 +40,10 @@ public class AbstractDecoratedExecutableFactory implements ExecutableFactory {
 		return new InstrumentingExecutable(executable);
 	}
 
+	public IExecutable createDone() {
+		return decorate(factory.createDone());
+	}
+
 	public IExecutable createEmpty() {
 		return decorate(factory.createEmpty());
 	}

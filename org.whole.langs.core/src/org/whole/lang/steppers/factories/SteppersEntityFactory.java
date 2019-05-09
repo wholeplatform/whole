@@ -84,16 +84,28 @@ public class SteppersEntityFactory extends GenericEntityFactory {
         return clone(SteppersEntityDescriptorEnum.Declarations, initialSize);
     }
 
-    public StepperDeclaration createStepperDeclaration() {
-        return create(SteppersEntityDescriptorEnum.StepperDeclaration);
+    public Step createStep() {
+        return create(SteppersEntityDescriptorEnum.Step);
     }
 
-    public StepperDeclaration createStepperDeclaration(Name name, GoalFlow goals, CallFlow calls, ArgumentFlow arguments, ActionFlow actions, Expression expression) {
-        return create(SteppersEntityDescriptorEnum.StepperDeclaration, name, goals, calls, arguments, actions, expression);
+    public Step createStep(Name name, GoalFlow goals, CallFlow calls, ArgumentFlow arguments, ActionFlow actions, Expression expression) {
+        return create(SteppersEntityDescriptorEnum.Step, name, goals, calls, arguments, actions, expression);
     }
 
-    public IEntityBuilder<StepperDeclaration> buildStepperDeclaration() {
-        return new EntityBuilder<StepperDeclaration>(create(SteppersEntityDescriptorEnum.StepperDeclaration));
+    public IEntityBuilder<Step> buildStep() {
+        return new EntityBuilder<Step>(create(SteppersEntityDescriptorEnum.Step));
+    }
+
+    public Choose createChoose() {
+        return create(SteppersEntityDescriptorEnum.Choose);
+    }
+
+    public Choose createChoose(Name name, GoalFlow goals, Calls calls) {
+        return create(SteppersEntityDescriptorEnum.Choose, name, goals, calls);
+    }
+
+    public IEntityBuilder<Choose> buildChoose() {
+        return new EntityBuilder<Choose>(create(SteppersEntityDescriptorEnum.Choose));
     }
 
     public StepperReference createStepperReference() {

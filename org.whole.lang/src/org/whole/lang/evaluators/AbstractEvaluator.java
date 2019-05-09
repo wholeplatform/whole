@@ -59,7 +59,7 @@ public abstract class AbstractEvaluator extends AbstractExecutable {
 
 	public void call() {
 		if (evaluateRemaining() != null)
-			getAction().accept(ExecutableFactory.instance.createEmpty());
+			getAction().accept(ExecutableFactory.instance.createDone());
 	}
 }
 

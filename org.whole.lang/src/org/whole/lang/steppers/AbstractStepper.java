@@ -22,6 +22,7 @@ import java.util.BitSet;
 import java.util.function.Consumer;
 
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.evaluators.MultiValuedRunnableEvaluator;
 import org.whole.lang.executables.AbstractExecutable;
 import org.whole.lang.executables.ExecutableFactory;
 import org.whole.lang.executables.IExecutable;
@@ -44,8 +45,8 @@ public abstract class AbstractStepper extends AbstractExecutable {
 	protected MutableArgumentDataFlowConsumer[] arguments;
 //	protected BitSet argumentsNeedInit;
 
-	protected static IExecutable[] EMPTY_PRODUCERS = new IExecutable[0];
-	protected static MutableArgumentDataFlowConsumer[] EMPTY_ARGUMENTS = new MutableArgumentDataFlowConsumer[0];
+	protected static final IExecutable[] EMPTY_PRODUCERS = new IExecutable[0];
+	protected static final MutableArgumentDataFlowConsumer[] EMPTY_ARGUMENTS = new MutableArgumentDataFlowConsumer[0];
 
 	protected AbstractStepper() {
 		withProducers(EMPTY_PRODUCERS);
@@ -206,6 +207,19 @@ public abstract class AbstractStepper extends AbstractExecutable {
 //		}
 
 		return consumer;
+	}
+
+	public IExecutable createGetArgumentExecutable(int index) {
+		return new MultiValuedRunnableEvaluator( (selfEntity, bm, args) -> {
+			bm.setExecutableResult(getArgumentExecutable(index));
+		}) {
+			@Override
+			public void toString(StringBuilder sb) {
+				sb.append("arg(");
+				sb.append(index);
+				sb.append(")");
+			}
+		};
 	}
 
 	public IExecutable getArgumentExecutable(int index) {
@@ -377,9 +391,6 @@ public abstract class AbstractStepper extends AbstractExecutable {
 	public void addAction(IControlFlowProducer producer) {
 		addAction(new GoalAction(producer));
 	}
-	public void addDoneAction(IDataFlowConsumer consumer) {
-		addAction(new DoneAction(consumer));
-	}
 	public void addAction(TesterDataFlowConsumer tester) {
 		addFirstAction(tester);
 	}
@@ -408,7 +419,7 @@ public abstract class AbstractStepper extends AbstractExecutable {
 		}
 
 		public void call() {
-			consumer.accept(ExecutableFactory.instance.createEmpty());
+			consumer.accept(ExecutableFactory.instance.createDone());
 		}
 
 		public void toString(StringBuilder sb) {
@@ -438,25 +449,6 @@ public abstract class AbstractStepper extends AbstractExecutable {
 		}
 	}
 
-	public static class DoneAction extends AbstractDataFlowConsumer {
-		public IDataFlowConsumer consumer;
-
-		public DoneAction(IDataFlowConsumer consumer) {
-			this.consumer = consumer;
-		}
-
-		@Override
-		public IDataFlowConsumer clone(ICloneContext cc) {
-			DoneAction action = (DoneAction) super.clone(cc);
-			//TODO lazy clone
-			action.consumer = cc.differentiate(consumer);
-			return action;
-		}
-
-		@Override
-		public void accept(IExecutable executable) {
-		}
-	}
 
 	public class MutableArgumentDataFlowConsumer extends AbstractDataFlowConsumer {
 		public IExecutable executable;
@@ -608,6 +600,13 @@ public abstract class AbstractStepper extends AbstractExecutable {
 			}
 
 			return evaluator.evaluateRemaining();
+		}
+
+		@Override
+		public void toString(StringBuilder sb) {
+			if (executable != null)
+				executable.toString(sb);
+			super.toString(sb);
 		}
 	}
 }

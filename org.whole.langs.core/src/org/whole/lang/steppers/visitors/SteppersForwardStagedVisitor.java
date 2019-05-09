@@ -40,7 +40,11 @@ public class SteppersForwardStagedVisitor extends SteppersIdentityVisitor {
         stagedVisit(entity);
     }
 
-    public void visit(StepperDeclaration entity) {
+    public void visit(Step entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(Choose entity) {
         stagedVisit(entity);
     }
 

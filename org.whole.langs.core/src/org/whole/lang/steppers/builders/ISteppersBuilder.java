@@ -65,11 +65,17 @@ public interface ISteppersBuilder extends IBuilder {
 
     public void _Declarations();
 
-    public void StepperDeclaration();
+    public void Step();
 
-    public void StepperDeclaration_();
+    public void Step_();
 
-    public void _StepperDeclaration();
+    public void _Step();
+
+    public void Choose();
+
+    public void Choose_();
+
+    public void _Choose();
 
     public void StepperReference();
 

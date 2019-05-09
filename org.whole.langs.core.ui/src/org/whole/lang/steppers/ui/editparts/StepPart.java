@@ -19,23 +19,24 @@ package org.whole.lang.steppers.ui.editparts;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.eclipse.draw2d.IFigure;
-import org.whole.lang.steppers.model.StepperDeclaration;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.steppers.model.Step;
+import org.whole.lang.steppers.ui.figures.StepFigure;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
-import org.whole.lang.steppers.ui.figures.StepperDeclarationFigure;
 
 /**
  *  @generator Whole
  */
-public class StepperDeclarationPart extends AbstractContentPanePart {
+public class StepPart extends AbstractContentPanePart {
 
     protected IFigure createFigure() {
-        return new StepperDeclarationFigure();
+        return new StepFigure();
     }
 
     protected List<IEntity> getModelSpecificChildren() {
-        StepperDeclaration entity = getModelEntity();
+        Step entity = getModelEntity();
         List<IEntity> children = new ArrayList<IEntity>(5);
         children.add(entity.getName());
         children.add(entity.getExpression());

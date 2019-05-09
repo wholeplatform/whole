@@ -41,7 +41,7 @@ import org.whole.lang.steppers.model.Name;
 import org.whole.lang.steppers.model.OrArgument;
 import org.whole.lang.steppers.model.ResultAction;
 import org.whole.lang.steppers.model.Scope;
-import org.whole.lang.steppers.model.StepperDeclaration;
+import org.whole.lang.steppers.model.Step;
 import org.whole.lang.steppers.model.StepperReference;
 import org.whole.lang.steppers.model.Target;
 import org.whole.lang.steppers.reflect.SteppersEntityDescriptorEnum;
@@ -95,7 +95,7 @@ public class SteppersDynamicCompilerVisitor extends SteppersTraverseAllChildrenV
 	public static final String STEPPER_NAME = "enclosingStepper#stepper";
 
 	@Override
-	public void visit(StepperDeclaration entity) {
+	public void visit(Step entity) {
 		//FIXME use binding scope
 		Consumer<ExecutableStepper> outerStepperWeaver = stepperWeaver;
 		Consumer<ExecutableStepper> outerStepperGoalWeaver = stepperGoalWeaver;
@@ -216,7 +216,7 @@ public class SteppersDynamicCompilerVisitor extends SteppersTraverseAllChildrenV
 
 	@Override
 	public void visit(AndArgument entity) {
-		if (!Matcher.match(SteppersEntityDescriptorEnum.StepperDeclaration, entity.wGetParent())) {
+		if (!Matcher.match(SteppersEntityDescriptorEnum.Step, entity.wGetParent())) {
 //FIXME			stepperWeaver.accept(t);
 		}
 		super.visit(entity);

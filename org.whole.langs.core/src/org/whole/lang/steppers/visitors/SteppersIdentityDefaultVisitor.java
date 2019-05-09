@@ -51,10 +51,14 @@ public class SteppersIdentityDefaultVisitor extends SteppersIdentityVisitor {
 
     public void visit(Stepper entity) {
         visit((Expression) entity);
+        visit((Declaration) entity);
         visit((GoalFlow) entity);
         visit((CallFlow) entity);
         visit((ArgumentFlow) entity);
         visit((ActionFlow) entity);
+    }
+
+    public void visit(Declaration entity) {
     }
 
     public void visit(GoalFlow entity) {
@@ -69,13 +73,14 @@ public class SteppersIdentityDefaultVisitor extends SteppersIdentityVisitor {
     public void visit(ActionFlow entity) {
     }
 
-    public void visit(StepperDeclaration entity) {
+    public void visit(Step entity) {
         visit((ISteppersEntity) entity);
         visit((Stepper) entity);
-        visit((Declaration) entity);
     }
 
-    public void visit(Declaration entity) {
+    public void visit(Choose entity) {
+        visit((ISteppersEntity) entity);
+        visit((Stepper) entity);
     }
 
     public void visit(StepperReference entity) {

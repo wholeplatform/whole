@@ -21,7 +21,7 @@ package org.whole.lang.steppers.model;
 /**
  *  @generator Whole
  */
-public interface StepperDeclaration extends ISteppersEntity, Stepper, Declaration {
+public interface Choose extends ISteppersEntity, Stepper {
 
 
     public Name getName();
@@ -32,19 +32,7 @@ public interface StepperDeclaration extends ISteppersEntity, Stepper, Declaratio
 
     public void setGoals(GoalFlow goals);
 
-    public CallFlow getCalls();
+    public Calls getCalls();
 
-    public void setCalls(CallFlow calls);
-
-    public ArgumentFlow getArguments();
-
-    public void setArguments(ArgumentFlow arguments);
-
-    public ActionFlow getActions();
-
-    public void setActions(ActionFlow actions);
-
-    public Expression getExpression();
-
-    public void setExpression(Expression expression);
+    public void setCalls(Calls calls);
 }

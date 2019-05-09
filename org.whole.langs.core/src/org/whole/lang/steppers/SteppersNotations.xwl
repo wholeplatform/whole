@@ -265,9 +265,9 @@
             <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
         </gefnotationspatterns:CompositePart>
         <gefnotationspatterns:ContentPanePart>
-            <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="StepperDeclaration"/>
+            <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Step"/>
             <gefnotationspatterns:ContentPaneFigure>
-                <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="StepperDeclaration"/>
+                <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Step"/>
                 <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 <gefnotationspatterns:Layout>
@@ -298,7 +298,7 @@
                                 <gefnotationspatterns:Figures initialCapacity="2">
                                     <gefnotationspatterns:Label>
                                         <gefnotationspatterns:LabelStyle value="Keyword"/>
-                                        <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value="StepperDeclaration"/>
+                                        <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value="Step"/>
                                     </gefnotationspatterns:Label>
                                     <gefnotationspatterns:Label>
                                         <gefnotationspatterns:LabelStyle value="ContentLighter"/>

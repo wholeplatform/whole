@@ -41,8 +41,11 @@ public abstract class SteppersIdentitySwitchVisitor extends AbstractVisitor impl
             case SteppersEntityDescriptorEnum.Declarations_ord :
             visit((Declarations) entity);
             break;
-            case SteppersEntityDescriptorEnum.StepperDeclaration_ord :
-            visit((StepperDeclaration) entity);
+            case SteppersEntityDescriptorEnum.Step_ord :
+            visit((Step) entity);
+            break;
+            case SteppersEntityDescriptorEnum.Choose_ord :
+            visit((Choose) entity);
             break;
             case SteppersEntityDescriptorEnum.StepperReference_ord :
             visit((StepperReference) entity);

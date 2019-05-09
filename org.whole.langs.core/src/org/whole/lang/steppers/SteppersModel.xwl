@@ -7,7 +7,7 @@
             <models:EntityType value="http://lang.whole.org/Queries#Expression"/>
         </models:TypeAliasOf>
     </models:TypeRelations>
-    <models:ModelDeclarations initialCapacity="25">
+    <models:ModelDeclarations initialCapacity="26">
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="1">
                 <models:EntityModifier value="abstract"/>
@@ -88,8 +88,9 @@
                 <models:EntityModifier value="abstract"/>
             </models:EntityModifiers>
             <models:SimpleName value="Stepper"/>
-            <models:Types initialCapacity="5">
+            <models:Types initialCapacity="6">
                 <models:SimpleName value="Expression"/>
+                <models:SimpleName value="Declaration"/>
                 <models:SimpleName value="GoalFlow"/>
                 <models:SimpleName value="CallFlow"/>
                 <models:SimpleName value="ArgumentFlow"/>
@@ -99,10 +100,9 @@
         </models:SimpleEntity>
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="0"/>
-            <models:SimpleName value="StepperDeclaration"/>
-            <models:Types initialCapacity="2">
+            <models:SimpleName value="Step"/>
+            <models:Types initialCapacity="1">
                 <models:SimpleName value="Stepper"/>
-                <models:SimpleName value="Declaration"/>
             </models:Types>
             <models:Features initialCapacity="6">
                 <models:Feature>
@@ -151,6 +151,39 @@
                     </models:FeatureModifiers>
                     <models:SimpleName value="Expression"/>
                     <models:SimpleName value="expression"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="Choose"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Stepper"/>
+            </models:Types>
+            <models:Features initialCapacity="3">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="Name"/>
+                    <models:SimpleName value="name"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="GoalFlow"/>
+                    <models:SimpleName value="goals"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="Calls"/>
+                    <models:SimpleName value="calls"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
             </models:Features>

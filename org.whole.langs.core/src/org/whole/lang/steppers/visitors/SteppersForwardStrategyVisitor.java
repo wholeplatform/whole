@@ -54,7 +54,11 @@ public class SteppersForwardStrategyVisitor extends GenericForwardStrategyVisito
         wGetStrategy().visit(entity);
     }
 
-    public void visit(StepperDeclaration entity) {
+    public void visit(Step entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(Choose entity) {
         wGetStrategy().visit(entity);
     }
 

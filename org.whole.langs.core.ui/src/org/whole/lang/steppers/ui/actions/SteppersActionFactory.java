@@ -36,7 +36,7 @@ public class SteppersActionFactory extends ActionFactory {
 	public Object[][] wrapActions() {
 		EnablerPredicateFactory pf = EnablerPredicateFactory.instance;
 		return new Object[][] {
-			{ pf.assignableTo(SteppersEntityDescriptorEnum.Expression), SteppersEntityDescriptorEnum.StepperDeclaration, "Stepper Declaration", wrapIn(5)},
+			{ pf.assignableTo(SteppersEntityDescriptorEnum.Expression), SteppersEntityDescriptorEnum.Step, "Step", wrapIn(5)},
 			{ pf.assignableTo(SteppersEntityDescriptorEnum.Expression), SteppersEntityDescriptorEnum.Scope, "Scope", wrapIn(1)},
 			{ pf.assignableTo(SteppersEntityDescriptorEnum.CallFlow), SteppersEntityDescriptorEnum.CallBranch, "Calls with arguments", wrapIn0},
 			{ pf.assignableTo(SteppersEntityDescriptorEnum.ActionFlow), SteppersEntityDescriptorEnum.ActionBranch, "Actions with arguments", wrapIn0},

@@ -21,14 +21,30 @@ package org.whole.lang.steppers.model;
 /**
  *  @generator Whole
  */
-public interface StepperApplication extends ISteppersEntity, Expression {
+public interface Step extends ISteppersEntity, Stepper {
 
 
-    public CallFlow getGoals();
+    public Name getName();
 
-    public void setGoals(CallFlow goals);
+    public void setName(Name name);
 
-    public ArgumentFlow getResults();
+    public GoalFlow getGoals();
 
-    public void setResults(ArgumentFlow results);
+    public void setGoals(GoalFlow goals);
+
+    public CallFlow getCalls();
+
+    public void setCalls(CallFlow calls);
+
+    public ArgumentFlow getArguments();
+
+    public void setArguments(ArgumentFlow arguments);
+
+    public ActionFlow getActions();
+
+    public void setActions(ActionFlow actions);
+
+    public Expression getExpression();
+
+    public void setExpression(Expression expression);
 }

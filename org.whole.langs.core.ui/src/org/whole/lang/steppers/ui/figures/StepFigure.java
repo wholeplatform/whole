@@ -23,7 +23,7 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.whole.lang.steppers.ui.layouts.StepperDeclarationLayout;
+import org.whole.lang.steppers.ui.layouts.StepLayout;
 import org.whole.lang.ui.figures.EntityFigure;
 import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.IEntityFigure;
@@ -34,13 +34,13 @@ import org.whole.lang.ui.notations.figures.DrawUtils;
 /**
  *  @author Riccardo Solmi
  */
-public class StepperDeclarationFigure extends NodeFigure {
+public class StepFigure extends NodeFigure {
 	protected IEntityFigure shapeBorder;
 
-    public StepperDeclarationFigure() {
+    public StepFigure() {
         initContentPanes(5);
         
-        setLayoutManager(new StepperDeclarationLayout().withMargin(3).withMarginTop(0));
+        setLayoutManager(new StepLayout().withMargin(3).withMarginTop(0));
 		add(shapeBorder = new EntityFigure(new StackLayout()));
 		shapeBorder.setOpaque(false);
 		add(createContentPane(0, new MarginBorder(0, 0, 1, 0)));
