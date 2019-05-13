@@ -35,10 +35,16 @@ import org.whole.lang.ui.layout.Alignment;
  *  @author Riccardo Solmi
  */
 public class ObliqueTreeFigure extends CompositeNodeFigure {
+	private boolean dashedStyle;
+
     public ObliqueTreeFigure(boolean trailing) {
+    	this(trailing, false);
+    }
+    public ObliqueTreeFigure(boolean trailing, boolean dashedStyle) {
         super(new ObliqueLayout()
         		.withMinorAlignment(trailing ? Alignment.TRAILING : Alignment.LEADING)
         		.withSpacing(StepLayout.CHILDREN_SPACING.height).withMarginRight(1));
+        this.dashedStyle = dashedStyle;
     }
 
     @Override
@@ -113,11 +119,14 @@ public class ObliqueTreeFigure extends CompositeNodeFigure {
             	int x2 = childrenBounds[size-1].x;
             	int y2 = targetPoints[size-1].y;
         		
-        		g.drawLine(x1, y1, x2, y2);
         		for (int i=0; i<targetPoints.length; i++) {
         			int xi = (int)(-escapeAngle*(targetPoints[i].y - y1)) + x1;
         			g.drawLine(xi, targetPoints[i].y, targetPoints[i].x, targetPoints[i].y);
         		}
+
+        		if (dashedStyle)
+        			g.setLineDash(new int[] {16, 3});
+            	g.drawLine(x1, y1, x2, y2);
         	} else {
         		targetPoints = getChildrenTargetPoints(1, (r) -> r.getRight());
         		int x1 = childrenBounds[0].right();
@@ -125,11 +134,12 @@ public class ObliqueTreeFigure extends CompositeNodeFigure {
         		int x2 = childrenBounds[size-1].right();
         		int y2 = targetPoints[size-1].y;
 
-        		g.drawLine(x1, y1, x2, y2);
         		for (int i=0; i<targetPoints.length; i++) {
         			int xi = (int)(-escapeAngle*(targetPoints[i].y - y1)) + x1;
         			g.drawLine(xi+1, targetPoints[i].y, targetPoints[i].x, targetPoints[i].y);
         		}
+
+        		g.drawLine(x1, y1, x2, y2);
         	}
         }
     }

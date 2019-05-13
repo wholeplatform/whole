@@ -20,12 +20,10 @@ package org.whole.lang.steppers.ui.figures;
 import org.eclipse.draw2d.AbstractConnectionAnchor;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.Graphics;
-import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.draw2d.geometry.Point;
-import org.whole.lang.steppers.ui.layouts.StepLayout;
+import org.whole.lang.steppers.ui.layouts.ChooseLayout;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.NodeFigure;
-import org.whole.lang.ui.layout.Alignment;
-import org.whole.lang.ui.layout.ColumnLayout;
 
 /**
  *  @author Riccardo Solmi
@@ -33,19 +31,8 @@ import org.whole.lang.ui.layout.ColumnLayout;
 public class ChooseFigure extends NodeFigure {
     public ChooseFigure() {
         initContentPanes(2);
-        setLayoutManager(new ColumnLayout() {
-        	//TODO getAscent
-        	@Override
-        	public int getIndent() {
-        		return getContentPane(1).getIndent();
-        	}
-
-        	@Override
-        	protected int getAscent(int height) {
-        		return getContentPane(1).getAscent();
-        	};
-        }.withMinorAlignment(Alignment.LEADING));//.withMinorAlignment(Alignment.MATHLINE).withSpacing(64).withMarginLeft(4).withMarginRight(8).withMarginTop(8));
-        add(createContentPane(0, new MarginBorder(0, 3 + StepLayout.SHAPE_MARGIN.left, 0, 0)));
+        setLayoutManager(new ChooseLayout());
+        add(createContentPane(0));
         add(createContentPane(1));
     }
 
@@ -55,24 +42,14 @@ public class ChooseFigure extends NodeFigure {
 				new AbstractConnectionAnchor(this) {
 					public Point getLocation(Point reference) {
 						Point tp = getContentPaneTargetPoint(1, 0, (r) -> r.getTop());
-				        Point p = new Point(tp.x, tp.y);//getBounds().y + StepLayout.SHAPE_MARGIN.top);
-						getOwner().translateToAbsolute(p);
+						Point p = new Point(getContentPane(0).getBounds().x-2, tp.y);
+				        getOwner().translateToAbsolute(p);
 						return p;
 					}
 					public Point getReferencePoint() {
 						return getLocation(null);
 					}
 				},
-//				new AbstractConnectionAnchor(this) {
-//					public Point getLocation(Point reference) {
-//						Point p = getBounds().getRight();
-//						getOwner().translateToAbsolute(p);
-//						return p;
-//					}
-//					public Point getReferencePoint() {
-//						return getLocation(null);
-//					}
-//				}
 			};
     }
 
@@ -84,17 +61,9 @@ public class ChooseFigure extends NodeFigure {
 	}
 
 	protected void paintConnections(Graphics g) {
-//		g.setForegroundColor(FigureConstants.relationsColor);
-//
-//		int y1 = getBounds().y + StepLayout.SHAPE_MARGIN.top;
-//		int x2 = getContentPane(1).getBounds().right()-1;
-//
-//		Point tp = getContentPaneTargetPoint(1, 1, (r) -> r.getRight());
-//        g.drawLine(x2, y1, x2, tp.y);
-//        g.drawLine(tp.x-1, tp.y, x2, tp.y);
-//
-//        tp = getContentPaneTargetPoint(0, 0, (r) -> r.getTop());
-//        g.drawLine(tp.x, y1, tp.x, tp.y);
-//		g.drawLine(tp.x, y1, x2, y1);
+		g.setForegroundColor(FigureConstants.relationsColor);
+
+		Point tp = getContentPaneTargetPoint(1, 0, (r) -> r.getTop());
+        g.drawLine(getContentPane(0).getBounds().x-2, tp.y, tp.x, tp.y);
 	}
 }

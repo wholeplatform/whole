@@ -45,6 +45,7 @@ import org.whole.lang.steppers.visitors.SteppersIdentityDefaultVisitor;
 import org.whole.lang.ui.editparts.ContentLightTextualEntityPart;
 import org.whole.lang.ui.editparts.IEditPartFactory;
 import org.whole.lang.ui.editparts.IEntityPart;
+import org.whole.lang.ui.editparts.VariableDataEntityPart;
 import org.whole.lang.ui.notations.table.editparts.TablePartFactory;
 import org.whole.lang.util.EntityUtils;
 
@@ -90,7 +91,7 @@ public class SteppersPartFactoryVisitor extends SteppersIdentityDefaultVisitor i
 
     @Override
     public void visit(StepperReference entity) {
-        part = new FlowReferencePart();
+        part = new ContentLightTextualEntityPart();
     }
 
     @Override
@@ -101,6 +102,13 @@ public class SteppersPartFactoryVisitor extends SteppersIdentityDefaultVisitor i
 
     @Override
     public void visit(Name entity) {
+    	if (EntityUtils.hasParent(entity)) {
+    		IEntity parent = entity.wGetParent();
+    		if (parent.wGetEntityDescriptor().equals(SteppersEntityDescriptorEnum.Choose)) {
+    			part = new VariableDataEntityPart();
+    			return;
+    		}
+    	}
         part = new ContentLightTextualEntityPart();
     }
 
@@ -112,7 +120,15 @@ public class SteppersPartFactoryVisitor extends SteppersIdentityDefaultVisitor i
     @Override
     public void visit(Calls entity) {
     	IEntity parent = entity.wGetParent();
-        part = new ObliqueTreePart((!EntityUtils.isNull(parent) && Matcher.matchAtEntityFeature(SteppersEntityDescriptorEnum.CallBranch, SteppersFeatureDescriptorEnum.arguments, entity)) || inArgumentsFlow());
+
+        if (!EntityUtils.isNull(parent)) {
+    		if (parent.wGetEntityDescriptor().equals(SteppersEntityDescriptorEnum.Choose)) {
+    	        part = new ObliqueTreePart(Matcher.matchAtEntityFeature(SteppersEntityDescriptorEnum.CallBranch, SteppersFeatureDescriptorEnum.arguments, entity) || inArgumentsFlow(), true);
+    			return;
+    		}
+    	}
+
+    	part = new ObliqueTreePart((!EntityUtils.isNull(parent) && Matcher.matchAtEntityFeature(SteppersEntityDescriptorEnum.CallBranch, SteppersFeatureDescriptorEnum.arguments, entity)) || inArgumentsFlow());
     }
     @Override
     public void visit(Actions entity) {

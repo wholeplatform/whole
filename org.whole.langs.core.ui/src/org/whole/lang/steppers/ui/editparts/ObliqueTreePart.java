@@ -25,11 +25,17 @@ import org.whole.lang.steppers.ui.figures.ObliqueTreeFigure;
  *  @generator Whole
  */
 public class ObliqueTreePart extends AbstractCompositePart {
-    public ObliqueTreePart(boolean inArgumentsFlow) {
+	private boolean dashedStyle;
+
+	public ObliqueTreePart(boolean inArgumentsFlow) {
+		this(inArgumentsFlow, false);
+	}
+	public ObliqueTreePart(boolean inArgumentsFlow, boolean dashedStyle) {
 		setFlag(FLAG_REVERSED, inArgumentsFlow);
+		this.dashedStyle = dashedStyle;
 	}
 
 	protected IFigure createFigure() {
-        return new ObliqueTreeFigure(isReversed());
+        return new ObliqueTreeFigure(isReversed(), dashedStyle);
     }
 }

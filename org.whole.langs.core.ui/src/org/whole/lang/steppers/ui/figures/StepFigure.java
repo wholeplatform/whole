@@ -109,9 +109,6 @@ public class StepFigure extends NodeFigure {
         Rectangle shapeBounds = shapeBorder.getBounds();
         Rectangle expressionBounds = getContentPane(1).getBounds();
 
-//      g.setBackgroundColor(ColorConstants.white);
-//		g.fillRectangle(shapeBounds.x, expressionBounds.y, shapeBounds.width, expressionBounds.height);
-
         g.setForegroundColor(FigureConstants.contentLighterColor);
         g.setBackgroundColor(FigureConstants.contentLighterColor);
 		int oldAlpha = g.getAlpha();
