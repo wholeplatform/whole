@@ -33,20 +33,18 @@ import java.util.concurrent.TimeUnit;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.whole.lang.bindings.BindingManagerFactory;
-import org.whole.lang.evaluators.MultiValuedRunnableEvaluator;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.CloneContext;
 import org.whole.lang.operations.IdentityCloneContext;
 import org.whole.lang.queries.util.MathUtils;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.steppers.AbstractStepper;
-import org.whole.lang.steppers.AbstractStepper.ExecutableStepper;
 import org.whole.lang.steppers.AbstractStepper.StepperState;
-import org.whole.lang.steppers.EntityGetter.EntityScope;
+import org.whole.lang.steppers.EntityScope;
+import org.whole.lang.steppers.ExecutableStepper;
 import org.whole.lang.steppers.IDifferentiationContext;
 import org.whole.lang.steppers.TesterDataFlowConsumer;
 import org.whole.lang.steppers.TesterDataFlowConsumer.Event;
-import org.whole.lang.steppers.visitors.SteppersDynamicCompilerVisitor;
 
 /**
  * @author Riccardo Solmi

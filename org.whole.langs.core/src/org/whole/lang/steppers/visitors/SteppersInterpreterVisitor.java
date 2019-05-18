@@ -18,7 +18,7 @@
 package org.whole.lang.steppers.visitors;
 
 import org.whole.lang.operations.DynamicCompilerOperation;
-import org.whole.lang.steppers.AbstractStepper.ExecutableStepper;
+import org.whole.lang.steppers.ExecutableStepper;
 import org.whole.lang.steppers.model.Argument;
 import org.whole.lang.steppers.model.ISteppersEntity;
 

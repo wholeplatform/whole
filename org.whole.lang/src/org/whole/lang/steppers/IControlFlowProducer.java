@@ -68,5 +68,10 @@ public interface IControlFlowProducer extends ICloneable {
 	public void reset(IEntity entity);
 	public void call();
 
+	public default void toStringHeader(StringBuilder sb, boolean fromInput) {
+		sb.append(getClass().getSimpleName());
+		sb.append('@');
+		sb.append(System.identityHashCode(this));
+	}
 	public void toString(StringBuilder sb);
 }

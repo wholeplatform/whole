@@ -53,7 +53,11 @@ public class ConstantEvaluator extends AbstractPureConditionalSupplierEvaluator 
     @Override
 	public void toString(StringBuilder sb) {
 		sb.append("constant(");
-		sb.append(constant.toString());
+		try {
+			sb.append(constant.toString());
+		} catch (Throwable e) {
+			sb.append("???");
+		}
 		sb.append(")");
     }
 }

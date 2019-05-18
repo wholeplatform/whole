@@ -52,5 +52,11 @@ public interface IDataFlowConsumer extends ICloneable {
 	public IDataFlowConsumer getAdded(IDataFlowConsumer consumer);
 
 	public void accept(IExecutable executable);
+
+	public default void toStringHeader(StringBuilder sb, boolean fromInput) {
+		sb.append(getClass().getSimpleName());
+		sb.append('@');
+		sb.append(System.identityHashCode(this));
+	}
 }
 

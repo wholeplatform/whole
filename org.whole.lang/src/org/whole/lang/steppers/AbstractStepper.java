@@ -21,7 +21,6 @@ import java.util.Arrays;
 import java.util.BitSet;
 import java.util.function.Consumer;
 
-import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.evaluators.MultiValuedRunnableEvaluator;
 import org.whole.lang.executables.AbstractExecutable;
 import org.whole.lang.executables.ExecutableFactory;
@@ -42,59 +41,57 @@ public abstract class AbstractStepper extends AbstractExecutable {
 	protected StepperState state = StepperState.IDLE;
 	protected IControlFlowProducer[] producers;
 	protected BitSet producersNeedInit;
-	protected MutableArgumentDataFlowConsumer[] arguments;
+	protected MutableArgument[] arguments;
 //	protected BitSet argumentsNeedInit;
 
-	protected static final IExecutable[] EMPTY_PRODUCERS = new IExecutable[0];
-	protected static final MutableArgumentDataFlowConsumer[] EMPTY_ARGUMENTS = new MutableArgumentDataFlowConsumer[0];
+	protected static final IControlFlowProducer[] EMPTY_PRODUCERS = new IControlFlowProducer[0];
+	protected static final MutableArgument[] EMPTY_ARGUMENTS = new MutableArgument[0];
 
 	protected AbstractStepper() {
 		withProducers(EMPTY_PRODUCERS);
 		withArguments(EMPTY_ARGUMENTS);
 	}
 
-	public AbstractStepper withProducersConnectedToArguments(IControlFlowProducer... producers) {
-		withProducers(producers);
-		withArguments(producersSize());
-		connectProducersWithArguments();
-
-		return this;
-	};
 	public AbstractStepper withProducers(IControlFlowProducer... producers) {
 		this.producers = producers;
 		producersNeedInit = new BitSet(producersSize());
 		producersNeedInit.set(0, producersSize(), true);
 		return this;
 	};
-	public AbstractStepper withArguments(MutableArgumentDataFlowConsumer... arguments) {
+	public AbstractStepper withArguments(MutableArgument... arguments) {
 		this.arguments = arguments;
 //		argumentsNeedInit = new BitSet(argumentsSize);
 //		argumentsNeedInit.set(0, producersSize(), true);
 		return this;
 	};
 	public AbstractStepper withArguments(int argumentsSize) {
-		withArguments(new MutableArgumentDataFlowConsumer[argumentsSize]);
+		withArguments(new MutableArgument[argumentsSize]);
 
 		for (int i=0; i<argumentsSize(); i++)
-			arguments[i] = new MutableArgumentDataFlowConsumer();
+			arguments[i] = createArgument(i);
 
 		return this;
 	};
+	protected MutableArgument createArgument(int i) {
+		return new MutableArgument();
+	}
 
-	public void connectProducersWithArguments() {
-		for (int i=0; i<argumentsSize() && i<producersSize(); i++) {
-			IDataFlowConsumer dfc = getArgumentConsumer(i);
-			getProducer(i).forEachExecutableProducer((cfp) -> {
-				IExecutable e = (IExecutable) cfp;
-				e.addAction(dfc);
-			});
+	public void connectExecutableProducersWithNewArguments() {
+		for (int i=0; i<producersSize(); i++) {
+			connectExecutableProducersWithArgument(i, argumentsSize());
 			//getProducer(i).withAdditionalConsumer(getArgumentConsumer(i)); 
-		}
 
-		for (int i=0; i<producersSize(); i++)
 			if (getProducer(i) instanceof AbstractStepper)
 				((AbstractStepper) getProducer(i)).cloneContext = getDifferentiationContext();
+		}
 	};
+
+	public void connectExecutableProducersWithArgument(int atProducerIndex, int argumentIndex) {
+		getProducer(atProducerIndex).forEachExecutableProducer((cfp) -> {
+			IExecutable e = (IExecutable) cfp;
+			e.addAction(getArgumentConsumer(argumentIndex));
+		});
+	}
 
 
 	@Override
@@ -120,9 +117,9 @@ public abstract class AbstractStepper extends AbstractExecutable {
 //			stepper.resetArguments();
 		}
 
-		stepper.producers = new IExecutable[producers.length];
+		stepper.producers = new IControlFlowProducer[producers.length];
 		stepper.producersNeedInit = (BitSet) producersNeedInit.clone();
-		stepper.arguments = new MutableArgumentDataFlowConsumer[arguments.length];
+		stepper.arguments = new MutableArgument[arguments.length];
 //		stepper.argumentsNeedInit = (BitSet) argumentsNeedInit.clone();
 		stepper.consumer = null;
 		return stepper;
@@ -194,12 +191,19 @@ public abstract class AbstractStepper extends AbstractExecutable {
 		return arguments.length;
 	}
 
-	public MutableArgumentDataFlowConsumer getArgumentConsumer(int index) {
+	public MutableArgument getArgumentConsumer(int index) {
+		if (argumentsSize() <= index) {
+			int oldSize = argumentsSize();
+			arguments = Arrays.copyOf(arguments, index+1);
+			for (int i=oldSize; i<argumentsSize(); i++)
+				arguments[i] = createArgument(i);
+		}
+
 		if (arguments[index] == null && prototype != null) {
 			arguments[index] = cloneContext.differentiate(prototype.getArgumentConsumer(index));
 		}
 
-		MutableArgumentDataFlowConsumer consumer = arguments[index];
+		MutableArgument consumer = arguments[index];
 
 //		if (argumentsNeedInit.get(index)) {
 //			argumentsNeedInit.clear(index);
@@ -234,7 +238,7 @@ public abstract class AbstractStepper extends AbstractExecutable {
 		getArgumentConsumer(index).accept(ExecutableFactory.instance.createConstant(entity, false));
 	}
 
-	public boolean areAllArgumentsAvailable() {
+	public boolean areArgumentsAvailable() {
 		for (int i=0; i<argumentsSize(); i++)
 			if (getArgumentExecutable(i) == null)
 				return false;
@@ -287,17 +291,17 @@ public abstract class AbstractStepper extends AbstractExecutable {
 			resetArguments();
 		case IDLE:
 			//TODO READY state behavior
-			if (areAllArgumentsAvailable()) {
+			if (areArgumentsAvailable()) {
 				doAction();
 				break;
 			}
 			state = StepperState.CALL;
 			if (producersSize() > 0) {
-				for (int i=0; i<producersSize(); i++)
+				for (int i=0; i<producersSize() && !areArgumentsAvailable(); i++)
 					getProducer(i).call();
 				break;
 			}
-			if (!areAllArgumentsAvailable())
+			if (!areArgumentsAvailable())
 				break;
 //		case ACTION:
 			doAction();
@@ -345,20 +349,42 @@ public abstract class AbstractStepper extends AbstractExecutable {
 	}
 
 	@Override
+	public void toStringHeader(StringBuilder sb, boolean fromInput) {
+		IEntity sourceEntity = getSourceEntity();
+		if (sourceEntity != null && sourceEntity.wGet(0).wGetEntityDescriptor().getDataKind().isString())
+			sb.append(sourceEntity.wGet(0).wStringValue());
+		else
+			super.toStringHeader(sb, fromInput);
+
+		sb.append('^');
+		sb.append(getState());
+	}
+
+	@Override
 	public void toString(StringBuilder sb) {
-		sb.append(toStringPrefix());
-    	
-		for (int i=0; i<producersSize(); i++) {
-			if (i>0)
-				sb.append(toStringSeparator());
-			
-			if (producers[i] != null)
-				producers[i].toString(sb);
-			else
-				prototype.getProducer(i).toString(sb);
+		toStringHeader(sb, true);
+
+		if (producersSize() > 0) {
+			sb.append("\n\u2192{ ");
+			for (int i=0; i<producersSize(); i++) {
+				if (i>0)
+					sb.append(toStringSeparator());
+
+				IControlFlowProducer p = producers[i] != null ? producers[i] : prototype.getProducer(i);
+				p.toStringHeader(sb, true);
+			}
 		}
 
-    	sb.append(toStringSuffix());
+		if (argumentsSize() > 0) {
+			sb.append("\n\u2190{ ");
+			for (int i=0; i<argumentsSize(); i++) {
+				if (i>0)
+					sb.append(toStringSeparator());
+
+				IDataFlowConsumer p = arguments[i] != null ? arguments[i] : prototype.getArgumentConsumer(i);
+				p.toStringHeader(sb, false);
+			}
+		}
     }
 	protected String toStringPrefix() {
 		return "(";
@@ -398,7 +424,7 @@ public abstract class AbstractStepper extends AbstractExecutable {
 	public void addArgumentConsumer(IExecutable stepper) {
 		int index = arguments.length;
 		arguments = Arrays.copyOf(arguments, index+1);
-		arguments[index] = new MutableArgumentDataFlowConsumer();
+		arguments[index] = new MutableArgument();
 		
 		stepper.addAction(arguments[index]);
 	}
@@ -422,8 +448,16 @@ public abstract class AbstractStepper extends AbstractExecutable {
 			consumer.accept(ExecutableFactory.instance.createDone());
 		}
 
+		@Override
+		public void toStringHeader(StringBuilder sb, boolean fromInput) {
+//			super.toStringHeader(sb);
+			consumer.toStringHeader(sb, true);
+			sb.append("\u21B2");
+		}
+
+		@Override
 		public void toString(StringBuilder sb) {
-			// TODO Auto-generated method stub
+			toStringHeader(sb, true);
 		}
 	}
 
@@ -450,12 +484,12 @@ public abstract class AbstractStepper extends AbstractExecutable {
 	}
 
 
-	public class MutableArgumentDataFlowConsumer extends AbstractDataFlowConsumer {
+	public class MutableArgument extends AbstractDataFlowConsumer {
 		public IExecutable executable;
 
 		@Override
-		public MutableArgumentDataFlowConsumer clone(ICloneContext cc) {
-			MutableArgumentDataFlowConsumer consumer = cc.differentiate(AbstractStepper.this).new MutableArgumentDataFlowConsumer();
+		public MutableArgument clone(ICloneContext cc) {
+			MutableArgument consumer = cc.differentiate(AbstractStepper.this).new MutableArgument();
 			cc.setClone(this, consumer);
 			consumer.cloneContext = cc;
 			consumer.executable = null;
@@ -465,18 +499,31 @@ public abstract class AbstractStepper extends AbstractExecutable {
 
 		public void accept(IExecutable executable) {
 			this.executable = executable;
-			if (state.equals(StepperState.CALL) && areAllArgumentsAvailable())
+			if (state.equals(StepperState.CALL) && areArgumentsAvailable())
 				doAction();
+		}
+
+		@Override
+		public void toStringHeader(StringBuilder sb, boolean fromInput) {
+			if (fromInput) {
+				AbstractStepper.this.toStringHeader(sb, true);
+				sb.append(' ');
+			}
+			sb.append(executable != null ? "\u25C0" : "\u25C1");
+		}
+
+		public void toString(StringBuilder sb) {
+			toStringHeader(sb, true);
 		}
 	}
 
-	public class ImmutableArgumentDataFlowConsumer extends MutableArgumentDataFlowConsumer {
+	public class ImmutableArgument extends MutableArgument {
 		@Override
-		public ImmutableArgumentDataFlowConsumer clone(ICloneContext cc) {
-			ImmutableArgumentDataFlowConsumer consumer = cc.differentiate(AbstractStepper.this).new ImmutableArgumentDataFlowConsumer();
+		public ImmutableArgument clone(ICloneContext cc) {
+			ImmutableArgument consumer = cc.differentiate(AbstractStepper.this).new ImmutableArgument();
 			cc.setClone(this, consumer);
 			consumer.cloneContext = cc;
-//WAS			MutableArgumentDataFlowConsumer consumer = (MutableArgumentDataFlowConsumer) super.clone();
+//WAS			MutableArgument consumer = (MutableArgument) super.clone();
 			consumer.executable = null;
 			return consumer;
 		}
@@ -496,117 +543,5 @@ public abstract class AbstractStepper extends AbstractExecutable {
 
 	public static enum ConnectionKind {
 		DIFFERENTIATING, INTEGRATING
-	}
-
-	
-	public static class ExecutableStepper extends AbstractStepper {
-		protected IExecutable executable;
-		protected IExecutable evaluator;
-
-		@Override
-		public ExecutableStepper withArguments(int argumentsSize) {
-			super.withArguments(argumentsSize);
-			return this;
-		};
-
-		@Override
-		public ExecutableStepper withProducersConnectedToArguments(IControlFlowProducer... producers) {
-			super.withProducersConnectedToArguments(producers);
-			return this;
-		};
-
-		public ExecutableStepper withExecutable(IExecutable executable) {
-			this.executable = executable;
-			return this;
-		}
-
-		@Override
-		public IExecutable clone(ICloneContext cc) {
-			ExecutableStepper stepper = (ExecutableStepper) super.clone(cc);
-			stepper.executable = null;
-			stepper.evaluator = null;
-			return stepper;
-		}
-
-		@Override
-		public void reset(IEntity entity) {
-			super.reset(entity);
-
-			evaluator = null;
-			if (executable != null)
-				executable.reset(selfEntity);
-		}
-
-		@Override
-		protected void setProducersBindings(IBindingManager bindings) {
-			super.setProducersBindings(bindings);
-
-			if (executable != null)
-				executable.setBindings(getBindings());
-		}
-		
-		protected IExecutable getExecutable() {
-			if (executable == null) {
-				executable = cloneContext.differentiate(((ExecutableStepper) prototype).getExecutable());
-				executable.setBindings(getBindings());
-				executable.reset(selfEntity);
-			}
-			return executable;
-		}
-
-		protected boolean isLazy = true;
-
-		@Override
-		protected IExecutable getExecutableAction() {
-			if (isLazy)
-				return getExecutable();
-			else {
-				getExecutable().evaluateRemaining();
-				return ExecutableFactory.instance.createEmpty();
-			}
-		}
-
-		@Override
-		public synchronized IEntity evaluateNext() {
-			if (evaluator == null) {
-				call();
-				try {
-					while (state != StepperState.ACTION) {
-						wait(1000);
-						handleCanceled();
-					}
-					evaluator = getExecutableAction();
-				} catch (InterruptedException e) {
-					return lastEntity = null;
-				}
-			}
-			return lastEntity = evaluator.evaluateNext();
-		}
-
-		@Override
-		public synchronized IEntity evaluateRemaining() {
-			if (evaluator == null) {
-				call();
-				try {
-					while (state != StepperState.ACTION) {
-						wait(1000);
-						handleCanceled();
-					}
-					evaluator = getExecutableAction();
-				} catch (InterruptedException e) {
-					return lastEntity = null;
-				}
-				lastEntity = null;
-			}
-
-			return evaluator.evaluateRemaining();
-		}
-
-		@Override
-		public void toString(StringBuilder sb) {
-			if (executable != null)
-				executable.toString(sb);
-			super.toString(sb);
-		}
 	}
 }
