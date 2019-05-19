@@ -141,9 +141,9 @@ public abstract class AbstractStepper extends AbstractExecutable {
         selfEntity = entity;
         producersNeedInit.set(0, producersSize(), true);
 
-		state = StepperState.IDLE;
-//		argumentsNeedInit.set(0, producersSize(), true);
-		resetArguments();
+//		state = StepperState.IDLE;
+////		argumentsNeedInit.set(0, producersSize(), true);
+//		resetArguments();
 	}
 
 	public void resetArguments() {
