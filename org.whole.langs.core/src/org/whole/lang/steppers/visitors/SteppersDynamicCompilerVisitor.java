@@ -118,6 +118,9 @@ public class SteppersDynamicCompilerVisitor extends SteppersTraverseAllChildrenV
 		stepper.withSourceEntity(entity);
 		stepperWeaver.accept(stepper);
 
+		stepperWeaver = (s) -> {};
+		stepperGoalWeaver = (s) -> {};
+		stepperArgumentWeaver = (s) -> {};
 		ExecutableFactory f = ExecutableFactory.instance;
 		IExecutable compiledExpression = f.createScope(
 						f.createBlock(
@@ -164,6 +167,7 @@ public class SteppersDynamicCompilerVisitor extends SteppersTraverseAllChildrenV
 	@Override
 	public void visit(Choose entity) {
 		Consumer<AbstractStepper> outerStepperWeaver = stepperWeaver;
+		Consumer<AbstractStepper> outerStepperGoalWeaver = stepperGoalWeaver;
 
 		String name = stringValue(entity.getName());
 		ChooseStepper stepper = getChoose(name);
@@ -184,6 +188,7 @@ public class SteppersDynamicCompilerVisitor extends SteppersTraverseAllChildrenV
 			setExecutableResult(stepper);
 
 		stepperWeaver = outerStepperWeaver;
+		stepperGoalWeaver = outerStepperGoalWeaver;
 	}
 
 	@Override
@@ -239,7 +244,6 @@ public class SteppersDynamicCompilerVisitor extends SteppersTraverseAllChildrenV
 	
 			public void toString(StringBuilder sb) {
 				sb.append("argument "+index);
-				super.toString(sb);
 			}
 		}.withSourceEntity(entity));
 	}
