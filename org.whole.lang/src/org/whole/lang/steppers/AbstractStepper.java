@@ -140,9 +140,9 @@ public abstract class AbstractStepper extends AbstractExecutable {
 		super.reset(entity);
         selfEntity = entity;
         producersNeedInit.set(0, producersSize(), true);
+//		argumentsNeedInit.set(0, argumentsSize(), true);
 
 //		state = StepperState.IDLE;
-////		argumentsNeedInit.set(0, producersSize(), true);
 //		resetArguments();
 	}
 

@@ -141,7 +141,7 @@ public class ExecutableStepper extends AbstractStepper {
 			if (executable instanceof LocalScopeEvaluator) {
 				LocalScopeEvaluator se = (LocalScopeEvaluator) executable;
 				if (se.getProducer(0) instanceof BlockEvaluator)
-					((BlockEvaluator) se.getProducer(0)).getProducer(1).toString(sb);
+					((BlockEvaluator) se.getProducer(0)).getProducer(3).toString(sb);
 				else
 					se.toString(sb);
 			} else

@@ -57,11 +57,19 @@ public class SteppersDynamicCompilerVisitor extends SteppersTraverseAllChildrenV
 	protected Map<String, ExecutableStepper> nameStepMap = new HashMap<>();
 	protected Map<String, ChooseStepper> nameChooseMap = new HashMap<>();
 
+	@SuppressWarnings("unchecked")
 	protected ExecutableStepper getStep(String name) {
+		if (getBindings().wIsSet(NAMESTEPMAP_NAME))
+			nameStepMap = (Map<String, ExecutableStepper>) getBindings().wGetValue(NAMESTEPMAP_NAME);
+
 		return name != null ? nameStepMap.computeIfAbsent(name,
 				n -> new ExecutableStepper()) : new ExecutableStepper();
 	}
+	@SuppressWarnings("unchecked")
 	protected ChooseStepper getChoose(String name) {
+		if (getBindings().wIsSet(NAMECHOOSEMAP_NAME))
+			nameChooseMap = (Map<String, ChooseStepper>) getBindings().wGetValue(NAMECHOOSEMAP_NAME);
+
 		return name != null ? nameChooseMap.computeIfAbsent(name,
 				n -> new ChooseStepper()) : new ChooseStepper();
 	}
@@ -103,6 +111,8 @@ public class SteppersDynamicCompilerVisitor extends SteppersTraverseAllChildrenV
 	protected Consumer<AbstractStepper> stepperArgumentWeaver = (s) -> {};
 
 	public static final String STEPPER_NAME = "enclosingStepper#stepper";
+	public static final String NAMESTEPMAP_NAME = "steppers#nameStepMap";
+	public static final String NAMECHOOSEMAP_NAME = "steppers#nameChooseMap";
 
 	@Override
 	public void visit(Step entity) {
@@ -125,6 +135,8 @@ public class SteppersDynamicCompilerVisitor extends SteppersTraverseAllChildrenV
 		IExecutable compiledExpression = f.createScope(
 						f.createBlock(
 								f.createFilter(f.createConstant(BindingManagerFactory.instance.createValue(stepper), false), f.createAsVariable(STEPPER_NAME)),
+								f.createFilter(f.createConstant(BindingManagerFactory.instance.createValue(nameStepMap), false), f.createAsVariable(NAMESTEPMAP_NAME)),
+								f.createFilter(f.createConstant(BindingManagerFactory.instance.createValue(nameChooseMap), false), f.createAsVariable(NAMECHOOSEMAP_NAME)),
 								compile(entity.getExpression(), () -> ExecutableFactory.instance.createSelf())
 						), null, Set.of(STEPPER_NAME), true);
 		stepper.withExecutable(compiledExpression);
