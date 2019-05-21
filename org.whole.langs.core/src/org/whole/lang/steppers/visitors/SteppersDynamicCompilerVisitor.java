@@ -24,7 +24,6 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 import org.whole.lang.bindings.BindingManagerFactory;
-import org.whole.lang.evaluators.MultiValuedRunnableEvaluator;
 import org.whole.lang.executables.ExecutableFactory;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.matchers.Matcher;
@@ -35,14 +34,12 @@ import org.whole.lang.steppers.ChooseStepper;
 import org.whole.lang.steppers.ExecutableStepper;
 import org.whole.lang.steppers.model.ActionBranch;
 import org.whole.lang.steppers.model.AndArgument;
-import org.whole.lang.steppers.model.Argument;
 import org.whole.lang.steppers.model.ArgumentBranch;
 import org.whole.lang.steppers.model.CallBranch;
 import org.whole.lang.steppers.model.Choose;
 import org.whole.lang.steppers.model.ISteppersEntity;
 import org.whole.lang.steppers.model.Name;
 import org.whole.lang.steppers.model.OrArgument;
-import org.whole.lang.steppers.model.ResultAction;
 import org.whole.lang.steppers.model.Scope;
 import org.whole.lang.steppers.model.Step;
 import org.whole.lang.steppers.model.StepperReference;
@@ -110,7 +107,6 @@ public class SteppersDynamicCompilerVisitor extends SteppersTraverseAllChildrenV
 	protected Consumer<AbstractStepper> stepperGoalWeaver = (s) -> {};
 	protected Consumer<AbstractStepper> stepperArgumentWeaver = (s) -> {};
 
-	public static final String STEPPER_NAME = "enclosingStepper#stepper";
 	public static final String NAMESTEPMAP_NAME = "steppers#nameStepMap";
 	public static final String NAMECHOOSEMAP_NAME = "steppers#nameChooseMap";
 
@@ -120,9 +116,7 @@ public class SteppersDynamicCompilerVisitor extends SteppersTraverseAllChildrenV
 		Consumer<AbstractStepper> outerStepperWeaver = stepperWeaver;
 		Consumer<AbstractStepper> outerStepperGoalWeaver = stepperGoalWeaver;
 		Consumer<AbstractStepper> outerStepperArgumentWeaver = stepperArgumentWeaver;
-		
-		getBindings().wDefValue("outerStepperWeaver", "outerStepperWeaver");
-		
+
 		String name = stringValue(entity.getName());
 		ExecutableStepper stepper = getStep(name);
 		stepper.withSourceEntity(entity);
@@ -134,11 +128,10 @@ public class SteppersDynamicCompilerVisitor extends SteppersTraverseAllChildrenV
 		ExecutableFactory f = ExecutableFactory.instance;
 		IExecutable compiledExpression = f.createScope(
 						f.createBlock(
-								f.createFilter(f.createConstant(BindingManagerFactory.instance.createValue(stepper), false), f.createAsVariable(STEPPER_NAME)),
 								f.createFilter(f.createConstant(BindingManagerFactory.instance.createValue(nameStepMap), false), f.createAsVariable(NAMESTEPMAP_NAME)),
 								f.createFilter(f.createConstant(BindingManagerFactory.instance.createValue(nameChooseMap), false), f.createAsVariable(NAMECHOOSEMAP_NAME)),
 								compile(entity.getExpression(), () -> ExecutableFactory.instance.createSelf())
-						), null, Set.of(STEPPER_NAME), true);
+						), null, Set.of(NAMESTEPMAP_NAME, NAMECHOOSEMAP_NAME), true);
 		stepper.withExecutable(compiledExpression);
 
 		stepperWeaver = stepperGoalWeaver = (s) -> {
@@ -211,12 +204,6 @@ public class SteppersDynamicCompilerVisitor extends SteppersTraverseAllChildrenV
 	}
 
 	@Override
-	public void visit(ResultAction entity) {
-		// TODO Auto-generated method stub
-		super.visit(entity);
-	}
-
-	@Override
 	public void visit(Name entity) {
 		setResult(BindingManagerFactory.instance.createValue(entity.getValue()));
 	}
@@ -243,21 +230,6 @@ public class SteppersDynamicCompilerVisitor extends SteppersTraverseAllChildrenV
         entity.getArguments().accept(this);
 
 		stepperWeaver = outerStepperWeaver;
-	}
-
-	@Override
-	public void visit(Argument entity) {
-		int index = entity.getValue();
-
-		setExecutableResult(new MultiValuedRunnableEvaluator( (selfEntity, bm, args) -> {
-			ExecutableStepper stepper = (ExecutableStepper) getBindings().wGetValue(SteppersDynamicCompilerVisitor.STEPPER_NAME);
-			bm.setExecutableResult(stepper.getArgumentExecutable(index));
-		}) {
-	
-			public void toString(StringBuilder sb) {
-				sb.append("argument "+index);
-			}
-		}.withSourceEntity(entity));
 	}
 
 	@Override

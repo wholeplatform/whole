@@ -35,11 +35,6 @@ public class SteppersTraverseAllSwitchVisitor extends SteppersIdentityUnaryVisit
         wGetVisitor1().visit(entity.getExpression());
     }
 
-    public void visit(ResultAction entity) {
-        wGetVisitor1().visit(entity.getExpression());
-        wGetVisitor1().visit(entity.getActions());
-    }
-
     public void visit(Declarations entity) {
         for (int i = 0; i < entity.size(); i++)
             wGetVisitor1().visit(entity.get(i));

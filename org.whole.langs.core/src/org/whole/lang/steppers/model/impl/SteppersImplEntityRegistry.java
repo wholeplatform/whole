@@ -31,8 +31,6 @@ public class SteppersImplEntityRegistry extends AbstractEntityRegistry {
 
     protected void createPrototypes() {
         put(new ScopeImpl());
-        put(new ResultActionImpl());
-        put(new ArgumentImpl());
         put(new DeclarationsImpl());
         put(new StepImpl());
         put(new ChooseImpl());

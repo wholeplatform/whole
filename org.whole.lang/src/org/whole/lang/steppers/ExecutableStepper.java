@@ -140,9 +140,10 @@ public class ExecutableStepper extends AbstractStepper {
 			sb.append("\n");
 			if (executable instanceof LocalScopeEvaluator) {
 				LocalScopeEvaluator se = (LocalScopeEvaluator) executable;
-				if (se.getProducer(0) instanceof BlockEvaluator)
-					((BlockEvaluator) se.getProducer(0)).getProducer(3).toString(sb);
-				else
+				if (se.getProducer(0) instanceof BlockEvaluator) {
+					BlockEvaluator blockEvaluator = (BlockEvaluator) se.getProducer(0);
+					blockEvaluator.getProducer(blockEvaluator.producersSize()-1).toString(sb);
+				} else
 					se.toString(sb);
 			} else
 				executable.toString(sb);

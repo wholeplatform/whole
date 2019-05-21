@@ -27,6 +27,8 @@ public interface ISteppersBuilder extends IBuilder {
 
     public void visit();
 
+    public void actions();
+
     public void arguments();
 
     public void calls();
@@ -34,8 +36,6 @@ public interface ISteppersBuilder extends IBuilder {
     public void goals();
 
     public void name();
-
-    public void actions();
 
     public void expression();
 
@@ -46,16 +46,6 @@ public interface ISteppersBuilder extends IBuilder {
     public void Scope_();
 
     public void _Scope();
-
-    public void ResultAction();
-
-    public void ResultAction_();
-
-    public void _ResultAction();
-
-    public void Argument();
-
-    public void Argument(int value);
 
     public void Declarations();
 

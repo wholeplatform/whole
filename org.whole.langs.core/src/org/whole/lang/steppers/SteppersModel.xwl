@@ -7,7 +7,7 @@
             <models:EntityType value="http://lang.whole.org/Queries#Expression"/>
         </models:TypeAliasOf>
     </models:TypeRelations>
-    <models:ModelDeclarations initialCapacity="26">
+    <models:ModelDeclarations initialCapacity="24">
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="1">
                 <models:EntityModifier value="abstract"/>
@@ -37,35 +37,6 @@
                 </models:Feature>
             </models:Features>
         </models:SimpleEntity>
-        <models:SimpleEntity>
-            <models:EntityModifiers initialCapacity="0"/>
-            <models:SimpleName value="ResultAction"/>
-            <models:Types initialCapacity="1">
-                <models:SimpleName value="Expression"/>
-            </models:Types>
-            <models:Features initialCapacity="2">
-                <models:Feature>
-                    <models:FeatureModifiers initialCapacity="0"/>
-                    <models:SimpleName value="Expression"/>
-                    <models:SimpleName value="expression"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                </models:Feature>
-                <models:Feature>
-                    <models:FeatureModifiers initialCapacity="0"/>
-                    <models:SimpleName value="ActionFlow"/>
-                    <models:SimpleName value="actions"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                </models:Feature>
-            </models:Features>
-        </models:SimpleEntity>
-        <models:DataEntity>
-            <models:EntityModifiers initialCapacity="0"/>
-            <models:SimpleName value="Argument"/>
-            <models:Types initialCapacity="1">
-                <models:SimpleName value="Expression"/>
-            </models:Types>
-            <models:DataType value="int"/>
-        </models:DataEntity>
         <models:CompositeEntity>
             <models:EntityModifiers initialCapacity="0"/>
             <models:SimpleName value="Declarations"/>

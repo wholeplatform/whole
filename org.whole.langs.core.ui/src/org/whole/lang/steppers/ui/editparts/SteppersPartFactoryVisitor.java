@@ -24,7 +24,6 @@ import org.whole.lang.steppers.model.ActionBranch;
 import org.whole.lang.steppers.model.Actions;
 import org.whole.lang.steppers.model.AndArgument;
 import org.whole.lang.steppers.model.AndGoals;
-import org.whole.lang.steppers.model.Argument;
 import org.whole.lang.steppers.model.ArgumentBranch;
 import org.whole.lang.steppers.model.CallBranch;
 import org.whole.lang.steppers.model.Calls;
@@ -34,7 +33,6 @@ import org.whole.lang.steppers.model.ISteppersEntity;
 import org.whole.lang.steppers.model.Name;
 import org.whole.lang.steppers.model.OrArgument;
 import org.whole.lang.steppers.model.OrGoals;
-import org.whole.lang.steppers.model.ResultAction;
 import org.whole.lang.steppers.model.Scope;
 import org.whole.lang.steppers.model.Step;
 import org.whole.lang.steppers.model.StepperReference;
@@ -75,11 +73,6 @@ public class SteppersPartFactoryVisitor extends SteppersIdentityDefaultVisitor i
     }
 
     @Override
-    public void visit(Argument entity) {
-        part = new ArgumentPart();
-    }
-
-    @Override
     public void visit(Step entity) {
         part = new StepPart();
     }
@@ -92,12 +85,6 @@ public class SteppersPartFactoryVisitor extends SteppersIdentityDefaultVisitor i
     @Override
     public void visit(StepperReference entity) {
         part = new ContentLightTextualEntityPart();
-    }
-
-    @Override
-    public void visit(ResultAction entity) {
-    	// TODO Auto-generated method stub
-    	super.visit(entity);
     }
 
     @Override

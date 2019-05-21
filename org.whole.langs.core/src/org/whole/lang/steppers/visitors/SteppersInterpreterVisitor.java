@@ -18,8 +18,6 @@
 package org.whole.lang.steppers.visitors;
 
 import org.whole.lang.operations.DynamicCompilerOperation;
-import org.whole.lang.steppers.ExecutableStepper;
-import org.whole.lang.steppers.model.Argument;
 import org.whole.lang.steppers.model.ISteppersEntity;
 
 /**
@@ -29,12 +27,5 @@ public class SteppersInterpreterVisitor extends SteppersIdentityDefaultVisitor {
 	@Override
 	public void visit(ISteppersEntity entity) {
 		DynamicCompilerOperation.compile(entity, getBindings());
-	}
-
-	@Override
-	public void visit(Argument entity) {
-		int index = entity.getValue();
-		ExecutableStepper stepper = (ExecutableStepper) getBindings().wGetValue(SteppersDynamicCompilerVisitor.STEPPER_NAME);
-		setExecutableResult(stepper.getArgumentExecutable(index));
 	}
 }

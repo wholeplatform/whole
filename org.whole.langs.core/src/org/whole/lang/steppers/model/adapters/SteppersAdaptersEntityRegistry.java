@@ -32,8 +32,6 @@ public class SteppersAdaptersEntityRegistry extends AbstractEntityRegistry {
     protected void createPrototypes() {
         put(new ExpressionAdapter());
         put(new ScopeAdapter());
-        put(new ResultActionAdapter());
-        put(new ArgumentAdapter());
         put(new DeclarationsAdapter());
         put(new DeclarationAdapter());
         put(new StepperAdapter());
