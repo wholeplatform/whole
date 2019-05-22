@@ -119,7 +119,9 @@ public class SteppersDynamicCompilerVisitor extends SteppersTraverseAllChildrenV
 
 		String name = stringValue(entity.getName());
 		ExecutableStepper stepper = getStep(name);
-		stepper.withSourceEntity(entity);
+		int oldProducersSize = stepper.producersSize();
+		if (oldProducersSize <= entity.getCalls().wSize())
+			stepper.withSourceEntity(entity);
 		stepperWeaver.accept(stepper);
 
 		stepperWeaver = (s) -> {};
@@ -150,8 +152,8 @@ public class SteppersDynamicCompilerVisitor extends SteppersTraverseAllChildrenV
 		};
 		entity.getActions().accept(this);
 		
-		if (EntityUtils.isResolver(entity.getArguments()) && stepper.producersSize()>0)
-			stepper.connectExecutableProducersWithNewArguments();
+		if (EntityUtils.isResolver(entity.getArguments()) && stepper.producersSize() > oldProducersSize)
+			stepper.connectNewProducersWithNewArguments(oldProducersSize);
 
 		stepperWeaver = (s) -> {
 			stepper.addArgumentConsumer(s);
@@ -176,7 +178,9 @@ public class SteppersDynamicCompilerVisitor extends SteppersTraverseAllChildrenV
 
 		String name = stringValue(entity.getName());
 		ChooseStepper stepper = getChoose(name);
-		stepper.withSourceEntity(entity);
+		int oldProducersSize = stepper.producersSize();
+		if (oldProducersSize <= entity.getCalls().wSize())
+			stepper.withSourceEntity(entity);
 		stepperWeaver.accept(stepper);
 
 		stepperWeaver = stepperGoalWeaver = (s) -> {
@@ -184,8 +188,8 @@ public class SteppersDynamicCompilerVisitor extends SteppersTraverseAllChildrenV
 		};
 		entity.getCalls().accept(this);
 
-		if (stepper.producersSize()>0)
-			stepper.connectExecutableProducersWithNewArguments();
+		if (stepper.producersSize() > oldProducersSize)
+			stepper.connectNewProducersWithNewArguments(oldProducersSize);
 
 		if (Matcher.match(SteppersEntityDescriptorEnum.Declarations, entity.wGetParent()))
 			setResult(BindingManagerFactory.instance.createVoid());

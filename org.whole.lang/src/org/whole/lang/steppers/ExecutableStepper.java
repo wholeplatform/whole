@@ -40,7 +40,7 @@ public class ExecutableStepper extends AbstractStepper {
 
 	public ExecutableStepper withProducersConnectedToArguments(IControlFlowProducer... producers) {
 		withProducers(producers);
-		connectExecutableProducersWithNewArguments();
+		connectNewProducersWithNewArguments(0);
 
 		return this;
 	};

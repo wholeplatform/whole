@@ -122,8 +122,8 @@ public class ChooseStepper extends AbstractStepper {
 	}
 
 	@Override
-	public void connectExecutableProducersWithArgument(int atProducerIndex, int argumentIndex) {
-		super.connectExecutableProducersWithArgument(atProducerIndex, argumentIndex);
+	public void connectProducerWithArgument(int atProducerIndex, int argumentIndex) {
+		super.connectProducerWithArgument(atProducerIndex, argumentIndex);
 
 		getProducer(atProducerIndex).forEachExecutableProducer((cfp) -> {
 			if (cfp instanceof AbstractStepper) {

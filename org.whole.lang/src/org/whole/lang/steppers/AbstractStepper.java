@@ -75,9 +75,9 @@ public abstract class AbstractStepper extends AbstractExecutable {
 		return new MutableArgument();
 	}
 
-	public void connectExecutableProducersWithNewArguments() {
-		for (int i=0; i<producersSize(); i++) {
-			connectExecutableProducersWithArgument(i, argumentsSize());
+	public void connectNewProducersWithNewArguments(int oldProducersSize) {
+		for (int i=oldProducersSize; i<producersSize(); i++) {
+			connectProducerWithArgument(i, argumentsSize());
 			//getProducer(i).withAdditionalConsumer(getArgumentConsumer(i)); 
 
 			if (getProducer(i) instanceof AbstractStepper)
@@ -85,7 +85,7 @@ public abstract class AbstractStepper extends AbstractExecutable {
 		}
 	};
 
-	public void connectExecutableProducersWithArgument(int atProducerIndex, int argumentIndex) {
+	public void connectProducerWithArgument(int atProducerIndex, int argumentIndex) {
 		getProducer(atProducerIndex).forEachExecutableProducer((cfp) -> {
 			IExecutable e = (IExecutable) cfp;
 			e.addAction(getArgumentConsumer(argumentIndex));

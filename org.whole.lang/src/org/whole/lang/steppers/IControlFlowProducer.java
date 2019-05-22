@@ -51,8 +51,15 @@ public interface IControlFlowProducer extends ICloneable {
 		public void call() {
 		}		
 
+		@Override
+		public String toString() {
+			StringBuilder sb = new StringBuilder();
+			toString(sb);
+			return sb.toString();
+		}
+
 		public void toString(StringBuilder sb) {
-			// TODO Auto-generated method stub
+			sb.append("IDENTITY");
 		}		
 	};
 	public IControlFlowProducer clone();

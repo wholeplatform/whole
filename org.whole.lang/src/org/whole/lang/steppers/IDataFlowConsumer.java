@@ -43,6 +43,18 @@ public interface IDataFlowConsumer extends ICloneable {
 
 		public void accept(IExecutable executable) {
 		}
+
+		@Override
+		public String toString() {
+			StringBuilder sb = new StringBuilder();
+			toStringHeader(sb, true);
+			return sb.toString();
+		}
+
+		@Override
+		public void toStringHeader(StringBuilder sb, boolean fromInput) {
+			sb.append("IDENTITY");
+		}
 	};
 
 	public IDataFlowConsumer clone();
