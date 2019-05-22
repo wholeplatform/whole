@@ -18,6 +18,7 @@
 package org.whole.lang.steppers.ui.layouts;
 
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.whole.lang.ui.figures.PlaceHolderFigure;
 import org.whole.lang.ui.layout.AbstractEntityLayout;
 
 /**
@@ -27,8 +28,13 @@ public class ChooseLayout extends AbstractEntityLayout {
 	public static final int NAME_LEFT_MARGIN = 3 + StepLayout.SHAPE_MARGIN.left;
 
 	protected void setAscentDescentWidth(int wHint, int hHint) {
-		figAscent = childSize[0].height + ascent(1);
-		figDescent = descent(1);
+		if (childFigure[1].getChildren().get(0) instanceof PlaceHolderFigure) {
+			figAscent =  ascent(0);
+			figDescent = descent(0)+ childSize[1].height;
+		} else {
+			figAscent = childSize[0].height + ascent(1);
+			figDescent = descent(1);
+		}
 
 		figWidth = Math.max(NAME_LEFT_MARGIN + childSize[0].width, indent(1)) + childSize[1].width - indent(1);
 	}

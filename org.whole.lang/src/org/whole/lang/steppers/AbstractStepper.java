@@ -21,7 +21,6 @@ import java.util.Arrays;
 import java.util.BitSet;
 import java.util.function.Consumer;
 
-import org.whole.lang.evaluators.MultiValuedRunnableEvaluator;
 import org.whole.lang.executables.AbstractExecutable;
 import org.whole.lang.executables.ExecutableFactory;
 import org.whole.lang.executables.IExecutable;
@@ -211,19 +210,6 @@ public abstract class AbstractStepper extends AbstractExecutable {
 //		}
 
 		return consumer;
-	}
-
-	public IExecutable createGetArgumentExecutable(int index) {
-		return new MultiValuedRunnableEvaluator( (selfEntity, bm, args) -> {
-			bm.setExecutableResult(getArgumentExecutable(index));
-		}) {
-			@Override
-			public void toString(StringBuilder sb) {
-				sb.append("arg(");
-				sb.append(index);
-				sb.append(")");
-			}
-		};
 	}
 
 	public IExecutable getArgumentExecutable(int index) {
