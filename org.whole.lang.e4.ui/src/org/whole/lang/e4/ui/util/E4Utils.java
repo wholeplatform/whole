@@ -76,6 +76,7 @@ import org.whole.lang.e4.ui.actions.NewlineAction;
 import org.whole.lang.e4.ui.actions.SplitOnCaretAction;
 import org.whole.lang.e4.ui.debug.IDebugService;
 import org.whole.lang.e4.ui.jobs.ExecutionState;
+import org.whole.lang.e4.ui.jobs.RunnableWithResult;
 import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
 import org.whole.lang.events.IdentityRequestEventHandler;
 import org.whole.lang.exceptions.IWholeFrameworkException;
@@ -426,7 +427,13 @@ public class E4Utils {
 			Display display = Display.getCurrent();
 			if (display == null)
 				display = Display.getDefault();
-			activeShell = display.getActiveShell();
+
+			final Display d = display;
+			RunnableWithResult<Shell> runnable = RunnableWithResult.create(() -> {
+				return d.getActiveShell();
+			});
+			d.syncExec(runnable);
+			activeShell = runnable.get();
 		}
 
 		try {
