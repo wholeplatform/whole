@@ -29,9 +29,11 @@ import org.whole.lang.executables.IExecutable;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.model.adapters.IEntityAdapter;
+import org.whole.lang.reflect.ILanguageKit;
 import org.whole.lang.steppers.AbstractStepper;
 import org.whole.lang.steppers.ChooseStepper;
 import org.whole.lang.steppers.ExecutableStepper;
+import org.whole.lang.steppers.StepperEvaluator;
 import org.whole.lang.steppers.model.ActionBranch;
 import org.whole.lang.steppers.model.AndArgument;
 import org.whole.lang.steppers.model.ArgumentBranch;
@@ -127,7 +129,7 @@ public class SteppersDynamicCompilerVisitor extends SteppersTraverseAllChildrenV
 		stepperWeaver = (s) -> {};
 		stepperGoalWeaver = (s) -> {};
 		stepperArgumentWeaver = (s) -> {};
-		ExecutableFactory f = ExecutableFactory.instance;
+		ExecutableFactory f = ExecutableFactory.instance(getBindings());
 		IExecutable compiledExpression = f.createScope(
 						f.createBlock(
 								f.createFilter(f.createConstant(BindingManagerFactory.instance.createValue(nameStepMap), false), f.createAsVariable(NAMESTEPMAP_NAME)),
@@ -160,10 +162,7 @@ public class SteppersDynamicCompilerVisitor extends SteppersTraverseAllChildrenV
 		};
 		entity.getArguments().accept(this);
 		
-		if (Matcher.match(SteppersEntityDescriptorEnum.Declarations, entity.wGetParent()))
-			setResult(BindingManagerFactory.instance.createVoid());
-		else
-			setExecutableResult(stepper);
+		setResult(entity, stepper);
 		
 		stepperWeaver = outerStepperWeaver;
 		stepperGoalWeaver = outerStepperGoalWeaver;
@@ -191,20 +190,38 @@ public class SteppersDynamicCompilerVisitor extends SteppersTraverseAllChildrenV
 		if (stepper.producersSize() > oldProducersSize)
 			stepper.connectNewProducersWithNewArguments(oldProducersSize);
 
-		if (Matcher.match(SteppersEntityDescriptorEnum.Declarations, entity.wGetParent()))
-			setResult(BindingManagerFactory.instance.createVoid());
-		else
-			setExecutableResult(stepper);
+		setResult(entity, stepper);
 
 		stepperWeaver = outerStepperWeaver;
 		stepperGoalWeaver = outerStepperGoalWeaver;
 	}
 
+	protected void setResult(IEntity entity, IExecutable stepper) {
+		if (Matcher.match(SteppersEntityDescriptorEnum.Declarations, entity.wGetParent()))
+			setResult(BindingManagerFactory.instance.createVoid());
+		else if (parentHasDifferentLanguage(entity))
+			setExecutableResult(new StepperEvaluator(stepper));
+		else
+			setExecutableResult(stepper);
+	}
+
+	protected boolean parentHasDifferentLanguage(IEntity entity) {
+		IEntity parentEntity = entity.wGetParent();
+		if (EntityUtils.isNull(parentEntity))
+			return true;
+
+		ILanguageKit parentLaguage = parentEntity.wGetLanguageKit();
+		
+		return !entity.wGetLanguageKit().equals(parentLaguage);
+	}
+
+
 	@Override
 	public void visit(StepperReference entity) {
 		ExecutableStepper stepper = getStep(entity.wStringValue());
 		stepperWeaver.accept(stepper);
-		setExecutableResult(stepper);
+
+		setResult(entity, stepper);
 	}
 
 	@Override
