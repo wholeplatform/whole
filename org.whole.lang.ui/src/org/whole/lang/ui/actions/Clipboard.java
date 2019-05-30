@@ -127,10 +127,11 @@ public class Clipboard {
 			// create temporary files
 			List<File> files = new ArrayList<File>();
 			IExecutable executable = ExecutableFactory.instance.createChild();
-			executable.set(tuple);
+			executable.reset(tuple);
 			for (IEntity entity : executable) {
 				File file = ClipboardUtils.createTempXmlBuilderFile(entity);
 				file.deleteOnExit();
+				files.add(file);
 			}
 			xmlBuilderFiles = files.toArray(new File[files.size()]);			
 
