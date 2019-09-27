@@ -17,6 +17,7 @@
  */
 package org.whole.lang.ui.util;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -37,6 +38,7 @@ import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.editparts.ITextualEntityPart;
 import org.whole.lang.ui.figures.ITextualFigure;
+import org.whole.lang.ui.viewers.IEntityGraphicalViewer;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
 
 /** 
@@ -200,5 +202,24 @@ public class CaretUtils {
 		int availableWidth = horizontalLocation - textualFigure.getTextBounds().x;
 		int length = label.getTextUtilities().getLargestSubstringConfinedTo(text, font, availableWidth+3);
 		return CaretUtils.getStartingLinePosition(text, getCaretLines(text)-1)+length;
+	}
+
+	@SuppressWarnings("unchecked")
+	public static void updateCaret(final IEntityPart entityPart, IEntityGraphicalViewer viewer, int start, int end, Point location, boolean deselectAll) {
+		if (entityPart instanceof ITextualEntityPart) {
+			List<IEntityPart> selectedParts = viewer.getSelectedEditParts();
+			if (deselectAll && !selectedParts.isEmpty())
+				viewer.deselectAll();
+			viewer.setFocus(entityPart);
+			ITextualEntityPart caretPart = ((ITextualEntityPart)entityPart);
+			if (start != -1 && end != -1) {
+				caretPart.setCaretPosition(end);
+				if (start != end) {
+					caretPart.setSelectionRange(start, end);
+					viewer.appendSelection(caretPart);
+				}
+			} else if (location != null)
+				caretPart.updateCaret(location);
+		}
 	}
 }

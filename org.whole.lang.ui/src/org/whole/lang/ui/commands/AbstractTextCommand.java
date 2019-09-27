@@ -53,7 +53,6 @@ public abstract class AbstractTextCommand extends Command implements ITextComman
 		return type == textCommand.type;
 	}
 
-	@SuppressWarnings("unchecked")
 	public ITextualEntityPart getSourcePart() {
 		return (ITextualEntityPart) ModelObserver.getObserver(entity, getViewer().getEditPartRegistry());
 	}

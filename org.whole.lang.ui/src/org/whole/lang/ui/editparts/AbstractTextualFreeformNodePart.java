@@ -34,7 +34,6 @@ import org.whole.lang.ui.editpolicies.TextualHilightEditPolicy;
 import org.whole.lang.ui.figures.ITextualFigure;
 import org.whole.lang.ui.tools.TextualDragTracker;
 import org.whole.lang.ui.tools.Tools;
-import org.whole.lang.ui.util.CaretUpdater;
 import org.whole.lang.ui.util.CaretUtils;
 import org.whole.lang.util.DataTypeUtils;
 
@@ -71,7 +70,7 @@ public abstract class AbstractTextualFreeformNodePart extends AbstractFreeformNo
 
 		int caretPositions = getCaretPositions();
 		if (getCaretPosition() > caretPositions)
-			CaretUpdater.updateCaret(this, getViewer(), caretPositions, caretPositions, null, true);
+			CaretUtils.updateCaret(this, getViewer(), caretPositions, caretPositions, null, true);
 	}
 	@Override
 	protected void refreshVisuals() {
@@ -134,9 +133,9 @@ public abstract class AbstractTextualFreeformNodePart extends AbstractFreeformNo
 			getViewer().deselectAll();
 			Point location = request.getLocation();
 			if (location != null)
-				CaretUpdater.updateCaret(this, getViewer(), -1, -1, location, true);
+				CaretUtils.updateCaret(this, getViewer(), -1, -1, location, true);
 			else
-				CaretUpdater.updateCaret(this, getViewer(), 0, getCaretPositions(), location, true);
+				CaretUtils.updateCaret(this, getViewer(), 0, getCaretPositions(), location, true);
 
 			getDragTracker(request).mouseDoubleClick(createDoubleClickEvent(request), getViewer());
 		}

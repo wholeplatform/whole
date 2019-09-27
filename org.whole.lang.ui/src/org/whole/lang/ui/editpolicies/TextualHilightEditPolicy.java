@@ -30,7 +30,7 @@ import org.whole.lang.ui.editparts.ITextualEntityPart;
 import org.whole.lang.ui.editparts.ModelObserver;
 import org.whole.lang.ui.figures.ITextualFigure;
 import org.whole.lang.ui.tools.Tools;
-import org.whole.lang.ui.util.CaretUpdater;
+import org.whole.lang.ui.util.CaretUtils;
 import org.whole.lang.ui.util.FigureUtils;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
 
@@ -93,7 +93,7 @@ public class TextualHilightEditPolicy extends WholeHilightEditPolicy {
 	public void updateHilight(Point location) {
 		ITextualEntityPart textualHost = getTextualHost();
 		if (textualHost.hasFocus())
-			CaretUpdater.updateCaret(textualHost, textualHost.getViewer(), -1, -1, location, true);
+			CaretUtils.updateCaret(textualHost, textualHost.getViewer(), -1, -1, location, true);
 	}
 
 	public boolean moveCaretHorizontally(int positions) {
@@ -105,7 +105,7 @@ public class TextualHilightEditPolicy extends WholeHilightEditPolicy {
 		if (newPosition < 0 || newPosition > textualHost.getCaretPositions())
 			return false;
 
-		CaretUpdater.updateCaret(textualHost, textualHost.getViewer(), newPosition, newPosition, null, true);
+		CaretUtils.updateCaret(textualHost, textualHost.getViewer(), newPosition, newPosition, null, true);
 		return true;
 	}
 
@@ -123,7 +123,7 @@ public class TextualHilightEditPolicy extends WholeHilightEditPolicy {
 		Rectangle translatedCaret = textualFigure.getCaretBounds().getCopy().translate(0, dy);
 		Point newLocation = dy > 0 ? translatedCaret.getBottomLeft() : translatedCaret.getTopLeft();
 
-		CaretUpdater.updateCaret(textualHost, textualHost.getViewer(), -1, -1, newLocation, true);
+		CaretUtils.updateCaret(textualHost, textualHost.getViewer(), -1, -1, newLocation, true);
 		return true;
 	}
 

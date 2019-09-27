@@ -35,7 +35,7 @@ import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.editparts.ITextualEntityPart;
 import org.whole.lang.ui.figures.ITextualFigure;
 import org.whole.lang.ui.keys.IKeyHandler;
-import org.whole.lang.ui.util.CaretUpdater;
+import org.whole.lang.ui.util.CaretUtils;
 import org.whole.lang.ui.viewers.IEntityGraphicalViewer;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
 
@@ -92,7 +92,7 @@ public class TextualDragTracker extends SimpleDragTracker {
 			return handleInvalidInput();
 		} else {
 			beginPart = endPart = textualEntityPart;
-			CaretUpdater.updateCaret(beginPart, getCurrentViewer(), -1, -1, getLocation(), true);
+			CaretUtils.updateCaret(beginPart, getCurrentViewer(), -1, -1, getLocation(), true);
 			start = textualEntityPart.getCaretPosition();
 			return stateTransition(STATE_INITIAL, STATE_SELECT);
 		}
@@ -157,7 +157,7 @@ public class TextualDragTracker extends SimpleDragTracker {
 			mouseLocation.y = Math.max(mouseLocation.y, textBounds.y);
 			mouseLocation.y = Math.min(mouseLocation.y, textBounds.bottom()-1);
 
-			CaretUpdater.updateCaret(textualEntityPart, viewer, -1, -1, mouseLocation, true);
+			CaretUtils.updateCaret(textualEntityPart, viewer, -1, -1, mouseLocation, true);
 
 			end = textualEntityPart.getCaretPosition();
 
@@ -190,9 +190,9 @@ public class TextualDragTracker extends SimpleDragTracker {
 					ITextualEntityPart caretPart = (ITextualEntityPart) lastPart;
 					if (caretOnSelectionEnd) {
 						caretPosition = caretPosition < 0 ? caretPart.getCaretPositions(): caretPosition;
-						CaretUpdater.updateCaret(lastPart, getCurrentViewer(), caretPosition, caretPosition, null, true);
+						CaretUtils.updateCaret(lastPart, getCurrentViewer(), caretPosition, caretPosition, null, true);
 					} else
-						CaretUpdater.updateCaret(lastPart, getCurrentViewer(), -1, -1, location != null ? location : getLocation(), true);
+						CaretUtils.updateCaret(lastPart, getCurrentViewer(), -1, -1, location != null ? location : getLocation(), true);
 					// update focus only if instance of ICaretEntityPart
 					focusPart = lastPart;
 				}

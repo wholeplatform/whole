@@ -17,19 +17,15 @@
  */
 package org.whole.lang.ui.util;
 
-import java.util.List;
-
 import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.gef.EditPart;
-import org.eclipse.gef.EditPartViewer;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.editparts.EntityPartEvent;
+import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.editparts.ITextualEntityPart;
 import org.whole.lang.ui.editparts.IdentityEntityPartListener;
 import org.whole.lang.ui.editparts.ModelObserver;
 import org.whole.lang.ui.viewers.IEntityGraphicalViewer;
-import org.whole.lang.ui.viewers.IEntityPartViewer;
 
 /** 
  * @author Enrico Persiani
@@ -53,8 +49,8 @@ public class CaretUpdater extends IdentityEntityPartListener {
 	}
 
 	public void sheduleSyncUpdate() {
-		EditPart entityPart = ModelObserver.getObserver(selectedEntity, viewer.getEditPartRegistry());
-		updateCaret(entityPart, viewer, start, end, location, deselectAll);
+		IEntityPart entityPart = ModelObserver.getObserver(selectedEntity, viewer.getEditPartRegistry());
+		CaretUtils.updateCaret(entityPart, viewer, start, end, location, deselectAll);
 	}
 	public void sheduleAsyncUpdate() {
 		viewer.getControl().getDisplay().asyncExec(new Runnable() {
@@ -65,13 +61,13 @@ public class CaretUpdater extends IdentityEntityPartListener {
 	}
 	public void afterUpdate(EntityPartEvent event) {
 		if (Matcher.find(selectedEntity, event.getEntityPart().getModelEntity(), false) != null) {
-			((IEntityPartViewer) viewer).removeEntityPartListener(this);
+			viewer.removeEntityPartListener(this);
 			sheduleSyncUpdate();
 		}
 	}
 
 	public static CaretUpdater record(IEntityGraphicalViewer viewer) {
-		EditPart part = viewer.getFocusEditPart();
+		IEntityPart part = viewer.getFocusEntityPart();
 		ITextualEntityPart focusPart = part instanceof ITextualEntityPart ? (ITextualEntityPart) part : null;
 
 		int start,end;
@@ -94,23 +90,5 @@ public class CaretUpdater extends IdentityEntityPartListener {
 	}
 	public static CaretUpdater createCU(IEntityGraphicalViewer viewer, IEntity selectedEntity, int start, int end, Point location) {
 		return new CaretUpdater(viewer, selectedEntity, start, end, location);
-	}
-	@SuppressWarnings("unchecked")
-	public static void updateCaret(final EditPart entityPart, EditPartViewer viewer, int start, int end, Point location, boolean deselectAll) {
-		if (entityPart instanceof ITextualEntityPart) {
-			List<EditPart> selectedParts = viewer.getSelectedEditParts();
-			if (deselectAll && !selectedParts.isEmpty())
-				viewer.deselectAll();
-			viewer.setFocus(entityPart);
-			ITextualEntityPart caretPart = ((ITextualEntityPart)entityPart);
-			if (start != -1 && end != -1) {
-				caretPart.setCaretPosition(end);
-				if (start != end) {
-					caretPart.setSelectionRange(start, end);
-					viewer.appendSelection(caretPart);
-				}
-			} else if (location != null)
-				caretPart.updateCaret(location);
-		}
 	}
 }
