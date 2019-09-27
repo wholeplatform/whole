@@ -187,4 +187,18 @@ public class CaretUtils {
 		viewport.getContents().translateToRelative(caretBounds);
 		return caretBounds;
 	}
+
+	// used by domain level caret behavior
+	public static int calculateCaretPosition(ITextualEntityPart targetPart, int horizontalLocation) {
+		ITextualFigure textualFigure = targetPart.getTextualFigure();
+		Point.SINGLETON.x = horizontalLocation;
+		textualFigure.translateToRelative(Point.SINGLETON);
+		horizontalLocation = Point.SINGLETON.x;
+		Label label = textualFigure.getEmbeddedLabel();
+		String text = textualFigure.getText();
+		Font font = textualFigure.getEmbeddedLabelFont();
+		int availableWidth = horizontalLocation - textualFigure.getTextBounds().x;
+		int length = label.getTextUtilities().getLargestSubstringConfinedTo(text, font, availableWidth+3);
+		return CaretUtils.getStartingLinePosition(text, getCaretLines(text)-1)+length;
+	}
 }

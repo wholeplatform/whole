@@ -71,7 +71,7 @@ public abstract class AbstractTextualFreeformNodePart extends AbstractFreeformNo
 
 		int caretPositions = getCaretPositions();
 		if (getCaretPosition() > caretPositions)
-			CaretUpdater.sheduleSyncUpdate(getViewer(), getModelTextEntity(), caretPositions, true);
+			CaretUpdater.updateCaret(this, getViewer(), caretPositions, caretPositions, null, true);
 	}
 	@Override
 	protected void refreshVisuals() {

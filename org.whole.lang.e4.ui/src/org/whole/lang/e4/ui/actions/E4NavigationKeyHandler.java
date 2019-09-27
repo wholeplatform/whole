@@ -321,12 +321,12 @@ public class E4NavigationKeyHandler extends E4KeyHandler implements IEditPointPr
 			int start = part.getSelectionStart();
 			int end = part.getSelectionEnd();
 			if (start != -1 && end != -1) {
-				CaretUpdater.sheduleSyncUpdate(part.getViewer(), part.getModelTextEntity(), 
-						direction == PositionConstants.WEST ? start : end, true);
+				int position = direction == PositionConstants.WEST ? start : end;
+				CaretUpdater.updateCaret(part, part.getViewer(), position, position, null, true);
 				return true;
 			} else {
-				CaretUpdater.sheduleSyncUpdate(part.getViewer(), part.getModelTextEntity(), 
-						part.getCaretPosition(), true);
+				int position = part.getCaretPosition();
+				CaretUpdater.updateCaret(part, part.getViewer(), position, position, null, true);
 			}
 		}
 		editPoint = keyHandler.findNeighbour(this, focusPoint, direction);
@@ -368,7 +368,7 @@ public class E4NavigationKeyHandler extends E4KeyHandler implements IEditPointPr
 				int position = textualEntityPart.getCaretPosition() +
 						(direction == PositionConstants.WEST ? -1 : 1);
 				if (viewer instanceof IEntityGraphicalViewer)
-					CaretUpdater.sheduleSyncUpdate((IEntityGraphicalViewer) viewer, textualEntityPart.getModelEntity(), position, true);
+					CaretUpdater.updateCaret(textualEntityPart, (IEntityGraphicalViewer) viewer, position, position, null, true);
 				return true;
 			} else if ((direction == PositionConstants.NORTH && line > 0) ||
 					(direction == PositionConstants.SOUTH && line < lines)) {
@@ -376,7 +376,7 @@ public class E4NavigationKeyHandler extends E4KeyHandler implements IEditPointPr
 						(direction == PositionConstants.NORTH ? -1 : 1);
 				Point location = textualFigure.getCaretBounds().getCenter().translate(0, dy);
 				if (viewer instanceof IEntityGraphicalViewer)
-					CaretUpdater.sheduleSyncUpdate((IEntityGraphicalViewer) viewer, textualEntityPart.getModelEntity(), location, true);
+					CaretUpdater.updateCaret(textualEntityPart, (IEntityGraphicalViewer) viewer, -1, -1, location, true);
 				return true;
 			}
 		}

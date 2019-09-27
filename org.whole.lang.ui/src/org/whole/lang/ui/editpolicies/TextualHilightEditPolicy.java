@@ -105,7 +105,7 @@ public class TextualHilightEditPolicy extends WholeHilightEditPolicy {
 		if (newPosition < 0 || newPosition > textualHost.getCaretPositions())
 			return false;
 
-		CaretUpdater.sheduleSyncUpdate(textualHost.getViewer(), textualHost.getModelEntity(), newPosition, true);
+		CaretUpdater.updateCaret(textualHost, textualHost.getViewer(), newPosition, newPosition, null, true);
 		return true;
 	}
 
@@ -123,7 +123,7 @@ public class TextualHilightEditPolicy extends WholeHilightEditPolicy {
 		Rectangle translatedCaret = textualFigure.getCaretBounds().getCopy().translate(0, dy);
 		Point newLocation = dy > 0 ? translatedCaret.getBottomLeft() : translatedCaret.getTopLeft();
 
-		CaretUpdater.sheduleSyncUpdate(textualHost.getViewer(), textualHost.getModelEntity(), newLocation, true);
+		CaretUpdater.updateCaret(textualHost, textualHost.getViewer(), -1, -1, newLocation, true);
 		return true;
 	}
 
