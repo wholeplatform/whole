@@ -28,6 +28,7 @@ import org.whole.lang.ui.editparts.EntityPartEvent;
 import org.whole.lang.ui.editparts.ITextualEntityPart;
 import org.whole.lang.ui.editparts.IdentityEntityPartListener;
 import org.whole.lang.ui.editparts.ModelObserver;
+import org.whole.lang.ui.viewers.IEntityGraphicalViewer;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
 
 /** 
@@ -41,7 +42,7 @@ public class CaretUpdater extends IdentityEntityPartListener {
 		}
 	};
 
-	private EditPartViewer viewer;
+	private IEntityGraphicalViewer viewer;
 	private IEntity selectedEntity;
 	private int start;
 	private int end;
@@ -50,7 +51,7 @@ public class CaretUpdater extends IdentityEntityPartListener {
 
 	private CaretUpdater() {
 	}
-	private CaretUpdater(EditPartViewer viewer, IEntity selectedEntity, int start, int end, Point location) {
+	private CaretUpdater(IEntityGraphicalViewer viewer, IEntity selectedEntity, int start, int end, Point location) {
 		this.viewer = viewer;
 		this.selectedEntity = selectedEntity;
 		this.start = start;
@@ -58,7 +59,7 @@ public class CaretUpdater extends IdentityEntityPartListener {
 		this.location = location;
 	}
 
-	public static CaretUpdater record(EditPartViewer viewer) {
+	public static CaretUpdater record(IEntityGraphicalViewer viewer) {
 		ITextualEntityPart focusPart = getFocusedTextualPart(viewer);
 		if (focusPart == null)
 			return NULL_UPDATER;
@@ -72,48 +73,47 @@ public class CaretUpdater extends IdentityEntityPartListener {
 
 		return createCU(viewer, focusPart.getModelEntity(), start, end);
 	}
-	private static ITextualEntityPart getFocusedTextualPart(EditPartViewer viewer) {
+	private static ITextualEntityPart getFocusedTextualPart(IEntityGraphicalViewer viewer) {
 		if (viewer == null)
 			return null;
 		EditPart part = viewer.getFocusEditPart();
 		return part instanceof ITextualEntityPart ? (ITextualEntityPart) part : null;
 	}
 
-	public static CaretUpdater createCU(EditPartViewer viewer, IEntity selectedEntity, int start, int end) {
+	public static CaretUpdater createCU(IEntityGraphicalViewer viewer, IEntity selectedEntity, int start, int end) {
 		if (isValid(viewer, selectedEntity, start, end, null))
 			return new CaretUpdater(viewer, selectedEntity, start, end, null);
 		else
 			return NULL_UPDATER;
 	}
-	public static CaretUpdater createCU(EditPartViewer viewer, IEntity selectedEntity, int position) {
+	public static CaretUpdater createCU(IEntityGraphicalViewer viewer, IEntity selectedEntity, int position) {
 		if (isValid(viewer, selectedEntity, position, position, null))
 			return new CaretUpdater(viewer, selectedEntity, position, position, null);
 		else
 			return NULL_UPDATER;
 	}
-	public static CaretUpdater createCU(EditPartViewer viewer, IEntity selectedEntity, Point location) {
+	public static CaretUpdater createCU(IEntityGraphicalViewer viewer, IEntity selectedEntity, Point location) {
 		if (isValid(viewer, selectedEntity, -1, -1, location))
 			return new CaretUpdater(viewer, selectedEntity, -1, -1, location);
 		else
 			return NULL_UPDATER;
 	}
 
-	private static final boolean isValid(EditPartViewer viewer, IEntity selectedEntity, int start, int end, Point location) {
+	private static final boolean isValid(IEntityGraphicalViewer viewer, IEntity selectedEntity, int start, int end, Point location) {
 		return viewer != null && selectedEntity != null && ((start != -1 && end != -1) || location != null);
 	}
 
-	public static void sheduleSyncUpdate(EditPartViewer viewer, IEntity selectedEntity, int position, boolean deselectAll) {
+	public static void sheduleSyncUpdate(IEntityGraphicalViewer viewer, IEntity selectedEntity, int position, boolean deselectAll) {
 		sheduleSyncUpdate(viewer, selectedEntity, position, position, null, deselectAll);
 	}
-	public static void sheduleSyncUpdate(EditPartViewer viewer, IEntity selectedEntity, Point location, boolean deselectAll) {
+	public static void sheduleSyncUpdate(IEntityGraphicalViewer viewer, IEntity selectedEntity, Point location, boolean deselectAll) {
 		sheduleSyncUpdate(viewer, selectedEntity, -1, -1, location, deselectAll);
 	}
-	public static void sheduleSyncUpdate(EditPartViewer viewer, IEntity selectedEntity, int start, int end, Point location, boolean deselectAll) {
+	private static void sheduleSyncUpdate(IEntityGraphicalViewer viewer, IEntity selectedEntity, int start, int end, Point location, boolean deselectAll) {
 		EditPart entityPart = (EditPart) viewer.getEditPartRegistry().get(selectedEntity);
 		updateCaret(entityPart, viewer, start, end, location, deselectAll);
 	}
 
-	@SuppressWarnings("unchecked")
 	public void sheduleSyncUpdate() {
 		EditPart entityPart = ModelObserver.getObserver(selectedEntity, viewer.getEditPartRegistry());
 		updateCaret(entityPart, viewer, start, end, location, deselectAll);
@@ -133,7 +133,7 @@ public class CaretUpdater extends IdentityEntityPartListener {
 	}
 
 	@SuppressWarnings("unchecked")
-	private static void updateCaret(final EditPart entityPart, EditPartViewer viewer, int start, int end, Point location, boolean deselectAll) {
+	public static void updateCaret(final EditPart entityPart, EditPartViewer viewer, int start, int end, Point location, boolean deselectAll) {
 		if (entityPart instanceof ITextualEntityPart) {
 			List<EditPart> selectedParts = viewer.getSelectedEditParts();
 			if (deselectAll && !selectedParts.isEmpty())

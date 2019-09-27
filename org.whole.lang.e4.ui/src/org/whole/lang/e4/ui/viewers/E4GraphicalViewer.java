@@ -89,7 +89,9 @@ import org.whole.lang.ui.treesearch.DelegatingInteractiveTreeSearch;
 import org.whole.lang.ui.treesearch.ITreeSearch;
 import org.whole.lang.ui.treesearch.NonInteractiveConditional;
 import org.whole.lang.ui.viewers.EntityEditDomain;
+import org.whole.lang.ui.viewers.IEntityGraphicalViewer;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
+import org.whole.lang.ui.viewers.TextualEntityEditDomain;
 import org.whole.lang.ui.viewers.ZoomGestureListener;
 import org.whole.lang.util.EntityUtils;
 import org.whole.langs.core.CoreMetaModelsDeployer;
@@ -97,7 +99,7 @@ import org.whole.langs.core.CoreMetaModelsDeployer;
 /**
  * @author Enrico Persiani
  */
-public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IResourceManager, IEntityPartViewer {
+public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IResourceManager, IEntityGraphicalViewer {
 	@Inject IEclipseContext context;
 	@Inject @Named("parent") Composite parent;
 	@Inject @Optional EntityEditDomain domain;
@@ -111,7 +113,7 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 	@PostConstruct
 	protected void initialize() {
 		if (domain == null)
-			domain = new EntityEditDomain();
+			domain = new TextualEntityEditDomain();
 
 		partFocusListeners = new ArrayList<IPartFocusListener>();
 		modelInputListeners = new ArrayList<IModelInputListener>();
@@ -193,8 +195,8 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 	}
 
 	@Override
-	public EntityEditDomain getEditDomain() {
-		return (EntityEditDomain) super.getEditDomain();
+	public TextualEntityEditDomain getEditDomain() {
+		return (TextualEntityEditDomain) super.getEditDomain();
 	}
 	public LightweightEditDomain linkEditDomain(IEntityPartViewer viewer) {
 		EntityEditDomain editDomain = getEditDomain();

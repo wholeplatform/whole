@@ -134,9 +134,9 @@ public abstract class AbstractTextualFreeformNodePart extends AbstractFreeformNo
 			getViewer().deselectAll();
 			Point location = request.getLocation();
 			if (location != null)
-				CaretUpdater.sheduleSyncUpdate(getViewer(), getModelEntity(), location, true);
+				CaretUpdater.updateCaret(this, getViewer(), -1, -1, location, true);
 			else
-				CaretUpdater.sheduleSyncUpdate(getViewer(), getModelEntity(), 0, getCaretPositions(), location, true);
+				CaretUpdater.updateCaret(this, getViewer(), 0, getCaretPositions(), location, true);
 
 			getDragTracker(request).mouseDoubleClick(createDoubleClickEvent(request), getViewer());
 		}

@@ -17,19 +17,19 @@
  */
 package org.whole.lang.ui.commands;
 
-import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.commands.Command;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.editparts.ITextualEntityPart;
 import org.whole.lang.ui.editparts.ModelObserver;
 import org.whole.lang.ui.util.CaretUpdater;
+import org.whole.lang.ui.viewers.IEntityGraphicalViewer;
 
 /**
  * @author Enrico Persiani
  */
 public abstract class AbstractTextCommand extends Command implements ITextCommand, ILegacyCommand {
 	protected final TextCommandTypes type;
-	protected EditPartViewer viewer;
+	protected IEntityGraphicalViewer viewer;
 	protected Range initialRange;
 	protected Range finalRange;
 
@@ -58,10 +58,10 @@ public abstract class AbstractTextCommand extends Command implements ITextComman
 		return (ITextualEntityPart) ModelObserver.getObserver(entity, getViewer().getEditPartRegistry());
 	}
 
-	public EditPartViewer getViewer() {
+	public IEntityGraphicalViewer getViewer() {
 		return viewer;
 	}
-	public void setViewer(EditPartViewer viewer) {
+	public void setViewer(IEntityGraphicalViewer viewer) {
 		this.viewer = viewer;
 	}
 

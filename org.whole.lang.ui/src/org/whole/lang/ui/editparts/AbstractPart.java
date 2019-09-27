@@ -61,7 +61,7 @@ import org.whole.lang.ui.layout.ColumnLayout;
 import org.whole.lang.ui.requests.ICommandFactory;
 import org.whole.lang.ui.tools.Tools;
 import org.whole.lang.ui.util.AnimableRunnable;
-import org.whole.lang.ui.viewers.IEntityPartViewer;
+import org.whole.lang.ui.viewers.IEntityGraphicalViewer;
 import org.whole.lang.util.EntityUtils;
 
 
@@ -418,7 +418,7 @@ public abstract class AbstractPart extends AbstractGraphicalEditPart implements 
 	}
 	
 	@Override
-	public IEntityPartViewer getViewer() {
-		return (IEntityPartViewer) super.getViewer();
+	public IEntityGraphicalViewer getViewer() {
+		return (IEntityGraphicalViewer) super.getViewer();
 	}
 }

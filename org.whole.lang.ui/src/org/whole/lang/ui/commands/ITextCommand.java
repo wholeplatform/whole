@@ -17,7 +17,7 @@
  */
 package org.whole.lang.ui.commands;
 
-import org.eclipse.gef.EditPartViewer;
+import org.whole.lang.ui.viewers.IEntityGraphicalViewer;
 
 /**
  * @author Enrico Persiani
@@ -27,8 +27,8 @@ public interface ITextCommand {
 		UNKNOWN, INSERT, OVERWRITE, DELETE
 	}
 
-	public void setViewer(EditPartViewer viewer);
-	public EditPartViewer getViewer();
+	public void setViewer(IEntityGraphicalViewer viewer);
+	public IEntityGraphicalViewer getViewer();
 
 	public boolean sameType(ITextCommand command);
 	public void merge(ITextCommand command);

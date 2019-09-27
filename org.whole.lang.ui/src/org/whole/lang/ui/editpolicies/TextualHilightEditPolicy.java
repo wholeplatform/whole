@@ -93,7 +93,7 @@ public class TextualHilightEditPolicy extends WholeHilightEditPolicy {
 	public void updateHilight(Point location) {
 		ITextualEntityPart textualHost = getTextualHost();
 		if (textualHost.hasFocus())
-			CaretUpdater.sheduleSyncUpdate(textualHost.getViewer(), textualHost.getModelEntity(), location, true);
+			CaretUpdater.updateCaret(textualHost, textualHost.getViewer(), -1, -1, location, true);
 	}
 
 	public boolean moveCaretHorizontally(int positions) {

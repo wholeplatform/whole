@@ -15,14 +15,11 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.ui.editparts;
-
-import org.eclipse.gef.GraphicalEditPart;
-import org.whole.lang.ui.viewers.IEntityGraphicalViewer;
+package org.whole.lang.ui.viewers;
 
 /**
- * @author Riccardo Solmi
+ * @author Enrico Persiani
  */
-public interface IGraphicalEntityPart extends IEntityPart, GraphicalEditPart {
-	public IEntityGraphicalViewer getViewer();
+public interface IEntityGraphicalViewer extends IEntityPartViewer {
+	TextualEntityEditDomain getEditDomain();
 }

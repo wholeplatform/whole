@@ -36,6 +36,7 @@ import org.whole.lang.ui.editparts.ITextualEntityPart;
 import org.whole.lang.ui.figures.ITextualFigure;
 import org.whole.lang.ui.keys.IKeyHandler;
 import org.whole.lang.ui.util.CaretUpdater;
+import org.whole.lang.ui.viewers.IEntityGraphicalViewer;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
 
 /** 
@@ -131,7 +132,7 @@ public class TextualDragTracker extends SimpleDragTracker {
 
 	@Override
 	protected boolean handleDragInProgress() {
-		EditPartViewer viewer = getCurrentViewer();
+		IEntityGraphicalViewer viewer = getCurrentViewer();
 		ITextualEntityPart textualEntityPart = getTextualEntityPart();
 		if (textualEntityPart == null)
 			return false;
@@ -156,7 +157,8 @@ public class TextualDragTracker extends SimpleDragTracker {
 			mouseLocation.y = Math.max(mouseLocation.y, textBounds.y);
 			mouseLocation.y = Math.min(mouseLocation.y, textBounds.bottom()-1);
 
-			textualEntityPart.updateCaret(mouseLocation);
+			CaretUpdater.sheduleSyncUpdate(viewer, textualEntityPart.getModelEntity(), mouseLocation, true);
+
 			end = textualEntityPart.getCaretPosition();
 
 			if (start <= end)
@@ -227,5 +229,9 @@ public class TextualDragTracker extends SimpleDragTracker {
 		getCurrentInput().setInput(me);
 
 		handleTripleClick(me.button);
+	}
+
+	protected IEntityGraphicalViewer getCurrentViewer() {
+		return (IEntityGraphicalViewer) super.getCurrentViewer();
 	}
 }

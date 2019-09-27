@@ -20,13 +20,13 @@ package org.whole.lang.ui.commands;
 import org.whole.lang.commands.ICommand;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.util.CaretUpdater;
-import org.whole.lang.ui.viewers.IEntityPartViewer;
+import org.whole.lang.ui.viewers.IEntityGraphicalViewer;
 
 /**
  * @author Enrico Persiani
  */
 public class ModelTextCommand extends ModelTransactionCommand {
-	private IEntityPartViewer viewer;
+	private IEntityGraphicalViewer viewer;
 	private CaretUpdater initialSelection;
 	private CaretUpdater finalSelection;
 	private IEntity newSelectedEntity;
@@ -55,7 +55,7 @@ public class ModelTextCommand extends ModelTransactionCommand {
 		super.redo();
 	}
 
-	public void setViewer(IEntityPartViewer viewer) {
+	public void setViewer(IEntityGraphicalViewer viewer) {
 		this.viewer = viewer;
 	}
 

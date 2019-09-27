@@ -139,21 +139,19 @@ public class TextualFigure extends EntityFigure implements ITextualFigure {
 			caretPosition = CaretUtils.getStartingLinePosition(text, line);
 			caretBounds = new Rectangle(labelBounds.x, verticalCaretLocation, caretSize.width, caretSize.height);
 			return true;
-		}
-		if (proximityPoint.x > labelBounds.right()) {
+		} else if (proximityPoint.x == labelBounds.right() - 1) {
 			caretPosition = CaretUtils.getEndingLinePosition(text, line);
 			int xOffset = getTextWidth(textLine);
 			caretBounds = new Rectangle(labelBounds.x + xOffset, verticalCaretLocation, caretSize.width, caretSize.height);
 			return true;
+		} else {
+			// calculate intermediate positions
+			int length = label.getTextUtilities().getLargestSubstringConfinedTo(textLine, getEmbeddedLabelFont(), proximityPoint.x - labelBounds.x);
+			caretPosition = CaretUtils.getStartingLinePosition(text, line)+length;
+			String substringtmp = text.substring(CaretUtils.getStartingLinePosition(text, line), caretPosition);
+			Dimension stringExtents = label.getTextUtilities().getStringExtents(substringtmp, getEmbeddedLabelFont());
+			caretBounds = new Rectangle(labelBounds.x + stringExtents.width, verticalCaretLocation, caretSize.width, caretSize.height);
 		}
-
-		// calculate intermediate positions
-		int length = label.getTextUtilities().getLargestSubstringConfinedTo(textLine, getEmbeddedLabelFont(), proximityPoint.x - labelBounds.x);
-		caretPosition = CaretUtils.getStartingLinePosition(text, line)+length;
-		String substringtmp = text.substring(CaretUtils.getStartingLinePosition(text, line), caretPosition);
-		Dimension stringExtents = label.getTextUtilities().getStringExtents(substringtmp, getEmbeddedLabelFont());
-		caretBounds = new Rectangle(labelBounds.x + stringExtents.width, verticalCaretLocation, caretSize.width, caretSize.height);
-		
 		return true;
 	}
 

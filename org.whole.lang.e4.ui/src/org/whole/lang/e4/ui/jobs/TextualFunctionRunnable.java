@@ -11,7 +11,7 @@ import org.whole.lang.operations.IOperationProgressMonitor;
 import org.whole.lang.operations.OperationCanceledException;
 import org.whole.lang.ui.commands.ModelTextCommand;
 import org.whole.lang.ui.util.AnimableRunnable;
-import org.whole.lang.ui.viewers.IEntityPartViewer;
+import org.whole.lang.ui.viewers.IEntityGraphicalViewer;
 import org.whole.lang.util.BehaviorUtils;
 
 public class TextualFunctionRunnable extends FunctionRunnable {
@@ -25,7 +25,7 @@ public class TextualFunctionRunnable extends FunctionRunnable {
 		//FIXME workaround for missing caret update events (no selection update is performed)
 		E4Utils.defineCaretBindings(bm);
 		
-		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
+		IEntityGraphicalViewer viewer = (IEntityGraphicalViewer) bm.wGetValue("viewer");
 		IEntity text = bm.wGet("focusEntity");
 		
 		boolean enableAnimation = AnimableRunnable.enableAnimation(false);

@@ -46,6 +46,8 @@ import org.whole.lang.ui.tools.IEditPointProvider;
 import org.whole.lang.ui.tools.Tools;
 import org.whole.lang.ui.util.CaretUpdater;
 import org.whole.lang.ui.util.CaretUtils;
+import org.whole.lang.ui.viewers.IEntityGraphicalViewer;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 
 /**
  * @author Riccardo Solmi, Enrico Persiani
@@ -354,6 +356,7 @@ public class E4NavigationKeyHandler extends E4KeyHandler implements IEditPointPr
 	 */
 	boolean navigateNextSibling(KeyEvent event, int direction, List<?> list) {
 		IEntityPart epStart = getFocusEntityPart();
+		IEntityPartViewer viewer = getViewer();
 		if (epStart instanceof ITextualEntityPart) {
 			ITextualEntityPart textualEntityPart = (ITextualEntityPart) epStart;
 			ITextualFigure textualFigure = textualEntityPart.getTextualFigure();
@@ -364,15 +367,16 @@ public class E4NavigationKeyHandler extends E4KeyHandler implements IEditPointPr
 					(direction == PositionConstants.EAST && textualEntityPart.getCaretPosition() < textualEntityPart.getCaretPositions())) {
 				int position = textualEntityPart.getCaretPosition() +
 						(direction == PositionConstants.WEST ? -1 : 1);
-				CaretUpdater.sheduleSyncUpdate(getViewer(), textualEntityPart.getModelEntity(), position, true);
+				if (viewer instanceof IEntityGraphicalViewer)
+					CaretUpdater.sheduleSyncUpdate((IEntityGraphicalViewer) viewer, textualEntityPart.getModelEntity(), position, true);
 				return true;
 			} else if ((direction == PositionConstants.NORTH && line > 0) ||
 					(direction == PositionConstants.SOUTH && line < lines)) {
 				int dy = FigureUtilities.getFontMetrics(textualFigure.getFont()).getHeight() *
 						(direction == PositionConstants.NORTH ? -1 : 1);
 				Point location = textualFigure.getCaretBounds().getCenter().translate(0, dy);
-				CaretUpdater.sheduleSyncUpdate(getViewer(), textualEntityPart.getModelEntity(), location, true);
-				textualEntityPart.updateCaret(location);
+				if (viewer instanceof IEntityGraphicalViewer)
+					CaretUpdater.sheduleSyncUpdate((IEntityGraphicalViewer) viewer, textualEntityPart.getModelEntity(), location, true);
 				return true;
 			}
 		}
@@ -387,7 +391,7 @@ public class E4NavigationKeyHandler extends E4KeyHandler implements IEditPointPr
 				return false;
 
 			epStart = (IGraphicalEntityPart) epStart.getParent();
-			if (epStart == getViewer().getContents() || epStart.getParent() == getViewer().getContents() || epStart.getParent() == null)
+			if (epStart == viewer.getContents() || epStart.getParent() == viewer.getContents() || epStart.getParent() == null)
 				return false;
 
 			list = epStart.getParent().getChildren();
