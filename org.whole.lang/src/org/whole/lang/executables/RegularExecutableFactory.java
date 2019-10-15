@@ -876,13 +876,11 @@ public class RegularExecutableFactory implements ExecutableFactory {
 					fromScope.wClear();
 				}
 
-				if (everyScope == null)
-					return BindingManagerFactory.instance.createValue(false);
-				else {
+				if (everyScope != null) {
 					executorScope = everyScope;
 					getBindings().wAddAll(executorScope());
-					return BindingManagerFactory.instance.createValue(true);
 				}
+				return BindingManagerFactory.instance.createValue(true);
 			}
 
 			protected String toStringPrefix() {
