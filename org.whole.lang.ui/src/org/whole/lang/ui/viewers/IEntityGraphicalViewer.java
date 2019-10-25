@@ -21,5 +21,4 @@ package org.whole.lang.ui.viewers;
  * @author Enrico Persiani
  */
 public interface IEntityGraphicalViewer extends IEntityPartViewer {
-	TextualEntityEditDomain getEditDomain();
 }

@@ -91,7 +91,6 @@ import org.whole.lang.ui.treesearch.NonInteractiveConditional;
 import org.whole.lang.ui.viewers.EntityEditDomain;
 import org.whole.lang.ui.viewers.IEntityGraphicalViewer;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
-import org.whole.lang.ui.viewers.TextualEntityEditDomain;
 import org.whole.lang.ui.viewers.ZoomGestureListener;
 import org.whole.lang.util.EntityUtils;
 import org.whole.langs.core.CoreMetaModelsDeployer;
@@ -113,7 +112,7 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 	@PostConstruct
 	protected void initialize() {
 		if (domain == null)
-			domain = new TextualEntityEditDomain();
+			domain = new EntityEditDomain();
 
 		partFocusListeners = new ArrayList<IPartFocusListener>();
 		modelInputListeners = new ArrayList<IModelInputListener>();
@@ -195,8 +194,8 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 	}
 
 	@Override
-	public TextualEntityEditDomain getEditDomain() {
-		return (TextualEntityEditDomain) super.getEditDomain();
+	public EntityEditDomain getEditDomain() {
+		return (EntityEditDomain) super.getEditDomain();
 	}
 	public LightweightEditDomain linkEditDomain(IEntityPartViewer viewer) {
 		EntityEditDomain editDomain = getEditDomain();
