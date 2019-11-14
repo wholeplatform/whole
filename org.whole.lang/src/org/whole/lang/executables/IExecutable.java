@@ -20,10 +20,11 @@ package org.whole.lang.executables;
 import java.util.function.Consumer;
 
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.exceptions.IWholeRuntimeException;
+import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.steppers.IControlFlowProducer;
+import org.whole.lang.util.WholeMessages;
 
 /**
  * @author Riccardo Solmi
@@ -80,7 +81,7 @@ public interface IExecutable extends IExecutableClient<IEntity> {
 		try {
 			return evaluate(selfEntity, bm).wBooleanValue();
         } catch (Throwable e) {
-            throw IWholeRuntimeException.asWholeException(e, getSourceEntity(), bm);
+        	throw new WholeIllegalArgumentException(WholeMessages.no_boolean_result, e).withSourceEntity(getSourceEntity()).withBindings(bm);
         }
 	}
 
@@ -88,7 +89,7 @@ public interface IExecutable extends IExecutableClient<IEntity> {
 		try {
 			return evaluateRemaining().wBooleanValue();
         } catch (Throwable e) {
-            throw IWholeRuntimeException.asWholeException(e, getSourceEntity(), getBindings());
+        	throw new WholeIllegalArgumentException(WholeMessages.no_boolean_result, e).withSourceEntity(getSourceEntity()).withBindings(getBindings());
         }
 	}
 }
