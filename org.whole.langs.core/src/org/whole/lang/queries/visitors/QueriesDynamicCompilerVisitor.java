@@ -848,6 +848,9 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		entity.getWhereClause().accept(this);
 
 		IExecutable satisfiesClause = getExecutableResult();
+		if (satisfiesClause.undecoratedExecutable() instanceof EmptyExecutable)
+			satisfiesClause = executableFactory().createConstant(BindingManagerFactory.instance.createValue(true), false);
+
 		setExecutableResult(executableFactory().createOne(fromClause, satisfiesClause).withSourceEntity(entity));
 	}
 
