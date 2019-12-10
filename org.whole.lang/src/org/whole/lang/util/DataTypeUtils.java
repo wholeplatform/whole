@@ -76,6 +76,26 @@ public class DataTypeUtils {
 			setFromPresentationString(toEntity, getAsPresentationString(fromEntity));
 		return toEntity;
 	}
+	public static IEntity convert(IEntity fromEntity, EntityDescriptor<?> toEd) {
+		EntityDescriptor<?> fromEd = fromEntity.wGetEntityDescriptor();
+		if (toEd.equals(fromEd))
+			return fromEntity;
+		else
+			try {
+				//TODO getMostSpecificDescriptor before converting to string
+				return createFromPresentationString(toEd, getAsPresentationString(fromEntity));
+			} catch (RuntimeException e) {
+				Class<?> toDT = toEd.getDataType();
+				Class<?> fromDT = fromEd.getDataType();
+				if (toDT == null || fromDT == null || toEd.getDataKind().isEnumValue() || fromEd.getDataKind().isEnumValue())
+					throw e;
+
+				if (toDT.isInstance(fromEntity.wGetValue()))
+					return GenericEntityFactory.instance.create(toEd, fromEntity.wGetValue());
+				else
+					throw e;
+			}
+	}
 	public static IEntity convertCloneIfParented(IEntity fromEntity, EntityDescriptor<?> toEd) {
 		return convertCloneIfReparenting(fromEntity, toEd, false);
 	}

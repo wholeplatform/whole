@@ -54,14 +54,16 @@ public class PointwiseInsertEvaluator extends AbstractPointwiseEvaluator {
 		default:
 			throw new IllegalArgumentException("unsupported placement");
 		}
-		IEntity result = EntityUtils.convertCloneIfParented(nestedResults[1], toEd);
+
+		IEntity result = null;
 
 		switch (placement) {
 		case BEFORE:
-			getProducer(0).add(result);
+			//FIXME use convertCloneIfReparenting semantics
+			getProducer(0).add(result = EntityUtils.convertCloneIfParented(nestedResults[1], toEd));
 			break;
 		case INTO:
-			nestedResults[0].wAdd(result);
+			nestedResults[0].wAdd(result = EntityUtils.convertCloneIfReparenting(nestedResults[1], toEd, nestedResults[0].wGetFeatureDescriptor(0).isReference()));
 			break;
 		}
 

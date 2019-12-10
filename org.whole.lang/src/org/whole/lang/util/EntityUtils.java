@@ -323,6 +323,26 @@ public class EntityUtils {
 		return isComposite(entity) && entity.wGetEntityDescriptor(0).isLanguageSupertypeOf(ed);
 	}
 
+	public static final IEntity convert(IEntity value, EntityDescriptor<?> toType) {
+		//FIXME (workaround) force conversion semantics for data types
+		if (toType.getEntityKind().isData() && value.wGetEntityKind().isData())
+			try {
+				return DataTypeUtils.convert(value, toType);
+			} catch (IllegalArgumentException e) {
+			}
+
+		if (toType.isPlatformSupertypeOf(value.wGetEntityDescriptor()))
+			return value;
+		else if (value.wGetEntityKind().isData())
+			try {
+				return DataTypeUtils.convert(value, toType);
+			} catch (IllegalArgumentException e) {
+				//TODO test in synch with wGetAdaptee behavior on WholeEditPartFactory
+				return value.wGetAdapter(toType);
+			}
+		else
+			return value.wGetAdapter(toType);
+	}
 	public static final IEntity convertCloneIfParented(IEntity value, EntityDescriptor<?> toType) {
 		return convertCloneIfReparenting(value, toType, false);
 	}
