@@ -48,10 +48,10 @@ public class WholeIllegalStateException extends IllegalStateException implements
 		return this;
 	}
 	public WholeIllegalStateException withBindings(IBindingManager bindings) {
-		this.bindings = bindings;
+		this.bindings = bindings.clone();
 		IWholeRuntimeException sourceCause = getSourceCause();
 		if (sourceCause != this)
-			sourceCause.withBindings(bindings);
+			sourceCause.withBindings(this.bindings);
 		return this;
 	}
 

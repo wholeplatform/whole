@@ -49,10 +49,10 @@ public class WholeRuntimeException extends RuntimeException implements IWholeRun
 		return this;
 	}
 	public WholeRuntimeException withBindings(IBindingManager bindings) {
-		this.bindings = bindings;
+		this.bindings = bindings.clone();
 		IWholeRuntimeException sourceCause = getSourceCause();
 		if (sourceCause != this)
-			sourceCause.withBindings(bindings);
+			sourceCause.withBindings(this.bindings);
 		return this;
 	}
 

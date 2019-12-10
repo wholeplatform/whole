@@ -45,10 +45,10 @@ public class WholeIllegalArgumentException extends IllegalArgumentException impl
 		return this;
 	}
 	public WholeIllegalArgumentException withBindings(IBindingManager bindings) {
-		this.bindings = bindings;
+		this.bindings = bindings.clone();
 		IWholeRuntimeException sourceCause = getSourceCause();
 		if (sourceCause != this)
-			sourceCause.withBindings(bindings);
+			sourceCause.withBindings(this.bindings);
 		return this;
 	}
 
