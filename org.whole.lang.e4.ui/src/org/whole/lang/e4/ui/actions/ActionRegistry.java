@@ -22,8 +22,6 @@ import static org.whole.lang.e4.ui.actions.IE4UIConstants.*;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
@@ -52,7 +50,6 @@ import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.ui.actions.IUpdatableAction;
 import org.whole.lang.ui.editor.IGEFEditorKit;
 import org.whole.lang.ui.keys.AbstractKeyHandler;
-import org.whole.lang.ui.tools.Tools;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
 import org.whole.lang.util.StringUtils;
 
