@@ -25,12 +25,12 @@ import org.eclipse.gef.KeyHandler;
 import org.eclipse.gef.KeyStroke;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.bindings.keys.KeySequence;
-import org.eclipse.jface.bindings.keys.SWTKeySupport;
 import org.eclipse.swt.events.KeyEvent;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.reflect.IEditorKit;
 import org.whole.lang.ui.actions.IUpdatableAction;
 import org.whole.lang.ui.editparts.IEntityPart;
+import org.whole.lang.ui.util.UIUtils;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
 
 /**
@@ -100,11 +100,6 @@ public abstract class AbstractKeyHandler extends KeyHandler {
 		return editorKitAction != null ? editorKitAction : getActions(pressed).get(keySequence);
 	}
 
-	protected KeySequence convertKeyEvent(KeyEvent event) {
-		int accelerator = SWTKeySupport.convertEventToUnmodifiedAccelerator(event);
-		return KeySequence.getInstance(SWTKeySupport.convertAcceleratorToKeyStroke(accelerator));
-	}
-
 	protected boolean handleEvent(KeyEvent event, IUpdatableAction action) {
 		if (action == null)
 			return false;
@@ -138,14 +133,14 @@ public abstract class AbstractKeyHandler extends KeyHandler {
 
 	@Override
 	public boolean keyPressed(KeyEvent event) {
-		boolean handled = handleEvent(event, getAction(convertKeyEvent(event), true)) ||
+		boolean handled = handleEvent(event, getAction(UIUtils.convertKeyEvent(event), true)) ||
 				(parent != null && parent.keyPressed(event));
 		return !(event.doit = !handled);
 	}
 
 	@Override
 	public boolean keyReleased(KeyEvent event) {
-		boolean handled = handleEvent(event, getAction(convertKeyEvent(event), false)) ||
+		boolean handled = handleEvent(event, getAction(UIUtils.convertKeyEvent(event), false)) ||
 				(parent != null && parent.keyReleased(event));
 		return !(event.doit = !handled);
 	}

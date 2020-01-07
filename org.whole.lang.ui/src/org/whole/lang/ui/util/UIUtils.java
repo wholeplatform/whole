@@ -27,7 +27,10 @@ import org.eclipse.jface.resource.DeviceResourceDescriptor;
 import org.eclipse.jface.resource.FontDescriptor;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.JFaceResources;
+import org.eclipse.jface.bindings.keys.KeySequence;
+import org.eclipse.jface.bindings.keys.SWTKeySupport;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
@@ -165,5 +168,10 @@ public class UIUtils {
 				Math.max(2, Math.min((int) (color.green / RGB_VALUE_MULTIPLIER), 255)),
 				Math.max(2, Math.min((int) (color.blue / RGB_VALUE_MULTIPLIER), 255))
 		);
+	}
+
+	public static KeySequence convertKeyEvent(KeyEvent event) {
+		int accelerator = SWTKeySupport.convertEventToUnmodifiedAccelerator(event);
+		return KeySequence.getInstance(SWTKeySupport.convertAcceleratorToKeyStroke(accelerator));
 	}
 }
