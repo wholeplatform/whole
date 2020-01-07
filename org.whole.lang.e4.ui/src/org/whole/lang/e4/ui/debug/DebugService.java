@@ -24,8 +24,8 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import org.eclipse.core.runtime.ListenerList;
-import org.eclipse.core.runtime.preferences.ConfigurationScope;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.osgi.service.prefs.BackingStoreException;
 import org.whole.lang.e4.ui.actions.IE4UIConstants;
@@ -57,7 +57,7 @@ public class DebugService implements IDebugService {
 	}
 
 	protected IEclipsePreferences getPreferences() {
-		return ConfigurationScope.INSTANCE.getNode(IE4UIConstants.BUNDLE_ID);
+		return InstanceScope.INSTANCE.getNode(IE4UIConstants.BUNDLE_ID);
 	}
 
 	protected void fireExecutionAboutToAdd(ExecutionState execution) {
