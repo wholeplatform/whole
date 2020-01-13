@@ -25,6 +25,7 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.AutoexposeHelper;
 import org.eclipse.gef.editparts.ScalableRootEditPart;
+import org.whole.lang.ui.editparts.IScalableRootEditPart;
 import org.whole.lang.ui.editparts.WholeViewportAutoexposeHelper;
 
 /**
