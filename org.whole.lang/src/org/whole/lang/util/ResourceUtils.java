@@ -217,7 +217,7 @@ public class ResourceUtils {
 	}
 
 	public static void handleCancelRequest(IBindingManager bm) {
-		if (bm.wIsSet("progressMonitor") && ((IOperationProgressMonitor) bm.wGetValue("progressMonitor")).isCanceled())
+		if (bm.wIsSet("eclipse#progressMonitor") && ((IOperationProgressMonitor) bm.wGetValue("eclipse#progressMonitor")).isCanceled())
 			throw new OperationCanceledException();
 	}
 }

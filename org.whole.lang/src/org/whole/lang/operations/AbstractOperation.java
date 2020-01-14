@@ -111,8 +111,8 @@ public abstract class AbstractOperation implements IOperation {
 	public IOperationProgressMonitor getProgressMonitor() {
 		//TODO add environment delegation such that there's always an operationProgressMonitor defined
 		if (operationProgressMonitor == null) { 
-			operationProgressMonitor = getOperationEnvironment().wIsSet("progressMonitor") ?
-				(IOperationProgressMonitor) getOperationEnvironment().wGetValue("progressMonitor") :
+			operationProgressMonitor = getOperationEnvironment().wIsSet("eclipse#progressMonitor") ?
+				(IOperationProgressMonitor) getOperationEnvironment().wGetValue("eclipse#progressMonitor") :
 				new DefaultOperationProgressMonitor();
 		}
 		return operationProgressMonitor;

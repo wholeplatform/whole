@@ -228,7 +228,7 @@ public abstract class AbstractExecutable implements IExecutable, Iterator<IEntit
 	}
 
 	public void handleCanceled() {
-		if (getBindings().wIsSet("progressMonitor") && ((IOperationProgressMonitor) getBindings().wGetValue("progressMonitor")).isCanceled())
+		if (getBindings().wIsSet("eclipse#progressMonitor") && ((IOperationProgressMonitor) getBindings().wGetValue("eclipse#progressMonitor")).isCanceled())
 			throw new OperationCanceledException();
 	}
 
