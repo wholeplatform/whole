@@ -630,7 +630,7 @@ public class HandlersBehavior {
 			for (IEntity result : executable) {
 				results.wAdd(EntityUtils.cloneIfParented(result));//TODO substitute with a no containment fragment
 
-				((IOperationProgressMonitor) bm.wGetValue("progressMonitor")).worked(1);
+				((IOperationProgressMonitor) bm.wGetValue("eclipse#progressMonitor")).worked(1);
 			}
 			bm.setResult(results);
 		} else
@@ -705,7 +705,7 @@ public class HandlersBehavior {
 			bm.wEnterScope(ts);
 			Class<?> generatorClass = Class.forName("org.whole.lang.ui.actions.JavaModelGeneratorAction", true, cl);
 			Method generateMethod = generatorClass.getMethod("generate", IProgressMonitor.class, IEntity.class, IBindingManager.class);
-			final IOperationProgressMonitor operationProgressMonitor = (IOperationProgressMonitor) bm.wGetValue("progressMonitor");
+			final IOperationProgressMonitor operationProgressMonitor = (IOperationProgressMonitor) bm.wGetValue("eclipse#progressMonitor");
 			generateMethod.invoke(null, operationProgressMonitor.getAdapter(IProgressMonitor.class), bm.wGet("compoundRoot"), bm);
 		} catch (OperationCanceledException e) {
 			throw e;

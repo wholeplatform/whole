@@ -84,8 +84,8 @@ public class ResourceUtils {
 	}
 
 	public static IProgressMonitor getProgressMonitor(IBindingManager bm) {
-		return bm.wIsSet("progressMonitor") ?
-				((IOperationProgressMonitor) bm.wGetValue("progressMonitor")).getAdapter(IProgressMonitor.class) : null;
+		return bm.wIsSet("eclipse#progressMonitor") ?
+				((IOperationProgressMonitor) bm.wGetValue("eclipse#progressMonitor")).getAdapter(IProgressMonitor.class) : null;
 	}
 
 	public static boolean isAdaptableToFile(Object element) {

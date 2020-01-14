@@ -55,7 +55,7 @@ public abstract class AbstractRunnableWithProgress implements ISynchronizableRun
 		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
 		try {
 			final IOperationProgressMonitor pm = new OperationProgressMonitorAdapter(monitor);
-			bm.wDefValue("progressMonitor", pm);
+			bm.wDefValue("eclipse#progressMonitor", pm);
 			run(pm);
 		} catch (Exception e) {
 			E4Utils.suspendOrReportException(context, SuspensionKind.ERROR, "Model operation error", "Error while executing "+label+" operation", e, bm);

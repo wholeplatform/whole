@@ -93,11 +93,11 @@ public class ExecutionState {
 	}
 
 	protected boolean isCanceled() {
-		return bindings.wIsSet("progressMonitor") && ((IOperationProgressMonitor) bindings.wGetValue("progressMonitor")).isCanceled();
+		return bindings.wIsSet("eclipse#progressMonitor") && ((IOperationProgressMonitor) bindings.wGetValue("eclipse#progressMonitor")).isCanceled();
 	}
 	protected void setCanceled(boolean canceled) {
-		if (bindings.wIsSet("progressMonitor"))
-			((IOperationProgressMonitor) bindings.wGetValue("progressMonitor")).setCanceled(canceled);
+		if (bindings.wIsSet("eclipse#progressMonitor"))
+			((IOperationProgressMonitor) bindings.wGetValue("eclipse#progressMonitor")).setCanceled(canceled);
 	}
 	
 

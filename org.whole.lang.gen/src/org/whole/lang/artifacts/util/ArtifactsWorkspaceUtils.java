@@ -151,7 +151,7 @@ public class ArtifactsWorkspaceUtils {
 				throw new IllegalArgumentException("Missing Project: "+bindings.wStringValue("projectName"));
 			else {
 				try {
-					project.create((IProgressMonitor) bindings.wGetValue("progressMonitor"));
+					project.create((IProgressMonitor) bindings.wGetValue("eclipse#progressMonitor"));
 					if (project.hasNature(JavaCore.NATURE_ID)) 
 						bindings.wDefValue("javaProject", JavaCore.create(project));
 				} catch (CoreException e) {
@@ -175,7 +175,7 @@ public class ArtifactsWorkspaceUtils {
 				throw new IllegalArgumentException("Missing Folder: "+bindings.wStringValue("folderName"));
 			else {
 				try {
-					folder.create(true, true, (IProgressMonitor) bindings.wGetValue("progressMonitor"));
+					folder.create(true, true, (IProgressMonitor) bindings.wGetValue("eclipse#progressMonitor"));
 				} catch (Exception e) {
 					throw new IllegalArgumentException("Cannot create Folder: "+bindings.wStringValue("folderName"));
 				}
@@ -197,7 +197,7 @@ public class ArtifactsWorkspaceUtils {
 				throw new IllegalArgumentException("Missing Package: "+bindings.wStringValue("packageName"));
 			else {
 				try {
-					folder.create(true, true, (IProgressMonitor) bindings.wGetValue("progressMonitor"));
+					folder.create(true, true, (IProgressMonitor) bindings.wGetValue("eclipse#progressMonitor"));
 				} catch (Exception e) {
 					throw new IllegalArgumentException("Cannot create Package: "+bindings.wStringValue("packageName"));
 				}

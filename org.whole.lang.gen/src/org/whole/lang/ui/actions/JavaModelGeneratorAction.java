@@ -52,7 +52,7 @@ public class JavaModelGeneratorAction {
 			public void run(IProgressMonitor monitor) throws CoreException {
 				monitor.beginTask("Generating...", 100);
 				final IOperationProgressMonitor operationProgressMonitor = new OperationProgressMonitorAdapter(monitor);
-				bm.wDefValue("progressMonitor", operationProgressMonitor);
+				bm.wDefValue("eclipse#progressMonitor", operationProgressMonitor);
 
 				operationProgressMonitor.beginTask("models", 10, IOperationProgressMonitor.TOTAL_WORK);
 				final List<CompilationUnit> cuList = JavaCompilerOperation.compile(program, bm);

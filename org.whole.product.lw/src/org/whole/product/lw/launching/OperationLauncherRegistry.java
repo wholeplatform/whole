@@ -111,7 +111,7 @@ public class OperationLauncherRegistry {
 						protected void execute(IProgressMonitor progressMonitor) {
 							progressMonitor.beginTask("Generating...", 100);
 							final IOperationProgressMonitor operationProgressMonitor = new OperationProgressMonitorAdapter(progressMonitor);
-							bindings.wDefValue("progressMonitor", operationProgressMonitor);
+							bindings.wDefValue("eclipse#progressMonitor", operationProgressMonitor);
 
 							operationProgressMonitor.beginTask("models", 10, IOperationProgressMonitor.TOTAL_WORK);
 							final List<CompilationUnit> cuList = JavaCompilerOperation.compile(model, bindings);

@@ -53,7 +53,7 @@ public class E4UIDecorationManager extends WorkspaceDecorationManager {
 	protected IEntityPartViewer viewer;
 
 	public E4UIDecorationManager(UISynchronize synchronize, IBindingManager bm) {
-		super((IFile) bm.wGetValue("file"), ((IOperationProgressMonitor) bm.wGetValue("progressMonitor")).getAdapter(IProgressMonitor.class));
+		super((IFile) bm.wGetValue("file"), ((IOperationProgressMonitor) bm.wGetValue("eclipse#progressMonitor")).getAdapter(IProgressMonitor.class));
 		this.synchronize = synchronize;
 		this.viewer = (IEntityPartViewer) bm.wGetValue("viewer");
 	}

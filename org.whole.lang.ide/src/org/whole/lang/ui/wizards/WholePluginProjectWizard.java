@@ -77,7 +77,7 @@ public class WholePluginProjectWizard extends Wizard implements INewWizard {
 			protected void execute(IProgressMonitor progressMonitor) {
 				try {
 					progressMonitor.beginTask("Generating...", IOperationProgressMonitor.TOTAL_WORK);
-					params.wDefValue("progressMonitor", 
+					params.wDefValue("eclipse#progressMonitor", 
 							new OperationProgressMonitorAdapter(progressMonitor));
 					IEntity projectTemplate = ProjectsArtifactsTemplateManager.instance().create("WholePluginProject");
 					projectTemplate = BehaviorUtils.evaluate(projectTemplate, 1, params);
