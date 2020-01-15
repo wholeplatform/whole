@@ -207,11 +207,14 @@ public class PatternsGenericBuilderAdapter extends GenericIdentityBuilder {
             case PatternsEntityDescriptorEnum.ScopePoint_ord :
             specificBuilder.ScopePoint();
             break;
+            case PatternsEntityDescriptorEnum.DerivationPoint_ord :
+            specificBuilder.DerivationPoint();
+            break;
             case PatternsEntityDescriptorEnum.TemplatePoint_ord :
             specificBuilder.TemplatePoint();
             break;
-            case PatternsEntityDescriptorEnum.DerivationPoint_ord :
-            specificBuilder.DerivationPoint();
+            case PatternsEntityDescriptorEnum.TemplateApplicationPoint_ord :
+            specificBuilder.TemplateApplicationPoint();
             break;
             case PatternsEntityDescriptorEnum.SelectionPoint_ord :
             specificBuilder.SelectionPoint();
@@ -353,11 +356,14 @@ public class PatternsGenericBuilderAdapter extends GenericIdentityBuilder {
             case PatternsEntityDescriptorEnum.ScopePoint_ord :
             specificBuilder.ScopePoint_();
             break;
+            case PatternsEntityDescriptorEnum.DerivationPoint_ord :
+            specificBuilder.DerivationPoint_();
+            break;
             case PatternsEntityDescriptorEnum.TemplatePoint_ord :
             specificBuilder.TemplatePoint_();
             break;
-            case PatternsEntityDescriptorEnum.DerivationPoint_ord :
-            specificBuilder.DerivationPoint_();
+            case PatternsEntityDescriptorEnum.TemplateApplicationPoint_ord :
+            specificBuilder.TemplateApplicationPoint_();
             break;
             case PatternsEntityDescriptorEnum.SelectionPoint_ord :
             specificBuilder.SelectionPoint_();
@@ -499,11 +505,14 @@ public class PatternsGenericBuilderAdapter extends GenericIdentityBuilder {
             case PatternsEntityDescriptorEnum.ScopePoint_ord :
             specificBuilder._ScopePoint();
             break;
+            case PatternsEntityDescriptorEnum.DerivationPoint_ord :
+            specificBuilder._DerivationPoint();
+            break;
             case PatternsEntityDescriptorEnum.TemplatePoint_ord :
             specificBuilder._TemplatePoint();
             break;
-            case PatternsEntityDescriptorEnum.DerivationPoint_ord :
-            specificBuilder._DerivationPoint();
+            case PatternsEntityDescriptorEnum.TemplateApplicationPoint_ord :
+            specificBuilder._TemplateApplicationPoint();
             break;
             case PatternsEntityDescriptorEnum.SelectionPoint_ord :
             specificBuilder._SelectionPoint();

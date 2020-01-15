@@ -147,13 +147,17 @@ public class PatternsTraverseAllSwitchVisitor extends PatternsIdentityUnaryVisit
         wGetVisitor1().visit(entity.getTemplate());
     }
 
+    public void visit(DerivationPoint entity) {
+        wGetVisitor1().visit(entity.getExpression());
+        wGetVisitor1().visit(entity.getResultType());
+    }
+
     public void visit(TemplatePoint entity) {
         wGetVisitor1().visit(entity.getTemplate());
     }
 
-    public void visit(DerivationPoint entity) {
-        wGetVisitor1().visit(entity.getExpression());
-        wGetVisitor1().visit(entity.getResultType());
+    public void visit(TemplateApplicationPoint entity) {
+        wGetVisitor1().visit(entity.getTemplate());
     }
 
     public void visit(SelectionPoint entity) {

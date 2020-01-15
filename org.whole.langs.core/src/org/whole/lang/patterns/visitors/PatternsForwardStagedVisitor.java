@@ -108,11 +108,15 @@ public class PatternsForwardStagedVisitor extends PatternsIdentityVisitor {
         stagedVisit(entity);
     }
 
+    public void visit(DerivationPoint entity) {
+        stagedVisit(entity);
+    }
+
     public void visit(TemplatePoint entity) {
         stagedVisit(entity);
     }
 
-    public void visit(DerivationPoint entity) {
+    public void visit(TemplateApplicationPoint entity) {
         stagedVisit(entity);
     }
 

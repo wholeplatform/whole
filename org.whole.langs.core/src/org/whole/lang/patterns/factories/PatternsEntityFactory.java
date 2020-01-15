@@ -284,14 +284,6 @@ public class PatternsEntityFactory extends GenericEntityFactory {
         return new EntityBuilder<ScopePoint>(create(PatternsEntityDescriptorEnum.ScopePoint));
     }
 
-    public TemplatePoint createTemplatePoint() {
-        return create(PatternsEntityDescriptorEnum.TemplatePoint);
-    }
-
-    public TemplatePoint createTemplatePoint(Template template) {
-        return create(PatternsEntityDescriptorEnum.TemplatePoint, template);
-    }
-
     public DerivationPoint createDerivationPoint() {
         return create(PatternsEntityDescriptorEnum.DerivationPoint);
     }
@@ -302,6 +294,22 @@ public class PatternsEntityFactory extends GenericEntityFactory {
 
     public IEntityBuilder<DerivationPoint> buildDerivationPoint() {
         return new EntityBuilder<DerivationPoint>(create(PatternsEntityDescriptorEnum.DerivationPoint));
+    }
+
+    public TemplatePoint createTemplatePoint() {
+        return create(PatternsEntityDescriptorEnum.TemplatePoint);
+    }
+
+    public TemplatePoint createTemplatePoint(Template template) {
+        return create(PatternsEntityDescriptorEnum.TemplatePoint, template);
+    }
+
+    public TemplateApplicationPoint createTemplateApplicationPoint() {
+        return create(PatternsEntityDescriptorEnum.TemplateApplicationPoint);
+    }
+
+    public TemplateApplicationPoint createTemplateApplicationPoint(Template template) {
+        return create(PatternsEntityDescriptorEnum.TemplateApplicationPoint, template);
     }
 
     public SelectionPoint createSelectionPoint() {

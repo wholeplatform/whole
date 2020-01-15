@@ -71,6 +71,7 @@ import org.whole.lang.patterns.model.Slot;
 import org.whole.lang.patterns.model.SlotDeclaration;
 import org.whole.lang.patterns.model.SlotStep;
 import org.whole.lang.patterns.model.SlotsDefined;
+import org.whole.lang.patterns.model.TemplateApplicationPoint;
 import org.whole.lang.patterns.model.TemplatePoint;
 import org.whole.lang.patterns.model.Types;
 import org.whole.lang.patterns.model.URI;
@@ -199,13 +200,18 @@ public class PatternsPartFactoryVisitor extends PatternsIdentityDefaultVisitor i
     }
 
     @Override
+    public void visit(DerivationPoint entity) {
+        part = new DerivationPointPart();
+    }
+
+    @Override
     public void visit(TemplatePoint entity) {
         part = new TemplatePointPart();
     }
 
     @Override
-    public void visit(DerivationPoint entity) {
-        part = new DerivationPointPart();
+    public void visit(TemplateApplicationPoint entity) {
+        part = new TemplateApplicationPointPart();
     }
 
     @Override

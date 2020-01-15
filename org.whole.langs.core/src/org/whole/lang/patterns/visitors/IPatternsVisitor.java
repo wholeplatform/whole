@@ -68,9 +68,11 @@ public interface IPatternsVisitor extends IVisitor {
 
     public void visit(ScopePoint entity);
 
+    public void visit(DerivationPoint entity);
+
     public void visit(TemplatePoint entity);
 
-    public void visit(DerivationPoint entity);
+    public void visit(TemplateApplicationPoint entity);
 
     public void visit(SelectionPoint entity);
 

@@ -222,17 +222,23 @@ public interface IPatternsBuilder extends IBuilder {
 
     public void _ScopePoint();
 
+    public void DerivationPoint();
+
+    public void DerivationPoint_();
+
+    public void _DerivationPoint();
+
     public void TemplatePoint();
 
     public void TemplatePoint_();
 
     public void _TemplatePoint();
 
-    public void DerivationPoint();
+    public void TemplateApplicationPoint();
 
-    public void DerivationPoint_();
+    public void TemplateApplicationPoint_();
 
-    public void _DerivationPoint();
+    public void _TemplateApplicationPoint();
 
     public void SelectionPoint();
 

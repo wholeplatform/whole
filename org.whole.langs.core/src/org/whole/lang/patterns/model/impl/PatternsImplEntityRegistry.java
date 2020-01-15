@@ -51,8 +51,9 @@ public class PatternsImplEntityRegistry extends AbstractEntityRegistry {
         put(new JoinPointImpl());
         put(new InsertionPointImpl());
         put(new ScopePointImpl());
-        put(new TemplatePointImpl());
         put(new DerivationPointImpl());
+        put(new TemplatePointImpl());
+        put(new TemplateApplicationPointImpl());
         put(new SelectionPointImpl());
         put(new ConditionPointImpl());
         put(new VariantSelectionPointImpl());

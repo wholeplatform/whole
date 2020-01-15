@@ -122,11 +122,15 @@ public class PatternsForwardStrategyVisitor extends GenericForwardStrategyVisito
         wGetStrategy().visit(entity);
     }
 
+    public void visit(DerivationPoint entity) {
+        wGetStrategy().visit(entity);
+    }
+
     public void visit(TemplatePoint entity) {
         wGetStrategy().visit(entity);
     }
 
-    public void visit(DerivationPoint entity) {
+    public void visit(TemplateApplicationPoint entity) {
         wGetStrategy().visit(entity);
     }
 

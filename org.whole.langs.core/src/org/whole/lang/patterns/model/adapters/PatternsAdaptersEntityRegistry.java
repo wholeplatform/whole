@@ -54,8 +54,9 @@ public class PatternsAdaptersEntityRegistry extends AbstractEntityRegistry {
         put(new JoinPointAdapter());
         put(new InsertionPointAdapter());
         put(new ScopePointAdapter());
-        put(new TemplatePointAdapter());
         put(new DerivationPointAdapter());
+        put(new TemplatePointAdapter());
+        put(new TemplateApplicationPointAdapter());
         put(new SelectionPointAdapter());
         put(new ConditionPointAdapter());
         put(new VariantSelectionPointAdapter());

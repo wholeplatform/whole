@@ -114,11 +114,15 @@ public class PatternsFailureVisitor extends PatternsIdentityVisitor {
         throw new VisitException();
     }
 
+    public void visit(DerivationPoint entity) {
+        throw new VisitException();
+    }
+
     public void visit(TemplatePoint entity) {
         throw new VisitException();
     }
 
-    public void visit(DerivationPoint entity) {
+    public void visit(TemplateApplicationPoint entity) {
         throw new VisitException();
     }
 

@@ -4690,13 +4690,13 @@
                     </semantics:FunctionApplication>
                 </queries:If>
                 <queries:If>
-                    <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#TemplatePoint"/>
+                    <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#TemplateApplicationPoint"/>
                     <semantics:FunctionApplication>
                         <semantics:Name value="wrapAtExecutableStage"/>
                         <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                             <queries:Scope>
                                 <queries:FreshNames initialCapacity="1">
-                                    <queries:Name value="derivationExpression"/>
+                                    <queries:Name value="patterns#templateExpression"/>
                                 </queries:FreshNames>
                                 <queries:Block initialCapacity="2">
                                     <queries:Filter>
@@ -4708,10 +4708,10 @@
                                         <commons:Resolver/>
                                         </semantics:FunctionApplication>
                                         </commons:StageDownFragment>
-                                        <queries:VariableTest value="derivationExpression"/>
+                                        <queries:VariableTest value="patterns#templateExpression"/>
                                     </queries:Filter>
                                     <queries:Call>
-                                        <queries:Name value="derivationExpression"/>
+                                        <queries:Name value="patterns#templateExpression"/>
                                         <commons:Resolver/>
                                     </queries:Call>
                                 </queries:Block>

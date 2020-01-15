@@ -92,11 +92,14 @@ public abstract class PatternsIdentitySwitchVisitor extends AbstractVisitor impl
             case PatternsEntityDescriptorEnum.ScopePoint_ord :
             visit((ScopePoint) entity);
             break;
+            case PatternsEntityDescriptorEnum.DerivationPoint_ord :
+            visit((DerivationPoint) entity);
+            break;
             case PatternsEntityDescriptorEnum.TemplatePoint_ord :
             visit((TemplatePoint) entity);
             break;
-            case PatternsEntityDescriptorEnum.DerivationPoint_ord :
-            visit((DerivationPoint) entity);
+            case PatternsEntityDescriptorEnum.TemplateApplicationPoint_ord :
+            visit((TemplateApplicationPoint) entity);
             break;
             case PatternsEntityDescriptorEnum.SelectionPoint_ord :
             visit((SelectionPoint) entity);

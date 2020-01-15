@@ -152,13 +152,17 @@ public class PatternsTraverseAllChildrenVisitor extends PatternsIdentityUnaryVis
         entity.getTemplate().accept(wGetVisitor1());
     }
 
+    public void visit(DerivationPoint entity) {
+        entity.getExpression().accept(wGetVisitor1());
+        entity.getResultType().accept(wGetVisitor1());
+    }
+
     public void visit(TemplatePoint entity) {
         entity.getTemplate().accept(wGetVisitor1());
     }
 
-    public void visit(DerivationPoint entity) {
-        entity.getExpression().accept(wGetVisitor1());
-        entity.getResultType().accept(wGetVisitor1());
+    public void visit(TemplateApplicationPoint entity) {
+        entity.getTemplate().accept(wGetVisitor1());
     }
 
     public void visit(SelectionPoint entity) {

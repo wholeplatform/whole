@@ -43,7 +43,7 @@
             <models:AnyType/>
         </models:SubtypesOf>
     </models:TypeRelations>
-    <models:ModelDeclarations initialCapacity="70">
+    <models:ModelDeclarations initialCapacity="71">
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="0"/>
             <models:SimpleName value="PatternLanguage"/>
@@ -599,21 +599,6 @@
         </models:SimpleEntity>
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="0"/>
-            <models:SimpleName value="TemplatePoint"/>
-            <models:Types initialCapacity="1">
-                <models:SimpleName value="VariationPoint"/>
-            </models:Types>
-            <models:Features initialCapacity="1">
-                <models:Feature>
-                    <models:FeatureModifiers initialCapacity="0"/>
-                    <models:SimpleName value="Template"/>
-                    <models:SimpleName value="template"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                </models:Feature>
-            </models:Features>
-        </models:SimpleEntity>
-        <models:SimpleEntity>
-            <models:EntityModifiers initialCapacity="0"/>
             <models:SimpleName value="DerivationPoint"/>
             <models:Types initialCapacity="1">
                 <models:SimpleName value="VariationPoint"/>
@@ -631,6 +616,36 @@
                     </models:FeatureModifiers>
                     <models:SimpleName value="ResultType"/>
                     <models:SimpleName value="resultType"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="TemplatePoint"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="VariationPoint"/>
+            </models:Types>
+            <models:Features initialCapacity="1">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="0"/>
+                    <models:SimpleName value="Template"/>
+                    <models:SimpleName value="template"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="TemplateApplicationPoint"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="VariationPoint"/>
+            </models:Types>
+            <models:Features initialCapacity="1">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="0"/>
+                    <models:SimpleName value="Template"/>
+                    <models:SimpleName value="template"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
             </models:Features>
@@ -1210,8 +1225,7 @@
             <models:EntityModifiers initialCapacity="0"/>
             <models:SimpleName value="Placement"/>
             <models:Types initialCapacity="0"/>
-            <models:EnumValues initialCapacity="6">
-                <models:EnumValue value="AT"/>
+            <models:EnumValues initialCapacity="5">
                 <models:EnumValue value="AROUND"/>
                 <models:EnumValue value="BEFORE"/>
                 <models:EnumValue value="AFTER"/>

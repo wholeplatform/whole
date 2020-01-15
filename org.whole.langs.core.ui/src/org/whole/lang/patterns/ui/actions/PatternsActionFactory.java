@@ -42,8 +42,9 @@ public class PatternsActionFactory extends ActionFactory {
 				{ pf.assignableTo(PatternsEntityDescriptorEnum.Template), PatternsEntityDescriptorEnum.ConditionPoint, "Condition Point", wrapIn(1)},
 				{ pf.assignableTo(PatternsEntityDescriptorEnum.Template), PatternsEntityDescriptorEnum.IterationPoint, "Iteration Point", wrapIn(1)},
 				{ pf.assignableTo(PatternsEntityDescriptorEnum.Template), PatternsEntityDescriptorEnum.InlinePoint, "Inline Point", wrapIn0},
-				{ pf.assignableTo(PatternsEntityDescriptorEnum.Template), PatternsEntityDescriptorEnum.TemplatePoint, "Template Point", wrapIn0},
 				{ pf.assignableTo(PatternsEntityDescriptorEnum.Expression), PatternsEntityDescriptorEnum.DerivationPoint, "Derivation Point", wrapIn0},
+				{ pf.assignableTo(PatternsEntityDescriptorEnum.Template), PatternsEntityDescriptorEnum.TemplatePoint, "Template Point", wrapIn0},
+				{ pf.assignableTo(PatternsEntityDescriptorEnum.Template), PatternsEntityDescriptorEnum.TemplateApplicationPoint, "Template Application Point", wrapIn0},
 		};
 	};
 }

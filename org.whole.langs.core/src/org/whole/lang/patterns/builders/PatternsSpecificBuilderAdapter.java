@@ -428,6 +428,18 @@ public class PatternsSpecificBuilderAdapter extends GenericBuilderContext implem
         _wEntity(PatternsEntityDescriptorEnum.ScopePoint);
     }
 
+    public void DerivationPoint() {
+        wEntity(PatternsEntityDescriptorEnum.DerivationPoint);
+    }
+
+    public void DerivationPoint_() {
+        wEntity_(PatternsEntityDescriptorEnum.DerivationPoint);
+    }
+
+    public void _DerivationPoint() {
+        _wEntity(PatternsEntityDescriptorEnum.DerivationPoint);
+    }
+
     public void TemplatePoint() {
         wEntity(PatternsEntityDescriptorEnum.TemplatePoint);
     }
@@ -440,16 +452,16 @@ public class PatternsSpecificBuilderAdapter extends GenericBuilderContext implem
         _wEntity(PatternsEntityDescriptorEnum.TemplatePoint);
     }
 
-    public void DerivationPoint() {
-        wEntity(PatternsEntityDescriptorEnum.DerivationPoint);
+    public void TemplateApplicationPoint() {
+        wEntity(PatternsEntityDescriptorEnum.TemplateApplicationPoint);
     }
 
-    public void DerivationPoint_() {
-        wEntity_(PatternsEntityDescriptorEnum.DerivationPoint);
+    public void TemplateApplicationPoint_() {
+        wEntity_(PatternsEntityDescriptorEnum.TemplateApplicationPoint);
     }
 
-    public void _DerivationPoint() {
-        _wEntity(PatternsEntityDescriptorEnum.DerivationPoint);
+    public void _TemplateApplicationPoint() {
+        _wEntity(PatternsEntityDescriptorEnum.TemplateApplicationPoint);
     }
 
     public void SelectionPoint() {

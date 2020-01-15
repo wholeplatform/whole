@@ -119,11 +119,15 @@ public class PatternsForwardGenericVisitor extends AbstractUnaryVisitor<IVisitor
         wGetVisitor1().visit(entity);
     }
 
+    public void visit(DerivationPoint entity) {
+        wGetVisitor1().visit(entity);
+    }
+
     public void visit(TemplatePoint entity) {
         wGetVisitor1().visit(entity);
     }
 
-    public void visit(DerivationPoint entity) {
+    public void visit(TemplateApplicationPoint entity) {
         wGetVisitor1().visit(entity);
     }
 

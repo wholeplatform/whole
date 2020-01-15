@@ -145,12 +145,17 @@ public class PatternsIdentityDefaultVisitor extends PatternsIdentityVisitor {
         visit((VariationPoint) entity);
     }
 
+    public void visit(DerivationPoint entity) {
+        visit((IPatternsEntity) entity);
+        visit((VariationPoint) entity);
+    }
+
     public void visit(TemplatePoint entity) {
         visit((IPatternsEntity) entity);
         visit((VariationPoint) entity);
     }
 
-    public void visit(DerivationPoint entity) {
+    public void visit(TemplateApplicationPoint entity) {
         visit((IPatternsEntity) entity);
         visit((VariationPoint) entity);
     }
