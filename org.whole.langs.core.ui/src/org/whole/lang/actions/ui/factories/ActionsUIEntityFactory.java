@@ -36,13 +36,14 @@ import org.whole.lang.actions.model.Actions;
 import org.whole.lang.actions.model.GroupAction;
 import org.whole.lang.actions.model.SubgroupAction;
 import org.whole.lang.actions.model.TemplateAction;
+import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.codebase.IPersistenceKit;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
+import org.whole.lang.evaluators.AbstractPureConditionalSupplierEvaluator;
 import org.whole.lang.executables.ExecutableFactory;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.factories.IEntityRegistryProvider;
 import org.whole.lang.factories.RegistryConfigurations;
-import org.whole.lang.grammars.model.NonTerminal;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.queries.factories.QueriesEntityFactory;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
@@ -121,7 +122,16 @@ public class ActionsUIEntityFactory extends ActionsEntityFactory {
 
 	public GroupAction createAllVariablesGroupAction(ActionKindEnum.Value kind, Set<String> excludeSet, EntityDescriptor<?> resultEd, IEntity model) {
 		ExecutableFactory f = ExecutableFactory.instance;
-		IExecutable i = f.createFilter(f.createDescendantOrSelf(), f.createIsVariable());
+		IExecutable i = f.createFilter(f.createDescendantOrSelf(), new AbstractPureConditionalSupplierEvaluator() {
+			public IEntity get() {
+				return BindingManagerFactory.instance.createValue(
+						isVariable(selfEntity.wGetEntityDescriptor()));
+			}
+
+			public void toString(StringBuilder sb) {
+				sb.append("isVariable()");
+			}
+		});
 		i.reset(EntityUtils.safeGetRootEntity(model));
 		return createVariablesGroupAction(kind, excludeSet, resultEd, i);
 	}
