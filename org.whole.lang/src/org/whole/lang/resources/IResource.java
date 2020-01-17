@@ -37,6 +37,9 @@ public interface IResource extends ITemplate {
 	public IPersistenceProvider getResourcePersistenceProvider();
 	public void setResourcePersistenceProvider(IPersistenceProvider persistenceProvider);
 
+	public boolean isValid();
+	public void setValid(boolean value);
+
 	public <E extends IEntity> E getEntity();
 	public void setEntity(IEntity entity);
 

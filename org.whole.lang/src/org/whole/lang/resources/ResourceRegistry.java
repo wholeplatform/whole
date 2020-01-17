@@ -124,10 +124,13 @@ public class ResourceRegistry<T extends IResource> implements IResourceRegistry<
 					resource.setResourcePersistenceProvider(pp);
 
 					uriResourceMap.put(uri, resource);
-					final boolean isValidResource = resource.getEntity() != null && resource.getName() != null;
-					uriResourceMap.remove(uri);
+					try {
+						resource.getEntity(); // try to lazy load the resource
+					} finally {
+						uriResourceMap.remove(uri);						
+					}
 
-					if (isValidResource)
+					if (resource.isValid())
 						addResource(resource, false);
 					else {
 						resource = null;
@@ -189,9 +192,9 @@ public class ResourceRegistry<T extends IResource> implements IResourceRegistry<
 		if (resourceName != null) {
 			Integer occurrences = nameOccurrencesMap.get(resourceName);
 			if (occurrences == null)
-				nameOccurrencesMap.put(resourceName, new Integer(1));
+				nameOccurrencesMap.put(resourceName, Integer.valueOf(1));
 			else
-				nameOccurrencesMap.put(resourceName, new Integer(occurrences.intValue() + 1));
+				nameOccurrencesMap.put(resourceName, Integer.valueOf(occurrences.intValue() + 1));
 		}
 
 		if (removed)
@@ -226,7 +229,7 @@ public class ResourceRegistry<T extends IResource> implements IResourceRegistry<
 			if (occurrences == 1)
 				nameOccurrencesMap.remove(resourceName);
 			else
-				nameOccurrencesMap.put(resourceName, new Integer(occurrences - 1));
+				nameOccurrencesMap.put(resourceName, Integer.valueOf(occurrences - 1));
 		}
 
 		for (IResourceRegistryListener<T> resourceChangeHandler : resourceRegistryListeners)

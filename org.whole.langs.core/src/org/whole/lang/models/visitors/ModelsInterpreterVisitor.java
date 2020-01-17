@@ -85,6 +85,9 @@ public class ModelsInterpreterVisitor extends ModelsIdentityDefaultVisitor {
 		if (useArgLanguageKit)
 			languageKit = argLanguageKit;
 		else {
+			if (argLanguageKit != null)
+				argLanguageKit.setValid(false);
+
 			languageKit = new DynamicLanguageKit();
 			languageKit.setURI(entity.getUri().getValue());
 			languageKit.setNamespace(entity.getNamespace().getValue());
@@ -94,13 +97,8 @@ public class ModelsInterpreterVisitor extends ModelsIdentityDefaultVisitor {
 		entity = EntityUtils.cloneIfParented(entity);
 		languageKit.setEntity(entity);
 		configureLanguageKit(languageKit, entity);
-		ReflectionFactory.updatePersistenceAndEditorKits(languageKit);
+		ReflectionFactory.deploy(DynamicLanguageKit.getDeployer(languageKit));
 
-		if (!useArgLanguageKit) {
-			ReflectionFactory.deploy(DynamicLanguageKit.getDeployer(languageKit));
-			if (hasArgLanguageKit)
-				getBindings().wSetValue("languageKit", argLanguageKit);
-		}
 		setResult(BindingManagerFactory.instance.createValue(languageKit));
 	}
 	public void configureLanguageKit(DynamicLanguageKit languageKit, Model model) {

@@ -47,6 +47,7 @@ public class Resource implements IResource {
 	private String namespace;
 	private String name;
 	private String version;
+	private boolean valid = true;
 
 	@SuppressWarnings("unchecked")
 	public IResourceRegistry<?> getResourceRegistry() {
@@ -89,6 +90,13 @@ public class Resource implements IResource {
 
 	public void setResourceInfo(IResourceInfo resourceInfo) {
 		this.resourceInfo = resourceInfo;
+	}
+
+	public boolean isValid() {
+		return valid && entity != null;
+	}
+	public void setValid(boolean value) {
+		valid = value;
 	}
 
 	@SuppressWarnings("unchecked")
