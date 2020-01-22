@@ -57,7 +57,8 @@ public class EnumValueImpl implements EnumValue {
     	return false;
     }
     public final int compareTo(EnumValue o) {
-        return getOrdinal() - o.getOrdinal();
+    	int result = getEnumType().compareTo(o.getEnumType());
+    	return result != 0 ? result : getOrdinal() - o.getOrdinal();
     }
 
     private EnumType<?> enumType;

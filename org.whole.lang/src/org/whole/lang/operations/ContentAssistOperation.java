@@ -133,9 +133,14 @@ public class ContentAssistOperation extends AbstractVisitorOperation {
     		Collections.sort(enumValues, (EnumValue arg0, EnumValue arg1) -> {
     				String arg0String = unparser.unparseEnumValue(ed, arg0);
     				String arg1String = unparser.unparseEnumValue(ed, arg1);
-    				if (arg0String.length()==0 || arg1String.length()==0 ||
-    						!Character.isLetterOrDigit(arg0String.charAt(0)) ||
-    						!Character.isLetterOrDigit(arg1String.charAt(0)))
+    				boolean isArg0Symbolic = !Character.isLetterOrDigit(arg0String.charAt(0));
+    				boolean isArg1Symbolic = !Character.isLetterOrDigit(arg1String.charAt(0));
+
+    				if (isArg0Symbolic && !isArg1Symbolic)
+    					return -1;
+    				else if (!isArg0Symbolic && isArg1Symbolic)
+    					return 1;
+    				else if (isArg0Symbolic && isArg1Symbolic)
     					return arg0.compareTo(arg1);
     				else
     					return arg0String.compareTo(arg1String);

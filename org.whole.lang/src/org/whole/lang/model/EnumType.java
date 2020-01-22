@@ -31,7 +31,7 @@ import java.util.Set;
 /**
  * @author Riccardo Solmi
  */
-public class EnumType<E extends EnumValue> implements Iterable<E>, Serializable {
+public class EnumType<E extends EnumValue> implements Iterable<E>, Comparable<EnumType<?>>, Serializable {
 	private static final long serialVersionUID = 1L;
 	private Map<String, E> namesMap = new HashMap<String, E>();
 	private Map<String, E> implNamesMap = new HashMap<String, E>();
@@ -46,6 +46,10 @@ public class EnumType<E extends EnumValue> implements Iterable<E>, Serializable 
     		return getClass().getName().equals(o.getClass().getName());
     	}
     	return false;
+    }
+
+    public final int compareTo(EnumType<?> o) {
+    	return getClass().getName().compareTo(o.getClass().getName());
     }
 
     public int size() {
