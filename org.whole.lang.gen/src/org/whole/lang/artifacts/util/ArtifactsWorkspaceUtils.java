@@ -115,7 +115,7 @@ public class ArtifactsWorkspaceUtils {
 
 		bindMetadata(((Workspace) rootEntity).getMetadata(), bindings);
 
-		for (IEntity pathFragment = rootEntity; pathFragment != null; pathFragment = pathExecutable.evaluateNext()) {
+		for (IEntity pathFragment = pathExecutable.evaluateNext(); pathFragment != null; pathFragment = pathExecutable.evaluateNext()) {
 			if (EntityUtils.isNotResolver(pathFragment) && !EntityUtils.isComposite(pathFragment)) {
 				switch (pathFragment.wGetEntityOrd()) {
 				case ArtifactsEntityDescriptorEnum.Project_ord:
