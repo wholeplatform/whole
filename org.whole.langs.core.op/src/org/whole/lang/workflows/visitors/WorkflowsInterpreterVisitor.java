@@ -27,6 +27,8 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import org.whole.lang.artifacts.model.IArtifactsEntity;
@@ -78,6 +80,7 @@ import org.whole.lang.templates.ITemplateFactory;
 import org.whole.lang.util.BehaviorUtils;
 import org.whole.lang.util.DataTypeUtils;
 import org.whole.lang.util.EntityUtils;
+import org.whole.lang.util.WholeMessages;
 import org.whole.lang.visitors.MissingVariableException;
 import org.whole.lang.visitors.VisitException;
 import org.whole.lang.workflows.model.Arguments;
@@ -536,13 +539,33 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 				IEntity selfEntity = getBindings().wGet(IBindingManager.SELF);
 				if (ed.getEntityKind().isData()) {
 					((Expressions) arguments).get(0).accept(this);
-					model = DataTypeUtils.convertCloneIfParented(getResult(), ed);
+					IEntity result = getResult();
+	        		if (result == null)
+	        			throw new WholeIllegalArgumentException(WholeMessages.null_value_argument).withSourceEntity(((Expressions) arguments).get(0)).withBindings(getBindings());
+
+					model = DataTypeUtils.convertCloneIfParented(result, ed);
 					resetSelfEntity(selfEntity);
+				} else if (ed.getEntityKind().isComposite()) {
+					int argsSize = arguments.wSize();
+					FeatureDescriptor efd = ed.getEntityFeatureDescriptor(0);
+					List<IEntity> values = new ArrayList<>(argsSize);
+					for (int i = 0; i < argsSize; i++) {
+						((Expressions) arguments).get(i).accept(this);
+						IEntity result = getResult();
+		        		if (result != null)
+		        			values.add(EntityUtils.convertCloneIfReparenting(result, efd));
+						resetSelfEntity(selfEntity);
+					}
+					model = ef.create(ed, values.toArray(new IEntity[0]));
 				} else {
 					IEntity[] values = new IEntity[arguments.wSize()];
 					for (int i = 0; i < values.length; i++) {
 						((Expressions) arguments).get(i).accept(this);
-						values[i] = EntityUtils.convertCloneIfReparenting(getResult(), ed.getEntityFeatureDescriptor(i));
+						IEntity result = getResult();
+		        		if (result == null)
+		        			throw new WholeIllegalArgumentException(WholeMessages.null_value_argument).withSourceEntity(((Expressions) arguments).get(i)).withBindings(getBindings());
+
+						values[i] = EntityUtils.convertCloneIfReparenting(result, ed.getEntityFeatureDescriptor(i));
 						resetSelfEntity(selfEntity);
 					}
 					model = ef.create(ed, values);
