@@ -17,28 +17,23 @@
  */
 package org.whole.lang.evaluators;
 
-import java.util.function.IntSupplier;
-
 import org.whole.lang.model.IEntity;
 
 /**
  * @author Riccardo Solmi
  */
 public class FeatureByIndexEvaluator extends AbstractPureConditionalSupplierEvaluator {
-	protected IntSupplier indexSupplier;
+	protected int relativeIndex;
 	protected int index;
 
 	public FeatureByIndexEvaluator(int relativeIndex) {
-		indexSupplier = () -> relativeIndex >= 0 ? relativeIndex : selfEntity.wSize()-1 + relativeIndex+1;
-	}
-	public FeatureByIndexEvaluator(IntSupplier indexSupplier) {
-		this.indexSupplier = indexSupplier;
+		this.relativeIndex = relativeIndex;
 	}
 
 	@Override
 	public void reset(IEntity entity) {
 		super.reset(entity);
-		index = indexSupplier.getAsInt();
+		index = relativeIndex >= 0 ? relativeIndex : entity.wSize() + relativeIndex;
 	}
 
 	public boolean hasNext() {
