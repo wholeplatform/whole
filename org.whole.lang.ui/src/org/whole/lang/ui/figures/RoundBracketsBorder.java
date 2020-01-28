@@ -58,17 +58,19 @@ public class RoundBracketsBorder extends MarginBorder {
 	public static void paintRoundBrackets(Graphics g, Rectangle bounds, int leftMargin, int rightMargin) {
 		if (leftMargin > 0) {
 			final int leftSize = leftMargin + 1;
-			g.drawArc(bounds.x, bounds.y, leftSize, leftSize*2, 90, 90);
+			int leftHeight = Math.min(leftSize*2, bounds.height);
+			g.drawArc(bounds.x, bounds.y, leftSize, leftHeight, 90, 90);
 			if (bounds.y+leftMargin < bounds.bottom()-leftMargin)
 				g.drawLine(bounds.x, bounds.y+leftMargin, bounds.x, bounds.bottom()-leftMargin);
-			g.drawArc(bounds.x, bounds.bottom()-leftSize*2, leftSize, leftSize*2, 180, 90);
+			g.drawArc(bounds.x, bounds.bottom()-leftHeight, leftSize, leftHeight, 180, 90);
 		}
 		if (rightMargin > 0) {
 			final int rightSize = rightMargin + 1;
-			g.drawArc(bounds.right()-rightSize, bounds.y, rightSize, rightSize*2, 0, 90);
+			int rightHeight = Math.min(rightSize*2, bounds.height);
+			g.drawArc(bounds.right()-rightSize, bounds.y, rightSize, rightHeight, 0, 90);
 			if (bounds.y+rightMargin < bounds.bottom()-rightMargin)
 				g.drawLine(bounds.right(), bounds.y+rightMargin, bounds.right(), bounds.bottom()-rightMargin);
-			g.drawArc(bounds.right()-rightSize, bounds.bottom()-rightSize*2, rightSize, rightSize*2, 0, -90);
+			g.drawArc(bounds.right()-rightSize, bounds.bottom()-rightHeight, rightSize, rightHeight, 0, -90);
 		}
 	}
 }
