@@ -113,7 +113,7 @@ import org.whole.lang.workflows.model.OperationEnum;
 import org.whole.lang.workflows.model.Parallel;
 import org.whole.lang.workflows.model.Parse;
 import org.whole.lang.workflows.model.PersistenceActivity;
-import org.whole.lang.workflows.model.RegistryEnum;
+import org.whole.lang.workflows.model.Registry;
 import org.whole.lang.workflows.model.ResourceKind;
 import org.whole.lang.workflows.model.ResourceKindEnum;
 import org.whole.lang.workflows.model.SaveArtifacts;
@@ -341,6 +341,11 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 	}
 
 	@Override
+	public void visit(Registry entity) {
+		setResult(entity);
+	}
+
+	@Override
 	public void visit(Text entity) {
 		setResult(BindingManagerFactory.instance.createValue(entity.wStringValue()));
 	}
@@ -498,24 +503,9 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 			if (ed == null)
 				throw new WholeIllegalArgumentException("The requested entity does not exist: "+typeName).withSourceEntity(entity).withBindings(getBindings());
 	
-			IEntityRegistryProvider provider = null;
-			switch (entity.getRegistry().getValue().getOrdinal()) {
-			case RegistryEnum.DEFAULT_ord:
-				provider = RegistryConfigurations.DEFAULT;
-				break;
-			case RegistryEnum.RESOLVER_ord:
-				provider = RegistryConfigurations.RESOLVER;
-				break;
-			case RegistryEnum.ADAPTER_ord:
-				provider = RegistryConfigurations.ADAPTER;
-				break;
-			case RegistryEnum.STRICT_ord:
-				provider = RegistryConfigurations.STRICT;
-				break;
-			case RegistryEnum.CUSTOM_ord:
-				provider = RegistryConfigurations.CUSTOM;
-				break;
-			}
+			setResult(null);
+			entity.getRegistry().accept(this);
+			IEntityRegistryProvider provider = RegistryConfigurations.valueOf(((Registry) getResult()).getValue().getName());
 			IEntityFactory ef = GenericEntityFactory.instance(provider);
 			IEntity model;
 	
@@ -578,6 +568,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 			throw IWholeRuntimeException.asWholeException(e, entity, getBindings());
 		}
 	}
+
 	@Override
 	public void visit(CreateModel entity) {
 		ITransactionScope resettableScope = BindingManagerFactory.instance.createTransactionScope();

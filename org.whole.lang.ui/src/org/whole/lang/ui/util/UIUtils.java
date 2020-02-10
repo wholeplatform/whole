@@ -42,10 +42,13 @@ import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Monitor;
+import org.whole.lang.model.IEntity;
+import org.whole.lang.reflect.ILanguageKit;
 import org.whole.lang.ui.PreferenceConstants;
 import org.whole.lang.ui.PreferenceConstants.FontClass;
 import org.whole.lang.ui.PreferenceConstants.FontSize;
 import org.whole.lang.ui.PreferenceConstants.FontStyle;
+import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Enrico Persiani, Riccardo Solmi
@@ -173,5 +176,16 @@ public class UIUtils {
 	public static KeySequence convertKeyEvent(KeyEvent event) {
 		int accelerator = SWTKeySupport.convertEventToUnmodifiedAccelerator(event);
 		return KeySequence.getInstance(SWTKeySupport.convertAcceleratorToKeyStroke(accelerator));
+	}
+
+	public static boolean parentHasDifferentLanguage(IEntity entity) {
+		IEntity parentEntity = entity.wGetParent();
+		if (EntityUtils.isNull(parentEntity))
+			return true;
+
+		ILanguageKit parentLaguage = parentEntity.wGetLanguageKit();
+		
+		return !entity.wGetLanguageKit().equals(parentLaguage) &&
+				!parentLaguage.getURI().equals("whole:org.whole.lang.changes:ChangesModel");//ChangesLanguageKit.URI);
 	}
 }

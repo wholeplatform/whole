@@ -18,7 +18,6 @@
 package org.whole.lang.models.ui.editparts;
 
 import org.eclipse.gef.EditPart;
-import org.whole.lang.changes.reflect.ChangesLanguageKit;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.model.adapters.IEntityAdapter;
@@ -55,7 +54,6 @@ import org.whole.lang.models.model.Version;
 import org.whole.lang.models.reflect.ModelsEntityDescriptorEnum;
 import org.whole.lang.models.reflect.ModelsFeatureDescriptorEnum;
 import org.whole.lang.models.visitors.ModelsIdentityDefaultVisitor;
-import org.whole.lang.reflect.ILanguageKit;
 import org.whole.lang.ui.editparts.AnyTypePart;
 import org.whole.lang.ui.editparts.BarSeparatedCompositeFlowPart;
 import org.whole.lang.ui.editparts.CommaSeparatedCompositeFlowPart;
@@ -71,6 +69,7 @@ import org.whole.lang.ui.editparts.ModuleNameTextualEntityPart;
 import org.whole.lang.ui.editparts.ModuleNamespaceTextualEntityPart;
 import org.whole.lang.ui.editparts.PlaceHolderPart;
 import org.whole.lang.ui.notations.table.editparts.TablePartFactory;
+import org.whole.lang.ui.util.UIUtils;
 import org.whole.lang.util.EntityUtils;
 
 /**
@@ -92,16 +91,6 @@ public class ModelsTabularPartFactoryVisitor extends ModelsIdentityDefaultVisito
 
 	public void visit(IModelsEntity entity) {
 		part = TablePartFactory.instance().createEditPart(context, entity);
-	}
-
-	protected boolean parentHasDifferentLanguage(IEntity entity) {
-		IEntity parentEntity = entity.wGetParent();
-		if (EntityUtils.isNull(parentEntity))
-			return true;
-
-		ILanguageKit parentLaguage = parentEntity.wGetLanguageKit();
-		
-		return !entity.wGetLanguageKit().equals(parentLaguage) && !parentLaguage.getURI().equals(ChangesLanguageKit.URI);
 	}
 
 	public void visit(DataType entity) {
@@ -180,7 +169,7 @@ public class ModelsTabularPartFactoryVisitor extends ModelsIdentityDefaultVisito
 
 	@Override
 	public void visit(SimpleEntity entity) {
-		if (parentHasDifferentLanguage(entity))
+		if (UIUtils.parentHasDifferentLanguage(entity))
 			super.visit(entity);
 		else
 			part = new SimpleEntityTablePart();
@@ -191,7 +180,7 @@ public class ModelsTabularPartFactoryVisitor extends ModelsIdentityDefaultVisito
 	}
 	@Override
 	public void visit(Feature entity) {
-		if (parentHasDifferentLanguage(entity))
+		if (UIUtils.parentHasDifferentLanguage(entity))
 			super.visit(entity);
 		else
 			part = new FeatureRowPart();
@@ -203,7 +192,7 @@ public class ModelsTabularPartFactoryVisitor extends ModelsIdentityDefaultVisito
 
 	@Override
 	public void visit(CompositeEntity entity) {
-		if (parentHasDifferentLanguage(entity))
+		if (UIUtils.parentHasDifferentLanguage(entity))
 			super.visit(entity);
 		else
 			part = new CompositeEntityTablePart();
@@ -215,7 +204,7 @@ public class ModelsTabularPartFactoryVisitor extends ModelsIdentityDefaultVisito
 
 	@Override
 	public void visit(MapEntity entity) {
-		if (parentHasDifferentLanguage(entity))
+		if (UIUtils.parentHasDifferentLanguage(entity))
 			super.visit(entity);
 		else
 			part = new MapEntityTablePart();
@@ -223,7 +212,7 @@ public class ModelsTabularPartFactoryVisitor extends ModelsIdentityDefaultVisito
 
 	@Override
 	public void visit(DataEntity entity) {
-		if (parentHasDifferentLanguage(entity))
+		if (UIUtils.parentHasDifferentLanguage(entity))
 			super.visit(entity);
 		else
 			part = new DataEntityTablePart();
@@ -231,7 +220,7 @@ public class ModelsTabularPartFactoryVisitor extends ModelsIdentityDefaultVisito
 
 	@Override
 	public void visit(EnumEntity entity) {
-		if (parentHasDifferentLanguage(entity))
+		if (UIUtils.parentHasDifferentLanguage(entity))
 			super.visit(entity);
 		else
 			part = new EnumEntityTablePart();

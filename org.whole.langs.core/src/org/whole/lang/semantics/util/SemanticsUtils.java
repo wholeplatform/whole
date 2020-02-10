@@ -55,6 +55,7 @@ import org.whole.lang.util.FreshNameGenerator;
 import org.whole.lang.util.IRunnable;
 import org.whole.lang.util.ResourceUtils;
 import org.whole.lang.util.StringUtils;
+import org.whole.lang.workflows.model.RegistryEnum;
 
 /**
  * @author Riccardo Solmi
@@ -157,6 +158,9 @@ public class SemanticsUtils {
 		return createShallowMigrateEntity(selfEntity, ed);
 	}
 	public static IEntity createShallowMigrateEntity(IEntity selfEntity, String targetUri) {
+		return createShallowMigrateEntity(selfEntity, targetUri, RegistryEnum.RESOLVER);
+	}
+	public static IEntity createShallowMigrateEntity(IEntity selfEntity, String targetUri, RegistryEnum.Value registry) {
 		String edUri = ResourceUtils.hasFragmentPart(targetUri) ?
 				targetUri : targetUri+"#"+selfEntity.wGetEntityDescriptor().getName();
 
@@ -164,10 +168,16 @@ public class SemanticsUtils {
 		if (ed == null)
 			throw new IllegalArgumentException("The migration target entity is not available: "+edUri);
 
-		return createShallowMigrateEntity(selfEntity, ed);
+		return createShallowMigrateEntity(selfEntity, ed, registry);
 	}
 	public static IEntity createShallowMigrateEntity(IEntity selfEntity, EntityDescriptor<?> targetEd) {
-		IEntityFactory gef = GenericEntityFactory.instance(RegistryConfigurations.RESOLVER);
+		return createShallowMigrateEntity(selfEntity, targetEd, RegistryConfigurations.RESOLVER);
+	}
+	public static IEntity createShallowMigrateEntity(IEntity selfEntity, EntityDescriptor<?> targetEd, RegistryEnum.Value registry) {
+		return createShallowMigrateEntity(selfEntity, targetEd, RegistryConfigurations.valueOf(registry.getName()));
+	}
+	public static IEntity createShallowMigrateEntity(IEntity selfEntity, EntityDescriptor<?> targetEd, RegistryConfigurations registry) {
+		IEntityFactory gef = GenericEntityFactory.instance(registry);
 		
 		switch (targetEd.getEntityKind()) {
 		case DATA:
