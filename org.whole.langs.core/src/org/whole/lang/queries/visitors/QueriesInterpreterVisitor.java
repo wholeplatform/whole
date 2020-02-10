@@ -17,29 +17,51 @@
  */
 package org.whole.lang.queries.visitors;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.bindings.ITransactionScope;
+import org.whole.lang.commons.factories.CommonsEntityFactory;
+import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
+import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.exceptions.WholeIllegalArgumentException;
+import org.whole.lang.executables.IExecutable;
+import org.whole.lang.factories.GenericEntityFactory;
+import org.whole.lang.factories.IEntityFactory;
+import org.whole.lang.factories.IEntityRegistryProvider;
+import org.whole.lang.factories.RegistryConfigurations;
+import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.model.NullEntity;
+import org.whole.lang.model.adapters.IEntityAdapter;
 import org.whole.lang.operations.DynamicCompilerOperation;
 import org.whole.lang.queries.model.Addition;
 import org.whole.lang.queries.model.AdditionStep;
+import org.whole.lang.queries.model.Bind;
+import org.whole.lang.queries.model.Bindings;
 import org.whole.lang.queries.model.BooleanLiteral;
 import org.whole.lang.queries.model.ByteLiteral;
 import org.whole.lang.queries.model.CharLiteral;
+import org.whole.lang.queries.model.Constraints;
 import org.whole.lang.queries.model.DateLiteral;
 import org.whole.lang.queries.model.Division;
 import org.whole.lang.queries.model.DivisionStep;
 import org.whole.lang.queries.model.DoubleLiteral;
+import org.whole.lang.queries.model.EntityTemplate;
+import org.whole.lang.queries.model.EntityType;
 import org.whole.lang.queries.model.Equals;
 import org.whole.lang.queries.model.EqualsStep;
 import org.whole.lang.queries.model.Expression;
+import org.whole.lang.queries.model.Expressions;
 import org.whole.lang.queries.model.FeatureStep;
 import org.whole.lang.queries.model.FloatLiteral;
 import org.whole.lang.queries.model.GreaterOrEquals;
 import org.whole.lang.queries.model.GreaterOrEqualsStep;
 import org.whole.lang.queries.model.GreaterThan;
 import org.whole.lang.queries.model.GreaterThanStep;
+import org.whole.lang.queries.model.IQueriesEntity;
 import org.whole.lang.queries.model.IntLiteral;
 import org.whole.lang.queries.model.LessOrEquals;
 import org.whole.lang.queries.model.LessOrEqualsStep;
@@ -48,6 +70,7 @@ import org.whole.lang.queries.model.LessThanStep;
 import org.whole.lang.queries.model.LongLiteral;
 import org.whole.lang.queries.model.Multiplication;
 import org.whole.lang.queries.model.MultiplicationStep;
+import org.whole.lang.queries.model.Name;
 import org.whole.lang.queries.model.NotEquals;
 import org.whole.lang.queries.model.NotEqualsStep;
 import org.whole.lang.queries.model.Remainder;
@@ -60,10 +83,14 @@ import org.whole.lang.queries.model.Subtraction;
 import org.whole.lang.queries.model.SubtractionStep;
 import org.whole.lang.queries.model.VariableRefStep;
 import org.whole.lang.queries.model.VoidLiteral;
+import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.queries.util.MathUtils;
+import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.util.BehaviorUtils;
 import org.whole.lang.util.BindingUtils;
+import org.whole.lang.util.DataTypeUtils;
+import org.whole.lang.util.EntityUtils;
 import org.whole.lang.util.WholeMessages;
 import org.whole.lang.visitors.MissingVariableException;
 
@@ -76,7 +103,7 @@ public class QueriesInterpreterVisitor extends QueriesIdentityDefaultVisitor {
     	DynamicCompilerOperation.compile(entity, getBindings());
     }
 
-	protected IEntity evaluate(Expression entity) {
+	protected IEntity evaluate(IQueriesEntity entity) {
 		setResult(null);
     	entity.accept(this);
     	IEntity result = getResult();
@@ -84,13 +111,13 @@ public class QueriesInterpreterVisitor extends QueriesIdentityDefaultVisitor {
     		throw new WholeIllegalArgumentException(WholeMessages.null_value_argument).withSourceEntity(entity).withBindings(getBindings());
     	return result;
 	}
-	protected final boolean booleanValue(Expression exp) {
+	protected final boolean booleanValue(IQueriesEntity exp) {
 		return evaluate(exp).wBooleanValue();
 	}
-	protected final int intValue(Expression exp) {
+	protected final int intValue(IQueriesEntity exp) {
 		return evaluate(exp).wIntValue();
 	}
-	protected final String stringValue(Expression exp) {
+	protected final String stringValue(IQueriesEntity exp) {
 		return evaluate(exp).wStringValue();
 	}
 	protected final IEntity getSelfEntity(IEntity sourceEntity) {
@@ -124,6 +151,181 @@ public class QueriesInterpreterVisitor extends QueriesIdentityDefaultVisitor {
 			visit((Expression) entity);
 		else
 			setResult(self.wGet(fd));
+	}
+
+	@Override
+	public void visit(EntityTemplate entity) {
+		try {
+			String typeName = stringValue(entity.getName());
+			EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.parseEntityDescriptor(typeName);
+			if (ed == null)
+				throw new WholeIllegalArgumentException("The requested entity does not exist: "+typeName).withSourceEntity(entity).withBindings(getBindings());
+	
+			//TODO add configuration based on feature and binding
+			IEntityRegistryProvider provider = RegistryConfigurations.DEFAULT;
+			IEntityFactory ef = GenericEntityFactory.instance(provider);
+			IEntity entityPrototype;
+
+			Constraints constraints = entity.getConstraints();
+			if (Matcher.matchImpl(QueriesEntityDescriptorEnum.Bindings, constraints)) {
+				ITransactionScope resettableScope = BindingManagerFactory.instance.createTransactionScope();
+				getBindings().wEnterScope(resettableScope);
+	
+				constraints.accept(this);
+				for (int i = 0; i < constraints.wSize(); i++) {
+					String name = stringValue(((Bindings) constraints).get(i).getName());
+					FeatureDescriptor fd = ed.getFeatureDescriptorEnum().valueOf(name);
+					if (fd != null)
+						getBindings().wDef(name, EntityUtils.convertCloneIfReparenting(getBindings().wGet(name), ed.getEntityFeatureDescriptor(fd)));
+				}
+				entityPrototype = ef.create(ed, getBindings());
+	
+				resettableScope.rollback();
+				getBindings().wExitScope();
+			} else if (Matcher.matchImpl(QueriesEntityDescriptorEnum.Expressions, constraints)) {
+				IEntity selfEntity = getBindings().wGet(IBindingManager.SELF);
+				if (ed.getEntityKind().isData()) {
+					((Expressions) constraints).get(0).accept(this);
+					IEntity result = getResult();
+	        		if (result == null)
+	        			throw new WholeIllegalArgumentException(WholeMessages.null_value_argument).withSourceEntity(((Expressions) constraints).get(0)).withBindings(getBindings());
+
+					entityPrototype = DataTypeUtils.convertCloneIfParented(result, ed);
+					resetSelfEntity(selfEntity);
+				} else if (ed.getEntityKind().isComposite()) {
+					int argsSize = constraints.wSize();
+					FeatureDescriptor efd = ed.getEntityFeatureDescriptor(0);
+					List<IEntity> values = new ArrayList<>(argsSize);
+					for (int i = 0; i < argsSize; i++) {
+						((Expressions) constraints).get(i).accept(this);
+						IEntity result = getResult();
+		        		if (result != null)
+		        			values.add(EntityUtils.convertCloneIfReparenting(result, efd));
+						resetSelfEntity(selfEntity);
+					}
+					entityPrototype = ef.create(ed, values.toArray(new IEntity[0]));
+				} else {
+					IEntity[] values = new IEntity[constraints.wSize()];
+					for (int i = 0; i < values.length; i++) {
+						((Expressions) constraints).get(i).accept(this);
+						IEntity result = getResult();
+		        		if (result == null)
+		        			throw new WholeIllegalArgumentException(WholeMessages.null_value_argument).withSourceEntity(((Expressions) constraints).get(i)).withBindings(getBindings());
+
+						values[i] = EntityUtils.convertCloneIfReparenting(result, ed.getEntityFeatureDescriptor(i));
+						resetSelfEntity(selfEntity);
+					}
+					entityPrototype = ef.create(ed, values);
+				}
+			} else {
+				IEntity selfEntity = getBindings().wGet(IBindingManager.SELF);
+				entityPrototype = ef.create(ed);
+				resetSelfEntity(entityPrototype);
+
+				if (ed.getEntityKind().isData()) {
+					IEntity result = evaluate(constraints);
+	        		if (result == null)
+	        			throw new WholeIllegalArgumentException(WholeMessages.null_value_argument).withSourceEntity(((Expressions) constraints).get(0)).withBindings(getBindings());
+
+	        		if (!BindingManagerFactory.instance.isVoid(result))
+	        			entityPrototype = DataTypeUtils.convertCloneIfParented(result, ed);
+				} else {
+					setResult(null);
+					constraints.accept(this);
+					IExecutable e = getExecutableResult();
+					setExecutableResult(null);
+					resetIterator(e);
+
+					boolean isComposite = ed.getEntityKind().isComposite();
+					int index = 0;
+					IEntity child = null;
+					while ((isComposite || index < entityPrototype.wSize()) && (child = e.evaluateNext()) != null) {
+						if (BindingManagerFactory.instance.isVoid(child)) {
+							if (index >= entityPrototype.wSize())
+								entityPrototype.wAdd(index, CommonsEntityFactory.instance.createResolver());
+						} else {
+							if (index < entityPrototype.wSize())
+								entityPrototype.wSet(index, EntityUtils.convertCloneIfReparenting(child, entityPrototype.wGetFeatureDescriptor(index)));
+							else
+								entityPrototype.wAdd(index, EntityUtils.convertCloneIfReparenting(child, entityPrototype.wGetFeatureDescriptor(index)));
+						}
+						index++;
+					}
+				}
+
+				resetSelfEntity(selfEntity);
+			}
+
+			setResult(entityPrototype);
+		} catch (Exception e) {
+			throw IWholeRuntimeException.asWholeException(e, entity, getBindings());
+		}
+	}
+
+	public boolean visitAdapter(IEntityAdapter entity) {
+		stagedVisit(entity.wGetAdaptee(false));
+		return false;
+	}
+
+	@Override
+	public void visit(EntityType entity) {
+		setResultValue(entity);
+	}
+
+	@Override
+	public void visit(Bindings entity) {
+		for (int i = 0; i < entity.wSize(); i++) {
+			entity.get(i).accept(this);
+		}
+	}
+
+	@Override
+	public void visit(Bind entity) {
+		IEntity selfEntity = getBindings().wGet(IBindingManager.SELF);
+
+		String name = stringValue(entity.getName());
+
+		evaluate(entity.getExpression());
+		
+		if (isExecutableResult()) {
+			IExecutable i = getExecutableResult();
+			setExecutableResult(null);
+			resetIterator(i);
+			IEntity first = i.evaluateNext();
+			if (first != null) {
+				IEntity e;
+				if ((e = i.evaluateNext()) != null) {
+					final IEntity values = BindingManagerFactory.instance.createTuple();
+					values.wAdd(first);
+					do {
+						values.wAdd(e);
+					} while ((e = i.evaluateNext()) != null);
+					getBindings().wDef(name, values);
+				} else
+					getBindings().wDef(name, first);
+			}
+		} else if (getResult() != null) 
+			getBindings().wDef(name, getResult());
+
+		if (!name.equals(IBindingManager.SELF))
+			resetSelfEntity(selfEntity);
+	}
+
+	@Override
+	public void visit(Name entity) {
+		setResultValue(entity);
+	}
+
+	protected void resetIterator(IExecutable executable) {
+		IEntity selfEntity = getBindings().wGet(IBindingManager.SELF);
+		executable.reset(selfEntity != null ? selfEntity : NullEntity.instance);
+	}
+	protected void resetSelfEntity(IEntity selfEntity) {
+		if (getBindings().wGet(IBindingManager.SELF) != selfEntity)
+			if (getBindings().wIsSet(IBindingManager.SELF))
+				getBindings().wSet(IBindingManager.SELF, selfEntity);
+			else
+				getBindings().wDef(IBindingManager.SELF, selfEntity);	
 	}
 
     @Override

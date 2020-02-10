@@ -23,15 +23,15 @@ import java.util.List;
 import org.eclipse.draw2d.IFigure;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.queries.model.EntityTemplate;
+import org.whole.lang.queries.ui.figures.EntityTemplateFigure;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
-import org.whole.lang.ui.notations.outline.figures.EntityOutlineRightFigure;
 
 /**
  * @author Riccardo Solmi
  */
 public class EntityTemplatePart extends AbstractContentPanePart {
 	protected IFigure createFigure() {
-		return new EntityOutlineRightFigure();
+		return new EntityTemplateFigure();
 	}
 
 	protected List<IEntity> getModelSpecificChildren() {

@@ -33,7 +33,7 @@ import org.whole.lang.ui.layout.Alignment;
 public class BindPart extends AbstractPart {
 	protected IFigure createFigure() {
 		TableRowFigure tableRowFigure = new TableRowFigure();
-		tableRowFigure.getLayoutManager().withMinorAlignment(Alignment.LEADING);
+		tableRowFigure.getLayoutManager().withMinorAlignment(Alignment.MATHLINE);
 		return tableRowFigure;
 	}
 

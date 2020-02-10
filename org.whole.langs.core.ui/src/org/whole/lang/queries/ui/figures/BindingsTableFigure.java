@@ -19,6 +19,7 @@ package org.whole.lang.queries.ui.figures;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.TableFigure;
 import org.whole.lang.ui.layout.TableLayout;
 
@@ -28,7 +29,7 @@ import org.whole.lang.ui.layout.TableLayout;
 public class BindingsTableFigure extends TableFigure {
 	public BindingsTableFigure() {
 		super(new TableLayout(2)
-			.withColumnSpacing(10).withRowSpacing(2).withMargin(0, 4, 0, 0));
+			.withColumnSpacing(8).withRowSpacing(2).withMargin(0, 4, 0, 0));
 		}
 
 	protected void paintFigure(Graphics g) {
@@ -38,8 +39,8 @@ public class BindingsTableFigure extends TableFigure {
 		if (l.rows() == 0)
 			return;
 
-		g.setBackgroundColor(ColorConstants.lightGray);
-		drawAlternateColumnsBackground(g, 0);
+		g.setBackgroundColor(FigureConstants.templateLanguageColor);
+		drawAlternateColumnsBackground(g, 0, FigureConstants.templateLanguageAlpha);
 		g.setForegroundColor(ColorConstants.lightGray);
 		drawColumnSeparators(g);
 	}

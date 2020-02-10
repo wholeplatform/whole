@@ -271,14 +271,14 @@ public class QueriesPartFactoryVisitor extends QueriesIdentityDefaultVisitor imp
 
 	@Override
 	public void visit(EntityTemplate entity) {
-		EntityType name = entity.getName();
-		if (DataTypeUtils.getDataKind(name).isString()) {
-			EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.getEntityDescriptor(name.getValue(), false, null);
-			if (ed != null && ed.getEntityKind().isData()) {
-				part = new EntityTemplateInlinePart();
-				return;
-			}
-		}
+//		EntityType name = entity.getName();
+//		if (DataTypeUtils.getDataKind(name).isString()) {
+//			EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.getEntityDescriptor(name.getValue(), false, null);
+//			if (ed != null && ed.getEntityKind().isData()) {
+//				part = new EntityTemplateInlinePart();
+//				return;
+//			}
+//		}
 
 		part = new EntityTemplatePart();
 	}
