@@ -62,6 +62,30 @@ public class QueriesModelContext extends EntityContext {
         wSet(QueriesFeatureDescriptorEnum.fromClause, fromClause);
     }
 
+    public QueriesModelContext getEntityType() {
+        return (QueriesModelContext) wGet(QueriesFeatureDescriptorEnum.entityType);
+    }
+
+    public void setEntityType(QueriesModelContext entityType) {
+        wSet(QueriesFeatureDescriptorEnum.entityType, entityType);
+    }
+
+    public QueriesModelContext getRegistry() {
+        return (QueriesModelContext) wGet(QueriesFeatureDescriptorEnum.registry);
+    }
+
+    public void setRegistry(QueriesModelContext registry) {
+        wSet(QueriesFeatureDescriptorEnum.registry, registry);
+    }
+
+    public QueriesModelContext getWhereClause() {
+        return (QueriesModelContext) wGet(QueriesFeatureDescriptorEnum.whereClause);
+    }
+
+    public void setWhereClause(QueriesModelContext whereClause) {
+        wSet(QueriesFeatureDescriptorEnum.whereClause, whereClause);
+    }
+
     public QueriesModelContext getPlacement() {
         return (QueriesModelContext) wGet(QueriesFeatureDescriptorEnum.placement);
     }
@@ -86,14 +110,6 @@ public class QueriesModelContext extends EntityContext {
         wSet(QueriesFeatureDescriptorEnum.selectClause, selectClause);
     }
 
-    public QueriesModelContext getWhereClause() {
-        return (QueriesModelContext) wGet(QueriesFeatureDescriptorEnum.whereClause);
-    }
-
-    public void setWhereClause(QueriesModelContext whereClause) {
-        wSet(QueriesFeatureDescriptorEnum.whereClause, whereClause);
-    }
-
     public QueriesModelContext getClearClause() {
         return (QueriesModelContext) wGet(QueriesFeatureDescriptorEnum.clearClause);
     }
@@ -116,22 +132,6 @@ public class QueriesModelContext extends EntityContext {
 
     public void setPredicate(QueriesModelContext predicate) {
         wSet(QueriesFeatureDescriptorEnum.predicate, predicate);
-    }
-
-    public QueriesModelContext getConstraints() {
-        return (QueriesModelContext) wGet(QueriesFeatureDescriptorEnum.constraints);
-    }
-
-    public void setConstraints(QueriesModelContext constraints) {
-        wSet(QueriesFeatureDescriptorEnum.constraints, constraints);
-    }
-
-    public QueriesModelContext getBindings() {
-        return (QueriesModelContext) wGet(QueriesFeatureDescriptorEnum.bindings);
-    }
-
-    public void setBindings(QueriesModelContext bindings) {
-        wSet(QueriesFeatureDescriptorEnum.bindings, bindings);
     }
 
     public QueriesModelContext getArguments() {
@@ -236,5 +236,13 @@ public class QueriesModelContext extends EntityContext {
 
     public void setExp2(QueriesModelContext exp2) {
         wSet(QueriesFeatureDescriptorEnum.exp2, exp2);
+    }
+
+    public QueriesModelContext getValue() {
+        return (QueriesModelContext) wGet(QueriesFeatureDescriptorEnum.value);
+    }
+
+    public void setValue(QueriesModelContext value) {
+        wSet(QueriesFeatureDescriptorEnum.value, value);
     }
 }

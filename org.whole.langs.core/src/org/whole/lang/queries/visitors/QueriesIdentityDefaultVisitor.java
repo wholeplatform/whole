@@ -53,6 +53,11 @@ public class QueriesIdentityDefaultVisitor extends QueriesIdentityVisitor {
         visit((PathExpression) entity);
     }
 
+    public void visit(Create entity) {
+        visit((IQueriesEntity) entity);
+        visit((PathExpression) entity);
+    }
+
     public void visit(Delete entity) {
         visit((IQueriesEntity) entity);
         visit((PathExpression) entity);
@@ -112,35 +117,12 @@ public class QueriesIdentityDefaultVisitor extends QueriesIdentityVisitor {
         visit((PathExpression) entity);
     }
 
-    public void visit(EntityTemplate entity) {
-        visit((IQueriesEntity) entity);
-        visit((StepExpression) entity);
-    }
-
-    public void visit(EntityCall entity) {
-        visit((IQueriesEntity) entity);
-        visit((StepExpression) entity);
-    }
-
     public void visit(Call entity) {
         visit((IQueriesEntity) entity);
         visit((StepExpression) entity);
     }
 
-    public void visit(Constraints entity) {
-    }
-
     public void visit(Expressions entity) {
-        visit((IQueriesEntity) entity);
-        visit((Constraints) entity);
-    }
-
-    public void visit(Bindings entity) {
-        visit((IQueriesEntity) entity);
-        visit((Constraints) entity);
-    }
-
-    public void visit(Bind entity) {
         visit((IQueriesEntity) entity);
     }
 
@@ -520,10 +502,6 @@ public class QueriesIdentityDefaultVisitor extends QueriesIdentityVisitor {
         visit((QuantifiedPredicate) entity);
     }
 
-    public void visit(EntityType entity) {
-        visit((IQueriesEntity) entity);
-    }
-
     public void visit(NamesExpression entity) {
     }
 
@@ -734,6 +712,30 @@ public class QueriesIdentityDefaultVisitor extends QueriesIdentityVisitor {
     public void visit(GreaterOrEquals entity) {
         visit((IQueriesEntity) entity);
         visit((Expression) entity);
+    }
+
+    public void visit(EntityType entity) {
+        visit((IQueriesEntity) entity);
+        visit((Expression) entity);
+    }
+
+    public void visit(Registry entity) {
+        visit((IQueriesEntity) entity);
+        visit((Expression) entity);
+    }
+
+    public void visit(Children entity) {
+        visit((IQueriesEntity) entity);
+        visit((Expression) entity);
+    }
+
+    public void visit(Features entity) {
+        visit((IQueriesEntity) entity);
+        visit((Expression) entity);
+    }
+
+    public void visit(Feature entity) {
+        visit((IQueriesEntity) entity);
     }
 
     public void visit(Literal entity) {

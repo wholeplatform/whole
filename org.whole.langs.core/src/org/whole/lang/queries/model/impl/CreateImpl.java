@@ -18,28 +18,27 @@
 package org.whole.lang.queries.model.impl;
 
 import org.whole.lang.model.AbstractSimpleEntity;
-import org.whole.lang.queries.model.EntityTemplate;
+import org.whole.lang.queries.model.Create;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.queries.visitors.IQueriesVisitor;
 import org.whole.lang.exceptions.IWholeRuntimeException;
-import org.whole.lang.queries.model.EntityType;
+import org.whole.lang.queries.model.Expression;
 import org.whole.lang.queries.reflect.QueriesFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.queries.model.Constraints;
 
 /**
  *  @generator Whole
  */
-public class EntityTemplateImpl extends AbstractSimpleEntity implements EntityTemplate {
+public class CreateImpl extends AbstractSimpleEntity implements Create {
     private static final long serialVersionUID = 1;
 
-    public EntityDescriptor<EntityTemplate> wGetEntityDescriptor() {
-        return QueriesEntityDescriptorEnum.EntityTemplate;
+    public EntityDescriptor<Create> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.Create;
     }
 
     public int wGetEntityOrd() {
-        return QueriesEntityDescriptorEnum.EntityTemplate_ord;
+        return QueriesEntityDescriptorEnum.Create_ord;
     }
 
     public void accept(IQueriesVisitor visitor) {
@@ -49,31 +48,42 @@ public class EntityTemplateImpl extends AbstractSimpleEntity implements EntityTe
             throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
         }
     }
-    private EntityType name;
+    private Expression entityType;
 
-    public EntityType getName() {
-        return notifyRequested(QueriesFeatureDescriptorEnum.name, name);
+    public Expression getEntityType() {
+        return notifyRequested(QueriesFeatureDescriptorEnum.entityType, entityType);
     }
 
-    public void setName(EntityType name) {
-        notifyChanged(QueriesFeatureDescriptorEnum.name, this.name, this.name = name);
+    public void setEntityType(Expression entityType) {
+        notifyChanged(QueriesFeatureDescriptorEnum.entityType, this.entityType, this.entityType = entityType);
     }
-    private Constraints constraints;
+    private Expression registry;
 
-    public Constraints getConstraints() {
-        return notifyRequested(QueriesFeatureDescriptorEnum.constraints, constraints);
+    public Expression getRegistry() {
+        return notifyRequested(QueriesFeatureDescriptorEnum.registry, registry);
     }
 
-    public void setConstraints(Constraints constraints) {
-        notifyChanged(QueriesFeatureDescriptorEnum.constraints, this.constraints, this.constraints = constraints);
+    public void setRegistry(Expression registry) {
+        notifyChanged(QueriesFeatureDescriptorEnum.registry, this.registry, this.registry = registry);
+    }
+    private Expression whereClause;
+
+    public Expression getWhereClause() {
+        return notifyRequested(QueriesFeatureDescriptorEnum.whereClause, whereClause);
+    }
+
+    public void setWhereClause(Expression whereClause) {
+        notifyChanged(QueriesFeatureDescriptorEnum.whereClause, this.whereClause, this.whereClause = whereClause);
     }
 
     public IEntity wGet(int index) {
         switch (index) {
             case 0 :
-            return getName().wGetAdaptee(false);
+            return getEntityType().wGetAdaptee(false);
             case 1 :
-            return getConstraints().wGetAdaptee(false);
+            return getRegistry().wGetAdaptee(false);
+            case 2 :
+            return getWhereClause().wGetAdaptee(false);
             default :
             throw new IllegalArgumentException();
         }
@@ -82,10 +92,13 @@ public class EntityTemplateImpl extends AbstractSimpleEntity implements EntityTe
     public void wSet(int index, IEntity value) {
         switch (index) {
             case 0 :
-            setName(value.wGetAdapter(QueriesEntityDescriptorEnum.EntityType));
+            setEntityType(value.wGetAdapter(QueriesEntityDescriptorEnum.Expression));
             break;
             case 1 :
-            setConstraints(value.wGetAdapter(QueriesEntityDescriptorEnum.Constraints));
+            setRegistry(value.wGetAdapter(QueriesEntityDescriptorEnum.Expression));
+            break;
+            case 2 :
+            setWhereClause(value.wGetAdapter(QueriesEntityDescriptorEnum.Expression));
             break;
             default :
             throw new IllegalArgumentException();
@@ -93,6 +106,6 @@ public class EntityTemplateImpl extends AbstractSimpleEntity implements EntityTe
     }
 
     public int wSize() {
-        return 2;
+        return 3;
     }
 }

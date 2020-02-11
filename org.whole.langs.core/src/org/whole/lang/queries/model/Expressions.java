@@ -22,6 +22,6 @@ import java.util.List;
 /**
  *  @generator Whole
  */
-public interface Expressions extends IQueriesEntity, List<Expression>, Constraints {
+public interface Expressions extends IQueriesEntity, List<Expression> {
 
 }

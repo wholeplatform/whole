@@ -23,19 +23,19 @@ import org.whole.lang.model.IEntity;
 import org.whole.lang.queries.visitors.IQueriesVisitor;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
-import org.whole.lang.queries.reflect.QueriesFeatureDescriptorEnum;
+import org.whole.lang.queries.model.RegistryEnum.Value;
 
 /**
  *  @generator Whole
  */
-public class EntityCallAdapter extends AbstractEntityAdapter implements EntityCall {
+public class RegistryAdapter extends AbstractEntityAdapter implements Registry {
     private static final long serialVersionUID = 1;
 
-    public EntityCallAdapter(IEntity implementor) {
+    public RegistryAdapter(IEntity implementor) {
         super(implementor);
     }
 
-    public EntityCallAdapter() {
+    public RegistryAdapter() {
     }
 
     public void accept(IQueriesVisitor visitor) {
@@ -43,23 +43,15 @@ public class EntityCallAdapter extends AbstractEntityAdapter implements EntityCa
             visitor.visit(this);
     }
 
-    public EntityDescriptor<EntityCall> wGetEntityDescriptor() {
-        return QueriesEntityDescriptorEnum.EntityCall;
+    public EntityDescriptor<Registry> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.Registry;
     }
 
-    public EntityType getName() {
-        return wGet(QueriesFeatureDescriptorEnum.name).wGetAdapter(QueriesEntityDescriptorEnum.EntityType);
+    public Value getValue() {
+        return (Value) wEnumValue();
     }
 
-    public void setName(EntityType name) {
-        wSet(QueriesFeatureDescriptorEnum.name, name);
-    }
-
-    public Bindings getBindings() {
-        return wGet(QueriesFeatureDescriptorEnum.bindings).wGetAdapter(QueriesEntityDescriptorEnum.Bindings);
-    }
-
-    public void setBindings(Bindings bindings) {
-        wSet(QueriesFeatureDescriptorEnum.bindings, bindings);
+    public void setValue(Value value) {
+        wSetValue(value);
     }
 }

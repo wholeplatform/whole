@@ -39,23 +39,22 @@ import org.whole.lang.model.adapters.IEntityAdapter;
 import org.whole.lang.operations.DynamicCompilerOperation;
 import org.whole.lang.queries.model.Addition;
 import org.whole.lang.queries.model.AdditionStep;
-import org.whole.lang.queries.model.Bind;
-import org.whole.lang.queries.model.Bindings;
 import org.whole.lang.queries.model.BooleanLiteral;
 import org.whole.lang.queries.model.ByteLiteral;
 import org.whole.lang.queries.model.CharLiteral;
-import org.whole.lang.queries.model.Constraints;
+import org.whole.lang.queries.model.Children;
+import org.whole.lang.queries.model.Create;
 import org.whole.lang.queries.model.DateLiteral;
 import org.whole.lang.queries.model.Division;
 import org.whole.lang.queries.model.DivisionStep;
 import org.whole.lang.queries.model.DoubleLiteral;
-import org.whole.lang.queries.model.EntityTemplate;
 import org.whole.lang.queries.model.EntityType;
 import org.whole.lang.queries.model.Equals;
 import org.whole.lang.queries.model.EqualsStep;
 import org.whole.lang.queries.model.Expression;
-import org.whole.lang.queries.model.Expressions;
+import org.whole.lang.queries.model.Feature;
 import org.whole.lang.queries.model.FeatureStep;
+import org.whole.lang.queries.model.Features;
 import org.whole.lang.queries.model.FloatLiteral;
 import org.whole.lang.queries.model.GreaterOrEquals;
 import org.whole.lang.queries.model.GreaterOrEqualsStep;
@@ -73,6 +72,7 @@ import org.whole.lang.queries.model.MultiplicationStep;
 import org.whole.lang.queries.model.Name;
 import org.whole.lang.queries.model.NotEquals;
 import org.whole.lang.queries.model.NotEqualsStep;
+import org.whole.lang.queries.model.Registry;
 import org.whole.lang.queries.model.Remainder;
 import org.whole.lang.queries.model.RemainderStep;
 import org.whole.lang.queries.model.SelfStep;
@@ -154,26 +154,25 @@ public class QueriesInterpreterVisitor extends QueriesIdentityDefaultVisitor {
 	}
 
 	@Override
-	public void visit(EntityTemplate entity) {
+	public void visit(Create entity) {
 		try {
-			String typeName = stringValue(entity.getName());
+			String typeName = stringValue(entity.getEntityType());
 			EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.parseEntityDescriptor(typeName);
 			if (ed == null)
 				throw new WholeIllegalArgumentException("The requested entity does not exist: "+typeName).withSourceEntity(entity).withBindings(getBindings());
 	
-			//TODO add configuration based on feature and binding
-			IEntityRegistryProvider provider = RegistryConfigurations.DEFAULT;
+			IEntityRegistryProvider provider = RegistryConfigurations.valueOf(((Registry) evaluate(entity.getRegistry())).getValue().getName());
 			IEntityFactory ef = GenericEntityFactory.instance(provider);
 			IEntity entityPrototype;
 
-			Constraints constraints = entity.getConstraints();
-			if (Matcher.matchImpl(QueriesEntityDescriptorEnum.Bindings, constraints)) {
+			Expression expression = entity.getWhereClause();
+			if (Matcher.matchImpl(QueriesEntityDescriptorEnum.Features, expression)) {
 				ITransactionScope resettableScope = BindingManagerFactory.instance.createTransactionScope();
 				getBindings().wEnterScope(resettableScope);
 	
-				constraints.accept(this);
-				for (int i = 0; i < constraints.wSize(); i++) {
-					String name = stringValue(((Bindings) constraints).get(i).getName());
+				expression.accept(this);
+				for (int i = 0; i < expression.wSize(); i++) {
+					String name = stringValue(((Features) expression).get(i).getName());
 					FeatureDescriptor fd = ed.getFeatureDescriptorEnum().valueOf(name);
 					if (fd != null)
 						getBindings().wDef(name, EntityUtils.convertCloneIfReparenting(getBindings().wGet(name), ed.getEntityFeatureDescriptor(fd)));
@@ -182,22 +181,22 @@ public class QueriesInterpreterVisitor extends QueriesIdentityDefaultVisitor {
 	
 				resettableScope.rollback();
 				getBindings().wExitScope();
-			} else if (Matcher.matchImpl(QueriesEntityDescriptorEnum.Expressions, constraints)) {
+			} else if (Matcher.matchImpl(QueriesEntityDescriptorEnum.Children, expression)) {
 				IEntity selfEntity = getBindings().wGet(IBindingManager.SELF);
 				if (ed.getEntityKind().isData()) {
-					((Expressions) constraints).get(0).accept(this);
+					((Children) expression).get(0).accept(this);
 					IEntity result = getResult();
 	        		if (result == null)
-	        			throw new WholeIllegalArgumentException(WholeMessages.null_value_argument).withSourceEntity(((Expressions) constraints).get(0)).withBindings(getBindings());
+	        			throw new WholeIllegalArgumentException(WholeMessages.null_value_argument).withSourceEntity(((Children) expression).get(0)).withBindings(getBindings());
 
 					entityPrototype = DataTypeUtils.convertCloneIfParented(result, ed);
 					resetSelfEntity(selfEntity);
 				} else if (ed.getEntityKind().isComposite()) {
-					int argsSize = constraints.wSize();
+					int argsSize = expression.wSize();
 					FeatureDescriptor efd = ed.getEntityFeatureDescriptor(0);
 					List<IEntity> values = new ArrayList<>(argsSize);
 					for (int i = 0; i < argsSize; i++) {
-						((Expressions) constraints).get(i).accept(this);
+						((Children) expression).get(i).accept(this);
 						IEntity result = getResult();
 		        		if (result != null)
 		        			values.add(EntityUtils.convertCloneIfReparenting(result, efd));
@@ -205,12 +204,12 @@ public class QueriesInterpreterVisitor extends QueriesIdentityDefaultVisitor {
 					}
 					entityPrototype = ef.create(ed, values.toArray(new IEntity[0]));
 				} else {
-					IEntity[] values = new IEntity[constraints.wSize()];
+					IEntity[] values = new IEntity[expression.wSize()];
 					for (int i = 0; i < values.length; i++) {
-						((Expressions) constraints).get(i).accept(this);
+						((Children) expression).get(i).accept(this);
 						IEntity result = getResult();
 		        		if (result == null)
-		        			throw new WholeIllegalArgumentException(WholeMessages.null_value_argument).withSourceEntity(((Expressions) constraints).get(i)).withBindings(getBindings());
+		        			throw new WholeIllegalArgumentException(WholeMessages.null_value_argument).withSourceEntity(((Children) expression).get(i)).withBindings(getBindings());
 
 						values[i] = EntityUtils.convertCloneIfReparenting(result, ed.getEntityFeatureDescriptor(i));
 						resetSelfEntity(selfEntity);
@@ -223,15 +222,15 @@ public class QueriesInterpreterVisitor extends QueriesIdentityDefaultVisitor {
 				resetSelfEntity(entityPrototype);
 
 				if (ed.getEntityKind().isData()) {
-					IEntity result = evaluate(constraints);
+					IEntity result = evaluate(expression);
 	        		if (result == null)
-	        			throw new WholeIllegalArgumentException(WholeMessages.null_value_argument).withSourceEntity(((Expressions) constraints).get(0)).withBindings(getBindings());
+	        			throw new WholeIllegalArgumentException(WholeMessages.null_value_argument).withSourceEntity(((Children) expression).get(0)).withBindings(getBindings());
 
 	        		if (!BindingManagerFactory.instance.isVoid(result))
 	        			entityPrototype = DataTypeUtils.convertCloneIfParented(result, ed);
 				} else {
 					setResult(null);
-					constraints.accept(this);
+					expression.accept(this);
 					IExecutable e = getExecutableResult();
 					setExecutableResult(null);
 					resetIterator(e);
@@ -273,19 +272,30 @@ public class QueriesInterpreterVisitor extends QueriesIdentityDefaultVisitor {
 	}
 
 	@Override
-	public void visit(Bindings entity) {
+	public void visit(Registry entity) {
+		setResult(entity);
+	}
+
+	@Override
+	public void visit(Children entity) {
+		// TODO Auto-generated method stub
+		super.visit(entity);
+	}
+
+	@Override
+	public void visit(Features entity) {
 		for (int i = 0; i < entity.wSize(); i++) {
 			entity.get(i).accept(this);
 		}
 	}
 
 	@Override
-	public void visit(Bind entity) {
+	public void visit(Feature entity) {
 		IEntity selfEntity = getBindings().wGet(IBindingManager.SELF);
 
 		String name = stringValue(entity.getName());
 
-		evaluate(entity.getExpression());
+		evaluate(entity.getValue());
 		
 		if (isExecutableResult()) {
 			IExecutable i = getExecutableResult();

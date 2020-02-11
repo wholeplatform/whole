@@ -39,6 +39,9 @@ public class QueriesIdentityVisitor extends AbstractVisitor implements IQueriesV
     public void visit(Clone entity) {
     }
 
+    public void visit(Create entity) {
+    }
+
     public void visit(Delete entity) {
     }
 
@@ -72,22 +75,10 @@ public class QueriesIdentityVisitor extends AbstractVisitor implements IQueriesV
     public void visit(Do entity) {
     }
 
-    public void visit(EntityTemplate entity) {
-    }
-
-    public void visit(EntityCall entity) {
-    }
-
     public void visit(Call entity) {
     }
 
     public void visit(Expressions entity) {
-    }
-
-    public void visit(Bindings entity) {
-    }
-
-    public void visit(Bind entity) {
     }
 
     public void visit(Choose entity) {
@@ -291,9 +282,6 @@ public class QueriesIdentityVisitor extends AbstractVisitor implements IQueriesV
     public void visit(Every entity) {
     }
 
-    public void visit(EntityType entity) {
-    }
-
     public void visit(TemplateNames entity) {
     }
 
@@ -409,6 +397,21 @@ public class QueriesIdentityVisitor extends AbstractVisitor implements IQueriesV
     }
 
     public void visit(GreaterOrEquals entity) {
+    }
+
+    public void visit(EntityType entity) {
+    }
+
+    public void visit(Registry entity) {
+    }
+
+    public void visit(Children entity) {
+    }
+
+    public void visit(Features entity) {
+    }
+
+    public void visit(Feature entity) {
     }
 
     public void visit(VoidLiteral entity) {

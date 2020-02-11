@@ -17,15 +17,31 @@
  */
 package org.whole.lang.queries.ui.editparts;
 
-import org.whole.lang.queries.ui.figures.BindingsTableFigure;
-import org.whole.lang.ui.editparts.TablePart;
-import org.whole.lang.ui.figures.TableFigure;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.eclipse.draw2d.IFigure;
+import org.whole.lang.model.IEntity;
+import org.whole.lang.queries.model.Feature;
+import org.whole.lang.ui.editparts.AbstractPart;
+import org.whole.lang.ui.figures.TableRowFigure;
+import org.whole.lang.ui.layout.Alignment;
 
 /**
  * @author Riccardo Solmi
  */
-public class BindingsTablePart extends TablePart {
-	protected TableFigure createFigure() {
-		return new BindingsTableFigure();
-    }
+public class FeaturePart extends AbstractPart {
+	protected IFigure createFigure() {
+		TableRowFigure tableRowFigure = new TableRowFigure();
+		tableRowFigure.getLayoutManager().withMinorAlignment(Alignment.MATHLINE);
+		return tableRowFigure;
+	}
+
+	protected List<IEntity> getModelSpecificChildren() {
+		Feature entity = getModelEntity();
+		List<IEntity> children = new ArrayList<IEntity>(2);
+		children.add(entity.getName());
+		children.add(entity.getValue());
+		return children;
+	}
 }

@@ -15,30 +15,33 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.queries.ui.editparts;
+package org.whole.lang.queries.ui.figures;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.eclipse.draw2d.IFigure;
-import org.whole.lang.model.IEntity;
-import org.whole.lang.queries.model.EntityTemplate;
-import org.whole.lang.queries.ui.figures.EntityTemplateFigure;
-import org.whole.lang.ui.editparts.AbstractContentPanePart;
+import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.Graphics;
+import org.whole.lang.ui.figures.FigureConstants;
+import org.whole.lang.ui.figures.TableFigure;
+import org.whole.lang.ui.layout.TableLayout;
 
 /**
  * @author Riccardo Solmi
  */
-public class EntityTemplatePart extends AbstractContentPanePart {
-	protected IFigure createFigure() {
-		return new EntityTemplateFigure();
-	}
+public class FeaturesTableFigure extends TableFigure {
+	public FeaturesTableFigure() {
+		super(new TableLayout(2)
+			.withColumnSpacing(8).withRowSpacing(2).withMargin(0, 4, 0, 0));
+		}
 
-	protected List<IEntity> getModelSpecificChildren() {
-		EntityTemplate entity = getModelEntity();
-		List<IEntity> list = new ArrayList<IEntity>(2);
-		list.add(entity.getName());
-		list.add(entity.getConstraints());
-		return list;
+	protected void paintFigure(Graphics g) {
+		super.paintFigure(g);
+
+		TableLayout l = getLayoutManager();
+		if (l.rows() == 0)
+			return;
+
+		g.setBackgroundColor(FigureConstants.templateLanguageColor);
+		drawAlternateColumnsBackground(g, 0, FigureConstants.templateLanguageAlpha);
+		g.setForegroundColor(ColorConstants.lightGray);
+		drawColumnSeparators(g);
 	}
 }

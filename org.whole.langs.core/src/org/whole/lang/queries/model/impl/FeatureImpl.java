@@ -18,7 +18,7 @@
 package org.whole.lang.queries.model.impl;
 
 import org.whole.lang.model.AbstractSimpleEntity;
-import org.whole.lang.queries.model.Bind;
+import org.whole.lang.queries.model.Feature;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.queries.visitors.IQueriesVisitor;
@@ -31,15 +31,15 @@ import org.whole.lang.queries.model.Expression;
 /**
  *  @generator Whole
  */
-public class BindImpl extends AbstractSimpleEntity implements Bind {
+public class FeatureImpl extends AbstractSimpleEntity implements Feature {
     private static final long serialVersionUID = 1;
 
-    public EntityDescriptor<Bind> wGetEntityDescriptor() {
-        return QueriesEntityDescriptorEnum.Bind;
+    public EntityDescriptor<Feature> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.Feature;
     }
 
     public int wGetEntityOrd() {
-        return QueriesEntityDescriptorEnum.Bind_ord;
+        return QueriesEntityDescriptorEnum.Feature_ord;
     }
 
     public void accept(IQueriesVisitor visitor) {
@@ -58,14 +58,14 @@ public class BindImpl extends AbstractSimpleEntity implements Bind {
     public void setName(Name name) {
         notifyChanged(QueriesFeatureDescriptorEnum.name, this.name, this.name = name);
     }
-    private Expression expression;
+    private Expression value;
 
-    public Expression getExpression() {
-        return notifyRequested(QueriesFeatureDescriptorEnum.expression, expression);
+    public Expression getValue() {
+        return notifyRequested(QueriesFeatureDescriptorEnum.value, value);
     }
 
-    public void setExpression(Expression expression) {
-        notifyChanged(QueriesFeatureDescriptorEnum.expression, this.expression, this.expression = expression);
+    public void setValue(Expression value) {
+        notifyChanged(QueriesFeatureDescriptorEnum.value, this.value, this.value = value);
     }
 
     public IEntity wGet(int index) {
@@ -73,7 +73,7 @@ public class BindImpl extends AbstractSimpleEntity implements Bind {
             case 0 :
             return getName().wGetAdaptee(false);
             case 1 :
-            return getExpression().wGetAdaptee(false);
+            return getValue().wGetAdaptee(false);
             default :
             throw new IllegalArgumentException();
         }
@@ -85,7 +85,7 @@ public class BindImpl extends AbstractSimpleEntity implements Bind {
             setName(value.wGetAdapter(QueriesEntityDescriptorEnum.Name));
             break;
             case 1 :
-            setExpression(value.wGetAdapter(QueriesEntityDescriptorEnum.Expression));
+            setValue(value.wGetAdapter(QueriesEntityDescriptorEnum.Expression));
             break;
             default :
             throw new IllegalArgumentException();

@@ -38,6 +38,9 @@ public abstract class QueriesIdentitySwitchVisitor extends AbstractVisitor imple
             case QueriesEntityDescriptorEnum.Clone_ord :
             visit((Clone) entity);
             break;
+            case QueriesEntityDescriptorEnum.Create_ord :
+            visit((Create) entity);
+            break;
             case QueriesEntityDescriptorEnum.Delete_ord :
             visit((Delete) entity);
             break;
@@ -71,23 +74,11 @@ public abstract class QueriesIdentitySwitchVisitor extends AbstractVisitor imple
             case QueriesEntityDescriptorEnum.Do_ord :
             visit((Do) entity);
             break;
-            case QueriesEntityDescriptorEnum.EntityTemplate_ord :
-            visit((EntityTemplate) entity);
-            break;
-            case QueriesEntityDescriptorEnum.EntityCall_ord :
-            visit((EntityCall) entity);
-            break;
             case QueriesEntityDescriptorEnum.Call_ord :
             visit((Call) entity);
             break;
             case QueriesEntityDescriptorEnum.Expressions_ord :
             visit((Expressions) entity);
-            break;
-            case QueriesEntityDescriptorEnum.Bindings_ord :
-            visit((Bindings) entity);
-            break;
-            case QueriesEntityDescriptorEnum.Bind_ord :
-            visit((Bind) entity);
             break;
             case QueriesEntityDescriptorEnum.Choose_ord :
             visit((Choose) entity);
@@ -290,9 +281,6 @@ public abstract class QueriesIdentitySwitchVisitor extends AbstractVisitor imple
             case QueriesEntityDescriptorEnum.Every_ord :
             visit((Every) entity);
             break;
-            case QueriesEntityDescriptorEnum.EntityType_ord :
-            visit((EntityType) entity);
-            break;
             case QueriesEntityDescriptorEnum.TemplateNames_ord :
             visit((TemplateNames) entity);
             break;
@@ -409,6 +397,21 @@ public abstract class QueriesIdentitySwitchVisitor extends AbstractVisitor imple
             break;
             case QueriesEntityDescriptorEnum.GreaterOrEquals_ord :
             visit((GreaterOrEquals) entity);
+            break;
+            case QueriesEntityDescriptorEnum.EntityType_ord :
+            visit((EntityType) entity);
+            break;
+            case QueriesEntityDescriptorEnum.Registry_ord :
+            visit((Registry) entity);
+            break;
+            case QueriesEntityDescriptorEnum.Children_ord :
+            visit((Children) entity);
+            break;
+            case QueriesEntityDescriptorEnum.Features_ord :
+            visit((Features) entity);
+            break;
+            case QueriesEntityDescriptorEnum.Feature_ord :
+            visit((Feature) entity);
             break;
             case QueriesEntityDescriptorEnum.VoidLiteral_ord :
             visit((VoidLiteral) entity);

@@ -15,34 +15,34 @@
  *  You should have received a copy of the GNU Lesser General Public License
  *  along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.queries.model.adapters;
+package org.whole.lang.queries.model.impl;
 
-import org.whole.lang.model.adapters.AbstractEntityAdapter;
+import org.whole.lang.model.AbstractListCompositeEntity;
 import org.whole.lang.queries.model.*;
-import org.whole.lang.model.IEntity;
 import org.whole.lang.queries.visitors.IQueriesVisitor;
-import org.whole.lang.reflect.EntityDescriptor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
+import org.whole.lang.reflect.EntityDescriptor;
 
 /**
  *  @generator Whole
  */
-public class ConstraintsAdapter extends AbstractEntityAdapter implements Constraints {
+public class FeaturesImpl extends AbstractListCompositeEntity<Feature> implements Features {
     private static final long serialVersionUID = 1;
 
-    public ConstraintsAdapter(IEntity implementor) {
-        super(implementor);
-    }
-
-    public ConstraintsAdapter() {
-    }
-
     public void accept(IQueriesVisitor visitor) {
-        if (visitor.visitAdapter(this))
+        try {
             visitor.visit(this);
+        } catch (Exception e) {
+            throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+        }
     }
 
-    public EntityDescriptor<Constraints> wGetEntityDescriptor() {
-        return QueriesEntityDescriptorEnum.Constraints;
+    public int wGetEntityOrd() {
+        return QueriesEntityDescriptorEnum.Features_ord;
+    }
+
+    public EntityDescriptor<Features> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.Features;
     }
 }

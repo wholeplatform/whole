@@ -23,6 +23,7 @@ import org.whole.lang.queries.model.CompositeKindTestEnum;
 import org.whole.lang.queries.model.DataKindTestEnum;
 import org.whole.lang.queries.model.StageTestEnum;
 import org.whole.lang.visitors.IVisitor;
+import org.whole.lang.queries.model.RegistryEnum;
 import java.util.Date;
 import org.whole.lang.queries.model.PlacementEnum;
 
@@ -33,6 +34,8 @@ public interface IQueriesBuilder extends IBuilder {
 
 
     public void visit();
+
+    public void value();
 
     public void exp2();
 
@@ -60,23 +63,23 @@ public interface IQueriesBuilder extends IBuilder {
 
     public void arguments();
 
-    public void bindings();
-
-    public void constraints();
-
     public void predicate();
 
     public void expression();
 
     public void clearClause();
 
-    public void whereClause();
-
     public void selectClause();
 
     public void valuesClause();
 
     public void placement();
+
+    public void whereClause();
+
+    public void registry();
+
+    public void entityType();
 
     public void fromClause();
 
@@ -105,6 +108,12 @@ public interface IQueriesBuilder extends IBuilder {
     public void Clone_();
 
     public void _Clone();
+
+    public void Create();
+
+    public void Create_();
+
+    public void _Create();
 
     public void Delete();
 
@@ -172,18 +181,6 @@ public interface IQueriesBuilder extends IBuilder {
 
     public void _Do();
 
-    public void EntityTemplate();
-
-    public void EntityTemplate_();
-
-    public void _EntityTemplate();
-
-    public void EntityCall();
-
-    public void EntityCall_();
-
-    public void _EntityCall();
-
     public void Call();
 
     public void Call_();
@@ -197,20 +194,6 @@ public interface IQueriesBuilder extends IBuilder {
     public void Expressions_(int initialCapacity);
 
     public void _Expressions();
-
-    public void Bindings();
-
-    public void Bindings_();
-
-    public void Bindings_(int initialCapacity);
-
-    public void _Bindings();
-
-    public void Bind();
-
-    public void Bind_();
-
-    public void _Bind();
 
     public void Choose();
 
@@ -592,10 +575,6 @@ public interface IQueriesBuilder extends IBuilder {
 
     public void _Every();
 
-    public void EntityType();
-
-    public void EntityType(String value);
-
     public void TemplateNames();
 
     public void TemplateNames_();
@@ -833,6 +812,38 @@ public interface IQueriesBuilder extends IBuilder {
     public void GreaterOrEquals_();
 
     public void _GreaterOrEquals();
+
+    public void EntityType();
+
+    public void EntityType(String value);
+
+    public void Registry();
+
+    public void Registry(RegistryEnum.Value value);
+
+    public void Registry(String value);
+
+    public void Children();
+
+    public void Children_();
+
+    public void Children_(int initialCapacity);
+
+    public void _Children();
+
+    public void Features();
+
+    public void Features_();
+
+    public void Features_(int initialCapacity);
+
+    public void _Features();
+
+    public void Feature();
+
+    public void Feature_();
+
+    public void _Feature();
 
     public void VoidLiteral();
 

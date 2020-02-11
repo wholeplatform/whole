@@ -22,10 +22,9 @@ import static org.whole.lang.actions.reflect.ActionsEntityDescriptorEnum.Subgrou
 import static org.whole.lang.commons.factories.CommonsEntityAdapterFactory.createResolver;
 import static org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum.AtFeatureTest;
 import static org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum.AtTypeTest;
-import static org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum.Bind;
-import static org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum.Bindings;
-import static org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum.EntityCall_ord;
-import static org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum.EntityTemplate_ord;
+import static org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum.Feature;
+import static org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum.Features;
+import static org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum.Create_ord;
 import static org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum.EntityType;
 import static org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum.ExtendedSubtypeTest;
 import static org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum.ExtendedSupertypeTest;
@@ -58,8 +57,7 @@ import org.whole.lang.operations.ContentAssistOperation;
 import org.whole.lang.queries.factories.QueriesEntityFactory;
 import org.whole.lang.queries.model.AtFeatureTest;
 import org.whole.lang.queries.model.AtTypeTest;
-import org.whole.lang.queries.model.EntityCall;
-import org.whole.lang.queries.model.EntityTemplate;
+import org.whole.lang.queries.model.Create;
 import org.whole.lang.queries.model.EntityType;
 import org.whole.lang.queries.model.ExtendedSubtypeTest;
 import org.whole.lang.queries.model.ExtendedSupertypeTest;
@@ -128,44 +126,40 @@ public class QueriesContentAssistVisitor extends QueriesIdentityVisitor {
 	@Override
 	public void visit(Name entity) {
 		IEntity bindEntity = entity.wGetParent();
-		if (!Matcher.match(Bind, bindEntity))
+		if (!Matcher.match(Feature, bindEntity))
 			return;
 		IEntity bindingsEntity = bindEntity.wGetParent();
-		if (!Matcher.match(Bindings, bindingsEntity))
+		if (!Matcher.match(Features, bindingsEntity))
 			return;
 		
-		EntityType entityType;
-		boolean allLanguageFeatures;
-		IEntity entityCallOrTemplateEntity = bindingsEntity.wGetParent();
-		switch (entityCallOrTemplateEntity.wGetEntityDescriptor().getOrdinal()) {
-		case EntityCall_ord: 
-			entityType = ((EntityCall) entityCallOrTemplateEntity).getName();
-			allLanguageFeatures = true;
-			break;
-		case EntityTemplate_ord: 
-			entityType = ((EntityTemplate) entityCallOrTemplateEntity).getName();
-			allLanguageFeatures = false;
-			break;
-		default:
-			return;
-		}
-		if (!DataTypeUtils.getDataKind(entityType).isString())
-			return;
-		String edUri = entityType.wStringValue();
+//		EntityType entityType;
+//		boolean allLanguageFeatures;
+//		IEntity entityCallOrTemplateEntity = bindingsEntity.wGetParent();
+//		switch (entityCallOrTemplateEntity.wGetEntityDescriptor().getOrdinal()) {
+//		case Create_ord: 
+//			entityType = ((Create) entityCallOrTemplateEntity).getName();
+//			allLanguageFeatures = false;
+//			break;
+//		default:
+//			return;
+//		}
+//		if (!DataTypeUtils.getDataKind(entityType).isString())
+//			return;
+//		String edUri = entityType.wStringValue();
 
-		TreeSet<String> sortedNames = new TreeSet<String>();
-		EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.getEntityDescriptor(edUri, false, null);
-		if (allLanguageFeatures || ed == null) {
-			ILanguageKit lk = CommonsDataTypePersistenceParser.getLanguageKitPart(edUri);
-			if (lk == null)
-				return;
-
-			Set<String> fNames = lk.getFeatureDescriptorEnum().names();
-			sortedNames.addAll(fNames);
-		} else
-			for (FeatureDescriptor fd : ed.getEntityFeatureDescriptors())
-				sortedNames.add(fd.getName());
-		allFeatureNames(sortedNames, entity.getValue());
+//		TreeSet<String> sortedNames = new TreeSet<String>();
+//		EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.getEntityDescriptor(edUri, false, null);
+//		if (allLanguageFeatures || ed == null) {
+//			ILanguageKit lk = CommonsDataTypePersistenceParser.getLanguageKitPart(edUri);
+//			if (lk == null)
+//				return;
+//
+//			Set<String> fNames = lk.getFeatureDescriptorEnum().names();
+//			sortedNames.addAll(fNames);
+//		} else
+//			for (FeatureDescriptor fd : ed.getEntityFeatureDescriptors())
+//				sortedNames.add(fd.getName());
+//		allFeatureNames(sortedNames, entity.getValue());
 	}
 
 	@Override

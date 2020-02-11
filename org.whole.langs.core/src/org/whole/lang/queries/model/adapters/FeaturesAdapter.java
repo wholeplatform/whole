@@ -27,14 +27,14 @@ import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 /**
  *  @generator Whole
  */
-public class BindingsAdapter extends AbstractListEntityAdapter<Bind> implements Bindings {
+public class FeaturesAdapter extends AbstractListEntityAdapter<Feature> implements Features {
     private static final long serialVersionUID = 1;
 
-    public BindingsAdapter(IEntity implementor) {
+    public FeaturesAdapter(IEntity implementor) {
         super(implementor);
     }
 
-    public BindingsAdapter() {
+    public FeaturesAdapter() {
     }
 
     public void accept(IQueriesVisitor visitor) {
@@ -42,7 +42,7 @@ public class BindingsAdapter extends AbstractListEntityAdapter<Bind> implements 
             visitor.visit(this);
     }
 
-    public EntityDescriptor<Bindings> wGetEntityDescriptor() {
-        return QueriesEntityDescriptorEnum.Bindings;
+    public EntityDescriptor<Features> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.Features;
     }
 }

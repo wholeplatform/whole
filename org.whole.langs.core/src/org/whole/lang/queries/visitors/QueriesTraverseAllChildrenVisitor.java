@@ -50,6 +50,12 @@ public class QueriesTraverseAllChildrenVisitor extends QueriesIdentityUnaryVisit
         entity.getFromClause().accept(wGetVisitor1());
     }
 
+    public void visit(Create entity) {
+        entity.getEntityType().accept(wGetVisitor1());
+        entity.getRegistry().accept(wGetVisitor1());
+        entity.getWhereClause().accept(wGetVisitor1());
+    }
+
     public void visit(Delete entity) {
         entity.getFromClause().accept(wGetVisitor1());
     }
@@ -106,16 +112,6 @@ public class QueriesTraverseAllChildrenVisitor extends QueriesIdentityUnaryVisit
         entity.getExpression().accept(wGetVisitor1());
     }
 
-    public void visit(EntityTemplate entity) {
-        entity.getName().accept(wGetVisitor1());
-        entity.getConstraints().accept(wGetVisitor1());
-    }
-
-    public void visit(EntityCall entity) {
-        entity.getName().accept(wGetVisitor1());
-        entity.getBindings().accept(wGetVisitor1());
-    }
-
     public void visit(Call entity) {
         entity.getName().accept(wGetVisitor1());
         entity.getArguments().accept(wGetVisitor1());
@@ -124,16 +120,6 @@ public class QueriesTraverseAllChildrenVisitor extends QueriesIdentityUnaryVisit
     public void visit(Expressions entity) {
         for (int i = 0; i < entity.size(); i++)
             entity.get(i).accept(wGetVisitor1());
-    }
-
-    public void visit(Bindings entity) {
-        for (int i = 0; i < entity.size(); i++)
-            entity.get(i).accept(wGetVisitor1());
-    }
-
-    public void visit(Bind entity) {
-        entity.getName().accept(wGetVisitor1());
-        entity.getExpression().accept(wGetVisitor1());
     }
 
     public void visit(Choose entity) {
@@ -398,5 +384,20 @@ public class QueriesTraverseAllChildrenVisitor extends QueriesIdentityUnaryVisit
     public void visit(GreaterOrEquals entity) {
         entity.getExp1().accept(wGetVisitor1());
         entity.getExp2().accept(wGetVisitor1());
+    }
+
+    public void visit(Children entity) {
+        for (int i = 0; i < entity.size(); i++)
+            entity.get(i).accept(wGetVisitor1());
+    }
+
+    public void visit(Features entity) {
+        for (int i = 0; i < entity.size(); i++)
+            entity.get(i).accept(wGetVisitor1());
+    }
+
+    public void visit(Feature entity) {
+        entity.getName().accept(wGetVisitor1());
+        entity.getValue().accept(wGetVisitor1());
     }
 }

@@ -27,6 +27,7 @@ import org.whole.lang.queries.model.CompositeKindTestEnum;
 import org.whole.lang.queries.model.DataKindTestEnum;
 import org.whole.lang.queries.model.StageTestEnum;
 import org.whole.lang.visitors.IVisitor;
+import org.whole.lang.queries.model.RegistryEnum;
 import java.util.Date;
 import org.whole.lang.queries.model.PlacementEnum;
 
@@ -41,6 +42,10 @@ public class QueriesSpecificBuilderAdapter extends GenericBuilderContext impleme
 
     public QueriesSpecificBuilderAdapter(IBuilder strategy, IEntityContext entityContext) {
         super(strategy, entityContext);
+    }
+
+    public void value() {
+        wFeature(QueriesFeatureDescriptorEnum.value);
     }
 
     public void exp2() {
@@ -95,14 +100,6 @@ public class QueriesSpecificBuilderAdapter extends GenericBuilderContext impleme
         wFeature(QueriesFeatureDescriptorEnum.arguments);
     }
 
-    public void bindings() {
-        wFeature(QueriesFeatureDescriptorEnum.bindings);
-    }
-
-    public void constraints() {
-        wFeature(QueriesFeatureDescriptorEnum.constraints);
-    }
-
     public void predicate() {
         wFeature(QueriesFeatureDescriptorEnum.predicate);
     }
@@ -115,10 +112,6 @@ public class QueriesSpecificBuilderAdapter extends GenericBuilderContext impleme
         wFeature(QueriesFeatureDescriptorEnum.clearClause);
     }
 
-    public void whereClause() {
-        wFeature(QueriesFeatureDescriptorEnum.whereClause);
-    }
-
     public void selectClause() {
         wFeature(QueriesFeatureDescriptorEnum.selectClause);
     }
@@ -129,6 +122,18 @@ public class QueriesSpecificBuilderAdapter extends GenericBuilderContext impleme
 
     public void placement() {
         wFeature(QueriesFeatureDescriptorEnum.placement);
+    }
+
+    public void whereClause() {
+        wFeature(QueriesFeatureDescriptorEnum.whereClause);
+    }
+
+    public void registry() {
+        wFeature(QueriesFeatureDescriptorEnum.registry);
+    }
+
+    public void entityType() {
+        wFeature(QueriesFeatureDescriptorEnum.entityType);
     }
 
     public void fromClause() {
@@ -188,6 +193,18 @@ public class QueriesSpecificBuilderAdapter extends GenericBuilderContext impleme
 
     public void _Clone() {
         _wEntity(QueriesEntityDescriptorEnum.Clone);
+    }
+
+    public void Create() {
+        wEntity(QueriesEntityDescriptorEnum.Create);
+    }
+
+    public void Create_() {
+        wEntity_(QueriesEntityDescriptorEnum.Create);
+    }
+
+    public void _Create() {
+        _wEntity(QueriesEntityDescriptorEnum.Create);
     }
 
     public void Delete() {
@@ -322,30 +339,6 @@ public class QueriesSpecificBuilderAdapter extends GenericBuilderContext impleme
         _wEntity(QueriesEntityDescriptorEnum.Do);
     }
 
-    public void EntityTemplate() {
-        wEntity(QueriesEntityDescriptorEnum.EntityTemplate);
-    }
-
-    public void EntityTemplate_() {
-        wEntity_(QueriesEntityDescriptorEnum.EntityTemplate);
-    }
-
-    public void _EntityTemplate() {
-        _wEntity(QueriesEntityDescriptorEnum.EntityTemplate);
-    }
-
-    public void EntityCall() {
-        wEntity(QueriesEntityDescriptorEnum.EntityCall);
-    }
-
-    public void EntityCall_() {
-        wEntity_(QueriesEntityDescriptorEnum.EntityCall);
-    }
-
-    public void _EntityCall() {
-        _wEntity(QueriesEntityDescriptorEnum.EntityCall);
-    }
-
     public void Call() {
         wEntity(QueriesEntityDescriptorEnum.Call);
     }
@@ -372,34 +365,6 @@ public class QueriesSpecificBuilderAdapter extends GenericBuilderContext impleme
 
     public void _Expressions() {
         _wEntity(QueriesEntityDescriptorEnum.Expressions);
-    }
-
-    public void Bindings() {
-        wEntity(QueriesEntityDescriptorEnum.Bindings);
-    }
-
-    public void Bindings_() {
-        wEntity_(QueriesEntityDescriptorEnum.Bindings);
-    }
-
-    public void Bindings_(int initialCapacity) {
-        wEntity_(QueriesEntityDescriptorEnum.Bindings, initialCapacity);
-    }
-
-    public void _Bindings() {
-        _wEntity(QueriesEntityDescriptorEnum.Bindings);
-    }
-
-    public void Bind() {
-        wEntity(QueriesEntityDescriptorEnum.Bind);
-    }
-
-    public void Bind_() {
-        wEntity_(QueriesEntityDescriptorEnum.Bind);
-    }
-
-    public void _Bind() {
-        _wEntity(QueriesEntityDescriptorEnum.Bind);
     }
 
     public void Choose() {
@@ -1162,14 +1127,6 @@ public class QueriesSpecificBuilderAdapter extends GenericBuilderContext impleme
         _wEntity(QueriesEntityDescriptorEnum.Every);
     }
 
-    public void EntityType() {
-        wEntity(QueriesEntityDescriptorEnum.EntityType);
-    }
-
-    public void EntityType(String value) {
-        wEntity(QueriesEntityDescriptorEnum.EntityType, value);
-    }
-
     public void TemplateNames() {
         wEntity(QueriesEntityDescriptorEnum.TemplateNames);
     }
@@ -1644,6 +1601,70 @@ public class QueriesSpecificBuilderAdapter extends GenericBuilderContext impleme
 
     public void _GreaterOrEquals() {
         _wEntity(QueriesEntityDescriptorEnum.GreaterOrEquals);
+    }
+
+    public void EntityType() {
+        wEntity(QueriesEntityDescriptorEnum.EntityType);
+    }
+
+    public void EntityType(String value) {
+        wEntity(QueriesEntityDescriptorEnum.EntityType, value);
+    }
+
+    public void Registry() {
+        wEntity(QueriesEntityDescriptorEnum.Registry);
+    }
+
+    public void Registry(RegistryEnum.Value value) {
+        wEntity(QueriesEntityDescriptorEnum.Registry, value);
+    }
+
+    public void Registry(String value) {
+        wEntity(QueriesEntityDescriptorEnum.Registry, value);
+    }
+
+    public void Children() {
+        wEntity(QueriesEntityDescriptorEnum.Children);
+    }
+
+    public void Children_() {
+        wEntity_(QueriesEntityDescriptorEnum.Children);
+    }
+
+    public void Children_(int initialCapacity) {
+        wEntity_(QueriesEntityDescriptorEnum.Children, initialCapacity);
+    }
+
+    public void _Children() {
+        _wEntity(QueriesEntityDescriptorEnum.Children);
+    }
+
+    public void Features() {
+        wEntity(QueriesEntityDescriptorEnum.Features);
+    }
+
+    public void Features_() {
+        wEntity_(QueriesEntityDescriptorEnum.Features);
+    }
+
+    public void Features_(int initialCapacity) {
+        wEntity_(QueriesEntityDescriptorEnum.Features, initialCapacity);
+    }
+
+    public void _Features() {
+        _wEntity(QueriesEntityDescriptorEnum.Features);
+    }
+
+    public void Feature() {
+        wEntity(QueriesEntityDescriptorEnum.Feature);
+    }
+
+    public void Feature_() {
+        wEntity_(QueriesEntityDescriptorEnum.Feature);
+    }
+
+    public void _Feature() {
+        _wEntity(QueriesEntityDescriptorEnum.Feature);
     }
 
     public void VoidLiteral() {

@@ -17,28 +17,15 @@
  */
 package org.whole.lang.queries.ui.editparts;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.eclipse.draw2d.IFigure;
-import org.whole.lang.model.IEntity;
-import org.whole.lang.queries.model.EntityCall;
-import org.whole.lang.queries.ui.figures.CallFigure;
-import org.whole.lang.ui.editparts.AbstractContentPanePart;
+import org.whole.lang.queries.ui.figures.FeaturesTableFigure;
+import org.whole.lang.ui.editparts.TablePart;
+import org.whole.lang.ui.figures.TableFigure;
 
 /**
  * @author Riccardo Solmi
  */
-public class EntityCallPart extends AbstractContentPanePart {
-	protected IFigure createFigure() {
-		return new CallFigure();
-	}
-
-	protected List<IEntity> getModelSpecificChildren() {
-		EntityCall entity = getModelEntity();
-		List<IEntity> list = new ArrayList<IEntity>(2);
-		list.add(entity.getName());
-		list.add(entity.getBindings());
-		return list;
-	}
+public class FeaturesTablePart extends TablePart {
+	protected TableFigure createFigure() {
+		return new FeaturesTableFigure();
+    }
 }

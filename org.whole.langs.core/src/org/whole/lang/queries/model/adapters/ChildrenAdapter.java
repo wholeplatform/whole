@@ -17,25 +17,24 @@
  */
 package org.whole.lang.queries.model.adapters;
 
-import org.whole.lang.model.adapters.AbstractEntityAdapter;
+import org.whole.lang.model.adapters.AbstractListEntityAdapter;
 import org.whole.lang.queries.model.*;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.queries.visitors.IQueriesVisitor;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
-import org.whole.lang.queries.reflect.QueriesFeatureDescriptorEnum;
 
 /**
  *  @generator Whole
  */
-public class EntityTemplateAdapter extends AbstractEntityAdapter implements EntityTemplate {
+public class ChildrenAdapter extends AbstractListEntityAdapter<Expression> implements Children {
     private static final long serialVersionUID = 1;
 
-    public EntityTemplateAdapter(IEntity implementor) {
+    public ChildrenAdapter(IEntity implementor) {
         super(implementor);
     }
 
-    public EntityTemplateAdapter() {
+    public ChildrenAdapter() {
     }
 
     public void accept(IQueriesVisitor visitor) {
@@ -43,23 +42,7 @@ public class EntityTemplateAdapter extends AbstractEntityAdapter implements Enti
             visitor.visit(this);
     }
 
-    public EntityDescriptor<EntityTemplate> wGetEntityDescriptor() {
-        return QueriesEntityDescriptorEnum.EntityTemplate;
-    }
-
-    public EntityType getName() {
-        return wGet(QueriesFeatureDescriptorEnum.name).wGetAdapter(QueriesEntityDescriptorEnum.EntityType);
-    }
-
-    public void setName(EntityType name) {
-        wSet(QueriesFeatureDescriptorEnum.name, name);
-    }
-
-    public Constraints getConstraints() {
-        return wGet(QueriesFeatureDescriptorEnum.constraints).wGetAdapter(QueriesEntityDescriptorEnum.Constraints);
-    }
-
-    public void setConstraints(Constraints constraints) {
-        wSet(QueriesFeatureDescriptorEnum.constraints, constraints);
+    public EntityDescriptor<Children> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.Children;
     }
 }

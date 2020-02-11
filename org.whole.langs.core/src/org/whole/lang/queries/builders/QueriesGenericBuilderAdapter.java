@@ -60,6 +60,15 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
             case QueriesFeatureDescriptorEnum.fromClause_ord :
             specificBuilder.fromClause();
             break;
+            case QueriesFeatureDescriptorEnum.entityType_ord :
+            specificBuilder.entityType();
+            break;
+            case QueriesFeatureDescriptorEnum.registry_ord :
+            specificBuilder.registry();
+            break;
+            case QueriesFeatureDescriptorEnum.whereClause_ord :
+            specificBuilder.whereClause();
+            break;
             case QueriesFeatureDescriptorEnum.placement_ord :
             specificBuilder.placement();
             break;
@@ -69,9 +78,6 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
             case QueriesFeatureDescriptorEnum.selectClause_ord :
             specificBuilder.selectClause();
             break;
-            case QueriesFeatureDescriptorEnum.whereClause_ord :
-            specificBuilder.whereClause();
-            break;
             case QueriesFeatureDescriptorEnum.clearClause_ord :
             specificBuilder.clearClause();
             break;
@@ -80,12 +86,6 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
             break;
             case QueriesFeatureDescriptorEnum.predicate_ord :
             specificBuilder.predicate();
-            break;
-            case QueriesFeatureDescriptorEnum.constraints_ord :
-            specificBuilder.constraints();
-            break;
-            case QueriesFeatureDescriptorEnum.bindings_ord :
-            specificBuilder.bindings();
             break;
             case QueriesFeatureDescriptorEnum.arguments_ord :
             specificBuilder.arguments();
@@ -126,6 +126,9 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
             case QueriesFeatureDescriptorEnum.exp2_ord :
             specificBuilder.exp2();
             break;
+            case QueriesFeatureDescriptorEnum.value_ord :
+            specificBuilder.value();
+            break;
         }
     }
 
@@ -139,6 +142,9 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
             break;
             case QueriesEntityDescriptorEnum.Clone_ord :
             specificBuilder.Clone();
+            break;
+            case QueriesEntityDescriptorEnum.Create_ord :
+            specificBuilder.Create();
             break;
             case QueriesEntityDescriptorEnum.Delete_ord :
             specificBuilder.Delete();
@@ -173,23 +179,11 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
             case QueriesEntityDescriptorEnum.Do_ord :
             specificBuilder.Do();
             break;
-            case QueriesEntityDescriptorEnum.EntityTemplate_ord :
-            specificBuilder.EntityTemplate();
-            break;
-            case QueriesEntityDescriptorEnum.EntityCall_ord :
-            specificBuilder.EntityCall();
-            break;
             case QueriesEntityDescriptorEnum.Call_ord :
             specificBuilder.Call();
             break;
             case QueriesEntityDescriptorEnum.Expressions_ord :
             specificBuilder.Expressions();
-            break;
-            case QueriesEntityDescriptorEnum.Bindings_ord :
-            specificBuilder.Bindings();
-            break;
-            case QueriesEntityDescriptorEnum.Bind_ord :
-            specificBuilder.Bind();
             break;
             case QueriesEntityDescriptorEnum.Choose_ord :
             specificBuilder.Choose();
@@ -434,6 +428,15 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
             case QueriesEntityDescriptorEnum.GreaterOrEquals_ord :
             specificBuilder.GreaterOrEquals();
             break;
+            case QueriesEntityDescriptorEnum.Children_ord :
+            specificBuilder.Children();
+            break;
+            case QueriesEntityDescriptorEnum.Features_ord :
+            specificBuilder.Features();
+            break;
+            case QueriesEntityDescriptorEnum.Feature_ord :
+            specificBuilder.Feature();
+            break;
             case QueriesEntityDescriptorEnum.VoidLiteral_ord :
             specificBuilder.VoidLiteral();
             break;
@@ -450,6 +453,9 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
             break;
             case QueriesEntityDescriptorEnum.Clone_ord :
             specificBuilder.Clone_();
+            break;
+            case QueriesEntityDescriptorEnum.Create_ord :
+            specificBuilder.Create_();
             break;
             case QueriesEntityDescriptorEnum.Delete_ord :
             specificBuilder.Delete_();
@@ -484,23 +490,11 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
             case QueriesEntityDescriptorEnum.Do_ord :
             specificBuilder.Do_();
             break;
-            case QueriesEntityDescriptorEnum.EntityTemplate_ord :
-            specificBuilder.EntityTemplate_();
-            break;
-            case QueriesEntityDescriptorEnum.EntityCall_ord :
-            specificBuilder.EntityCall_();
-            break;
             case QueriesEntityDescriptorEnum.Call_ord :
             specificBuilder.Call_();
             break;
             case QueriesEntityDescriptorEnum.Expressions_ord :
             specificBuilder.Expressions_();
-            break;
-            case QueriesEntityDescriptorEnum.Bindings_ord :
-            specificBuilder.Bindings_();
-            break;
-            case QueriesEntityDescriptorEnum.Bind_ord :
-            specificBuilder.Bind_();
             break;
             case QueriesEntityDescriptorEnum.Choose_ord :
             specificBuilder.Choose_();
@@ -745,6 +739,15 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
             case QueriesEntityDescriptorEnum.GreaterOrEquals_ord :
             specificBuilder.GreaterOrEquals_();
             break;
+            case QueriesEntityDescriptorEnum.Children_ord :
+            specificBuilder.Children_();
+            break;
+            case QueriesEntityDescriptorEnum.Features_ord :
+            specificBuilder.Features_();
+            break;
+            case QueriesEntityDescriptorEnum.Feature_ord :
+            specificBuilder.Feature_();
+            break;
             case QueriesEntityDescriptorEnum.VoidLiteral_ord :
             specificBuilder.VoidLiteral_();
             break;
@@ -761,6 +764,9 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
             break;
             case QueriesEntityDescriptorEnum.Clone_ord :
             specificBuilder._Clone();
+            break;
+            case QueriesEntityDescriptorEnum.Create_ord :
+            specificBuilder._Create();
             break;
             case QueriesEntityDescriptorEnum.Delete_ord :
             specificBuilder._Delete();
@@ -795,23 +801,11 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
             case QueriesEntityDescriptorEnum.Do_ord :
             specificBuilder._Do();
             break;
-            case QueriesEntityDescriptorEnum.EntityTemplate_ord :
-            specificBuilder._EntityTemplate();
-            break;
-            case QueriesEntityDescriptorEnum.EntityCall_ord :
-            specificBuilder._EntityCall();
-            break;
             case QueriesEntityDescriptorEnum.Call_ord :
             specificBuilder._Call();
             break;
             case QueriesEntityDescriptorEnum.Expressions_ord :
             specificBuilder._Expressions();
-            break;
-            case QueriesEntityDescriptorEnum.Bindings_ord :
-            specificBuilder._Bindings();
-            break;
-            case QueriesEntityDescriptorEnum.Bind_ord :
-            specificBuilder._Bind();
             break;
             case QueriesEntityDescriptorEnum.Choose_ord :
             specificBuilder._Choose();
@@ -1056,6 +1050,15 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
             case QueriesEntityDescriptorEnum.GreaterOrEquals_ord :
             specificBuilder._GreaterOrEquals();
             break;
+            case QueriesEntityDescriptorEnum.Children_ord :
+            specificBuilder._Children();
+            break;
+            case QueriesEntityDescriptorEnum.Features_ord :
+            specificBuilder._Features();
+            break;
+            case QueriesEntityDescriptorEnum.Feature_ord :
+            specificBuilder._Feature();
+            break;
             case QueriesEntityDescriptorEnum.VoidLiteral_ord :
             specificBuilder._VoidLiteral();
             break;
@@ -1069,9 +1072,6 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
             break;
             case QueriesEntityDescriptorEnum.Expressions_ord :
             specificBuilder.Expressions_(initialCapacity);
-            break;
-            case QueriesEntityDescriptorEnum.Bindings_ord :
-            specificBuilder.Bindings_(initialCapacity);
             break;
             case QueriesEntityDescriptorEnum.Choose_ord :
             specificBuilder.Choose_(initialCapacity);
@@ -1105,6 +1105,12 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
             break;
             case QueriesEntityDescriptorEnum.Tuple_ord :
             specificBuilder.Tuple_(initialCapacity);
+            break;
+            case QueriesEntityDescriptorEnum.Children_ord :
+            specificBuilder.Children_(initialCapacity);
+            break;
+            case QueriesEntityDescriptorEnum.Features_ord :
+            specificBuilder.Features_(initialCapacity);
             break;
         }
     }
@@ -1165,14 +1171,14 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
             case QueriesEntityDescriptorEnum.AtFeatureTest_ord :
             specificBuilder.AtFeatureTest(value);
             break;
-            case QueriesEntityDescriptorEnum.EntityType_ord :
-            specificBuilder.EntityType(value);
-            break;
             case QueriesEntityDescriptorEnum.Name_ord :
             specificBuilder.Name(value);
             break;
             case QueriesEntityDescriptorEnum.VariableRefStep_ord :
             specificBuilder.VariableRefStep(value);
+            break;
+            case QueriesEntityDescriptorEnum.EntityType_ord :
+            specificBuilder.EntityType(value);
             break;
             case QueriesEntityDescriptorEnum.StringLiteral_ord :
             specificBuilder.StringLiteral(value);
@@ -1193,6 +1199,9 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
             break;
             case QueriesEntityDescriptorEnum.StageTest_ord :
             specificBuilder.StageTest((org.whole.lang.queries.model.StageTestEnum.Value) value);
+            break;
+            case QueriesEntityDescriptorEnum.Registry_ord :
+            specificBuilder.Registry((org.whole.lang.queries.model.RegistryEnum.Value) value);
             break;
             case QueriesEntityDescriptorEnum.Placement_ord :
             specificBuilder.Placement((org.whole.lang.queries.model.PlacementEnum.Value) value);

@@ -50,6 +50,10 @@ public class QueriesForwardStrategyVisitor extends GenericForwardStrategyVisitor
         wGetStrategy().visit(entity);
     }
 
+    public void visit(Create entity) {
+        wGetStrategy().visit(entity);
+    }
+
     public void visit(Delete entity) {
         wGetStrategy().visit(entity);
     }
@@ -94,27 +98,11 @@ public class QueriesForwardStrategyVisitor extends GenericForwardStrategyVisitor
         wGetStrategy().visit(entity);
     }
 
-    public void visit(EntityTemplate entity) {
-        wGetStrategy().visit(entity);
-    }
-
-    public void visit(EntityCall entity) {
-        wGetStrategy().visit(entity);
-    }
-
     public void visit(Call entity) {
         wGetStrategy().visit(entity);
     }
 
     public void visit(Expressions entity) {
-        wGetStrategy().visit(entity);
-    }
-
-    public void visit(Bindings entity) {
-        wGetStrategy().visit(entity);
-    }
-
-    public void visit(Bind entity) {
         wGetStrategy().visit(entity);
     }
 
@@ -386,10 +374,6 @@ public class QueriesForwardStrategyVisitor extends GenericForwardStrategyVisitor
         wGetStrategy().visit(entity);
     }
 
-    public void visit(EntityType entity) {
-        wGetStrategy().visit(entity);
-    }
-
     public void visit(TemplateNames entity) {
         wGetStrategy().visit(entity);
     }
@@ -543,6 +527,26 @@ public class QueriesForwardStrategyVisitor extends GenericForwardStrategyVisitor
     }
 
     public void visit(GreaterOrEquals entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(EntityType entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(Registry entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(Children entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(Features entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(Feature entity) {
         wGetStrategy().visit(entity);
     }
 

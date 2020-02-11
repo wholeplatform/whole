@@ -33,6 +33,7 @@ public class QueriesImplEntityRegistry extends AbstractEntityRegistry {
         put(new QueryDeclarationImpl());
         put(new PathImpl());
         put(new CloneImpl());
+        put(new CreateImpl());
         put(new DeleteImpl());
         put(new InsertImpl());
         put(new CartesianInsertImpl());
@@ -44,12 +45,8 @@ public class QueriesImplEntityRegistry extends AbstractEntityRegistry {
         put(new ForImpl());
         put(new IfImpl());
         put(new DoImpl());
-        put(new EntityTemplateImpl());
-        put(new EntityCallImpl());
         put(new CallImpl());
         put(new ExpressionsImpl());
-        put(new BindingsImpl());
-        put(new BindImpl());
         put(new ChooseImpl());
         put(new BlockImpl());
         put(new SequenceImpl());
@@ -117,7 +114,6 @@ public class QueriesImplEntityRegistry extends AbstractEntityRegistry {
         put(new OneImpl());
         put(new SomeImpl());
         put(new EveryImpl());
-        put(new EntityTypeImpl());
         put(new TemplateNamesImpl());
         put(new AllNamesImpl());
         put(new AddNamesImpl());
@@ -157,6 +153,11 @@ public class QueriesImplEntityRegistry extends AbstractEntityRegistry {
         put(new LessOrEqualsImpl());
         put(new GreaterThanImpl());
         put(new GreaterOrEqualsImpl());
+        put(new EntityTypeImpl());
+        put(new RegistryImpl());
+        put(new ChildrenImpl());
+        put(new FeaturesImpl());
+        put(new FeatureImpl());
         put(new VoidLiteralImpl());
         put(new BooleanLiteralImpl());
         put(new ByteLiteralImpl());

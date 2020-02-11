@@ -21,14 +21,14 @@ package org.whole.lang.queries.model;
 /**
  *  @generator Whole
  */
-public interface Bind extends IQueriesEntity {
+public interface Feature extends IQueriesEntity {
 
 
     public Name getName();
 
     public void setName(Name name);
 
-    public Expression getExpression();
+    public Expression getValue();
 
-    public void setExpression(Expression expression);
+    public void setValue(Expression value);
 }

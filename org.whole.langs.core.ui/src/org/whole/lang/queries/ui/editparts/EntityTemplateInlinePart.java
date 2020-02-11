@@ -23,8 +23,8 @@ import java.util.List;
 import org.eclipse.draw2d.IFigure;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.queries.model.Constraints;
-import org.whole.lang.queries.model.EntityTemplate;
+import org.whole.lang.queries.model.Create;
+import org.whole.lang.queries.model.Expression;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.queries.ui.figures.EntityTemplateInlineFigure;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
@@ -38,15 +38,15 @@ public class EntityTemplateInlinePart extends AbstractContentPanePart {
 	}
 
 	protected List<IEntity> getModelSpecificChildren() {
-		EntityTemplate entity = getModelEntity();
-		Constraints arguments = entity.getConstraints();
+		Create entity = getModelEntity();
+		Expression arguments = entity.getWhereClause();
 		IEntity value = arguments;
 		if (Matcher.matchImpl(QueriesEntityDescriptorEnum.Expressions, arguments) &&
 				arguments.wSize() == 1)
 			value = arguments.wGet(0);
 
 		List<IEntity> list = new ArrayList<IEntity>(2);
-		list.add(entity.getName());
+		list.add(entity.getEntityType());
 		list.add(value);
 		return list;
 	}

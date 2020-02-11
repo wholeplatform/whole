@@ -19,6 +19,7 @@ package org.whole.lang.queries.factories;
 
 import org.whole.lang.factories.DefaultEntityRegistryConfiguration;
 import org.whole.lang.factories.IEntityRegistry;
+import org.whole.lang.queries.model.RegistryEnum;
 import org.whole.lang.queries.reflect.QueriesFeatureDescriptorEnum;
 
 /**
@@ -42,5 +43,8 @@ public class QueriesDefaultEntityRegistryConfiguration extends DefaultEntityRegi
 		er.put(ef.createOr(2));
 		er.put(ef.createCharLiteral('a'));
 		er.put(ef.buildSelect().set(QueriesFeatureDescriptorEnum.clearClause, ef.createTemplateNames()).getResult());
+		er.put(ef.buildCreate()
+				.set(QueriesFeatureDescriptorEnum.entityType, ef.createEntityType("type"))
+				.set(QueriesFeatureDescriptorEnum.registry, ef.createRegistry(RegistryEnum.DEFAULT)).getResult());
 	}
 }

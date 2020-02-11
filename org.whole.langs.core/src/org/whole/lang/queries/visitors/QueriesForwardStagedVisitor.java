@@ -36,6 +36,10 @@ public class QueriesForwardStagedVisitor extends QueriesIdentityVisitor {
         stagedVisit(entity);
     }
 
+    public void visit(Create entity) {
+        stagedVisit(entity);
+    }
+
     public void visit(Delete entity) {
         stagedVisit(entity);
     }
@@ -80,27 +84,11 @@ public class QueriesForwardStagedVisitor extends QueriesIdentityVisitor {
         stagedVisit(entity);
     }
 
-    public void visit(EntityTemplate entity) {
-        stagedVisit(entity);
-    }
-
-    public void visit(EntityCall entity) {
-        stagedVisit(entity);
-    }
-
     public void visit(Call entity) {
         stagedVisit(entity);
     }
 
     public void visit(Expressions entity) {
-        stagedVisit(entity);
-    }
-
-    public void visit(Bindings entity) {
-        stagedVisit(entity);
-    }
-
-    public void visit(Bind entity) {
         stagedVisit(entity);
     }
 
@@ -372,10 +360,6 @@ public class QueriesForwardStagedVisitor extends QueriesIdentityVisitor {
         stagedVisit(entity);
     }
 
-    public void visit(EntityType entity) {
-        stagedVisit(entity);
-    }
-
     public void visit(TemplateNames entity) {
         stagedVisit(entity);
     }
@@ -529,6 +513,26 @@ public class QueriesForwardStagedVisitor extends QueriesIdentityVisitor {
     }
 
     public void visit(GreaterOrEquals entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(EntityType entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(Registry entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(Children entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(Features entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(Feature entity) {
         stagedVisit(entity);
     }
 

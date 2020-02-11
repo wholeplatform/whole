@@ -35,6 +35,7 @@ public class QueriesAdaptersEntityRegistry extends AbstractEntityRegistry {
         put(new QueryDeclarationAdapter());
         put(new PathAdapter());
         put(new CloneAdapter());
+        put(new CreateAdapter());
         put(new DeleteAdapter());
         put(new InsertAdapter());
         put(new CartesianInsertAdapter());
@@ -47,13 +48,8 @@ public class QueriesAdaptersEntityRegistry extends AbstractEntityRegistry {
         put(new IfAdapter());
         put(new DoAdapter());
         put(new StepExpressionAdapter());
-        put(new EntityTemplateAdapter());
-        put(new EntityCallAdapter());
         put(new CallAdapter());
-        put(new ConstraintsAdapter());
         put(new ExpressionsAdapter());
-        put(new BindingsAdapter());
-        put(new BindAdapter());
         put(new ChooseAdapter());
         put(new BlockAdapter());
         put(new SequenceAdapter());
@@ -130,7 +126,6 @@ public class QueriesAdaptersEntityRegistry extends AbstractEntityRegistry {
         put(new OneAdapter());
         put(new SomeAdapter());
         put(new EveryAdapter());
-        put(new EntityTypeAdapter());
         put(new NamesExpressionAdapter());
         put(new TemplateNamesAdapter());
         put(new AllNamesAdapter());
@@ -175,6 +170,11 @@ public class QueriesAdaptersEntityRegistry extends AbstractEntityRegistry {
         put(new LessOrEqualsAdapter());
         put(new GreaterThanAdapter());
         put(new GreaterOrEqualsAdapter());
+        put(new EntityTypeAdapter());
+        put(new RegistryAdapter());
+        put(new ChildrenAdapter());
+        put(new FeaturesAdapter());
+        put(new FeatureAdapter());
         put(new LiteralAdapter());
         put(new VoidLiteralAdapter());
         put(new BooleanLiteralAdapter());

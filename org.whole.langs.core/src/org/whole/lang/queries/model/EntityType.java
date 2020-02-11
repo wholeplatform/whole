@@ -21,7 +21,7 @@ package org.whole.lang.queries.model;
 /**
  *  @generator Whole
  */
-public interface EntityType extends IQueriesEntity {
+public interface EntityType extends IQueriesEntity, Expression {
 
 
     public String getValue();

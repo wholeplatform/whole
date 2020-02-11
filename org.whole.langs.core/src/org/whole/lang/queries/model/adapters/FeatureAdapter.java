@@ -15,34 +15,51 @@
  *  You should have received a copy of the GNU Lesser General Public License
  *  along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.queries.model.impl;
+package org.whole.lang.queries.model.adapters;
 
-import org.whole.lang.model.AbstractListCompositeEntity;
+import org.whole.lang.model.adapters.AbstractEntityAdapter;
 import org.whole.lang.queries.model.*;
+import org.whole.lang.model.IEntity;
 import org.whole.lang.queries.visitors.IQueriesVisitor;
-import org.whole.lang.exceptions.IWholeRuntimeException;
-import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.reflect.EntityDescriptor;
+import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
+import org.whole.lang.queries.reflect.QueriesFeatureDescriptorEnum;
 
 /**
  *  @generator Whole
  */
-public class BindingsImpl extends AbstractListCompositeEntity<Bind> implements Bindings {
+public class FeatureAdapter extends AbstractEntityAdapter implements Feature {
     private static final long serialVersionUID = 1;
 
+    public FeatureAdapter(IEntity implementor) {
+        super(implementor);
+    }
+
+    public FeatureAdapter() {
+    }
+
     public void accept(IQueriesVisitor visitor) {
-        try {
+        if (visitor.visitAdapter(this))
             visitor.visit(this);
-        } catch (Exception e) {
-            throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
-        }
     }
 
-    public int wGetEntityOrd() {
-        return QueriesEntityDescriptorEnum.Bindings_ord;
+    public EntityDescriptor<Feature> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.Feature;
     }
 
-    public EntityDescriptor<Bindings> wGetEntityDescriptor() {
-        return QueriesEntityDescriptorEnum.Bindings;
+    public Name getName() {
+        return wGet(QueriesFeatureDescriptorEnum.name).wGetAdapter(QueriesEntityDescriptorEnum.Name);
+    }
+
+    public void setName(Name name) {
+        wSet(QueriesFeatureDescriptorEnum.name, name);
+    }
+
+    public Expression getValue() {
+        return wGet(QueriesFeatureDescriptorEnum.value).wGetAdapter(QueriesEntityDescriptorEnum.Expression);
+    }
+
+    public void setValue(Expression value) {
+        wSet(QueriesFeatureDescriptorEnum.value, value);
     }
 }

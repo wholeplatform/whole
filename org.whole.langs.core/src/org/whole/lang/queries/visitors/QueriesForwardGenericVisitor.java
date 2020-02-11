@@ -47,6 +47,10 @@ public class QueriesForwardGenericVisitor extends AbstractUnaryVisitor<IVisitor>
         wGetVisitor1().visit(entity);
     }
 
+    public void visit(Create entity) {
+        wGetVisitor1().visit(entity);
+    }
+
     public void visit(Delete entity) {
         wGetVisitor1().visit(entity);
     }
@@ -91,27 +95,11 @@ public class QueriesForwardGenericVisitor extends AbstractUnaryVisitor<IVisitor>
         wGetVisitor1().visit(entity);
     }
 
-    public void visit(EntityTemplate entity) {
-        wGetVisitor1().visit(entity);
-    }
-
-    public void visit(EntityCall entity) {
-        wGetVisitor1().visit(entity);
-    }
-
     public void visit(Call entity) {
         wGetVisitor1().visit(entity);
     }
 
     public void visit(Expressions entity) {
-        wGetVisitor1().visit(entity);
-    }
-
-    public void visit(Bindings entity) {
-        wGetVisitor1().visit(entity);
-    }
-
-    public void visit(Bind entity) {
         wGetVisitor1().visit(entity);
     }
 
@@ -383,10 +371,6 @@ public class QueriesForwardGenericVisitor extends AbstractUnaryVisitor<IVisitor>
         wGetVisitor1().visit(entity);
     }
 
-    public void visit(EntityType entity) {
-        wGetVisitor1().visit(entity);
-    }
-
     public void visit(TemplateNames entity) {
         wGetVisitor1().visit(entity);
     }
@@ -540,6 +524,26 @@ public class QueriesForwardGenericVisitor extends AbstractUnaryVisitor<IVisitor>
     }
 
     public void visit(GreaterOrEquals entity) {
+        wGetVisitor1().visit(entity);
+    }
+
+    public void visit(EntityType entity) {
+        wGetVisitor1().visit(entity);
+    }
+
+    public void visit(Registry entity) {
+        wGetVisitor1().visit(entity);
+    }
+
+    public void visit(Children entity) {
+        wGetVisitor1().visit(entity);
+    }
+
+    public void visit(Features entity) {
+        wGetVisitor1().visit(entity);
+    }
+
+    public void visit(Feature entity) {
         wGetVisitor1().visit(entity);
     }
 

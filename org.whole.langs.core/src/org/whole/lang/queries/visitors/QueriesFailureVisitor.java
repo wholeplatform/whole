@@ -42,6 +42,10 @@ public class QueriesFailureVisitor extends QueriesIdentityVisitor {
         throw new VisitException();
     }
 
+    public void visit(Create entity) {
+        throw new VisitException();
+    }
+
     public void visit(Delete entity) {
         throw new VisitException();
     }
@@ -86,27 +90,11 @@ public class QueriesFailureVisitor extends QueriesIdentityVisitor {
         throw new VisitException();
     }
 
-    public void visit(EntityTemplate entity) {
-        throw new VisitException();
-    }
-
-    public void visit(EntityCall entity) {
-        throw new VisitException();
-    }
-
     public void visit(Call entity) {
         throw new VisitException();
     }
 
     public void visit(Expressions entity) {
-        throw new VisitException();
-    }
-
-    public void visit(Bindings entity) {
-        throw new VisitException();
-    }
-
-    public void visit(Bind entity) {
         throw new VisitException();
     }
 
@@ -378,10 +366,6 @@ public class QueriesFailureVisitor extends QueriesIdentityVisitor {
         throw new VisitException();
     }
 
-    public void visit(EntityType entity) {
-        throw new VisitException();
-    }
-
     public void visit(TemplateNames entity) {
         throw new VisitException();
     }
@@ -535,6 +519,26 @@ public class QueriesFailureVisitor extends QueriesIdentityVisitor {
     }
 
     public void visit(GreaterOrEquals entity) {
+        throw new VisitException();
+    }
+
+    public void visit(EntityType entity) {
+        throw new VisitException();
+    }
+
+    public void visit(Registry entity) {
+        throw new VisitException();
+    }
+
+    public void visit(Children entity) {
+        throw new VisitException();
+    }
+
+    public void visit(Features entity) {
+        throw new VisitException();
+    }
+
+    public void visit(Feature entity) {
         throw new VisitException();
     }
 

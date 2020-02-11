@@ -28,14 +28,14 @@ import org.whole.lang.queries.reflect.QueriesFeatureDescriptorEnum;
 /**
  *  @generator Whole
  */
-public class BindAdapter extends AbstractEntityAdapter implements Bind {
+public class CreateAdapter extends AbstractEntityAdapter implements Create {
     private static final long serialVersionUID = 1;
 
-    public BindAdapter(IEntity implementor) {
+    public CreateAdapter(IEntity implementor) {
         super(implementor);
     }
 
-    public BindAdapter() {
+    public CreateAdapter() {
     }
 
     public void accept(IQueriesVisitor visitor) {
@@ -43,23 +43,31 @@ public class BindAdapter extends AbstractEntityAdapter implements Bind {
             visitor.visit(this);
     }
 
-    public EntityDescriptor<Bind> wGetEntityDescriptor() {
-        return QueriesEntityDescriptorEnum.Bind;
+    public EntityDescriptor<Create> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.Create;
     }
 
-    public Name getName() {
-        return wGet(QueriesFeatureDescriptorEnum.name).wGetAdapter(QueriesEntityDescriptorEnum.Name);
+    public Expression getEntityType() {
+        return wGet(QueriesFeatureDescriptorEnum.entityType).wGetAdapter(QueriesEntityDescriptorEnum.Expression);
     }
 
-    public void setName(Name name) {
-        wSet(QueriesFeatureDescriptorEnum.name, name);
+    public void setEntityType(Expression entityType) {
+        wSet(QueriesFeatureDescriptorEnum.entityType, entityType);
     }
 
-    public Expression getExpression() {
-        return wGet(QueriesFeatureDescriptorEnum.expression).wGetAdapter(QueriesEntityDescriptorEnum.Expression);
+    public Expression getRegistry() {
+        return wGet(QueriesFeatureDescriptorEnum.registry).wGetAdapter(QueriesEntityDescriptorEnum.Expression);
     }
 
-    public void setExpression(Expression expression) {
-        wSet(QueriesFeatureDescriptorEnum.expression, expression);
+    public void setRegistry(Expression registry) {
+        wSet(QueriesFeatureDescriptorEnum.registry, registry);
+    }
+
+    public Expression getWhereClause() {
+        return wGet(QueriesFeatureDescriptorEnum.whereClause).wGetAdapter(QueriesEntityDescriptorEnum.Expression);
+    }
+
+    public void setWhereClause(Expression whereClause) {
+        wSet(QueriesFeatureDescriptorEnum.whereClause, whereClause);
     }
 }

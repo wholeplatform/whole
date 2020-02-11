@@ -17,18 +17,11 @@
  */
 package org.whole.lang.queries.model;
 
+import java.util.List;
 
 /**
  *  @generator Whole
  */
-public interface EntityCall extends IQueriesEntity, StepExpression {
+public interface Features extends IQueriesEntity, List<Feature>, Expression {
 
-
-    public EntityType getName();
-
-    public void setName(EntityType name);
-
-    public Bindings getBindings();
-
-    public void setBindings(Bindings bindings);
 }

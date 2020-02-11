@@ -21,14 +21,18 @@ package org.whole.lang.queries.model;
 /**
  *  @generator Whole
  */
-public interface EntityTemplate extends IQueriesEntity, StepExpression {
+public interface Create extends IQueriesEntity, PathExpression {
 
 
-    public EntityType getName();
+    public Expression getEntityType();
 
-    public void setName(EntityType name);
+    public void setEntityType(Expression entityType);
 
-    public Constraints getConstraints();
+    public Expression getRegistry();
 
-    public void setConstraints(Constraints constraints);
+    public void setRegistry(Expression registry);
+
+    public Expression getWhereClause();
+
+    public void setWhereClause(Expression whereClause);
 }

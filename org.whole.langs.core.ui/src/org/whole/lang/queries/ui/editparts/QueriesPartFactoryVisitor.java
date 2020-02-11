@@ -19,7 +19,6 @@ package org.whole.lang.queries.ui.editparts;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.EditPart;
-import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.model.adapters.IEntityAdapter;
@@ -30,7 +29,6 @@ import org.whole.lang.queries.reflect.QueriesFeatureDescriptorEnum;
 import org.whole.lang.queries.ui.figures.ChooseTableFigure;
 import org.whole.lang.queries.ui.figures.CollectByExpressionFigure;
 import org.whole.lang.queries.visitors.QueriesIdentityDefaultVisitor;
-import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.ui.editparts.AbstractCompositePart;
 import org.whole.lang.ui.editparts.CommaSeparatedCompositeColumnPart;
 import org.whole.lang.ui.editparts.CommaSeparatedCompositeFlowPart;
@@ -44,7 +42,6 @@ import org.whole.lang.ui.editparts.PlaceHolderPart;
 import org.whole.lang.ui.editparts.VariableDataEntityPart;
 import org.whole.lang.ui.notations.editparts.QuotedStringTextualEntityPart;
 import org.whole.lang.ui.notations.text.editparts.TextPartFactory;
-import org.whole.lang.util.DataTypeUtils;
 import org.whole.lang.util.EntityUtils;
 
 /**
@@ -93,7 +90,7 @@ public class QueriesPartFactoryVisitor extends QueriesIdentityDefaultVisitor imp
 	@Override
 	public void visit(Name entity) {
 		IEntity parent = entity.wGetParent();
-		if (EntityUtils.hasParent(entity) && Matcher.match(QueriesEntityDescriptorEnum.Bind, parent) && parent.wGet(QueriesFeatureDescriptorEnum.name) == entity)
+		if (EntityUtils.hasParent(entity) && Matcher.match(QueriesEntityDescriptorEnum.Feature, parent) && parent.wGet(QueriesFeatureDescriptorEnum.name) == entity)
 			part = new ContentTextualEntityPart();
 		else
 			part = new VariableDataEntityPart();//IdentifierTextualEntityPart();
@@ -103,10 +100,7 @@ public class QueriesPartFactoryVisitor extends QueriesIdentityDefaultVisitor imp
 	public void visit(Expressions entity) {
 		IEntity parent = entity.wGetParent();
 		if (EntityUtils.hasParent(entity)) {
-			if (Matcher.match(QueriesEntityDescriptorEnum.EntityTemplate, parent)) {
-				part = new CompositeColumnWithPlaceholderPart();
-				return;
-			} else if (Matcher.match(QueriesEntityDescriptorEnum.UnionAll, parent) ||
+			if (Matcher.match(QueriesEntityDescriptorEnum.UnionAll, parent) ||
 					Matcher.isAssignableAsIsFrom(QueriesEntityDescriptorEnum.CollectByExpression, parent)) {
 				part = new CommaSeparatedCompositeColumnPart();
 				return;				
@@ -265,12 +259,7 @@ public class QueriesPartFactoryVisitor extends QueriesIdentityDefaultVisitor imp
 	}
 
 	@Override
-	public void visit(EntityCall entity) {
-		part = new EntityCallPart();
-	}
-
-	@Override
-	public void visit(EntityTemplate entity) {
+	public void visit(Create entity) {
 //		EntityType name = entity.getName();
 //		if (DataTypeUtils.getDataKind(name).isString()) {
 //			EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.getEntityDescriptor(name.getValue(), false, null);
@@ -280,21 +269,31 @@ public class QueriesPartFactoryVisitor extends QueriesIdentityDefaultVisitor imp
 //			}
 //		}
 
-		part = new EntityTemplatePart();
+		part = new CreatePart();
 	}
 
 	@Override
 	public void visit(EntityType entity) {
 		part = new EntityTypePart();
 	}
-	
+
 	@Override
-	public void visit(Bindings entity) {
-		part = new BindingsTablePart();
+	public void visit(Registry entity) {
+		part = new ContentLightDataEntityPart();
+	}
+
+	@Override
+	public void visit(Children entity) {
+		part = new CompositeColumnWithPlaceholderPart();
+	}
+
+	@Override
+	public void visit(Features entity) {
+		part = new FeaturesTablePart();//TODO add placeholder
 	}
 	@Override
-	public void visit(Bind entity) {
-		part = new BindPart();
+	public void visit(Feature entity) {
+		part = new FeaturePart();
 	}
 
 	@Override

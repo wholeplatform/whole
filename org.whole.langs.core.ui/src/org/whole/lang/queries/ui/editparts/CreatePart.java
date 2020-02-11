@@ -17,31 +17,51 @@
  */
 package org.whole.lang.queries.ui.editparts;
 
+import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.draw2d.IFigure;
+import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.queries.model.Bind;
-import org.whole.lang.ui.editparts.AbstractPart;
-import org.whole.lang.ui.figures.TableRowFigure;
-import org.whole.lang.ui.layout.Alignment;
+import org.whole.lang.queries.model.Create;
+import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
+import org.whole.lang.queries.ui.figures.CreateFigure;
+import org.whole.lang.ui.editparts.AbstractContentPanePart;
 
 /**
  * @author Riccardo Solmi
  */
-public class BindPart extends AbstractPart {
+public class CreatePart extends AbstractContentPanePart {
 	protected IFigure createFigure() {
-		TableRowFigure tableRowFigure = new TableRowFigure();
-		tableRowFigure.getLayoutManager().withMinorAlignment(Alignment.MATHLINE);
-		return tableRowFigure;
+		return new CreateFigure();
+	}
+	@Override
+	public CreateFigure getFigure() {
+		return (CreateFigure) super.getFigure();
 	}
 
 	protected List<IEntity> getModelSpecificChildren() {
-		Bind entity = getModelEntity();
-		List<IEntity> children = new ArrayList<IEntity>(2);
-		children.add(entity.getName());
-		children.add(entity.getExpression());
-		return children;
+		Create entity = getModelEntity();
+		List<IEntity> list = new ArrayList<IEntity>(3);
+		list.add(entity.getEntityType());
+		list.add(entity.getRegistry());
+		list.add(entity.getWhereClause());
+		return list;
+	}
+
+	@Override
+	protected void propertyChangeUI(PropertyChangeEvent evt) {
+		refreshVisuals();
+		super.propertyChangeUI(evt);
+	}
+
+	@Override
+	protected void refreshVisuals() {
+		Create entity = getModelEntity();
+		boolean showOutline = Matcher.matchAny(entity.getWhereClause(),
+				QueriesEntityDescriptorEnum.Children,
+				QueriesEntityDescriptorEnum.Features);
+		getFigure().showOutline(showOutline);
 	}
 }

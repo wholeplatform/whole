@@ -42,23 +42,24 @@ import org.whole.lang.ui.notations.figures.DrawUtils;
 /**
  * @author Riccardo Solmi
  */
-public class EntityTemplateFigure extends ContentPaneFigure {
+public class CreateFigure extends ContentPaneFigure {
 	protected IEntityFigure typeRow;
 	protected IEntityFigure registry;
+	protected boolean showOutline;
 
-	public EntityTemplateFigure() {
+	public CreateFigure() {
 		super(new RowLayout().withMargin(2, 4, 2, 2).withSpacing(4));
-		initContentPanes(2);
+		initContentPanes(3);
 
-		add(createFoldingToggle(1));
+		add(createFoldingToggle(2));
 
 		EntityFigure col = new EntityFigure(new UnderColumnLayout().withMinorAlignment(Alignment.LEADING).withSpacing(5));
 		
 		typeRow = new EntityFigure(new RowLayout().withSpacing(4));
 		typeRow.add(createContentPane(0));
-
+		typeRow.add(createContentPane(1));
 		col.add(typeRow);
-		col.add(createContentPane(1));
+		col.add(createContentPane(2));
 		add(col);
 	}
 
@@ -71,12 +72,12 @@ public class EntityTemplateFigure extends ContentPaneFigure {
 
 		Rectangle b = getBounds();
 		Rectangle rb = typeRow.getBounds();
-		Rectangle cb = getContentPane(1).getBounds();
+		Rectangle cb = getContentPane(2).getBounds();
 
 		g.fillRectangle(b.x, b.y, rb.x - b.x, b.height);
-		g.fillRectangle(rb.x, b.y, b.right() - rb.x, getContentPane(1).isVisible() ? rb.bottom()-b.y : b.height);
-//		g.fillRectangle(rb.right(), b.y, b.right() - rb.right(), getContentPane(1).isVisible() ? rb.bottom()-b.y : b.height);
-		if (getContentPane(1).isVisible()) {
+		g.fillRectangle(rb.x, b.y, b.right() - rb.x, getContentPane(2).isVisible() ? rb.bottom()-b.y : b.height);
+//		g.fillRectangle(rb.right(), b.y, b.right() - rb.right(), getContentPane(2).isVisible() ? rb.bottom()-b.y : b.height);
+		if (getContentPane(2).isVisible()) {
 			g.fillRectangle(cb.x, cb.y-(4+1), b.width - cb.x + b.x, 4);
 			g.fillRectangle(cb.right(), cb.y -1, b.right() - cb.right(), b.height - cb.y + b.y);
 		}
@@ -86,10 +87,10 @@ public class EntityTemplateFigure extends ContentPaneFigure {
 		g.setAlpha(oldAlpha);
 		g.drawRectangle(b.x, b.y, b.width-1, b.height-1);
 
-		final int CONTENT_MARGIN = 4;
-		final int SZ = CONTENT_MARGIN*2-1;
-		g.fillPolygon(new int[] {b.x, b.y, b.x+SZ, b.y, b.x, b.y+SZ});
-		g.fillPolygon(new int[] {b.right()-SZ, b.y, b.right(), b.y, b.right(), b.y+SZ});
+//		final int CONTENT_MARGIN = 4;
+//		final int SZ = CONTENT_MARGIN*2-1;
+//		g.fillPolygon(new int[] {b.x, b.y, b.x+SZ, b.y, b.x, b.y+SZ});
+//		g.fillPolygon(new int[] {b.right()-SZ, b.y, b.right(), b.y, b.right(), b.y+SZ});
 	}
 
 	@Override
@@ -101,12 +102,12 @@ public class EntityTemplateFigure extends ContentPaneFigure {
 
 	@SuppressWarnings("unchecked")
 	protected void paintConnections(Graphics graphics) {
-		if (!getContentPane(1).isVisible())
+		if (!getContentPane(2).isVisible() || !showOutline)
 			return;
 
 		Point rootPoint = getFoldingToggle(0).getBounds().getBottom();
 
-		Object childrenFigure = getContentPane(1).getChildren().get(0);
+		Object childrenFigure = getContentPane(2).getChildren().get(0);
 		Point[] childrenPoints = null;
 		if (childrenFigure instanceof TableFigure) {
 			TableFigure tableFigure = (TableFigure) childrenFigure;
@@ -161,7 +162,7 @@ public class EntityTemplateFigure extends ContentPaneFigure {
 		graphics.setLineDash((int[]) null);
 	}
 
-	public void showRegistry(boolean value) {
-		//registry.setVisible(value);
+	public void showOutline(boolean value) {
+		showOutline = value;
 	}
 }

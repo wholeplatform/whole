@@ -72,6 +72,18 @@ public class QueriesEntityFactory extends GenericEntityFactory {
         return create(QueriesEntityDescriptorEnum.Clone, fromClause);
     }
 
+    public Create createCreate() {
+        return create(QueriesEntityDescriptorEnum.Create);
+    }
+
+    public Create createCreate(Expression entityType, Expression registry, Expression whereClause) {
+        return create(QueriesEntityDescriptorEnum.Create, entityType, registry, whereClause);
+    }
+
+    public IEntityBuilder<Create> buildCreate() {
+        return new EntityBuilder<Create>(create(QueriesEntityDescriptorEnum.Create));
+    }
+
     public Delete createDelete() {
         return create(QueriesEntityDescriptorEnum.Delete);
     }
@@ -192,30 +204,6 @@ public class QueriesEntityFactory extends GenericEntityFactory {
         return create(QueriesEntityDescriptorEnum.Do, expression);
     }
 
-    public EntityTemplate createEntityTemplate() {
-        return create(QueriesEntityDescriptorEnum.EntityTemplate);
-    }
-
-    public EntityTemplate createEntityTemplate(EntityType name, Constraints constraints) {
-        return create(QueriesEntityDescriptorEnum.EntityTemplate, name, constraints);
-    }
-
-    public IEntityBuilder<EntityTemplate> buildEntityTemplate() {
-        return new EntityBuilder<EntityTemplate>(create(QueriesEntityDescriptorEnum.EntityTemplate));
-    }
-
-    public EntityCall createEntityCall() {
-        return create(QueriesEntityDescriptorEnum.EntityCall);
-    }
-
-    public EntityCall createEntityCall(EntityType name, Bindings bindings) {
-        return create(QueriesEntityDescriptorEnum.EntityCall, name, bindings);
-    }
-
-    public IEntityBuilder<EntityCall> buildEntityCall() {
-        return new EntityBuilder<EntityCall>(create(QueriesEntityDescriptorEnum.EntityCall));
-    }
-
     public Call createCall() {
         return create(QueriesEntityDescriptorEnum.Call);
     }
@@ -238,30 +226,6 @@ public class QueriesEntityFactory extends GenericEntityFactory {
 
     public Expressions createExpressions(int initialSize) {
         return clone(QueriesEntityDescriptorEnum.Expressions, initialSize);
-    }
-
-    public Bindings createBindings() {
-        return create(QueriesEntityDescriptorEnum.Bindings);
-    }
-
-    public Bindings createBindings(Bind... entities) {
-        return create(QueriesEntityDescriptorEnum.Bindings, (IEntity[]) entities);
-    }
-
-    public Bindings createBindings(int initialSize) {
-        return clone(QueriesEntityDescriptorEnum.Bindings, initialSize);
-    }
-
-    public Bind createBind() {
-        return create(QueriesEntityDescriptorEnum.Bind);
-    }
-
-    public Bind createBind(Name name, Expression expression) {
-        return create(QueriesEntityDescriptorEnum.Bind, name, expression);
-    }
-
-    public IEntityBuilder<Bind> buildBind() {
-        return new EntityBuilder<Bind>(create(QueriesEntityDescriptorEnum.Bind));
     }
 
     public Choose createChoose() {
@@ -756,14 +720,6 @@ public class QueriesEntityFactory extends GenericEntityFactory {
         return new EntityBuilder<Every>(create(QueriesEntityDescriptorEnum.Every));
     }
 
-    public EntityType createEntityType() {
-        return create(QueriesEntityDescriptorEnum.EntityType);
-    }
-
-    public EntityType createEntityType(String value) {
-        return create(QueriesEntityDescriptorEnum.EntityType, value);
-    }
-
     public TemplateNames createTemplateNames() {
         return create(QueriesEntityDescriptorEnum.TemplateNames);
     }
@@ -1150,6 +1106,58 @@ public class QueriesEntityFactory extends GenericEntityFactory {
 
     public IEntityBuilder<GreaterOrEquals> buildGreaterOrEquals() {
         return new EntityBuilder<GreaterOrEquals>(create(QueriesEntityDescriptorEnum.GreaterOrEquals));
+    }
+
+    public EntityType createEntityType() {
+        return create(QueriesEntityDescriptorEnum.EntityType);
+    }
+
+    public EntityType createEntityType(String value) {
+        return create(QueriesEntityDescriptorEnum.EntityType, value);
+    }
+
+    public Registry createRegistry() {
+        return create(QueriesEntityDescriptorEnum.Registry);
+    }
+
+    public Registry createRegistry(RegistryEnum.Value value) {
+        return create(QueriesEntityDescriptorEnum.Registry, value);
+    }
+
+    public Children createChildren() {
+        return create(QueriesEntityDescriptorEnum.Children);
+    }
+
+    public Children createChildren(Expression... entities) {
+        return create(QueriesEntityDescriptorEnum.Children, (IEntity[]) entities);
+    }
+
+    public Children createChildren(int initialSize) {
+        return clone(QueriesEntityDescriptorEnum.Children, initialSize);
+    }
+
+    public Features createFeatures() {
+        return create(QueriesEntityDescriptorEnum.Features);
+    }
+
+    public Features createFeatures(Feature... entities) {
+        return create(QueriesEntityDescriptorEnum.Features, (IEntity[]) entities);
+    }
+
+    public Features createFeatures(int initialSize) {
+        return clone(QueriesEntityDescriptorEnum.Features, initialSize);
+    }
+
+    public Feature createFeature() {
+        return create(QueriesEntityDescriptorEnum.Feature);
+    }
+
+    public Feature createFeature(Name name, Expression value) {
+        return create(QueriesEntityDescriptorEnum.Feature, name, value);
+    }
+
+    public IEntityBuilder<Feature> buildFeature() {
+        return new EntityBuilder<Feature>(create(QueriesEntityDescriptorEnum.Feature));
     }
 
     public VoidLiteral createVoidLiteral() {
