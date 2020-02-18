@@ -20,6 +20,7 @@ package org.whole.lang.evaluators;
 import org.whole.lang.bindings.BindingManager;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.exceptions.WholeIllegalStateException;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 
@@ -74,12 +75,21 @@ public class IfEvaluator extends AbstractDelegatingNestedEvaluator {
 	}
 
 	public IEntity evaluateNext() {
-		if (isFirstProducer()) {
-			conditionValue = scopedEvaluateAsBooleanOrFail();
-			selectFollowingProducer();
-		}
-
-		return lastEntity = conditionValue ? enforceSomeValue(scopedEvaluateNext()) : null;
+//TODO improve
+//		try {
+			if (isFirstProducer()) {
+				conditionValue = scopedEvaluateAsBooleanOrFail();
+				selectFollowingProducer();
+			}
+	
+			return lastEntity = conditionValue ? enforceSomeValue(scopedEvaluateNext()) : null;
+//		} catch (StackOverflowError e) {
+//			StackTraceElement[] stackTrace = e.getStackTrace();
+//	        if (stackTrace.length == 1024) {
+//	            throw new StackOverflowError();
+//	        } else
+//	        	throw new WholeIllegalStateException(e).withSourceEntity(getSourceEntity()).withBindings(getBindings());
+//		}
 	}
 
 	public IEntity evaluateRemaining() {

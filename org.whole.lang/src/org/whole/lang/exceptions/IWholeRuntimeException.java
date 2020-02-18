@@ -39,6 +39,14 @@ public interface IWholeRuntimeException extends ISourceable {
 	public static RuntimeException asWholeException(Throwable e, IEntity sourceEntity, IBindingManager bm) {
 		if (e instanceof OperationCanceledException)
 			return (OperationCanceledException) e;
+//TODO improve
+//		else if (e instanceof StackOverflowError) {
+//			StackTraceElement[] stackTrace = e.getStackTrace();
+//	        if (stackTrace.length == 1024) {
+//	            throw new StackOverflowError();
+//	        } else
+//	        	throw new WholeIllegalStateException(e).withSourceEntity(sourceEntity).withBindings(bm);
+//		}
 		else if (e instanceof IWholeRuntimeException) {
 			IWholeRuntimeException wre = (IWholeRuntimeException) e;
 			return wre.getSourceEntity() != null ? wre.asException() : wre.withSourceEntity(sourceEntity).withBindings(bm).asException();

@@ -28,6 +28,7 @@ import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
+import org.whole.lang.operations.OperationCanceledException;
 import org.whole.lang.util.IRunnable;
 import org.whole.lang.util.WholeMessages;
 
@@ -100,7 +101,9 @@ public class MultiValuedRunnableEvaluator extends AbstractNestedEvaluator {
 					bm.setExecutableResult(null);
 
 				resetExecutableResult(executableResult, selfEntity, bm);
-			} catch (Throwable e) {
+			} catch (OperationCanceledException e) {
+				throw e;
+	        } catch (Throwable e) {
 				executableResult = executableFactory().createFailure(e);
 				//TODO reset
 			}

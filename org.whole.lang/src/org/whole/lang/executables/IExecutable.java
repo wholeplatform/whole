@@ -23,6 +23,7 @@ import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
+import org.whole.lang.operations.OperationCanceledException;
 import org.whole.lang.steppers.IControlFlowProducer;
 import org.whole.lang.util.WholeMessages;
 
@@ -80,6 +81,14 @@ public interface IExecutable extends IExecutableClient<IEntity> {
 	public default boolean evaluateAsBooleanOrFail(IEntity selfEntity, IBindingManager bm) {
 		try {
 			return evaluate(selfEntity, bm).wBooleanValue();
+		} catch (StackOverflowError e) {
+			StackTraceElement[] stackTrace = e.getStackTrace();
+	        if (stackTrace.length == 1024) {
+	            throw new StackOverflowError();
+	        } else
+	        	throw e;
+		} catch (OperationCanceledException e) {
+			throw e;
         } catch (Throwable e) {
         	throw new WholeIllegalArgumentException(WholeMessages.no_boolean_result, e).withSourceEntity(getSourceEntity()).withBindings(bm);
         }
@@ -88,6 +97,8 @@ public interface IExecutable extends IExecutableClient<IEntity> {
 	public default boolean evaluateAsBooleanOrFail() {
 		try {
 			return evaluateRemaining().wBooleanValue();
+		} catch (OperationCanceledException e) {
+			throw e;
         } catch (Throwable e) {
         	throw new WholeIllegalArgumentException(WholeMessages.no_boolean_result, e).withSourceEntity(getSourceEntity()).withBindings(getBindings());
         }
