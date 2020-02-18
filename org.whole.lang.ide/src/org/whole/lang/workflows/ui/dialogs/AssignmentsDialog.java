@@ -41,6 +41,7 @@ public class AssignmentsDialog extends E4Dialog {
 	@Inject
 	public AssignmentsDialog(@Named(IServiceConstants.ACTIVE_SHELL) Shell shell) {
 		super(shell);
+		setShellStyle(SWT.DIALOG_TRIM | SWT.MAX | SWT.RESIZE | getDefaultOrientation());
 	}
 
 	@Override
