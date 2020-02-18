@@ -435,19 +435,15 @@ public class WorkflowsInterpreterVisitorTest {
 	public void testTask() {
 		IEntity taskTest = WorkflowsTestTemplateManager.instance().create("taskTest");
 		IBindingManager args = BindingManagerFactory.instance.createArguments();
+		
 		args.wDefValue("reader", new StringReader("yep!\n"));
-
-		try {
-			InterpreterOperation.interpret(taskTest, args, (Reader) null, (Writer) null);
-		} catch (VisitException e) {
-			Assert.fail();
-		}
+		Assert.assertTrue(
+				InterpreterOperation.interpret(taskTest, args, (Reader) null, (Writer) null)
+				.getResult().wBooleanValue());
 
 		args.wDefValue("reader", new StringReader("NO\n"));
-		try {
-			InterpreterOperation.interpret(taskTest, args, (Reader) null, (Writer) null);
-			Assert.fail();
-		} catch (VisitException e) {
-		}
+		Assert.assertFalse(
+				InterpreterOperation.interpret(taskTest, args, (Reader) null, (Writer) null)
+				.getResult().wBooleanValue());
 	}
 }

@@ -180,8 +180,6 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 	}
 
 	public void visit(Task entity) {
-		entity.getAssignments().accept(this);
-
 		entity.getDescription().accept(this);
 		String description = PrettyPrinterOperation.toPrettyPrintString(getResult());
 
@@ -195,8 +193,10 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 				printWriter.flush();
 			}
 			BufferedReader bufferedReader = new BufferedReader(reader);
-			if (bufferedReader.readLine().equalsIgnoreCase("no"))
-				throw new VisitException("task not completed: "+description);
+			boolean result = !bufferedReader.readLine().equalsIgnoreCase("no");
+			if (result)
+				entity.getAssignments().accept(this);
+			setResult(BindingManagerFactory.instance.createValue(result));
 		} catch (IOException e) {
 			throw new VisitException(e);
 		}

@@ -66,6 +66,9 @@ public class ChooseModelsDialog extends OpenAsModelDialog {
 	protected ISelectionStatusValidator createPersistenceValidator() {
 		return new ISelectionStatusValidator() {
 			public IStatus validate(Object[] selection) {
+				if (selection.length == 0)
+					return new Status(IStatus.ERROR, E4CompatibilityPlugin.PLUGIN_ID, IStatus.ERROR,
+							"No file selected", null);
 				for (Object item : selection) {
 					if (!(item instanceof IFile))
 						return new Status(IStatus.ERROR, E4CompatibilityPlugin.PLUGIN_ID, IStatus.ERROR,

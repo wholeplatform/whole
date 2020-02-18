@@ -39,7 +39,6 @@ import org.whole.lang.java.codebase.JavaSourceTemplateFactory;
 import org.whole.lang.java.model.OrdinaryCompilationUnit;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.operations.OperationCanceledException;
 import org.whole.lang.operations.PrettyPrinterOperation;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.templates.ITemplateFactory;
@@ -47,7 +46,6 @@ import org.whole.lang.ui.actions.JavaModelGeneratorAction;
 import org.whole.lang.ui.util.SuspensionKind;
 import org.whole.lang.util.BehaviorUtils;
 import org.whole.lang.util.EntityUtils;
-import org.whole.lang.visitors.VisitException;
 import org.whole.lang.workflows.factories.WorkflowsEntityFactory;
 import org.whole.lang.workflows.model.Assignments;
 import org.whole.lang.workflows.model.Breakpoint;
@@ -85,7 +83,7 @@ public class WorkflowsIDEInterpreterVisitor extends WorkflowsInterpreterVisitor 
 			factoryVariable.accept(this);
 			factory = (ITaskDialogFactory) getResultValue();
 		} else if (EntityUtils.isNotResolver(assignments)) {
-			if (assignments.wSize() == 1)
+			if (assignments.wSize() == 1 && EntityUtils.isData(assignments.get(0).getExpression()))
 				factory = ChangeValueDialogFactory.instance();
 			else
 				factory = AssignmentsDialogFactory.instance();
@@ -98,10 +96,10 @@ public class WorkflowsIDEInterpreterVisitor extends WorkflowsInterpreterVisitor 
 		} else
 			assignments = WorkflowsEntityFactory.instance.createAssignments(0);
 
-		if (!TaskDialogHelper.showTaskDialog(factory, title, description, assignments, getBindings()))
-			throw new OperationCanceledException(new VisitException("task not completed: "+description));
-
-		assignments.accept(this);
+		boolean result = TaskDialogHelper.showTaskDialog(factory, title, description, assignments, getBindings());
+		if (result)
+			assignments.accept(this);
+		setResult(BindingManagerFactory.instance.createValue(result));
 	}
 
 	@Override
