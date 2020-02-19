@@ -20,6 +20,7 @@ package org.whole.lang.evaluators;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.util.EntityUtils;
 
 /**
@@ -37,7 +38,11 @@ public class CartesianUpdateEvaluator extends AbstractCartesianEvaluator {
 		if (BindingManagerFactory.instance.isVoid(nestedResults[1]))
 			return nestedResults[1];
 
-		IEntity result = EntityUtils.convertCloneIfParented(nestedResults[1], EntityUtils.getFormalType(nestedResults[0]));
+		//FIXME workaround for update parent instead of adjacent
+		EntityDescriptor<?> formalType = EntityUtils.hasParent(nestedResults[0]) && getProducer(0).undecoratedExecutable() instanceof SelfEvaluator ?
+				EntityUtils.getParentFormalType(nestedResults[0]) : EntityUtils.getFormalType(nestedResults[0]);
+
+		IEntity result = EntityUtils.convertCloneIfParented(nestedResults[1], formalType);
 		getProducer(0).set(result);
 		return result;
 	}
