@@ -13,7 +13,29 @@
         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
     </actions:ToolbarActions>
     <actions:ContextMenuActions>
-        <actions:MenuActions initialCapacity="3">
+        <actions:MenuActions initialCapacity="4">
+            <actions:GuardedAction>
+                <actions:Label value="Review Clear All Changes"/>
+                <queries:Block xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                    <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                        <semantics:Name value="whole:org.whole.lang.changes:RevisionsLibrarySemantics#clearChanges"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </semantics:FunctionApplication>
+                    <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                        <workflows:Text value="refreshNotation"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <workflows:StringLiteral value="org.whole.lang.e4.ui.util.E4Utils"/>
+                        <workflows:StringLiteral value="rebuildNotation(org.whole.lang.ui.viewers.IEntityPartViewer)"/>
+                        <workflows:Expressions initialCapacity="1">
+                            <workflows:Variable value="viewer"/>
+                        </workflows:Expressions>
+                    </workflows:InvokeJavaClassMethod>
+                </queries:Block>
+                <queries:TypeTest xmlns:queries="http://lang.whole.org/Queries" value="whole:org.whole.lang.changes:ChangesModel#RevisionTrack"/>
+            </actions:GuardedAction>
             <actions:GuardedAction>
                 <actions:Label value="Review Compare"/>
                 <queries:Block xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
@@ -144,7 +166,10 @@
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </semantics:FunctionApplication>
-                <queries:TypeTest xmlns:queries="http://lang.whole.org/Queries" value="whole:org.whole.lang.changes:ChangesModel#RevisionTrack"/>
+                <queries:Or xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                    <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#RevisionTrack"/>
+                    <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#RevisionFrame"/>
+                </queries:Or>
             </actions:GuardedAction>
             <actions:GuardedAction>
                 <actions:Label value="Review Accept Selected Changes"/>
@@ -164,25 +189,32 @@
                                 </queries:Some>
                                 <queries:ParentStep/>
                             </queries:If>
-                            <queries:Do>
+                            <queries:If>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                 <queries:SelfStep/>
-                            </queries:Do>
+                            </queries:If>
                         </queries:Choose>
                     </queries:Path>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </semantics:FunctionApplication>
-                <queries:TypeTest xmlns:queries="http://lang.whole.org/Queries" value="whole:org.whole.lang.changes:ChangesModel#RevisionTrack"/>
+                <queries:Or xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                    <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#RevisionTrack"/>
+                    <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#RevisionFrame"/>
+                </queries:Or>
             </actions:GuardedAction>
             <actions:GuardedAction>
                 <actions:Label value="Review Reject All Changes"/>
                 <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
                     <semantics:Name value="whole:org.whole.lang.changes:RevisionsLibrarySemantics#rejectAllChanges"/>
-                    <queries:VariableRefStep xmlns:queries="http://lang.whole.org/Queries" value="primarySelectedEntity"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </semantics:FunctionApplication>
-                <queries:TypeTest xmlns:queries="http://lang.whole.org/Queries" value="whole:org.whole.lang.changes:ChangesModel#RevisionTrack"/>
+                <queries:Or xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                    <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#RevisionTrack"/>
+                    <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#RevisionFrame"/>
+                </queries:Or>
             </actions:GuardedAction>
             <actions:GuardedAction>
                 <actions:Label value="Review Reject Selected Changes"/>
@@ -202,15 +234,19 @@
                                 </queries:Some>
                                 <queries:ParentStep/>
                             </queries:If>
-                            <queries:Do>
+                            <queries:If>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                 <queries:SelfStep/>
-                            </queries:Do>
+                            </queries:If>
                         </queries:Choose>
                     </queries:Path>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </semantics:FunctionApplication>
-                <queries:TypeTest xmlns:queries="http://lang.whole.org/Queries" value="whole:org.whole.lang.changes:ChangesModel#RevisionTrack"/>
+                <queries:Or xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                    <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#RevisionTrack"/>
+                    <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#RevisionFrame"/>
+                </queries:Or>
             </actions:GuardedAction>
             <actions:GuardedAction>
                 <actions:Label value="Review Compare Entities Side by Side"/>
@@ -219,11 +255,10 @@
                         <queries:Name value="compareModel"/>
                     </queries:FreshNames>
                     <queries:Block initialCapacity="3">
-                        <queries:Do>
-                            <queries:Filter>
-                                <patterns:TemplatePoint xmlns:patterns="whole:org.whole.lang.patterns:PatternsModel">
-                                    <changes:RevisionTrack xmlns:changes="whole:org.whole.lang.changes:ChangesModel">
-                                        <changes:Revisions initialCapacity="2">
+                        <queries:Filter>
+                            <patterns:TemplatePoint xmlns:patterns="whole:org.whole.lang.patterns:PatternsModel">
+                                <changes:RevisionTrack xmlns:changes="whole:org.whole.lang.changes:ChangesModel">
+                                    <changes:Revisions initialCapacity="2">
                                         <changes:Revision>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <changes:RevisionChanges initialCapacity="1">
@@ -236,8 +271,8 @@
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         </changes:RevisionChanges>
                                         </changes:Revision>
-                                        </changes:Revisions>
-                                        <changes:SideBySideCompare>
+                                    </changes:Revisions>
+                                    <changes:SideBySideCompare>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <patterns:DerivationPoint>
                                         <queries:Path initialCapacity="2">
@@ -263,12 +298,11 @@
                                         </queries:Path>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         </patterns:DerivationPoint>
-                                        </changes:SideBySideCompare>
-                                    </changes:RevisionTrack>
-                                </patterns:TemplatePoint>
-                                <queries:VariableTest value="compareModel"/>
-                            </queries:Filter>
-                        </queries:Do>
+                                    </changes:SideBySideCompare>
+                                </changes:RevisionTrack>
+                            </patterns:TemplatePoint>
+                            <queries:VariableTest value="compareModel"/>
+                        </queries:Filter>
                         <queries:Path initialCapacity="2">
                             <queries:VariableRefStep value="compareModel"/>
                             <actions:ActionCall>
