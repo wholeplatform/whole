@@ -16,6 +16,7 @@ package org.whole.lang.reusables.ui.figures;
 
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.EntityFigure;
+import org.whole.lang.ui.figures.EntityLabel;
 import org.whole.lang.ui.layout.Alignment;
 import org.whole.lang.ui.layout.RowLayout;
 import org.whole.lang.ui.layout.UnderColumnLayout;
@@ -24,16 +25,23 @@ import org.whole.lang.ui.layout.UnderColumnLayout;
  *  @author Riccardo Solmi
  */
 public class FolderFigure extends ContentPaneFigure {
+	protected EntityFigure columnFigure;
+	protected EntityLabel label;
 
     public FolderFigure() {
         initContentPanes(3);
-        setLayoutManager(new RowLayout().withSpacing(1));
-        
-        EntityFigure f = new EntityFigure(new UnderColumnLayout().withMinorAlignment(Alignment.TRAILING).withSpacing(4));
-        f.add(createContentPane(0));
-        f.add(createContentPane(1));
-        add(f);
-        addLiteral("/");
+        setLayoutManager(new RowLayout() {
+        	@Override
+        	public int getIndent() {
+        		return columnFigure.getBounds().width + label.getBounds().width +2 + getContentPane(2).getIndent();
+        	}
+        }.withSpacing(1).withMarginLeft(2));
+
+        columnFigure = new EntityFigure(new UnderColumnLayout().withMinorAlignment(Alignment.TRAILING).withSpacing(4));
+        columnFigure.add(createContentPane(0));
+        columnFigure.add(createContentPane(1));
+        add(columnFigure);
+        label = addLiteral("/");
         add(createContentPane(2));
     }
 

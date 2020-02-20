@@ -17,9 +17,13 @@
  */
 package org.whole.lang.reusables.ui.editparts;
 
+import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.whole.lang.ui.editparts.AbstractCompositePart;
 import org.whole.lang.ui.figures.CompositeFigure;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.layout.Alignment;
 import org.whole.lang.ui.layout.UnderColumnLayout;
 
@@ -28,7 +32,25 @@ import org.whole.lang.ui.layout.UnderColumnLayout;
 */
 public class ContentsPart extends AbstractCompositePart {
     protected IFigure createFigure() {
-        return new CompositeFigure(new UnderColumnLayout().withMinorAlignment(Alignment.LEADING)
-        		.withMarginTop(5).withMarginBottom(5).withSpacing(5), true);
+        return new CompositeFigure(new UnderColumnLayout().withMinorAlignment(Alignment.MATHLINE)
+        		.withMarginTop(3).withMarginBottom(3).withSpacing(3), true) {
+        	
+        	protected void paintFigure(Graphics g) {
+        		super.paintFigure(g);
+
+        		Rectangle b = getBounds();
+        		int indent = getLayoutManager().getIndent(this)-2;
+
+        		int oldAlpha = g.getAlpha();
+        		g.setAlpha(FigureConstants.templateLanguageAlpha);
+
+        		g.setBackgroundColor(FigureConstants.lightGray);
+        		g.fillRectangle(b.x, b.y, indent, b.height);
+
+        		g.setForegroundColor(ColorConstants.lightGray);
+                drawFixedSizeChildrenSeparators(g);
+        		g.setAlpha(oldAlpha);
+        	}
+        };
     }
 }
