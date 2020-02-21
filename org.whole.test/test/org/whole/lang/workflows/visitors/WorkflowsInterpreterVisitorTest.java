@@ -40,7 +40,6 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.ILanguageKit;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.util.EntityUtils;
-import org.whole.lang.visitors.VisitException;
 import org.whole.lang.xml.codebase.XmlBuilderPersistenceKit;
 
 /**

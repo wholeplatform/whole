@@ -97,7 +97,6 @@ public class CommonsDynamicCompilerVisitor extends CommonsIdentityDefaultVisitor
 		setExecutableResult(executableFactory().createTemplateInterpreter(entity).withSourceEntity(entity));
 	}
 
-	@SuppressWarnings("unchecked")
 	public void visitFragment(Fragment fragment, boolean nested) {
 		IEntity sourceEntity = fragment;
 		fragment = EntityUtils.clone(fragment);

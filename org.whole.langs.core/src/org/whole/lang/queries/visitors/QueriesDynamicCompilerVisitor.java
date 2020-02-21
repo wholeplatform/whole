@@ -195,8 +195,8 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 			for (int i = 0; i < size; i++) {
 				Expression child = entity.get(i);
 				try {
-					if (!Matcher.match(ifWithTemplate, child, getBindings())
-							&& !Matcher.match(ifWithTypeTest, child, getBindings())) {
+					if (!Matcher.patternMatch(ifWithTemplate, child, getBindings())
+							&& !Matcher.patternMatch(ifWithTypeTest, child, getBindings())) {
 						canOptimize = false;
 						break;
 					}
@@ -997,7 +997,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 	public void visit(MatchTest entity) {
 		Expression e = entity.getExpression();
 		e.accept(this);
-		setExecutableResult(executableFactory().createMatchInScope(getExecutableResult()).withSourceEntity(entity));
+		setExecutableResult(executableFactory().createPatternMatch(getExecutableResult()).withSourceEntity(entity));
 	}
 
 	@Override

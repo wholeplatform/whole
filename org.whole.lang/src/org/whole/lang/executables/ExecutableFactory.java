@@ -177,7 +177,9 @@ public interface ExecutableFactory {
 
 	IExecutable createFilter(IExecutable executable, IExecutable filterExecutable);
 
-	IExecutable createMatchInScope(IExecutable patternExecutable);
+	IExecutable createMatch(IExecutable patternExecutable);
+
+	IExecutable createPatternMatch(IExecutable patternExecutable);
 
 	IExecutable createIf(IExecutable conditionExecutable, IExecutable doExecutable);
 

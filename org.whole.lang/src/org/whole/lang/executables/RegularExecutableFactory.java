@@ -383,16 +383,31 @@ public class RegularExecutableFactory implements ExecutableFactory {
 		return (IExecutable) new FilterEvaluator((IExecutable) executable, (IExecutable) filterExecutable);
 	}
 
-	public IExecutable createMatchInScope(IExecutable patternExecutable) {
+	public IExecutable createMatch(IExecutable patternExecutable) {
 		return new AbstractNestedSupplierEvaluator(patternExecutable) {
 			public IEntity get() {
 				IEntity pattern = getProducer(0).evaluateNext();
 				return BindingManagerFactory.instance.createValue(
-						pattern != null && Matcher.match(pattern, selfEntity, getBindings()));
+						pattern != null && Matcher.match(pattern, selfEntity));
 			}
 
 			public void toString(StringBuilder sb) {
-				sb.append("matchInScope(");
+				sb.append("match(");
+				producers[0].toString(sb);//TODO startOf
+				sb.append(")");
+			}
+		};
+	}
+	public IExecutable createPatternMatch(IExecutable patternExecutable) {
+		return new AbstractNestedSupplierEvaluator(patternExecutable) {
+			public IEntity get() {
+				IEntity pattern = getProducer(0).evaluateNext();
+				return BindingManagerFactory.instance.createValue(
+						pattern != null && Matcher.patternMatch(pattern, selfEntity, getBindings()));
+			}
+
+			public void toString(StringBuilder sb) {
+				sb.append("patternMatch(");
 				producers[0].toString(sb);//TODO startOf
 				sb.append(")");
 			}

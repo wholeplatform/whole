@@ -16,23 +16,9 @@
                 <tests:Test>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                     <tests:Name value="testAnyTypeVariables"/>
-                    <tests:TestStatements initialCapacity="5">
+                    <tests:TestStatements initialCapacity="6">
                         <tests:AssertThat>
-                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
-                                <models:Features xmlns:models="http://lang.whole.org/Models" initialCapacity="2">
-                                    <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Commons#Any"/>
-                                        <commons:VarName value="v1"/>
-                                        <commons:Quantifier value="?"/>
-                                    </commons:Variable>
-                                    <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Commons#Any"/>
-                                        <commons:VarName value="v2"/>
-                                        <commons:Quantifier value="?"/>
-                                    </commons:Variable>
-                                </models:Features>
-                            </commons:StageUpFragment>
-                            <tests:Matches>
+                            <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
                                 <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                                     <models:Features xmlns:models="http://lang.whole.org/Models" initialCapacity="2">
                                         <commons:Variable>
@@ -47,26 +33,43 @@
                                         </commons:Variable>
                                     </models:Features>
                                 </commons:StageUpFragment>
-                            </tests:Matches>
-                        </tests:AssertThat>
-                        <tests:AssertThat>
-                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
-                                <models:Features xmlns:models="http://lang.whole.org/Models" initialCapacity="2">
-                                    <commons:Variable>
+                                <queries:MatchTest>
+                                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <models:Features xmlns:models="http://lang.whole.org/Models" initialCapacity="2">
+                                        <commons:Variable>
                                         <commons:VarType value="http://lang.whole.org/Commons#Any"/>
                                         <commons:VarName value="v1"/>
                                         <commons:Quantifier value="?"/>
-                                    </commons:Variable>
-                                    <models:Feature>
+                                        </commons:Variable>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Commons#Any"/>
+                                        <commons:VarName value="v2"/>
+                                        <commons:Quantifier value="?"/>
+                                        </commons:Variable>
+                                        </models:Features>
+                                    </commons:StageUpFragment>
+                                </queries:MatchTest>
+                            </queries:Path>
+                            <tests:IsTrue/>
+                        </tests:AssertThat>
+                        <tests:AssertThat>
+                            <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <models:Features xmlns:models="http://lang.whole.org/Models" initialCapacity="2">
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Commons#Any"/>
+                                        <commons:VarName value="v1"/>
+                                        <commons:Quantifier value="?"/>
+                                        </commons:Variable>
+                                        <models:Feature>
                                         <models:FeatureModifiers initialCapacity="0"/>
                                         <models:SimpleName value="featureType"/>
                                         <models:SimpleName value="featureName"/>
                                         <commons:Resolver/>
-                                    </models:Feature>
-                                </models:Features>
-                            </commons:StageUpFragment>
-                            <tests:Not>
-                                <tests:Matches>
+                                        </models:Feature>
+                                    </models:Features>
+                                </commons:StageUpFragment>
+                                <queries:MatchTest>
                                     <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                                         <models:Features xmlns:models="http://lang.whole.org/Models" initialCapacity="2">
                                         <commons:Variable>
@@ -81,26 +84,27 @@
                                         </commons:Variable>
                                         </models:Features>
                                     </commons:StageUpFragment>
-                                </tests:Matches>
-                            </tests:Not>
+                                </queries:MatchTest>
+                            </queries:Path>
+                            <tests:IsFalse/>
                         </tests:AssertThat>
                         <tests:AssertThat>
-                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
-                                <models:Features xmlns:models="http://lang.whole.org/Models" initialCapacity="2">
-                                    <commons:Variable>
+                            <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <models:Features xmlns:models="http://lang.whole.org/Models" initialCapacity="2">
+                                        <commons:Variable>
                                         <commons:VarType value="http://lang.whole.org/Commons#Any"/>
                                         <commons:VarName value="v1"/>
                                         <commons:Quantifier value="?"/>
-                                    </commons:Variable>
-                                    <commons:Variable>
+                                        </commons:Variable>
+                                        <commons:Variable>
                                         <commons:VarType value="http://lang.whole.org/Commons#Any"/>
                                         <commons:VarName value="v3"/>
                                         <commons:Quantifier value="?"/>
-                                    </commons:Variable>
-                                </models:Features>
-                            </commons:StageUpFragment>
-                            <tests:Not>
-                                <tests:Matches>
+                                        </commons:Variable>
+                                    </models:Features>
+                                </commons:StageUpFragment>
+                                <queries:MatchTest>
                                     <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                                         <models:Features xmlns:models="http://lang.whole.org/Models" initialCapacity="2">
                                         <commons:Variable>
@@ -116,57 +120,12 @@
                                         </models:Feature>
                                         </models:Features>
                                     </commons:StageUpFragment>
-                                </tests:Matches>
-                            </tests:Not>
+                                </queries:MatchTest>
+                            </queries:Path>
+                            <tests:IsFalse/>
                         </tests:AssertThat>
                         <tests:AssertThat>
-                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
-                                <models:Features xmlns:models="http://lang.whole.org/Models" initialCapacity="2">
-                                    <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Commons#Any"/>
-                                        <commons:VarName value="v1"/>
-                                        <commons:Quantifier value="?"/>
-                                    </commons:Variable>
-                                    <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Commons#Any"/>
-                                        <commons:VarName value="v1"/>
-                                        <commons:Quantifier value="?"/>
-                                    </commons:Variable>
-                                </models:Features>
-                            </commons:StageUpFragment>
-                            <tests:Matches>
-                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
-                                    <models:Features xmlns:models="http://lang.whole.org/Models" initialCapacity="2">
-                                        <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Commons#Any"/>
-                                        <commons:VarName value="v2"/>
-                                        <commons:Quantifier value="?"/>
-                                        </commons:Variable>
-                                        <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Commons#Any"/>
-                                        <commons:VarName value="v2"/>
-                                        <commons:Quantifier value="?"/>
-                                        </commons:Variable>
-                                    </models:Features>
-                                </commons:StageUpFragment>
-                            </tests:Matches>
-                        </tests:AssertThat>
-                        <tests:AssertThat>
-                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
-                                <models:Features xmlns:models="http://lang.whole.org/Models" initialCapacity="2">
-                                    <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Commons#Any"/>
-                                        <commons:VarName value="v1"/>
-                                        <commons:Quantifier value="?"/>
-                                    </commons:Variable>
-                                    <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Commons#Any"/>
-                                        <commons:VarName value="v1"/>
-                                        <commons:Quantifier value="?"/>
-                                    </commons:Variable>
-                                </models:Features>
-                            </commons:StageUpFragment>
-                            <tests:Matches>
+                            <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
                                 <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                                     <models:Features xmlns:models="http://lang.whole.org/Models" initialCapacity="2">
                                         <commons:Variable>
@@ -181,7 +140,94 @@
                                         </commons:Variable>
                                     </models:Features>
                                 </commons:StageUpFragment>
-                            </tests:Matches>
+                                <queries:MatchTest>
+                                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <models:Features xmlns:models="http://lang.whole.org/Models" initialCapacity="2">
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Commons#Any"/>
+                                        <commons:VarName value="v1"/>
+                                        <commons:Quantifier value="?"/>
+                                        </commons:Variable>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Commons#Any"/>
+                                        <commons:VarName value="v1"/>
+                                        <commons:Quantifier value="?"/>
+                                        </commons:Variable>
+                                        </models:Features>
+                                    </commons:StageUpFragment>
+                                </queries:MatchTest>
+                            </queries:Path>
+                            <tests:IsTrue/>
+                        </tests:AssertThat>
+                        <tests:AssertThat>
+                            <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <models:Features xmlns:models="http://lang.whole.org/Models" initialCapacity="2">
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Commons#Any"/>
+                                        <commons:VarName value="v1"/>
+                                        <commons:Quantifier value="?"/>
+                                        </commons:Variable>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Commons#Any"/>
+                                        <commons:VarName value="v1"/>
+                                        <commons:Quantifier value="?"/>
+                                        </commons:Variable>
+                                    </models:Features>
+                                </commons:StageUpFragment>
+                                <queries:MatchTest>
+                                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <models:Features xmlns:models="http://lang.whole.org/Models" initialCapacity="2">
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Commons#Any"/>
+                                        <commons:VarName value="v2"/>
+                                        <commons:Quantifier value="?"/>
+                                        </commons:Variable>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Commons#Any"/>
+                                        <commons:VarName value="v2"/>
+                                        <commons:Quantifier value="?"/>
+                                        </commons:Variable>
+                                        </models:Features>
+                                    </commons:StageUpFragment>
+                                </queries:MatchTest>
+                            </queries:Path>
+                            <tests:IsTrue/>
+                        </tests:AssertThat>
+                        <tests:AssertThat>
+                            <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <models:Features xmlns:models="http://lang.whole.org/Models" initialCapacity="2">
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Commons#Any"/>
+                                        <commons:VarName value="v1"/>
+                                        <commons:Quantifier value="?"/>
+                                        </commons:Variable>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Commons#Any"/>
+                                        <commons:VarName value="v1"/>
+                                        <commons:Quantifier value="?"/>
+                                        </commons:Variable>
+                                    </models:Features>
+                                </commons:StageUpFragment>
+                                <queries:MatchTest>
+                                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <models:Features xmlns:models="http://lang.whole.org/Models" initialCapacity="2">
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Commons#Any"/>
+                                        <commons:VarName value="v1"/>
+                                        <commons:Quantifier value="?"/>
+                                        </commons:Variable>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Commons#Any"/>
+                                        <commons:VarName value="v1"/>
+                                        <commons:Quantifier value="?"/>
+                                        </commons:Variable>
+                                        </models:Features>
+                                    </commons:StageUpFragment>
+                                </queries:MatchTest>
+                            </queries:Path>
+                            <tests:IsTrue/>
                         </tests:AssertThat>
                     </tests:TestStatements>
                     <tests:Result>
@@ -200,22 +246,22 @@
                     <tests:Name value="testTypedVariables"/>
                     <tests:TestStatements initialCapacity="7">
                         <tests:AssertThat>
-                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
-                                <models:Features xmlns:models="http://lang.whole.org/Models" initialCapacity="2">
-                                    <commons:Variable>
+                            <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <models:Features xmlns:models="http://lang.whole.org/Models" initialCapacity="2">
+                                        <commons:Variable>
                                         <commons:VarType value="http://lang.whole.org/Commons#Any"/>
                                         <commons:VarName value="v1"/>
                                         <commons:Quantifier value="?"/>
-                                    </commons:Variable>
-                                    <commons:Variable>
+                                        </commons:Variable>
+                                        <commons:Variable>
                                         <commons:VarType value="http://lang.whole.org/Commons#Any"/>
                                         <commons:VarName value="v1"/>
                                         <commons:Quantifier value="?"/>
-                                    </commons:Variable>
-                                </models:Features>
-                            </commons:StageUpFragment>
-                            <tests:Not>
-                                <tests:Matches>
+                                        </commons:Variable>
+                                    </models:Features>
+                                </commons:StageUpFragment>
+                                <queries:MatchTest>
                                     <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                                         <models:Features xmlns:models="http://lang.whole.org/Models" initialCapacity="2">
                                         <commons:Variable>
@@ -230,27 +276,29 @@
                                         </commons:Variable>
                                         </models:Features>
                                     </commons:StageUpFragment>
-                                </tests:Matches>
-                            </tests:Not>
+                                </queries:MatchTest>
+                            </queries:Path>
+                            <tests:IsFalse/>
                         </tests:AssertThat>
                         <tests:AssertThat>
-                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
-                                <models:Features xmlns:models="http://lang.whole.org/Models" initialCapacity="2">
-                                    <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Models#Feature"/>
-                                        <commons:VarName value="v1"/>
-                                        <commons:Quantifier value="?"/>
-                                    </commons:Variable>
-                                    <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Models#Feature"/>
-                                        <commons:VarName value="v1"/>
-                                        <commons:Quantifier value="?"/>
-                                    </commons:Variable>
-                                </models:Features>
-                            </commons:StageUpFragment>
-                            <tests:Matches>
+                            <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
                                 <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                                     <models:Features xmlns:models="http://lang.whole.org/Models" initialCapacity="2">
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Commons#Any"/>
+                                        <commons:VarName value="v1"/>
+                                        <commons:Quantifier value="?"/>
+                                        </commons:Variable>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Commons#Any"/>
+                                        <commons:VarName value="v1"/>
+                                        <commons:Quantifier value="?"/>
+                                        </commons:Variable>
+                                    </models:Features>
+                                </commons:StageUpFragment>
+                                <queries:MatchTest>
+                                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <models:Features xmlns:models="http://lang.whole.org/Models" initialCapacity="2">
                                         <commons:Variable>
                                         <commons:VarType value="http://lang.whole.org/Commons#Any"/>
                                         <commons:VarName value="v2"/>
@@ -261,30 +309,33 @@
                                         <commons:VarName value="v2"/>
                                         <commons:Quantifier value="?"/>
                                         </commons:Variable>
-                                    </models:Features>
-                                </commons:StageUpFragment>
-                            </tests:Matches>
+                                        </models:Features>
+                                    </commons:StageUpFragment>
+                                </queries:MatchTest>
+                            </queries:Path>
+                            <tests:IsTrue/>
                         </tests:AssertThat>
                         <tests:AssertThat>
-                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
-                                <models:Features xmlns:models="http://lang.whole.org/Models" initialCapacity="2">
-                                    <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Models#Feature"/>
-                                        <commons:VarName value="v1"/>
-                                        <commons:Quantifier value="?"/>
-                                    </commons:Variable>
-                                    <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Models#Feature"/>
-                                        <commons:VarName value="v1"/>
-                                        <commons:Quantifier value="?"/>
-                                    </commons:Variable>
-                                </models:Features>
-                            </commons:StageUpFragment>
-                            <tests:Matches>
+                            <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
                                 <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                                     <models:Features xmlns:models="http://lang.whole.org/Models" initialCapacity="2">
                                         <commons:Variable>
                                         <commons:VarType value="http://lang.whole.org/Models#Feature"/>
+                                        <commons:VarName value="v1"/>
+                                        <commons:Quantifier value="?"/>
+                                        </commons:Variable>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Models#Feature"/>
+                                        <commons:VarName value="v1"/>
+                                        <commons:Quantifier value="?"/>
+                                        </commons:Variable>
+                                    </models:Features>
+                                </commons:StageUpFragment>
+                                <queries:MatchTest>
+                                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <models:Features xmlns:models="http://lang.whole.org/Models" initialCapacity="2">
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Models#Feature"/>
                                         <commons:VarName value="v2"/>
                                         <commons:Quantifier value="?"/>
                                         </commons:Variable>
@@ -293,59 +344,64 @@
                                         <commons:VarName value="v2"/>
                                         <commons:Quantifier value="?"/>
                                         </commons:Variable>
-                                    </models:Features>
-                                </commons:StageUpFragment>
-                            </tests:Matches>
+                                        </models:Features>
+                                    </commons:StageUpFragment>
+                                </queries:MatchTest>
+                            </queries:Path>
+                            <tests:IsTrue/>
                         </tests:AssertThat>
                         <tests:AssertThat>
-                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
-                                <models:ModelDeclarations xmlns:models="http://lang.whole.org/Models" initialCapacity="2">
-                                    <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Models#SimpleEntity"/>
-                                        <commons:VarName value="v1"/>
-                                        <commons:Quantifier value="!"/>
-                                    </commons:Variable>
-                                    <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Models#SimpleEntity"/>
-                                        <commons:VarName value="v1"/>
-                                        <commons:Quantifier value="!"/>
-                                    </commons:Variable>
-                                </models:ModelDeclarations>
-                            </commons:StageUpFragment>
-                            <tests:Matches>
+                            <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
                                 <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                                     <models:ModelDeclarations xmlns:models="http://lang.whole.org/Models" initialCapacity="2">
                                         <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Models#ModelDeclaration"/>
-                                        <commons:VarName value="v2"/>
+                                        <commons:VarType value="http://lang.whole.org/Models#SimpleEntity"/>
+                                        <commons:VarName value="v1"/>
                                         <commons:Quantifier value="!"/>
                                         </commons:Variable>
                                         <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Models#ModelDeclaration"/>
-                                        <commons:VarName value="v2"/>
+                                        <commons:VarType value="http://lang.whole.org/Models#SimpleEntity"/>
+                                        <commons:VarName value="v1"/>
                                         <commons:Quantifier value="!"/>
                                         </commons:Variable>
                                     </models:ModelDeclarations>
                                 </commons:StageUpFragment>
-                            </tests:Matches>
+                                <queries:MatchTest>
+                                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <models:ModelDeclarations xmlns:models="http://lang.whole.org/Models" initialCapacity="2">
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Models#ModelDeclaration"/>
+                                        <commons:VarName value="v2"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Models#ModelDeclaration"/>
+                                        <commons:VarName value="v2"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        </models:ModelDeclarations>
+                                    </commons:StageUpFragment>
+                                </queries:MatchTest>
+                            </queries:Path>
+                            <tests:IsTrue/>
                         </tests:AssertThat>
                         <tests:AssertThat>
-                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
-                                <models:ModelDeclarations xmlns:models="http://lang.whole.org/Models" initialCapacity="2">
-                                    <commons:Variable>
+                            <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <models:ModelDeclarations xmlns:models="http://lang.whole.org/Models" initialCapacity="2">
+                                        <commons:Variable>
                                         <commons:VarType value="http://lang.whole.org/Models#SimpleEntity"/>
                                         <commons:VarName value="v1"/>
                                         <commons:Quantifier value="!"/>
-                                    </commons:Variable>
-                                    <commons:Variable>
+                                        </commons:Variable>
+                                        <commons:Variable>
                                         <commons:VarType value="http://lang.whole.org/Models#DataEntity"/>
                                         <commons:VarName value="v1"/>
                                         <commons:Quantifier value="!"/>
-                                    </commons:Variable>
-                                </models:ModelDeclarations>
-                            </commons:StageUpFragment>
-                            <tests:Not>
-                                <tests:Matches>
+                                        </commons:Variable>
+                                    </models:ModelDeclarations>
+                                </commons:StageUpFragment>
+                                <queries:MatchTest>
                                     <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                                         <models:ModelDeclarations xmlns:models="http://lang.whole.org/Models" initialCapacity="2">
                                         <commons:Variable>
@@ -360,87 +416,12 @@
                                         </commons:Variable>
                                         </models:ModelDeclarations>
                                     </commons:StageUpFragment>
-                                </tests:Matches>
-                            </tests:Not>
+                                </queries:MatchTest>
+                            </queries:Path>
+                            <tests:IsFalse/>
                         </tests:AssertThat>
                         <tests:AssertThat>
-                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
-                                <models:ModelDeclarations xmlns:models="http://lang.whole.org/Models" initialCapacity="2">
-                                    <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Models#ModelDeclaration"/>
-                                        <commons:VarName value="v2"/>
-                                        <commons:Quantifier value="!"/>
-                                    </commons:Variable>
-                                    <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Models#ModelDeclaration"/>
-                                        <commons:VarName value="v2"/>
-                                        <commons:Quantifier value="!"/>
-                                    </commons:Variable>
-                                </models:ModelDeclarations>
-                            </commons:StageUpFragment>
-                            <tests:Not>
-                                <tests:Matches>
-                                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
-                                        <models:ModelDeclarations xmlns:models="http://lang.whole.org/Models" initialCapacity="2">
-                                        <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Models#SimpleEntity"/>
-                                        <commons:VarName value="v1"/>
-                                        <commons:Quantifier value="!"/>
-                                        </commons:Variable>
-                                        <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Models#SimpleEntity"/>
-                                        <commons:VarName value="v1"/>
-                                        <commons:Quantifier value="!"/>
-                                        </commons:Variable>
-                                        </models:ModelDeclarations>
-                                    </commons:StageUpFragment>
-                                </tests:Matches>
-                            </tests:Not>
-                        </tests:AssertThat>
-                        <tests:AssertThat>
-                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
-                                <models:ModelDeclarations xmlns:models="http://lang.whole.org/Models" initialCapacity="2">
-                                    <commons:StageUpFragment>
-                                        <models:Model>
-                                        <models:SimpleName value="ModelName"/>
-                                        <models:TypeRelations initialCapacity="0"/>
-                                        <models:ModelDeclarations initialCapacity="1">
-                                        <models:SimpleEntity>
-                                        <models:EntityModifiers initialCapacity="0"/>
-                                        <models:SimpleName value="EntityName"/>
-                                        <models:Types initialCapacity="1">
-                                        <commons:Resolver/>
-                                        </models:Types>
-                                        <models:Features initialCapacity="0"/>
-                                        </models:SimpleEntity>
-                                        </models:ModelDeclarations>
-                                        <commons:Resolver/>
-                                        <commons:Resolver/>
-                                        <commons:Resolver/>
-                                        </models:Model>
-                                    </commons:StageUpFragment>
-                                    <commons:StageUpFragment>
-                                        <models:Model>
-                                        <models:SimpleName value="ModelName"/>
-                                        <models:TypeRelations initialCapacity="0"/>
-                                        <models:ModelDeclarations initialCapacity="1">
-                                        <models:SimpleEntity>
-                                        <models:EntityModifiers initialCapacity="0"/>
-                                        <models:SimpleName value="EntityName"/>
-                                        <models:Types initialCapacity="1">
-                                        <commons:Resolver/>
-                                        </models:Types>
-                                        <models:Features initialCapacity="0"/>
-                                        </models:SimpleEntity>
-                                        </models:ModelDeclarations>
-                                        <commons:Resolver/>
-                                        <commons:Resolver/>
-                                        <commons:Resolver/>
-                                        </models:Model>
-                                    </commons:StageUpFragment>
-                                </models:ModelDeclarations>
-                            </commons:StageUpFragment>
-                            <tests:Matches>
+                            <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
                                 <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                                     <models:ModelDeclarations xmlns:models="http://lang.whole.org/Models" initialCapacity="2">
                                         <commons:Variable>
@@ -455,7 +436,87 @@
                                         </commons:Variable>
                                     </models:ModelDeclarations>
                                 </commons:StageUpFragment>
-                            </tests:Matches>
+                                <queries:MatchTest>
+                                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <models:ModelDeclarations xmlns:models="http://lang.whole.org/Models" initialCapacity="2">
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Models#SimpleEntity"/>
+                                        <commons:VarName value="v1"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Models#SimpleEntity"/>
+                                        <commons:VarName value="v1"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        </models:ModelDeclarations>
+                                    </commons:StageUpFragment>
+                                </queries:MatchTest>
+                            </queries:Path>
+                            <tests:IsFalse/>
+                        </tests:AssertThat>
+                        <tests:AssertThat>
+                            <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <models:ModelDeclarations xmlns:models="http://lang.whole.org/Models" initialCapacity="2">
+                                        <commons:StageUpFragment>
+                                        <models:Model>
+                                        <models:SimpleName value="ModelName"/>
+                                        <models:TypeRelations initialCapacity="0"/>
+                                        <models:ModelDeclarations initialCapacity="1">
+                                        <models:SimpleEntity>
+                                        <models:EntityModifiers initialCapacity="0"/>
+                                        <models:SimpleName value="EntityName"/>
+                                        <models:Types initialCapacity="1">
+                                        <commons:Resolver/>
+                                        </models:Types>
+                                        <models:Features initialCapacity="0"/>
+                                        </models:SimpleEntity>
+                                        </models:ModelDeclarations>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </models:Model>
+                                        </commons:StageUpFragment>
+                                        <commons:StageUpFragment>
+                                        <models:Model>
+                                        <models:SimpleName value="ModelName"/>
+                                        <models:TypeRelations initialCapacity="0"/>
+                                        <models:ModelDeclarations initialCapacity="1">
+                                        <models:SimpleEntity>
+                                        <models:EntityModifiers initialCapacity="0"/>
+                                        <models:SimpleName value="EntityName"/>
+                                        <models:Types initialCapacity="1">
+                                        <commons:Resolver/>
+                                        </models:Types>
+                                        <models:Features initialCapacity="0"/>
+                                        </models:SimpleEntity>
+                                        </models:ModelDeclarations>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </models:Model>
+                                        </commons:StageUpFragment>
+                                    </models:ModelDeclarations>
+                                </commons:StageUpFragment>
+                                <queries:MatchTest>
+                                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <models:ModelDeclarations xmlns:models="http://lang.whole.org/Models" initialCapacity="2">
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Models#ModelDeclaration"/>
+                                        <commons:VarName value="v2"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Models#ModelDeclaration"/>
+                                        <commons:VarName value="v2"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        </models:ModelDeclarations>
+                                    </commons:StageUpFragment>
+                                </queries:MatchTest>
+                            </queries:Path>
+                            <tests:IsTrue/>
                         </tests:AssertThat>
                     </tests:TestStatements>
                     <tests:Result>

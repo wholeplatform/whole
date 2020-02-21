@@ -62,10 +62,11 @@ public class Matcher {
 		return (E) find(mf.match(pattern), model, includeAdjacents);
 	}
 	@SuppressWarnings("unchecked")
-	public static <E extends IEntity> E find(E pattern, IEntity model, IBindingManager bindings, boolean includeAdjacents) {
+	public static <E extends IEntity> E patternFind(E pattern, IEntity model, IBindingManager bindings, boolean includeAdjacents) {
 		GenericMatcherFactory mf = GenericMatcherFactory.instance;
-		IVisitor mv = mf.matchInScope(pattern);
-		mv.setBindings(bindings);
+		IVisitor mv = mf.patternMatch(pattern);
+		if (bindings != null)
+			mv.setBindings(bindings);
 		return (E) find(mv, model, includeAdjacents);
 	}
 	public static IEntity find(IVisitor matcherVisitor, IEntity model, boolean includeAdjacents) {
@@ -112,9 +113,9 @@ public class Matcher {
 		return (E) findChild(ExecutableFactory.instance.createHasType(descriptor.getURI()), model);
 	}
 	@SuppressWarnings("unchecked")
-	public static <E extends IEntity> E findChild(E pattern, IEntity model) {
+	public static <E extends IEntity> E patternFindChild(E pattern, IEntity model) {
 		ExecutableFactory f = ExecutableFactory.instance;
-		return (E) findChild(f.createMatchInScope(f.createConstant(pattern, false)), model);
+		return (E) findChild(f.createPatternMatch(f.createConstant(pattern, false)), model);
 	}
 	public static IEntity findChild(IExecutable predicate, IEntity model) {
 		return findChild(predicate, model, BindingManagerFactory.instance.createBindingManager());
@@ -133,29 +134,10 @@ public class Matcher {
 		GenericMatcherFactory mf = GenericMatcherFactory.instance;
 		return findAll(mf.hasTypeMatcher(descriptor), model, new HashSet<E>(), includeAdjacents);
 	}
-	public static  <E extends IEntity> Collection<E> findAll(IEntity pattern, IEntity model, boolean includeAdjacents) {
-		GenericMatcherFactory mf = GenericMatcherFactory.instance;
-		return findAll(mf.match(pattern), model, new HashSet<E>(), includeAdjacents);
-	}
 	public static <E extends IEntity> Collection<E> findAll(IVisitor matcherVisitor, IEntity model, Collection<E> result, boolean includeAdjacents) {
 		GenericTraversalFactory tf = GenericTraversalFactory.instance;
 		tf.topDownUntil(tf.collect(matcherVisitor, result), includeAdjacents).visit(model);
 		return result;
-	}
-
-	public static int indexOf(IEntity pattern, IEntity model) {
-		GenericMatcherFactory mf = GenericMatcherFactory.instance;
-		return indexOf(mf.match(pattern), model);
-	}
-	public static int indexOf(IVisitor matcherVisitor, IEntity model) {
-		GenericTraversalFactory tf = GenericTraversalFactory.instance;
-		try {
-			Set<IEntity> c = new HashSet<IEntity>();
-			tf.traverseOne(tf.collect(matcherVisitor, c), true).visit(model);
-			return model.wIndexOf(c.iterator().next());
-		} catch (VisitException e) {
-			return -1;
-		}
 	}
 
 	public static boolean match(EntityKinds kind, IEntity model) {
@@ -253,16 +235,19 @@ public class Matcher {
 	}
 	public static boolean match(IEntity pattern, IEntity model, ITraversalFilter traversalFilter) {
 		try {
-			new GenericMatcher().withTraversalFilter(traversalFilter).match(pattern, model);
+			new GenericMatcher()
+			.withAsIsMatching()
+			.withTraversalFilter(traversalFilter)
+			.match(pattern, model);
 			return true;
 		} catch (MatchException|VisitException e) {
 			return false;
 		}
 	}
-	public static boolean match(IEntity pattern, IEntity model, IBindingManager bindings) {
-		return match(pattern, model, new GenericMatcher().withBindings(bindings));
+	public static boolean patternMatch(IEntity pattern, IEntity model, IBindingManager bindings) {
+		return patternMatch(pattern, model, new GenericMatcher().withBindings(bindings));
 	}
-	public static boolean match(IEntity pattern, IEntity model, GenericMatcher matcher) {
+	public static boolean patternMatch(IEntity pattern, IEntity model, GenericMatcher matcher) {
 		boolean mergeScope = true;
 		try {
 			matcher.getBindings().wEnterScope();

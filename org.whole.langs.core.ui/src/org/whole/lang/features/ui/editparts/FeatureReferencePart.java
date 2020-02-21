@@ -47,12 +47,11 @@ public class FeatureReferencePart extends AbstractContentPanePart {
 				Frame frame = Matcher.findAncestor(FramesEntityDescriptorEnum.Frame, entity);
 				if (frame != null) {
 					ExecutableFactory ef = ExecutableFactory.instance;
-					@SuppressWarnings("unchecked")
 					IEntity targetFeature = Matcher.findChild(
 							ef.createAnd(
 									ef.createHasType(FramesEntityDescriptorEnum.Feature.getURI()),
 								ef.createSome(ef.createFeatureByName(FramesFeatureDescriptorEnum.name),
-										ef.createMatchInScope(ef.createConstant(referenceName, false))))
+										ef.createMatch(ef.createConstant(referenceName, false))))
 							, frame.getVariability());
 
 					if (targetFeature != null)

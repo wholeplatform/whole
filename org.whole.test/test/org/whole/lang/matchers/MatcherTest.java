@@ -89,7 +89,7 @@ public class MatcherTest {
 		IBindingManager bindings = BindingManagerFactory.instance
 				.createBindingManager();
 
-		if (Matcher.match(pattern, model, bindings)) {
+		if (Matcher.patternMatch(pattern, model, bindings)) {
 			assertEquals("LGPL", bindings.wStringValue("licenseText"));
 			return;
 		}
@@ -303,7 +303,7 @@ public class MatcherTest {
 		IEntity modifiedTextModel = new ModifiedTextModel().create();
 
 		assertTrue(Matcher.forceMatchUsingVariables(textModel, modifiedTextModel));
-		assertTrue(Matcher.match(modifiedTextModel, textModel, bm));
+		assertTrue(Matcher.patternMatch(modifiedTextModel, textModel, bm));
 
 		assertTrue(bm.wIsSet("name"));
 		assertTrue(bm.wIsSet("composite_element"));

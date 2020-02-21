@@ -33,15 +33,17 @@ public class GenericMatcherTest extends TestCase {
             bindings().wEnterScope(ts);
             IEntity subject;
             subject = evaluate("fragment");
-            assertThat("at /testCases/0/tests/0/body/0", subject, matches(evaluate("fragment1")));
+            assertThat("at /testCases/0/tests/0/body/0", subject, equalToValue(true));
+            subject = evaluate("fragment1");
+            assertThat("at /testCases/0/tests/0/body/1", subject, equalToValue(false));
             subject = evaluate("fragment2");
-            assertThat("at /testCases/0/tests/0/body/1", subject, not(matches(evaluate("fragment3"))));
+            assertThat("at /testCases/0/tests/0/body/2", subject, equalToValue(false));
+            subject = evaluate("fragment3");
+            assertThat("at /testCases/0/tests/0/body/3", subject, equalToValue(true));
             subject = evaluate("fragment4");
-            assertThat("at /testCases/0/tests/0/body/2", subject, not(matches(evaluate("fragment5"))));
-            subject = evaluate("fragment6");
-            assertThat("at /testCases/0/tests/0/body/3", subject, matches(evaluate("fragment7")));
-            subject = evaluate("fragment8");
-            assertThat("at /testCases/0/tests/0/body/4", subject, matches(evaluate("fragment9")));
+            assertThat("at /testCases/0/tests/0/body/4", subject, equalToValue(true));
+            subject = evaluate("fragment5");
+            assertThat("at /testCases/0/tests/0/body/5", subject, equalToValue(true));
         } finally {
             ts.rollback();
             bindings().wExitScope();
@@ -57,20 +59,20 @@ public class GenericMatcherTest extends TestCase {
         try {
             bindings().wEnterScope(ts);
             IEntity subject;
+            subject = evaluate("fragment6");
+            assertThat("at /testCases/0/tests/1/body/0", subject, equalToValue(false));
+            subject = evaluate("fragment7");
+            assertThat("at /testCases/0/tests/1/body/1", subject, equalToValue(true));
+            subject = evaluate("fragment8");
+            assertThat("at /testCases/0/tests/1/body/2", subject, equalToValue(true));
+            subject = evaluate("fragment9");
+            assertThat("at /testCases/0/tests/1/body/3", subject, equalToValue(true));
             subject = evaluate("fragment10");
-            assertThat("at /testCases/0/tests/1/body/0", subject, not(matches(evaluate("fragment11"))));
+            assertThat("at /testCases/0/tests/1/body/4", subject, equalToValue(false));
+            subject = evaluate("fragment11");
+            assertThat("at /testCases/0/tests/1/body/5", subject, equalToValue(false));
             subject = evaluate("fragment12");
-            assertThat("at /testCases/0/tests/1/body/1", subject, matches(evaluate("fragment13")));
-            subject = evaluate("fragment14");
-            assertThat("at /testCases/0/tests/1/body/2", subject, matches(evaluate("fragment15")));
-            subject = evaluate("fragment16");
-            assertThat("at /testCases/0/tests/1/body/3", subject, matches(evaluate("fragment17")));
-            subject = evaluate("fragment18");
-            assertThat("at /testCases/0/tests/1/body/4", subject, not(matches(evaluate("fragment19"))));
-            subject = evaluate("fragment20");
-            assertThat("at /testCases/0/tests/1/body/5", subject, not(matches(evaluate("fragment21"))));
-            subject = evaluate("fragment22");
-            assertThat("at /testCases/0/tests/1/body/6", subject, matches(evaluate("fragment23")));
+            assertThat("at /testCases/0/tests/1/body/6", subject, equalToValue(true));
         } finally {
             ts.rollback();
             bindings().wExitScope();

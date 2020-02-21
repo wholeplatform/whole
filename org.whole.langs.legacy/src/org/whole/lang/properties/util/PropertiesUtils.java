@@ -53,7 +53,7 @@ public class PropertiesUtils {
 				lf.createPropertyName(name),
 				createVariable(PropertiesEntityDescriptorEnum.PropertyValue, "value"));
 		
-		Property property = Matcher.findChild(pattern, props.getEntries());
+		Property property = Matcher.patternFindChild(pattern, props.getEntries());
 		if (property == null)
 			return getProperty(props.getDefaults(), name, defaultValue);
 		else
@@ -66,7 +66,7 @@ public class PropertiesUtils {
 				lf.createPropertyName(name),
 				createVariable(PropertiesEntityDescriptorEnum.PropertyValue, "value"));
 		
-		Property property = Matcher.findChild(pattern, props.getEntries());
+		Property property = Matcher.patternFindChild(pattern, props.getEntries());
 		if (property != null) {
 			PropertyValue pv = property.getValue();
 			String oldValue = pv.wStringValue();

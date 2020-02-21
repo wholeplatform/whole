@@ -123,7 +123,7 @@ public class E4FindReplaceGraphicalPart extends E4GraphicalPart {
 					bm.setResult(BindingManagerFactory.instance.createValue(
 							bm.wIsSet(IBindingManager.FIND_SKIPTO) && selfEntity == bm.wGet(IBindingManager.FIND_SKIPTO)));
 				}),
-				f.createMatchInScope(f.createVariable(IBindingManager.FIND_PATTERN))));
+				f.createPatternMatch(f.createVariable(IBindingManager.FIND_PATTERN))));
 		E4FindReplaceGraphicalPart.this.bindings = BindingManagerFactory.instance.createArguments();
 		setPattern(CommonsEntityFactory.instance.createResolver());
 		setReplacement(CommonsEntityFactory.instance.createResolver());

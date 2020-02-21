@@ -115,7 +115,7 @@ public class ArtifactsUtils {
 		return getChild(entity, child) != null;
 	}
 	public static IEntity getChild(IEntity entity, IEntity child) {
-		return Matcher.findChild(createPattern(child), entity);
+		return Matcher.patternFindChild(createPattern(child), entity);
 	}
 	private static IEntity createPattern(IEntity child) {
 		IEntity pattern = EntityUtils.clone(child);

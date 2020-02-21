@@ -89,12 +89,12 @@ public class ResourceArtifactsGeneratorTest {
 
 		IEntity artifactsRevEng = mop.wGetResult();
 		
-		IEntity artifactsSubTree = Matcher.find(
+		IEntity artifactsSubTree = Matcher.patternFind(
 				aef.createFolderArtifact(
 						aef.createName("gen"),
 						CommonsEntityAdapterFactory.createVariable(ArtifactsEntityDescriptorEnum.Metadata, "metadata"),
 						CommonsEntityAdapterFactory.createVariable(ArtifactsEntityDescriptorEnum.Artifacts, "artifacts")),
-						artifacts, false);
+						artifacts, null, false);
 		assertNotNull(artifactsSubTree);
 		assertTrue(OrderedMatcher.match(artifactsRevEng, artifactsSubTree, comparatorsMap));
 	}

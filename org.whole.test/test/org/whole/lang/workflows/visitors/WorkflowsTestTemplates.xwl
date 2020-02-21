@@ -984,10 +984,10 @@
             <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                 <workflows:Sequence xmlns:workflows="http://lang.whole.org/Workflows">
                     <workflows:Text value="sequence"/>
-                    <workflows:FlowObjects initialCapacity="2">
+                    <workflows:FlowObjects initialCapacity="1">
                         <workflows:AssignActivity>
                             <workflows:Text value="init variables"/>
-                            <workflows:Assignments initialCapacity="2">
+                            <workflows:Assignments initialCapacity="3">
                                 <workflows:Assign>
                                     <workflows:Variable value="features"/>
                                     <commons:StageUpFragment>
@@ -1007,26 +1007,27 @@
                                         <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="EntityName"/>
                                     </commons:StageUpFragment>
                                 </workflows:Assign>
+                                <workflows:Assign>
+                                    <workflows:Variable value="entity"/>
+                                    <queries:Create xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:EntityType value="http://lang.whole.org/Models#SimpleEntity"/>
+                                        <queries:Registry value="DEFAULT"/>
+                                        <queries:Children initialCapacity="4">
+                                        <commons:StageUpFragment>
+                                        <models:EntityModifiers xmlns:models="http://lang.whole.org/Models" initialCapacity="0"/>
+                                        </commons:StageUpFragment>
+                                        <queries:VariableRefStep value="name"/>
+                                        <commons:StageUpFragment>
+                                        <models:Types xmlns:models="http://lang.whole.org/Models" initialCapacity="1">
+                                        <models:SimpleName value="Type"/>
+                                        </models:Types>
+                                        </commons:StageUpFragment>
+                                        <queries:VariableRefStep value="features"/>
+                                        </queries:Children>
+                                    </queries:Create>
+                                </workflows:Assign>
                             </workflows:Assignments>
                         </workflows:AssignActivity>
-                        <workflows:CreateEntity>
-                            <workflows:Text value="create a simple entity"/>
-                            <workflows:Variable value="entity"/>
-                            <workflows:Registry value="DEFAULT"/>
-                            <workflows:StringLiteral value="http://lang.whole.org/Models#SimpleEntity"/>
-                            <workflows:Expressions initialCapacity="4">
-                                <commons:StageUpFragment>
-                                    <models:EntityModifiers xmlns:models="http://lang.whole.org/Models" initialCapacity="0"/>
-                                </commons:StageUpFragment>
-                                <workflows:Variable value="name"/>
-                                <commons:StageUpFragment>
-                                    <models:Types xmlns:models="http://lang.whole.org/Models" initialCapacity="1">
-                                        <models:SimpleName value="Type"/>
-                                    </models:Types>
-                                </commons:StageUpFragment>
-                                <workflows:Variable value="features"/>
-                            </workflows:Expressions>
-                        </workflows:CreateEntity>
                     </workflows:FlowObjects>
                 </workflows:Sequence>
             </commons:StageUpFragment>
@@ -1066,7 +1067,7 @@
                             <commons:StageUpFragment>
                                 <models:Features xmlns:models="http://lang.whole.org/Models" initialCapacity="1">
                                     <models:Feature>
-                                        <commons:Resolver/>
+                                        <models:FeatureModifiers initialCapacity="0"/>
                                         <models:SimpleName value="FType"/>
                                         <models:SimpleName value="fname"/>
                                         <commons:Resolver/>
@@ -1122,36 +1123,25 @@
             <templates:SimpleName value="invokeJavaInstanceMethodTest"/>
             <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
             <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
-                <workflows:Sequence xmlns:workflows="http://lang.whole.org/Workflows">
-                    <workflows:Text value="sequence"/>
-                    <workflows:FlowObjects initialCapacity="3">
-                        <workflows:CreateEntity>
-                            <workflows:Text value="createentity"/>
-                            <workflows:Variable value="simpleEntity"/>
-                            <workflows:Registry value="DEFAULT"/>
-                            <workflows:StringLiteral value="http://lang.whole.org/Models#SimpleEntity"/>
+                <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="invoke java method"/>
+                    <workflows:Variable value="value"/>
+                    <queries:Create xmlns:queries="http://lang.whole.org/Queries">
+                        <queries:EntityType value="http://lang.whole.org/Models#SimpleEntity"/>
+                        <queries:Registry value="DEFAULT"/>
+                        <commons:Resolver/>
+                    </queries:Create>
+                    <commons:Resolver/>
+                    <workflows:StringLiteral value="org.whole.lang.model.IEntity"/>
+                    <workflows:StringLiteral value="wEquals(org.whole.lang.model.IEntity)"/>
+                    <workflows:Expressions initialCapacity="1">
+                        <queries:Create xmlns:queries="http://lang.whole.org/Queries">
+                            <queries:EntityType value="http://lang.whole.org/Models#CompositeEntity"/>
+                            <queries:Registry value="DEFAULT"/>
                             <commons:Resolver/>
-                        </workflows:CreateEntity>
-                        <workflows:CreateEntity>
-                            <workflows:Text value="createentity"/>
-                            <workflows:Variable value="compositeEntity"/>
-                            <workflows:Registry value="DEFAULT"/>
-                            <workflows:StringLiteral value="http://lang.whole.org/Models#CompositeEntity"/>
-                            <commons:Resolver/>
-                        </workflows:CreateEntity>
-                        <workflows:InvokeJavaInstanceMethod>
-                            <workflows:Text value="invoke java method"/>
-                            <workflows:Variable value="value"/>
-                            <workflows:Variable value="simpleEntity"/>
-                            <commons:Resolver/>
-                            <workflows:StringLiteral value="org.whole.lang.model.IEntity"/>
-                            <workflows:StringLiteral value="wEquals(org.whole.lang.model.IEntity)"/>
-                            <workflows:Expressions initialCapacity="1">
-                                <workflows:Variable value="compositeEntity"/>
-                            </workflows:Expressions>
-                        </workflows:InvokeJavaInstanceMethod>
-                    </workflows:FlowObjects>
-                </workflows:Sequence>
+                        </queries:Create>
+                    </workflows:Expressions>
+                </workflows:InvokeJavaInstanceMethod>
             </commons:StageUpFragment>
         </templates:TemplateFactory>
         <templates:TemplateFactory>

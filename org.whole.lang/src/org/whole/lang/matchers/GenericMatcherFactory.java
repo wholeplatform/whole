@@ -338,15 +338,15 @@ public class GenericMatcherFactory {
 			}
 		};
 	}
-	public IVisitor matchInScope(final IEntity pattern) {
+	public IVisitor patternMatch(final IEntity pattern) {
 		return new AbstractVisitor() {
 			public void visit(IEntity entity) {
-				if (!Matcher.match(pattern, entity, getBindings()))
+				if (!Matcher.patternMatch(pattern, entity, getBindings()))
 					throw new VisitException();
 			}
 			
 			public void toString(StringBuilder sb) {
-				sb.append("match(");
+				sb.append("patternMatch(");
 				sb.append(pattern); //TODO startOf
 				sb.append(")");
 			}
@@ -426,7 +426,7 @@ public class GenericMatcherFactory {
 			public void visit(IEntity entity) {
 				IBindingManager bindings = BindingManagerFactory.instance.createBindingManager();
 
-				if (!Matcher.match(oldPattern, entity, bindings))
+				if (!Matcher.patternMatch(oldPattern, entity, bindings))
 					throw new VisitException();
 				
 				IEntity rewritePattern = EntityUtils.clone(newPattern);

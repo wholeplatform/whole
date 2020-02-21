@@ -302,8 +302,12 @@ public class AbstractDecoratedExecutableFactory implements ExecutableFactory {
 		return decorate(factory.createFilter(executable, filterExecutable));
 	}
 
-	public IExecutable createMatchInScope(IExecutable patternExecutable) {
-		return decorate(factory.createMatchInScope(patternExecutable));
+	public IExecutable createMatch(IExecutable patternExecutable) {
+		return decorate(factory.createMatch(patternExecutable));
+	}
+
+	public IExecutable createPatternMatch(IExecutable patternExecutable) {
+		return decorate(factory.createPatternMatch(patternExecutable));
 	}
 
 	public IExecutable createIf(IExecutable conditionExecutable, IExecutable doExecutable) {

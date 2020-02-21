@@ -29,39 +29,47 @@ public class GenericMatcherTestTemplateManager extends AbstractTemplateManager {
         put("fragment10", newfragment10());
         put("fragment11", newfragment11());
         put("fragment12", newfragment12());
-        put("fragment13", newfragment13());
-        put("fragment14", newfragment14());
-        put("fragment15", newfragment15());
-        put("fragment16", newfragment16());
-        put("fragment17", newfragment17());
-        put("fragment18", newfragment18());
-        put("fragment19", newfragment19());
-        put("fragment20", newfragment20());
-        put("fragment21", newfragment21());
-        put("fragment22", newfragment22());
-        put("fragment23", newfragment23());
     }
 
     public ITemplateFactory<IEntity> newfragment() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
-                org.whole.lang.commons.builders.ICommonsBuilder b0 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
-                b0.StageUpFragment_();
-                org.whole.lang.models.builders.IModelsBuilder b1 = (org.whole.lang.models.builders.IModelsBuilder) op.wGetBuilder(org.whole.lang.models.reflect.ModelsLanguageKit.URI);
-                b1.Features_(2);
-                b0.Variable_();
-                b0.VarType("http://lang.whole.org/Commons#Any");
-                b0.VarName("v1");
-                b0.Quantifier("?");
-                b0._Variable();
-                b0.Variable_();
-                b0.VarType("http://lang.whole.org/Commons#Any");
-                b0.VarName("v2");
-                b0.Quantifier("?");
-                b0._Variable();
-                b1._Features();
-                b0._StageUpFragment();
+                org.whole.lang.queries.builders.IQueriesBuilder b0 = (org.whole.lang.queries.builders.IQueriesBuilder) op.wGetBuilder(org.whole.lang.queries.reflect.QueriesLanguageKit.URI);
+                b0.Path_(2);
+                org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
+                b1.StageUpFragment_();
+                org.whole.lang.models.builders.IModelsBuilder b2 = (org.whole.lang.models.builders.IModelsBuilder) op.wGetBuilder(org.whole.lang.models.reflect.ModelsLanguageKit.URI);
+                b2.Features_(2);
+                b1.Variable_();
+                b1.VarType("http://lang.whole.org/Commons#Any");
+                b1.VarName("v1");
+                b1.Quantifier("?");
+                b1._Variable();
+                b1.Variable_();
+                b1.VarType("http://lang.whole.org/Commons#Any");
+                b1.VarName("v2");
+                b1.Quantifier("?");
+                b1._Variable();
+                b2._Features();
+                b1._StageUpFragment();
+                b0.MatchTest_();
+                b1.StageUpFragment_();
+                b2.Features_(2);
+                b1.Variable_();
+                b1.VarType("http://lang.whole.org/Commons#Any");
+                b1.VarName("v1");
+                b1.Quantifier("?");
+                b1._Variable();
+                b1.Variable_();
+                b1.VarType("http://lang.whole.org/Commons#Any");
+                b1.VarName("v2");
+                b1.Quantifier("?");
+                b1._Variable();
+                b2._Features();
+                b1._StageUpFragment();
+                b0._MatchTest();
+                b0._Path();
             }
         };
     }
@@ -70,22 +78,43 @@ public class GenericMatcherTestTemplateManager extends AbstractTemplateManager {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
-                org.whole.lang.commons.builders.ICommonsBuilder b0 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
-                b0.StageUpFragment_();
-                org.whole.lang.models.builders.IModelsBuilder b1 = (org.whole.lang.models.builders.IModelsBuilder) op.wGetBuilder(org.whole.lang.models.reflect.ModelsLanguageKit.URI);
-                b1.Features_(2);
-                b0.Variable_();
-                b0.VarType("http://lang.whole.org/Commons#Any");
-                b0.VarName("v1");
-                b0.Quantifier("?");
-                b0._Variable();
-                b0.Variable_();
-                b0.VarType("http://lang.whole.org/Commons#Any");
-                b0.VarName("v2");
-                b0.Quantifier("?");
-                b0._Variable();
-                b1._Features();
-                b0._StageUpFragment();
+                org.whole.lang.queries.builders.IQueriesBuilder b0 = (org.whole.lang.queries.builders.IQueriesBuilder) op.wGetBuilder(org.whole.lang.queries.reflect.QueriesLanguageKit.URI);
+                b0.Path_(2);
+                org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
+                b1.StageUpFragment_();
+                org.whole.lang.models.builders.IModelsBuilder b2 = (org.whole.lang.models.builders.IModelsBuilder) op.wGetBuilder(org.whole.lang.models.reflect.ModelsLanguageKit.URI);
+                b2.Features_(2);
+                b1.Variable_();
+                b1.VarType("http://lang.whole.org/Commons#Any");
+                b1.VarName("v1");
+                b1.Quantifier("?");
+                b1._Variable();
+                b2.Feature_();
+                b2.FeatureModifiers_(0);
+                b2._FeatureModifiers();
+                b2.SimpleName("featureType");
+                b2.SimpleName("featureName");
+                b1.Resolver();
+                b2._Feature();
+                b2._Features();
+                b1._StageUpFragment();
+                b0.MatchTest_();
+                b1.StageUpFragment_();
+                b2.Features_(2);
+                b1.Variable_();
+                b1.VarType("http://lang.whole.org/Commons#Any");
+                b1.VarName("v2");
+                b1.Quantifier("?");
+                b1._Variable();
+                b1.Variable_();
+                b1.VarType("http://lang.whole.org/Commons#Any");
+                b1.VarName("v2");
+                b1.Quantifier("?");
+                b1._Variable();
+                b2._Features();
+                b1._StageUpFragment();
+                b0._MatchTest();
+                b0._Path();
             }
         };
     }
@@ -94,24 +123,43 @@ public class GenericMatcherTestTemplateManager extends AbstractTemplateManager {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
-                org.whole.lang.commons.builders.ICommonsBuilder b0 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
-                b0.StageUpFragment_();
-                org.whole.lang.models.builders.IModelsBuilder b1 = (org.whole.lang.models.builders.IModelsBuilder) op.wGetBuilder(org.whole.lang.models.reflect.ModelsLanguageKit.URI);
-                b1.Features_(2);
-                b0.Variable_();
-                b0.VarType("http://lang.whole.org/Commons#Any");
-                b0.VarName("v1");
-                b0.Quantifier("?");
-                b0._Variable();
-                b1.Feature_();
-                b1.FeatureModifiers_(0);
-                b1._FeatureModifiers();
-                b1.SimpleName("featureType");
-                b1.SimpleName("featureName");
-                b0.Resolver();
-                b1._Feature();
-                b1._Features();
-                b0._StageUpFragment();
+                org.whole.lang.queries.builders.IQueriesBuilder b0 = (org.whole.lang.queries.builders.IQueriesBuilder) op.wGetBuilder(org.whole.lang.queries.reflect.QueriesLanguageKit.URI);
+                b0.Path_(2);
+                org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
+                b1.StageUpFragment_();
+                org.whole.lang.models.builders.IModelsBuilder b2 = (org.whole.lang.models.builders.IModelsBuilder) op.wGetBuilder(org.whole.lang.models.reflect.ModelsLanguageKit.URI);
+                b2.Features_(2);
+                b1.Variable_();
+                b1.VarType("http://lang.whole.org/Commons#Any");
+                b1.VarName("v1");
+                b1.Quantifier("?");
+                b1._Variable();
+                b1.Variable_();
+                b1.VarType("http://lang.whole.org/Commons#Any");
+                b1.VarName("v3");
+                b1.Quantifier("?");
+                b1._Variable();
+                b2._Features();
+                b1._StageUpFragment();
+                b0.MatchTest_();
+                b1.StageUpFragment_();
+                b2.Features_(2);
+                b1.Variable_();
+                b1.VarType("http://lang.whole.org/Commons#Any");
+                b1.VarName("v2");
+                b1.Quantifier("?");
+                b1._Variable();
+                b2.Feature_();
+                b2.FeatureModifiers_(0);
+                b2._FeatureModifiers();
+                b2.SimpleName("featureType");
+                b2.SimpleName("featureName");
+                b1.Resolver();
+                b2._Feature();
+                b2._Features();
+                b1._StageUpFragment();
+                b0._MatchTest();
+                b0._Path();
             }
         };
     }
@@ -120,22 +168,41 @@ public class GenericMatcherTestTemplateManager extends AbstractTemplateManager {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
-                org.whole.lang.commons.builders.ICommonsBuilder b0 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
-                b0.StageUpFragment_();
-                org.whole.lang.models.builders.IModelsBuilder b1 = (org.whole.lang.models.builders.IModelsBuilder) op.wGetBuilder(org.whole.lang.models.reflect.ModelsLanguageKit.URI);
-                b1.Features_(2);
-                b0.Variable_();
-                b0.VarType("http://lang.whole.org/Commons#Any");
-                b0.VarName("v2");
-                b0.Quantifier("?");
-                b0._Variable();
-                b0.Variable_();
-                b0.VarType("http://lang.whole.org/Commons#Any");
-                b0.VarName("v2");
-                b0.Quantifier("?");
-                b0._Variable();
-                b1._Features();
-                b0._StageUpFragment();
+                org.whole.lang.queries.builders.IQueriesBuilder b0 = (org.whole.lang.queries.builders.IQueriesBuilder) op.wGetBuilder(org.whole.lang.queries.reflect.QueriesLanguageKit.URI);
+                b0.Path_(2);
+                org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
+                b1.StageUpFragment_();
+                org.whole.lang.models.builders.IModelsBuilder b2 = (org.whole.lang.models.builders.IModelsBuilder) op.wGetBuilder(org.whole.lang.models.reflect.ModelsLanguageKit.URI);
+                b2.Features_(2);
+                b1.Variable_();
+                b1.VarType("http://lang.whole.org/Commons#Any");
+                b1.VarName("v1");
+                b1.Quantifier("?");
+                b1._Variable();
+                b1.Variable_();
+                b1.VarType("http://lang.whole.org/Commons#Any");
+                b1.VarName("v1");
+                b1.Quantifier("?");
+                b1._Variable();
+                b2._Features();
+                b1._StageUpFragment();
+                b0.MatchTest_();
+                b1.StageUpFragment_();
+                b2.Features_(2);
+                b1.Variable_();
+                b1.VarType("http://lang.whole.org/Commons#Any");
+                b1.VarName("v1");
+                b1.Quantifier("?");
+                b1._Variable();
+                b1.Variable_();
+                b1.VarType("http://lang.whole.org/Commons#Any");
+                b1.VarName("v1");
+                b1.Quantifier("?");
+                b1._Variable();
+                b2._Features();
+                b1._StageUpFragment();
+                b0._MatchTest();
+                b0._Path();
             }
         };
     }
@@ -144,22 +211,41 @@ public class GenericMatcherTestTemplateManager extends AbstractTemplateManager {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
-                org.whole.lang.commons.builders.ICommonsBuilder b0 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
-                b0.StageUpFragment_();
-                org.whole.lang.models.builders.IModelsBuilder b1 = (org.whole.lang.models.builders.IModelsBuilder) op.wGetBuilder(org.whole.lang.models.reflect.ModelsLanguageKit.URI);
-                b1.Features_(2);
-                b0.Variable_();
-                b0.VarType("http://lang.whole.org/Commons#Any");
-                b0.VarName("v1");
-                b0.Quantifier("?");
-                b0._Variable();
-                b0.Variable_();
-                b0.VarType("http://lang.whole.org/Commons#Any");
-                b0.VarName("v3");
-                b0.Quantifier("?");
-                b0._Variable();
-                b1._Features();
-                b0._StageUpFragment();
+                org.whole.lang.queries.builders.IQueriesBuilder b0 = (org.whole.lang.queries.builders.IQueriesBuilder) op.wGetBuilder(org.whole.lang.queries.reflect.QueriesLanguageKit.URI);
+                b0.Path_(2);
+                org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
+                b1.StageUpFragment_();
+                org.whole.lang.models.builders.IModelsBuilder b2 = (org.whole.lang.models.builders.IModelsBuilder) op.wGetBuilder(org.whole.lang.models.reflect.ModelsLanguageKit.URI);
+                b2.Features_(2);
+                b1.Variable_();
+                b1.VarType("http://lang.whole.org/Commons#Any");
+                b1.VarName("v1");
+                b1.Quantifier("?");
+                b1._Variable();
+                b1.Variable_();
+                b1.VarType("http://lang.whole.org/Commons#Any");
+                b1.VarName("v1");
+                b1.Quantifier("?");
+                b1._Variable();
+                b2._Features();
+                b1._StageUpFragment();
+                b0.MatchTest_();
+                b1.StageUpFragment_();
+                b2.Features_(2);
+                b1.Variable_();
+                b1.VarType("http://lang.whole.org/Commons#Any");
+                b1.VarName("v2");
+                b1.Quantifier("?");
+                b1._Variable();
+                b1.Variable_();
+                b1.VarType("http://lang.whole.org/Commons#Any");
+                b1.VarName("v2");
+                b1.Quantifier("?");
+                b1._Variable();
+                b2._Features();
+                b1._StageUpFragment();
+                b0._MatchTest();
+                b0._Path();
             }
         };
     }
@@ -168,24 +254,41 @@ public class GenericMatcherTestTemplateManager extends AbstractTemplateManager {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
-                org.whole.lang.commons.builders.ICommonsBuilder b0 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
-                b0.StageUpFragment_();
-                org.whole.lang.models.builders.IModelsBuilder b1 = (org.whole.lang.models.builders.IModelsBuilder) op.wGetBuilder(org.whole.lang.models.reflect.ModelsLanguageKit.URI);
-                b1.Features_(2);
-                b0.Variable_();
-                b0.VarType("http://lang.whole.org/Commons#Any");
-                b0.VarName("v2");
-                b0.Quantifier("?");
-                b0._Variable();
-                b1.Feature_();
-                b1.FeatureModifiers_(0);
-                b1._FeatureModifiers();
-                b1.SimpleName("featureType");
-                b1.SimpleName("featureName");
-                b0.Resolver();
-                b1._Feature();
-                b1._Features();
-                b0._StageUpFragment();
+                org.whole.lang.queries.builders.IQueriesBuilder b0 = (org.whole.lang.queries.builders.IQueriesBuilder) op.wGetBuilder(org.whole.lang.queries.reflect.QueriesLanguageKit.URI);
+                b0.Path_(2);
+                org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
+                b1.StageUpFragment_();
+                org.whole.lang.models.builders.IModelsBuilder b2 = (org.whole.lang.models.builders.IModelsBuilder) op.wGetBuilder(org.whole.lang.models.reflect.ModelsLanguageKit.URI);
+                b2.Features_(2);
+                b1.Variable_();
+                b1.VarType("http://lang.whole.org/Commons#Any");
+                b1.VarName("v1");
+                b1.Quantifier("?");
+                b1._Variable();
+                b1.Variable_();
+                b1.VarType("http://lang.whole.org/Commons#Any");
+                b1.VarName("v1");
+                b1.Quantifier("?");
+                b1._Variable();
+                b2._Features();
+                b1._StageUpFragment();
+                b0.MatchTest_();
+                b1.StageUpFragment_();
+                b2.Features_(2);
+                b1.Variable_();
+                b1.VarType("http://lang.whole.org/Commons#Any");
+                b1.VarName("v1");
+                b1.Quantifier("?");
+                b1._Variable();
+                b1.Variable_();
+                b1.VarType("http://lang.whole.org/Commons#Any");
+                b1.VarName("v1");
+                b1.Quantifier("?");
+                b1._Variable();
+                b2._Features();
+                b1._StageUpFragment();
+                b0._MatchTest();
+                b0._Path();
             }
         };
     }
@@ -194,22 +297,41 @@ public class GenericMatcherTestTemplateManager extends AbstractTemplateManager {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
-                org.whole.lang.commons.builders.ICommonsBuilder b0 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
-                b0.StageUpFragment_();
-                org.whole.lang.models.builders.IModelsBuilder b1 = (org.whole.lang.models.builders.IModelsBuilder) op.wGetBuilder(org.whole.lang.models.reflect.ModelsLanguageKit.URI);
-                b1.Features_(2);
-                b0.Variable_();
-                b0.VarType("http://lang.whole.org/Commons#Any");
-                b0.VarName("v1");
-                b0.Quantifier("?");
-                b0._Variable();
-                b0.Variable_();
-                b0.VarType("http://lang.whole.org/Commons#Any");
-                b0.VarName("v1");
-                b0.Quantifier("?");
-                b0._Variable();
-                b1._Features();
-                b0._StageUpFragment();
+                org.whole.lang.queries.builders.IQueriesBuilder b0 = (org.whole.lang.queries.builders.IQueriesBuilder) op.wGetBuilder(org.whole.lang.queries.reflect.QueriesLanguageKit.URI);
+                b0.Path_(2);
+                org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
+                b1.StageUpFragment_();
+                org.whole.lang.models.builders.IModelsBuilder b2 = (org.whole.lang.models.builders.IModelsBuilder) op.wGetBuilder(org.whole.lang.models.reflect.ModelsLanguageKit.URI);
+                b2.Features_(2);
+                b1.Variable_();
+                b1.VarType("http://lang.whole.org/Commons#Any");
+                b1.VarName("v1");
+                b1.Quantifier("?");
+                b1._Variable();
+                b1.Variable_();
+                b1.VarType("http://lang.whole.org/Commons#Any");
+                b1.VarName("v1");
+                b1.Quantifier("?");
+                b1._Variable();
+                b2._Features();
+                b1._StageUpFragment();
+                b0.MatchTest_();
+                b1.StageUpFragment_();
+                b2.Features_(2);
+                b1.Variable_();
+                b1.VarType("http://lang.whole.org/Models#Feature");
+                b1.VarName("v2");
+                b1.Quantifier("?");
+                b1._Variable();
+                b1.Variable_();
+                b1.VarType("http://lang.whole.org/Models#Feature");
+                b1.VarName("v2");
+                b1.Quantifier("?");
+                b1._Variable();
+                b2._Features();
+                b1._StageUpFragment();
+                b0._MatchTest();
+                b0._Path();
             }
         };
     }
@@ -218,22 +340,41 @@ public class GenericMatcherTestTemplateManager extends AbstractTemplateManager {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
-                org.whole.lang.commons.builders.ICommonsBuilder b0 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
-                b0.StageUpFragment_();
-                org.whole.lang.models.builders.IModelsBuilder b1 = (org.whole.lang.models.builders.IModelsBuilder) op.wGetBuilder(org.whole.lang.models.reflect.ModelsLanguageKit.URI);
-                b1.Features_(2);
-                b0.Variable_();
-                b0.VarType("http://lang.whole.org/Commons#Any");
-                b0.VarName("v2");
-                b0.Quantifier("?");
-                b0._Variable();
-                b0.Variable_();
-                b0.VarType("http://lang.whole.org/Commons#Any");
-                b0.VarName("v2");
-                b0.Quantifier("?");
-                b0._Variable();
-                b1._Features();
-                b0._StageUpFragment();
+                org.whole.lang.queries.builders.IQueriesBuilder b0 = (org.whole.lang.queries.builders.IQueriesBuilder) op.wGetBuilder(org.whole.lang.queries.reflect.QueriesLanguageKit.URI);
+                b0.Path_(2);
+                org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
+                b1.StageUpFragment_();
+                org.whole.lang.models.builders.IModelsBuilder b2 = (org.whole.lang.models.builders.IModelsBuilder) op.wGetBuilder(org.whole.lang.models.reflect.ModelsLanguageKit.URI);
+                b2.Features_(2);
+                b1.Variable_();
+                b1.VarType("http://lang.whole.org/Commons#Any");
+                b1.VarName("v1");
+                b1.Quantifier("?");
+                b1._Variable();
+                b1.Variable_();
+                b1.VarType("http://lang.whole.org/Commons#Any");
+                b1.VarName("v1");
+                b1.Quantifier("?");
+                b1._Variable();
+                b2._Features();
+                b1._StageUpFragment();
+                b0.MatchTest_();
+                b1.StageUpFragment_();
+                b2.Features_(2);
+                b1.Variable_();
+                b1.VarType("http://lang.whole.org/Commons#Any");
+                b1.VarName("v2");
+                b1.Quantifier("?");
+                b1._Variable();
+                b1.Variable_();
+                b1.VarType("http://lang.whole.org/Commons#Any");
+                b1.VarName("v2");
+                b1.Quantifier("?");
+                b1._Variable();
+                b2._Features();
+                b1._StageUpFragment();
+                b0._MatchTest();
+                b0._Path();
             }
         };
     }
@@ -242,22 +383,41 @@ public class GenericMatcherTestTemplateManager extends AbstractTemplateManager {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
-                org.whole.lang.commons.builders.ICommonsBuilder b0 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
-                b0.StageUpFragment_();
-                org.whole.lang.models.builders.IModelsBuilder b1 = (org.whole.lang.models.builders.IModelsBuilder) op.wGetBuilder(org.whole.lang.models.reflect.ModelsLanguageKit.URI);
-                b1.Features_(2);
-                b0.Variable_();
-                b0.VarType("http://lang.whole.org/Commons#Any");
-                b0.VarName("v1");
-                b0.Quantifier("?");
-                b0._Variable();
-                b0.Variable_();
-                b0.VarType("http://lang.whole.org/Commons#Any");
-                b0.VarName("v1");
-                b0.Quantifier("?");
-                b0._Variable();
-                b1._Features();
-                b0._StageUpFragment();
+                org.whole.lang.queries.builders.IQueriesBuilder b0 = (org.whole.lang.queries.builders.IQueriesBuilder) op.wGetBuilder(org.whole.lang.queries.reflect.QueriesLanguageKit.URI);
+                b0.Path_(2);
+                org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
+                b1.StageUpFragment_();
+                org.whole.lang.models.builders.IModelsBuilder b2 = (org.whole.lang.models.builders.IModelsBuilder) op.wGetBuilder(org.whole.lang.models.reflect.ModelsLanguageKit.URI);
+                b2.Features_(2);
+                b1.Variable_();
+                b1.VarType("http://lang.whole.org/Models#Feature");
+                b1.VarName("v1");
+                b1.Quantifier("?");
+                b1._Variable();
+                b1.Variable_();
+                b1.VarType("http://lang.whole.org/Models#Feature");
+                b1.VarName("v1");
+                b1.Quantifier("?");
+                b1._Variable();
+                b2._Features();
+                b1._StageUpFragment();
+                b0.MatchTest_();
+                b1.StageUpFragment_();
+                b2.Features_(2);
+                b1.Variable_();
+                b1.VarType("http://lang.whole.org/Models#Feature");
+                b1.VarName("v2");
+                b1.Quantifier("?");
+                b1._Variable();
+                b1.Variable_();
+                b1.VarType("http://lang.whole.org/Models#Feature");
+                b1.VarName("v2");
+                b1.Quantifier("?");
+                b1._Variable();
+                b2._Features();
+                b1._StageUpFragment();
+                b0._MatchTest();
+                b0._Path();
             }
         };
     }
@@ -266,22 +426,41 @@ public class GenericMatcherTestTemplateManager extends AbstractTemplateManager {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
-                org.whole.lang.commons.builders.ICommonsBuilder b0 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
-                b0.StageUpFragment_();
-                org.whole.lang.models.builders.IModelsBuilder b1 = (org.whole.lang.models.builders.IModelsBuilder) op.wGetBuilder(org.whole.lang.models.reflect.ModelsLanguageKit.URI);
-                b1.Features_(2);
-                b0.Variable_();
-                b0.VarType("http://lang.whole.org/Commons#Any");
-                b0.VarName("v1");
-                b0.Quantifier("?");
-                b0._Variable();
-                b0.Variable_();
-                b0.VarType("http://lang.whole.org/Commons#Any");
-                b0.VarName("v1");
-                b0.Quantifier("?");
-                b0._Variable();
-                b1._Features();
-                b0._StageUpFragment();
+                org.whole.lang.queries.builders.IQueriesBuilder b0 = (org.whole.lang.queries.builders.IQueriesBuilder) op.wGetBuilder(org.whole.lang.queries.reflect.QueriesLanguageKit.URI);
+                b0.Path_(2);
+                org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
+                b1.StageUpFragment_();
+                org.whole.lang.models.builders.IModelsBuilder b2 = (org.whole.lang.models.builders.IModelsBuilder) op.wGetBuilder(org.whole.lang.models.reflect.ModelsLanguageKit.URI);
+                b2.ModelDeclarations_(2);
+                b1.Variable_();
+                b1.VarType("http://lang.whole.org/Models#SimpleEntity");
+                b1.VarName("v1");
+                b1.Quantifier("!");
+                b1._Variable();
+                b1.Variable_();
+                b1.VarType("http://lang.whole.org/Models#SimpleEntity");
+                b1.VarName("v1");
+                b1.Quantifier("!");
+                b1._Variable();
+                b2._ModelDeclarations();
+                b1._StageUpFragment();
+                b0.MatchTest_();
+                b1.StageUpFragment_();
+                b2.ModelDeclarations_(2);
+                b1.Variable_();
+                b1.VarType("http://lang.whole.org/Models#ModelDeclaration");
+                b1.VarName("v2");
+                b1.Quantifier("!");
+                b1._Variable();
+                b1.Variable_();
+                b1.VarType("http://lang.whole.org/Models#ModelDeclaration");
+                b1.VarName("v2");
+                b1.Quantifier("!");
+                b1._Variable();
+                b2._ModelDeclarations();
+                b1._StageUpFragment();
+                b0._MatchTest();
+                b0._Path();
             }
         };
     }
@@ -290,22 +469,41 @@ public class GenericMatcherTestTemplateManager extends AbstractTemplateManager {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
-                org.whole.lang.commons.builders.ICommonsBuilder b0 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
-                b0.StageUpFragment_();
-                org.whole.lang.models.builders.IModelsBuilder b1 = (org.whole.lang.models.builders.IModelsBuilder) op.wGetBuilder(org.whole.lang.models.reflect.ModelsLanguageKit.URI);
-                b1.Features_(2);
-                b0.Variable_();
-                b0.VarType("http://lang.whole.org/Commons#Any");
-                b0.VarName("v1");
-                b0.Quantifier("?");
-                b0._Variable();
-                b0.Variable_();
-                b0.VarType("http://lang.whole.org/Commons#Any");
-                b0.VarName("v1");
-                b0.Quantifier("?");
-                b0._Variable();
-                b1._Features();
-                b0._StageUpFragment();
+                org.whole.lang.queries.builders.IQueriesBuilder b0 = (org.whole.lang.queries.builders.IQueriesBuilder) op.wGetBuilder(org.whole.lang.queries.reflect.QueriesLanguageKit.URI);
+                b0.Path_(2);
+                org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
+                b1.StageUpFragment_();
+                org.whole.lang.models.builders.IModelsBuilder b2 = (org.whole.lang.models.builders.IModelsBuilder) op.wGetBuilder(org.whole.lang.models.reflect.ModelsLanguageKit.URI);
+                b2.ModelDeclarations_(2);
+                b1.Variable_();
+                b1.VarType("http://lang.whole.org/Models#SimpleEntity");
+                b1.VarName("v1");
+                b1.Quantifier("!");
+                b1._Variable();
+                b1.Variable_();
+                b1.VarType("http://lang.whole.org/Models#DataEntity");
+                b1.VarName("v1");
+                b1.Quantifier("!");
+                b1._Variable();
+                b2._ModelDeclarations();
+                b1._StageUpFragment();
+                b0.MatchTest_();
+                b1.StageUpFragment_();
+                b2.ModelDeclarations_(2);
+                b1.Variable_();
+                b1.VarType("http://lang.whole.org/Models#ModelDeclaration");
+                b1.VarName("v2");
+                b1.Quantifier("!");
+                b1._Variable();
+                b1.Variable_();
+                b1.VarType("http://lang.whole.org/Models#ModelDeclaration");
+                b1.VarName("v2");
+                b1.Quantifier("!");
+                b1._Variable();
+                b2._ModelDeclarations();
+                b1._StageUpFragment();
+                b0._MatchTest();
+                b0._Path();
             }
         };
     }
@@ -314,22 +512,41 @@ public class GenericMatcherTestTemplateManager extends AbstractTemplateManager {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
-                org.whole.lang.commons.builders.ICommonsBuilder b0 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
-                b0.StageUpFragment_();
-                org.whole.lang.models.builders.IModelsBuilder b1 = (org.whole.lang.models.builders.IModelsBuilder) op.wGetBuilder(org.whole.lang.models.reflect.ModelsLanguageKit.URI);
-                b1.Features_(2);
-                b0.Variable_();
-                b0.VarType("http://lang.whole.org/Models#Feature");
-                b0.VarName("v2");
-                b0.Quantifier("?");
-                b0._Variable();
-                b0.Variable_();
-                b0.VarType("http://lang.whole.org/Models#Feature");
-                b0.VarName("v2");
-                b0.Quantifier("?");
-                b0._Variable();
-                b1._Features();
-                b0._StageUpFragment();
+                org.whole.lang.queries.builders.IQueriesBuilder b0 = (org.whole.lang.queries.builders.IQueriesBuilder) op.wGetBuilder(org.whole.lang.queries.reflect.QueriesLanguageKit.URI);
+                b0.Path_(2);
+                org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
+                b1.StageUpFragment_();
+                org.whole.lang.models.builders.IModelsBuilder b2 = (org.whole.lang.models.builders.IModelsBuilder) op.wGetBuilder(org.whole.lang.models.reflect.ModelsLanguageKit.URI);
+                b2.ModelDeclarations_(2);
+                b1.Variable_();
+                b1.VarType("http://lang.whole.org/Models#ModelDeclaration");
+                b1.VarName("v2");
+                b1.Quantifier("!");
+                b1._Variable();
+                b1.Variable_();
+                b1.VarType("http://lang.whole.org/Models#ModelDeclaration");
+                b1.VarName("v2");
+                b1.Quantifier("!");
+                b1._Variable();
+                b2._ModelDeclarations();
+                b1._StageUpFragment();
+                b0.MatchTest_();
+                b1.StageUpFragment_();
+                b2.ModelDeclarations_(2);
+                b1.Variable_();
+                b1.VarType("http://lang.whole.org/Models#SimpleEntity");
+                b1.VarName("v1");
+                b1.Quantifier("!");
+                b1._Variable();
+                b1.Variable_();
+                b1.VarType("http://lang.whole.org/Models#SimpleEntity");
+                b1.VarName("v1");
+                b1.Quantifier("!");
+                b1._Variable();
+                b2._ModelDeclarations();
+                b1._StageUpFragment();
+                b0._MatchTest();
+                b0._Path();
             }
         };
     }
@@ -338,320 +555,75 @@ public class GenericMatcherTestTemplateManager extends AbstractTemplateManager {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
-                org.whole.lang.commons.builders.ICommonsBuilder b0 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
-                b0.StageUpFragment_();
-                org.whole.lang.models.builders.IModelsBuilder b1 = (org.whole.lang.models.builders.IModelsBuilder) op.wGetBuilder(org.whole.lang.models.reflect.ModelsLanguageKit.URI);
-                b1.Features_(2);
-                b0.Variable_();
-                b0.VarType("http://lang.whole.org/Models#Feature");
-                b0.VarName("v1");
-                b0.Quantifier("?");
-                b0._Variable();
-                b0.Variable_();
-                b0.VarType("http://lang.whole.org/Models#Feature");
-                b0.VarName("v1");
-                b0.Quantifier("?");
-                b0._Variable();
-                b1._Features();
-                b0._StageUpFragment();
-            }
-        };
-    }
-
-    public ITemplateFactory<IEntity> newfragment13() {
-        return new AbstractTemplateFactory<IEntity>() {
-
-            public void apply(org.whole.lang.builders.IBuilderOperation op) {
-                org.whole.lang.commons.builders.ICommonsBuilder b0 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
-                b0.StageUpFragment_();
-                org.whole.lang.models.builders.IModelsBuilder b1 = (org.whole.lang.models.builders.IModelsBuilder) op.wGetBuilder(org.whole.lang.models.reflect.ModelsLanguageKit.URI);
-                b1.Features_(2);
-                b0.Variable_();
-                b0.VarType("http://lang.whole.org/Commons#Any");
-                b0.VarName("v2");
-                b0.Quantifier("?");
-                b0._Variable();
-                b0.Variable_();
-                b0.VarType("http://lang.whole.org/Commons#Any");
-                b0.VarName("v2");
-                b0.Quantifier("?");
-                b0._Variable();
-                b1._Features();
-                b0._StageUpFragment();
-            }
-        };
-    }
-
-    public ITemplateFactory<IEntity> newfragment14() {
-        return new AbstractTemplateFactory<IEntity>() {
-
-            public void apply(org.whole.lang.builders.IBuilderOperation op) {
-                org.whole.lang.commons.builders.ICommonsBuilder b0 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
-                b0.StageUpFragment_();
-                org.whole.lang.models.builders.IModelsBuilder b1 = (org.whole.lang.models.builders.IModelsBuilder) op.wGetBuilder(org.whole.lang.models.reflect.ModelsLanguageKit.URI);
-                b1.Features_(2);
-                b0.Variable_();
-                b0.VarType("http://lang.whole.org/Models#Feature");
-                b0.VarName("v1");
-                b0.Quantifier("?");
-                b0._Variable();
-                b0.Variable_();
-                b0.VarType("http://lang.whole.org/Models#Feature");
-                b0.VarName("v1");
-                b0.Quantifier("?");
-                b0._Variable();
-                b1._Features();
-                b0._StageUpFragment();
-            }
-        };
-    }
-
-    public ITemplateFactory<IEntity> newfragment15() {
-        return new AbstractTemplateFactory<IEntity>() {
-
-            public void apply(org.whole.lang.builders.IBuilderOperation op) {
-                org.whole.lang.commons.builders.ICommonsBuilder b0 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
-                b0.StageUpFragment_();
-                org.whole.lang.models.builders.IModelsBuilder b1 = (org.whole.lang.models.builders.IModelsBuilder) op.wGetBuilder(org.whole.lang.models.reflect.ModelsLanguageKit.URI);
-                b1.Features_(2);
-                b0.Variable_();
-                b0.VarType("http://lang.whole.org/Models#Feature");
-                b0.VarName("v2");
-                b0.Quantifier("?");
-                b0._Variable();
-                b0.Variable_();
-                b0.VarType("http://lang.whole.org/Models#Feature");
-                b0.VarName("v2");
-                b0.Quantifier("?");
-                b0._Variable();
-                b1._Features();
-                b0._StageUpFragment();
-            }
-        };
-    }
-
-    public ITemplateFactory<IEntity> newfragment16() {
-        return new AbstractTemplateFactory<IEntity>() {
-
-            public void apply(org.whole.lang.builders.IBuilderOperation op) {
-                org.whole.lang.commons.builders.ICommonsBuilder b0 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
-                b0.StageUpFragment_();
-                org.whole.lang.models.builders.IModelsBuilder b1 = (org.whole.lang.models.builders.IModelsBuilder) op.wGetBuilder(org.whole.lang.models.reflect.ModelsLanguageKit.URI);
-                b1.ModelDeclarations_(2);
-                b0.Variable_();
-                b0.VarType("http://lang.whole.org/Models#SimpleEntity");
-                b0.VarName("v1");
-                b0.Quantifier("!");
-                b0._Variable();
-                b0.Variable_();
-                b0.VarType("http://lang.whole.org/Models#SimpleEntity");
-                b0.VarName("v1");
-                b0.Quantifier("!");
-                b0._Variable();
-                b1._ModelDeclarations();
-                b0._StageUpFragment();
-            }
-        };
-    }
-
-    public ITemplateFactory<IEntity> newfragment17() {
-        return new AbstractTemplateFactory<IEntity>() {
-
-            public void apply(org.whole.lang.builders.IBuilderOperation op) {
-                org.whole.lang.commons.builders.ICommonsBuilder b0 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
-                b0.StageUpFragment_();
-                org.whole.lang.models.builders.IModelsBuilder b1 = (org.whole.lang.models.builders.IModelsBuilder) op.wGetBuilder(org.whole.lang.models.reflect.ModelsLanguageKit.URI);
-                b1.ModelDeclarations_(2);
-                b0.Variable_();
-                b0.VarType("http://lang.whole.org/Models#ModelDeclaration");
-                b0.VarName("v2");
-                b0.Quantifier("!");
-                b0._Variable();
-                b0.Variable_();
-                b0.VarType("http://lang.whole.org/Models#ModelDeclaration");
-                b0.VarName("v2");
-                b0.Quantifier("!");
-                b0._Variable();
-                b1._ModelDeclarations();
-                b0._StageUpFragment();
-            }
-        };
-    }
-
-    public ITemplateFactory<IEntity> newfragment18() {
-        return new AbstractTemplateFactory<IEntity>() {
-
-            public void apply(org.whole.lang.builders.IBuilderOperation op) {
-                org.whole.lang.commons.builders.ICommonsBuilder b0 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
-                b0.StageUpFragment_();
-                org.whole.lang.models.builders.IModelsBuilder b1 = (org.whole.lang.models.builders.IModelsBuilder) op.wGetBuilder(org.whole.lang.models.reflect.ModelsLanguageKit.URI);
-                b1.ModelDeclarations_(2);
-                b0.Variable_();
-                b0.VarType("http://lang.whole.org/Models#SimpleEntity");
-                b0.VarName("v1");
-                b0.Quantifier("!");
-                b0._Variable();
-                b0.Variable_();
-                b0.VarType("http://lang.whole.org/Models#DataEntity");
-                b0.VarName("v1");
-                b0.Quantifier("!");
-                b0._Variable();
-                b1._ModelDeclarations();
-                b0._StageUpFragment();
-            }
-        };
-    }
-
-    public ITemplateFactory<IEntity> newfragment19() {
-        return new AbstractTemplateFactory<IEntity>() {
-
-            public void apply(org.whole.lang.builders.IBuilderOperation op) {
-                org.whole.lang.commons.builders.ICommonsBuilder b0 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
-                b0.StageUpFragment_();
-                org.whole.lang.models.builders.IModelsBuilder b1 = (org.whole.lang.models.builders.IModelsBuilder) op.wGetBuilder(org.whole.lang.models.reflect.ModelsLanguageKit.URI);
-                b1.ModelDeclarations_(2);
-                b0.Variable_();
-                b0.VarType("http://lang.whole.org/Models#ModelDeclaration");
-                b0.VarName("v2");
-                b0.Quantifier("!");
-                b0._Variable();
-                b0.Variable_();
-                b0.VarType("http://lang.whole.org/Models#ModelDeclaration");
-                b0.VarName("v2");
-                b0.Quantifier("!");
-                b0._Variable();
-                b1._ModelDeclarations();
-                b0._StageUpFragment();
-            }
-        };
-    }
-
-    public ITemplateFactory<IEntity> newfragment20() {
-        return new AbstractTemplateFactory<IEntity>() {
-
-            public void apply(org.whole.lang.builders.IBuilderOperation op) {
-                org.whole.lang.commons.builders.ICommonsBuilder b0 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
-                b0.StageUpFragment_();
-                org.whole.lang.models.builders.IModelsBuilder b1 = (org.whole.lang.models.builders.IModelsBuilder) op.wGetBuilder(org.whole.lang.models.reflect.ModelsLanguageKit.URI);
-                b1.ModelDeclarations_(2);
-                b0.Variable_();
-                b0.VarType("http://lang.whole.org/Models#ModelDeclaration");
-                b0.VarName("v2");
-                b0.Quantifier("!");
-                b0._Variable();
-                b0.Variable_();
-                b0.VarType("http://lang.whole.org/Models#ModelDeclaration");
-                b0.VarName("v2");
-                b0.Quantifier("!");
-                b0._Variable();
-                b1._ModelDeclarations();
-                b0._StageUpFragment();
-            }
-        };
-    }
-
-    public ITemplateFactory<IEntity> newfragment21() {
-        return new AbstractTemplateFactory<IEntity>() {
-
-            public void apply(org.whole.lang.builders.IBuilderOperation op) {
-                org.whole.lang.commons.builders.ICommonsBuilder b0 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
-                b0.StageUpFragment_();
-                org.whole.lang.models.builders.IModelsBuilder b1 = (org.whole.lang.models.builders.IModelsBuilder) op.wGetBuilder(org.whole.lang.models.reflect.ModelsLanguageKit.URI);
-                b1.ModelDeclarations_(2);
-                b0.Variable_();
-                b0.VarType("http://lang.whole.org/Models#SimpleEntity");
-                b0.VarName("v1");
-                b0.Quantifier("!");
-                b0._Variable();
-                b0.Variable_();
-                b0.VarType("http://lang.whole.org/Models#SimpleEntity");
-                b0.VarName("v1");
-                b0.Quantifier("!");
-                b0._Variable();
-                b1._ModelDeclarations();
-                b0._StageUpFragment();
-            }
-        };
-    }
-
-    public ITemplateFactory<IEntity> newfragment22() {
-        return new AbstractTemplateFactory<IEntity>() {
-
-            public void apply(org.whole.lang.builders.IBuilderOperation op) {
-                org.whole.lang.commons.builders.ICommonsBuilder b0 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
-                b0.StageUpFragment_();
-                org.whole.lang.models.builders.IModelsBuilder b1 = (org.whole.lang.models.builders.IModelsBuilder) op.wGetBuilder(org.whole.lang.models.reflect.ModelsLanguageKit.URI);
-                b1.ModelDeclarations_(2);
-                b0.StageUpFragment_();
-                b1.Model_();
-                b1.SimpleName("ModelName");
-                b1.TypeRelations_(0);
-                b1._TypeRelations();
-                b1.ModelDeclarations_(1);
-                b1.SimpleEntity_();
-                b1.EntityModifiers_(0);
-                b1._EntityModifiers();
-                b1.SimpleName("EntityName");
-                b1.Types_(1);
-                b0.Resolver();
-                b1._Types();
-                b1.Features_(0);
-                b1._Features();
-                b1._SimpleEntity();
-                b1._ModelDeclarations();
-                b0.Resolver();
-                b0.Resolver();
-                b0.Resolver();
-                b1._Model();
-                b0._StageUpFragment();
-                b0.StageUpFragment_();
-                b1.Model_();
-                b1.SimpleName("ModelName");
-                b1.TypeRelations_(0);
-                b1._TypeRelations();
-                b1.ModelDeclarations_(1);
-                b1.SimpleEntity_();
-                b1.EntityModifiers_(0);
-                b1._EntityModifiers();
-                b1.SimpleName("EntityName");
-                b1.Types_(1);
-                b0.Resolver();
-                b1._Types();
-                b1.Features_(0);
-                b1._Features();
-                b1._SimpleEntity();
-                b1._ModelDeclarations();
-                b0.Resolver();
-                b0.Resolver();
-                b0.Resolver();
-                b1._Model();
-                b0._StageUpFragment();
-                b1._ModelDeclarations();
-                b0._StageUpFragment();
-            }
-        };
-    }
-
-    public ITemplateFactory<IEntity> newfragment23() {
-        return new AbstractTemplateFactory<IEntity>() {
-
-            public void apply(org.whole.lang.builders.IBuilderOperation op) {
-                org.whole.lang.commons.builders.ICommonsBuilder b0 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
-                b0.StageUpFragment_();
-                org.whole.lang.models.builders.IModelsBuilder b1 = (org.whole.lang.models.builders.IModelsBuilder) op.wGetBuilder(org.whole.lang.models.reflect.ModelsLanguageKit.URI);
-                b1.ModelDeclarations_(2);
-                b0.Variable_();
-                b0.VarType("http://lang.whole.org/Models#ModelDeclaration");
-                b0.VarName("v2");
-                b0.Quantifier("!");
-                b0._Variable();
-                b0.Variable_();
-                b0.VarType("http://lang.whole.org/Models#ModelDeclaration");
-                b0.VarName("v2");
-                b0.Quantifier("!");
-                b0._Variable();
-                b1._ModelDeclarations();
-                b0._StageUpFragment();
+                org.whole.lang.queries.builders.IQueriesBuilder b0 = (org.whole.lang.queries.builders.IQueriesBuilder) op.wGetBuilder(org.whole.lang.queries.reflect.QueriesLanguageKit.URI);
+                b0.Path_(2);
+                org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
+                b1.StageUpFragment_();
+                org.whole.lang.models.builders.IModelsBuilder b2 = (org.whole.lang.models.builders.IModelsBuilder) op.wGetBuilder(org.whole.lang.models.reflect.ModelsLanguageKit.URI);
+                b2.ModelDeclarations_(2);
+                b1.StageUpFragment_();
+                b2.Model_();
+                b2.SimpleName("ModelName");
+                b2.TypeRelations_(0);
+                b2._TypeRelations();
+                b2.ModelDeclarations_(1);
+                b2.SimpleEntity_();
+                b2.EntityModifiers_(0);
+                b2._EntityModifiers();
+                b2.SimpleName("EntityName");
+                b2.Types_(1);
+                b1.Resolver();
+                b2._Types();
+                b2.Features_(0);
+                b2._Features();
+                b2._SimpleEntity();
+                b2._ModelDeclarations();
+                b1.Resolver();
+                b1.Resolver();
+                b1.Resolver();
+                b2._Model();
+                b1._StageUpFragment();
+                b1.StageUpFragment_();
+                b2.Model_();
+                b2.SimpleName("ModelName");
+                b2.TypeRelations_(0);
+                b2._TypeRelations();
+                b2.ModelDeclarations_(1);
+                b2.SimpleEntity_();
+                b2.EntityModifiers_(0);
+                b2._EntityModifiers();
+                b2.SimpleName("EntityName");
+                b2.Types_(1);
+                b1.Resolver();
+                b2._Types();
+                b2.Features_(0);
+                b2._Features();
+                b2._SimpleEntity();
+                b2._ModelDeclarations();
+                b1.Resolver();
+                b1.Resolver();
+                b1.Resolver();
+                b2._Model();
+                b1._StageUpFragment();
+                b2._ModelDeclarations();
+                b1._StageUpFragment();
+                b0.MatchTest_();
+                b1.StageUpFragment_();
+                b2.ModelDeclarations_(2);
+                b1.Variable_();
+                b1.VarType("http://lang.whole.org/Models#ModelDeclaration");
+                b1.VarName("v2");
+                b1.Quantifier("!");
+                b1._Variable();
+                b1.Variable_();
+                b1.VarType("http://lang.whole.org/Models#ModelDeclaration");
+                b1.VarName("v2");
+                b1.Quantifier("!");
+                b1._Variable();
+                b2._ModelDeclarations();
+                b1._StageUpFragment();
+                b0._MatchTest();
+                b0._Path();
             }
         };
     }
