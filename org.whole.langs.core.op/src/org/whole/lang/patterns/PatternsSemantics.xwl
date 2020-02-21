@@ -1695,7 +1695,18 @@
                                         </commons:StageUpFragment>
                                         </queries:If>
                                         <queries:If>
+                                        <queries:And initialCapacity="2">
+                                        <queries:Or initialCapacity="2">
+                                        <queries:BooleanLiteral value="true"/>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="isFunctionDeclarationCaseRoot"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Or>
                                         <queries:VariableRefStep value="containsResultPoints"/>
+                                        </queries:And>
                                         <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                                         <queries:VoidLiteral/>
                                         </commons:StageUpFragment>
@@ -1939,15 +1950,13 @@
                                     <queries:VariableRefStep value="outerBindingPoint"/>
                                 </queries:Insert>
                             </queries:Path>
-                            <workflows:CreateEntity xmlns:workflows="http://lang.whole.org/Workflows">
-                                <workflows:Text value="createVariableRefStep"/>
-                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                <workflows:Registry value="DEFAULT"/>
-                                <workflows:StringLiteral value="http://lang.whole.org/Queries#VariableRefStep"/>
-                                <workflows:Expressions initialCapacity="1">
+                            <queries:Create>
+                                <queries:EntityType value="http://lang.whole.org/Queries#VariableRefStep"/>
+                                <queries:Registry value="DEFAULT"/>
+                                <queries:Children initialCapacity="1">
                                     <queries:VariableRefStep value="outerDefinitionName"/>
-                                </workflows:Expressions>
-                            </workflows:CreateEntity>
+                                </queries:Children>
+                            </queries:Create>
                         </queries:Block>
                     </queries:Scope>
                 </queries:If>
@@ -3053,18 +3062,16 @@
                                         <queries:If>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <queries:Path initialCapacity="2">
-                                        <workflows:CreateEntity xmlns:workflows="http://lang.whole.org/Workflows">
-                                        <workflows:Text value="createFunctionApplication"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <workflows:Registry value="DEFAULT"/>
-                                        <workflows:StringLiteral value="http://lang.whole.org/Semantics#FunctionApplication"/>
-                                        <workflows:Expressions initialCapacity="2">
+                                        <queries:Create>
+                                        <queries:EntityType value="http://lang.whole.org/Semantics#FunctionApplication"/>
+                                        <queries:Registry value="DEFAULT"/>
+                                        <queries:Children initialCapacity="2">
                                         <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                                         <commons:Resolver/>
                                         </commons:StageUpFragment>
                                         <queries:VariableRefStep value="featureStep"/>
-                                        </workflows:Expressions>
-                                        </workflows:CreateEntity>
+                                        </queries:Children>
+                                        </queries:Create>
                                         <queries:Choose initialCapacity="2">
                                         <queries:If>
                                         <queries:Some>
@@ -3145,16 +3152,10 @@
                                 <queries:Select>
                                     <queries:Filter>
                                         <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
-                                        <workflows:CreateEntity xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <queries:Create>
                                         <commons:StageDownFragment>
-                                        <queries:Addition>
-                                        <queries:StringLiteral value="create"/>
-                                        <queries:VariableRefStep value="patternName"/>
-                                        </queries:Addition>
-                                        </commons:StageDownFragment>
-                                        <commons:Resolver/>
-                                        <workflows:Registry value="DEFAULT"/>
-                                        <commons:StageDownFragment>
+                                        <semantics:TypeCast>
+                                        <semantics:EntityType value="http://lang.whole.org/Queries#EntityType"/>
                                         <queries:Addition>
                                         <queries:VariableRefStep value="modelUri"/>
                                         <queries:Addition>
@@ -3162,20 +3163,22 @@
                                         <queries:VariableRefStep value="patternName"/>
                                         </queries:Addition>
                                         </queries:Addition>
+                                        </semantics:TypeCast>
                                         </commons:StageDownFragment>
-                                        <workflows:Assignments initialCapacity="2">
+                                        <queries:Registry value="DEFAULT"/>
+                                        <queries:Features initialCapacity="2">
                                         <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Workflows#Assign"/>
+                                        <commons:VarType value="http://lang.whole.org/Queries#Feature"/>
                                         <commons:VarName value="patternArgument"/>
                                         <commons:Quantifier value="*"/>
                                         </commons:Variable>
                                         <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Workflows#Assign"/>
+                                        <commons:VarType value="http://lang.whole.org/Queries#Feature"/>
                                         <commons:VarName value="defaultArgument"/>
                                         <commons:Quantifier value="*"/>
                                         </commons:Variable>
-                                        </workflows:Assignments>
-                                        </workflows:CreateEntity>
+                                        </queries:Features>
+                                        </queries:Create>
                                         </commons:StageUpFragment>
                                         <queries:VariableTest value="createPattern"/>
                                     </queries:Filter>
@@ -3206,9 +3209,9 @@
                                         <queries:Select>
                                         <queries:Filter>
                                         <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
-                                        <workflows:Assign xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <queries:Feature>
                                         <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Workflows#Variable"/>
+                                        <commons:VarType value="http://lang.whole.org/Queries#Name"/>
                                         <commons:VarName value="argumentName"/>
                                         <commons:Quantifier value="!"/>
                                         </commons:Variable>
@@ -3217,7 +3220,7 @@
                                         <commons:VarName value="argumentExpression"/>
                                         <commons:Quantifier value="!"/>
                                         </commons:Variable>
-                                        </workflows:Assign>
+                                        </queries:Feature>
                                         </commons:StageUpFragment>
                                         <queries:VariableTest value="patternArgument"/>
                                         </queries:Filter>
@@ -3248,18 +3251,18 @@
                                         <queries:Select>
                                         <queries:Filter>
                                         <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
-                                        <workflows:Assign xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <queries:Feature>
                                         <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Workflows#Variable"/>
+                                        <commons:VarType value="http://lang.whole.org/Queries#Name"/>
                                         <commons:VarName value="argumentName"/>
                                         <commons:Quantifier value="!"/>
                                         </commons:Variable>
                                         <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Queries#FeatureStep"/>
+                                        <commons:VarType value="http://lang.whole.org/Workflows#Expression"/>
                                         <commons:VarName value="argumentExpression"/>
                                         <commons:Quantifier value="!"/>
                                         </commons:Variable>
-                                        </workflows:Assign>
+                                        </queries:Feature>
                                         </commons:StageUpFragment>
                                         <queries:VariableTest value="defaultArgument"/>
                                         </queries:Filter>
@@ -3334,18 +3337,16 @@
                             </queries:Scope>
                             <semantics:FunctionApplication>
                                 <semantics:Name value="wrapAtExecutableStage"/>
-                                <workflows:CreateEntity xmlns:workflows="http://lang.whole.org/Workflows">
-                                    <workflows:Text value="createFunctionApplication"/>
-                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                    <workflows:Registry value="DEFAULT"/>
-                                    <workflows:StringLiteral value="http://lang.whole.org/Semantics#FunctionApplication"/>
-                                    <workflows:Expressions initialCapacity="2">
+                                <queries:Create>
+                                    <queries:EntityType value="http://lang.whole.org/Semantics#FunctionApplication"/>
+                                    <queries:Registry value="DEFAULT"/>
+                                    <queries:Children initialCapacity="2">
                                         <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                                         <commons:Resolver/>
                                         </commons:StageUpFragment>
                                         <queries:VariableRefStep value="createPattern"/>
-                                    </workflows:Expressions>
-                                </workflows:CreateEntity>
+                                    </queries:Children>
+                                </queries:Create>
                                 <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                 <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                             </semantics:FunctionApplication>
@@ -3590,16 +3591,10 @@
                         </queries:FreshNames>
                         <queries:Select>
                             <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
-                                <workflows:CreateEntity xmlns:workflows="http://lang.whole.org/Workflows">
+                                <queries:Create>
                                     <commons:StageDownFragment>
-                                        <queries:Addition>
-                                        <queries:StringLiteral value="create"/>
-                                        <queries:VariableRefStep value="patternName"/>
-                                        </queries:Addition>
-                                    </commons:StageDownFragment>
-                                    <commons:Resolver/>
-                                    <workflows:Registry value="DEFAULT"/>
-                                    <commons:StageDownFragment>
+                                        <semantics:TypeCast>
+                                        <semantics:EntityType value="http://lang.whole.org/Queries#EntityType"/>
                                         <queries:Addition>
                                         <queries:VariableRefStep value="modelUri"/>
                                         <queries:Addition>
@@ -3607,20 +3602,22 @@
                                         <queries:VariableRefStep value="patternName"/>
                                         </queries:Addition>
                                         </queries:Addition>
+                                        </semantics:TypeCast>
                                     </commons:StageDownFragment>
-                                    <workflows:Assignments initialCapacity="2">
+                                    <queries:Registry value="DEFAULT"/>
+                                    <queries:Features initialCapacity="2">
                                         <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Workflows#Assign"/>
+                                        <commons:VarType value="http://lang.whole.org/Queries#Feature"/>
                                         <commons:VarName value="patternArgument"/>
                                         <commons:Quantifier value="*"/>
                                         </commons:Variable>
                                         <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Workflows#Assign"/>
+                                        <commons:VarType value="http://lang.whole.org/Queries#Feature"/>
                                         <commons:VarName value="defaultArgument"/>
                                         <commons:Quantifier value="*"/>
                                         </commons:Variable>
-                                    </workflows:Assignments>
-                                </workflows:CreateEntity>
+                                    </queries:Features>
+                                </queries:Create>
                             </commons:StageUpFragment>
                             <queries:Filter>
                                 <queries:SelfStep/>
@@ -3645,9 +3642,9 @@
                                 <queries:Select>
                                     <queries:Filter>
                                         <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
-                                        <workflows:Assign xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <queries:Feature>
                                         <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Workflows#Variable"/>
+                                        <commons:VarType value="http://lang.whole.org/Queries#Name"/>
                                         <commons:VarName value="argumentName"/>
                                         <commons:Quantifier value="!"/>
                                         </commons:Variable>
@@ -3656,7 +3653,7 @@
                                         <commons:VarName value="argumentExpression"/>
                                         <commons:Quantifier value="!"/>
                                         </commons:Variable>
-                                        </workflows:Assign>
+                                        </queries:Feature>
                                         </commons:StageUpFragment>
                                         <queries:VariableTest value="patternArgument"/>
                                     </queries:Filter>
@@ -3687,18 +3684,18 @@
                                 <queries:Select>
                                     <queries:Filter>
                                         <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
-                                        <workflows:Assign xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <queries:Feature>
                                         <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Workflows#Variable"/>
+                                        <commons:VarType value="http://lang.whole.org/Queries#Name"/>
                                         <commons:VarName value="argumentName"/>
                                         <commons:Quantifier value="!"/>
                                         </commons:Variable>
                                         <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Queries#FeatureStep"/>
+                                        <commons:VarType value="http://lang.whole.org/Workflows#Expression"/>
                                         <commons:VarName value="argumentExpression"/>
                                         <commons:Quantifier value="!"/>
                                         </commons:Variable>
-                                        </workflows:Assign>
+                                        </queries:Feature>
                                         </commons:StageUpFragment>
                                         <queries:VariableTest value="defaultArgument"/>
                                     </queries:Filter>
@@ -6718,12 +6715,10 @@
                                 <queries:VariableRefStep value="times"/>
                                 <queries:IntLiteral value="0"/>
                             </queries:GreaterThan>
-                            <workflows:CreateEntity xmlns:workflows="http://lang.whole.org/Workflows">
-                                <workflows:Text value="createStageDownFragment"/>
-                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                <workflows:Registry value="DEFAULT"/>
-                                <workflows:StringLiteral value="http://lang.whole.org/Commons#StageDownFragment"/>
-                                <workflows:Expressions initialCapacity="1">
+                            <queries:Create>
+                                <queries:EntityType value="http://lang.whole.org/Commons#StageDownFragment"/>
+                                <queries:Registry value="DEFAULT"/>
+                                <queries:Children initialCapacity="1">
                                     <queries:Call>
                                         <queries:Name value="wrapWithStageDownFragment"/>
                                         <queries:Expressions initialCapacity="1">
@@ -6733,8 +6728,8 @@
                                         </queries:Subtraction>
                                         </queries:Expressions>
                                     </queries:Call>
-                                </workflows:Expressions>
-                            </workflows:CreateEntity>
+                                </queries:Children>
+                            </queries:Create>
                         </queries:If>
                         <queries:If>
                             <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -6777,12 +6772,10 @@
                                     <queries:VariableRefStep value="times"/>
                                     <queries:IntLiteral value="0"/>
                                 </queries:GreaterThan>
-                                <workflows:CreateEntity xmlns:workflows="http://lang.whole.org/Workflows">
-                                    <workflows:Text value="createStageUpFragment"/>
-                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                    <workflows:Registry value="DEFAULT"/>
-                                    <workflows:StringLiteral value="http://lang.whole.org/Commons#StageUpFragment"/>
-                                    <workflows:Expressions initialCapacity="1">
+                                <queries:Create>
+                                    <queries:EntityType value="http://lang.whole.org/Commons#StageUpFragment"/>
+                                    <queries:Registry value="DEFAULT"/>
+                                    <queries:Children initialCapacity="1">
                                         <queries:Call>
                                         <queries:Name value="wrapWithStageUpFragment"/>
                                         <queries:Expressions initialCapacity="1">
@@ -6792,8 +6785,8 @@
                                         </queries:Subtraction>
                                         </queries:Expressions>
                                         </queries:Call>
-                                    </workflows:Expressions>
-                                </workflows:CreateEntity>
+                                    </queries:Children>
+                                </queries:Create>
                             </queries:If>
                             <queries:If>
                                 <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>

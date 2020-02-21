@@ -22,7 +22,6 @@ import java.util.List;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.bindings.ITransactionScope;
 import org.whole.lang.commons.factories.CommonsEntityFactory;
 import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
 import org.whole.lang.exceptions.IWholeRuntimeException;
@@ -166,22 +165,7 @@ public class QueriesInterpreterVisitor extends QueriesIdentityDefaultVisitor {
 			IEntity entityPrototype;
 
 			Expression expression = entity.getWhereClause();
-			if (Matcher.matchImpl(QueriesEntityDescriptorEnum.Features, expression)) {
-				ITransactionScope resettableScope = BindingManagerFactory.instance.createTransactionScope();
-				getBindings().wEnterScope(resettableScope);
-	
-				expression.accept(this);
-				for (int i = 0; i < expression.wSize(); i++) {
-					String name = stringValue(((Features) expression).get(i).getName());
-					FeatureDescriptor fd = ed.getFeatureDescriptorEnum().valueOf(name);
-					if (fd != null)
-						getBindings().wDef(name, EntityUtils.convertCloneIfReparenting(getBindings().wGet(name), ed.getEntityFeatureDescriptor(fd)));
-				}
-				entityPrototype = ef.create(ed, getBindings());
-	
-				resettableScope.rollback();
-				getBindings().wExitScope();
-			} else if (Matcher.matchImpl(QueriesEntityDescriptorEnum.Children, expression)) {
+			if (Matcher.matchImpl(QueriesEntityDescriptorEnum.Children, expression)) {
 				IEntity selfEntity = getBindings().wGet(IBindingManager.SELF);
 				if (ed.getEntityKind().isData()) {
 					((Children) expression).get(0).accept(this);
@@ -284,41 +268,39 @@ public class QueriesInterpreterVisitor extends QueriesIdentityDefaultVisitor {
 
 	@Override
 	public void visit(Features entity) {
-		for (int i = 0; i < entity.wSize(); i++) {
-			entity.get(i).accept(this);
+		IEntity entityPrototype = getBindings().wGet(IBindingManager.SELF);
+		EntityDescriptor<?> ed = entityPrototype.wGetEntityDescriptor();
+		if (!ed.getEntityKind().isSimple())
+			throw new WholeIllegalArgumentException("Expecting a simple entity self").withSourceEntity(entity).withBindings(getBindings());//FIXME WholeMessages.no_simple
+
+		IExecutable[] executableChain = new IExecutable[ed.featureSize()];
+
+		for (int i=0, size=entity.wSize(); i<size; i++) {
+			Feature feature = entity.get(i);
+			feature.accept(this);
+
+			if (!Matcher.matchImpl(QueriesEntityDescriptorEnum.Feature, feature))
+				throw new WholeIllegalArgumentException("Expecting a Feature").withSourceEntity(entity).withBindings(getBindings());
+
+			String name = stringValue(feature.getName());
+			FeatureDescriptor fd = ed.getFeatureDescriptorEnum().valueOf(name);
+			int index = 0;
+			if (fd != null && (index = ed.indexOf(fd)) != -1) {
+				evaluate(feature.getValue());
+				executableChain[index] = getExecutableResult();
+			}
 		}
+
+		for (int i=0, size=executableChain.length; i<size; i++)
+			if (executableChain[i] == null)
+				executableChain[i] = executableFactory().createConstant(BindingManagerFactory.instance.createVoid(), true);
+
+		setExecutableResult(executableFactory().createSequence(executableChain).withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(Feature entity) {
-		IEntity selfEntity = getBindings().wGet(IBindingManager.SELF);
-
-		String name = stringValue(entity.getName());
-
-		evaluate(entity.getValue());
-		
-		if (isExecutableResult()) {
-			IExecutable i = getExecutableResult();
-			setExecutableResult(null);
-			resetIterator(i);
-			IEntity first = i.evaluateNext();
-			if (first != null) {
-				IEntity e;
-				if ((e = i.evaluateNext()) != null) {
-					final IEntity values = BindingManagerFactory.instance.createTuple();
-					values.wAdd(first);
-					do {
-						values.wAdd(e);
-					} while ((e = i.evaluateNext()) != null);
-					getBindings().wDef(name, values);
-				} else
-					getBindings().wDef(name, first);
-			}
-		} else if (getResult() != null) 
-			getBindings().wDef(name, getResult());
-
-		if (!name.equals(IBindingManager.SELF))
-			resetSelfEntity(selfEntity);
+		setResult(entity);
 	}
 
 	@Override
