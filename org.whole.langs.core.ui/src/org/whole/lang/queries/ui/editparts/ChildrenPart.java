@@ -15,23 +15,17 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.queries.ui.figures;
+package org.whole.lang.queries.ui.editparts;
 
-import org.whole.lang.ui.figures.ContentPaneFigure;
-import org.whole.lang.ui.layout.RowLayout;
+import org.eclipse.draw2d.IFigure;
+import org.whole.lang.queries.ui.figures.ChildrenFigure;
+import org.whole.lang.ui.editparts.AbstractCompositePart;
 
 /**
  * @author Riccardo Solmi
  */
-public class EntityTemplateInlineFigure extends ContentPaneFigure {
-	public EntityTemplateInlineFigure() {
-		super(new RowLayout().withSpacing(4));
-		initContentPanes(2);
-
-		add(createFoldingToggle(0));
-		add(createContentPane(0));
-		add(createContentPane(1));
-		
-		clickFoldingToggle(0);
-	}
+public class ChildrenPart extends AbstractCompositePart {
+    protected IFigure createFigure() {
+        return new ChildrenFigure();
+    }
 }

@@ -59,9 +59,9 @@ public class CreatePart extends AbstractContentPanePart {
 	@Override
 	protected void refreshVisuals() {
 		Create entity = getModelEntity();
-		boolean showOutline = Matcher.matchAny(entity.getWhereClause(),
-				QueriesEntityDescriptorEnum.Children,
-				QueriesEntityDescriptorEnum.Features);
-		getFigure().showOutline(showOutline);
+		getFigure().showEntityType(Matcher.match(QueriesEntityDescriptorEnum.EntityType, entity.getEntityType()));
+		getFigure().showRegistry(Matcher.match(QueriesEntityDescriptorEnum.Registry, entity.getRegistry()));
+		getFigure().showOutline(Matcher.matchAny(entity.getWhereClause(),
+				QueriesEntityDescriptorEnum.Children, QueriesEntityDescriptorEnum.Features));
 	}
 }

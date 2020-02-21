@@ -32,7 +32,6 @@ import org.whole.lang.queries.visitors.QueriesIdentityDefaultVisitor;
 import org.whole.lang.ui.editparts.AbstractCompositePart;
 import org.whole.lang.ui.editparts.CommaSeparatedCompositeColumnPart;
 import org.whole.lang.ui.editparts.CommaSeparatedCompositeFlowPart;
-import org.whole.lang.ui.editparts.CompositeColumnWithPlaceholderPart;
 import org.whole.lang.ui.editparts.ContentLightDataEntityPart;
 import org.whole.lang.ui.editparts.ContentTextualEntityPart;
 import org.whole.lang.ui.editparts.EntityTypePart;
@@ -260,15 +259,6 @@ public class QueriesPartFactoryVisitor extends QueriesIdentityDefaultVisitor imp
 
 	@Override
 	public void visit(Create entity) {
-//		EntityType name = entity.getName();
-//		if (DataTypeUtils.getDataKind(name).isString()) {
-//			EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.getEntityDescriptor(name.getValue(), false, null);
-//			if (ed != null && ed.getEntityKind().isData()) {
-//				part = new EntityTemplateInlinePart();
-//				return;
-//			}
-//		}
-
 		part = new CreatePart();
 	}
 
@@ -284,12 +274,12 @@ public class QueriesPartFactoryVisitor extends QueriesIdentityDefaultVisitor imp
 
 	@Override
 	public void visit(Children entity) {
-		part = new CompositeColumnWithPlaceholderPart();
+		part = new ChildrenPart();
 	}
 
 	@Override
 	public void visit(Features entity) {
-		part = new FeaturesTablePart();//TODO add placeholder
+		part = new FeaturesTablePart();
 	}
 	@Override
 	public void visit(Feature entity) {

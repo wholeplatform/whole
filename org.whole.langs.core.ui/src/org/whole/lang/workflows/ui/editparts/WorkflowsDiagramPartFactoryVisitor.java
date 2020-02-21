@@ -285,10 +285,7 @@ public class WorkflowsDiagramPartFactoryVisitor extends WorkflowsIdentityDefault
 
 	@Override
 	public void visit(CreateEntity entity) {
-		if (UIUtils.parentHasDifferentLanguage(entity))
-			part = new CreateEntityOutlinePart();
-		else
-			part = new CreateEntityPart();
+		part = new CreateEntityPart();
 	}
 
 	@Override

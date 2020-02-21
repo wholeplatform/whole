@@ -19,6 +19,7 @@ package org.whole.lang.queries.ui.figures;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
+import org.whole.lang.ui.figures.CompositePlaceHolderBorder;
 import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.TableFigure;
 import org.whole.lang.ui.layout.TableLayout;
@@ -29,8 +30,9 @@ import org.whole.lang.ui.layout.TableLayout;
 public class FeaturesTableFigure extends TableFigure {
 	public FeaturesTableFigure() {
 		super(new TableLayout(2)
-			.withColumnSpacing(8).withRowSpacing(2).withMargin(0, 4, 0, 0));
-		}
+			.withColumnSpacing(8).withRowSpacing(4).withMargin(4, 4, 4, 2));
+		setBorder(CompositePlaceHolderBorder.OPTIONAL_VERTICAL);
+	}
 
 	protected void paintFigure(Graphics g) {
 		super.paintFigure(g);
