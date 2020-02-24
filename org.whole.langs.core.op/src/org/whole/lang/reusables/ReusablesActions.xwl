@@ -13,37 +13,118 @@
         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
     </actions:ToolbarActions>
     <actions:ContextMenuActions>
+        <actions:MenuActions initialCapacity="2">
+            <actions:GuardedAction>
+                <actions:Label value="Collapse folders"/>
+                <queries:CartesianUpdate xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:Path initialCapacity="2">
+                        <queries:VariableRefStep value="selectedEntities"/>
+                        <queries:ChildStep/>
+                    </queries:Path>
+                    <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                        <semantics:Name value="whole:org.whole.lang.artifacts:ArtifactsLibrarySemantics#collapseFolders"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </semantics:FunctionApplication>
+                </queries:CartesianUpdate>
+                <queries:BooleanLiteral xmlns:queries="http://lang.whole.org/Queries" value="true"/>
+            </actions:GuardedAction>
+            <actions:GuardedAction>
+                <actions:Label value="Collapse path segments"/>
+                <queries:CartesianUpdate xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:Path initialCapacity="3">
+                        <queries:VariableRefStep value="selectedEntities"/>
+                        <queries:ChildStep/>
+                        <queries:SelfStep/>
+                    </queries:Path>
+                    <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                        <semantics:Name value="whole:org.whole.lang.artifacts:ArtifactsLibrarySemantics#collapsePathSegments"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </semantics:FunctionApplication>
+                </queries:CartesianUpdate>
+                <queries:BooleanLiteral xmlns:queries="http://lang.whole.org/Queries" value="true"/>
+            </actions:GuardedAction>
+        </actions:MenuActions>
         <actions:MenuActions initialCapacity="0"/>
         <actions:MenuActions initialCapacity="0"/>
-        <actions:MenuActions initialCapacity="0"/>
-        <actions:MenuActions initialCapacity="0"/>
+        <actions:MenuActions initialCapacity="1">
+            <actions:GuardedAction>
+                <actions:Label value="Extract Resource"/>
+                <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:Names initialCapacity="1">
+                        <queries:Name value="joinpoints#pathPoint"/>
+                    </queries:Names>
+                    <queries:Select>
+                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                            <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="1">
+                                <commons:StageDownFragment>
+                                    <queries:Filter>
+                                        <commons:StageUpFragment>
+                                        <commons:Resolver/>
+                                        </commons:StageUpFragment>
+                                        <queries:VariableTest value="joinpoints#pathPoint"/>
+                                    </queries:Filter>
+                                </commons:StageDownFragment>
+                            </misc:Misc>
+                        </commons:StageUpFragment>
+                        <queries:Path initialCapacity="2">
+                            <queries:VariableRefStep value="selectedEntities"/>
+                            <queries:ChildStep/>
+                        </queries:Path>
+                        <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                            <semantics:Name value="whole:org.whole.lang.artifacts:ArtifactsLibrarySemantics#extractResource"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </semantics:FunctionApplication>
+                        <queries:TemplateNames/>
+                    </queries:Select>
+                </queries:Scope>
+                <queries:Every xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:Path initialCapacity="2">
+                        <queries:VariableRefStep value="selectedEntities"/>
+                        <queries:ChildStep/>
+                    </queries:Path>
+                    <queries:SubtypeTest value="whole:org.whole.lang.reusables:ReusablesModel#Content"/>
+                </queries:Every>
+            </actions:GuardedAction>
+        </actions:MenuActions>
         <actions:MenuActions initialCapacity="0"/>
         <actions:SimpleAction>
             <actions:Label value="Value Assist"/>
             <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
                 <queries:VariableRefStep value="primarySelectedEntity"/>
-                <queries:Choose initialCapacity="1">
-                    <queries:If>
-                        <queries:And initialCapacity="2">
-                            <queries:TypeTest value="whole:org.whole.lang.reusables:ReusablesModel#PathName"/>
-                            <queries:Some>
-                                <queries:Filter>
-                                    <queries:ParentStep/>
-                                    <queries:TypeTest value="whole:org.whole.lang.reusables:ReusablesModel#Workspace"/>
-                                </queries:Filter>
-                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                            </queries:Some>
-                        </queries:And>
-                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
-                            <actions:Actions initialCapacity="1">
-                                <actions:GroupAction>
-                                    <commons:Resolver/>
-                                    <actions:Text value="Resource"/>
-                                    <actions:Hierarchical>
+                <queries:Scope>
+                    <queries:FreshNames initialCapacity="3">
+                        <queries:Name value="action"/>
+                        <queries:Name value="name"/>
+                        <queries:Name value="persistenceKitId"/>
+                    </queries:FreshNames>
+                    <queries:Choose initialCapacity="2">
+                        <queries:If>
+                            <queries:And initialCapacity="2">
+                                <queries:TypeTest value="whole:org.whole.lang.reusables:ReusablesModel#PathName"/>
+                                <queries:Some>
+                                    <queries:Filter>
+                                        <queries:AncestorStep/>
+                                        <queries:TypeTest value="whole:org.whole.lang.reusables:ReusablesModel#Workspace"/>
+                                    </queries:Filter>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </queries:Some>
+                            </queries:And>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <actions:Actions initialCapacity="1">
+                                    <actions:GroupAction>
+                                        <commons:Resolver/>
+                                        <actions:Text value="Resource"/>
+                                        <actions:Hierarchical>
                                         <actions:FullName/>
                                         <actions:Size value="10"/>
-                                    </actions:Hierarchical>
-                                    <actions:Actions initialCapacity="1">
+                                        </actions:Hierarchical>
+                                        <actions:Actions initialCapacity="1">
                                         <commons:StageDownFragment>
                                         <queries:Scope>
                                         <queries:FreshNames initialCapacity="1">
@@ -77,24 +158,122 @@
                                         </workflows:CreateJavaClassInstance>
                                         <queries:VariableTest value="customAction"/>
                                         </queries:Filter>
-                                        <workflows:CreateEntity xmlns:workflows="http://lang.whole.org/Workflows">
-                                        <workflows:Text value="create CustomAction"/>
-                                        <commons:Resolver/>
-                                        <workflows:Registry value="DEFAULT"/>
-                                        <workflows:StringLiteral value="http://lang.whole.org/Actions#CustomAction"/>
-                                        <workflows:Expressions initialCapacity="1">
-                                        <workflows:Variable value="customAction"/>
-                                        </workflows:Expressions>
-                                        </workflows:CreateEntity>
+                                        <queries:Create>
+                                        <queries:EntityType value="http://lang.whole.org/Actions#CustomAction"/>
+                                        <queries:Registry value="DEFAULT"/>
+                                        <queries:Children initialCapacity="1">
+                                        <queries:VariableRefStep value="customAction"/>
+                                        </queries:Children>
+                                        </queries:Create>
                                         </queries:Block>
                                         </queries:Scope>
                                         </commons:StageDownFragment>
+                                        </actions:Actions>
+                                    </actions:GroupAction>
+                                </actions:Actions>
+                            </commons:StageUpFragment>
+                        </queries:If>
+                        <queries:Select>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <actions:GroupAction>
+                                    <commons:Resolver/>
+                                    <actions:Text value="Persistences"/>
+                                    <actions:Hierarchical>
+                                        <actions:FullName/>
+                                        <actions:Size value="10"/>
+                                    </actions:Hierarchical>
+                                    <actions:Actions initialCapacity="1">
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Actions#Action"/>
+                                        <commons:VarName value="action"/>
+                                        <commons:Quantifier value="*"/>
+                                        </commons:Variable>
                                     </actions:Actions>
                                 </actions:GroupAction>
-                            </actions:Actions>
-                        </commons:StageUpFragment>
-                    </queries:If>
-                </queries:Choose>
+                            </commons:StageUpFragment>
+                            <queries:Filter>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <queries:Some>
+                                    <queries:FeatureStep value="whole:org.whole.lang.reusables:ReusablesModel#persistence"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </queries:Some>
+                            </queries:Filter>
+                            <queries:Select>
+                                <queries:Filter>
+                                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <actions:PerformAction>
+                                        <commons:Resolver/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Actions#Text"/>
+                                        <commons:VarName value="name"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <actions:ActionKind value="PERFORM"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:StageUpFragment>
+                                        <queries:PointwiseUpdate>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="primarySelectedEntity"/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.reusables:ReusablesModel#persistence"/>
+                                        </queries:Path>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Queries#StringLiteral"/>
+                                        <commons:VarName value="persistenceKitId"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        </queries:PointwiseUpdate>
+                                        </commons:StageUpFragment>
+                                        </actions:PerformAction>
+                                    </commons:StageUpFragment>
+                                    <queries:VariableTest value="action"/>
+                                </queries:Filter>
+                                <queries:Path initialCapacity="2">
+                                    <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="getPersistenceKits()"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:StringLiteral value="org.whole.lang.artifacts.util.ArtifactsWorkspaceUtils"/>
+                                        <workflows:StringLiteral value="getPersistenceKits()"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </workflows:InvokeJavaClassMethod>
+                                    <queries:ChildStep/>
+                                </queries:Path>
+                                <queries:Sequence initialCapacity="2">
+                                    <queries:Filter>
+                                        <queries:Addition>
+                                        <queries:StringLiteral value="As "/>
+                                        <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="self.getDescription()"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:Variable value="self"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:StringLiteral value="org.whole.lang.codebase.IPersistenceKit"/>
+                                        <workflows:StringLiteral value="getDescription()"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </workflows:InvokeJavaInstanceMethod>
+                                        </queries:Addition>
+                                        <queries:VariableTest value="name"/>
+                                    </queries:Filter>
+                                    <queries:Filter>
+                                        <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="self.getId()"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:Variable value="self"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:StringLiteral value="org.whole.lang.codebase.IPersistenceKit"/>
+                                        <workflows:StringLiteral value="getId()"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </workflows:InvokeJavaInstanceMethod>
+                                        <queries:VariableTest value="persistenceKitId"/>
+                                    </queries:Filter>
+                                </queries:Sequence>
+                                <queries:TemplateNames/>
+                            </queries:Select>
+                            <queries:TemplateNames/>
+                        </queries:Select>
+                    </queries:Choose>
+                </queries:Scope>
             </queries:Path>
         </actions:SimpleAction>
     </actions:ContextMenuActions>

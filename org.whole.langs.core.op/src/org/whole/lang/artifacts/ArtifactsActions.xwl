@@ -13,15 +13,113 @@
         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
     </actions:ToolbarActions>
     <actions:ContextMenuActions>
+        <actions:MenuActions initialCapacity="2">
+            <actions:GuardedAction>
+                <actions:Label value="Wrap File content template with scope"/>
+                <queries:CartesianUpdate xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:Path initialCapacity="5">
+                        <queries:VariableRefStep value="selectedEntities"/>
+                        <queries:DescendantOrSelfStep/>
+                        <queries:Filter>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <queries:TypeTest value="http://lang.whole.org/Artifacts#FileArtifact"/>
+                        </queries:Filter>
+                        <queries:FeatureStep value="http://lang.whole.org/Artifacts#content"/>
+                        <queries:Filter>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <queries:Prune>
+                                <queries:TypeTest value="http://lang.whole.org/Commons#StageUpFragment"/>
+                            </queries:Prune>
+                        </queries:Filter>
+                    </queries:Path>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <queries:Scope>
+                            <queries:ScopeNames initialCapacity="0"/>
+                            <commons:StageDownFragment>
+                                <queries:SelfStep/>
+                            </commons:StageDownFragment>
+                        </queries:Scope>
+                    </commons:StageUpFragment>
+                </queries:CartesianUpdate>
+                <queries:BooleanLiteral xmlns:queries="http://lang.whole.org/Queries" value="true"/>
+            </actions:GuardedAction>
+            <actions:GuardedAction>
+                <actions:Label value="Unwrap File content template scope"/>
+                <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:FreshNames initialCapacity="1">
+                        <queries:Name value="template"/>
+                    </queries:FreshNames>
+                    <queries:CartesianUpdate>
+                        <queries:Path initialCapacity="5">
+                            <queries:VariableRefStep value="selectedEntities"/>
+                            <queries:DescendantOrSelfStep/>
+                            <queries:Filter>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <queries:TypeTest value="http://lang.whole.org/Artifacts#FileArtifact"/>
+                            </queries:Filter>
+                            <queries:FeatureStep value="http://lang.whole.org/Artifacts#content"/>
+                            <queries:Filter>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <queries:Prune>
+                                    <queries:And initialCapacity="2">
+                                        <queries:TypeTest value="http://lang.whole.org/Queries#Scope"/>
+                                        <queries:Some>
+                                        <queries:FeatureStep value="http://lang.whole.org/Queries#expression"/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:TypeTest value="http://lang.whole.org/Commons#StageUpFragment"/>
+                                        <queries:VariableTest value="template"/>
+                                        </queries:And>
+                                        </queries:Some>
+                                    </queries:And>
+                                </queries:Prune>
+                            </queries:Filter>
+                        </queries:Path>
+                        <queries:VariableRefStep value="template"/>
+                    </queries:CartesianUpdate>
+                </queries:Scope>
+                <queries:BooleanLiteral xmlns:queries="http://lang.whole.org/Queries" value="true"/>
+            </actions:GuardedAction>
+        </actions:MenuActions>
         <actions:MenuActions initialCapacity="0"/>
         <actions:MenuActions initialCapacity="0"/>
-        <actions:MenuActions initialCapacity="0"/>
-        <actions:MenuActions initialCapacity="0"/>
+        <actions:MenuActions initialCapacity="1">
+            <actions:GuardedAction>
+                <actions:Label value="Artifacts to resources"/>
+                <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:Names initialCapacity="1">
+                        <queries:Name value="joinpoints#resourcePoint"/>
+                    </queries:Names>
+                    <queries:Select>
+                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                            <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="1">
+                                <commons:StageDownFragment>
+                                    <queries:Filter>
+                                        <commons:StageUpFragment>
+                                        <commons:Resolver/>
+                                        </commons:StageUpFragment>
+                                        <queries:VariableTest value="joinpoints#resourcePoint"/>
+                                    </queries:Filter>
+                                </commons:StageDownFragment>
+                            </misc:Misc>
+                        </commons:StageUpFragment>
+                        <queries:SelfStep/>
+                        <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                            <semantics:Name value="whole:org.whole.lang.artifacts:ArtifactsLibrarySemantics#artifactsToResources"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </semantics:FunctionApplication>
+                        <queries:TemplateNames/>
+                    </queries:Select>
+                </queries:Scope>
+                <queries:TypeTest xmlns:queries="http://lang.whole.org/Queries" value="http://lang.whole.org/Artifacts#Workspace"/>
+            </actions:GuardedAction>
+        </actions:MenuActions>
         <actions:MenuActions initialCapacity="0"/>
         <actions:SimpleAction>
             <actions:Label value="Value Assist"/>
             <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                <queries:FreshNames initialCapacity="7">
+                <queries:FreshNames initialCapacity="8">
                     <queries:Name value="group"/>
                     <queries:Name value="action"/>
                     <queries:Name value="name"/>
@@ -29,6 +127,7 @@
                     <queries:Name value="persistenceKits"/>
                     <queries:Name value="persistenceKit"/>
                     <queries:Name value="persistenceKitId"/>
+                    <queries:Name value="artifact"/>
                 </queries:FreshNames>
                 <queries:Select>
                     <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
@@ -89,7 +188,7 @@
                                         <commons:StageUpFragment>
                                         <commons:Variable>
                                         <commons:VarType value="http://lang.whole.org/Commons#Any"/>
-                                        <commons:VarName value="self"/>
+                                        <commons:VarName value="artifact"/>
                                         <commons:Quantifier value="!"/>
                                         </commons:Variable>
                                         </commons:StageUpFragment>
@@ -119,7 +218,7 @@
                                         <artifacts:Projects xmlns:artifacts="http://lang.whole.org/Artifacts" initialCapacity="1">
                                         <commons:Variable>
                                         <commons:VarType value="http://lang.whole.org/Commons#Any"/>
-                                        <commons:VarName value="self"/>
+                                        <commons:VarName value="artifact"/>
                                         <commons:Quantifier value="!"/>
                                         </commons:Variable>
                                         </artifacts:Projects>
@@ -127,7 +226,8 @@
                                         </actions:PerformAction>
                                         </commons:StageUpFragment>
                                         </queries:If>
-                                        <queries:Do>
+                                        <queries:If>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                                         <actions:PerformAction>
                                         <commons:Resolver/>
@@ -143,18 +243,18 @@
                                         <artifacts:Artifacts xmlns:artifacts="http://lang.whole.org/Artifacts" initialCapacity="1">
                                         <commons:Variable>
                                         <commons:VarType value="http://lang.whole.org/Commons#Any"/>
-                                        <commons:VarName value="self"/>
+                                        <commons:VarName value="artifact"/>
                                         <commons:Quantifier value="!"/>
                                         </commons:Variable>
                                         </artifacts:Artifacts>
                                         </commons:StageUpFragment>
                                         </actions:PerformAction>
                                         </commons:StageUpFragment>
-                                        </queries:Do>
+                                        </queries:If>
                                         </queries:Choose>
                                         <queries:Path initialCapacity="3">
                                         <queries:Filter>
-                                        <queries:SelfStep/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <queries:And initialCapacity="2">
                                         <queries:Or initialCapacity="2">
                                         <queries:AtFeatureTest value="http://lang.whole.org/Artifacts#projects"/>
@@ -182,7 +282,10 @@
                                         <queries:ParentStep/>
                                         </workflows:Expressions>
                                         </workflows:InvokeJavaClassMethod>
+                                        <queries:Filter>
                                         <queries:ChildStep/>
+                                        <queries:VariableTest value="artifact"/>
+                                        </queries:Filter>
                                         </queries:Path>
                                         <queries:Path initialCapacity="2">
                                         <queries:FeatureStep value="http://lang.whole.org/Artifacts#name"/>
@@ -198,9 +301,10 @@
                                         </queries:Addition>
                                         </queries:Addition>
                                         </queries:If>
-                                        <queries:Do>
+                                        <queries:If>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <queries:SelfStep/>
-                                        </queries:Do>
+                                        </queries:If>
                                         </queries:Choose>
                                         <queries:VariableTest value="name"/>
                                         </queries:Filter>
@@ -222,7 +326,7 @@
                                         <commons:StageUpFragment>
                                         <commons:Variable>
                                         <commons:VarType value="http://lang.whole.org/Commons#Any"/>
-                                        <commons:VarName value="self"/>
+                                        <commons:VarName value="artifact"/>
                                         <commons:Quantifier value="!"/>
                                         </commons:Variable>
                                         </commons:StageUpFragment>
@@ -230,7 +334,7 @@
                                         </commons:StageUpFragment>
                                         <queries:Path initialCapacity="3">
                                         <queries:Filter>
-                                        <queries:SelfStep/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <queries:And initialCapacity="3">
                                         <queries:KindTest value="RESOLVER"/>
                                         <queries:Or initialCapacity="2">
@@ -265,7 +369,10 @@
                                         </queries:Path>
                                         </workflows:Expressions>
                                         </workflows:InvokeJavaClassMethod>
+                                        <queries:Filter>
                                         <queries:ChildStep/>
+                                        <queries:VariableTest value="artifact"/>
+                                        </queries:Filter>
                                         </queries:Path>
                                         <queries:Path initialCapacity="2">
                                         <queries:FeatureStep value="http://lang.whole.org/Artifacts#name"/>
@@ -281,9 +388,10 @@
                                         </queries:Addition>
                                         </queries:Addition>
                                         </queries:If>
-                                        <queries:Do>
+                                        <queries:If>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <queries:SelfStep/>
-                                        </queries:Do>
+                                        </queries:If>
                                         </queries:Choose>
                                         <queries:VariableTest value="name"/>
                                         </queries:Filter>
@@ -329,9 +437,10 @@
                                         </commons:StageUpFragment>
                                         </queries:PointwiseUpdate>
                                         </queries:If>
-                                        <queries:Do>
+                                        <queries:If>
+                                        <commons:Resolver/>
                                         <queries:SelfStep/>
-                                        </queries:Do>
+                                        </queries:If>
                                         </queries:Choose>
                                         <queries:FeatureStep value="http://lang.whole.org/Artifacts#persistenceKitId"/>
                                         </queries:Path>
@@ -368,7 +477,7 @@
                                         </commons:StageUpFragment>
                                         <queries:Path initialCapacity="3">
                                         <queries:Filter>
-                                        <queries:SelfStep/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <queries:And initialCapacity="2">
                                         <queries:AtFeatureTest value="http://lang.whole.org/Artifacts#content"/>
                                         <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
@@ -565,7 +674,7 @@
                                     </actions:GroupAction>
                                 </commons:StageUpFragment>
                                 <queries:Filter>
-                                    <queries:SelfStep/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                     <queries:Some>
                                         <queries:FeatureStep value="http://lang.whole.org/Artifacts#metadata"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -609,9 +718,10 @@
                                         </commons:StageUpFragment>
                                         </queries:PointwiseUpdate>
                                         </queries:If>
-                                        <queries:Do>
+                                        <queries:If>
+                                        <commons:Resolver/>
                                         <queries:SelfStep/>
-                                        </queries:Do>
+                                        </queries:If>
                                         </queries:Choose>
                                         <queries:FeatureStep value="http://lang.whole.org/Artifacts#persistenceKitId"/>
                                         </queries:Path>
@@ -692,7 +802,7 @@
                                 <queries:Sequence initialCapacity="1">
                                     <queries:Path initialCapacity="3">
                                         <queries:Filter>
-                                        <queries:SelfStep/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <queries:And initialCapacity="2">
                                         <queries:Or initialCapacity="2">
                                         <queries:AtFeatureTest value="http://lang.whole.org/Artifacts#projects"/>
@@ -726,15 +836,13 @@
                                         </workflows:CreateJavaClassInstance>
                                         <queries:VariableTest value="customAction"/>
                                         </queries:Filter>
-                                        <workflows:CreateEntity xmlns:workflows="http://lang.whole.org/Workflows">
-                                        <workflows:Text value="create CustomAction"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <workflows:Registry value="DEFAULT"/>
-                                        <workflows:StringLiteral value="http://lang.whole.org/Actions#CustomAction"/>
-                                        <workflows:Expressions initialCapacity="1">
-                                        <workflows:Variable value="customAction"/>
-                                        </workflows:Expressions>
-                                        </workflows:CreateEntity>
+                                        <queries:Create>
+                                        <queries:EntityType value="http://lang.whole.org/Actions#CustomAction"/>
+                                        <queries:Registry value="DEFAULT"/>
+                                        <queries:Children initialCapacity="1">
+                                        <queries:VariableRefStep value="customAction"/>
+                                        </queries:Children>
+                                        </queries:Create>
                                         </queries:Block>
                                         <queries:VariableTest value="action"/>
                                         </queries:Filter>
