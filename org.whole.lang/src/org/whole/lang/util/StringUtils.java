@@ -877,6 +877,9 @@ public class StringUtils {
 		return "";
 	}
 	
+	public static String stripLeadingSeparatorChar(String fileName) {
+		return fileName.startsWith(String.valueOf(File.separatorChar)) ? fileName.substring(1) : fileName;
+	}
 	public static String stripFileExtension(String fileName) {
 		return toPackageName(fileName);
 	}
@@ -885,7 +888,7 @@ public class StringUtils {
 	}
 	public static String getFileExtension(String qname) {
 		int s = qname.lastIndexOf('.');
-		return (s == -1) ? "" : qname.substring(s+1);
+		return (s == -1 || s < qname.lastIndexOf(File.separatorChar)) ? "" : qname.substring(s+1);
 	}
 	public static String getFileName(String qname) {
 		int s = qname.lastIndexOf(File.separatorChar);
