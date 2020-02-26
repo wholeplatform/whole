@@ -19,16 +19,21 @@ package org.whole.lang.json.visitors;
 
 import java.io.IOException;
 
+import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.json.model.Array;
 import org.whole.lang.json.model.Bool;
 import org.whole.lang.json.model.Decimal;
+import org.whole.lang.json.model.IJSONEntity;
 import org.whole.lang.json.model.Int;
 import org.whole.lang.json.model.Name;
 import org.whole.lang.json.model.Null;
 import org.whole.lang.json.model.Object;
 import org.whole.lang.json.model.String;
+import org.whole.lang.model.IEntity;
+import org.whole.lang.model.adapters.IEntityAdapter;
 import org.whole.lang.operations.IPrettyPrintWriter;
 import org.whole.lang.operations.PrettyPrinterOperation;
+import org.whole.lang.util.BehaviorUtils;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -61,7 +66,15 @@ public class JSONPrettyPrinterVisitor extends JSONTraverseAllVisitor {
 			generator = null;
 		}
 	}
-	
+
+	public boolean visitAdapter(IEntityAdapter entity) {
+		getBindings().setResult(null);
+		IEntity result = BehaviorUtils.evaluate(entity.wGetAdaptee(false), 0, getBindings());
+		if (result instanceof IJSONEntity)
+			super.visit(result);
+		return false;
+	}
+
 	@Override
 	public void visit(Object entity) {
 		try {
@@ -71,7 +84,7 @@ public class JSONPrettyPrinterVisitor extends JSONTraverseAllVisitor {
 			generator.writeEndObject();
 			endVisit();
 		} catch (IOException e) {
-			throw new IllegalArgumentException(e);
+			throw new WholeIllegalArgumentException(e).withSourceEntity(entity).withBindings(getBindings());
 		}
 	}
 
@@ -82,7 +95,7 @@ public class JSONPrettyPrinterVisitor extends JSONTraverseAllVisitor {
 			generator.writeFieldName(entity.getValue());
 			endVisit();
 		} catch (IOException e) {
-			throw new IllegalArgumentException(e);
+			throw new WholeIllegalArgumentException(e).withSourceEntity(entity).withBindings(getBindings());
 		}
 	}
 
@@ -95,7 +108,7 @@ public class JSONPrettyPrinterVisitor extends JSONTraverseAllVisitor {
 			generator.writeEndArray();
 			endVisit();
 		} catch (IOException e) {
-			throw new IllegalArgumentException(e);
+			throw new WholeIllegalArgumentException(e).withSourceEntity(entity).withBindings(getBindings());
 		}
 	}
 
@@ -106,7 +119,7 @@ public class JSONPrettyPrinterVisitor extends JSONTraverseAllVisitor {
 			generator.writeString(entity.getValue());
 			endVisit();
 		} catch (IOException e) {
-			throw new IllegalArgumentException(e);
+			throw new WholeIllegalArgumentException(e).withSourceEntity(entity).withBindings(getBindings());
 		}
 	}
 
@@ -117,7 +130,7 @@ public class JSONPrettyPrinterVisitor extends JSONTraverseAllVisitor {
 			generator.writeNumber(entity.getValue());
 			endVisit();
 		} catch (IOException e) {
-			throw new IllegalArgumentException(e);
+			throw new WholeIllegalArgumentException(e).withSourceEntity(entity).withBindings(getBindings());
 		}
 	}
 
@@ -128,7 +141,7 @@ public class JSONPrettyPrinterVisitor extends JSONTraverseAllVisitor {
 			generator.writeNumber(entity.getValue());
 			endVisit();
 		} catch (IOException e) {
-			throw new IllegalArgumentException(e);
+			throw new WholeIllegalArgumentException(e).withSourceEntity(entity).withBindings(getBindings());
 		}
 	}
 
@@ -139,7 +152,7 @@ public class JSONPrettyPrinterVisitor extends JSONTraverseAllVisitor {
 			generator.writeBoolean(entity.isValue());
 			endVisit();
 		} catch (IOException e) {
-			throw new IllegalArgumentException(e);
+			throw new WholeIllegalArgumentException(e).withSourceEntity(entity).withBindings(getBindings());
 		}
 	}
 
@@ -150,7 +163,7 @@ public class JSONPrettyPrinterVisitor extends JSONTraverseAllVisitor {
 			generator.writeNull();
 			endVisit();
 		} catch (IOException e) {
-			throw new IllegalArgumentException(e);
+			throw new WholeIllegalArgumentException(e).withSourceEntity(entity).withBindings(getBindings());
 		}
 	}
 }
