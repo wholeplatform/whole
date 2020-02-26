@@ -876,7 +876,18 @@ public class StringUtils {
 				return t.substring(0, i+1);
 		return "";
 	}
-	
+
+	public static String commonPathPrefix(String path1, String path2) {
+		int prefixLength = commonPrefix(path1, path2);
+		String commonPrefix = path1.substring(0, prefixLength);
+		if ((prefixLength == path1.length() && path2.charAt(prefixLength)==File.separatorChar) ||
+				(prefixLength == path2.length() && path1.charAt(prefixLength)==File.separatorChar))
+			return commonPrefix;
+		else {
+			int separatorIndex = commonPrefix.lastIndexOf(File.separatorChar);
+			return separatorIndex > -1 ? commonPrefix.substring(0, separatorIndex) : "";
+		}
+	}
 	public static String stripLeadingSeparatorChar(String fileName) {
 		return fileName.startsWith(String.valueOf(File.separatorChar)) ? fileName.substring(1) : fileName;
 	}
