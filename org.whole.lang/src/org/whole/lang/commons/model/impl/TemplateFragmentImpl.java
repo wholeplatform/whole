@@ -1,15 +1,17 @@
 package org.whole.lang.commons.model.impl;
 
-import org.whole.lang.model.AbstractSimpleEntity;
+import org.whole.lang.commons.model.Any;
+import org.whole.lang.commons.model.Phase;
 import org.whole.lang.commons.model.TemplateFragment;
-import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
+import org.whole.lang.commons.reflect.CommonsFeatureDescriptorEnum;
 import org.whole.lang.commons.visitors.ICommonsVisitor;
 import org.whole.lang.exceptions.IWholeRuntimeException;
-import org.whole.lang.commons.model.Phase;
-import org.whole.lang.commons.reflect.CommonsFeatureDescriptorEnum;
+import org.whole.lang.model.AbstractSimpleEntity;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.commons.model.Any;
+import org.whole.lang.model.IFragmentModel;
+import org.whole.lang.model.InternalIEntity;
+import org.whole.lang.reflect.EntityDescriptor;
 
 /** 
  * @generator Whole
@@ -41,6 +43,16 @@ public class TemplateFragmentImpl extends AbstractSimpleEntity implements Templa
 
 	public void setPhase(Phase phase) {
 		notifyChanged(CommonsFeatureDescriptorEnum.phase, this.phase, this.phase = phase);
+	}
+
+	protected void wSetChildrenModel(IFragmentModel model) {
+	    IFragmentModel newModel = (IFragmentModel) model.clone();
+	    newModel.setFragment(this);
+	    ((InternalIEntity) rootEntity).wSetModel(newModel);
+    }
+
+	public IEntity wGetRoot() {
+		return wGet(1);
 	}
 
 	private Any rootEntity;

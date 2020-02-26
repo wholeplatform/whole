@@ -9,6 +9,8 @@ import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.commons.model.Phase;
 import org.whole.lang.commons.reflect.CommonsFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.model.IFragmentModel;
+import org.whole.lang.model.InternalIEntity;
 import org.whole.lang.commons.model.Any;
 
 /** 
@@ -41,6 +43,16 @@ public class BaseFragmentImpl extends AbstractSimpleEntity implements BaseFragme
 
 	public void setPhase(Phase phase) {
 		notifyChanged(CommonsFeatureDescriptorEnum.phase, this.phase, this.phase = phase);
+	}
+
+	protected void wSetChildrenModel(IFragmentModel model) {
+	    IFragmentModel newModel = (IFragmentModel) model.clone();
+	    newModel.setFragment(this);
+	    ((InternalIEntity) rootEntity).wSetModel(newModel);
+    }
+
+	public IEntity wGetRoot() {
+		return wGet(1);
 	}
 
 	private Any rootEntity;
