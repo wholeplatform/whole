@@ -50,7 +50,7 @@ public class GenericMatcher {
 	}
 	public GenericMatcher withPatternMatching() {
 		withMatchStrategy(IMatchStrategy.ResolverPattern, CommonsEntityDescriptorEnum.Resolver);
-		withMatchStrategy(IMatchStrategy.VariablePattern,
+		withMatchStrategy(IMatchStrategy.VariableSupertypePattern,
 				CommonsEntityDescriptorEnum.Variable, CommonsEntityDescriptorEnum.InlineVariable);
 		return this;
 	}

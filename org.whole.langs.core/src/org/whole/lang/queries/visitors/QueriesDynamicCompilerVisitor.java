@@ -26,7 +26,6 @@ import java.util.Set;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.bindings.ITransactionScope;
 import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.commons.reflect.CommonsLanguageKit;
@@ -187,58 +186,48 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 			ILanguageKit languageKit = null;
 			Map<EntityDescriptor<?>, Expression> typeMap = new HashMap<EntityDescriptor<?>, Expression>();
 
-			If ifWithTemplate = new IfWithTemplate().create();
-			If ifWithTypeTest = new IfWithTypeTest().create();
+			IEntity ifWithTemplate = new IfWithTemplate().create();
+			IEntity ifWithTypeTest = new IfWithTypeTest().create();
 
-			ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();
-			getBindings().wEnterScope(ts);
+			IBindingManager patternBindings = BindingManagerFactory.instance.createBindingManager();
 			for (int i = 0; i < size; i++) {
 				Expression child = entity.get(i);
-				try {
-					if (!Matcher.patternMatch(ifWithTemplate, child, getBindings())
-							&& !Matcher.patternMatch(ifWithTypeTest, child, getBindings())) {
+
+				patternBindings.wClear();
+				if (!Matcher.patternMatch(ifWithTemplate, child, patternBindings) && !Matcher.patternMatch(ifWithTypeTest, child, patternBindings)) {
+					canOptimize = false;
+					break;
+				}
+
+				//TODO if resolver condition set default case but add pattern or default behavior
+				
+				EntityDescriptor<?> ed = patternBindings.wIsSet("typeTest") && Matcher.match(QueriesEntityDescriptorEnum.TypeTest, patternBindings.wGet("typeTest"))
+						? CommonsDataTypePersistenceParser.getEntityDescriptor(patternBindings.wStringValue("typeTest"))
+						: patternBindings.wIsSet("pattern") ? patternBindings.wGet("pattern").wGetEntityDescriptor() : null;
+
+				if (ed == null) {
+					//typeTest has matched a resolver or an extended language subtype
+					canOptimize = false;
+					break;
+				}
+
+				if (typeMap.containsKey(ed)) {
+					Expression behavior = typeMap.get(ed);
+					boolean isPattern = behavior.wGetParent() == entity;
+					if (isPattern) {
 						canOptimize = false;
 						break;
 					}
-
-					EntityDescriptor<?> ed = getBindings().wIsSet("typeTest")
-							&& getBindings().wGet("typeTest").wGetEntityDescriptor().getDataKind().isString()
-									? CommonsDataTypePersistenceParser
-											.getEntityDescriptor(getBindings().wStringValue("typeTest"))
-									: getBindings().wIsSet("pattern")
-											? getBindings().wGet("pattern").wGetEntityDescriptor() : null;
-
-					if (ed == null) {
+				} else {
+					if (languageKit == null)
+						languageKit = ed.getLanguageKit();
+					else if (!languageKit.equals(ed.getLanguageKit())) {
 						canOptimize = false;
 						break;
 					}
-
-					if (typeMap.containsKey(ed)) {
-						Expression behavior = typeMap.get(ed);
-						boolean isPattern = behavior.wGetParent() == entity;
-						if (isPattern) {
-							canOptimize = false;
-							break;
-						}
-					} else {
-						if (languageKit == null)
-							languageKit = ed.getLanguageKit();
-						else if (!languageKit.equals(ed.getLanguageKit())) {// ||
-																			// !languageKit.getURI().equals("whole:org.whole.lang.javascript:JavaScript"))
-																			// {
-							canOptimize = false;
-							break;
-						}
-						typeMap.put(ed,
-								getBindings().wIsSet("pattern") ? child
-										: getBindings().wGet("expression")
-												.wGetAdapter(QueriesEntityDescriptorEnum.Expression));
-					}
-				} finally {
-					ts.rollback();
+					typeMap.put(ed, patternBindings.wIsSet("pattern") ? child : patternBindings.wGet("expression").wGetAdapter(QueriesEntityDescriptorEnum.Expression));
 				}
 			}
-			getBindings().wExitScope();
 
 			if (canOptimize && languageKit != null) {
 				IExecutable ri = executableFactory().createChoose(languageKit);

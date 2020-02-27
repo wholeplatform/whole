@@ -56,7 +56,7 @@ public interface IMatchStrategy {
 		}
 	};
 
-	public static IMatchStrategy VariablePattern = (pattern, model, matcher) -> {
+	public static IMatchStrategy VariableSupertypePattern = (pattern, model, matcher) -> {
 		EntityDescriptor<?> type = (EntityDescriptor<?>) pattern.wGet(CommonsFeatureDescriptorEnum.varType).wGetValue();
 		String name = pattern.wGet(CommonsFeatureDescriptorEnum.varName).wStringValue();
 
@@ -69,13 +69,44 @@ public interface IMatchStrategy {
 						!value.wGet(CommonsFeatureDescriptorEnum.varName).wStringValue().equals(model.wGet(CommonsFeatureDescriptorEnum.varName).wStringValue()))
 					matcher.mismatch(pattern, model);
 			} else {
-				if (type.isExtendedLanguageSupertypeOf(value.wGetEntityDescriptor()))//WAS isPlatformSupertypeOf(value.wGetEntityDescriptor()))
+				if (type.isExtendedLanguageSupertypeOf(value.wGetEntityDescriptor()))
 					matcher.match(value, model);
 				else
 					matcher.mismatch(pattern, model);
 			}
 		} else {
-			if (type.isExtendedLanguageSupertypeOf(//WAS isPlatformSupertypeOf(
+			if (type.isExtendedLanguageSupertypeOf(
+					EntityUtils.isVariable(model) ?
+							(EntityDescriptor<?>) model.wGet(CommonsFeatureDescriptorEnum.varType).wGetValue()
+							: model.wGetEntityDescriptor()))
+				matcher.getBindings().wDef(name, model);
+			else if (EntityUtils.isResolver(model)) //TODO workaround waiting for a dynamic entity descriptor for resolvers 
+				matcher.getBindings().wDef(name, model);
+			else
+				matcher.mismatch(pattern, model);
+		}
+	};
+
+	public static IMatchStrategy VariableHasTypePattern = (pattern, model, matcher) -> {
+		EntityDescriptor<?> type = (EntityDescriptor<?>) pattern.wGet(CommonsFeatureDescriptorEnum.varType).wGetValue();
+		String name = pattern.wGet(CommonsFeatureDescriptorEnum.varName).wStringValue();
+
+		if (matcher.getBindings().wIsSet(name)) {
+			IEntity value = matcher.getBindings().wGet(name);
+
+			if (EntityUtils.isVariable(value)) {
+				if (!EntityUtils.isVariable(model) ||
+						!value.wGet(CommonsFeatureDescriptorEnum.varType).wGetValue().equals(model.wGet(CommonsFeatureDescriptorEnum.varType).wGetValue()) ||
+						!value.wGet(CommonsFeatureDescriptorEnum.varName).wStringValue().equals(model.wGet(CommonsFeatureDescriptorEnum.varName).wStringValue()))
+					matcher.mismatch(pattern, model);
+			} else {
+				if (type.equals(value.wGetEntityDescriptor()))
+					matcher.match(value, model);
+				else
+					matcher.mismatch(pattern, model);
+			}
+		} else {
+			if (type.equals(
 					EntityUtils.isVariable(model) ?
 							(EntityDescriptor<?>) model.wGet(CommonsFeatureDescriptorEnum.varType).wGetValue()
 							: model.wGetEntityDescriptor()))

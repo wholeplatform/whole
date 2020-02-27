@@ -17,10 +17,10 @@
  */
 package org.whole.lang.evaluators;
 
-import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.EntityDescriptor;
+import org.whole.lang.reflect.EntityDescriptorEnum;
 import org.whole.lang.reflect.ILanguageKit;
 
 /**
@@ -33,9 +33,6 @@ public class ChooseByTypeEvaluator extends AbstractDelegatingNestedEvaluator {
 		super(new IExecutable[languageKit.getEntityDescriptorEnum().size()+1]);
 		this.languageKit = languageKit;
 
-		for (int i = 0; i < producersSize()-1; i++) {
-			producers[i] = executableFactory().createConstant(BindingManagerFactory.instance.createVoid(), true);
-		}
 		producers[producersSize()-1] = executableFactory().createEmpty();
 	}
 
@@ -45,11 +42,18 @@ public class ChooseByTypeEvaluator extends AbstractDelegatingNestedEvaluator {
 
 		producers[ed.getOrdinal()] = executable;
 	}
+	public void setDefaultCase(IExecutable executable) {
+		producers[producersSize()-1] = executable;
+	}
 
 	@Override
 	public void reset(IEntity entity) {
 		super.reset(entity);
-		producerIndex = entity.wGetLanguageKit().equals(languageKit) ? entity.wGetEntityOrd() : languageKit.getEntityDescriptorEnum().size();
+		producerIndex = entity.wGetLanguageKit().equals(languageKit) ? entity.wGetEntityOrd() : producersSize()-1;
+	}
+
+	protected IExecutable getProducer() {
+		return getProducer(producers[producerIndex] != null ? producerIndex : producersSize()-1);
 	}
 
 	public IEntity evaluateNext() {
@@ -60,6 +64,28 @@ public class ChooseByTypeEvaluator extends AbstractDelegatingNestedEvaluator {
 		return lastEntity = getProducer().evaluateRemaining();
 	}
 
+	@Override
+	public void toString(StringBuilder sb) {
+		sb.append(toStringPrefix());
+    	
+		EntityDescriptorEnum edEnum = languageKit.getEntityDescriptorEnum();
+
+		for (int i=0; i<producersSize(); i++) {
+			if (producers[i] != null) {
+				if (i>0)
+					sb.append(toStringSeparator());
+
+				if (i < edEnum.size())
+					sb.append(edEnum.valueOf(i));
+				else
+					sb.append("...");
+				sb.append(": ");
+				producers[i].toString(sb);
+			}
+		}
+
+    	sb.append(toStringSuffix());
+    }
     @Override
 	protected String toStringPrefix() {
 		return "chooseByType(";
