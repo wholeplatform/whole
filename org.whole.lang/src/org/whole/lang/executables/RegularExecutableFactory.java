@@ -48,6 +48,7 @@ import org.whole.lang.evaluators.ChildOrAdjacentEvaluator;
 import org.whole.lang.evaluators.ChildRangeEvaluator;
 import org.whole.lang.evaluators.ChooseByOrderEvaluator;
 import org.whole.lang.evaluators.ChooseByTypeEvaluator;
+import org.whole.lang.evaluators.ChooseByTypeURIEvaluator;
 import org.whole.lang.evaluators.CloneReplacingEvaluator;
 import org.whole.lang.evaluators.CollectionEvaluator;
 import org.whole.lang.evaluators.ConstantChildEvaluator;
@@ -434,6 +435,9 @@ public class RegularExecutableFactory implements ExecutableFactory {
 
 	public IExecutable createChoose(IExecutable... executableChain) {
 		return (IExecutable) new ChooseByOrderEvaluator((IExecutable[]) executableChain);
+	}
+	public IExecutable createChoose(int casesSize) {
+		return (IExecutable) new ChooseByTypeURIEvaluator(casesSize);
 	}
 	public IExecutable createChoose(ILanguageKit languageKit) {
 		return (IExecutable) new ChooseByTypeEvaluator(languageKit);

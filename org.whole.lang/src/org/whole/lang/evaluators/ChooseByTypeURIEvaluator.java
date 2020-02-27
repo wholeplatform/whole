@@ -17,30 +17,27 @@
  */
 package org.whole.lang.evaluators;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.reflect.EntityDescriptor;
-import org.whole.lang.reflect.EntityDescriptorEnum;
-import org.whole.lang.reflect.ILanguageKit;
 
 /**
  * @author Riccardo Solmi
  */
-public class ChooseByTypeEvaluator extends AbstractDelegatingNestedEvaluator {
-	private ILanguageKit languageKit;
+public class ChooseByTypeURIEvaluator extends AbstractDelegatingNestedEvaluator {
+	private Map<String, Integer> casesMap = new HashMap<>();
 
-	public ChooseByTypeEvaluator(ILanguageKit languageKit) {
-		super(new IExecutable[languageKit.getEntityDescriptorEnum().size()+1]);
-		this.languageKit = languageKit;
-
+	public ChooseByTypeURIEvaluator(int casesSize) {
+		super(casesSize+1);
 		producers[producersSize()-1] = executableFactory().createEmpty();
 	}
 
-	public void setCase(EntityDescriptor<?> ed, IExecutable executable) {
-		if (!ed.getLanguageKit().equals(languageKit))
-			throw new IllegalArgumentException();
-
-		producers[ed.getOrdinal()] = executable;
+	public void setCase(String typeUri, IExecutable executable) {
+		int producerIndex = casesMap.size();
+		casesMap.put(typeUri, producerIndex);
+		producers[producerIndex] = executable;
 	}
 	public void setDefaultCase(IExecutable executable) {
 		producers[producersSize()-1] = executable;
@@ -49,11 +46,8 @@ public class ChooseByTypeEvaluator extends AbstractDelegatingNestedEvaluator {
 	@Override
 	public void reset(IEntity entity) {
 		super.reset(entity);
-		producerIndex = entity.wGetLanguageKit().equals(languageKit) ? entity.wGetEntityOrd() : producersSize()-1;
-	}
-
-	protected IExecutable getProducer() {
-		return getProducer(producers[producerIndex] != null ? producerIndex : producersSize()-1);
+		String typeUri = entity.wGetEntityDescriptor().getURI();
+		producerIndex = casesMap.getOrDefault(typeUri, producersSize()-1);
 	}
 
 	public IEntity evaluateNext() {
@@ -67,17 +61,13 @@ public class ChooseByTypeEvaluator extends AbstractDelegatingNestedEvaluator {
 	@Override
 	public void toString(StringBuilder sb) {
 		sb.append(toStringPrefix());
-    	
-		EntityDescriptorEnum edEnum = languageKit.getEntityDescriptorEnum();
 
-		for (int i=0; i<producersSize()-1; i++) {
-			if (producers[i] != null) {
-				sb.append(edEnum.valueOf(i));
-				sb.append(": ");
-				producers[i].toString(sb);
-				
-				sb.append(toStringSeparator());
-			}
+		for (Map.Entry<String, Integer> entry : casesMap.entrySet()) {
+			sb.append(entry.getKey());
+			sb.append(": ");
+			producers[entry.getValue()].toString(sb);
+
+			sb.append(toStringSeparator());
 		}
 		sb.append("...: ");
 		producers[producersSize()-1].toString(sb);
@@ -86,7 +76,7 @@ public class ChooseByTypeEvaluator extends AbstractDelegatingNestedEvaluator {
     }
     @Override
 	protected String toStringPrefix() {
-		return "chooseByType(";
+		return "chooseByTypeUri(";
 	}
     @Override
 	protected String toStringSeparator() {

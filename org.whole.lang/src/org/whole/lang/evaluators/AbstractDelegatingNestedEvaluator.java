@@ -33,6 +33,9 @@ public abstract class AbstractDelegatingNestedEvaluator extends AbstractNestedEv
 	public AbstractDelegatingNestedEvaluator(IExecutable... executables) {
 		super(executables);
 	}
+	protected AbstractDelegatingNestedEvaluator(int producersSize) {
+		super(producersSize);
+	}
 
 	@Override
 	public void reset(IEntity entity) {

@@ -26,14 +26,13 @@ import java.util.Set;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.commons.reflect.CommonsLanguageKit;
 import org.whole.lang.comparators.BusinessIdentityComparator;
 import org.whole.lang.comparators.IEntityComparator;
 import org.whole.lang.comparators.IdentityExecutableComparator;
 import org.whole.lang.evaluators.AbstractDelegatingNestedTrySupplierEvaluator;
-import org.whole.lang.evaluators.ChooseByTypeEvaluator;
+import org.whole.lang.evaluators.ChooseByTypeURIEvaluator;
 import org.whole.lang.evaluators.FilterByIndexRangeEvaluator;
 import org.whole.lang.evaluators.FilterEvaluator;
 import org.whole.lang.evaluators.SelectEvaluator;
@@ -58,8 +57,8 @@ import org.whole.lang.reflect.CompositeKinds;
 import org.whole.lang.reflect.DataKinds;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.EntityKinds;
-import org.whole.lang.reflect.ILanguageKit;
 import org.whole.lang.util.EntityUtils;
+import org.whole.lang.util.ResourceUtils;
 import org.whole.lang.util.WholeMessages;
 import org.whole.lang.visitors.IVisitor;
 
@@ -183,8 +182,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 			entity.get(0).accept(this);
 		else {
 			boolean canOptimize = true;
-			ILanguageKit languageKit = null;
-			Map<EntityDescriptor<?>, Expression> typeMap = new HashMap<EntityDescriptor<?>, Expression>();
+			Map<String, Expression> typeMap = new HashMap<>();
 
 			IEntity ifWithTemplate = new IfWithTemplate().create();
 			IEntity ifWithTypeTest = new IfWithTypeTest().create();
@@ -200,40 +198,39 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 				}
 
 				//TODO if resolver condition set default case but add pattern or default behavior
-				
-				EntityDescriptor<?> ed = patternBindings.wIsSet("typeTest") && Matcher.match(QueriesEntityDescriptorEnum.TypeTest, patternBindings.wGet("typeTest"))
-						? CommonsDataTypePersistenceParser.getEntityDescriptor(patternBindings.wStringValue("typeTest"))
-						: patternBindings.wIsSet("pattern") ? patternBindings.wGet("pattern").wGetEntityDescriptor() : null;
 
-				if (ed == null) {
+				String typeUri = patternBindings.wIsSet("typeTest") && Matcher.match(QueriesEntityDescriptorEnum.TypeTest, patternBindings.wGet("typeTest"))
+						? patternBindings.wStringValue("typeTest")
+						: patternBindings.wIsSet("pattern") ? patternBindings.wGet("pattern").wGetEntityDescriptor().getURI() : null;
+
+				if (typeUri == null) {
 					//typeTest has matched a resolver or an extended language subtype
 					canOptimize = false;
 					break;
 				}
 
-				if (typeMap.containsKey(ed)) {
-					Expression behavior = typeMap.get(ed);
+				if (!ResourceUtils.hasFragmentPart(typeUri)) {
+					canOptimize = false;
+					break;
+				}	
+
+				if (typeMap.containsKey(typeUri)) {
+					Expression behavior = typeMap.get(typeUri);
 					boolean isPattern = behavior.wGetParent() == entity;
 					if (isPattern) {
 						canOptimize = false;
 						break;
 					}
 				} else {
-					if (languageKit == null)
-						languageKit = ed.getLanguageKit();
-					else if (!languageKit.equals(ed.getLanguageKit())) {
-						canOptimize = false;
-						break;
-					}
-					typeMap.put(ed, patternBindings.wIsSet("pattern") ? child : patternBindings.wGet("expression").wGetAdapter(QueriesEntityDescriptorEnum.Expression));
+					typeMap.put(typeUri, patternBindings.wIsSet("pattern") ? child : patternBindings.wGet("expression").wGetAdapter(QueriesEntityDescriptorEnum.Expression));
 				}
 			}
 
-			if (canOptimize && languageKit != null) {
-				IExecutable ri = executableFactory().createChoose(languageKit);
-				ChooseByTypeEvaluator chooseEvaluator = (ChooseByTypeEvaluator) ri.undecoratedExecutable();
+			if (canOptimize) {
+				IExecutable ri = executableFactory().createChoose(typeMap.size());
+				ChooseByTypeURIEvaluator chooseEvaluator = (ChooseByTypeURIEvaluator) ri.undecoratedExecutable();
 
-				for (Entry<EntityDescriptor<?>, Expression> entry : typeMap.entrySet()) {
+				for (Entry<String, Expression> entry : typeMap.entrySet()) {
 					Set<String> oldDeclaredNames = declaredNames;
 
 					entry.getValue().accept(this);
@@ -243,7 +240,6 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 				}
 
 				setExecutableResult(ri.withSourceEntity(entity));
-
 			} else {
 				IExecutable[] executableChain = new IExecutable[size];
 

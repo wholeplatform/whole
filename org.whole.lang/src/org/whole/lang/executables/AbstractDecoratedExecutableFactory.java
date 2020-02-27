@@ -338,6 +338,10 @@ public class AbstractDecoratedExecutableFactory implements ExecutableFactory {
 		return decorate(factory.createChoose(executableChain));
 	}
 
+	public IExecutable createChoose(int casesSize) {
+		return decorate(factory.createChoose(casesSize));
+	}
+
 	public IExecutable createChoose(ILanguageKit languageKit) {
 		return decorate(factory.createChoose(languageKit));
 	}

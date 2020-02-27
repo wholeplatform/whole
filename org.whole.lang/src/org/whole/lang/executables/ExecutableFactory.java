@@ -195,6 +195,8 @@ public interface ExecutableFactory {
 
 	IExecutable createChoose(IExecutable... executableChain);
 
+	IExecutable createChoose(int casesSize);
+
 	IExecutable createChoose(ILanguageKit languageKit);
 
 	IExecutable createBlock(IExecutable... executableChain);
