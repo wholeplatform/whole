@@ -868,7 +868,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 	
 			setResult(entity.getModel(), model);
 		} catch (ParseException e) {
-			throw e;//FIXME ?
+			throw new WholeIllegalArgumentException(e).withSourceEntity(entity).withBindings(getBindings());
 		} catch (Exception e) {
 			throw IWholeRuntimeException.asWholeException(e, entity, getBindings());
 		}
