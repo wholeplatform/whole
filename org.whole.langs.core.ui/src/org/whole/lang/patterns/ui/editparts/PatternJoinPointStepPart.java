@@ -14,9 +14,14 @@
  */
 package org.whole.lang.patterns.ui.editparts;
 
+import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.MarginBorder;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Font;
 import org.whole.lang.ui.editparts.AbstractPart;
-import org.whole.lang.ui.figures.LabelFactory;
+import org.whole.lang.ui.figures.EntityLabel;
+import org.whole.lang.ui.figures.FigureConstants;
 
 /**
  *  @author  Riccardo Solmi
@@ -24,6 +29,26 @@ import org.whole.lang.ui.figures.LabelFactory;
 public class PatternJoinPointStepPart extends AbstractPart {
 
     protected IFigure createFigure() {
-        return LabelFactory.createRelation();
+		EntityLabel label = new EntityLabel() {
+			public Color getLocalForegroundColor() {
+				return FigureConstants.keywordsColor;
+			}	
+			public Font getLocalFont() {
+				return FigureConstants.keywordsFont;
+			}
+			@Override
+			protected void paintFigure(Graphics g) {
+		        super.paintFigure(g);
+
+		    	int oldAlpha = g.getAlpha();
+				g.setAlpha(100);
+		    	g.setBackgroundColor(FigureConstants.relationsColor);
+		        g.fillRoundRectangle(getBounds(), 8, 6);
+		        g.setAlpha(oldAlpha);
+			}
+		};
+		label.setBorder(new MarginBorder(0,2,0,2));
+		label.setText("applicationPoint");
+		return label;
     }
 }

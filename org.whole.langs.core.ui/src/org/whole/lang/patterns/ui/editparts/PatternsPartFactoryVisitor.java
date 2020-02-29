@@ -426,8 +426,7 @@ public class PatternsPartFactoryVisitor extends PatternsIdentityDefaultVisitor i
 
     @Override
     public void visit(PatternJoinPointStep entity) {
-        super.visit(entity);
-        //part = new PatternJoinPointStepPart();
+        part = new PatternJoinPointStepPart();
     }
 
     @Override

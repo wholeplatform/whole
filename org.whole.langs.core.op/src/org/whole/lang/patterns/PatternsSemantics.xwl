@@ -636,7 +636,7 @@
                 <semantics:AnyType/>
                 <semantics:AnyType/>
             </semantics:FunctionType>
-            <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="55">
+            <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="56">
                 <queries:If>
                     <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Library"/>
                     <queries:Scope>
@@ -1017,6 +1017,168 @@
                             <queries:VoidLiteral/>
                         </queries:Block>
                     </queries:Scope>
+                </queries:If>
+                <queries:If>
+                    <queries:And initialCapacity="2">
+                        <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Pattern"/>
+                        <queries:Some>
+                            <queries:Filter>
+                                <queries:DescendantStep/>
+                                <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#PatternJoinPointStep"/>
+                            </queries:Filter>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </queries:Some>
+                    </queries:And>
+                    <queries:Block initialCapacity="2">
+                        <queries:Path initialCapacity="2">
+                            <queries:Choose initialCapacity="2">
+                                <queries:If>
+                                    <semantics:FunctionApplication>
+                                        <semantics:Name value="containsResultWeaver"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </semantics:FunctionApplication>
+                                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <queries:If>
+                                        <commons:StageDownFragment>
+                                        <semantics:TypeCast>
+                                        <semantics:EntityType value="http://lang.whole.org/Queries#TypeTest"/>
+                                        <queries:Addition>
+                                        <queries:VariableRefStep value="modelUri"/>
+                                        <queries:Addition>
+                                        <queries:StringLiteral value="#"/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#name"/>
+                                        </queries:Addition>
+                                        </queries:Addition>
+                                        </semantics:TypeCast>
+                                        </commons:StageDownFragment>
+                                        <queries:Scope>
+                                        <queries:FreshNames initialCapacity="2">
+                                        <queries:Name value="joinpoints#applicationPoint"/>
+                                        <queries:Name value="joinpoints#resultCollectorPoint"/>
+                                        </queries:FreshNames>
+                                        <queries:Sequence initialCapacity="2">
+                                        <queries:Filter>
+                                        <commons:StageUpFragment>
+                                        <commons:Resolver/>
+                                        </commons:StageUpFragment>
+                                        <queries:VariableTest value="joinpoints#applicationPoint"/>
+                                        </queries:Filter>
+                                        <queries:Block initialCapacity="4">
+                                        <queries:Filter>
+                                        <queries:UnionAll>
+                                        <queries:Expressions initialCapacity="0"/>
+                                        </queries:UnionAll>
+                                        <queries:VariableTest value="joinpoints#resultCollectorPoint"/>
+                                        </queries:Filter>
+                                        <commons:StageDownFragment>
+                                        <queries:Path initialCapacity="2">
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="markExecutableStage"/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#template"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        <queries:Choose initialCapacity="2">
+                                        <queries:If>
+                                        <queries:TypeTest value="http://lang.whole.org/Queries#Sequence"/>
+                                        <queries:Delete>
+                                        <queries:ChildStep/>
+                                        </queries:Delete>
+                                        </queries:If>
+                                        <queries:If>
+                                        <commons:Resolver/>
+                                        <queries:SelfStep/>
+                                        </queries:If>
+                                        </queries:Choose>
+                                        </queries:Path>
+                                        </commons:StageDownFragment>
+                                        <queries:Delete>
+                                        <queries:VariableRefStep value="joinpoints#applicationPoint"/>
+                                        </queries:Delete>
+                                        <queries:Delete>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="joinpoints#resultCollectorPoint"/>
+                                        <queries:ChildStep/>
+                                        </queries:Path>
+                                        </queries:Delete>
+                                        </queries:Block>
+                                        </queries:Sequence>
+                                        </queries:Scope>
+                                        </queries:If>
+                                    </commons:StageUpFragment>
+                                </queries:If>
+                                <queries:If>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <queries:If>
+                                        <commons:StageDownFragment>
+                                        <semantics:TypeCast>
+                                        <semantics:EntityType value="http://lang.whole.org/Queries#TypeTest"/>
+                                        <queries:Addition>
+                                        <queries:VariableRefStep value="modelUri"/>
+                                        <queries:Addition>
+                                        <queries:StringLiteral value="#"/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#name"/>
+                                        </queries:Addition>
+                                        </queries:Addition>
+                                        </semantics:TypeCast>
+                                        </commons:StageDownFragment>
+                                        <queries:Scope>
+                                        <queries:FreshNames initialCapacity="1">
+                                        <queries:Name value="joinpoints#applicationPoint"/>
+                                        </queries:FreshNames>
+                                        <queries:Sequence initialCapacity="2">
+                                        <queries:Filter>
+                                        <commons:StageUpFragment>
+                                        <commons:Resolver/>
+                                        </commons:StageUpFragment>
+                                        <queries:VariableTest value="joinpoints#applicationPoint"/>
+                                        </queries:Filter>
+                                        <queries:Block initialCapacity="3">
+                                        <commons:StageDownFragment>
+                                        <queries:Path initialCapacity="2">
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="markExecutableStage"/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#template"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        <queries:Choose initialCapacity="2">
+                                        <queries:If>
+                                        <queries:TypeTest value="http://lang.whole.org/Queries#Sequence"/>
+                                        <queries:Delete>
+                                        <queries:ChildStep/>
+                                        </queries:Delete>
+                                        </queries:If>
+                                        <queries:If>
+                                        <commons:Resolver/>
+                                        <queries:SelfStep/>
+                                        </queries:If>
+                                        </queries:Choose>
+                                        </queries:Path>
+                                        </commons:StageDownFragment>
+                                        <queries:Delete>
+                                        <queries:VariableRefStep value="joinpoints#applicationPoint"/>
+                                        </queries:Delete>
+                                        <queries:VoidLiteral/>
+                                        </queries:Block>
+                                        </queries:Sequence>
+                                        </queries:Scope>
+                                        </queries:If>
+                                    </commons:StageUpFragment>
+                                </queries:If>
+                            </queries:Choose>
+                            <semantics:FunctionApplication>
+                                <semantics:Name value="atExpandPatternsInplaceBodyPoint"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            </semantics:FunctionApplication>
+                        </queries:Path>
+                        <queries:VoidLiteral/>
+                    </queries:Block>
                 </queries:If>
                 <queries:If>
                     <queries:And initialCapacity="2">
@@ -3152,6 +3314,15 @@
                                 <queries:Select>
                                     <queries:Filter>
                                         <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <queries:Scope>
+                                        <queries:FreshNames initialCapacity="1">
+                                        <queries:Name value="pattern#self"/>
+                                        </queries:FreshNames>
+                                        <queries:Block initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:SelfStep/>
+                                        <queries:VariableTest value="pattern#self"/>
+                                        </queries:Filter>
                                         <queries:Create>
                                         <commons:StageDownFragment>
                                         <semantics:TypeCast>
@@ -3179,6 +3350,8 @@
                                         </commons:Variable>
                                         </queries:Features>
                                         </queries:Create>
+                                        </queries:Block>
+                                        </queries:Scope>
                                         </commons:StageUpFragment>
                                         <queries:VariableTest value="createPattern"/>
                                     </queries:Filter>
@@ -3215,11 +3388,14 @@
                                         <commons:VarName value="argumentName"/>
                                         <commons:Quantifier value="!"/>
                                         </commons:Variable>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="pattern#self"/>
                                         <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Workflows#Expression"/>
+                                        <commons:VarType value="http://lang.whole.org/Queries#Expression"/>
                                         <commons:VarName value="argumentExpression"/>
                                         <commons:Quantifier value="!"/>
                                         </commons:Variable>
+                                        </queries:Path>
                                         </queries:Feature>
                                         </commons:StageUpFragment>
                                         <queries:VariableTest value="patternArgument"/>
@@ -3257,11 +3433,14 @@
                                         <commons:VarName value="argumentName"/>
                                         <commons:Quantifier value="!"/>
                                         </commons:Variable>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="pattern#self"/>
                                         <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Workflows#Expression"/>
+                                        <commons:VarType value="http://lang.whole.org/Queries#Expression"/>
                                         <commons:VarName value="argumentExpression"/>
                                         <commons:Quantifier value="!"/>
                                         </commons:Variable>
+                                        </queries:Path>
                                         </queries:Feature>
                                         </commons:StageUpFragment>
                                         <queries:VariableTest value="defaultArgument"/>
@@ -3318,6 +3497,8 @@
                                         </queries:If>
                                         <queries:If>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <semantics:TypeCast>
+                                        <semantics:EntityType value="http://lang.whole.org/Queries#FeatureStep"/>
                                         <queries:Addition>
                                         <queries:VariableRefStep value="modelUri"/>
                                         <queries:Addition>
@@ -3325,6 +3506,7 @@
                                         <queries:FeatureStep value="http://lang.whole.org/Models#name"/>
                                         </queries:Addition>
                                         </queries:Addition>
+                                        </semantics:TypeCast>
                                         </queries:If>
                                         </queries:Choose>
                                         <queries:VariableTest value="argumentExpression"/>
@@ -3591,8 +3773,17 @@
                         </queries:FreshNames>
                         <queries:Select>
                             <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
-                                <queries:Create>
-                                    <commons:StageDownFragment>
+                                <queries:Scope>
+                                    <queries:FreshNames initialCapacity="1">
+                                        <queries:Name value="pattern#self"/>
+                                    </queries:FreshNames>
+                                    <queries:Block initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:SelfStep/>
+                                        <queries:VariableTest value="pattern#self"/>
+                                        </queries:Filter>
+                                        <queries:Create>
+                                        <commons:StageDownFragment>
                                         <semantics:TypeCast>
                                         <semantics:EntityType value="http://lang.whole.org/Queries#EntityType"/>
                                         <queries:Addition>
@@ -3603,9 +3794,9 @@
                                         </queries:Addition>
                                         </queries:Addition>
                                         </semantics:TypeCast>
-                                    </commons:StageDownFragment>
-                                    <queries:Registry value="DEFAULT"/>
-                                    <queries:Features initialCapacity="2">
+                                        </commons:StageDownFragment>
+                                        <queries:Registry value="DEFAULT"/>
+                                        <queries:Features initialCapacity="2">
                                         <commons:Variable>
                                         <commons:VarType value="http://lang.whole.org/Queries#Feature"/>
                                         <commons:VarName value="patternArgument"/>
@@ -3616,8 +3807,10 @@
                                         <commons:VarName value="defaultArgument"/>
                                         <commons:Quantifier value="*"/>
                                         </commons:Variable>
-                                    </queries:Features>
-                                </queries:Create>
+                                        </queries:Features>
+                                        </queries:Create>
+                                    </queries:Block>
+                                </queries:Scope>
                             </commons:StageUpFragment>
                             <queries:Filter>
                                 <queries:SelfStep/>
@@ -3648,11 +3841,14 @@
                                         <commons:VarName value="argumentName"/>
                                         <commons:Quantifier value="!"/>
                                         </commons:Variable>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="pattern#self"/>
                                         <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Workflows#Expression"/>
+                                        <commons:VarType value="http://lang.whole.org/Queries#Expression"/>
                                         <commons:VarName value="argumentExpression"/>
                                         <commons:Quantifier value="!"/>
                                         </commons:Variable>
+                                        </queries:Path>
                                         </queries:Feature>
                                         </commons:StageUpFragment>
                                         <queries:VariableTest value="patternArgument"/>
@@ -3690,11 +3886,14 @@
                                         <commons:VarName value="argumentName"/>
                                         <commons:Quantifier value="!"/>
                                         </commons:Variable>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="pattern#self"/>
                                         <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Workflows#Expression"/>
+                                        <commons:VarType value="http://lang.whole.org/Queries#Expression"/>
                                         <commons:VarName value="argumentExpression"/>
                                         <commons:Quantifier value="!"/>
                                         </commons:Variable>
+                                        </queries:Path>
                                         </queries:Feature>
                                         </commons:StageUpFragment>
                                         <queries:VariableTest value="defaultArgument"/>
@@ -3751,6 +3950,8 @@
                                         </queries:If>
                                         <queries:If>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <semantics:TypeCast>
+                                        <semantics:EntityType value="http://lang.whole.org/Queries#FeatureStep"/>
                                         <queries:Addition>
                                         <queries:VariableRefStep value="modelUri"/>
                                         <queries:Addition>
@@ -3758,6 +3959,7 @@
                                         <queries:FeatureStep value="http://lang.whole.org/Models#name"/>
                                         </queries:Addition>
                                         </queries:Addition>
+                                        </semantics:TypeCast>
                                         </queries:If>
                                         </queries:Choose>
                                         <queries:VariableTest value="argumentExpression"/>
@@ -4070,7 +4272,7 @@
                     <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#PatternJoinPointStep"/>
                     <semantics:TypeCast>
                         <semantics:EntityType value="http://lang.whole.org/Queries#VariableRefStep"/>
-                        <queries:StringLiteral value="joinpoints#selfPattern"/>
+                        <queries:StringLiteral value="joinpoints#applicationPoint"/>
                     </semantics:TypeCast>
                 </queries:If>
                 <queries:If>

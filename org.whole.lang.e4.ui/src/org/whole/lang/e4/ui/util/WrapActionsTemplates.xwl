@@ -14,17 +14,15 @@
                         <queries:PointwiseUpdate>
                             <queries:Path initialCapacity="2">
                                 <queries:Filter>
-                                    <workflows:CreateEntity xmlns:workflows="http://lang.whole.org/Workflows">
-                                        <workflows:Text value="create replacement entity"/>
-                                        <commons:Resolver/>
-                                        <workflows:Registry value="DEFAULT"/>
+                                    <queries:Create>
                                         <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Workflows#StringLiteral"/>
+                                        <commons:VarType value="http://lang.whole.org/Queries#EntityType"/>
                                         <commons:VarName value="edUri"/>
                                         <commons:Quantifier value="!"/>
                                         </commons:Variable>
+                                        <queries:Registry value="DEFAULT"/>
                                         <commons:Resolver/>
-                                    </workflows:CreateEntity>
+                                    </queries:Create>
                                     <queries:VariableTest value="newEntity"/>
                                 </queries:Filter>
                                 <commons:Variable>
@@ -70,17 +68,15 @@
                     </queries:FreshNames>
                     <queries:Block initialCapacity="4">
                         <queries:Filter>
-                            <workflows:CreateEntity xmlns:workflows="http://lang.whole.org/Workflows">
-                                <workflows:Text value="create replacement entity"/>
-                                <commons:Resolver/>
-                                <workflows:Registry value="DEFAULT"/>
+                            <queries:Create>
                                 <commons:Variable>
-                                    <commons:VarType value="http://lang.whole.org/Workflows#StringLiteral"/>
+                                    <commons:VarType value="http://lang.whole.org/Queries#EntityType"/>
                                     <commons:VarName value="edUri"/>
                                     <commons:Quantifier value="!"/>
                                 </commons:Variable>
+                                <queries:Registry value="DEFAULT"/>
                                 <commons:Resolver/>
-                            </workflows:CreateEntity>
+                            </queries:Create>
                             <queries:VariableTest value="newEntity"/>
                         </queries:Filter>
                         <queries:If>
@@ -164,17 +160,15 @@
                         <queries:PointwiseUpdate>
                             <queries:Path initialCapacity="3">
                                 <queries:Filter>
-                                    <workflows:CreateEntity xmlns:workflows="http://lang.whole.org/Workflows">
-                                        <workflows:Text value="create replacement entity"/>
-                                        <commons:Resolver/>
-                                        <workflows:Registry value="DEFAULT"/>
+                                    <queries:Create>
                                         <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Workflows#StringLiteral"/>
+                                        <commons:VarType value="http://lang.whole.org/Queries#EntityType"/>
                                         <commons:VarName value="edUri"/>
                                         <commons:Quantifier value="!"/>
                                         </commons:Variable>
+                                        <queries:Registry value="DEFAULT"/>
                                         <commons:Resolver/>
-                                    </workflows:CreateEntity>
+                                    </queries:Create>
                                     <queries:VariableTest value="newEntity"/>
                                 </queries:Filter>
                                 <commons:Variable>
