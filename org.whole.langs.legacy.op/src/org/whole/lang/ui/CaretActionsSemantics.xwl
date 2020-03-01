@@ -77,31 +77,33 @@
                                 </queries:Filter>
                             </queries:Path>
                             <queries:Filter>
-                                <workflows:CreateEntity xmlns:workflows="http://lang.whole.org/Workflows">
-                                    <workflows:Text value="rightText"/>
-                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                    <workflows:Registry value="DEFAULT"/>
-                                    <workflows:Variable value="focusEntityURI"/>
-                                    <workflows:Expressions initialCapacity="1">
-                                        <workflows:Variable value="rightText"/>
-                                    </workflows:Expressions>
-                                </workflows:CreateEntity>
+                                <queries:Create>
+                                    <semantics:TypeCast>
+                                        <semantics:EntityType value="http://lang.whole.org/Queries#EntityType"/>
+                                        <queries:VariableRefStep value="focusEntityURI"/>
+                                    </semantics:TypeCast>
+                                    <queries:Registry value="DEFAULT"/>
+                                    <queries:Children initialCapacity="1">
+                                        <queries:VariableRefStep value="rightText"/>
+                                    </queries:Children>
+                                </queries:Create>
                                 <queries:VariableTest value="newEntity"/>
                             </queries:Filter>
                             <queries:PointwiseUpdate>
                                 <queries:VariableRefStep value="focusEntity"/>
-                                <workflows:CreateEntity xmlns:workflows="http://lang.whole.org/Workflows">
-                                    <workflows:Text value="leftText+selectedText"/>
-                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                    <workflows:Registry value="DEFAULT"/>
-                                    <workflows:Variable value="focusEntityURI"/>
-                                    <workflows:Expressions initialCapacity="1">
+                                <queries:Create>
+                                    <semantics:TypeCast>
+                                        <semantics:EntityType value="http://lang.whole.org/Queries#EntityType"/>
+                                        <queries:VariableRefStep value="focusEntityURI"/>
+                                    </semantics:TypeCast>
+                                    <queries:Registry value="DEFAULT"/>
+                                    <queries:Children initialCapacity="1">
                                         <queries:Addition>
                                         <queries:VariableRefStep value="leftText"/>
                                         <queries:VariableRefStep value="selectedText"/>
                                         </queries:Addition>
-                                    </workflows:Expressions>
-                                </workflows:CreateEntity>
+                                    </queries:Children>
+                                </queries:Create>
                             </queries:PointwiseUpdate>
                             <queries:PointwiseUpdate>
                                 <queries:VariableRefStep value="caretPosition"/>
@@ -218,15 +220,16 @@
                                 </queries:Filter>
                             </queries:Path>
                             <queries:Filter>
-                                <workflows:CreateEntity xmlns:workflows="http://lang.whole.org/Workflows">
-                                    <workflows:Text value="rightText"/>
-                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                    <workflows:Registry value="DEFAULT"/>
-                                    <workflows:Variable value="focusEntityURI"/>
-                                    <workflows:Expressions initialCapacity="1">
-                                        <workflows:Variable value="rightText"/>
-                                    </workflows:Expressions>
-                                </workflows:CreateEntity>
+                                <queries:Create>
+                                    <semantics:TypeCast>
+                                        <semantics:EntityType value="http://lang.whole.org/Queries#EntityType"/>
+                                        <queries:VariableRefStep value="focusEntityURI"/>
+                                    </semantics:TypeCast>
+                                    <queries:Registry value="DEFAULT"/>
+                                    <queries:Children initialCapacity="1">
+                                        <queries:VariableRefStep value="rightText"/>
+                                    </queries:Children>
+                                </queries:Create>
                                 <queries:VariableTest value="newEntity"/>
                             </queries:Filter>
                             <queries:Path initialCapacity="4">
@@ -249,15 +252,16 @@
                                 </queries:Filter>
                             </queries:Path>
                             <queries:Filter>
-                                <workflows:CreateEntity xmlns:workflows="http://lang.whole.org/Workflows">
-                                    <workflows:Text value="newEntity"/>
-                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                    <workflows:Registry value="DEFAULT"/>
-                                    <workflows:Variable value="parentFocusEntityURI"/>
-                                    <workflows:Expressions initialCapacity="1">
-                                        <workflows:Variable value="newEntity"/>
-                                    </workflows:Expressions>
-                                </workflows:CreateEntity>
+                                <queries:Create>
+                                    <semantics:TypeCast>
+                                        <semantics:EntityType value="http://lang.whole.org/Queries#EntityType"/>
+                                        <queries:VariableRefStep value="parentFocusEntityURI"/>
+                                    </semantics:TypeCast>
+                                    <queries:Registry value="DEFAULT"/>
+                                    <queries:Children initialCapacity="1">
+                                        <queries:VariableRefStep value="newEntity"/>
+                                    </queries:Children>
+                                </queries:Create>
                                 <queries:VariableTest value="newEntityContainer"/>
                             </queries:Filter>
                             <queries:CartesianInsert>
@@ -272,15 +276,16 @@
                             </queries:CartesianInsert>
                             <queries:PointwiseUpdate>
                                 <queries:VariableRefStep value="focusEntity"/>
-                                <workflows:CreateEntity xmlns:workflows="http://lang.whole.org/Workflows">
-                                    <workflows:Text value="leftText+selectedText"/>
-                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                    <workflows:Registry value="DEFAULT"/>
-                                    <workflows:Variable value="focusEntityURI"/>
-                                    <workflows:Expressions initialCapacity="1">
+                                <queries:Create>
+                                    <semantics:TypeCast>
+                                        <semantics:EntityType value="http://lang.whole.org/Queries#EntityType"/>
+                                        <queries:VariableRefStep value="focusEntityURI"/>
+                                    </semantics:TypeCast>
+                                    <queries:Registry value="DEFAULT"/>
+                                    <queries:Children initialCapacity="1">
                                         <queries:VariableRefStep value="leftText"/>
-                                    </workflows:Expressions>
-                                </workflows:CreateEntity>
+                                    </queries:Children>
+                                </queries:Create>
                             </queries:PointwiseUpdate>
                             <queries:Choose initialCapacity="2">
                                 <queries:CartesianInsert>
@@ -574,18 +579,19 @@
                                         </semantics:FunctionApplication>
                                         </queries:Path>
                                         </queries:PointwiseUpdate>
-                                        <workflows:CreateEntity xmlns:workflows="http://lang.whole.org/Workflows">
-                                        <workflows:Text value="beforeEntity+focusEntity"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <workflows:Registry value="DEFAULT"/>
-                                        <workflows:Variable value="typeURI"/>
-                                        <workflows:Expressions initialCapacity="1">
+                                        <queries:Create>
+                                        <semantics:TypeCast>
+                                        <semantics:EntityType value="http://lang.whole.org/Queries#EntityType"/>
+                                        <queries:VariableRefStep value="typeURI"/>
+                                        </semantics:TypeCast>
+                                        <queries:Registry value="DEFAULT"/>
+                                        <queries:Children initialCapacity="1">
                                         <queries:Addition>
                                         <queries:VariableRefStep value="beforeEntity"/>
                                         <queries:VariableRefStep value="focusEntity"/>
                                         </queries:Addition>
-                                        </workflows:Expressions>
-                                        </workflows:CreateEntity>
+                                        </queries:Children>
+                                        </queries:Create>
                                         </queries:Block>
                                         </queries:CartesianUpdate>
                                         </queries:If>
@@ -971,18 +977,19 @@
                                         <queries:VariableRefStep value="deleteAfterEntity"/>
                                         <queries:BooleanLiteral value="true"/>
                                         </queries:PointwiseUpdate>
-                                        <workflows:CreateEntity xmlns:workflows="http://lang.whole.org/Workflows">
-                                        <workflows:Text value="focusEntity+afterEntity"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <workflows:Registry value="DEFAULT"/>
-                                        <workflows:Variable value="typeURI"/>
-                                        <workflows:Expressions initialCapacity="1">
+                                        <queries:Create>
+                                        <semantics:TypeCast>
+                                        <semantics:EntityType value="http://lang.whole.org/Queries#EntityType"/>
+                                        <queries:VariableRefStep value="typeURI"/>
+                                        </semantics:TypeCast>
+                                        <queries:Registry value="DEFAULT"/>
+                                        <queries:Children initialCapacity="1">
                                         <queries:Addition>
                                         <queries:VariableRefStep value="focusEntity"/>
                                         <queries:VariableRefStep value="afterEntity"/>
                                         </queries:Addition>
-                                        </workflows:Expressions>
-                                        </workflows:CreateEntity>
+                                        </queries:Children>
+                                        </queries:Create>
                                         </queries:Block>
                                         </queries:CartesianUpdate>
                                         </queries:If>

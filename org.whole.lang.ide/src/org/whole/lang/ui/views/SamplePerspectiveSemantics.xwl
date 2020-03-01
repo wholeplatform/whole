@@ -134,7 +134,7 @@
                 <semantics:AnyType/>
                 <semantics:AnyType/>
             </semantics:FunctionType>
-            <semantics:Rules initialCapacity="5">
+            <semantics:Rules initialCapacity="6">
                 <semantics:ExecutionRule>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                     <semantics:EntityType value="http://lang.whole.org/Semantics#SemanticFunction"/>
@@ -259,15 +259,13 @@
                                         <queries:SelfStep/>
                                         </queries:If>
                                         <queries:Do>
-                                        <workflows:CreateEntity xmlns:workflows="http://lang.whole.org/Workflows">
-                                        <workflows:Text value="createSameStageFragment"/>
-                                        <commons:Resolver/>
-                                        <workflows:Registry value="DEFAULT"/>
-                                        <workflows:StringLiteral value="http://lang.whole.org/Commons#SameStageFragment"/>
-                                        <workflows:Expressions initialCapacity="1">
+                                        <queries:Create>
+                                        <queries:EntityType value="http://lang.whole.org/Commons#SameStageFragment"/>
+                                        <queries:Registry value="DEFAULT"/>
+                                        <queries:Children initialCapacity="1">
                                         <queries:SelfStep/>
-                                        </workflows:Expressions>
-                                        </workflows:CreateEntity>
+                                        </queries:Children>
+                                        </queries:Create>
                                         </queries:Do>
                                         </queries:Choose>
                                     </queries:Path>

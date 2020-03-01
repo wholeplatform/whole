@@ -30,7 +30,7 @@
             <tests:Name value="WorkflowsTest"/>
             <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
             <tests:Aspects initialCapacity="0"/>
-            <tests:Tests initialCapacity="4">
+            <tests:Tests initialCapacity="3">
                 <tests:Test>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                     <tests:Name value="testJavaActivities"/>
@@ -157,134 +157,6 @@
                                         </workflows:Expressions>
                                     </workflows:InvokeJavaInstanceMethod>
                                 </tests:Equals>
-                            </tests:AllOf>
-                        </tests:AssertThat>
-                    </tests:TestStatements>
-                    <tests:Result>
-                        <tests:Outcome value="SUCCESS"/>
-                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    </tests:Result>
-                    <tests:Result>
-                        <tests:Outcome value="SUCCESS"/>
-                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    </tests:Result>
-                </tests:Test>
-                <tests:Test>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    <tests:Name value="testModelCreationActivities"/>
-                    <tests:TestStatements initialCapacity="2">
-                        <tests:AssertThat>
-                            <queries:Block xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
-                                <workflows:CreateEntity xmlns:workflows="http://lang.whole.org/Workflows">
-                                    <workflows:Text value="create new entity in variable"/>
-                                    <workflows:Variable value="entity"/>
-                                    <workflows:Registry value="DEFAULT"/>
-                                    <workflows:StringLiteral value="http://lang.whole.org/Models#Model"/>
-                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                </workflows:CreateEntity>
-                                <queries:VariableRefStep value="entity"/>
-                            </queries:Block>
-                            <tests:AllOf initialCapacity="2">
-                                <tests:Matches>
-                                    <workflows:CreateEntity xmlns:workflows="http://lang.whole.org/Workflows">
-                                        <workflows:Text value="create new entity"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <workflows:Registry value="DEFAULT"/>
-                                        <workflows:StringLiteral value="http://lang.whole.org/Models#Model"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                    </workflows:CreateEntity>
-                                </tests:Matches>
-                                <tests:Matches>
-                                    <workflows:CreateEntity xmlns:workflows="http://lang.whole.org/Workflows">
-                                        <workflows:Text value="create new entity in variable"/>
-                                        <workflows:Variable value="entity2"/>
-                                        <workflows:Registry value="DEFAULT"/>
-                                        <workflows:StringLiteral value="http://lang.whole.org/Models#Model"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                    </workflows:CreateEntity>
-                                </tests:Matches>
-                            </tests:AllOf>
-                        </tests:AssertThat>
-                        <tests:AssertThat>
-                            <queries:Block xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
-                                <workflows:CreateModel xmlns:workflows="http://lang.whole.org/Workflows">
-                                    <workflows:Text value="create new model in variable"/>
-                                    <workflows:Variable value="model"/>
-                                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
-                                        <wxml:Document xmlns:wxml="http://lang.whole.org/Xml">
-                                        <wxml:Prolog>
-                                        <wxml:XMLDecl>
-                                        <wxml:Version value="1.0"/>
-                                        <wxml:Encoding value="UTF-8"/>
-                                        <commons:Resolver/>
-                                        </wxml:XMLDecl>
-                                        <commons:Resolver/>
-                                        <commons:Resolver/>
-                                        </wxml:Prolog>
-                                        <wxml:Element>
-                                        <wxml:Name value="tag"/>
-                                        <commons:Resolver/>
-                                        <commons:Resolver/>
-                                        </wxml:Element>
-                                        </wxml:Document>
-                                    </commons:StageUpFragment>
-                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                </workflows:CreateModel>
-                                <queries:VariableRefStep value="model"/>
-                            </queries:Block>
-                            <tests:AllOf initialCapacity="2">
-                                <tests:Matches>
-                                    <workflows:CreateModel xmlns:workflows="http://lang.whole.org/Workflows">
-                                        <workflows:Text value="create new model"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
-                                        <wxml:Document xmlns:wxml="http://lang.whole.org/Xml">
-                                        <wxml:Prolog>
-                                        <wxml:XMLDecl>
-                                        <wxml:Version value="1.0"/>
-                                        <wxml:Encoding value="UTF-8"/>
-                                        <commons:Resolver/>
-                                        </wxml:XMLDecl>
-                                        <commons:Resolver/>
-                                        <commons:Resolver/>
-                                        </wxml:Prolog>
-                                        <wxml:Element>
-                                        <wxml:Name value="tag"/>
-                                        <commons:Resolver/>
-                                        <commons:Resolver/>
-                                        </wxml:Element>
-                                        </wxml:Document>
-                                        </commons:StageUpFragment>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                    </workflows:CreateModel>
-                                </tests:Matches>
-                                <tests:Matches>
-                                    <workflows:CreateModel xmlns:workflows="http://lang.whole.org/Workflows">
-                                        <workflows:Text value="create new model in variable"/>
-                                        <workflows:Variable value="model2"/>
-                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
-                                        <wxml:Document xmlns:wxml="http://lang.whole.org/Xml">
-                                        <wxml:Prolog>
-                                        <wxml:XMLDecl>
-                                        <wxml:Version value="1.0"/>
-                                        <wxml:Encoding value="UTF-8"/>
-                                        <commons:Resolver/>
-                                        </wxml:XMLDecl>
-                                        <commons:Resolver/>
-                                        <commons:Resolver/>
-                                        </wxml:Prolog>
-                                        <wxml:Element>
-                                        <wxml:Name value="tag"/>
-                                        <commons:Resolver/>
-                                        <commons:Resolver/>
-                                        </wxml:Element>
-                                        </wxml:Document>
-                                        </commons:StageUpFragment>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                    </workflows:CreateModel>
-                                </tests:Matches>
                             </tests:AllOf>
                         </tests:AssertThat>
                     </tests:TestStatements>
