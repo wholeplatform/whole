@@ -18,14 +18,12 @@
 package org.whole.lang.workflows.util;
 
 import static org.whole.lang.workflows.reflect.WorkflowsEntityDescriptorEnum.ArtifactsActivity;
-import static org.whole.lang.workflows.reflect.WorkflowsEntityDescriptorEnum.CreateEntity;
 import static org.whole.lang.workflows.reflect.WorkflowsEntityDescriptorEnum.CreateJavaClassInstance;
 import static org.whole.lang.workflows.reflect.WorkflowsEntityDescriptorEnum.InvokeJavaClassMethod;
 import static org.whole.lang.workflows.reflect.WorkflowsEntityDescriptorEnum.InvokeJavaInstanceMethod;
 import static org.whole.lang.workflows.reflect.WorkflowsEntityDescriptorEnum.PersistenceActivity;
 import static org.whole.lang.workflows.reflect.WorkflowsFeatureDescriptorEnum.className;
 import static org.whole.lang.workflows.reflect.WorkflowsFeatureDescriptorEnum.constructor;
-import static org.whole.lang.workflows.reflect.WorkflowsFeatureDescriptorEnum.entityName;
 import static org.whole.lang.workflows.reflect.WorkflowsFeatureDescriptorEnum.method;
 import static org.whole.lang.workflows.reflect.WorkflowsFeatureDescriptorEnum.persistence;
 import static org.whole.lang.workflows.reflect.WorkflowsFeatureDescriptorEnum.resource;
@@ -77,9 +75,6 @@ public class WorkflowsUtils {
 	public static boolean isClassNameInJavaActivity(IEntity entity) {
 		return isFeatureInActivity(entity, className, InvokeJavaClassMethod,
 				InvokeJavaInstanceMethod, CreateJavaClassInstance);
-	}
-	public static boolean isEntityTypeInCreateEntity(IEntity entity) {
-		return isFeatureInActivity(entity, entityName, CreateEntity);
 	}
 
 	public static String unparseCompact(JavaSignature signature) {

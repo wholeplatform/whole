@@ -1,3 +1,20 @@
+/**
+ *  Copyright 2004-2019 Riccardo Solmi. All rights reserved.
+ *  This file is part of the Whole Platform.
+ *  
+ *  The Whole Platform is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Lesser General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *  
+ *  The Whole Platform is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *  GNU Lesser General Public License for more details.
+ *  
+ *  You should have received a copy of the GNU Lesser General Public License
+ *  along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.whole.lang.workflows.builders;
 
 import org.whole.lang.builders.IBuilder;
@@ -10,513 +27,503 @@ import org.whole.lang.workflows.model.ArtifactsSynchronizeStrategyEnum;
 import org.whole.lang.workflows.model.OperationEnum;
 import org.whole.lang.workflows.model.RegistryEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator Whole
  */
 public interface IWorkflowsBuilder extends IBuilder {
-	public void visit();
 
-	public void expression();
 
-	public void constructor();
+    public void visit();
 
-	public void method();
+    public void expression();
 
-	public void typeArguments();
+    public void constructor();
 
-	public void object();
+    public void method();
 
-	public void queryName();
+    public void typeArguments();
 
-	public void operation();
+    public void object();
 
-	public void nt();
+    public void arguments();
 
-	public void grammar();
+    public void queryName();
 
-	public void text();
+    public void operation();
 
-	public void defaultPersistence();
+    public void nt();
 
-	public void synchronizeStrategy();
+    public void grammar();
 
-	public void traversalStrategy();
+    public void text();
 
-	public void rootResource();
+    public void defaultPersistence();
 
-	public void rootResourceKind();
+    public void synchronizeStrategy();
 
-	public void resource();
+    public void traversalStrategy();
 
-	public void resourceKind();
+    public void rootResource();
 
-	public void persistence();
+    public void rootResourceKind();
 
-	public void classProvider();
+    public void resource();
 
-	public void className();
+    public void resourceKind();
 
-	public void bindings();
+    public void persistence();
 
-	public void template();
+    public void classProvider();
 
-	public void arguments();
+    public void className();
 
-	public void entityName();
+    public void bindings();
 
-	public void registry();
+    public void template();
 
-	public void model();
+    public void model();
 
-	public void showVariables();
+    public void showVariables();
 
-	public void conditionTest();
+    public void conditionTest();
 
-	public void hitCount();
+    public void hitCount();
 
-	public void disabled();
+    public void disabled();
 
-	public void factory();
+    public void factory();
 
-	public void assignments();
+    public void assignments();
 
-	public void result();
+    public void result();
 
-	public void fault();
+    public void fault();
 
-	public void timer();
+    public void timer();
 
-	public void message();
+    public void message();
 
-	public void parameters();
+    public void parameters();
 
-	public void defaultCase();
+    public void defaultCase();
 
-	public void conditionalCases();
+    public void conditionalCases();
 
-	public void switchType();
+    public void switchType();
 
-	public void condition();
+    public void condition();
 
-	public void testTime();
+    public void testTime();
 
-	public void indexVariable();
+    public void indexVariable();
 
-	public void elementVariable();
+    public void elementVariable();
 
-	public void compositeVariable();
+    public void compositeVariable();
 
-	public void flowObjects();
+    public void flowObjects();
 
-	public void triggerEvent();
+    public void triggerEvent();
 
-	public void faultVariable();
+    public void faultVariable();
 
-	public void faultName();
+    public void faultName();
 
-	public void faultHandlers();
+    public void faultHandlers();
 
-	public void eventHandlers();
+    public void eventHandlers();
 
-	public void compensationHandler();
+    public void compensationHandler();
 
-	public void label();
+    public void label();
 
-	public void endEvent();
+    public void endEvent();
 
-	public void flowObject();
+    public void flowObject();
 
-	public void startEvent();
+    public void startEvent();
 
-	public void declarations();
+    public void declarations();
 
-	public void description();
+    public void description();
 
-	public void name();
+    public void name();
 
-	public void Workflow();
+    public void Workflow();
 
-	public void Workflow_();
+    public void Workflow_();
 
-	public void _Workflow();
+    public void _Workflow();
 
-	public void Scope();
+    public void Scope();
 
-	public void Scope_();
+    public void Scope_();
 
-	public void _Scope();
+    public void _Scope();
 
-	public void FaultHandlers();
+    public void FaultHandlers();
 
-	public void FaultHandlers_();
+    public void FaultHandlers_();
 
-	public void FaultHandlers_(int initialCapacity);
+    public void FaultHandlers_(int initialCapacity);
 
-	public void _FaultHandlers();
+    public void _FaultHandlers();
 
-	public void FaultHandler();
+    public void FaultHandler();
 
-	public void FaultHandler_();
+    public void FaultHandler_();
 
-	public void _FaultHandler();
+    public void _FaultHandler();
 
-	public void EventHandlers();
+    public void EventHandlers();
 
-	public void EventHandlers_();
+    public void EventHandlers_();
 
-	public void EventHandlers_(int initialCapacity);
+    public void EventHandlers_(int initialCapacity);
 
-	public void _EventHandlers();
+    public void _EventHandlers();
 
-	public void EventHandler();
+    public void EventHandler();
 
-	public void EventHandler_();
+    public void EventHandler_();
 
-	public void _EventHandler();
+    public void _EventHandler();
 
-	public void Sequence();
+    public void Sequence();
 
-	public void Sequence_();
+    public void Sequence_();
 
-	public void _Sequence();
+    public void _Sequence();
 
-	public void Parallel();
+    public void Parallel();
 
-	public void Parallel_();
+    public void Parallel_();
 
-	public void _Parallel();
+    public void _Parallel();
 
-	public void FlowObjects();
+    public void FlowObjects();
 
-	public void FlowObjects_();
+    public void FlowObjects_();
 
-	public void FlowObjects_(int initialCapacity);
+    public void FlowObjects_(int initialCapacity);
 
-	public void _FlowObjects();
+    public void _FlowObjects();
 
-	public void ForeachLoop();
+    public void ForeachLoop();
 
-	public void ForeachLoop_();
+    public void ForeachLoop_();
 
-	public void _ForeachLoop();
+    public void _ForeachLoop();
 
-	public void WhileLoop();
+    public void WhileLoop();
 
-	public void WhileLoop_();
+    public void WhileLoop_();
 
-	public void _WhileLoop();
+    public void _WhileLoop();
 
-	public void TestTime();
+    public void TestTime();
 
-	public void TestTime(TestTimeEnum.Value value);
+    public void TestTime(TestTimeEnum.Value value);
 
-	public void TestTime(String value);
+    public void TestTime(String value);
 
-	public void PickControl();
+    public void PickControl();
 
-	public void PickControl_();
+    public void PickControl_();
 
-	public void _PickControl();
+    public void _PickControl();
 
-	public void SwitchControl();
+    public void SwitchControl();
 
-	public void SwitchControl_();
+    public void SwitchControl_();
 
-	public void _SwitchControl();
+    public void _SwitchControl();
 
-	public void SwitchType();
+    public void SwitchType();
 
-	public void SwitchType(SwitchTypeEnum.Value value);
+    public void SwitchType(SwitchTypeEnum.Value value);
 
-	public void SwitchType(String value);
+    public void SwitchType(String value);
 
-	public void ConditionalCases();
+    public void ConditionalCases();
 
-	public void ConditionalCases_();
+    public void ConditionalCases_();
 
-	public void ConditionalCases_(int initialCapacity);
+    public void ConditionalCases_(int initialCapacity);
 
-	public void _ConditionalCases();
+    public void _ConditionalCases();
 
-	public void ConditionalCase();
+    public void ConditionalCase();
 
-	public void ConditionalCase_();
+    public void ConditionalCase_();
 
-	public void _ConditionalCase();
+    public void _ConditionalCase();
 
-	public void DefaultCase();
+    public void DefaultCase();
 
-	public void DefaultCase_();
+    public void DefaultCase_();
 
-	public void _DefaultCase();
+    public void _DefaultCase();
 
-	public void OnCallEvent();
+    public void OnCallEvent();
 
-	public void OnCallEvent_();
+    public void OnCallEvent_();
 
-	public void _OnCallEvent();
+    public void _OnCallEvent();
 
-	public void OnMessageEvent();
+    public void OnMessageEvent();
 
-	public void OnMessageEvent_();
+    public void OnMessageEvent_();
 
-	public void _OnMessageEvent();
+    public void _OnMessageEvent();
 
-	public void OnTimerEvent();
+    public void OnTimerEvent();
 
-	public void OnTimerEvent_();
+    public void OnTimerEvent_();
 
-	public void _OnTimerEvent();
+    public void _OnTimerEvent();
 
-	public void FaultEvent();
+    public void FaultEvent();
 
-	public void FaultEvent_();
+    public void FaultEvent_();
 
-	public void _FaultEvent();
+    public void _FaultEvent();
 
-	public void ReturnEvent();
+    public void ReturnEvent();
 
-	public void ReturnEvent_();
+    public void ReturnEvent_();
 
-	public void _ReturnEvent();
+    public void _ReturnEvent();
 
-	public void Task();
+    public void Task();
 
-	public void Task_();
+    public void Task_();
 
-	public void _Task();
+    public void _Task();
 
-	public void Breakpoint();
+    public void Breakpoint();
 
-	public void Breakpoint_();
+    public void Breakpoint_();
 
-	public void _Breakpoint();
+    public void _Breakpoint();
 
-	public void ConditionTest();
+    public void ConditionTest();
 
-	public void ConditionTest(ConditionTestEnum.Value value);
+    public void ConditionTest(ConditionTestEnum.Value value);
 
-	public void ConditionTest(String value);
+    public void ConditionTest(String value);
 
-	public void Variables();
+    public void Variables();
 
-	public void Variables_();
+    public void Variables_();
 
-	public void Variables_(int initialCapacity);
+    public void Variables_(int initialCapacity);
 
-	public void _Variables();
+    public void _Variables();
 
-	public void EmptyActivity();
+    public void EmptyActivity();
 
-	public void EmptyActivity_();
+    public void EmptyActivity_();
 
-	public void _EmptyActivity();
+    public void _EmptyActivity();
 
-	public void AssignActivity();
+    public void AssignActivity();
 
-	public void AssignActivity_();
+    public void AssignActivity_();
 
-	public void _AssignActivity();
+    public void _AssignActivity();
 
-	public void CreateEntity();
+    public void CreateModel();
 
-	public void CreateEntity_();
+    public void CreateModel_();
 
-	public void _CreateEntity();
+    public void _CreateModel();
 
-	public void CreateModel();
+    public void LoadJavaModel();
 
-	public void CreateModel_();
+    public void LoadJavaModel_();
 
-	public void _CreateModel();
+    public void _LoadJavaModel();
 
-	public void LoadJavaModel();
+    public void ResourceKind();
 
-	public void LoadJavaModel_();
+    public void ResourceKind(ResourceKindEnum.Value value);
 
-	public void _LoadJavaModel();
+    public void ResourceKind(String value);
 
-	public void ResourceKind();
+    public void LoadModel();
 
-	public void ResourceKind(ResourceKindEnum.Value value);
+    public void LoadModel_();
 
-	public void ResourceKind(String value);
+    public void _LoadModel();
 
-	public void LoadModel();
+    public void SaveModel();
 
-	public void LoadModel_();
+    public void SaveModel_();
 
-	public void _LoadModel();
+    public void _SaveModel();
 
-	public void SaveModel();
+    public void DeleteArtifacts();
 
-	public void SaveModel_();
+    public void DeleteArtifacts_();
 
-	public void _SaveModel();
+    public void _DeleteArtifacts();
 
-	public void DeleteArtifacts();
+    public void ArtifactsTraversalStrategy();
 
-	public void DeleteArtifacts_();
+    public void ArtifactsTraversalStrategy(ArtifactsTraversalStrategyEnum.Value value);
 
-	public void _DeleteArtifacts();
+    public void ArtifactsTraversalStrategy(String value);
 
-	public void ArtifactsTraversalStrategy();
+    public void ArtifactsSynchronizeStrategy();
 
-	public void ArtifactsTraversalStrategy(
-			ArtifactsTraversalStrategyEnum.Value value);
+    public void ArtifactsSynchronizeStrategy(ArtifactsSynchronizeStrategyEnum.Value value);
 
-	public void ArtifactsTraversalStrategy(String value);
+    public void ArtifactsSynchronizeStrategy(String value);
 
-	public void ArtifactsSynchronizeStrategy();
+    public void LoadArtifacts();
 
-	public void ArtifactsSynchronizeStrategy(
-			ArtifactsSynchronizeStrategyEnum.Value value);
+    public void LoadArtifacts_();
 
-	public void ArtifactsSynchronizeStrategy(String value);
+    public void _LoadArtifacts();
 
-	public void LoadArtifacts();
+    public void SaveArtifacts();
 
-	public void LoadArtifacts_();
+    public void SaveArtifacts_();
 
-	public void _LoadArtifacts();
+    public void _SaveArtifacts();
 
-	public void SaveArtifacts();
+    public void Parse();
 
-	public void SaveArtifacts_();
+    public void Parse_();
 
-	public void _SaveArtifacts();
+    public void _Parse();
 
-	public void Parse();
+    public void Unparse();
 
-	public void Parse_();
+    public void Unparse_();
 
-	public void _Parse();
+    public void _Unparse();
 
-	public void Unparse();
+    public void InvokeOperation();
 
-	public void Unparse_();
+    public void InvokeOperation_();
 
-	public void _Unparse();
+    public void _InvokeOperation();
 
-	public void InvokeOperation();
+    public void Operation();
 
-	public void InvokeOperation_();
+    public void Operation(OperationEnum.Value value);
 
-	public void _InvokeOperation();
+    public void Operation(String value);
 
-	public void Operation();
+    public void InvokeQuery();
 
-	public void Operation(OperationEnum.Value value);
+    public void InvokeQuery_();
 
-	public void Operation(String value);
+    public void _InvokeQuery();
 
-	public void InvokeQuery();
+    public void InvokeJavaInstanceMethod();
 
-	public void InvokeQuery_();
+    public void InvokeJavaInstanceMethod_();
 
-	public void _InvokeQuery();
+    public void _InvokeJavaInstanceMethod();
 
-	public void InvokeJavaInstanceMethod();
+    public void InvokeJavaClassMethod();
 
-	public void InvokeJavaInstanceMethod_();
+    public void InvokeJavaClassMethod_();
 
-	public void _InvokeJavaInstanceMethod();
+    public void _InvokeJavaClassMethod();
 
-	public void InvokeJavaClassMethod();
+    public void CreateJavaClassInstance();
 
-	public void InvokeJavaClassMethod_();
+    public void CreateJavaClassInstance_();
 
-	public void _InvokeJavaClassMethod();
+    public void _CreateJavaClassInstance();
 
-	public void CreateJavaClassInstance();
+    public void Registry();
 
-	public void CreateJavaClassInstance_();
+    public void Registry(RegistryEnum.Value value);
 
-	public void _CreateJavaClassInstance();
+    public void Registry(String value);
 
-	public void Registry();
+    public void BooleanLiteral();
 
-	public void Registry(RegistryEnum.Value value);
+    public void BooleanLiteral(boolean value);
 
-	public void Registry(String value);
+    public void IntLiteral();
 
-	public void BooleanLiteral();
+    public void IntLiteral(int value);
 
-	public void BooleanLiteral(boolean value);
+    public void StringLiteral();
 
-	public void IntLiteral();
+    public void StringLiteral(String value);
 
-	public void IntLiteral(int value);
+    public void ObjectLiteral();
 
-	public void StringLiteral();
+    public void ObjectLiteral(Object value);
 
-	public void StringLiteral(String value);
+    public void ObjectLiteral(String value);
 
-	public void ObjectLiteral();
+    public void Variable();
 
-	public void ObjectLiteral(Object value);
+    public void Variable(String value);
 
-	public void ObjectLiteral(String value);
+    public void Name();
 
-	public void Variable();
+    public void Name(String value);
 
-	public void Variable(String value);
+    public void Text();
 
-	public void Name();
+    public void Text(String value);
 
-	public void Name(String value);
+    public void Declarations();
 
-	public void Text();
+    public void Declarations_();
 
-	public void Text(String value);
+    public void Declarations_(int initialCapacity);
 
-	public void Declarations();
+    public void _Declarations();
 
-	public void Declarations_();
+    public void Assignments();
 
-	public void Declarations_(int initialCapacity);
+    public void Assignments_();
 
-	public void _Declarations();
+    public void Assignments_(int initialCapacity);
 
-	public void Assignments();
+    public void _Assignments();
 
-	public void Assignments_();
+    public void Assign();
 
-	public void Assignments_(int initialCapacity);
+    public void Assign_();
 
-	public void _Assignments();
+    public void _Assign();
 
-	public void Assign();
+    public void Expressions();
 
-	public void Assign_();
+    public void Expressions_();
 
-	public void _Assign();
+    public void Expressions_(int initialCapacity);
 
-	public void Expressions();
+    public void _Expressions();
 
-	public void Expressions_();
+    public void Signature();
 
-	public void Expressions_(int initialCapacity);
+    public void Signature(String value);
 
-	public void _Expressions();
+    public void ClassPath();
 
-	public void Signature();
+    public void ClassPath_();
 
-	public void Signature(String value);
+    public void _ClassPath();
 
-	public void ClassPath();
+    public void CurrentJavaProject();
 
-	public void ClassPath_();
+    public void CurrentJavaProject_();
 
-	public void _ClassPath();
+    public void _CurrentJavaProject();
 
-	public void CurrentJavaProject();
+    public void JavaProject();
 
-	public void CurrentJavaProject_();
-
-	public void _CurrentJavaProject();
-
-	public void JavaProject();
-
-	public void JavaProject(String value);
+    public void JavaProject(String value);
 }

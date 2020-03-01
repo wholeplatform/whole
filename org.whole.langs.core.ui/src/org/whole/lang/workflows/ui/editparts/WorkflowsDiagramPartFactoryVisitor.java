@@ -19,7 +19,6 @@ package org.whole.lang.workflows.ui.editparts;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.EditPart;
-import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.editparts.AbstractCompositePart;
 import org.whole.lang.ui.editparts.CommaSeparatedCompositeFlowPart;
@@ -27,14 +26,12 @@ import org.whole.lang.ui.editparts.CompositeColumnPart;
 import org.whole.lang.ui.editparts.CompositeRowWithPlaceholderPart;
 import org.whole.lang.ui.editparts.ContentDataEntityPart;
 import org.whole.lang.ui.editparts.ContentTextualEntityPart;
-import org.whole.lang.ui.editparts.EntityTypePart;
 import org.whole.lang.ui.editparts.IEditPartFactory;
 import org.whole.lang.ui.editparts.VariableDataEntityPart;
 import org.whole.lang.ui.figures.CompositeFigure;
 import org.whole.lang.ui.layout.Alignment;
 import org.whole.lang.ui.notations.editparts.QuotedStringTextualEntityPart;
 import org.whole.lang.ui.notations.text.editparts.DefaultTextualPartFactory;
-import org.whole.lang.ui.util.UIUtils;
 import org.whole.lang.util.EntityUtils;
 import org.whole.lang.workflows.model.Assign;
 import org.whole.lang.workflows.model.AssignActivity;
@@ -43,7 +40,6 @@ import org.whole.lang.workflows.model.BooleanLiteral;
 import org.whole.lang.workflows.model.Breakpoint;
 import org.whole.lang.workflows.model.ConditionalCase;
 import org.whole.lang.workflows.model.ConditionalCases;
-import org.whole.lang.workflows.model.CreateEntity;
 import org.whole.lang.workflows.model.CreateJavaClassInstance;
 import org.whole.lang.workflows.model.CreateModel;
 import org.whole.lang.workflows.model.Declarations;
@@ -87,8 +83,6 @@ import org.whole.lang.workflows.model.Unparse;
 import org.whole.lang.workflows.model.Variable;
 import org.whole.lang.workflows.model.WhileLoop;
 import org.whole.lang.workflows.model.Workflow;
-import org.whole.lang.workflows.reflect.WorkflowsEntityDescriptorEnum;
-import org.whole.lang.workflows.reflect.WorkflowsFeatureDescriptorEnum;
 import org.whole.lang.workflows.visitors.WorkflowsIdentityDefaultVisitor;
 
 
@@ -197,11 +191,7 @@ public class WorkflowsDiagramPartFactoryVisitor extends WorkflowsIdentityDefault
 		part = new AssignActivityPart();
 	}
 	public void visit(Assignments entity) {
-		IEntity parent = entity.wGetParent();
-		if (Matcher.match(WorkflowsEntityDescriptorEnum.CreateEntity, parent) && parent.wGet(WorkflowsFeatureDescriptorEnum.arguments) == entity)
-			part = new AssignmentsOutlineTablePart();
-		else
-			part = new AssignmentsTablePart();
+		part = new AssignmentsTablePart();
 	}
 	public void visit(Assign entity) {
 		part = new AssignPart();
@@ -245,13 +235,8 @@ public class WorkflowsDiagramPartFactoryVisitor extends WorkflowsIdentityDefault
 	}
 	@Override
 	public void visit(StringLiteral entity) {
-		IEntity parent = entity.wGetParent();
-		if (Matcher.match(WorkflowsEntityDescriptorEnum.CreateEntity, parent) && parent.wGet(WorkflowsFeatureDescriptorEnum.entityName) == entity)
-			part = new EntityTypePart();
-		else
-			part = EntityUtils.isComposite((IEntity) context.getModel()) ?
-				new QuotedStringTextualEntityPart() :
-					new ContentTextualEntityPart();
+		part = EntityUtils.isComposite((IEntity) context.getModel()) ?
+				new QuotedStringTextualEntityPart() : new ContentTextualEntityPart();
 	}
 
 	public void visit(Text entity) {
@@ -281,11 +266,6 @@ public class WorkflowsDiagramPartFactoryVisitor extends WorkflowsIdentityDefault
 	@Override
 	public void visit(InvokeQuery entity) {
 		part = new InvokeQueryPart();
-	}
-
-	@Override
-	public void visit(CreateEntity entity) {
-		part = new CreateEntityPart();
 	}
 
 	@Override

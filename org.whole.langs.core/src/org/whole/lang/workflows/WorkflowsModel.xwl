@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <models:Model xmlns:models="http://lang.whole.org/Models">
     <models:SimpleName value="Workflows"/>
-    <models:TypeRelations initialCapacity="2">
+    <models:TypeRelations initialCapacity="3">
         <models:SupertypesOf>
             <models:Types initialCapacity="2">
                 <models:SimpleName value="Expression"/>
@@ -10,9 +10,14 @@
             <models:AnyType/>
         </models:SupertypesOf>
         <models:SubtypesOf>
-            <models:Types initialCapacity="15">
+            <models:Types initialCapacity="1">
                 <models:SimpleName value="Breakpoint"/>
-                <models:SimpleName value="CreateEntity"/>
+            </models:Types>
+            <models:AnyType/>
+        </models:SubtypesOf>
+        <models:SubtypesOf>
+            <models:Types initialCapacity="14">
+                <models:SimpleName value="Task"/>
                 <models:SimpleName value="CreateModel"/>
                 <models:SimpleName value="CreateJavaClassInstance"/>
                 <models:SimpleName value="InvokeJavaClassMethod"/>
@@ -27,10 +32,10 @@
                 <models:SimpleName value="Parse"/>
                 <models:SimpleName value="Unparse"/>
             </models:Types>
-            <models:AnyType/>
+            <models:EntityType value="http://lang.whole.org/Queries#Expression"/>
         </models:SubtypesOf>
     </models:TypeRelations>
-    <models:ModelDeclarations initialCapacity="79">
+    <models:ModelDeclarations initialCapacity="78">
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="0"/>
             <models:SimpleName value="Workflow"/>
@@ -687,43 +692,6 @@
                     <models:FeatureModifiers initialCapacity="0"/>
                     <models:SimpleName value="Assignments"/>
                     <models:SimpleName value="assignments"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                </models:Feature>
-            </models:Features>
-        </models:SimpleEntity>
-        <models:SimpleEntity>
-            <models:EntityModifiers initialCapacity="0"/>
-            <models:SimpleName value="CreateEntity"/>
-            <models:Types initialCapacity="1">
-                <models:SimpleName value="Activity"/>
-            </models:Types>
-            <models:Features initialCapacity="4">
-                <models:Feature>
-                    <models:FeatureModifiers initialCapacity="1">
-                        <models:FeatureModifier value="optional"/>
-                    </models:FeatureModifiers>
-                    <models:SimpleName value="Variable"/>
-                    <models:SimpleName value="model"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                </models:Feature>
-                <models:Feature>
-                    <models:FeatureModifiers initialCapacity="0"/>
-                    <models:SimpleName value="Registry"/>
-                    <models:SimpleName value="registry"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                </models:Feature>
-                <models:Feature>
-                    <models:FeatureModifiers initialCapacity="0"/>
-                    <models:SimpleName value="Expression"/>
-                    <models:SimpleName value="entityName"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                </models:Feature>
-                <models:Feature>
-                    <models:FeatureModifiers initialCapacity="1">
-                        <models:FeatureModifier value="optional"/>
-                    </models:FeatureModifiers>
-                    <models:SimpleName value="Arguments"/>
-                    <models:SimpleName value="arguments"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
             </models:Features>

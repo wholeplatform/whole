@@ -29,10 +29,7 @@ import static org.whole.lang.workflows.reflect.WorkflowsFeatureDescriptorEnum.cl
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.DecorationOverlayIcon;
@@ -44,7 +41,6 @@ import org.whole.lang.actions.model.ActionKindEnum;
 import org.whole.lang.actions.model.Actions;
 import org.whole.lang.actions.model.GroupAction;
 import org.whole.lang.actions.ui.factories.ActionsUIEntityFactory;
-import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
 import org.whole.lang.java.util.JavaReflectUtils;
 import org.whole.lang.java.util.JavaReflectUtils.JavaSignature;
 import org.whole.lang.matchers.Matcher;
@@ -52,14 +48,9 @@ import org.whole.lang.model.IEntity;
 import org.whole.lang.model.adapters.IEntityAdapter;
 import org.whole.lang.operations.ContentAssistOperation;
 import org.whole.lang.reflect.EntityDescriptor;
-import org.whole.lang.reflect.EntityDescriptorEnum;
-import org.whole.lang.reflect.ILanguageKit;
 import org.whole.lang.reflect.ReflectionFactory;
-import org.whole.lang.resources.IResourceRegistry;
-import org.whole.lang.ui.actions.IActionConstants;
 import org.whole.lang.ui.util.UIUtils;
 import org.whole.lang.util.EntityUtils;
-import org.whole.lang.util.ResourceUtils;
 import org.whole.lang.workflows.factories.WorkflowsEntityFactory;
 import org.whole.lang.workflows.model.StringLiteral;
 import org.whole.lang.workflows.model.Variable;
@@ -113,7 +104,6 @@ public class WorkflowsUIContentAssistVisitor extends WorkflowsIdentityVisitor {
 	public boolean visitAdapter(IEntityAdapter entity) {
 		allSignatures(entity);
 		allPersistences(entity);
-		allEntityTypes(entity);
 		allVariables(entity, ActionKindEnum.REPLACE); 
 		return false;
 	}
@@ -132,7 +122,6 @@ public class WorkflowsUIContentAssistVisitor extends WorkflowsIdentityVisitor {
 	public void visit(StringLiteral entity) {
 		allSignatures(entity);
 		allPersistences(entity);
-		allEntityTypes(entity);
 	}
 
 	protected boolean allPersistences(IEntity entity) {
@@ -200,87 +189,6 @@ public class WorkflowsUIContentAssistVisitor extends WorkflowsIdentityVisitor {
 		return EntityUtils.isResolver(entity) ?
 				mergeResult(StringLiteral, signaturesGroup) :
 					mergeResult(signaturesGroup);
-	}
-
-	protected boolean allEntityTypes(IEntity entity) {
-		if (!WorkflowsUtils.isEntityTypeInCreateEntity(entity))
-			return false;
-
-		ActionsUIEntityFactory aef = ActionsUIEntityFactory.instance;
-		GroupAction languagesGroup = aef.createGroupAction();
-		languagesGroup.setFillStrategy(aef.createHierarchical(
-				aef.createDistinctPrefix(), aef.createSize(10)));
-		languagesGroup.getText().setValue("workflows.languages");
-
-		Actions actions = aef.createActions(0);
-		WorkflowsEntityFactory wef = WorkflowsEntityFactory.instance;
-
-		String actualLanguageURI = "";
-		String actualEntityName = "";
-		EntityDescriptor<?> actualED = null;
-		try {
-			if (Matcher.matchImpl(StringLiteral, entity)) {
-				StringLiteral literal = (StringLiteral) entity;
-				actualED = CommonsDataTypePersistenceParser.parseEntityDescriptor(
-						literal.getValue());
-				actualLanguageURI = actualED.getLanguageKit().getURI();
-				actualEntityName = actualED.getName();
-			}
-		} catch (Exception e) {
-		}
-
-		IResourceRegistry<ILanguageKit> registry = ReflectionFactory.getLanguageKitRegistry();
-		for (ILanguageKit languageKit : registry.getResources(false, ResourceUtils.SIMPLE_COMPARATOR)) {
-			if (languageKit.getURI().equals(actualLanguageURI))
-				continue;
-
-			EntityDescriptorEnum edEnum = languageKit.getEntityDescriptorEnum();
-			EntityDescriptor<?> ed = null;
-			if (actualEntityName.length() > 0)
-				ed = edEnum.valueOf(actualEntityName);
-			if (ed == null)
-				ed = edEnum.valueOf(0);
-
-			StringLiteral prototype = wef.createStringLiteral(
-				CommonsDataTypePersistenceParser.unparseEntityDescriptor(ed));
-			actions.wAdd(aef.createReplaceDifferentTemplateAction(prototype,
-					ResourceUtils.SIMPLE_NAME_PROVIDER.toString(registry, languageKit),
-					IActionConstants.SELECT_LANGUAGE_ICON));
-		}
-		languagesGroup.setActions(actions);
-		boolean adeddLanguages = EntityUtils.isResolver(entity) ?
-				mergeResult(StringLiteral, languagesGroup) :
-					mergeResult(languagesGroup);
-
-		if (actualED != null) {
-			GroupAction typenamesGroup = aef.createGroupAction();
-			typenamesGroup.setFillStrategy(aef.createHierarchical(
-					aef.createDistinctPrefix(), aef.createSize(10)));
-			typenamesGroup.getText().setValue("workflows.typenames");
-
-			actions = aef.createActions(0);
-			EntityDescriptorEnum edEnum = actualED.getEntityDescriptorEnum();
-			List<EntityDescriptor<?>> eds = new ArrayList<EntityDescriptor<?>>(edEnum.values());
-			Collections.sort(eds, new Comparator<EntityDescriptor<?>>() {
-				public int compare(EntityDescriptor<?> ed1, EntityDescriptor<?> ed2) {
-					return ed1.getName().compareTo(ed2.getName());
-				}
-			});
-			for (EntityDescriptor<?> ed : eds) {
-				if (ed.equals(actualED))
-					continue;
-				StringLiteral prototype = wef.createStringLiteral(
-						CommonsDataTypePersistenceParser.unparseEntityDescriptor(ed));
-				actions.wAdd(aef.createReplaceDifferentTemplateAction(prototype, ed.getName()));
-			}
-
-			typenamesGroup.setActions(actions);
-			adeddLanguages |= EntityUtils.isResolver(entity) ?
-					mergeResult(StringLiteral, typenamesGroup) :
-						mergeResult(typenamesGroup);
-		}
-
-		return adeddLanguages;
 	}
 
 	protected boolean allVariables(IEntity entity, ActionKindEnum.Value kind) {

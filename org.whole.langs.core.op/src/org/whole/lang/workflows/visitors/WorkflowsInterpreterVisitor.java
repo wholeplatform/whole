@@ -27,8 +27,6 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 import org.whole.lang.artifacts.model.IArtifactsEntity;
@@ -47,17 +45,12 @@ import org.whole.lang.codebase.IPersistenceKit;
 import org.whole.lang.codebase.IPersistenceProvider;
 import org.whole.lang.codebase.StringPersistenceProvider;
 import org.whole.lang.codebase.URLPersistenceProvider;
-import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.commons.visitors.CommonsInterpreterVisitor;
 import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.executables.IExecutableClient;
-import org.whole.lang.factories.GenericEntityFactory;
-import org.whole.lang.factories.IEntityFactory;
-import org.whole.lang.factories.IEntityRegistryProvider;
-import org.whole.lang.factories.RegistryConfigurations;
 import org.whole.lang.grammars.model.Grammar;
 import org.whole.lang.grammars.util.GrammarsUtils;
 import org.whole.lang.java.codebase.JavaClassTemplateFactory;
@@ -73,14 +66,11 @@ import org.whole.lang.operations.NormalizerOperation;
 import org.whole.lang.operations.PrettyPrinterOperation;
 import org.whole.lang.operations.ValidatorOperation;
 import org.whole.lang.parsers.ParseException;
-import org.whole.lang.reflect.EntityDescriptor;
-import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.templates.ITemplateFactory;
 import org.whole.lang.util.BehaviorUtils;
 import org.whole.lang.util.DataTypeUtils;
 import org.whole.lang.util.EntityUtils;
-import org.whole.lang.util.WholeMessages;
 import org.whole.lang.visitors.MissingVariableException;
 import org.whole.lang.visitors.VisitException;
 import org.whole.lang.workflows.model.Arguments;
@@ -90,7 +80,6 @@ import org.whole.lang.workflows.model.Assignments;
 import org.whole.lang.workflows.model.BooleanLiteral;
 import org.whole.lang.workflows.model.Condition;
 import org.whole.lang.workflows.model.ConditionalCase;
-import org.whole.lang.workflows.model.CreateEntity;
 import org.whole.lang.workflows.model.CreateJavaClassInstance;
 import org.whole.lang.workflows.model.CreateModel;
 import org.whole.lang.workflows.model.DeleteArtifacts;
@@ -492,81 +481,6 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 		i.setBindings(args);
 		resetIterator(i);
 		i.evaluateRemaining();
-	}
-
-	@Override
-	public void visit(CreateEntity entity) {
-		try {
-			entity.getEntityName().accept(this);
-			String typeName = getResultString();
-			EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.parseEntityDescriptor(typeName);
-			if (ed == null)
-				throw new WholeIllegalArgumentException("The requested entity does not exist: "+typeName).withSourceEntity(entity).withBindings(getBindings());
-	
-			setResult(null);
-			entity.getRegistry().accept(this);
-			IEntityRegistryProvider provider = RegistryConfigurations.valueOf(((Registry) getResult()).getValue().getName());
-			IEntityFactory ef = GenericEntityFactory.instance(provider);
-			IEntity model;
-	
-			Arguments arguments = entity.getArguments();
-			if (Matcher.matchImpl(WorkflowsEntityDescriptorEnum.Assignments, arguments)) {
-				ITransactionScope resettableScope = BindingManagerFactory.instance.createTransactionScope();
-				getBindings().wEnterScope(resettableScope);
-	
-				arguments.accept(this);
-				for (int i = 0; i < arguments.wSize(); i++) {
-					String name = ((Assignments) arguments).get(i).getName().getValue();
-					FeatureDescriptor fd = ed.getFeatureDescriptorEnum().valueOf(name);
-					if (fd != null)
-						getBindings().wDef(name, EntityUtils.convertCloneIfReparenting(getBindings().wGet(name), ed.getEntityFeatureDescriptor(fd)));
-				}
-				model = ef.create(ed, getBindings());
-	
-				resettableScope.rollback();
-				getBindings().wExitScope();
-			} else if (Matcher.matchImpl(WorkflowsEntityDescriptorEnum.Expressions, arguments)) {
-				IEntity selfEntity = getBindings().wGet(IBindingManager.SELF);
-				if (ed.getEntityKind().isData()) {
-					((Expressions) arguments).get(0).accept(this);
-					IEntity result = getResult();
-	        		if (result == null)
-	        			throw new WholeIllegalArgumentException(WholeMessages.null_value_argument).withSourceEntity(((Expressions) arguments).get(0)).withBindings(getBindings());
-
-					model = DataTypeUtils.convertCloneIfParented(result, ed);
-					resetSelfEntity(selfEntity);
-				} else if (ed.getEntityKind().isComposite()) {
-					int argsSize = arguments.wSize();
-					FeatureDescriptor efd = ed.getEntityFeatureDescriptor(0);
-					List<IEntity> values = new ArrayList<>(argsSize);
-					for (int i = 0; i < argsSize; i++) {
-						((Expressions) arguments).get(i).accept(this);
-						IEntity result = getResult();
-		        		if (result != null)
-		        			values.add(EntityUtils.convertCloneIfReparenting(result, efd));
-						resetSelfEntity(selfEntity);
-					}
-					model = ef.create(ed, values.toArray(new IEntity[0]));
-				} else {
-					IEntity[] values = new IEntity[arguments.wSize()];
-					for (int i = 0; i < values.length; i++) {
-						((Expressions) arguments).get(i).accept(this);
-						IEntity result = getResult();
-		        		if (result == null)
-		        			throw new WholeIllegalArgumentException(WholeMessages.null_value_argument).withSourceEntity(((Expressions) arguments).get(i)).withBindings(getBindings());
-
-						values[i] = EntityUtils.convertCloneIfReparenting(result, ed.getEntityFeatureDescriptor(i));
-						resetSelfEntity(selfEntity);
-					}
-					model = ef.create(ed, values);
-				}
-			} else
-				model = ef.create(ed);
-	
-			setResult(entity.getModel(), model);
-		} catch (Exception e) {
-			throw IWholeRuntimeException.asWholeException(e, entity, getBindings());
-		}
 	}
 
 	@Override
