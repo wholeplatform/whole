@@ -150,7 +150,74 @@
         </actions:SimpleAction>
     </actions:ToolbarActions>
     <actions:ContextMenuActions>
-        <actions:MenuActions initialCapacity="0"/>
+        <actions:MenuActions initialCapacity="1">
+            <actions:GuardedAction>
+                <actions:Label value="Redeploy Semantics and Actions"/>
+                <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:ScopeNames initialCapacity="0"/>
+                    <queries:Path initialCapacity="2">
+                        <actions:ActionCall>
+                            <actions:Label value="whole:org.whole.lang.patterns:PatternsActions#Derive Pattern Language"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </actions:ActionCall>
+                        <queries:Block initialCapacity="4">
+                            <queries:Filter>
+                                <queries:Delete>
+                                    <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:IndexTest>
+                                        <queries:IntLiteral value="0"/>
+                                        </queries:IndexTest>
+                                    </queries:Filter>
+                                </queries:Delete>
+                                <queries:VariableTest value="derivedModel"/>
+                            </queries:Filter>
+                            <workflows:InvokeOperation xmlns:workflows="http://lang.whole.org/Workflows">
+                                <workflows:Text value="normalize"/>
+                                <workflows:Variable value="derivedModel"/>
+                                <workflows:Operation value="NORMALIZER"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            </workflows:InvokeOperation>
+                            <queries:Filter>
+                                <queries:SelfStep/>
+                                <queries:VariableTest value="derivedBehavior"/>
+                            </queries:Filter>
+                            <queries:Choose initialCapacity="2">
+                                <queries:If>
+                                    <queries:Some>
+                                        <queries:Path initialCapacity="3">
+                                        <queries:VariableRefStep value="derivedModel"/>
+                                        <queries:FeatureStep value="http://lang.whole.org/Models#uri"/>
+                                        <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#languageMetamodel"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Path>
+                                        <queries:VariableTest value="derivedModel"/>
+                                    </queries:Some>
+                                    <queries:Call>
+                                        <queries:Name value="derivedBehavior"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </queries:Call>
+                                </queries:If>
+                                <queries:If>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <workflows:Task xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="Smart redeploy error"/>
+                                        <workflows:Text value="A complete deploy of the pattern language is needed"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </workflows:Task>
+                                </queries:If>
+                            </queries:Choose>
+                        </queries:Block>
+                    </queries:Path>
+                </queries:Scope>
+                <queries:TypeTest xmlns:queries="http://lang.whole.org/Queries" value="whole:org.whole.lang.patterns:PatternsModel#PatternLanguage"/>
+            </actions:GuardedAction>
+        </actions:MenuActions>
         <actions:MenuActions initialCapacity="4">
             <actions:GuardedAction>
                 <actions:Label value="Extract Patterns"/>
