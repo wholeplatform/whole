@@ -270,12 +270,12 @@
             <contentTypeBinding contentTypeId="org.whole.ui.contenttype.contentTypes.swiftWhole"/>
       </editor>
       <editor
-            name="Swift AST Editor (Whole)"
+            name="Swift Editor (Whole)"
             default="true"
             extensions="swift"
-            icon="icons/editors/swiftast.gif"
+            icon="icons/editors/swift.gif"
             class="org.whole.lang.e4.ui.compatibility.EditorPart"
-            id="org.whole.lang.swiftast.SwiftASTEditor">
+            id="org.whole.lang.swift.SwiftEditor">
             <contentTypeBinding contentTypeId="org.whole.ui.contenttype.contentTypes.swiftWhole"/>
       </editor>
       <editor

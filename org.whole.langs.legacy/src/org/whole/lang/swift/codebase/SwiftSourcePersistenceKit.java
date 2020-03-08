@@ -15,17 +15,26 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.langs.legacy;
+package org.whole.lang.swift.codebase;
 
-import org.whole.lang.reflect.AbstractLanguageDeployer;
-import org.whole.lang.reflect.ReflectionFactory;
-import org.whole.lang.swiftast.codebase.SwiftASTSourcePersistenceKit;
+import org.whole.lang.codebase.AbstractSpecificPersistenceKit;
 
 /**
  * @author Enrico Persiani
  */
-public class SwiftASTPersistenceDeployer extends AbstractLanguageDeployer {
-	public void deploy(ReflectionFactory platform) {
-		platform.addPersistenceKit("org.whole.lang.swiftast.SwiftASTEditor", SwiftASTSourcePersistenceKit.instance());
+public class SwiftSourcePersistenceKit extends AbstractSpecificPersistenceKit {
+
+	private static class SingletonHolder {
+		private static final SwiftSourcePersistenceKit instance = new SwiftSourcePersistenceKit();
+	}
+	public static final SwiftSourcePersistenceKit instance() {
+		return SingletonHolder.instance;
+	}
+	private SwiftSourcePersistenceKit() {
+		super("Swift", "swift", "whole:org.whole.lang.swift:SwiftModel");
+	}
+
+	public boolean isMultilanguage() {
+		return false;
 	}
 }
