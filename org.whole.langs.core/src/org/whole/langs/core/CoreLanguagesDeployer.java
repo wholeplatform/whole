@@ -25,6 +25,7 @@ import org.whole.lang.environment.reflect.EnvironmentLanguageDeployer;
 import org.whole.lang.frames.reflect.FramesLanguageDeployer;
 import org.whole.lang.grammars.reflect.GrammarsLanguageDeployer;
 import org.whole.lang.math.reflect.MathLanguageDeployer;
+import org.whole.lang.migrations.reflect.MigrationsLanguageDeployer;
 import org.whole.lang.misc.reflect.MiscLanguageDeployer;
 import org.whole.lang.models.reflect.ModelsLanguageDeployer;
 import org.whole.lang.patterns.reflect.PatternsLanguageDeployer;
@@ -61,6 +62,7 @@ public class CoreLanguagesDeployer extends AbstractSuiteDeployer {
 			FramesLanguageDeployer.class,
 			GrammarsLanguageDeployer.class,
 			MathLanguageDeployer.class,
+			MigrationsLanguageDeployer.class,
 			MiscLanguageDeployer.class,
 			ModelsLanguageDeployer.class,
 			PatternsLanguageDeployer.class,

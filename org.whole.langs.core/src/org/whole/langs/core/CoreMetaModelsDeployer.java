@@ -26,6 +26,7 @@ import org.whole.lang.environment.reflect.EnvironmentLanguageKit;
 import org.whole.lang.frames.reflect.FramesLanguageKit;
 import org.whole.lang.grammars.reflect.GrammarsLanguageKit;
 import org.whole.lang.math.reflect.MathLanguageKit;
+import org.whole.lang.migrations.reflect.MigrationsLanguageKit;
 import org.whole.lang.misc.reflect.MiscLanguageKit;
 import org.whole.lang.models.codebase.ActionsModel;
 import org.whole.lang.models.codebase.EditorsModel;
@@ -76,6 +77,7 @@ public class CoreMetaModelsDeployer extends AbstractLanguageExtensionDeployer {
 		platform.setMetaModelTemplate(GrammarsLanguageKit.URI, new GrammarsModel());
 		platform.setMetaModelTemplate(GRAMMAR_BASED_URI, new GrammarBasedModel());
 		platform.setMetaModelTemplate(MathLanguageKit.URI, new MathModel());
+		platform.setMetaModelTemplate(MigrationsLanguageKit.URI, "Migrations model", "org/whole/lang/migrations/MigrationsModel.xwl");
 		platform.setMetaModelTemplate(MiscLanguageKit.URI, new MiscModel());
 		platform.setMetaModelTemplate(ModelsLanguageKit.URI, new ModelsModel());
 		platform.setMetaModelTemplate(PatternsLanguageKit.URI, "Patterns model", "org/whole/lang/patterns/PatternsModel.xwl");
@@ -104,6 +106,7 @@ public class CoreMetaModelsDeployer extends AbstractLanguageExtensionDeployer {
 		platform.unsetMetaModelTemplate(GrammarsLanguageKit.URI);
 		platform.unsetMetaModelTemplate(GRAMMAR_BASED_URI);
 		platform.unsetMetaModelTemplate(MathLanguageKit.URI);
+		platform.unsetMetaModelTemplate(MigrationsLanguageKit.URI);
 		platform.unsetMetaModelTemplate(MiscLanguageKit.URI);
 		platform.unsetMetaModelTemplate(ModelsLanguageKit.URI);
 		platform.unsetMetaModelTemplate(PatternsLanguageKit.URI);

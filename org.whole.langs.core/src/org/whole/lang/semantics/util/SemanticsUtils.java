@@ -32,6 +32,7 @@ import org.whole.lang.factories.RegistryConfigurations;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.queries.factories.QueriesEntityFactory;
+import org.whole.lang.queries.model.RegistryEnum;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.FeatureDescriptor;
@@ -55,7 +56,6 @@ import org.whole.lang.util.FreshNameGenerator;
 import org.whole.lang.util.IRunnable;
 import org.whole.lang.util.ResourceUtils;
 import org.whole.lang.util.StringUtils;
-import org.whole.lang.workflows.model.RegistryEnum;
 
 /**
  * @author Riccardo Solmi

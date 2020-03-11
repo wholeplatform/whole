@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<actions:LanguageActionFactory xmlns:actions="http://lang.whole.org/Actions">
+    <actions:URI value="whole:org.whole.lang.migrations:MigrationsPatternsActions"/>
+    <actions:Namespace value="org.whole.lang.migrations"/>
+    <actions:Name value="Migrations"/>
+    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    <actions:URI value="whole:org.whole.lang.migrations:MigrationsPatternsModel"/>
+    <actions:ToolbarActions>
+        <actions:SimpleAction>
+            <actions:Label value="Validator"/>
+            <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                    <semantics:Name value="whole:org.whole.lang.migrations:MigrationsPatternsSemantics#expandPatterns"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </semantics:FunctionApplication>
+                <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                    <semantics:Name value="#stagedVisit"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </semantics:FunctionApplication>
+            </queries:Path>
+        </actions:SimpleAction>
+        <actions:SimpleAction>
+            <actions:Label value="Normalizer"/>
+            <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                    <semantics:Name value="whole:org.whole.lang.migrations:MigrationsPatternsSemantics#expandPatterns"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </semantics:FunctionApplication>
+                <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                    <semantics:Name value="#stagedVisit"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </semantics:FunctionApplication>
+            </queries:Path>
+        </actions:SimpleAction>
+        <actions:SimpleAction>
+            <actions:Label value="Pretty Print"/>
+            <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                    <semantics:Name value="whole:org.whole.lang.migrations:MigrationsPatternsSemantics#expandPatterns"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </semantics:FunctionApplication>
+                <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                    <semantics:Name value="#stagedVisit"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </semantics:FunctionApplication>
+            </queries:Path>
+        </actions:SimpleAction>
+        <actions:SimpleAction>
+            <actions:Label value="Interpreter"/>
+            <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                    <semantics:Name value="whole:org.whole.lang.migrations:MigrationsPatternsSemantics#expandPatterns"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </semantics:FunctionApplication>
+                <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                    <semantics:Name value="#stagedVisit"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </semantics:FunctionApplication>
+            </queries:Path>
+        </actions:SimpleAction>
+        <actions:SimpleAction>
+            <actions:Label value="Artifacts Generator"/>
+            <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                    <semantics:Name value="whole:org.whole.lang.migrations:MigrationsPatternsSemantics#expandPatterns"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </semantics:FunctionApplication>
+                <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                    <semantics:Name value="#stagedVisit"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </semantics:FunctionApplication>
+            </queries:Path>
+        </actions:SimpleAction>
+    </actions:ToolbarActions>
+    <actions:ContextMenuActions>
+        <actions:MenuActions initialCapacity="0"/>
+        <actions:MenuActions initialCapacity="0"/>
+        <actions:MenuActions initialCapacity="0"/>
+        <actions:MenuActions initialCapacity="0"/>
+        <actions:MenuActions initialCapacity="0"/>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    </actions:ContextMenuActions>
+</actions:LanguageActionFactory>

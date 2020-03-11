@@ -70,6 +70,13 @@ public class CoreContributionsDeployer extends AbstractContributionDeployer {
 			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
 					new ClasspathPersistenceProvider("org/whole/lang/patterns/PatternsGuestActions.xwl")));
 
+			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
+					new ClasspathPersistenceProvider("org/whole/lang/migrations/MigrationsSemantics.xwl")));
+			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
+					new ClasspathPersistenceProvider("org/whole/lang/migrations/MigrationsActions.xwl")));
+			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
+					new ClasspathPersistenceProvider("org/whole/lang/migrations/MigrationsGuestActions.xwl")));
+
 			//Require Patterns Semantics and Actions
 			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
 					new ClasspathPersistenceProvider("org/whole/lang/math/MathLibrary.xwl")));

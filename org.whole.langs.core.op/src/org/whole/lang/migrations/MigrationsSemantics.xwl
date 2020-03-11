@@ -1,0 +1,2557 @@
+<?xml version="1.0"?>
+<semantics:SemanticTheory xmlns:semantics="http://lang.whole.org/Semantics">
+    <semantics:URI value="whole:org.whole.lang.migrations:MigrationsPatternsSemantics"/>
+    <semantics:Namespace value="org.whole.lang.migrations"/>
+    <semantics:Name value="Migrations"/>
+    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    <semantics:SemanticFunctions initialCapacity="10">
+        <semantics:SemanticFunction>
+            <semantics:Name value="expandPatterns"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:AnyType/>
+            </semantics:FunctionType>
+            <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
+                <queries:FreshNames initialCapacity="1">
+                    <queries:Name value="_nameGenerator"/>
+                </queries:FreshNames>
+                <queries:Block initialCapacity="2">
+                    <queries:Filter>
+                        <workflows:CreateJavaClassInstance xmlns:workflows="http://lang.whole.org/Workflows">
+                            <workflows:Text value="createFreshNameGenerator"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <workflows:StringLiteral value="org.whole.lang.util.FreshNameGenerator"/>
+                            <workflows:StringLiteral value="FreshNameGenerator()"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </workflows:CreateJavaClassInstance>
+                        <queries:VariableTest value="_nameGenerator"/>
+                    </queries:Filter>
+                    <semantics:FunctionApplication>
+                        <semantics:Name value="whole:org.whole.lang.migrations:MigrationsPatternsSemantics#expandPatternsInplace"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </semantics:FunctionApplication>
+                </queries:Block>
+            </queries:Scope>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="expandPatternsInplace"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:AnyType/>
+            </semantics:FunctionType>
+            <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                <queries:Path initialCapacity="2">
+                    <queries:Filter>
+                        <queries:SelfStep/>
+                        <queries:LanguageTest value="whole:org.whole.lang.migrations:MigrationsPatternsModel"/>
+                    </queries:Filter>
+                    <queries:Choose initialCapacity="16">
+                        <queries:If>
+                            <queries:TypeTest value="whole:org.whole.lang.migrations:MigrationsPatternsModel#MigrationFrame"/>
+                            <queries:Scope>
+                                <queries:FreshNames initialCapacity="4">
+                                    <queries:Name value="migrationToolUri"/>
+                                    <queries:Name value="migrationToolNamespace"/>
+                                    <queries:Name value="migrationToolName"/>
+                                    <queries:Name value="artifacts"/>
+                                </queries:FreshNames>
+                                <queries:Block initialCapacity="5">
+                                    <queries:Filter>
+                                        <queries:Choose initialCapacity="2">
+                                        <queries:Filter>
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.migrations:MigrationsPatternsModel#uri"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        <queries:KindTest value="IMPL"/>
+                                        </queries:Filter>
+                                        <queries:Addition>
+                                        <queries:Addition>
+                                        <queries:StringLiteral value="whole:"/>
+                                        <queries:VariableRefStep value="packageName"/>
+                                        </queries:Addition>
+                                        <queries:Addition>
+                                        <queries:StringLiteral value=":"/>
+                                        <queries:Addition>
+                                        <queries:VariableRefStep value="fileName"/>
+                                        <queries:StringLiteral value="MigrationTool"/>
+                                        </queries:Addition>
+                                        </queries:Addition>
+                                        </queries:Addition>
+                                        </queries:Choose>
+                                        <queries:VariableTest value="migrationToolUri"/>
+                                    </queries:Filter>
+                                    <queries:Filter>
+                                        <queries:Choose initialCapacity="2">
+                                        <queries:Filter>
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.migrations:MigrationsPatternsModel#namespace"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        <queries:KindTest value="IMPL"/>
+                                        </queries:Filter>
+                                        <queries:VariableRefStep value="packageName"/>
+                                        </queries:Choose>
+                                        <queries:VariableTest value="migrationToolNamespace"/>
+                                    </queries:Filter>
+                                    <queries:Filter>
+                                        <queries:Choose initialCapacity="2">
+                                        <queries:Filter>
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.migrations:MigrationsPatternsModel#name"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        <queries:KindTest value="IMPL"/>
+                                        </queries:Filter>
+                                        <queries:VariableRefStep value="fileName"/>
+                                        </queries:Choose>
+                                        <queries:VariableTest value="migrationToolName"/>
+                                    </queries:Filter>
+                                    <queries:Filter>
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.migrations:MigrationsPatternsModel#artifacts"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        <queries:VariableTest value="artifacts"/>
+                                    </queries:Filter>
+                                    <queries:Sequence initialCapacity="1">
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.migrations:MigrationsPatternsModel#rules"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                    </queries:Sequence>
+                                </queries:Block>
+                            </queries:Scope>
+                        </queries:If>
+                        <queries:If>
+                            <queries:TypeTest value="whole:org.whole.lang.migrations:MigrationsPatternsModel#Library"/>
+                            <queries:Scope>
+                                <queries:FreshNames initialCapacity="8">
+                                    <queries:Name value="migrationToolUri"/>
+                                    <queries:Name value="migrationToolNamespace"/>
+                                    <queries:Name value="migrationToolName"/>
+                                    <queries:Name value="joinpoints#functionDefinitionsPoint"/>
+                                    <queries:Name value="joinpoints#functionAnalyzeActionsPoint"/>
+                                    <queries:Name value="joinpoints#functionMigrateActionsPoint"/>
+                                    <queries:Name value="joinpoints#library"/>
+                                    <queries:Name value="joinpoints#resultCollectorPoint"/>
+                                </queries:FreshNames>
+                                <queries:Block initialCapacity="9">
+                                    <queries:Filter>
+                                        <queries:Choose initialCapacity="2">
+                                        <queries:Filter>
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.migrations:MigrationsPatternsModel#uri"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        <queries:KindTest value="IMPL"/>
+                                        </queries:Filter>
+                                        <queries:Addition>
+                                        <queries:Addition>
+                                        <queries:StringLiteral value="whole:"/>
+                                        <queries:VariableRefStep value="packageName"/>
+                                        </queries:Addition>
+                                        <queries:Addition>
+                                        <queries:StringLiteral value=":"/>
+                                        <queries:Addition>
+                                        <queries:VariableRefStep value="fileName"/>
+                                        <queries:StringLiteral value="MigrationTool"/>
+                                        </queries:Addition>
+                                        </queries:Addition>
+                                        </queries:Addition>
+                                        </queries:Choose>
+                                        <queries:VariableTest value="migrationToolUri"/>
+                                    </queries:Filter>
+                                    <queries:Filter>
+                                        <queries:Choose initialCapacity="2">
+                                        <queries:Filter>
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.migrations:MigrationsPatternsModel#namespace"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        <queries:KindTest value="IMPL"/>
+                                        </queries:Filter>
+                                        <queries:VariableRefStep value="packageName"/>
+                                        </queries:Choose>
+                                        <queries:VariableTest value="migrationToolNamespace"/>
+                                    </queries:Filter>
+                                    <queries:Filter>
+                                        <queries:Choose initialCapacity="2">
+                                        <queries:Filter>
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.migrations:MigrationsPatternsModel#name"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        <queries:KindTest value="IMPL"/>
+                                        </queries:Filter>
+                                        <queries:VariableRefStep value="fileName"/>
+                                        </queries:Choose>
+                                        <queries:VariableTest value="migrationToolName"/>
+                                    </queries:Filter>
+                                    <queries:Filter>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="2">
+                                        <semantics:SemanticTheory>
+                                        <commons:StageDownFragment>
+                                        <queries:VariableRefStep value="migrationToolUri"/>
+                                        </commons:StageDownFragment>
+                                        <commons:StageDownFragment>
+                                        <queries:VariableRefStep value="migrationToolNamespace"/>
+                                        </commons:StageDownFragment>
+                                        <commons:StageDownFragment>
+                                        <queries:VariableRefStep value="migrationToolName"/>
+                                        </commons:StageDownFragment>
+                                        <commons:Resolver/>
+                                        <commons:StageDownFragment>
+                                        <queries:Filter>
+                                        <commons:StageUpFragment>
+                                        <semantics:SemanticFunctions initialCapacity="0"/>
+                                        </commons:StageUpFragment>
+                                        <queries:VariableTest value="joinpoints#functionDefinitionsPoint"/>
+                                        </queries:Filter>
+                                        </commons:StageDownFragment>
+                                        </semantics:SemanticTheory>
+                                        <actions:LanguageActionFactory xmlns:actions="http://lang.whole.org/Actions">
+                                        <commons:StageDownFragment>
+                                        <queries:VariableRefStep value="migrationToolUri"/>
+                                        </commons:StageDownFragment>
+                                        <commons:StageDownFragment>
+                                        <queries:VariableRefStep value="migrationToolNamespace"/>
+                                        </commons:StageDownFragment>
+                                        <commons:StageDownFragment>
+                                        <queries:VariableRefStep value="migrationToolName"/>
+                                        </commons:StageDownFragment>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <actions:ToolbarActions>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </actions:ToolbarActions>
+                                        <actions:ContextMenuActions>
+                                        <actions:MenuActions initialCapacity="0"/>
+                                        <actions:MenuActions initialCapacity="0"/>
+                                        <actions:MenuActions initialCapacity="0"/>
+                                        <commons:StageDownFragment>
+                                        <queries:Filter>
+                                        <commons:StageUpFragment>
+                                        <actions:MenuActions initialCapacity="0"/>
+                                        </commons:StageUpFragment>
+                                        <queries:VariableTest value="joinpoints#functionAnalyzeActionsPoint"/>
+                                        </queries:Filter>
+                                        </commons:StageDownFragment>
+                                        <commons:StageDownFragment>
+                                        <queries:Filter>
+                                        <commons:StageUpFragment>
+                                        <actions:MenuActions initialCapacity="0"/>
+                                        </commons:StageUpFragment>
+                                        <queries:VariableTest value="joinpoints#functionMigrateActionsPoint"/>
+                                        </queries:Filter>
+                                        </commons:StageDownFragment>
+                                        <commons:Resolver/>
+                                        </actions:ContextMenuActions>
+                                        </actions:LanguageActionFactory>
+                                        </misc:Misc>
+                                        </commons:StageUpFragment>
+                                        <queries:VariableTest value="joinpoints#library"/>
+                                    </queries:Filter>
+                                    <queries:Filter>
+                                        <queries:UnionAll>
+                                        <queries:Expressions initialCapacity="0"/>
+                                        </queries:UnionAll>
+                                        <queries:VariableTest value="joinpoints#resultCollectorPoint"/>
+                                    </queries:Filter>
+                                    <semantics:FunctionApplication>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.migrations:MigrationsPatternsModel#functions"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </semantics:FunctionApplication>
+                                    <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="joinpoints#library"/>
+                                        <queries:Insert>
+                                        <queries:Placement value="INTO"/>
+                                        <queries:VariableRefStep value="joinpoints#resultCollectorPoint"/>
+                                        </queries:Insert>
+                                    </queries:Path>
+                                    <queries:If>
+                                        <queries:Some>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="joinpoints#library"/>
+                                        <queries:KindTest value="RESOLVER"/>
+                                        </queries:Filter>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
+                                        <queries:Delete>
+                                        <queries:VariableRefStep value="joinpoints#library"/>
+                                        </queries:Delete>
+                                    </queries:If>
+                                    <queries:Delete>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="joinpoints#resultCollectorPoint"/>
+                                        <queries:ChildStep/>
+                                        </queries:Path>
+                                    </queries:Delete>
+                                </queries:Block>
+                            </queries:Scope>
+                        </queries:If>
+                        <queries:If>
+                            <queries:TypeTest value="whole:org.whole.lang.migrations:MigrationsPatternsModel#MigrationFunctions"/>
+                            <queries:Choose initialCapacity="2">
+                                <semantics:FunctionApplication>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <queries:ChildStep/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </semantics:FunctionApplication>
+                                <queries:VoidLiteral/>
+                            </queries:Choose>
+                        </queries:If>
+                        <queries:If>
+                            <queries:TypeTest value="whole:org.whole.lang.migrations:MigrationsPatternsModel#MigrationFunction"/>
+                            <queries:Scope>
+                                <queries:FreshNames initialCapacity="3">
+                                    <queries:Name value="joinpoints#freshNamesPoint"/>
+                                    <queries:Name value="joinpoints#functionRulePoint"/>
+                                    <queries:Name value="registry"/>
+                                </queries:FreshNames>
+                                <queries:Block initialCapacity="7">
+                                    <queries:Filter>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <queries:KindTest value="RESOLVER"/>
+                                        </commons:StageUpFragment>
+                                        <queries:VariableTest value="registry"/>
+                                    </queries:Filter>
+                                    <queries:Path initialCapacity="2">
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <actions:GuardedAction xmlns:actions="http://lang.whole.org/Actions">
+                                        <commons:StageDownFragment>
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.migrations:MigrationsPatternsModel#label"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        </commons:StageDownFragment>
+                                        <semantics:FunctionApplication>
+                                        <commons:StageDownFragment>
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.migrations:MigrationsPatternsModel#name"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        </commons:StageDownFragment>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        <queries:BooleanLiteral value="true"/>
+                                        </actions:GuardedAction>
+                                        </commons:StageUpFragment>
+                                        <queries:Insert>
+                                        <queries:Placement value="INTO"/>
+                                        <queries:VariableRefStep value="joinpoints#functionAnalyzeActionsPoint"/>
+                                        </queries:Insert>
+                                    </queries:Path>
+                                    <queries:Path initialCapacity="2">
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <actions:GuardedAction xmlns:actions="http://lang.whole.org/Actions">
+                                        <commons:StageDownFragment>
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.migrations:MigrationsPatternsModel#label"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        </commons:StageDownFragment>
+                                        <queries:CartesianUpdate>
+                                        <queries:SelfStep/>
+                                        <semantics:FunctionApplication>
+                                        <commons:StageDownFragment>
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.migrations:MigrationsPatternsModel#name"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        </commons:StageDownFragment>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        </queries:CartesianUpdate>
+                                        <queries:BooleanLiteral value="true"/>
+                                        </actions:GuardedAction>
+                                        </commons:StageUpFragment>
+                                        <queries:Insert>
+                                        <queries:Placement value="INTO"/>
+                                        <queries:VariableRefStep value="joinpoints#functionMigrateActionsPoint"/>
+                                        </queries:Insert>
+                                    </queries:Path>
+                                    <queries:Path initialCapacity="2">
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <semantics:SemanticFunction>
+                                        <commons:StageDownFragment>
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.migrations:MigrationsPatternsModel#name"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        </commons:StageDownFragment>
+                                        <semantics:FunctionType>
+                                        <semantics:AnyType/>
+                                        <semantics:AnyType/>
+                                        </semantics:FunctionType>
+                                        <queries:Scope>
+                                        <commons:StageDownFragment>
+                                        <queries:Filter>
+                                        <commons:StageUpFragment>
+                                        <queries:FreshNames initialCapacity="0"/>
+                                        </commons:StageUpFragment>
+                                        <queries:VariableTest value="joinpoints#freshNamesPoint"/>
+                                        </queries:Filter>
+                                        </commons:StageDownFragment>
+                                        <queries:Choose initialCapacity="2">
+                                        <commons:StageDownFragment>
+                                        <queries:Filter>
+                                        <commons:StageUpFragment>
+                                        <commons:Resolver/>
+                                        </commons:StageUpFragment>
+                                        <queries:VariableTest value="joinpoints#functionRulePoint"/>
+                                        </queries:Filter>
+                                        </commons:StageDownFragment>
+                                        <queries:If>
+                                        <commons:Resolver/>
+                                        <queries:Clone>
+                                        <semantics:FunctionApplication>
+                                        <commons:StageDownFragment>
+                                        <commons:Resolver/>
+                                        </commons:StageDownFragment>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Clone>
+                                        </queries:If>
+                                        </queries:Choose>
+                                        </queries:Scope>
+                                        </semantics:SemanticFunction>
+                                        </commons:StageUpFragment>
+                                        <queries:Insert>
+                                        <queries:Placement value="INTO"/>
+                                        <queries:VariableRefStep value="joinpoints#functionDefinitionsPoint"/>
+                                        </queries:Insert>
+                                    </queries:Path>
+                                    <semantics:FunctionApplication>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.migrations:MigrationsPatternsModel#rules"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </semantics:FunctionApplication>
+                                    <queries:Delete>
+                                        <queries:VariableRefStep value="joinpoints#functionRulePoint"/>
+                                    </queries:Delete>
+                                    <queries:VoidLiteral/>
+                                </queries:Block>
+                            </queries:Scope>
+                        </queries:If>
+                        <queries:If>
+                            <queries:TypeTest value="whole:org.whole.lang.migrations:MigrationsPatternsModel#MigrationRules"/>
+                            <queries:Choose initialCapacity="2">
+                                <semantics:FunctionApplication>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <queries:ChildStep/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </semantics:FunctionApplication>
+                                <queries:VoidLiteral/>
+                            </queries:Choose>
+                        </queries:If>
+                        <queries:If>
+                            <queries:TypeTest value="whole:org.whole.lang.migrations:MigrationsPatternsModel#MigratePatternLanguage"/>
+                            <queries:Scope>
+                                <queries:FreshNames initialCapacity="8">
+                                    <queries:Name value="sourcePatterns"/>
+                                    <queries:Name value="sourceModelUri"/>
+                                    <queries:Name value="sourceSemanticsUri"/>
+                                    <queries:Name value="sourceActionsUri"/>
+                                    <queries:Name value="targetPatterns"/>
+                                    <queries:Name value="targetModelUri"/>
+                                    <queries:Name value="targetSemanticsUri"/>
+                                    <queries:Name value="targetActionsUri"/>
+                                </queries:FreshNames>
+                                <queries:Block initialCapacity="12">
+                                    <queries:Filter>
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.migrations:MigrationsPatternsModel#source"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        <queries:VariableTest value="sourcePatterns"/>
+                                    </queries:Filter>
+                                    <queries:Filter>
+                                        <queries:Scope>
+                                        <queries:FreshNames initialCapacity="1">
+                                        <queries:Name value="suffix"/>
+                                        </queries:FreshNames>
+                                        <queries:Block initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:StringLiteral value="Model"/>
+                                        <queries:VariableTest value="suffix"/>
+                                        </queries:Filter>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#uriWithNameSuffix"/>
+                                        <queries:VariableRefStep value="sourcePatterns"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        <queries:VariableTest value="sourceModelUri"/>
+                                    </queries:Filter>
+                                    <queries:Filter>
+                                        <queries:Scope>
+                                        <queries:FreshNames initialCapacity="1">
+                                        <queries:Name value="suffix"/>
+                                        </queries:FreshNames>
+                                        <queries:Block initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:StringLiteral value="Semantics"/>
+                                        <queries:VariableTest value="suffix"/>
+                                        </queries:Filter>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#uriWithNameSuffix"/>
+                                        <queries:VariableRefStep value="sourcePatterns"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        <queries:VariableTest value="sourceSemanticsUri"/>
+                                    </queries:Filter>
+                                    <queries:Filter>
+                                        <queries:Scope>
+                                        <queries:FreshNames initialCapacity="1">
+                                        <queries:Name value="suffix"/>
+                                        </queries:FreshNames>
+                                        <queries:Block initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:StringLiteral value="Actions"/>
+                                        <queries:VariableTest value="suffix"/>
+                                        </queries:Filter>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#uriWithNameSuffix"/>
+                                        <queries:VariableRefStep value="sourcePatterns"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        <queries:VariableTest value="sourceActionsUri"/>
+                                    </queries:Filter>
+                                    <queries:Filter>
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.migrations:MigrationsPatternsModel#target"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        <queries:VariableTest value="targetPatterns"/>
+                                    </queries:Filter>
+                                    <queries:Filter>
+                                        <queries:Scope>
+                                        <queries:FreshNames initialCapacity="1">
+                                        <queries:Name value="suffix"/>
+                                        </queries:FreshNames>
+                                        <queries:Block initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:StringLiteral value="Model"/>
+                                        <queries:VariableTest value="suffix"/>
+                                        </queries:Filter>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#uriWithNameSuffix"/>
+                                        <queries:VariableRefStep value="targetPatterns"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        <queries:VariableTest value="targetModelUri"/>
+                                    </queries:Filter>
+                                    <queries:Filter>
+                                        <queries:Scope>
+                                        <queries:FreshNames initialCapacity="1">
+                                        <queries:Name value="suffix"/>
+                                        </queries:FreshNames>
+                                        <queries:Block initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:StringLiteral value="Semantics"/>
+                                        <queries:VariableTest value="suffix"/>
+                                        </queries:Filter>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#uriWithNameSuffix"/>
+                                        <queries:VariableRefStep value="targetPatterns"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        <queries:VariableTest value="targetSemanticsUri"/>
+                                    </queries:Filter>
+                                    <queries:Filter>
+                                        <queries:Scope>
+                                        <queries:FreshNames initialCapacity="1">
+                                        <queries:Name value="suffix"/>
+                                        </queries:FreshNames>
+                                        <queries:Block initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:StringLiteral value="Actions"/>
+                                        <queries:VariableTest value="suffix"/>
+                                        </queries:Filter>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#uriWithNameSuffix"/>
+                                        <queries:VariableRefStep value="targetPatterns"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        <queries:VariableTest value="targetActionsUri"/>
+                                    </queries:Filter>
+                                    <semantics:FunctionApplication>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <queries:Scope>
+                                        <queries:FreshNames initialCapacity="1">
+                                        <queries:Name value="pattern#self"/>
+                                        </queries:FreshNames>
+                                        <queries:Block initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:SelfStep/>
+                                        <queries:VariableTest value="pattern#self"/>
+                                        </queries:Filter>
+                                        <queries:Create>
+                                        <queries:EntityType value="whole:org.whole.lang.migrations:MigrationsPatternsModel#MigrateLanguage"/>
+                                        <queries:Registry value="DEFAULT"/>
+                                        <queries:Features initialCapacity="4">
+                                        <queries:Feature>
+                                        <queries:Name value="source"/>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="pattern#self"/>
+                                        <semantics:TypeCast>
+                                        <semantics:EntityType value="http://lang.whole.org/Queries#LanguageTest"/>
+                                        <queries:VariableRefStep value="sourceModelUri"/>
+                                        </semantics:TypeCast>
+                                        </queries:Path>
+                                        </queries:Feature>
+                                        <queries:Feature>
+                                        <queries:Name value="target"/>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="pattern#self"/>
+                                        <semantics:TypeCast>
+                                        <semantics:EntityType value="http://lang.whole.org/Queries#LanguageTest"/>
+                                        <queries:VariableRefStep value="targetModelUri"/>
+                                        </semantics:TypeCast>
+                                        </queries:Path>
+                                        </queries:Feature>
+                                        <queries:Feature>
+                                        <queries:Name value="rules"/>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="pattern#self"/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.migrations:MigrationsPatternsModel#rules"/>
+                                        </queries:Path>
+                                        </queries:Feature>
+                                        <queries:Feature>
+                                        <queries:Name value="registry"/>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="pattern#self"/>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <commons:Resolver/>
+                                        </commons:StageUpFragment>
+                                        </queries:Path>
+                                        </queries:Feature>
+                                        </queries:Features>
+                                        </queries:Create>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </semantics:FunctionApplication>
+                                    <queries:Path initialCapacity="2">
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <queries:If>
+                                        <queries:And initialCapacity="2">
+                                        <queries:Some>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#uriResourcePart"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        </queries:Some>
+                                        <queries:Equals>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#uriResourcePart"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        <commons:StageDownFragment>
+                                        <semantics:TypeCast>
+                                        <semantics:EntityType value="http://lang.whole.org/Queries#StringLiteral"/>
+                                        <queries:VariableRefStep value="sourceSemanticsUri"/>
+                                        </semantics:TypeCast>
+                                        </commons:StageDownFragment>
+                                        </queries:Equals>
+                                        </queries:And>
+                                        <queries:Addition>
+                                        <commons:StageDownFragment>
+                                        <semantics:TypeCast>
+                                        <semantics:EntityType value="http://lang.whole.org/Queries#StringLiteral"/>
+                                        <queries:VariableRefStep value="targetSemanticsUri"/>
+                                        </semantics:TypeCast>
+                                        </commons:StageDownFragment>
+                                        <queries:Addition>
+                                        <queries:StringLiteral value="#"/>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#uriFragmentPart"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Addition>
+                                        </queries:Addition>
+                                        </queries:If>
+                                        </commons:StageUpFragment>
+                                        <queries:Insert>
+                                        <queries:Placement value="BEFORE"/>
+                                        <queries:VariableRefStep value="joinpoints#semanticsUriMappingPoint"/>
+                                        </queries:Insert>
+                                    </queries:Path>
+                                    <queries:Path initialCapacity="2">
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <queries:If>
+                                        <queries:And initialCapacity="2">
+                                        <queries:Some>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#uriResourcePart"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        </queries:Some>
+                                        <queries:Equals>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#uriResourcePart"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        <commons:StageDownFragment>
+                                        <semantics:TypeCast>
+                                        <semantics:EntityType value="http://lang.whole.org/Queries#StringLiteral"/>
+                                        <queries:VariableRefStep value="sourceActionsUri"/>
+                                        </semantics:TypeCast>
+                                        </commons:StageDownFragment>
+                                        </queries:Equals>
+                                        </queries:And>
+                                        <queries:Addition>
+                                        <commons:StageDownFragment>
+                                        <semantics:TypeCast>
+                                        <semantics:EntityType value="http://lang.whole.org/Queries#StringLiteral"/>
+                                        <queries:VariableRefStep value="targetActionsUri"/>
+                                        </semantics:TypeCast>
+                                        </commons:StageDownFragment>
+                                        <queries:Addition>
+                                        <queries:StringLiteral value="#"/>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#uriFragmentPart"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Addition>
+                                        </queries:Addition>
+                                        </queries:If>
+                                        </commons:StageUpFragment>
+                                        <queries:Insert>
+                                        <queries:Placement value="BEFORE"/>
+                                        <queries:VariableRefStep value="joinpoints#actionsUriMappingPoint"/>
+                                        </queries:Insert>
+                                    </queries:Path>
+                                    <queries:VoidLiteral/>
+                                </queries:Block>
+                            </queries:Scope>
+                        </queries:If>
+                        <queries:If>
+                            <queries:TypeTest value="whole:org.whole.lang.migrations:MigrationsPatternsModel#MigrateLanguage"/>
+                            <queries:Scope>
+                                <queries:FreshNames initialCapacity="9">
+                                    <queries:Name value="sourceLanguage"/>
+                                    <queries:Name value="targetLanguage"/>
+                                    <queries:Name value="registry"/>
+                                    <queries:Name value="joinpoints#modelsUriMappingPoint"/>
+                                    <queries:Name value="modelsUriMappingFunction"/>
+                                    <queries:Name value="joinpoints#semanticsUriMappingPoint"/>
+                                    <queries:Name value="semanticsUriMappingFunction"/>
+                                    <queries:Name value="joinpoints#actionsUriMappingPoint"/>
+                                    <queries:Name value="actionsUriMappingFunction"/>
+                                </queries:FreshNames>
+                                <queries:Block initialCapacity="13">
+                                    <queries:Filter>
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.migrations:MigrationsPatternsModel#source"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        <queries:VariableTest value="sourceLanguage"/>
+                                    </queries:Filter>
+                                    <queries:Filter>
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.migrations:MigrationsPatternsModel#target"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        <queries:VariableTest value="targetLanguage"/>
+                                    </queries:Filter>
+                                    <queries:Filter>
+                                        <queries:Path initialCapacity="2">
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.migrations:MigrationsPatternsModel#registry"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        <queries:Choose initialCapacity="2">
+                                        <queries:If>
+                                        <queries:KindTest value="RESOLVER"/>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <queries:Registry value="RESOLVER"/>
+                                        </commons:StageUpFragment>
+                                        </queries:If>
+                                        <queries:If>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <queries:SelfStep/>
+                                        </queries:If>
+                                        </queries:Choose>
+                                        </queries:Path>
+                                        <queries:VariableTest value="registry"/>
+                                    </queries:Filter>
+                                    <queries:Filter>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <queries:Choose initialCapacity="2">
+                                        <commons:StageDownFragment>
+                                        <queries:Filter>
+                                        <commons:StageUpFragment>
+                                        <commons:Resolver/>
+                                        </commons:StageUpFragment>
+                                        <queries:VariableTest value="joinpoints#modelsUriMappingPoint"/>
+                                        </queries:Filter>
+                                        </commons:StageDownFragment>
+                                        <queries:If>
+                                        <commons:Resolver/>
+                                        <queries:SelfStep/>
+                                        </queries:If>
+                                        </queries:Choose>
+                                        </commons:StageUpFragment>
+                                        <queries:VariableTest value="modelsUriMappingFunction"/>
+                                    </queries:Filter>
+                                    <queries:Filter>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <queries:Choose initialCapacity="2">
+                                        <commons:StageDownFragment>
+                                        <queries:Filter>
+                                        <commons:StageUpFragment>
+                                        <commons:Resolver/>
+                                        </commons:StageUpFragment>
+                                        <queries:VariableTest value="joinpoints#semanticsUriMappingPoint"/>
+                                        </queries:Filter>
+                                        </commons:StageDownFragment>
+                                        <queries:If>
+                                        <commons:Resolver/>
+                                        <queries:SelfStep/>
+                                        </queries:If>
+                                        </queries:Choose>
+                                        </commons:StageUpFragment>
+                                        <queries:VariableTest value="semanticsUriMappingFunction"/>
+                                    </queries:Filter>
+                                    <queries:Filter>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <queries:Choose initialCapacity="2">
+                                        <commons:StageDownFragment>
+                                        <queries:Filter>
+                                        <commons:StageUpFragment>
+                                        <commons:Resolver/>
+                                        </commons:StageUpFragment>
+                                        <queries:VariableTest value="joinpoints#actionsUriMappingPoint"/>
+                                        </queries:Filter>
+                                        </commons:StageDownFragment>
+                                        <queries:If>
+                                        <commons:Resolver/>
+                                        <queries:SelfStep/>
+                                        </queries:If>
+                                        </queries:Choose>
+                                        </commons:StageUpFragment>
+                                        <queries:VariableTest value="actionsUriMappingFunction"/>
+                                    </queries:Filter>
+                                    <queries:Path initialCapacity="2">
+                                        <queries:Sequence initialCapacity="2">
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <queries:If>
+                                        <queries:Equals>
+                                        <queries:SelfStep/>
+                                        <commons:StageDownFragment>
+                                        <semantics:TypeCast>
+                                        <semantics:EntityType value="http://lang.whole.org/Queries#StringLiteral"/>
+                                        <queries:VariableRefStep value="sourceLanguage"/>
+                                        </semantics:TypeCast>
+                                        </commons:StageDownFragment>
+                                        </queries:Equals>
+                                        <commons:StageDownFragment>
+                                        <semantics:TypeCast>
+                                        <semantics:EntityType value="http://lang.whole.org/Queries#StringLiteral"/>
+                                        <queries:VariableRefStep value="targetLanguage"/>
+                                        </semantics:TypeCast>
+                                        </commons:StageDownFragment>
+                                        </queries:If>
+                                        </commons:StageUpFragment>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <queries:If>
+                                        <queries:And initialCapacity="2">
+                                        <queries:Some>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#uriResourcePart"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        </queries:Some>
+                                        <queries:Equals>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#uriResourcePart"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        <commons:StageDownFragment>
+                                        <semantics:TypeCast>
+                                        <semantics:EntityType value="http://lang.whole.org/Queries#StringLiteral"/>
+                                        <queries:VariableRefStep value="sourceLanguage"/>
+                                        </semantics:TypeCast>
+                                        </commons:StageDownFragment>
+                                        </queries:Equals>
+                                        </queries:And>
+                                        <queries:Addition>
+                                        <commons:StageDownFragment>
+                                        <semantics:TypeCast>
+                                        <semantics:EntityType value="http://lang.whole.org/Queries#StringLiteral"/>
+                                        <queries:VariableRefStep value="targetLanguage"/>
+                                        </semantics:TypeCast>
+                                        </commons:StageDownFragment>
+                                        <queries:Addition>
+                                        <queries:StringLiteral value="#"/>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#uriFragmentPart"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Addition>
+                                        </queries:Addition>
+                                        </queries:If>
+                                        </commons:StageUpFragment>
+                                        </queries:Sequence>
+                                        <queries:Insert>
+                                        <queries:Placement value="BEFORE"/>
+                                        <queries:VariableRefStep value="joinpoints#modelsUriMappingPoint"/>
+                                        </queries:Insert>
+                                    </queries:Path>
+                                    <queries:Path initialCapacity="2">
+                                        <queries:Sequence initialCapacity="2">
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.migrations:MigrationsPatternsModel#rules"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <queries:If>
+                                        <commons:StageDownFragment>
+                                        <queries:VariableRefStep value="sourceLanguage"/>
+                                        </commons:StageDownFragment>
+                                        <queries:Scope>
+                                        <queries:FreshNames initialCapacity="6">
+                                        <queries:Name value="_sourceInstance"/>
+                                        <queries:Name value="_targetInstance"/>
+                                        <queries:Name value="_sourceFeature"/>
+                                        <queries:Name value="_targetFeature"/>
+                                        <queries:Name value="_sourceChild"/>
+                                        <queries:Name value="_targetChild"/>
+                                        </queries:FreshNames>
+                                        <queries:Path initialCapacity="3">
+                                        <queries:Filter>
+                                        <queries:SelfStep/>
+                                        <queries:VariableTest value="_sourceInstance"/>
+                                        </queries:Filter>
+                                        <queries:Filter>
+                                        <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="shallowMigrate"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="org.whole.lang.semantics.util.SemanticsUtils"/>
+                                        <workflows:StringLiteral value="createShallowMigrateEntity(org.whole.lang.model.IEntity, java.lang.String, org.whole.lang.queries.model.RegistryEnum.Value)"/>
+                                        <workflows:Expressions initialCapacity="3">
+                                        <queries:SelfStep/>
+                                        <commons:StageDownFragment>
+                                        <semantics:TypeCast>
+                                        <semantics:EntityType value="http://lang.whole.org/Workflows#StringLiteral"/>
+                                        <queries:VariableRefStep value="targetLanguage"/>
+                                        </semantics:TypeCast>
+                                        </commons:StageDownFragment>
+                                        <commons:StageDownFragment>
+                                        <queries:VariableRefStep value="registry"/>
+                                        </commons:StageDownFragment>
+                                        </workflows:Expressions>
+                                        </workflows:InvokeJavaClassMethod>
+                                        <queries:VariableTest value="_targetInstance"/>
+                                        </queries:Filter>
+                                        <queries:Block initialCapacity="2">
+                                        <queries:Choose initialCapacity="2">
+                                        <queries:If>
+                                        <queries:KindTest value="SIMPLE"/>
+                                        <queries:For>
+                                        <queries:Path initialCapacity="1">
+                                        <queries:Filter>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#instanceFeatures"/>
+                                        <queries:VariableRefStep value="_targetInstance"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        <queries:And initialCapacity="2">
+                                        <queries:VariableTest value="_targetFeature"/>
+                                        <queries:Some>
+                                        <queries:Filter>
+                                        <queries:Scope>
+                                        <queries:FreshNames initialCapacity="1">
+                                        <queries:Name value="feature"/>
+                                        </queries:FreshNames>
+                                        <queries:Block initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="_targetFeature"/>
+                                        <queries:VariableTest value="feature"/>
+                                        </queries:Filter>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#instanceFeature"/>
+                                        <queries:VariableRefStep value="_sourceInstance"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        <queries:VariableTest value="_sourceFeature"/>
+                                        </queries:Filter>
+                                        <commons:Resolver/>
+                                        </queries:Some>
+                                        </queries:And>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        <queries:CartesianUpdate>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:Scope>
+                                        <queries:FreshNames initialCapacity="1">
+                                        <queries:Name value="feature"/>
+                                        </queries:FreshNames>
+                                        <queries:Block initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="_targetFeature"/>
+                                        <queries:VariableTest value="feature"/>
+                                        </queries:Filter>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#instanceFeatureStep"/>
+                                        <queries:VariableRefStep value="_targetInstance"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        <queries:SelfStep/>
+                                        </queries:Path>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:Scope>
+                                        <queries:FreshNames initialCapacity="1">
+                                        <queries:Name value="feature"/>
+                                        </queries:FreshNames>
+                                        <queries:Block initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="_sourceFeature"/>
+                                        <queries:VariableTest value="feature"/>
+                                        </queries:Filter>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#instanceFeatureStep"/>
+                                        <queries:VariableRefStep value="_sourceInstance"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        <semantics:FunctionApplication>
+                                        <commons:StageDownFragment>
+                                        <commons:Resolver/>
+                                        </commons:StageDownFragment>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Path>
+                                        </queries:CartesianUpdate>
+                                        </queries:For>
+                                        </queries:If>
+                                        <queries:If>
+                                        <queries:KindTest value="COMPOSITE"/>
+                                        <queries:CartesianInsert>
+                                        <queries:Placement value="INTO"/>
+                                        <queries:SelfStep/>
+                                        <queries:Path initialCapacity="3">
+                                        <queries:VariableRefStep value="_sourceInstance"/>
+                                        <queries:ChildStep/>
+                                        <semantics:FunctionApplication>
+                                        <commons:StageDownFragment>
+                                        <commons:Resolver/>
+                                        </commons:StageDownFragment>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Path>
+                                        </queries:CartesianInsert>
+                                        </queries:If>
+                                        </queries:Choose>
+                                        <queries:SelfStep/>
+                                        </queries:Block>
+                                        </queries:Path>
+                                        </queries:Scope>
+                                        </queries:If>
+                                        </commons:StageUpFragment>
+                                        </queries:Sequence>
+                                        <queries:Insert>
+                                        <queries:Placement value="BEFORE"/>
+                                        <queries:VariableRefStep value="joinpoints#functionRulePoint"/>
+                                        </queries:Insert>
+                                    </queries:Path>
+                                    <queries:Path initialCapacity="3">
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <queries:Choose initialCapacity="3">
+                                        <queries:If>
+                                        <queries:Or initialCapacity="3">
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang.migrations:MigrationsPatternsSemantics#isLanguageUriType"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang.migrations:MigrationsPatternsSemantics#isEntityUriType"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang.migrations:MigrationsPatternsSemantics#isFeatureUriType"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Or>
+                                        <queries:Create>
+                                        <semantics:TypeCast>
+                                        <semantics:EntityType value="http://lang.whole.org/Queries#EntityType"/>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#entityURI"/>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#instanceType"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        </semantics:TypeCast>
+                                        <queries:Registry value="RESOLVER"/>
+                                        <queries:Children initialCapacity="1">
+                                        <commons:StageDownFragment>
+                                        <queries:VariableRefStep value="modelsUriMappingFunction"/>
+                                        </commons:StageDownFragment>
+                                        </queries:Children>
+                                        </queries:Create>
+                                        </queries:If>
+                                        <queries:If>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang.migrations:MigrationsPatternsSemantics#isFunctionUriType"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        <queries:Create>
+                                        <semantics:TypeCast>
+                                        <semantics:EntityType value="http://lang.whole.org/Queries#EntityType"/>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#entityURI"/>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#instanceType"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        </semantics:TypeCast>
+                                        <queries:Registry value="RESOLVER"/>
+                                        <queries:Children initialCapacity="1">
+                                        <commons:StageDownFragment>
+                                        <queries:VariableRefStep value="semanticsUriMappingFunction"/>
+                                        </commons:StageDownFragment>
+                                        </queries:Children>
+                                        </queries:Create>
+                                        </queries:If>
+                                        <queries:If>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang.migrations:MigrationsPatternsSemantics#isActionUriType"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        <queries:Create>
+                                        <semantics:TypeCast>
+                                        <semantics:EntityType value="http://lang.whole.org/Queries#EntityType"/>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#entityURI"/>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#instanceType"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        </semantics:TypeCast>
+                                        <queries:Registry value="RESOLVER"/>
+                                        <queries:Children initialCapacity="1">
+                                        <commons:StageDownFragment>
+                                        <queries:VariableRefStep value="actionsUriMappingFunction"/>
+                                        </commons:StageDownFragment>
+                                        </queries:Children>
+                                        </queries:Create>
+                                        </queries:If>
+                                        </queries:Choose>
+                                        </commons:StageUpFragment>
+                                        <queries:Delete>
+                                        <queries:ChildStep/>
+                                        </queries:Delete>
+                                        <queries:Choose initialCapacity="2">
+                                        <queries:Insert>
+                                        <queries:Placement value="BEFORE"/>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="joinpoints#functionRulePoint"/>
+                                        <queries:Filter>
+                                        <queries:FollowingSiblingStep/>
+                                        <queries:IndexTest>
+                                        <queries:IntLiteral value="0"/>
+                                        </queries:IndexTest>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        </queries:Insert>
+                                        <queries:Insert>
+                                        <queries:Placement value="INTO"/>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="joinpoints#functionRulePoint"/>
+                                        <queries:ParentStep/>
+                                        </queries:Path>
+                                        </queries:Insert>
+                                        </queries:Choose>
+                                    </queries:Path>
+                                    <queries:Delete>
+                                        <queries:VariableRefStep value="joinpoints#modelsUriMappingPoint"/>
+                                    </queries:Delete>
+                                    <queries:Delete>
+                                        <queries:VariableRefStep value="joinpoints#semanticsUriMappingPoint"/>
+                                    </queries:Delete>
+                                    <queries:Delete>
+                                        <queries:VariableRefStep value="joinpoints#actionsUriMappingPoint"/>
+                                    </queries:Delete>
+                                    <queries:VoidLiteral/>
+                                </queries:Block>
+                            </queries:Scope>
+                        </queries:If>
+                        <queries:If>
+                            <queries:TypeTest value="whole:org.whole.lang.migrations:MigrationsPatternsModel#LanguageMigrationRules"/>
+                            <queries:Choose initialCapacity="2">
+                                <semantics:FunctionApplication>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <queries:ChildStep/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </semantics:FunctionApplication>
+                                <queries:VoidLiteral/>
+                            </queries:Choose>
+                        </queries:If>
+                        <queries:If>
+                            <queries:TypeTest value="whole:org.whole.lang.migrations:MigrationsPatternsModel#MigrateEntityPattern"/>
+                            <queries:Scope>
+                                <queries:FreshNames initialCapacity="0"/>
+                                <queries:Block initialCapacity="3">
+                                    <queries:Path initialCapacity="4">
+                                        <queries:FeatureStep value="whole:org.whole.lang.migrations:MigrationsPatternsModel#source"/>
+                                        <queries:Filter>
+                                        <queries:DescendantStep/>
+                                        <queries:TypeTest value="http://lang.whole.org/Commons#Variable"/>
+                                        </queries:Filter>
+                                        <queries:FeatureStep value="http://lang.whole.org/Commons#varName"/>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang.migrations:MigrationsPatternsSemantics#freshNameWeaver"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                    </queries:Path>
+                                    <queries:Path initialCapacity="2">
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <queries:If>
+                                        <commons:StageDownFragment>
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.migrations:MigrationsPatternsModel#source"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        </commons:StageDownFragment>
+                                        <queries:Scope>
+                                        <queries:FreshNames initialCapacity="1">
+                                        <queries:Name value="_sourceInstance"/>
+                                        </queries:FreshNames>
+                                        <queries:Block initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:SelfStep/>
+                                        <queries:VariableTest value="_sourceInstance"/>
+                                        </queries:Filter>
+                                        <commons:StageDownFragment>
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.migrations:MigrationsPatternsModel#target"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        </commons:StageDownFragment>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        </queries:If>
+                                        </commons:StageUpFragment>
+                                        <queries:Insert>
+                                        <queries:Placement value="BEFORE"/>
+                                        <queries:VariableRefStep value="joinpoints#functionRulePoint"/>
+                                        </queries:Insert>
+                                    </queries:Path>
+                                    <queries:VoidLiteral/>
+                                </queries:Block>
+                            </queries:Scope>
+                        </queries:If>
+                        <queries:If>
+                            <queries:TypeTest value="whole:org.whole.lang.migrations:MigrationsPatternsModel#MigrateEntity"/>
+                            <queries:Scope>
+                                <queries:FreshNames initialCapacity="3">
+                                    <queries:Name value="sourceEntityUri"/>
+                                    <queries:Name value="targetEntityUri"/>
+                                    <queries:Name value="targetKind"/>
+                                </queries:FreshNames>
+                                <queries:Block initialCapacity="7">
+                                    <queries:Filter>
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.migrations:MigrationsPatternsModel#source"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        <queries:VariableTest value="sourceEntityUri"/>
+                                    </queries:Filter>
+                                    <queries:Filter>
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.migrations:MigrationsPatternsModel#target"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        <queries:VariableTest value="targetEntityUri"/>
+                                    </queries:Filter>
+                                    <queries:Filter>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#entityKind"/>
+                                        <queries:VariableRefStep value="targetEntityUri"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        <queries:VariableTest value="targetKind"/>
+                                    </queries:Filter>
+                                    <queries:If>
+                                        <queries:Not>
+                                        <queries:Some>
+                                        <queries:VariableRefStep value="targetKind"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
+                                        </queries:Not>
+                                        <workflows:Task xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="Migration error"/>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="2">
+                                        <text:Text value="Missing target entity: "/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Text#Text"/>
+                                        <commons:VarName value="targetEntityUri"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        </text:Row>
+                                        </commons:StageUpFragment>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </workflows:Task>
+                                    </queries:If>
+                                    <queries:Path initialCapacity="2">
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <queries:If>
+                                        <queries:Equals>
+                                        <queries:SelfStep/>
+                                        <commons:StageDownFragment>
+                                        <semantics:TypeCast>
+                                        <semantics:EntityType value="http://lang.whole.org/Queries#StringLiteral"/>
+                                        <queries:VariableRefStep value="sourceEntityUri"/>
+                                        </semantics:TypeCast>
+                                        </commons:StageDownFragment>
+                                        </queries:Equals>
+                                        <commons:StageDownFragment>
+                                        <semantics:TypeCast>
+                                        <semantics:EntityType value="http://lang.whole.org/Queries#StringLiteral"/>
+                                        <queries:VariableRefStep value="targetEntityUri"/>
+                                        </semantics:TypeCast>
+                                        </commons:StageDownFragment>
+                                        </queries:If>
+                                        </commons:StageUpFragment>
+                                        <queries:Insert>
+                                        <queries:Placement value="BEFORE"/>
+                                        <queries:VariableRefStep value="joinpoints#modelsUriMappingPoint"/>
+                                        </queries:Insert>
+                                    </queries:Path>
+                                    <queries:Path initialCapacity="2">
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <queries:If>
+                                        <commons:StageDownFragment>
+                                        <queries:Path initialCapacity="2">
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.migrations:MigrationsPatternsModel#when"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        <queries:Choose initialCapacity="2">
+                                        <queries:If>
+                                        <queries:KindTest value="RESOLVER"/>
+                                        <semantics:TypeCast>
+                                        <semantics:EntityType value="http://lang.whole.org/Queries#TypeTest"/>
+                                        <queries:VariableRefStep value="sourceEntityUri"/>
+                                        </semantics:TypeCast>
+                                        </queries:If>
+                                        <queries:If>
+                                        <commons:Resolver/>
+                                        <commons:StageUpFragment>
+                                        <queries:And initialCapacity="2">
+                                        <commons:StageDownFragment>
+                                        <semantics:TypeCast>
+                                        <semantics:EntityType value="http://lang.whole.org/Queries#TypeTest"/>
+                                        <queries:VariableRefStep value="sourceEntityUri"/>
+                                        </semantics:TypeCast>
+                                        </commons:StageDownFragment>
+                                        <commons:StageDownFragment>
+                                        <queries:SelfStep/>
+                                        </commons:StageDownFragment>
+                                        </queries:And>
+                                        </commons:StageUpFragment>
+                                        </queries:If>
+                                        </queries:Choose>
+                                        </queries:Path>
+                                        </commons:StageDownFragment>
+                                        <commons:StageDownFragment>
+                                        <queries:Choose initialCapacity="3">
+                                        <queries:If>
+                                        <queries:Equals>
+                                        <queries:VariableRefStep value="targetKind"/>
+                                        <commons:StageUpFragment>
+                                        <queries:KindTest value="DATA"/>
+                                        </commons:StageUpFragment>
+                                        </queries:Equals>
+                                        <commons:StageUpFragment>
+                                        <queries:Create>
+                                        <commons:StageDownFragment>
+                                        <semantics:TypeCast>
+                                        <semantics:EntityType value="http://lang.whole.org/Queries#EntityType"/>
+                                        <queries:VariableRefStep value="targetEntityUri"/>
+                                        </semantics:TypeCast>
+                                        </commons:StageDownFragment>
+                                        <commons:StageDownFragment>
+                                        <semantics:TypeCast>
+                                        <semantics:EntityType value="http://lang.whole.org/Queries#Registry"/>
+                                        <queries:VariableRefStep value="registry"/>
+                                        </semantics:TypeCast>
+                                        </commons:StageDownFragment>
+                                        <queries:Children initialCapacity="1">
+                                        <commons:StageDownFragment>
+                                        <queries:Path initialCapacity="2">
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.migrations:MigrationsPatternsModel#rules"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        <queries:Choose initialCapacity="2">
+                                        <queries:If>
+                                        <queries:KindTest value="RESOLVER"/>
+                                        <commons:StageUpFragment>
+                                        <queries:SelfStep/>
+                                        </commons:StageUpFragment>
+                                        </queries:If>
+                                        <queries:If>
+                                        <commons:Resolver/>
+                                        <queries:SelfStep/>
+                                        </queries:If>
+                                        </queries:Choose>
+                                        </queries:Path>
+                                        </commons:StageDownFragment>
+                                        </queries:Children>
+                                        </queries:Create>
+                                        </commons:StageUpFragment>
+                                        </queries:If>
+                                        <queries:If>
+                                        <queries:Equals>
+                                        <queries:VariableRefStep value="targetKind"/>
+                                        <commons:StageUpFragment>
+                                        <queries:KindTest value="COMPOSITE"/>
+                                        </commons:StageUpFragment>
+                                        </queries:Equals>
+                                        <commons:StageUpFragment>
+                                        <queries:Scope>
+                                        <queries:FreshNames initialCapacity="1">
+                                        <queries:Name value="_sourceInstance"/>
+                                        </queries:FreshNames>
+                                        <queries:Path initialCapacity="3">
+                                        <queries:Filter>
+                                        <queries:SelfStep/>
+                                        <queries:VariableTest value="_sourceInstance"/>
+                                        </queries:Filter>
+                                        <queries:Create>
+                                        <commons:StageDownFragment>
+                                        <semantics:TypeCast>
+                                        <semantics:EntityType value="http://lang.whole.org/Queries#EntityType"/>
+                                        <queries:VariableRefStep value="targetEntityUri"/>
+                                        </semantics:TypeCast>
+                                        </commons:StageDownFragment>
+                                        <commons:StageDownFragment>
+                                        <semantics:TypeCast>
+                                        <semantics:EntityType value="http://lang.whole.org/Queries#Registry"/>
+                                        <queries:VariableRefStep value="registry"/>
+                                        </semantics:TypeCast>
+                                        </commons:StageDownFragment>
+                                        <queries:Children initialCapacity="0"/>
+                                        </queries:Create>
+                                        <queries:Block initialCapacity="2">
+                                        <commons:StageDownFragment>
+                                        <queries:Path initialCapacity="2">
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.migrations:MigrationsPatternsModel#rules"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        <queries:Choose initialCapacity="2">
+                                        <queries:If>
+                                        <queries:KindTest value="RESOLVER"/>
+                                        <commons:StageUpFragment>
+                                        <queries:CartesianInsert>
+                                        <queries:Placement value="INTO"/>
+                                        <queries:SelfStep/>
+                                        <queries:Path initialCapacity="3">
+                                        <queries:VariableRefStep value="_sourceInstance"/>
+                                        <queries:ChildStep/>
+                                        <semantics:FunctionApplication>
+                                        <commons:StageDownFragment>
+                                        <commons:Resolver/>
+                                        </commons:StageDownFragment>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Path>
+                                        </queries:CartesianInsert>
+                                        </commons:StageUpFragment>
+                                        </queries:If>
+                                        <queries:If>
+                                        <commons:Resolver/>
+                                        <commons:StageUpFragment>
+                                        <queries:CartesianInsert>
+                                        <queries:Placement value="INTO"/>
+                                        <queries:SelfStep/>
+                                        <queries:Path initialCapacity="3">
+                                        <queries:VariableRefStep value="_sourceInstance"/>
+                                        <commons:StageDownFragment>
+                                        <queries:SelfStep/>
+                                        </commons:StageDownFragment>
+                                        <semantics:FunctionApplication>
+                                        <commons:StageDownFragment>
+                                        <commons:Resolver/>
+                                        </commons:StageDownFragment>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Path>
+                                        </queries:CartesianInsert>
+                                        </commons:StageUpFragment>
+                                        </queries:If>
+                                        </queries:Choose>
+                                        </queries:Path>
+                                        </commons:StageDownFragment>
+                                        <queries:SelfStep/>
+                                        </queries:Block>
+                                        </queries:Path>
+                                        </queries:Scope>
+                                        </commons:StageUpFragment>
+                                        </queries:If>
+                                        <queries:If>
+                                        <commons:Resolver/>
+                                        <commons:StageUpFragment>
+                                        <queries:Scope>
+                                        <queries:FreshNames initialCapacity="2">
+                                        <queries:Name value="_sourceInstance"/>
+                                        <queries:Name value="_targetInstance"/>
+                                        </queries:FreshNames>
+                                        <queries:Path initialCapacity="3">
+                                        <queries:Filter>
+                                        <queries:SelfStep/>
+                                        <queries:VariableTest value="_sourceInstance"/>
+                                        </queries:Filter>
+                                        <queries:Filter>
+                                        <queries:Create>
+                                        <commons:StageDownFragment>
+                                        <semantics:TypeCast>
+                                        <semantics:EntityType value="http://lang.whole.org/Queries#EntityType"/>
+                                        <queries:VariableRefStep value="targetEntityUri"/>
+                                        </semantics:TypeCast>
+                                        </commons:StageDownFragment>
+                                        <commons:StageDownFragment>
+                                        <semantics:TypeCast>
+                                        <semantics:EntityType value="http://lang.whole.org/Queries#Registry"/>
+                                        <queries:VariableRefStep value="registry"/>
+                                        </semantics:TypeCast>
+                                        </commons:StageDownFragment>
+                                        <queries:Children initialCapacity="0"/>
+                                        </queries:Create>
+                                        <queries:VariableTest value="_targetInstance"/>
+                                        </queries:Filter>
+                                        <queries:Block initialCapacity="3">
+                                        <commons:StageDownFragment>
+                                        <queries:Scope>
+                                        <queries:FreshNames initialCapacity="3">
+                                        <queries:Name value="_sourceFeature"/>
+                                        <queries:Name value="_targetFeature"/>
+                                        <queries:Name value="_customTargetFeatures"/>
+                                        </queries:FreshNames>
+                                        <queries:Block initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:Union>
+                                        <queries:Expressions initialCapacity="1">
+                                        <queries:Path initialCapacity="4">
+                                        <queries:FeatureStep value="whole:org.whole.lang.migrations:MigrationsPatternsModel#rules"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:TypeTest value="whole:org.whole.lang.migrations:MigrationsPatternsModel#MigrateFeature"/>
+                                        </queries:Filter>
+                                        <queries:FeatureStep value="whole:org.whole.lang.migrations:MigrationsPatternsModel#target"/>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#featureURI"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Path>
+                                        </queries:Expressions>
+                                        <commons:Resolver/>
+                                        </queries:Union>
+                                        <queries:VariableTest value="_customTargetFeatures"/>
+                                        </queries:Filter>
+                                        <queries:For>
+                                        <queries:Filter>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#entityFeatures"/>
+                                        <semantics:TypeCast>
+                                        <semantics:EntityType value="http://lang.whole.org/Queries#StringLiteral"/>
+                                        <queries:VariableRefStep value="targetEntityUri"/>
+                                        </semantics:TypeCast>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        <queries:And initialCapacity="3">
+                                        <queries:VariableTest value="_targetFeature"/>
+                                        <queries:Not>
+                                        <queries:Some>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="_customTargetFeatures"/>
+                                        <queries:ChildStep/>
+                                        </queries:Path>
+                                        <queries:EqualsStep>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#featureURI"/>
+                                        <queries:VariableRefStep value="_targetFeature"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        </queries:EqualsStep>
+                                        </queries:Some>
+                                        </queries:Not>
+                                        <queries:Some>
+                                        <queries:Filter>
+                                        <queries:Scope>
+                                        <queries:FreshNames initialCapacity="1">
+                                        <queries:Name value="feature"/>
+                                        </queries:FreshNames>
+                                        <queries:Block initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="_targetFeature"/>
+                                        <queries:VariableTest value="feature"/>
+                                        </queries:Filter>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#entityFeature"/>
+                                        <semantics:TypeCast>
+                                        <semantics:EntityType value="http://lang.whole.org/Queries#StringLiteral"/>
+                                        <queries:VariableRefStep value="sourceEntityUri"/>
+                                        </semantics:TypeCast>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        <queries:VariableTest value="_sourceFeature"/>
+                                        </queries:Filter>
+                                        <commons:Resolver/>
+                                        </queries:Some>
+                                        </queries:And>
+                                        </queries:Filter>
+                                        <commons:StageUpFragment>
+                                        <queries:CartesianUpdate>
+                                        <commons:StageDownFragment>
+                                        <semantics:TypeCast>
+                                        <semantics:EntityType value="http://lang.whole.org/Queries#FeatureStep"/>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#featureURI"/>
+                                        <queries:VariableRefStep value="_targetFeature"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        </semantics:TypeCast>
+                                        </commons:StageDownFragment>
+                                        <semantics:FunctionApplication>
+                                        <commons:StageDownFragment>
+                                        <commons:Resolver/>
+                                        </commons:StageDownFragment>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="_sourceInstance"/>
+                                        <commons:StageDownFragment>
+                                        <semantics:TypeCast>
+                                        <semantics:EntityType value="http://lang.whole.org/Queries#FeatureStep"/>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#featureURI"/>
+                                        <queries:VariableRefStep value="_sourceFeature"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        </semantics:TypeCast>
+                                        </commons:StageDownFragment>
+                                        </queries:Path>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        </queries:CartesianUpdate>
+                                        </commons:StageUpFragment>
+                                        </queries:For>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        </commons:StageDownFragment>
+                                        <commons:StageDownFragment>
+                                        <queries:Path initialCapacity="2">
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.migrations:MigrationsPatternsModel#rules"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        <queries:If>
+                                        <queries:Not>
+                                        <queries:KindTest value="RESOLVER"/>
+                                        </queries:Not>
+                                        <queries:SelfStep/>
+                                        </queries:If>
+                                        </queries:Path>
+                                        </commons:StageDownFragment>
+                                        <queries:SelfStep/>
+                                        </queries:Block>
+                                        </queries:Path>
+                                        </queries:Scope>
+                                        </commons:StageUpFragment>
+                                        </queries:If>
+                                        </queries:Choose>
+                                        </commons:StageDownFragment>
+                                        </queries:If>
+                                        </commons:StageUpFragment>
+                                        <queries:Insert>
+                                        <queries:Placement value="BEFORE"/>
+                                        <queries:VariableRefStep value="joinpoints#functionRulePoint"/>
+                                        </queries:Insert>
+                                    </queries:Path>
+                                    <queries:VoidLiteral/>
+                                </queries:Block>
+                            </queries:Scope>
+                        </queries:If>
+                        <queries:If>
+                            <queries:TypeTest value="whole:org.whole.lang.migrations:MigrationsPatternsModel#MigrateFeatures"/>
+                            <queries:Choose initialCapacity="2">
+                                <semantics:FunctionApplication>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <queries:ChildStep/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </semantics:FunctionApplication>
+                                <queries:VoidLiteral/>
+                            </queries:Choose>
+                        </queries:If>
+                        <queries:If>
+                            <queries:TypeTest value="whole:org.whole.lang.migrations:MigrationsPatternsModel#MigrateFeature"/>
+                            <queries:Scope>
+                                <queries:FreshNames initialCapacity="2">
+                                    <queries:Name value="sourceExpression"/>
+                                    <queries:Name value="targetFeatureUri"/>
+                                </queries:FreshNames>
+                                <queries:Block initialCapacity="3">
+                                    <queries:Filter>
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.migrations:MigrationsPatternsModel#source"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        <queries:VariableTest value="sourceExpression"/>
+                                    </queries:Filter>
+                                    <queries:Filter>
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.migrations:MigrationsPatternsModel#target"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        <queries:VariableTest value="targetFeatureUri"/>
+                                    </queries:Filter>
+                                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <queries:CartesianUpdate>
+                                        <commons:StageDownFragment>
+                                        <queries:VariableRefStep value="targetFeatureUri"/>
+                                        </commons:StageDownFragment>
+                                        <commons:StageDownFragment>
+                                        <queries:VariableRefStep value="sourceExpression"/>
+                                        </commons:StageDownFragment>
+                                        </queries:CartesianUpdate>
+                                    </commons:StageUpFragment>
+                                </queries:Block>
+                            </queries:Scope>
+                        </queries:If>
+                        <queries:If>
+                            <queries:TypeTest value="whole:org.whole.lang.migrations:MigrationsPatternsModel#MigratePath"/>
+                            <queries:Scope>
+                                <queries:FreshNames initialCapacity="1">
+                                    <queries:Name value="sourcePath"/>
+                                </queries:FreshNames>
+                                <queries:Block initialCapacity="2">
+                                    <queries:Filter>
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.migrations:MigrationsPatternsModel#path"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        <queries:VariableTest value="sourcePath"/>
+                                    </queries:Filter>
+                                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <semantics:FunctionApplication>
+                                        <commons:StageDownFragment>
+                                        <commons:Resolver/>
+                                        </commons:StageDownFragment>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="_sourceInstance"/>
+                                        <commons:StageDownFragment>
+                                        <queries:VariableRefStep value="sourcePath"/>
+                                        </commons:StageDownFragment>
+                                        </queries:Path>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                    </commons:StageUpFragment>
+                                </queries:Block>
+                            </queries:Scope>
+                        </queries:If>
+                        <queries:If>
+                            <queries:TypeTest value="whole:org.whole.lang.migrations:MigrationsPatternsModel#Source"/>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <queries:VariableRefStep value="_sourceInstance"/>
+                            </commons:StageUpFragment>
+                        </queries:If>
+                        <queries:If>
+                            <queries:TypeTest value="whole:org.whole.lang.migrations:MigrationsPatternsModel#Target"/>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <queries:VariableRefStep value="_targetInstance"/>
+                            </commons:StageUpFragment>
+                        </queries:If>
+                        <queries:If>
+                            <queries:TypeTest value="whole:org.whole.lang.migrations:MigrationsPatternsModel#FeatureReference"/>
+                            <queries:Path initialCapacity="2">
+                                <semantics:FunctionApplication>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <queries:FeatureStep value="whole:org.whole.lang.migrations:MigrationsPatternsModel#feature"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </semantics:FunctionApplication>
+                                <queries:Choose initialCapacity="2">
+                                    <queries:If>
+                                        <queries:And initialCapacity="2">
+                                        <queries:Some>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#uriResourcePart"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
+                                        <queries:Equals>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#uriResourcePart"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        <queries:VariableRefStep value="sourceLanguage"/>
+                                        </queries:Equals>
+                                        </queries:And>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <semantics:FunctionApplication>
+                                        <commons:StageDownFragment>
+                                        <commons:Resolver/>
+                                        </commons:StageDownFragment>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="_sourceInstance"/>
+                                        <commons:StageDownFragment>
+                                        <queries:SelfStep/>
+                                        </commons:StageDownFragment>
+                                        </queries:Path>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        </commons:StageUpFragment>
+                                    </queries:If>
+                                    <queries:If>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="_targetInstance"/>
+                                        <commons:StageDownFragment>
+                                        <queries:SelfStep/>
+                                        </commons:StageDownFragment>
+                                        </queries:Path>
+                                        </commons:StageUpFragment>
+                                    </queries:If>
+                                </queries:Choose>
+                            </queries:Path>
+                        </queries:If>
+                    </queries:Choose>
+                </queries:Path>
+                <queries:If>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <queries:Clone>
+                        <semantics:FunctionApplication>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </semantics:FunctionApplication>
+                    </queries:Clone>
+                </queries:If>
+            </queries:Choose>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="isLanguageUriType"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:AnyType/>
+            </semantics:FunctionType>
+            <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                <queries:If>
+                    <queries:Or initialCapacity="3">
+                        <queries:TypeTest value="http://lang.whole.org/Actions#URI"/>
+                        <queries:TypeTest value="http://lang.whole.org/Queries#LanguageTest"/>
+                        <queries:TypeTest value="http://lang.whole.org/Semantics#LanguageType"/>
+                    </queries:Or>
+                    <queries:BooleanLiteral value="true"/>
+                </queries:If>
+                <queries:If>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <queries:BooleanLiteral value="false"/>
+                </queries:If>
+            </queries:Choose>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="isEntityUriType"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:AnyType/>
+            </semantics:FunctionType>
+            <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                <queries:If>
+                    <queries:Or initialCapacity="12">
+                        <queries:TypeTest value="http://lang.whole.org/Models#EntityType"/>
+                        <queries:TypeTest value="http://lang.whole.org/Queries#AtTypeTest"/>
+                        <queries:TypeTest value="http://lang.whole.org/Queries#EntityType"/>
+                        <queries:TypeTest value="http://lang.whole.org/Queries#ExtendedSubtypeTest"/>
+                        <queries:TypeTest value="http://lang.whole.org/Queries#ExtendedSupertypeTest"/>
+                        <queries:TypeTest value="http://lang.whole.org/Queries#SubtypeTest"/>
+                        <queries:TypeTest value="http://lang.whole.org/Queries#SupertypeTest"/>
+                        <queries:TypeTest value="http://lang.whole.org/Queries#TypeTest"/>
+                        <queries:TypeTest value="http://lang.whole.org/Semantics#EntityType"/>
+                        <queries:TypeTest value="whole:org.whole.lang.types:TypesModel#EntityType"/>
+                        <queries:TypeTest value="whole:org.whole.lang.types:TypesModel#Subtype"/>
+                        <queries:TypeTest value="whole:org.whole.lang.types:TypesModel#Supertype"/>
+                    </queries:Or>
+                    <queries:BooleanLiteral value="true"/>
+                </queries:If>
+                <queries:If>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <queries:BooleanLiteral value="false"/>
+                </queries:If>
+            </queries:Choose>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="isFeatureUriType"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:AnyType/>
+            </semantics:FunctionType>
+            <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                <queries:If>
+                    <queries:Or initialCapacity="3">
+                        <queries:TypeTest value="http://lang.whole.org/Queries#AtFeatureTest"/>
+                        <queries:TypeTest value="http://lang.whole.org/Queries#FeatureStep"/>
+                        <queries:TypeTest value="whole:org.whole.lang.types:TypesModel#FeatureType"/>
+                    </queries:Or>
+                    <queries:BooleanLiteral value="true"/>
+                </queries:If>
+                <queries:If>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <queries:BooleanLiteral value="false"/>
+                </queries:If>
+            </queries:Choose>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="isFunctionUriType"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:AnyType/>
+            </semantics:FunctionType>
+            <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                <queries:If>
+                    <queries:And initialCapacity="2">
+                        <queries:TypeTest value="http://lang.whole.org/Semantics#Name"/>
+                        <queries:Some>
+                            <queries:Filter>
+                                <queries:ParentStep/>
+                                <queries:TypeTest value="http://lang.whole.org/Semantics#FunctionApplication"/>
+                            </queries:Filter>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </queries:Some>
+                    </queries:And>
+                    <queries:BooleanLiteral value="true"/>
+                </queries:If>
+                <queries:If>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <queries:BooleanLiteral value="false"/>
+                </queries:If>
+            </queries:Choose>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="isActionUriType"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:AnyType/>
+            </semantics:FunctionType>
+            <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                <queries:If>
+                    <queries:And initialCapacity="2">
+                        <queries:TypeTest value="http://lang.whole.org/Actions#Label"/>
+                        <queries:Some>
+                            <queries:Filter>
+                                <queries:ParentStep/>
+                                <queries:TypeTest value="http://lang.whole.org/Actions#ActionCall"/>
+                            </queries:Filter>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </queries:Some>
+                    </queries:And>
+                    <queries:BooleanLiteral value="true"/>
+                </queries:If>
+                <queries:If>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <queries:BooleanLiteral value="false"/>
+                </queries:If>
+            </queries:Choose>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="missingRules"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:AnyType/>
+            </semantics:FunctionType>
+            <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="1">
+                <queries:If>
+                    <queries:TypeTest value="whole:org.whole.lang.migrations:MigrationsPatternsModel#MigrateLanguage"/>
+                    <queries:Scope>
+                        <queries:FreshNames initialCapacity="7">
+                            <queries:Name value="sourceLanguage"/>
+                            <queries:Name value="targetLanguage"/>
+                            <queries:Name value="sourceEntities"/>
+                            <queries:Name value="targetEntities"/>
+                            <queries:Name value="existingSourceEntities"/>
+                            <queries:Name value="missingSourceEntities"/>
+                            <queries:Name value="missingTargetEntities"/>
+                        </queries:FreshNames>
+                        <queries:Block initialCapacity="10">
+                            <queries:Filter>
+                                <queries:Path initialCapacity="2">
+                                    <queries:FeatureStep value="whole:org.whole.lang.migrations:MigrationsPatternsModel#source"/>
+                                    <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#uriLanguage"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </semantics:FunctionApplication>
+                                </queries:Path>
+                                <queries:VariableTest value="sourceLanguage"/>
+                            </queries:Filter>
+                            <queries:Filter>
+                                <queries:Path initialCapacity="2">
+                                    <queries:FeatureStep value="whole:org.whole.lang.migrations:MigrationsPatternsModel#target"/>
+                                    <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#uriLanguage"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </semantics:FunctionApplication>
+                                </queries:Path>
+                                <queries:VariableTest value="targetLanguage"/>
+                            </queries:Filter>
+                            <queries:Filter>
+                                <queries:UnionAll>
+                                    <queries:Expressions initialCapacity="1">
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="sourceLanguage"/>
+                                        <queries:Filter>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#languageEntities"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        <queries:Not>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#entityIsAbstract"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Not>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                    </queries:Expressions>
+                                </queries:UnionAll>
+                                <queries:VariableTest value="sourceEntities"/>
+                            </queries:Filter>
+                            <queries:Filter>
+                                <queries:UnionAll>
+                                    <queries:Expressions initialCapacity="1">
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="targetLanguage"/>
+                                        <queries:Filter>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#languageEntities"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        <queries:Not>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#entityIsAbstract"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Not>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                    </queries:Expressions>
+                                </queries:UnionAll>
+                                <queries:VariableTest value="targetEntities"/>
+                            </queries:Filter>
+                            <queries:Filter>
+                                <queries:Intersect>
+                                    <queries:Expressions initialCapacity="2">
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="sourceEntities"/>
+                                        <queries:ChildStep/>
+                                        </queries:Path>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="targetEntities"/>
+                                        <queries:ChildStep/>
+                                        </queries:Path>
+                                    </queries:Expressions>
+                                    <queries:IdentityComparator>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#entityName"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                    </queries:IdentityComparator>
+                                </queries:Intersect>
+                                <queries:VariableTest value="existingSourceEntities"/>
+                            </queries:Filter>
+                            <queries:Filter>
+                                <queries:Except>
+                                    <queries:Expressions initialCapacity="2">
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="sourceEntities"/>
+                                        <queries:ChildStep/>
+                                        </queries:Path>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="targetEntities"/>
+                                        <queries:ChildStep/>
+                                        </queries:Path>
+                                    </queries:Expressions>
+                                    <queries:IdentityComparator>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#entityName"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                    </queries:IdentityComparator>
+                                </queries:Except>
+                                <queries:VariableTest value="missingSourceEntities"/>
+                            </queries:Filter>
+                            <queries:Filter>
+                                <queries:Except>
+                                    <queries:Expressions initialCapacity="2">
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="targetEntities"/>
+                                        <queries:ChildStep/>
+                                        </queries:Path>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="sourceEntities"/>
+                                        <queries:ChildStep/>
+                                        </queries:Path>
+                                    </queries:Expressions>
+                                    <queries:IdentityComparator>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#entityName"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                    </queries:IdentityComparator>
+                                </queries:Except>
+                                <queries:VariableTest value="missingTargetEntities"/>
+                            </queries:Filter>
+                            <queries:Path initialCapacity="5">
+                                <queries:VariableRefStep value="missingSourceEntities"/>
+                                <queries:ChildStep/>
+                                <semantics:FunctionApplication>
+                                    <semantics:Name value="whole:org.whole.lang:ReflectLibrary#entityURI"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </semantics:FunctionApplication>
+                                <semantics:TypeCast>
+                                    <semantics:EntityType value="http://lang.whole.org/Queries#TypeTest"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </semantics:TypeCast>
+                                <queries:Call>
+                                    <queries:Name value="missingSourceEntity"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </queries:Call>
+                            </queries:Path>
+                            <queries:Path initialCapacity="5">
+                                <queries:VariableRefStep value="missingTargetEntities"/>
+                                <queries:ChildStep/>
+                                <semantics:FunctionApplication>
+                                    <semantics:Name value="whole:org.whole.lang:ReflectLibrary#entityURI"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </semantics:FunctionApplication>
+                                <semantics:TypeCast>
+                                    <semantics:EntityType value="http://lang.whole.org/Queries#TypeTest"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </semantics:TypeCast>
+                                <queries:Call>
+                                    <queries:Name value="missingTargetEntity"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </queries:Call>
+                            </queries:Path>
+                            <queries:VoidLiteral/>
+                        </queries:Block>
+                    </queries:Scope>
+                </queries:If>
+            </queries:Choose>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="addMissingRules"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:AnyType/>
+            </semantics:FunctionType>
+            <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
+                <queries:FreshNames initialCapacity="3">
+                    <queries:Name value="joinpoints#selfRule"/>
+                    <queries:Name value="missingSourceEntity"/>
+                    <queries:Name value="missingTargetEntity"/>
+                </queries:FreshNames>
+                <queries:Block initialCapacity="6">
+                    <queries:Filter>
+                        <queries:SelfStep/>
+                        <queries:VariableTest value="joinpoints#selfRule"/>
+                    </queries:Filter>
+                    <queries:QueryDeclaration>
+                        <queries:Name value="missingSourceEntity"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <queries:Path initialCapacity="2">
+                            <queries:Scope>
+                                <queries:FreshNames initialCapacity="1">
+                                    <queries:Name value="pattern#self"/>
+                                </queries:FreshNames>
+                                <queries:Block initialCapacity="2">
+                                    <queries:Filter>
+                                        <queries:SelfStep/>
+                                        <queries:VariableTest value="pattern#self"/>
+                                    </queries:Filter>
+                                    <queries:Create>
+                                        <queries:EntityType value="whole:org.whole.lang.migrations:MigrationsPatternsModel#MigrateEntity"/>
+                                        <queries:Registry value="DEFAULT"/>
+                                        <queries:Features initialCapacity="4">
+                                        <queries:Feature>
+                                        <queries:Name value="source"/>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="pattern#self"/>
+                                        <queries:SelfStep/>
+                                        </queries:Path>
+                                        </queries:Feature>
+                                        <queries:Feature>
+                                        <queries:Name value="target"/>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="pattern#self"/>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <commons:Resolver/>
+                                        </commons:StageUpFragment>
+                                        </queries:Path>
+                                        </queries:Feature>
+                                        <queries:Feature>
+                                        <queries:Name value="rules"/>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="pattern#self"/>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <commons:Resolver/>
+                                        </commons:StageUpFragment>
+                                        </queries:Path>
+                                        </queries:Feature>
+                                        <queries:Feature>
+                                        <queries:Name value="when"/>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="pattern#self"/>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <commons:Resolver/>
+                                        </commons:StageUpFragment>
+                                        </queries:Path>
+                                        </queries:Feature>
+                                        </queries:Features>
+                                    </queries:Create>
+                                </queries:Block>
+                            </queries:Scope>
+                            <queries:Insert>
+                                <queries:Placement value="BEFORE"/>
+                                <queries:VariableRefStep value="joinpoints#selfRule"/>
+                            </queries:Insert>
+                        </queries:Path>
+                    </queries:QueryDeclaration>
+                    <queries:QueryDeclaration>
+                        <queries:Name value="missingTargetEntity"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <queries:Path initialCapacity="2">
+                            <queries:Scope>
+                                <queries:FreshNames initialCapacity="1">
+                                    <queries:Name value="pattern#self"/>
+                                </queries:FreshNames>
+                                <queries:Block initialCapacity="2">
+                                    <queries:Filter>
+                                        <queries:SelfStep/>
+                                        <queries:VariableTest value="pattern#self"/>
+                                    </queries:Filter>
+                                    <queries:Create>
+                                        <queries:EntityType value="whole:org.whole.lang.migrations:MigrationsPatternsModel#MigrateEntity"/>
+                                        <queries:Registry value="DEFAULT"/>
+                                        <queries:Features initialCapacity="4">
+                                        <queries:Feature>
+                                        <queries:Name value="source"/>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="pattern#self"/>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <commons:Resolver/>
+                                        </commons:StageUpFragment>
+                                        </queries:Path>
+                                        </queries:Feature>
+                                        <queries:Feature>
+                                        <queries:Name value="target"/>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="pattern#self"/>
+                                        <queries:SelfStep/>
+                                        </queries:Path>
+                                        </queries:Feature>
+                                        <queries:Feature>
+                                        <queries:Name value="rules"/>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="pattern#self"/>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <commons:Resolver/>
+                                        </commons:StageUpFragment>
+                                        </queries:Path>
+                                        </queries:Feature>
+                                        <queries:Feature>
+                                        <queries:Name value="when"/>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="pattern#self"/>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <commons:Resolver/>
+                                        </commons:StageUpFragment>
+                                        </queries:Path>
+                                        </queries:Feature>
+                                        </queries:Features>
+                                    </queries:Create>
+                                </queries:Block>
+                            </queries:Scope>
+                            <queries:Insert>
+                                <queries:Placement value="BEFORE"/>
+                                <queries:VariableRefStep value="joinpoints#selfRule"/>
+                            </queries:Insert>
+                        </queries:Path>
+                    </queries:QueryDeclaration>
+                    <semantics:FunctionApplication>
+                        <semantics:Name value="whole:org.whole.lang.migrations:MigrationsPatternsSemantics#missingRules"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </semantics:FunctionApplication>
+                    <queries:If>
+                        <queries:Some>
+                            <queries:Filter>
+                                <queries:VariableRefStep value="joinpoints#selfRule"/>
+                                <queries:KindTest value="RESOLVER"/>
+                            </queries:Filter>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </queries:Some>
+                        <queries:Delete>
+                            <queries:VariableRefStep value="joinpoints#selfRule"/>
+                        </queries:Delete>
+                    </queries:If>
+                    <queries:VoidLiteral/>
+                </queries:Block>
+            </queries:Scope>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="freshNameWeaver"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:AnyType/>
+            </semantics:FunctionType>
+            <queries:If xmlns:queries="http://lang.whole.org/Queries">
+                <queries:Scope>
+                    <queries:FreshNames initialCapacity="1">
+                        <queries:Name value="name"/>
+                    </queries:FreshNames>
+                    <queries:Block initialCapacity="2">
+                        <queries:Filter>
+                            <queries:SelfStep/>
+                            <queries:VariableTest value="name"/>
+                        </queries:Filter>
+                        <queries:Not>
+                            <queries:Some>
+                                <queries:Path initialCapacity="2">
+                                    <queries:VariableRefStep value="joinpoints#freshNamesPoint"/>
+                                    <queries:ChildStep/>
+                                </queries:Path>
+                                <queries:EqualsStep>
+                                    <queries:VariableRefStep value="name"/>
+                                </queries:EqualsStep>
+                            </queries:Some>
+                        </queries:Not>
+                    </queries:Block>
+                </queries:Scope>
+                <queries:Path initialCapacity="2">
+                    <semantics:TypeCast>
+                        <semantics:EntityType value="http://lang.whole.org/Queries#Name"/>
+                        <queries:SelfStep/>
+                    </semantics:TypeCast>
+                    <queries:Insert>
+                        <queries:Placement value="INTO"/>
+                        <queries:VariableRefStep value="joinpoints#freshNamesPoint"/>
+                    </queries:Insert>
+                </queries:Path>
+            </queries:If>
+        </semantics:SemanticFunction>
+    </semantics:SemanticFunctions>
+</semantics:SemanticTheory>

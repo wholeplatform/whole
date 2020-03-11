@@ -29,6 +29,7 @@ import org.whole.lang.grammarbased.GrammarBasedActions;
 import org.whole.lang.grammarbased.ui.GrammarBasedUIDeployer;
 import org.whole.lang.grammars.ui.GrammarsUIDeployer;
 import org.whole.lang.math.ui.MathUIDeployer;
+import org.whole.lang.migrations.ui.MigrationsNotationsUIDeployer;
 import org.whole.lang.misc.ui.MiscUIDeployer;
 import org.whole.lang.models.ui.ModelsUIDeployer;
 import org.whole.lang.operations.ContentAssistOperation;
@@ -73,6 +74,7 @@ public class CoreUIDeployer extends AbstractSuiteDeployer {
 			GrammarsUIDeployer.class,
 			GrammarBasedUIDeployer.class,
 			MathUIDeployer.class,
+			MigrationsNotationsUIDeployer.class,
 			MiscUIDeployer.class,
 			ModelsUIDeployer.class,
 			PatternsUIDeployer.class,
