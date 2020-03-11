@@ -77,6 +77,10 @@ public class CoreContributionsDeployer extends AbstractContributionDeployer {
 			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
 					new ClasspathPersistenceProvider("org/whole/lang/migrations/MigrationsGuestActions.xwl")));
 
+			//Require Swift Semantics
+			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
+					new ClasspathPersistenceProvider("org/whole/lang/swift/SwiftMigrations.xwl")));
+			
 			//Require Patterns Semantics and Actions
 			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
 					new ClasspathPersistenceProvider("org/whole/lang/math/MathLibrary.xwl")));
