@@ -18,6 +18,12 @@
 package org.whole.lang.swift.codebase;
 
 import org.whole.lang.codebase.AbstractSpecificPersistenceKit;
+import org.whole.lang.codebase.IPersistenceProvider;
+import org.whole.lang.model.IEntity;
+import org.whole.lang.reflect.ReflectionFactory;
+import org.whole.lang.swiftsyntax.codebase.SwiftSyntaxSourcePersistenceKit;
+import org.whole.lang.util.BehaviorUtils;
+import org.whole.lang.util.StringUtils;
 
 /**
  * @author Enrico Persiani
@@ -36,5 +42,28 @@ public class SwiftSourcePersistenceKit extends AbstractSpecificPersistenceKit {
 
 	public boolean isMultilanguage() {
 		return false;
+	}
+
+	protected void doInitDefaultEncoding(IEntity model, IPersistenceProvider pp) throws Exception {
+		String encoding = getDefaultEncoding();
+
+		if (model == null)
+			encoding = StringUtils.encodingFromBOM(pp.getInputStream(), encoding);
+
+		pp.withDefaultEncoding(encoding);
+	}
+	protected String getDefaultEncoding() {
+		return "UTF-8";
+	}
+
+	protected IEntity doReadModel(IPersistenceProvider pp) throws Exception {
+		IEntity swiftSyntax = ReflectionFactory.getPersistenceKit(SwiftSyntaxSourcePersistenceKit.class.getName()).readModel(pp);
+		return BehaviorUtils.apply("whole:org.whole.lang.swift:SwiftMigrations#migrateSyntax", swiftSyntax);
+	}
+
+	protected void doWriteModel(IEntity model, IPersistenceProvider pp) throws Exception {
+		IEntity syntaxModel = BehaviorUtils.apply("whole:org.whole.lang.swift:SwiftMigrations#migrateAST", model);
+		pp.getBindings().wDefValue(SwiftSyntaxSourcePersistenceKit.FORMAT_PARAM, true);
+		ReflectionFactory.getPersistenceKit(SwiftSyntaxSourcePersistenceKit.class.getName()).writeModel(syntaxModel, pp);
 	}
 }

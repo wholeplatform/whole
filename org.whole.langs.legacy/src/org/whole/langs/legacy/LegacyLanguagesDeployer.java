@@ -25,6 +25,8 @@ import org.whole.lang.reflect.AbstractSuiteDeployer;
 import org.whole.lang.reflect.IDeployer;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.scripts.reflect.ScriptsLanguageDeployer;
+import org.whole.lang.swift.reflect.SwiftLanguageDeployer;
+import org.whole.lang.swiftsyntax.reflect.SwiftSyntaxLanguageDeployer;
 import org.whole.lang.text.reflect.TextLanguageDeployer;
 import org.whole.lang.xml.reflect.XmlLanguageDeployer;
 
@@ -47,6 +49,8 @@ public class LegacyLanguagesDeployer extends AbstractSuiteDeployer {
 			JavaScriptLanguageDeployer.class,
 			JavaPersistenceDeployer.class,
 			JSONLanguageDeployer.class,
+			SwiftLanguageDeployer.class,
+			SwiftSyntaxLanguageDeployer.class,
 			JSONPersistenceDeployer.class,
 			SwiftSyntaxPersistenceDeployer.class,
 			SwiftPersistenceDeployer.class,

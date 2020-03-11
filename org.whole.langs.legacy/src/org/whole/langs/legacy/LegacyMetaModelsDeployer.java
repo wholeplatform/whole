@@ -24,6 +24,8 @@ import org.whole.lang.properties.reflect.PropertiesLanguageKit;
 import org.whole.lang.reflect.AbstractLanguageExtensionDeployer;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.scripts.reflect.ScriptsLanguageKit;
+import org.whole.lang.swift.reflect.SwiftLanguageKit;
+import org.whole.lang.swiftsyntax.reflect.SwiftSyntaxLanguageKit;
 import org.whole.lang.text.reflect.TextLanguageKit;
 import org.whole.lang.xml.reflect.XmlLanguageKit;
 
@@ -47,6 +49,8 @@ public class LegacyMetaModelsDeployer extends AbstractLanguageExtensionDeployer 
 		platform.setMetaModelTemplate(MEDIAWIKI_URI, "MediaWiki model", "org/whole/lang/mediawiki/MediaWikiModel.xwl");
 		platform.setMetaModelTemplate(PropertiesLanguageKit.URI, "org.whole.lang.models.codebase.PropertiesModel");
 		platform.setMetaModelTemplate(ScriptsLanguageKit.URI, "org.whole.lang.models.codebase.ScriptsModel");
+		platform.setMetaModelTemplate(SwiftLanguageKit.URI, "Swift model", "org/whole/lang/swift/SwiftModel.xwl");
+		platform.setMetaModelTemplate(SwiftSyntaxLanguageKit.URI, "SwiftSyntax model", "org/whole/lang/swiftsyntax/SwiftSyntaxModel.xwl");
 		platform.setMetaModelTemplate(TextLanguageKit.URI, "Text model", "org/whole/lang/text/TextModel.xwl");
 		platform.setMetaModelTemplate(XmlLanguageKit.URI, "org.whole.lang.models.codebase.XmlModel");
 	}
@@ -59,6 +63,8 @@ public class LegacyMetaModelsDeployer extends AbstractLanguageExtensionDeployer 
 		platform.unsetMetaModelTemplate(MEDIAWIKI_URI);
 		platform.unsetMetaModelTemplate(PropertiesLanguageKit.URI);
 		platform.unsetMetaModelTemplate(ScriptsLanguageKit.URI);
+		platform.unsetMetaModelTemplate(SwiftLanguageKit.URI);
+		platform.unsetMetaModelTemplate(SwiftSyntaxLanguageKit.URI);
 		platform.unsetMetaModelTemplate(TextLanguageKit.URI);
 		platform.unsetMetaModelTemplate(XmlLanguageKit.URI);
 	}
