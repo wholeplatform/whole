@@ -17,10 +17,11 @@
  */
 package org.whole.lang.swift.ui.figures;
 
-import org.whole.lang.ui.figures.ContentPaneFigure;
-import org.whole.lang.ui.layout.RowLayout;
 import org.whole.lang.ui.figures.AngleBracketsBorder;
-import org.whole.lang.ui.figures.CurlyBracketsBorder;
+import org.whole.lang.ui.figures.ContentPaneFigure;
+import org.whole.lang.ui.figures.EntityFigure;
+import org.whole.lang.ui.layout.ColumnLayout;
+import org.whole.lang.ui.layout.RowLayout;
 
 /**
  *  @generator Whole
@@ -29,16 +30,18 @@ public class EnumDeclFigure extends ContentPaneFigure {
 
     public EnumDeclFigure() {
         initContentPanes(7);
-        setLayoutManager(new RowLayout().withSpacing(4));
-        add(createContentPane(0));
-        add(createContentPane(1));
-        addKeyword("enum");
-        add(createContentPane(2));
-        add(createContentPane(3, new AngleBracketsBorder()));
-        addKeyword(":");
-        add(createContentPane(4));
-        addKeyword("where");
-        add(createContentPane(5));
-        add(createContentPane(6, new CurlyBracketsBorder()));
+        setLayoutManager(new ColumnLayout().withSpacing(4));
+        EntityFigure row = new EntityFigure(new RowLayout().withSpacing(4));
+        row.add(createContentPane(0));
+        row.add(createContentPane(1));
+        row.addKeyword("enum");
+        row.add(createContentPane(2));
+        row.add(createContentPane(3, new AngleBracketsBorder()));
+        row.addKeyword(":");
+        row.add(createContentPane(4));
+        row.addKeyword("where");
+        row.add(createContentPane(5));
+        add(row);
+        add(createContentPane(6));
     }
 }

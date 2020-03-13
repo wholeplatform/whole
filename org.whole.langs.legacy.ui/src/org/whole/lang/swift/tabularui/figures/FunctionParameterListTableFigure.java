@@ -1,15 +1,20 @@
 package org.whole.lang.swift.tabularui.figures;
 
-import org.whole.lang.ui.figures.TableFigure;
-import org.whole.lang.ui.layout.TableLayout;
-import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
 import org.whole.lang.ui.figures.FigureConstants;
+import org.whole.lang.ui.figures.TableFigure;
+import org.whole.lang.ui.layout.TableLayout;
 
 public class FunctionParameterListTableFigure extends TableFigure {
 
     public FunctionParameterListTableFigure() {
-        setLayoutManager(new TableLayout().withRowSpacing(5).withColumnSpacing(10).withMargin(5));
+        setLayoutManager(new TableLayout() {
+        	@Override
+        	protected int getAscent(int height) {
+        		int size = childSize.length;
+        		return size > 0 && childSize[size-1] != null ? height - descent(size-1) : super.getAscent(height);
+        	}
+        }.withRowSpacing(5).withColumnSpacing(10).withMargin(5));
     }
 
     @Override
@@ -23,9 +28,5 @@ public class FunctionParameterListTableFigure extends TableFigure {
         drawColumnSeparators(graphics);
         drawColumnBackground(graphics, 0, FigureConstants.templateLanguageAlpha - 80);
         drawColumnBackground(graphics, 1, FigureConstants.templateLanguageAlpha - 80);
-        graphics.setBackgroundColor(ColorConstants.gray);
-        drawHeadersRowBackground(graphics);
-        graphics.setForegroundColor(ColorConstants.lightGray);
-        drawHeadersRowSeparator(graphics);
     }
 }

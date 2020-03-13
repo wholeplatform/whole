@@ -1,19 +1,19 @@
 package org.whole.lang.swift.tabularui.figures;
 
 import org.whole.lang.ui.figures.ContentPaneFigure;
-import org.whole.lang.ui.layout.TableRowLayout;
-import org.whole.lang.ui.layout.Alignment;
-import org.whole.lang.ui.layout.OverColumnLayout;
-import org.whole.lang.ui.figures.EntityFigure;
-import org.whole.lang.ui.layout.ColumnLayout;
 import org.whole.lang.ui.figures.CurlyBracketsBorder;
+import org.whole.lang.ui.figures.EntityFigure;
+import org.whole.lang.ui.layout.Alignment;
+import org.whole.lang.ui.layout.ColumnLayout;
+import org.whole.lang.ui.layout.TableRowLayout;
+import org.whole.lang.ui.layout.UnderColumnLayout;
 
 public class FunctionDeclRowFigure extends ContentPaneFigure {
 
     public FunctionDeclRowFigure() {
         initContentPanes(7);
-        setLayoutManager(new TableRowLayout().withMinorAlignment(Alignment.CENTER));
-        EntityFigure column = new EntityFigure(new OverColumnLayout().withMinorAlignment(Alignment.LEADING));
+        setLayoutManager(new TableRowLayout().withMinorAlignment(Alignment.MATHLINE));
+        EntityFigure column = new EntityFigure(new UnderColumnLayout().withMajorAlignment(Alignment.MATHLINE).withMinorAlignment(Alignment.TRAILING));
         column.add(createContentPane(0));
         column.add(createContentPane(1));
         column.add(createContentPane(2));

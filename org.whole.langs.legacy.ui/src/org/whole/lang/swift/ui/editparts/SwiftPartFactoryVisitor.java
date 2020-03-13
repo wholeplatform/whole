@@ -18,11 +18,16 @@
 package org.whole.lang.swift.ui.editparts;
 
 import org.eclipse.gef.EditPart;
+import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.swift.model.*;
+import org.whole.lang.swift.reflect.SwiftEntityDescriptorEnum;
+import org.whole.lang.swift.reflect.SwiftFeatureDescriptorEnum;
 import org.whole.lang.swift.visitors.SwiftIdentityDefaultVisitor;
 import org.whole.lang.ui.editparts.IEditPartFactory;
+import org.whole.lang.ui.editparts.ModuleNameTextualEntityPart;
 import org.whole.lang.ui.notations.table.editparts.TablePartFactory;
+import org.whole.lang.util.EntityUtils;
 
 /**
  *  @generator Whole
@@ -57,7 +62,7 @@ public class SwiftPartFactoryVisitor extends SwiftIdentityDefaultVisitor impleme
 
     @Override
     public void visit(FunctionCallArgumentList entity) {
-        part = new FunctionCallArgumentListPart();
+        part = new org.whole.lang.swift.tabularui.editparts.FunctionCallArgumentListPart();
     }
 
     @Override
@@ -73,6 +78,18 @@ public class SwiftPartFactoryVisitor extends SwiftIdentityDefaultVisitor impleme
     @Override
     public void visit(DeclNameArgumentList entity) {
         part = new DeclNameArgumentListPart();
+    }
+
+    @Override
+    public void visit(Identifier entity) {
+    	IEntity parent = entity.wGetParent();
+    	if (EntityUtils.hasParent(entity) &&
+    			(Matcher.match(SwiftEntityDescriptorEnum.FunctionDecl, parent) && parent.wGet(SwiftFeatureDescriptorEnum.functionIdentifier) == entity) ||
+    			(Matcher.matchAny(parent, SwiftEntityDescriptorEnum.ClassDecl, SwiftEntityDescriptorEnum.StructDecl) && parent.wGet(SwiftFeatureDescriptorEnum.identifier) == entity)) {
+    		part = new ModuleNameTextualEntityPart();
+    		return;
+    	}
+    	super.visit(entity);
     }
 
     @Override
@@ -162,7 +179,7 @@ public class SwiftPartFactoryVisitor extends SwiftIdentityDefaultVisitor impleme
 
     @Override
     public void visit(FunctionCallArgument entity) {
-        part = new FunctionCallArgumentPart();
+        part = new org.whole.lang.swift.tabularui.editparts.FunctionCallArgumentPart();
     }
 
     @Override
@@ -317,7 +334,7 @@ public class SwiftPartFactoryVisitor extends SwiftIdentityDefaultVisitor impleme
 
     @Override
     public void visit(FunctionParameterList entity) {
-        part = new FunctionParameterListPart();
+        part = new org.whole.lang.swift.tabularui.editparts.FunctionParameterListPart();
     }
 
     @Override
@@ -397,7 +414,7 @@ public class SwiftPartFactoryVisitor extends SwiftIdentityDefaultVisitor impleme
 
     @Override
     public void visit(FunctionParameter entity) {
-        part = new FunctionParameterPart();
+        part = new org.whole.lang.swift.tabularui.editparts.FunctionParameterPart();
     }
 
     @Override

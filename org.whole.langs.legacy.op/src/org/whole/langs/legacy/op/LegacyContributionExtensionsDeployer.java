@@ -50,6 +50,9 @@ public class LegacyContributionExtensionsDeployer extends AbstractContributionEx
 					new ClasspathPersistenceProvider("org/whole/lang/mediawiki/MediaWikiActions.xwl")));
 			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
 					new ClasspathPersistenceProvider("org/whole/lang/ui/CaretActionsSemantics.xwl")));
+
+			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
+					new ClasspathPersistenceProvider("org/whole/lang/swift/SwiftMigrations.xwl")));
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		}

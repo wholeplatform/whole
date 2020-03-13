@@ -17,7 +17,10 @@
  */
 package org.whole.lang.swift.ui.figures;
 
+import org.eclipse.draw2d.CompoundBorder;
+import org.eclipse.draw2d.MarginBorder;
 import org.whole.lang.ui.figures.CompositeFigure;
+import org.whole.lang.ui.figures.CurlyBracketsBorder;
 
 /**
  *  @generator Whole
@@ -26,5 +29,6 @@ public class CodeBlockItemListFigure extends CompositeFigure {
 
     public CodeBlockItemListFigure() {
         super(false);
+        setBorder(new CompoundBorder(new CurlyBracketsBorder(), new MarginBorder(0,16,0,0)));
     }
 }

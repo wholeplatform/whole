@@ -31,7 +31,7 @@ public class FunctionSignatureFigure extends ContentPaneFigure {
         setLayoutManager(new RowLayout().withSpacing(4));
         add(createContentPane(0, new RoundBracketsBorder()));
         add(createContentPane(1));
-        addKeyword("->");
+        addContent("\u2192");
         add(createContentPane(2));
     }
 }

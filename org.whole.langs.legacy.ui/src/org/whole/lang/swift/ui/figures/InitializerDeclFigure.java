@@ -17,11 +17,12 @@
  */
 package org.whole.lang.swift.ui.figures;
 
-import org.whole.lang.ui.figures.ContentPaneFigure;
-import org.whole.lang.ui.layout.RowLayout;
 import org.whole.lang.ui.figures.AngleBracketsBorder;
+import org.whole.lang.ui.figures.ContentPaneFigure;
+import org.whole.lang.ui.figures.EntityFigure;
 import org.whole.lang.ui.figures.RoundBracketsBorder;
-import org.whole.lang.ui.figures.CurlyBracketsBorder;
+import org.whole.lang.ui.layout.ColumnLayout;
+import org.whole.lang.ui.layout.RowLayout;
 
 /**
  *  @generator Whole
@@ -30,16 +31,18 @@ public class InitializerDeclFigure extends ContentPaneFigure {
 
     public InitializerDeclFigure() {
         initContentPanes(8);
-        setLayoutManager(new RowLayout().withSpacing(4));
-        add(createContentPane(0));
-        add(createContentPane(1));
-        addKeyword("init");
-        add(createContentPane(2));
-        add(createContentPane(3, new AngleBracketsBorder()));
-        add(createContentPane(4, new RoundBracketsBorder()));
-        add(createContentPane(5));
-        addKeyword("where");
-        add(createContentPane(6));
-        add(createContentPane(7, new CurlyBracketsBorder()));
+        setLayoutManager(new ColumnLayout().withSpacing(4));
+        EntityFigure row = new EntityFigure(new RowLayout().withSpacing(4));
+        row.add(createContentPane(0));
+        row.add(createContentPane(1));
+        row.addKeyword("init");
+        row.add(createContentPane(2));
+        row.add(createContentPane(3, new AngleBracketsBorder()));
+        row.add(createContentPane(4, new RoundBracketsBorder()));
+        row.add(createContentPane(5));
+        row.addKeyword("where");
+        row.add(createContentPane(6));
+        add(row);
+        add(createContentPane(7));
     }
 }

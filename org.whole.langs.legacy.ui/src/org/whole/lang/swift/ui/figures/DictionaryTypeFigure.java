@@ -18,6 +18,7 @@
 package org.whole.lang.swift.ui.figures;
 
 import org.whole.lang.ui.figures.ContentPaneFigure;
+import org.whole.lang.ui.figures.SquareBracketsBorder;
 import org.whole.lang.ui.layout.RowLayout;
 
 /**
@@ -28,10 +29,9 @@ public class DictionaryTypeFigure extends ContentPaneFigure {
     public DictionaryTypeFigure() {
         initContentPanes(2);
         setLayoutManager(new RowLayout().withSpacing(4));
-        addKeyword("[");
         add(createContentPane(0));
         addKeyword(":");
         add(createContentPane(1));
-        addKeyword("]");
+        setBorder(new SquareBracketsBorder());
     }
 }

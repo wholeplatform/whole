@@ -11,7 +11,7 @@
                 <migrations:MigrateLanguage>
                     <queries:LanguageTest xmlns:queries="http://lang.whole.org/Queries" value="whole:org.whole.lang.swiftsyntax:SwiftSyntaxModel"/>
                     <queries:LanguageTest xmlns:queries="http://lang.whole.org/Queries" value="whole:org.whole.lang.swift:SwiftModel"/>
-                    <migrations:LanguageMigrationRules initialCapacity="101">
+                    <migrations:LanguageMigrationRules initialCapacity="103">
                         <migrations:MigrateEntity>
                             <queries:TypeTest xmlns:queries="http://lang.whole.org/Queries" value="whole:org.whole.lang.swiftsyntax:SwiftSyntaxModel#Token"/>
                             <queries:TypeTest xmlns:queries="http://lang.whole.org/Queries" value="whole:org.whole.lang.swift:SwiftModel#QuestionOrExclamationMarkEnum"/>
@@ -909,6 +909,60 @@
                                 <queries:FeatureStep xmlns:queries="http://lang.whole.org/Queries" value="whole:org.whole.lang.swiftsyntax:SwiftSyntaxModel#content"/>
                             </migrations:MigratePath>
                         </migrations:MigrateEntityPattern>
+                        <migrations:MigrateEntityPattern>
+                            <queries:And xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                                <queries:TypeTest value="whole:org.whole.lang.swiftsyntax:SwiftSyntaxModel#IdentifierExpr"/>
+                                <queries:Not>
+                                    <queries:Some>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:FeatureStep value="whole:org.whole.lang.swiftsyntax:SwiftSyntaxModel#declNameArguments"/>
+                                        <queries:ChildStep/>
+                                        </queries:Path>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </queries:Some>
+                                </queries:Not>
+                            </queries:And>
+                            <migrations:MigratePath>
+                                <queries:FeatureStep xmlns:queries="http://lang.whole.org/Queries" value="whole:org.whole.lang.swiftsyntax:SwiftSyntaxModel#identifier"/>
+                            </migrations:MigratePath>
+                        </migrations:MigrateEntityPattern>
+                        <migrations:MigrateEntityPattern>
+                            <queries:And xmlns:queries="http://lang.whole.org/Queries" initialCapacity="3">
+                                <queries:TypeTest value="whole:org.whole.lang.swiftsyntax:SwiftSyntaxModel#SimpleTypeIdentifier"/>
+                                <queries:Not>
+                                    <queries:Or initialCapacity="2">
+                                        <queries:Some>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:FeatureStep value="whole:org.whole.lang.swiftsyntax:SwiftSyntaxModel#genericArgumentClause"/>
+                                        <queries:ChildStep/>
+                                        </queries:Path>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
+                                        <queries:AtTypeTest value="whole:org.whole.lang.swiftsyntax:SwiftSyntaxModel#SimpleTypeIdentifier"/>
+                                    </queries:Or>
+                                </queries:Not>
+                                <queries:Some>
+                                    <queries:Path initialCapacity="2">
+                                        <queries:FeatureStep value="whole:org.whole.lang.swiftsyntax:SwiftSyntaxModel#name"/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.swiftsyntax:SwiftSyntaxModel#kind"/>
+                                    </queries:Path>
+                                    <queries:Or initialCapacity="3">
+                                        <queries:EqualsStep>
+                                        <queries:StringLiteral value="identifier"/>
+                                        </queries:EqualsStep>
+                                        <queries:EqualsStep>
+                                        <queries:StringLiteral value="capitalSelfKeyword"/>
+                                        </queries:EqualsStep>
+                                        <queries:EqualsStep>
+                                        <queries:StringLiteral value="anyKeyword"/>
+                                        </queries:EqualsStep>
+                                    </queries:Or>
+                                </queries:Some>
+                            </queries:And>
+                            <migrations:MigratePath>
+                                <queries:FeatureStep xmlns:queries="http://lang.whole.org/Queries" value="whole:org.whole.lang.swiftsyntax:SwiftSyntaxModel#name"/>
+                            </migrations:MigratePath>
+                        </migrations:MigrateEntityPattern>
                         <migrations:MigrateEntity>
                             <queries:TypeTest xmlns:queries="http://lang.whole.org/Queries" value="whole:org.whole.lang.swiftsyntax:SwiftSyntaxModel#TokenList"/>
                             <queries:TypeTest xmlns:queries="http://lang.whole.org/Queries" value="whole:org.whole.lang.swift:SwiftModel#CaptureSpecifierEnum"/>
@@ -1196,7 +1250,7 @@
                 <migrations:MigrateLanguage>
                     <queries:LanguageTest xmlns:queries="http://lang.whole.org/Queries" value="whole:org.whole.lang.swift:SwiftModel"/>
                     <queries:LanguageTest xmlns:queries="http://lang.whole.org/Queries" value="whole:org.whole.lang.swiftsyntax:SwiftSyntaxModel"/>
-                    <migrations:LanguageMigrationRules initialCapacity="103">
+                    <migrations:LanguageMigrationRules initialCapacity="105">
                         <migrations:MigrateEntityPattern>
                             <queries:And xmlns:queries="http://lang.whole.org/Queries" initialCapacity="3">
                                 <queries:KindTest value="IMPL"/>
@@ -3678,6 +3732,112 @@
                                         <queries:Features initialCapacity="1">
                                         <queries:Feature>
                                         <queries:Name value="content"/>
+                                        <queries:Scope>
+                                        <queries:FreshNames initialCapacity="1">
+                                        <queries:Name value="_targetInstance"/>
+                                        </queries:FreshNames>
+                                        <queries:Block initialCapacity="2">
+                                        <queries:VariableTest value="_targetInstance"/>
+                                        <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <migrations:Source/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        </queries:Feature>
+                                        </queries:Features>
+                                    </queries:Create>
+                                </queries:Block>
+                            </queries:Scope>
+                        </migrations:MigrateEntityPattern>
+                        <migrations:MigrateEntityPattern>
+                            <queries:And xmlns:queries="http://lang.whole.org/Queries" initialCapacity="4">
+                                <queries:KindTest value="IMPL"/>
+                                <queries:Not>
+                                    <queries:Some>
+                                        <queries:Sequence initialCapacity="2">
+                                        <migrations:Target/>
+                                        <queries:VariableRefStep value="_outerTargetInstance"/>
+                                        </queries:Sequence>
+                                        <queries:TypeTest value="whole:org.whole.lang.swiftsyntax:SwiftSyntaxModel#IdentifierExpr"/>
+                                    </queries:Some>
+                                </queries:Not>
+                                <queries:SubtypeTest value="whole:org.whole.lang.swift:SwiftModel#AbstractIdentifier"/>
+                                <queries:Or initialCapacity="2">
+                                    <queries:AtTypeTest value="whole:org.whole.lang.swift:SwiftModel#Expr"/>
+                                    <queries:AtTypeTest value="whole:org.whole.lang.swift:SwiftModel#AbstractRootExpr"/>
+                                </queries:Or>
+                            </queries:And>
+                            <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
+                                <queries:FreshNames initialCapacity="1">
+                                    <queries:Name value="_outerTargetInstance"/>
+                                </queries:FreshNames>
+                                <queries:Block initialCapacity="2">
+                                    <queries:Filter>
+                                        <migrations:Target/>
+                                        <queries:VariableTest value="_outerTargetInstance"/>
+                                    </queries:Filter>
+                                    <queries:Create>
+                                        <queries:EntityType value="whole:org.whole.lang.swiftsyntax:SwiftSyntaxModel#IdentifierExpr"/>
+                                        <queries:Registry value="DEFAULT"/>
+                                        <queries:Features initialCapacity="1">
+                                        <queries:Feature>
+                                        <queries:Name value="identifier"/>
+                                        <queries:Scope>
+                                        <queries:FreshNames initialCapacity="1">
+                                        <queries:Name value="_targetInstance"/>
+                                        </queries:FreshNames>
+                                        <queries:Block initialCapacity="2">
+                                        <queries:VariableTest value="_targetInstance"/>
+                                        <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <migrations:Source/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        </queries:Feature>
+                                        </queries:Features>
+                                    </queries:Create>
+                                </queries:Block>
+                            </queries:Scope>
+                        </migrations:MigrateEntityPattern>
+                        <migrations:MigrateEntityPattern>
+                            <queries:And xmlns:queries="http://lang.whole.org/Queries" initialCapacity="4">
+                                <queries:KindTest value="IMPL"/>
+                                <queries:Not>
+                                    <queries:Some>
+                                        <queries:Sequence initialCapacity="2">
+                                        <migrations:Target/>
+                                        <queries:VariableRefStep value="_outerTargetInstance"/>
+                                        </queries:Sequence>
+                                        <queries:TypeTest value="whole:org.whole.lang.swiftsyntax:SwiftSyntaxModel#SimpleTypeIdentifier"/>
+                                    </queries:Some>
+                                </queries:Not>
+                                <queries:Or initialCapacity="2">
+                                    <queries:TypeTest value="whole:org.whole.lang.swift:SwiftModel#Identifier"/>
+                                    <queries:TypeTest value="whole:org.whole.lang.swift:SwiftModel#NameEnum"/>
+                                </queries:Or>
+                                <queries:AtTypeTest value="whole:org.whole.lang.swift:SwiftModel#Type"/>
+                            </queries:And>
+                            <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
+                                <queries:FreshNames initialCapacity="1">
+                                    <queries:Name value="_outerTargetInstance"/>
+                                </queries:FreshNames>
+                                <queries:Block initialCapacity="2">
+                                    <queries:Filter>
+                                        <migrations:Target/>
+                                        <queries:VariableTest value="_outerTargetInstance"/>
+                                    </queries:Filter>
+                                    <queries:Create>
+                                        <queries:EntityType value="whole:org.whole.lang.swiftsyntax:SwiftSyntaxModel#SimpleTypeIdentifier"/>
+                                        <queries:Registry value="DEFAULT"/>
+                                        <queries:Features initialCapacity="1">
+                                        <queries:Feature>
+                                        <queries:Name value="name"/>
                                         <queries:Scope>
                                         <queries:FreshNames initialCapacity="1">
                                         <queries:Name value="_targetInstance"/>

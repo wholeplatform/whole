@@ -18,8 +18,8 @@
 package org.whole.lang.swift.ui.editparts;
 
 import org.eclipse.draw2d.IFigure;
+import org.whole.lang.swift.tabularui.figures.DictionaryExprTableFigure;
 import org.whole.lang.ui.editparts.AbstractCompositePart;
-import org.whole.lang.swift.ui.figures.DictionaryExprFigure;
 
 /**
  *  @generator Whole
@@ -27,6 +27,6 @@ import org.whole.lang.swift.ui.figures.DictionaryExprFigure;
 public class DictionaryExprPart extends AbstractCompositePart {
 
     protected IFigure createFigure() {
-        return new DictionaryExprFigure();
+        return new DictionaryExprTableFigure();
     }
 }

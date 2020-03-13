@@ -17,7 +17,10 @@
  */
 package org.whole.lang.swift.ui.figures;
 
+import org.eclipse.draw2d.CompoundBorder;
+import org.eclipse.draw2d.MarginBorder;
 import org.whole.lang.ui.figures.CompositeFigure;
+import org.whole.lang.ui.figures.CurlyBracketsBorder;
 
 /**
  *  @generator Whole
@@ -26,5 +29,7 @@ public class MemberDeclListFigure extends CompositeFigure {
 
     public MemberDeclListFigure() {
         super(false);
+        getLayoutManager().withSpacing(24);
+        setBorder(new CompoundBorder(new CurlyBracketsBorder(true,false), new MarginBorder(0,16,0,0)));
     }
 }

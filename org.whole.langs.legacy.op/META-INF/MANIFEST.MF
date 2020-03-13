@@ -6,7 +6,15 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Export-Package: org.whole.langs.legacy.op
+Export-Package: org.whole.langs.legacy.op,
+ org.whole.lang.html,
+ org.whole.lang.html.codebase,
+ org.whole.lang.html.visitors,
+ org.whole.lang.javascript,
+ org.whole.lang.javascript.visitors,
+ org.whole.lang.mediawiki,
+ org.whole.lang.swift,
+ org.whole.lang.ui
 Require-Bundle: org.whole.lang,
  org.whole.langs.core,
  org.whole.langs.legacy,

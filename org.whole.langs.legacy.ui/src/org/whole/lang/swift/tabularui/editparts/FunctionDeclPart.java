@@ -17,9 +17,9 @@ public class FunctionDeclPart extends AbstractContentPanePart {
     protected List<IEntity> getModelSpecificChildren() {
         FunctionDecl entity = getModelEntity();
         List<IEntity> children = new ArrayList<IEntity>(7);
-        children.add(entity.getAttributes());
-        children.add(entity.getModifiers());
         children.add(entity.getFunctionIdentifier());
+        children.add(entity.getModifiers());
+        children.add(entity.getAttributes());
         children.add(entity.getGenericParameterClause());
         children.add(entity.getSignature());
         children.add(entity.getGenericWhereClause());

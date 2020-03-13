@@ -18,7 +18,7 @@
 package org.whole.lang.swift.ui.figures;
 
 import org.whole.lang.ui.figures.ContentPaneFigure;
-import org.whole.lang.ui.layout.RowLayout;
+import org.whole.lang.ui.layout.MonoLayout;
 
 /**
  *  @generator Whole
@@ -27,8 +27,7 @@ public class SourceFileFigure extends ContentPaneFigure {
 
     public SourceFileFigure() {
         initContentPanes(1);
-        setLayoutManager(new RowLayout().withSpacing(4));
+        setLayoutManager(new MonoLayout().withMargin(16,8,16,8));
         add(createContentPane(0));
-        addKeyword("");
     }
 }

@@ -30,6 +30,6 @@ public class SequenceExprFigure extends ContentPaneFigure {
     public SequenceExprFigure() {
         initContentPanes(1);
         setLayoutManager(new MonoLayout());
-        add(createContentPane(0, new CompositeFigure(new RowLayout())));
+        add(createContentPane(0, new CompositeFigure(new RowLayout().withSpacing(4))));
     }
 }

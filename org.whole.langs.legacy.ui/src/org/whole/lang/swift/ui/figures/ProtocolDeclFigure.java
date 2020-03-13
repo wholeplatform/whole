@@ -18,11 +18,10 @@
 package org.whole.lang.swift.ui.figures;
 
 import org.whole.lang.ui.figures.ContentPaneFigure;
-import org.whole.lang.ui.layout.ColumnLayout;
-import org.whole.lang.ui.layout.RowLayout;
 import org.whole.lang.ui.figures.EntityFigure;
+import org.whole.lang.ui.layout.ColumnLayout;
 import org.whole.lang.ui.layout.MonoLayout;
-import org.whole.lang.ui.figures.CurlyBracketsBorder;
+import org.whole.lang.ui.layout.RowLayout;
 
 /**
  *  @generator Whole
@@ -43,7 +42,7 @@ public class ProtocolDeclFigure extends ContentPaneFigure {
         row.add(createContentPane(4));
         add(row);
         EntityFigure row1 = new EntityFigure(new MonoLayout());
-        row1.add(createContentPane(5, new CurlyBracketsBorder()));
+        row1.add(createContentPane(5));
         add(row1);
     }
 }

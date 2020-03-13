@@ -25,6 +25,6 @@ import org.whole.lang.ui.figures.CompositeFigure;
 public class AccessPathFigure extends CompositeFigure {
 
     public AccessPathFigure() {
-        super(false);
+        super(true);
     }
 }

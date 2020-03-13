@@ -25,6 +25,6 @@ import org.whole.lang.ui.figures.CompositeFigure;
 public class StringLiteralSegmentsFigure extends CompositeFigure {
 
     public StringLiteralSegmentsFigure() {
-        super(false);
+        super(true);
     }
 }

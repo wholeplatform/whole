@@ -19,11 +19,12 @@ package org.whole.lang.swift.ui.editparts;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.eclipse.draw2d.IFigure;
-import org.whole.lang.swift.model.DictionaryElement;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.swift.model.DictionaryElement;
+import org.whole.lang.swift.tabularui.editparts.DictionaryElementRowFigure;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
-import org.whole.lang.swift.ui.figures.DictionaryElementFigure;
 
 /**
  *  @generator Whole
@@ -31,7 +32,7 @@ import org.whole.lang.swift.ui.figures.DictionaryElementFigure;
 public class DictionaryElementPart extends AbstractContentPanePart {
 
     protected IFigure createFigure() {
-        return new DictionaryElementFigure();
+        return new DictionaryElementRowFigure();
     }
 
     protected List<IEntity> getModelSpecificChildren() {

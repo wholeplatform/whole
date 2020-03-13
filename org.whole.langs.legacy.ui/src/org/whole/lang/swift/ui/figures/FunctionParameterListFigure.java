@@ -18,6 +18,7 @@
 package org.whole.lang.swift.ui.figures;
 
 import org.whole.lang.ui.figures.CompositeFigure;
+import org.whole.lang.ui.layout.OverColumnLayout;
 
 /**
  *  @generator Whole
@@ -25,6 +26,6 @@ import org.whole.lang.ui.figures.CompositeFigure;
 public class FunctionParameterListFigure extends CompositeFigure {
 
     public FunctionParameterListFigure() {
-        super(false);
+        super(new OverColumnLayout().withMarginTop(4).withMarginBottom(4).withSpacing(4));
     }
 }

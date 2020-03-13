@@ -17,13 +17,12 @@
  */
 package org.whole.lang.swift.ui.figures;
 
-import org.whole.lang.ui.figures.ContentPaneFigure;
-import org.whole.lang.ui.layout.ColumnLayout;
-import org.whole.lang.ui.layout.RowLayout;
-import org.whole.lang.ui.figures.EntityFigure;
 import org.whole.lang.ui.figures.AngleBracketsBorder;
+import org.whole.lang.ui.figures.ContentPaneFigure;
+import org.whole.lang.ui.figures.EntityFigure;
+import org.whole.lang.ui.layout.ColumnLayout;
 import org.whole.lang.ui.layout.MonoLayout;
-import org.whole.lang.ui.figures.CurlyBracketsBorder;
+import org.whole.lang.ui.layout.RowLayout;
 
 /**
  *  @generator Whole
@@ -44,7 +43,7 @@ public class FunctionDeclFigure extends ContentPaneFigure {
         row.add(createContentPane(5));
         add(row);
         EntityFigure row1 = new EntityFigure(new MonoLayout());
-        row1.add(createContentPane(6, new CurlyBracketsBorder()));
+        row1.add(createContentPane(6));
         add(row1);
     }
 }

@@ -13,11 +13,11 @@ public class FunctionParameterRowFigure extends ContentPaneFigure {
         initContentPanes(6);
         setLayoutManager(new TableRowLayout());
         add(createContentPane(0));
-        EntityFigure column = new EntityFigure(new UnderColumnLayout().withMinorAlignment(Alignment.LEADING));
+        EntityFigure column = new EntityFigure(new UnderColumnLayout().withMajorAlignment(Alignment.MATHLINE).withMinorAlignment(Alignment.LEADING));
         column.add(createContentPane(1));
         column.add(createContentPane(2));
         add(column);
-        EntityFigure row = new EntityFigure(new RowLayout().withMinorAlignment(Alignment.LEADING));
+        EntityFigure row = new EntityFigure(new RowLayout().withMajorAlignment(Alignment.MATHLINE));
         row.add(createContentPane(3));
         row.add(createContentPane(4));
         add(row);

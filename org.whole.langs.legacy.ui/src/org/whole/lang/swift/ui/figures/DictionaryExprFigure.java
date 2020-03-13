@@ -17,11 +17,11 @@
  */
 package org.whole.lang.swift.ui.figures;
 
-import org.whole.lang.ui.figures.ContentPaneFigure;
-import org.whole.lang.ui.layout.MonoLayout;
-import org.whole.lang.ui.figures.SquareBracketsBorder;
 import org.whole.lang.ui.figures.CompositeFigure;
-import org.whole.lang.ui.layout.RowLayout;
+import org.whole.lang.ui.figures.ContentPaneFigure;
+import org.whole.lang.ui.figures.SquareBracketsBorder;
+import org.whole.lang.ui.layout.ColumnLayout;
+import org.whole.lang.ui.layout.MonoLayout;
 
 /**
  *  @generator Whole
@@ -31,6 +31,6 @@ public class DictionaryExprFigure extends ContentPaneFigure {
     public DictionaryExprFigure() {
         initContentPanes(1);
         setLayoutManager(new MonoLayout());
-        add(createContentPane(0, new CompositeFigure(new RowLayout()).withBorder(new SquareBracketsBorder())));
+        add(createContentPane(0, new CompositeFigure(new ColumnLayout().withSpacing(4)).withBorder(new SquareBracketsBorder())));
     }
 }
