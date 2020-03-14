@@ -141,6 +141,14 @@ public class PatternsSpecificBuilderAdapter extends GenericBuilderContext implem
         wFeature(PatternsFeatureDescriptorEnum.resultTypes);
     }
 
+    public void guestActions() {
+        wFeature(PatternsFeatureDescriptorEnum.guestActions);
+    }
+
+    public void actions() {
+        wFeature(PatternsFeatureDescriptorEnum.actions);
+    }
+
     public void declarations() {
         wFeature(PatternsFeatureDescriptorEnum.declarations);
     }

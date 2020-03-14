@@ -94,4 +94,20 @@ public class PatternLanguageAdapter extends AbstractEntityAdapter implements Pat
     public void setDeclarations(Declarations declarations) {
         wSet(PatternsFeatureDescriptorEnum.declarations, declarations);
     }
+
+    public ContextMenuActions getActions() {
+        return wGet(PatternsFeatureDescriptorEnum.actions).wGetAdapter(PatternsEntityDescriptorEnum.ContextMenuActions);
+    }
+
+    public void setActions(ContextMenuActions actions) {
+        wSet(PatternsFeatureDescriptorEnum.actions, actions);
+    }
+
+    public ContextMenuActions getGuestActions() {
+        return wGet(PatternsFeatureDescriptorEnum.guestActions).wGetAdapter(PatternsEntityDescriptorEnum.ContextMenuActions);
+    }
+
+    public void setGuestActions(ContextMenuActions guestActions) {
+        wSet(PatternsFeatureDescriptorEnum.guestActions, guestActions);
+    }
 }

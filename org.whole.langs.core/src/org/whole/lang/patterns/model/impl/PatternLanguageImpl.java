@@ -31,6 +31,7 @@ import org.whole.lang.patterns.model.Name;
 import org.whole.lang.patterns.model.Version;
 import org.whole.lang.patterns.model.Patterns;
 import org.whole.lang.patterns.model.Declarations;
+import org.whole.lang.patterns.model.ContextMenuActions;
 
 /**
  *  @generator Whole
@@ -107,6 +108,24 @@ public class PatternLanguageImpl extends AbstractSimpleEntity implements Pattern
     public void setDeclarations(Declarations declarations) {
         notifyChanged(PatternsFeatureDescriptorEnum.declarations, this.declarations, this.declarations = declarations);
     }
+    private ContextMenuActions actions;
+
+    public ContextMenuActions getActions() {
+        return notifyRequested(PatternsFeatureDescriptorEnum.actions, actions);
+    }
+
+    public void setActions(ContextMenuActions actions) {
+        notifyChanged(PatternsFeatureDescriptorEnum.actions, this.actions, this.actions = actions);
+    }
+    private ContextMenuActions guestActions;
+
+    public ContextMenuActions getGuestActions() {
+        return notifyRequested(PatternsFeatureDescriptorEnum.guestActions, guestActions);
+    }
+
+    public void setGuestActions(ContextMenuActions guestActions) {
+        notifyChanged(PatternsFeatureDescriptorEnum.guestActions, this.guestActions, this.guestActions = guestActions);
+    }
 
     public IEntity wGet(int index) {
         switch (index) {
@@ -122,6 +141,10 @@ public class PatternLanguageImpl extends AbstractSimpleEntity implements Pattern
             return getPatterns().wGetAdaptee(false);
             case 5 :
             return getDeclarations().wGetAdaptee(false);
+            case 6 :
+            return getActions().wGetAdaptee(false);
+            case 7 :
+            return getGuestActions().wGetAdaptee(false);
             default :
             throw new IllegalArgumentException();
         }
@@ -147,12 +170,18 @@ public class PatternLanguageImpl extends AbstractSimpleEntity implements Pattern
             case 5 :
             setDeclarations(value.wGetAdapter(PatternsEntityDescriptorEnum.Declarations));
             break;
+            case 6 :
+            setActions(value.wGetAdapter(PatternsEntityDescriptorEnum.ContextMenuActions));
+            break;
+            case 7 :
+            setGuestActions(value.wGetAdapter(PatternsEntityDescriptorEnum.ContextMenuActions));
+            break;
             default :
             throw new IllegalArgumentException();
         }
     }
 
     public int wSize() {
-        return 6;
+        return 8;
     }
 }

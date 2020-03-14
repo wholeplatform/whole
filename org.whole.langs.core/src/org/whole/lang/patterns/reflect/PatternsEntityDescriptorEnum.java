@@ -100,6 +100,7 @@ public class PatternsEntityDescriptorEnum extends EntityDescriptorEnum {
     public static final int GoalExpression_ord = 71;
     public static final int Argument_ord = 72;
     public static final int Declaration_ord = 73;
+    public static final int ContextMenuActions_ord = 74;
     public static final PatternsEntityDescriptorEnum instance = new PatternsEntityDescriptorEnum();
     public static final EntityDescriptor<PatternLanguage> PatternLanguage = (EntityDescriptor<PatternLanguage>) instance.valueOf(PatternLanguage_ord);
     public static final EntityDescriptor<Patterns> Patterns = (EntityDescriptor<Patterns>) instance.valueOf(Patterns_ord);
@@ -175,13 +176,14 @@ public class PatternsEntityDescriptorEnum extends EntityDescriptorEnum {
     public static final EntityDescriptor<GoalExpression> GoalExpression = (EntityDescriptor<GoalExpression>) instance.valueOf(GoalExpression_ord);
     public static final EntityDescriptor<Argument> Argument = (EntityDescriptor<Argument>) instance.valueOf(Argument_ord);
     public static final EntityDescriptor<Declaration> Declaration = (EntityDescriptor<Declaration>) instance.valueOf(Declaration_ord);
+    public static final EntityDescriptor<ContextMenuActions> ContextMenuActions = (EntityDescriptor<ContextMenuActions>) instance.valueOf(ContextMenuActions_ord);
 
     private PatternsEntityDescriptorEnum() {
     }
     private static final long serialVersionUID = 1;
 
     protected void initEntityDescriptors() {
-        putSimpleEntity(PatternLanguage_ord, "PatternLanguage", PatternLanguage.class, false).withFeature(PatternsFeatureDescriptorEnum.uri, URI_ord).withFeature(PatternsFeatureDescriptorEnum.namespace, Namespace_ord).withFeature(PatternsFeatureDescriptorEnum.name, Name_ord).withFeature(PatternsFeatureDescriptorEnum.version, Version_ord, true, false, false, false, false).withFeature(PatternsFeatureDescriptorEnum.patterns, Patterns_ord).withFeature(PatternsFeatureDescriptorEnum.declarations, Declarations_ord, true, false, false, false, false);
+        putSimpleEntity(PatternLanguage_ord, "PatternLanguage", PatternLanguage.class, false).withFeature(PatternsFeatureDescriptorEnum.uri, URI_ord).withFeature(PatternsFeatureDescriptorEnum.namespace, Namespace_ord).withFeature(PatternsFeatureDescriptorEnum.name, Name_ord).withFeature(PatternsFeatureDescriptorEnum.version, Version_ord, true, false, false, false, false).withFeature(PatternsFeatureDescriptorEnum.patterns, Patterns_ord).withFeature(PatternsFeatureDescriptorEnum.declarations, Declarations_ord, true, false, false, false, false).withFeature(PatternsFeatureDescriptorEnum.actions, ContextMenuActions_ord, true, false, false, false, false).withFeature(PatternsFeatureDescriptorEnum.guestActions, ContextMenuActions_ord, true, false, false, false, false);
         putCompositeEntity(Patterns_ord, "Patterns", Patterns.class, false, PatternOrTypeDeclaration_ord, true, false);
         putSimpleEntity(PatternOrTypeDeclaration_ord, "PatternOrTypeDeclaration", PatternOrTypeDeclaration.class, true, Pattern_ord, Data_ord, Choice_ord, Enumeration_ord, Repetition_ord);
         putSimpleEntity(Library_ord, "Library", Library.class, false).withFeature(PatternsFeatureDescriptorEnum.uri, URI_ord).withFeature(PatternsFeatureDescriptorEnum.namespace, Namespace_ord).withFeature(PatternsFeatureDescriptorEnum.name, Name_ord).withFeature(PatternsFeatureDescriptorEnum.version, Version_ord, true, false, false, false, false).withFeature(PatternsFeatureDescriptorEnum.declarations, Declarations_ord);
@@ -255,6 +257,7 @@ public class PatternsEntityDescriptorEnum extends EntityDescriptorEnum {
         putSimpleEntity(GoalExpression_ord, "GoalExpression", GoalExpression.class, true);
         putSimpleEntity(Argument_ord, "Argument", Argument.class, true, Binding_ord);
         putSimpleEntity(Declaration_ord, "Declaration", Declaration.class, true, FunctionDeclaration_ord, PointcutDeclaration_ord, SlotDeclaration_ord, VariantSelector_ord, GoalDeclaration_ord, VariableDeclaration_ord, JoinPointDeclaration_ord, ParameterDeclaration_ord);
+        putSimpleEntity(ContextMenuActions_ord, "ContextMenuActions", ContextMenuActions.class, true);
     }
 
     protected void initForeignTypeRelations() {
@@ -262,6 +265,7 @@ public class PatternsEntityDescriptorEnum extends EntityDescriptorEnum {
         setAliasOf(true, "http://lang.whole.org/Queries#StepExpression", StepExpression_ord);
         setAliasOf(true, "http://lang.whole.org/Queries#Predicate", Predicate_ord);
         setAliasOf(true, "http://lang.whole.org/Queries#Name", Name_ord);
+        setAliasOf(true, "http://lang.whole.org/Actions#ContextMenuActions", ContextMenuActions_ord);
         setAssignableFromForeignType(true, "http://lang.whole.org/Models#EntityType", ResultType_ord);
         setAssignableFromForeignType(true, "http://lang.whole.org/Models#AnyType", ResultType_ord);
         setAssignableFromAll(true, Template_ord);

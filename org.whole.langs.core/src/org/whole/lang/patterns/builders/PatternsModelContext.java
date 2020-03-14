@@ -78,6 +78,22 @@ public class PatternsModelContext extends EntityContext {
         wSet(PatternsFeatureDescriptorEnum.declarations, declarations);
     }
 
+    public PatternsModelContext getActions() {
+        return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.actions);
+    }
+
+    public void setActions(PatternsModelContext actions) {
+        wSet(PatternsFeatureDescriptorEnum.actions, actions);
+    }
+
+    public PatternsModelContext getGuestActions() {
+        return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.guestActions);
+    }
+
+    public void setGuestActions(PatternsModelContext guestActions) {
+        wSet(PatternsFeatureDescriptorEnum.guestActions, guestActions);
+    }
+
     public PatternsModelContext getResultTypes() {
         return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.resultTypes);
     }

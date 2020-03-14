@@ -104,5 +104,6 @@ public class PatternsAdaptersEntityRegistry extends AbstractEntityRegistry {
         put(new GoalExpressionAdapter());
         put(new ArgumentAdapter());
         put(new DeclarationAdapter());
+        put(new ContextMenuActionsAdapter());
     }
 }

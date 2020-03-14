@@ -44,8 +44,8 @@ public class PatternsEntityFactory extends GenericEntityFactory {
         return create(PatternsEntityDescriptorEnum.PatternLanguage);
     }
 
-    public PatternLanguage createPatternLanguage(URI uri, Namespace namespace, Name name, Version version, Patterns patterns, Declarations declarations) {
-        return create(PatternsEntityDescriptorEnum.PatternLanguage, uri, namespace, name, version, patterns, declarations);
+    public PatternLanguage createPatternLanguage(URI uri, Namespace namespace, Name name, Version version, Patterns patterns, Declarations declarations, ContextMenuActions actions, ContextMenuActions guestActions) {
+        return create(PatternsEntityDescriptorEnum.PatternLanguage, uri, namespace, name, version, patterns, declarations, actions, guestActions);
     }
 
     public IEntityBuilder<PatternLanguage> buildPatternLanguage() {

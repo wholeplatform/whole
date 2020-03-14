@@ -42,6 +42,8 @@ public class PatternsTraverseAllChildrenVisitor extends PatternsIdentityUnaryVis
         entity.getVersion().accept(wGetVisitor1());
         entity.getPatterns().accept(wGetVisitor1());
         entity.getDeclarations().accept(wGetVisitor1());
+        entity.getActions().accept(wGetVisitor1());
+        entity.getGuestActions().accept(wGetVisitor1());
     }
 
     public void visit(Patterns entity) {

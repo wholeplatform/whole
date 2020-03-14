@@ -80,6 +80,10 @@ public interface IPatternsBuilder extends IBuilder {
 
     public void resultTypes();
 
+    public void guestActions();
+
+    public void actions();
+
     public void declarations();
 
     public void patterns();

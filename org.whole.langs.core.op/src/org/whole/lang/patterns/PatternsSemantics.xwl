@@ -4,7 +4,7 @@
     <semantics:Namespace value="org.whole.lang.patterns"/>
     <semantics:Name value="Patterns"/>
     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-    <semantics:SemanticFunctions initialCapacity="24">
+    <semantics:SemanticFunctions initialCapacity="25">
         <semantics:SemanticFunction>
             <semantics:Name value="toArtifacts"/>
             <semantics:FunctionType>
@@ -308,7 +308,7 @@
                 <queries:If>
                     <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#PatternLanguage"/>
                     <queries:Scope>
-                        <queries:FreshNames initialCapacity="7">
+                        <queries:FreshNames initialCapacity="10">
                             <queries:Name value="actionsUri"/>
                             <queries:Name value="actionsNamespace"/>
                             <queries:Name value="actionsName"/>
@@ -316,8 +316,11 @@
                             <queries:Name value="functionUri"/>
                             <queries:Name value="functionUri2"/>
                             <queries:Name value="modelUri"/>
+                            <queries:Name value="menuActions"/>
+                            <queries:Name value="guestMenuActions"/>
+                            <queries:Name value="semanticsUri"/>
                         </queries:FreshNames>
-                        <queries:Block initialCapacity="10">
+                        <queries:Block initialCapacity="14">
                             <queries:Filter>
                                 <queries:Scope>
                                     <queries:FreshNames initialCapacity="1">
@@ -385,6 +388,118 @@
                                 </queries:Addition>
                                 <queries:VariableTest value="functionUri2"/>
                             </queries:Filter>
+                            <queries:Filter>
+                                <queries:Scope>
+                                    <queries:FreshNames initialCapacity="1">
+                                        <queries:Name value="suffix"/>
+                                    </queries:FreshNames>
+                                    <queries:Block initialCapacity="2">
+                                        <queries:Filter>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <tests:StringLiteral xmlns:tests="http://lang.whole.org/Tests" value="Semantics"/>
+                                        </commons:StageUpFragment>
+                                        <queries:VariableTest value="suffix"/>
+                                        </queries:Filter>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#uriWithNameSuffix"/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#uri"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                    </queries:Block>
+                                </queries:Scope>
+                                <queries:VariableTest value="semanticsUri"/>
+                            </queries:Filter>
+                            <queries:Filter>
+                                <queries:Choose initialCapacity="2">
+                                    <queries:If>
+                                        <queries:Some>
+                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#actions"/>
+                                        <queries:KindTest value="IMPL"/>
+                                        </queries:Some>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="expandPatterns"/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#actions"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                    </queries:If>
+                                    <queries:If>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <actions:ContextMenuActions xmlns:actions="http://lang.whole.org/Actions">
+                                        <actions:MenuActions initialCapacity="0"/>
+                                        <actions:MenuActions initialCapacity="0"/>
+                                        <actions:MenuActions initialCapacity="0"/>
+                                        <actions:MenuActions initialCapacity="0"/>
+                                        <actions:MenuActions initialCapacity="0"/>
+                                        <commons:Resolver/>
+                                        </actions:ContextMenuActions>
+                                        </commons:StageUpFragment>
+                                    </queries:If>
+                                </queries:Choose>
+                                <queries:VariableTest value="menuActions"/>
+                            </queries:Filter>
+                            <queries:Filter>
+                                <queries:Choose initialCapacity="2">
+                                    <queries:If>
+                                        <queries:Some>
+                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#guestActions"/>
+                                        <queries:KindTest value="IMPL"/>
+                                        </queries:Some>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="expandPatterns"/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#guestActions"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                    </queries:If>
+                                    <queries:If>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <actions:ContextMenuActions xmlns:actions="http://lang.whole.org/Actions">
+                                        <actions:MenuActions initialCapacity="0"/>
+                                        <actions:MenuActions initialCapacity="0"/>
+                                        <actions:MenuActions initialCapacity="0"/>
+                                        <actions:MenuActions initialCapacity="0"/>
+                                        <actions:MenuActions initialCapacity="0"/>
+                                        <commons:Resolver/>
+                                        </actions:ContextMenuActions>
+                                        </commons:StageUpFragment>
+                                    </queries:If>
+                                </queries:Choose>
+                                <queries:VariableTest value="guestMenuActions"/>
+                            </queries:Filter>
+                            <queries:PointwiseInsert>
+                                <queries:Placement value="INTO"/>
+                                <queries:Path initialCapacity="2">
+                                    <queries:VariableRefStep value="guestMenuActions"/>
+                                    <queries:FeatureStep value="http://lang.whole.org/Actions#analyzeMenuActions"/>
+                                </queries:Path>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <actions:GuardedAction xmlns:actions="http://lang.whole.org/Actions">
+                                        <commons:StageDownFragment>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="expandPatternsActionName"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        </commons:StageDownFragment>
+                                        <semantics:FunctionApplication>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Semantics#Name"/>
+                                        <commons:VarName value="functionUri"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <queries:VariableRefStep value="primarySelectedEntity"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        <queries:BooleanLiteral value="true"/>
+                                    </actions:GuardedAction>
+                                </commons:StageUpFragment>
+                            </queries:PointwiseInsert>
                             <queries:Path initialCapacity="2">
                                 <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                                     <actions:LanguageActionFactory xmlns:actions="http://lang.whole.org/Actions">
@@ -540,14 +655,11 @@
                                         </queries:Path>
                                         </actions:SimpleAction>
                                         </actions:ToolbarActions>
-                                        <actions:ContextMenuActions>
-                                        <actions:MenuActions initialCapacity="0"/>
-                                        <actions:MenuActions initialCapacity="0"/>
-                                        <actions:MenuActions initialCapacity="0"/>
-                                        <actions:MenuActions initialCapacity="0"/>
-                                        <actions:MenuActions initialCapacity="0"/>
-                                        <commons:Resolver/>
-                                        </actions:ContextMenuActions>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Actions#ContextMenuActions"/>
+                                        <commons:VarName value="menuActions"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
                                     </actions:LanguageActionFactory>
                                 </commons:StageUpFragment>
                                 <queries:Update>
@@ -588,36 +700,11 @@
                                         <commons:Resolver/>
                                         <commons:Resolver/>
                                         </actions:ToolbarActions>
-                                        <actions:ContextMenuActions>
-                                        <actions:MenuActions initialCapacity="0"/>
-                                        <actions:MenuActions initialCapacity="0"/>
-                                        <actions:MenuActions initialCapacity="0"/>
-                                        <actions:MenuActions initialCapacity="1">
-                                        <actions:GuardedAction>
-                                        <commons:StageDownFragment>
-                                        <semantics:FunctionApplication>
-                                        <semantics:Name value="expandPatternsActionName"/>
-                                        <commons:Resolver/>
-                                        <commons:Resolver/>
-                                        <commons:Resolver/>
-                                        </semantics:FunctionApplication>
-                                        </commons:StageDownFragment>
-                                        <semantics:FunctionApplication>
                                         <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Semantics#Name"/>
-                                        <commons:VarName value="functionUri"/>
+                                        <commons:VarType value="http://lang.whole.org/Actions#ContextMenuActions"/>
+                                        <commons:VarName value="guestMenuActions"/>
                                         <commons:Quantifier value="!"/>
                                         </commons:Variable>
-                                        <queries:VariableRefStep value="primarySelectedEntity"/>
-                                        <commons:Resolver/>
-                                        <commons:Resolver/>
-                                        </semantics:FunctionApplication>
-                                        <queries:BooleanLiteral value="true"/>
-                                        </actions:GuardedAction>
-                                        </actions:MenuActions>
-                                        <actions:MenuActions initialCapacity="0"/>
-                                        <commons:Resolver/>
-                                        </actions:ContextMenuActions>
                                     </actions:LanguageActionFactory>
                                 </commons:StageUpFragment>
                                 <queries:Update>
@@ -3646,6 +3733,7 @@
                                         </queries:If>
                                         <queries:If>
                                         <queries:Some>
+                                        <queries:Choose initialCapacity="2">
                                         <queries:Path initialCapacity="4">
                                         <queries:Filter>
                                         <queries:AncestorStep/>
@@ -3661,6 +3749,14 @@
                                         </queries:Filter>
                                         <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#name"/>
                                         </queries:Path>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:AncestorStep/>
+                                        <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#PatternLanguage"/>
+                                        </queries:Filter>
+                                        <queries:StringLiteral value="expandPatterns"/>
+                                        </queries:Path>
+                                        </queries:Choose>
                                         <queries:EqualsStep>
                                         <queries:VariableRefStep value="functionName"/>
                                         </queries:EqualsStep>
@@ -4011,6 +4107,7 @@
                                 </queries:If>
                                 <queries:If>
                                     <queries:Some>
+                                        <queries:Choose initialCapacity="2">
                                         <queries:Path initialCapacity="4">
                                         <queries:Filter>
                                         <queries:AncestorStep/>
@@ -4026,6 +4123,14 @@
                                         </queries:Filter>
                                         <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#name"/>
                                         </queries:Path>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:AncestorStep/>
+                                        <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#PatternLanguage"/>
+                                        </queries:Filter>
+                                        <queries:StringLiteral value="expandPatterns"/>
+                                        </queries:Path>
+                                        </queries:Choose>
                                         <queries:EqualsStep>
                                         <queries:VariableRefStep value="functionName"/>
                                         </queries:EqualsStep>
@@ -6387,6 +6492,45 @@
                     </semantics:FunctionApplication>
                 </queries:If>
             </queries:Choose>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="expandPatterns"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:AnyType/>
+            </semantics:FunctionType>
+            <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
+                <queries:FreshNames initialCapacity="4">
+                    <queries:Name value="outerTemplateStage"/>
+                    <queries:Name value="templateStage"/>
+                    <queries:Name value="executableStage"/>
+                    <queries:Name value="inPatternLanguage"/>
+                </queries:FreshNames>
+                <queries:Block initialCapacity="5">
+                    <queries:Filter>
+                        <queries:BooleanLiteral value="false"/>
+                        <queries:VariableTest value="outerTemplateStage"/>
+                    </queries:Filter>
+                    <queries:Filter>
+                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="0"/>
+                        <queries:VariableTest value="templateStage"/>
+                    </queries:Filter>
+                    <queries:Filter>
+                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="-1"/>
+                        <queries:VariableTest value="executableStage"/>
+                    </queries:Filter>
+                    <queries:Filter>
+                        <queries:BooleanLiteral value="false"/>
+                        <queries:VariableTest value="inPatternLanguage"/>
+                    </queries:Filter>
+                    <semantics:FunctionApplication>
+                        <semantics:Name value="toSemantics"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </semantics:FunctionApplication>
+                </queries:Block>
+            </queries:Scope>
         </semantics:SemanticFunction>
         <semantics:SemanticFunction>
             <semantics:Name value="joinPointsInScope"/>

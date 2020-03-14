@@ -64,6 +64,12 @@ public class PatternsGenericBuilderAdapter extends GenericIdentityBuilder {
             case PatternsFeatureDescriptorEnum.declarations_ord :
             specificBuilder.declarations();
             break;
+            case PatternsFeatureDescriptorEnum.actions_ord :
+            specificBuilder.actions();
+            break;
+            case PatternsFeatureDescriptorEnum.guestActions_ord :
+            specificBuilder.guestActions();
+            break;
             case PatternsFeatureDescriptorEnum.resultTypes_ord :
             specificBuilder.resultTypes();
             break;

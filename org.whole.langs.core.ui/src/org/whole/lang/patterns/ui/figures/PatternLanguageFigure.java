@@ -26,7 +26,7 @@ import org.whole.lang.ui.layout.ColumnLayout;
 public class PatternLanguageFigure extends ContentPaneFigure {
 
     public PatternLanguageFigure() {
-        initContentPanes(6);
+        initContentPanes(8);
         setLayoutManager(new ColumnLayout().withSpacing(10).withMargin(16, 16, 10, 16));
         IFigure headersFigure = new HeadersTableFigure();
         TableRowFigure uriRowFigure = new TableRowFigure();
@@ -48,5 +48,7 @@ public class PatternLanguageFigure extends ContentPaneFigure {
         add(headersFigure);
         add(createContentPane(4));
         add(createContentPane(5));
+        add(createContentPane(6));
+        add(createContentPane(7));
     }
 }
