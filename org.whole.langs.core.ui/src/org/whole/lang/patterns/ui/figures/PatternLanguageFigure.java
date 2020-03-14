@@ -14,7 +14,11 @@
  */
 package org.whole.lang.patterns.ui.figures;
 
+import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.CompoundBorder;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.MarginBorder;
+import org.eclipse.draw2d.TitleBarBorder;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.HeadersTableFigure;
 import org.whole.lang.ui.figures.TableRowFigure;
@@ -27,7 +31,8 @@ public class PatternLanguageFigure extends ContentPaneFigure {
 
     public PatternLanguageFigure() {
         initContentPanes(8);
-        setLayoutManager(new ColumnLayout().withSpacing(10).withMargin(16, 16, 10, 16));
+        setLayoutManager(new ColumnLayout().withSpacing(16).withMargin(16, 16, 10, 16));
+
         IFigure headersFigure = new HeadersTableFigure();
         TableRowFigure uriRowFigure = new TableRowFigure();
         uriRowFigure.addContentLighter("URI");
@@ -46,9 +51,25 @@ public class PatternLanguageFigure extends ContentPaneFigure {
         versionRowFigure.add(createContentPane(3));
         headersFigure.add(versionRowFigure);
         add(headersFigure);
-        add(createContentPane(4));
-        add(createContentPane(5));
-        add(createContentPane(6));
-        add(createContentPane(7));
+
+		TitleBarBorder border = new TitleBarBorder("Patterns ");
+		border.setTextColor(ColorConstants.white);
+		border.setBackgroundColor(ColorConstants.lightGray);
+		add(createContentPane(4, border));
+
+		border = new TitleBarBorder("Functions ");
+		border.setTextColor(ColorConstants.white);
+		border.setBackgroundColor(ColorConstants.lightGray);
+		add(createContentPane(5, border));
+
+		border = new TitleBarBorder("Context Menu Actions ");
+		border.setTextColor(ColorConstants.white);
+		border.setBackgroundColor(ColorConstants.lightGray);
+		add(createContentPane(6, new CompoundBorder(border, new MarginBorder(4,0,0,0))));
+
+		border = new TitleBarBorder("Context Menu Guest Actions ");
+		border.setTextColor(ColorConstants.white);
+		border.setBackgroundColor(ColorConstants.lightGray);
+		add(createContentPane(7, new CompoundBorder(border, new MarginBorder(4,0,0,0))));
     }
 }
