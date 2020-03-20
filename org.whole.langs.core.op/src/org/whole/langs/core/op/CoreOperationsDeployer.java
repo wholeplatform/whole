@@ -114,8 +114,8 @@ public class CoreOperationsDeployer extends AbstractLanguageExtensionDeployer {
 			}
 		});
 
-		//TODO test
-//		ReflectLibrary.deploy();
+
+		//NB Semantics actions and (normalized!) library are deployed on demand
 		new ReflectLibraryDeployer().deploy(platform);
 		new ViewDerivationLibraryDeployer().deploy(platform);
 	}

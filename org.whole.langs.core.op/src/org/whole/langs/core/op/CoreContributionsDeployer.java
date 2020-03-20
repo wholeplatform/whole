@@ -42,8 +42,11 @@ public class CoreContributionsDeployer extends AbstractContributionDeployer {
 					new ClasspathPersistenceProvider("org/whole/lang/models/ModelsActions.xwl")));
 
 
+			//NB Semantics actions and (normalized!) library are already deployed on demand by JavaReflect and Persistence libraries
 			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
 					new ClasspathPersistenceProvider("org/whole/lang/semantics/SemanticsActions.xwl")));
+			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
+					new ClasspathPersistenceProvider("org/whole/lang/semantics/SemanticsLibrarySemantics.xwl")));
 
 			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
 					new ClasspathPersistenceProvider("org/whole/lang/tests/TestsActions.xwl")));

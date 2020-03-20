@@ -1,0 +1,827 @@
+<?xml version="1.0"?>
+<semantics:SemanticTheory xmlns:semantics="http://lang.whole.org/Semantics">
+    <semantics:URI value="whole:org.whole.lang.semantics:SemanticsLibrarySemantics"/>
+    <semantics:Namespace value="org.whole.lang.semantics"/>
+    <semantics:Name value="Semantics"/>
+    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    <semantics:SemanticFunctions initialCapacity="3">
+        <semantics:SemanticFunction>
+            <semantics:Name value="normalize"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:AnyType/>
+            </semantics:FunctionType>
+            <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="10">
+                <queries:If>
+                    <queries:TypeTest value="http://lang.whole.org/Commons#StageUpFragment"/>
+                    <queries:Scope>
+                        <queries:FreshNames initialCapacity="1">
+                            <queries:Name value="outer#atStage"/>
+                        </queries:FreshNames>
+                        <queries:Block initialCapacity="3">
+                            <queries:If>
+                                <queries:Not>
+                                    <queries:Some>
+                                        <queries:VariableRefStep value="atStage"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </queries:Some>
+                                </queries:Not>
+                                <queries:Filter>
+                                    <math:Integer xmlns:math="http://lang.whole.org/Math" value="0"/>
+                                    <queries:VariableTest value="atStage"/>
+                                </queries:Filter>
+                            </queries:If>
+                            <queries:Filter>
+                                <queries:VariableRefStep value="atStage"/>
+                                <queries:VariableTest value="outer#atStage"/>
+                            </queries:Filter>
+                            <queries:Scope>
+                                <queries:FreshNames initialCapacity="1">
+                                    <queries:Name value="atStage"/>
+                                </queries:FreshNames>
+                                <queries:Block initialCapacity="2">
+                                    <queries:Filter>
+                                        <queries:Addition>
+                                        <queries:VariableRefStep value="outer#atStage"/>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="1"/>
+                                        </queries:Addition>
+                                        <queries:VariableTest value="atStage"/>
+                                    </queries:Filter>
+                                    <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang.semantics:SemanticsLibrarySemantics#normalize"/>
+                                        <queries:ChildStep/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </semantics:FunctionApplication>
+                                </queries:Block>
+                            </queries:Scope>
+                        </queries:Block>
+                    </queries:Scope>
+                </queries:If>
+                <queries:If>
+                    <queries:TypeTest value="http://lang.whole.org/Commons#StageDownFragment"/>
+                    <queries:Scope>
+                        <queries:FreshNames initialCapacity="1">
+                            <queries:Name value="outer#atStage"/>
+                        </queries:FreshNames>
+                        <queries:Block initialCapacity="3">
+                            <queries:If>
+                                <queries:Not>
+                                    <queries:Some>
+                                        <queries:VariableRefStep value="atStage"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </queries:Some>
+                                </queries:Not>
+                                <queries:Filter>
+                                    <math:Integer xmlns:math="http://lang.whole.org/Math" value="0"/>
+                                    <queries:VariableTest value="atStage"/>
+                                </queries:Filter>
+                            </queries:If>
+                            <queries:Filter>
+                                <queries:VariableRefStep value="atStage"/>
+                                <queries:VariableTest value="outer#atStage"/>
+                            </queries:Filter>
+                            <queries:Scope>
+                                <queries:FreshNames initialCapacity="1">
+                                    <queries:Name value="atStage"/>
+                                </queries:FreshNames>
+                                <queries:Block initialCapacity="2">
+                                    <queries:Filter>
+                                        <math:Subtraction xmlns:math="http://lang.whole.org/Math">
+                                        <queries:VariableRefStep value="outer#atStage"/>
+                                        <math:Integer value="1"/>
+                                        </math:Subtraction>
+                                        <queries:VariableTest value="atStage"/>
+                                    </queries:Filter>
+                                    <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang.semantics:SemanticsLibrarySemantics#normalize"/>
+                                        <queries:ChildStep/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </semantics:FunctionApplication>
+                                </queries:Block>
+                            </queries:Scope>
+                        </queries:Block>
+                    </queries:Scope>
+                </queries:If>
+                <queries:If>
+                    <queries:And initialCapacity="2">
+                        <queries:Some>
+                            <queries:VariableRefStep value="atStage"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </queries:Some>
+                        <queries:GreaterThan>
+                            <queries:VariableRefStep value="atStage"/>
+                            <queries:IntLiteral value="0"/>
+                        </queries:GreaterThan>
+                    </queries:And>
+                    <semantics:FunctionApplication>
+                        <semantics:Name value="whole:org.whole.lang.semantics:SemanticsLibrarySemantics#normalize"/>
+                        <queries:ChildStep/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </semantics:FunctionApplication>
+                </queries:If>
+                <queries:If>
+                    <queries:TypeTest value="http://lang.whole.org/Semantics#SemanticTheory"/>
+                    <queries:Scope>
+                        <queries:FreshNames initialCapacity="1">
+                            <queries:Name value="theoryUri"/>
+                        </queries:FreshNames>
+                        <queries:Block initialCapacity="2">
+                            <queries:Filter>
+                                <queries:FeatureStep value="http://lang.whole.org/Semantics#uri"/>
+                                <queries:VariableTest value="theoryUri"/>
+                            </queries:Filter>
+                            <semantics:FunctionApplication>
+                                <semantics:Name value="whole:org.whole.lang.semantics:SemanticsLibrarySemantics#normalize"/>
+                                <queries:FeatureStep value="http://lang.whole.org/Semantics#functions"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            </semantics:FunctionApplication>
+                        </queries:Block>
+                    </queries:Scope>
+                </queries:If>
+                <queries:If>
+                    <queries:TypeTest value="http://lang.whole.org/Semantics#SemanticFunction"/>
+                    <queries:Scope>
+                        <queries:FreshNames initialCapacity="3">
+                            <queries:Name value="functionName"/>
+                            <queries:Name value="functionUri"/>
+                            <queries:Name value="nameGenerator"/>
+                        </queries:FreshNames>
+                        <queries:Block initialCapacity="5">
+                            <queries:If>
+                                <queries:Not>
+                                    <queries:Some>
+                                        <queries:VariableRefStep value="theoryUri"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </queries:Some>
+                                </queries:Not>
+                                <queries:Filter>
+                                    <queries:Path initialCapacity="2">
+                                        <queries:Scope>
+                                        <queries:FreshNames initialCapacity="1">
+                                        <queries:Name value="ancestorType"/>
+                                        </queries:FreshNames>
+                                        <queries:Block initialCapacity="2">
+                                        <queries:Filter>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <queries:TypeTest value="http://lang.whole.org/Semantics#SemanticTheory"/>
+                                        </commons:StageUpFragment>
+                                        <queries:VariableTest value="ancestorType"/>
+                                        </queries:Filter>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang.semantics:SemanticsLibrarySemantics#firstAncestorWithTypeAtStage"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        <queries:FeatureStep value="http://lang.whole.org/Semantics#uri"/>
+                                    </queries:Path>
+                                    <queries:VariableTest value="theoryUri"/>
+                                </queries:Filter>
+                            </queries:If>
+                            <queries:Filter>
+                                <queries:FeatureStep value="http://lang.whole.org/Semantics#name"/>
+                                <queries:VariableTest value="functionName"/>
+                            </queries:Filter>
+                            <queries:Filter>
+                                <queries:If>
+                                    <queries:And initialCapacity="2">
+                                        <queries:Some>
+                                        <queries:VariableRefStep value="theoryUri"/>
+                                        <queries:DataKindTest value="STRING"/>
+                                        </queries:Some>
+                                        <queries:Some>
+                                        <queries:VariableRefStep value="functionName"/>
+                                        <queries:DataKindTest value="STRING"/>
+                                        </queries:Some>
+                                    </queries:And>
+                                    <queries:Addition>
+                                        <queries:VariableRefStep value="theoryUri"/>
+                                        <queries:Addition>
+                                        <queries:StringLiteral value="#"/>
+                                        <queries:VariableRefStep value="functionName"/>
+                                        </queries:Addition>
+                                    </queries:Addition>
+                                </queries:If>
+                                <queries:VariableTest value="functionUri"/>
+                            </queries:Filter>
+                            <queries:Filter>
+                                <workflows:CreateJavaClassInstance xmlns:workflows="http://lang.whole.org/Workflows">
+                                    <workflows:Text value="createFreshNameGenerator"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <workflows:StringLiteral value="org.whole.lang.util.FreshNameGenerator"/>
+                                    <workflows:StringLiteral value="FreshNameGenerator()"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </workflows:CreateJavaClassInstance>
+                                <queries:VariableTest value="nameGenerator"/>
+                            </queries:Filter>
+                            <queries:Sequence initialCapacity="1">
+                                <semantics:FunctionApplication>
+                                    <semantics:Name value="whole:org.whole.lang.semantics:SemanticsLibrarySemantics#normalize"/>
+                                    <queries:Sequence initialCapacity="2">
+                                        <queries:FeatureStep value="http://lang.whole.org/Semantics#signature"/>
+                                        <queries:FeatureStep value="http://lang.whole.org/Semantics#rules"/>
+                                    </queries:Sequence>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </semantics:FunctionApplication>
+                            </queries:Sequence>
+                        </queries:Block>
+                    </queries:Scope>
+                </queries:If>
+                <queries:If>
+                    <queries:Or initialCapacity="2">
+                        <queries:TypeTest value="http://lang.whole.org/Semantics#ExecutionRule"/>
+                        <queries:TypeTest value="http://lang.whole.org/Semantics#InferenceRule"/>
+                    </queries:Or>
+                    <queries:Scope>
+                        <queries:FreshNames initialCapacity="0"/>
+                        <queries:Block initialCapacity="3">
+                            <queries:If>
+                                <queries:Not>
+                                    <queries:Some>
+                                        <queries:VariableRefStep value="functionName"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </queries:Some>
+                                </queries:Not>
+                                <queries:Filter>
+                                    <queries:Path initialCapacity="2">
+                                        <queries:Scope>
+                                        <queries:FreshNames initialCapacity="1">
+                                        <queries:Name value="ancestorType"/>
+                                        </queries:FreshNames>
+                                        <queries:Block initialCapacity="2">
+                                        <queries:Filter>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <queries:TypeTest value="http://lang.whole.org/Semantics#SemanticFunction"/>
+                                        </commons:StageUpFragment>
+                                        <queries:VariableTest value="ancestorType"/>
+                                        </queries:Filter>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang.semantics:SemanticsLibrarySemantics#firstAncestorWithTypeAtStage"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        <queries:FeatureStep value="http://lang.whole.org/Semantics#name"/>
+                                    </queries:Path>
+                                    <queries:VariableTest value="functionName"/>
+                                </queries:Filter>
+                            </queries:If>
+                            <queries:If>
+                                <queries:Not>
+                                    <queries:Some>
+                                        <queries:VariableRefStep value="atStage"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </queries:Some>
+                                </queries:Not>
+                                <queries:Filter>
+                                    <math:Integer xmlns:math="http://lang.whole.org/Math" value="0"/>
+                                    <queries:VariableTest value="atStage"/>
+                                </queries:Filter>
+                            </queries:If>
+                            <queries:Sequence initialCapacity="3">
+                                <queries:CartesianUpdate>
+                                    <queries:Path initialCapacity="1">
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="http://lang.whole.org/Semantics#name"/>
+                                        <queries:KindTest value="RESOLVER"/>
+                                        </queries:Filter>
+                                    </queries:Path>
+                                    <queries:VariableRefStep value="functionName"/>
+                                </queries:CartesianUpdate>
+                                <queries:Path initialCapacity="2">
+                                    <queries:FeatureStep value="http://lang.whole.org/Semantics#condition"/>
+                                    <queries:Scope>
+                                        <queries:FreshNames initialCapacity="1">
+                                        <queries:Name value="nameGenerator"/>
+                                        </queries:FreshNames>
+                                        <queries:Block initialCapacity="2">
+                                        <queries:Filter>
+                                        <workflows:CreateJavaClassInstance xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="createFreshNameGenerator"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:StringLiteral value="org.whole.lang.util.FreshNameGenerator"/>
+                                        <workflows:StringLiteral value="FreshNameGenerator()"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </workflows:CreateJavaClassInstance>
+                                        <queries:VariableTest value="nameGenerator"/>
+                                        </queries:Filter>
+                                        <queries:Block initialCapacity="2">
+                                        <queries:CartesianUpdate>
+                                        <queries:Filter>
+                                        <queries:DescendantOrSelfStep/>
+                                        <queries:Prune>
+                                        <queries:Or initialCapacity="2">
+                                        <queries:TypeTest value="http://lang.whole.org/Semantics#StructuredVariable"/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:TypeTest value="http://lang.whole.org/Semantics#Variable"/>
+                                        <queries:Some>
+                                        <queries:Filter>
+                                        <queries:ParentStep/>
+                                        <queries:Not>
+                                        <queries:TypeTest value="http://lang.whole.org/Semantics#TypedVariable"/>
+                                        </queries:Not>
+                                        </queries:Filter>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
+                                        </queries:And>
+                                        </queries:Or>
+                                        </queries:Prune>
+                                        </queries:Filter>
+                                        <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="createTypedVariable"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:StringLiteral value="org.whole.lang.semantics.util.SemanticsUtils"/>
+                                        <workflows:StringLiteral value="createTypedVariable(org.whole.lang.semantics.model.LocalIdentifier, org.whole.lang.util.FreshNameGenerator)"/>
+                                        <workflows:Expressions initialCapacity="2">
+                                        <queries:SelfStep/>
+                                        <workflows:Variable value="nameGenerator"/>
+                                        </workflows:Expressions>
+                                        </workflows:InvokeJavaClassMethod>
+                                        </queries:CartesianUpdate>
+                                        <queries:CartesianUpdate>
+                                        <queries:Filter>
+                                        <queries:SelfStep/>
+                                        <queries:TypeTest value="http://lang.whole.org/Semantics#EntityType"/>
+                                        </queries:Filter>
+                                        <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="createTerm"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:StringLiteral value="org.whole.lang.semantics.util.SemanticsUtils"/>
+                                        <workflows:StringLiteral value="createTerm(java.lang.String, org.whole.lang.util.FreshNameGenerator)"/>
+                                        <workflows:Expressions initialCapacity="2">
+                                        <queries:SelfStep/>
+                                        <workflows:Variable value="nameGenerator"/>
+                                        </workflows:Expressions>
+                                        </workflows:InvokeJavaClassMethod>
+                                        </queries:CartesianUpdate>
+                                        </queries:Block>
+                                        </queries:Block>
+                                    </queries:Scope>
+                                </queries:Path>
+                                <semantics:FunctionApplication>
+                                    <semantics:Name value="whole:org.whole.lang.semantics:SemanticsLibrarySemantics#normalize"/>
+                                    <queries:Sequence initialCapacity="4">
+                                        <queries:FeatureStep value="http://lang.whole.org/Semantics#condition"/>
+                                        <queries:FeatureStep value="http://lang.whole.org/Semantics#meaning"/>
+                                        <queries:FeatureStep value="http://lang.whole.org/Semantics#premises"/>
+                                        <queries:FeatureStep value="http://lang.whole.org/Semantics#conclusion"/>
+                                    </queries:Sequence>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </semantics:FunctionApplication>
+                            </queries:Sequence>
+                        </queries:Block>
+                    </queries:Scope>
+                </queries:If>
+                <queries:If>
+                    <queries:TypeTest value="http://lang.whole.org/Semantics#FunctionType"/>
+                    <queries:Scope>
+                        <queries:FreshNames initialCapacity="0"/>
+                        <queries:Block initialCapacity="3">
+                            <queries:If>
+                                <queries:Not>
+                                    <queries:Some>
+                                        <queries:VariableRefStep value="nameGenerator"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </queries:Some>
+                                </queries:Not>
+                                <queries:Filter>
+                                    <workflows:CreateJavaClassInstance xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="createFreshNameGenerator"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:StringLiteral value="org.whole.lang.util.FreshNameGenerator"/>
+                                        <workflows:StringLiteral value="FreshNameGenerator()"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </workflows:CreateJavaClassInstance>
+                                    <queries:VariableTest value="nameGenerator"/>
+                                </queries:Filter>
+                            </queries:If>
+                            <queries:If>
+                                <queries:Not>
+                                    <queries:Some>
+                                        <queries:VariableRefStep value="atStage"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </queries:Some>
+                                </queries:Not>
+                                <queries:Filter>
+                                    <math:Integer xmlns:math="http://lang.whole.org/Math" value="0"/>
+                                    <queries:VariableTest value="atStage"/>
+                                </queries:Filter>
+                            </queries:If>
+                            <queries:CartesianUpdate>
+                                <queries:Path initialCapacity="2">
+                                    <queries:FeatureStep value="http://lang.whole.org/Semantics#source"/>
+                                    <queries:Filter>
+                                        <queries:Choose initialCapacity="2">
+                                        <queries:If>
+                                        <queries:TypeTest value="http://lang.whole.org/Semantics#ProductType"/>
+                                        <queries:ChildStep/>
+                                        </queries:If>
+                                        <queries:Do>
+                                        <queries:SelfStep/>
+                                        </queries:Do>
+                                        </queries:Choose>
+                                        <queries:TypeTest value="http://lang.whole.org/Semantics#EntityType"/>
+                                    </queries:Filter>
+                                </queries:Path>
+                                <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                    <workflows:Text value="createTypedVariable"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <workflows:StringLiteral value="org.whole.lang.semantics.util.SemanticsUtils"/>
+                                    <workflows:StringLiteral value="createTypedVariable(org.whole.lang.semantics.model.EntityType, org.whole.lang.util.FreshNameGenerator)"/>
+                                    <workflows:Expressions initialCapacity="2">
+                                        <queries:SelfStep/>
+                                        <workflows:Variable value="nameGenerator"/>
+                                    </workflows:Expressions>
+                                </workflows:InvokeJavaClassMethod>
+                            </queries:CartesianUpdate>
+                        </queries:Block>
+                    </queries:Scope>
+                </queries:If>
+                <queries:If>
+                    <queries:TypeTest value="http://lang.whole.org/Semantics#FunctionApplication"/>
+                    <queries:Scope>
+                        <queries:FreshNames initialCapacity="0"/>
+                        <queries:Block initialCapacity="5">
+                            <queries:If>
+                                <queries:Not>
+                                    <queries:Some>
+                                        <queries:VariableRefStep value="theoryUri"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </queries:Some>
+                                </queries:Not>
+                                <queries:Filter>
+                                    <queries:Path initialCapacity="2">
+                                        <queries:Scope>
+                                        <queries:FreshNames initialCapacity="1">
+                                        <queries:Name value="ancestorType"/>
+                                        </queries:FreshNames>
+                                        <queries:Block initialCapacity="2">
+                                        <queries:Filter>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <queries:TypeTest value="http://lang.whole.org/Semantics#SemanticTheory"/>
+                                        </commons:StageUpFragment>
+                                        <queries:VariableTest value="ancestorType"/>
+                                        </queries:Filter>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang.semantics:SemanticsLibrarySemantics#firstAncestorWithTypeAtStage"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        <queries:FeatureStep value="http://lang.whole.org/Semantics#uri"/>
+                                    </queries:Path>
+                                    <queries:VariableTest value="theoryUri"/>
+                                </queries:Filter>
+                            </queries:If>
+                            <queries:If>
+                                <queries:Not>
+                                    <queries:Some>
+                                        <queries:VariableRefStep value="functionName"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </queries:Some>
+                                </queries:Not>
+                                <queries:Filter>
+                                    <queries:Path initialCapacity="2">
+                                        <queries:Scope>
+                                        <queries:FreshNames initialCapacity="1">
+                                        <queries:Name value="ancestorType"/>
+                                        </queries:FreshNames>
+                                        <queries:Block initialCapacity="2">
+                                        <queries:Filter>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <queries:TypeTest value="http://lang.whole.org/Semantics#SemanticFunction"/>
+                                        </commons:StageUpFragment>
+                                        <queries:VariableTest value="ancestorType"/>
+                                        </queries:Filter>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang.semantics:SemanticsLibrarySemantics#firstAncestorWithTypeAtStage"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        <queries:FeatureStep value="http://lang.whole.org/Semantics#name"/>
+                                    </queries:Path>
+                                    <queries:VariableTest value="functionName"/>
+                                </queries:Filter>
+                            </queries:If>
+                            <queries:If>
+                                <queries:Not>
+                                    <queries:Some>
+                                        <queries:VariableRefStep value="functionUri"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </queries:Some>
+                                </queries:Not>
+                                <queries:Filter>
+                                    <queries:If>
+                                        <queries:And initialCapacity="2">
+                                        <queries:Some>
+                                        <queries:VariableRefStep value="theoryUri"/>
+                                        <queries:DataKindTest value="STRING"/>
+                                        </queries:Some>
+                                        <queries:Some>
+                                        <queries:VariableRefStep value="functionName"/>
+                                        <queries:DataKindTest value="STRING"/>
+                                        </queries:Some>
+                                        </queries:And>
+                                        <queries:Addition>
+                                        <queries:VariableRefStep value="theoryUri"/>
+                                        <queries:Addition>
+                                        <queries:StringLiteral value="#"/>
+                                        <queries:VariableRefStep value="functionName"/>
+                                        </queries:Addition>
+                                        </queries:Addition>
+                                    </queries:If>
+                                    <queries:VariableTest value="functionUri"/>
+                                </queries:Filter>
+                            </queries:If>
+                            <queries:If>
+                                <queries:Not>
+                                    <queries:Some>
+                                        <queries:VariableRefStep value="atStage"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </queries:Some>
+                                </queries:Not>
+                                <queries:Filter>
+                                    <math:Integer xmlns:math="http://lang.whole.org/Math" value="0"/>
+                                    <queries:VariableTest value="atStage"/>
+                                </queries:Filter>
+                            </queries:If>
+                            <queries:Sequence initialCapacity="2">
+                                <queries:CartesianUpdate>
+                                    <queries:FeatureStep value="http://lang.whole.org/Semantics#name"/>
+                                    <queries:Choose initialCapacity="3">
+                                        <queries:If>
+                                        <queries:Or initialCapacity="2">
+                                        <queries:KindTest value="RESOLVER"/>
+                                        <queries:VariableTest value="functionName"/>
+                                        </queries:Or>
+                                        <queries:Choose initialCapacity="2">
+                                        <queries:VariableRefStep value="functionUri"/>
+                                        <queries:SelfStep/>
+                                        </queries:Choose>
+                                        </queries:If>
+                                        <queries:If>
+                                        <queries:Or initialCapacity="2">
+                                        <queries:Not>
+                                        <queries:KindTest value="DATA"/>
+                                        </queries:Not>
+                                        <queries:Some>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#uriResourcePart"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
+                                        </queries:Or>
+                                        <queries:SelfStep/>
+                                        </queries:If>
+                                        <queries:Do>
+                                        <queries:Addition>
+                                        <queries:VariableRefStep value="theoryUri"/>
+                                        <queries:Addition>
+                                        <queries:StringLiteral value="#"/>
+                                        <queries:SelfStep/>
+                                        </queries:Addition>
+                                        </queries:Addition>
+                                        </queries:Do>
+                                    </queries:Choose>
+                                </queries:CartesianUpdate>
+                                <semantics:FunctionApplication>
+                                    <semantics:Name value="whole:org.whole.lang.semantics:SemanticsLibrarySemantics#normalize"/>
+                                    <queries:Sequence initialCapacity="2">
+                                        <queries:FeatureStep value="http://lang.whole.org/Semantics#arguments"/>
+                                        <queries:FeatureStep value="http://lang.whole.org/Semantics#environments"/>
+                                    </queries:Sequence>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </semantics:FunctionApplication>
+                            </queries:Sequence>
+                        </queries:Block>
+                    </queries:Scope>
+                </queries:If>
+                <queries:If>
+                    <queries:SubtypeTest value="http://lang.whole.org/Semantics#AbstractVariable"/>
+                    <queries:Scope>
+                        <queries:FreshNames initialCapacity="0"/>
+                        <queries:Block initialCapacity="3">
+                            <queries:If>
+                                <queries:Not>
+                                    <queries:Some>
+                                        <queries:VariableRefStep value="nameGenerator"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </queries:Some>
+                                </queries:Not>
+                                <queries:Filter>
+                                    <workflows:CreateJavaClassInstance xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="createFreshNameGenerator"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:StringLiteral value="org.whole.lang.util.FreshNameGenerator"/>
+                                        <workflows:StringLiteral value="FreshNameGenerator()"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </workflows:CreateJavaClassInstance>
+                                    <queries:VariableTest value="nameGenerator"/>
+                                </queries:Filter>
+                            </queries:If>
+                            <queries:If>
+                                <queries:Not>
+                                    <queries:Some>
+                                        <queries:VariableRefStep value="atStage"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </queries:Some>
+                                </queries:Not>
+                                <queries:Filter>
+                                    <math:Integer xmlns:math="http://lang.whole.org/Math" value="0"/>
+                                    <queries:VariableTest value="atStage"/>
+                                </queries:Filter>
+                            </queries:If>
+                            <queries:If>
+                                <queries:LessOrEquals>
+                                    <queries:VariableRefStep value="atStage"/>
+                                    <queries:IntLiteral value="0"/>
+                                </queries:LessOrEquals>
+                                <queries:Path initialCapacity="2">
+                                    <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang.semantics:SemanticsLibrarySemantics#toVariableFlatName"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </semantics:FunctionApplication>
+                                    <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="addBoundName"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:Variable value="nameGenerator"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:StringLiteral value="org.whole.lang.util.FreshNameGenerator"/>
+                                        <workflows:StringLiteral value="putBoundName(java.lang.String)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <queries:SelfStep/>
+                                        </workflows:Expressions>
+                                    </workflows:InvokeJavaInstanceMethod>
+                                </queries:Path>
+                            </queries:If>
+                        </queries:Block>
+                    </queries:Scope>
+                </queries:If>
+                <queries:If>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:FunctionApplication>
+                        <semantics:Name value="whole:org.whole.lang.semantics:SemanticsLibrarySemantics#normalize"/>
+                        <queries:ChildStep/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </semantics:FunctionApplication>
+                </queries:If>
+            </queries:Choose>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="firstAncestorWithTypeAtStage"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:AnyType/>
+            </semantics:FunctionType>
+            <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
+                <queries:FreshNames initialCapacity="1">
+                    <queries:Name value="outer#atStage"/>
+                </queries:FreshNames>
+                <queries:Block initialCapacity="3">
+                    <queries:If>
+                        <queries:Not>
+                            <queries:Some>
+                                <queries:VariableRefStep value="atStage"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            </queries:Some>
+                        </queries:Not>
+                        <queries:Filter>
+                            <math:Integer xmlns:math="http://lang.whole.org/Math" value="0"/>
+                            <queries:VariableTest value="atStage"/>
+                        </queries:Filter>
+                    </queries:If>
+                    <queries:Filter>
+                        <queries:VariableRefStep value="atStage"/>
+                        <queries:VariableTest value="outer#atStage"/>
+                    </queries:Filter>
+                    <queries:Path initialCapacity="2">
+                        <queries:Filter>
+                            <queries:AncestorStep/>
+                            <queries:Prune>
+                                <queries:Or initialCapacity="3">
+                                    <queries:TypeTest value="http://lang.whole.org/Commons#StageUpFragment"/>
+                                    <queries:TypeTest value="http://lang.whole.org/Commons#StageDownFragment"/>
+                                    <queries:TypeVariableTest value="ancestorType"/>
+                                </queries:Or>
+                            </queries:Prune>
+                        </queries:Filter>
+                        <queries:Filter>
+                            <queries:Choose initialCapacity="3">
+                                <queries:If>
+                                    <queries:TypeTest value="http://lang.whole.org/Commons#StageUpFragment"/>
+                                    <queries:Scope>
+                                        <queries:FreshNames initialCapacity="1">
+                                        <queries:Name value="atStage"/>
+                                        </queries:FreshNames>
+                                        <queries:Block initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:Addition>
+                                        <queries:VariableRefStep value="outer#atStage"/>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="1"/>
+                                        </queries:Addition>
+                                        <queries:VariableTest value="atStage"/>
+                                        </queries:Filter>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang.semantics:SemanticsLibrarySemantics#firstAncestorWithTypeAtStage"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Block>
+                                    </queries:Scope>
+                                </queries:If>
+                                <queries:If>
+                                    <queries:TypeTest value="http://lang.whole.org/Commons#StageDownFragment"/>
+                                    <queries:Scope>
+                                        <queries:FreshNames initialCapacity="1">
+                                        <queries:Name value="atStage"/>
+                                        </queries:FreshNames>
+                                        <queries:Block initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:Addition>
+                                        <queries:VariableRefStep value="outer#atStage"/>
+                                        <math:Integer xmlns:math="http://lang.whole.org/Math" value="1"/>
+                                        </queries:Addition>
+                                        <queries:VariableTest value="atStage"/>
+                                        </queries:Filter>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang.semantics:SemanticsLibrarySemantics#firstAncestorWithTypeAtStage"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Block>
+                                    </queries:Scope>
+                                </queries:If>
+                                <queries:Do>
+                                    <queries:SelfStep/>
+                                </queries:Do>
+                            </queries:Choose>
+                            <queries:IndexTest>
+                                <queries:IntLiteral value="0"/>
+                            </queries:IndexTest>
+                        </queries:Filter>
+                    </queries:Path>
+                </queries:Block>
+            </queries:Scope>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="toVariableFlatName"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:AnyType/>
+            </semantics:FunctionType>
+            <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="3">
+                <queries:If>
+                    <queries:TypeTest value="http://lang.whole.org/Semantics#Variable"/>
+                    <queries:SelfStep/>
+                </queries:If>
+                <queries:If>
+                    <queries:Some>
+                        <queries:Filter>
+                            <queries:FeatureStep value="http://lang.whole.org/Semantics#index"/>
+                            <queries:TypeTest value="http://lang.whole.org/Semantics#Num"/>
+                        </queries:Filter>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </queries:Some>
+                    <queries:Addition>
+                        <queries:FeatureStep value="http://lang.whole.org/Semantics#variable"/>
+                        <queries:FeatureStep value="http://lang.whole.org/Semantics#index"/>
+                    </queries:Addition>
+                </queries:If>
+                <queries:Do>
+                    <queries:FeatureStep value="http://lang.whole.org/Semantics#variable"/>
+                </queries:Do>
+            </queries:Choose>
+        </semantics:SemanticFunction>
+    </semantics:SemanticFunctions>
+</semantics:SemanticTheory>
