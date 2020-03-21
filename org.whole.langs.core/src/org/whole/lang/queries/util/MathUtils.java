@@ -18,7 +18,8 @@
 package org.whole.lang.queries.util;
 
 import org.whole.lang.bindings.BindingManagerFactory;
-import org.whole.lang.evaluators.AbstractDelegatingNestedTrySupplierEvaluator;
+import org.whole.lang.evaluators.AbstractDelegatingNestedSupplierElseFailEvaluator;
+import org.whole.lang.evaluators.AbstractDelegatingNestedSupplierEvaluator;
 import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.model.IEntity;
@@ -32,7 +33,7 @@ import org.whole.lang.util.WholeMessages;
  */
 public class MathUtils {
 	public static IExecutable createAdditionStep(IExecutable expression) {
-		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
+		return new AbstractDelegatingNestedSupplierEvaluator(expression) {
 			public IEntity get() {
 				return additionElseNull(selfEntity, getProducer(0).evaluateRemaining());
 			}
@@ -42,7 +43,7 @@ public class MathUtils {
 		};
 	}
 	public static IExecutable createSubtractionStep(IExecutable expression) {
-		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
+		return new AbstractDelegatingNestedSupplierEvaluator(expression) {
 			public IEntity get() {
 				return subtractionElseNull(selfEntity, getProducer(0).evaluateRemaining());
 			}
@@ -52,7 +53,7 @@ public class MathUtils {
 		};
 	}
 	public static IExecutable createMultiplicationStep(IExecutable expression) {
-		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
+		return new AbstractDelegatingNestedSupplierEvaluator(expression) {
 			public IEntity get() {
 				return multiplicationElseNull(selfEntity, getProducer(0).evaluateRemaining());
 			}
@@ -62,7 +63,7 @@ public class MathUtils {
 		};
 	}
 	public static IExecutable createDivisionStep(IExecutable expression) {
-		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
+		return new AbstractDelegatingNestedSupplierEvaluator(expression) {
 			public IEntity get() {
 				return divisionElseNull(selfEntity, getProducer(0).evaluateRemaining());
 			}
@@ -72,7 +73,7 @@ public class MathUtils {
 		};
 	}
 	public static IExecutable createRemainderStep(IExecutable expression) {
-		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
+		return new AbstractDelegatingNestedSupplierEvaluator(expression) {
 			public IEntity get() {
 				return remainderElseNull(selfEntity, getProducer(0).evaluateRemaining());
 			}
@@ -83,7 +84,7 @@ public class MathUtils {
 	}
 
 	public static IExecutable createEqualsStep(IExecutable expression) {
-		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
+		return new AbstractDelegatingNestedSupplierEvaluator(expression) {
 			public IEntity get() {
 				return equalsElseFalse(selfEntity, getProducer(0).evaluateRemaining());
 			}
@@ -93,7 +94,7 @@ public class MathUtils {
 		};
 	}
 	public static IExecutable createNotEqualsStep(IExecutable expression) {
-		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
+		return new AbstractDelegatingNestedSupplierEvaluator(expression) {
 			public IEntity get() {
 				return notEqualsElseFalse(selfEntity, getProducer(0).evaluateRemaining());
 			}
@@ -103,7 +104,7 @@ public class MathUtils {
 		};
 	}
 	public static IExecutable createLessThanStep(IExecutable expression) {
-		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
+		return new AbstractDelegatingNestedSupplierEvaluator(expression) {
 			public IEntity get() {
 				return lessThanElseFalse(selfEntity, getProducer(0).evaluateRemaining());
 			}
@@ -113,7 +114,7 @@ public class MathUtils {
 		};
 	}
 	public static IExecutable createLessOrEqualsStep(IExecutable expression) {
-		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
+		return new AbstractDelegatingNestedSupplierEvaluator(expression) {
 			public IEntity get() {
 				return lessOrEqualsElseFalse(selfEntity, getProducer(0).evaluateRemaining());
 			}
@@ -123,7 +124,7 @@ public class MathUtils {
 		};
 	}
 	public static IExecutable createGreaterThanStep(IExecutable expression) {
-		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
+		return new AbstractDelegatingNestedSupplierEvaluator(expression) {
 			public IEntity get() {
 				return greaterThanElseFalse(selfEntity, getProducer(0).evaluateRemaining());
 			}
@@ -133,7 +134,7 @@ public class MathUtils {
 		};
 	}
 	public static IExecutable createGreaterOrEqualsStep(IExecutable expression) {
-		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
+		return new AbstractDelegatingNestedSupplierEvaluator(expression) {
 			public IEntity get() {
 				return greaterOrEqualsElseFalse(selfEntity, getProducer(0).evaluateRemaining());
 			}
@@ -145,7 +146,7 @@ public class MathUtils {
 
 
 	public static IExecutable createAddition(IExecutable exp1, IExecutable exp2) {
-		return new AbstractDelegatingNestedTrySupplierEvaluator(exp1, exp2) {
+		return new AbstractDelegatingNestedSupplierElseFailEvaluator(exp1, exp2) {
 			public IEntity get() {
 				return addition(getProducer(0).evaluateRemaining(), getProducer(1).evaluateRemaining());
 			}
@@ -155,7 +156,7 @@ public class MathUtils {
 		};
 	}
 	public static IExecutable createSubtraction(IExecutable exp1, IExecutable exp2) {
-		return new AbstractDelegatingNestedTrySupplierEvaluator(exp1, exp2) {
+		return new AbstractDelegatingNestedSupplierElseFailEvaluator(exp1, exp2) {
 			public IEntity get() {
 				return subtraction(getProducer(0).evaluateRemaining(), getProducer(1).evaluateRemaining());
 			}
@@ -165,7 +166,7 @@ public class MathUtils {
 		};
 	}
 	public static IExecutable createMultiplication(IExecutable exp1, IExecutable exp2) {
-		return new AbstractDelegatingNestedTrySupplierEvaluator(exp1, exp2) {
+		return new AbstractDelegatingNestedSupplierElseFailEvaluator(exp1, exp2) {
 			public IEntity get() {
 				return multiplication(getProducer(0).evaluateRemaining(), getProducer(1).evaluateRemaining());
 			}
@@ -175,7 +176,7 @@ public class MathUtils {
 		};
 	}
 	public static IExecutable createDivision(IExecutable exp1, IExecutable exp2) {
-		return new AbstractDelegatingNestedTrySupplierEvaluator(exp1, exp2) {
+		return new AbstractDelegatingNestedSupplierElseFailEvaluator(exp1, exp2) {
 			public IEntity get() {
 				return division(getProducer(0).evaluateRemaining(), getProducer(1).evaluateRemaining());
 			}
@@ -185,7 +186,7 @@ public class MathUtils {
 		};
 	}
 	public static IExecutable createRemainder(IExecutable exp1, IExecutable exp2) {
-		return new AbstractDelegatingNestedTrySupplierEvaluator(exp1, exp2) {
+		return new AbstractDelegatingNestedSupplierElseFailEvaluator(exp1, exp2) {
 			public IEntity get() {
 				return remainder(getProducer(0).evaluateRemaining(), getProducer(1).evaluateRemaining());
 			}
@@ -196,7 +197,7 @@ public class MathUtils {
 	}
 
 	public static IExecutable createEquals(IExecutable exp1, IExecutable exp2) {
-		return new AbstractDelegatingNestedTrySupplierEvaluator(exp1, exp2) {
+		return new AbstractDelegatingNestedSupplierElseFailEvaluator(exp1, exp2) {
 			public IEntity get() {
 				return MathUtils.equals(getProducer(0).evaluateRemaining(), getProducer(1).evaluateRemaining());
 			}
@@ -206,7 +207,7 @@ public class MathUtils {
 		};
 	}
 	public static IExecutable createNotEquals(IExecutable exp1, IExecutable exp2) {
-		return new AbstractDelegatingNestedTrySupplierEvaluator(exp1, exp2) {
+		return new AbstractDelegatingNestedSupplierElseFailEvaluator(exp1, exp2) {
 			public IEntity get() {
 				return notEquals(getProducer(0).evaluateRemaining(), getProducer(1).evaluateRemaining());
 			}
@@ -216,7 +217,7 @@ public class MathUtils {
 		};
 	}
 	public static IExecutable createLessThan(IExecutable exp1, IExecutable exp2) {
-		return new AbstractDelegatingNestedTrySupplierEvaluator(exp1, exp2) {
+		return new AbstractDelegatingNestedSupplierElseFailEvaluator(exp1, exp2) {
 			public IEntity get() {
 				return lessThan(getProducer(0).evaluateRemaining(), getProducer(1).evaluateRemaining());
 			}
@@ -226,7 +227,7 @@ public class MathUtils {
 		};
 	}
 	public static IExecutable createLessOrEquals(IExecutable exp1, IExecutable exp2) {
-		return new AbstractDelegatingNestedTrySupplierEvaluator(exp1, exp2) {
+		return new AbstractDelegatingNestedSupplierElseFailEvaluator(exp1, exp2) {
 			public IEntity get() {
 				return lessOrEquals(getProducer(0).evaluateRemaining(), getProducer(1).evaluateRemaining());
 			}
@@ -236,7 +237,7 @@ public class MathUtils {
 		};
 	}
 	public static IExecutable createGreaterThan(IExecutable exp1, IExecutable exp2) {
-		return new AbstractDelegatingNestedTrySupplierEvaluator(exp1, exp2) {
+		return new AbstractDelegatingNestedSupplierElseFailEvaluator(exp1, exp2) {
 			public IEntity get() {
 				return greaterThan(getProducer(0).evaluateRemaining(), getProducer(1).evaluateRemaining());
 			}
@@ -246,7 +247,7 @@ public class MathUtils {
 		};
 	}
 	public static IExecutable createGreaterOrEquals(IExecutable exp1, IExecutable exp2) {
-		return new AbstractDelegatingNestedTrySupplierEvaluator(exp1, exp2) {
+		return new AbstractDelegatingNestedSupplierElseFailEvaluator(exp1, exp2) {
 			public IEntity get() {
 				return greaterOrEquals(getProducer(0).evaluateRemaining(), getProducer(1).evaluateRemaining());
 			}

@@ -24,8 +24,8 @@ import org.whole.lang.model.IEntity;
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractDelegatingNestedTrySupplierEvaluator extends AbstractDelegatingNestedSupplierEvaluator {
-	public AbstractDelegatingNestedTrySupplierEvaluator(IExecutable... executables) {
+public abstract class AbstractDelegatingNestedSupplierElseFailEvaluator extends AbstractDelegatingNestedSupplierEvaluator {
+	public AbstractDelegatingNestedSupplierElseFailEvaluator(IExecutable... executables) {
 		super(executables);
 	}
 	@Override

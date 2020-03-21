@@ -31,7 +31,7 @@ import org.whole.lang.commons.reflect.CommonsLanguageKit;
 import org.whole.lang.comparators.BusinessIdentityComparator;
 import org.whole.lang.comparators.IEntityComparator;
 import org.whole.lang.comparators.IdentityExecutableComparator;
-import org.whole.lang.evaluators.AbstractDelegatingNestedTrySupplierEvaluator;
+import org.whole.lang.evaluators.AbstractDelegatingNestedSupplierElseFailEvaluator;
 import org.whole.lang.evaluators.ChooseByTypeURIEvaluator;
 import org.whole.lang.evaluators.FilterByIndexRangeEvaluator;
 import org.whole.lang.evaluators.FilterEvaluator;
@@ -1071,7 +1071,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 	public void visit(VisitorTest entity) {
 		setExecutableResult(new PredicateWrapperEvaluator(entity.getValue().withSourceEntity(entity)));
 	}
-	public static class PredicateWrapperEvaluator extends AbstractDelegatingNestedTrySupplierEvaluator {
+	public static class PredicateWrapperEvaluator extends AbstractDelegatingNestedSupplierElseFailEvaluator {
 		protected IVisitor queryPredicate;
 
 		public PredicateWrapperEvaluator(IVisitor queryPredicate) {
