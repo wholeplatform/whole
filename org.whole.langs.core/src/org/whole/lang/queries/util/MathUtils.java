@@ -34,7 +34,7 @@ public class MathUtils {
 	public static IExecutable createAdditionStep(IExecutable expression) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
 			public IEntity get() {
-				return addition(selfEntity, getProducer(0).evaluateRemaining());
+				return additionElseNull(selfEntity, getProducer(0).evaluateRemaining());
 			}
 			public String toStringPrefix() {
 				return "addition(";
@@ -44,7 +44,7 @@ public class MathUtils {
 	public static IExecutable createSubtractionStep(IExecutable expression) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
 			public IEntity get() {
-				return subtraction(selfEntity, getProducer(0).evaluateRemaining());
+				return subtractionElseNull(selfEntity, getProducer(0).evaluateRemaining());
 			}
 			public String toStringPrefix() {
 				return "subtraction(";
@@ -54,7 +54,7 @@ public class MathUtils {
 	public static IExecutable createMultiplicationStep(IExecutable expression) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
 			public IEntity get() {
-				return multiplication(selfEntity, getProducer(0).evaluateRemaining());
+				return multiplicationElseNull(selfEntity, getProducer(0).evaluateRemaining());
 			}
 			public String toStringPrefix() {
 				return "multiplication(";
@@ -64,7 +64,7 @@ public class MathUtils {
 	public static IExecutable createDivisionStep(IExecutable expression) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
 			public IEntity get() {
-				return division(selfEntity, getProducer(0).evaluateRemaining());
+				return divisionElseNull(selfEntity, getProducer(0).evaluateRemaining());
 			}
 			public String toStringPrefix() {
 				return "division(";
@@ -74,7 +74,7 @@ public class MathUtils {
 	public static IExecutable createRemainderStep(IExecutable expression) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
 			public IEntity get() {
-				return remainder(selfEntity, getProducer(0).evaluateRemaining());
+				return remainderElseNull(selfEntity, getProducer(0).evaluateRemaining());
 			}
 			public String toStringPrefix() {
 				return "remainder(";
@@ -85,7 +85,7 @@ public class MathUtils {
 	public static IExecutable createEqualsStep(IExecutable expression) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
 			public IEntity get() {
-				return MathUtils.equals(selfEntity, getProducer(0).evaluateRemaining());
+				return equalsElseFalse(selfEntity, getProducer(0).evaluateRemaining());
 			}
 			public String toStringPrefix() {
 				return "equals(";
@@ -95,7 +95,7 @@ public class MathUtils {
 	public static IExecutable createNotEqualsStep(IExecutable expression) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
 			public IEntity get() {
-				return notEquals(selfEntity, getProducer(0).evaluateRemaining());
+				return notEqualsElseFalse(selfEntity, getProducer(0).evaluateRemaining());
 			}
 			public String toStringPrefix() {
 				return "notEquals(";
@@ -105,7 +105,7 @@ public class MathUtils {
 	public static IExecutable createLessThanStep(IExecutable expression) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
 			public IEntity get() {
-				return lessThan(selfEntity, getProducer(0).evaluateRemaining());
+				return lessThanElseFalse(selfEntity, getProducer(0).evaluateRemaining());
 			}
 			public String toStringPrefix() {
 				return "lessThan(";
@@ -115,7 +115,7 @@ public class MathUtils {
 	public static IExecutable createLessOrEqualsStep(IExecutable expression) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
 			public IEntity get() {
-				return lessOrEquals(selfEntity, getProducer(0).evaluateRemaining());
+				return lessOrEqualsElseFalse(selfEntity, getProducer(0).evaluateRemaining());
 			}
 			public String toStringPrefix() {
 				return "lessOrEquals(";
@@ -125,7 +125,7 @@ public class MathUtils {
 	public static IExecutable createGreaterThanStep(IExecutable expression) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
 			public IEntity get() {
-				return greaterThan(selfEntity, getProducer(0).evaluateRemaining());
+				return greaterThanElseFalse(selfEntity, getProducer(0).evaluateRemaining());
 			}
 			public String toStringPrefix() {
 				return "greaterThan(";
@@ -135,7 +135,7 @@ public class MathUtils {
 	public static IExecutable createGreaterOrEqualsStep(IExecutable expression) {
 		return new AbstractDelegatingNestedTrySupplierEvaluator(expression) {
 			public IEntity get() {
-				return greaterOrEquals(selfEntity, getProducer(0).evaluateRemaining());
+				return greaterOrEqualsElseFalse(selfEntity, getProducer(0).evaluateRemaining());
 			}
 			public String toStringPrefix() {
 				return "greaterOrEquals(";
@@ -257,6 +257,13 @@ public class MathUtils {
 	}
 
 
+	public static final IEntity additionElseNull(IEntity result1, IEntity result2) {
+		try {
+			return addition(result1, result2);
+        } catch (Throwable e) {
+            return null;
+        }
+	}
 	public static IEntity addition(IEntity result1, IEntity result2) {
 		DataKinds dataKind1 = DataTypeUtils.getUnboxedDataKind(result1);
 		DataKinds dataKind2 = DataTypeUtils.getUnboxedDataKind(result2);
@@ -277,6 +284,13 @@ public class MathUtils {
 		return result;
 	}
 
+	public static final IEntity subtractionElseNull(IEntity result1, IEntity result2) {
+		try {
+			return subtraction(result1, result2);
+        } catch (Throwable e) {
+            return null;
+        }
+	}
 	public static IEntity subtraction(IEntity result1, IEntity result2) {
 		DataKinds dataKind1 = DataTypeUtils.getUnboxedDataKind(result1);
 		DataKinds dataKind2 = DataTypeUtils.getUnboxedDataKind(result2);
@@ -295,6 +309,13 @@ public class MathUtils {
 		return result;
 	}
 
+	public static final IEntity multiplicationElseNull(IEntity result1, IEntity result2) {
+		try {
+			return multiplication(result1, result2);
+        } catch (Throwable e) {
+            return null;
+        }
+	}
 	public static IEntity multiplication(IEntity result1, IEntity result2) {
 		DataKinds dataKind1 = DataTypeUtils.getUnboxedDataKind(result1);
 		DataKinds dataKind2 = DataTypeUtils.getUnboxedDataKind(result2);
@@ -313,6 +334,13 @@ public class MathUtils {
 		return result;
 	}
 
+	public static final IEntity divisionElseNull(IEntity result1, IEntity result2) {
+		try {
+			return division(result1, result2);
+        } catch (Throwable e) {
+            return null;
+        }
+	}
 	public static IEntity division(IEntity result1, IEntity result2) {
 		DataKinds dataKind1 = DataTypeUtils.getUnboxedDataKind(result1);
 		DataKinds dataKind2 = DataTypeUtils.getUnboxedDataKind(result2);
@@ -331,6 +359,13 @@ public class MathUtils {
 		return result;
 	}
 
+	public static final IEntity remainderElseNull(IEntity result1, IEntity result2) {
+		try {
+			return remainder(result1, result2);
+        } catch (Throwable e) {
+            return null;
+        }
+	}
 	public static IEntity remainder(IEntity result1, IEntity result2) {
 		DataKinds dataKind1 = DataTypeUtils.getUnboxedDataKind(result1);
 		DataKinds dataKind2 = DataTypeUtils.getUnboxedDataKind(result2);
@@ -349,6 +384,13 @@ public class MathUtils {
 		return result;
 	}
 
+	public static final IEntity equalsElseFalse(IEntity result1, IEntity result2) {
+		try {
+			return equals(result1, result2);
+        } catch (Throwable e) {
+            return BindingManagerFactory.instance.createValue(false);
+        }
+	}
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static IEntity equals(IEntity result1, IEntity result2) {
 		DataKinds dataKind1 = DataTypeUtils.getUnboxedDataKind(result1);
@@ -390,6 +432,13 @@ public class MathUtils {
 		return BindingManagerFactory.instance.createValue(result);
 	}
 
+	public static final IEntity notEqualsElseFalse(IEntity result1, IEntity result2) {
+		try {
+			return notEquals(result1, result2);
+        } catch (Throwable e) {
+            return BindingManagerFactory.instance.createValue(false);
+        }
+	}
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static IEntity notEquals(IEntity result1, IEntity result2) {
 		DataKinds dataKind1 = DataTypeUtils.getUnboxedDataKind(result1);
@@ -429,6 +478,13 @@ public class MathUtils {
 		return BindingManagerFactory.instance.createValue(result);
 	}
 
+	public static final IEntity lessThanElseFalse(IEntity result1, IEntity result2) {
+		try {
+			return lessThan(result1, result2);
+        } catch (Throwable e) {
+            return BindingManagerFactory.instance.createValue(false);
+        }
+	}
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static IEntity lessThan(IEntity result1, IEntity result2) {
 		DataKinds dataKind1 = DataTypeUtils.getUnboxedDataKind(result1);
@@ -466,6 +522,13 @@ public class MathUtils {
 		return BindingManagerFactory.instance.createValue(result);
 	}
 
+	public static final IEntity lessOrEqualsElseFalse(IEntity result1, IEntity result2) {
+		try {
+			return lessOrEquals(result1, result2);
+        } catch (Throwable e) {
+            return BindingManagerFactory.instance.createValue(false);
+        }
+	}
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static IEntity lessOrEquals(IEntity result1, IEntity result2) {
 		DataKinds dataKind1 = DataTypeUtils.getUnboxedDataKind(result1);
@@ -503,6 +566,13 @@ public class MathUtils {
 		return BindingManagerFactory.instance.createValue(result);
 	}
 
+	public static final IEntity greaterThanElseFalse(IEntity result1, IEntity result2) {
+		try {
+			return greaterThan(result1, result2);
+        } catch (Throwable e) {
+            return BindingManagerFactory.instance.createValue(false);
+        }
+	}
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static IEntity greaterThan(IEntity result1, IEntity result2) {
 		DataKinds dataKind1 = DataTypeUtils.getUnboxedDataKind(result1);
@@ -540,6 +610,13 @@ public class MathUtils {
 			return BindingManagerFactory.instance.createValue(result);
 	}
 
+	public static final IEntity greaterOrEqualsElseFalse(IEntity result1, IEntity result2) {
+		try {
+			return greaterOrEquals(result1, result2);
+        } catch (Throwable e) {
+            return BindingManagerFactory.instance.createValue(false);
+        }
+	}
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static IEntity greaterOrEquals(IEntity result1, IEntity result2) {
 		DataKinds dataKind1 = DataTypeUtils.getUnboxedDataKind(result1);

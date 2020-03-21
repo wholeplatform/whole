@@ -367,48 +367,48 @@ public class QueriesInterpreterVisitor extends QueriesIdentityDefaultVisitor {
 
     @Override
 	public void visit(AdditionStep entity) {
-		setResult(MathUtils.addition(getSelfEntity(entity), evaluate(entity.getExpression())));
+		setResult(MathUtils.additionElseNull(getSelfEntity(entity), evaluate(entity.getExpression())));
 	}
 	@Override
 	public void visit(SubtractionStep entity) {
-		setResult(MathUtils.subtraction(getSelfEntity(entity), evaluate(entity.getExpression())));
+		setResult(MathUtils.subtractionElseNull(getSelfEntity(entity), evaluate(entity.getExpression())));
 	}
 	@Override
 	public void visit(MultiplicationStep entity) {
-		setResult(MathUtils.multiplication(getSelfEntity(entity), evaluate(entity.getExpression())));
+		setResult(MathUtils.multiplicationElseNull(getSelfEntity(entity), evaluate(entity.getExpression())));
 	}
 	@Override
 	public void visit(DivisionStep entity) {
-		setResult(MathUtils.division(getSelfEntity(entity), evaluate(entity.getExpression())));
+		setResult(MathUtils.divisionElseNull(getSelfEntity(entity), evaluate(entity.getExpression())));
 	}
 	@Override
 	public void visit(RemainderStep entity) {
-		setResult(MathUtils.remainder(getSelfEntity(entity), evaluate(entity.getExpression())));
+		setResult(MathUtils.remainderElseNull(getSelfEntity(entity), evaluate(entity.getExpression())));
 	}
 
 	@Override
 	public void visit(EqualsStep entity) {
-		setResult(MathUtils.equals(getSelfEntity(entity), evaluate(entity.getExpression())));
+		setResult(MathUtils.equalsElseFalse(getSelfEntity(entity), evaluate(entity.getExpression())));
 	}
     @Override
 	public void visit(NotEqualsStep entity) {
-		setResult(MathUtils.notEquals(getSelfEntity(entity), evaluate(entity.getExpression())));
+		setResult(MathUtils.notEqualsElseFalse(getSelfEntity(entity), evaluate(entity.getExpression())));
 	}
     @Override
 	public void visit(LessThanStep entity) {
-		setResult(MathUtils.lessThan(getSelfEntity(entity), evaluate(entity.getExpression())));
+		setResult(MathUtils.lessThanElseFalse(getSelfEntity(entity), evaluate(entity.getExpression())));
 	}
     @Override
 	public void visit(LessOrEqualsStep entity) {
-		setResult(MathUtils.lessOrEquals(getSelfEntity(entity), evaluate(entity.getExpression())));
+		setResult(MathUtils.lessOrEqualsElseFalse(getSelfEntity(entity), evaluate(entity.getExpression())));
 	}
     @Override
 	public void visit(GreaterThanStep entity) {
-		setResult(MathUtils.greaterThan(getSelfEntity(entity), evaluate(entity.getExpression())));
+		setResult(MathUtils.greaterThanElseFalse(getSelfEntity(entity), evaluate(entity.getExpression())));
 	}
 	@Override
 	public void visit(GreaterOrEqualsStep entity) {
-		setResult(MathUtils.greaterOrEquals(getSelfEntity(entity), evaluate(entity.getExpression())));
+		setResult(MathUtils.greaterOrEqualsElseFalse(getSelfEntity(entity), evaluate(entity.getExpression())));
 	}
 
     @Override
