@@ -723,7 +723,7 @@
                 <semantics:AnyType/>
                 <semantics:AnyType/>
             </semantics:FunctionType>
-            <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="56">
+            <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="57">
                 <queries:If>
                     <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Library"/>
                     <queries:Scope>
@@ -3673,6 +3673,72 @@
                     </semantics:FunctionApplication>
                 </queries:If>
                 <queries:If>
+                    <queries:And initialCapacity="3">
+                        <queries:TypeTest value="http://lang.whole.org/Semantics#FunctionApplication"/>
+                        <queries:Some>
+                            <queries:FeatureStep value="http://lang.whole.org/Semantics#name"/>
+                            <queries:Or initialCapacity="2">
+                                <queries:EqualsStep>
+                                    <queries:StringLiteral value="expandPatterns"/>
+                                </queries:EqualsStep>
+                                <queries:EqualsStep>
+                                    <queries:StringLiteral value="expandPatternsInplace"/>
+                                </queries:EqualsStep>
+                            </queries:Or>
+                        </queries:Some>
+                        <queries:Some>
+                            <queries:Filter>
+                                <queries:AncestorStep/>
+                                <queries:Or initialCapacity="2">
+                                    <queries:AtFeatureTest value="whole:org.whole.lang.patterns:PatternsModel#actions"/>
+                                    <queries:AtFeatureTest value="whole:org.whole.lang.patterns:PatternsModel#guestActions"/>
+                                </queries:Or>
+                            </queries:Filter>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </queries:Some>
+                    </queries:And>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <semantics:FunctionApplication>
+                            <commons:StageDownFragment>
+                                <semantics:TypeCast>
+                                    <semantics:EntityType value="http://lang.whole.org/Semantics#Name"/>
+                                    <queries:Addition>
+                                        <queries:VariableRefStep value="semanticsUri"/>
+                                        <queries:Addition>
+                                        <queries:StringLiteral value="#"/>
+                                        <queries:FeatureStep value="http://lang.whole.org/Semantics#name"/>
+                                        </queries:Addition>
+                                    </queries:Addition>
+                                </semantics:TypeCast>
+                            </commons:StageDownFragment>
+                            <commons:StageDownFragment>
+                                <semantics:FunctionApplication>
+                                    <commons:Resolver/>
+                                    <queries:FeatureStep value="http://lang.whole.org/Semantics#arguments"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:FunctionApplication>
+                            </commons:StageDownFragment>
+                            <commons:StageDownFragment>
+                                <semantics:FunctionApplication>
+                                    <commons:Resolver/>
+                                    <queries:FeatureStep value="http://lang.whole.org/Semantics#environments"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:FunctionApplication>
+                            </commons:StageDownFragment>
+                            <commons:StageDownFragment>
+                                <semantics:FunctionApplication>
+                                    <commons:Resolver/>
+                                    <queries:FeatureStep value="http://lang.whole.org/Semantics#stage"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:FunctionApplication>
+                            </commons:StageDownFragment>
+                        </semantics:FunctionApplication>
+                    </commons:StageUpFragment>
+                </queries:If>
+                <queries:If>
                     <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#FunctionPoint"/>
                     <semantics:FunctionApplication>
                         <semantics:Name value="wrapAtExecutableStage"/>
@@ -3733,7 +3799,7 @@
                                         </queries:If>
                                         <queries:If>
                                         <queries:Some>
-                                        <queries:Choose initialCapacity="2">
+                                        <queries:Sequence initialCapacity="2">
                                         <queries:Path initialCapacity="4">
                                         <queries:Filter>
                                         <queries:AncestorStep/>
@@ -3752,11 +3818,17 @@
                                         <queries:Path initialCapacity="2">
                                         <queries:Filter>
                                         <queries:AncestorStep/>
-                                        <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#PatternLanguage"/>
+                                        <queries:Or initialCapacity="2">
+                                        <queries:AtFeatureTest value="whole:org.whole.lang.patterns:PatternsModel#actions"/>
+                                        <queries:AtFeatureTest value="whole:org.whole.lang.patterns:PatternsModel#guestActions"/>
+                                        </queries:Or>
                                         </queries:Filter>
+                                        <queries:Sequence initialCapacity="2">
                                         <queries:StringLiteral value="expandPatterns"/>
+                                        <queries:StringLiteral value="expandPatternsInplace"/>
+                                        </queries:Sequence>
                                         </queries:Path>
-                                        </queries:Choose>
+                                        </queries:Sequence>
                                         <queries:EqualsStep>
                                         <queries:VariableRefStep value="functionName"/>
                                         </queries:EqualsStep>
@@ -4107,7 +4179,7 @@
                                 </queries:If>
                                 <queries:If>
                                     <queries:Some>
-                                        <queries:Choose initialCapacity="2">
+                                        <queries:Sequence initialCapacity="2">
                                         <queries:Path initialCapacity="4">
                                         <queries:Filter>
                                         <queries:AncestorStep/>
@@ -4126,11 +4198,17 @@
                                         <queries:Path initialCapacity="2">
                                         <queries:Filter>
                                         <queries:AncestorStep/>
-                                        <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#PatternLanguage"/>
+                                        <queries:Or initialCapacity="2">
+                                        <queries:AtFeatureTest value="whole:org.whole.lang.patterns:PatternsModel#actions"/>
+                                        <queries:AtFeatureTest value="whole:org.whole.lang.patterns:PatternsModel#guestActions"/>
+                                        </queries:Or>
                                         </queries:Filter>
+                                        <queries:Sequence initialCapacity="2">
                                         <queries:StringLiteral value="expandPatterns"/>
+                                        <queries:StringLiteral value="expandPatternsInplace"/>
+                                        </queries:Sequence>
                                         </queries:Path>
-                                        </queries:Choose>
+                                        </queries:Sequence>
                                         <queries:EqualsStep>
                                         <queries:VariableRefStep value="functionName"/>
                                         </queries:EqualsStep>
