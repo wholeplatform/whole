@@ -31,42 +31,68 @@ import org.whole.lang.resources.CompoundResourceRegistry;
 import org.whole.lang.resources.IResource;
 import org.whole.lang.resources.IResourceRegistry;
 import org.whole.lang.resources.ResourceRegistry;
+import org.whole.lang.reusables.model.IReusablesEntity;
 import org.whole.lang.reusables.model.Registry;
 import org.whole.lang.reusables.model.Resource;
 import org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum;
+import org.whole.lang.util.BehaviorUtils;
+import org.whole.lang.util.IRunnable;
 import org.whole.lang.util.ResourceUtils;
+import org.whole.lang.util.WholeMessages;
 
 /**
  * @author Riccardo Solmi
  */
 public abstract class AbstractReusablesSemanticsVisitor extends ReusablesIdentityDefaultVisitor {
+	protected IEntity evaluate(IReusablesEntity entity) {
+		setResult(null);
+    	entity.accept(this);
+    	IEntity result = getResult();
+    	if (result == null)
+    		throw new WholeIllegalArgumentException(WholeMessages.null_value_argument).withSourceEntity(entity).withBindings(getBindings());
+    	return result;
+	}
+	protected final boolean booleanValue(IReusablesEntity exp) {
+		return evaluate(exp).wBooleanValue();
+	}
+	protected final int intValue(IReusablesEntity exp) {
+		return evaluate(exp).wIntValue();
+	}
+	protected final String stringValue(IReusablesEntity exp) {
+		return evaluate(exp).wStringValue();
+	}
+
+	
 	protected IExecutable existsResource(Resource resource) {
 		resource.accept(this);
 		if (Matcher.match(ReusablesEntityDescriptorEnum.Model, resource)) {
 			return executableFactory().createSome(executableFactory().createConstantCompose(resource.wGetParent(), getExecutableResult()));
 		} else if (Matcher.match(ReusablesEntityDescriptorEnum.Registry, resource)) {
 			Registry registryEntity = (Registry) resource;
-			registryEntity.getRegistryUri().accept(this);
-			String registryId = getResult().wStringValue();
-			if (!ResourceRegistry.hasRegistry(registryId))
-				throw new WholeIllegalArgumentException("Undefined registry "+registryId).withSourceEntity(registryEntity).withBindings(getBindings());
+			final IResourceRegistry<IResource> registry = getResourceRegistry(registryEntity);
+			final String uri = stringValue(registryEntity.getUri());
 
-			final IResourceRegistry<IResource> registry = ResourceRegistry.getRegistry(registryId);
+			IRunnable runnable;
+			if (ResourceUtils.hasFragmentPart(uri) && registry instanceof CompoundResourceRegistry) {
+				final CompoundResourceRegistry<IResource> compoundRegistry = (CompoundResourceRegistry<IResource>) registry;
 
-			registryEntity.getUri().accept(this);
-			String uri = getResult().wStringValue();
-			String resourceUri = ResourceUtils.getResourcePart(uri);
+				runnable = (IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
+					bm.setResult(BindingManagerFactory.instance.createValue(compoundRegistry.getFunctionModel(uri, false, bm) != null));
+				};
+			} else {
+				final String resourceUri = ResourceUtils.stripFragmentPart(uri);
 
-			return executableFactory().createSingleValuedRunnable((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
-				bm.setResult(BindingManagerFactory.instance.createValue(registry.containsResource(resourceUri, false, bm)));
-			}).withSourceEntity(resource);			
-		} else {
+				runnable = (IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
+					bm.setResult(BindingManagerFactory.instance.createValue(registry.containsResource(resourceUri, false, bm)));
+				};
+			}
+			return executableFactory().createSingleValuedRunnable(runnable).withSourceEntity(resource);
+		} else
 			return executableFactory().createCompose(
 					executableFactory().createSingleValuedRunnable((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
 						if (!BindingManagerFactory.instance.isVoid(selfEntity))
 							bm.setResult(existsResourceOnProvider(selfEntity));
 					}).withSourceEntity(resource), getExecutableResult());
-		}
 	}
 
 	public static IEntity existsResourceOnProvider(IEntity resource) {
@@ -78,13 +104,25 @@ public abstract class AbstractReusablesSemanticsVisitor extends ReusablesIdentit
 
 	protected IExecutable deleteResource(Resource resource) {
 		resource.accept(this);
-		return Matcher.match(ReusablesEntityDescriptorEnum.Model, resource) ?
-				executableFactory().createConstantCompose(resource.wGetParent(), executableFactory().createDelete(getExecutableResult())) :
-					executableFactory().createCompose(
-									executableFactory().createSingleValuedRunnable((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
-										if (!BindingManagerFactory.instance.isVoid(selfEntity))
-											bm.setResult(deleteResourceFromProvider(selfEntity));
-									}).withSourceEntity(resource), getExecutableResult());
+		if (Matcher.match(ReusablesEntityDescriptorEnum.Model, resource)) {
+			return executableFactory().createConstantCompose(resource.wGetParent(), executableFactory().createDelete(getExecutableResult()));
+		} else if (Matcher.match(ReusablesEntityDescriptorEnum.Registry, resource)) {
+			Registry registryEntity = (Registry) resource;
+			final IResourceRegistry<IResource> registry = getResourceRegistry(registryEntity);
+			final String uri = stringValue(registryEntity.getUri());
+
+			//TODO add delete function
+			final String resourceUri = ResourceUtils.stripFragmentPart(uri);
+			IRunnable runnable = (IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
+				bm.setResult(BindingManagerFactory.instance.createValue(registry.removeResource(resourceUri)));
+			};
+			return executableFactory().createSingleValuedRunnable(runnable).withSourceEntity(resource);
+		} else
+			return executableFactory().createCompose(
+					executableFactory().createSingleValuedRunnable((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
+						if (!BindingManagerFactory.instance.isVoid(selfEntity))
+							bm.setResult(deleteResourceFromProvider(selfEntity));
+					}).withSourceEntity(resource), getExecutableResult());
 	}
 
 	public static IEntity deleteResourceFromProvider(IEntity resource) {
@@ -104,32 +142,30 @@ public abstract class AbstractReusablesSemanticsVisitor extends ReusablesIdentit
 			return executableFactory().createConstantCompose(resource.wGetParent(), getExecutableResult());
 		} else if (Matcher.match(ReusablesEntityDescriptorEnum.Registry, resource)) {
 			Registry registryEntity = (Registry) resource;
-			registryEntity.getRegistryUri().accept(this);
-			String registryId = getResult().wStringValue();
-			if (!ResourceRegistry.hasRegistry(registryId))
-				throw new WholeIllegalArgumentException("Undefined registry "+registryId).withSourceEntity(registryEntity).withBindings(getBindings());
+			final IResourceRegistry<IResource> registry = getResourceRegistry(registryEntity);
+			final String uri = stringValue(registryEntity.getUri());
 
-			final IResourceRegistry<IResource> registry = ResourceRegistry.getRegistry(registryId);
-
-			registryEntity.getUri().accept(this);
-			String uri = getResult().wStringValue();
-
+			IRunnable runnable;
 			if (ResourceUtils.hasFragmentPart(uri) && registry instanceof CompoundResourceRegistry) {
-				CompoundResourceRegistry<IResource> compoundRegistry = (CompoundResourceRegistry<IResource>) registry;
-				return executableFactory().createSingleValuedRunnable((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
+				final CompoundResourceRegistry<IResource> compoundRegistry = (CompoundResourceRegistry<IResource>) registry;
+
+				runnable = (IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
 					bm.setResult(compoundRegistry.getFunctionModel(uri, true, bm));
-				}).withSourceEntity(resource);			
-			} else
-				return executableFactory().createSingleValuedRunnable((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
-					bm.setResult(registry.getResourceModel(uri, true, bm));
-				}).withSourceEntity(resource);			
-		} else {
+				};
+			} else {
+				final String resourceUri = ResourceUtils.stripFragmentPart(uri);
+
+				runnable = (IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
+					bm.setResult(registry.getResourceModel(resourceUri, true, bm));
+				};
+			}			
+			return executableFactory().createSingleValuedRunnable(runnable).withSourceEntity(resource);
+		} else
 			return executableFactory().createCompose(
 					executableFactory().createSingleValuedRunnable((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
 						if (!BindingManagerFactory.instance.isVoid(selfEntity))
 							bm.setResult(readModel(selfEntity));
 					}).withSourceEntity(resource), getExecutableResult());
-		}
 	}
 
 	public static IEntity readModel(IEntity resource) {
@@ -152,19 +188,38 @@ public abstract class AbstractReusablesSemanticsVisitor extends ReusablesIdentit
 		//TODO add multiple save
 		//FIXME path expression save
 
-		resource.accept(this);
-		return
-//		return Matcher.isAssignableAsIsFrom(
-//				QueriesEntityDescriptorEnum.Expression, resource.wGetAdaptee(false)) ?
-//						executableFactory().constantComposeIterator(resource.wGetParent(), getExecutableResult()) :
-//							executableFactory().composeIterator(
-									executableFactory().createSingleValuedRunnable((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
-										if (!BindingManagerFactory.instance.isVoid(selfEntity)) {
-											writeModel(selfEntity, arguments[0]);
-											bm.setResult(selfEntity);
-										}
-									}, getExecutableResult()).withSourceEntity(resource);
-//									);
+		if (Matcher.match(ReusablesEntityDescriptorEnum.Registry, resource)) {
+			Registry registryEntity = (Registry) resource;
+			final IResourceRegistry<IResource> registry = getResourceRegistry(registryEntity);
+			final String uri = stringValue(registryEntity.getUri());
+
+			IRunnable runnable;
+			if (ResourceUtils.hasFragmentPart(uri) && registry instanceof CompoundResourceRegistry) {
+				final CompoundResourceRegistry<IResource> compoundRegistry = (CompoundResourceRegistry<IResource>) registry;
+
+				runnable = (IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
+					compoundRegistry.putFunctionModel(uri, selfEntity);
+					bm.setResult(selfEntity);
+				};
+			} else {
+				runnable = (IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
+					BehaviorUtils.evaluate(selfEntity, 0, bm);
+					bm.setResult(selfEntity);
+				};
+			}
+			return executableFactory().createSingleValuedRunnable(runnable).withSourceEntity(resource);
+		} else {
+			resource.accept(this);
+			IExecutable resourceExecutable = getExecutableResult();
+
+			IRunnable runnable = (IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
+				if (!BindingManagerFactory.instance.isVoid(selfEntity)) {
+					writeModel(selfEntity, arguments[0]);
+					bm.setResult(selfEntity);
+				}
+			};
+			return executableFactory().createSingleValuedRunnable(runnable, resourceExecutable).withSourceEntity(resource);
+		}
 	}
 
 	public static void writeModel(IEntity model, IEntity resource) {
@@ -179,4 +234,15 @@ public abstract class AbstractReusablesSemanticsVisitor extends ReusablesIdentit
 					"Failed to write the resource with the given persistence: " + pp + ", " + pk.getId(), e);
 		}
 	}
+
+	protected IResourceRegistry<IResource> getResourceRegistry(Registry registryEntity) {
+		registryEntity.getRegistryUri().accept(this);
+		String registryId = getResult().wStringValue();
+		if (!ResourceRegistry.hasRegistry(registryId))
+			throw new WholeIllegalArgumentException("Undefined registry "+registryId).withSourceEntity(registryEntity).withBindings(getBindings());
+
+		final IResourceRegistry<IResource> registry = ResourceRegistry.getRegistry(registryId);
+		return registry;
+	}
+	
 }
