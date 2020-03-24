@@ -28,6 +28,7 @@ import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.DynamicCompilerOperation;
 import org.whole.lang.operations.NormalizerOperation;
 import org.whole.lang.queries.factories.QueriesEntityFactory;
+import org.whole.lang.resources.CompoundResourceRegistry;
 import org.whole.lang.resources.FunctionLibraryRegistry;
 import org.whole.lang.semantics.model.BindingOpEnum;
 import org.whole.lang.semantics.model.BindingsScope;
@@ -66,23 +67,24 @@ public class SemanticsInterpreterVisitor extends SemanticsTraverseAllChildrenVis
     public void visit(SemanticTheory entity) {
     	SemanticTheory semanticTheory = EntityUtils.clone(entity);
     	IBindingManager bm = getBindings();
-    	bm.wEnterScope();
-		NormalizerOperation.normalize(semanticTheory, bm);
-		bm.wExitScope();
+    	try {
+	    	bm.wEnterScope();
+	    	libraryUri = semanticTheory.getUri().getValue();
+	    	bm.wDefValue(CompoundResourceRegistry.libraryUri, libraryUri);
 
-    	FunctionLibraryRegistry.instance().addResource(semanticTheory, libraryUri = semanticTheory.getUri().getValue(), false);
-
-   		semanticTheory.getFunctions().accept(this);
-
+			NormalizerOperation.normalize(semanticTheory, bm);
+	    	FunctionLibraryRegistry.instance().addResource(semanticTheory, libraryUri, false);
+	    	semanticTheory.getFunctions().accept(this);
+    	} finally {
+    		bm.wExitScope();
+    	}
 		setResult(BindingManagerFactory.instance.createVoid());
     }
 
     protected String libraryUri;
     protected String getLibraryUri(IEntity entity) {
-		if (libraryUri == null) {
-			SemanticTheory st = Matcher.findAncestor(SemanticsEntityDescriptorEnum.SemanticTheory, entity);
-			libraryUri = st != null ? st.getUri().getValue() : getBindings().wStringValue("libraryUri");
-		}
+		if (libraryUri == null)
+			libraryUri = SemanticsDynamicCompilerVisitor.getLibraryUri(entity, getBindings());
 		return libraryUri;
     }
 
@@ -131,7 +133,7 @@ public class SemanticsInterpreterVisitor extends SemanticsTraverseAllChildrenVis
 		ActionsEntityFactory aef = ActionsEntityFactory.instance;
 		QueriesEntityFactory qef = QueriesEntityFactory.instance;
 		ActionCall actionCall = aef.createActionCall(
-				aef.createLabel("whole:org.whole.lang.semantics:SemanticsActions:1.0.0#toVariableFlatName"),
+				aef.createLabel(SemanticsDynamicCompilerVisitor.toVariableFlatNameURI),
 				qef.createVariableRefStep("variable").wGetAdapter(ActionsEntityDescriptorEnum.SelectedEntities));
 
 		getBindings().wDef("variable", entity);

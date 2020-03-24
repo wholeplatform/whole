@@ -35,6 +35,8 @@ import org.whole.lang.util.ResourceUtils;
  * @author Riccardo Solmi
  */
 public class CompoundResourceRegistry<T extends IResource> extends ResourceRegistry<T> {
+	public static final String libraryUri = "libraryUri";
+	
 	public CompoundResourceRegistry() {
 		super();//TODO test WAS new URLURIResolver(), new WholeURIResolver(), new FileURIResolver());
 	}
@@ -96,6 +98,7 @@ public class CompoundResourceRegistry<T extends IResource> extends ResourceRegis
 
 			if (functionModel != null && functionCode == null) {
 				IBindingManager args = BindingManagerFactory.instance.createArguments();
+				args.wDefValue(libraryUri, ResourceUtils.getResourcePart(functionUri));
 				DynamicCompilerOperation.compile(functionModel, args);
 				functionCode = uriCodeMap.get(functionUri);
 			}

@@ -18,11 +18,15 @@
 package org.whole.lang.semantics.visitors;
 
 import org.whole.lang.actions.evaluators.ActionCallEvaluator;
+import org.whole.lang.bindings.BindingManagerFactory;
+import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.evaluators.SelfEvaluator;
+import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.model.adapters.IEntityAdapter;
+import org.whole.lang.resources.CompoundResourceRegistry;
 import org.whole.lang.resources.FunctionLibraryRegistry;
 import org.whole.lang.semantics.model.CastType;
 import org.whole.lang.semantics.model.Expression;
@@ -36,12 +40,46 @@ import org.whole.lang.semantics.model.Term;
 import org.whole.lang.semantics.model.TypeCast;
 import org.whole.lang.semantics.reflect.SemanticsEntityDescriptorEnum;
 import org.whole.lang.semantics.util.SemanticsUtils;
+import org.whole.lang.util.BehaviorUtils;
 import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Riccardo Solmi
  */
 public class SemanticsDynamicCompilerVisitor extends SemanticsIdentityDefaultVisitor {
+	public static final String firstAncestorWithTypeAtStageURI = "whole:org.whole.lang.semantics:SemanticsLibrarySemantics#firstAncestorWithTypeAtStage";
+	public static final String translateNormalizedFunctionToQueryURI = "whole:org.whole.lang.semantics:SemanticsActions:1.0.0#Translate Normalized Function to Query";
+	public static final String toVariableFlatNameURI = "whole:org.whole.lang.semantics:SemanticsActions:1.0.0#toVariableFlatName";
+
+    public static SemanticTheory getSemanticTheoryInScope(IEntity entity) {
+		SemanticTheory semanticTheory = null;
+		if (EntityUtils.hasParent(entity)) {
+	    	if (FunctionLibraryRegistry.instance().getFunctionModel(firstAncestorWithTypeAtStageURI, false, null) != null) {
+	    		IBindingManager bm = BindingManagerFactory.instance.createArguments();
+	    		bm.wDefValue("ancestorType", SemanticsEntityDescriptorEnum.SemanticTheory.getURI());
+	    		bm.wDefValue("atStage", 0);
+	    		semanticTheory = (SemanticTheory) BehaviorUtils.apply(firstAncestorWithTypeAtStageURI, entity, bm);
+			} else
+				semanticTheory = Matcher.findAncestor(SemanticsEntityDescriptorEnum.SemanticTheory, entity);
+		}
+		return semanticTheory;
+    }
+
+    public static SemanticFunction getSemanticFunctionInScope(IEntity entity) {
+		SemanticFunction semanticFunction = null;
+    	if (EntityUtils.hasParent(entity)) {
+	    	if (FunctionLibraryRegistry.instance().getFunctionModel(firstAncestorWithTypeAtStageURI, false, null) != null) {
+	    		IBindingManager bm = BindingManagerFactory.instance.createArguments();
+	    		bm.wDefValue("ancestorType", SemanticsEntityDescriptorEnum.SemanticFunction.getURI());
+	    		bm.wDefValue("atStage", 0);
+	    		semanticFunction = (SemanticFunction) BehaviorUtils.apply(firstAncestorWithTypeAtStageURI, entity, bm);
+			} else
+				semanticFunction = Matcher.findAncestor(SemanticsEntityDescriptorEnum.SemanticFunction, entity);
+		}
+		return semanticFunction;
+    }
+
+    
 	@Override
 	public boolean visitAdapter(IEntityAdapter entity) {
 		stagedVisit(entity.wGetAdaptee(false), 0);
@@ -53,13 +91,16 @@ public class SemanticsDynamicCompilerVisitor extends SemanticsIdentityDefaultVis
 		stagedDefaultVisit(entity, 0);
 	}
 
-    protected String libraryUri;
-    protected String getLibraryUri(IEntity entity) {
-		if (libraryUri == null) {
-			SemanticTheory st = Matcher.findAncestor(SemanticsEntityDescriptorEnum.SemanticTheory, entity);
-			libraryUri = st != null ? st.getUri().getValue() : getBindings().wStringValue("libraryUri");
+    public static String getLibraryUri(IEntity entity, IBindingManager bm) {
+    	if (bm.wIsSet(CompoundResourceRegistry.libraryUri))
+			return bm.wStringValue(CompoundResourceRegistry.libraryUri);
+		else {
+			SemanticTheory st = getSemanticTheoryInScope(entity);
+			if (st != null)
+				return st.getUri().wStringValue();
+			else
+				throw new WholeIllegalArgumentException("Library URI is not available").withSourceEntity(entity).withBindings(bm);
 		}
-		return libraryUri;
     }
 
 	@Override
@@ -70,28 +111,27 @@ public class SemanticsDynamicCompilerVisitor extends SemanticsIdentityDefaultVis
     		return;
     	}
 
-    	IExecutable ac = new ActionCallEvaluator(
-    			"whole:org.whole.lang.semantics:SemanticsActions:1.0.0#Translate Normalized Function to Query", null);
+    	IExecutable ac = new ActionCallEvaluator(translateNormalizedFunctionToQueryURI, (IExecutable[]) null);
     	stagedVisit(ac.evaluate(entity, getBindings()));
 		IExecutable functionBehavior = getExecutableResult();
 
-		FunctionLibraryRegistry.instance().putFunctionCode(getLibraryUri(entity)+"#"+entity.getName().getValue(), functionBehavior);
+		FunctionLibraryRegistry.instance().putFunctionCode(getLibraryUri(entity, getBindings())+"#"+entity.getName().getValue(), functionBehavior);
 	}
 
 	@Override
 	public void visit(FunctionApplication entity) {
 		Name functionName = entity.getName();
 		if (EntityUtils.isResolver(functionName)) {
-			SemanticFunction sf = Matcher.findAncestor(SemanticsEntityDescriptorEnum.SemanticFunction, entity);
+			SemanticFunction sf = getSemanticFunctionInScope(entity);
 			if (sf != null)
 				functionName = sf.getName();
 		}
-		if (EntityUtils.isResolver(functionName))
-			throw new IllegalArgumentException("Unnamed FunctionApplication");
+		if (EntityUtils.isResolver(functionName) || !functionName.wGetAdaptee(false).wGetEntityDescriptor().getDataKind().isString())
+			throw new WholeIllegalArgumentException("Invalid name in FunctionApplication").withSourceEntity(entity).withBindings(getBindings());
 
     	String functionUri = functionName.getValue();
-//    	if (functionUri.indexOf("#") == -1)
-//    		functionUri = getLibraryUri(entity)+"#"+functionUri;
+    	if (functionUri.indexOf("#") == -1)
+    		functionUri = getLibraryUri(entity, getBindings())+"#"+functionUri;
 
     	IExecutable executableResult = executableFactory().createFunctionApplication(functionUri).withSourceEntity(entity);
 
