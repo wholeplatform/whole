@@ -93,7 +93,27 @@
         </actions:SimpleAction>
     </actions:ToolbarActions>
     <actions:ContextMenuActions>
-        <actions:MenuActions initialCapacity="0"/>
+        <actions:MenuActions initialCapacity="1">
+            <actions:GuardedAction>
+                <actions:Label value="Add missing rules"/>
+                <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                    <queries:VariableRefStep value="primarySelectedEntity"/>
+                    <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                        <semantics:Name value="whole:org.whole.lang.migrations:MigrationsPatternsSemantics#addMissingRules"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </semantics:FunctionApplication>
+                </queries:Path>
+                <queries:Some xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:Filter>
+                        <queries:VariableRefStep value="primarySelectedEntity"/>
+                        <queries:TypeTest value="whole:org.whole.lang.migrations:MigrationsPatternsModel#MigrateLanguage"/>
+                    </queries:Filter>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </queries:Some>
+            </actions:GuardedAction>
+        </actions:MenuActions>
         <actions:MenuActions initialCapacity="0"/>
         <actions:MenuActions initialCapacity="0"/>
         <actions:MenuActions initialCapacity="0"/>

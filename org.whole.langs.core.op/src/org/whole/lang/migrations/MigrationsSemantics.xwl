@@ -356,12 +356,21 @@
                                         </commons:StageDownFragment>
                                         <semantics:FunctionApplication>
                                         <commons:StageDownFragment>
+                                        <semantics:TypeCast>
+                                        <semantics:EntityType value="http://lang.whole.org/Semantics#Name"/>
+                                        <queries:Addition>
+                                        <queries:VariableRefStep value="migrationToolUri"/>
+                                        <queries:Addition>
+                                        <queries:StringLiteral value="#"/>
                                         <semantics:FunctionApplication>
                                         <commons:Resolver/>
                                         <queries:FeatureStep value="whole:org.whole.lang.migrations:MigrationsPatternsModel#name"/>
                                         <commons:Resolver/>
                                         <commons:Resolver/>
                                         </semantics:FunctionApplication>
+                                        </queries:Addition>
+                                        </queries:Addition>
+                                        </semantics:TypeCast>
                                         </commons:StageDownFragment>
                                         <commons:Resolver/>
                                         <commons:Resolver/>
@@ -390,12 +399,21 @@
                                         <queries:SelfStep/>
                                         <semantics:FunctionApplication>
                                         <commons:StageDownFragment>
+                                        <semantics:TypeCast>
+                                        <semantics:EntityType value="http://lang.whole.org/Semantics#Name"/>
+                                        <queries:Addition>
+                                        <queries:VariableRefStep value="migrationToolUri"/>
+                                        <queries:Addition>
+                                        <queries:StringLiteral value="#"/>
                                         <semantics:FunctionApplication>
                                         <commons:Resolver/>
                                         <queries:FeatureStep value="whole:org.whole.lang.migrations:MigrationsPatternsModel#name"/>
                                         <commons:Resolver/>
                                         <commons:Resolver/>
                                         </semantics:FunctionApplication>
+                                        </queries:Addition>
+                                        </queries:Addition>
+                                        </semantics:TypeCast>
                                         </commons:StageDownFragment>
                                         <commons:Resolver/>
                                         <commons:Resolver/>

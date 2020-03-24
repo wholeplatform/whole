@@ -298,13 +298,22 @@
                                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                 </patterns:Slot>
                                 <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
-                                    <patterns:Slot>
+                                    <patterns:DerivationPoint>
+                                        <queries:Addition xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:VariableRefStep value="migrationToolUri"/>
+                                        <queries:Addition>
+                                        <queries:StringLiteral value="#"/>
+                                        <patterns:Slot>
                                         <patterns:Name value="name"/>
                                         <patterns:BooleanValue value="false"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <models:EntityType xmlns:models="http://lang.whole.org/Models" value="http://lang.whole.org/Semantics#Name"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                    </patterns:Slot>
+                                        </patterns:Slot>
+                                        </queries:Addition>
+                                        </queries:Addition>
+                                        <models:EntityType xmlns:models="http://lang.whole.org/Models" value="http://lang.whole.org/Semantics#Name"/>
+                                    </patterns:DerivationPoint>
                                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -331,6 +340,11 @@
                                 <queries:CartesianUpdate xmlns:queries="http://lang.whole.org/Queries">
                                     <queries:SelfStep/>
                                     <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <patterns:DerivationPoint>
+                                        <queries:Addition>
+                                        <queries:VariableRefStep value="migrationToolUri"/>
+                                        <queries:Addition>
+                                        <queries:StringLiteral value="#"/>
                                         <patterns:Slot>
                                         <patterns:Name value="name"/>
                                         <patterns:BooleanValue value="false"/>
@@ -338,6 +352,10 @@
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         </patterns:Slot>
+                                        </queries:Addition>
+                                        </queries:Addition>
+                                        <models:EntityType xmlns:models="http://lang.whole.org/Models" value="http://lang.whole.org/Semantics#Name"/>
+                                        </patterns:DerivationPoint>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -2287,4 +2305,33 @@
             </patterns:ConditionPoint>
         </patterns:FunctionDeclaration>
     </patterns:Declarations>
+    <actions:ContextMenuActions xmlns:actions="http://lang.whole.org/Actions">
+        <actions:MenuActions initialCapacity="1">
+            <actions:GuardedAction>
+                <actions:Label value="Add missing rules"/>
+                <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                    <queries:VariableRefStep value="primarySelectedEntity"/>
+                    <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                        <semantics:Name value="whole:org.whole.lang.migrations:MigrationsPatternsSemantics#addMissingRules"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </semantics:FunctionApplication>
+                </queries:Path>
+                <queries:Some xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:Filter>
+                        <queries:VariableRefStep value="primarySelectedEntity"/>
+                        <queries:TypeTest value="whole:org.whole.lang.migrations:MigrationsPatternsModel#MigrateLanguage"/>
+                    </queries:Filter>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </queries:Some>
+            </actions:GuardedAction>
+        </actions:MenuActions>
+        <actions:MenuActions initialCapacity="0"/>
+        <actions:MenuActions initialCapacity="0"/>
+        <actions:MenuActions initialCapacity="0"/>
+        <actions:MenuActions initialCapacity="0"/>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    </actions:ContextMenuActions>
+    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
 </patterns:PatternLanguage>

@@ -23,6 +23,10 @@
             <models:EntityType value="http://lang.whole.org/Actions#Label"/>
         </models:TypeAliasOf>
         <models:TypeAliasOf>
+            <models:SimpleName value="Expression"/>
+            <models:EntityType value="http://lang.whole.org/Queries#Expression"/>
+        </models:TypeAliasOf>
+        <models:TypeAliasOf>
             <models:SimpleName value="URI"/>
             <models:EntityType value="whole:org.whole.lang.patterns:PatternsModel#URI"/>
         </models:TypeAliasOf>
@@ -41,10 +45,6 @@
             </models:Types>
             <models:EntityType value="http://lang.whole.org/Queries#Expression"/>
         </models:SupertypesOf>
-        <models:TypeAliasOf>
-            <models:SimpleName value="Expression"/>
-            <models:EntityType value="http://lang.whole.org/Queries#Expression"/>
-        </models:TypeAliasOf>
         <models:TypeAliasOf>
             <models:SimpleName value="TypeTest"/>
             <models:EntityType value="http://lang.whole.org/Queries#TypeTest"/>
