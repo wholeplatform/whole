@@ -6056,7 +6056,12 @@
                                         <queries:Choose initialCapacity="3">
                                         <queries:FeatureStep value="whole:org.whole.lang.swiftsyntax:SwiftSyntaxModel#trailingComma"/>
                                         <queries:FeatureStep value="whole:org.whole.lang.swiftsyntax:SwiftSyntaxModel#trailingDot"/>
+                                        <queries:Filter>
                                         <queries:FeatureStep value="whole:org.whole.lang.swiftsyntax:SwiftSyntaxModel#dot"/>
+                                        <queries:AtIndexTest>
+                                        <queries:IntLiteral value="-1"/>
+                                        </queries:AtIndexTest>
+                                        </queries:Filter>
                                         </queries:Choose>
                                         <queries:Some>
                                         <queries:ParentStep/>
