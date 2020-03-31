@@ -19,6 +19,7 @@ package org.whole.lang.models.visitors;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.commons.reflect.CommonsFeatureDescriptorEnum;
+import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.executables.IExecutableClient;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.models.model.AnyType;
@@ -160,7 +161,11 @@ public class ModelsInterpreterVisitor extends ModelsIdentityDefaultVisitor {
 		}
 		@Override
 		public void visit(SimpleName entity) {
-			edOrdinal = entityDescriptorEnum.valueOf(entity.getValue()).getOrdinal();
+			EntityDescriptor<?> ed = entityDescriptorEnum.valueOf(entity.getValue());
+			if (ed == null)
+				throw new WholeIllegalArgumentException("Invalid entity type: "+entity.getValue())
+						.withSourceEntity(entity).withBindings(getBindings());
+			edOrdinal = ed.getOrdinal();
 		}
 	}
 
