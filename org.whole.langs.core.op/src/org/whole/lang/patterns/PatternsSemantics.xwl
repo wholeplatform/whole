@@ -5833,10 +5833,11 @@
                         <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Slot"/>
                     </queries:Or>
                     <queries:Scope>
-                        <queries:FreshNames initialCapacity="1">
+                        <queries:FreshNames initialCapacity="2">
                             <queries:Name value="contextType"/>
+                            <queries:Name value="slotName"/>
                         </queries:FreshNames>
-                        <queries:Block initialCapacity="4">
+                        <queries:Block initialCapacity="5">
                             <queries:Path initialCapacity="2">
                                 <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                                     <models:Feature xmlns:models="http://lang.whole.org/Models">
@@ -5876,6 +5877,10 @@
                                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                 </semantics:FunctionApplication>
                             </queries:Path>
+                            <queries:Filter>
+                                <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#name"/>
+                                <queries:VariableTest value="slotName"/>
+                            </queries:Filter>
                             <queries:If>
                                 <queries:And initialCapacity="2">
                                     <queries:Some>
@@ -5903,7 +5908,36 @@
                                         <queries:TypeTest value="http://lang.whole.org/Models#EntityType"/>
                                         <queries:TypeTest value="http://lang.whole.org/Models#AnyType"/>
                                         <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Name"/>
+                                        <queries:And initialCapacity="2">
                                         <queries:KindTest value="RESOLVER"/>
+                                        <queries:Every>
+                                        <queries:Path initialCapacity="4">
+                                        <queries:Filter>
+                                        <queries:AncestorStep/>
+                                        <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Pattern"/>
+                                        </queries:Filter>
+                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#template"/>
+                                        <queries:Filter>
+                                        <queries:DescendantStep/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:Or initialCapacity="2">
+                                        <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#SlotDeclaration"/>
+                                        <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Slot"/>
+                                        </queries:Or>
+                                        <queries:Some>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#name"/>
+                                        <queries:VariableTest value="slotName"/>
+                                        </queries:Filter>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
+                                        </queries:And>
+                                        </queries:Filter>
+                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#type"/>
+                                        </queries:Path>
+                                        <queries:KindTest value="RESOLVER"/>
+                                        </queries:Every>
+                                        </queries:And>
                                         </queries:Or>
                                         </queries:Filter>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -6650,7 +6684,13 @@
                 <semantics:AnyType/>
             </semantics:FunctionType>
             <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="5">
-                <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#name"/>
+                <queries:If>
+                    <queries:Some>
+                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#name"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </queries:Some>
+                    <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#name"/>
+                </queries:If>
                 <queries:If>
                     <queries:TypeTest value="http://lang.whole.org/Models#EntityType"/>
                     <semantics:FunctionApplication>
@@ -6687,7 +6727,10 @@
                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                     </semantics:FunctionApplication>
                 </queries:If>
-                <queries:SelfStep/>
+                <queries:If>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <queries:SelfStep/>
+                </queries:If>
             </queries:Choose>
         </semantics:SemanticFunction>
         <semantics:SemanticFunction>
