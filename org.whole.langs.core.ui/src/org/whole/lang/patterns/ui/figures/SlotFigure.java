@@ -48,8 +48,8 @@ public class SlotFigure extends ContentPaneFigure {
 		f2.addContentLight("slot");
 		baseFigure.add(f2);
 		baseFigure.add(createContentPane(3));
-		baseFigure.add(createContentPane(4));
 		add(baseFigure);
+		add(createContentPane(4));
 
 		clickFoldingToggle(0);
 	}
@@ -73,7 +73,7 @@ public class SlotFigure extends ContentPaneFigure {
 		Rectangle baseBounds = baseFigure.getBounds();
 
 		g.setBackgroundColor(FigureConstants.hostLanguageColor);
-		g.fillRectangle(baseBounds.x-1, bounds.y, baseBounds.width+2, bounds.height);
+		g.fillRectangle(baseBounds.x-1, bounds.y, b.width-(baseBounds.x-b.x), bounds.height);
 		g.setForegroundColor(ColorConstants.lightGray);
 		g.drawRectangle(b.x, b.y, b.width-1, b.height-1);
 	}
