@@ -270,6 +270,9 @@ public class SwiftSyntaxDefaultEntityRegistryConfiguration extends DefaultEntity
         prototype = ef.createEnumCaseElement();
         prototype.wSet(trailingComma, createToken(ef, TokenKindEnum.comma));
         er.put(prototype);
+        prototype = ef.createEnumCaseDecl();
+        prototype.wSet(caseKeyword, createToken(ef, TokenKindEnum.caseKeyword));
+        er.put(prototype);
         prototype = ef.createEnumDecl();
         prototype.wSet(enumKeyword, createToken(ef, TokenKindEnum.enumKeyword));
         er.put(prototype);
@@ -381,6 +384,9 @@ public class SwiftSyntaxDefaultEntityRegistryConfiguration extends DefaultEntity
         prototype.wSet(leftParen, createToken(ef, TokenKindEnum.leftParen));
         prototype.wSet(rightParen, createToken(ef, TokenKindEnum.rightParen));
         er.put(prototype);
+        prototype = ef.createMatchingPatternCondition();
+        prototype.wSet(caseKeyword, createToken(ef, TokenKindEnum.caseKeyword));
+        er.put(prototype);
         prototype = ef.createThrowStmt();
         prototype.wSet(throwKeyword, createToken(ef, TokenKindEnum.throwKeyword));
         er.put(prototype);
@@ -397,6 +403,7 @@ public class SwiftSyntaxDefaultEntityRegistryConfiguration extends DefaultEntity
         prototype.wSet(trailingComma, createToken(ef, TokenKindEnum.comma));
         er.put(prototype);
         prototype = ef.createSwitchCaseLabel();
+        prototype.wSet(caseKeyword, createToken(ef, TokenKindEnum.caseKeyword));
         prototype.wSet(colon, createToken(ef, TokenKindEnum.colon));
         er.put(prototype);
         prototype = ef.createCatchClause();
