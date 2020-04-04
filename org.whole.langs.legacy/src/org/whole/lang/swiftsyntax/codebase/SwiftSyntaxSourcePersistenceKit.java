@@ -62,10 +62,9 @@ public class SwiftSyntaxSourcePersistenceKit extends AbstractSpecificPersistence
 		return "UTF-8";
 	}
 
-	protected void streamToSwiftSyntaxSerializer(InputStream input, OutputStream output, boolean format) throws Exception {
+	protected void streamToSwiftSyntaxSerializer(InputStream input, OutputStream output, String mode) throws Exception {
 		ProcessBuilder processBuilder = new ProcessBuilder("/usr/local/bin/SwiftSyntaxSerializer");
-		if (format)
-			processBuilder.command().add("-f");
+		processBuilder.command().add(mode);
 		processBuilder.redirectErrorStream(true);
 		Process process = processBuilder.start();
 
@@ -96,12 +95,12 @@ public class SwiftSyntaxSourcePersistenceKit extends AbstractSpecificPersistence
 		writer.start();
 
 		if (process.waitFor() != 0)
-			throw new IllegalStateException("error during native SwiftSyntax serialization");
+			throw new IllegalStateException("Error during native SwiftSyntax serialization");
 	}
 
 	protected IEntity doReadModel(IPersistenceProvider pp) throws Exception {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		streamToSwiftSyntaxSerializer(pp.getInputStream(), baos, false);
+		streamToSwiftSyntaxSerializer(pp.getInputStream(), baos, "parse");
 		ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
 		return JSONLDPersistenceKit.instance().readModel(new StreamPersistenceProvider(bais));
 	}
@@ -110,6 +109,7 @@ public class SwiftSyntaxSourcePersistenceKit extends AbstractSpecificPersistence
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		JSONLDPersistenceKit.instance().writeModel(model, new StreamPersistenceProvider(baos));
 		ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
-		streamToSwiftSyntaxSerializer(bais, pp.getOutputStream(), pp.getBindings().wIsSet(FORMAT_PARAM) && pp.getBindings().wBooleanValue(FORMAT_PARAM));
+		streamToSwiftSyntaxSerializer(bais, pp.getOutputStream(),
+				pp.getBindings().wIsSet(FORMAT_PARAM) && pp.getBindings().wBooleanValue(FORMAT_PARAM) ? "format" : "unparse");
 	}
 }

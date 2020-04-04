@@ -885,15 +885,18 @@ public class SwiftSyntaxDefaultEntityRegistryConfiguration extends DefaultEntity
             throw new IllegalArgumentException("unknown token kind: " + value.getName());
         }
         Trivia[] trivia = createTrivia(ef, text);
-        return ef.createToken(ef.createTokenKind(value), ef.createSourcePresence(SourcePresenceEnum.present), ef.createTrivia(0), ef.createTrivia(0), text);
+        return ef.createToken(ef.createTokenKind(value), ef.createSourcePresence(SourcePresenceEnum.present), trivia[0], trivia[1], text);
     }
 
     public Trivia[] createTrivia(SwiftSyntaxEntityFactory ef, Text text) {
-        if (text.wGetEntityDescriptor().getDataKind().isString()) {
-            char[] chars = text.wStringValue().toCharArray();
-            if (chars.length > 0)
-                return new Trivia[]  {Character.isLetter(chars[0]) ? ef.createTrivia(ef.createTriviaPiece(" ")) : ef.createTrivia(0) , Character.isLetter(chars[chars.length - 1]) ? ef.createTrivia(ef.createTriviaPiece(" ")) : ef.createTrivia(0)};
-        }
-        return new Trivia[]  {ef.createTrivia(0) , ef.createTrivia(0)};
+        if (text.wGetEntityDescriptor().getDataKind().isString() && needTrivia(text.wStringValue()))
+        	return new Trivia[]  {ef.createTrivia(ef.createTriviaPiece(" ")), ef.createTrivia(ef.createTriviaPiece(" "))};
+        else
+        	return new Trivia[]  {ef.createTrivia(0) , ef.createTrivia(0)};
+    }
+
+    public static boolean needTrivia(String text) {
+        char[] chars = text.toCharArray();
+        return chars.length > 0 ? Character.isLetter(chars[0]) || Character.isLetter(chars[chars.length - 1]) : false;	
     }
 }
