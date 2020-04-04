@@ -3765,9 +3765,12 @@
                                     </queries:Some>
                                 </queries:Not>
                                 <queries:SubtypeTest value="whole:org.whole.lang.swift:SwiftModel#AbstractIdentifier"/>
-                                <queries:Or initialCapacity="2">
+                                <queries:Or initialCapacity="5">
                                     <queries:AtTypeTest value="whole:org.whole.lang.swift:SwiftModel#Expr"/>
+                                    <queries:AtTypeTest value="whole:org.whole.lang.swift:SwiftModel#AbstractCondition"/>
+                                    <queries:AtTypeTest value="whole:org.whole.lang.swift:SwiftModel#AbstractItem"/>
                                     <queries:AtTypeTest value="whole:org.whole.lang.swift:SwiftModel#AbstractRootExpr"/>
+                                    <queries:AtTypeTest value="whole:org.whole.lang.swift:SwiftModel#AbstractYields"/>
                                 </queries:Or>
                             </queries:And>
                             <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
