@@ -3938,8 +3938,12 @@
                                         <swiftsyntax:Token xmlns:swiftsyntax="whole:org.whole.lang.swiftsyntax:SwiftSyntaxModel">
                                         <swiftsyntax:TokenKind value="selfKeyword"/>
                                         <swiftsyntax:SourcePresence value="present"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
                                         <swiftsyntax:Text value="self"/>
                                         </swiftsyntax:Token>
                                     </commons:StageUpFragment>
@@ -3952,8 +3956,12 @@
                                         <swiftsyntax:Token xmlns:swiftsyntax="whole:org.whole.lang.swiftsyntax:SwiftSyntaxModel">
                                         <swiftsyntax:TokenKind value="capitalSelfKeyword"/>
                                         <swiftsyntax:SourcePresence value="present"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
                                         <swiftsyntax:Text value="Self"/>
                                         </swiftsyntax:Token>
                                     </commons:StageUpFragment>
@@ -3966,8 +3974,12 @@
                                 <swiftsyntax:Token xmlns:swiftsyntax="whole:org.whole.lang.swiftsyntax:SwiftSyntaxModel">
                                     <swiftsyntax:TokenKind value="throwsKeyword"/>
                                     <swiftsyntax:SourcePresence value="present"/>
-                                    <swiftsyntax:Trivia initialCapacity="0"/>
-                                    <swiftsyntax:Trivia initialCapacity="0"/>
+                                    <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                    </swiftsyntax:Trivia>
+                                    <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                    </swiftsyntax:Trivia>
                                     <swiftsyntax:Text value="throws"/>
                                 </swiftsyntax:Token>
                             </commons:StageUpFragment>
@@ -4126,8 +4138,12 @@
                                 <swiftsyntax:Token xmlns:swiftsyntax="whole:org.whole.lang.swiftsyntax:SwiftSyntaxModel">
                                     <swiftsyntax:TokenKind value="contextualKeyword"/>
                                     <swiftsyntax:SourcePresence value="present"/>
-                                    <swiftsyntax:Trivia initialCapacity="0"/>
-                                    <swiftsyntax:Trivia initialCapacity="0"/>
+                                    <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                    </swiftsyntax:Trivia>
+                                    <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                    </swiftsyntax:Trivia>
                                     <commons:StageDownFragment>
                                         <queries:SelfStep xmlns:queries="http://lang.whole.org/Queries"/>
                                     </commons:StageDownFragment>
@@ -4145,8 +4161,12 @@
                                         <swiftsyntax:Token xmlns:swiftsyntax="whole:org.whole.lang.swiftsyntax:SwiftSyntaxModel">
                                         <swiftsyntax:TokenKind value="poundColorLiteralKeyword"/>
                                         <swiftsyntax:SourcePresence value="present"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
                                         <swiftsyntax:Text value="#colorLiteral"/>
                                         </swiftsyntax:Token>
                                     </commons:StageUpFragment>
@@ -4159,8 +4179,12 @@
                                         <swiftsyntax:Token xmlns:swiftsyntax="whole:org.whole.lang.swiftsyntax:SwiftSyntaxModel">
                                         <swiftsyntax:TokenKind value="poundFileLiteralKeyword"/>
                                         <swiftsyntax:SourcePresence value="present"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
                                         <swiftsyntax:Text value="#fileLiteral"/>
                                         </swiftsyntax:Token>
                                     </commons:StageUpFragment>
@@ -4173,8 +4197,12 @@
                                         <swiftsyntax:Token xmlns:swiftsyntax="whole:org.whole.lang.swiftsyntax:SwiftSyntaxModel">
                                         <swiftsyntax:TokenKind value="poundImageLiteralKeyword"/>
                                         <swiftsyntax:SourcePresence value="present"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
                                         <swiftsyntax:Text value="#imageLiteral"/>
                                         </swiftsyntax:Token>
                                     </commons:StageUpFragment>
@@ -4192,8 +4220,12 @@
                                         <swiftsyntax:Token xmlns:swiftsyntax="whole:org.whole.lang.swiftsyntax:SwiftSyntaxModel">
                                         <swiftsyntax:TokenKind value="throwsKeyword"/>
                                         <swiftsyntax:SourcePresence value="present"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
                                         <swiftsyntax:Text value="throws"/>
                                         </swiftsyntax:Token>
                                     </commons:StageUpFragment>
@@ -4206,8 +4238,12 @@
                                         <swiftsyntax:Token xmlns:swiftsyntax="whole:org.whole.lang.swiftsyntax:SwiftSyntaxModel">
                                         <swiftsyntax:TokenKind value="rethrowsKeyword"/>
                                         <swiftsyntax:SourcePresence value="present"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
                                         <swiftsyntax:Text value="rethrows"/>
                                         </swiftsyntax:Token>
                                     </commons:StageUpFragment>
@@ -4225,8 +4261,12 @@
                                         <swiftsyntax:Token xmlns:swiftsyntax="whole:org.whole.lang.swiftsyntax:SwiftSyntaxModel">
                                         <swiftsyntax:TokenKind value="poundIfKeyword"/>
                                         <swiftsyntax:SourcePresence value="present"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
                                         <swiftsyntax:Text value="#if"/>
                                         </swiftsyntax:Token>
                                     </commons:StageUpFragment>
@@ -4239,8 +4279,12 @@
                                         <swiftsyntax:Token xmlns:swiftsyntax="whole:org.whole.lang.swiftsyntax:SwiftSyntaxModel">
                                         <swiftsyntax:TokenKind value="poundElseifKeyword"/>
                                         <swiftsyntax:SourcePresence value="present"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
                                         <swiftsyntax:Text value="#elseif"/>
                                         </swiftsyntax:Token>
                                     </commons:StageUpFragment>
@@ -4253,8 +4297,12 @@
                                         <swiftsyntax:Token xmlns:swiftsyntax="whole:org.whole.lang.swiftsyntax:SwiftSyntaxModel">
                                         <swiftsyntax:TokenKind value="poundElseKeyword"/>
                                         <swiftsyntax:SourcePresence value="present"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
                                         <swiftsyntax:Text value="#else"/>
                                         </swiftsyntax:Token>
                                     </commons:StageUpFragment>
@@ -4454,8 +4502,12 @@
                                         </queries:Choose>
                                     </commons:StageDownFragment>
                                     <swiftsyntax:SourcePresence value="present"/>
-                                    <swiftsyntax:Trivia initialCapacity="0"/>
-                                    <swiftsyntax:Trivia initialCapacity="0"/>
+                                    <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                    </swiftsyntax:Trivia>
+                                    <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                    </swiftsyntax:Trivia>
                                     <commons:StageDownFragment>
                                         <queries:SelfStep xmlns:queries="http://lang.whole.org/Queries"/>
                                     </commons:StageDownFragment>
@@ -4532,8 +4584,12 @@
                                         <swiftsyntax:Token xmlns:swiftsyntax="whole:org.whole.lang.swiftsyntax:SwiftSyntaxModel">
                                         <swiftsyntax:TokenKind value="typealiasKeyword"/>
                                         <swiftsyntax:SourcePresence value="present"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
                                         <swiftsyntax:Text value="typealias"/>
                                         </swiftsyntax:Token>
                                     </commons:StageUpFragment>
@@ -4546,8 +4602,12 @@
                                         <swiftsyntax:Token xmlns:swiftsyntax="whole:org.whole.lang.swiftsyntax:SwiftSyntaxModel">
                                         <swiftsyntax:TokenKind value="structKeyword"/>
                                         <swiftsyntax:SourcePresence value="present"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
                                         <swiftsyntax:Text value="struct"/>
                                         </swiftsyntax:Token>
                                     </commons:StageUpFragment>
@@ -4560,8 +4620,12 @@
                                         <swiftsyntax:Token xmlns:swiftsyntax="whole:org.whole.lang.swiftsyntax:SwiftSyntaxModel">
                                         <swiftsyntax:TokenKind value="classKeyword"/>
                                         <swiftsyntax:SourcePresence value="present"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
                                         <swiftsyntax:Text value="class"/>
                                         </swiftsyntax:Token>
                                     </commons:StageUpFragment>
@@ -4574,8 +4638,12 @@
                                         <swiftsyntax:Token xmlns:swiftsyntax="whole:org.whole.lang.swiftsyntax:SwiftSyntaxModel">
                                         <swiftsyntax:TokenKind value="enumKeyword"/>
                                         <swiftsyntax:SourcePresence value="present"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
                                         <swiftsyntax:Text value="enum"/>
                                         </swiftsyntax:Token>
                                     </commons:StageUpFragment>
@@ -4588,8 +4656,12 @@
                                         <swiftsyntax:Token xmlns:swiftsyntax="whole:org.whole.lang.swiftsyntax:SwiftSyntaxModel">
                                         <swiftsyntax:TokenKind value="protocolKeyword"/>
                                         <swiftsyntax:SourcePresence value="present"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
                                         <swiftsyntax:Text value="protocol"/>
                                         </swiftsyntax:Token>
                                     </commons:StageUpFragment>
@@ -4602,8 +4674,12 @@
                                         <swiftsyntax:Token xmlns:swiftsyntax="whole:org.whole.lang.swiftsyntax:SwiftSyntaxModel">
                                         <swiftsyntax:TokenKind value="varKeyword"/>
                                         <swiftsyntax:SourcePresence value="present"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
                                         <swiftsyntax:Text value="var"/>
                                         </swiftsyntax:Token>
                                     </commons:StageUpFragment>
@@ -4616,8 +4692,12 @@
                                         <swiftsyntax:Token xmlns:swiftsyntax="whole:org.whole.lang.swiftsyntax:SwiftSyntaxModel">
                                         <swiftsyntax:TokenKind value="letKeyword"/>
                                         <swiftsyntax:SourcePresence value="present"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
                                         <swiftsyntax:Text value="let"/>
                                         </swiftsyntax:Token>
                                     </commons:StageUpFragment>
@@ -4630,8 +4710,12 @@
                                         <swiftsyntax:Token xmlns:swiftsyntax="whole:org.whole.lang.swiftsyntax:SwiftSyntaxModel">
                                         <swiftsyntax:TokenKind value="funcKeyword"/>
                                         <swiftsyntax:SourcePresence value="present"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
                                         <swiftsyntax:Text value="func"/>
                                         </swiftsyntax:Token>
                                     </commons:StageUpFragment>
@@ -4743,8 +4827,12 @@
                                         </queries:Choose>
                                     </commons:StageDownFragment>
                                     <swiftsyntax:SourcePresence value="present"/>
-                                    <swiftsyntax:Trivia initialCapacity="0"/>
-                                    <swiftsyntax:Trivia initialCapacity="0"/>
+                                    <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                    </swiftsyntax:Trivia>
+                                    <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                    </swiftsyntax:Trivia>
                                     <commons:StageDownFragment>
                                         <queries:SelfStep xmlns:queries="http://lang.whole.org/Queries"/>
                                     </commons:StageDownFragment>
@@ -4762,8 +4850,12 @@
                                         <swiftsyntax:Token xmlns:swiftsyntax="whole:org.whole.lang.swiftsyntax:SwiftSyntaxModel">
                                         <swiftsyntax:TokenKind value="letKeyword"/>
                                         <swiftsyntax:SourcePresence value="present"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
                                         <swiftsyntax:Text value="let"/>
                                         </swiftsyntax:Token>
                                     </commons:StageUpFragment>
@@ -4776,8 +4868,12 @@
                                         <swiftsyntax:Token xmlns:swiftsyntax="whole:org.whole.lang.swiftsyntax:SwiftSyntaxModel">
                                         <swiftsyntax:TokenKind value="varKeyword"/>
                                         <swiftsyntax:SourcePresence value="present"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
                                         <swiftsyntax:Text value="var"/>
                                         </swiftsyntax:Token>
                                     </commons:StageUpFragment>
@@ -4790,8 +4886,12 @@
                                 <swiftsyntax:Token xmlns:swiftsyntax="whole:org.whole.lang.swiftsyntax:SwiftSyntaxModel">
                                     <swiftsyntax:TokenKind value="identifier"/>
                                     <swiftsyntax:SourcePresence value="present"/>
-                                    <swiftsyntax:Trivia initialCapacity="0"/>
-                                    <swiftsyntax:Trivia initialCapacity="0"/>
+                                    <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                    </swiftsyntax:Trivia>
+                                    <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                    </swiftsyntax:Trivia>
                                     <commons:StageDownFragment>
                                         <queries:SelfStep xmlns:queries="http://lang.whole.org/Queries"/>
                                     </commons:StageDownFragment>
@@ -4809,8 +4909,12 @@
                                         <swiftsyntax:Token xmlns:swiftsyntax="whole:org.whole.lang.swiftsyntax:SwiftSyntaxModel">
                                         <swiftsyntax:TokenKind value="trueKeyword"/>
                                         <swiftsyntax:SourcePresence value="present"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
                                         <swiftsyntax:Text value="true"/>
                                         </swiftsyntax:Token>
                                     </commons:StageUpFragment>
@@ -4823,8 +4927,12 @@
                                         <swiftsyntax:Token xmlns:swiftsyntax="whole:org.whole.lang.swiftsyntax:SwiftSyntaxModel">
                                         <swiftsyntax:TokenKind value="falseKeyword"/>
                                         <swiftsyntax:SourcePresence value="present"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
                                         <swiftsyntax:Text value="false"/>
                                         </swiftsyntax:Token>
                                     </commons:StageUpFragment>
@@ -4837,8 +4945,12 @@
                                 <swiftsyntax:Token xmlns:swiftsyntax="whole:org.whole.lang.swiftsyntax:SwiftSyntaxModel">
                                     <swiftsyntax:TokenKind value="identifier"/>
                                     <swiftsyntax:SourcePresence value="present"/>
-                                    <swiftsyntax:Trivia initialCapacity="0"/>
-                                    <swiftsyntax:Trivia initialCapacity="0"/>
+                                    <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                    </swiftsyntax:Trivia>
+                                    <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                    </swiftsyntax:Trivia>
                                     <commons:StageDownFragment>
                                         <queries:SelfStep xmlns:queries="http://lang.whole.org/Queries"/>
                                     </commons:StageDownFragment>
@@ -4851,8 +4963,12 @@
                                 <swiftsyntax:Token xmlns:swiftsyntax="whole:org.whole.lang.swiftsyntax:SwiftSyntaxModel">
                                     <swiftsyntax:TokenKind value="caseKeyword"/>
                                     <swiftsyntax:SourcePresence value="present"/>
-                                    <swiftsyntax:Trivia initialCapacity="0"/>
-                                    <swiftsyntax:Trivia initialCapacity="0"/>
+                                    <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                    </swiftsyntax:Trivia>
+                                    <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                    </swiftsyntax:Trivia>
                                     <swiftsyntax:Text value="case"/>
                                 </swiftsyntax:Token>
                             </commons:StageUpFragment>
@@ -4868,8 +4984,12 @@
                                         <swiftsyntax:Token xmlns:swiftsyntax="whole:org.whole.lang.swiftsyntax:SwiftSyntaxModel">
                                         <swiftsyntax:TokenKind value="capitalSelfKeyword"/>
                                         <swiftsyntax:SourcePresence value="present"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
                                         <swiftsyntax:Text value="Self"/>
                                         </swiftsyntax:Token>
                                     </commons:StageUpFragment>
@@ -4882,8 +5002,12 @@
                                         <swiftsyntax:Token xmlns:swiftsyntax="whole:org.whole.lang.swiftsyntax:SwiftSyntaxModel">
                                         <swiftsyntax:TokenKind value="anyKeyword"/>
                                         <swiftsyntax:SourcePresence value="present"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
                                         <swiftsyntax:Text value="Any"/>
                                         </swiftsyntax:Token>
                                     </commons:StageUpFragment>
@@ -4929,8 +5053,12 @@
                                 <swiftsyntax:Token xmlns:swiftsyntax="whole:org.whole.lang.swiftsyntax:SwiftSyntaxModel">
                                     <swiftsyntax:TokenKind value="identifier"/>
                                     <swiftsyntax:SourcePresence value="present"/>
-                                    <swiftsyntax:Trivia initialCapacity="0"/>
-                                    <swiftsyntax:Trivia initialCapacity="0"/>
+                                    <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                    </swiftsyntax:Trivia>
+                                    <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                    </swiftsyntax:Trivia>
                                     <commons:StageDownFragment>
                                         <queries:SelfStep xmlns:queries="http://lang.whole.org/Queries"/>
                                     </commons:StageDownFragment>
@@ -4943,8 +5071,12 @@
                                 <swiftsyntax:Token xmlns:swiftsyntax="whole:org.whole.lang.swiftsyntax:SwiftSyntaxModel">
                                     <swiftsyntax:TokenKind value="inoutKeyword"/>
                                     <swiftsyntax:SourcePresence value="present"/>
-                                    <swiftsyntax:Trivia initialCapacity="0"/>
-                                    <swiftsyntax:Trivia initialCapacity="0"/>
+                                    <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                    </swiftsyntax:Trivia>
+                                    <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                    </swiftsyntax:Trivia>
                                     <swiftsyntax:Text value="inout"/>
                                 </swiftsyntax:Token>
                             </commons:StageUpFragment>
@@ -4982,8 +5114,12 @@
                                         </queries:Choose>
                                     </commons:StageDownFragment>
                                     <swiftsyntax:SourcePresence value="present"/>
-                                    <swiftsyntax:Trivia initialCapacity="0"/>
-                                    <swiftsyntax:Trivia initialCapacity="0"/>
+                                    <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                    </swiftsyntax:Trivia>
+                                    <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                    </swiftsyntax:Trivia>
                                     <commons:StageDownFragment>
                                         <queries:SelfStep xmlns:queries="http://lang.whole.org/Queries"/>
                                     </commons:StageDownFragment>
@@ -4996,8 +5132,12 @@
                                 <swiftsyntax:Token xmlns:swiftsyntax="whole:org.whole.lang.swiftsyntax:SwiftSyntaxModel">
                                     <swiftsyntax:TokenKind value="selfKeyword"/>
                                     <swiftsyntax:SourcePresence value="present"/>
-                                    <swiftsyntax:Trivia initialCapacity="0"/>
-                                    <swiftsyntax:Trivia initialCapacity="0"/>
+                                    <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                    </swiftsyntax:Trivia>
+                                    <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                    </swiftsyntax:Trivia>
                                     <swiftsyntax:Text value="self"/>
                                 </swiftsyntax:Token>
                             </commons:StageUpFragment>
@@ -5264,8 +5404,12 @@
                                         <swiftsyntax:Token>
                                         <swiftsyntax:TokenKind value="identifier"/>
                                         <swiftsyntax:SourcePresence value="present"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
                                         <swiftsyntax:Text value="weak"/>
                                         </swiftsyntax:Token>
                                         </swiftsyntax:TokenList>
@@ -5280,7 +5424,9 @@
                                         <swiftsyntax:Token>
                                         <swiftsyntax:TokenKind value="identifier"/>
                                         <swiftsyntax:SourcePresence value="present"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
                                         <swiftsyntax:Trivia initialCapacity="0"/>
                                         <swiftsyntax:Text value="unowned"/>
                                         </swiftsyntax:Token>
@@ -5317,7 +5463,9 @@
                                         <swiftsyntax:Token>
                                         <swiftsyntax:TokenKind value="identifier"/>
                                         <swiftsyntax:SourcePresence value="present"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
                                         <swiftsyntax:Trivia initialCapacity="0"/>
                                         <swiftsyntax:Text value="unowned"/>
                                         </swiftsyntax:Token>
@@ -5354,8 +5502,12 @@
                                         <swiftsyntax:Token>
                                         <swiftsyntax:TokenKind value="identifier"/>
                                         <swiftsyntax:SourcePresence value="present"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
-                                        <swiftsyntax:Trivia initialCapacity="0"/>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
+                                        <swiftsyntax:Trivia initialCapacity="1">
+                                        <swiftsyntax:TriviaPiece value=" "/>
+                                        </swiftsyntax:Trivia>
                                         <swiftsyntax:Text value="unowned"/>
                                         </swiftsyntax:Token>
                                         </swiftsyntax:TokenList>
