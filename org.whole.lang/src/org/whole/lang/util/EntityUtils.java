@@ -488,6 +488,9 @@ public class EntityUtils {
 	}
 
 	public static String getLocation(IEntity entity) {
+		return getLocation(entity, false);
+	}
+	public static String getLocation(IEntity entity, boolean compactMode) {
 		StringBuffer path = new StringBuffer();
 		if (entity != null) {
 			IEntity parent = null;
@@ -500,7 +503,7 @@ public class EntityUtils {
 			for (IEntity child = firstEntity; child != null; child = executable.evaluateNext()) {
 				if (parent != null) {
 					path.append('/');
-					if (EntityUtils.isSimple(parent))
+					if (!compactMode && EntityUtils.isSimple(parent))
 						path.append(parent.wGetFeatureDescriptor(child).getName());
 					else
 						path.append(parent.wIndexOf(child));

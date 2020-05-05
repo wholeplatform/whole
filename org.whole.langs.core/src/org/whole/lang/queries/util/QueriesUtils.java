@@ -38,6 +38,9 @@ import org.whole.lang.util.EntityUtils;
  */
 public class QueriesUtils {
 	public static Path createRootPath(IEntity entity) {
+		return createRootPath(entity, false);
+	}
+	public static Path createRootPath(IEntity entity, boolean compactMode) {
 		QueriesEntityFactory qef = QueriesEntityFactory.instance;
 		Path path = qef.createPath(0);
 		IEntity parent = null;
@@ -49,7 +52,7 @@ public class QueriesUtils {
 			firstChild = executable.evaluateNext();
 		for (IEntity child = firstChild; child != null; child = executable.evaluateNext()) {
 			if (parent != null)
-				path.wAdd(EntityUtils.isSimple(parent) ?
+				path.wAdd(!compactMode && EntityUtils.isSimple(parent) ?
 						qef.createFeatureStep(CommonsDataTypePersistenceParser.unparseFeatureDescriptor(parent.wGetFeatureDescriptor(child))) :
 							qef.createFilter(qef.createChildStep(), qef.createIndexTest(
 									qef.createIntLiteral(parent.wIndexOf(child)))));
