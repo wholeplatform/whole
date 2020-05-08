@@ -18,6 +18,7 @@
 package org.whole.lang.util;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -537,6 +538,44 @@ public class EntityUtils {
 		}
 		return result;
 	}
+	public static IEntity getEntityParent(IEntity rootEntity, String location) {
+		String parentLocation = stripLocationSteps(location, 0, 1);
+		return getEntity(rootEntity, parentLocation);
+	}
+
+	public static boolean isValidLocation(IEntity rootEntity, String location) {
+		return getEntity(rootEntity, location) != null;
+	}
+	public static boolean isNewLocation(IEntity rootEntity, String location) {
+		IEntity parentEntity = getEntityParent(rootEntity, location);
+		if (parentEntity == null)
+			return false;
+
+		String lastStep = locationLastStep(location);
+		try {
+			return parentEntity.wSize() <= Integer.parseInt(lastStep);
+		} catch (NumberFormatException e) {
+			return false;
+		}				
+	}
+
+	public static String stripLocationSteps(String location, int leadingSteps, int trailingSteps) {
+		String substring = location.substring(1);
+		String[] steps = substring.split("/");
+		String[] newSteps = Arrays.copyOfRange(steps, leadingSteps, steps.length-trailingSteps);
+		StringBuilder locationBuilder = new StringBuilder();
+		for (String step : newSteps) {
+			locationBuilder.append('/');
+			locationBuilder.append(step);
+		}
+		return locationBuilder.toString();
+	}
+	public static String locationLastStep(String location) {
+		int index = location.lastIndexOf('/');
+		return index > 0 && index < location.length()-1 ? location.substring(index+1) : "";
+	}
+
+
 	public static IEntity mapEntity(IEntity entity, IEntity toModel) {
 		return getEntity(toModel, getLocation(entity));
 	}
