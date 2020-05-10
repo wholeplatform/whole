@@ -18,11 +18,13 @@
 package org.whole.lang.workflows.ui.dialogs;
 
 import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.jobs.RunnableWithResult;
 import org.whole.lang.e4.ui.util.E4Utils;
+import org.whole.lang.operations.OperationCanceledException;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
 import org.whole.lang.workflows.model.Assignments;
 
@@ -33,15 +35,21 @@ public class TaskDialogHelper {
 	public static boolean showTaskDialog(ITaskDialogFactory factory, String title, String message, 
 			Assignments assignments, IBindingManager bindings) {
 		
-		RunnableWithResult<Boolean> runnable = RunnableWithResult.create(() -> {
+		RunnableWithResult<Integer> runnable = RunnableWithResult.create(() -> {
 			Shell activeShell = Display.getCurrent().getActiveShell();
 			if (bindings.wIsSet("viewer"))
 				activeShell = ((IEntityPartViewer) bindings.wGetValue("viewer")).getControl().getShell();
 			Dialog dialog = factory.createDialog(activeShell, title,
 					message, assignments, bindings);
 
-			return dialog.open() == Dialog.OK; 
+			
+			return dialog.open();
 		});
-		return E4Utils.syncExec(bindings, runnable).get();
+		int returnCode = E4Utils.syncExec(bindings, runnable).get();
+
+		if (returnCode == IDialogConstants.STOP_ID)
+			throw new OperationCanceledException();
+
+		return returnCode == Dialog.OK;
 	}
 }

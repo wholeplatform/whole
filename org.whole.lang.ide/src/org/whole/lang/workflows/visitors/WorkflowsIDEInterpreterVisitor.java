@@ -62,6 +62,7 @@ import org.whole.lang.workflows.ui.dialogs.AssignmentsDialogFactory;
 import org.whole.lang.workflows.ui.dialogs.ChangeValueDialogFactory;
 import org.whole.lang.workflows.ui.dialogs.ConfirmationDialogFactory;
 import org.whole.lang.workflows.ui.dialogs.ITaskDialogFactory;
+import org.whole.lang.workflows.ui.dialogs.ModelDrivenDialogFactory;
 import org.whole.lang.workflows.ui.dialogs.TaskDialogHelper;
 
 /**
@@ -83,7 +84,9 @@ public class WorkflowsIDEInterpreterVisitor extends WorkflowsInterpreterVisitor 
 			factoryVariable.accept(this);
 			factory = (ITaskDialogFactory) getResultValue();
 		} else if (EntityUtils.isNotResolver(assignments)) {
-			if (assignments.wSize() == 1 && EntityUtils.isData(assignments.get(0).getExpression()))
+			if (assignments.wSize() == 1 && assignments.get(0).getName().toString().equals("dialogContent"))
+				factory = ModelDrivenDialogFactory.instance();
+			else if (assignments.wSize() == 1 && EntityUtils.isData(assignments.get(0).getExpression()))
 				factory = ChangeValueDialogFactory.instance();
 			else
 				factory = AssignmentsDialogFactory.instance();
@@ -96,9 +99,11 @@ public class WorkflowsIDEInterpreterVisitor extends WorkflowsInterpreterVisitor 
 		} else
 			assignments = WorkflowsEntityFactory.instance.createAssignments(0);
 
-		boolean result = TaskDialogHelper.showTaskDialog(factory, title, description, assignments, getBindings());
-		if (result)
+		boolean result = TaskDialogHelper.showTaskDialog(factory, title, description, assignments, getBindings());		
+
+		if (result && EntityUtils.isNotResolver(assignments))
 			assignments.accept(this);
+
 		setResult(BindingManagerFactory.instance.createValue(result));
 	}
 
