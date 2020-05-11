@@ -60,6 +60,7 @@ public class PlatformLibraryClasspathContainer implements IClasspathContainer {
 		bundles.add("javax.servlet");
 		bundles.add("javax.websocket");
 		bundles.add("javax.ws.rs");
+		bundles.add("io.netty");
 		bundles.add("net.sourceforge.jodatime");
 		bundles.add("nu.validator.htmlparser");
 		bundles.add("org.antlr.runtime");

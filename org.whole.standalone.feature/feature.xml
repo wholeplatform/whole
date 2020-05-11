@@ -32,6 +32,10 @@
          version="0.0.0"/>
 
    <includes
+         id="io.netty"
+         version="0.0.0"/>
+
+   <includes
          id="net.sourceforge.jodatime"
          version="0.0.0"/>
 

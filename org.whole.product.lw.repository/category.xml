@@ -116,6 +116,9 @@
     <feature id="org.eclipse.jgit">
         <category name="whole-enabling-features"/>
     </feature>
+    <feature id="io.netty">
+        <category name="whole-enabling-features"/>
+    </feature>
     <feature id="net.sourceforge.jodatime">
         <category name="whole-enabling-features"/>
     </feature>
