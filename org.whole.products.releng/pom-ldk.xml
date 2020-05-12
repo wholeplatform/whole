@@ -41,6 +41,11 @@
 				<version>${asm-version}</version>
 			</dependency>
 			<dependency>
+				<groupId>io.netty</groupId>
+				<artifactId>netty-all</artifactId>
+				<version>${netty-version}</version>
+			</dependency>
+			<dependency>
 				<groupId>joda-time</groupId>
 				<artifactId>joda-time</artifactId>
 				<version>${joda-time-version}</version>
@@ -80,6 +85,7 @@
 		<h2-version>1.2.147</h2-version>
 		<bsh-version>2.0b5</bsh-version>
 		<asm-version>3.2</asm-version>
+		<netty-version>4.1.49.Final</netty-version>
 		<joda-time-version>1.6.2</joda-time-version>
 		<rhino-version>1.7.6</rhino-version>
 		<jackson-version>2.3.1</jackson-version>

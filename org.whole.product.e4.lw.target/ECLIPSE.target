@@ -26,6 +26,7 @@
             <unit id="org.beanshell.bsh.feature.group" version="0.0.0"/>
             <unit id="org.h2.feature.group" version="0.0.0"/>
             <unit id="com.fasterxml.jackson.core.jackson-core.feature.group" version="0.0.0"/>
+            <unit id="io.netty.feature.group" version="0.0.0"/>
             <unit id="net.sourceforge.jodatime.feature.group" version="0.0.0"/>
             <unit id="org.mozilla.rhino.feature.group" version="0.0.0"/>
             <unit id="nu.validator.htmlparser.feature.group" version="0.0.0"/>
