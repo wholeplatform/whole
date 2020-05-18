@@ -17,9 +17,6 @@
  */
 package org.whole.lang.e4.ui.compatibility;
 
-import static org.whole.lang.e4.ui.actions.IE4UIConstants.REDO_LABEL;
-import static org.whole.lang.e4.ui.actions.IE4UIConstants.UNDO_LABEL;
-
 import org.eclipse.e4.tools.compat.parts.DIViewPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.gef.GraphicalViewer;
@@ -32,6 +29,7 @@ import org.eclipse.ui.actions.ActionFactory;
 import org.whole.lang.e4.ui.actions.RedoAction;
 import org.whole.lang.e4.ui.actions.UndoAction;
 import org.whole.lang.e4.ui.parts.AbstractE4Part;
+import org.whole.lang.ui.util.WholeUIMessages;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
 
 /**
@@ -54,10 +52,10 @@ public class ViewPart<C extends AbstractE4Part> extends DIViewPart<C> {
 
 		getContext().get(MPart.class).setElementId(partId);
 
-		undoAction = new UndoAction(getContext(), UNDO_LABEL);
+		undoAction = new UndoAction(getContext(), WholeUIMessages.edit_undo);
 		undoAction.update();
 
-		redoAction = new RedoAction(getContext(), REDO_LABEL);
+		redoAction = new RedoAction(getContext(), WholeUIMessages.edit_redo);
 		redoAction.update();
 	}
 

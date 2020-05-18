@@ -18,7 +18,6 @@
 package org.whole.lang.e4.ui.actions;
 
 import java.net.URL;
-import java.util.Collections;
 import java.util.Map;
 
 import org.eclipse.core.commands.ParameterizedCommand;
@@ -26,13 +25,9 @@ import org.eclipse.e4.core.commands.ECommandService;
 import org.eclipse.e4.core.commands.EHandlerService;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.bindings.EBindingService;
-import org.eclipse.e4.ui.model.application.MApplication;
-import org.eclipse.e4.ui.model.application.ui.menu.MHandledMenuItem;
-import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.bindings.TriggerSequence;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.whole.lang.e4.ui.util.E4Utils;
 
 /**
  * @author Enrico Persiani
@@ -41,27 +36,6 @@ public class E4ActionAdapter extends AbstractE4Action {
 	protected String commandId;
 	protected Map<String, Object> parameters;
 
-	public E4ActionAdapter(IEclipseContext context, String handledMenuId) {
-		super(context);
-		this.parameters = Collections.emptyMap();
-		
-		MHandledMenuItem menu =  E4Utils.findMenu(handledMenuId, context.get(EModelService.class), context.get(MApplication.class), MHandledMenuItem.class);
-		setId(this.commandId = menu.getCommand().getElementId());
-		
-		String label = menu.getLocalizedLabel();
-		TriggerSequence sequence = getTriggerSequence();
-		if (sequence != null)
-			setText(label+'\t'+sequence.format());
-		else
-			setText(label);
-		
-		try {
-			String iconURI = menu.getIconURI();
-			if (iconURI != null)
-				setImageDescriptor(ImageDescriptor.createFromURL(new URL(iconURI)));
-		} catch (Exception e) {
-		}
-	}
 	public E4ActionAdapter(IEclipseContext context, String label, String iconURI, String commandId, Map<String, Object> parameters, int style) {
 		super(context, label, style);
 		initialize(iconURI, commandId, parameters);

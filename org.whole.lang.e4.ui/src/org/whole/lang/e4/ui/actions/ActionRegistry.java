@@ -33,7 +33,6 @@ import org.eclipse.e4.core.commands.ECommandService;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.bindings.EBindingService;
 import org.eclipse.e4.ui.model.application.MApplication;
-import org.eclipse.e4.ui.model.application.ui.menu.MHandledMenuItem;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.gef.Disposable;
 import org.eclipse.jface.action.IAction;
@@ -50,6 +49,7 @@ import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.ui.actions.IUpdatableAction;
 import org.whole.lang.ui.editor.IGEFEditorKit;
 import org.whole.lang.ui.keys.AbstractKeyHandler;
+import org.whole.lang.ui.util.WholeUIMessages;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
 import org.whole.lang.util.StringUtils;
 
@@ -74,21 +74,22 @@ public class ActionRegistry {
 
 	@PostConstruct
 	protected void registerBaseActions() {
+		EModelService modelService = context.get(EModelService.class);
+		MApplication application = context.get(MApplication.class);
+
 		actionFactory = new ActionFactory(context);
 
 		registerAction(actionFactory.createUndoAction());
 		registerAction(actionFactory.createRedoAction());
-		registerAction(actionFactory.createE4ActionAdapter(CUT_MENU_ID));
-		registerAction(actionFactory.createE4ActionAdapter(COPY_MENU_ID));
-		registerAction(actionFactory.createE4ActionAdapter(PASTE_MENU_ID));
-		registerAction(actionFactory.createE4ActionAdapter(DELETE_MENU_ID));
-		registerAction(actionFactory.createE4ActionAdapter(SELECT_ALL_MENU_ID));
+		registerAction(actionFactory.createE4ActionAdapter(WholeUIMessages.edit_cut, IE4UIConstants.CUT_ICON_URI, EDIT_CUT, Collections.<String, Object>emptyMap()));
+		registerAction(actionFactory.createE4ActionAdapter(WholeUIMessages.edit_copy, IE4UIConstants.COPY_ICON_URI, EDIT_COPY, Collections.<String, Object>emptyMap()));
+		registerAction(actionFactory.createE4ActionAdapter(WholeUIMessages.edit_paste, IE4UIConstants.PASTE_ICON_URI, EDIT_PASTE, Collections.<String, Object>emptyMap()));
+		registerAction(actionFactory.createE4ActionAdapter(WholeUIMessages.edit_delete, IE4UIConstants.DELETE_ICON_URI, EDIT_DELETE, Collections.<String, Object>emptyMap()));
+		registerAction(actionFactory.createE4ActionAdapter(WholeUIMessages.edit_selectAll, null, EDIT_SELECT_ALL, Collections.<String, Object>emptyMap()));
 
-		String copyIconURI = E4Utils.findMenu(COPY_MENU_ID, context.get(EModelService.class), context.get(MApplication.class), MHandledMenuItem.class).getIconURI();
-		String pasteIconURI = E4Utils.findMenu(PASTE_MENU_ID, context.get(EModelService.class), context.get(MApplication.class), MHandledMenuItem.class).getIconURI();
-		registerAction(actionFactory.createE4ActionAdapter(COPY_ENTITY_PATH_LABEL, copyIconURI, COPY_ENTITY_PATH_COMMAND_ID, Collections.<String, Object>emptyMap()));
-		registerAction(actionFactory.createE4ActionAdapter(COPY_AS_IMAGE_LABEL, copyIconURI, COPY_AS_IMAGE_COMMAND_ID, Collections.<String, Object>emptyMap()));
-		registerAction(actionFactory.createE4ActionAdapter(PASTE_AS_LABEL, pasteIconURI, PASTE_AS_COMMAND_ID, Collections.<String, Object>emptyMap()));
+		registerAction(actionFactory.createE4ActionAdapter(COPY_ENTITY_PATH_LABEL, IE4UIConstants.COPY_ICON_URI, COPY_ENTITY_PATH_COMMAND_ID, Collections.<String, Object>emptyMap()));
+		registerAction(actionFactory.createE4ActionAdapter(COPY_AS_IMAGE_LABEL, IE4UIConstants.COPY_ICON_URI, COPY_AS_IMAGE_COMMAND_ID, Collections.<String, Object>emptyMap()));
+		registerAction(actionFactory.createE4ActionAdapter(PASTE_AS_LABEL, IE4UIConstants.PASTE_ICON_URI, PASTE_AS_COMMAND_ID, Collections.<String, Object>emptyMap()));
 		registerAction(actionFactory.createE4ActionAdapter(DEFAULT_LABEL, REPLACE_ICON_URI, REPLACE_WITH_DEFAULT_COMMAND_ID, Collections.<String, Object>emptyMap()));
 		registerAction(actionFactory.createE4ActionAdapter(IMPORT_LABEL, IMPORT_ICON_URI, IMPORT_COMMAND_ID, Collections.<String, Object>emptyMap()));
 	}

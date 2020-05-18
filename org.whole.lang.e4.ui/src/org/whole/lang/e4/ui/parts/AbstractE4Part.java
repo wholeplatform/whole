@@ -196,6 +196,7 @@ public abstract class AbstractE4Part {
 					if (!getViewer().getEditDomain().isDisabled())
 						contextMenuProvider.populate(menuManager);
 				} catch (Exception e) {
+					E4Utils.reportError(context, "Context Menu Error", "Error while configuring context menu", e);
 					getMenu().setVisible(false);
 				}
 			}

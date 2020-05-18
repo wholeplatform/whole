@@ -37,15 +37,11 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.di.UISynchronize;
 import org.eclipse.e4.ui.model.application.MApplication;
-import org.eclipse.e4.ui.model.application.commands.MBindingTable;
 import org.eclipse.e4.ui.model.application.commands.MCommand;
-import org.eclipse.e4.ui.model.application.commands.MKeyBinding;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
-import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenu;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenuElement;
 import org.eclipse.e4.ui.services.IServiceConstants;
-import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService.PartState;
 import org.eclipse.jface.bindings.keys.IKeyLookup;
@@ -166,27 +162,6 @@ public class E4Utils {
 				if ((menuElement = findMenu(elementId, menuElement)) != null)
 					return menuElement;
 			}
-		}
-		return null;
-	}
-
-	@SuppressWarnings("unchecked")
-	public static <T> T findMenu(String elementId, EModelService modelService, MApplication application, Class<T> type) {
-		for (MWindow window : modelService.findElements(application, null, MWindow.class, null)) {
-			MMenu mainMenu = window.getMainMenu();
-			if (mainMenu == null)
-				continue;
-			MMenuElement menuElement = findMenu(elementId, mainMenu);
-			if (menuElement != null)
-				return (T) menuElement;
-		}
-		return null;
-	}
-	public static MKeyBinding findKeyBinding(String commandId, MApplication application) {
-		for (MBindingTable bindingTable : application.getBindingTables()) {
-			for (MKeyBinding keyBinding : bindingTable.getBindings())
-				if (commandId.equals(keyBinding.getCommand().getElementId()))
-					return keyBinding;
 		}
 		return null;
 	}

@@ -17,8 +17,6 @@
  */
 package org.whole.lang.e4.ui.compatibility;
 
-import static org.whole.lang.e4.ui.actions.IE4UIConstants.*;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -59,6 +57,7 @@ import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.ui.input.IModelInput;
+import org.whole.lang.ui.util.WholeUIMessages;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
 import org.whole.lang.util.EntityUtils;
 import org.whole.lang.util.StringUtils;
@@ -95,10 +94,10 @@ public class EditorPart extends DIEditorPart<E4GraphicalPart> implements IPersis
 			}
 		});
 
-		undoAction = new UndoAction(getContext(), UNDO_LABEL);
+		undoAction = new UndoAction(getContext(), WholeUIMessages.edit_undo);
 		undoAction.update();
 
-		redoAction = new RedoAction(getContext(), REDO_LABEL);
+		redoAction = new RedoAction(getContext(), WholeUIMessages.edit_redo);
 		redoAction.update();
 
 		if (getEditorInput() instanceof IFileEditorInput) {

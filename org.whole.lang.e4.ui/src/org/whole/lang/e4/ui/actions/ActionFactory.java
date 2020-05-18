@@ -27,6 +27,7 @@ import org.whole.lang.codebase.StringPersistenceProvider;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.ui.actions.IUpdatableAction;
+import org.whole.lang.ui.util.WholeUIMessages;
 
 /**
  * @author Enrico Persiani
@@ -101,9 +102,6 @@ public class ActionFactory {
 		return new DirectEditAction(context);
 	}
 
-	public E4ActionAdapter createE4ActionAdapter(String handledMenuId) {
-		return new E4ActionAdapter(context, handledMenuId);
-	}
 	public E4ActionAdapter createE4ActionAdapter(String label, String iconURI, String commandId, Map<String, Object> parameters) {
 		return new E4ActionAdapter(context, label, iconURI, commandId, parameters);
 	}
@@ -111,9 +109,9 @@ public class ActionFactory {
 		return new E4ActionAdapter(context, label, iconURI, commandId, parameters, style);
 	}
 	public RedoAction createRedoAction() {
-		return new RedoAction(context, REDO_LABEL, REDO_ICON_URI);
+		return new RedoAction(context, WholeUIMessages.edit_redo, REDO_ICON_URI);
 	}
 	public UndoAction createUndoAction() {
-		return new UndoAction(context, UNDO_LABEL, UNDO_ICON_URI);
+		return new UndoAction(context, WholeUIMessages.edit_undo, UNDO_ICON_URI);
 	}
 }

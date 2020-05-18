@@ -128,8 +128,13 @@ public interface IE4UIConstants {
 	public static final String SELECT_ALL_MENU_ID = "selectAll";
 
 	// icon uris
-	public static final String UNDO_ICON_URI = E4Utils.createPlatformPuginURI("icons/actions/undo_edit.gif");
-	public static final String REDO_ICON_URI = E4Utils.createPlatformPuginURI("icons/actions/redo_edit.gif");
+	public static final String UNDO_ICON_URI = E4Utils.createPlatformPuginURI("icons/etool16/undo_edit.png");
+	public static final String REDO_ICON_URI = E4Utils.createPlatformPuginURI("icons/etool16/redo_edit.png");
+	public static final String CUT_ICON_URI = E4Utils.createPlatformPuginURI("icons/etool16/cut_edit.png");
+	public static final String COPY_ICON_URI = E4Utils.createPlatformPuginURI("icons/etool16/copy_edit.png");
+	public static final String PASTE_ICON_URI = E4Utils.createPlatformPuginURI("icons/etool16/paste_edit.png");
+	public static final String DELETE_ICON_URI = E4Utils.createPlatformPuginURI("icons/etool16/delete_edit.png");
+
 	public static final String REPLACE_ICON_URI = E4Utils.createPlatformPuginURI("icons/actions/replace.gif");
 	public static final String ADD_ICON_URI = E4Utils.createPlatformPuginURI("icons/actions/insert.gif");
 	public static final String WRAP_ICON_URI = E4Utils.createPlatformPuginURI("icons/actions/wrap.gif");
@@ -149,8 +154,6 @@ public interface IE4UIConstants {
 	public static final String DEBUG_TERMINATE_URI = E4Utils.createPlatformPuginURI("icons/actions/terminate.gif");
 
 	// labels
-	public static final String UNDO_LABEL = "Undo";
-	public static final String REDO_LABEL = "Redo";
 	public static final String COPY_ENTITY_PATH_LABEL = "Copy Entity Path";
 	public static final String COPY_AS_IMAGE_LABEL = "Copy As Image";
 	public static final String PASTE_AS_LABEL = "Paste As";
