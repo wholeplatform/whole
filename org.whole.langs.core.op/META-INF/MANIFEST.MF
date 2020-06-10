@@ -8,9 +8,10 @@ Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Export-Package: org.whole.lang,
  org.whole.lang.actions,
- org.whole.lang.editors.visitors,
  org.whole.lang.changes,
  org.whole.lang.comparisons,
+ org.whole.lang.editors.visitors,
+ org.whole.lang.events.util,
  org.whole.lang.frames,
  org.whole.lang.frames.util,
  org.whole.lang.frames.visitors,
@@ -37,6 +38,7 @@ Export-Package: org.whole.lang,
 Require-Bundle: org.whole.lang,
  org.whole.langs.core,
  org.whole.langs.legacy,
+ io.netty;visibility:=reexport,
  org.junit
 Bundle-ActivationPolicy: lazy
 Eclipse-RegisterBuddy: org.whole.lang

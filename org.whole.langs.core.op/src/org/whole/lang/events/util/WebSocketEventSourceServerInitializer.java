@@ -1,0 +1,52 @@
+/**
+ * Copyright 2004-2019 Riccardo Solmi. All rights reserved.
+ * This file is part of the Whole Platform.
+ *
+ * The Whole Platform is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * The Whole Platform is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
+ */
+package org.whole.lang.events.util;
+
+import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelPipeline;
+import io.netty.channel.socket.SocketChannel;
+import io.netty.handler.codec.http.HttpObjectAggregator;
+import io.netty.handler.codec.http.HttpServerCodec;
+import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
+import io.netty.handler.codec.http.websocketx.extensions.compression.WebSocketServerCompressionHandler;
+import io.netty.handler.ssl.SslContext;
+
+/**
+ * @author Riccardo Solmi
+ */
+public class WebSocketEventSourceServerInitializer extends ChannelInitializer<SocketChannel> {
+    private static final String WEBSOCKET_PATH = "/websocket";
+    private final SslContext sslCtx;
+
+    public WebSocketEventSourceServerInitializer(SslContext sslCtx) {
+        this.sslCtx = sslCtx;
+    }
+
+    @Override
+    public void initChannel(SocketChannel ch) throws Exception {
+        ChannelPipeline pipeline = ch.pipeline();
+        if (sslCtx != null) {
+            pipeline.addLast(sslCtx.newHandler(ch.alloc()));
+        }
+        pipeline.addLast(new HttpServerCodec());
+        pipeline.addLast(new HttpObjectAggregator(65536));
+        pipeline.addLast(new WebSocketServerCompressionHandler());
+        pipeline.addLast(new WebSocketServerProtocolHandler(WEBSOCKET_PATH, null, true));
+        pipeline.addLast(new WebSocketEventSourceServerHandler());
+    }
+}
