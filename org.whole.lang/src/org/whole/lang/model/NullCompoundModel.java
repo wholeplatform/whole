@@ -24,7 +24,9 @@ import java.util.List;
 
 import org.whole.lang.commands.ICommand;
 import org.whole.lang.commands.NullCommand;
+import org.whole.lang.events.EventSourceManager;
 import org.whole.lang.events.IChangeEventHandler;
+import org.whole.lang.events.IEventSourceManager;
 import org.whole.lang.events.IPropertyChangeObserver;
 import org.whole.lang.events.IRequestEventHandler;
 import org.whole.lang.events.IdentityChangeEventHandler;
@@ -36,7 +38,7 @@ import org.whole.lang.util.WholeMessages;
 /**
  * @author Riccardo Solmi
  */
-public class NullCompoundModel implements ICompoundModel, Serializable, IHistoryManager {
+public class NullCompoundModel implements ICompoundModel, Serializable, IHistoryManager, IEventSourceManager {
 	private static final long serialVersionUID = 1L;
 	public static final NullCompoundModel instance = new NullCompoundModel();
 	public NullCompoundModel() {
@@ -70,11 +72,23 @@ public class NullCompoundModel implements ICompoundModel, Serializable, IHistory
 		throw new IllegalStateException(WholeMessages.null_model);
 	}
 
+	public IEventSourceManager getEventSourceManager() {
+		return this;
+	}
+	public void setEventSourceManager(IEventSourceManager eventSourceManager) {
+		throw new IllegalStateException(WholeMessages.null_model);
+	}
+	public IEntity getEventSource() {
+		return EventSourceManager.createCompoundEvent();
+	}
+	public void addEvent(IEntity event) {
+	}
+
 	public IHistoryManager getHistoryManager() {
     	return this;
     }
 	public void setHistoryManager(IHistoryManager historyManager, boolean mergeHistory) {
-		throw new IllegalStateException(WholeMessages.null_model);		
+		throw new IllegalStateException(WholeMessages.null_model);	
 	}
 
 	public IChangeEventHandler getPropertyChangeEventHandler() {

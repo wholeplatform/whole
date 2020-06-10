@@ -42,6 +42,7 @@ import org.whole.lang.codebase.PrettyPrintPersistenceKit;
 import org.whole.lang.contexts.EntityContext;
 import org.whole.lang.contexts.IEntityContext;
 import org.whole.lang.events.IChangeEventHandler;
+import org.whole.lang.events.IEventSourceManager;
 import org.whole.lang.executables.ExecutableFactory;
 import org.whole.lang.executables.IExecutable;
 import org.whole.lang.lifecycle.IHistoryManager;
@@ -525,6 +526,9 @@ public class ReflectionFactory {
         return MetaModelMapperOperation.getMetaEntity(entity);
     }
 
+    public static IEventSourceManager getEventSourceManager(IEntity entity) {
+    	return entity.wGetModel().getCompoundModel().getEventSourceManager();
+    }
     public static IHistoryManager getHistoryManager(IEntity entity) {
     	return entity.wGetModel().getCompoundModel().getHistoryManager();
     }

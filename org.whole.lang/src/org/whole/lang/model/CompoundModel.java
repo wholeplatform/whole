@@ -25,7 +25,9 @@ import java.util.List;
 import org.whole.lang.commands.ICommand;
 import org.whole.lang.commands.NullCommand;
 import org.whole.lang.events.CompositeChangeEventHandler;
+import org.whole.lang.events.EventSourceManager;
 import org.whole.lang.events.IChangeEventHandler;
+import org.whole.lang.events.IEventSourceManager;
 import org.whole.lang.events.IPropertyChangeObserver;
 import org.whole.lang.events.IRequestEventHandler;
 import org.whole.lang.events.IdentityChangeEventHandler;
@@ -41,23 +43,27 @@ import org.whole.lang.lifecycle.Status;
  * 
  * @author Riccardo Solmi
  */
-public class CompoundModel extends CompositeChangeEventHandler implements ICompoundModel, Serializable, IHistoryManager {
+public class CompoundModel extends CompositeChangeEventHandler implements ICompoundModel, Serializable, IHistoryManager, IEventSourceManager {
 	private static final long serialVersionUID = 1L;
     transient private IRequestEventHandler requestEventHandler = IdentityRequestEventHandler.instance;
+	transient private IEventSourceManager eventSourceManager;
 	transient private IHistoryManager historyManager;
 	transient private PropertyChangeEventHandler propertyChangeEventHandler;
 
     private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
     	in.defaultReadObject();
     	requestEventHandler = IdentityRequestEventHandler.instance;
-		historyManager = this;
+    	eventSourceManager = this;
+    	historyManager = this;
     }
 
 	public CompoundModel() {
 		super(
 				IdentityChangeEventHandler.instance, // placeholder for HistoryManager
 				IdentityChangeEventHandler.instance, // placeholder for propertyChangeEventHandler
+				IdentityChangeEventHandler.instance, // placeholder for EventSourceManager
 				new MappingChangeEventHandler.LanguageReactionsChangeEventMapper());
+		eventSourceManager = this;
 		historyManager = this;
 	}
 
@@ -97,6 +103,33 @@ public class CompoundModel extends CompositeChangeEventHandler implements ICompo
     public IChangeEventHandler getChangeEventHandler() {
     	return this;
     }
+
+    public IEventSourceManager getEventSourceManager() {
+    	//TODO test only
+    	if (eventSourceManager == this)
+    		setEventSourceManager(new EventSourceManager());
+    	
+		return eventSourceManager;
+	}
+	public void setEventSourceManager(IEventSourceManager eventSourceManager) {
+		if (this.eventSourceManager.equals(eventSourceManager))
+			return;
+
+		this.eventSourceManager = eventSourceManager;
+		setChangeEventHandler(2, (IChangeEventHandler) this.eventSourceManager);
+	}
+	public IEntity getEventSource() {
+		if (eventSourceManager == this)
+			return EventSourceManager.createCompoundEvent();
+
+		return eventSourceManager.getEventSource();
+	}
+	public void addEvent(IEntity event) {
+		if (eventSourceManager == this)
+			return;
+
+		eventSourceManager.addEvent(event);
+	}
 
 	public IHistoryManager getHistoryManager() {
 		return historyManager;

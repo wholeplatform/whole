@@ -18,6 +18,7 @@
 package org.whole.lang.model;
 
 import org.whole.lang.events.IChangeEventHandler;
+import org.whole.lang.events.IEventSourceManager;
 import org.whole.lang.events.IPropertyChangeObserver;
 import org.whole.lang.events.IRequestEventHandler;
 import org.whole.lang.lifecycle.IHistoryManager;
@@ -32,6 +33,9 @@ public interface ICompoundModel {
 	public IRequestEventHandler addRequestEventHandler(IRequestEventHandler eventHandler);
     public IChangeEventHandler getChangeEventHandler();
 	public IChangeEventHandler addChangeEventHandler(IChangeEventHandler eventHandler);
+
+	public IEventSourceManager getEventSourceManager();
+	public void setEventSourceManager(IEventSourceManager eventSourceManager);
 
 	public IHistoryManager getHistoryManager();
 	public void setHistoryManager(IHistoryManager historyManager, boolean mergeHistory);

@@ -95,6 +95,11 @@ public class CoreContributionsDeployer extends AbstractContributionDeployer {
 			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
 					new ClasspathPersistenceProvider("org/whole/lang/changes/RevisionsActions.xwl")));			
 
+			//TODO test only
+			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
+					new ClasspathPersistenceProvider("org/whole/lang/events/EventsModel.xwl")));			
+
+			
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		}
