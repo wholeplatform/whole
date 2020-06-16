@@ -19,7 +19,12 @@ package org.whole.lang.events.util;
 
 import java.net.URI;
 import java.security.cert.CertificateException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map.Entry;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.LinkedBlockingDeque;
 
 import javax.net.ssl.SSLException;
@@ -28,6 +33,7 @@ import org.whole.lang.codebase.StringPersistenceProvider;
 import org.whole.lang.events.EventSourceManager;
 import org.whole.lang.events.IEventSourceManager;
 import org.whole.lang.json.codebase.JSONLDPersistenceKit;
+import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.OperationCanceledException;
 import org.whole.lang.reflect.ReflectionFactory;
@@ -38,8 +44,6 @@ import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.EventLoopGroup;
-import io.netty.channel.group.ChannelGroup;
-import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
@@ -58,7 +62,6 @@ import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslContextBuilder;
 import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
 import io.netty.handler.ssl.util.SelfSignedCertificate;
-import io.netty.util.concurrent.GlobalEventExecutor;
 
 /**
  * @author Riccardo Solmi
@@ -66,30 +69,52 @@ import io.netty.util.concurrent.GlobalEventExecutor;
 public class WebSocketsUtils {
 	public static Channel serverChannel;
     public static Channel clientChannel;
-    public static ChannelGroup peerChannels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
 	protected static EventLoopGroup bossGroup;
 	protected static EventLoopGroup workerGroup;
     protected static EventLoopGroup clientGroup;
 
-    public static BlockingQueue<IEntity> peerEventQueue = new LinkedBlockingDeque<>();
-    public static void putPeerEvent(IEntity value) {
-    	try {
-			peerEventQueue.put(value);
-		} catch (InterruptedException e) {
-			throw new OperationCanceledException();
-		}
+    public static ConcurrentMap<Channel, PeerEventSource> peerEventSourcesMap = new ConcurrentHashMap<>();
+    public static void addPeer(Channel channel) {
+    	peerEventSourcesMap.put(channel, new PeerEventSource());
     }
-    public static IEntity receive() {
-    	try {
-			return peerEventQueue.take();
-		} catch (InterruptedException e) {
-			throw new OperationCanceledException();
-		}
+    public static void removePeer(Channel channel) {
+    	peerEventSourcesMap.remove(channel);
     }
-    public static void clear() {
-    	peerEventQueue.clear();
+    public static void addPeerEvent(Channel channel, IEntity event) {
+    	PeerEventSource peer = peerEventSourcesMap.get(channel);
+        peer.putPeerEvent(event);
+        peerEventsExecutor.asyncExecPeerEvents(peer);
     }
 
+    public static class PeerEventSource {
+    	public int localSyncIndex = 0;
+    	public int localSendIndex = 0;
+    	public int peerSyncIndex = 0;
+    	public BlockingQueue<IEntity> peerEventQueue = new LinkedBlockingDeque<>();
+    	public BlockingQueue<IEntity> peerEventSyncQueue = new LinkedBlockingDeque<>();
+
+        public void putPeerEvent(IEntity event) {
+        	try {
+    			peerEventQueue.put(event);
+    		} catch (InterruptedException e) {
+    			throw new OperationCanceledException();
+    		}
+        }
+        public List<IEntity> drainPeerEvents() {
+        	ArrayList<IEntity> result = new ArrayList<IEntity>();
+    		peerEventQueue.drainTo(result);
+    		return result;
+        }
+    }
+
+    public static IPeerEventsExecutor peerEventsExecutor = IPeerEventsExecutor.IDENTITY;
+    public static interface IPeerEventsExecutor {
+    	public static final IPeerEventsExecutor IDENTITY = new IPeerEventsExecutor() {
+        	public void asyncExecPeerEvents(PeerEventSource peerEventSource) {};
+        };
+
+    	public void asyncExecPeerEvents(PeerEventSource peerEventSource);
+    }
 
 	public static void startServer() {
 		startServer(false);
@@ -126,9 +151,6 @@ public class WebSocketsUtils {
              .childHandler(new WebSocketEventSourceServerInitializer(sslCtx));
 
             serverChannel = b.bind(port).sync().channel();
-
-            System.out.println("Open your web browser and navigate to " +
-                    (useSSL? "https" : "http") + "://127.0.0.1:" + port + '/');
         } catch (InterruptedException e) {
         	stopServer();
 		}		
@@ -215,6 +237,7 @@ public class WebSocketsUtils {
              });
 
             clientChannel = b.connect(uri.getHost(), port).sync().channel();
+            WebSocketsUtils.addPeer(clientChannel);
             handler.handshakeFuture().sync();
         } catch (Exception e) {
         	stopClient();
@@ -223,6 +246,7 @@ public class WebSocketsUtils {
 
     public static void stopClient() {
     	if (clientChannel != null) {
+	        WebSocketsUtils.removePeer(clientChannel);
 	    	clientChannel.writeAndFlush(new CloseWebSocketFrame());
 	        try {
 				clientChannel.closeFuture().sync();
@@ -236,41 +260,79 @@ public class WebSocketsUtils {
     	}
     }
 
-    public static void send(String message) throws Exception {
-    	for (Channel ch : peerChannels)
-	    	ch.writeAndFlush(new TextWebSocketFrame(message));
-    	if (clientChannel != null && clientChannel.isActive())
-    		clientChannel.writeAndFlush(new TextWebSocketFrame(message));
-    }
-
     public static void shareEventSource(IEntity entity, String endPoint) {
-    	//TODO move eventSource
     	IEventSourceManager eventSourceManager = ReflectionFactory.getEventSourceManager(entity);
-    	entity.wGetModel().getCompoundModel().setEventSourceManager(new EventSourceSynchronizer());
+    	eventSourceManager = new EventSourceSynchronizer(eventSourceManager.getEventSource());
+    	entity.wGetModel().getCompoundModel().setEventSourceManager(eventSourceManager);
+    	WebSocketsUtils.localEventsPublisher = (EventSourceSynchronizer) eventSourceManager;//new LocalEventsPublisher(eventSourceManager.getEventSource());
     }
 
-    public static class EventSourceSynchronizer extends EventSourceManager {
+    public static ILocalEventsPublisher localEventsPublisher = ILocalEventsPublisher.IDENTITY;
+    public static interface ILocalEventsPublisher {
+    	public static final ILocalEventsPublisher IDENTITY = new ILocalEventsPublisher() {
+        	public void asyncSendLocalEvents() {};
+        };
+
+    	public void asyncSendLocalEvents();
+    }
+
+    public static class EventSourceSynchronizer extends EventSourceManager implements ILocalEventsPublisher {
     	private static final long serialVersionUID = 1L;
 
+    	public EventSourceSynchronizer(IEntity eventSource) {
+    		this.eventSource = eventSource;
+    	}
     	@Override
 		public void addEvent(IEntity event) {
     		super.addEvent(event);
 
-    		//TODO if getChannel() != null
-    		//TODO ensure asynch
-    		StringPersistenceProvider pp = new StringPersistenceProvider();
-    		try {
+    		WebSocketsUtils.localEventsPublisher.asyncSendLocalEvents();
+    	}
+//    }
+//
+//    public static class LocalEventsPublisher implements ILocalEventsPublisher {
+//    	protected IEntity eventSource;
+//
+//    	public LocalEventsPublisher(IEntity eventSource) {
+//			this.eventSource = eventSource;
+//		}
+
+		public void asyncSendLocalEvents() {
+    		//TODO async exec
+
+    		for (Entry<Channel, PeerEventSource> entry : peerEventSourcesMap.entrySet()) {
+    			Channel channel = entry.getKey();
+    			if (channel.isActive()) {
+    				PeerEventSource peer = entry.getValue();
+    				for (int i=peer.localSyncIndex; i<peer.localSendIndex; i++) {
+    					IEntity event = eventSource.wGet(0).wGet(i);
+    					if (isCompensated(event) && peer.localSyncIndex == i)
+    						peer.localSyncIndex++;
+    				}
+    				while (peer.localSendIndex < eventSource.wGet(0).wSize()) {
+    					IEntity event = eventSource.wGet(0).wGet(peer.localSendIndex++);
+    					if (peer.peerEventSyncQueue.removeIf((e) -> Matcher.match(e, event)))
+    						continue;
+    					channel.writeAndFlush(new TextWebSocketFrame(toMessage(event)));
+    				}
+    			}
+    		}
+    	}
+
+		public boolean isCompensated(IEntity event) {
+			//TODO search for equals or overriding event
+			return false;
+		}
+
+		public String toMessage(IEntity event) {
+			StringPersistenceProvider pp = new StringPersistenceProvider();
+			try {
 				JSONLDPersistenceKit.instance().writeModel(event, pp);
 			} catch (Exception e) {
-				throw new IllegalStateException();
+				throw new IllegalStateException("JSONLDPersistenceKit failure");
 			}
-    		String message = pp.getStore();
-    		try {
-				WebSocketsUtils.send(message);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-    	}
+			String message = pp.getStore();
+			return message;
+		}
     }
 }

@@ -23,9 +23,9 @@ import org.whole.lang.model.IEntity;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import io.netty.handler.codec.http.websocketx.CloseWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.WebSocketFrame;
+import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler.HandshakeComplete;
 
 /**
  * @author Riccardo Solmi
@@ -33,15 +33,19 @@ import io.netty.handler.codec.http.websocketx.WebSocketFrame;
 public class WebSocketEventSourceServerHandler extends SimpleChannelInboundHandler<WebSocketFrame> {
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
-		super.channelActive(ctx);
-
-		WebSocketsUtils.peerChannels.add(ctx.channel());
+		WebSocketsUtils.addPeer(ctx.channel());
 	}
 	@Override
 	public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-		super.channelInactive(ctx);
+		WebSocketsUtils.removePeer(ctx.channel());
+	}
 
-		WebSocketsUtils.peerChannels.remove(ctx.channel());
+	@Override
+	public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
+		if (evt instanceof HandshakeComplete) {
+			WebSocketsUtils.localEventsPublisher.asyncSendLocalEvents();
+		} else
+			super.userEventTriggered(ctx, evt);
 	}
 
     @Override
@@ -50,9 +54,8 @@ public class WebSocketEventSourceServerHandler extends SimpleChannelInboundHandl
             String frameText = ((TextWebSocketFrame) frame).text();
             StringPersistenceProvider pp = new StringPersistenceProvider(frameText);
             IEntity event = JSONLDPersistenceKit.instance().readModel(pp);
-            WebSocketsUtils.putPeerEvent(event);
-        } else if (frame instanceof CloseWebSocketFrame) {
-            ctx.channel().close();
+            
+            WebSocketsUtils.addPeerEvent(ctx.channel(), event);
         }
     }
 }

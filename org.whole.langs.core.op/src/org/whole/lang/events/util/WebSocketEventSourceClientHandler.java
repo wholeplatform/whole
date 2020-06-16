@@ -30,6 +30,7 @@ import io.netty.handler.codec.http.websocketx.CloseWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.WebSocketClientHandshaker;
 import io.netty.handler.codec.http.websocketx.WebSocketHandshakeException;
+import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler.HandshakeComplete;
 
 /**
  * @author Riccardo Solmi
@@ -62,6 +63,14 @@ public class WebSocketEventSourceClientHandler extends SimpleChannelInboundHandl
     }
 
     @Override
+    public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
+		if (evt instanceof HandshakeComplete) {
+			WebSocketsUtils.localEventsPublisher.asyncSendLocalEvents();
+		} else
+			super.userEventTriggered(ctx, evt);
+    }
+
+    @Override
     public void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
         if (!handshaker.isHandshakeComplete()) {
             try {
@@ -77,7 +86,8 @@ public class WebSocketEventSourceClientHandler extends SimpleChannelInboundHandl
         	String frameText = ((TextWebSocketFrame) msg).text();
             StringPersistenceProvider pp = new StringPersistenceProvider(frameText);
             IEntity event = JSONLDPersistenceKit.instance().readModel(pp);
-            WebSocketsUtils.putPeerEvent(event);
+
+            WebSocketsUtils.addPeerEvent(ctx.channel(), event);
         } else if (msg instanceof CloseWebSocketFrame) {
             ctx.channel().close();
         }

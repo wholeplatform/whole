@@ -34,7 +34,7 @@ import org.whole.lang.util.EntityUtils;
 public class EventSourceManager extends IdentityChangeEventHandler implements IEventSourceManager {
 	private static final long serialVersionUID = 1L;
 
-	private IEntity eventSource = createCompoundEvent();
+	protected IEntity eventSource = createCompoundEvent();
 	
 	public IEntity getEventSource() {
 		return EntityUtils.clone(eventSource);
