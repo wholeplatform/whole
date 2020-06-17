@@ -67,6 +67,7 @@ import io.netty.handler.ssl.util.SelfSignedCertificate;
  * @author Riccardo Solmi
  */
 public class WebSocketsUtils {
+	public static final String WEBSOCKET_EVENTSOURCE_PATH = "/whole";
 	public static Channel serverChannel;
     public static Channel clientChannel;
 	protected static EventLoopGroup bossGroup;
@@ -177,7 +178,7 @@ public class WebSocketsUtils {
 
 
     public static void startClient() throws Exception {
-    	startClient("ws://127.0.0.1:8080/websocket");
+    	startClient("ws://127.0.0.1:8080"+WEBSOCKET_EVENTSOURCE_PATH);
     }
     public static void startClient(String URL) throws Exception {
     	if (clientChannel != null)

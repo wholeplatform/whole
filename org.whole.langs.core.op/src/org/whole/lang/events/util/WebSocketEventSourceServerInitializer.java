@@ -30,7 +30,6 @@ import io.netty.handler.ssl.SslContext;
  * @author Riccardo Solmi
  */
 public class WebSocketEventSourceServerInitializer extends ChannelInitializer<SocketChannel> {
-    private static final String WEBSOCKET_PATH = "/whole";
     private final SslContext sslCtx;
 
     public WebSocketEventSourceServerInitializer(SslContext sslCtx) {
@@ -46,7 +45,7 @@ public class WebSocketEventSourceServerInitializer extends ChannelInitializer<So
         pipeline.addLast(new HttpServerCodec());
         pipeline.addLast(new HttpObjectAggregator(65536));
         pipeline.addLast(new WebSocketServerCompressionHandler());
-        pipeline.addLast(new WebSocketServerProtocolHandler(WEBSOCKET_PATH, null, true));
+        pipeline.addLast(new WebSocketServerProtocolHandler(WebSocketsUtils.WEBSOCKET_EVENTSOURCE_PATH, null, true));
         pipeline.addLast(new WebSocketEventSourceServerHandler());
     }
 }

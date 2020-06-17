@@ -50,11 +50,16 @@ public class PeerEventsExecutor implements IPeerEventsExecutor {
 				command.begin();
 				for (IEntity event : peerEventSource.drainPeerEvents()) {
 					//TODO filter compensated events
-					peerEventSource.peerEventSyncQueue.add(event);
 					IBindingManager args = BindingManagerFactory.instance.createArguments();
 					args.wDef("resource", model);
-					BehaviorUtils.apply(APPLY_PATCH_URI, event, args);
-					//InterpreterOperation.interpret(event, args);
+					try {
+						BehaviorUtils.apply(APPLY_PATCH_URI, event, args);
+						//InterpreterOperation.interpret(event, args);
+						peerEventSource.peerEventSyncQueue.add(event);
+					} catch (Exception e) {
+						//TODO test and remove
+						e.printStackTrace();
+					}
 				}
 				command.commit();
 				editDomain.getCommandStack().execute(command);
