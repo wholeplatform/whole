@@ -45,6 +45,9 @@ public class PeerEventsExecutor implements IPeerEventsExecutor {
 
 	public void asyncExecPeerEvents(PeerEventSource peerEventSource) {
 		EntityEditDomainJob.asyncExec("Peer events executor", editDomain, (monitor) -> {
+			//TODO test only
+			Thread thread = Thread.currentThread();
+
 			ModelTransactionCommand command = new ModelTransactionCommand(model);
 			try {
 				command.begin();
@@ -53,12 +56,10 @@ public class PeerEventsExecutor implements IPeerEventsExecutor {
 					IBindingManager args = BindingManagerFactory.instance.createArguments();
 					args.wDef("resource", model);
 					try {
-						BehaviorUtils.apply(APPLY_PATCH_URI, event, args);
-						//InterpreterOperation.interpret(event, args);
 						peerEventSource.peerEventSyncQueue.add(event);
+						BehaviorUtils.apply(APPLY_PATCH_URI, event, args);
 					} catch (Exception e) {
-						//TODO test and remove
-						e.printStackTrace();
+						peerEventSource.peerEventSyncQueue.remove(event);
 					}
 				}
 				command.commit();

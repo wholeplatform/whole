@@ -121,7 +121,7 @@ public class WebSocketsUtils {
 		startServer(false);
 	}
 	public static void startServer(boolean useSSL) {
-		startServer(useSSL, useSSL? 8443 : 8080);
+		startServer(useSSL, useSSL ? 8443 : 8080);
 	}
 	public static void startServer(boolean useSSL, int port) {
 		if (serverChannel != null)
@@ -177,14 +177,17 @@ public class WebSocketsUtils {
 	}
 
 
-    public static void startClient() throws Exception {
-    	startClient("ws://127.0.0.1:8080"+WEBSOCKET_EVENTSOURCE_PATH);
+    public static void startClient(String serverAddress, boolean useSSL) throws Exception {
+    	startClient(serverAddress, useSSL, useSSL ? 8443 : 8080);
     }
-    public static void startClient(String URL) throws Exception {
+    public static void startClient(String serverAddress, boolean useSSL, int port) throws Exception {
+    	startClient((useSSL ? "wss" : "ws")+"://"+serverAddress+":"+port);
+    }
+    public static void startClient(String serverURL) throws Exception {
     	if (clientChannel != null)
     		stopClient();
 
-        URI uri = new URI(URL);
+        URI uri = new URI(serverURL+WEBSOCKET_EVENTSOURCE_PATH);
         String scheme = uri.getScheme() == null ? "ws" : uri.getScheme();
         final String host = uri.getHost() == null ? "127.0.0.1" : uri.getHost();
         final int port;
@@ -299,8 +302,10 @@ public class WebSocketsUtils {
 //		}
 
 		public void asyncSendLocalEvents() {
-    		//TODO async exec
+			//TODO test only
+			Thread thread = Thread.currentThread();
 
+    		//TODO async exec
     		for (Entry<Channel, PeerEventSource> entry : peerEventSourcesMap.entrySet()) {
     			Channel channel = entry.getKey();
     			if (channel.isActive()) {
