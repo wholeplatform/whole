@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <models:Model xmlns:models="http://lang.whole.org/Models">
     <models:SimpleName value="Events"/>
-    <models:TypeRelations initialCapacity="4">
+    <models:TypeRelations initialCapacity="3">
         <models:TypeAliasOf>
             <models:SimpleName value="Expression"/>
             <models:EntityType value="http://lang.whole.org/Queries#Expression"/>
@@ -18,14 +18,8 @@
             </models:Types>
             <models:AnyType/>
         </models:SubtypesOf>
-        <models:SupertypesOf>
-            <models:Types initialCapacity="1">
-                <models:SimpleName value="Location"/>
-            </models:Types>
-            <models:EntityType value="http://lang.whole.org/Queries#Path"/>
-        </models:SupertypesOf>
     </models:TypeRelations>
-    <models:ModelDeclarations initialCapacity="21">
+    <models:ModelDeclarations initialCapacity="28">
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="1">
                 <models:EntityModifier value="abstract"/>
@@ -48,98 +42,83 @@
             <models:EntityModifiers initialCapacity="1">
                 <models:EntityModifier value="abstract"/>
             </models:EntityModifiers>
-            <models:SimpleName value="Command"/>
+            <models:SimpleName value="ModelEvent"/>
             <models:Types initialCapacity="1">
                 <models:SimpleName value="Event"/>
             </models:Types>
-            <models:Features initialCapacity="0"/>
+            <models:Features initialCapacity="2">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="User"/>
+                    <models:SimpleName value="user"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="ResourcePath"/>
+                    <models:SimpleName value="resource"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
         </models:SimpleEntity>
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="0"/>
-            <models:SimpleName value="Compound"/>
+            <models:SimpleName value="Snapshot"/>
             <models:Types initialCapacity="1">
-                <models:SimpleName value="Command"/>
+                <models:SimpleName value="ModelEvent"/>
+            </models:Types>
+            <models:Features initialCapacity="1">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="Any"/>
+                    <models:SimpleName value="entity"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="Patch"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="ModelEvent"/>
             </models:Types>
             <models:Features initialCapacity="1">
                 <models:Feature>
                     <models:FeatureModifiers initialCapacity="0"/>
-                    <models:SimpleName value="Commands"/>
-                    <models:SimpleName value="commands"/>
+                    <models:SimpleName value="ModelEvents"/>
+                    <models:SimpleName value="events"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
             </models:Features>
         </models:SimpleEntity>
         <models:CompositeEntity>
             <models:EntityModifiers initialCapacity="0"/>
-            <models:SimpleName value="Commands"/>
+            <models:SimpleName value="ModelEvents"/>
             <models:Types initialCapacity="0"/>
             <models:ComponentModifiers initialCapacity="1">
                 <models:ComponentModifier value="ordered"/>
             </models:ComponentModifiers>
-            <models:SimpleName value="Command"/>
+            <models:SimpleName value="ModelEvent"/>
         </models:CompositeEntity>
         <models:SimpleEntity>
-            <models:EntityModifiers initialCapacity="0"/>
-            <models:SimpleName value="Select"/>
+            <models:EntityModifiers initialCapacity="1">
+                <models:EntityModifier value="abstract"/>
+            </models:EntityModifiers>
+            <models:SimpleName value="ModelChange"/>
             <models:Types initialCapacity="1">
-                <models:SimpleName value="Command"/>
+                <models:SimpleName value="ModelEvent"/>
             </models:Types>
             <models:Features initialCapacity="1">
                 <models:Feature>
                     <models:FeatureModifiers initialCapacity="0"/>
-                    <models:SimpleName value="Location"/>
-                    <models:SimpleName value="uri"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                </models:Feature>
-            </models:Features>
-        </models:SimpleEntity>
-        <models:SimpleEntity>
-            <models:EntityModifiers initialCapacity="0"/>
-            <models:SimpleName value="Cut"/>
-            <models:Types initialCapacity="1">
-                <models:SimpleName value="Command"/>
-            </models:Types>
-            <models:Features initialCapacity="1">
-                <models:Feature>
-                    <models:FeatureModifiers initialCapacity="1">
-                        <models:FeatureModifier value="optional"/>
-                    </models:FeatureModifiers>
-                    <models:SimpleName value="Location"/>
-                    <models:SimpleName value="uri"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                </models:Feature>
-            </models:Features>
-        </models:SimpleEntity>
-        <models:SimpleEntity>
-            <models:EntityModifiers initialCapacity="0"/>
-            <models:SimpleName value="Copy"/>
-            <models:Types initialCapacity="1">
-                <models:SimpleName value="Command"/>
-            </models:Types>
-            <models:Features initialCapacity="1">
-                <models:Feature>
-                    <models:FeatureModifiers initialCapacity="1">
-                        <models:FeatureModifier value="optional"/>
-                    </models:FeatureModifiers>
-                    <models:SimpleName value="Location"/>
-                    <models:SimpleName value="uri"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                </models:Feature>
-            </models:Features>
-        </models:SimpleEntity>
-        <models:SimpleEntity>
-            <models:EntityModifiers initialCapacity="0"/>
-            <models:SimpleName value="Paste"/>
-            <models:Types initialCapacity="1">
-                <models:SimpleName value="Command"/>
-            </models:Types>
-            <models:Features initialCapacity="1">
-                <models:Feature>
-                    <models:FeatureModifiers initialCapacity="1">
-                        <models:FeatureModifier value="optional"/>
-                    </models:FeatureModifiers>
-                    <models:SimpleName value="Location"/>
-                    <models:SimpleName value="uri"/>
+                    <models:SimpleName value="EntityPath"/>
+                    <models:SimpleName value="location"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
             </models:Features>
@@ -148,40 +127,23 @@
             <models:EntityModifiers initialCapacity="0"/>
             <models:SimpleName value="Delete"/>
             <models:Types initialCapacity="1">
-                <models:SimpleName value="Command"/>
+                <models:SimpleName value="ModelChange"/>
+            </models:Types>
+            <models:Features initialCapacity="0"/>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="Insert"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="ModelChange"/>
             </models:Types>
             <models:Features initialCapacity="1">
                 <models:Feature>
                     <models:FeatureModifiers initialCapacity="1">
                         <models:FeatureModifier value="optional"/>
                     </models:FeatureModifiers>
-                    <models:SimpleName value="Location"/>
-                    <models:SimpleName value="uri"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                </models:Feature>
-            </models:Features>
-        </models:SimpleEntity>
-        <models:SimpleEntity>
-            <models:EntityModifiers initialCapacity="0"/>
-            <models:SimpleName value="Insert"/>
-            <models:Types initialCapacity="1">
-                <models:SimpleName value="Command"/>
-            </models:Types>
-            <models:Features initialCapacity="2">
-                <models:Feature>
-                    <models:FeatureModifiers initialCapacity="1">
-                        <models:FeatureModifier value="optional"/>
-                    </models:FeatureModifiers>
-                    <models:SimpleName value="Location"/>
-                    <models:SimpleName value="uri"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                </models:Feature>
-                <models:Feature>
-                    <models:FeatureModifiers initialCapacity="1">
-                        <models:FeatureModifier value="optional"/>
-                    </models:FeatureModifiers>
                     <models:SimpleName value="Any"/>
-                    <models:SimpleName value="newEntity"/>
+                    <models:SimpleName value="entity"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
             </models:Features>
@@ -190,23 +152,15 @@
             <models:EntityModifiers initialCapacity="0"/>
             <models:SimpleName value="Replace"/>
             <models:Types initialCapacity="1">
-                <models:SimpleName value="Command"/>
+                <models:SimpleName value="ModelChange"/>
             </models:Types>
-            <models:Features initialCapacity="2">
-                <models:Feature>
-                    <models:FeatureModifiers initialCapacity="1">
-                        <models:FeatureModifier value="optional"/>
-                    </models:FeatureModifiers>
-                    <models:SimpleName value="Location"/>
-                    <models:SimpleName value="uri"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                </models:Feature>
+            <models:Features initialCapacity="1">
                 <models:Feature>
                     <models:FeatureModifiers initialCapacity="1">
                         <models:FeatureModifier value="optional"/>
                     </models:FeatureModifiers>
                     <models:SimpleName value="Any"/>
-                    <models:SimpleName value="newEntity"/>
+                    <models:SimpleName value="entity"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
             </models:Features>
@@ -215,21 +169,123 @@
             <models:EntityModifiers initialCapacity="1">
                 <models:EntityModifier value="abstract"/>
             </models:EntityModifiers>
-            <models:SimpleName value="Location"/>
+            <models:SimpleName value="ModelAction"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="ModelEvent"/>
+            </models:Types>
+            <models:Features initialCapacity="0"/>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="MoveCaret"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="ModelAction"/>
+            </models:Types>
+            <models:Features initialCapacity="1">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="0"/>
+                    <models:SimpleName value="EntityPath"/>
+                    <models:SimpleName value="editPoint"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="Select"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="ModelAction"/>
+            </models:Types>
+            <models:Features initialCapacity="1">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="0"/>
+                    <models:SimpleName value="EntitiesPath"/>
+                    <models:SimpleName value="entities"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:CompositeEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="EntitiesPath"/>
+            <models:Types initialCapacity="0"/>
+            <models:ComponentModifiers initialCapacity="1">
+                <models:ComponentModifier value="ordered"/>
+            </models:ComponentModifiers>
+            <models:SimpleName value="EntityPath"/>
+        </models:CompositeEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="MenuAction"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="ModelAction"/>
+            </models:Types>
+            <models:Features initialCapacity="1">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="0"/>
+                    <models:SimpleName value="Action"/>
+                    <models:SimpleName value="action"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="1">
+                <models:EntityModifier value="abstract"/>
+            </models:EntityModifiers>
+            <models:SimpleName value="Action"/>
             <models:Types initialCapacity="0"/>
             <models:Features initialCapacity="0"/>
         </models:SimpleEntity>
+        <models:EnumEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="FileAction"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Action"/>
+            </models:Types>
+            <models:EnumValues initialCapacity="4">
+                <models:EnumValue value="OPEN"/>
+                <models:EnumValue value="CLOSE"/>
+                <models:EnumValue value="SAVE"/>
+                <models:EnumValue value="REVERT"/>
+            </models:EnumValues>
+        </models:EnumEntity>
+        <models:EnumEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="EditAction"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Action"/>
+            </models:Types>
+            <models:EnumValues initialCapacity="6">
+                <models:EnumValue value="UNDO"/>
+                <models:EnumValue value="REDO"/>
+                <models:EnumValue value="CUT"/>
+                <models:EnumValue value="COPY"/>
+                <models:EnumValue value="PASTE"/>
+                <models:EnumValue value="DELETE"/>
+            </models:EnumValues>
+        </models:EnumEntity>
+        <models:DataEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="User"/>
+            <models:Types initialCapacity="0"/>
+            <models:DataType value="String"/>
+        </models:DataEntity>
+        <models:DataEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="ResourcePath"/>
+            <models:Types initialCapacity="0"/>
+            <models:DataType value="String"/>
+        </models:DataEntity>
         <models:DataEntity>
             <models:EntityModifiers initialCapacity="0"/>
             <models:SimpleName value="EntityPath"/>
-            <models:Types initialCapacity="1">
-                <models:SimpleName value="Location"/>
-            </models:Types>
+            <models:Types initialCapacity="0"/>
             <models:DataType value="String"/>
         </models:DataEntity>
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="0"/>
-            <models:SimpleName value="Patch"/>
+            <models:SimpleName value="Timeline"/>
             <models:Types initialCapacity="1">
                 <models:SimpleName value="Expression"/>
             </models:Types>
@@ -244,7 +300,7 @@
                 </models:Feature>
                 <models:Feature>
                     <models:FeatureModifiers initialCapacity="0"/>
-                    <models:SimpleName value="Compound"/>
+                    <models:SimpleName value="Patch"/>
                     <models:SimpleName value="patch"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>

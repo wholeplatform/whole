@@ -20,6 +20,7 @@ package org.whole.lang.events;
 import java.util.Date;
 
 import org.whole.lang.bindings.BindingManagerFactory;
+import org.whole.lang.commons.factories.CommonsEntityFactory;
 import org.whole.lang.factories.GenericEntityFactory;
 import org.whole.lang.model.EnumValue;
 import org.whole.lang.model.IEntity;
@@ -34,14 +35,14 @@ import org.whole.lang.util.EntityUtils;
 public class EventSourceManager extends IdentityChangeEventHandler implements IEventSourceManager {
 	private static final long serialVersionUID = 1L;
 
-	protected IEntity eventSource = createCompoundEvent();
+	protected IEntity eventSource = createPatchEvent();
 	
 	public IEntity getEventSource() {
 		return EntityUtils.clone(eventSource);
 	} 
 
 	public void addEvent(IEntity event) {
-		eventSource.wGet(0).wAdd(event);
+		eventSource.wGet(2).wAdd(event);
 	}
 
 	private static EntityDescriptorEnum eventsEdEnum;
@@ -55,28 +56,32 @@ public class EventSourceManager extends IdentityChangeEventHandler implements IE
 		return BindingManagerFactory.instance.createValue(System.currentTimeMillis());
 	}
 
-	public static IEntity createLocation(IEntity entity) {
-		return createLocation(EntityUtils.getLocation(entity, true));
+	public static IEntity createEntityPath(IEntity entity) {
+		return createEntityPath(EntityUtils.getLocation(entity, true));
 	}
-	public static IEntity createLocation(String location) {
+	public static IEntity createEntityPath(String location) {
 		return GenericEntityFactory.instance.create(getEventsEdEnum().valueOf("EntityPath"), location);
 	}
 
-	public static IEntity createCompoundEvent() {
-		return GenericEntityFactory.instance.create(getEventsEdEnum().valueOf("Compound"),
-				GenericEntityFactory.instance.create(getEventsEdEnum().valueOf("Commands")));
+	public static IEntity createPatchEvent() {
+		return GenericEntityFactory.instance.create(getEventsEdEnum().valueOf("Patch"),
+				CommonsEntityFactory.instance.createResolver(), CommonsEntityFactory.instance.createResolver(),
+				GenericEntityFactory.instance.create(getEventsEdEnum().valueOf("ModelEvents")));
 	}
 	public static IEntity createDeleteEvent(IEntity source, int index) {
-		return GenericEntityFactory.instance.create(getEventsEdEnum().valueOf("Delete"), //createExecutionTime(),
-				createLocation(EntityUtils.getLocation(source, true)+"/"+index));
+		return GenericEntityFactory.instance.create(getEventsEdEnum().valueOf("Delete"),
+				CommonsEntityFactory.instance.createResolver(), CommonsEntityFactory.instance.createResolver(),
+				createEntityPath(EntityUtils.getLocation(source, true)+"/"+index));
 	}
 	public static IEntity createInsertEvent(IEntity newValue) {
-		return GenericEntityFactory.instance.create(getEventsEdEnum().valueOf("Insert"), //createExecutionTime(),
-				createLocation(newValue), EntityUtils.clone(newValue));
+		return GenericEntityFactory.instance.create(getEventsEdEnum().valueOf("Insert"),
+				CommonsEntityFactory.instance.createResolver(), CommonsEntityFactory.instance.createResolver(),
+				createEntityPath(newValue), EntityUtils.clone(newValue));
 	}
 	public static IEntity createReplaceEvent(IEntity newValue) {
-		return GenericEntityFactory.instance.create(getEventsEdEnum().valueOf("Replace"), //createExecutionTime(),
-				createLocation(newValue), EntityUtils.clone(newValue));
+		return GenericEntityFactory.instance.create(getEventsEdEnum().valueOf("Replace"),
+				CommonsEntityFactory.instance.createResolver(), CommonsEntityFactory.instance.createResolver(),
+				createEntityPath(newValue), EntityUtils.clone(newValue));
 	}
 
 	public void notifyAdded(IEntity source, FeatureDescriptor fd, int index, IEntity newValue) {
@@ -134,9 +139,9 @@ public class EventSourceManager extends IdentityChangeEventHandler implements IE
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Event Source Manager (size=");
-		builder.append(eventSource.wSize());
+		builder.append(eventSource.wGet(2).wSize());
 		builder.append(")\n[");
-		builder.append(eventSource.toString());
+		builder.append(eventSource.wGet(2).toString());
 		builder.append("\n]");
 
 		return builder.toString();

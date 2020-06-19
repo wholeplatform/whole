@@ -120,7 +120,7 @@ public class CompoundModel extends CompositeChangeEventHandler implements ICompo
 	}
 	public IEntity getEventSource() {
 		if (eventSourceManager == this)
-			return EventSourceManager.createCompoundEvent();
+			return EventSourceManager.createPatchEvent();
 
 		return eventSourceManager.getEventSource();
 	}

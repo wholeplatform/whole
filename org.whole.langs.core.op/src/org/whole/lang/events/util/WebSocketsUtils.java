@@ -306,12 +306,12 @@ public class WebSocketsUtils {
     			if (channel.isActive()) {
     				PeerEventSource peer = entry.getValue();
     				for (int i=peer.localSyncIndex; i<peer.localSendIndex; i++) {
-    					IEntity event = eventSource.wGet(0).wGet(i);
+    					IEntity event = eventSource.wGet(2).wGet(i);
     					if (isCompensated(event) && peer.localSyncIndex == i)
     						peer.localSyncIndex++;
     				}
-    				while (peer.localSendIndex < eventSource.wGet(0).wSize()) {
-    					IEntity event = eventSource.wGet(0).wGet(peer.localSendIndex++);
+    				while (peer.localSendIndex < eventSource.wGet(2).wSize()) {
+    					IEntity event = eventSource.wGet(2).wGet(peer.localSendIndex++);
     					if (peer.peerEventSyncQueue.removeIf((e) -> Matcher.match(e, event)))
     						continue;
     					channel.writeAndFlush(new TextWebSocketFrame(toMessage(event)));

@@ -79,7 +79,7 @@ public class NullCompoundModel implements ICompoundModel, Serializable, IHistory
 		throw new IllegalStateException(WholeMessages.null_model);
 	}
 	public IEntity getEventSource() {
-		return EventSourceManager.createCompoundEvent();
+		return EventSourceManager.createPatchEvent();
 	}
 	public void addEvent(IEntity event) {
 	}
