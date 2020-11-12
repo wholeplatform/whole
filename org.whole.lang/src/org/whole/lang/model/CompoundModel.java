@@ -21,6 +21,8 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import org.whole.lang.commands.ICommand;
 import org.whole.lang.commands.NullCommand;
@@ -49,6 +51,7 @@ public class CompoundModel extends CompositeChangeEventHandler implements ICompo
 	transient private IEventSourceManager eventSourceManager;
 	transient private IHistoryManager historyManager;
 	transient private PropertyChangeEventHandler propertyChangeEventHandler;
+	transient private Lock lock;
 
     private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
     	in.defaultReadObject();
@@ -91,6 +94,16 @@ public class CompoundModel extends CompositeChangeEventHandler implements ICompo
 			compoundModel.setHistoryManager(getHistoryManager(), mergeHistory);
 		}
 		return this;
+	}
+
+	public Lock getLock() {
+		if (lock == null) {
+			synchronized (this) {
+				if (lock == null)
+					lock = new ReentrantLock(); //TODO test (true)
+			}
+		}
+		return lock;
 	}
 
 	public IRequestEventHandler getRequestEventHandler() {

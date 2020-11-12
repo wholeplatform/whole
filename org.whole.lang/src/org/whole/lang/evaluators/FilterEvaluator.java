@@ -53,8 +53,8 @@ public class FilterEvaluator extends AbstractDelegatingNestedEvaluator {
 					return lastEntity;
 				}
 
-				getProducer(1).reset(lastEntity);
-				if (getProducer(1).evaluateAsBooleanOrFail()) {
+//				getProducer(1).reset(lastEntity);
+				if (getProducer(1).evaluateAsBooleanOrFail(lastEntity, getBindings())) {
 					if (autoPrune())
 						prune();
 					return lastEntity;

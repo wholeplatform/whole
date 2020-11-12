@@ -21,6 +21,8 @@ import java.io.ObjectStreamException;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import org.whole.lang.commands.ICommand;
 import org.whole.lang.commands.NullCommand;
@@ -57,6 +59,10 @@ public class NullCompoundModel implements ICompoundModel, Serializable, IHistory
 
     public ICompoundModel merge(ICompoundModel compoundModel, boolean mergeHistory) {
     	return compoundModel;
+    }
+
+    public Lock getLock() {
+    	return new ReentrantLock();
     }
 
 	public IRequestEventHandler getRequestEventHandler() {

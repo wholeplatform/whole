@@ -17,6 +17,8 @@
  */
 package org.whole.lang.model;
 
+import java.util.concurrent.locks.Lock;
+
 import org.whole.lang.events.IChangeEventHandler;
 import org.whole.lang.events.IEventSourceManager;
 import org.whole.lang.events.IPropertyChangeObserver;
@@ -28,6 +30,8 @@ import org.whole.lang.lifecycle.IHistoryManager;
  */
 public interface ICompoundModel {
 	public ICompoundModel merge(ICompoundModel compoundModel, boolean mergeHistory);
+
+	public Lock getLock();
 
 	public IRequestEventHandler getRequestEventHandler();
 	public IRequestEventHandler addRequestEventHandler(IRequestEventHandler eventHandler);

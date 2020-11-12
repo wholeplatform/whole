@@ -56,8 +56,6 @@ import org.whole.lang.commons.model.impl.LazyContainmentRootFragmentImpl;
 import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.model.ICompoundModel;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.reflect.FeatureDescriptorEnum;
-import org.whole.lang.reflect.ILanguageKit;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.ui.editparts.EntityPartListener;
 import org.whole.lang.ui.editparts.IEntityPart;
@@ -224,6 +222,8 @@ public class E4TreeViewer extends TreeViewer implements IEntityPartViewer {
 		setContents(entity);
 		flush();
 		ReflectionFactory.getHistoryManager(entity).setHistoryEnabled(true);
+		//TODO test only
+		ReflectionFactory.getEventSourceManager(entity);
 		getCommandStack().flush();
 	}
 

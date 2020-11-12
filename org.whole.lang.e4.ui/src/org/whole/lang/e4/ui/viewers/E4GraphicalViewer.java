@@ -215,6 +215,8 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 		setContents(entity);
 		flush();
 		ReflectionFactory.getHistoryManager(entity).setHistoryEnabled(true);
+		//TODO test only
+		ReflectionFactory.getEventSourceManager(entity);
 		getCommandStack().flush();
 	}
 

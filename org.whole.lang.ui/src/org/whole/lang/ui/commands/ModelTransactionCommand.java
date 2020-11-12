@@ -44,6 +44,13 @@ public class ModelTransactionCommand extends Command {
 		setLabel(label);
 	}
 
+	public void lock() {
+		ReflectionFactory.lock(model);
+	}
+	public void unlock() {
+		ReflectionFactory.unlock(model);
+	}
+	
 	public boolean canExecute() {
 		return !executed || getModelHistory().getRedoCommand() == compoundCommand;
 	}

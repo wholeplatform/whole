@@ -19,6 +19,7 @@ package org.whole.lang.reflect;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -29,6 +30,10 @@ import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.locks.Lock;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
@@ -534,5 +539,65 @@ public class ReflectionFactory {
     }
     public static ITransaction getTransaction(IEntity entity) {
     	return entity.wGetModel().getCompoundModel().getHistoryManager();
+    }
+
+	public static final ExecutorService executorService = Executors.newCachedThreadPool();
+	public static Future<?> asyncExec(Runnable task, IEntity... entity) {
+		return executorService.submit(() -> {
+			syncExec(task, entity);
+		});
+	}
+	public static void syncExec(Runnable task, IEntity... entity) {
+		switch (entity.length) {
+		case 0:
+			task.run();
+			return;
+		case 1:
+			lock(entity[0]);
+			try {
+				task.run();
+			} finally {
+				unlock(entity[0]);
+			}
+			return;
+		default:
+			orderedLockingSort(entity);
+			while (!trySyncExec(task, 0, entity))
+				Thread.onSpinWait();
+		}
+	}
+	private static boolean trySyncExec(Runnable task, int i, IEntity... entity) {
+		if (i < entity.length) {
+			if (tryLock(entity[i])) {
+				try {
+					return trySyncExec(task, i+1, entity);
+				} finally {
+					unlock(entity[i]);
+				}
+			} else {
+				return false;
+			}
+		} else {
+			task.run();
+			return true;
+		}
+	}
+
+	public static void orderedLockingSort(IEntity[] entity) {
+		Arrays.sort(entity, Comparator.comparing((e) -> {
+			return System.identityHashCode(getLock(e));
+		}));
+	}
+    public static Lock getLock(IEntity entity) {
+    	return entity.wGetModel().getCompoundModel().getLock();
+    }
+    public static boolean tryLock(IEntity entity) {
+    	return getLock(entity).tryLock();
+    }
+    public static void lock(IEntity entity) {
+    	getLock(entity).lock();
+    }
+    public static void unlock(IEntity entity) {
+    	getLock(entity).unlock();
     }
 }
