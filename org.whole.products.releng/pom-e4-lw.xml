@@ -208,9 +208,9 @@
 	<!-- update according to org.whole.product.lw.target/ECLIPSE.target -->
 	<repositories>
 		<repository>
-			<id>eclipse-oxygen-updates</id>
+			<id>eclipse-project-updates</id>
 			<layout>p2</layout>
-			<url>http://download.eclipse.org/eclipse/updates/4.10</url>
+			<url>http://download.eclipse.org/eclipse/updates/4.17</url>
 		</repository>
 	</repositories>
 </project>
