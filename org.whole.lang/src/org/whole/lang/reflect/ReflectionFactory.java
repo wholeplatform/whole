@@ -83,6 +83,7 @@ public class ReflectionFactory {
 	private static Map<String, IEditorKit> editorKitsMap = new TreeMap<String, IEditorKit>();
 
     private static IPersistenceKit defaultPersistenceKit;
+    private static IPersistenceKit clipboardPersistenceKit;
     private static Map<String, IPersistenceKit> editorIdPersistenceKitMap = new HashMap<String, IPersistenceKit>();
     private static Map<IPersistenceKit, List<String>> persistenceKitEditorIdMap = new HashMap<IPersistenceKit, List<String>>();
 	private static Map<String, IPersistenceKit> persistenceKitsMap = new TreeMap<String, IPersistenceKit>();
@@ -477,11 +478,19 @@ public class ReflectionFactory {
     }
     public static IPersistenceKit getDefaultPersistenceKit() {
     	if (defaultPersistenceKit == null)
-    		defaultPersistenceKit = ObjectPersistenceKit.instance();//BeansPersistenceKit.instance();//
+    		defaultPersistenceKit = ObjectPersistenceKit.instance();
     	return defaultPersistenceKit;
     }
     public static void setDefaultPersistenceKit(IPersistenceKit persistenceKit) {
     	defaultPersistenceKit = persistenceKit;
+    }
+    public static IPersistenceKit getClipboardPersistenceKit() {
+    	if (clipboardPersistenceKit == null)
+    		clipboardPersistenceKit = getDefaultPersistenceKit();
+    	return clipboardPersistenceKit;
+    }
+    public static void setClipboardPersistenceKit(IPersistenceKit persistenceKit) {
+    	clipboardPersistenceKit = persistenceKit;
     }
 
     public static <E extends IEntity> E makeRootEntity(E entity) {

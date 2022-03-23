@@ -129,7 +129,7 @@ public class Clipboard {
 			IExecutable executable = ExecutableFactory.instance.createChild();
 			executable.reset(tuple);
 			for (IEntity entity : executable) {
-				File file = ClipboardUtils.createTempXmlBuilderFile(entity);
+				File file = ClipboardUtils.createTempPersistenceFile(entity);
 				file.deleteOnExit();
 				files.add(file);
 			}

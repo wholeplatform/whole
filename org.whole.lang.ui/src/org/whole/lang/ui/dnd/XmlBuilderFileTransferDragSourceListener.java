@@ -33,6 +33,6 @@ public class XmlBuilderFileTransferDragSourceListener extends AbstractFileTransf
 	}
 
 	protected File createFile(IEntityPart entityPart) throws Exception {
-		return ClipboardUtils.createTempXmlBuilderFile((IEntity) entityPart.getModelEntity());
+		return ClipboardUtils.createTempPersistenceFile((IEntity) entityPart.getModelEntity());
 	}
 }

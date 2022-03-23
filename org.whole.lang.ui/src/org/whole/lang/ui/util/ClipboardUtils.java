@@ -74,16 +74,16 @@ public class ClipboardUtils {
 
 	public static String unparseEntity(IEntity entity) throws Exception {
 		StringPersistenceProvider pp = new StringPersistenceProvider();
-		ReflectionFactory.getDefaultPersistenceKit().writeModel(entity, pp);
+		ReflectionFactory.getClipboardPersistenceKit().writeModel(entity, pp);
 		return pp.getStore();
 	}
 
 	public static IEntity parseEntity(String text) throws Exception {
-		return ReflectionFactory.getDefaultPersistenceKit().readModel(new StringPersistenceProvider(text));
+		return ReflectionFactory.getClipboardPersistenceKit().readModel(new StringPersistenceProvider(text));
 	}
 	public static IEntity parseClipboardContents(IPersistenceKit persistenceKit, IBindingManager bm) throws Exception {
 		IEntity entity = Clipboard.instance().getEntityContents();
-		if (entity != null && ReflectionFactory.getDefaultPersistenceKit().equals(persistenceKit)) {
+		if (entity != null && ReflectionFactory.getClipboardPersistenceKit().equals(persistenceKit)) {
 			if (EntityUtils.isTuple(entity))
 				bm.wDef("syntheticRoot", entity);
 			return entity;
@@ -208,11 +208,11 @@ public class ClipboardUtils {
 		}
 	}
 
-	public static File createTempXmlBuilderFile(IEntity entity) throws Exception {
-		return createTempXmlBuilderFile(unparseEntity(entity));
+	public static File createTempPersistenceFile(IEntity entity) throws Exception {
+		return createTempPersistenceFile(unparseEntity(entity));
 	}
-	public static File createTempXmlBuilderFile(String contents) throws Exception {
-		File file = File.createTempFile("whole-snippet", ".xwl");
+	public static File createTempPersistenceFile(String contents) throws Exception {
+		File file = File.createTempFile("whole-snippet", "."+ReflectionFactory.getClipboardPersistenceKit().getFileExtension());
 		OutputStream os = new FileOutputStream(file);
 		os.write(contents.getBytes("UTF-8"));
 		os.close();
