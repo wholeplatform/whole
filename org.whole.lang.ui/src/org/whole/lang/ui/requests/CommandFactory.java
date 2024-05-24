@@ -101,7 +101,7 @@ public class CommandFactory implements ICommandFactory {
 	 * @see org.whole.lang.e4.ui.actions.DeleteAction#createDeleteCommand(List)
 	 */
 	
-	public static Command createDeleteCommand(List<?> objects) {
+	public static Command createDeleteCommand(List<? extends EditPart> objects) {
 		if (objects.isEmpty())
 			return null;
 		if (!(objects.get(0) instanceof EditPart))

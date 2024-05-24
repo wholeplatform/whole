@@ -77,7 +77,7 @@ public class TableLayout extends AbstractCompositeEntityLayout implements ITabul
 		if (headerRowFigure == null)
 			return super.getChildren(container);
 		else {
-			List<IEntityFigure> children = container.getChildren();
+			List<IEntityFigure> children = (List<IEntityFigure>) container.getChildren();
 			int size = children.size();
 			if (size == 1)
 				return new IEntityFigure[0];

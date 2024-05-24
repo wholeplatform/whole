@@ -190,11 +190,10 @@ public class SimpleEntityTreeTableFigure extends NodeFigure {
 		graphics.restoreState();
 	}
 
-	@SuppressWarnings("unchecked")
 	protected void paintConnections(Graphics g) {
 		g.setForegroundColor(FigureConstants.relationsColor);
 
-		List<IFigure> contentPanes = contentsFigure.getChildren();
+		List<? extends IFigure> contentPanes = contentsFigure.getChildren();
 		int contentPanesSize = contentPanes.size();
 		Point[] start = new Point[contentPanesSize];
 		Point[] end = new Point[contentPanesSize];
@@ -205,7 +204,7 @@ public class SimpleEntityTreeTableFigure extends NodeFigure {
 			if (contentPane.isVisible()) {
 				start[size] = getFoldingToggle(i+1).getBounds().getRight();
 				start[size].x = nodeRight;
-				List<IFigure> children = contentPane.getChildren();
+				List<? extends IFigure> children = contentPane.getChildren();
 				IFigure targetFigure = children.isEmpty() ? null : (IFigure) children.get(0);
 				if (targetFigure instanceof INodeFigure) {
 					end[size] = ((INodeFigure) targetFigure).getTargetAnchor(0).getLocation(null);

@@ -106,5 +106,16 @@ public abstract class AbstractRunnableWithProgress implements ISynchronizableRun
 		@Override
 		public void asyncExec(Runnable runnable) {
 		}
+		@Override
+		protected boolean isUIThread(Thread thread) {
+			return false;
+		}
+		@Override
+		protected void showBusyWhile(Runnable runnable) {
+		}
+		@Override
+		protected boolean dispatchEvents() {
+			return false;
+		}
 	}
 }

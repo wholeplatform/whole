@@ -97,10 +97,17 @@ public class PlatformLibraryClasspathContainer implements IClasspathContainer {
 			String classPath = bundle.getHeaders().get("Bundle-ClassPath");
 			if (classPath == null)
 				classPath = ".";
-			File bundleFile = FileLocator.getBundleFile(bundle);
+			File bundleFile = FileLocator.getBundleFileLocation(bundle).get();
 			if (".".equals(classPath)) { // standard bundle
-				Path bundlePath, sourcePath;
-				if (bundleFile.isDirectory()) {
+				Path bundlePath, sourcePath = null, sourceRootPath = null;
+				if ("com.sun.jna".equals(bundle.getSymbolicName())) {
+					bundlePath = new Path(bundleFile.getAbsolutePath());
+					String name = bundleFile.getName();
+					String container = bundleFile.getParent();
+					String sourceBundleName = bundleId + ".source" + name.substring(bundleId.length());
+					sourceRootPath = new Path(".");
+					sourcePath = new Path(container + File.separator + sourceBundleName);
+				} else if (bundleFile.isDirectory()) {
 					bundlePath = new Path(bundleFile.getAbsolutePath() + File.separator + "bin");
 					sourcePath = new Path(bundleFile.getAbsolutePath() + File.separator + "src");
 				} else {
@@ -110,7 +117,7 @@ public class PlatformLibraryClasspathContainer implements IClasspathContainer {
 					String sourceBundleName = bundleId + ".source" + name.substring(bundleId.length());
 					sourcePath = new Path(container + File.separator + sourceBundleName);
 				}
-				classpathEntryList.add(JavaCore.newLibraryEntry(bundlePath, sourcePath, null));
+				classpathEntryList.add(JavaCore.newLibraryEntry(bundlePath, sourcePath, sourceRootPath));
 			} else { // bundle containing jar libraries
 				Path bundlePath = new Path(bundleFile.getAbsolutePath() + File.separator + classPath);
 				Path sourcePath = new Path(bundleFile.getAbsolutePath() + File.separator + classPath.replaceFirst("\\.jar$", "src.zip"));

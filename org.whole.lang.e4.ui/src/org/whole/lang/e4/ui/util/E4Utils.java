@@ -180,7 +180,7 @@ public class E4Utils {
 		defineSelectionBindings(bm, event);
 		return bm;
 	}
-	public static IBindingManager createSelectionBindings(List<IEntityPart> selectedEntityParts, IEntityPartViewer viewer, IEclipseContext context) {
+	public static IBindingManager createSelectionBindings(List<? extends IEntityPart> selectedEntityParts, IEntityPartViewer viewer, IEclipseContext context) {
 		IBindingManager bm = BindingManagerFactory.instance.createBindingManager();
 		bm.wDefValue(IBindingManager.ECLIPSE_CONTEXT, context);
 		defineSelectionBindings(bm, selectedEntityParts, viewer);
@@ -193,7 +193,7 @@ public class E4Utils {
 				((IStructuredSelection) selection).toList() : Collections.emptyList();
 		defineSelectionBindings(bm, selectedEntityParts, (IEntityPartViewer) event.getSelectionProvider());		
 	}
-	public static void defineSelectionBindings(IBindingManager bm, List<IEntityPart> selectedEntityParts, IEntityPartViewer viewer) {
+	public static void defineSelectionBindings(IBindingManager bm, List<? extends IEntityPart> selectedEntityParts, IEntityPartViewer viewer) {
 		IEntity selectedEntities = BindingManagerFactory.instance.createTuple();
 		for (IEntityPart selectedEntityPart : selectedEntityParts)
 			selectedEntities.wAdd(selectedEntityPart.getModelEntity());
@@ -218,6 +218,7 @@ public class E4Utils {
 				final IHilightable hilightable = (IHilightable) primarySelectedEntityPart;
 				bm.wDefValue("hilightPosition", -1);
 				bm.wGet("hilightPosition").wAddRequestEventHandler(new IdentityRequestEventHandler() {
+					private static final long serialVersionUID = 1L;
 					public int notifyRequested(IEntity source, FeatureDescriptor feature, int value) {
 						return hilightable.getHilightPosition();
 					}
@@ -227,6 +228,7 @@ public class E4Utils {
 				final ITextualEntityPart textualEntityPart = (ITextualEntityPart) primarySelectedEntityPart;
 				bm.wDefValue("selectedText", "");
 				bm.wGet("selectedText").wAddRequestEventHandler(new IdentityRequestEventHandler() {
+					private static final long serialVersionUID = 1L;
 					public String notifyRequested(IEntity source, FeatureDescriptor feature, String value) {
 						return textualEntityPart.hasSelectionRange() ?
 								DataTypeUtils.getAsPresentationString(textualEntityPart.getModelEntity())

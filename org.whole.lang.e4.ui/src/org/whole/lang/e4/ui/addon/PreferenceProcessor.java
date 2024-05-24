@@ -46,7 +46,7 @@ import static org.whole.lang.ui.util.UIUtils.scaleFont;
 
 import java.net.URL;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;

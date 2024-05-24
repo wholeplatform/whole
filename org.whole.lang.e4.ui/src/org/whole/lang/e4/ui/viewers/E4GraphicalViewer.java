@@ -24,9 +24,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.annotation.PostConstruct;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 
 import org.eclipse.draw2d.ExclusionSearch;
 import org.eclipse.draw2d.FigureCanvas;
@@ -413,31 +413,30 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 		getFigureCanvas().redraw();
 	}
 
-	@SuppressWarnings("unchecked")
 	public class E4FigureCanvas extends FigureCanvas {
 		public E4FigureCanvas(Composite parent, LightweightSystem lws) {
 			super(parent, lws);
 		}
 		public void cut() {
-			IBindingManager bm = E4Utils.createSelectionBindings(getSelectedEditParts(), E4GraphicalViewer.this, EclipseContextFactory.create());
+			IBindingManager bm = E4Utils.createSelectionBindings(getSelectedEntityParts(), E4GraphicalViewer.this, EclipseContextFactory.create());
 			CutHandler handler = new CutHandler();
 			if (handler.canExecute(bm))
 				handler.execute(bm);
 		}
 		public void copy() {
-			IBindingManager bm = E4Utils.createSelectionBindings(getSelectedEditParts(), E4GraphicalViewer.this, EclipseContextFactory.create());
+			IBindingManager bm = E4Utils.createSelectionBindings(getSelectedEntityParts(), E4GraphicalViewer.this, EclipseContextFactory.create());
 			CopyHandler handler = new CopyHandler();
 			if (handler.canExecute(bm))
 				handler.execute(bm);
 		}
 		public void paste() {
-			IBindingManager bm = E4Utils.createSelectionBindings(getSelectedEditParts(), E4GraphicalViewer.this, EclipseContextFactory.create());
+			IBindingManager bm = E4Utils.createSelectionBindings(getSelectedEntityParts(), E4GraphicalViewer.this, EclipseContextFactory.create());
 			PasteHandler handler = new PasteHandler();
 			if (handler.canExecute(bm))
 				handler.execute(bm);
 		}
 		public void selectAll() {
-			IBindingManager bm = E4Utils.createSelectionBindings(getSelectedEditParts(), E4GraphicalViewer.this, EclipseContextFactory.create());
+			IBindingManager bm = E4Utils.createSelectionBindings(getSelectedEntityParts(), E4GraphicalViewer.this, EclipseContextFactory.create());
 			SelectAllHandler handler = new SelectAllHandler();
 			if (handler.canExecute(bm))
 				handler.execute(bm);
@@ -465,6 +464,7 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 	@Override
 	public EditPart findObjectAtExcluding(Point pt, Collection exclude, final Conditional condition) {
 		class ConditionalTreeSearch extends ExclusionSearch implements ITreeSearch {
+			@SuppressWarnings("unchecked")
 			ConditionalTreeSearch(Collection coll) {
 				super(coll);
 			}

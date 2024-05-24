@@ -49,7 +49,7 @@ public class WholeUIPerspectiveFactory implements IPerspectiveFactory {
 	}
 
 	protected void addTopLeftViews(IFolderLayout folder) {
-		folder.addView(IPageLayout.ID_RES_NAV);
+		folder.addView(IPageLayout.ID_PROJECT_EXPLORER);
 	}
 	protected void addBottomLeftViews(IFolderLayout folder) {
 		folder.addView(IE4UIConstants.OUTLINE_PART_ID);

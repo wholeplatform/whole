@@ -4,8 +4,8 @@ Bundle-Name: %pluginName
 Bundle-Vendor: %providerName
 Bundle-SymbolicName: org.whole.product.e4.lw;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Require-Bundle: javax.inject,
- javax.annotation,
+Require-Bundle: jakarta.inject.jakarta.inject-api,
+ jakarta.annotation-api,
  org.eclipse.core.runtime,
  org.eclipse.core.resources,
  org.eclipse.swt,

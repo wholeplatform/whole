@@ -25,4 +25,4 @@ import org.whole.lang.ui.viewers.IEntityGraphicalViewer;
  */
 public interface IGraphicalEntityPart extends IEntityPart, GraphicalEditPart {
 	public IEntityGraphicalViewer getViewer();
-}
+	}

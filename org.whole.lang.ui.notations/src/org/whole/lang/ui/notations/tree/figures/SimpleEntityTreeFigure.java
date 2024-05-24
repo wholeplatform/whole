@@ -135,10 +135,9 @@ public class SimpleEntityTreeFigure extends NodeFigure {
 
 		contents = new EntityFigure(new ColumnLayout().withSpacing(3)
 				.withMinorAlignment(isRightToLeft() ? Alignment.TRAILING : Alignment.LEADING)) {
-			@SuppressWarnings("unchecked")
 			@Override
 			public boolean isVisible() {
-				List<IFigure> children = getChildren();
+				List<? extends IFigure> children = getChildren();
 				// (contents figure visible iff all children visible)
 				boolean hasChildrenVisible = false;
 				for (IFigure child : children)

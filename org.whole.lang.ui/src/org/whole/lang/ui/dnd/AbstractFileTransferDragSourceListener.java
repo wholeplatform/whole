@@ -82,7 +82,7 @@ public abstract class AbstractFileTransferDragSourceListener extends AbstractSel
 
 	@SuppressWarnings("unchecked")
 	public void dragStart(DragSourceEvent event) {
-		List<EditPart> selectedEditParts = getViewer().getSelectedEditParts();
+		List<? extends EditPart> selectedEditParts = getViewer().getSelectedEditParts();
 
 		if (selectedEditParts.isEmpty() ||
 				!(selectedEditParts.get(0) instanceof IGraphicalEntityPart))

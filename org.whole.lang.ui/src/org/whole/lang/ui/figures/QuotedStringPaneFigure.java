@@ -41,9 +41,8 @@ public class QuotedStringPaneFigure extends ContentPaneFigure {
 	    add(rquote);
 	}
 
-	@SuppressWarnings("unchecked")
 	public void showQuotes(boolean visible) {
-		List<IFigure> children = getChildren();
+		List<? extends IFigure> children = getChildren();
 		if (children.size() < 3)
 			return;
 

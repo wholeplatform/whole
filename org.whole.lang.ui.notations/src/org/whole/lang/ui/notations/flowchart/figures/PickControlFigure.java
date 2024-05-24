@@ -73,13 +73,12 @@ public class PickControlFigure extends NodeFigure {
 		};
 	}
 
-	@SuppressWarnings("unchecked")
 	public void paintFigure(Graphics g) {
         super.paintFigure(g);
         Rectangle r = getBounds();
         Rectangle rc = getContentPane(0).getBounds();
-        List<IFigure> contentPaneChildren = getContentPane(0).getChildren();
-        List<IFigure> children = contentPaneChildren.isEmpty() ? contentPaneChildren : contentPaneChildren.get(0).getChildren();
+        List<? extends IFigure> contentPaneChildren = getContentPane(0).getChildren();
+        List<? extends IFigure> children = contentPaneChildren.isEmpty() ? contentPaneChildren : contentPaneChildren.get(0).getChildren();
 
         int inset = 8;
     	int xm = r.x + r.width/2;

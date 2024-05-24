@@ -17,8 +17,8 @@
  */
 package org.whole.lang.workflows.ui.dialogs;
 
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.swt.SWT;

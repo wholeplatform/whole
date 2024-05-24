@@ -204,10 +204,9 @@ public class CaretUtils {
 		return CaretUtils.getStartingLinePosition(text, getCaretLines(text)-1)+length;
 	}
 
-	@SuppressWarnings("unchecked")
 	public static void updateCaret(final IEntityPart entityPart, IEntityGraphicalViewer viewer, int start, int end, Point location, boolean deselectAll) {
 		if (entityPart instanceof ITextualEntityPart) {
-			List<IEntityPart> selectedParts = viewer.getSelectedEditParts();
+			List<? extends IEntityPart> selectedParts = viewer.getSelectedEntityParts();
 			if (deselectAll && !selectedParts.isEmpty())
 				viewer.deselectAll();
 			viewer.setFocus(entityPart);

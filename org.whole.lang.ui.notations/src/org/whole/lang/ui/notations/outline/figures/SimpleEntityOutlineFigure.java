@@ -116,13 +116,12 @@ public class SimpleEntityOutlineFigure extends ManagedContentPaneFigure {
 		graphics.restoreState();
 	}
 
-	@SuppressWarnings("unchecked")
 	protected void paintConnections(Graphics graphics) {
 		graphics.setForegroundColor(FigureConstants.contentLighterColor);
 		
 		Point rootPoint = getFoldingToggle(0).getBounds().getBottom();
 
-		List<IFigure> children = childrenFigure.getChildren();
+		List<? extends IFigure> children = childrenFigure.getChildren();
 		int childrenSize = children.size();
 		if (childrenSize == 0)
 			return;

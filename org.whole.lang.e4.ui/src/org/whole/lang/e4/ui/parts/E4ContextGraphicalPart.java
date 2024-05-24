@@ -17,8 +17,8 @@
  */
 package org.whole.lang.e4.ui.parts;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.whole.lang.bindings.BindingManagerFactory;

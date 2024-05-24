@@ -20,7 +20,7 @@ package org.whole.lang.e4.ui.actions;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 
 import org.whole.lang.e4.ui.jobs.DeriveModelRunnable;
 import org.whole.lang.e4.ui.jobs.ISynchronizableRunnable;

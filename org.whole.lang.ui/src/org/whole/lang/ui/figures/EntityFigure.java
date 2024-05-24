@@ -239,9 +239,8 @@ public class EntityFigure extends Figure implements IEntityFigure {
 			return (IFigure) getChildren().get(index);
 		}
 
-		@SuppressWarnings("unchecked")
 		public Rectangle[] getChildrenBounds() {
-			List<IFigure> children = getChildren();
+			List<? extends IFigure> children = getChildren();
 	    	int size = children.size();
 			Rectangle[] childrenBounds = new Rectangle[size];
 			for (int i=0; i<size; i++)
@@ -250,9 +249,8 @@ public class EntityFigure extends Figure implements IEntityFigure {
 			return childrenBounds;
 		}
 
-		@SuppressWarnings("unchecked")
 		public Point[] getChildrenTargetPoints(int anchorIndex, Function<Rectangle, Point> toTarget) {
-			List<IFigure> children = getChildren();
+			List<? extends IFigure> children = getChildren();
 	    	int size = children.size();
 			Point[] childrenPoints = new Point[size];
 			for (int i=0; i<size; i++)

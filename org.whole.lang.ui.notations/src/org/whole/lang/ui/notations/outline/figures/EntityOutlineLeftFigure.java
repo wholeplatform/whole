@@ -61,7 +61,6 @@ public class EntityOutlineLeftFigure extends ContentPaneFigure {
 		graphics.restoreState();
 	}
 
-	@SuppressWarnings("unchecked")
 	protected void paintConnections(Graphics graphics) {
 		graphics.setForegroundColor(FigureConstants.contentLighterColor);
 		
@@ -80,13 +79,13 @@ public class EntityOutlineLeftFigure extends ContentPaneFigure {
 
 			for (int i=0; i<childrenSize; i++) {
 				IFigure row = layoutManager.getRow(i);
-				List<IFigure> rowChildren = row.getChildren();
+				List<? extends IFigure> rowChildren = row.getChildren();
 				childrenPoints[i] = row.getBounds().getRight().translate(+8, 0);
 				if (row instanceof TableRowFigure && !rowChildren.isEmpty())
 					childrenPoints[i].y = ((TableRowLayout) row.getLayoutManager()).getBaseline(1);
 			}
 		} else {
-			List<IFigure> children = ((IFigure) childrenFigure).getChildren();
+			List<? extends IFigure> children = ((IFigure) childrenFigure).getChildren();
 			int childrenSize = children.size();
 			if (childrenSize == 0)
 				return;

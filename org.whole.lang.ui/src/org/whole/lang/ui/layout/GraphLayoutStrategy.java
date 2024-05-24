@@ -134,6 +134,7 @@ public class GraphLayoutStrategy implements ILayoutStrategy {
 		buildEdges(graph, parts, partNodeMap);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void buildNodes(DirectedGraph graph, Subgraph subgraph, List<GraphicalEditPart> parts, Map partNodeMap) {
 		for (Iterator<GraphicalEditPart> i = parts.iterator(); i.hasNext();) {
 			GraphicalEditPart part = i.next();
@@ -143,7 +144,7 @@ public class GraphLayoutStrategy implements ILayoutStrategy {
 				partNodeMap.put(part, node);
 				graph.nodes.add(node);
 
-				buildNodes(graph, node, part.getChildren(), partNodeMap);
+				buildNodes(graph, node, (List<GraphicalEditPart>) part.getChildren(), partNodeMap);
 			} else {
 				Node node = createNode(part, subgraph);
 				partNodeMap.put(part, node);

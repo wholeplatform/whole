@@ -17,9 +17,9 @@
  */
 package org.whole.lang.e4.ui.parts;
 
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.annotation.PostConstruct;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.EclipseContextFactory;
@@ -186,18 +186,16 @@ public class E4FindReplaceGraphicalPart extends E4GraphicalPart {
 			}
 		});
 		replaceViewer.getControl().addFocusListener(new FocusAdapter() {
-			@SuppressWarnings("unchecked")
 			@Override
 			public void focusGained(FocusEvent e) {
 				context.set(IEntityPartViewer.class, replaceViewer);
 				context.set(ActionRegistry.class, replaceActionRegistry);
-				updateSelection(E4Utils.createSelectionBindings(replaceViewer.getSelectedEditParts(), replaceViewer, context));
+				updateSelection(E4Utils.createSelectionBindings(replaceViewer.getSelectedEntityParts(), replaceViewer, context));
 			}
 		});
 		replaceViewer.addPartFocusListener(new IPartFocusListener() {
-			@SuppressWarnings("unchecked")
 			public void focusChanged(IEntityPart oldPart, IEntityPart newPart) {
-				updateSelection(E4Utils.createSelectionBindings(replaceViewer.getSelectedEditParts(), replaceViewer, context));
+				updateSelection(E4Utils.createSelectionBindings(replaceViewer.getSelectedEntityParts(), replaceViewer, context));
 			}
 		});
 

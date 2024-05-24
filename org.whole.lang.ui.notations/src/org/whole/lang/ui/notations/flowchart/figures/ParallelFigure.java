@@ -81,13 +81,12 @@ public class ParallelFigure extends NodeFigure {
 		return FigureConstants.relationsColor;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public void paintFigure(Graphics g) {
         super.paintFigure(g);
         Rectangle r = getBounds();
         Rectangle rc = getContentPane(1).getBounds();
-        List<IFigure> children = ((IFigure) getContentPane(1).getChildren().get(0)).getChildren();
+        List<? extends IFigure> children = ((IFigure) getContentPane(1).getChildren().get(0)).getChildren();
 
 		if (children.size() > 0) {
 	    	int xm = rc.x + rc.width/2;

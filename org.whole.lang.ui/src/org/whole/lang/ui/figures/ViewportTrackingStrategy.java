@@ -28,6 +28,7 @@ import org.eclipse.draw2d.ViewportUtilities;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.LayerConstants;
+import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.layout.ViewportTracking;
 import org.whole.lang.util.CompositeUtils;
 
@@ -76,7 +77,7 @@ public class ViewportTrackingStrategy implements IViewportTrackingStrategy {
 			childrenBounds = new Rectangle[0];
 		else if (compositeBounds != null) {
 			@SuppressWarnings("unchecked")
-			List<IFigure> children = hostFigure.getChildren();
+			List<? extends IFigure> children = hostFigure.getChildren();
 			for (int i = 0; i < childrenBounds.length; i++) {
 				Rectangle.SINGLETON.setBounds(childrenBounds[i]);
 				Rectangle.SINGLETON.translate(hostFigure.getBounds().x, hostFigure.getBounds().y);
@@ -97,7 +98,7 @@ public class ViewportTrackingStrategy implements IViewportTrackingStrategy {
 
 		Point amount = calculateTranslateAmount();
 		@SuppressWarnings("unchecked")
-		List<IFigure> children = hostFigure.getChildren();
+		List<? extends IFigure> children = hostFigure.getChildren();
 		for (int i = 0; i < childrenBounds.length; i++) {
 			Rectangle.SINGLETON.setBounds(childrenBounds[i]);
 			Rectangle.SINGLETON.translate(amount);
@@ -125,7 +126,7 @@ public class ViewportTrackingStrategy implements IViewportTrackingStrategy {
 			return translateAmount;
 
 		if (compositeBounds == null) {
-			List<IFigure> children = hostFigure.getChildren();
+			List<? extends IFigure> children = hostFigure.getChildren();
 			compositeBounds = new Rectangle(children.get(0).getBounds());
 			compositeBounds.translate(-bounds.x, -bounds.y);
 			for (int i = 0; i < childrenBounds.length; i++) {

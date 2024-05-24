@@ -20,7 +20,7 @@ package org.whole.lang.e4.ui.addon;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Execute;

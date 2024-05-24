@@ -20,7 +20,9 @@ package org.whole.lang.ui.templates;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.gef.resources.GEFResources;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.graphics.Image;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.EntityDescriptor;
@@ -91,11 +93,22 @@ public class OutlineUIProvider implements IOutlineUIProvider {
 	}
 	protected static IOutlineBuilder createOutlineBuilder(final IOutlineUIProvider[] data) {
 		return new IOutlineBuilder() {
+			private Image getImage(ImageDescriptor iconSmall) {
+				ImageRegistry imageRegistry = GEFResources.getInstance().getImageRegistry();
+				String label = OutlineUIProvider.class.getName();
+				Image image = imageRegistry.get(label);
+				if (image == null) {
+					imageRegistry.put(label, iconSmall);
+					image = imageRegistry.get(label);
+				}
+				return image;
+			}
 			public void Template(EntityDescriptor<?> ed, String label, ImageDescriptor iconSmall,
 					OutlineKinds kind, boolean startOpened, FeatureDescriptor... featureDescriptors) {
 				
 				data[ed.getOrdinal()] = new OutlinePartDataProvider(kind, startOpened, label,
-						iconSmall == null ? null : iconSmall.createImage(), featureDescriptors);
+						iconSmall == null ? null : 
+							getImage(iconSmall), featureDescriptors);
 			}
 			public void Template(EntityDescriptor<?> ed, ImageDescriptor iconSmall,
 					OutlineKinds kind, boolean startOpened, FeatureDescriptor... featureDescriptors) {

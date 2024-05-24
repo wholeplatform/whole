@@ -20,8 +20,8 @@ package org.whole.lang.e4.ui.debug;
 import java.util.Deque;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 
 import org.eclipse.core.runtime.ListenerList;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;

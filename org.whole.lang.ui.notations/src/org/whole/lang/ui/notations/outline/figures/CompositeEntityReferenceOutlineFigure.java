@@ -88,13 +88,12 @@ public class CompositeEntityReferenceOutlineFigure extends ContentPaneFigure {
 		graphics.restoreState();
 	}
 
-	@SuppressWarnings("unchecked")
 	protected void paintConnections(Graphics graphics) {
 		graphics.setForegroundColor(FigureConstants.contentLighterColor);
 		
 		Point rootPoint = getFoldingToggle(0).getBounds().getBottom();
 
-		List<IFigure> children = compositeFigure.getChildren();
+		List<? extends IFigure> children = compositeFigure.getChildren();
 		int childrenSize = children.size();
 		if (childrenSize == 0)
 			return;

@@ -98,8 +98,7 @@ public class ToolbarActionsFigure extends ContentPaneFigure {
 		g.setLineDash(new int[] {1,1});
 
 		for (int i=0; i<TOOLS; i++) {
-			@SuppressWarnings("unchecked")
-			List<IFigure> children = actionFigure[i].getChildren();
+			List<? extends IFigure> children = actionFigure[i].getChildren();
 			if (children.isEmpty())
 				continue;
 			IFigure f = children.get(0);

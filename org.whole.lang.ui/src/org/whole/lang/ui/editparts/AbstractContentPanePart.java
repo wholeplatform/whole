@@ -77,7 +77,7 @@ public abstract class AbstractContentPanePart extends AbstractPart {
 			constraint = layout.getConstraint(childFigure);
 
 		removeChildVisual(child);
-		List<EditPart> children = getChildren();
+		List<EditPart> children = (List<EditPart>) getChildren();
 		children.remove(child);
 		children.add(index, child);
 		addChildVisual(child, index);

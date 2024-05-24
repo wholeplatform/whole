@@ -81,7 +81,6 @@ public abstract class AbstractOutlineSimpleNodeFigure extends NodeFigure {
 		graphics.restoreState();
 	}
 
-	@SuppressWarnings("unchecked")
 	protected void paintConnections(Graphics graphics) {
 		if (isContentVisible()) {
 			List<IFigure> contents = getContents();
@@ -92,7 +91,7 @@ public abstract class AbstractOutlineSimpleNodeFigure extends NodeFigure {
 			List<Point> childrenLocations = new ArrayList<Point>(featureNumber);
 			for (int i=0; i<featureNumber; i++) {
 				IFigure childfigure = contents.get(i);
-				List<IFigure> children = childfigure.getChildren();
+				List<? extends IFigure> children = childfigure.getChildren();
 				if (!childfigure.isVisible() || children.isEmpty())
 					continue;
 				IFigure featureChild = (IFigure) children.get(0);

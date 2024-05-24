@@ -107,15 +107,14 @@ public class SwitchControlFigure extends NodeFigure {
 		};
 	}
 
-	@SuppressWarnings("unchecked")
 	public void paintFigure(Graphics g) {
         super.paintFigure(g);
         Rectangle r = getBounds();
         Rectangle rc = getContentPane(1).getBounds();
         Rectangle dc = getContentPane(2).getBounds();
-        List<IFigure> contentPaneChildren = getContentPane(1).getChildren();
+        List<? extends IFigure> contentPaneChildren = getContentPane(1).getChildren();
         
-        List<IFigure> children = contentPaneChildren.isEmpty() ? contentPaneChildren : contentPaneChildren.get(0).getChildren();
+        List<? extends IFigure> children = contentPaneChildren.isEmpty() ? contentPaneChildren : contentPaneChildren.get(0).getChildren();
 
     	int xm = r.x + r.width/2;
         int y0 = rc.y -12;

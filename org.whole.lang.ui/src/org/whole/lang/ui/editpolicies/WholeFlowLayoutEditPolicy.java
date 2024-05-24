@@ -57,11 +57,10 @@ public class WholeFlowLayoutEditPolicy extends FlowLayoutEditPolicy {
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
 	protected EditPart getInsertionReference(Request request) {
 		int index = toModelIndex(getFeedbackIndexFor(request));
 		if (index != -1) {
-			List<EditPart> children = getHost().getChildren();
+			List<? extends GraphicalEditPart> children = getHost().getChildren();
 
 			if (request.getType().equals(RequestConstants.REQ_CREATE))
 				return children.get(index);

@@ -14,7 +14,7 @@ Export-Package: org.whole.lang.e4.ui.compatibility,
  org.whole.lang.ui.dialogs,
  org.whole.lang.ui.preferences,
  org.whole.lang.ui.wizards
-Require-Bundle: javax.inject,
+Require-Bundle: jakarta.inject.jakarta.inject-api,
  org.eclipse.ui,
  org.eclipse.ui.ide,
  org.eclipse.ui.views,

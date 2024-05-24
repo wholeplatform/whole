@@ -17,7 +17,7 @@
  */
 package org.whole.lang.e4.ui.parts;
 
-import javax.inject.Singleton;
+import jakarta.inject.Singleton;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.whole.lang.e4.ui.actions.ILinkableSelectionListener;

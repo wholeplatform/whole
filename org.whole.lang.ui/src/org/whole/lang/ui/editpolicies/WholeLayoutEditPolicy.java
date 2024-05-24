@@ -17,6 +17,8 @@
  */
 package org.whole.lang.ui.editpolicies;
 
+import java.util.List;
+
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
@@ -75,18 +77,20 @@ public class WholeLayoutEditPolicy extends LayoutEditPolicy {
 		return UnexecutableCommand.INSTANCE;
 	}
 
+	@SuppressWarnings("unchecked")
 	protected Command getAddCommand(Request request) {
 		return commandFactory.create(new DnDOverPartRequest(
 				PartRequest.MOVE_ADD_CHILD, (IEntityPart) getHost(),
-				((GroupRequest) request).getEditParts()));
+				(List<IEntityPart>) ((GroupRequest) request).getEditParts()));
 	}
 
+	@SuppressWarnings("unchecked")
 	protected Command getCloneCommand(ChangeBoundsRequest request) {
 		String reqType = request.getType() == WholeDragEditPartsTracker.REQ_SHARE ? PartRequest.SHARE_CHILD
 				: PartRequest.CLONE_CHILD;
 
 		return commandFactory.create(new DnDOverPartRequest(reqType,
-				(IEntityPart) getHost(), ((GroupRequest) request)
+				(IEntityPart) getHost(), (List<IEntityPart>) ((GroupRequest) request)
 						.getEditParts()));
 	}
 }

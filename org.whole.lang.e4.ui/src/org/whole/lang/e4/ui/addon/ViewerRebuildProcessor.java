@@ -17,7 +17,7 @@
  */
 package org.whole.lang.e4.ui.addon;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.core.services.events.IEventBroker;

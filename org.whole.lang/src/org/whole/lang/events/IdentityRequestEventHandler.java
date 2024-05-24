@@ -28,8 +28,11 @@ import org.whole.lang.reflect.FeatureDescriptor;
  * @author Riccardo Solmi
  */
 public class IdentityRequestEventHandler implements IRequestEventHandler {
-    public static final IdentityRequestEventHandler instance = new IdentityRequestEventHandler() {
-        public IRequestEventHandler addRequestEventHandler(IRequestEventHandler eventHandler) {
+    private static final long serialVersionUID = 1L;
+	public static final IdentityRequestEventHandler instance = new IdentityRequestEventHandler() {
+        private static final long serialVersionUID = 1L;
+
+		public IRequestEventHandler addRequestEventHandler(IRequestEventHandler eventHandler) {
         	return eventHandler;
         }
 

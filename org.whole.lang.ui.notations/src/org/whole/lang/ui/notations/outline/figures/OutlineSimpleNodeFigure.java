@@ -82,7 +82,7 @@ public class OutlineSimpleNodeFigure extends AbstractOutlineSimpleNodeFigure {
 	@SuppressWarnings("unchecked")
 	@Override
 	protected List<IFigure> getContents() {
-		return getFeaturesContainer().getChildren();
+		return (List<IFigure>) getFeaturesContainer().getChildren();
 	}
 
 	@Override

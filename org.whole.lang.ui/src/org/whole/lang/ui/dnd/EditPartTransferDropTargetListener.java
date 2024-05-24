@@ -131,12 +131,13 @@ public class EditPartTransferDropTargetListener extends AbstractTransferDropTarg
 		return new ChangeBoundsRequest();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void updateTargetRequest() {
 		DropTargetEvent event = getCurrentEvent();
 		ChangeBoundsRequest request = (ChangeBoundsRequest) getTargetRequest();
 		request.setType(REQ_CLONE);
-		request.setEditParts(event.data == null ? Collections.emptyList() : (List<?>) event.data);
+		request.setEditParts(event.data == null ? Collections.emptyList() : (List<? extends EditPart>) event.data);
 		request.getExtendedData().clear();
 		request.setLocation(getDropLocation());
 	}

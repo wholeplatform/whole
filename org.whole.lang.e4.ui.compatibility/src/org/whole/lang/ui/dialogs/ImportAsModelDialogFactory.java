@@ -17,7 +17,7 @@
  */
 package org.whole.lang.ui.dialogs;
 
-import javax.inject.Singleton;
+import jakarta.inject.Singleton;
 
 import org.eclipse.swt.widgets.Shell;
 

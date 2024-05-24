@@ -33,8 +33,7 @@ public class WholeComponentEditPolicy extends ComponentEditPolicy {
 		this.commandFactory = commandFactory;
 	}
 
-	@SuppressWarnings("unchecked")
 	protected Command createDeleteCommand(GroupRequest deleteRequest) {
-		return commandFactory.create(new DeletePartRequest(PartRequest.DELETE, (IEntityPart)getHost(), deleteRequest.getEditParts()));
+		return commandFactory.create(new DeletePartRequest(PartRequest.DELETE, (IEntityPart) getHost(), deleteRequest.getEditParts()));
 	}
 }

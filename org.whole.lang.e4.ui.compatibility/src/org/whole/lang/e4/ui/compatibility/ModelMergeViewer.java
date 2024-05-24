@@ -211,18 +211,16 @@ public class ModelMergeViewer extends ContentViewer implements IPropertyChangeNo
 			public void focusLost(FocusEvent event) {
 			}
 
-			@SuppressWarnings("unchecked")
 			@Override
 			public void focusGained(FocusEvent event) {
 				getContext().set(IEntityPartViewer.class, viewer);
 				getContext().set(ActionRegistry.class, actionRegistry);
-				updateSelection(E4Utils.createSelectionBindings(viewer.getSelectedEditParts(), viewer, getContext()));
+				updateSelection(E4Utils.createSelectionBindings(viewer.getSelectedEntityParts(), viewer, getContext()));
 			}
 		});
 		viewer.addPartFocusListener(new IPartFocusListener() {
-			@SuppressWarnings("unchecked")
 			public void focusChanged(IEntityPart oldPart, IEntityPart newPart) {
-				updateSelection(E4Utils.createSelectionBindings(viewer.getSelectedEditParts(), viewer, getContext()));
+				updateSelection(E4Utils.createSelectionBindings(viewer.getSelectedEntityParts(), viewer, getContext()));
 			}
 		});
 

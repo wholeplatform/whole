@@ -21,7 +21,7 @@ import static org.whole.lang.e4.ui.actions.IE4UIConstants.*;
 
 import java.util.Collections;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;

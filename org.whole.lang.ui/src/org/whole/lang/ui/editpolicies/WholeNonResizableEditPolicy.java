@@ -240,6 +240,7 @@ public class WholeNonResizableEditPolicy extends NonResizableEditPolicy {
 
 		Image feedbackImage = new Image(figureCanvas.getDisplay(), data);
 
+		imgGraphics.dispose();
 		imageGC.dispose();
 		img.dispose();
 

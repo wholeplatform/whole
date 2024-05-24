@@ -22,9 +22,9 @@ import static org.whole.lang.e4.ui.actions.IE4UIConstants.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.inject.Inject;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+import jakarta.inject.Inject;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResourceChangeEvent;
@@ -125,17 +125,15 @@ public abstract class AbstractE4Part {
 		});
 		viewer.getControl().addFocusListener(new FocusAdapter() {
 			@Override
-			@SuppressWarnings("unchecked")
 			public void focusGained(FocusEvent event) {
 				context.set(IEntityPartViewer.class, viewer);
 				context.set(ActionRegistry.class, actionRegistry);
-				updateSelection(E4Utils.createSelectionBindings(viewer.getSelectedEditParts(), viewer, context));
+				updateSelection(E4Utils.createSelectionBindings(viewer.getSelectedEntityParts(), viewer, context));
 			}
 		});
 		viewer.addPartFocusListener(new IPartFocusListener() {
-			@SuppressWarnings("unchecked")
 			public void focusChanged(IEntityPart oldPart, IEntityPart newPart) {
-				updateSelection(E4Utils.createSelectionBindings(viewer.getSelectedEditParts(), viewer, context));
+				updateSelection(E4Utils.createSelectionBindings(viewer.getSelectedEntityParts(), viewer, context));
 			}
 		});
 
@@ -267,10 +265,9 @@ public abstract class AbstractE4Part {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	@Focus
 	public void setFocus() {
-		updateSelection(E4Utils.createSelectionBindings(viewer.getSelectedEditParts(), viewer, context));
+		updateSelection(E4Utils.createSelectionBindings(viewer.getSelectedEntityParts(), viewer, context));
 	}
 	
 	@Inject

@@ -62,9 +62,8 @@ public class TextTransferDragSourceListener extends AbstractSelectionTransferDra
 			}
 	}
 
-	@SuppressWarnings("unchecked")
 	public void dragStart(DragSourceEvent event) {
-		List<EditPart> selectedEditParts = getViewer().getSelectedEditParts();
+		List<? extends EditPart> selectedEditParts = getViewer().getSelectedEditParts();
 
 		if (selectedEditParts.isEmpty())
 			event.doit = false;

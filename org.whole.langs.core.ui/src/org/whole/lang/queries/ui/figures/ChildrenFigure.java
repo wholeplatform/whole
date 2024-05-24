@@ -61,8 +61,7 @@ public class ChildrenFigure extends CompositeFigure {
 		int fontAscent = fontMetrics.getAscent() + 1;
 		double charWidth = fontMetrics.getAverageCharacterWidth();
 
-		@SuppressWarnings("unchecked")
-		List<IFigure> children = getChildren();
+		List<? extends IFigure> children = getChildren();
 		int childrenSize = children.size();
 		for (int i=0; i<childrenSize; i++) {
 			String indexString = String.valueOf(i);

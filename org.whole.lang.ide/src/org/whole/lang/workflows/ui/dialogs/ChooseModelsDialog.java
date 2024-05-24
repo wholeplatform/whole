@@ -21,8 +21,8 @@ import static org.whole.lang.commons.factories.CommonsEntityAdapterFactory.creat
 import static org.whole.lang.commons.factories.CommonsEntityAdapterFactory.createStageUpFragment;
 import static org.whole.lang.workflows.reflect.WorkflowsEntityDescriptorEnum.Expression;
 
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IStatus;

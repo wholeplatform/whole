@@ -241,7 +241,7 @@ public class WholeDragEditPartsTracker extends DragEditPartsTracker {
 		setFlag(FLAG_SELECTION_PERFORMED, true);
 		IEntityPartViewer viewer = (IEntityPartViewer) getCurrentViewer();
 
-		List<IEntityPart> selectedParts = viewer.getSelectedEditParts();
+		List<? extends IEntityPart> selectedParts = viewer.getSelectedEntityParts();
 		IEntityPart startPart = selectedParts.get(selectedParts.size()-1);
 		EditPart endPart = getSourceEditPart();
 		EditPart parentPart = startPart.getParent();
@@ -249,7 +249,7 @@ public class WholeDragEditPartsTracker extends DragEditPartsTracker {
 			LinkedList<IEntityPart> appendParts = new LinkedList<IEntityPart>();
 			int endIndex = -1, startIndex = -1;
 
-			List<IEntityPart> children = parentPart.getChildren();
+			List<IEntityPart> children = (List<IEntityPart>) parentPart.getChildren();
 			for (int i = 0; i < children.size(); i++) {
 				IEntityPart child = children.get(i);
 				if (child == startPart)

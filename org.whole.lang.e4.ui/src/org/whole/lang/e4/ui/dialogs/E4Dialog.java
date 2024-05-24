@@ -17,9 +17,6 @@
  */
 package org.whole.lang.e4.ui.dialogs;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-
 import org.eclipse.e4.core.commands.EHandlerService;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.EclipseContextFactory;
@@ -58,10 +55,12 @@ import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.editparts.IPartFocusListener;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
 
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public class E4Dialog extends Dialog {
 	protected IEntityPartViewer viewer;
 	protected ActionRegistry actionRegistry;
@@ -127,18 +126,16 @@ public class E4Dialog extends Dialog {
 			public void focusLost(FocusEvent event) {
 			}
 
-			@SuppressWarnings("unchecked")
 			@Override
 			public void focusGained(FocusEvent event) {
 				context.set(IEntityPartViewer.class, viewer);
 				context.set(ActionRegistry.class, actionRegistry);
-				updateSelection(E4Utils.createSelectionBindings(viewer.getSelectedEditParts(), viewer, context));
+				updateSelection(E4Utils.createSelectionBindings(viewer.getSelectedEntityParts(), viewer, context));
 			}
 		});
 		viewer.addPartFocusListener(new IPartFocusListener() {
-			@SuppressWarnings("unchecked")
 			public void focusChanged(IEntityPart oldPart, IEntityPart newPart) {
-				updateSelection(E4Utils.createSelectionBindings(viewer.getSelectedEditParts(), viewer, context));
+				updateSelection(E4Utils.createSelectionBindings(viewer.getSelectedEntityParts(), viewer, context));
 				context.activateBranch();
 			}
 		});
@@ -168,7 +165,7 @@ public class E4Dialog extends Dialog {
 	protected void updateSelection(IBindingManager bm) {
 		selectionService.setSelection(bm);
 	}
-
+	
 	protected IEntity createDefaultContents() {
 		return E4Utils.createErrorStatusContents();
 	}

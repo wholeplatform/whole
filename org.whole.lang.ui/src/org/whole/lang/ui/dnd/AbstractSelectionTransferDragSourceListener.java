@@ -44,7 +44,7 @@ public abstract class AbstractSelectionTransferDragSourceListener extends Abstra
 
 	protected List<IEntity> modelSelection;
 
-	protected void storeSelection(List<EditPart> selectedEditParts) {
+	protected void storeSelection(List<? extends EditPart> selectedEditParts) {
 		modelSelection = new ArrayList<IEntity>(selectedEditParts.size());
 		for (EditPart editPart : selectedEditParts)
 			modelSelection.add((IEntity) editPart.getModel());

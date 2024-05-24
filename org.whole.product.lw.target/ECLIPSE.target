@@ -3,7 +3,7 @@
 <target name="ECLIPSE" sequenceNumber="26">
     <locations>
         <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-            <repository location="http://download.eclipse.org/releases/2020-09"/>
+            <repository location="http://download.eclipse.org/releases/2023-12"/>
             <unit id="org.eclipse.sdk.ide" version="0.0.0"/>
             <unit id="org.eclipse.equinox.sdk.feature.group" version="0.0.0"/>
         </location>
@@ -44,9 +44,10 @@
             <unit id="org.mozilla.rhino.feature.group" version="0.0.0"/>
             <unit id="nu.validator.htmlparser.feature.group" version="0.0.0"/>
             <unit id="javax.websocket.feature.group" version="0.0.0"/>
-            <unit id="org.eclipse.jetty.servlet.feature.group" version="0.0.0"/>
+            <unit id="org.eclipse.jetty.bundles.f.feature.group" version="0.0.0"/>
+            <!--unit id="org.eclipse.jetty.servlet.feature.group" version="0.0.0"/>
             <unit id="org.eclipse.jetty.websocket.server.feature.group" version="0.0.0"/>
-            <unit id="org.eclipse.jetty.websocket.client.feature.group" version="0.0.0"/>
+            <unit id="org.eclipse.jetty.websocket.client.feature.group" version="0.0.0"/-->
             <unit id="com.github.jai.imageio.core.feature.group" version="0.0.0"/>
             <unit id="org.antlr.runtime.feature.group" version="0.0.0"/>
             <unit id="com.sun.jna.feature.group" version="0.0.0"/>
@@ -63,7 +64,7 @@
             <unit id="org.eclipse.zest.feature.group" version="0.0.0"/>
             <unit id="org.eclipse.zest.source.feature.group" version="0.0.0"/>
             <unit id="org.eclipse.zest.sdk.feature.group" version="0.0.0"/>
-            <unit id="org.eclipse.gef.all.feature.group" version="0.0.0"/>
+            <unit id="org.eclipse.gef.feature.group" version="0.0.0"/>
         </location>
     </locations>
 </target>

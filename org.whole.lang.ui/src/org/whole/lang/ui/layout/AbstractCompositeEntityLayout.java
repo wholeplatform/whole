@@ -105,11 +105,10 @@ public abstract class AbstractCompositeEntityLayout extends AbstractEntityLayout
 		return this;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	protected IEntityFigure[] getChildren(IFigure container) {
 		if (isReversed()) {
-			List<IEntityFigure> children = new ArrayList<IEntityFigure>(container.getChildren());
+			List<IFigure> children = new ArrayList<IFigure>(container.getChildren());
 			Collections.reverse(children);
 			return children.toArray(new IEntityFigure[children.size()]);
 		} else

@@ -175,6 +175,7 @@
 							<classifier>ECLIPSE</classifier>
 						</artifact>
 					</target>
+					<executionEnvironment>JavaSE-17</executionEnvironment>
 					<environments>
 						<environment>
 							<os>linux</os>
@@ -208,7 +209,7 @@
 
 		<compiler-version>2.4</compiler-version>
 		<wagon-ssh-version>2.2</wagon-ssh-version>
-		<tycho-version>1.3.0</tycho-version>
+		<tycho-version>4.0.6</tycho-version>
 		<assembly-version>2.3</assembly-version>
 		<source-version>2.1.2</source-version>
 		<resources-version>2.5</resources-version>

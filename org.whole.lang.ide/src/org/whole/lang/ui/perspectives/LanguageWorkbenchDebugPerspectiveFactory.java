@@ -45,7 +45,7 @@ public class LanguageWorkbenchDebugPerspectiveFactory implements IPerspectiveFac
 	protected void addTopLeftViews(IFolderLayout folder) {
 		folder.addView(IE4UIConstants.DEBUG_PART_ID);
 		folder.addPlaceholder(IE4UIConstants.SAMPLE_PART_ID);
-		folder.addView(IPageLayout.ID_RES_NAV);
+		folder.addView(IPageLayout.ID_PROJECT_EXPLORER);
 //		topLeft.addView(IPageLayout.ID_OUTLINE);
 	}
 	protected void addTopRightViews(IFolderLayout folder) {

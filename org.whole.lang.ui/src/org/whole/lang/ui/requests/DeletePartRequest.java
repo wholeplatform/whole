@@ -31,7 +31,7 @@ import org.whole.lang.ui.editparts.IEntityPart;
 public class DeletePartRequest extends PartRequest {
 	protected List<IEntityPart> entityParts;
 
-	public DeletePartRequest(String requestType, IEntityPart part, List<EditPart> editParts) {
+	public DeletePartRequest(String requestType, IEntityPart part, List<? extends EditPart> editParts) {
 		super(requestType, part);
 		entityParts = new ArrayList<IEntityPart>(editParts.size());
 		for (EditPart editPart : editParts)

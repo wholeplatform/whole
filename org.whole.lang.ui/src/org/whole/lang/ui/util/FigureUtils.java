@@ -62,7 +62,7 @@ public class FigureUtils {
 			IGraphicalEntityPart entityPart = iterator.next();
 			if (!entityPart.getChildren().isEmpty()) {
 				iterator.remove();
-				LinkedList<IGraphicalEntityPart> children = new LinkedList<IGraphicalEntityPart>(entityPart.getChildren());
+				LinkedList<IGraphicalEntityPart> children = new LinkedList<IGraphicalEntityPart>((List<IGraphicalEntityPart>) entityPart.getChildren());
 				for (IGraphicalEntityPart descendantPart : extractContainerEntityParts(children))
 					iterator.add(descendantPart);
 			}
@@ -70,7 +70,7 @@ public class FigureUtils {
 		return entityParts;
 	}
 	@SuppressWarnings("unchecked")
-	public static LinkedList<IGraphicalEntityPart> filterClosestVertically(List<IGraphicalEntityPart> entityParts, boolean above, Rectangle bounds) {
+	public static LinkedList<IGraphicalEntityPart> filterClosestVertically(List<? extends IGraphicalEntityPart> entityParts, boolean above, Rectangle bounds) {
 		int targetLimit = above ? bounds.y : bounds.bottom();
 		int closestY = above ? 0 : Integer.MAX_VALUE;
 		LinkedList<IGraphicalEntityPart> closestVertically = new LinkedList<>();
@@ -80,7 +80,7 @@ public class FigureUtils {
 				continue;
 			Rectangle partBounds = entityPart.getFigure().getBounds();
 			if (partBounds.contains(bounds) && !entityPart.getChildren().isEmpty()) {
-				LinkedList<IGraphicalEntityPart> filtered = filterClosestVertically(entityPart.getChildren(), above, bounds);
+				LinkedList<IGraphicalEntityPart> filtered = filterClosestVertically((List<IGraphicalEntityPart>) entityPart.getChildren(), above, bounds);
 				if (!filtered.isEmpty())
 					return filtered;
 			} else {
@@ -105,7 +105,7 @@ public class FigureUtils {
 		for (IGraphicalEntityPart entityPart : entityParts) {
 			Rectangle partBounds = entityPart.getFigure().getBounds();
 			if (partBounds.contains(bounds) && !entityPart.getChildren().isEmpty()) {
-				LinkedList<IGraphicalEntityPart> filtered = filterClosestVertically(entityPart.getChildren(), before, bounds);
+				LinkedList<IGraphicalEntityPart> filtered = filterClosestVertically((List<IGraphicalEntityPart>) entityPart.getChildren(), before, bounds);
 				if (!filtered.isEmpty())
 					return filtered;
 			} else {
@@ -153,7 +153,7 @@ public class FigureUtils {
 	}
 	@SuppressWarnings("unchecked")
 	public static IGraphicalEntityPart getClosestAbove(IEntityPartViewer viewer, Rectangle bounds) {
-		return getClosestAbove(viewer.getContents().getChildren(), bounds);
+		return getClosestAbove((List<IGraphicalEntityPart>) viewer.getContents().getChildren(), bounds);
 	}
 	public static IGraphicalEntityPart getClosestAbove(List<IGraphicalEntityPart> entityParts, Rectangle bounds) {
 		if (entityParts.isEmpty())
@@ -170,7 +170,7 @@ public class FigureUtils {
 	}
 	@SuppressWarnings("unchecked")
 	public static IGraphicalEntityPart getClosestBelow(IEntityPartViewer viewer, Rectangle bounds) {
-		return getClosestBelow(viewer.getContents().getChildren(), bounds);
+		return getClosestBelow((List<IGraphicalEntityPart>) viewer.getContents().getChildren(), bounds);
 	}
 	public static IGraphicalEntityPart getClosestBelow(List<IGraphicalEntityPart> entityParts, Rectangle bounds) {
 		if (entityParts.isEmpty())
@@ -187,7 +187,7 @@ public class FigureUtils {
 	}
 	@SuppressWarnings("unchecked")
 	public static IGraphicalEntityPart getClosest(int inDirection, IEntityPartViewer viewer, Rectangle bounds) {
-		return getClosest(inDirection, viewer.getRootEditPart().getChildren(), bounds);
+		return getClosest(inDirection, (List<IGraphicalEntityPart>) viewer.getRootEditPart().getChildren(), bounds);
 	}
 	public static IGraphicalEntityPart getClosest(int inDirection, List<IGraphicalEntityPart> entityParts, Rectangle bounds) {
 		throw new UnsupportedOperationException();

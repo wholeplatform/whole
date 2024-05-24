@@ -42,7 +42,7 @@ public class MiscPart extends CompositeColumnWithPlaceholderPart {
                 graphics.setLineStyle(SWT.LINE_CUSTOM);
                 graphics.setLineDash(new int[] {5,3});
 
-    			List<IFigure> children = getChildren();
+    			List<? extends IFigure> children = getChildren();
     			for (int i=0; i<children.size(); i++) {
     				graphics.drawRectangle(children.get(i).getBounds().getExpanded(1, 1));
     			}

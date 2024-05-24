@@ -96,11 +96,10 @@ public abstract class AbstractStyledLayout extends AbstractEntityLayout implemen
 				child.invalidate();
 	}
 
-	@SuppressWarnings("unchecked")
 	public void paintConnections(Graphics graphics) {
 		IFigure childrenFigure = (IFigure) childFigure[1].getChildren().get(0);
 		Point[] childrenPoints = null;
-		List<IFigure> children = childrenFigure.getChildren();
+		List<? extends IFigure> children = childrenFigure.getChildren();
 		int childrenSize = children.size();
 		if (childrenSize == 0) {
 			childrenPoints = new Point[1];

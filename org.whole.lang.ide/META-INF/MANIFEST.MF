@@ -18,7 +18,7 @@ Export-Package: org.whole.lang.java,
  org.whole.lang.workflows.ui.dialogs,
  org.whole.lang.workflows.util,
  org.whole.lang.workflows.visitors
-Require-Bundle: javax.inject,
+Require-Bundle: jakarta.inject.jakarta.inject-api,
  org.eclipse.ui,
  org.eclipse.ui.console,
  org.eclipse.ui.ide,

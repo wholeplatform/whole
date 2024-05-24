@@ -35,7 +35,7 @@ Export-Package: org.whole.lang.codebase,
  org.whole.lang.ui.treesearch,
  org.whole.lang.ui.util,
  org.whole.lang.ui.viewers
-Require-Bundle: javax.inject,
+Require-Bundle: jakarta.inject.jakarta.inject-api,
  org.eclipse.core.expressions,
  org.eclipse.core.net,
  org.eclipse.core.resources,

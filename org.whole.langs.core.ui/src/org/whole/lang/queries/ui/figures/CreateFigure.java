@@ -101,7 +101,6 @@ public class CreateFigure extends ContentPaneFigure {
 		graphics.restoreState();
 	}
 
-	@SuppressWarnings("unchecked")
 	protected void paintConnections(Graphics graphics) {
 		if (!getContentPane(2).isVisible())
 			return;
@@ -127,7 +126,7 @@ public class CreateFigure extends ContentPaneFigure {
 
 			for (int i=0; i<childrenSize; i++) {
 				IFigure row = layoutManager.getRow(i);
-				List<IFigure> rowChildren = row.getChildren();
+				List<? extends IFigure> rowChildren = row.getChildren();
 				if (row instanceof TableRowFigure && !rowChildren.isEmpty()) {
 					childrenPoints[i] = row.getBounds().getLeft().translate(-8, 0);
 					childrenPoints[i].y = ((TableRowLayout) row.getLayoutManager()).getBaseline(0);
@@ -139,7 +138,7 @@ public class CreateFigure extends ContentPaneFigure {
 			}
 		} else {
 			IFigure childFigure = (IFigure) childrenFigure;
-			List<IFigure> children = childFigure.getChildren();
+			List<? extends IFigure> children = childFigure.getChildren();
 			int childrenSize = children.size();
 			if (childrenSize == 0 || childFigure instanceof ITextFigure) {
 				childrenPoints = new Point[1];

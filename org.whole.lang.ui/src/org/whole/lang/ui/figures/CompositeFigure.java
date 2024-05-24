@@ -122,9 +122,8 @@ public class CompositeFigure extends EntityFigure {
 		else
 			drawVariableSizeRowSeparators(g);
 	}
-	@SuppressWarnings("unchecked")
 	public void fillFixedSizeRowSeparators(Graphics g) {
-		List<IFigure> children = getChildren();
+		List<? extends IFigure> children = getChildren();
 		if (children.isEmpty())
 			return;
 
@@ -137,9 +136,8 @@ public class CompositeFigure extends EntityFigure {
 			g.fillRectangle(x, y, w, h);
 		}
 	}
-	@SuppressWarnings("unchecked")
 	public void fillFixedSizeColumnSeparators(Graphics g) {
-		List<IFigure> children = getChildren();
+		List<? extends IFigure> children = getChildren();
 		if (children.isEmpty())
 			return;
 
@@ -152,9 +150,8 @@ public class CompositeFigure extends EntityFigure {
 			g.fillRectangle(x, y, w, h);
 		}
 	}
-	@SuppressWarnings("unchecked")
 	public void drawFixedSizeRowSeparators(Graphics g) {
-		List<IFigure> children = getChildren();
+		List<? extends IFigure> children = getChildren();
 		if (children.isEmpty())
 			return;
 
@@ -167,9 +164,8 @@ public class CompositeFigure extends EntityFigure {
 			g.drawLine(x0, y, x1, y);
 		}
 	}
-	@SuppressWarnings("unchecked")
 	public void drawFixedSizeColumnSeparators(Graphics g) {
-		List<IFigure> children = getChildren();
+		List<? extends IFigure> children = getChildren();
 		if (children.isEmpty())
 			return;
 
@@ -182,9 +178,8 @@ public class CompositeFigure extends EntityFigure {
 			g.drawLine(x, y0, x, y1);
 		}
 	}
-	@SuppressWarnings("unchecked")
 	public void drawVariableSizeRowSeparators(Graphics g) {
-		List<IFigure> children = getChildren();
+		List<? extends IFigure> children = getChildren();
 		if (children.isEmpty())
 			return;
 
@@ -199,9 +194,8 @@ public class CompositeFigure extends EntityFigure {
 			g.drawLine(x0, y, x1, y);
 		}
 	}
-	@SuppressWarnings("unchecked")
 	public void drawVariableSizeColumnSeparators(Graphics g) {
-		List<IFigure> children = getChildren();
+		List<? extends IFigure> children = getChildren();
 		if (children.isEmpty())
 			return;
 
@@ -247,9 +241,8 @@ public class CompositeFigure extends EntityFigure {
 		else
 			fillRowsBorder(g);
 	}
-	@SuppressWarnings("unchecked")
 	public void fillRowsBorder(Graphics g) {
-		List<IFigure> children = getChildren();
+		List<? extends IFigure> children = getChildren();
 		if (children.isEmpty())
 			return;
 
@@ -261,9 +254,8 @@ public class CompositeFigure extends EntityFigure {
 		g.fillRectangle(x, bounds.y, w, hTop);
 		g.fillRectangle(x, bounds.bottom()-hBottom, w, hBottom);
 	}
-	@SuppressWarnings("unchecked")
 	public void fillColumnsBorder(Graphics g) {
-		List<IFigure> children = getChildren();
+		List<? extends IFigure> children = getChildren();
 		if (children.isEmpty())
 			return;
 

@@ -20,6 +20,7 @@ package org.whole.lang.ui.viewers;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.gef.EditPartViewer;
@@ -71,6 +72,10 @@ public interface IEntityPartViewer extends EditPartViewer {
 	public void selectAndReveal(List<? extends IEntity> entity);
 	public void selectAndReveal(List<? extends IEntity> entity, boolean propagate);
 	public void setInteractive(IEntity entity, boolean edit, boolean browse, boolean inherited);
+
+	default List<? extends IEntityPart> getSelectedEntityParts() {
+		return getSelectedEditParts().stream().map((entity) -> (IEntityPart) entity).collect(Collectors.toList());
+	}
 
 	public AbstractKeyHandler getKeyHandler();
 	public void setKeyHandler(AbstractKeyHandler handler);

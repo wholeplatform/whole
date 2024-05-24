@@ -80,11 +80,10 @@ public class SequenceFigure extends NodeFigure {
 		return FigureConstants.relationsColor;
 	}
 
-	@SuppressWarnings("unchecked")
 	public void paintFigure(Graphics g) {
 		super.paintFigure(g);
 		Rectangle r = getBounds();
-		List<IFigure> children = ((IFigure) getContentPane(1).getChildren().get(0)).getChildren();
+		List<? extends IFigure> children = ((IFigure) getContentPane(1).getChildren().get(0)).getChildren();
 
 		if (children.size() > 0) {
 			Rectangle rh = children.get(0).getBounds();

@@ -51,9 +51,8 @@ public class ObliqueTreeFigure extends CompositeNodeFigure {
     protected ConnectionAnchor[] createTargetAnchors() {
 		return new ConnectionAnchor[] {
 				new AbstractConnectionAnchor(this) {
-					@SuppressWarnings("unchecked")
 					public Point getLocation(Point reference) {
-						List<IFigure> children = getChildren();
+						List<? extends IFigure> children = getChildren();
 				    	int size = children.size();
 						Point p;
 						if (size > 1) {
@@ -72,9 +71,8 @@ public class ObliqueTreeFigure extends CompositeNodeFigure {
 					}
 				},
 				new AbstractConnectionAnchor(this) {
-					@SuppressWarnings("unchecked")
 					public Point getLocation(Point reference) {
-						List<IFigure> children = getChildren();
+						List<? extends IFigure> children = getChildren();
 				    	int size = children.size();
 						Point p;
 						if (size > 1) {

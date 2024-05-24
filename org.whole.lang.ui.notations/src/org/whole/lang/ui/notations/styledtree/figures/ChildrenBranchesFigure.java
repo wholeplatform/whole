@@ -20,14 +20,10 @@ package org.whole.lang.ui.notations.styledtree.figures;
 import java.util.List;
 
 import org.eclipse.draw2d.ConnectionAnchor;
-import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.swt.SWT;
 import org.whole.lang.ui.figures.AnchorFactory;
 import org.whole.lang.ui.figures.CompositeFigure;
 import org.whole.lang.ui.figures.CompositePlaceHolderBorder;
-import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.IEntityFigure;
 import org.whole.lang.ui.figures.INodeFigure;
 import org.whole.lang.ui.figures.NodeFigure;
@@ -71,7 +67,7 @@ public class ChildrenBranchesFigure extends NodeFigure {
 	@Override
 	protected ConnectionAnchor[] createTargetAnchors() {
 		@SuppressWarnings("unchecked")
-		List<IFigure> children = getContentPane(0).getChildren();
+		List<? extends IFigure> children = getContentPane(0).getChildren();
 		int childrenSize = children.size();
 
 		if (childrenSize == 0)

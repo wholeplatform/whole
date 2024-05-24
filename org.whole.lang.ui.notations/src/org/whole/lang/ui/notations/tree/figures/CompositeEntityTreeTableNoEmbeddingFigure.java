@@ -93,9 +93,8 @@ public class CompositeEntityTreeTableNoEmbeddingFigure extends NodeFigure {
 		paintConnections(graphics);
 		graphics.restoreState();
 	}
-	@SuppressWarnings("unchecked")
 	protected void paintConnections(Graphics g) {
-		List<IFigure> children = getContentPane(0).getChildren();
+		List<? extends IFigure> children = getContentPane(0).getChildren();
 		int childrenSize = children.size();
 		if (childrenSize > 0) {
 			Point start = getTargetAnchor(0).getLocation(null);
